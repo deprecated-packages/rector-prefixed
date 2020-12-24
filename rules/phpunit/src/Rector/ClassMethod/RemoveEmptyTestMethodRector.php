@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\ClassMethod;
+namespace _PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\ClassMethod;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\ClassMethod\RemoveEmptyTestMethodRector\RemoveEmptyTestMethodRectorTest
  */
-final class RemoveEmptyTestMethodRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector
+final class RemoveEmptyTestMethodRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove empty test methods', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove empty test methods', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -40,12 +40,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;

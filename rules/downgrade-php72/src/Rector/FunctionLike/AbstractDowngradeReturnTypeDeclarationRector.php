@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp72\Rector\FunctionLike;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp72\Rector\FunctionLike;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
-use _PhpScoper0a6b37af0871\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector;
-use _PhpScoper0a6b37af0871\Rector\DowngradePhp72\Contract\Rector\DowngradeTypeRectorInterface;
-abstract class AbstractDowngradeReturnTypeDeclarationRector extends \_PhpScoper0a6b37af0871\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector implements \_PhpScoper0a6b37af0871\Rector\DowngradePhp72\Contract\Rector\DowngradeTypeRectorInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
+use _PhpScoperb75b35f52b74\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector;
+use _PhpScoperb75b35f52b74\Rector\DowngradePhp72\Contract\Rector\DowngradeTypeRectorInterface;
+abstract class AbstractDowngradeReturnTypeDeclarationRector extends \_PhpScoperb75b35f52b74\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeReturnDeclarationRector implements \_PhpScoperb75b35f52b74\Rector\DowngradePhp72\Contract\Rector\DowngradeTypeRectorInterface
 {
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    public function shouldRemoveReturnDeclaration(\_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike) : bool
+    public function shouldRemoveReturnDeclaration(\_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($functionLike->returnType === null) {
             return \false;

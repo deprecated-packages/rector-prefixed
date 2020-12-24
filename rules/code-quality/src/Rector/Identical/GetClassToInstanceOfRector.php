@@ -1,53 +1,53 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\Identical;
+namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\Identical;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Instanceof_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Identical\GetClassToInstanceOfRector\GetClassToInstanceOfRectorTest
  */
-final class GetClassToInstanceOfRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class GetClassToInstanceOfRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator)
     {
         $this->binaryOpManipulator = $binaryOpManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes comparison with get_class to instanceof', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('if (EventsListener::class === get_class($event->job)) { }', 'if ($event->job instanceof EventsListener) { }')]);
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes comparison with get_class to instanceof', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('if (EventsListener::class === get_class($event->job)) { }', 'if ($event->job instanceof EventsListener) { }')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
     }
     /**
      * @param Identical|NotIdentical $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
-        $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($node, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool {
+        $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($node, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool {
             return $this->isClassReference($node);
-        }, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool {
+        }, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool {
             return $this->isGetClassFuncCallNode($node);
         });
         if ($twoNodeMatch === null) {
@@ -58,7 +58,7 @@ final class GetClassToInstanceOfRector extends \_PhpScoper0a6b37af0871\Rector\Co
         /** @var FuncCall $funcCall */
         $funcCall = $twoNodeMatch->getSecondExpr();
         $varNode = $funcCall->args[0]->value;
-        if ($firstExpr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
+        if ($firstExpr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
             $className = $this->getValue($firstExpr);
         } else {
             $className = $this->getName($firstExpr->class);
@@ -66,23 +66,23 @@ final class GetClassToInstanceOfRector extends \_PhpScoper0a6b37af0871\Rector\Co
         if ($className === null) {
             return null;
         }
-        $instanceof = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Instanceof_($varNode, new \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified($className));
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical) {
-            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot($instanceof);
+        $instanceof = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_($varNode, new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified($className));
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical) {
+            return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot($instanceof);
         }
         return $instanceof;
     }
-    private function isClassReference(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    private function isClassReference(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClassConstFetch && $this->isName($node->name, 'class')) {
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClassConstFetch && $this->isName($node->name, 'class')) {
             return \true;
         }
         // might be
-        return $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+        return $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
     }
-    private function isGetClassFuncCallNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    private function isGetClassFuncCallNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
-        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
+        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
         return $this->isName($node, 'get_class');

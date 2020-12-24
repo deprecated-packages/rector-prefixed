@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Naming\Rector\Class_;
+namespace _PhpScoperb75b35f52b74\Rector\Naming\Rector\Class_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver;
-use _PhpScoper0a6b37af0871\Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer;
-use _PhpScoper0a6b37af0871\Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Interface_;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver;
+use _PhpScoperb75b35f52b74\Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer;
+use _PhpScoperb75b35f52b74\Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector\RenamePropertyToMatchTypeRectorTest
  */
-final class RenamePropertyToMatchTypeRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class RenamePropertyToMatchTypeRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var bool
@@ -34,15 +34,15 @@ final class RenamePropertyToMatchTypeRector extends \_PhpScoper0a6b37af0871\Rect
      * @var MatchPropertyTypeExpectedNameResolver
      */
     private $matchPropertyTypeExpectedNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer $matchTypePropertyRenamer, \_PhpScoper0a6b37af0871\Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \_PhpScoper0a6b37af0871\Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver $matchPropertyTypeExpectedNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Naming\PropertyRenamer\MatchTypePropertyRenamer $matchTypePropertyRenamer, \_PhpScoperb75b35f52b74\Rector\Naming\ValueObjectFactory\PropertyRenameFactory $propertyRenameFactory, \_PhpScoperb75b35f52b74\Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver $matchPropertyTypeExpectedNameResolver)
     {
         $this->propertyRenameFactory = $propertyRenameFactory;
         $this->matchTypePropertyRenamer = $matchTypePropertyRenamer;
         $this->matchPropertyTypeExpectedNameResolver = $matchPropertyTypeExpectedNameResolver;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename property and method param to match its type', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename property and method param to match its type', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -77,12 +77,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Interface_::class];
     }
     /**
      * @param Class_|Interface_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         $this->refactorClassProperties($node);
         if (!$this->hasChanged) {
@@ -90,7 +90,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function refactorClassProperties(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike) : void
+    private function refactorClassProperties(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         foreach ($classLike->getProperties() as $property) {
             $propertyRename = $this->propertyRenameFactory->create($property, $this->matchPropertyTypeExpectedNameResolver);

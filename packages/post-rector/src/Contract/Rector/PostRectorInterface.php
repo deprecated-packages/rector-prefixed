@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PostRector\Contract\Rector;
+namespace _PhpScoperb75b35f52b74\Rector\PostRector\Contract\Rector;
 
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitor;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\RectorInterface;
-interface PostRectorInterface extends \_PhpScoper0a6b37af0871\PhpParser\NodeVisitor, \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\RectorInterface
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitor;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\RectorInterface;
+interface PostRectorInterface extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitor, \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\RectorInterface
 {
     /**
      * Higher values are executed first

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Caching\Detector;
+namespace _PhpScoperb75b35f52b74\Rector\Caching\Detector;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\Rector\Caching\Config\FileHashComputer;
-use _PhpScoper0a6b37af0871\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\Rector\Caching\Config\FileHashComputer;
+use _PhpScoperb75b35f52b74\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Inspired by https://github.com/symplify/symplify/pull/90/files#diff-72041b2e1029a08930e13d79d298ef11
  * @see \Rector\Caching\Tests\Detector\ChangedFilesDetectorTest
@@ -25,7 +25,7 @@ final class ChangedFilesDetector
      * @var FileHashComputer
      */
     private $fileHashComputer;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Caching\Config\FileHashComputer $fileHashComputer, \_PhpScoper0a6b37af0871\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Caching\Config\FileHashComputer $fileHashComputer, \_PhpScoperb75b35f52b74\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter)
     {
         $this->tagAwareAdapter = $tagAwareAdapter;
         $this->fileHashComputer = $fileHashComputer;
@@ -33,14 +33,14 @@ final class ChangedFilesDetector
     /**
      * @param string[] $dependentFiles
      */
-    public function addFileWithDependencies(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
+    public function addFileWithDependencies(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
     {
         $fileInfoCacheKey = $this->getFileInfoCacheKey($smartFileInfo);
         $hash = $this->hashFile($smartFileInfo);
         $this->saveItemWithValue($fileInfoCacheKey, $hash);
         $this->saveItemWithValue($fileInfoCacheKey . '_files', $dependentFiles);
     }
-    public function hasFileChanged(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function hasFileChanged(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $currentFileHash = $this->hashFile($smartFileInfo);
         $fileInfoCacheKey = $this->getFileInfoCacheKey($smartFileInfo);
@@ -48,7 +48,7 @@ final class ChangedFilesDetector
         $oldFileHash = $cacheItem->get();
         return $currentFileHash !== $oldFileHash;
     }
-    public function invalidateFile(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function invalidateFile(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $fileInfoCacheKey = $this->getFileInfoCacheKey($smartFileInfo);
         $this->tagAwareAdapter->deleteItem($fileInfoCacheKey);
@@ -60,7 +60,7 @@ final class ChangedFilesDetector
     /**
      * @return SmartFileInfo[]
      */
-    public function getDependentFileInfos(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
+    public function getDependentFileInfos(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
     {
         $fileInfoCacheKey = $this->getFileInfoCacheKey($fileInfo);
         $cacheItem = $this->tagAwareAdapter->getItem($fileInfoCacheKey . '_files');
@@ -73,24 +73,24 @@ final class ChangedFilesDetector
             if (!\file_exists($dependentFile)) {
                 continue;
             }
-            $dependentFileInfos[] = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo($dependentFile);
+            $dependentFileInfos[] = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo($dependentFile);
         }
         return $dependentFileInfos;
     }
     /**
      * @api
      */
-    public function setFirstResolvedConfigFileInfo(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function setFirstResolvedConfigFileInfo(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         // the first config is core to all → if it was changed, just invalidate it
         $configHash = $this->fileHashComputer->compute($fileInfo);
         $this->storeConfigurationDataHash($fileInfo, $configHash);
     }
-    private function getFileInfoCacheKey(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function getFileInfoCacheKey(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         return \sha1($smartFileInfo->getRealPath());
     }
-    private function hashFile(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function hashFile(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         return (string) \sha1_file($smartFileInfo->getRealPath());
     }
@@ -103,9 +103,9 @@ final class ChangedFilesDetector
         $cacheItem->set($value);
         $this->tagAwareAdapter->save($cacheItem);
     }
-    private function storeConfigurationDataHash(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $configurationHash) : void
+    private function storeConfigurationDataHash(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $configurationHash) : void
     {
-        $key = self::CONFIGURATION_HASH_KEY . '_' . \_PhpScoper0a6b37af0871\Nette\Utils\Strings::webalize($fileInfo->getRealPath());
+        $key = self::CONFIGURATION_HASH_KEY . '_' . \_PhpScoperb75b35f52b74\Nette\Utils\Strings::webalize($fileInfo->getRealPath());
         $this->invalidateCacheIfConfigurationChanged($key, $configurationHash);
         $this->saveItemWithValue($key, $configurationHash);
     }

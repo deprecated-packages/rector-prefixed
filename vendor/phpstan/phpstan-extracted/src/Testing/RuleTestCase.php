@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Testing;
+namespace _PhpScoperb75b35f52b74\PHPStan\Testing;
 
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Analyser;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Error;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\FileAnalyser;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifier;
-use _PhpScoper0a6b37af0871\PHPStan\Broker\AnonymousClassNameHelper;
-use _PhpScoper0a6b37af0871\PHPStan\Cache\Cache;
-use _PhpScoper0a6b37af0871\PHPStan\Dependency\DependencyResolver;
-use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNodeResolver;
-use _PhpScoper0a6b37af0871\PHPStan\File\FileHelper;
-use _PhpScoper0a6b37af0871\PHPStan\File\SimpleRelativePathHelper;
-use _PhpScoper0a6b37af0871\PHPStan\Php\PhpVersion;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\PhpDocInheritanceResolver;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\PhpDocNodeResolver;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\PhpDocStringResolver;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider\DirectReflectionProviderProvider;
-use _PhpScoper0a6b37af0871\PHPStan\Rules\Registry;
-use _PhpScoper0a6b37af0871\PHPStan\Rules\Rule;
-use _PhpScoper0a6b37af0871\PHPStan\Type\FileTypeMapper;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Analyser;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Error;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\FileAnalyser;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifier;
+use _PhpScoperb75b35f52b74\PHPStan\Broker\AnonymousClassNameHelper;
+use _PhpScoperb75b35f52b74\PHPStan\Cache\Cache;
+use _PhpScoperb75b35f52b74\PHPStan\Dependency\DependencyResolver;
+use _PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNodeResolver;
+use _PhpScoperb75b35f52b74\PHPStan\File\FileHelper;
+use _PhpScoperb75b35f52b74\PHPStan\File\SimpleRelativePathHelper;
+use _PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\PhpDocInheritanceResolver;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\PhpDocNodeResolver;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\PhpDocStringResolver;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider\DirectReflectionProviderProvider;
+use _PhpScoperb75b35f52b74\PHPStan\Rules\Registry;
+use _PhpScoperb75b35f52b74\PHPStan\Rules\Rule;
+use _PhpScoperb75b35f52b74\PHPStan\Type\FileTypeMapper;
 /**
  * @template TRule of \PHPStan\Rules\Rule
  */
-abstract class RuleTestCase extends \_PhpScoper0a6b37af0871\PHPStan\Testing\TestCase
+abstract class RuleTestCase extends \_PhpScoperb75b35f52b74\PHPStan\Testing\TestCase
 {
     /** @var \PHPStan\Analyser\Analyser|null */
     private $analyser = null;
@@ -33,29 +33,29 @@ abstract class RuleTestCase extends \_PhpScoper0a6b37af0871\PHPStan\Testing\Test
      * @return \PHPStan\Rules\Rule
      * @phpstan-return TRule
      */
-    protected abstract function getRule() : \_PhpScoper0a6b37af0871\PHPStan\Rules\Rule;
-    protected function getTypeSpecifier() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifier
+    protected abstract function getRule() : \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule;
+    protected function getTypeSpecifier() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifier
     {
-        return $this->createTypeSpecifier(new \_PhpScoper0a6b37af0871\PhpParser\PrettyPrinter\Standard(), $this->createReflectionProvider(), $this->getMethodTypeSpecifyingExtensions(), $this->getStaticMethodTypeSpecifyingExtensions());
+        return $this->createTypeSpecifier(new \_PhpScoperb75b35f52b74\PhpParser\PrettyPrinter\Standard(), $this->createReflectionProvider(), $this->getMethodTypeSpecifyingExtensions(), $this->getStaticMethodTypeSpecifyingExtensions());
     }
-    private function getAnalyser() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\Analyser
+    private function getAnalyser() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\Analyser
     {
         if ($this->analyser === null) {
-            $registry = new \_PhpScoper0a6b37af0871\PHPStan\Rules\Registry([$this->getRule()]);
+            $registry = new \_PhpScoperb75b35f52b74\PHPStan\Rules\Registry([$this->getRule()]);
             $broker = $this->createBroker();
-            $printer = new \_PhpScoper0a6b37af0871\PhpParser\PrettyPrinter\Standard();
+            $printer = new \_PhpScoperb75b35f52b74\PhpParser\PrettyPrinter\Standard();
             $typeSpecifier = $this->createTypeSpecifier($printer, $broker, $this->getMethodTypeSpecifyingExtensions(), $this->getStaticMethodTypeSpecifyingExtensions());
             $currentWorkingDirectory = $this->getCurrentWorkingDirectory();
-            $fileHelper = new \_PhpScoper0a6b37af0871\PHPStan\File\FileHelper($currentWorkingDirectory);
+            $fileHelper = new \_PhpScoperb75b35f52b74\PHPStan\File\FileHelper($currentWorkingDirectory);
             $currentWorkingDirectory = $fileHelper->normalizePath($currentWorkingDirectory, '/');
-            $fileHelper = new \_PhpScoper0a6b37af0871\PHPStan\File\FileHelper($currentWorkingDirectory);
-            $relativePathHelper = new \_PhpScoper0a6b37af0871\PHPStan\File\SimpleRelativePathHelper($currentWorkingDirectory);
-            $anonymousClassNameHelper = new \_PhpScoper0a6b37af0871\PHPStan\Broker\AnonymousClassNameHelper($fileHelper, $relativePathHelper);
-            $fileTypeMapper = new \_PhpScoper0a6b37af0871\PHPStan\Type\FileTypeMapper(new \_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider\DirectReflectionProviderProvider($broker), $this->getParser(), self::getContainer()->getByType(\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\PhpDocStringResolver::class), self::getContainer()->getByType(\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\PhpDocNodeResolver::class), $this->createMock(\_PhpScoper0a6b37af0871\PHPStan\Cache\Cache::class), $anonymousClassNameHelper);
-            $phpDocInheritanceResolver = new \_PhpScoper0a6b37af0871\PHPStan\PhpDoc\PhpDocInheritanceResolver($fileTypeMapper);
-            $nodeScopeResolver = new \_PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver($broker, self::getReflectors()[0], $this->getClassReflectionExtensionRegistryProvider(), $this->getParser(), $fileTypeMapper, self::getContainer()->getByType(\_PhpScoper0a6b37af0871\PHPStan\Php\PhpVersion::class), $phpDocInheritanceResolver, $fileHelper, $typeSpecifier, $this->shouldPolluteScopeWithLoopInitialAssignments(), $this->shouldPolluteCatchScopeWithTryAssignments(), $this->shouldPolluteScopeWithAlwaysIterableForeach(), [], []);
-            $fileAnalyser = new \_PhpScoper0a6b37af0871\PHPStan\Analyser\FileAnalyser($this->createScopeFactory($broker, $typeSpecifier), $nodeScopeResolver, $this->getParser(), new \_PhpScoper0a6b37af0871\PHPStan\Dependency\DependencyResolver($fileHelper, $broker, new \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNodeResolver($fileTypeMapper, $printer)), \true);
-            $this->analyser = new \_PhpScoper0a6b37af0871\PHPStan\Analyser\Analyser($fileAnalyser, $registry, $nodeScopeResolver, 50);
+            $fileHelper = new \_PhpScoperb75b35f52b74\PHPStan\File\FileHelper($currentWorkingDirectory);
+            $relativePathHelper = new \_PhpScoperb75b35f52b74\PHPStan\File\SimpleRelativePathHelper($currentWorkingDirectory);
+            $anonymousClassNameHelper = new \_PhpScoperb75b35f52b74\PHPStan\Broker\AnonymousClassNameHelper($fileHelper, $relativePathHelper);
+            $fileTypeMapper = new \_PhpScoperb75b35f52b74\PHPStan\Type\FileTypeMapper(new \_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider\DirectReflectionProviderProvider($broker), $this->getParser(), self::getContainer()->getByType(\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\PhpDocStringResolver::class), self::getContainer()->getByType(\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\PhpDocNodeResolver::class), $this->createMock(\_PhpScoperb75b35f52b74\PHPStan\Cache\Cache::class), $anonymousClassNameHelper);
+            $phpDocInheritanceResolver = new \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\PhpDocInheritanceResolver($fileTypeMapper);
+            $nodeScopeResolver = new \_PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver($broker, self::getReflectors()[0], $this->getClassReflectionExtensionRegistryProvider(), $this->getParser(), $fileTypeMapper, self::getContainer()->getByType(\_PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion::class), $phpDocInheritanceResolver, $fileHelper, $typeSpecifier, $this->shouldPolluteScopeWithLoopInitialAssignments(), $this->shouldPolluteCatchScopeWithTryAssignments(), $this->shouldPolluteScopeWithAlwaysIterableForeach(), [], []);
+            $fileAnalyser = new \_PhpScoperb75b35f52b74\PHPStan\Analyser\FileAnalyser($this->createScopeFactory($broker, $typeSpecifier), $nodeScopeResolver, $this->getParser(), new \_PhpScoperb75b35f52b74\PHPStan\Dependency\DependencyResolver($fileHelper, $broker, new \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNodeResolver($fileTypeMapper, $printer)), \true);
+            $this->analyser = new \_PhpScoperb75b35f52b74\PHPStan\Analyser\Analyser($fileAnalyser, $registry, $nodeScopeResolver, 50);
         }
         return $this->analyser;
     }
@@ -101,7 +101,7 @@ abstract class RuleTestCase extends \_PhpScoper0a6b37af0871\PHPStan\Testing\Test
             }
             return $strictlyTypedSprintf($error[1], $error[0], $error[2] ?? null);
         }, $expectedErrors);
-        $actualErrors = \array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Error $error) use($strictlyTypedSprintf) : string {
+        $actualErrors = \array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Error $error) use($strictlyTypedSprintf) : string {
             $line = $error->getLine();
             if ($line === null) {
                 return $strictlyTypedSprintf(-1, $error->getMessage(), $error->getTip());

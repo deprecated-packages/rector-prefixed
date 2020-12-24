@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Laravel\Rector\New_;
+namespace _PhpScoperb75b35f52b74\Rector\Laravel\Rector\New_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://laravel.com/docs/5.8/upgrade#container-generators
  *
  * @see \Rector\Laravel\Tests\Rector\New_\MakeTaggedPassedToParameterIterableTypeRector\MakeTaggedPassedToParameterIterableTypeRectorTest
  */
-final class MakeTaggedPassedToParameterIterableTypeRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class MakeTaggedPassedToParameterIterableTypeRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type to iterable, if passed one', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type to iterable, if passed one', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class AnotherClass
 {
     /**
@@ -72,12 +72,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_::class];
     }
     /**
      * @param New_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         $className = $this->getName($node->class);
         if ($className === null) {
@@ -92,11 +92,11 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorClassWithArgType(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $arg) : void
+    private function refactorClassWithArgType(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $arg) : void
     {
         $argValueType = $this->getStaticType($arg->value);
-        $constructClassMethod = $class->getMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        $argumentPosition = (int) $arg->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION);
+        $constructClassMethod = $class->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $argumentPosition = (int) $arg->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION);
         if ($constructClassMethod === null) {
             return;
         }

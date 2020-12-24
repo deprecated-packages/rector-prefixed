@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Privatization\Rector\ClassMethod;
+namespace _PhpScoperb75b35f52b74\Rector\Privatization\Rector\ClassMethod;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a6b37af0871\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\PhpAttribute\ValueObject\TagName;
-use _PhpScoper0a6b37af0871\Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\VendorLocker\NodeVendorLocker\ClassMethodVisibilityVendorLockResolver;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoperb75b35f52b74\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\PhpAttribute\ValueObject\TagName;
+use _PhpScoperb75b35f52b74\Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\VendorLocker\NodeVendorLocker\ClassMethodVisibilityVendorLockResolver;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Privatization\Tests\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector\PrivatizeLocalOnlyMethodRectorTest
  */
-final class PrivatizeLocalOnlyMethodRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
+final class PrivatizeLocalOnlyMethodRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
 {
     /**
      * @var string
@@ -39,14 +39,14 @@ final class PrivatizeLocalOnlyMethodRector extends \_PhpScoper0a6b37af0871\Recto
      * @var ClassMethodExternalCallNodeAnalyzer
      */
     private $classMethodExternalCallNodeAnalyzer;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer $classMethodExternalCallNodeAnalyzer, \_PhpScoper0a6b37af0871\Rector\VendorLocker\NodeVendorLocker\ClassMethodVisibilityVendorLockResolver $classMethodVisibilityVendorLockResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer $classMethodExternalCallNodeAnalyzer, \_PhpScoperb75b35f52b74\Rector\VendorLocker\NodeVendorLocker\ClassMethodVisibilityVendorLockResolver $classMethodVisibilityVendorLockResolver)
     {
         $this->classMethodVisibilityVendorLockResolver = $classMethodVisibilityVendorLockResolver;
         $this->classMethodExternalCallNodeAnalyzer = $classMethodExternalCallNodeAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Privatize local-only use methods', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Privatize local-only use methods', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -85,12 +85,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -101,16 +101,16 @@ CODE_SAMPLE
         $this->makePrivate($node);
         return $node;
     }
-    private function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkip(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $classLike = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
+        $classLike = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
             return \true;
         }
         if ($this->isAnonymousClass($classLike)) {
             return \true;
         }
-        if ($this->isObjectType($classLike, '_PhpScoper0a6b37af0871\\PHPUnit\\Framework\\TestCase')) {
+        if ($this->isObjectType($classLike, '_PhpScoperb75b35f52b74\\PHPUnit\\Framework\\TestCase')) {
             return \true;
         }
         if ($this->isDoctrineEntityClass($classLike)) {
@@ -130,33 +130,33 @@ CODE_SAMPLE
             return \true;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return \false;
         }
-        return $phpDocInfo->hasByNames(['api', \_PhpScoper0a6b37af0871\Rector\PhpAttribute\ValueObject\TagName::REQUIRED]);
+        return $phpDocInfo->hasByNames(['api', \_PhpScoperb75b35f52b74\Rector\PhpAttribute\ValueObject\TagName::REQUIRED]);
     }
-    private function isControllerAction(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function isControllerAction(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $className = $class->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $class->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
-        if (!\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
+        if (!\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
             return \false;
         }
         $classMethodName = $this->getName($classMethod);
-        if ((bool) \_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
+        if ((bool) \_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
             return \true;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return \false;
         }
         return $phpDocInfo->hasByName('inject');
     }
-    private function shouldSkipClassMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipClassMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if ($classMethod->isPrivate()) {
             return \true;

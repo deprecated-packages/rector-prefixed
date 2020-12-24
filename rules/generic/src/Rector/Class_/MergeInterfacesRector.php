@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Generic\Rector\Class_;
+namespace _PhpScoperb75b35f52b74\Rector\Generic\Rector\Class_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Covers cases like
  * - https://github.com/FriendsOfPHP/PHP-CS-Fixer/commit/a1cdb4d2dd8f45d731244eed406e1d537218cc66
@@ -17,7 +17,7 @@ use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\MergeInterfacesRectorTest
  */
-final class MergeInterfacesRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class MergeInterfacesRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -28,9 +28,9 @@ final class MergeInterfacesRector extends \_PhpScoper0a6b37af0871\Rector\Core\Re
      * @var string[]
      */
     private $oldToNewInterfaces = [];
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Merges old interface to a new one, that already has its methods', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Merges old interface to a new one, that already has its methods', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass implements SomeInterface, SomeOldInterface
 {
 }
@@ -47,12 +47,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ($node->implements === []) {
             return null;
@@ -63,7 +63,7 @@ CODE_SAMPLE
                 continue;
             }
             $interface = $this->getName($implement);
-            $node->implements[$key] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($this->oldToNewInterfaces[$interface]);
+            $node->implements[$key] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Name($this->oldToNewInterfaces[$interface]);
         }
         $this->makeImplementsUnique($node);
         return $node;
@@ -72,7 +72,7 @@ CODE_SAMPLE
     {
         $this->oldToNewInterfaces = $configuration[self::OLD_TO_NEW_INTERFACES] ?? [];
     }
-    private function makeImplementsUnique(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : void
+    private function makeImplementsUnique(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $alreadyAddedNames = [];
         foreach ($class->implements as $key => $name) {

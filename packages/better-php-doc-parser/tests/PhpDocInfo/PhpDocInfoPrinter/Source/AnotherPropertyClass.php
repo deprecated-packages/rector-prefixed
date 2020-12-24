@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
+namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use _PhpScoper0a6b37af0871\JMS\Serializer\Annotation as Serializer;
-use _PhpScoper0a6b37af0871\Symfony\Component\Validator\Constraints as Assert;
+use _PhpScoperb75b35f52b74\JMS\Serializer\Annotation as Serializer;
+use _PhpScoperb75b35f52b74\Symfony\Component\Validator\Constraints as Assert;
 final class AnotherPropertyClass
 {
     /**

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeAlias;
+namespace _PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeAlias;
 
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\NameScope;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeNodeResolverExtension;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeStringResolver;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeNodeResolverExtension;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeStringResolver;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 use function array_key_exists;
-class TypeAliasesTypeNodeResolverExtension implements \_PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeNodeResolverExtension
+class TypeAliasesTypeNodeResolverExtension implements \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeNodeResolverExtension
 {
     /** @var TypeStringResolver */
     private $typeStringResolver;
@@ -28,15 +28,15 @@ class TypeAliasesTypeNodeResolverExtension implements \_PhpScoper0a6b37af0871\PH
      * @param ReflectionProvider $reflectionProvider
      * @param array<string, string> $aliases
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeStringResolver $typeStringResolver, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $aliases)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeStringResolver $typeStringResolver, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $aliases)
     {
         $this->typeStringResolver = $typeStringResolver;
         $this->reflectionProvider = $reflectionProvider;
         $this->aliases = $aliases;
     }
-    public function resolve(\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \_PhpScoper0a6b37af0871\PHPStan\Analyser\NameScope $nameScope) : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function resolve(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope $nameScope) : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        if ($typeNode instanceof \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+        if ($typeNode instanceof \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             $aliasName = $typeNode->name;
             if (\array_key_exists($aliasName, $this->resolvedTypes)) {
                 return $this->resolvedTypes[$aliasName];
@@ -45,10 +45,10 @@ class TypeAliasesTypeNodeResolverExtension implements \_PhpScoper0a6b37af0871\PH
                 return null;
             }
             if ($this->reflectionProvider->hasClass($aliasName)) {
-                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException(\sprintf('Type alias %s already exists as a class.', $aliasName));
+                throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException(\sprintf('Type alias %s already exists as a class.', $aliasName));
             }
             if (\array_key_exists($aliasName, $this->inProcess)) {
-                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException(\sprintf('Circular definition for type alias %s.', $aliasName));
+                throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException(\sprintf('Circular definition for type alias %s.', $aliasName));
             }
             $this->inProcess[$aliasName] = \true;
             $aliasTypeString = $this->aliases[$aliasName];

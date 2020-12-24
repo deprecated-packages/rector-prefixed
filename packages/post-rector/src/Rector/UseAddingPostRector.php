@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PostRector\Rector;
+namespace _PhpScoperb75b35f52b74\Rector\PostRector\Rector;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Application\UseImportsAdder;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Application\UseImportsRemover;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoper0a6b37af0871\Rector\PostRector\Collector\UseNodesToAddCollector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class UseAddingPostRector extends \_PhpScoper0a6b37af0871\Rector\PostRector\Rector\AbstractPostRector
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Application\UseImportsAdder;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Application\UseImportsRemover;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoperb75b35f52b74\Rector\PostRector\Collector\UseNodesToAddCollector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class UseAddingPostRector extends \_PhpScoperb75b35f52b74\Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var UseImportsAdder
@@ -40,7 +40,7 @@ final class UseAddingPostRector extends \_PhpScoper0a6b37af0871\Rector\PostRecto
      * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \_PhpScoper0a6b37af0871\Rector\CodingStyle\Application\UseImportsAdder $useImportsAdder, \_PhpScoper0a6b37af0871\Rector\CodingStyle\Application\UseImportsRemover $useImportsRemover, \_PhpScoper0a6b37af0871\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \_PhpScoperb75b35f52b74\Rector\CodingStyle\Application\UseImportsAdder $useImportsAdder, \_PhpScoperb75b35f52b74\Rector\CodingStyle\Application\UseImportsRemover $useImportsRemover, \_PhpScoperb75b35f52b74\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
     {
         $this->useImportsAdder = $useImportsAdder;
         $this->betterNodeFinder = $betterNodeFinder;
@@ -73,8 +73,8 @@ final class UseAddingPostRector extends \_PhpScoper0a6b37af0871\Rector\PostRecto
         $useImportTypes = $this->typeFactory->uniquateTypes($useImportTypes);
         $this->useNodesToAddCollector->clear($smartFileInfo);
         // A. has namespace? add under it
-        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_::class);
-        if ($namespace instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_) {
+        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_::class);
+        if ($namespace instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_) {
             // first clean
             $this->useImportsRemover->removeImportsFromNamespace($namespace, $removedShortUses);
             // then add, to prevent adding + removing false positive of same short use
@@ -82,7 +82,7 @@ final class UseAddingPostRector extends \_PhpScoper0a6b37af0871\Rector\PostRecto
             return $nodes;
         }
         $firstNode = $nodes[0];
-        if ($firstNode instanceof \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
+        if ($firstNode instanceof \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
             $nodes = $firstNode->stmts;
         }
         // B. no namespace? add in the top
@@ -97,9 +97,9 @@ final class UseAddingPostRector extends \_PhpScoper0a6b37af0871\Rector\PostRecto
         // must be after name importing
         return 500;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds use statements', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds use statements', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $someClass = new SomeClass();
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -112,11 +112,11 @@ CODE_SAMPLE
     /**
      * @param Node[] $nodes
      */
-    private function getSmartFileInfo(array $nodes) : ?\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
+    private function getSmartFileInfo(array $nodes) : ?\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($nodes as $node) {
             /** @var SmartFileInfo|null $smartFileInfo */
-            $smartFileInfo = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+            $smartFileInfo = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
             if ($smartFileInfo !== null) {
                 return $smartFileInfo;
             }
@@ -132,7 +132,7 @@ CODE_SAMPLE
     {
         $namespacedUseImportTypes = [];
         foreach ($useImportTypes as $useImportType) {
-            if (!\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($useImportType->getClassName(), '\\')) {
+            if (!\_PhpScoperb75b35f52b74\Nette\Utils\Strings::contains($useImportType->getClassName(), '\\')) {
                 continue;
             }
             $namespacedUseImportTypes[] = $useImportType;

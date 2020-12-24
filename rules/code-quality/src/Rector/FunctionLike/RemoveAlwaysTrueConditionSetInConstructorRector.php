@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\FunctionLike;
+namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\FunctionLike;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_;
-use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\NullType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_;
+use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\NullType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://phpstan.org/r/e909844a-084e-427e-92ac-fed3c2aeabab
  *
  * @see \Rector\CodeQuality\Tests\Rector\FunctionLike\RemoveAlwaysTrueConditionSetInConstructorRector\RemoveAlwaysTrueConditionSetInConstructorRectorTest
  */
-final class RemoveAlwaysTrueConditionSetInConstructorRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class RemoveAlwaysTrueConditionSetInConstructorRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var StaticTypeAnalyzer
@@ -38,14 +38,14 @@ final class RemoveAlwaysTrueConditionSetInConstructorRector extends \_PhpScoper0
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer $staticTypeAnalyzer, \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer $staticTypeAnalyzer, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->staticTypeAnalyzer = $staticTypeAnalyzer;
         $this->typeFactory = $typeFactory;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('If conditions is always true, perform the content right away', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('If conditions is always true, perform the content right away', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     private $value;
@@ -86,19 +86,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure::class];
     }
     /**
      * @param ClassMethod|Closure $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ($node->stmts === null || $node->stmts === []) {
             return null;
         }
         $haveNodeChanged = \false;
         foreach ((array) $node->stmts as $key => $stmt) {
-            if ($stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
+            if ($stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
                 $stmt = $stmt->expr;
             }
             if (!$this->isAlwaysTruableNode($stmt)) {
@@ -118,9 +118,9 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function isAlwaysTruableNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    private function isAlwaysTruableNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
-        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_) {
+        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_) {
             return \false;
         }
         // just one if
@@ -132,29 +132,29 @@ CODE_SAMPLE
             return \false;
         }
         // only property fetch, because of constructor set
-        if (!$node->cond instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$node->cond instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
         $propertyFetchType = $this->resolvePropertyFetchType($node->cond);
         return $this->staticTypeAnalyzer->isAlwaysTruableType($propertyFetchType);
     }
-    private function resolvePropertyFetchType(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    private function resolvePropertyFetchType(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        $classLike = $propertyFetch->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+        $classLike = $propertyFetch->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
         }
         $propertyName = $this->getName($propertyFetch);
         if ($propertyName === null) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
         }
         $property = $classLike->getProperty($propertyName);
         if ($property === null) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
         }
         // anything but private can be changed from outer scope
         if (!$property->isPrivate()) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
         }
         // set in constructor + changed in class
         $propertyTypeFromConstructor = $this->resolvePropertyTypeAfterConstructor($classLike, $propertyName);
@@ -170,10 +170,10 @@ CODE_SAMPLE
         }
         return $this->typeFactory->createMixedPassedOrUnionTypeAndKeepConstant($resolvedTypes);
     }
-    private function resolvePropertyTypeAfterConstructor(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    private function resolvePropertyTypeAfterConstructor(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         $propertyTypeFromConstructor = null;
-        $constructClassMethod = $class->getMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructClassMethod = $class->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod !== null) {
             $propertyTypeFromConstructor = $this->resolveAssignedTypeInStmtsByPropertyName((array) $constructClassMethod->stmts, $propertyName);
         }
@@ -181,22 +181,22 @@ CODE_SAMPLE
             return $propertyTypeFromConstructor;
         }
         // undefined property is null by default
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\NullType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\NullType();
     }
     /**
      * @param Stmt[] $stmts
      */
-    private function resolveAssignedTypeInStmtsByPropertyName(array $stmts, string $propertyName) : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    private function resolveAssignedTypeInStmtsByPropertyName(array $stmts, string $propertyName) : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         $resolvedTypes = [];
-        $this->traverseNodesWithCallable($stmts, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($propertyName, &$resolvedTypes) : ?int {
-            if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod && $this->isName($node, \_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
-                return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+        $this->traverseNodesWithCallable($stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($propertyName, &$resolvedTypes) : ?int {
+            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod && $this->isName($node, \_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+                return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
             if (!$this->isPropertyFetchAssignOfPropertyName($node, $propertyName)) {
                 return null;
             }
-            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
+            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
                 return null;
             }
             $resolvedTypes[] = $this->getStaticType($node->expr);
@@ -210,12 +210,12 @@ CODE_SAMPLE
     /**
      * E.g. $this->{value} = x
      */
-    private function isPropertyFetchAssignOfPropertyName(\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $propertyName) : bool
+    private function isPropertyFetchAssignOfPropertyName(\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $propertyName) : bool
     {
-        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
+        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
             return \false;
         }
-        if (!$node->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$node->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
         return $this->isName($node->var, $propertyName);

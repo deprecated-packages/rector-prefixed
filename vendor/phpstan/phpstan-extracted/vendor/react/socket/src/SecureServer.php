@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
 use BadMethodCallException;
 use UnexpectedValueException;
 /**
@@ -50,7 +50,7 @@ use UnexpectedValueException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class SecureServer extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface
+final class SecureServer extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface
 {
     private $tcp;
     private $encryption;
@@ -113,7 +113,7 @@ final class SecureServer extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\
      * @see TcpServer
      * @link https://www.php.net/manual/en/context.ssl.php for TLS context options
      */
-    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface $tcp, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, array $context)
+    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface $tcp, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, array $context)
     {
         if (!\function_exists('stream_socket_enable_crypto')) {
             throw new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)');
@@ -122,7 +122,7 @@ final class SecureServer extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\
         // default to empty passphrase to suppress blocking passphrase prompt
         $context += array('passphrase' => '');
         $this->tcp = $tcp;
-        $this->encryption = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\StreamEncryption($loop);
+        $this->encryption = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\StreamEncryption($loop);
         $this->context = $context;
         $that = $this;
         $this->tcp->on('connection', function ($connection) use($that) {
@@ -153,9 +153,9 @@ final class SecureServer extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\
         return $this->tcp->close();
     }
     /** @internal */
-    public function handleConnection(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection)
+    public function handleConnection(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection)
     {
-        if (!$connection instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Socket\Connection) {
+        if (!$connection instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Socket\Connection) {
             $this->emit('error', array(new \UnexpectedValueException('Base server does not use internal Connection class exposing stream resource')));
             $connection->close();
             return;

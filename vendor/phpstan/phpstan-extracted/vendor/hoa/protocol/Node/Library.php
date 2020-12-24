@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Protocol\Node;
+namespace _PhpScoperb75b35f52b74\Hoa\Protocol\Node;
 
 /**
  * Class \Hoa\Protocol\Node\Library.
@@ -43,7 +43,7 @@ namespace _PhpScoper0a6b37af0871\Hoa\Protocol\Node;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Library extends \_PhpScoper0a6b37af0871\Hoa\Protocol\Node\Node
+class Library extends \_PhpScoperb75b35f52b74\Hoa\Protocol\Node\Node
 {
     /**
      * Queue of the component.

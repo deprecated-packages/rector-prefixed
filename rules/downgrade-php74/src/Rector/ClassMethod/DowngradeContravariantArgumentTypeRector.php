@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp74\Rector\ClassMethod;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp74\Rector\ClassMethod;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\NullableType;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
-use _PhpScoper0a6b37af0871\PhpParser\Node\UnionType;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a6b37af0871\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\NullableType;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\PhpParser\Node\UnionType;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
+use _PhpScoperb75b35f52b74\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.php.net/manual/en/language.oop5.variance.php#language.oop5.variance.contravariance
  *
  * @see \Rector\DowngradePhp74\Tests\Rector\ClassMethod\DowngradeContravariantArgumentTypeRector\DowngradeContravariantArgumentTypeRectorTest
  */
-final class DowngradeContravariantArgumentTypeRector extends \_PhpScoper0a6b37af0871\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector
+final class DowngradeContravariantArgumentTypeRector extends \_PhpScoperb75b35f52b74\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove contravariant argument type declarations', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove contravariant argument type declarations', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class ParentType {}
 class ChildType extends ParentType {}
 
@@ -63,7 +63,7 @@ class B extends A
 CODE_SAMPLE
 )]);
     }
-    public function shouldRemoveParamDeclaration(\_PhpScoper0a6b37af0871\PhpParser\Node\Param $param, \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike) : bool
+    public function shouldRemoveParamDeclaration(\_PhpScoperb75b35f52b74\PhpParser\Node\Param $param, \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($param->variadic) {
             return \false;
@@ -72,16 +72,16 @@ CODE_SAMPLE
             return \false;
         }
         // Don't consider for Union types
-        if ($param->type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType) {
+        if ($param->type instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\UnionType) {
             return \false;
         }
         // Check if the type is different from the one declared in some ancestor
         return $this->getDifferentParamTypeFromAncestorClass($param, $functionLike) !== null;
     }
-    private function getDifferentParamTypeFromAncestorClass(\_PhpScoper0a6b37af0871\PhpParser\Node\Param $param, \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike) : ?string
+    private function getDifferentParamTypeFromAncestorClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Param $param, \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike) : ?string
     {
         /** @var Scope|null $scope */
-        $scope = $functionLike->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $functionLike->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
             // possibly trait
             return null;
@@ -94,7 +94,7 @@ CODE_SAMPLE
         // If it is the NullableType, extract the name from its inner type
         /** @var Node */
         $paramType = $param->type;
-        $isNullableType = $param->type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\NullableType;
+        $isNullableType = $param->type instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\NullableType;
         if ($isNullableType) {
             /** @var NullableType */
             $nullableType = $paramType;
@@ -108,7 +108,7 @@ CODE_SAMPLE
         /** @var string $methodName */
         $methodName = $this->getName($functionLike);
         // Either Ancestor classes or implemented interfaces
-        $parentClassNames = \array_merge($classReflection->getParentClassesNames(), \array_map(function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
+        $parentClassNames = \array_merge($classReflection->getParentClassesNames(), \array_map(function (\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
             return $interfaceReflection->getName();
         }, $classReflection->getInterfaces()));
         foreach ($parentClassNames as $parentClassName) {

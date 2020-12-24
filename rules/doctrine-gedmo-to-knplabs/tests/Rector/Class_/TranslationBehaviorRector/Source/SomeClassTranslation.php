@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\Rector\DoctrineGedmoToKnplabs\Tests\Rector\Class_\TranslationBehaviorRector\Fixture;
+namespace _PhpScoperb75b35f52b74\Rector\DoctrineGedmoToKnplabs\Tests\Rector\Class_\TranslationBehaviorRector\Fixture;
 
 /**
  * @ORM\Entity
  */
-class SomeClassTranslation implements \_PhpScoper0a6b37af0871\Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface
+class SomeClassTranslation implements \_PhpScoperb75b35f52b74\Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface
 {
     use \Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
     /**

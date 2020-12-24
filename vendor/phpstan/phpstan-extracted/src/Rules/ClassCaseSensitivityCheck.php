@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Rules;
+namespace _PhpScoperb75b35f52b74\PHPStan\Rules;
 
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
 class ClassCaseSensitivityCheck
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
     /** @var bool */
     private $checkInternalClassCaseSensitivity;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkInternalClassCaseSensitivity = \false)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkInternalClassCaseSensitivity = \false)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->checkInternalClassCaseSensitivity = $checkInternalClassCaseSensitivity;
@@ -41,11 +41,11 @@ class ClassCaseSensitivityCheck
             if ($realClassName === $className) {
                 continue;
             }
-            $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s %s referenced with incorrect case: %s.', $this->getTypeName($classReflection), $realClassName, $className))->line($pair->getNode()->getLine())->build();
+            $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s %s referenced with incorrect case: %s.', $this->getTypeName($classReflection), $realClassName, $className))->line($pair->getNode()->getLine())->build();
         }
         return $errors;
     }
-    private function getTypeName(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection) : string
+    private function getTypeName(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection) : string
     {
         if ($classReflection->isInterface()) {
             return 'Interface';

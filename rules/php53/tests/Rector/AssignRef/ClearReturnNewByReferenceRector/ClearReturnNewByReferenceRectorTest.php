@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Php53\Tests\Rector\AssignRef\ClearReturnNewByReferenceRector;
+namespace _PhpScoperb75b35f52b74\Rector\Php53\Tests\Rector\AssignRef\ClearReturnNewByReferenceRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Php53\Rector\AssignRef\ClearReturnNewByReferenceRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Rector\Php53\Rector\AssignRef\ClearReturnNewByReferenceRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class ClearReturnNewByReferenceRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class ClearReturnNewByReferenceRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfoWithoutAutoload($fileInfo);
     }
@@ -26,6 +26,6 @@ final class ClearReturnNewByReferenceRectorTest extends \_PhpScoper0a6b37af0871\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a6b37af0871\Rector\Php53\Rector\AssignRef\ClearReturnNewByReferenceRector::class;
+        return \_PhpScoperb75b35f52b74\Rector\Php53\Rector\AssignRef\ClearReturnNewByReferenceRector::class;
     }
 }

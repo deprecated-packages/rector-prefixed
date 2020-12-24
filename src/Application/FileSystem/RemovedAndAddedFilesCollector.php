@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\Application\FileSystem;
+namespace _PhpScoperb75b35f52b74\Rector\Core\Application\FileSystem;
 
-use _PhpScoper0a6b37af0871\Rector\FileSystemRector\Contract\MovedFileInterface;
-use _PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\AddedFileWithContent;
-use _PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Rector\FileSystemRector\Contract\MovedFileInterface;
+use _PhpScoperb75b35f52b74\Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use _PhpScoperb75b35f52b74\Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemovedAndAddedFilesCollector
 {
     /**
@@ -21,11 +21,11 @@ final class RemovedAndAddedFilesCollector
      * @var MovedFileInterface[]
      */
     private $movedFiles = [];
-    public function removeFile(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function removeFile(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->removedFiles[] = $smartFileInfo;
     }
-    public function addMovedFile(\_PhpScoper0a6b37af0871\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile) : void
+    public function addMovedFile(\_PhpScoperb75b35f52b74\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile) : void
     {
         $this->movedFiles[] = $movedFile;
     }
@@ -43,7 +43,7 @@ final class RemovedAndAddedFilesCollector
     {
         return $this->movedFiles;
     }
-    public function getMovedFileByFileInfo(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\_PhpScoper0a6b37af0871\Rector\FileSystemRector\Contract\MovedFileInterface
+    public function getMovedFileByFileInfo(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\_PhpScoperb75b35f52b74\Rector\FileSystemRector\Contract\MovedFileInterface
     {
         foreach ($this->movedFiles as $movedFile) {
             if ($movedFile->getOldPathname() !== $smartFileInfo->getPathname()) {
@@ -53,7 +53,7 @@ final class RemovedAndAddedFilesCollector
         }
         return null;
     }
-    public function isFileRemoved(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function isFileRemoved(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         foreach ($this->removedFiles as $removedFile) {
             if ($removedFile->getPathname() !== $smartFileInfo->getPathname()) {
@@ -63,7 +63,7 @@ final class RemovedAndAddedFilesCollector
         }
         return \false;
     }
-    public function addAddedFile(\_PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent) : void
+    public function addAddedFile(\_PhpScoperb75b35f52b74\Rector\FileSystemRector\ValueObject\AddedFileWithContent $addedFileWithContent) : void
     {
         $this->addedFileWithContents[] = $addedFileWithContent;
     }
@@ -79,8 +79,8 @@ final class RemovedAndAddedFilesCollector
      */
     public function getMovedFileWithNodes() : array
     {
-        return \array_filter($this->movedFiles, function (\_PhpScoper0a6b37af0871\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile) : bool {
-            return $movedFile instanceof \_PhpScoper0a6b37af0871\Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
+        return \array_filter($this->movedFiles, function (\_PhpScoperb75b35f52b74\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile) : bool {
+            return $movedFile instanceof \_PhpScoperb75b35f52b74\Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
         });
     }
     public function getAffectedFilesCount() : int

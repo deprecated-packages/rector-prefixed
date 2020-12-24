@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Defluent\ValueObjectFactory;
+namespace _PhpScoperb75b35f52b74\Rector\Defluent\ValueObjectFactory;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FluentMethodCalls;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\Defluent\ValueObject\FluentMethodCalls;
 final class FluentMethodCallsFactory
 {
     /**
@@ -17,12 +17,12 @@ final class FluentMethodCallsFactory
      * @var SameClassMethodCallAnalyzer
      */
     private $sameClassMethodCallAnalyzer;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \_PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \_PhpScoperb75b35f52b74\Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer)
     {
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
         $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
     }
-    public function createFromLastMethodCall(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $lastMethodCall) : ?\_PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FluentMethodCalls
+    public function createFromLastMethodCall(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $lastMethodCall) : ?\_PhpScoperb75b35f52b74\Rector\Defluent\ValueObject\FluentMethodCalls
     {
         $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($lastMethodCall);
         if (!$this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {
@@ -33,12 +33,12 @@ final class FluentMethodCallsFactory
             return null;
         }
         $rootMethodCall = $this->resolveRootMethodCall($chainMethodCalls);
-        return new \_PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\FluentMethodCalls($rootMethodCall, $chainMethodCalls, $lastMethodCall);
+        return new \_PhpScoperb75b35f52b74\Rector\Defluent\ValueObject\FluentMethodCalls($rootMethodCall, $chainMethodCalls, $lastMethodCall);
     }
     /**
      * @param MethodCall[] $chainMethodCalls
      */
-    private function resolveRootMethodCall(array $chainMethodCalls) : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall
+    private function resolveRootMethodCall(array $chainMethodCalls) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall
     {
         $lastKey = \array_key_last($chainMethodCalls);
         return $chainMethodCalls[$lastKey];

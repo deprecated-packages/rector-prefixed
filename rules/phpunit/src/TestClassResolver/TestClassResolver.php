@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\TestClassResolver;
+namespace _PhpScoperb75b35f52b74\Rector\PHPUnit\TestClassResolver;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
 /**
  * @see \Rector\PHPUnit\Tests\TestClassResolver\TestClassResolverTest
  */
@@ -23,7 +23,7 @@ final class TestClassResolver
      * @var PHPUnitTestCaseClassesProvider
      */
     private $phpUnitTestCaseClassesProvider;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\PHPUnit\TestClassResolver\PHPUnitTestCaseClassesProvider $phpUnitTestCaseClassesProvider)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\PHPUnit\TestClassResolver\PHPUnitTestCaseClassesProvider $phpUnitTestCaseClassesProvider)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpUnitTestCaseClassesProvider = $phpUnitTestCaseClassesProvider;
@@ -42,7 +42,7 @@ final class TestClassResolver
         \sort($classNamespaceParts);
         foreach ($phpUnitTestCaseClasses as $phpUnitTestCaseClass) {
             // 1. is short class match
-            if (!\_PhpScoper0a6b37af0871\Nette\Utils\Strings::endsWith($phpUnitTestCaseClass, '\\' . $testShortClassName)) {
+            if (!\_PhpScoperb75b35f52b74\Nette\Utils\Strings::endsWith($phpUnitTestCaseClass, '\\' . $testShortClassName)) {
                 continue;
             }
             // 2. is namespace match
@@ -60,7 +60,7 @@ final class TestClassResolver
         }
         return null;
     }
-    public function resolveFromClass(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : ?string
+    public function resolveFromClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : ?string
     {
         $className = $this->nodeNameResolver->getName($class);
         if ($className === null) {
@@ -70,14 +70,14 @@ final class TestClassResolver
     }
     private function resolveShortClassName(string $className) : ?string
     {
-        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::after($className, '\\', -1);
+        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::after($className, '\\', -1);
     }
     /**
      * @return string[]
      */
     private function resolveNamespaceParts(string $className) : array
     {
-        $namespacePart = (string) \_PhpScoper0a6b37af0871\Nette\Utils\Strings::before($className, '\\', -1);
+        $namespacePart = (string) \_PhpScoperb75b35f52b74\Nette\Utils\Strings::before($className, '\\', -1);
         return \explode('\\', $namespacePart);
     }
 }

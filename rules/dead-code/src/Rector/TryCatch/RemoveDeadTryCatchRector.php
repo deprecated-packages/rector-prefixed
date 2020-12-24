@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Rector\TryCatch;
+namespace _PhpScoperb75b35f52b74\Rector\DeadCode\Rector\TryCatch;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Catch_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Throw_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\TryCatch;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Catch_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Throw_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\TryCatch;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\TryCatch\RemoveDeadTryCatchRector\RemoveDeadTryCatchRectorTest
  */
-final class RemoveDeadTryCatchRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class RemoveDeadTryCatchRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove dead try/catch', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove dead try/catch', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -47,12 +47,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\TryCatch::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\TryCatch::class];
     }
     /**
      * @param TryCatch $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (\count((array) $node->catches) !== 1) {
             return null;
@@ -66,7 +66,7 @@ CODE_SAMPLE
             return null;
         }
         $onlyCatchStmt = $onlyCatch->stmts[0];
-        if (!$onlyCatchStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Throw_) {
+        if (!$onlyCatchStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Throw_) {
             return null;
         }
         if (!$this->areNodesEqual($onlyCatch->var, $onlyCatchStmt->expr)) {

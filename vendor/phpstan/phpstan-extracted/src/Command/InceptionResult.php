@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Command;
+namespace _PhpScoperb75b35f52b74\PHPStan\Command;
 
-use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container;
-use _PhpScoper0a6b37af0871\PHPStan\Internal\BytesHelper;
+use _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container;
+use _PhpScoperb75b35f52b74\PHPStan\Internal\BytesHelper;
 use function memory_get_peak_usage;
 class InceptionResult
 {
@@ -37,7 +37,7 @@ class InceptionResult
      * @param mixed[] $projectConfigArray
      * @param string|null $generateBaselineFile
      */
-    public function __construct(callable $filesCallback, \_PhpScoper0a6b37af0871\PHPStan\Command\Output $stdOutput, \_PhpScoper0a6b37af0871\PHPStan\Command\Output $errorOutput, \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container $container, bool $isDefaultLevelUsed, string $memoryLimitFile, ?string $projectConfigFile, ?array $projectConfigArray, ?string $generateBaselineFile)
+    public function __construct(callable $filesCallback, \_PhpScoperb75b35f52b74\PHPStan\Command\Output $stdOutput, \_PhpScoperb75b35f52b74\PHPStan\Command\Output $errorOutput, \_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container $container, bool $isDefaultLevelUsed, string $memoryLimitFile, ?string $projectConfigFile, ?array $projectConfigArray, ?string $generateBaselineFile)
     {
         $this->filesCallback = $filesCallback;
         $this->stdOutput = $stdOutput;
@@ -57,15 +57,15 @@ class InceptionResult
         $callback = $this->filesCallback;
         return $callback();
     }
-    public function getStdOutput() : \_PhpScoper0a6b37af0871\PHPStan\Command\Output
+    public function getStdOutput() : \_PhpScoperb75b35f52b74\PHPStan\Command\Output
     {
         return $this->stdOutput;
     }
-    public function getErrorOutput() : \_PhpScoper0a6b37af0871\PHPStan\Command\Output
+    public function getErrorOutput() : \_PhpScoperb75b35f52b74\PHPStan\Command\Output
     {
         return $this->errorOutput;
     }
-    public function getContainer() : \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container
+    public function getContainer() : \_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container
     {
         return $this->container;
     }
@@ -91,7 +91,7 @@ class InceptionResult
     public function handleReturn(int $exitCode) : int
     {
         if ($this->getErrorOutput()->isVerbose()) {
-            $this->getErrorOutput()->writeLineFormatted(\sprintf('Used memory: %s', \_PhpScoper0a6b37af0871\PHPStan\Internal\BytesHelper::bytes(\memory_get_peak_usage(\true))));
+            $this->getErrorOutput()->writeLineFormatted(\sprintf('Used memory: %s', \_PhpScoperb75b35f52b74\PHPStan\Internal\BytesHelper::bytes(\memory_get_peak_usage(\true))));
         }
         @\unlink($this->memoryLimitFile);
         return $exitCode;

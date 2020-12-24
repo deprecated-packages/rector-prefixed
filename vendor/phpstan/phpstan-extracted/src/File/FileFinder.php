@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\File;
+namespace _PhpScoperb75b35f52b74\PHPStan\File;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Component\Finder\Finder;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Finder\Finder;
 class FileFinder
 {
     /** @var FileExcluder */
@@ -17,7 +17,7 @@ class FileFinder
      * @param FileHelper $fileHelper
      * @param string[] $fileExtensions
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\File\FileExcluder $fileExcluder, \_PhpScoper0a6b37af0871\PHPStan\File\FileHelper $fileHelper, array $fileExtensions)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\File\FileExcluder $fileExcluder, \_PhpScoperb75b35f52b74\PHPStan\File\FileHelper $fileHelper, array $fileExtensions)
     {
         $this->fileExcluder = $fileExcluder;
         $this->fileHelper = $fileHelper;
@@ -27,17 +27,17 @@ class FileFinder
      * @param string[] $paths
      * @return FileFinderResult
      */
-    public function findFiles(array $paths) : \_PhpScoper0a6b37af0871\PHPStan\File\FileFinderResult
+    public function findFiles(array $paths) : \_PhpScoperb75b35f52b74\PHPStan\File\FileFinderResult
     {
         $onlyFiles = \true;
         $files = [];
         foreach ($paths as $path) {
             if (!\file_exists($path)) {
-                throw new \_PhpScoper0a6b37af0871\PHPStan\File\PathNotFoundException($path);
+                throw new \_PhpScoperb75b35f52b74\PHPStan\File\PathNotFoundException($path);
             } elseif (\is_file($path)) {
                 $files[] = $this->fileHelper->normalizePath($path);
             } else {
-                $finder = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Component\Finder\Finder();
+                $finder = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Finder\Finder();
                 $finder->followLinks();
                 foreach ($finder->files()->name('*.{' . \implode(',', $this->fileExtensions) . '}')->in($path) as $fileInfo) {
                     $files[] = $this->fileHelper->normalizePath($fileInfo->getPathname());
@@ -48,6 +48,6 @@ class FileFinder
         $files = \array_values(\array_filter($files, function (string $file) : bool {
             return !$this->fileExcluder->isExcludedFromAnalysing($file);
         }));
-        return new \_PhpScoper0a6b37af0871\PHPStan\File\FileFinderResult($files, $onlyFiles);
+        return new \_PhpScoperb75b35f52b74\PHPStan\File\FileFinderResult($files, $onlyFiles);
     }
 }

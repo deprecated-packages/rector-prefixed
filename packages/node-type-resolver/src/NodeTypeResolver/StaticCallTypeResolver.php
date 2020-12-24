@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
+namespace _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
-final class StaticCallTypeResolver implements \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
+final class StaticCallTypeResolver implements \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @var NodeTypeResolver
@@ -22,14 +22,14 @@ final class StaticCallTypeResolver implements \_PhpScoper0a6b37af0871\Rector\Nod
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
     /**
      * @required
      */
-    public function autowireStaticCallTypeResolver(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireStaticCallTypeResolver(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -38,12 +38,12 @@ final class StaticCallTypeResolver implements \_PhpScoper0a6b37af0871\Rector\Nod
      */
     public function getNodeClasses() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param StaticCall $node
      */
-    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         $classType = $this->nodeTypeResolver->resolve($node->class);
         $methodName = $this->nodeNameResolver->getName($node->name);
@@ -51,13 +51,13 @@ final class StaticCallTypeResolver implements \_PhpScoper0a6b37af0871\Rector\Nod
         if (!\is_string($methodName)) {
             return $classType;
         }
-        $classNames = \_PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils::getDirectClassNames($classType);
+        $classNames = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils::getDirectClassNames($classType);
         foreach ($classNames as $className) {
             if (!\method_exists($className, $methodName)) {
                 continue;
             }
             /** @var Scope|null $nodeScope */
-            $nodeScope = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+            $nodeScope = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
             if ($nodeScope === null) {
                 return $classType;
             }

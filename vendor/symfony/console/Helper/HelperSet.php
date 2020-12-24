@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a6b37af0871\Symfony\Component\Console\Helper;
+namespace _PhpScoperb75b35f52b74\Symfony\Component\Console\Helper;
 
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Command\Command;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Command\Command;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * HelperSet represents a set of helpers to be used with a command.
  *
@@ -33,7 +33,7 @@ class HelperSet implements \IteratorAggregate
             $this->set($helper, \is_int($alias) ? null : $alias);
         }
     }
-    public function set(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Helper\HelperInterface $helper, string $alias = null)
+    public function set(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Helper\HelperInterface $helper, string $alias = null)
     {
         $this->helpers[$helper->getName()] = $helper;
         if (null !== $alias) {
@@ -60,11 +60,11 @@ class HelperSet implements \IteratorAggregate
     public function get(string $name)
     {
         if (!$this->has($name)) {
-            throw new \_PhpScoper0a6b37af0871\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
+            throw new \_PhpScoperb75b35f52b74\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
         }
         return $this->helpers[$name];
     }
-    public function setCommand(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Command\Command $command = null)
+    public function setCommand(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Command\Command $command = null)
     {
         $this->command = $command;
     }

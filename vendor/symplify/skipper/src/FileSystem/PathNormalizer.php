@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\Skipper\FileSystem;
+namespace _PhpScoperb75b35f52b74\Symplify\Skipper\FileSystem;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
 final class PathNormalizer
 {
     /**
@@ -23,14 +23,14 @@ final class PathNormalizer
     public function normalizeForFnmatch(string $path) : string
     {
         // ends with *
-        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
+        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
             return '*' . $path;
         }
         // starts with *
-        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($path, self::ONLY_STARTS_WITH_ASTERISK_REGEX)) {
+        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($path, self::ONLY_STARTS_WITH_ASTERISK_REGEX)) {
             return $path . '*';
         }
-        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($path, '..')) {
+        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::contains($path, '..')) {
             $path = \realpath($path);
             if ($path === \false) {
                 return '';

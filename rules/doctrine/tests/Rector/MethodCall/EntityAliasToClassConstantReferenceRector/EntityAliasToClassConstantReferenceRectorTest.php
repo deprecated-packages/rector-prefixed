@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Doctrine\Tests\Rector\MethodCall\EntityAliasToClassConstantReferenceRector;
+namespace _PhpScoperb75b35f52b74\Rector\Doctrine\Tests\Rector\MethodCall\EntityAliasToClassConstantReferenceRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class EntityAliasToClassConstantReferenceRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class EntityAliasToClassConstantReferenceRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class EntityAliasToClassConstantReferenceRectorTest extends \_PhpScoper0a6
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector::class => [\_PhpScoper0a6b37af0871\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector::ALIASES_TO_NAMESPACES => ['App' => '_PhpScoper0a6b37af0871\\App\\Entity']]];
+        return [\_PhpScoperb75b35f52b74\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector::class => [\_PhpScoperb75b35f52b74\Rector\Doctrine\Rector\MethodCall\EntityAliasToClassConstantReferenceRector::ALIASES_TO_NAMESPACES => ['App' => '_PhpScoperb75b35f52b74\\App\\Entity']]];
     }
 }

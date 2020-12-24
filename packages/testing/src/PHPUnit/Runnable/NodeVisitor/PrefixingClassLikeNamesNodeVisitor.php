@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\Runnable\NodeVisitor;
+namespace _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\Runnable\NodeVisitor;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract;
 /**
  * Very dummy, use carefully and extend if needed
  */
-final class PrefixingClassLikeNamesNodeVisitor extends \_PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract
+final class PrefixingClassLikeNamesNodeVisitor extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
 {
     /**
      * @var string
@@ -31,23 +31,23 @@ final class PrefixingClassLikeNamesNodeVisitor extends \_PhpScoper0a6b37af0871\P
         $this->classLikeNames = $classLikeNames;
         $this->suffix = $suffix;
     }
-    public function enterNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike) {
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike) {
             return $this->refactorClassLike($node);
         }
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_) {
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_) {
             return $this->refactorNew($node);
         }
         return null;
     }
-    private function refactorClassLike(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike
+    private function refactorClassLike(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike $classLike) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike
     {
         if ($classLike->name === null) {
             return null;
         }
         // rename extends
-        if ($classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
+        if ($classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
             $this->refactorClass($classLike);
         }
         foreach ($this->classLikeNames as $classLikeName) {
@@ -55,14 +55,14 @@ final class PrefixingClassLikeNamesNodeVisitor extends \_PhpScoper0a6b37af0871\P
             if ($className !== $classLikeName) {
                 continue;
             }
-            $classLike->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier($classLikeName . '_' . $this->suffix);
+            $classLike->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier($classLikeName . '_' . $this->suffix);
             return $classLike;
         }
         return null;
     }
-    private function refactorNew(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_ $new) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_
+    private function refactorNew(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_ $new) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_
     {
-        if (!$new->class instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
+        if (!$new->class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
             return null;
         }
         foreach ($this->classLikeNames as $classLikeName) {
@@ -70,12 +70,12 @@ final class PrefixingClassLikeNamesNodeVisitor extends \_PhpScoper0a6b37af0871\P
             if ($className !== $classLikeName) {
                 continue;
             }
-            $new->class = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($classLikeName . '_' . $this->suffix);
+            $new->class = new \_PhpScoperb75b35f52b74\PhpParser\Node\Name($classLikeName . '_' . $this->suffix);
             return $new;
         }
         return null;
     }
-    private function refactorClass(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : void
+    private function refactorClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : void
     {
         if ($class->extends === null) {
             return;
@@ -85,7 +85,7 @@ final class PrefixingClassLikeNamesNodeVisitor extends \_PhpScoper0a6b37af0871\P
             if ($extends !== $classLikeName) {
                 continue;
             }
-            $class->extends = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($extends . '_' . $this->suffix);
+            $class->extends = new \_PhpScoperb75b35f52b74\PhpParser\Node\Name($extends . '_' . $this->suffix);
             break;
         }
     }

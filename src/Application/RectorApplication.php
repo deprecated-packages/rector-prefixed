@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\Application;
+namespace _PhpScoperb75b35f52b74\Rector\Core\Application;
 
-use _PhpScoper0a6b37af0871\PHPStan\AnalysedCodeException;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver;
-use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
-use _PhpScoper0a6b37af0871\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use _PhpScoper0a6b37af0871\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
-use _PhpScoper0a6b37af0871\Rector\Core\Configuration\Configuration;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\PostRunnerInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Helper\ProgressBar;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\PHPStan\AnalysedCodeException;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver;
+use _PhpScoperb75b35f52b74\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use _PhpScoperb75b35f52b74\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
+use _PhpScoperb75b35f52b74\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
+use _PhpScoperb75b35f52b74\Rector\Core\Configuration\Configuration;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\PostRunnerInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Helper\ProgressBar;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 /**
  * Rector cycle has 3 steps:
@@ -81,7 +81,7 @@ final class RectorApplication
     /**
      * @param PostRunnerInterface[] $postRunners
      */
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper0a6b37af0871\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \_PhpScoper0a6b37af0871\Rector\Core\Application\FileProcessor $fileProcessor, \_PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \_PhpScoper0a6b37af0871\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \_PhpScoper0a6b37af0871\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \_PhpScoper0a6b37af0871\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, array $postRunners)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Configuration $configuration, \_PhpScoperb75b35f52b74\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \_PhpScoperb75b35f52b74\Rector\Core\Application\FileProcessor $fileProcessor, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \_PhpScoperb75b35f52b74\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \_PhpScoperb75b35f52b74\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \_PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, array $postRunners)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -111,13 +111,13 @@ final class RectorApplication
         $this->refactorNodesWithRectors($phpFileInfos);
         // 3. apply post rectors
         foreach ($phpFileInfos as $phpFileInfo) {
-            $this->tryCatchWrapper($phpFileInfo, function (\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
+            $this->tryCatchWrapper($phpFileInfo, function (\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
                 $this->fileProcessor->postFileRefactor($smartFileInfo);
             }, 'post rectors');
         }
         // 4. print to file or string
         foreach ($phpFileInfos as $phpFileInfo) {
-            $this->tryCatchWrapper($phpFileInfo, function (\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
+            $this->tryCatchWrapper($phpFileInfo, function (\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
                 $this->printFileInfo($smartFileInfo);
             }, 'printing');
         }
@@ -158,7 +158,7 @@ final class RectorApplication
     private function parseFileInfosToNodes(array $phpFileInfos) : void
     {
         foreach ($phpFileInfos as $phpFileInfo) {
-            $this->tryCatchWrapper($phpFileInfo, function (\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
+            $this->tryCatchWrapper($phpFileInfo, function (\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
                 $this->fileProcessor->parseFileInfoToLocalCache($smartFileInfo);
             }, 'parsing');
         }
@@ -169,12 +169,12 @@ final class RectorApplication
     private function refactorNodesWithRectors(array $phpFileInfos) : void
     {
         foreach ($phpFileInfos as $phpFileInfo) {
-            $this->tryCatchWrapper($phpFileInfo, function (\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
+            $this->tryCatchWrapper($phpFileInfo, function (\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void {
                 $this->fileProcessor->refactor($smartFileInfo);
             }, 'refactoring');
         }
     }
-    private function tryCatchWrapper(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, callable $callback, string $phase) : void
+    private function tryCatchWrapper(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, callable $callback, string $phase) : void
     {
         $this->advance($smartFileInfo, $phase);
         try {
@@ -183,7 +183,7 @@ final class RectorApplication
                 return;
             }
             $callback($smartFileInfo);
-        } catch (\_PhpScoper0a6b37af0871\PHPStan\AnalysedCodeException $analysedCodeException) {
+        } catch (\_PhpScoperb75b35f52b74\PHPStan\AnalysedCodeException $analysedCodeException) {
             $this->notParsedFiles[] = $smartFileInfo;
             $this->errorAndDiffCollector->addAutoloadError($analysedCodeException, $smartFileInfo);
         } catch (\Throwable $throwable) {
@@ -193,7 +193,7 @@ final class RectorApplication
             $this->errorAndDiffCollector->addThrowableWithFileInfo($throwable, $smartFileInfo);
         }
     }
-    private function printFileInfo(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    private function printFileInfo(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         if ($this->removedAndAddedFilesCollector->isFileRemoved($fileInfo)) {
             // skip, because this file exists no more
@@ -210,8 +210,8 @@ final class RectorApplication
     {
         $this->symfonyStyle->progressStart($fileCount * self::PROGRESS_BAR_STEP_MULTIPLIER);
         $progressBar = $this->privatesAccessor->getPrivateProperty($this->symfonyStyle, 'progressBar');
-        if (!$progressBar instanceof \_PhpScoper0a6b37af0871\Symfony\Component\Console\Helper\ProgressBar) {
-            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+        if (!$progressBar instanceof \_PhpScoperb75b35f52b74\Symfony\Component\Console\Helper\ProgressBar) {
+            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
         }
         if ($progressBar->getMaxSteps() < 40) {
             return;
@@ -219,7 +219,7 @@ final class RectorApplication
         $redrawFrequency = (int) ($progressBar->getMaxSteps() / 20);
         $progressBar->setRedrawFrequency($redrawFrequency);
     }
-    private function advance(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $phase) : void
+    private function advance(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $phase) : void
     {
         if ($this->symfonyStyle->isVerbose()) {
             $relativeFilePath = $smartFileInfo->getRelativeFilePathFromDirectory(\getcwd());

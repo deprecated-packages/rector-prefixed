@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Property_;
+namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Property_;
 
-use _PhpScoper0a6b37af0871\Doctrine\ORM\Mapping\ManyToMany;
-use _PhpScoper0a6b37af0871\Doctrine\ORM\Mapping\ManyToOne;
-use _PhpScoper0a6b37af0871\Doctrine\ORM\Mapping\OneToMany;
-use _PhpScoper0a6b37af0871\Doctrine\ORM\Mapping\OneToOne;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Parser\TokenIterator;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\GenericPhpDocNodeFactoryInterface;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode;
-final class DoctrineTargetEntityPhpDocNodeFactory extends \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\GenericPhpDocNodeFactoryInterface
+use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping\ManyToMany;
+use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping\ManyToOne;
+use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping\OneToMany;
+use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping\OneToOne;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\TokenIterator;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\GenericPhpDocNodeFactoryInterface;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode;
+final class DoctrineTargetEntityPhpDocNodeFactory extends \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\GenericPhpDocNodeFactoryInterface
 {
     /**
      * @return array<string, string>
      */
     public function getTagValueNodeClassesToAnnotationClasses() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode::class => '_PhpScoper0a6b37af0871\\Doctrine\\ORM\\Mapping\\OneToOne', \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class => '_PhpScoper0a6b37af0871\\Doctrine\\ORM\\Mapping\\OneToMany', \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode::class => '_PhpScoper0a6b37af0871\\Doctrine\\ORM\\Mapping\\ManyToMany', \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode::class => '_PhpScoper0a6b37af0871\\Doctrine\\ORM\\Mapping\\ManyToOne'];
+        return [\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode::class => '_PhpScoperb75b35f52b74\\Doctrine\\ORM\\Mapping\\OneToOne', \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class => '_PhpScoperb75b35f52b74\\Doctrine\\ORM\\Mapping\\OneToMany', \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode::class => '_PhpScoperb75b35f52b74\\Doctrine\\ORM\\Mapping\\ManyToMany', \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode::class => '_PhpScoperb75b35f52b74\\Doctrine\\ORM\\Mapping\\ManyToOne'];
     }
-    public function createFromNodeAndTokens(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    public function createFromNodeAndTokens(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
         /** @var OneToOne|OneToMany|ManyToMany|ManyToOne|null $annotation */
         $annotation = $this->nodeAnnotationReader->readAnnotation($node, $annotationClass);

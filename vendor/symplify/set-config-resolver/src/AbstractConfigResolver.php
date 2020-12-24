@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\SetConfigResolver;
+namespace _PhpScoperb75b35f52b74\Symplify\SetConfigResolver;
 
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Console\Option\OptionName;
-use _PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Console\OptionValueResolver;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Console\Option\OptionName;
+use _PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Console\OptionValueResolver;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractConfigResolver
 {
     /**
@@ -20,15 +20,15 @@ abstract class AbstractConfigResolver
     private $optionValueResolver;
     public function __construct()
     {
-        $this->optionValueResolver = new \_PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Console\OptionValueResolver();
+        $this->optionValueResolver = new \_PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Console\OptionValueResolver();
     }
-    public function resolveFromInput(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface $input) : ?\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
+    public function resolveFromInput(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface $input) : ?\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $configValue = $this->optionValueResolver->getOptionValue($input, \_PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
+        $configValue = $this->optionValueResolver->getOptionValue($input, \_PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
         if ($configValue !== null) {
             if (!\file_exists($configValue)) {
                 $message = \sprintf('File "%s" was not found', $configValue);
-                throw new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
+                throw new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
             }
             return $this->createFileInfo($configValue);
         }
@@ -37,7 +37,7 @@ abstract class AbstractConfigResolver
     /**
      * @param string[] $fallbackFiles
      */
-    public function resolveFromInputWithFallback(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles) : ?\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
+    public function resolveFromInputWithFallback(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles) : ?\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo
     {
         $configFileInfo = $this->resolveFromInput($input);
         if ($configFileInfo !== null) {
@@ -45,14 +45,14 @@ abstract class AbstractConfigResolver
         }
         return $this->createFallbackFileInfoIfFound($fallbackFiles);
     }
-    public function getFirstResolvedConfigFileInfo() : ?\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFirstResolvedConfigFileInfo() : ?\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->firstResolvedConfigFileInfo;
     }
     /**
      * @param string[] $fallbackFiles
      */
-    private function createFallbackFileInfoIfFound(array $fallbackFiles) : ?\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
+    private function createFallbackFileInfoIfFound(array $fallbackFiles) : ?\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($fallbackFiles as $fallbackFile) {
             $rootFallbackFile = \getcwd() . \DIRECTORY_SEPARATOR . $fallbackFile;
@@ -62,9 +62,9 @@ abstract class AbstractConfigResolver
         }
         return null;
     }
-    private function createFileInfo(string $configValue) : \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
+    private function createFileInfo(string $configValue) : \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $configFileInfo = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo($configValue);
+        $configFileInfo = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo($configValue);
         $this->firstResolvedConfigFileInfo = $configFileInfo;
         return $configFileInfo;
     }

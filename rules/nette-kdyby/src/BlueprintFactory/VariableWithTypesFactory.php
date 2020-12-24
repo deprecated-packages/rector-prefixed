@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NetteKdyby\BlueprintFactory;
+namespace _PhpScoperb75b35f52b74\Rector\NetteKdyby\BlueprintFactory;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\StaticType;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\NetteKdyby\Naming\VariableNaming;
-use _PhpScoper0a6b37af0871\Rector\NetteKdyby\ValueObject\VariableWithType;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\StaticType;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\NetteKdyby\Naming\VariableNaming;
+use _PhpScoperb75b35f52b74\Rector\NetteKdyby\ValueObject\VariableWithType;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoperb75b35f52b74\Rector\StaticTypeMapper\StaticTypeMapper;
 final class VariableWithTypesFactory
 {
     /**
@@ -25,7 +25,7 @@ final class VariableWithTypesFactory
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScoper0a6b37af0871\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoperb75b35f52b74\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScoperb75b35f52b74\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -42,14 +42,14 @@ final class VariableWithTypesFactory
             $staticType = $this->nodeTypeResolver->getStaticType($arg->value);
             $variableName = $this->variableNaming->resolveFromNodeAndType($arg, $staticType);
             if ($variableName === null) {
-                throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
             }
             // compensate for static
-            if ($staticType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\StaticType) {
-                $staticType = new \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType($staticType->getClassName());
+            if ($staticType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\StaticType) {
+                $staticType = new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType($staticType->getClassName());
             }
             $phpParserTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($staticType);
-            $variablesWithTypes[] = new \_PhpScoper0a6b37af0871\Rector\NetteKdyby\ValueObject\VariableWithType($variableName, $staticType, $phpParserTypeNode);
+            $variablesWithTypes[] = new \_PhpScoperb75b35f52b74\Rector\NetteKdyby\ValueObject\VariableWithType($variableName, $staticType, $phpParserTypeNode);
         }
         return $variablesWithTypes;
     }

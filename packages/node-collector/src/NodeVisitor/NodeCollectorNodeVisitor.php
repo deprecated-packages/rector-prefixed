@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeVisitor;
+namespace _PhpScoperb75b35f52b74\Rector\NodeCollector\NodeVisitor;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract;
-use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedClassConstFetchNodeCollector;
-use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedPropertyFetchNodeCollector;
-final class NodeCollectorNodeVisitor extends \_PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract;
+use _PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedClassConstFetchNodeCollector;
+use _PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedPropertyFetchNodeCollector;
+final class NodeCollectorNodeVisitor extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
 {
     /**
      * @var NodeRepository
@@ -27,14 +27,14 @@ final class NodeCollectorNodeVisitor extends \_PhpScoper0a6b37af0871\PhpParser\N
      * @var ParsedClassConstFetchNodeCollector
      */
     private $parsedClassConstFetchNodeCollector;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedClassConstFetchNodeCollector $parsedClassConstFetchNodeCollector, \_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedPropertyFetchNodeCollector $parsedPropertyFetchNodeCollector)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedClassConstFetchNodeCollector $parsedClassConstFetchNodeCollector, \_PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \_PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \_PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedPropertyFetchNodeCollector $parsedPropertyFetchNodeCollector)
     {
         $this->nodeRepository = $nodeRepository;
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->parsedPropertyFetchNodeCollector = $parsedPropertyFetchNodeCollector;
         $this->parsedClassConstFetchNodeCollector = $parsedClassConstFetchNodeCollector;
     }
-    public function enterNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node)
+    public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node)
     {
         if ($this->parsedNodeCollector->isCollectableNode($node)) {
             $this->parsedNodeCollector->collect($node);

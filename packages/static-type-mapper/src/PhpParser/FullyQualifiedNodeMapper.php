@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\PhpParser;
+namespace _PhpScoperb75b35f52b74\Rector\StaticTypeMapper\PhpParser;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\AliasedObjectType;
-use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
-final class FullyQualifiedNodeMapper implements \_PhpScoper0a6b37af0871\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\AliasedObjectType;
+use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoperb75b35f52b74\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
+final class FullyQualifiedNodeMapper implements \_PhpScoperb75b35f52b74\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
 {
     public function getNodeType() : string
     {
-        return \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified::class;
+        return \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified::class;
     }
     /**
      * @param FullyQualified $node
      */
-    public function mapToPHPStan(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function mapToPHPStan(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        $originalName = (string) $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
+        $originalName = (string) $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
         $fullyQualifiedName = $node->toString();
         // is aliased?
         if ($this->isAliasedName($originalName, $fullyQualifiedName)) {
-            return new \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\AliasedObjectType($originalName, $fullyQualifiedName);
+            return new \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\AliasedObjectType($originalName, $fullyQualifiedName);
         }
-        return new \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType($fullyQualifiedName);
+        return new \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType($fullyQualifiedName);
     }
     private function isAliasedName(string $originalName, string $fullyQualifiedName) : bool
     {
@@ -38,6 +38,6 @@ final class FullyQualifiedNodeMapper implements \_PhpScoper0a6b37af0871\Rector\S
         if ($originalName === $fullyQualifiedName) {
             return \false;
         }
-        return !\_PhpScoper0a6b37af0871\Nette\Utils\Strings::endsWith($fullyQualifiedName, '\\' . $originalName);
+        return !\_PhpScoperb75b35f52b74\Nette\Utils\Strings::endsWith($fullyQualifiedName, '\\' . $originalName);
     }
 }

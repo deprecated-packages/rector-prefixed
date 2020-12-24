@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Tests\Rector\FunctionLike\RemoveDeadReturnRector;
+namespace _PhpScoperb75b35f52b74\Rector\DeadCode\Tests\Rector\FunctionLike\RemoveDeadReturnRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper0a6b37af0871\Rector\DeadCode\Rector\FunctionLike\RemoveDeadReturnRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoperb75b35f52b74\Rector\DeadCode\Rector\FunctionLike\RemoveDeadReturnRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @requires PHP 7.4
  */
-final class Php74Test extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class Php74Test extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,10 +26,10 @@ final class Php74Test extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\Abs
     }
     protected function getPhpVersion() : int
     {
-        return \_PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature::ARROW_FUNCTION;
+        return \_PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature::ARROW_FUNCTION;
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a6b37af0871\Rector\DeadCode\Rector\FunctionLike\RemoveDeadReturnRector::class;
+        return \_PhpScoperb75b35f52b74\Rector\DeadCode\Rector\FunctionLike\RemoveDeadReturnRector::class;
     }
 }

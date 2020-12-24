@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PartPhpDocTagPrinter\Behavior;
+namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PartPhpDocTagPrinter\Behavior;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Json;
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
+use _PhpScoperb75b35f52b74\Nette\Utils\Json;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 /**
  * @see \Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\ArrayPartPhpDocTagPrinterTest
  */
@@ -14,22 +14,22 @@ trait ArrayPartPhpDocTagPrinterTrait
     /**
      * @param mixed[] $item
      */
-    public function printArrayItem(array $item, ?string $key, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : string
+    public function printArrayItem(array $item, ?string $key, \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : string
     {
-        $content = \_PhpScoper0a6b37af0871\Nette\Utils\Json::encode($item);
+        $content = \_PhpScoperb75b35f52b74\Nette\Utils\Json::encode($item);
         // separate by space only items separated by comma, not in "quotes"
-        $content = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($content, '#,#', ', ');
+        $content = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($content, '#,#', ', ');
         // @see https://regex101.com/r/C2fDQp/2
-        $content = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($content, '#("[^",]+)(\\s+)?,(\\s+)?([^"]+")#', '$1,$4');
+        $content = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($content, '#("[^",]+)(\\s+)?,(\\s+)?([^"]+")#', '$1,$4');
         // change brackets from content to annotations
-        $content = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($content, '#^\\[(.*?)\\]$#', '{$1}');
+        $content = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($content, '#^\\[(.*?)\\]$#', '{$1}');
         // cleanup content encoded extra slashes
-        $content = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($content, '#\\\\\\\\#', '\\');
+        $content = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($content, '#\\\\\\\\#', '\\');
         $content = $this->replaceColonWithEqualInSymfonyAndDoctrine($content, $tagValueNodeConfiguration);
         $keyPart = $this->createKeyPart($key, $tagValueNodeConfiguration);
         // should unquote
         if ($this->isValueWithoutQuotes($key, $tagValueNodeConfiguration)) {
-            $content = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($content, '#"#', '');
+            $content = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($content, '#"#', '');
         }
         if ($tagValueNodeConfiguration->getOriginalContent() !== null && $key !== null) {
             $content = $this->quoteKeys($item, $key, $content, $tagValueNodeConfiguration->getOriginalContent());
@@ -48,11 +48,11 @@ trait ArrayPartPhpDocTagPrinterTrait
      * @see https://github.com/rectorphp/rector/issues/3225
      * @see https://github.com/rectorphp/rector/pull/3241
      */
-    private function replaceColonWithEqualInSymfonyAndDoctrine(string $content, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : string
+    private function replaceColonWithEqualInSymfonyAndDoctrine(string $content, \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : string
     {
-        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($content, '#(\\"|\\w)\\:(\\"|\\w)#', '$1' . $tagValueNodeConfiguration->getArrayEqualSign() . '$2');
+        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($content, '#(\\"|\\w)\\:(\\"|\\w)#', '$1' . $tagValueNodeConfiguration->getArrayEqualSign() . '$2');
     }
-    private function createKeyPart(?string $key, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : string
+    private function createKeyPart(?string $key, \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : string
     {
         if ($key === null) {
             return '';
@@ -62,7 +62,7 @@ trait ArrayPartPhpDocTagPrinterTrait
         }
         return $key . '=';
     }
-    private function isValueWithoutQuotes(?string $key, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : bool
+    private function isValueWithoutQuotes(?string $key, \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : bool
     {
         if ($key === null) {
             return \false;
@@ -80,11 +80,11 @@ trait ArrayPartPhpDocTagPrinterTrait
         foreach (\array_keys($item) as $itemKey) {
             // @see https://regex101.com/r/V7nq5D/1
             $quotedKeyPattern = '#' . $key . '={(.*?)?\\"' . $itemKey . '\\"(=|:)(.*?)?}#';
-            $isKeyQuoted = (bool) \_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern);
+            $isKeyQuoted = (bool) \_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern);
             if (!$isKeyQuoted) {
                 continue;
             }
-            $json = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($json, '#([^\\"])' . $itemKey . '([^\\"])#', '$1"' . $itemKey . '"$2');
+            $json = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($json, '#([^\\"])' . $itemKey . '([^\\"])#', '$1"' . $itemKey . '"$2');
         }
         return $json;
     }

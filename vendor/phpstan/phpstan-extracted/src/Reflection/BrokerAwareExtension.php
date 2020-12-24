@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection;
 
-use _PhpScoper0a6b37af0871\PHPStan\Broker\Broker;
+use _PhpScoperb75b35f52b74\PHPStan\Broker\Broker;
 interface BrokerAwareExtension
 {
-    public function setBroker(\_PhpScoper0a6b37af0871\PHPStan\Broker\Broker $broker) : void;
+    public function setBroker(\_PhpScoperb75b35f52b74\PHPStan\Broker\Broker $broker) : void;
 }

@@ -1,47 +1,47 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Php72\Rector\FuncCall;
+namespace _PhpScoperb75b35f52b74\Rector\Php72\Rector\FuncCall;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
-use _PhpScoper0a6b37af0871\PhpParser\Node\NullableType;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\Encapsed;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a6b37af0871\PhpParser\Node\UnionType;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Parser\InlineCodeParser;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Concat;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\PhpParser\Node\NullableType;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\Encapsed;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
+use _PhpScoperb75b35f52b74\PhpParser\Node\UnionType;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Parser\InlineCodeParser;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://stackoverflow.com/q/48161526/1348344
  * @see http://php.net/manual/en/migration72.deprecated.php#migration72.deprecated.create_function-function
  *
  * @see \Rector\Php72\Tests\Rector\FuncCall\CreateFunctionToAnonymousFunctionRector\CreateFunctionToAnonymousFunctionRectorTest
  */
-final class CreateFunctionToAnonymousFunctionRector extends \_PhpScoper0a6b37af0871\Rector\Php72\Rector\FuncCall\AbstractConvertToAnonymousFunctionRector
+final class CreateFunctionToAnonymousFunctionRector extends \_PhpScoperb75b35f52b74\Rector\Php72\Rector\FuncCall\AbstractConvertToAnonymousFunctionRector
 {
     /**
      * @var InlineCodeParser
      */
     private $inlineCodeParser;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Parser\InlineCodeParser $inlineCodeParser)
     {
         $this->inlineCodeParser = $inlineCodeParser;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use anonymous functions instead of deprecated create_function()', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use anonymous functions instead of deprecated create_function()', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class ClassWithCreateFunction
 {
     public function run()
@@ -68,12 +68,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    public function shouldSkip(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
         return !$this->isName($node, 'create_function');
     }
@@ -81,14 +81,14 @@ CODE_SAMPLE
      * @param FuncCall $node
      * @return Param[]
      */
-    public function getParameters(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : array
+    public function getParameters(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : array
     {
         return $this->parseStringToParameters($node->args[0]->value);
     }
     /**
      * @return Identifier|Name|NullableType|UnionType|null
      */
-    public function getReturnType(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function getReturnType(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         return null;
     }
@@ -96,14 +96,14 @@ CODE_SAMPLE
      * @param FuncCall $node
      * @return Stmt[]
      */
-    public function getBody(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : array
+    public function getBody(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : array
     {
         return $this->parseStringToBody($node->args[1]->value);
     }
     /**
      * @return Param[]
      */
-    private function parseStringToParameters(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : array
+    private function parseStringToParameters(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : array
     {
         $content = $this->inlineCodeParser->stringify($expr);
         $content = '<?php $value = function(' . $content . ') {};';
@@ -114,26 +114,26 @@ CODE_SAMPLE
         $assign = $expression->expr;
         /** @var Closure $function */
         $function = $assign->expr;
-        if (!$function instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure) {
-            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+        if (!$function instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure) {
+            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $function->params;
     }
     /**
      * @return Expression[]|Stmt[]
      */
-    private function parseStringToBody(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : array
+    private function parseStringToBody(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : array
     {
-        if (!$expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_ && !$expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\Encapsed && !$expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Concat) {
+        if (!$expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_ && !$expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\Encapsed && !$expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Concat) {
             // special case of code elsewhere
             return [$this->createEval($expr)];
         }
         $expr = $this->inlineCodeParser->stringify($expr);
         return $this->inlineCodeParser->parse($expr);
     }
-    private function createEval(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression
+    private function createEval(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression
     {
-        $evalFuncCall = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('eval'), [new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($expr)]);
-        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression($evalFuncCall);
+        $evalFuncCall = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('eval'), [new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($expr)]);
+        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression($evalFuncCall);
     }
 }

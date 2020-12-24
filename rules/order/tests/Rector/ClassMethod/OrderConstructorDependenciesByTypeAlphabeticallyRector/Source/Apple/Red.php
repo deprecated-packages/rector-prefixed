@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\Rector\Order\Tests\Rector\ClassMethod\OrderConstructorDependenciesByTypeAlphabeticallyRector\Source\Apple;
+namespace _PhpScoperb75b35f52b74\Rector\Order\Tests\Rector\ClassMethod\OrderConstructorDependenciesByTypeAlphabeticallyRector\Source\Apple;
 
 class Red
 {

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection;
 
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 interface ParametersAcceptor
 {
     public const VARIADIC_FUNCTIONS = ['func_get_args', 'func_get_arg', 'func_num_args'];
-    public function getTemplateTypeMap() : \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap;
-    public function getResolvedTemplateTypeMap() : \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap;
+    public function getTemplateTypeMap() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap;
+    public function getResolvedTemplateTypeMap() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap;
     /**
      * @return array<int, \PHPStan\Reflection\ParameterReflection>
      */
     public function getParameters() : array;
     public function isVariadic() : bool;
-    public function getReturnType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
+    public function getReturnType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
 }

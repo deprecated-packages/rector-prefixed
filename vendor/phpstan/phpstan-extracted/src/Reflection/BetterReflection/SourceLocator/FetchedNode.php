@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\BetterReflection\SourceLocator;
 
 /**
  * @template-covariant T of \PhpParser\Node
@@ -19,7 +19,7 @@ class FetchedNode
      * @param \PhpParser\Node\Stmt\Namespace_|null $namespace
      * @param string $fileName
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Node $node, ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_ $namespace, string $fileName)
+    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node $node, ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_ $namespace, string $fileName)
     {
         $this->node = $node;
         $this->namespace = $namespace;
@@ -28,11 +28,11 @@ class FetchedNode
     /**
      * @return T
      */
-    public function getNode() : \_PhpScoper0a6b37af0871\PhpParser\Node
+    public function getNode() : \_PhpScoperb75b35f52b74\PhpParser\Node
     {
         return $this->node;
     }
-    public function getNamespace() : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_
+    public function getNamespace() : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_
     {
         return $this->namespace;
     }

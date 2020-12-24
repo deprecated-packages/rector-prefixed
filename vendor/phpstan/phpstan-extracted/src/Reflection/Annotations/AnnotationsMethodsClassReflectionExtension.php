@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\Annotations;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Annotations;
 
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodsClassReflectionExtension;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper;
-class AnnotationsMethodsClassReflectionExtension implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodsClassReflectionExtension
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodsClassReflectionExtension;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeHelper;
+class AnnotationsMethodsClassReflectionExtension implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodsClassReflectionExtension
 {
     /** @var MethodReflection[][] */
     private $methods = [];
-    public function hasMethod(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
+    public function hasMethod(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
     {
         if (!isset($this->methods[$classReflection->getCacheKey()])) {
             $this->methods[$classReflection->getCacheKey()] = $this->createMethods($classReflection, $classReflection);
         }
         return isset($this->methods[$classReflection->getCacheKey()][$methodName]);
     }
-    public function getMethod(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection
+    public function getMethod(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
     {
         return $this->methods[$classReflection->getCacheKey()][$methodName];
     }
@@ -27,7 +27,7 @@ class AnnotationsMethodsClassReflectionExtension implements \_PhpScoper0a6b37af0
      * @param ClassReflection $declaringClass
      * @return MethodReflection[]
      */
-    private function createMethods(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $declaringClass) : array
+    private function createMethods(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $declaringClass) : array
     {
         $methods = [];
         foreach ($classReflection->getTraits() as $traitClass) {
@@ -50,9 +50,9 @@ class AnnotationsMethodsClassReflectionExtension implements \_PhpScoper0a6b37af0
         foreach ($methodTags as $methodName => $methodTag) {
             $parameters = [];
             foreach ($methodTag->getParameters() as $parameterName => $parameterTag) {
-                $parameters[] = new \_PhpScoper0a6b37af0871\PHPStan\Reflection\Annotations\AnnotationsMethodParameterReflection($parameterName, $parameterTag->getType(), $parameterTag->passedByReference(), $parameterTag->isOptional(), $parameterTag->isVariadic(), $parameterTag->getDefaultValue());
+                $parameters[] = new \_PhpScoperb75b35f52b74\PHPStan\Reflection\Annotations\AnnotationsMethodParameterReflection($parameterName, $parameterTag->getType(), $parameterTag->passedByReference(), $parameterTag->isOptional(), $parameterTag->isVariadic(), $parameterTag->getDefaultValue());
             }
-            $methods[$methodName] = new \_PhpScoper0a6b37af0871\PHPStan\Reflection\Annotations\AnnotationMethodReflection($methodName, $declaringClass, \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($methodTag->getReturnType(), $classReflection->getActiveTemplateTypeMap()), $parameters, $methodTag->isStatic(), $this->detectMethodVariadic($parameters));
+            $methods[$methodName] = new \_PhpScoperb75b35f52b74\PHPStan\Reflection\Annotations\AnnotationMethodReflection($methodName, $declaringClass, \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($methodTag->getReturnType(), $classReflection->getActiveTemplateTypeMap()), $parameters, $methodTag->isStatic(), $this->detectMethodVariadic($parameters));
         }
         return $methods;
     }

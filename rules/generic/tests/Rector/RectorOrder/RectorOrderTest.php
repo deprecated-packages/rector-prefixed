@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\RectorOrder;
+namespace _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\RectorOrder;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall\AssertComparisonToSpecificMethodRector;
-use _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall\AssertFalseStrposToContainsRector;
-use _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\MethodCall\AssertComparisonToSpecificMethodRector;
+use _PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\MethodCall\AssertFalseStrposToContainsRector;
+use _PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Covers https://github.com/rectorphp/rector/pull/266#issuecomment-355725764
  */
-final class RectorOrderTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class RectorOrderTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -31,6 +31,6 @@ final class RectorOrderTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUn
     protected function getRectorsWithConfiguration() : array
     {
         // order matters
-        return [\_PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall\AssertComparisonToSpecificMethodRector::class => [], \_PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector::class => [], \_PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall\AssertFalseStrposToContainsRector::class => []];
+        return [\_PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\MethodCall\AssertComparisonToSpecificMethodRector::class => [], \_PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector::class => [], \_PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\MethodCall\AssertFalseStrposToContainsRector::class => []];
     }
 }

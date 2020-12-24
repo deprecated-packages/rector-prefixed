@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper0a6b37af0871\\Symplify\\ComposerJsonManipulator\\": "src"
+            "_PhpScoperb75b35f52b74\\Symplify\\ComposerJsonManipulator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper0a6b37af0871\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
+            "_PhpScoperb75b35f52b74\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
         }
     },
     "extra": {

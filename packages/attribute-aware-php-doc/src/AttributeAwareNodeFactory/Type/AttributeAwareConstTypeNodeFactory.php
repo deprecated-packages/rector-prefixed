@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\AttributeAwareNodeFactory\Type;
+namespace _PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\AttributeAwareNodeFactory\Type;
 
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Node;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\ConstTypeNode;
-use _PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareConstTypeNode;
-use _PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareConstTypeNodeFactory implements \_PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Node;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\ConstTypeNode;
+use _PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareConstTypeNode;
+use _PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+final class AttributeAwareConstTypeNodeFactory implements \_PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Contract\AttributeNodeAwareFactory\AttributeNodeAwareFactoryInterface
 {
     public function getOriginalNodeClass() : string
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\ConstTypeNode::class;
+        return \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\ConstTypeNode::class;
     }
-    public function isMatch(\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Node $node) : bool
+    public function isMatch(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Node $node) : bool
     {
-        return \is_a($node, \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Type\ConstTypeNode::class, \true);
+        return \is_a($node, \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Type\ConstTypeNode::class, \true);
     }
     /**
      * @param ConstTypeNode $node
      */
-    public function create(\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+    public function create(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
-        return new \_PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareConstTypeNode($node->constExpr);
+        return new \_PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareConstTypeNode($node->constExpr);
     }
 }

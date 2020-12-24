@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\EarlyReturn\Rector\Return_;
+namespace _PhpScoperb75b35f52b74\Rector\EarlyReturn\Rector\Return_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\Bool_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Type\BooleanType;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Cast\Bool_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\EarlyReturn\Tests\Rector\Return_\ReturnBinaryAndToEarlyReturnRector\ReturnBinaryAndToEarlyReturnRectorTest
  */
-final class ReturnBinaryAndToEarlyReturnRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class ReturnBinaryAndToEarlyReturnRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes Single return of && && to early returns', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes Single return of && && to early returns', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function accept($something, $somethingelse)
@@ -53,14 +53,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_::class];
     }
     /**
      * @param Return_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
-        if (!$node->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+        if (!$node->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return null;
         }
         $left = $node->expr->left;
@@ -72,7 +72,7 @@ CODE_SAMPLE
             $this->addNodeBeforeNode($ifNegation, $node);
         }
         $lastReturnExpr = $this->getLastReturnExpr($node->expr->right);
-        $this->addNodeBeforeNode(new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_($lastReturnExpr), $node);
+        $this->addNodeBeforeNode(new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_($lastReturnExpr), $node);
         $this->removeNode($node);
         return $node;
     }
@@ -80,56 +80,56 @@ CODE_SAMPLE
      * @param If_[] $ifNegations
      * @return If_[]
      */
-    private function createMultipleIfsNegation(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_ $return, array $ifNegations) : array
+    private function createMultipleIfsNegation(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_ $return, array $ifNegations) : array
     {
-        while ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+        while ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             $ifNegations = \array_merge($ifNegations, $this->collectLeftBooleanAndToIfs($expr, $return, $ifNegations));
             $ifNegations[] = $this->createIfNegation($expr->right);
             $expr = $expr->right;
         }
         return $ifNegations + [$this->createIfNegation($expr)];
     }
-    private function getLastReturnExpr(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr
+    private function getLastReturnExpr(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr
     {
-        if ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\Bool_) {
+        if ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Cast\Bool_) {
             return $expr;
         }
-        if ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot) {
+        if ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot) {
             return $expr;
         }
-        $scope = $expr->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope) {
-            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\Bool_($expr);
+        $scope = $expr->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope) {
+            return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Cast\Bool_($expr);
         }
         $type = $scope->getType($expr);
-        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\BooleanType) {
+        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType) {
             return $expr;
         }
-        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Cast\Bool_($expr);
+        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Cast\Bool_($expr);
     }
     /**
      * @param If_[] $ifNegations
      * @return If_[]
      */
-    private function collectLeftBooleanAndToIfs(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanAnd $booleanAnd, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_ $return, array $ifNegations) : array
+    private function collectLeftBooleanAndToIfs(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd $booleanAnd, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_ $return, array $ifNegations) : array
     {
         $left = $booleanAnd->left;
-        if (!$left instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+        if (!$left instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             return [$this->createIfNegation($left)];
         }
         return $this->createMultipleIfsNegation($left, $return, $ifNegations);
     }
-    private function createIfNegation(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_
+    private function createIfNegation(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_
     {
-        if ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical) {
-            $expr = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical($expr->left, $expr->right);
-        } elseif ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical) {
-            $expr = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical($expr->left, $expr->right);
-        } elseif ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot) {
+        if ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical) {
+            $expr = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical($expr->left, $expr->right);
+        } elseif ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical) {
+            $expr = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical($expr->left, $expr->right);
+        } elseif ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot) {
             $expr = $expr->expr;
         } else {
-            $expr = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot($expr);
+            $expr = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot($expr);
         }
-        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_($expr, ['stmts' => [new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_($this->createFalse())]]);
+        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_($expr, ['stmts' => [new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_($this->createFalse())]]);
     }
 }

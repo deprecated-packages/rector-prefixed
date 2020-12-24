@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Node;
+namespace _PhpScoperb75b35f52b74\PHPStan\Node;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\NodeAbstract;
-use _PhpScoper0a6b37af0871\PHPStan\Node\Method\MethodCall;
-class ClassMethodsNode extends \_PhpScoper0a6b37af0871\PhpParser\NodeAbstract implements \_PhpScoper0a6b37af0871\PHPStan\Node\VirtualNode
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\NodeAbstract;
+use _PhpScoperb75b35f52b74\PHPStan\Node\Method\MethodCall;
+class ClassMethodsNode extends \_PhpScoperb75b35f52b74\PhpParser\NodeAbstract implements \_PhpScoperb75b35f52b74\PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */
     private $class;
@@ -20,14 +20,14 @@ class ClassMethodsNode extends \_PhpScoper0a6b37af0871\PhpParser\NodeAbstract im
      * @param ClassMethod[] $methods
      * @param array<int, MethodCall> $methodCalls
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $class, array $methods, array $methodCalls)
+    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike $class, array $methods, array $methodCalls)
     {
         parent::__construct($class->getAttributes());
         $this->class = $class;
         $this->methods = $methods;
         $this->methodCalls = $methodCalls;
     }
-    public function getClass() : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike
+    public function getClass() : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike
     {
         return $this->class;
     }

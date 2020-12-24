@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\SymplifyKernel\Strings;
+namespace _PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Strings;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException;
-use _PhpScoper0a6b37af0871\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException;
+use _PhpScoperb75b35f52b74\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class KernelUniqueHasher
 {
     /**
@@ -14,20 +14,20 @@ final class KernelUniqueHasher
     private $stringsConverter;
     public function __construct()
     {
-        $this->stringsConverter = new \_PhpScoper0a6b37af0871\Symplify\SymplifyKernel\Strings\StringsConverter();
+        $this->stringsConverter = new \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Strings\StringsConverter();
     }
     public function hashKernelClass(string $kernelClass) : string
     {
         $this->ensureIsNotGenericKernelClass($kernelClass);
-        $shortClassName = (string) \_PhpScoper0a6b37af0871\Nette\Utils\Strings::after($kernelClass, '\\', -1);
+        $shortClassName = (string) \_PhpScoperb75b35f52b74\Nette\Utils\Strings::after($kernelClass, '\\', -1);
         return $this->stringsConverter->camelCaseToGlue($shortClassName, '_');
     }
     private function ensureIsNotGenericKernelClass(string $kernelClass) : void
     {
-        if ($kernelClass !== \_PhpScoper0a6b37af0871\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class) {
+        if ($kernelClass !== \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class) {
             return;
         }
-        $message = \sprintf('Instead of "%s", provide final Kernel class', \_PhpScoper0a6b37af0871\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class);
-        throw new \_PhpScoper0a6b37af0871\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException($message);
+        $message = \sprintf('Instead of "%s", provide final Kernel class', \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class);
+        throw new \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException($message);
     }
 }

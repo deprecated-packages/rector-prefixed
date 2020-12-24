@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Sampler;
+namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Sampler;
 
-use _PhpScoper0a6b37af0871\Hoa\Compiler;
+use _PhpScoperb75b35f52b74\Hoa\Compiler;
 /**
  * Class \Hoa\Compiler\Llk\Sampler\Exception.
  *
@@ -44,6 +44,6 @@ use _PhpScoper0a6b37af0871\Hoa\Compiler;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \_PhpScoper0a6b37af0871\Hoa\Compiler\Exception
+class Exception extends \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception
 {
 }

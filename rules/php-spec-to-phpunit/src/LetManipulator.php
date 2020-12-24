@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PhpSpecToPHPUnit;
+namespace _PhpScoperb75b35f52b74\Rector\PhpSpecToPHPUnit;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
 final class LetManipulator
 {
     /**
@@ -18,20 +18,20 @@ final class LetManipulator
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isLetNeededInClass(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isLetNeededInClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->getMethods() as $classMethod) {
             // new test
             if ($this->nodeNameResolver->isName($classMethod, 'test*')) {
                 continue;
             }
-            $hasBeConstructedThrough = (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?bool {
-                if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
+            $hasBeConstructedThrough = (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?bool {
+                if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
                     return null;
                 }
                 return $this->nodeNameResolver->isName($node->name, 'beConstructedThrough');

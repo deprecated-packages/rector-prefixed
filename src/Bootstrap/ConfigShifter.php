@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\Bootstrap;
+namespace _PhpScoperb75b35f52b74\Rector\Core\Bootstrap;
 
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 final class ConfigShifter
 {
     /**
@@ -13,7 +13,7 @@ final class ConfigShifter
      * @return SmartFileInfo[]
      * @noRector
      */
-    public function shiftInputConfigAsLast(array $configFileInfos, ?\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $inputConfigFileInfo) : array
+    public function shiftInputConfigAsLast(array $configFileInfos, ?\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $inputConfigFileInfo) : array
     {
         if ($inputConfigFileInfo === null) {
             return $configFileInfos;

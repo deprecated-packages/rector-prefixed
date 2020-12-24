@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Php;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Php;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils;
-use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
-class ArrayMergeFunctionDynamicReturnTypeExtension implements \_PhpScoper0a6b37af0871\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ArrayType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils;
+use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
+class ArrayMergeFunctionDynamicReturnTypeExtension implements \_PhpScoperb75b35f52b74\PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'array_merge';
     }
-    public function getTypeFromFunctionCall(\_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         if (!isset($functionCall->args[0])) {
-            return \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+            return \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         }
         $keyTypes = [];
         $valueTypes = [];
@@ -29,15 +29,15 @@ class ArrayMergeFunctionDynamicReturnTypeExtension implements \_PhpScoper0a6b37a
             $argType = $scope->getType($arg->value);
             if ($arg->unpack) {
                 $argType = $argType->getIterableValueType();
-                if ($argType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
+                if ($argType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
                     foreach ($argType->getTypes() as $innerType) {
                         $argType = $innerType;
                     }
                 }
             }
-            $keyTypes[] = \_PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils::generalizeType($argType->getIterableKeyType());
+            $keyTypes[] = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils::generalizeType($argType->getIterableKeyType());
             $valueTypes[] = $argType->getIterableValueType();
         }
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType(\_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::union(...$keyTypes), \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::union(...$valueTypes));
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType(\_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...$keyTypes), \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union(...$valueTypes));
     }
 }

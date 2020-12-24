@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
+namespace _PhpScoperb75b35f52b74\PHPStan\Analyser;
 
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
 class SpecifiedTypes
 {
     /** @var mixed[] */
@@ -41,7 +41,7 @@ class SpecifiedTypes
     {
         return $this->overwrite;
     }
-    public function intersectWith(\_PhpScoper0a6b37af0871\PHPStan\Analyser\SpecifiedTypes $other) : self
+    public function intersectWith(\_PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes $other) : self
     {
         $sureTypeUnion = [];
         $sureNotTypeUnion = [];
@@ -49,17 +49,17 @@ class SpecifiedTypes
             if (!isset($other->sureTypes[$exprString])) {
                 continue;
             }
-            $sureTypeUnion[$exprString] = [$exprNode, \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::union($type, $other->sureTypes[$exprString][1])];
+            $sureTypeUnion[$exprString] = [$exprNode, \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union($type, $other->sureTypes[$exprString][1])];
         }
         foreach ($this->sureNotTypes as $exprString => [$exprNode, $type]) {
             if (!isset($other->sureNotTypes[$exprString])) {
                 continue;
             }
-            $sureNotTypeUnion[$exprString] = [$exprNode, \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::intersect($type, $other->sureNotTypes[$exprString][1])];
+            $sureNotTypeUnion[$exprString] = [$exprNode, \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::intersect($type, $other->sureNotTypes[$exprString][1])];
         }
         return new self($sureTypeUnion, $sureNotTypeUnion);
     }
-    public function unionWith(\_PhpScoper0a6b37af0871\PHPStan\Analyser\SpecifiedTypes $other) : self
+    public function unionWith(\_PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes $other) : self
     {
         $sureTypeUnion = $this->sureTypes + $other->sureTypes;
         $sureNotTypeUnion = $this->sureNotTypes + $other->sureNotTypes;
@@ -67,13 +67,13 @@ class SpecifiedTypes
             if (!isset($other->sureTypes[$exprString])) {
                 continue;
             }
-            $sureTypeUnion[$exprString] = [$exprNode, \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::intersect($type, $other->sureTypes[$exprString][1])];
+            $sureTypeUnion[$exprString] = [$exprNode, \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::intersect($type, $other->sureTypes[$exprString][1])];
         }
         foreach ($this->sureNotTypes as $exprString => [$exprNode, $type]) {
             if (!isset($other->sureNotTypes[$exprString])) {
                 continue;
             }
-            $sureNotTypeUnion[$exprString] = [$exprNode, \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::union($type, $other->sureNotTypes[$exprString][1])];
+            $sureNotTypeUnion[$exprString] = [$exprNode, \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union($type, $other->sureNotTypes[$exprString][1])];
         }
         return new self($sureTypeUnion, $sureNotTypeUnion);
     }

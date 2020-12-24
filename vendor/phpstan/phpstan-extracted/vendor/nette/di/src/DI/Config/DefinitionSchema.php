@@ -5,36 +5,36 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Config;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Config;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Context;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema;
 /**
  * Service configuration schema.
  */
-class DefinitionSchema implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+class DefinitionSchema implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
 {
     use Nette\SmartObject;
     /** @var Nette\DI\ContainerBuilder */
     private $builder;
-    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\ContainerBuilder $builder)
+    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\ContainerBuilder $builder)
     {
         $this->builder = $builder;
     }
-    public function complete($def, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function complete($def, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($def === [\false]) {
             return (object) $def;
         }
-        if (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Config\Helpers::takeParent($def)) {
+        if (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Config\Helpers::takeParent($def)) {
             $def['reset']['all'] = \true;
         }
         foreach (['arguments', 'setup', 'tags'] as $k) {
-            if (isset($def[$k]) && \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Config\Helpers::takeParent($def[$k])) {
+            if (isset($def[$k]) && \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Config\Helpers::takeParent($def[$k])) {
                 $def['reset'][$k] = \true;
             }
         }
@@ -51,18 +51,18 @@ class DefinitionSchema implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f
         if (!empty($def['alteration'])) {
             unset($def['alteration']);
         }
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($def, $base);
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($def, $base);
     }
     /**
      * Normalizes configuration of service definitions.
      */
-    public function normalize($def, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function normalize($def, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($def === null || $def === \false) {
             return (array) $def;
         } elseif (\is_string($def) && \interface_exists($def)) {
             return ['implement' => $def];
-        } elseif ($def instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement && \is_string($def->getEntity()) && \interface_exists($def->getEntity())) {
+        } elseif ($def instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement && \is_string($def->getEntity()) && \interface_exists($def->getEntity())) {
             $res = ['implement' => $def->getEntity()];
             if (\array_keys($def->arguments) === ['tagged']) {
                 $res += $def->arguments;
@@ -76,7 +76,7 @@ class DefinitionSchema implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f
             return ['factory' => $def];
         } elseif (\is_array($def)) {
             if (isset($def['class']) && !isset($def['type'])) {
-                if ($def['class'] instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
+                if ($def['class'] instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
                     $key = \end($context->path);
                     \trigger_error("Service '{$key}': option 'class' should be changed to 'factory'.", \E_USER_DEPRECATED);
                     $def['factory'] = $def['class'];
@@ -89,7 +89,7 @@ class DefinitionSchema implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f
             foreach (['class' => 'type', 'dynamic' => 'imported'] as $alias => $original) {
                 if (\array_key_exists($alias, $def)) {
                     if (\array_key_exists($original, $def)) {
-                        throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException("Options '{$alias}' and '{$original}' are aliases, use only '{$original}'.");
+                        throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException("Options '{$alias}' and '{$original}' are aliases, use only '{$original}'.");
                     }
                     $def[$original] = $def[$alias];
                     unset($def[$alias]);
@@ -97,10 +97,10 @@ class DefinitionSchema implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f
             }
             return $def;
         } else {
-            throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException('Unexpected format of service definition');
+            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException('Unexpected format of service definition');
         }
     }
-    public function completeDefault(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
+    public function completeDefault(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
     }
     private function sniffType($key, array $def) : string
@@ -112,13 +112,13 @@ class DefinitionSchema implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f
             }
         }
         if (isset($def['implement'], $def['references']) || isset($def['implement'], $def['tagged'])) {
-            return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\LocatorDefinition::class;
+            return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\LocatorDefinition::class;
         } elseif (isset($def['implement'])) {
-            return \method_exists($def['implement'], 'create') ? \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition::class : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\AccessorDefinition::class;
+            return \method_exists($def['implement'], 'create') ? \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition::class : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\AccessorDefinition::class;
         } elseif (isset($def['imported'])) {
-            return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ImportedDefinition::class;
+            return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ImportedDefinition::class;
         } else {
-            return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition::class;
+            return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition::class;
         }
     }
     private function expandParameters(array $config) : array
@@ -130,32 +130,32 @@ class DefinitionSchema implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f
                 $params[\end($v)] = $this->builder::literal('$' . \end($v));
             }
         }
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::expand($config, $params);
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::expand($config, $params);
     }
-    private static function getSchema(string $type) : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    private static function getSchema(string $type) : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
         static $cache;
-        $cache = $cache ?: [\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition::class => self::getServiceSchema(), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\AccessorDefinition::class => self::getAccessorSchema(), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition::class => self::getFactorySchema(), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\LocatorDefinition::class => self::getLocatorSchema(), \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ImportedDefinition::class => self::getImportedSchema()];
+        $cache = $cache ?: [\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition::class => self::getServiceSchema(), \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\AccessorDefinition::class => self::getAccessorSchema(), \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition::class => self::getFactorySchema(), \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\LocatorDefinition::class => self::getLocatorSchema(), \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ImportedDefinition::class => self::getImportedSchema()];
         return $cache[$type];
     }
-    private static function getServiceSchema() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    private static function getServiceSchema() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('string'), 'factory' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('_PhpScoper0a6b37af0871\\callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement'), 'arguments' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'setup' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement|array:1'), 'inject' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'reset' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'alteration' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool()]);
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('string'), 'factory' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('_PhpScoperb75b35f52b74\\callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement'), 'arguments' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'setup' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement|array:1'), 'inject' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'reset' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'alteration' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool()]);
     }
-    private static function getAccessorSchema() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    private static function getAccessorSchema() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'implement' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'factory' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('_PhpScoper0a6b37af0871\\callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement'), 'autowired' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'implement' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'factory' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('_PhpScoperb75b35f52b74\\callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement'), 'autowired' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
     }
-    private static function getFactorySchema() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    private static function getFactorySchema() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'factory' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('_PhpScoper0a6b37af0871\\callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement'), 'implement' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'arguments' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'setup' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement|array:1'), 'parameters' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'references' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'tagged' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'inject' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'reset' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'factory' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('_PhpScoperb75b35f52b74\\callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement'), 'implement' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'arguments' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'setup' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement|array:1'), 'parameters' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'references' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'tagged' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'inject' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'reset' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
     }
-    private static function getLocatorSchema() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    private static function getLocatorSchema() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['implement' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'references' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'tagged' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'autowired' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['implement' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'references' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'tagged' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'autowired' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
     }
-    private static function getImportedSchema() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    private static function getImportedSchema() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'imported' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'imported' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool(), 'autowired' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
     }
 }

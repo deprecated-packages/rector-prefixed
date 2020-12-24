@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject;
+namespace _PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Arrays;
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoper0a6b37af0871\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Nette\Utils\Arrays;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class ComposerJson
 {
     /**
@@ -100,9 +100,9 @@ final class ComposerJson
     private $authors = [];
     public function __construct()
     {
-        $this->composerPackageSorter = new \_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter();
+        $this->composerPackageSorter = new \_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter();
     }
-    public function setOriginalFileInfo(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function setOriginalFileInfo(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->fileInfo = $fileInfo;
     }
@@ -190,7 +190,7 @@ final class ComposerJson
     public function getAbsoluteAutoloadDirectories() : array
     {
         if ($this->fileInfo === null) {
-            throw new \_PhpScoper0a6b37af0871\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $autoloadDirectories = $this->getAutoloadDirectories();
         $absoluteAutoloadDirectories = [];
@@ -293,7 +293,7 @@ final class ComposerJson
         if ($this->name === null) {
             return null;
         }
-        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::after($this->name, '/', -1);
+        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::after($this->name, '/', -1);
     }
     /**
      * @return string[]
@@ -325,60 +325,60 @@ final class ComposerJson
     {
         $array = [];
         if ($this->name !== null) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME] = $this->name;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME] = $this->name;
         }
         if ($this->description !== null) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::DESCRIPTION] = $this->description;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::DESCRIPTION] = $this->description;
         }
         if ($this->license !== null) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::LICENSE] = $this->license;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::LICENSE] = $this->license;
         }
         if ($this->authors !== null) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTHORS] = $this->authors;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTHORS] = $this->authors;
         }
         if ($this->type !== null) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::TYPE] = $this->type;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::TYPE] = $this->type;
         }
         if ($this->require !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE] = $this->require;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE] = $this->require;
         }
         if ($this->requireDev !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV] = $this->requireDev;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV] = $this->requireDev;
         }
         if ($this->conflicting !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICTING] = $this->conflicting;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICTING] = $this->conflicting;
         }
         if ($this->autoload !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD] = $this->autoload;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD] = $this->autoload;
         }
         if ($this->autoloadDev !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV] = $this->autoloadDev;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV] = $this->autoloadDev;
         }
         if ($this->repositories !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES] = $this->repositories;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES] = $this->repositories;
         }
         if ($this->extra !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA] = $this->extra;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA] = $this->extra;
         }
         if ($this->bin !== null) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::BIN] = $this->bin;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::BIN] = $this->bin;
         }
         if ($this->scripts !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS] = $this->scripts;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS] = $this->scripts;
         }
         if ($this->config !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG] = $this->config;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG] = $this->config;
         }
         if ($this->replace !== []) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE] = $this->replace;
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE] = $this->replace;
         }
         if ($this->minimumStability !== null) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY] = $this->minimumStability;
-            $this->moveValueToBack(\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY);
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY] = $this->minimumStability;
+            $this->moveValueToBack(\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY);
         }
         if ($this->preferStable !== null) {
-            $array[\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE] = $this->preferStable;
-            $this->moveValueToBack(\_PhpScoper0a6b37af0871\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE);
+            $array[\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE] = $this->preferStable;
+            $this->moveValueToBack(\_PhpScoperb75b35f52b74\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE);
         }
         return $this->sortItemsByOrderedListOfKeys($array, $this->orderedKeys);
     }
@@ -464,7 +464,7 @@ final class ComposerJson
     {
         return isset($this->requireDev[$packageName]);
     }
-    public function getFileInfo() : ?\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFileInfo() : ?\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->fileInfo;
     }
@@ -516,7 +516,7 @@ final class ComposerJson
     private function getAutoloadDirectories() : array
     {
         $autoloadDirectories = \array_merge($this->getPsr4AndClassmapDirectories(), $this->getPsr4AndClassmapDevDirectories());
-        return \_PhpScoper0a6b37af0871\Nette\Utils\Arrays::flatten($autoloadDirectories);
+        return \_PhpScoperb75b35f52b74\Nette\Utils\Arrays::flatten($autoloadDirectories);
     }
     /**
      * @return string[]
@@ -554,7 +554,7 @@ final class ComposerJson
     private function resolveExistingAutoloadDirectory(string $autoloadDirectory) : string
     {
         if ($this->fileInfo === null) {
-            throw new \_PhpScoper0a6b37af0871\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $filePathCandidates = [
             $this->fileInfo->getPath() . \DIRECTORY_SEPARATOR . $autoloadDirectory,

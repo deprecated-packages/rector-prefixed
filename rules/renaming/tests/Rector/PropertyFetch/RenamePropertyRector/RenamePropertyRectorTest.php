@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector;
+namespace _PhpScoperb75b35f52b74\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
-use _PhpScoper0a6b37af0871\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\Source\ClassWithProperties;
-use _PhpScoper0a6b37af0871\Rector\Renaming\ValueObject\RenameProperty;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class RenamePropertyRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
+use _PhpScoperb75b35f52b74\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\Source\ClassWithProperties;
+use _PhpScoperb75b35f52b74\Rector\Renaming\ValueObject\RenameProperty;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class RenamePropertyRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class RenamePropertyRectorTest extends \_PhpScoper0a6b37af0871\Rector\Test
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::class => [\_PhpScoper0a6b37af0871\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::RENAMED_PROPERTIES => [new \_PhpScoper0a6b37af0871\Rector\Renaming\ValueObject\RenameProperty(\_PhpScoper0a6b37af0871\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\Source\ClassWithProperties::class, 'oldProperty', 'newProperty'), new \_PhpScoper0a6b37af0871\Rector\Renaming\ValueObject\RenameProperty(\_PhpScoper0a6b37af0871\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\Source\ClassWithProperties::class, 'anotherOldProperty', 'anotherNewProperty')]]];
+        return [\_PhpScoperb75b35f52b74\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::class => [\_PhpScoperb75b35f52b74\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::RENAMED_PROPERTIES => [new \_PhpScoperb75b35f52b74\Rector\Renaming\ValueObject\RenameProperty(\_PhpScoperb75b35f52b74\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\Source\ClassWithProperties::class, 'oldProperty', 'newProperty'), new \_PhpScoperb75b35f52b74\Rector\Renaming\ValueObject\RenameProperty(\_PhpScoperb75b35f52b74\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\Source\ClassWithProperties::class, 'anotherOldProperty', 'anotherNewProperty')]]];
     }
 }

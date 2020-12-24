@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport;
+namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\GroupUse;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\GroupUse;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
 final class UseImportsTraverser
 {
     /**
@@ -19,7 +19,7 @@ final class UseImportsTraverser
      * @var CallableNodeTraverser
      */
     private $callableNodeTraverser;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -29,22 +29,22 @@ final class UseImportsTraverser
      */
     public function traverserStmtsForFunctions(array $stmts, callable $callable) : void
     {
-        $this->traverseForType($stmts, $callable, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION);
+        $this->traverseForType($stmts, $callable, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION);
     }
     /**
      * @param Stmt[] $stmts
      */
     public function traverserStmts(array $stmts, callable $callable) : void
     {
-        $this->traverseForType($stmts, $callable, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_::TYPE_NORMAL);
+        $this->traverseForType($stmts, $callable, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_::TYPE_NORMAL);
     }
     /**
      * @param Stmt[] $stmts
      */
     private function traverseForType(array $stmts, callable $callable, int $desiredType) : void
     {
-        $this->callableNodeTraverser->traverseNodesWithCallable($stmts, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($callable, $desiredType) {
-            if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($callable, $desiredType) {
+            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_) {
                 // only import uses
                 if ($node->type !== $desiredType) {
                     return null;
@@ -54,15 +54,15 @@ final class UseImportsTraverser
                     $callable($useUse, $name);
                 }
             }
-            if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\GroupUse) {
+            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\GroupUse) {
                 $this->processGroupUse($node, $desiredType, $callable);
             }
             return null;
         });
     }
-    private function processGroupUse(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\GroupUse $groupUse, int $desiredType, callable $callable) : void
+    private function processGroupUse(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\GroupUse $groupUse, int $desiredType, callable $callable) : void
     {
-        if ($groupUse->type !== \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN) {
+        if ($groupUse->type !== \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN) {
             return;
         }
         $prefixName = $groupUse->prefix->toString();

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Naming\ValueObject;
+namespace _PhpScoperb75b35f52b74\Rector\Naming\ValueObject;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
 final class VariableAndCallForeach
 {
     /**
@@ -34,21 +34,21 @@ final class VariableAndCallForeach
      * @param FuncCall|StaticCall|MethodCall $expr
      * @param ClassMethod|Function_|Closure $functionLike
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $variable, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr, string $variableName, \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike)
+    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr, string $variableName, \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike)
     {
         $this->variable = $variable;
         $this->call = $expr;
         $this->variableName = $variableName;
         $this->functionLike = $functionLike;
     }
-    public function getVariable() : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable
+    public function getVariable() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable
     {
         return $this->variable;
     }
     /**
      * @return FuncCall|StaticCall|MethodCall
      */
-    public function getCall() : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr
+    public function getCall() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr
     {
         return $this->call;
     }
@@ -59,7 +59,7 @@ final class VariableAndCallForeach
     /**
      * @return ClassMethod|Function_|Closure
      */
-    public function getFunctionLike() : \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike
+    public function getFunctionLike() : \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike
     {
         return $this->functionLike;
     }

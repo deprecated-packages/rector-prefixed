@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\PhpParser;
+namespace _PhpScoperb75b35f52b74\Rector\StaticTypeMapper\PhpParser;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\UnionType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
-use _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper;
-final class UnionTypeNodeMapper implements \_PhpScoper0a6b37af0871\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\UnionType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoperb75b35f52b74\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface;
+use _PhpScoperb75b35f52b74\Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper;
+final class UnionTypeNodeMapper implements \_PhpScoperb75b35f52b74\Rector\StaticTypeMapper\Contract\PhpParser\PhpParserNodeMapperInterface
 {
     /**
      * @var TypeFactory
@@ -19,25 +19,25 @@ final class UnionTypeNodeMapper implements \_PhpScoper0a6b37af0871\Rector\Static
      * @var PhpParserNodeMapper
      */
     private $phpParserNodeMapper;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
     /**
      * @required
      */
-    public function autowireUnionTypeNodeMapper(\_PhpScoper0a6b37af0871\Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper $phpParserNodeMapper) : void
+    public function autowireUnionTypeNodeMapper(\_PhpScoperb75b35f52b74\Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper $phpParserNodeMapper) : void
     {
         $this->phpParserNodeMapper = $phpParserNodeMapper;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType::class;
+        return \_PhpScoperb75b35f52b74\PhpParser\Node\UnionType::class;
     }
     /**
      * @param UnionType $node
      */
-    public function mapToPHPStan(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function mapToPHPStan(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         $types = [];
         foreach ($node->types as $unionedType) {

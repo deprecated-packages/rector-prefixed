@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
+namespace _PhpScoperb75b35f52b74\PHPStan\Analyser;
 
-use _PhpScoper0a6b37af0871\PHPStan\Rules\Registry;
+use _PhpScoperb75b35f52b74\PHPStan\Rules\Registry;
 class Analyser
 {
     /** @var \PHPStan\Analyser\FileAnalyser */
@@ -16,7 +16,7 @@ class Analyser
     private $internalErrorsCountLimit;
     /** @var \PHPStan\Analyser\Error[] */
     private $collectedErrors = [];
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Analyser\FileAnalyser $fileAnalyser, \_PhpScoper0a6b37af0871\PHPStan\Rules\Registry $registry, \_PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, int $internalErrorsCountLimit)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Analyser\FileAnalyser $fileAnalyser, \_PhpScoperb75b35f52b74\PHPStan\Rules\Registry $registry, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, int $internalErrorsCountLimit)
     {
         $this->fileAnalyser = $fileAnalyser;
         $this->registry = $registry;
@@ -31,7 +31,7 @@ class Analyser
      * @param string[]|null $allAnalysedFiles
      * @return AnalyserResult
      */
-    public function analyse(array $files, ?\Closure $preFileCallback = null, ?\Closure $postFileCallback = null, bool $debug = \false, ?array $allAnalysedFiles = null) : \_PhpScoper0a6b37af0871\PHPStan\Analyser\AnalyserResult
+    public function analyse(array $files, ?\Closure $preFileCallback = null, ?\Closure $postFileCallback = null, bool $debug = \false, ?array $allAnalysedFiles = null) : \_PhpScoperb75b35f52b74\PHPStan\Analyser\AnalyserResult
     {
         if ($allAnalysedFiles === null) {
             $allAnalysedFiles = $files;
@@ -63,7 +63,7 @@ class Analyser
                 $internalErrorsCount++;
                 $internalErrorMessage = \sprintf('Internal error: %s', $t->getMessage());
                 $internalErrorMessage .= \sprintf('%sRun PHPStan with --debug option and post the stack trace to:%s%s', "\n", "\n", 'https://github.com/phpstan/phpstan/issues/new');
-                $errors[] = new \_PhpScoper0a6b37af0871\PHPStan\Analyser\Error($internalErrorMessage, $file, null, $t);
+                $errors[] = new \_PhpScoperb75b35f52b74\PHPStan\Analyser\Error($internalErrorMessage, $file, null, $t);
                 if ($internalErrorsCount >= $this->internalErrorsCountLimit) {
                     $reachedInternalErrorsCountLimit = \true;
                     break;
@@ -76,7 +76,7 @@ class Analyser
         }
         $this->restoreCollectErrorsHandler();
         $errors = \array_merge($errors, $this->collectedErrors);
-        return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\AnalyserResult($errors, [], $internalErrorsCount === 0 ? $dependencies : null, $exportedNodes, $reachedInternalErrorsCountLimit);
+        return new \_PhpScoperb75b35f52b74\PHPStan\Analyser\AnalyserResult($errors, [], $internalErrorsCount === 0 ? $dependencies : null, $exportedNodes, $reachedInternalErrorsCountLimit);
     }
     /**
      * @param string[] $analysedFiles
@@ -92,7 +92,7 @@ class Analyser
             if (!\in_array($errfile, $analysedFiles, \true)) {
                 return \true;
             }
-            $this->collectedErrors[] = new \_PhpScoper0a6b37af0871\PHPStan\Analyser\Error($errstr, $errfile, $errline, \true);
+            $this->collectedErrors[] = new \_PhpScoperb75b35f52b74\PHPStan\Analyser\Error($errstr, $errfile, $errline, \true);
             return \true;
         });
     }

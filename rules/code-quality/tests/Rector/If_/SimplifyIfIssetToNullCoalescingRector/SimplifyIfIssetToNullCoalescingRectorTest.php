@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Tests\Rector\If_\SimplifyIfIssetToNullCoalescingRector;
+namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Tests\Rector\If_\SimplifyIfIssetToNullCoalescingRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\If_\SimplifyIfIssetToNullCoalescingRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class SimplifyIfIssetToNullCoalescingRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\If_\SimplifyIfIssetToNullCoalescingRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class SimplifyIfIssetToNullCoalescingRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class SimplifyIfIssetToNullCoalescingRectorTest extends \_PhpScoper0a6b37a
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\If_\SimplifyIfIssetToNullCoalescingRector::class;
+        return \_PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\If_\SimplifyIfIssetToNullCoalescingRector::class;
     }
 }

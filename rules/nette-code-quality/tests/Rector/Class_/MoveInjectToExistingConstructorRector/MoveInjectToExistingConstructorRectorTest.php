@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NetteCodeQuality\Tests\Rector\Class_\MoveInjectToExistingConstructorRector;
+namespace _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Tests\Rector\Class_\MoveInjectToExistingConstructorRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\NetteCodeQuality\Rector\Class_\MoveInjectToExistingConstructorRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class MoveInjectToExistingConstructorRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Rector\Class_\MoveInjectToExistingConstructorRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class MoveInjectToExistingConstructorRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class MoveInjectToExistingConstructorRectorTest extends \_PhpScoper0a6b37a
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a6b37af0871\Rector\NetteCodeQuality\Rector\Class_\MoveInjectToExistingConstructorRector::class;
+        return \_PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Rector\Class_\MoveInjectToExistingConstructorRector::class;
     }
 }

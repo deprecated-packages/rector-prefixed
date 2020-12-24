@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Renaming\Rector\ClassMethod;
+namespace _PhpScoperb75b35f52b74\Rector\Renaming\Rector\ClassMethod;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\Renaming\ValueObject\RenameAnnotation;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a6b37af0871\Webmozart\Assert\Assert;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\Renaming\ValueObject\RenameAnnotation;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\ClassMethod\RenameAnnotationRector\RenameAnnotationRectorTest
  */
-final class RenameAnnotationRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RenameAnnotationRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector implements \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -28,9 +28,9 @@ final class RenameAnnotationRector extends \_PhpScoper0a6b37af0871\Rector\Core\R
      * @var RenameAnnotation[]
      */
     private $renamedAnnotationInTypes = [];
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined annotations above properties and methods to their new values.', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined annotations above properties and methods to their new values.', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeTest extends PHPUnit\Framework\TestCase
 {
     /**
@@ -52,24 +52,24 @@ class SomeTest extends PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-, [self::RENAMED_ANNOTATIONS_IN_TYPES => [new \_PhpScoper0a6b37af0871\Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoper0a6b37af0871\\PHPUnit\\Framework\\TestCase', 'test', 'scenario')]])]);
+, [self::RENAMED_ANNOTATIONS_IN_TYPES => [new \_PhpScoperb75b35f52b74\Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoperb75b35f52b74\\PHPUnit\\Framework\\TestCase', 'test', 'scenario')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property::class];
     }
     /**
      * @param ClassMethod|Property $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         /** @var Class_ $classLike */
-        $classLike = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
@@ -87,7 +87,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $renamedAnnotationsInTypes = $configuration[self::RENAMED_ANNOTATIONS_IN_TYPES] ?? [];
-        \_PhpScoper0a6b37af0871\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \_PhpScoper0a6b37af0871\Rector\Renaming\ValueObject\RenameAnnotation::class);
+        \_PhpScoperb75b35f52b74\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \_PhpScoperb75b35f52b74\Rector\Renaming\ValueObject\RenameAnnotation::class);
         $this->renamedAnnotationInTypes = $renamedAnnotationsInTypes;
     }
 }

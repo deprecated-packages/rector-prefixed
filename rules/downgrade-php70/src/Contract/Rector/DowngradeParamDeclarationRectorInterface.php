@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp70\Contract\Rector;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp70\Contract\Rector;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
 interface DowngradeParamDeclarationRectorInterface
 {
     /**
      * Indicate if the parameter must be removed
      */
-    public function shouldRemoveParamDeclaration(\_PhpScoper0a6b37af0871\PhpParser\Node\Param $param, \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike) : bool;
+    public function shouldRemoveParamDeclaration(\_PhpScoperb75b35f52b74\PhpParser\Node\Param $param, \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike) : bool;
 }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\ValueObject;
+namespace _PhpScoperb75b35f52b74\Rector\Core\ValueObject;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
 final class SprintfStringAndArgs
 {
     /**
@@ -18,7 +18,7 @@ final class SprintfStringAndArgs
     /**
      * @param Expr[] $arrayItems
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_ $string, array $arrayItems)
+    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_ $string, array $arrayItems)
     {
         $this->string = $string;
         $this->arrayItems = $arrayItems;

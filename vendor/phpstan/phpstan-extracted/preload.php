@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f;
 
 require_once __DIR__ . '/src/Reflection/InaccessibleMethod.php';
 require_once __DIR__ . '/src/Reflection/ResolvedFunctionVariant.php';

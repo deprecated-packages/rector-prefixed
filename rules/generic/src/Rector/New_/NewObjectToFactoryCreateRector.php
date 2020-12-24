@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Generic\Rector\New_;
+namespace _PhpScoperb75b35f52b74\Rector\Generic\Rector\New_;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Generic\Tests\Rector\New_\NewObjectToFactoryCreateRector\NewObjectToFactoryCreateRectorTest
  */
-final class NewObjectToFactoryCreateRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class NewObjectToFactoryCreateRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -30,9 +30,9 @@ final class NewObjectToFactoryCreateRector extends \_PhpScoper0a6b37af0871\Recto
      * @var string[][]
      */
     private $objectToFactoryMethod = [];
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces creating object instances with "new" keyword with factory method.', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces creating object instances with "new" keyword with factory method.', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
 	public function example() {
@@ -60,12 +60,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_::class];
     }
     /**
      * @param New_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         foreach ($this->objectToFactoryMethod as $object => $factoryInfo) {
             if (!$this->isObjectType($node, $object)) {
@@ -73,19 +73,19 @@ CODE_SAMPLE
             }
             $factoryClass = $factoryInfo['class'];
             $factoryMethod = $factoryInfo['method'];
-            $className = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $className = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($className === $factoryClass) {
                 continue;
             }
             /** @var Class_ $classNode */
-            $classNode = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+            $classNode = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             $propertyName = $this->getExistingFactoryPropertyName($classNode, $factoryClass);
             if ($propertyName === null) {
                 $propertyName = $this->getFactoryPropertyName($factoryClass);
-                $factoryObjectType = new \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType($factoryClass);
+                $factoryObjectType = new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType($factoryClass);
                 $this->addConstructorDependencyToClass($classNode, $factoryObjectType, $propertyName);
             }
-            return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable('this'), $propertyName), $factoryMethod, $node->args);
+            return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable('this'), $propertyName), $factoryMethod, $node->args);
         }
         return $node;
     }
@@ -93,7 +93,7 @@ CODE_SAMPLE
     {
         $this->objectToFactoryMethod = $configuration[self::OBJECT_TO_FACTORY_METHOD] ?? [];
     }
-    private function getExistingFactoryPropertyName(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, string $factoryClass) : ?string
+    private function getExistingFactoryPropertyName(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, string $factoryClass) : ?string
     {
         foreach ($class->getProperties() as $property) {
             if ($this->isObjectType($property, $factoryClass)) {
@@ -106,6 +106,6 @@ CODE_SAMPLE
     {
         $reflectionClass = new \ReflectionClass($factoryFullQualifiedName);
         $shortName = $reflectionClass->getShortName();
-        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::firstLower($shortName);
+        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::firstLower($shortName);
     }
 }

@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper0a6b37af0871\\Symplify\\SmartFileSystem\\": "src"
+            "_PhpScoperb75b35f52b74\\Symplify\\SmartFileSystem\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper0a6b37af0871\\Symplify\\SmartFileSystem\\Tests\\": "tests"
+            "_PhpScoperb75b35f52b74\\Symplify\\SmartFileSystem\\Tests\\": "tests"
         }
     },
     "extra": {

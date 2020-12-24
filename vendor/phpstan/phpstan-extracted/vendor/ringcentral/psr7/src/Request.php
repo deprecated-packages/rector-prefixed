@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
 
 use InvalidArgumentException;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\RequestInterface;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\RequestInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface;
 /**
  * PSR-7 request implementation.
  */
-class Request extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\MessageTrait implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\RequestInterface
+class Request extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\MessageTrait implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\RequestInterface
 {
     /** @var string */
     private $method;
@@ -29,9 +29,9 @@ class Request extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral
     public function __construct($method, $uri, array $headers = array(), $body = null, $protocolVersion = '1.1')
     {
         if (\is_string($uri)) {
-            $uri = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri($uri);
-        } elseif (!$uri instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface) {
-            throw new \InvalidArgumentException('_PhpScoper0a6b37af0871\\_HumbugBox221ad6f1b81f\\URI must be a string or Psr\\Http\\Message\\UriInterface');
+            $uri = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri($uri);
+        } elseif (!$uri instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface) {
+            throw new \InvalidArgumentException('_PhpScoperb75b35f52b74\\_HumbugBox221ad6f1b81f\\URI must be a string or Psr\\Http\\Message\\UriInterface');
         }
         $this->method = \strtoupper($method);
         $this->uri = $uri;
@@ -82,7 +82,7 @@ class Request extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral
     {
         return $this->uri;
     }
-    public function withUri(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface $uri, $preserveHost = \false)
+    public function withUri(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface $uri, $preserveHost = \false)
     {
         if ($uri === $this->uri) {
             return $this;

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Php70\Tests\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector;
+namespace _PhpScoperb75b35f52b74\Rector\Php70\Tests\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Php70\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class BreakNotInLoopOrSwitchToReturnRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\Php70\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class BreakNotInLoopOrSwitchToReturnRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfoWithoutAutoload($fileInfo);
     }
@@ -22,6 +22,6 @@ final class BreakNotInLoopOrSwitchToReturnRectorTest extends \_PhpScoper0a6b37af
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a6b37af0871\Rector\Php70\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector::class;
+        return \_PhpScoperb75b35f52b74\Rector\Php70\Rector\Break_\BreakNotInLoopOrSwitchToReturnRector::class;
     }
 }

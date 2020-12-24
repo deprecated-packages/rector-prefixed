@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Builder;
+namespace _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Builder;
 
-use _PhpScoper0a6b37af0871\PhpParser\Builder\Method;
+use _PhpScoperb75b35f52b74\PhpParser\Builder\Method;
 /**
  * Fixed duplicated naming in php-parser and prevents confusion
  */
-final class MethodBuilder extends \_PhpScoper0a6b37af0871\PhpParser\Builder\Method
+final class MethodBuilder extends \_PhpScoperb75b35f52b74\PhpParser\Builder\Method
 {
 }

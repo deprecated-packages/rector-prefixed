@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp73\Rector\FuncCall;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp73\Rector\FuncCall;
 
-use _PhpScoper0a6b37af0871\PhpParser\BuilderHelpers;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\BuilderHelpers;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DowngradePhp73\Tests\Rector\FuncCall\SetCookieOptionsArrayToArgumentsRector\SetCookieOptionsArrayToArgumentsRectorTest
  */
-final class SetCookieOptionsArrayToArgumentsRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class SetCookieOptionsArrayToArgumentsRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * Conversion table from argument index to options name
@@ -33,9 +33,9 @@ final class SetCookieOptionsArrayToArgumentsRector extends \_PhpScoper0a6b37af08
      * @var int
      */
     private $highestIndex = 1;
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert setcookie option array to arguments', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert setcookie option array to arguments', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 setcookie('name', $value, ['expires' => 360]);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -48,12 +48,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -61,7 +61,7 @@ CODE_SAMPLE
         $node->args = $this->composeNewArgs($node);
         return $node;
     }
-    private function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $funcCall) : bool
+    private function shouldSkip(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         if (!$this->isNames($funcCall, ['setcookie', 'setrawcookie'])) {
             return \true;
@@ -70,12 +70,12 @@ CODE_SAMPLE
         if ($argsCount <= 2) {
             return \true;
         }
-        return !$funcCall->args[2]->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Array_;
+        return !$funcCall->args[2]->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Array_;
     }
     /**
      * @return Arg[]
      */
-    private function composeNewArgs(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $funcCall) : array
+    private function composeNewArgs(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall) : array
     {
         $this->highestIndex = 1;
         $newArgs = [$funcCall->args[0], $funcCall->args[1]];
@@ -122,13 +122,13 @@ CODE_SAMPLE
         }
         return $args;
     }
-    private function createDefaultValueArg(int $argumentIndex) : \_PhpScoper0a6b37af0871\PhpParser\Node\Arg
+    private function createDefaultValueArg(int $argumentIndex) : \_PhpScoperb75b35f52b74\PhpParser\Node\Arg
     {
         if (!\array_key_exists($argumentIndex, self::ARGUMENT_DEFAULT_VALUES)) {
-            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
         }
         $argumentDefaultValue = self::ARGUMENT_DEFAULT_VALUES[$argumentIndex];
-        $expr = \_PhpScoper0a6b37af0871\PhpParser\BuilderHelpers::normalizeValue($argumentDefaultValue);
-        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Arg($expr);
+        $expr = \_PhpScoperb75b35f52b74\PhpParser\BuilderHelpers::normalizeValue($argumentDefaultValue);
+        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Arg($expr);
     }
 }

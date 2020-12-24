@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Compiler\Llk;
+namespace _PhpScoperb75b35f52b74\Hoa\Compiler\Llk;
 
-use _PhpScoper0a6b37af0871\Hoa\Compiler;
-use _PhpScoper0a6b37af0871\Hoa\Iterator;
+use _PhpScoperb75b35f52b74\Hoa\Compiler;
+use _PhpScoperb75b35f52b74\Hoa\Iterator;
 /**
  * Class \Hoa\Compiler\Llk\Parser.
  *
@@ -137,8 +137,8 @@ class Parser
         if (isset($this->_pragmas['parser.lookahead'])) {
             $k = \max(0, \intval($this->_pragmas['parser.lookahead']));
         }
-        $lexer = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Lexer($this->_pragmas);
-        $this->_tokenSequence = new \_PhpScoper0a6b37af0871\Hoa\Iterator\Buffer($lexer->lexMe($text, $this->_tokens), $k);
+        $lexer = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Lexer($this->_pragmas);
+        $this->_tokenSequence = new \_PhpScoperb75b35f52b74\Hoa\Iterator\Buffer($lexer->lexMe($text, $this->_tokens), $k);
         $this->_tokenSequence->rewind();
         $this->_errorToken = null;
         $this->_trace = [];
@@ -146,8 +146,8 @@ class Parser
         if (\false === \array_key_exists($rule, $this->_rules)) {
             $rule = $this->getRootRule();
         }
-        $closeRule = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($rule, 0);
-        $openRule = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($rule, 0, [$closeRule]);
+        $closeRule = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit($rule, 0);
+        $openRule = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry($rule, 0, [$closeRule]);
         $this->_todo = [$closeRule, $openRule];
         do {
             $out = $this->unfold();
@@ -175,15 +175,15 @@ class Parser
                         $text = \trim(\substr($text, $leftnl, $rightnl - $leftnl), "\n");
                     }
                 }
-                throw new \_PhpScoper0a6b37af0871\Hoa\Compiler\Exception\UnexpectedToken('Unexpected token "%s" (%s) at line %d and column %d:' . "\n" . '%s' . "\n" . \str_repeat(' ', $column - 1) . '↑', 0, [$token['value'], $token['token'], $line, $column, $text], $line, $column);
+                throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\UnexpectedToken('Unexpected token "%s" (%s) at line %d and column %d:' . "\n" . '%s' . "\n" . \str_repeat(' ', $column - 1) . '↑', 0, [$token['value'], $token['token'], $line, $column, $text], $line, $column);
             }
         } while (\true);
         if (\false === $tree) {
             return \true;
         }
         $tree = $this->_buildTree();
-        if (!$tree instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\TreeNode) {
-            throw new \_PhpScoper0a6b37af0871\Hoa\Compiler\Exception('Parsing error: cannot build AST, the trace is corrupted.', 1);
+        if (!$tree instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\TreeNode) {
+            throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception('Parsing error: cannot build AST, the trace is corrupted.', 1);
         }
         return $this->_tree = $tree;
     }
@@ -196,7 +196,7 @@ class Parser
     {
         while (0 < \count($this->_todo)) {
             $rule = \array_pop($this->_todo);
-            if ($rule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit) {
+            if ($rule instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit) {
                 $rule->setDepth($this->_depth);
                 $this->_trace[] = $rule;
                 if (\false === $rule->isTransitional()) {
@@ -221,9 +221,9 @@ class Parser
      * @param   int                     $next      Next rule index.
      * @return  bool
      */
-    protected function _parse(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule $zeRule, $next)
+    protected function _parse(\_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule $zeRule, $next)
     {
-        if ($zeRule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Token) {
+        if ($zeRule instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Token) {
             $name = $this->_tokenSequence->current()['token'];
             if ($zeRule->getTokenName() !== $name) {
                 return \false;
@@ -232,20 +232,20 @@ class Parser
             if (0 <= ($unification = $zeRule->getUnificationIndex())) {
                 for ($skip = 0, $i = \count($this->_trace) - 1; $i >= 0; --$i) {
                     $trace = $this->_trace[$i];
-                    if ($trace instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry) {
+                    if ($trace instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry) {
                         if (\false === $trace->isTransitional()) {
                             if ($trace->getDepth() <= $this->_depth) {
                                 break;
                             }
                             --$skip;
                         }
-                    } elseif ($trace instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit && \false === $trace->isTransitional()) {
+                    } elseif ($trace instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit && \false === $trace->isTransitional()) {
                         $skip += $trace->getDepth() > $this->_depth;
                     }
                     if (0 < $skip) {
                         continue;
                     }
-                    if ($trace instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Token && $unification === $trace->getUnificationIndex() && $value !== $trace->getValue()) {
+                    if ($trace instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Token && $unification === $trace->getUnificationIndex() && $value !== $trace->getValue()) {
                         return \false;
                     }
                 }
@@ -273,19 +273,19 @@ class Parser
             $this->_tokenSequence->next();
             $this->_errorToken = $this->_tokenSequence->current();
             return \true;
-        } elseif ($zeRule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Concatenation) {
+        } elseif ($zeRule instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Concatenation) {
             if (\false === $zeRule->isTransitional()) {
                 ++$this->_depth;
             }
-            $this->_trace[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($zeRule->getName(), 0, null, $this->_depth);
+            $this->_trace[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry($zeRule->getName(), 0, null, $this->_depth);
             $children = $zeRule->getChildren();
             for ($i = \count($children) - 1; $i >= 0; --$i) {
                 $nextRule = $children[$i];
-                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
-                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
+                $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
+                $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
             }
             return \true;
-        } elseif ($zeRule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Choice) {
+        } elseif ($zeRule instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Choice) {
             $children = $zeRule->getChildren();
             if ($next >= \count($children)) {
                 return \false;
@@ -293,12 +293,12 @@ class Parser
             if (\false === $zeRule->isTransitional()) {
                 ++$this->_depth;
             }
-            $this->_trace[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($zeRule->getName(), $next, $this->_todo, $this->_depth);
+            $this->_trace[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry($zeRule->getName(), $next, $this->_todo, $this->_depth);
             $nextRule = $children[$next];
-            $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
-            $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
+            $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
+            $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
             return \true;
-        } elseif ($zeRule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Repetition) {
+        } elseif ($zeRule instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Repetition) {
             $nextRule = $zeRule->getChildren();
             if (0 === $next) {
                 $name = $zeRule->getName();
@@ -306,12 +306,12 @@ class Parser
                 if (\false === $zeRule->isTransitional()) {
                     ++$this->_depth;
                 }
-                $this->_trace[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($name, $min, null, $this->_depth);
+                $this->_trace[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry($name, $min, null, $this->_depth);
                 \array_pop($this->_todo);
-                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($name, $min, $this->_todo);
+                $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit($name, $min, $this->_todo);
                 for ($i = 0; $i < $min; ++$i) {
-                    $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
-                    $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
+                    $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
+                    $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
                 }
                 return \true;
             } else {
@@ -319,9 +319,9 @@ class Parser
                 if (-1 != $max && $next > $max) {
                     return \false;
                 }
-                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($zeRule->getName(), $next, $this->_todo);
-                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
-                $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
+                $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit($zeRule->getName(), $next, $this->_todo);
+                $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit($nextRule, 0);
+                $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry($nextRule, 0);
                 return \true;
             }
         }
@@ -337,13 +337,13 @@ class Parser
         $found = \false;
         do {
             $last = \array_pop($this->_trace);
-            if ($last instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry) {
+            if ($last instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry) {
                 $zeRule = $this->_rules[$last->getRule()];
-                $found = $zeRule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Choice;
-            } elseif ($last instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit) {
+                $found = $zeRule instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Choice;
+            } elseif ($last instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit) {
                 $zeRule = $this->_rules[$last->getRule()];
-                $found = $zeRule instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Repetition;
-            } elseif ($last instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Token) {
+                $found = $zeRule instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Repetition;
+            } elseif ($last instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Token) {
                 $this->_tokenSequence->previous();
                 if (\false === $this->_tokenSequence->valid()) {
                     return \false;
@@ -357,7 +357,7 @@ class Parser
         $next = $last->getData() + 1;
         $this->_depth = $last->getDepth();
         $this->_todo = $last->getTodo();
-        $this->_todo[] = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry($rule, $next);
+        $this->_todo[] = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry($rule, $next);
         return \true;
     }
     /**
@@ -373,14 +373,14 @@ class Parser
         $max = \count($this->_trace);
         while ($i < $max) {
             $trace = $this->_trace[$i];
-            if ($trace instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Entry) {
+            if ($trace instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Entry) {
                 $ruleName = $trace->getRule();
                 $rule = $this->_rules[$ruleName];
                 $isRule = \false === $trace->isTransitional();
                 $nextTrace = $this->_trace[$i + 1];
                 $id = $rule->getNodeId();
                 // Optimization: Skip empty trace sequence.
-                if ($nextTrace instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit && $ruleName == $nextTrace->getRule()) {
+                if ($nextTrace instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit && $ruleName == $nextTrace->getRule()) {
                     $i += 2;
                     continue;
                 }
@@ -424,20 +424,20 @@ class Parser
                 if (\true === \in_array('m', $cOptions) && \true === $this->mergeTree($children, $handle, $cId, \true)) {
                     continue;
                 }
-                $cTree = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\TreeNode($id ?: $cId);
+                $cTree = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\TreeNode($id ?: $cId);
                 foreach ($handle as $child) {
                     $child->setParent($cTree);
                     $cTree->prependChild($child);
                 }
                 $children[] = $cTree;
-            } elseif ($trace instanceof \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\Rule\Ekzit) {
+            } elseif ($trace instanceof \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\Rule\Ekzit) {
                 return $i + 1;
             } else {
                 if (\false === $trace->isKept()) {
                     ++$i;
                     continue;
                 }
-                $child = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\TreeNode('token', ['token' => $trace->getTokenName(), 'value' => $trace->getValue(), 'namespace' => $trace->getNamespace()]);
+                $child = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\TreeNode('token', ['token' => $trace->getTokenName(), 'value' => $trace->getValue(), 'namespace' => $trace->getNamespace()]);
                 $children[] = $child;
                 ++$i;
             }
@@ -484,7 +484,7 @@ class Parser
      * @param   \Hoa\Compiler\Llk\TreeNode  $newNode    Node to merge.
      * @return  void
      */
-    protected function mergeTreeRecursive(\_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\TreeNode $node, \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk\TreeNode $newNode)
+    protected function mergeTreeRecursive(\_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\TreeNode $node, \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk\TreeNode $newNode)
     {
         $nNId = $newNode->getId();
         if ('token' === $nNId) {

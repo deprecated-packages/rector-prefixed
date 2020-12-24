@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport;
+namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
 final class ClassNameImportSkipper
 {
     /**
@@ -23,7 +23,7 @@ final class ClassNameImportSkipper
     {
         $this->classNameImportSkipVoters = $classNameImportSkipVoters;
     }
-    public function shouldSkipNameForFullyQualifiedObjectType(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
+    public function shouldSkipNameForFullyQualifiedObjectType(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
     {
         foreach ($this->classNameImportSkipVoters as $classNameImportSkipVoter) {
             if ($classNameImportSkipVoter->shouldSkip($fullyQualifiedObjectType, $node)) {
@@ -32,22 +32,22 @@ final class ClassNameImportSkipper
         }
         return \false;
     }
-    public function isShortNameInUseStatement(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name) : bool
+    public function isShortNameInUseStatement(\_PhpScoperb75b35f52b74\PhpParser\Node\Name $name) : bool
     {
         $longName = $name->toString();
-        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($longName, '\\')) {
+        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::contains($longName, '\\')) {
             return \false;
         }
         return $this->isFoundInUse($name);
     }
-    private function isFoundInUse(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name) : bool
+    private function isFoundInUse(\_PhpScoperb75b35f52b74\PhpParser\Node\Name $name) : bool
     {
         /** @var Use_[] $uses */
-        $uses = (array) $name->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
+        $uses = (array) $name->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
         foreach ($uses as $use) {
             $useUses = $use->uses;
             foreach ($useUses as $useUse) {
-                if ($useUse->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name && $useUse->name->getLast() === $name->getLast()) {
+                if ($useUse->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name && $useUse->name->getLast() === $name->getLast()) {
                     return \true;
                 }
             }

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\File\Exception;
+namespace _PhpScoperb75b35f52b74\Hoa\File\Exception;
 
 /**
  * Class \Hoa\File\Exception\FileDoesNotExist.
@@ -43,6 +43,6 @@ namespace _PhpScoper0a6b37af0871\Hoa\File\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class FileDoesNotExist extends \_PhpScoper0a6b37af0871\Hoa\File\Exception\Exception
+class FileDoesNotExist extends \_PhpScoperb75b35f52b74\Hoa\File\Exception\Exception
 {
 }

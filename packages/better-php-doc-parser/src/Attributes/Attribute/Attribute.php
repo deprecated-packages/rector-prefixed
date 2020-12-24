@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Attributes\Attribute;
+namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Attributes\Attribute;
 
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 final class Attribute
 {
     /**
@@ -14,7 +14,7 @@ final class Attribute
      * @experiment
      * @var string
      */
-    public const START_END = \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\StartAndEnd::class;
+    public const START_END = \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\StartAndEnd::class;
     /**
      * @var string
      */

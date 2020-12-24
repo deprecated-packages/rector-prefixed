@@ -1,41 +1,41 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Php80\Rector\FuncCall;
+namespace _PhpScoperb75b35f52b74\Rector\Php80\Rector\FuncCall;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\Php80\NodeManipulator\TokenManipulator;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\Php80\NodeManipulator\TokenManipulator;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/token_as_object
  *
  * @see \Rector\Php80\Tests\Rector\FuncCall\TokenGetAllToObjectRector\TokenGetAllToObjectRectorTest
  */
-final class TokenGetAllToObjectRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class TokenGetAllToObjectRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var TokenManipulator
      */
     private $tokenManipulator;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Php80\NodeManipulator\TokenManipulator $ifArrayTokenManipulator)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Php80\NodeManipulator\TokenManipulator $ifArrayTokenManipulator)
     {
         $this->tokenManipulator = $ifArrayTokenManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Complete missing constructor dependency instance by type', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Complete missing constructor dependency instance by type', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -73,12 +73,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (!$this->isFuncCallName($node, 'token_get_all')) {
             return null;
@@ -86,13 +86,13 @@ CODE_SAMPLE
         $this->refactorTokensVariable($node);
         return $this->createStaticCall('PhpToken', 'getAll', $node->args);
     }
-    private function refactorTokensVariable(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $funcCall) : void
+    private function refactorTokensVariable(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $funcCall) : void
     {
-        $assign = $funcCall->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$assign instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
+        $assign = $funcCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$assign instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
             return;
         }
-        $classMethodOrFunctionNode = $funcCall->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE) ?: $funcCall->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE);
+        $classMethodOrFunctionNode = $funcCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE) ?: $funcCall->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE);
         if ($classMethodOrFunctionNode === null) {
             return;
         }
@@ -102,7 +102,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function replaceGetNameOrGetValue(\_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr $assignedExpr) : void
+    private function replaceGetNameOrGetValue(\_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr $assignedExpr) : void
     {
         $tokensForeaches = $this->findForeachesOverTokenVariable($functionLike, $assignedExpr);
         foreach ($tokensForeaches as $tokensForeach) {
@@ -113,28 +113,28 @@ CODE_SAMPLE
      * @param ClassMethod|Function_ $functionLike
      * @return Foreach_[]
      */
-    private function findForeachesOverTokenVariable(\_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr $assignedExpr) : array
+    private function findForeachesOverTokenVariable(\_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr $assignedExpr) : array
     {
-        return $this->betterNodeFinder->find((array) $functionLike->stmts, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($assignedExpr) : bool {
-            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_) {
+        return $this->betterNodeFinder->find((array) $functionLike->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($assignedExpr) : bool {
+            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_) {
                 return \false;
             }
             return $this->areNodesEqual($node->expr, $assignedExpr);
         });
     }
-    private function refactorTokenInForeach(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_ $tokensForeach) : void
+    private function refactorTokenInForeach(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_ $tokensForeach) : void
     {
         $singleToken = $tokensForeach->valueVar;
-        if (!$singleToken instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
+        if (!$singleToken instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
             return;
         }
-        $this->traverseNodesWithCallable($tokensForeach, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($singleToken) {
+        $this->traverseNodesWithCallable($tokensForeach, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($singleToken) {
             $this->tokenManipulator->refactorArrayToken([$node], $singleToken);
             $this->tokenManipulator->refactorNonArrayToken([$node], $singleToken);
             $this->tokenManipulator->refactorTokenIsKind([$node], $singleToken);
             $this->tokenManipulator->removeIsArray([$node], $singleToken);
             // drop if "If_" node not needed
-            if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\If_ && $node->else !== null) {
+            if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\If_ && $node->else !== null) {
                 if (!$this->areNodesEqual($node->stmts, $node->else->stmts)) {
                     return null;
                 }

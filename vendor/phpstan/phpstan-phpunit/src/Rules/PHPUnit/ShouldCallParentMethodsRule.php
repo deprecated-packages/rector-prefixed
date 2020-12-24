@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Rules\PHPUnit;
+namespace _PhpScoperb75b35f52b74\PHPStan\Rules\PHPUnit;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Node\InClassMethodNode;
-use _PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper0a6b37af0871\PHPUnit\Framework\TestCase;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Node\InClassMethodNode;
+use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoperb75b35f52b74\PHPUnit\Framework\TestCase;
 /**
  * @implements \PHPStan\Rules\Rule<InClassMethodNode>
  */
-class ShouldCallParentMethodsRule implements \_PhpScoper0a6b37af0871\PHPStan\Rules\Rule
+class ShouldCallParentMethodsRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\Node\InClassMethodNode::class;
+        return \_PhpScoperb75b35f52b74\PHPStan\Node\InClassMethodNode::class;
     }
-    public function processNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
     {
         $methodName = $node->getOriginalNode()->name->name;
         if (!\in_array(\strtolower($methodName), ['setup', 'teardown'], \true)) {
@@ -26,7 +26,7 @@ class ShouldCallParentMethodsRule implements \_PhpScoper0a6b37af0871\PHPStan\Rul
         if ($scope->getClassReflection() === null) {
             return [];
         }
-        if (!$scope->getClassReflection()->isSubclassOf(\_PhpScoper0a6b37af0871\PHPUnit\Framework\TestCase::class)) {
+        if (!$scope->getClassReflection()->isSubclassOf(\_PhpScoperb75b35f52b74\PHPUnit\Framework\TestCase::class)) {
             return [];
         }
         $parentClass = $scope->getClassReflection()->getParentClass();
@@ -37,12 +37,12 @@ class ShouldCallParentMethodsRule implements \_PhpScoper0a6b37af0871\PHPStan\Rul
             return [];
         }
         $parentMethod = $parentClass->getNativeMethod($methodName);
-        if ($parentMethod->getDeclaringClass()->getName() === \_PhpScoper0a6b37af0871\PHPUnit\Framework\TestCase::class) {
+        if ($parentMethod->getDeclaringClass()->getName() === \_PhpScoperb75b35f52b74\PHPUnit\Framework\TestCase::class) {
             return [];
         }
         $hasParentCall = $this->hasParentClassCall($node->getOriginalNode()->getStmts(), \strtolower($methodName));
         if (!$hasParentCall) {
-            return [\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Missing call to parent::%s() method.', $methodName))->build()];
+            return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Missing call to parent::%s() method.', $methodName))->build()];
         }
         return [];
     }
@@ -58,20 +58,20 @@ class ShouldCallParentMethodsRule implements \_PhpScoper0a6b37af0871\PHPStan\Rul
             return \false;
         }
         foreach ($stmts as $stmt) {
-            if (!$stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
+            if (!$stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
                 continue;
             }
-            if (!$stmt->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
+            if (!$stmt->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall) {
                 continue;
             }
-            if (!$stmt->expr->class instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
+            if (!$stmt->expr->class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
                 continue;
             }
             $class = (string) $stmt->expr->class;
             if (\strtolower($class) !== 'parent') {
                 continue;
             }
-            if (!$stmt->expr->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier) {
+            if (!$stmt->expr->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier) {
                 continue;
             }
             if (\strtolower($stmt->expr->name->name) === $methodName) {

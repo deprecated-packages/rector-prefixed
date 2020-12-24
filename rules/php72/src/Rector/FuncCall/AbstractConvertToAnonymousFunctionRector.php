@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Php72\Rector\FuncCall;
+namespace _PhpScoperb75b35f52b74\Rector\Php72\Rector\FuncCall;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClosureUse;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\Php72\Contract\ConvertToAnonymousFunctionRectorInterface;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClosureUse;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\Php72\Contract\ConvertToAnonymousFunctionRectorInterface;
 /**
  * @see https://www.php.net/functions.anonymous
  */
-abstract class AbstractConvertToAnonymousFunctionRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Php72\Contract\ConvertToAnonymousFunctionRectorInterface
+abstract class AbstractConvertToAnonymousFunctionRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\Php72\Contract\ConvertToAnonymousFunctionRectorInterface
 {
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -25,10 +25,10 @@ abstract class AbstractConvertToAnonymousFunctionRector extends \_PhpScoper0a6b3
         $body = $this->getBody($node);
         $parameters = $this->getParameters($node);
         $useVariables = $this->resolveUseVariables($body, $parameters);
-        $anonymousFunctionNode = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure();
+        $anonymousFunctionNode = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure();
         $anonymousFunctionNode->params = $parameters;
         foreach ($useVariables as $useVariable) {
-            $anonymousFunctionNode->uses[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ClosureUse($useVariable);
+            $anonymousFunctionNode->uses[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ClosureUse($useVariable);
         }
         $anonymousFunctionNode->returnType = $this->getReturnType($node);
         if ($body !== []) {
@@ -47,7 +47,7 @@ abstract class AbstractConvertToAnonymousFunctionRector extends \_PhpScoper0a6b3
         foreach ($paramNodes as $paramNode) {
             $paramNames[] = $this->getName($paramNode);
         }
-        $variableNodes = $this->betterNodeFinder->findInstanceOf($nodes, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable::class);
+        $variableNodes = $this->betterNodeFinder->findInstanceOf($nodes, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable::class);
         /** @var Variable[] $filteredVariables */
         $filteredVariables = [];
         $alreadyAssignedVariables = [];
@@ -63,8 +63,8 @@ abstract class AbstractConvertToAnonymousFunctionRector extends \_PhpScoper0a6b3
             if (\in_array($variableName, $paramNames, \true)) {
                 continue;
             }
-            $parentNode = $variableNode->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
+            $parentNode = $variableNode->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
                 $alreadyAssignedVariables[] = $variableName;
             }
             if ($this->isNames($variableNode, $alreadyAssignedVariables)) {

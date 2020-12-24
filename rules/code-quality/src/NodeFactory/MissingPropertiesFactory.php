@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\NodeFactory;
+namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\NodeFactory;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\NodeFactory;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\NodeFactory;
 final class MissingPropertiesFactory
 {
     /**
@@ -16,7 +16,7 @@ final class MissingPropertiesFactory
      * @var PropertyTypeDecorator
      */
     private $propertyTypeDecorator;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoper0a6b37af0871\Rector\CodeQuality\NodeFactory\PropertyTypeDecorator $propertyTypeDecorator)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoperb75b35f52b74\Rector\CodeQuality\NodeFactory\PropertyTypeDecorator $propertyTypeDecorator)
     {
         $this->nodeFactory = $nodeFactory;
         $this->propertyTypeDecorator = $propertyTypeDecorator;

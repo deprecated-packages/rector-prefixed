@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\SignatureMap;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap;
 
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\NameScope;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeStringResolver;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeStringResolver;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 class SignatureMapParser
 {
     /** @var \PHPStan\PhpDoc\TypeStringResolver */
     private $typeStringResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeStringResolver $typeNodeResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeStringResolver $typeNodeResolver)
     {
         $this->typeStringResolver = $typeNodeResolver;
     }
@@ -21,7 +21,7 @@ class SignatureMapParser
      * @param string|null $className
      * @return \PHPStan\Reflection\SignatureMap\FunctionSignature
      */
-    public function getFunctionSignature(array $map, ?string $className) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\SignatureMap\FunctionSignature
+    public function getFunctionSignature(array $map, ?string $className) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\FunctionSignature
     {
         $parameterSignatures = $this->getParameters(\array_slice($map, 1));
         $hasVariadic = \false;
@@ -31,14 +31,14 @@ class SignatureMapParser
                 break;
             }
         }
-        return new \_PhpScoper0a6b37af0871\PHPStan\Reflection\SignatureMap\FunctionSignature($parameterSignatures, $this->getTypeFromString($map[0], $className), new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType(), $hasVariadic);
+        return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\FunctionSignature($parameterSignatures, $this->getTypeFromString($map[0], $className), new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType(), $hasVariadic);
     }
-    private function getTypeFromString(string $typeString, ?string $className) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    private function getTypeFromString(string $typeString, ?string $className) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         if ($typeString === '') {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType(\true);
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType(\true);
         }
-        return $this->typeStringResolver->resolve($typeString, new \_PhpScoper0a6b37af0871\PHPStan\Analyser\NameScope(null, [], $className));
+        return $this->typeStringResolver->resolve($typeString, new \_PhpScoperb75b35f52b74\PHPStan\Analyser\NameScope(null, [], $className));
     }
     /**
      * @param array<string, string> $parameterMap
@@ -49,7 +49,7 @@ class SignatureMapParser
         $parameterSignatures = [];
         foreach ($parameterMap as $parameterName => $typeString) {
             [$name, $isOptional, $passedByReference, $isVariadic] = $this->getParameterInfoFromName($parameterName);
-            $parameterSignatures[] = new \_PhpScoper0a6b37af0871\PHPStan\Reflection\SignatureMap\ParameterSignature($name, $isOptional, $this->getTypeFromString($typeString, null), new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType(), $passedByReference, $isVariadic);
+            $parameterSignatures[] = new \_PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap\ParameterSignature($name, $isOptional, $this->getTypeFromString($typeString, null), new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType(), $passedByReference, $isVariadic);
         }
         return $parameterSignatures;
     }
@@ -59,9 +59,9 @@ class SignatureMapParser
      */
     private function getParameterInfoFromName(string $parameterNameString) : array
     {
-        $matches = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($parameterNameString, '#^(?P<reference>&(?:\\.\\.\\.)?r?w?_?)?(?P<variadic>\\.\\.\\.)?(?P<name>[^=]+)?(?P<optional>=)?($)#');
+        $matches = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($parameterNameString, '#^(?P<reference>&(?:\\.\\.\\.)?r?w?_?)?(?P<variadic>\\.\\.\\.)?(?P<name>[^=]+)?(?P<optional>=)?($)#');
         if ($matches === null || !isset($matches['optional'])) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
         }
         $isVariadic = $matches['variadic'] !== '';
         $reference = $matches['reference'];
@@ -70,11 +70,11 @@ class SignatureMapParser
             $isVariadic = \true;
         }
         if (\strpos($reference, '&rw') === 0) {
-            $passedByReference = \_PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference::createReadsArgument();
+            $passedByReference = \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference::createReadsArgument();
         } elseif (\strpos($reference, '&w') === 0) {
-            $passedByReference = \_PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference::createCreatesNewVariable();
+            $passedByReference = \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference::createCreatesNewVariable();
         } else {
-            $passedByReference = \_PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference::createNo();
+            $passedByReference = \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference::createNo();
         }
         $isOptional = $isVariadic || $matches['optional'] !== '';
         $name = $matches['name'] !== '' ? $matches['name'] : '...';

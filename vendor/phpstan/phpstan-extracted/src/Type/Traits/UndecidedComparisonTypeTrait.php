@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Traits;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Traits;
 
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 trait UndecidedComparisonTypeTrait
 {
-    public function isSmallerThan(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isSmallerThan(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
     }
 }

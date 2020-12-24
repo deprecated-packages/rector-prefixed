@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\Skipper\Skipper;
+namespace _PhpScoperb75b35f52b74\Symplify\Skipper\Skipper;
 
-use _PhpScoper0a6b37af0871\Symplify\Skipper\Matcher\FileInfoMatcher;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Symplify\Skipper\Matcher\FileInfoMatcher;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\Skipper\Tests\Skipper\Only\OnlySkipperTest
  */
@@ -14,7 +14,7 @@ final class OnlySkipper
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\_PhpScoper0a6b37af0871\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\_PhpScoperb75b35f52b74\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
@@ -22,7 +22,7 @@ final class OnlySkipper
      * @param object|string $checker
      * @param mixed[] $only
      */
-    public function doesMatchOnly($checker, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only) : ?bool
+    public function doesMatchOnly($checker, \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only) : ?bool
     {
         foreach ($only as $onlyClass => $onlyFiles) {
             if (\is_int($onlyClass)) {

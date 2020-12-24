@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\File;
+namespace _PhpScoperb75b35f52b74\Hoa\File;
 
-use _PhpScoper0a6b37af0871\Hoa\Iterator;
+use _PhpScoperb75b35f52b74\Hoa\Iterator;
 /**
  * Class \Hoa\File\Finder.
  *
@@ -44,14 +44,14 @@ use _PhpScoper0a6b37af0871\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
+class Finder implements \_PhpScoperb75b35f52b74\Hoa\Iterator\Aggregate
 {
     /**
      * SplFileInfo classname.
      *
      * @var string
      */
-    protected $_splFileInfo = '_PhpScoper0a6b37af0871\\Hoa\\File\\SplFileInfo';
+    protected $_splFileInfo = '_PhpScoperb75b35f52b74\\Hoa\\File\\SplFileInfo';
     /**
      * Paths where to look for.
      *
@@ -100,8 +100,8 @@ class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
      */
     public function __construct()
     {
-        $this->_flags = \_PhpScoper0a6b37af0871\Hoa\Iterator\FileSystem::KEY_AS_PATHNAME | \_PhpScoper0a6b37af0871\Hoa\Iterator\FileSystem::CURRENT_AS_FILEINFO | \_PhpScoper0a6b37af0871\Hoa\Iterator\FileSystem::SKIP_DOTS;
-        $this->_first = \_PhpScoper0a6b37af0871\Hoa\Iterator\Recursive\Iterator::SELF_FIRST;
+        $this->_flags = \_PhpScoperb75b35f52b74\Hoa\Iterator\FileSystem::KEY_AS_PATHNAME | \_PhpScoperb75b35f52b74\Hoa\Iterator\FileSystem::CURRENT_AS_FILEINFO | \_PhpScoperb75b35f52b74\Hoa\Iterator\FileSystem::SKIP_DOTS;
+        $this->_first = \_PhpScoperb75b35f52b74\Hoa\Iterator\Recursive\Iterator::SELF_FIRST;
         return;
     }
     /**
@@ -117,7 +117,7 @@ class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
         }
         foreach ($paths as $path) {
             if (1 === \preg_match('/[\\*\\?\\[\\]]/', $path)) {
-                $iterator = new \_PhpScoper0a6b37af0871\Hoa\Iterator\CallbackFilter(new \_PhpScoper0a6b37af0871\Hoa\Iterator\Glob(\rtrim($path, DS)), function ($current) {
+                $iterator = new \_PhpScoperb75b35f52b74\Hoa\Iterator\CallbackFilter(new \_PhpScoperb75b35f52b74\Hoa\Iterator\Glob(\rtrim($path, DS)), function ($current) {
                     return $current->isDir();
                 });
                 foreach ($iterator as $fileInfo) {
@@ -179,9 +179,9 @@ class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
     public function followSymlinks($flag = \true)
     {
         if (\true === $flag) {
-            $this->_flags ^= \_PhpScoper0a6b37af0871\Hoa\Iterator\FileSystem::FOLLOW_SYMLINKS;
+            $this->_flags ^= \_PhpScoperb75b35f52b74\Hoa\Iterator\FileSystem::FOLLOW_SYMLINKS;
         } else {
-            $this->_flags |= \_PhpScoper0a6b37af0871\Hoa\Iterator\FileSystem::FOLLOW_SYMLINKS;
+            $this->_flags |= \_PhpScoperb75b35f52b74\Hoa\Iterator\FileSystem::FOLLOW_SYMLINKS;
         }
         return $this;
     }
@@ -318,9 +318,9 @@ class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
     public function dots($flag = \true)
     {
         if (\true === $flag) {
-            $this->_flags ^= \_PhpScoper0a6b37af0871\Hoa\Iterator\FileSystem::SKIP_DOTS;
+            $this->_flags ^= \_PhpScoperb75b35f52b74\Hoa\Iterator\FileSystem::SKIP_DOTS;
         } else {
-            $this->_flags |= \_PhpScoper0a6b37af0871\Hoa\Iterator\FileSystem::SKIP_DOTS;
+            $this->_flags |= \_PhpScoperb75b35f52b74\Hoa\Iterator\FileSystem::SKIP_DOTS;
         }
         return $this;
     }
@@ -492,7 +492,7 @@ class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
      */
     public function childFirst()
     {
-        $this->_first = \_PhpScoper0a6b37af0871\Hoa\Iterator\Recursive\Iterator::CHILD_FIRST;
+        $this->_first = \_PhpScoperb75b35f52b74\Hoa\Iterator\Recursive\Iterator::CHILD_FIRST;
         return $this;
     }
     /**
@@ -502,7 +502,7 @@ class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
      */
     public function getIterator()
     {
-        $_iterator = new \_PhpScoper0a6b37af0871\Hoa\Iterator\Append();
+        $_iterator = new \_PhpScoperb75b35f52b74\Hoa\Iterator\Append();
         $types = $this->getTypes();
         if (!empty($types)) {
             $this->_filters[] = function (\SplFileInfo $current) use($types) {
@@ -513,9 +513,9 @@ class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
         $splFileInfo = $this->getSplFileInfo();
         foreach ($this->getPaths() as $path) {
             if (1 == $maxDepth) {
-                $iterator = new \_PhpScoper0a6b37af0871\Hoa\Iterator\IteratorIterator(new \_PhpScoper0a6b37af0871\Hoa\Iterator\Recursive\Directory($path, $this->getFlags(), $splFileInfo), $this->getFirst());
+                $iterator = new \_PhpScoperb75b35f52b74\Hoa\Iterator\IteratorIterator(new \_PhpScoperb75b35f52b74\Hoa\Iterator\Recursive\Directory($path, $this->getFlags(), $splFileInfo), $this->getFirst());
             } else {
-                $iterator = new \_PhpScoper0a6b37af0871\Hoa\Iterator\Recursive\Iterator(new \_PhpScoper0a6b37af0871\Hoa\Iterator\Recursive\Directory($path, $this->getFlags(), $splFileInfo), $this->getFirst());
+                $iterator = new \_PhpScoperb75b35f52b74\Hoa\Iterator\Recursive\Iterator(new \_PhpScoperb75b35f52b74\Hoa\Iterator\Recursive\Directory($path, $this->getFlags(), $splFileInfo), $this->getFirst());
                 if (1 < $maxDepth) {
                     $iterator->setMaxDepth($maxDepth - 1);
                 }
@@ -523,7 +523,7 @@ class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
             $_iterator->append($iterator);
         }
         foreach ($this->getFilters() as $filter) {
-            $_iterator = new \_PhpScoper0a6b37af0871\Hoa\Iterator\CallbackFilter($_iterator, $filter);
+            $_iterator = new \_PhpScoperb75b35f52b74\Hoa\Iterator\CallbackFilter($_iterator, $filter);
         }
         $sorts = $this->getSorts();
         if (empty($sorts)) {
@@ -533,7 +533,7 @@ class Finder implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Aggregate
         foreach ($sorts as $sort) {
             \uasort($array, $sort);
         }
-        return new \_PhpScoper0a6b37af0871\Hoa\Iterator\Map($array);
+        return new \_PhpScoperb75b35f52b74\Hoa\Iterator\Map($array);
     }
     /**
      * Set SplFileInfo classname.

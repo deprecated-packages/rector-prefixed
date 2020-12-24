@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Doctrine\Inflector\Rules;
+namespace _PhpScoperb75b35f52b74\Doctrine\Inflector\Rules;
 
-use _PhpScoper0a6b37af0871\Doctrine\Inflector\WordInflector;
+use _PhpScoperb75b35f52b74\Doctrine\Inflector\WordInflector;
 use function strtolower;
 use function strtoupper;
 use function substr;
-class Substitutions implements \_PhpScoper0a6b37af0871\Doctrine\Inflector\WordInflector
+class Substitutions implements \_PhpScoperb75b35f52b74\Doctrine\Inflector\WordInflector
 {
     /** @var Substitution[] */
     private $substitutions;
-    public function __construct(\_PhpScoper0a6b37af0871\Doctrine\Inflector\Rules\Substitution ...$substitutions)
+    public function __construct(\_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Substitution ...$substitutions)
     {
         foreach ($substitutions as $substitution) {
             $this->substitutions[$substitution->getFrom()->getWord()] = $substitution;
         }
     }
-    public function getFlippedSubstitutions() : \_PhpScoper0a6b37af0871\Doctrine\Inflector\Rules\Substitutions
+    public function getFlippedSubstitutions() : \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Substitutions
     {
         $substitutions = [];
         foreach ($this->substitutions as $substitution) {
-            $substitutions[] = new \_PhpScoper0a6b37af0871\Doctrine\Inflector\Rules\Substitution($substitution->getTo(), $substitution->getFrom());
+            $substitutions[] = new \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Substitution($substitution->getTo(), $substitution->getFrom());
         }
-        return new \_PhpScoper0a6b37af0871\Doctrine\Inflector\Rules\Substitutions(...$substitutions);
+        return new \_PhpScoperb75b35f52b74\Doctrine\Inflector\Rules\Substitutions(...$substitutions);
     }
     public function inflect(string $word) : string
     {

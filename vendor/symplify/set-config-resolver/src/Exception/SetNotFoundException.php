@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Exception;
+namespace _PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Exception;
 
 use Exception;
 final class SetNotFoundException extends \Exception

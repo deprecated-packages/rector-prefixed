@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise;
 
-interface CancellablePromiseInterface extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface
+interface CancellablePromiseInterface extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface
 {
     /**
      * The `cancel()` method notifies the creator of the promise that there is no

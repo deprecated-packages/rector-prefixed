@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-uv` based event loop.
@@ -15,7 +15,7 @@ use SplObjectStorage;
  *
  * @see https://github.com/bwoebi/php-uv
  */
-final class ExtUvLoop implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface
+final class ExtUvLoop implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface
 {
     private $uv;
     private $futureTickQueue;
@@ -33,10 +33,10 @@ final class ExtUvLoop implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\
             throw new \BadMethodCallException('Cannot create LibUvLoop, ext-uv extension missing');
         }
         $this->uv = \uv_loop_new();
-        $this->futureTickQueue = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue();
+        $this->futureTickQueue = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue();
         $this->timers = new \SplObjectStorage();
         $this->streamListener = $this->createStreamListener();
-        $this->signals = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\SignalsHandler();
+        $this->signals = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\SignalsHandler();
     }
     /**
      * Returns the underlying ext-uv event loop. (Internal ReactPHP use only.)
@@ -98,7 +98,7 @@ final class ExtUvLoop implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\
      */
     public function addTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $that = $this;
         $timers = $this->timers;
         $callback = function () use($timer, $timers, $that) {
@@ -117,7 +117,7 @@ final class ExtUvLoop implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\
      */
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $callback = function () use($timer) {
             \call_user_func($timer->getCallback(), $timer);
         };
@@ -130,7 +130,7 @@ final class ExtUvLoop implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\
     /**
      * {@inheritdoc}
      */
-    public function cancelTimer(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
+    public function cancelTimer(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
     {
         if (isset($this->timers[$timer])) {
             @\uv_timer_stop($this->timers[$timer]);
@@ -149,8 +149,8 @@ final class ExtUvLoop implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\
         $this->signals->add($signal, $listener);
         if (!isset($this->signalEvents[$signal])) {
             $signals = $this->signals;
-            $this->signalEvents[$signal] = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\uv_signal_init($this->uv);
-            \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\uv_signal_start($this->signalEvents[$signal], function () use($signals, $signal) {
+            $this->signalEvents[$signal] = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\uv_signal_init($this->uv);
+            \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\uv_signal_start($this->signalEvents[$signal], function () use($signals, $signal) {
                 $signals->call($signal);
             }, $signal);
         }
@@ -196,7 +196,7 @@ final class ExtUvLoop implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\
     private function addStream($stream)
     {
         if (!isset($this->streamEvents[(int) $stream])) {
-            $this->streamEvents[(int) $stream] = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\uv_poll_init_socket($this->uv, $stream);
+            $this->streamEvents[(int) $stream] = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\uv_poll_init_socket($this->uv, $stream);
         }
         if ($this->streamEvents[(int) $stream] !== \false) {
             $this->pollStream($stream);

@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Io;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\Util;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Bridge between StreamInterface from PSR-7 and ReadableStreamInterface from ReactPHP
  *
@@ -23,7 +23,7 @@ use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInt
  * @see ReadableStreamInterface
  * @internal
  */
-class HttpBodyStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class HttpBodyStream extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
 {
     public $input;
     private $closed = \false;
@@ -32,7 +32,7 @@ class HttpBodyStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Even
      * @param ReadableStreamInterface $input Stream data from $stream as a body of a PSR-7 object4
      * @param int|null $size size of the data body
      */
-    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input, $size)
+    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input, $size)
     {
         $this->input = $input;
         $this->size = $size;
@@ -53,9 +53,9 @@ class HttpBodyStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Even
     {
         $this->input->resume();
     }
-    public function pipe(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

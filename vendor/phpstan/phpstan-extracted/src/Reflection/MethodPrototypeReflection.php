@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection;
 
-class MethodPrototypeReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberReflection
+class MethodPrototypeReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -31,7 +31,7 @@ class MethodPrototypeReflection implements \_PhpScoper0a6b37af0871\PHPStan\Refle
      * @param bool $isFinal
      * @param ParametersAcceptor[] $variants
      */
-    public function __construct(string $name, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $declaringClass, bool $isStatic, bool $isPrivate, bool $isPublic, bool $isAbstract, bool $isFinal, array $variants)
+    public function __construct(string $name, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $declaringClass, bool $isStatic, bool $isPrivate, bool $isPublic, bool $isAbstract, bool $isFinal, array $variants)
     {
         $this->name = $name;
         $this->declaringClass = $declaringClass;
@@ -46,7 +46,7 @@ class MethodPrototypeReflection implements \_PhpScoper0a6b37af0871\PHPStan\Refle
     {
         return $this->name;
     }
-    public function getDeclaringClass() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }

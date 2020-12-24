@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Legacy\Naming;
+namespace _PhpScoperb75b35f52b74\Rector\Legacy\Naming;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
 final class FullyQualifiedNameResolver
 {
     /**
@@ -17,7 +17,7 @@ final class FullyQualifiedNameResolver
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -28,7 +28,7 @@ final class FullyQualifiedNameResolver
     public function resolveFullyQualifiedName(array $nodes, string $shortClassName) : string
     {
         /** @var Namespace_|null $namespace */
-        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_::class);
+        $namespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_::class);
         if ($namespace === null) {
             return $shortClassName;
         }

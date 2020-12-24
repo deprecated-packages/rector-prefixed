@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\Constant;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Constant;
 
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\GlobalConstantReflection;
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-class RuntimeConstantReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\GlobalConstantReflection
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\GlobalConstantReflection;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+class RuntimeConstantReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\GlobalConstantReflection
 {
     /** @var string */
     private $name;
@@ -14,7 +14,7 @@ class RuntimeConstantReflection implements \_PhpScoper0a6b37af0871\PHPStan\Refle
     private $valueType;
     /** @var string|null */
     private $fileName;
-    public function __construct(string $name, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $valueType, ?string $fileName)
+    public function __construct(string $name, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $valueType, ?string $fileName)
     {
         $this->name = $name;
         $this->valueType = $valueType;
@@ -24,7 +24,7 @@ class RuntimeConstantReflection implements \_PhpScoper0a6b37af0871\PHPStan\Refle
     {
         return $this->name;
     }
-    public function getValueType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getValueType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this->valueType;
     }
@@ -32,16 +32,16 @@ class RuntimeConstantReflection implements \_PhpScoper0a6b37af0871\PHPStan\Refle
     {
         return $this->fileName;
     }
-    public function isDeprecated() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isInternal() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
 }

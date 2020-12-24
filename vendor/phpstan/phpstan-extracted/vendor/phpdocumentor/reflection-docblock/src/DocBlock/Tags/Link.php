@@ -10,16 +10,16 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Reflection class for a @link tag in a Docblock.
  */
-final class Link extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Link extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'link';
     /** @var string */
@@ -30,19 +30,19 @@ final class Link extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocum
      * @param string      $link
      * @param Description $description
      */
-    public function __construct($link, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($link, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($link);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($link);
         $this->link = $link;
         $this->description = $description;
     }
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($body);
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::notNull($descriptionFactory);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($body);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::notNull($descriptionFactory);
         $parts = \preg_split('/\\s+/Su', $body, 2);
         $description = isset($parts[1]) ? $descriptionFactory->create($parts[1], $context) : null;
         return new static($parts[0], $description);

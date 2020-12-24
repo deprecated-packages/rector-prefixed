@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
+namespace _PhpScoperb75b35f52b74\PHPStan\Analyser;
 
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 class ExpressionContext
 {
     /** @var bool */
@@ -12,7 +12,7 @@ class ExpressionContext
     private $inAssignRightSideVariableName;
     /** @var Type|null */
     private $inAssignRightSideType;
-    private function __construct(bool $isDeep, ?string $inAssignRightSideVariableName, ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type $inAssignRightSideType)
+    private function __construct(bool $isDeep, ?string $inAssignRightSideVariableName, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $inAssignRightSideType)
     {
         $this->isDeep = $isDeep;
         $this->inAssignRightSideVariableName = $inAssignRightSideVariableName;
@@ -37,7 +37,7 @@ class ExpressionContext
     {
         return $this->isDeep;
     }
-    public function enterRightSideAssign(string $variableName, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : self
+    public function enterRightSideAssign(string $variableName, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : self
     {
         return new self($this->isDeep, $variableName, $type);
     }
@@ -45,7 +45,7 @@ class ExpressionContext
     {
         return $this->inAssignRightSideVariableName;
     }
-    public function getInAssignRightSideType() : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getInAssignRightSideType() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this->inAssignRightSideType;
     }

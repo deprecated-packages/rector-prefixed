@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871;
+namespace _PhpScoperb75b35f52b74;
 
-use _PhpScoper0a6b37af0871\Rector\Caching\Detector\ChangedFilesDetector;
-use _PhpScoper0a6b37af0871\Rector\Core\Bootstrap\ConfigShifter;
-use _PhpScoper0a6b37af0871\Rector\Core\Bootstrap\RectorConfigsResolver;
-use _PhpScoper0a6b37af0871\Rector\Core\Configuration\Configuration;
-use _PhpScoper0a6b37af0871\Rector\Core\Console\ConsoleApplication;
-use _PhpScoper0a6b37af0871\Rector\Core\Console\Style\SymfonyStyleFactory;
-use _PhpScoper0a6b37af0871\Rector\Core\DependencyInjection\RectorContainerFactory;
-use _PhpScoper0a6b37af0871\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Console\ShellCode;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Reflection\PrivatesCaller;
-use _PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
-use _PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use _PhpScoperb75b35f52b74\Rector\Caching\Detector\ChangedFilesDetector;
+use _PhpScoperb75b35f52b74\Rector\Core\Bootstrap\ConfigShifter;
+use _PhpScoperb75b35f52b74\Rector\Core\Bootstrap\RectorConfigsResolver;
+use _PhpScoperb75b35f52b74\Rector\Core\Configuration\Configuration;
+use _PhpScoperb75b35f52b74\Rector\Core\Console\ConsoleApplication;
+use _PhpScoperb75b35f52b74\Rector\Core\Console\Style\SymfonyStyleFactory;
+use _PhpScoperb75b35f52b74\Rector\Core\DependencyInjection\RectorContainerFactory;
+use _PhpScoperb75b35f52b74\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Console\ShellCode;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use _PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
+use _PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Exception\SetNotFoundException;
 // @ intentionally: continue anyway
 @\ini_set('memory_limit', '-1');
 // Performance boost
@@ -23,21 +23,21 @@ use _PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Exception\SetNotFoundExcep
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \_PhpScoper0a6b37af0871\AutoloadIncluder();
+$autoloadIncluder = new \_PhpScoperb75b35f52b74\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(\getcwd() . '/vendor/autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
-$symfonyStyleFactory = new \_PhpScoper0a6b37af0871\Rector\Core\Console\Style\SymfonyStyleFactory(new \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Reflection\PrivatesCaller());
+$symfonyStyleFactory = new \_PhpScoperb75b35f52b74\Rector\Core\Console\Style\SymfonyStyleFactory(new \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 try {
-    $rectorConfigsResolver = new \_PhpScoper0a6b37af0871\Rector\Core\Bootstrap\RectorConfigsResolver();
+    $rectorConfigsResolver = new \_PhpScoperb75b35f52b74\Rector\Core\Bootstrap\RectorConfigsResolver();
     $configFileInfos = $rectorConfigsResolver->provide();
     // Build DI container
-    $rectorContainerFactory = new \_PhpScoper0a6b37af0871\Rector\Core\DependencyInjection\RectorContainerFactory();
+    $rectorContainerFactory = new \_PhpScoperb75b35f52b74\Rector\Core\DependencyInjection\RectorContainerFactory();
     // shift configs as last so parameters with main config have higher priority
-    $configShifter = new \_PhpScoper0a6b37af0871\Rector\Core\Bootstrap\ConfigShifter();
+    $configShifter = new \_PhpScoperb75b35f52b74\Rector\Core\Bootstrap\ConfigShifter();
     $firstResolvedConfig = $rectorConfigsResolver->getFirstResolvedConfig();
     if ($firstResolvedConfig !== null) {
         $configFileInfos = $configShifter->shiftInputConfigAsLast($configFileInfos, $firstResolvedConfig);
@@ -46,22 +46,22 @@ try {
     $firstResolvedConfig = $rectorConfigsResolver->getFirstResolvedConfig();
     if ($firstResolvedConfig) {
         /** @var Configuration $configuration */
-        $configuration = $container->get(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Configuration::class);
+        $configuration = $container->get(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Configuration::class);
         $configuration->setFirstResolverConfigFileInfo($firstResolvedConfig);
         /** @var ChangedFilesDetector $changedFilesDetector */
-        $changedFilesDetector = $container->get(\_PhpScoper0a6b37af0871\Rector\Caching\Detector\ChangedFilesDetector::class);
+        $changedFilesDetector = $container->get(\_PhpScoperb75b35f52b74\Rector\Caching\Detector\ChangedFilesDetector::class);
         $changedFilesDetector->setFirstResolvedConfigFileInfo($firstResolvedConfig);
     }
-} catch (\_PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) {
-    $invalidSetReporter = new \_PhpScoper0a6b37af0871\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
+} catch (\_PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) {
+    $invalidSetReporter = new \_PhpScoperb75b35f52b74\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
     $invalidSetReporter->report($setNotFoundException);
-    exit(\_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Console\ShellCode::ERROR);
+    exit(\_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 } catch (\Throwable $throwable) {
     $symfonyStyle->error($throwable->getMessage());
-    exit(\_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Console\ShellCode::ERROR);
+    exit(\_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 }
 /** @var ConsoleApplication $application */
-$application = $container->get(\_PhpScoper0a6b37af0871\Rector\Core\Console\ConsoleApplication::class);
+$application = $container->get(\_PhpScoperb75b35f52b74\Rector\Core\Console\ConsoleApplication::class);
 exit($application->run());
 final class AutoloadIncluder
 {
@@ -72,7 +72,7 @@ final class AutoloadIncluder
     public function includeDependencyOrRepositoryVendorAutoloadIfExists() : void
     {
         // Rector's vendor is already loaded
-        if (\class_exists(\_PhpScoper0a6b37af0871\Rector\Core\HttpKernel\RectorKernel::class)) {
+        if (\class_exists(\_PhpScoperb75b35f52b74\Rector\Core\HttpKernel\RectorKernel::class)) {
             return;
         }
         // in Rector develop repository
@@ -112,4 +112,4 @@ final class AutoloadIncluder
         require_once $filePath;
     }
 }
-\class_alias('_PhpScoper0a6b37af0871\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('_PhpScoperb75b35f52b74\\AutoloadIncluder', 'AutoloadIncluder', \false);

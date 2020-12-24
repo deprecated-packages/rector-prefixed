@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\HttpKernel;
+namespace _PhpScoperb75b35f52b74\Symplify\PhpConfigPrinter\HttpKernel;
 
-use _PhpScoper0a6b37af0871\Symfony\Component\Config\Loader\LoaderInterface;
-use _PhpScoper0a6b37af0871\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-use _PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
-use _PhpScoper0a6b37af0871\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class PhpConfigPrinterKernel extends \_PhpScoper0a6b37af0871\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel implements \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
+use _PhpScoperb75b35f52b74\Symfony\Component\Config\Loader\LoaderInterface;
+use _PhpScoperb75b35f52b74\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
+use _PhpScoperb75b35f52b74\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
+use _PhpScoperb75b35f52b74\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class PhpConfigPrinterKernel extends \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel implements \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
 {
     /**
      * @var string[]
      */
     private $configs = [];
-    public function registerContainerConfiguration(\_PhpScoper0a6b37af0871\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\_PhpScoperb75b35f52b74\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         foreach ($this->configs as $config) {
@@ -26,7 +26,7 @@ final class PhpConfigPrinterKernel extends \_PhpScoper0a6b37af0871\Symplify\Symp
      */
     public function registerBundles() : iterable
     {
-        return [new \_PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
+        return [new \_PhpScoperb75b35f52b74\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
     }
     /**
      * @param string[] $configs

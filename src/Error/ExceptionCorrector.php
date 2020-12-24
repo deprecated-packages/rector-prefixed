@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\Error;
+namespace _PhpScoperb75b35f52b74\Rector\Core\Error;
 
-use _PhpScoper0a6b37af0871\PHPStan\AnalysedCodeException;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\RectorInterface;
+use _PhpScoperb75b35f52b74\PHPStan\AnalysedCodeException;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\RectorInterface;
 use Throwable;
 final class ExceptionCorrector
 {
@@ -18,12 +18,12 @@ final class ExceptionCorrector
         }
         /** @var string $class */
         $class = $throwable->getTrace()[0]['class'];
-        if (!\is_a($class, \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\RectorInterface::class, \true)) {
+        if (!\is_a($class, \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\RectorInterface::class, \true)) {
             return null;
         }
         return $class;
     }
-    public function getAutoloadExceptionMessageAndAddLocation(\_PhpScoper0a6b37af0871\PHPStan\AnalysedCodeException $analysedCodeException) : string
+    public function getAutoloadExceptionMessageAndAddLocation(\_PhpScoperb75b35f52b74\PHPStan\AnalysedCodeException $analysedCodeException) : string
     {
         return \sprintf('Analyze error: "%s". Include your files in "$parameters->set(Option::AUTOLOAD_PATHS, [...]);" in "rector.php" config.%sSee https://github.com/rectorphp/rector#configuration', $analysedCodeException->getMessage(), \PHP_EOL);
     }

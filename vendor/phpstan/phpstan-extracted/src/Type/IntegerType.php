@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type;
 
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Accessory\AccessoryNumericStringType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\NonCallableTypeTrait;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\NonGenericTypeTrait;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\NonIterableTypeTrait;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\NonObjectTypeTrait;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
-class IntegerType implements \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Accessory\AccessoryNumericStringType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\NonCallableTypeTrait;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\NonGenericTypeTrait;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\NonIterableTypeTrait;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\NonObjectTypeTrait;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+class IntegerType implements \_PhpScoperb75b35f52b74\PHPStan\Type\Type
 {
     use JustNullableTypeTrait;
     use NonCallableTypeTrait;
@@ -22,7 +22,7 @@ class IntegerType implements \_PhpScoper0a6b37af0871\PHPStan\Type\Type
     use UndecidedBooleanTypeTrait;
     use UndecidedComparisonTypeTrait;
     use NonGenericTypeTrait;
-    public function describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel $level) : string
     {
         return 'int';
     }
@@ -30,44 +30,44 @@ class IntegerType implements \_PhpScoper0a6b37af0871\PHPStan\Type\Type
      * @param mixed[] $properties
      * @return Type
      */
-    public static function __set_state(array $properties) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return new self();
     }
-    public function toNumber() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toNumber() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this;
     }
-    public function toFloat() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toFloat() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\FloatType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\FloatType();
     }
-    public function toInteger() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toInteger() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this;
     }
-    public function toString() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toString() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\IntersectionType([new \_PhpScoper0a6b37af0871\PHPStan\Type\StringType(), new \_PhpScoper0a6b37af0871\PHPStan\Type\Accessory\AccessoryNumericStringType()]);
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType([new \_PhpScoperb75b35f52b74\PHPStan\Type\StringType(), new \_PhpScoperb75b35f52b74\PHPStan\Type\Accessory\AccessoryNumericStringType()]);
     }
-    public function toArray() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toArray() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType([new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType(0)], [$this], 1);
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantArrayType([new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType(0)], [$this], 1);
     }
-    public function isOffsetAccessible() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function hasOffsetValueType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $offsetType) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function getOffsetValueType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $offsetType) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getOffsetValueType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType();
     }
-    public function setOffsetValueType(?\_PhpScoper0a6b37af0871\PHPStan\Type\Type $offsetType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $valueType) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function setOffsetValueType(?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $valueType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType();
     }
 }

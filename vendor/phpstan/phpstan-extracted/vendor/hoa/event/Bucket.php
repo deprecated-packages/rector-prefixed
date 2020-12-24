@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Event;
+namespace _PhpScoperb75b35f52b74\Hoa\Event;
 
 /**
  * Class \Hoa\Event\Bucket.
@@ -74,9 +74,9 @@ class Bucket
      * @param   \Hoa\Event\Source  $source     Source.
      * @return  void
      */
-    public function send($eventId, \_PhpScoper0a6b37af0871\Hoa\Event\Source $source)
+    public function send($eventId, \_PhpScoperb75b35f52b74\Hoa\Event\Source $source)
     {
-        return \_PhpScoper0a6b37af0871\Hoa\Event\Event::notify($eventId, $source, $this);
+        return \_PhpScoperb75b35f52b74\Hoa\Event\Event::notify($eventId, $source, $this);
     }
     /**
      * Set source.
@@ -84,7 +84,7 @@ class Bucket
      * @param   \Hoa\Event\Source  $source    Source.
      * @return  \Hoa\Event\Source
      */
-    public function setSource(\_PhpScoper0a6b37af0871\Hoa\Event\Source $source)
+    public function setSource(\_PhpScoperb75b35f52b74\Hoa\Event\Source $source)
     {
         $old = $this->_source;
         $this->_source = $source;

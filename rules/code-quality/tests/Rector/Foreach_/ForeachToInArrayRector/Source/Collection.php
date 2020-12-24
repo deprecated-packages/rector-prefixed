@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Tests\Rector\Foreach_\ForeachToInArrayRector\Source;
+namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Tests\Rector\Foreach_\ForeachToInArrayRector\Source;
 
 use ArrayIterator;
 use Closure;
-use _PhpScoper0a6b37af0871\Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
+use _PhpScoperb75b35f52b74\Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
 use const ARRAY_FILTER_USE_BOTH;
 use function array_filter;
 use function array_key_exists;

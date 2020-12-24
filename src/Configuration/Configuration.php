@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\Configuration;
+namespace _PhpScoperb75b35f52b74\Rector\Core\Configuration;
 
-use _PhpScoper0a6b37af0871\Jean85\PrettyVersions;
-use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
-use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Output\JsonOutputFormatter;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\Configuration\InvalidConfigurationException;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Jean85\PrettyVersions;
+use _PhpScoperb75b35f52b74\Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
+use _PhpScoperb75b35f52b74\Rector\ChangesReporting\Output\JsonOutputFormatter;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\Configuration\InvalidConfigurationException;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 final class Configuration
 {
     /**
@@ -69,28 +69,28 @@ final class Configuration
      * @var SmartFileInfo|null
      */
     private $configFileInfo;
-    public function __construct(\_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
-        $this->isCacheEnabled = (bool) $parameterProvider->provideParameter(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::ENABLE_CACHE);
-        $this->fileExtensions = (array) $parameterProvider->provideParameter(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::FILE_EXTENSIONS);
-        $this->paths = (array) $parameterProvider->provideParameter(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::PATHS);
+        $this->isCacheEnabled = (bool) $parameterProvider->provideParameter(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::ENABLE_CACHE);
+        $this->fileExtensions = (array) $parameterProvider->provideParameter(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::FILE_EXTENSIONS);
+        $this->paths = (array) $parameterProvider->provideParameter(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::PATHS);
         $this->parameterProvider = $parameterProvider;
     }
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      */
-    public function resolveFromInput(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface $input) : void
+    public function resolveFromInput(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface $input) : void
     {
-        $this->isDryRun = (bool) $input->getOption(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::OPTION_DRY_RUN);
-        $this->shouldClearCache = (bool) $input->getOption(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
-        $this->mustMatchGitDiff = (bool) $input->getOption(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::MATCH_GIT_DIFF);
+        $this->isDryRun = (bool) $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::OPTION_DRY_RUN);
+        $this->shouldClearCache = (bool) $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
+        $this->mustMatchGitDiff = (bool) $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::MATCH_GIT_DIFF);
         $this->showProgressBar = $this->canShowProgressBar($input);
-        $this->isCacheDebug = (bool) $input->getOption(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::CACHE_DEBUG);
+        $this->isCacheDebug = (bool) $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::CACHE_DEBUG);
         /** @var string|null $outputFileOption */
-        $outputFileOption = $input->getOption(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE);
+        $outputFileOption = $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE);
         $this->outputFile = $this->sanitizeOutputFileValue($outputFileOption);
-        $this->outputFormat = (string) $input->getOption(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);
-        $commandLinePaths = (array) $input->getArgument(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::SOURCE);
+        $this->outputFormat = (string) $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);
+        $commandLinePaths = (array) $input->getArgument(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::SOURCE);
         // manual command line value has priority
         if ($commandLinePaths !== []) {
             $this->paths = $commandLinePaths;
@@ -99,7 +99,7 @@ final class Configuration
     /**
      * @api
      */
-    public function setFirstResolverConfigFileInfo(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $firstResolvedConfigFileInfo) : void
+    public function setFirstResolverConfigFileInfo(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $firstResolvedConfigFileInfo) : void
     {
         $this->configFileInfo = $firstResolvedConfigFileInfo;
     }
@@ -112,7 +112,7 @@ final class Configuration
     }
     public function getPrettyVersion() : string
     {
-        $version = \_PhpScoper0a6b37af0871\Jean85\PrettyVersions::getVersion('rector/rector');
+        $version = \_PhpScoperb75b35f52b74\Jean85\PrettyVersions::getVersion('rector/rector');
         return $version->getPrettyVersion();
     }
     /**
@@ -135,7 +135,7 @@ final class Configuration
     }
     public function areAnyPhpRectorsLoaded() : bool
     {
-        if (\_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return \true;
         }
         return $this->areAnyPhpRectorsLoaded;
@@ -198,7 +198,7 @@ final class Configuration
     }
     public function validateConfigParameters() : void
     {
-        $symfonyContainerXmlPath = (string) $this->parameterProvider->provideParameter(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER);
+        $symfonyContainerXmlPath = (string) $this->parameterProvider->provideParameter(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER);
         if ($symfonyContainerXmlPath === '') {
             return;
         }
@@ -206,26 +206,26 @@ final class Configuration
             return;
         }
         $message = \sprintf('Path "%s" for "$parameters->set(Option::%s, ...);" in your config was not found. Correct it', $symfonyContainerXmlPath, 'SYMFONY_CONTAINER_XML_PATH_PARAMETER');
-        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\Configuration\InvalidConfigurationException($message);
+        throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\Configuration\InvalidConfigurationException($message);
     }
     public function shouldHideClutter() : bool
     {
-        if ($this->outputFormat === \_PhpScoper0a6b37af0871\Rector\ChangesReporting\Output\JsonOutputFormatter::NAME) {
+        if ($this->outputFormat === \_PhpScoperb75b35f52b74\Rector\ChangesReporting\Output\JsonOutputFormatter::NAME) {
             return \true;
         }
-        return $this->outputFormat === \_PhpScoper0a6b37af0871\Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME;
+        return $this->outputFormat === \_PhpScoperb75b35f52b74\Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME;
     }
-    private function canShowProgressBar(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface $input) : bool
+    private function canShowProgressBar(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
-        $noProgressBar = (bool) $input->getOption(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR);
+        $noProgressBar = (bool) $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR);
         if ($noProgressBar) {
             return \false;
         }
-        $optionOutputFormat = $input->getOption(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);
-        if ($optionOutputFormat === \_PhpScoper0a6b37af0871\Rector\ChangesReporting\Output\JsonOutputFormatter::NAME) {
+        $optionOutputFormat = $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);
+        if ($optionOutputFormat === \_PhpScoperb75b35f52b74\Rector\ChangesReporting\Output\JsonOutputFormatter::NAME) {
             return \false;
         }
-        return $input->getOption(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT) !== \_PhpScoper0a6b37af0871\Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME;
+        return $input->getOption(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT) !== \_PhpScoperb75b35f52b74\Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME;
     }
     private function sanitizeOutputFileValue(?string $outputFileOption) : ?string
     {

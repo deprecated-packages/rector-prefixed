@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f;
 
 /*
  * This file is part of the Symfony package.
@@ -10,22 +10,22 @@ namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Polyfill\Php73 as p;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Polyfill\Php73 as p;
 if (\PHP_VERSION_ID >= 70300) {
     return;
 }
 if (!\function_exists('is_countable')) {
     function is_countable($value)
     {
-        return \is_array($value) || $value instanceof \Countable || $value instanceof \ResourceBundle || $value instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\SimpleXmlElement;
+        return \is_array($value) || $value instanceof \Countable || $value instanceof \ResourceBundle || $value instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\SimpleXmlElement;
     }
 }
 if (!\function_exists('hrtime')) {
     require_once __DIR__ . '/Php73.php';
-    \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Polyfill\Php73\Php73::$startAt = (int) \microtime(\true);
+    \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Polyfill\Php73\Php73::$startAt = (int) \microtime(\true);
     function hrtime($as_number = \false)
     {
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Polyfill\Php73\Php73::hrtime($as_number);
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Polyfill\Php73\Php73::hrtime($as_number);
     }
 }
 if (!\function_exists('array_key_first')) {

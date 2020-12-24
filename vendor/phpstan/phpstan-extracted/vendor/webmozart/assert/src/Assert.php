@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert;
 
 use ArrayAccess;
 use BadMethodCallException;

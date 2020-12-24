@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\Console\Command;
+namespace _PhpScoperb75b35f52b74\Rector\Core\Console\Command;
 
-use _PhpScoper0a6b37af0871\Rector\Core\Application\ActiveRectorsProvider;
-use _PhpScoper0a6b37af0871\Rector\Core\Configuration\Option;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Console\ShellCode;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class ShowCommand extends \_PhpScoper0a6b37af0871\Rector\Core\Console\Command\AbstractCommand
+use _PhpScoperb75b35f52b74\Rector\Core\Application\ActiveRectorsProvider;
+use _PhpScoperb75b35f52b74\Rector\Core\Configuration\Option;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Console\ShellCode;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class ShowCommand extends \_PhpScoperb75b35f52b74\Rector\Core\Console\Command\AbstractCommand
 {
     /**
      * @var SymfonyStyle
@@ -25,7 +25,7 @@ final class ShowCommand extends \_PhpScoper0a6b37af0871\Rector\Core\Console\Comm
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper0a6b37af0871\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoperb75b35f52b74\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->activeRectorsProvider = $activeRectorsProvider;
@@ -36,11 +36,11 @@ final class ShowCommand extends \_PhpScoper0a6b37af0871\Rector\Core\Console\Comm
     {
         $this->setDescription('Show loaded Rectors with their configuration');
     }
-    protected function execute(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper0a6b37af0871\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperb75b35f52b74\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->reportLoadedRectors();
         $this->reportLoadedSets();
-        return \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
     private function reportLoadedRectors() : void
     {
@@ -60,7 +60,7 @@ final class ShowCommand extends \_PhpScoper0a6b37af0871\Rector\Core\Console\Comm
     }
     private function reportLoadedSets() : void
     {
-        $sets = (array) $this->parameterProvider->provideParameter(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::SETS);
+        $sets = (array) $this->parameterProvider->provideParameter(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::SETS);
         if ($sets === []) {
             return;
         }
@@ -69,7 +69,7 @@ final class ShowCommand extends \_PhpScoper0a6b37af0871\Rector\Core\Console\Comm
         \sort($sets);
         $setFilePaths = [];
         foreach ($sets as $set) {
-            $setFileInfo = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo($set);
+            $setFileInfo = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo($set);
             $setFilePaths[] = $setFileInfo->getRelativeFilePathFromCwd();
         }
         $this->symfonyStyle->listing($setFilePaths);

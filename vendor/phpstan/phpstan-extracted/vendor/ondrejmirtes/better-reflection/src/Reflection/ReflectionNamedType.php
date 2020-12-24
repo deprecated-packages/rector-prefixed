@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
 use function array_key_exists;
 use function strtolower;
-class ReflectionNamedType extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType
+class ReflectionNamedType extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType
 {
     private const BUILT_IN_TYPES = ['int' => null, 'float' => null, 'string' => null, 'bool' => null, 'callable' => null, 'self' => null, 'parent' => null, 'array' => null, 'iterable' => null, 'object' => null, 'void' => null, 'mixed' => null, 'static' => null];
     /** @var string */

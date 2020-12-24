@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeAnalyzer;
+namespace _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeAnalyzer;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
 final class SetterClassMethodAnalyzer
 {
     /**
@@ -25,12 +25,12 @@ final class SetterClassMethodAnalyzer
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function matchNullalbeClassMethodProperty(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property
+    public function matchNullalbeClassMethodProperty(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property
     {
         $propertyFetch = $this->matchNullalbeClassMethodPropertyFetch($classMethod);
         if ($propertyFetch === null) {
@@ -38,7 +38,7 @@ final class SetterClassMethodAnalyzer
         }
         return $this->getPropertyByPropertyFetch($classMethod, $propertyFetch);
     }
-    public function matchDateTimeSetterProperty(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property
+    public function matchDateTimeSetterProperty(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property
     {
         $propertyFetch = $this->matchDateTimeSetterPropertyFetch($classMethod);
         if ($propertyFetch === null) {
@@ -54,7 +54,7 @@ final class SetterClassMethodAnalyzer
      *      <$this->someProperty> = $someValue;
      * }
      */
-    private function matchNullalbeClassMethodPropertyFetch(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch
+    private function matchNullalbeClassMethodPropertyFetch(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch
     {
         $propertyFetch = $this->matchSetterOnlyPropertyFetch($classMethod);
         if ($propertyFetch === null) {
@@ -67,10 +67,10 @@ final class SetterClassMethodAnalyzer
         }
         return $propertyFetch;
     }
-    private function getPropertyByPropertyFetch(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property
+    private function getPropertyByPropertyFetch(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property
     {
-        $classLike = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
+        $classLike = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
             return null;
         }
         $propertyName = $this->nodeNameResolver->getName($propertyFetch);
@@ -79,7 +79,7 @@ final class SetterClassMethodAnalyzer
         }
         return $classLike->getProperty($propertyName);
     }
-    private function matchDateTimeSetterPropertyFetch(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch
+    private function matchDateTimeSetterPropertyFetch(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch
     {
         $propertyFetch = $this->matchSetterOnlyPropertyFetch($classMethod);
         if ($propertyFetch === null) {
@@ -87,7 +87,7 @@ final class SetterClassMethodAnalyzer
         }
         $param = $classMethod->params[0];
         $paramType = $this->nodeTypeResolver->getStaticType($param);
-        if (!$paramType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName) {
+        if (!$paramType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
             return null;
         }
         if ($paramType->getClassName() !== 'DateTimeInterface') {
@@ -95,7 +95,7 @@ final class SetterClassMethodAnalyzer
         }
         return $propertyFetch;
     }
-    private function matchSetterOnlyPropertyFetch(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch
+    private function matchSetterOnlyPropertyFetch(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch
     {
         if (\count((array) $classMethod->params) !== 1) {
             return null;
@@ -108,13 +108,13 @@ final class SetterClassMethodAnalyzer
         if ($onlyStmt === null) {
             return null;
         }
-        if ($onlyStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
+        if ($onlyStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
             $onlyStmt = $onlyStmt->expr;
         }
-        if (!$onlyStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
+        if (!$onlyStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
             return null;
         }
-        if (!$onlyStmt->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$onlyStmt->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         $propertyFetch = $onlyStmt->var;
@@ -123,9 +123,9 @@ final class SetterClassMethodAnalyzer
         }
         return $propertyFetch;
     }
-    private function isVariableName(?\_PhpScoper0a6b37af0871\PhpParser\Node $node, string $name) : bool
+    private function isVariableName(?\_PhpScoperb75b35f52b74\PhpParser\Node $node, string $name) : bool
     {
-        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
+        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
             return \false;
         }
         return $this->nodeNameResolver->isName($node, $name);

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\MethodCall;
+namespace _PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\MethodCall;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertPropertyExistsRector\AssertPropertyExistsRectorTest
  */
-final class AssertPropertyExistsRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertPropertyExistsRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var array<string, string>
@@ -31,52 +31,52 @@ final class AssertPropertyExistsRector extends \_PhpScoper0a6b37af0871\Rector\Co
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
     {
         $this->identifierManipulator = $identifierManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns `property_exists` comparisons to their method name alternatives in PHPUnit TestCase', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertTrue(property_exists(new Class, "property"), "message");', '$this->assertClassHasAttribute("property", "Class", "message");'), new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertFalse(property_exists(new Class, "property"), "message");', '$this->assertClassNotHasAttribute("property", "Class", "message");')]);
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns `property_exists` comparisons to their method name alternatives in PHPUnit TestCase', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertTrue(property_exists(new Class, "property"), "message");', '$this->assertClassHasAttribute("property", "Class", "message");'), new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertFalse(property_exists(new Class, "property"), "message");', '$this->assertClassNotHasAttribute("property", "Class", "message");')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (!$this->isPHPUnitMethodNames($node, ['assertTrue', 'assertFalse'])) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;
-        if ($firstArgumentValue instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
+        if ($firstArgumentValue instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall) {
             return null;
         }
         if (!$this->isName($firstArgumentValue, 'property_exists')) {
             return null;
         }
         $propertyExistsMethodCall = $node->args[0]->value;
-        if (!$propertyExistsMethodCall instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
+        if (!$propertyExistsMethodCall instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         $firstArgument = $propertyExistsMethodCall->args[0];
         $secondArgument = $propertyExistsMethodCall->args[1];
-        if ($firstArgument->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
-            $secondArg = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable($firstArgument->value->name);
+        if ($firstArgument->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+            $secondArg = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable($firstArgument->value->name);
             $map = self::RENAME_METHODS_WITH_OBJECT_MAP;
-        } elseif ($firstArgument->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\New_) {
+        } elseif ($firstArgument->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\New_) {
             $secondArg = $this->getName($firstArgument->value->class);
             $map = self::RENAME_METHODS_WITH_CLASS_MAP;
         } else {
             return null;
         }
-        if (!$secondArgument->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
+        if (!$secondArgument->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
             return null;
         }
         unset($node->args[0]);

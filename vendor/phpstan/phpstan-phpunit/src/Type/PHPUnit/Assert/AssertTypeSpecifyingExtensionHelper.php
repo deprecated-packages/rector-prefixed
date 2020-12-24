@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\PHPUnit\Assert;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\PHPUnit\Assert;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Arg;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Instanceof_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\SpecifiedTypes;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifier;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifierContext;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Arg;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifier;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifierContext;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType;
 class AssertTypeSpecifyingExtensionHelper
 {
     /** @var \Closure[] */
@@ -54,13 +54,13 @@ class AssertTypeSpecifyingExtensionHelper
      * @param \PhpParser\Node\Arg[] $args $args
      * @return SpecifiedTypes
      */
-    public static function specifyTypes(\_PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifier $typeSpecifier, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, string $name, array $args) : \_PhpScoper0a6b37af0871\PHPStan\Analyser\SpecifiedTypes
+    public static function specifyTypes(\_PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifier $typeSpecifier, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, string $name, array $args) : \_PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes
     {
         $expression = self::createExpression($scope, $name, $args);
         if ($expression === null) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Analyser\SpecifiedTypes([], []);
+            return new \_PhpScoperb75b35f52b74\PHPStan\Analyser\SpecifiedTypes([], []);
         }
-        return $typeSpecifier->specifyTypesInCondition($scope, $expression, \_PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifierContext::createTruthy());
+        return $typeSpecifier->specifyTypesInCondition($scope, $expression, \_PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifierContext::createTruthy());
     }
     /**
      * @param Scope $scope
@@ -68,7 +68,7 @@ class AssertTypeSpecifyingExtensionHelper
      * @param \PhpParser\Node\Arg[] $args
      * @return \PhpParser\Node\Expr|null
      */
-    private static function createExpression(\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, string $name, array $args) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr
+    private static function createExpression(\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, string $name, array $args) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr
     {
         $trimmedName = self::trimName($name);
         $resolvers = self::getExpressionResolvers();
@@ -78,7 +78,7 @@ class AssertTypeSpecifyingExtensionHelper
             return null;
         }
         if (\strpos($name, 'Not') !== \false) {
-            $expression = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot($expression);
+            $expression = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot($expression);
         }
         return $expression;
     }
@@ -88,45 +88,45 @@ class AssertTypeSpecifyingExtensionHelper
     private static function getExpressionResolvers() : array
     {
         if (self::$resolvers === null) {
-            self::$resolvers = ['InstanceOf' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $class, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $object) : ?Instanceof_ {
+            self::$resolvers = ['InstanceOf' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $class, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $object) : ?Instanceof_ {
                 $classType = $scope->getType($class->value);
-                if (!$classType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType) {
+                if (!$classType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType) {
                     return null;
                 }
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Instanceof_($object->value, new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($classType->getValue()));
-            }, 'Same' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $expected, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : Identical {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical($expected->value, $actual->value);
-            }, 'True' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : Identical {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical($actual->value, new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('true')));
-            }, 'False' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : Identical {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical($actual->value, new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('false')));
-            }, 'Null' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : Identical {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\Identical($actual->value, new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('null')));
-            }, 'IsArray' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_array'), [$actual]);
-            }, 'IsBool' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_bool'), [$actual]);
-            }, 'IsCallable' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_callable'), [$actual]);
-            }, 'IsFloat' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_float'), [$actual]);
-            }, 'IsInt' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_int'), [$actual]);
-            }, 'IsIterable' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_iterable'), [$actual]);
-            }, 'IsNumeric' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_numeric'), [$actual]);
-            }, 'IsObject' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_object'), [$actual]);
-            }, 'IsResource' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_resource'), [$actual]);
-            }, 'IsString' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_string'), [$actual]);
-            }, 'IsScalar' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $actual) : FuncCall {
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('is_scalar'), [$actual]);
-            }, 'InternalType' => function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $type, \_PhpScoper0a6b37af0871\PhpParser\Node\Arg $value) : ?FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Instanceof_($object->value, new \_PhpScoperb75b35f52b74\PhpParser\Node\Name($classType->getValue()));
+            }, 'Same' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $expected, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : Identical {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical($expected->value, $actual->value);
+            }, 'True' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : Identical {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical($actual->value, new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('true')));
+            }, 'False' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : Identical {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical($actual->value, new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('false')));
+            }, 'Null' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : Identical {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\Identical($actual->value, new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('null')));
+            }, 'IsArray' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_array'), [$actual]);
+            }, 'IsBool' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_bool'), [$actual]);
+            }, 'IsCallable' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_callable'), [$actual]);
+            }, 'IsFloat' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_float'), [$actual]);
+            }, 'IsInt' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_int'), [$actual]);
+            }, 'IsIterable' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_iterable'), [$actual]);
+            }, 'IsNumeric' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_numeric'), [$actual]);
+            }, 'IsObject' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_object'), [$actual]);
+            }, 'IsResource' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_resource'), [$actual]);
+            }, 'IsString' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_string'), [$actual]);
+            }, 'IsScalar' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $actual) : FuncCall {
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('is_scalar'), [$actual]);
+            }, 'InternalType' => function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $type, \_PhpScoperb75b35f52b74\PhpParser\Node\Arg $value) : ?FuncCall {
                 $typeType = $scope->getType($type->value);
-                if (!$typeType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType) {
+                if (!$typeType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType) {
                     return null;
                 }
                 switch ($typeType->getValue()) {
@@ -170,7 +170,7 @@ class AssertTypeSpecifyingExtensionHelper
                     default:
                         return null;
                 }
-                return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name($functionName), [$value]);
+                return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name($functionName), [$value]);
             }];
         }
         return self::$resolvers;

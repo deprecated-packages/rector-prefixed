@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a6b37af0871\Symfony\Component\Console\Output;
+namespace _PhpScoperb75b35f52b74\Symfony\Component\Console\Output;
 
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Formatter\OutputFormatter;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Formatter\OutputFormatter;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * Base class for output classes.
  *
@@ -25,7 +25,7 @@ use _PhpScoper0a6b37af0871\Symfony\Component\Console\Formatter\OutputFormatterIn
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Output implements \_PhpScoper0a6b37af0871\Symfony\Component\Console\Output\OutputInterface
+abstract class Output implements \_PhpScoperb75b35f52b74\Symfony\Component\Console\Output\OutputInterface
 {
     private $verbosity;
     private $formatter;
@@ -34,16 +34,16 @@ abstract class Output implements \_PhpScoper0a6b37af0871\Symfony\Component\Conso
      * @param bool                          $decorated Whether to decorate messages
      * @param OutputFormatterInterface|null $formatter Output formatter instance (null to use default OutputFormatter)
      */
-    public function __construct(?int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \_PhpScoper0a6b37af0871\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    public function __construct(?int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = \false, \_PhpScoperb75b35f52b74\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         $this->verbosity = null === $verbosity ? self::VERBOSITY_NORMAL : $verbosity;
-        $this->formatter = $formatter ?: new \_PhpScoper0a6b37af0871\Symfony\Component\Console\Formatter\OutputFormatter();
+        $this->formatter = $formatter ?: new \_PhpScoperb75b35f52b74\Symfony\Component\Console\Formatter\OutputFormatter();
         $this->formatter->setDecorated($decorated);
     }
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function setFormatter(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         $this->formatter = $formatter;
     }
@@ -134,12 +134,12 @@ abstract class Output implements \_PhpScoper0a6b37af0871\Symfony\Component\Conso
         }
         foreach ($messages as $message) {
             switch ($type) {
-                case \_PhpScoper0a6b37af0871\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL:
+                case \_PhpScoperb75b35f52b74\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL:
                     $message = $this->formatter->format($message);
                     break;
-                case \_PhpScoper0a6b37af0871\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW:
+                case \_PhpScoperb75b35f52b74\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW:
                     break;
-                case \_PhpScoper0a6b37af0871\Symfony\Component\Console\Output\OutputInterface::OUTPUT_PLAIN:
+                case \_PhpScoperb75b35f52b74\Symfony\Component\Console\Output\OutputInterface::OUTPUT_PLAIN:
                     $message = \strip_tags($this->formatter->format($message));
                     break;
             }

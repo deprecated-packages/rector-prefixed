@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter;
+namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\PhpParser\Comment\Doc;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScoper0a6b37af0871\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem;
-abstract class AbstractPhpDocInfoPrinterTest extends \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScoperb75b35f52b74\PhpParser\Comment\Doc;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScoperb75b35f52b74\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileSystem;
+abstract class AbstractPhpDocInfoPrinterTest extends \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PhpDocInfoPrinter
@@ -30,22 +30,22 @@ abstract class AbstractPhpDocInfoPrinterTest extends \_PhpScoper0a6b37af0871\Sym
     private $phpDocInfoFactory;
     protected function setUp() : void
     {
-        $this->bootKernel(\_PhpScoper0a6b37af0871\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->phpDocInfoFactory = $this->getService(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory::class);
-        $this->phpDocInfoPrinter = $this->getService(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter::class);
-        $this->smartFileSystem = $this->getService(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem::class);
+        $this->bootKernel(\_PhpScoperb75b35f52b74\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->phpDocInfoFactory = $this->getService(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory::class);
+        $this->phpDocInfoPrinter = $this->getService(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter::class);
+        $this->smartFileSystem = $this->getService(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileSystem::class);
     }
-    protected function createPhpDocInfoFromDocCommentAndNode(string $docComment, \_PhpScoper0a6b37af0871\PhpParser\Node $node) : \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    protected function createPhpDocInfoFromDocCommentAndNode(string $docComment, \_PhpScoperb75b35f52b74\PhpParser\Node $node) : \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
-        $node->setDocComment(new \_PhpScoper0a6b37af0871\PhpParser\Comment\Doc($docComment));
+        $node->setDocComment(new \_PhpScoperb75b35f52b74\PhpParser\Comment\Doc($docComment));
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
         if ($phpDocInfo === null) {
-            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $phpDocInfo;
     }
     protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php') : \Iterator
     {
-        return \_PhpScoper0a6b37af0871\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
+        return \_PhpScoperb75b35f52b74\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
     }
 }

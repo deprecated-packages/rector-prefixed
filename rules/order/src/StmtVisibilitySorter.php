@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Order;
+namespace _PhpScoperb75b35f52b74\Rector\Order;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a6b37af0871\Rector\Order\Contract\RankeableInterface;
-use _PhpScoper0a6b37af0871\Rector\Order\ValueObject\ClassConstRankeable;
-use _PhpScoper0a6b37af0871\Rector\Order\ValueObject\ClassMethodRankeable;
-use _PhpScoper0a6b37af0871\Rector\Order\ValueObject\PropertyRankeable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Interface_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Trait_;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\Rector\Order\Contract\RankeableInterface;
+use _PhpScoperb75b35f52b74\Rector\Order\ValueObject\ClassConstRankeable;
+use _PhpScoperb75b35f52b74\Rector\Order\ValueObject\ClassMethodRankeable;
+use _PhpScoperb75b35f52b74\Rector\Order\ValueObject\PropertyRankeable;
 final class StmtVisibilitySorter
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -30,32 +30,32 @@ final class StmtVisibilitySorter
      * @param Class_|Trait_ $classLike
      * @return string[]
      */
-    public function sortProperties(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    public function sortProperties(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $propertyRankeables = [];
         foreach ($classLike->stmts as $position => $propertyStmt) {
-            if (!$propertyStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property) {
+            if (!$propertyStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property) {
                 continue;
             }
             /** @var string $propertyName */
             $propertyName = $this->nodeNameResolver->getName($propertyStmt);
-            $propertyRankeables[] = new \_PhpScoper0a6b37af0871\Rector\Order\ValueObject\PropertyRankeable($propertyName, $this->getVisibilityLevelOrder($propertyStmt), $propertyStmt, $position);
+            $propertyRankeables[] = new \_PhpScoperb75b35f52b74\Rector\Order\ValueObject\PropertyRankeable($propertyName, $this->getVisibilityLevelOrder($propertyStmt), $propertyStmt, $position);
         }
         return $this->sortByRanksAndGetNames($propertyRankeables);
     }
     /**
      * @return string[]
      */
-    public function sortMethods(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    public function sortMethods(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $classMethodsRankeables = [];
         foreach ($classLike->stmts as $position => $classStmt) {
-            if (!$classStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod) {
+            if (!$classStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
             /** @var string $classMethodName */
             $classMethodName = $this->nodeNameResolver->getName($classStmt);
-            $classMethodsRankeables[] = new \_PhpScoper0a6b37af0871\Rector\Order\ValueObject\ClassMethodRankeable($classMethodName, $this->getVisibilityLevelOrder($classStmt), $position, $classStmt);
+            $classMethodsRankeables[] = new \_PhpScoperb75b35f52b74\Rector\Order\ValueObject\ClassMethodRankeable($classMethodName, $this->getVisibilityLevelOrder($classStmt), $position, $classStmt);
         }
         return $this->sortByRanksAndGetNames($classMethodsRankeables);
     }
@@ -63,23 +63,23 @@ final class StmtVisibilitySorter
      * @param Class_|Interface_ $classLike
      * @return string[]
      */
-    public function sortConstants(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike) : array
+    public function sortConstants(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike $classLike) : array
     {
         $classConstsRankeables = [];
         foreach ($classLike->stmts as $position => $constantStmt) {
-            if (!$constantStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst) {
+            if (!$constantStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst) {
                 continue;
             }
             /** @var string $constantName */
             $constantName = $this->nodeNameResolver->getName($constantStmt);
-            $classConstsRankeables[] = new \_PhpScoper0a6b37af0871\Rector\Order\ValueObject\ClassConstRankeable($constantName, $this->getVisibilityLevelOrder($constantStmt), $position);
+            $classConstsRankeables[] = new \_PhpScoperb75b35f52b74\Rector\Order\ValueObject\ClassConstRankeable($constantName, $this->getVisibilityLevelOrder($constantStmt), $position);
         }
         return $this->sortByRanksAndGetNames($classConstsRankeables);
     }
     /**
      * @param ClassMethod|Property|ClassConst $stmt
      */
-    private function getVisibilityLevelOrder(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt $stmt) : int
+    private function getVisibilityLevelOrder(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt $stmt) : int
     {
         if ($stmt->isPrivate()) {
             return 2;
@@ -95,7 +95,7 @@ final class StmtVisibilitySorter
      */
     private function sortByRanksAndGetNames(array $rankeables) : array
     {
-        \uasort($rankeables, function (\_PhpScoper0a6b37af0871\Rector\Order\Contract\RankeableInterface $firstRankeable, \_PhpScoper0a6b37af0871\Rector\Order\Contract\RankeableInterface $secondRankeable) : int {
+        \uasort($rankeables, function (\_PhpScoperb75b35f52b74\Rector\Order\Contract\RankeableInterface $firstRankeable, \_PhpScoperb75b35f52b74\Rector\Order\Contract\RankeableInterface $secondRankeable) : int {
             return $firstRankeable->getRanks() <=> $secondRankeable->getRanks();
         });
         $names = [];

@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\TypeDeclaration\Rector\ClassMethod;
+namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\Rector\ClassMethod;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\StringType;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\TypeComparator;
-use _PhpScoper0a6b37af0871\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a6b37af0871\Webmozart\Assert\Assert;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Interface_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Trait_;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\StringType;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\TypeComparator;
+use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Webmozart\Assert\Assert;
 /**
  * @see \Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddParamTypeDeclarationRector\AddParamTypeDeclarationRectorTest
  */
-final class AddParamTypeDeclarationRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class AddParamTypeDeclarationRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -37,14 +37,14 @@ final class AddParamTypeDeclarationRector extends \_PhpScoper0a6b37af0871\Rector
      * @var TypeComparator
      */
     private $typeComparator;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator)
     {
         $this->typeComparator = $typeComparator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        $configuration = [self::PARAMETER_TYPEHINTS => [new \_PhpScoper0a6b37af0871\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('SomeClass', 'process', 0, new \_PhpScoper0a6b37af0871\PHPStan\Type\StringType())]];
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add param types where needed', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        $configuration = [self::PARAMETER_TYPEHINTS => [new \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('SomeClass', 'process', 0, new \_PhpScoperb75b35f52b74\PHPStan\Type\StringType())]];
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add param types where needed', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function process($name)
@@ -67,18 +67,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
         /** @var ClassLike $classLike */
-        $classLike = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         foreach ($this->parameterTypehints as $parameterTypehint) {
             if (!$this->isObjectType($classLike, $parameterTypehint->getClassName())) {
                 continue;
@@ -96,26 +96,26 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $parameterTypehints = $configuration[self::PARAMETER_TYPEHINTS] ?? [];
-        \_PhpScoper0a6b37af0871\Webmozart\Assert\Assert::allIsInstanceOf($parameterTypehints, \_PhpScoper0a6b37af0871\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration::class);
+        \_PhpScoperb75b35f52b74\Webmozart\Assert\Assert::allIsInstanceOf($parameterTypehints, \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration::class);
         $this->parameterTypehints = $parameterTypehints;
     }
-    private function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkip(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         // skip class methods without args
         if ((array) $classMethod->params === []) {
             return \true;
         }
         /** @var ClassLike|null $classLike */
-        $classLike = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return \true;
         }
         // skip traits
-        if ($classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Trait_) {
+        if ($classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Trait_) {
             return \true;
         }
         // skip class without parents/interfaces
-        if ($classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
+        if ($classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
             if ($classLike->implements !== []) {
                 return \false;
             }
@@ -128,7 +128,7 @@ CODE_SAMPLE
         /** @var Interface_ $classLike */
         return !(bool) $classLike->extends;
     }
-    private function refactorClassMethodWithTypehintByParameterPosition(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a6b37af0871\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration) : void
+    private function refactorClassMethodWithTypehintByParameterPosition(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration) : void
     {
         $parameter = $classMethod->params[$addParamTypeDeclaration->getPosition()] ?? null;
         if ($parameter === null) {
@@ -136,7 +136,7 @@ CODE_SAMPLE
         }
         $this->refactorParameter($parameter, $addParamTypeDeclaration);
     }
-    private function refactorParameter(\_PhpScoper0a6b37af0871\PhpParser\Node\Param $param, \_PhpScoper0a6b37af0871\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration) : void
+    private function refactorParameter(\_PhpScoperb75b35f52b74\PhpParser\Node\Param $param, \_PhpScoperb75b35f52b74\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration) : void
     {
         // already set → no change
         if ($param->type !== null) {
@@ -146,7 +146,7 @@ CODE_SAMPLE
             }
         }
         // remove it
-        if ($addParamTypeDeclaration->getParamType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType) {
+        if ($addParamTypeDeclaration->getParamType() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType) {
             $param->type = null;
             return;
         }

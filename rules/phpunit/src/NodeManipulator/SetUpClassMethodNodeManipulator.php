@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\NodeManipulator;
+namespace _PhpScoperb75b35f52b74\Rector\PHPUnit\NodeManipulator;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a6b37af0871\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName;
+use _PhpScoperb75b35f52b74\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
 final class SetUpClassMethodNodeManipulator
 {
     /**
@@ -18,7 +18,7 @@ final class SetUpClassMethodNodeManipulator
      * @var StmtManipulator
      */
     private $stmtManipulator;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory, \_PhpScoper0a6b37af0871\Rector\PHPUnit\NodeManipulator\StmtManipulator $stmtManipulator)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory, \_PhpScoperb75b35f52b74\Rector\PHPUnit\NodeManipulator\StmtManipulator $stmtManipulator)
     {
         $this->setUpClassMethodFactory = $setUpClassMethodFactory;
         $this->stmtManipulator = $stmtManipulator;
@@ -26,10 +26,10 @@ final class SetUpClassMethodNodeManipulator
     /**
      * @param Stmt[]|Expr[] $stmts
      */
-    public function decorateOrCreate(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, array $stmts) : void
+    public function decorateOrCreate(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, array $stmts) : void
     {
         $stmts = $this->stmtManipulator->normalizeStmts($stmts);
-        $setUpClassMethod = $class->getMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::SET_UP);
+        $setUpClassMethod = $class->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::SET_UP);
         if ($setUpClassMethod === null) {
             $setUpClassMethod = $this->setUpClassMethodFactory->createSetUpMethod($stmts);
             $class->stmts = \array_merge([$setUpClassMethod], (array) $class->stmts);

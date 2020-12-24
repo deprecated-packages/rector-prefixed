@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\VendorLocker\NodeVendorLocker;
+namespace _PhpScoperb75b35f52b74\Rector\VendorLocker\NodeVendorLocker;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard;
 /**
  * @deprecated
  * Merge with @see ClassMethodVisibilityGuard
  */
-final class ClassMethodVisibilityVendorLockResolver extends \_PhpScoper0a6b37af0871\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+final class ClassMethodVisibilityVendorLockResolver extends \_PhpScoperb75b35f52b74\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
     /**
      * Checks for:
@@ -21,10 +21,10 @@ final class ClassMethodVisibilityVendorLockResolver extends \_PhpScoper0a6b37af0
      * Prevents:
      * - changing visibility conflicting with children
      */
-    public function isParentLockedMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isParentLockedMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string $className */
-        $className = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($this->isInterfaceMethod($classMethod, $className)) {
             return \true;
         }
@@ -32,15 +32,15 @@ final class ClassMethodVisibilityVendorLockResolver extends \_PhpScoper0a6b37af0
         $methodName = $this->nodeNameResolver->getName($classMethod);
         return $this->hasParentMethod($className, $methodName);
     }
-    public function isChildLockedMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isChildLockedMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string $className */
-        $className = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);
         return $this->hasChildMethod($className, $methodName);
     }
-    private function isInterfaceMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : bool
+    private function isInterfaceMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : bool
     {
         $interfaceMethodNames = $this->getInterfaceMethodNames($className);
         return $this->nodeNameResolver->isNames($classMethod, $interfaceMethodNames);

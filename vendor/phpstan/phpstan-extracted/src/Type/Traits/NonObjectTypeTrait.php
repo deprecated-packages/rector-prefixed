@@ -1,53 +1,53 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Traits;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Traits;
 
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ConstantReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ConstantReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
 trait NonObjectTypeTrait
 {
-    public function canAccessProperties() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function canAccessProperties() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function hasProperty(string $propertyName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function getProperty(string $propertyName, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection
     {
-        throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+        throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
     }
-    public function canCallMethods() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function canCallMethods() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function hasMethod(string $methodName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function getMethod(string $methodName, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
     {
-        throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+        throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
     }
-    public function canAccessConstants() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function canAccessConstants() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function hasConstant(string $constantName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function getConstant(string $constantName) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ConstantReflection
     {
-        throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+        throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
     }
-    public function isCloneable() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isCloneable() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
 }

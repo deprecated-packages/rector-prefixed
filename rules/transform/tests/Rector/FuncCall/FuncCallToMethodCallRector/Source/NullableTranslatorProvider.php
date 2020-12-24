@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\Source;
+namespace _PhpScoperb75b35f52b74\Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\Source;
 
 abstract class NullableTranslatorProvider
 {
     private $translator;
-    public function getTranslator() : ?\_PhpScoper0a6b37af0871\Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\Source\SomeTranslator
+    public function getTranslator() : ?\_PhpScoperb75b35f52b74\Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\Source\SomeTranslator
     {
         return $this->translator;
     }

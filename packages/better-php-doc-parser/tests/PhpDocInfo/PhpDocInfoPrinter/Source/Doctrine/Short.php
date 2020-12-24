@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine;
+namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine;
 
-use _PhpScoper0a6b37af0871\Doctrine\ORM\Mapping as ORM;
-use _PhpScoper0a6b37af0871\Doctrine\ORM\Mapping\UniqueConstraint;
+use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping as ORM;
+use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping\UniqueConstraint;
 /**
  * @ORM\Table(
  *   uniqueConstraints={

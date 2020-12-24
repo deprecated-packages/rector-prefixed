@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Command\ErrorFormatter;
+namespace _PhpScoperb75b35f52b74\PHPStan\Command\ErrorFormatter;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Helpers;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Neon\Neon;
-use _PhpScoper0a6b37af0871\PHPStan\Command\AnalysisResult;
-use _PhpScoper0a6b37af0871\PHPStan\Command\Output;
-use _PhpScoper0a6b37af0871\PHPStan\File\RelativePathHelper;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Helpers;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Neon\Neon;
+use _PhpScoperb75b35f52b74\PHPStan\Command\AnalysisResult;
+use _PhpScoperb75b35f52b74\PHPStan\Command\Output;
+use _PhpScoperb75b35f52b74\PHPStan\File\RelativePathHelper;
 use function preg_quote;
-class BaselineNeonErrorFormatter implements \_PhpScoper0a6b37af0871\PHPStan\Command\ErrorFormatter\ErrorFormatter
+class BaselineNeonErrorFormatter implements \_PhpScoperb75b35f52b74\PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var \PHPStan\File\RelativePathHelper */
     private $relativePathHelper;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\File\RelativePathHelper $relativePathHelper)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\File\RelativePathHelper $relativePathHelper)
     {
         $this->relativePathHelper = $relativePathHelper;
     }
-    public function formatErrors(\_PhpScoper0a6b37af0871\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoper0a6b37af0871\PHPStan\Command\Output $output) : int
+    public function formatErrors(\_PhpScoperb75b35f52b74\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoperb75b35f52b74\PHPStan\Command\Output $output) : int
     {
         if (!$analysisResult->hasErrors()) {
-            $output->writeRaw(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::BLOCK));
+            $output->writeRaw(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::BLOCK));
             return 0;
         }
         $fileErrors = [];
@@ -41,10 +41,10 @@ class BaselineNeonErrorFormatter implements \_PhpScoper0a6b37af0871\PHPStan\Comm
                 $fileErrorsCounts[$errorMessage]++;
             }
             foreach ($fileErrorsCounts as $message => $count) {
-                $errorsToOutput[] = ['message' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
+                $errorsToOutput[] = ['message' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
             }
         }
-        $output->writeRaw(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::BLOCK));
+        $output->writeRaw(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::BLOCK));
         return 1;
     }
 }

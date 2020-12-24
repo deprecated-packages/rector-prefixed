@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source;
+namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source;
 
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond;
 /**
  * @param null|string $switch
  * @throws TheException
@@ -14,10 +14,10 @@ function i_throw_an_exception(?string $switch = null) : bool
 {
     switch ($switch) {
         case 'two':
-            throw new \_PhpScoper0a6b37af0871\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond("I'm a function that throws an exception.");
+            throw new \_PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheSecond("I'm a function that throws an exception.");
         case 'third':
-            throw new \_PhpScoper0a6b37af0871\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheThird("I'm a function that throws an exception.");
+            throw new \_PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheExceptionTheThird("I'm a function that throws an exception.");
         default:
-            throw new \_PhpScoper0a6b37af0871\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException("I'm a function that throws an exception.");
+            throw new \_PhpScoperb75b35f52b74\Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\Source\Exceptions\TheException("I'm a function that throws an exception.");
     }
 }

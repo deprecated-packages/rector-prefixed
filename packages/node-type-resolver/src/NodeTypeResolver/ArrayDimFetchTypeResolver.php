@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
+namespace _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
-final class ArrayDimFetchTypeResolver implements \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ArrayType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
+final class ArrayDimFetchTypeResolver implements \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @var NodeTypeResolver
@@ -18,7 +18,7 @@ final class ArrayDimFetchTypeResolver implements \_PhpScoper0a6b37af0871\Rector\
     /**
      * @required
      */
-    public function autowireArrayDimFetchTypeResolver(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireArrayDimFetchTypeResolver(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -27,15 +27,15 @@ final class ArrayDimFetchTypeResolver implements \_PhpScoper0a6b37af0871\Rector\
      */
     public function getNodeClasses() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch::class];
     }
     /**
      * @param ArrayDimFetch $node
      */
-    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         $arrayDimFetchType = $this->nodeTypeResolver->resolve($node->var);
-        if ($arrayDimFetchType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
+        if ($arrayDimFetchType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType) {
             return $arrayDimFetchType->getItemType();
         }
         return $arrayDimFetchType;

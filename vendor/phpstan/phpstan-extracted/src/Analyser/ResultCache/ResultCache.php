@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache;
+namespace _PhpScoperb75b35f52b74\PHPStan\Analyser\ResultCache;
 
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Error;
-use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Error;
+use _PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode;
 class ResultCache
 {
     /** @var bool */

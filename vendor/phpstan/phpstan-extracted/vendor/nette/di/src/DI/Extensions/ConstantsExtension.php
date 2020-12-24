@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Constant definitions.
  */
-final class ConstantsExtension extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
+final class ConstantsExtension extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
     public function loadConfiguration()
     {

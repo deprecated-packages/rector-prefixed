@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Rules\Functions;
+namespace _PhpScoperb75b35f52b74\PHPStan\Rules\Functions;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\IntegerRangeType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\IntegerType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\IntegerRangeType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\IntegerType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\FuncCall>
  */
-class RandomIntParametersRule implements \_PhpScoper0a6b37af0871\PHPStan\Rules\Rule
+class RandomIntParametersRule implements \_PhpScoperb75b35f52b74\PHPStan\Rules\Rule
 {
     /** @var ReflectionProvider */
     private $reflectionProvider;
     /** @var bool */
     private $reportMaybes;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $reportMaybes)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $reportMaybes)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->reportMaybes = $reportMaybes;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall::class;
+        return \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name) {
+        if (!$node->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name) {
             return [];
         }
         if ($this->reflectionProvider->resolveFunctionName($node->name, $scope) !== 'random_int') {
@@ -40,22 +40,22 @@ class RandomIntParametersRule implements \_PhpScoper0a6b37af0871\PHPStan\Rules\R
         }
         $minType = $scope->getType($node->args[0]->value)->toInteger();
         $maxType = $scope->getType($node->args[1]->value)->toInteger();
-        $integerType = new \_PhpScoper0a6b37af0871\PHPStan\Type\IntegerType();
+        $integerType = new \_PhpScoperb75b35f52b74\PHPStan\Type\IntegerType();
         if ($minType->equals($integerType) || $maxType->equals($integerType)) {
             return [];
         }
-        if ($minType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType || $minType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\IntegerRangeType) {
-            if ($minType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType) {
-                $maxPermittedType = \_PhpScoper0a6b37af0871\PHPStan\Type\IntegerRangeType::fromInterval($minType->getValue(), \PHP_INT_MAX);
+        if ($minType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType || $minType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\IntegerRangeType) {
+            if ($minType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType) {
+                $maxPermittedType = \_PhpScoperb75b35f52b74\PHPStan\Type\IntegerRangeType::fromInterval($minType->getValue(), \PHP_INT_MAX);
             } else {
-                $maxPermittedType = \_PhpScoper0a6b37af0871\PHPStan\Type\IntegerRangeType::fromInterval($minType->getMax(), \PHP_INT_MAX);
+                $maxPermittedType = \_PhpScoperb75b35f52b74\PHPStan\Type\IntegerRangeType::fromInterval($minType->getMax(), \PHP_INT_MAX);
             }
             if (!$maxPermittedType->isSuperTypeOf($maxType)->yes()) {
                 $message = 'Parameter #1 $min (%s) of function random_int expects lower number than parameter #2 $max (%s).';
                 // True if sometimes the parameters conflict.
                 $isMaybe = !$maxType->isSuperTypeOf($minType)->no();
                 if (!$isMaybe || $this->reportMaybes) {
-                    return [\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($message, $minType->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::value()), $maxType->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::value())))->build()];
+                    return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($message, $minType->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::value()), $maxType->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::value())))->build()];
                 }
             }
         }

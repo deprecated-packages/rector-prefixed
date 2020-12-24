@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\Skipper\SkipVoter;
+namespace _PhpScoperb75b35f52b74\Symplify\Skipper\SkipVoter;
 
-use _PhpScoper0a6b37af0871\Symplify\Skipper\Contract\SkipVoterInterface;
-use _PhpScoper0a6b37af0871\Symplify\Skipper\Matcher\FileInfoMatcher;
-use _PhpScoper0a6b37af0871\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class MessageSkipVoter implements \_PhpScoper0a6b37af0871\Symplify\Skipper\Contract\SkipVoterInterface
+use _PhpScoperb75b35f52b74\Symplify\Skipper\Contract\SkipVoterInterface;
+use _PhpScoperb75b35f52b74\Symplify\Skipper\Matcher\FileInfoMatcher;
+use _PhpScoperb75b35f52b74\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class MessageSkipVoter implements \_PhpScoperb75b35f52b74\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var SkippedMessagesResolver
@@ -17,7 +17,7 @@ final class MessageSkipVoter implements \_PhpScoper0a6b37af0871\Symplify\Skipper
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\_PhpScoper0a6b37af0871\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver, \_PhpScoper0a6b37af0871\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\_PhpScoperb75b35f52b74\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver, \_PhpScoperb75b35f52b74\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedMessagesResolver = $skippedMessagesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
@@ -35,7 +35,7 @@ final class MessageSkipVoter implements \_PhpScoper0a6b37af0871\Symplify\Skipper
     /**
      * @param string $element
      */
-    public function shouldSkip($element, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedMessages = $this->skippedMessagesResolver->resolve();
         if (!\array_key_exists($element, $skippedMessages)) {

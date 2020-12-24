@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Restoration\Rector\Class_;
+namespace _PhpScoperb75b35f52b74\Rector\Restoration\Rector\Class_;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\PSR4\Collector\RenamedClassesCollector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Interface_;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\PSR4\Collector\RenamedClassesCollector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use ReflectionClass;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\Restoration\Tests\Rector\Class_\RemoveUselessJustForSakeInterfaceRector\RemoveUselessJustForSakeInterfaceRectorTest
  */
-final class RemoveUselessJustForSakeInterfaceRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class RemoveUselessJustForSakeInterfaceRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -31,7 +31,7 @@ final class RemoveUselessJustForSakeInterfaceRector extends \_PhpScoper0a6b37af0
      * @var RenamedClassesCollector
      */
     private $renamedClassesCollector;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, string $interfacePattern = '#(.*?)#')
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, string $interfacePattern = '#(.*?)#')
     {
         $this->interfacePattern = $interfacePattern;
         $this->renamedClassesCollector = $renamedClassesCollector;
@@ -41,24 +41,24 @@ final class RemoveUselessJustForSakeInterfaceRector extends \_PhpScoper0a6b37af0
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ((array) $node->implements === []) {
             return null;
         }
         foreach ($node->implements as $key => $implement) {
             $implementedInterfaceName = $this->getName($implement);
-            if (!\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($implementedInterfaceName, $this->interfacePattern)) {
+            if (!\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($implementedInterfaceName, $this->interfacePattern)) {
                 continue;
             }
             // is interface in /vendor? probably useful
             $classFileLocation = $this->resolveClassFileLocation($implementedInterfaceName);
-            if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::contains($classFileLocation, 'vendor')) {
+            if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::contains($classFileLocation, 'vendor')) {
                 continue;
             }
             $interfaceImplementers = $this->getInterfaceImplementers($implementedInterfaceName);
@@ -75,9 +75,9 @@ final class RemoveUselessJustForSakeInterfaceRector extends \_PhpScoper0a6b37af0
         }
         return null;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove interface, that are added just for its sake, but nowhere useful', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove interface, that are added just for its sake, but nowhere useful', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass implements OnlyHereUsedInterface
 {
 }
@@ -112,7 +112,7 @@ CODE_SAMPLE
         $reflectionClass = new \ReflectionClass($implementedInterfaceName);
         $fileName = $reflectionClass->getFileName();
         if (!$fileName) {
-            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $fileName;
     }
@@ -127,28 +127,28 @@ CODE_SAMPLE
             return \in_array($interfaceName, $classImplements, \true);
         });
     }
-    private function removeOrReplaceImlementedInterface(string $implementedInterfaceName, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, int $key) : void
+    private function removeOrReplaceImlementedInterface(string $implementedInterfaceName, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, int $key) : void
     {
         $parentInterface = $this->getParentInterfaceIfFound($implementedInterfaceName);
         if ($parentInterface !== null) {
-            $class->implements[$key] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified($parentInterface);
+            $class->implements[$key] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified($parentInterface);
         } else {
             unset($class->implements[$key]);
         }
     }
     private function removeInterfaceFile(string $interfaceName, string $classFileLocation) : void
     {
-        if (\_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $interface = $this->nodeRepository->findInterface($interfaceName);
-            if ($interface instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_) {
+            if ($interface instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Interface_) {
                 $this->removeNode($interface);
             }
         } else {
-            $smartFileInfo = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo($classFileLocation);
+            $smartFileInfo = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo($classFileLocation);
             $this->removeFile($smartFileInfo);
         }
     }
-    private function replaceName(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, string $implementedInterfaceName) : void
+    private function replaceName(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, string $implementedInterfaceName) : void
     {
         $className = $this->getName($class);
         if ($className === null) {

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\Foreach_;
+namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\Foreach_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_;
-use _PhpScoper0a6b37af0871\Rector\CodeQuality\NodeAnalyzer\ForeachNodeAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\Core\NodeFinder\NodeUsageFinder;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoperb75b35f52b74\Rector\CodeQuality\NodeAnalyzer\ForeachNodeAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\Core\NodeFinder\NodeUsageFinder;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector\ForeachItemsAssignToEmptyArrayToAssignRectorTest
  */
-final class ForeachItemsAssignToEmptyArrayToAssignRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class ForeachItemsAssignToEmptyArrayToAssignRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var NodeUsageFinder
@@ -25,14 +25,14 @@ final class ForeachItemsAssignToEmptyArrayToAssignRector extends \_PhpScoper0a6b
      * @var ForeachNodeAnalyzer
      */
     private $foreachNodeAnalyzer;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\NodeFinder\NodeUsageFinder $nodeUsageFinder, \_PhpScoper0a6b37af0871\Rector\CodeQuality\NodeAnalyzer\ForeachNodeAnalyzer $foreachNodeAnalyzer)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\NodeFinder\NodeUsageFinder $nodeUsageFinder, \_PhpScoperb75b35f52b74\Rector\CodeQuality\NodeAnalyzer\ForeachNodeAnalyzer $foreachNodeAnalyzer)
     {
         $this->nodeUsageFinder = $nodeUsageFinder;
         $this->foreachNodeAnalyzer = $foreachNodeAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change foreach() items assign to empty array to direct assign', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change foreach() items assign to empty array to direct assign', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($items)
@@ -63,12 +63,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
      * @param Foreach_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         $assignVariable = $this->foreachNodeAnalyzer->matchAssignItemsOnlyForeachArrayVariable($node);
         if ($assignVariable === null) {
@@ -81,8 +81,8 @@ CODE_SAMPLE
         if ($previousDeclaration === null) {
             return null;
         }
-        $previousDeclarationParentNode = $previousDeclaration->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$previousDeclarationParentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
+        $previousDeclarationParentNode = $previousDeclaration->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$previousDeclarationParentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
             return null;
         }
         // must be empty array, otherwise it will false override
@@ -90,11 +90,11 @@ CODE_SAMPLE
         if ($defaultValue !== []) {
             return null;
         }
-        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign($assignVariable, $node->expr);
+        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign($assignVariable, $node->expr);
     }
-    private function shouldSkipAsPartOfNestedForeach(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
+    private function shouldSkipAsPartOfNestedForeach(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
-        $foreachParent = $this->betterNodeFinder->findFirstParentInstanceOf($foreach, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_::class);
+        $foreachParent = $this->betterNodeFinder->findFirstParentInstanceOf($foreach, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_::class);
         return $foreachParent !== null;
     }
 }

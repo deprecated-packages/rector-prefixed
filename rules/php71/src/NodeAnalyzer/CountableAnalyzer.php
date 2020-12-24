@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Php71\NodeAnalyzer;
+namespace _PhpScoperb75b35f52b74\Rector\Php71\NodeAnalyzer;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName;
+use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
 use ReflectionClass;
 final class CountableAnalyzer
 {
@@ -20,14 +20,14 @@ final class CountableAnalyzer
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isCastableArrayType(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : bool
+    public function isCastableArrayType(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : bool
     {
-        if (!$expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
             return \false;
         }
         $callerObjectType = $this->nodeTypeResolver->resolve($expr->var);
@@ -35,10 +35,10 @@ final class CountableAnalyzer
         if (!\is_string($propertyName)) {
             return \false;
         }
-        if ($callerObjectType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
+        if ($callerObjectType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
             $callerObjectType = $callerObjectType->getTypes()[0];
         }
-        if (!$callerObjectType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName) {
+        if (!$callerObjectType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         $reflectionClass = new \ReflectionClass($callerObjectType->getClassName());

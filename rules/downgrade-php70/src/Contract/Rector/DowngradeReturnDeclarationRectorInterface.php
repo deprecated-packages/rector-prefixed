@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp70\Contract\Rector;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp70\Contract\Rector;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
 interface DowngradeReturnDeclarationRectorInterface
 {
-    public function shouldRemoveReturnDeclaration(\_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike) : bool;
+    public function shouldRemoveReturnDeclaration(\_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike) : bool;
 }

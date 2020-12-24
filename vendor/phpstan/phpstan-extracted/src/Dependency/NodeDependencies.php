@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Dependency;
+namespace _PhpScoperb75b35f52b74\PHPStan\Dependency;
 
 use IteratorAggregate;
-use _PhpScoper0a6b37af0871\PHPStan\File\FileHelper;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionWithFilename;
+use _PhpScoperb75b35f52b74\PHPStan\File\FileHelper;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionWithFilename;
 /**
  * @implements \IteratorAggregate<int, ReflectionWithFilename>
  */
@@ -21,7 +21,7 @@ class NodeDependencies implements \IteratorAggregate
      * @param FileHelper $fileHelper
      * @param ReflectionWithFilename[] $reflections
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\File\FileHelper $fileHelper, array $reflections, ?\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode $exportedNode)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\File\FileHelper $fileHelper, array $reflections, ?\_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode $exportedNode)
     {
         $this->fileHelper = $fileHelper;
         $this->reflections = $reflections;
@@ -55,7 +55,7 @@ class NodeDependencies implements \IteratorAggregate
         }
         return \array_values($dependencies);
     }
-    public function getExportedNode() : ?\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode
+    public function getExportedNode() : ?\_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode
     {
         return $this->exportedNode;
     }

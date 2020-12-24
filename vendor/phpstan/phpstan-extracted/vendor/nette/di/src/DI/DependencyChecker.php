@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
 use ReflectionClass;
 use ReflectionMethod;
 /**
@@ -49,9 +49,9 @@ class DependencyChecker
                 }
             } elseif ($dep instanceof \ReflectionFunctionAbstract) {
                 $phpFiles[] = $dep->getFileName();
-                $functions[] = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::toString($dep);
+                $functions[] = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::toString($dep);
             } else {
-                throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Unexpected dependency ' . \gettype($dep));
+                throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidStateException('Unexpected dependency ' . \gettype($dep));
             }
         }
         $classes = \array_keys($classes);
@@ -84,7 +84,7 @@ class DependencyChecker
         $hash = [];
         foreach ($classes as $name) {
             $class = new \ReflectionClass($name);
-            $hash[] = [$name, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getUseStatements($class), $class->isAbstract(), \get_parent_class($name), \class_implements($name), \class_uses($name)];
+            $hash[] = [$name, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getUseStatements($class), $class->isAbstract(), \get_parent_class($name), \class_implements($name), \class_uses($name)];
             foreach ($class->getProperties(\ReflectionProperty::IS_PUBLIC) as $prop) {
                 if ($prop->getDeclaringClass() == $class) {
                     // intentionally ==
@@ -106,7 +106,7 @@ class DependencyChecker
                 if (isset($flip[$class->name])) {
                     continue;
                 }
-                $uses = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getUseStatements($class);
+                $uses = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getUseStatements($class);
             } else {
                 $method = new \ReflectionFunction($name);
                 $uses = null;
@@ -119,7 +119,7 @@ class DependencyChecker
     {
         $res = [];
         foreach ($method->getParameters() as $param) {
-            $res[] = [$param->name, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterType($param), $param->allowsNull(), $param->isVariadic(), $param->isDefaultValueAvailable() ? [\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterDefaultValue($param)] : null];
+            $res[] = [$param->name, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterType($param), $param->allowsNull(), $param->isVariadic(), $param->isDefaultValueAvailable() ? [\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getParameterDefaultValue($param)] : null];
         }
         return $res;
     }

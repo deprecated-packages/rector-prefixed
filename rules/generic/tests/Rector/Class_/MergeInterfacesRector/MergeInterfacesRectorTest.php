@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector;
+namespace _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Generic\Rector\Class_\MergeInterfacesRector;
-use _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeInterface;
-use _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeOldInterface;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class MergeInterfacesRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\Generic\Rector\Class_\MergeInterfacesRector;
+use _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeInterface;
+use _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeOldInterface;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class MergeInterfacesRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class MergeInterfacesRectorTest extends \_PhpScoper0a6b37af0871\Rector\Tes
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\Generic\Rector\Class_\MergeInterfacesRector::class => [\_PhpScoper0a6b37af0871\Rector\Generic\Rector\Class_\MergeInterfacesRector::OLD_TO_NEW_INTERFACES => [\_PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeOldInterface::class => \_PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeInterface::class]]];
+        return [\_PhpScoperb75b35f52b74\Rector\Generic\Rector\Class_\MergeInterfacesRector::class => [\_PhpScoperb75b35f52b74\Rector\Generic\Rector\Class_\MergeInterfacesRector::OLD_TO_NEW_INTERFACES => [\_PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeOldInterface::class => \_PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeInterface::class]]];
     }
 }

@@ -1,66 +1,66 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type;
 
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ConstantReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeReference;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeVariance;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ConstantReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeReference;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance;
 interface Type
 {
     /**
      * @return string[]
      */
     public function getReferencedClasses() : array;
-    public function accepts(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function isSuperTypeOf(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function equals(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : bool;
-    public function describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel $level) : string;
-    public function canAccessProperties() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function hasProperty(string $propertyName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function getProperty(string $propertyName, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection;
-    public function canCallMethods() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function hasMethod(string $methodName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function getMethod(string $methodName, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
-    public function canAccessConstants() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function hasConstant(string $constantName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function getConstant(string $constantName) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ConstantReflection;
-    public function isIterable() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function isIterableAtLeastOnce() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function getIterableKeyType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
-    public function getIterableValueType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
-    public function isArray() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function isOffsetAccessible() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function hasOffsetValueType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $offsetType) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function getOffsetValueType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $offsetType) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
-    public function setOffsetValueType(?\_PhpScoper0a6b37af0871\PHPStan\Type\Type $offsetType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $valueType) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
-    public function isCallable() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+    public function accepts(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function isSuperTypeOf(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function equals(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : bool;
+    public function describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel $level) : string;
+    public function canAccessProperties() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function hasProperty(string $propertyName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function getProperty(string $propertyName, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection;
+    public function canCallMethods() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function hasMethod(string $methodName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function getMethod(string $methodName, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
+    public function canAccessConstants() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function hasConstant(string $constantName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function getConstant(string $constantName) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ConstantReflection;
+    public function isIterable() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function isIterableAtLeastOnce() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function getIterableKeyType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function getIterableValueType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function isArray() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function isOffsetAccessible() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function hasOffsetValueType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function getOffsetValueType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function setOffsetValueType(?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $offsetType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $valueType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function isCallable() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array;
-    public function isCloneable() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function toBoolean() : \_PhpScoper0a6b37af0871\PHPStan\Type\BooleanType;
-    public function toNumber() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
-    public function toInteger() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
-    public function toFloat() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
-    public function toString() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
-    public function toArray() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
-    public function isSmallerThan(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-    public function isNumericString() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+    public function getCallableParametersAcceptors(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array;
+    public function isCloneable() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function toBoolean() : \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
+    public function toNumber() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function toInteger() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function toFloat() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function toString() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function toArray() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
+    public function isSmallerThan(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+    public function isNumericString() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
     /**
      * Infers template types
      *
      * Infers the real Type of the TemplateTypes found in $this, based on
      * the received Type.
      */
-    public function inferTemplateTypes(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $receivedType) : \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap;
+    public function inferTemplateTypes(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $receivedType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap;
     /**
      * Returns the template types referenced by this Type, recursively
      *
@@ -77,7 +77,7 @@ interface Type
      *
      * @return TemplateTypeReference[]
      */
-    public function getReferencedTemplateTypes(\_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeVariance $positionVariance) : array;
+    public function getReferencedTemplateTypes(\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance $positionVariance) : array;
     /**
      * Traverses inner types
      *
@@ -86,7 +86,7 @@ interface Type
      *
      * @param callable(Type):Type $cb
      */
-    public function traverse(callable $cb) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type;
+    public function traverse(callable $cb) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type;
     /**
      * @param mixed[] $properties
      * @return self

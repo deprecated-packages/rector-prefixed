@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator;
+namespace _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator;
 
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Finder\ClassByTypeFinder;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\RuleDefinitionsPrinter;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Finder\ClassByTypeFinder;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\RuleDefinitionsPrinter;
 /**
  * @see \Symplify\RuleDocGenerator\Tests\DirectoryToMarkdownPrinter\DirectoryToMarkdownPrinterTest
  */
@@ -28,7 +28,7 @@ final class DirectoryToMarkdownPrinter
      * @var RuleDefinitionsPrinter
      */
     private $ruleDefinitionsPrinter;
-    public function __construct(\_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Finder\ClassByTypeFinder $classByTypeFinder, \_PhpScoper0a6b37af0871\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\RuleDefinitionsResolver $ruleDefinitionsResolver, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\RuleDefinitionsPrinter $ruleDefinitionsPrinter)
+    public function __construct(\_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Finder\ClassByTypeFinder $classByTypeFinder, \_PhpScoperb75b35f52b74\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\RuleDefinitionsResolver $ruleDefinitionsResolver, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\RuleDefinitionsPrinter $ruleDefinitionsPrinter)
     {
         $this->classByTypeFinder = $classByTypeFinder;
         $this->symfonyStyle = $symfonyStyle;
@@ -41,7 +41,7 @@ final class DirectoryToMarkdownPrinter
     public function print(array $directories, bool $shouldCategorize = \false) : string
     {
         // 1. collect documented rules in provided path
-        $documentedRuleClasses = $this->classByTypeFinder->findByType($directories, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface::class);
+        $documentedRuleClasses = $this->classByTypeFinder->findByType($directories, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface::class);
         $message = \sprintf('Found %d documented rule classes', \count($documentedRuleClasses));
         $this->symfonyStyle->note($message);
         $this->symfonyStyle->listing($documentedRuleClasses);

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+namespace _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-final class PropertyNameResolver implements \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+final class PropertyNameResolver implements \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     /**
      * @var NodeNameResolver
@@ -16,18 +16,18 @@ final class PropertyNameResolver implements \_PhpScoper0a6b37af0871\Rector\NodeN
     /**
      * @required
      */
-    public function autowirePropertyNameResolver(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
+    public function autowirePropertyNameResolver(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
     public function getNode() : string
     {
-        return \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property::class;
+        return \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property::class;
     }
     /**
      * @param Property $node
      */
-    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string
     {
         if ($node->props === []) {
             return null;

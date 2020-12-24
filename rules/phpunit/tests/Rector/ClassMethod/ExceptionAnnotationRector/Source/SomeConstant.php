@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Tests\Rector\ClassMethod\ExceptionAnnotationRector\Source;
+namespace _PhpScoperb75b35f52b74\Rector\PHPUnit\Tests\Rector\ClassMethod\ExceptionAnnotationRector\Source;
 
 final class SomeConstant
 {

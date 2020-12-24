@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
+namespace _PhpScoperb75b35f52b74\PHPStan\Analyser;
 
 class EnsuredNonNullabilityResult
 {
@@ -13,12 +13,12 @@ class EnsuredNonNullabilityResult
      * @param MutatingScope $scope
      * @param EnsuredNonNullabilityResultExpression[] $specifiedExpressions
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Analyser\MutatingScope $scope, array $specifiedExpressions)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Analyser\MutatingScope $scope, array $specifiedExpressions)
     {
         $this->scope = $scope;
         $this->specifiedExpressions = $specifiedExpressions;
     }
-    public function getScope() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\MutatingScope
+    public function getScope() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\MutatingScope
     {
         return $this->scope;
     }

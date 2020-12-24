@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NetteToSymfony\Rector\MethodCall;
+namespace _PhpScoperb75b35f52b74\Rector\NetteToSymfony\Rector\MethodCall;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Symfony\Component\HttpFoundation\Request;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Request;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://doc.nette.org/en/2.4/http-request-response
  * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpFoundation/Request.php
  * @see \Rector\NetteToSymfony\Tests\Rector\MethodCall\FromHttpRequestGetHeaderToHeadersGetRector\FromHttpRequestGetHeaderToHeadersGetRectorTest
  */
-final class FromHttpRequestGetHeaderToHeadersGetRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class FromHttpRequestGetHeaderToHeadersGetRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassMethodManipulator
      */
     private $classMethodManipulator;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes getHeader() to $request->headers->get()', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes getHeader() to $request->headers->get()', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Request;
 
 final class SomeController
@@ -59,24 +59,24 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper0a6b37af0871\\Nette\\Http\\Request')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperb75b35f52b74\\Nette\\Http\\Request')) {
             return null;
         }
         if (!$this->isName($node->name, 'getHeader')) {
             return null;
         }
-        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, \_PhpScoper0a6b37af0871\Symfony\Component\HttpFoundation\Request::class, ['request', 'symfonyRequest']);
-        $variable = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable($requestName);
-        $headersPropertyFetch = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch($variable, 'headers');
+        $requestName = $this->classMethodManipulator->addMethodParameterIfMissing($node, \_PhpScoperb75b35f52b74\Symfony\Component\HttpFoundation\Request::class, ['request', 'symfonyRequest']);
+        $variable = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable($requestName);
+        $headersPropertyFetch = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch($variable, 'headers');
         $node->var = $headersPropertyFetch;
-        $node->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier('get');
+        $node->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier('get');
         return $node;
     }
 }

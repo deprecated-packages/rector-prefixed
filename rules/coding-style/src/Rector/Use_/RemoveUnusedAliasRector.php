@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Rector\Use_;
+namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\Rector\Use_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\UseUse;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Naming\NameRenamer;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Node\DocAliasResolver;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Node\UseManipulator;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Node\UseNameAliasToNameResolver;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\ValueObject\NameAndParent;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Naming\NameRenamer;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Node\DocAliasResolver;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Node\UseManipulator;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Node\UseNameAliasToNameResolver;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\ValueObject\NameAndParent;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Use_\RemoveUnusedAliasRector\RemoveUnusedAliasRectorTest
  */
-final class RemoveUnusedAliasRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class RemoveUnusedAliasRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var NameAndParent[][]
@@ -50,16 +50,16 @@ final class RemoveUnusedAliasRector extends \_PhpScoper0a6b37af0871\Rector\Core\
      * @var NameRenamer
      */
     private $nameRenamer;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\CodingStyle\Node\DocAliasResolver $docAliasResolver, \_PhpScoper0a6b37af0871\Rector\CodingStyle\Node\UseManipulator $useManipulator, \_PhpScoper0a6b37af0871\Rector\CodingStyle\Node\UseNameAliasToNameResolver $useNameAliasToNameResolver, \_PhpScoper0a6b37af0871\Rector\CodingStyle\Naming\NameRenamer $nameRenamer)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\CodingStyle\Node\DocAliasResolver $docAliasResolver, \_PhpScoperb75b35f52b74\Rector\CodingStyle\Node\UseManipulator $useManipulator, \_PhpScoperb75b35f52b74\Rector\CodingStyle\Node\UseNameAliasToNameResolver $useNameAliasToNameResolver, \_PhpScoperb75b35f52b74\Rector\CodingStyle\Naming\NameRenamer $nameRenamer)
     {
         $this->docAliasResolver = $docAliasResolver;
         $this->useNameAliasToNameResolver = $useNameAliasToNameResolver;
         $this->useManipulator = $useManipulator;
         $this->nameRenamer = $nameRenamer;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes unused use aliases. Keep annotation aliases like "Doctrine\\ORM\\Mapping as ORM" to keep convention format', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes unused use aliases. Keep annotation aliases like "Doctrine\\ORM\\Mapping as ORM" to keep convention format', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Kernel as BaseKernel;
 
 class SomeClass extends BaseKernel
@@ -80,12 +80,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_::class];
     }
     /**
      * @param Use_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ($this->shouldSkipUse($node)) {
             return null;
@@ -121,22 +121,22 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipUse(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_ $use) : bool
+    private function shouldSkipUse(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_ $use) : bool
     {
         // skip cases without namespace, problematic to analyse
-        $namespace = $use->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
+        $namespace = $use->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
         if ($namespace === null) {
             return \true;
         }
         return !$this->hasUseAlias($use);
     }
-    private function resolveSearchNode(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_ $use) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    private function resolveSearchNode(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_ $use) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
-        $searchNode = $use->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $searchNode = $use->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($searchNode !== null) {
             return $searchNode;
         }
-        return $use->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        return $use->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
     }
     /**
      * @param string[] $values
@@ -160,7 +160,7 @@ CODE_SAMPLE
         // part of some @Doc annotation
         return \in_array($loweredAliasName, $this->resolvedDocPossibleAliases, \true);
     }
-    private function refactorAliasName(string $aliasName, string $lastName, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\UseUse $useUse) : void
+    private function refactorAliasName(string $aliasName, string $lastName, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse $useUse) : void
     {
         // only alias name is used → use last name directly
         $lowerAliasName = \strtolower($aliasName);
@@ -175,7 +175,7 @@ CODE_SAMPLE
         $this->nameRenamer->renameNameNode($this->resolvedNodeNames[$lowerAliasName], $lastName);
         $useUse->alias = null;
     }
-    private function hasUseAlias(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_ $use) : bool
+    private function hasUseAlias(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_ $use) : bool
     {
         foreach ($use->uses as $useUse) {
             if ($useUse->alias !== null) {

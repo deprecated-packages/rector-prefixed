@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871;
+namespace _PhpScoperb75b35f52b74;
 
-use _PhpScoper0a6b37af0871\Rector\Renaming\Rector\Name\RenameClassRector;
-use _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoperb75b35f52b74\Rector\Renaming\Rector\Name\RenameClassRector;
+use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoper0a6b37af0871\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\_PhpScoper0a6b37af0871\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoper0a6b37af0871\\Kdyby\\Translation\\Translator' => '_PhpScoper0a6b37af0871\\Nette\\Localization\\ITranslator', '_PhpScoper0a6b37af0871\\Kdyby\\Translation\\DI\\ITranslationProvider' => '_PhpScoper0a6b37af0871\\Contributte\\Translation\\DI\\TranslationProviderInterface', '_PhpScoper0a6b37af0871\\Kdyby\\Translation\\Phrase' => '_PhpScoper0a6b37af0871\\Contributte\\Translation\\Wrappers\\Message']]]);
+    $services->set(\_PhpScoperb75b35f52b74\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\_PhpScoperb75b35f52b74\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoperb75b35f52b74\\Kdyby\\Translation\\Translator' => '_PhpScoperb75b35f52b74\\Nette\\Localization\\ITranslator', '_PhpScoperb75b35f52b74\\Kdyby\\Translation\\DI\\ITranslationProvider' => '_PhpScoperb75b35f52b74\\Contributte\\Translation\\DI\\TranslationProviderInterface', '_PhpScoperb75b35f52b74\\Kdyby\\Translation\\Phrase' => '_PhpScoperb75b35f52b74\\Contributte\\Translation\\Wrappers\\Message']]]);
 };

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Renaming\Tests\Rector\FuncCall\RenameFunctionRector;
+namespace _PhpScoperb75b35f52b74\Rector\Renaming\Tests\Rector\FuncCall\RenameFunctionRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class RenameFunctionRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class RenameFunctionRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class RenameFunctionRectorTest extends \_PhpScoper0a6b37af0871\Rector\Test
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::class => [\_PhpScoper0a6b37af0871\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => '_PhpScoper0a6b37af0871\\Laravel\\Templating\\render', 'sprintf' => '_PhpScoper0a6b37af0871\\Safe\\sprintf']]];
+        return [\_PhpScoperb75b35f52b74\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::class => [\_PhpScoperb75b35f52b74\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => '_PhpScoperb75b35f52b74\\Laravel\\Templating\\render', 'sprintf' => '_PhpScoperb75b35f52b74\\Safe\\sprintf']]];
     }
 }

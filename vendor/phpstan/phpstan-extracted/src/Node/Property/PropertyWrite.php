@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Node\Property;
+namespace _PhpScoperb75b35f52b74\PHPStan\Node\Property;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticPropertyFetch;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
 class PropertyWrite
 {
     /** @var PropertyFetch|StaticPropertyFetch */
@@ -18,7 +18,7 @@ class PropertyWrite
      * @param PropertyFetch|StaticPropertyFetch $fetch
      * @param Scope $scope
      */
-    public function __construct($fetch, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope)
+    public function __construct($fetch, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope)
     {
         $this->fetch = $fetch;
         $this->scope = $scope;
@@ -30,7 +30,7 @@ class PropertyWrite
     {
         return $this->fetch;
     }
-    public function getScope() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope
+    public function getScope() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope
     {
         return $this->scope;
     }

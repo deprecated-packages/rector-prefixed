@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Command\ErrorFormatter;
+namespace _PhpScoperb75b35f52b74\PHPStan\Command\ErrorFormatter;
 
-use _PhpScoper0a6b37af0871\PHPStan\Command\AnalysisResult;
-use _PhpScoper0a6b37af0871\PHPStan\Command\Output;
-use _PhpScoper0a6b37af0871\PHPStan\File\RelativePathHelper;
+use _PhpScoperb75b35f52b74\PHPStan\Command\AnalysisResult;
+use _PhpScoperb75b35f52b74\PHPStan\Command\Output;
+use _PhpScoperb75b35f52b74\PHPStan\File\RelativePathHelper;
 /**
  * Allow errors to be reported in pull-requests diff when run in a GitHub Action
  * @see https://help.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-error-message
  */
-class GithubErrorFormatter implements \_PhpScoper0a6b37af0871\PHPStan\Command\ErrorFormatter\ErrorFormatter
+class GithubErrorFormatter implements \_PhpScoperb75b35f52b74\PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var RelativePathHelper */
     private $relativePathHelper;
     /** @var TableErrorFormatter */
     private $tableErrorformatter;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\File\RelativePathHelper $relativePathHelper, \_PhpScoper0a6b37af0871\PHPStan\Command\ErrorFormatter\TableErrorFormatter $tableErrorformatter)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\File\RelativePathHelper $relativePathHelper, \_PhpScoperb75b35f52b74\PHPStan\Command\ErrorFormatter\TableErrorFormatter $tableErrorformatter)
     {
         $this->relativePathHelper = $relativePathHelper;
         $this->tableErrorformatter = $tableErrorformatter;
     }
-    public function formatErrors(\_PhpScoper0a6b37af0871\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoper0a6b37af0871\PHPStan\Command\Output $output) : int
+    public function formatErrors(\_PhpScoperb75b35f52b74\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoperb75b35f52b74\PHPStan\Command\Output $output) : int
     {
         $this->tableErrorformatter->formatErrors($analysisResult, $output);
         foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {

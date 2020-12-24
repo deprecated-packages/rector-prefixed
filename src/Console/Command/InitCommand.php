@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\Console\Command;
+namespace _PhpScoperb75b35f52b74\Rector\Core\Console\Command;
 
-use _PhpScoper0a6b37af0871\Rector\RectorGenerator\TemplateInitializer;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper0a6b37af0871\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Console\ShellCode;
-final class InitCommand extends \_PhpScoper0a6b37af0871\Rector\Core\Console\Command\AbstractCommand
+use _PhpScoperb75b35f52b74\Rector\RectorGenerator\TemplateInitializer;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperb75b35f52b74\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Console\ShellCode;
+final class InitCommand extends \_PhpScoperb75b35f52b74\Rector\Core\Console\Command\AbstractCommand
 {
     /**
      * @var TemplateInitializer
      */
     private $templateInitializer;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\RectorGenerator\TemplateInitializer $templateInitializer)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\RectorGenerator\TemplateInitializer $templateInitializer)
     {
         parent::__construct();
         $this->templateInitializer = $templateInitializer;
@@ -22,9 +22,9 @@ final class InitCommand extends \_PhpScoper0a6b37af0871\Rector\Core\Console\Comm
     {
         $this->setDescription('Generate rector.php configuration file');
     }
-    protected function execute(\_PhpScoper0a6b37af0871\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper0a6b37af0871\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperb75b35f52b74\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperb75b35f52b74\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->templateInitializer->initialize(__DIR__ . '/../../../templates/rector.php.dist', 'rector.php');
-        return \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

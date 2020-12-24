@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode;
+namespace _PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode;
-class ExportedClassNode implements \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use _PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode;
+class ExportedClassNode implements \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $name;
@@ -33,7 +33,7 @@ class ExportedClassNode implements \_PhpScoper0a6b37af0871\PHPStan\Dependency\Ex
      * @param string[] $usedTraits
      * @param ExportedTraitUseAdaptation[] $traitUseAdaptations
      */
-    public function __construct(string $name, ?\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, bool $abstract, bool $final, ?string $extends, array $implements, array $usedTraits, array $traitUseAdaptations)
+    public function __construct(string $name, ?\_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, bool $abstract, bool $final, ?string $extends, array $implements, array $usedTraits, array $traitUseAdaptations)
     {
         $this->name = $name;
         $this->phpDoc = $phpDoc;
@@ -44,7 +44,7 @@ class ExportedClassNode implements \_PhpScoper0a6b37af0871\PHPStan\Dependency\Ex
         $this->usedTraits = $usedTraits;
         $this->traitUseAdaptations = $traitUseAdaptations;
     }
-    public function equals(\_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -75,7 +75,7 @@ class ExportedClassNode implements \_PhpScoper0a6b37af0871\PHPStan\Dependency\Ex
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode
     {
         return new self($properties['name'], $properties['phpDoc'], $properties['abstract'], $properties['final'], $properties['extends'], $properties['implements'], $properties['usedTraits'], $properties['traitUseAdaptations']);
     }
@@ -90,13 +90,13 @@ class ExportedClassNode implements \_PhpScoper0a6b37af0871\PHPStan\Dependency\Ex
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode
     {
-        return new self($data['name'], $data['phpDoc'] !== null ? \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['abstract'], $data['final'], $data['extends'], $data['implements'], $data['usedTraits'], \array_map(static function (array $traitUseAdaptationData) : ExportedTraitUseAdaptation {
-            if ($traitUseAdaptationData['type'] !== \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation::class) {
-                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+        return new self($data['name'], $data['phpDoc'] !== null ? \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['abstract'], $data['final'], $data['extends'], $data['implements'], $data['usedTraits'], \array_map(static function (array $traitUseAdaptationData) : ExportedTraitUseAdaptation {
+            if ($traitUseAdaptationData['type'] !== \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation::class) {
+                throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
             }
-            return \_PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation::decode($traitUseAdaptationData['data']);
+            return \_PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode\ExportedTraitUseAdaptation::decode($traitUseAdaptationData['data']);
         }, $data['traitUseAdaptations']));
     }
 }

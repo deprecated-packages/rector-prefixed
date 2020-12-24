@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Node;
+namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\Node;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\AliasedObjectType;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\AliasedObjectType;
 final class DocAliasResolver
 {
     /**
@@ -22,26 +22,26 @@ final class DocAliasResolver
      * @var CallableNodeTraverser
      */
     private $callableNodeTraverser;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
     }
     /**
      * @return string[]
      */
-    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : array
+    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : array
     {
         $possibleDocAliases = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($node, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use(&$possibleDocAliases) : void {
+        $this->callableNodeTraverser->traverseNodesWithCallable($node, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use(&$possibleDocAliases) : void {
             $docComment = $node->getDocComment();
             if ($docComment === null) {
                 return;
             }
             /** @var PhpDocInfo $phpDocInfo */
-            $phpDocInfo = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+            $phpDocInfo = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
             $possibleDocAliases = $this->collectVarType($phpDocInfo, $possibleDocAliases);
             // e.g. "use Dotrine\ORM\Mapping as ORM" etc.
-            $matches = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::matchAll($docComment->getText(), self::DOC_ALIAS_REGEX);
+            $matches = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::matchAll($docComment->getText(), self::DOC_ALIAS_REGEX);
             foreach ($matches as $match) {
                 $possibleDocAliases[] = $match['possible_alias'];
             }
@@ -52,7 +52,7 @@ final class DocAliasResolver
      * @param string[] $possibleDocAliases
      * @return string[]
      */
-    private function collectVarType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, array $possibleDocAliases) : array
+    private function collectVarType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, array $possibleDocAliases) : array
     {
         $possibleDocAliases = $this->appendPossibleAliases($phpDocInfo->getVarType(), $possibleDocAliases);
         $possibleDocAliases = $this->appendPossibleAliases($phpDocInfo->getReturnType(), $possibleDocAliases);
@@ -65,12 +65,12 @@ final class DocAliasResolver
      * @param string[] $possibleDocAliases
      * @return string[]
      */
-    private function appendPossibleAliases(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $varType, array $possibleDocAliases) : array
+    private function appendPossibleAliases(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $varType, array $possibleDocAliases) : array
     {
-        if ($varType instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\AliasedObjectType) {
+        if ($varType instanceof \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\AliasedObjectType) {
             $possibleDocAliases[] = $varType->getClassName();
         }
-        if ($varType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
+        if ($varType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
             foreach ($varType->getTypes() as $type) {
                 $possibleDocAliases = $this->appendPossibleAliases($type, $possibleDocAliases);
             }

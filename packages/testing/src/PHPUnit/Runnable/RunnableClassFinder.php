@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\Runnable;
+namespace _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\Runnable;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\NodeFinder;
-use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver;
-use _PhpScoper0a6b37af0871\PhpParser\Parser;
-use _PhpScoper0a6b37af0871\PhpParser\ParserFactory;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\Testing\Contract\RunnableInterface;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\NodeFinder;
+use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NameResolver;
+use _PhpScoperb75b35f52b74\PhpParser\Parser;
+use _PhpScoperb75b35f52b74\PhpParser\ParserFactory;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\Testing\Contract\RunnableInterface;
 final class RunnableClassFinder
 {
     /**
@@ -22,9 +22,9 @@ final class RunnableClassFinder
      * @var NodeFinder
      */
     private $nodeFinder;
-    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\NodeFinder $nodeFinder)
+    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\NodeFinder $nodeFinder)
     {
-        $this->parser = (new \_PhpScoper0a6b37af0871\PhpParser\ParserFactory())->create(\_PhpScoper0a6b37af0871\PhpParser\ParserFactory::PREFER_PHP7);
+        $this->parser = (new \_PhpScoperb75b35f52b74\PhpParser\ParserFactory())->create(\_PhpScoperb75b35f52b74\PhpParser\ParserFactory::PREFER_PHP7);
         $this->nodeFinder = $nodeFinder;
     }
     public function find(string $content) : string
@@ -40,29 +40,29 @@ final class RunnableClassFinder
      */
     private function decorateNodesWithNames(array $nodes) : void
     {
-        $nodeTraverser = new \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser();
-        $nodeTraverser->addVisitor(new \_PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver(null, ['preserveOriginalNames' => \true]));
+        $nodeTraverser = new \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser();
+        $nodeTraverser->addVisitor(new \_PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NameResolver(null, ['preserveOriginalNames' => \true]));
         $nodeTraverser->traverse($nodes);
     }
     /**
      * @param Node[] $nodes
      */
-    private function findClassThatImplementsRunnableInterface(array $nodes) : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_
+    private function findClassThatImplementsRunnableInterface(array $nodes) : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_
     {
-        $class = $this->nodeFinder->findFirst($nodes, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool {
-            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
+        $class = $this->nodeFinder->findFirst($nodes, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool {
+            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
                 return \false;
             }
             foreach ((array) $node->implements as $implement) {
-                if ((string) $implement !== \_PhpScoper0a6b37af0871\Rector\Testing\Contract\RunnableInterface::class) {
+                if ((string) $implement !== \_PhpScoperb75b35f52b74\Rector\Testing\Contract\RunnableInterface::class) {
                     continue;
                 }
                 return \true;
             }
             return \false;
         });
-        if (!$class instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
-            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+        if (!$class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
+            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
         }
         return $class;
     }

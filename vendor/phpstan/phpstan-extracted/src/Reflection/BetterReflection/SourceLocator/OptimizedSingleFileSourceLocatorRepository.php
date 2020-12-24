@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\BetterReflection\SourceLocator;
 
 class OptimizedSingleFileSourceLocatorRepository
 {
@@ -9,11 +9,11 @@ class OptimizedSingleFileSourceLocatorRepository
     private $factory;
     /** @var array<string, OptimizedSingleFileSourceLocator> */
     private $locators = [];
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorFactory $factory)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocatorFactory $factory)
     {
         $this->factory = $factory;
     }
-    public function getOrCreate(string $fileName) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocator
+    public function getOrCreate(string $fileName) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedSingleFileSourceLocator
     {
         if (\array_key_exists($fileName, $this->locators)) {
             return $this->locators[$fileName];

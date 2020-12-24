@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector;
+namespace _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Generic\Rector\Expression\MethodCallToReturnRector;
-use _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny;
-use _PhpScoper0a6b37af0871\Rector\Generic\ValueObject\MethodCallToReturn;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class MethodCallToReturnRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\Generic\Rector\Expression\MethodCallToReturnRector;
+use _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny;
+use _PhpScoperb75b35f52b74\Rector\Generic\ValueObject\MethodCallToReturn;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class MethodCallToReturnRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class MethodCallToReturnRectorTest extends \_PhpScoper0a6b37af0871\Rector\
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\Generic\Rector\Expression\MethodCallToReturnRector::class => [\_PhpScoper0a6b37af0871\Rector\Generic\Rector\Expression\MethodCallToReturnRector::METHOD_CALL_WRAPS => [new \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\MethodCallToReturn(\_PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny::class, 'deny')]]];
+        return [\_PhpScoperb75b35f52b74\Rector\Generic\Rector\Expression\MethodCallToReturnRector::class => [\_PhpScoperb75b35f52b74\Rector\Generic\Rector\Expression\MethodCallToReturnRector::METHOD_CALL_WRAPS => [new \_PhpScoperb75b35f52b74\Rector\Generic\ValueObject\MethodCallToReturn(\_PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny::class, 'deny')]]];
     }
 }

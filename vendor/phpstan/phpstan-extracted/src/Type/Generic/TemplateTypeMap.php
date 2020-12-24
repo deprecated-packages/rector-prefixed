@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Generic;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Generic;
 
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
 class TemplateTypeMap
 {
     /** @var TemplateTypeMap|null */
@@ -40,7 +40,7 @@ class TemplateTypeMap
     {
         return $this->types;
     }
-    public function getType(string $name) : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getType(string $name) : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this->types[$name] ?? null;
     }
@@ -49,7 +49,7 @@ class TemplateTypeMap
         $result = $this->types;
         foreach ($other->types as $name => $type) {
             if (isset($result[$name])) {
-                $result[$name] = \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::union($result[$name], $type);
+                $result[$name] = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::union($result[$name], $type);
             } else {
                 $result[$name] = $type;
             }
@@ -61,7 +61,7 @@ class TemplateTypeMap
         $result = $this->types;
         foreach ($other->types as $name => $type) {
             if (isset($result[$name])) {
-                $result[$name] = \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::intersect($result[$name], $type);
+                $result[$name] = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::intersect($result[$name], $type);
             } else {
                 $result[$name] = $type;
             }
@@ -79,10 +79,10 @@ class TemplateTypeMap
     }
     public function resolveToBounds() : self
     {
-        return $this->map(static function (string $name, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : Type {
-            $type = \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($type);
-            if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType && $type->isExplicitMixed()) {
-                return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType(\false);
+        return $this->map(static function (string $name, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : Type {
+            $type = \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($type);
+            if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType && $type->isExplicitMixed()) {
+                return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType(\false);
             }
             return $type;
         });

@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Iterator;
+namespace _PhpScoperb75b35f52b74\Hoa\Iterator;
 
-use _PhpScoper0a6b37af0871\Hoa\Consistency;
+use _PhpScoperb75b35f52b74\Hoa\Consistency;
 /**
  * Interface \Hoa\Iterator.
  *
@@ -50,4 +50,4 @@ interface Iterator extends \Iterator
 /**
  * Flex entity.
  */
-\_PhpScoper0a6b37af0871\Hoa\Consistency::flexEntity('_PhpScoper0a6b37af0871\\Hoa\\Iterator\\Iterator');
+\_PhpScoperb75b35f52b74\Hoa\Consistency::flexEntity('_PhpScoperb75b35f52b74\\Hoa\\Iterator\\Iterator');

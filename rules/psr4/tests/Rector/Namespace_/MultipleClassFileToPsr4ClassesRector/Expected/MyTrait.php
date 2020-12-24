@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PSR4\Tests\Rector\Namespace_\MultipleClassFileToPsr4ClassesRector\Expected;
+namespace _PhpScoperb75b35f52b74\Rector\PSR4\Tests\Rector\Namespace_\MultipleClassFileToPsr4ClassesRector\Expected;
 
 trait MyTrait
 {

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Node;
+namespace _PhpScoperb75b35f52b74\PHPStan\Node;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
-use _PhpScoper0a6b37af0871\PhpParser\Node\NullableType;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\UnionType;
-use _PhpScoper0a6b37af0871\PhpParser\NodeAbstract;
-class ClassPropertyNode extends \_PhpScoper0a6b37af0871\PhpParser\NodeAbstract implements \_PhpScoper0a6b37af0871\PHPStan\Node\VirtualNode
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\PhpParser\Node\NullableType;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\UnionType;
+use _PhpScoperb75b35f52b74\PhpParser\NodeAbstract;
+class ClassPropertyNode extends \_PhpScoperb75b35f52b74\PhpParser\NodeAbstract implements \_PhpScoperb75b35f52b74\PHPStan\Node\VirtualNode
 {
     /** @var string */
     private $name;
@@ -31,7 +31,7 @@ class ClassPropertyNode extends \_PhpScoper0a6b37af0871\PhpParser\NodeAbstract i
      * @param string $name
      * @param Expr|null $default
      */
-    public function __construct(string $name, int $flags, $type, ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $default, ?string $phpDoc, bool $isPromoted, \_PhpScoper0a6b37af0871\PhpParser\Node $originalNode)
+    public function __construct(string $name, int $flags, $type, ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $default, ?string $phpDoc, bool $isPromoted, \_PhpScoperb75b35f52b74\PhpParser\Node $originalNode)
     {
         parent::__construct($originalNode->getAttributes());
         $this->name = $name;
@@ -49,7 +49,7 @@ class ClassPropertyNode extends \_PhpScoper0a6b37af0871\PhpParser\NodeAbstract i
     {
         return $this->flags;
     }
-    public function getDefault() : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr
+    public function getDefault() : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr
     {
         return $this->default;
     }
@@ -63,19 +63,19 @@ class ClassPropertyNode extends \_PhpScoper0a6b37af0871\PhpParser\NodeAbstract i
     }
     public function isPublic() : bool
     {
-        return ($this->flags & \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC) !== 0 || ($this->flags & \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::VISIBILITY_MODIFIER_MASK) === 0;
+        return ($this->flags & \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC) !== 0 || ($this->flags & \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::VISIBILITY_MODIFIER_MASK) === 0;
     }
     public function isProtected() : bool
     {
-        return (bool) ($this->flags & \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
+        return (bool) ($this->flags & \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED);
     }
     public function isPrivate() : bool
     {
-        return (bool) ($this->flags & \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
+        return (bool) ($this->flags & \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE);
     }
     public function isStatic() : bool
     {
-        return (bool) ($this->flags & \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
+        return (bool) ($this->flags & \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC);
     }
     /**
      * @return Identifier|Name|NullableType|UnionType|null

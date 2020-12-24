@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Php80\Rector\NotIdentical;
+namespace _PhpScoperb75b35f52b74\Rector\Php80\Rector\NotIdentical;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://externals.io/message/108562
  * @see https://github.com/php/php-src/pull/5179
  *
  * @see \Rector\Php80\Tests\Rector\NotIdentical\StrContainsRector\StrContainsRectorTest
  */
-final class StrContainsRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class StrContainsRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
     private const OLD_STR_NAMES = ['strpos', 'strstr'];
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace strpos() !== false and strstr()  with str_contains()', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace strpos() !== false and strstr()  with str_contains()', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -50,24 +50,24 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical::class];
     }
     /**
      * @param NotIdentical $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         $funcCall = $this->matchNotIdenticalToFalse($node);
         if ($funcCall === null) {
             return null;
         }
-        $funcCall->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name('str_contains');
+        $funcCall->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Name('str_contains');
         return $funcCall;
     }
     /**
      * @return FuncCall|null
      */
-    private function matchNotIdenticalToFalse(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr
+    private function matchNotIdenticalToFalse(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr
     {
         if ($this->isFalse($notIdentical->left)) {
             if (!$this->isFuncCallNames($notIdentical->right, self::OLD_STR_NAMES)) {

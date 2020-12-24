@@ -1,35 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Symfony3\NodeFactory;
+namespace _PhpScoperb75b35f52b74\Rector\Symfony3\NodeFactory;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Builder\MethodBuilder;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Builder\ParamBuilder;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Builder\MethodBuilder;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Builder\ParamBuilder;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
 final class BuilderFormNodeFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function create(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $constructorClassMethod) : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod
+    public function create(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $constructorClassMethod) : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod
     {
         $formBuilderParam = $this->createBuilderParam();
         $optionsParam = $this->createOptionsParam();
-        $classMethodBuilder = new \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Builder\MethodBuilder('buildForm');
+        $classMethodBuilder = new \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Builder\MethodBuilder('buildForm');
         $classMethodBuilder->makePublic();
         $classMethodBuilder->addParam($formBuilderParam);
         $classMethodBuilder->addParam($optionsParam);
@@ -38,15 +38,15 @@ final class BuilderFormNodeFactory
         $classMethodBuilder->addStmts($options);
         return $classMethodBuilder->getNode();
     }
-    private function createBuilderParam() : \_PhpScoper0a6b37af0871\PhpParser\Node\Param
+    private function createBuilderParam() : \_PhpScoperb75b35f52b74\PhpParser\Node\Param
     {
-        $builderParamBuilder = new \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Builder\ParamBuilder('builder');
-        $builderParamBuilder->setType(new \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified('_PhpScoper0a6b37af0871\\Symfony\\Component\\Form\\FormBuilderInterface'));
+        $builderParamBuilder = new \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Builder\ParamBuilder('builder');
+        $builderParamBuilder->setType(new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified('_PhpScoperb75b35f52b74\\Symfony\\Component\\Form\\FormBuilderInterface'));
         return $builderParamBuilder->getNode();
     }
-    private function createOptionsParam() : \_PhpScoper0a6b37af0871\PhpParser\Node\Param
+    private function createOptionsParam() : \_PhpScoperb75b35f52b74\PhpParser\Node\Param
     {
-        $optionsParamBuilder = new \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Builder\ParamBuilder('options');
+        $optionsParamBuilder = new \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Builder\ParamBuilder('options');
         $optionsParamBuilder->setType('array');
         return $optionsParamBuilder->getNode();
     }
@@ -58,22 +58,22 @@ final class BuilderFormNodeFactory
      * ↓
      * $this->value = $options['value']
      */
-    private function replaceParameterAssignWithOptionAssign(array $nodes, \_PhpScoper0a6b37af0871\PhpParser\Node\Param $param) : array
+    private function replaceParameterAssignWithOptionAssign(array $nodes, \_PhpScoperb75b35f52b74\PhpParser\Node\Param $param) : array
     {
         foreach ($nodes as $expression) {
-            if (!$expression instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
+            if (!$expression instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
                 continue;
             }
             $node = $expression->expr;
-            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
+            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
                 continue;
             }
             $variableName = $this->nodeNameResolver->getName($node->var);
             if ($variableName === null) {
                 continue;
             }
-            if ($node->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
-                $node->expr = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch($param->var, new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_($variableName));
+            if ($node->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+                $node->expr = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch($param->var, new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_($variableName));
             }
         }
         return $nodes;

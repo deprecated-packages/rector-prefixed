@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Order\Rector\Class_;
+namespace _PhpScoperb75b35f52b74\Rector\Order\Rector\Class_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper0a6b37af0871\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\LNumber;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoperb75b35f52b74\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\Order\Tests\Rector\Class_\OrderClassConstantsByIntegerValueRector\OrderClassConstantsByIntegerValueRectorTest
  */
-final class OrderClassConstantsByIntegerValueRector extends \_PhpScoper0a6b37af0871\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
+final class OrderClassConstantsByIntegerValueRector extends \_PhpScoperb75b35f52b74\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order class constant order by their integer value', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order class constant order by their integer value', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     const MODE_ON = 0;
@@ -46,12 +46,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         $numericClassConstsByKey = $this->resolveClassConstByPosition($node);
         if ($numericClassConstsByKey === []) {
@@ -70,18 +70,18 @@ CODE_SAMPLE
     /**
      * @return ClassConst[]
      */
-    private function resolveClassConstByPosition(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : array
+    private function resolveClassConstByPosition(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classConstConstsByValue = [];
         foreach ($class->stmts as $key => $classStmt) {
-            if (!$classStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst) {
+            if (!$classStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst) {
                 continue;
             }
             if (\count((array) $classStmt->consts) !== 1) {
                 continue;
             }
             $classConstConst = $classStmt->consts[0];
-            if (!$classConstConst->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\LNumber) {
+            if (!$classConstConst->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\LNumber) {
                 continue;
             }
             $classConstConstsByValue[$key] = $classStmt;

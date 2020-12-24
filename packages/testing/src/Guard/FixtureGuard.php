@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Testing\Guard;
+namespace _PhpScoperb75b35f52b74\Rector\Testing\Guard;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\Testing\SuperfluousAfterContentFixtureException;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\Testing\SuperfluousAfterContentFixtureException;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 final class FixtureGuard
 {
     /**
@@ -13,9 +13,9 @@ final class FixtureGuard
      * @var string
      */
     private const BEFORE_AFTER_CONTENT_REGEX = '#^(?<before_content>.*?)\\-\\-\\-\\-\\-\\n(?<after_content>.*?)$#s';
-    public function ensureFileInfoHasDifferentBeforeAndAfterContent(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function ensureFileInfoHasDifferentBeforeAndAfterContent(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
-        $match = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($smartFileInfo->getContents(), self::BEFORE_AFTER_CONTENT_REGEX);
+        $match = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($smartFileInfo->getContents(), self::BEFORE_AFTER_CONTENT_REGEX);
         if ($match === null) {
             return;
         }
@@ -25,6 +25,6 @@ final class FixtureGuard
             return;
         }
         $exceptionMessage = \sprintf('The part after "-----" can be removed in "%s" file. It is the same as top half, so no change is required.', $smartFileInfo->getRelativeFilePathFromCwd());
-        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\Testing\SuperfluousAfterContentFixtureException($exceptionMessage);
+        throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\Testing\SuperfluousAfterContentFixtureException($exceptionMessage);
     }
 }

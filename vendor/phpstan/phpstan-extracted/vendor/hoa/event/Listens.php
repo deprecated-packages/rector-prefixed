@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Event;
+namespace _PhpScoperb75b35f52b74\Hoa\Event;
 
 /**
  * Trait \Hoa\Event\Listens.
@@ -62,7 +62,7 @@ trait Listens
     {
         $listener = $this->getListener();
         if (null === $listener) {
-            throw new \_PhpScoper0a6b37af0871\Hoa\Event\Exception('Cannot attach a callable to the listener %s because ' . 'it has not been initialized yet.', 0, \get_class($this));
+            throw new \_PhpScoperb75b35f52b74\Hoa\Event\Exception('Cannot attach a callable to the listener %s because ' . 'it has not been initialized yet.', 0, \get_class($this));
         }
         $listener->attach($listenerId, $callable);
         return $this;
@@ -73,7 +73,7 @@ trait Listens
      * @param  \Hoa\Event\Listener  $listener    Listener.
      * @return \Hoa\Event\Listener
      */
-    protected function setListener(\_PhpScoper0a6b37af0871\Hoa\Event\Listener $listener)
+    protected function setListener(\_PhpScoperb75b35f52b74\Hoa\Event\Listener $listener)
     {
         $old = $this->_listener;
         $this->_listener = $listener;

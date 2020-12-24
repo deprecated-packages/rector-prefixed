@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Tests\FileSystemFilter;
+namespace _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\Tests\FileSystemFilter;
 
-use _PhpScoper0a6b37af0871\PHPUnit\Framework\TestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\FileSystemFilter;
-final class FileSystemFilterTest extends \_PhpScoper0a6b37af0871\PHPUnit\Framework\TestCase
+use _PhpScoperb75b35f52b74\PHPUnit\Framework\TestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\FileSystemFilter;
+final class FileSystemFilterTest extends \_PhpScoperb75b35f52b74\PHPUnit\Framework\TestCase
 {
     /**
      * @var FileSystemFilter
@@ -13,7 +13,7 @@ final class FileSystemFilterTest extends \_PhpScoper0a6b37af0871\PHPUnit\Framewo
     private $fileSystemFilter;
     protected function setUp() : void
     {
-        $this->fileSystemFilter = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\FileSystemFilter();
+        $this->fileSystemFilter = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\FileSystemFilter();
     }
     public function testSeparateFilesAndDirectories() : void
     {

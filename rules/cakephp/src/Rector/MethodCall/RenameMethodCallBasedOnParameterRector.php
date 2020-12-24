@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CakePHP\Rector\MethodCall;
+namespace _PhpScoperb75b35f52b74\Rector\CakePHP\Rector\MethodCall;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
-use _PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper0a6b37af0871\Webmozart\Assert\Assert;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
+use _PhpScoperb75b35f52b74\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Webmozart\Assert\Assert;
 /**
  * @see https://book.cakephp.org/4.0/en/appendices/4-0-migration-guide.html
  * @see https://github.com/cakephp/cakephp/commit/77017145961bb697b4256040b947029259f66a9b
  *
  * @see \Rector\CakePHP\Tests\Rector\MethodCall\RenameMethodCallBasedOnParameterRector\RenameMethodCallBasedOnParameterRectorTest
  */
-final class RenameMethodCallBasedOnParameterRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RenameMethodCallBasedOnParameterRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -28,10 +28,10 @@ final class RenameMethodCallBasedOnParameterRector extends \_PhpScoper0a6b37af08
      * @var RenameMethodCallBasedOnParameter[]
      */
     private $callsWithParamRenames = [];
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        $configuration = [self::CALLS_WITH_PARAM_RENAMES => [new \_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter('ServerRequest', 'getParam', 'paging', 'getAttribute'), new \_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter('ServerRequest', 'withParam', 'paging', 'withAttribute')]];
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes method calls based on matching the first parameter value.', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        $configuration = [self::CALLS_WITH_PARAM_RENAMES => [new \_PhpScoperb75b35f52b74\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter('ServerRequest', 'getParam', 'paging', 'getAttribute'), new \_PhpScoperb75b35f52b74\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter('ServerRequest', 'withParam', 'paging', 'withAttribute')]];
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes method calls based on matching the first parameter value.', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $object = new ServerRequest();
 
 $config = $object->getParam('paging');
@@ -50,27 +50,27 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         $callWithParamRename = $this->matchTypeAndMethodName($node);
         if ($callWithParamRename === null) {
             return null;
         }
-        $node->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier($callWithParamRename->getNewMethod());
+        $node->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier($callWithParamRename->getNewMethod());
         return $node;
     }
     public function configure(array $configuration) : void
     {
         $callsWithParamNames = $configuration[self::CALLS_WITH_PARAM_RENAMES] ?? [];
-        \_PhpScoper0a6b37af0871\Webmozart\Assert\Assert::allIsInstanceOf($callsWithParamNames, \_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter::class);
+        \_PhpScoperb75b35f52b74\Webmozart\Assert\Assert::allIsInstanceOf($callsWithParamNames, \_PhpScoperb75b35f52b74\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter::class);
         $this->callsWithParamRenames = $callsWithParamNames;
     }
-    private function matchTypeAndMethodName(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper0a6b37af0871\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter
+    private function matchTypeAndMethodName(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoperb75b35f52b74\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter
     {
         foreach ($this->callsWithParamRenames as $callWithParamRename) {
             if (!$this->isObjectType($methodCall, $callWithParamRename->getOldClass())) {

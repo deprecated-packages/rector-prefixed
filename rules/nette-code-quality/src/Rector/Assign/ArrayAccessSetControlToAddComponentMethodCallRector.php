@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NetteCodeQuality\Rector\Assign;
+namespace _PhpScoperb75b35f52b74\Rector\NetteCodeQuality\Rector\Assign;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -18,11 +18,11 @@ use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see https://github.com/nette/component-model/blob/c1fb11729423379768a71dd865ae373a3b12fa43/src/ComponentModel/Container.php#L39
  */
-final class ArrayAccessSetControlToAddComponentMethodCallRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class ArrayAccessSetControlToAddComponentMethodCallRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change magic arrays access set, to explicit $this->setComponent(...) method', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change magic arrays access set, to explicit $this->setComponent(...) method', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Presenter;
 
@@ -55,12 +55,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (!$this->isAssignOfControlToPresenterDimFetch($node)) {
             return null;
@@ -69,20 +69,20 @@ CODE_SAMPLE
         $arrayDimFetch = $node->var;
         $arguments = [$node->expr, $arrayDimFetch->dim];
         $arg = $this->createArgs($arguments);
-        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, 'addComponent', $arg);
+        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, 'addComponent', $arg);
     }
-    private function isAssignOfControlToPresenterDimFetch(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign $assign) : bool
+    private function isAssignOfControlToPresenterDimFetch(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        if (!$assign->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$assign->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch) {
             return \false;
         }
-        if (!$this->isObjectType($assign->expr, '_PhpScoper0a6b37af0871\\Nette\\Application\\UI\\Control')) {
+        if (!$this->isObjectType($assign->expr, '_PhpScoperb75b35f52b74\\Nette\\Application\\UI\\Control')) {
             return \false;
         }
         $arrayDimFetch = $assign->var;
-        if (!$arrayDimFetch->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
+        if (!$arrayDimFetch->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
             return \false;
         }
-        return $this->isObjectType($arrayDimFetch->var, '_PhpScoper0a6b37af0871\\Nette\\Application\\UI\\Presenter');
+        return $this->isObjectType($arrayDimFetch->var, '_PhpScoperb75b35f52b74\\Nette\\Application\\UI\\Presenter');
     }
 }

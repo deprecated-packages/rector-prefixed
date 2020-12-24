@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\File;
+namespace _PhpScoperb75b35f52b74\Hoa\File;
 
-use _PhpScoper0a6b37af0871\Hoa\Event;
+use _PhpScoperb75b35f52b74\Hoa\Event;
 /**
  * Class \Hoa\File\Watcher.
  *
@@ -44,7 +44,7 @@ use _PhpScoper0a6b37af0871\Hoa\Event;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Watcher extends \_PhpScoper0a6b37af0871\Hoa\File\Finder implements \_PhpScoper0a6b37af0871\Hoa\Event\Listenable
+class Watcher extends \_PhpScoperb75b35f52b74\Hoa\File\Finder implements \_PhpScoperb75b35f52b74\Hoa\Event\Listenable
 {
     use Event\Listens;
     /**
@@ -61,7 +61,7 @@ class Watcher extends \_PhpScoper0a6b37af0871\Hoa\File\Finder implements \_PhpSc
     public function __construct($latency = null)
     {
         parent::__construct();
-        $this->setListener(new \_PhpScoper0a6b37af0871\Hoa\Event\Listener($this, ['new', 'modify', 'move']));
+        $this->setListener(new \_PhpScoperb75b35f52b74\Hoa\Event\Listener($this, ['new', 'modify', 'move']));
         if (null !== $latency) {
             $this->setLatency($latency);
         }
@@ -85,7 +85,7 @@ class Watcher extends \_PhpScoper0a6b37af0871\Hoa\File\Finder implements \_PhpSc
         while (\true) {
             foreach ($current as $name => $c) {
                 if (!isset($previous[$name])) {
-                    $this->getListener()->fire('new', new \_PhpScoper0a6b37af0871\Hoa\Event\Bucket(['file' => $c]));
+                    $this->getListener()->fire('new', new \_PhpScoperb75b35f52b74\Hoa\Event\Bucket(['file' => $c]));
                     continue;
                 }
                 if (null === $c->getHash()) {
@@ -93,12 +93,12 @@ class Watcher extends \_PhpScoper0a6b37af0871\Hoa\File\Finder implements \_PhpSc
                     continue;
                 }
                 if ($previous[$name]->getHash() != $c->getHash()) {
-                    $this->getListener()->fire('modify', new \_PhpScoper0a6b37af0871\Hoa\Event\Bucket(['file' => $c]));
+                    $this->getListener()->fire('modify', new \_PhpScoperb75b35f52b74\Hoa\Event\Bucket(['file' => $c]));
                 }
                 unset($previous[$name]);
             }
             foreach ($previous as $p) {
-                $this->getListener()->fire('move', new \_PhpScoper0a6b37af0871\Hoa\Event\Bucket(['file' => $p]));
+                $this->getListener()->fire('move', new \_PhpScoperb75b35f52b74\Hoa\Event\Bucket(['file' => $p]));
             }
             \usleep($this->getLatency() * 1000000);
             $previous = $current;

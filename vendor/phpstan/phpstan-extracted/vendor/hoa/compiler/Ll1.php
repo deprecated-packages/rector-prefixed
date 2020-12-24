@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Compiler;
+namespace _PhpScoperb75b35f52b74\Hoa\Compiler;
 
 /**
  * Define the __ constant, so useful in compiler :-).
@@ -369,7 +369,7 @@ abstract class Ll1
                     }
                     return \true;
                 }
-                throw new \_PhpScoper0a6b37af0871\Hoa\Compiler\Exception\FinalStateHasNotBeenReached('End of code has been reached but not correctly; ' . 'maybe your program is not complete?', 0);
+                throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\FinalStateHasNotBeenReached('End of code has been reached but not correctly; ' . 'maybe your program is not complete?', 0);
             }
             $nextChar = $in[$i];
             // Skip.
@@ -503,7 +503,7 @@ abstract class Ll1
                 }
                 $error = \explode("\n", $in);
                 $error = $error[$this->line];
-                throw new \_PhpScoper0a6b37af0871\Hoa\Compiler\Exception\IllegalToken('Illegal token at line ' . ($this->line + 1) . ' and column ' . ($this->column + 1) . "\n" . $error . "\n" . \str_repeat(' ', $this->column) . '↑', 1, [], $this->line + 1, $this->column + 1);
+                throw new \_PhpScoperb75b35f52b74\Hoa\Compiler\Exception\IllegalToken('Illegal token at line ' . ($this->line + 1) . ' and column ' . ($this->column + 1) . "\n" . $error . "\n" . \str_repeat(' ', $this->column) . '↑', 1, [], $this->line + 1, $this->column + 1);
             }
             $this->line = $line;
             $this->column = $column;

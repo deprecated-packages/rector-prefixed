@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp72\Tests\Rector\FunctionLike\DowngradeParamObjectTypeDeclarationRector\Source;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp72\Tests\Rector\FunctionLike\DowngradeParamObjectTypeDeclarationRector\Source;
 
 class AnotherClass
 {

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Order\ValueObject;
+namespace _PhpScoperb75b35f52b74\Rector\Order\ValueObject;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\Rector\Order\Contract\RankeableInterface;
-final class ClassMethodRankeable implements \_PhpScoper0a6b37af0871\Rector\Order\Contract\RankeableInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\Rector\Order\Contract\RankeableInterface;
+final class ClassMethodRankeable implements \_PhpScoperb75b35f52b74\Rector\Order\Contract\RankeableInterface
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ final class ClassMethodRankeable implements \_PhpScoper0a6b37af0871\Rector\Order
      * @var ClassMethod
      */
     private $classMethod;
-    public function __construct(string $name, int $visibility, int $position, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod)
+    public function __construct(string $name, int $visibility, int $position, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod)
     {
         $this->name = $name;
         $this->visibility = $visibility;

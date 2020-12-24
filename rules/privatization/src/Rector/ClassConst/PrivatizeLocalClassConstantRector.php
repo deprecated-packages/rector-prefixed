@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Privatization\Rector\ClassConst;
+namespace _PhpScoperb75b35f52b74\Rector\Privatization\Rector\ClassConst;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a6b37af0871\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\SOLID\NodeFinder\ParentClassConstantNodeFinder;
-use _PhpScoper0a6b37af0871\Rector\SOLID\Reflection\ParentConstantReflectionResolver;
-use _PhpScoper0a6b37af0871\Rector\SOLID\ValueObject\ConstantVisibility;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoperb75b35f52b74\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\SOLID\NodeFinder\ParentClassConstantNodeFinder;
+use _PhpScoperb75b35f52b74\Rector\SOLID\Reflection\ParentConstantReflectionResolver;
+use _PhpScoperb75b35f52b74\Rector\SOLID\ValueObject\ConstantVisibility;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Privatization\Tests\Rector\ClassConst\PrivatizeLocalClassConstantRector\PrivatizeLocalClassConstantRectorTest
  */
-final class PrivatizeLocalClassConstantRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
+final class PrivatizeLocalClassConstantRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
 {
     /**
      * @var string
@@ -32,14 +32,14 @@ final class PrivatizeLocalClassConstantRector extends \_PhpScoper0a6b37af0871\Re
      * @var ParentClassConstantNodeFinder
      */
     private $parentClassConstantNodeFinder;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\SOLID\NodeFinder\ParentClassConstantNodeFinder $parentClassConstantNodeFinder, \_PhpScoper0a6b37af0871\Rector\SOLID\Reflection\ParentConstantReflectionResolver $parentConstantReflectionResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\SOLID\NodeFinder\ParentClassConstantNodeFinder $parentClassConstantNodeFinder, \_PhpScoperb75b35f52b74\Rector\SOLID\Reflection\ParentConstantReflectionResolver $parentConstantReflectionResolver)
     {
         $this->parentConstantReflectionResolver = $parentConstantReflectionResolver;
         $this->parentClassConstantNodeFinder = $parentClassConstantNodeFinder;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Finalize every class constant that is used only locally', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Finalize every class constant that is used only locally', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class ClassWithConstantUsedOnlyHere
 {
     const LOCAL_ONLY = true;
@@ -68,18 +68,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst::class];
     }
     /**
      * @param ClassConst $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
         /** @var string $class */
-        $class = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $class = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         // Remember when we have already processed this constant recursively
         $node->setAttribute(self::HAS_NEW_ACCESS_LEVEL, \true);
         $nodeRepositoryFindInterface = $this->nodeRepository->findInterface($class);
@@ -101,47 +101,47 @@ CODE_SAMPLE
         $this->changeConstantVisibility($node, $directUseClasses, $indirectUseClasses, $parentClassConstantVisibility, $class);
         return $node;
     }
-    private function shouldSkip(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst $classConst) : bool
+    private function shouldSkip(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst $classConst) : bool
     {
         $hasNewAccessLevel = $classConst->getAttribute(self::HAS_NEW_ACCESS_LEVEL);
         if ($hasNewAccessLevel) {
             return \true;
         }
-        if (!$this->isAtLeastPhpVersion(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\PhpVersionFeature::CONSTANT_VISIBILITY)) {
+        if (!$this->isAtLeastPhpVersion(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\PhpVersionFeature::CONSTANT_VISIBILITY)) {
             return \true;
         }
         if (\count((array) $classConst->consts) !== 1) {
             return \true;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classConst->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classConst->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo !== null && $phpDocInfo->hasByName('api')) {
             return \true;
         }
         /** @var string|null $class */
-        $class = $classConst->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $class = $classConst->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         return $class === null;
     }
-    private function findParentClassConstantAndRefactorIfPossible(string $class, string $constant) : ?\_PhpScoper0a6b37af0871\Rector\SOLID\ValueObject\ConstantVisibility
+    private function findParentClassConstantAndRefactorIfPossible(string $class, string $constant) : ?\_PhpScoperb75b35f52b74\Rector\SOLID\ValueObject\ConstantVisibility
     {
         $parentClassConst = $this->parentClassConstantNodeFinder->find($class, $constant);
         if ($parentClassConst !== null) {
             // Make sure the parent's constant has been refactored
             $this->refactor($parentClassConst);
-            return new \_PhpScoper0a6b37af0871\Rector\SOLID\ValueObject\ConstantVisibility($parentClassConst->isPublic(), $parentClassConst->isProtected(), $parentClassConst->isPrivate());
+            return new \_PhpScoperb75b35f52b74\Rector\SOLID\ValueObject\ConstantVisibility($parentClassConst->isPublic(), $parentClassConst->isProtected(), $parentClassConst->isPrivate());
             // If the constant isn't declared in the parent, it might be declared in the parent's parent
         }
         $parentClassConstantReflection = $this->parentConstantReflectionResolver->resolve($class, $constant);
         if ($parentClassConstantReflection === null) {
             return null;
         }
-        return new \_PhpScoper0a6b37af0871\Rector\SOLID\ValueObject\ConstantVisibility($parentClassConstantReflection->isPublic(), $parentClassConstantReflection->isProtected(), $parentClassConstantReflection->isPrivate());
+        return new \_PhpScoperb75b35f52b74\Rector\SOLID\ValueObject\ConstantVisibility($parentClassConstantReflection->isPublic(), $parentClassConstantReflection->isProtected(), $parentClassConstantReflection->isPrivate());
     }
     /**
      * @param string[] $directUseClasses
      * @param string[] $indirectUseClasses
      */
-    private function changeConstantVisibility(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst $classConst, array $directUseClasses, array $indirectUseClasses, ?\_PhpScoper0a6b37af0871\Rector\SOLID\ValueObject\ConstantVisibility $constantVisibility, string $class) : void
+    private function changeConstantVisibility(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst $classConst, array $directUseClasses, array $indirectUseClasses, ?\_PhpScoperb75b35f52b74\Rector\SOLID\ValueObject\ConstantVisibility $constantVisibility, string $class) : void
     {
         // 1. is actually never used
         if ($directUseClasses === []) {
@@ -164,7 +164,7 @@ CODE_SAMPLE
             $this->makePublic($classConst);
         }
     }
-    private function makePrivateOrWeaker(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst $classConst, ?\_PhpScoper0a6b37af0871\Rector\SOLID\ValueObject\ConstantVisibility $parentConstantVisibility) : void
+    private function makePrivateOrWeaker(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst $classConst, ?\_PhpScoperb75b35f52b74\Rector\SOLID\ValueObject\ConstantVisibility $parentConstantVisibility) : void
     {
         if ($parentConstantVisibility !== null && $parentConstantVisibility->isProtected()) {
             $this->makeProtected($classConst);

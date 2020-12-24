@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871;
+namespace _PhpScoperb75b35f52b74;
 
 /**
  * Hoa
@@ -75,7 +75,7 @@ $define('_final', 64);
 $define('_dynamic', ~\_static);
 $define('_concrete', ~\_abstract);
 $define('_overridable', ~\_final);
-$define('WITH_COMPOSER', \class_exists('_PhpScoper0a6b37af0871\\Composer\\Autoload\\ClassLoader', \false) || 'cli' === \PHP_SAPI && \file_exists(__DIR__ . \DS . '..' . \DS . '..' . \DS . 'autoload.php'));
+$define('WITH_COMPOSER', \class_exists('_PhpScoperb75b35f52b74\\Composer\\Autoload\\ClassLoader', \false) || 'cli' === \PHP_SAPI && \file_exists(__DIR__ . \DS . '..' . \DS . '..' . \DS . 'autoload.php'));
 /**
  * Alias of \Hoa\Consistency\Xcallable.
  *
@@ -83,12 +83,12 @@ $define('WITH_COMPOSER', \class_exists('_PhpScoper0a6b37af0871\\Composer\\Autolo
  * @param   mixed   $able    Second callable part (if needed).
  * @return  mixed
  */
-if (!\function_exists('_PhpScoper0a6b37af0871\\xcallable')) {
+if (!\function_exists('_PhpScoperb75b35f52b74\\xcallable')) {
     function xcallable($call, $able = '')
     {
-        if ($call instanceof \_PhpScoper0a6b37af0871\Hoa\Consistency\Xcallable) {
+        if ($call instanceof \_PhpScoperb75b35f52b74\Hoa\Consistency\Xcallable) {
             return $call;
         }
-        return new \_PhpScoper0a6b37af0871\Hoa\Consistency\Xcallable($call, $able);
+        return new \_PhpScoperb75b35f52b74\Hoa\Consistency\Xcallable($call, $able);
     }
 }

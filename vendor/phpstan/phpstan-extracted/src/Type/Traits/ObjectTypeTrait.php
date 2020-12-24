@@ -1,93 +1,93 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Traits;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Traits;
 
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ConstantReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\Dummy\DummyConstantReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\Dummy\DummyMethodReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\Dummy\DummyPropertyReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ErrorType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\StringType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ConstantReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\Dummy\DummyConstantReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\Dummy\DummyMethodReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\Dummy\DummyPropertyReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ArrayType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ErrorType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\StringType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 trait ObjectTypeTrait
 {
     use MaybeCallableTypeTrait;
     use MaybeIterableTypeTrait;
     use MaybeOffsetAccessibleTypeTrait;
     use TruthyBooleanTypeTrait;
-    public function canAccessProperties() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function canAccessProperties() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasProperty(string $propertyName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getProperty(string $propertyName, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Reflection\Dummy\DummyPropertyReflection();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\Dummy\DummyPropertyReflection();
     }
-    public function canCallMethods() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function canCallMethods() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasMethod(string $methodName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getMethod(string $methodName, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Reflection\Dummy\DummyMethodReflection($methodName);
+        return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\Dummy\DummyMethodReflection($methodName);
     }
-    public function canAccessConstants() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function canAccessConstants() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasConstant(string $constantName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getConstant(string $constantName) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ConstantReflection
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Reflection\Dummy\DummyConstantReflection($constantName);
+        return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\Dummy\DummyConstantReflection($constantName);
     }
-    public function isCloneable() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isCloneable() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
     }
-    public function isArray() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isArray() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function isNumericString() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isNumericString() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function toNumber() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toNumber() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType();
     }
-    public function toString() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toString() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\StringType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\StringType();
     }
-    public function toInteger() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toInteger() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType();
     }
-    public function toFloat() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toFloat() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType();
     }
-    public function toArray() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function toArray() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType(new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType(), new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType());
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType(new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType(), new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType());
     }
 }

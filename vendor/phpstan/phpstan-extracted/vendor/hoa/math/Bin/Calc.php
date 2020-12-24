@@ -33,12 +33,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Math\Bin;
+namespace _PhpScoperb75b35f52b74\Hoa\Math\Bin;
 
-use _PhpScoper0a6b37af0871\Hoa\Compiler;
-use _PhpScoper0a6b37af0871\Hoa\Console;
-use _PhpScoper0a6b37af0871\Hoa\File;
-use _PhpScoper0a6b37af0871\Hoa\Math;
+use _PhpScoperb75b35f52b74\Hoa\Compiler;
+use _PhpScoperb75b35f52b74\Hoa\Console;
+use _PhpScoperb75b35f52b74\Hoa\File;
+use _PhpScoperb75b35f52b74\Hoa\Math;
 /**
  * Class \Hoa\Math\Bin\Calc.
  *
@@ -47,14 +47,14 @@ use _PhpScoper0a6b37af0871\Hoa\Math;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Calc extends \_PhpScoper0a6b37af0871\Hoa\Console\Dispatcher\Kit
+class Calc extends \_PhpScoperb75b35f52b74\Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['help', \_PhpScoper0a6b37af0871\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \_PhpScoper0a6b37af0871\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['help', \_PhpScoperb75b35f52b74\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \_PhpScoperb75b35f52b74\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -73,16 +73,16 @@ class Calc extends \_PhpScoper0a6b37af0871\Hoa\Console\Dispatcher\Kit
             }
         }
         $this->parser->listInputs($expression);
-        $compiler = \_PhpScoper0a6b37af0871\Hoa\Compiler\Llk::load(new \_PhpScoper0a6b37af0871\Hoa\File\Read('hoa://Library/Math/Arithmetic.pp'));
-        $visitor = new \_PhpScoper0a6b37af0871\Hoa\Math\Visitor\Arithmetic();
-        $dump = new \_PhpScoper0a6b37af0871\Hoa\Compiler\Visitor\Dump();
+        $compiler = \_PhpScoperb75b35f52b74\Hoa\Compiler\Llk::load(new \_PhpScoperb75b35f52b74\Hoa\File\Read('hoa://Library/Math/Arithmetic.pp'));
+        $visitor = new \_PhpScoperb75b35f52b74\Hoa\Math\Visitor\Arithmetic();
+        $dump = new \_PhpScoperb75b35f52b74\Hoa\Compiler\Visitor\Dump();
         if (null !== $expression) {
             $ast = $compiler->parse($expression);
             echo $expression . ' = ' . $visitor->visit($ast), "\n";
             return;
         }
-        $readline = new \_PhpScoper0a6b37af0871\Hoa\Console\Readline();
-        $readline->setAutocompleter(new \_PhpScoper0a6b37af0871\Hoa\Console\Readline\Autocompleter\Word(\array_merge(\array_keys($visitor->getConstants()->getArrayCopy()), \array_keys($visitor->getFunctions()->getArrayCopy()))));
+        $readline = new \_PhpScoperb75b35f52b74\Hoa\Console\Readline();
+        $readline->setAutocompleter(new \_PhpScoperb75b35f52b74\Hoa\Console\Readline\Autocompleter\Word(\array_merge(\array_keys($visitor->getConstants()->getArrayCopy()), \array_keys($visitor->getFunctions()->getArrayCopy()))));
         $handle = null;
         $expression = 'h';
         do {
@@ -120,7 +120,7 @@ class Calc extends \_PhpScoper0a6b37af0871\Hoa\Console\Dispatcher\Kit
                     }
                     try {
                         echo $visitor->visit($compiler->parse($expression)), "\n";
-                    } catch (\_PhpScoper0a6b37af0871\Hoa\Compiler\Exception $e) {
+                    } catch (\_PhpScoperb75b35f52b74\Hoa\Compiler\Exception $e) {
                         echo $e->getMessage(), "\n";
                         break;
                     }

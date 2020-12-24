@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Node;
+namespace _PhpScoperb75b35f52b74\PHPStan\Node;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
 class LiteralArrayItem
 {
     /** @var Scope */
     private $scope;
     /** @var ArrayItem|null */
     private $arrayItem;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem $arrayItem)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem $arrayItem)
     {
         $this->scope = $scope;
         $this->arrayItem = $arrayItem;
     }
-    public function getScope() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope
+    public function getScope() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope
     {
         return $this->scope;
     }
-    public function getArrayItem() : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayItem
+    public function getArrayItem() : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayItem
     {
         return $this->arrayItem;
     }

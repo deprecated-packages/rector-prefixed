@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Doctrine\Mapper;
+namespace _PhpScoperb75b35f52b74\Rector\Doctrine\Mapper;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
-final class DefaultDoctrineEntityAndRepositoryMapper implements \_PhpScoper0a6b37af0871\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
+final class DefaultDoctrineEntityAndRepositoryMapper implements \_PhpScoperb75b35f52b74\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface
 {
     /**
      * @var string
@@ -24,15 +24,15 @@ final class DefaultDoctrineEntityAndRepositoryMapper implements \_PhpScoper0a6b3
     public function mapRepositoryToEntity(string $repository) : ?string
     {
         // "SomeRepository" => "Some"
-        $withoutSuffix = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::substring($repository, 0, -\strlen(self::REPOSITORY));
+        $withoutSuffix = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::substring($repository, 0, -\strlen(self::REPOSITORY));
         // "App\Repository\Some" => "App\Entity\Some"
-        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($withoutSuffix, self::REPOSITORY_REGEX, 'Entity');
+        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($withoutSuffix, self::REPOSITORY_REGEX, 'Entity');
     }
     public function mapEntityToRepository(string $entity) : ?string
     {
         // "Some" => "SomeRepository"
         $withSuffix = $entity . self::REPOSITORY;
         // "App\Entity\SomeRepository" => "App\Repository\SomeRepository"
-        return \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($withSuffix, self::ENTITY_REGEX, self::REPOSITORY);
+        return \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($withSuffix, self::ENTITY_REGEX, self::REPOSITORY);
     }
 }

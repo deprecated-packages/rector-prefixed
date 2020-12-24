@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\VendorLocker\Contract;
+namespace _PhpScoperb75b35f52b74\Rector\VendorLocker\Contract;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
 interface NodeVendorLockerInterface
 {
-    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool;
+    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool;
 }

@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Traits;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Traits;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
 /**
  * @internal
  */
@@ -17,8 +17,8 @@ trait NameAware
     private $name;
     public function __construct(string $name)
     {
-        if (!\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
-            throw new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Value '{$name}' is not valid name.");
+        if (!\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
+            throw new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Value '{$name}' is not valid name.");
         }
         $this->name = $name;
     }

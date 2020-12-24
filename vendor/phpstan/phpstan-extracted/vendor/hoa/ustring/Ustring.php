@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Ustring;
+namespace _PhpScoperb75b35f52b74\Hoa\Ustring;
 
-use _PhpScoper0a6b37af0871\Hoa\Consistency;
+use _PhpScoperb75b35f52b74\Hoa\Consistency;
 /**
  * Class \Hoa\Ustring.
  *
@@ -406,7 +406,7 @@ class Ustring implements \ArrayAccess, \Countable, \IteratorAggregate
         }
         if (\false === \class_exists('Normalizer')) {
             if (\false === $try) {
-                throw new \_PhpScoper0a6b37af0871\Hoa\Ustring\Exception('%s needs the class Normalizer to work properly, ' . 'or you can force a try by using %1$s(true).', 0, __METHOD__);
+                throw new \_PhpScoperb75b35f52b74\Hoa\Ustring\Exception('%s needs the class Normalizer to work properly, ' . 'or you can force a try by using %1$s(true).', 0, __METHOD__);
             }
             $string = static::transcode($string, 'UTF-8', 'ASCII//IGNORE//TRANSLIT');
             $this->_string = \preg_replace('#(?:[\'"`^](\\w))#u', '\\1', $string);
@@ -430,7 +430,7 @@ class Ustring implements \ArrayAccess, \Countable, \IteratorAggregate
     public function transliterate($identifier, $start = 0, $end = null)
     {
         if (null === ($transliterator = static::getTransliterator($identifier))) {
-            throw new \_PhpScoper0a6b37af0871\Hoa\Ustring\Exception('%s needs the class Transliterator to work properly.', 1, __METHOD__);
+            throw new \_PhpScoperb75b35f52b74\Hoa\Ustring\Exception('%s needs the class Transliterator to work properly.', 1, __METHOD__);
         }
         $this->_string = $transliterator->transliterate($this->_string, $start, $end);
         return $this;
@@ -759,7 +759,7 @@ class Ustring implements \ArrayAccess, \Countable, \IteratorAggregate
     public static function transcode($string, $from, $to = 'UTF-8')
     {
         if (\false === static::checkIconv()) {
-            throw new \_PhpScoper0a6b37af0871\Hoa\Ustring\Exception('%s needs the iconv extension.', 2, __CLASS__);
+            throw new \_PhpScoperb75b35f52b74\Hoa\Ustring\Exception('%s needs the iconv extension.', 2, __CLASS__);
         }
         return \iconv($from, $to, $string);
     }
@@ -795,7 +795,7 @@ class Ustring implements \ArrayAccess, \Countable, \IteratorAggregate
 /**
  * Flex entity.
  */
-\_PhpScoper0a6b37af0871\Hoa\Consistency::flexEntity('_PhpScoper0a6b37af0871\\Hoa\\Ustring\\Ustring');
-if (\false === \_PhpScoper0a6b37af0871\Hoa\Ustring\Ustring::checkMbString()) {
-    throw new \_PhpScoper0a6b37af0871\Hoa\Ustring\Exception('%s needs the mbstring extension.', 0, __NAMESPACE__ . '\\Ustring');
+\_PhpScoperb75b35f52b74\Hoa\Consistency::flexEntity('_PhpScoperb75b35f52b74\\Hoa\\Ustring\\Ustring');
+if (\false === \_PhpScoperb75b35f52b74\Hoa\Ustring\Ustring::checkMbString()) {
+    throw new \_PhpScoperb75b35f52b74\Hoa\Ustring\Exception('%s needs the mbstring extension.', 0, __NAMESPACE__ . '\\Ustring');
 }

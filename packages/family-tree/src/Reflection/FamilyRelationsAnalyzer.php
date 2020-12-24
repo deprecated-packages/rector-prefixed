@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\FamilyTree\Reflection;
+namespace _PhpScoperb75b35f52b74\Rector\FamilyTree\Reflection;
 
 final class FamilyRelationsAnalyzer
 {

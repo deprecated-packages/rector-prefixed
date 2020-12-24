@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Exception;
+namespace _PhpScoperb75b35f52b74\Hoa\Exception;
 
-use _PhpScoper0a6b37af0871\Hoa\Consistency;
-use _PhpScoper0a6b37af0871\Hoa\Event;
+use _PhpScoperb75b35f52b74\Hoa\Consistency;
+use _PhpScoperb75b35f52b74\Hoa\Event;
 /**
  * Class \Hoa\Exception\Exception.
  *
@@ -45,7 +45,7 @@ use _PhpScoper0a6b37af0871\Hoa\Event;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \_PhpScoper0a6b37af0871\Hoa\Exception\Idle implements \_PhpScoper0a6b37af0871\Hoa\Event\Source
+class Exception extends \_PhpScoperb75b35f52b74\Hoa\Exception\Idle implements \_PhpScoperb75b35f52b74\Hoa\Event\Source
 {
     /**
      * Create an exception.
@@ -61,8 +61,8 @@ class Exception extends \_PhpScoper0a6b37af0871\Hoa\Exception\Idle implements \_
     public function __construct($message, $code = 0, $arguments = [], $previous = null)
     {
         parent::__construct($message, $code, $arguments, $previous);
-        if (\false === \_PhpScoper0a6b37af0871\Hoa\Event::eventExists('hoa://Event/Exception')) {
-            \_PhpScoper0a6b37af0871\Hoa\Event::register('hoa://Event/Exception', __CLASS__);
+        if (\false === \_PhpScoperb75b35f52b74\Hoa\Event::eventExists('hoa://Event/Exception')) {
+            \_PhpScoperb75b35f52b74\Hoa\Event::register('hoa://Event/Exception', __CLASS__);
         }
         $this->send();
         return;
@@ -74,11 +74,11 @@ class Exception extends \_PhpScoper0a6b37af0871\Hoa\Exception\Idle implements \_
      */
     public function send()
     {
-        \_PhpScoper0a6b37af0871\Hoa\Event::notify('hoa://Event/Exception', $this, new \_PhpScoper0a6b37af0871\Hoa\Event\Bucket($this));
+        \_PhpScoperb75b35f52b74\Hoa\Event::notify('hoa://Event/Exception', $this, new \_PhpScoperb75b35f52b74\Hoa\Event\Bucket($this));
         return;
     }
 }
 /**
  * Flex entity.
  */
-\_PhpScoper0a6b37af0871\Hoa\Consistency::flexEntity('_PhpScoper0a6b37af0871\\Hoa\\Exception\\Exception');
+\_PhpScoperb75b35f52b74\Hoa\Consistency::flexEntity('_PhpScoperb75b35f52b74\\Hoa\\Exception\\Exception');

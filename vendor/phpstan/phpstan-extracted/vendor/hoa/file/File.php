@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\File;
+namespace _PhpScoperb75b35f52b74\Hoa\File;
 
-use _PhpScoper0a6b37af0871\Hoa\Consistency;
-use _PhpScoper0a6b37af0871\Hoa\Stream;
+use _PhpScoperb75b35f52b74\Hoa\Consistency;
+use _PhpScoperb75b35f52b74\Hoa\Stream;
 /**
  * Class \Hoa\File.
  *
@@ -45,7 +45,7 @@ use _PhpScoper0a6b37af0871\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class File extends \_PhpScoper0a6b37af0871\Hoa\File\Generic implements \_PhpScoper0a6b37af0871\Hoa\Stream\IStream\Bufferable, \_PhpScoper0a6b37af0871\Hoa\Stream\IStream\Lockable, \_PhpScoper0a6b37af0871\Hoa\Stream\IStream\Pointable
+abstract class File extends \_PhpScoperb75b35f52b74\Hoa\File\Generic implements \_PhpScoperb75b35f52b74\Hoa\Stream\IStream\Bufferable, \_PhpScoperb75b35f52b74\Hoa\Stream\IStream\Lockable, \_PhpScoperb75b35f52b74\Hoa\Stream\IStream\Pointable
 {
     /**
      * Open for reading only; place the file pointer at the beginning of the
@@ -140,7 +140,7 @@ abstract class File extends \_PhpScoper0a6b37af0871\Hoa\File\Generic implements 
                     if (\PHP_VERSION_ID >= 50306) {
                         $streamName = 'php://fd/' . $streamName;
                     } else {
-                        throw new \_PhpScoper0a6b37af0871\Hoa\File\Exception('You need PHP5.3.6 to use a file descriptor ' . 'other than 0, 1 or 2 (tried %d with PHP%s).', 0, [$streamName, \PHP_VERSION]);
+                        throw new \_PhpScoperb75b35f52b74\Hoa\File\Exception('You need PHP5.3.6 to use a file descriptor ' . 'other than 0, 1 or 2 (tried %d with PHP%s).', 0, [$streamName, \PHP_VERSION]);
                     }
                 }
         }
@@ -156,20 +156,20 @@ abstract class File extends \_PhpScoper0a6b37af0871\Hoa\File\Generic implements 
      * @throws  \Hoa\File\Exception\FileDoesNotExist
      * @throws  \Hoa\File\Exception
      */
-    protected function &_open($streamName, \_PhpScoper0a6b37af0871\Hoa\Stream\Context $context = null)
+    protected function &_open($streamName, \_PhpScoperb75b35f52b74\Hoa\Stream\Context $context = null)
     {
         if (\substr($streamName, 0, 4) == 'file' && \false === \is_dir(\dirname($streamName))) {
-            throw new \_PhpScoper0a6b37af0871\Hoa\File\Exception('Directory %s does not exist. Could not open file %s.', 1, [\dirname($streamName), \basename($streamName)]);
+            throw new \_PhpScoperb75b35f52b74\Hoa\File\Exception('Directory %s does not exist. Could not open file %s.', 1, [\dirname($streamName), \basename($streamName)]);
         }
         if (null === $context) {
             if (\false === ($out = @\fopen($streamName, $this->getMode(), \true))) {
-                throw new \_PhpScoper0a6b37af0871\Hoa\File\Exception('Failed to open stream %s.', 2, $streamName);
+                throw new \_PhpScoperb75b35f52b74\Hoa\File\Exception('Failed to open stream %s.', 2, $streamName);
             }
             return $out;
         }
         $out = @\fopen($streamName, $this->getMode(), \true, $context->getContext());
         if (\false === $out) {
-            throw new \_PhpScoper0a6b37af0871\Hoa\File\Exception('Failed to open stream %s.', 3, $streamName);
+            throw new \_PhpScoperb75b35f52b74\Hoa\File\Exception('Failed to open stream %s.', 3, $streamName);
         }
         return $out;
     }
@@ -260,7 +260,7 @@ abstract class File extends \_PhpScoper0a6b37af0871\Hoa\File\Generic implements 
      *                             \Hoa\Stream\IStream\Pointable::SEEK_* constants.
      * @return  int
      */
-    public function seek($offset, $whence = \_PhpScoper0a6b37af0871\Hoa\Stream\IStream\Pointable::SEEK_SET)
+    public function seek($offset, $whence = \_PhpScoperb75b35f52b74\Hoa\Stream\IStream\Pointable::SEEK_SET)
     {
         return \fseek($this->getStream(), $offset, $whence);
     }
@@ -295,4 +295,4 @@ abstract class File extends \_PhpScoper0a6b37af0871\Hoa\File\Generic implements 
 /**
  * Flex entity.
  */
-\_PhpScoper0a6b37af0871\Hoa\Consistency::flexEntity('_PhpScoper0a6b37af0871\\Hoa\\File\\File');
+\_PhpScoperb75b35f52b74\Hoa\Consistency::flexEntity('_PhpScoperb75b35f52b74\\Hoa\\File\\File');

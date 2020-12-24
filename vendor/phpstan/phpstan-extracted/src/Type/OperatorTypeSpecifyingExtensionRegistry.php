@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type;
 
-use _PhpScoper0a6b37af0871\PHPStan\Broker\Broker;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\BrokerAwareExtension;
+use _PhpScoperb75b35f52b74\PHPStan\Broker\Broker;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\BrokerAwareExtension;
 class OperatorTypeSpecifyingExtensionRegistry
 {
     /** @var OperatorTypeSpecifyingExtension[] */
@@ -12,10 +12,10 @@ class OperatorTypeSpecifyingExtensionRegistry
     /**
      * @param \PHPStan\Type\OperatorTypeSpecifyingExtension[] $extensions
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Broker\Broker $broker, array $extensions)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Broker\Broker $broker, array $extensions)
     {
         foreach ($extensions as $extension) {
-            if (!$extension instanceof \_PhpScoper0a6b37af0871\PHPStan\Reflection\BrokerAwareExtension) {
+            if (!$extension instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\BrokerAwareExtension) {
                 continue;
             }
             $extension->setBroker($broker);
@@ -25,9 +25,9 @@ class OperatorTypeSpecifyingExtensionRegistry
     /**
      * @return OperatorTypeSpecifyingExtension[]
      */
-    public function getOperatorTypeSpecifyingExtensions(string $operator, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $leftType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $rightType) : array
+    public function getOperatorTypeSpecifyingExtensions(string $operator, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $leftType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $rightType) : array
     {
-        return \array_values(\array_filter($this->extensions, static function (\_PhpScoper0a6b37af0871\PHPStan\Type\OperatorTypeSpecifyingExtension $extension) use($operator, $leftType, $rightType) : bool {
+        return \array_values(\array_filter($this->extensions, static function (\_PhpScoperb75b35f52b74\PHPStan\Type\OperatorTypeSpecifyingExtension $extension) use($operator, $leftType, $rightType) : bool {
             return $extension->isOperatorSupported($operator, $leftType, $rightType);
         }));
     }

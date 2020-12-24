@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\FamilyTree\NodeAnalyzer;
+namespace _PhpScoperb75b35f52b74\Rector\FamilyTree\NodeAnalyzer;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
 final class ClassChildAnalyzer
 {
-    public function hasChildClassConstructor(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function hasChildClassConstructor(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         $childClasses = $this->getChildClasses($class);
         foreach ($childClasses as $childClass) {
@@ -27,9 +27,9 @@ final class ClassChildAnalyzer
         }
         return \false;
     }
-    public function hasParentClassConstructor(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function hasParentClassConstructor(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        $className = $class->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $class->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
@@ -51,9 +51,9 @@ final class ClassChildAnalyzer
     /**
      * @return class-string[]
      */
-    private function getChildClasses(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : array
+    private function getChildClasses(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $className = $class->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $class->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return [];
         }

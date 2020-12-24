@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Php;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Php;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper0a6b37af0871\PHPStan\Type\BooleanType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\StringType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils;
-use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
-class MbFunctionsReturnTypeExtension implements \_PhpScoper0a6b37af0871\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoperb75b35f52b74\PHPStan\Type\BooleanType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\StringType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils;
+use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
+class MbFunctionsReturnTypeExtension implements \_PhpScoperb75b35f52b74\PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
     /** @var string[] */
     private $supportedEncodings;
@@ -28,14 +28,14 @@ class MbFunctionsReturnTypeExtension implements \_PhpScoper0a6b37af0871\PHPStan\
             foreach (\mb_list_encodings() as $encoding) {
                 $aliases = \mb_encoding_aliases($encoding);
                 if ($aliases === \false) {
-                    throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+                    throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
                 }
                 $supportedEncodings = \array_merge($supportedEncodings, $aliases, [$encoding]);
             }
         }
         $this->supportedEncodings = \array_map('strtoupper', $supportedEncodings);
     }
-    public function isFunctionSupported(\_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return \array_key_exists($functionReflection->getName(), $this->encodingPositionMap);
     }
@@ -43,22 +43,22 @@ class MbFunctionsReturnTypeExtension implements \_PhpScoper0a6b37af0871\PHPStan\
     {
         return \in_array(\strtoupper($encoding), $this->supportedEncodings, \true);
     }
-    public function getTypeFromFunctionCall(\_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        $returnType = \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        $returnType = \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         $positionEncodingParam = $this->encodingPositionMap[$functionReflection->getName()];
         if (\count($functionCall->args) < $positionEncodingParam) {
-            return \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::remove($returnType, new \_PhpScoper0a6b37af0871\PHPStan\Type\BooleanType());
+            return \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::remove($returnType, new \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType());
         }
-        $strings = \_PhpScoper0a6b37af0871\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($functionCall->args[$positionEncodingParam - 1]->value));
-        $results = \array_unique(\array_map(function (\_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType $encoding) : bool {
+        $strings = \_PhpScoperb75b35f52b74\PHPStan\Type\TypeUtils::getConstantStrings($scope->getType($functionCall->args[$positionEncodingParam - 1]->value));
+        $results = \array_unique(\array_map(function (\_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType $encoding) : bool {
             return $this->isSupportedEncoding($encoding->getValue());
         }, $strings));
-        if ($returnType->equals(new \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType([new \_PhpScoper0a6b37af0871\PHPStan\Type\StringType(), new \_PhpScoper0a6b37af0871\PHPStan\Type\BooleanType()]))) {
-            return \count($results) === 1 ? new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantBooleanType($results[0]) : new \_PhpScoper0a6b37af0871\PHPStan\Type\BooleanType();
+        if ($returnType->equals(new \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType([new \_PhpScoperb75b35f52b74\PHPStan\Type\StringType(), new \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType()]))) {
+            return \count($results) === 1 ? new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType($results[0]) : new \_PhpScoperb75b35f52b74\PHPStan\Type\BooleanType();
         }
         if (\count($results) === 1) {
-            return $results[0] ? \_PhpScoper0a6b37af0871\PHPStan\Type\TypeCombinator::remove($returnType, new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantBooleanType(\false)) : new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantBooleanType(\false);
+            return $results[0] ? \_PhpScoperb75b35f52b74\PHPStan\Type\TypeCombinator::remove($returnType, new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType(\false)) : new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantBooleanType(\false);
         }
         return $returnType;
     }

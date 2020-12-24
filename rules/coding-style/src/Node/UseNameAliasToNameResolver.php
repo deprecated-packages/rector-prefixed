@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Node;
+namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\Node;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport\ShortNameResolver;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Naming\ClassNaming;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\ShortNameResolver;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Naming\ClassNaming;
 final class UseNameAliasToNameResolver
 {
     /**
@@ -16,7 +16,7 @@ final class UseNameAliasToNameResolver
      * @var ClassNaming
      */
     private $classNaming;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\CodingStyle\Naming\ClassNaming $classNaming, \_PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
     {
         $this->shortNameResolver = $shortNameResolver;
         $this->classNaming = $classNaming;
@@ -24,7 +24,7 @@ final class UseNameAliasToNameResolver
     /**
      * @return array<string, string[]>
      */
-    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Use_ $use) : array
+    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Use_ $use) : array
     {
         $useNamesAliasToName = [];
         $shortNames = $this->shortNameResolver->resolveForNode($use);

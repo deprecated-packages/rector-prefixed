@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipVoter;
+namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipVoter;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport\ShortNameResolver;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
-use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\ShortNameResolver;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
+use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
 /**
  * Prevents adding:
  *
@@ -16,17 +16,17 @@ use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType;
  *
  * SomeClass::callThis();
  */
-final class FullyQualifiedNameClassNameImportSkipVoter implements \_PhpScoper0a6b37af0871\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
+final class FullyQualifiedNameClassNameImportSkipVoter implements \_PhpScoperb75b35f52b74\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
 {
     /**
      * @var ShortNameResolver
      */
     private $shortNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
     {
         $this->shortNameResolver = $shortNameResolver;
     }
-    public function shouldSkip(\_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    public function shouldSkip(\_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
         // "new X" or "X::static()"
         $shortNames = $this->shortNameResolver->resolveForNode($node);

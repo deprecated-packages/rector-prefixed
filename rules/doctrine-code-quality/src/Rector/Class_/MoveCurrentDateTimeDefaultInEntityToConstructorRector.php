@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\Rector\Class_;
+namespace _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\Rector\Class_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeAnalyzer\ColumnDatetimePropertyAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeAnalyzer\ConstructorAssignPropertyAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeFactory\ValueAssignFactory;
-use _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeManipulator\ColumnDatetimePropertyManipulator;
-use _PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeManipulator\ConstructorManipulator;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeAnalyzer\ColumnDatetimePropertyAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeAnalyzer\ConstructorAssignPropertyAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeFactory\ValueAssignFactory;
+use _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeManipulator\ColumnDatetimePropertyManipulator;
+use _PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeManipulator\ConstructorManipulator;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://www.luzanky.cz/ for sponsoring this rule
  *
@@ -22,7 +22,7 @@ use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\Class_\MoveCurrentDateTimeDefaultInEntityToConstructorRector\MoveCurrentDateTimeDefaultInEntityToConstructorRectorTest
  */
-final class MoveCurrentDateTimeDefaultInEntityToConstructorRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class MoveCurrentDateTimeDefaultInEntityToConstructorRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ColumnDatetimePropertyAnalyzer
@@ -44,7 +44,7 @@ final class MoveCurrentDateTimeDefaultInEntityToConstructorRector extends \_PhpS
      * @var ConstructorAssignPropertyAnalyzer
      */
     private $constructorAssignPropertyAnalyzer;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeAnalyzer\ColumnDatetimePropertyAnalyzer $columnDatetimePropertyAnalyzer, \_PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeManipulator\ConstructorManipulator $constructorManipulator, \_PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeFactory\ValueAssignFactory $valueAssignFactory, \_PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeManipulator\ColumnDatetimePropertyManipulator $columnDatetimePropertyManipulator, \_PhpScoper0a6b37af0871\Rector\DoctrineCodeQuality\NodeAnalyzer\ConstructorAssignPropertyAnalyzer $constructorAssignPropertyAnalyzer)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeAnalyzer\ColumnDatetimePropertyAnalyzer $columnDatetimePropertyAnalyzer, \_PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeManipulator\ConstructorManipulator $constructorManipulator, \_PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeFactory\ValueAssignFactory $valueAssignFactory, \_PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeManipulator\ColumnDatetimePropertyManipulator $columnDatetimePropertyManipulator, \_PhpScoperb75b35f52b74\Rector\DoctrineCodeQuality\NodeAnalyzer\ConstructorAssignPropertyAnalyzer $constructorAssignPropertyAnalyzer)
     {
         $this->columnDatetimePropertyAnalyzer = $columnDatetimePropertyAnalyzer;
         $this->constructorManipulator = $constructorManipulator;
@@ -52,9 +52,9 @@ final class MoveCurrentDateTimeDefaultInEntityToConstructorRector extends \_PhpS
         $this->columnDatetimePropertyManipulator = $columnDatetimePropertyManipulator;
         $this->constructorAssignPropertyAnalyzer = $constructorAssignPropertyAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move default value for entity property to constructor, the safest place', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move default value for entity property to constructor, the safest place', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -98,19 +98,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         foreach ($node->getProperties() as $property) {
             $this->refactorProperty($property, $node);
         }
         return $node;
     }
-    private function refactorProperty(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property
+    private function refactorProperty(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property
     {
         $columnTagValueNode = $this->columnDatetimePropertyAnalyzer->matchDateTimeColumnTagValueNodeInProperty($property);
         if ($columnTagValueNode === null) {
@@ -130,7 +130,7 @@ CODE_SAMPLE
         $onlyProperty->default = null;
         return $property;
     }
-    private function refactorClass(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property) : void
+    private function refactorClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property) : void
     {
         /** @var string $propertyName */
         $propertyName = $this->getName($property);

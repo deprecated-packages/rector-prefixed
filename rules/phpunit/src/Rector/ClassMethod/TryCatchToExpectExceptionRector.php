@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\ClassMethod;
+namespace _PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\ClassMethod;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\TryCatch;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\TryCatch;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\ClassMethod\TryCatchToExpectExceptionRector\TryCatchToExpectExceptionRectorTest
  */
-final class TryCatchToExpectExceptionRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractPHPUnitRector
+final class TryCatchToExpectExceptionRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var Expression[]
      */
     private $newExpressions = [];
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns try/catch to expectException() call', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns try/catch to expectException() call', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 try {
 	$someService->run();
 } catch (Throwable $exception) {
@@ -45,12 +45,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
@@ -60,7 +60,7 @@ CODE_SAMPLE
         }
         $proccesed = [];
         foreach ($node->stmts as $key => $stmt) {
-            if (!$stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\TryCatch) {
+            if (!$stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\TryCatch) {
                 continue;
             }
             $proccesed = $this->processTryCatch($stmt);
@@ -76,7 +76,7 @@ CODE_SAMPLE
     /**
      * @return Expression[]|null
      */
-    private function processTryCatch(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\TryCatch $tryCatch) : ?array
+    private function processTryCatch(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\TryCatch $tryCatch) : ?array
     {
         if (\count((array) $tryCatch->catches) !== 1) {
             return null;
@@ -92,10 +92,10 @@ CODE_SAMPLE
         // - assert same string to $exceptionVariableName->getCode()
         foreach ($tryCatch->catches[0]->stmts as $catchedStmt) {
             // not a match
-            if (!$catchedStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
+            if (!$catchedStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
                 return null;
             }
-            if (!$catchedStmt->expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
+            if (!$catchedStmt->expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
                 continue;
             }
             $methodCallNode = $catchedStmt->expr;
@@ -106,14 +106,14 @@ CODE_SAMPLE
         }
         // return all statements
         foreach ($tryCatch->stmts as $stmt) {
-            if (!$stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
+            if (!$stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
                 return null;
             }
             $this->newExpressions[] = $stmt;
         }
         return $this->newExpressions;
     }
-    private function processAssertInstanceOf(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $variable) : void
+    private function processAssertInstanceOf(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $variable) : void
     {
         if (!$this->isLocalMethodCallNamed($methodCall, 'assertInstanceOf')) {
             return;
@@ -127,15 +127,15 @@ CODE_SAMPLE
         if (!$this->isName($variable, $argumentVariableName)) {
             return;
         }
-        $this->newExpressions[] = new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression(new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall($methodCall->var, 'expectException', [$methodCall->args[0]]));
+        $this->newExpressions[] = new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression(new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($methodCall->var, 'expectException', [$methodCall->args[0]]));
     }
-    private function processExceptionMessage(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $exceptionVariable) : void
+    private function processExceptionMessage(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $exceptionVariable) : void
     {
         if (!$this->isLocalMethodCallsNamed($methodCall, ['assertSame', 'assertEquals'])) {
             return;
         }
         $secondArgument = $methodCall->args[1]->value;
-        if (!$secondArgument instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
+        if (!$secondArgument instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
             return;
         }
         if (!$this->areNodesEqual($secondArgument->var, $exceptionVariable)) {
@@ -146,13 +146,13 @@ CODE_SAMPLE
         }
         $this->newExpressions[] = $this->renameMethodCallAndKeepFirstArgument($methodCall, 'expectExceptionMessage');
     }
-    private function processExceptionCode(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $exceptionVariable) : void
+    private function processExceptionCode(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $exceptionVariable) : void
     {
         if (!$this->isLocalMethodCallsNamed($methodCall, ['assertSame', 'assertEquals'])) {
             return;
         }
         $secondArgument = $methodCall->args[1]->value;
-        if (!$secondArgument instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
+        if (!$secondArgument instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
             return;
         }
         // looking for "$exception->getMessage()"
@@ -164,13 +164,13 @@ CODE_SAMPLE
         }
         $this->newExpressions[] = $this->renameMethodCallAndKeepFirstArgument($methodCall, 'expectExceptionCode');
     }
-    private function processExceptionMessageContains(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable $exceptionVariable) : void
+    private function processExceptionMessageContains(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable $exceptionVariable) : void
     {
         if (!$this->isLocalMethodCallNamed($methodCall, 'assertContains')) {
             return;
         }
         $secondArgument = $methodCall->args[1]->value;
-        if (!$secondArgument instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
+        if (!$secondArgument instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
             return;
         }
         // looking for "$exception->getMessage()"
@@ -184,16 +184,16 @@ CODE_SAMPLE
         /** @var MethodCall $methodCall */
         $methodCall = $expression->expr;
         // put regex between "#...#" to create match
-        if ($methodCall->args[0]->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
+        if ($methodCall->args[0]->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
             /** @var String_ $oldString */
             $oldString = $methodCall->args[0]->value;
-            $methodCall->args[0]->value = new \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_('#' . \preg_quote($oldString->value, '#') . '#');
+            $methodCall->args[0]->value = new \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_('#' . \preg_quote($oldString->value, '#') . '#');
         }
         $this->newExpressions[] = $expression;
     }
-    private function renameMethodCallAndKeepFirstArgument(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName) : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression
+    private function renameMethodCallAndKeepFirstArgument(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName) : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression
     {
-        $methodCall->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier($methodName);
+        $methodCall->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier($methodName);
         foreach (\array_keys($methodCall->args) as $i) {
             // keep first arg
             if ($i === 0) {
@@ -201,6 +201,6 @@ CODE_SAMPLE
             }
             unset($methodCall->args[$i]);
         }
-        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression($methodCall);
+        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression($methodCall);
     }
 }

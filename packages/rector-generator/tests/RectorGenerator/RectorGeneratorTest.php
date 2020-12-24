@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\RectorGenerator\Tests\RectorGenerator;
+namespace _PhpScoperb75b35f52b74\Rector\RectorGenerator\Tests\RectorGenerator;
 
-use _PhpScoper0a6b37af0871\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScoper0a6b37af0871\Rector\RectorGenerator\Finder\TemplateFinder;
-use _PhpScoper0a6b37af0871\Rector\RectorGenerator\Generator\FileGenerator;
-use _PhpScoper0a6b37af0871\Rector\RectorGenerator\TemplateVariablesFactory;
-use _PhpScoper0a6b37af0871\Rector\RectorGenerator\Tests\RectorGenerator\Source\StaticRectorRecipeFactory;
-use _PhpScoper0a6b37af0871\Rector\RectorGenerator\ValueObject\RectorRecipe;
-use _PhpScoper0a6b37af0871\Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem;
-final class RectorGeneratorTest extends \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use _PhpScoperb75b35f52b74\Rector\Core\HttpKernel\RectorKernel;
+use _PhpScoperb75b35f52b74\Rector\RectorGenerator\Finder\TemplateFinder;
+use _PhpScoperb75b35f52b74\Rector\RectorGenerator\Generator\FileGenerator;
+use _PhpScoperb75b35f52b74\Rector\RectorGenerator\TemplateVariablesFactory;
+use _PhpScoperb75b35f52b74\Rector\RectorGenerator\Tests\RectorGenerator\Source\StaticRectorRecipeFactory;
+use _PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScoperb75b35f52b74\Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileSystem;
+final class RectorGeneratorTest extends \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     use DirectoryAssertableTrait;
     /**
@@ -37,11 +37,11 @@ final class RectorGeneratorTest extends \_PhpScoper0a6b37af0871\Symplify\Package
     private $smartFileSystem;
     protected function setUp() : void
     {
-        $this->bootKernel(\_PhpScoper0a6b37af0871\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->templateVariablesFactory = $this->getService(\_PhpScoper0a6b37af0871\Rector\RectorGenerator\TemplateVariablesFactory::class);
-        $this->templateFinder = $this->getService(\_PhpScoper0a6b37af0871\Rector\RectorGenerator\Finder\TemplateFinder::class);
-        $this->fileGenerator = $this->getService(\_PhpScoper0a6b37af0871\Rector\RectorGenerator\Generator\FileGenerator::class);
-        $this->smartFileSystem = $this->getService(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem::class);
+        $this->bootKernel(\_PhpScoperb75b35f52b74\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->templateVariablesFactory = $this->getService(\_PhpScoperb75b35f52b74\Rector\RectorGenerator\TemplateVariablesFactory::class);
+        $this->templateFinder = $this->getService(\_PhpScoperb75b35f52b74\Rector\RectorGenerator\Finder\TemplateFinder::class);
+        $this->fileGenerator = $this->getService(\_PhpScoperb75b35f52b74\Rector\RectorGenerator\Generator\FileGenerator::class);
+        $this->smartFileSystem = $this->getService(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileSystem::class);
     }
     protected function tearDown() : void
     {
@@ -65,8 +65,8 @@ final class RectorGeneratorTest extends \_PhpScoper0a6b37af0871\Symplify\Package
         $templateVariables = $this->templateVariablesFactory->createFromRectorRecipe($rectorRecipe);
         $this->fileGenerator->generateFiles($templateFileInfos, $templateVariables, $rectorRecipe, self::DESTINATION_DIRECTORY);
     }
-    private function createConfiguration(bool $isRectorRepository) : \_PhpScoper0a6b37af0871\Rector\RectorGenerator\ValueObject\RectorRecipe
+    private function createConfiguration(bool $isRectorRepository) : \_PhpScoperb75b35f52b74\Rector\RectorGenerator\ValueObject\RectorRecipe
     {
-        return \_PhpScoper0a6b37af0871\Rector\RectorGenerator\Tests\RectorGenerator\Source\StaticRectorRecipeFactory::createRectorRecipe($isRectorRepository);
+        return \_PhpScoperb75b35f52b74\Rector\RectorGenerator\Tests\RectorGenerator\Source\StaticRectorRecipeFactory::createRectorRecipe($isRectorRepository);
     }
 }

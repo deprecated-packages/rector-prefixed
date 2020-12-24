@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp72\Contract\Rector;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp72\Contract\Rector;
 
 interface DowngradeTypeRectorInterface
 {

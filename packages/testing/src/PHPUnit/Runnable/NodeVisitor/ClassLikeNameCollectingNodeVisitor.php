@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\Runnable\NodeVisitor;
+namespace _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\Runnable\NodeVisitor;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract;
-final class ClassLikeNameCollectingNodeVisitor extends \_PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract;
+final class ClassLikeNameCollectingNodeVisitor extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
 {
     /**
      * @var string[]
@@ -19,9 +19,9 @@ final class ClassLikeNameCollectingNodeVisitor extends \_PhpScoper0a6b37af0871\P
     {
         return $this->classLikeNames;
     }
-    public function enterNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node)
+    public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node)
     {
-        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike) {
+        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
         if ($node->name === null) {

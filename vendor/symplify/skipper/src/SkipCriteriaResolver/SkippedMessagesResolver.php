@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\Skipper\SkipCriteriaResolver;
+namespace _PhpScoperb75b35f52b74\Symplify\Skipper\SkipCriteriaResolver;
 
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper0a6b37af0871\Symplify\Skipper\ValueObject\Option;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScoperb75b35f52b74\Symplify\Skipper\ValueObject\Option;
 final class SkippedMessagesResolver
 {
     /**
@@ -15,7 +15,7 @@ final class SkippedMessagesResolver
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
@@ -27,7 +27,7 @@ final class SkippedMessagesResolver
         if ($this->skippedMessages !== []) {
             return $this->skippedMessages;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\_PhpScoper0a6b37af0871\Symplify\Skipper\ValueObject\Option::SKIP);
+        $skip = $this->parameterProvider->provideArrayParameter(\_PhpScoperb75b35f52b74\Symplify\Skipper\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
             if (\is_int($key)) {

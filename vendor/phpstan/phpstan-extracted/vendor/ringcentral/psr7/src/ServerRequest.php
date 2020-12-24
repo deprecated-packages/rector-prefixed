@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
 /**
  * PSR-7 server-side request implementation.
  */
-class ServerRequest extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface
+class ServerRequest extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface
 {
     private $attributes = array();
     private $serverParams = array();

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Rules;
+namespace _PhpScoperb75b35f52b74\PHPStan\Rules;
 
-interface IdentifierRuleError extends \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleError
+interface IdentifierRuleError extends \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleError
 {
     public function getIdentifier() : string;
 }

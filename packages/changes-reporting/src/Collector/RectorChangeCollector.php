@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\ChangesReporting\Collector;
+namespace _PhpScoperb75b35f52b74\Rector\ChangesReporting\Collector;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\RectorInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\Core\Logging\CurrentRectorProvider;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\RectorInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\Core\Logging\CurrentRectorProvider;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorChangeCollector
 {
     /**
@@ -20,22 +20,22 @@ final class RectorChangeCollector
      * @var CurrentRectorProvider
      */
     private $currentRectorProvider;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider)
     {
         $this->currentRectorProvider = $currentRectorProvider;
     }
     /**
      * @return RectorWithFileAndLineChange[]
      */
-    public function getRectorChangesByFileInfo(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getRectorChangesByFileInfo(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
-        return \array_filter($this->rectorWithFileAndLineChanges, function (\_PhpScoper0a6b37af0871\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange $rectorWithFileAndLineChange) use($smartFileInfo) : bool {
+        return \array_filter($this->rectorWithFileAndLineChanges, function (\_PhpScoperb75b35f52b74\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange $rectorWithFileAndLineChange) use($smartFileInfo) : bool {
             return $rectorWithFileAndLineChange->getRealPath() === $smartFileInfo->getRealPath();
         });
     }
-    public function notifyNodeFileInfo(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : void
+    public function notifyNodeFileInfo(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : void
     {
-        $fileInfo = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $fileInfo = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($fileInfo === null) {
             // this file was changed before and this is a sub-new node
             // array Traverse to all new nodes would have to be used, but it's not worth the performance
@@ -43,12 +43,12 @@ final class RectorChangeCollector
         }
         $currentRector = $this->currentRectorProvider->getCurrentRector();
         if ($currentRector === null) {
-            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->addRectorClassWithLine($currentRector, $fileInfo, $node->getLine());
     }
-    private function addRectorClassWithLine(\_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\RectorInterface $rector, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, int $line) : void
+    private function addRectorClassWithLine(\_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\RectorInterface $rector, \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, int $line) : void
     {
-        $this->rectorWithFileAndLineChanges[] = new \_PhpScoper0a6b37af0871\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange($rector, $smartFileInfo->getRealPath(), $line);
+        $this->rectorWithFileAndLineChanges[] = new \_PhpScoperb75b35f52b74\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange($rector, $smartFileInfo->getRealPath(), $line);
     }
 }

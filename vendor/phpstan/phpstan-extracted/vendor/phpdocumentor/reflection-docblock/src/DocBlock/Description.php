@@ -10,11 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Object representing to description for a DocBlock.
  *
@@ -61,7 +61,7 @@ class Description
      */
     public function __construct($bodyTemplate, array $tags = [])
     {
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($bodyTemplate);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($bodyTemplate);
         $this->bodyTemplate = $bodyTemplate;
         $this->tags = $tags;
     }
@@ -82,10 +82,10 @@ class Description
      *
      * @return string
      */
-    public function render(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null)
+    public function render(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null)
     {
         if ($formatter === null) {
-            $formatter = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+            $formatter = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
         }
         $tags = [];
         foreach ($this->tags as $tag) {

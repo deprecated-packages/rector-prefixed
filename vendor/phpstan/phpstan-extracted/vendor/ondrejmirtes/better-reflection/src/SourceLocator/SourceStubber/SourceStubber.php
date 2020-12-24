@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber;
 
 /**
  * @internal
@@ -12,13 +12,13 @@ interface SourceStubber
     /**
      * Generates stub for given class. Returns null when it cannot generate the stub.
      */
-    public function generateClassStub(string $className) : ?\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
+    public function generateClassStub(string $className) : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
     /**
      * Generates stub for given function. Returns null when it cannot generate the stub.
      */
-    public function generateFunctionStub(string $functionName) : ?\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
+    public function generateFunctionStub(string $functionName) : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
     /**
      * Generates stub for given constant. Returns null when it cannot generate the stub.
      */
-    public function generateConstantStub(string $constantName) : ?\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
+    public function generateConstantStub(string $constantName) : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
 }

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PostRector\Collector;
+namespace _PhpScoperb75b35f52b74\Rector\PostRector\Collector;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\Rector\PostRector\Contract\Collector\NodeCollectorInterface;
-final class NodesToReplaceCollector implements \_PhpScoper0a6b37af0871\Rector\PostRector\Contract\Collector\NodeCollectorInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\Rector\PostRector\Contract\Collector\NodeCollectorInterface;
+final class NodesToReplaceCollector implements \_PhpScoperb75b35f52b74\Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
      * @var Node[][]
      */
     private $nodesToReplace = [];
-    public function addReplaceNodeWithAnotherNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PhpParser\Node $replaceWith) : void
+    public function addReplaceNodeWithAnotherNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PhpParser\Node $replaceWith) : void
     {
         $this->nodesToReplace[] = [$node, $replaceWith];
     }

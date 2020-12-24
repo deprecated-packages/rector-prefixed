@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\DependencyInjection;
+namespace _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\DependencyInjection;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\ScopeFactory;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifier;
-use _PhpScoper0a6b37af0871\PHPStan\Dependency\DependencyResolver;
-use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container;
-use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\ContainerFactory;
-use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider;
-use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
-use _PhpScoper0a6b37af0871\PHPStan\File\FileHelper;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeNodeResolver;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\ScopeFactory;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifier;
+use _PhpScoperb75b35f52b74\PHPStan\Dependency\DependencyResolver;
+use _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container;
+use _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\ContainerFactory;
+use _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider;
+use _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
+use _PhpScoperb75b35f52b74\PHPStan\File\FileHelper;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeNodeResolver;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Factory so Symfony app can use services from PHPStan container
  * @see packages/NodeTypeResolver/config/config.yaml:17
@@ -34,8 +34,8 @@ final class PHPStanServicesFactory
     public function __construct()
     {
         $currentWorkingDirectory = \getcwd();
-        $smartFileSystem = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileSystem();
-        $containerFactory = new \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\ContainerFactory($currentWorkingDirectory);
+        $smartFileSystem = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileSystem();
+        $containerFactory = new \_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\ContainerFactory($currentWorkingDirectory);
         $additionalConfigFiles = [];
         // possible path collision for Docker
         $additionalConfigFiles = $this->appendPhpstanPHPUnitExtensionIfExists($currentWorkingDirectory, $additionalConfigFiles);
@@ -44,11 +44,11 @@ final class PHPStanServicesFactory
         if (\file_exists($currentProjectConfigFile)) {
             $phpstanNeonContent = $smartFileSystem->readFile($currentProjectConfigFile);
             // bleeding edge clean out, see https://github.com/rectorphp/rector/issues/2431
-            if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($phpstanNeonContent, self::BLEEDING_EDGE_REGEX)) {
+            if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($phpstanNeonContent, self::BLEEDING_EDGE_REGEX)) {
                 // Note: We need a unique file per process if rector runs in parallel
                 $pid = \getmypid();
                 $temporaryPHPStanNeon = $currentWorkingDirectory . '/rector-temp-phpstan' . $pid . '.neon';
-                $clearedPhpstanNeonContent = \_PhpScoper0a6b37af0871\Nette\Utils\Strings::replace($phpstanNeonContent, self::BLEEDING_EDGE_REGEX, '');
+                $clearedPhpstanNeonContent = \_PhpScoperb75b35f52b74\Nette\Utils\Strings::replace($phpstanNeonContent, self::BLEEDING_EDGE_REGEX, '');
                 $smartFileSystem->dumpFile($temporaryPHPStanNeon, $clearedPhpstanNeonContent);
                 $additionalConfigFiles[] = $temporaryPHPStanNeon;
             } else {
@@ -67,65 +67,65 @@ final class PHPStanServicesFactory
     /**
      * @api
      */
-    public function createReflectionProvider() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider
+    public function createReflectionProvider() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider
     {
-        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider::class);
+        return $this->container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider::class);
     }
     /**
      * @api
      */
-    public function createNodeScopeResolver() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver
+    public function createNodeScopeResolver() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver
     {
-        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver::class);
+        return $this->container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver::class);
     }
     /**
      * @api
      */
-    public function createTypeSpecifier() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifier
+    public function createTypeSpecifier() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifier
     {
-        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\Analyser\TypeSpecifier::class);
+        return $this->container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Analyser\TypeSpecifier::class);
     }
     /**
      * @api
      */
-    public function createScopeFactory() : \_PhpScoper0a6b37af0871\PHPStan\Analyser\ScopeFactory
+    public function createScopeFactory() : \_PhpScoperb75b35f52b74\PHPStan\Analyser\ScopeFactory
     {
-        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\Analyser\ScopeFactory::class);
+        return $this->container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Analyser\ScopeFactory::class);
     }
     /**
      * @api
      */
-    public function createDynamicReturnTypeExtensionRegistryProvider() : \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider
+    public function createDynamicReturnTypeExtensionRegistryProvider() : \_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider
     {
-        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider::class);
+        return $this->container->getByType(\_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider::class);
     }
     /**
      * @api
      */
-    public function createDependencyResolver() : \_PhpScoper0a6b37af0871\PHPStan\Dependency\DependencyResolver
+    public function createDependencyResolver() : \_PhpScoperb75b35f52b74\PHPStan\Dependency\DependencyResolver
     {
-        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\Dependency\DependencyResolver::class);
+        return $this->container->getByType(\_PhpScoperb75b35f52b74\PHPStan\Dependency\DependencyResolver::class);
     }
     /**
      * @api
      */
-    public function createFileHelper() : \_PhpScoper0a6b37af0871\PHPStan\File\FileHelper
+    public function createFileHelper() : \_PhpScoperb75b35f52b74\PHPStan\File\FileHelper
     {
-        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\File\FileHelper::class);
+        return $this->container->getByType(\_PhpScoperb75b35f52b74\PHPStan\File\FileHelper::class);
     }
     /**
      * @api
      */
-    public function createOperatorTypeSpecifyingExtensionRegistryProvider() : \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
+    public function createOperatorTypeSpecifyingExtensionRegistryProvider() : \_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
     {
-        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider::class);
+        return $this->container->getByType(\_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider::class);
     }
     /**
      * @api
      */
-    public function createTypeNodeResolver() : \_PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeNodeResolver
+    public function createTypeNodeResolver() : \_PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeNodeResolver
     {
-        return $this->container->getByType(\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\TypeNodeResolver::class);
+        return $this->container->getByType(\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\TypeNodeResolver::class);
     }
     /**
      * @param string[] $additionalConfigFiles
@@ -134,7 +134,7 @@ final class PHPStanServicesFactory
     private function appendPhpstanPHPUnitExtensionIfExists(string $currentWorkingDirectory, array $additionalConfigFiles) : array
     {
         $phpstanPhpunitExtensionConfig = $currentWorkingDirectory . '/vendor/phpstan/phpstan-phpunit/extension.neon';
-        if (\file_exists($phpstanPhpunitExtensionConfig) && \class_exists('_PhpScoper0a6b37af0871\\PHPUnit\\Framework\\TestCase')) {
+        if (\file_exists($phpstanPhpunitExtensionConfig) && \class_exists('_PhpScoperb75b35f52b74\\PHPUnit\\Framework\\TestCase')) {
             $additionalConfigFiles[] = $phpstanPhpunitExtensionConfig;
         }
         return $additionalConfigFiles;

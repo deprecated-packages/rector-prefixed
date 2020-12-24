@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDelegatingParentCallRector\Source;
+namespace _PhpScoperb75b35f52b74\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDelegatingParentCallRector\Source;
 
 class ParentClassWithInterfaceType
 {
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDelegatingParentCallRector\Source\ToBeImplementedInterface $toBeImplemented)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDelegatingParentCallRector\Source\ToBeImplementedInterface $toBeImplemented)
     {
     }
 }

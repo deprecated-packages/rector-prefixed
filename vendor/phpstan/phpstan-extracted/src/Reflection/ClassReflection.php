@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection;
 
 use Attribute;
-use _PhpScoper0a6b37af0871\PHPStan\Php\PhpVersion;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\ResolvedPhpDocBlock;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag\ExtendsTag;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag\ImplementsTag;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag\MethodTag;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag\MixinTag;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag\PropertyTag;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag\TemplateTag;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\Php\PhpClassReflectionExtension;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\Php\PhpPropertyReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ErrorType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\FileTypeMapper;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\GenericObjectType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeFactory;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeScope;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel;
+use _PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\ResolvedPhpDocBlock;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ExtendsTag;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ImplementsTag;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\MethodTag;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\MixinTag;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\PropertyTag;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\TemplateTag;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpClassReflectionExtension;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpPropertyReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ErrorType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\FileTypeMapper;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\GenericObjectType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeFactory;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeHelper;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeScope;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel;
 use ReflectionMethod;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
-class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionWithFilename
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+class ClassReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionWithFilename
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -88,7 +88,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
      * @param ResolvedPhpDocBlock|null $stubPhpDocBlock
      * @param string|null $extraCacheKey
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper0a6b37af0871\PHPStan\Type\FileTypeMapper $fileTypeMapper, \_PhpScoper0a6b37af0871\PHPStan\Php\PhpVersion $phpVersion, array $propertiesClassReflectionExtensions, array $methodsClassReflectionExtensions, string $displayName, \ReflectionClass $reflection, ?string $anonymousFilename, ?\_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, ?\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\ResolvedPhpDocBlock $stubPhpDocBlock, ?string $extraCacheKey = null)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoperb75b35f52b74\PHPStan\Type\FileTypeMapper $fileTypeMapper, \_PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion $phpVersion, array $propertiesClassReflectionExtensions, array $methodsClassReflectionExtensions, string $displayName, \ReflectionClass $reflection, ?string $anonymousFilename, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, ?\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\ResolvedPhpDocBlock $stubPhpDocBlock, ?string $extraCacheKey = null)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->fileTypeMapper = $fileTypeMapper;
@@ -150,9 +150,9 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         if ($extendsTag !== null && $this->isValidAncestorType($extendsTag->getType(), [$parentClass->getName()])) {
             $extendedType = $extendsTag->getType();
             if ($this->isGeneric()) {
-                $extendedType = \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($extendedType, $this->getActiveTemplateTypeMap());
+                $extendedType = \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($extendedType, $this->getActiveTemplateTypeMap());
             }
-            if (!$extendedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\GenericObjectType) {
+            if (!$extendedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\GenericObjectType) {
                 return $this->reflectionProvider->getClass($parentClass->getName());
             }
             return $extendedType->getClassReflection() ?? $this->reflectionProvider->getClass($parentClass->getName());
@@ -176,8 +176,8 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         if ($withTemplateTypes === \false || $this->resolvedTemplateTypeMap === null || \count($this->resolvedTemplateTypeMap->getTypes()) === 0) {
             return $name;
         }
-        return $name . '<' . \implode(',', \array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : string {
-            return $type->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::typeOnly());
+        return $name . '<' . \implode(',', \array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : string {
+            return $type->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly());
         }, $this->resolvedTemplateTypeMap->getTypes())) . '>';
     }
     public function getCacheKey() : string
@@ -188,8 +188,8 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         }
         $cacheKey = $this->displayName;
         if ($this->resolvedTemplateTypeMap !== null) {
-            $cacheKey .= '<' . \implode(',', \array_map(static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : string {
-                return $type->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::cache());
+            $cacheKey .= '<' . \implode(',', \array_map(static function (\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : string {
+                return $type->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::cache());
             }, $this->resolvedTemplateTypeMap->getTypes())) . '>';
         }
         if ($this->extraCacheKey !== null) {
@@ -279,7 +279,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         }
         return \false;
     }
-    public function getMethod(string $methodName, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
     {
         $key = $methodName;
         if ($scope->isInClass()) {
@@ -298,7 +298,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
             }
         }
         if (!isset($this->methods[$key])) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
+            throw new \_PhpScoperb75b35f52b74\PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
         }
         return $this->methods[$key];
     }
@@ -306,10 +306,10 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
     {
         return $this->getPhpExtension()->hasNativeMethod($this, $methodName);
     }
-    public function getNativeMethod(string $methodName) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection
+    public function getNativeMethod(string $methodName) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
     {
         if (!$this->hasNativeMethod($methodName)) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
+            throw new \_PhpScoperb75b35f52b74\PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
         }
         return $this->getPhpExtension()->getNativeMethod($this, $methodName);
     }
@@ -328,11 +328,11 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
     {
         return $this->findConstructor() !== null;
     }
-    public function getConstructor() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\MethodReflection
+    public function getConstructor() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\MethodReflection
     {
         $constructor = $this->findConstructor();
         if ($constructor === null) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
         }
         return $this->getNativeMethod($constructor->getName());
     }
@@ -350,15 +350,15 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         }
         return $constructor;
     }
-    private function getPhpExtension() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\Php\PhpClassReflectionExtension
+    private function getPhpExtension() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpClassReflectionExtension
     {
         $extension = $this->methodsClassReflectionExtensions[0];
-        if (!$extension instanceof \_PhpScoper0a6b37af0871\PHPStan\Reflection\Php\PhpClassReflectionExtension) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+        if (!$extension instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpClassReflectionExtension) {
+            throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
         }
         return $extension;
     }
-    public function getProperty(string $propertyName, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection
     {
         $key = $propertyName;
         if ($scope->isInClass()) {
@@ -377,7 +377,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
             }
         }
         if (!isset($this->properties[$key])) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
+            throw new \_PhpScoperb75b35f52b74\PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
         }
         return $this->properties[$key];
     }
@@ -385,10 +385,10 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
     {
         return $this->getPhpExtension()->hasProperty($this, $propertyName);
     }
-    public function getNativeProperty(string $propertyName) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\Php\PhpPropertyReflection
+    public function getNativeProperty(string $propertyName) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpPropertyReflection
     {
         if (!$this->hasNativeProperty($propertyName)) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
+            throw new \_PhpScoperb75b35f52b74\PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
         }
         return $this->getPhpExtension()->getNativeProperty($this, $propertyName);
     }
@@ -472,9 +472,9 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
                 continue;
             }
             if ($this->isGeneric()) {
-                $implementedType = \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($implementedType, $this->getActiveTemplateTypeMap());
+                $implementedType = \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($implementedType, $this->getActiveTemplateTypeMap());
             }
-            if (!$implementedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\GenericObjectType) {
+            if (!$implementedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\GenericObjectType) {
                 continue;
             }
             $reflectionIface = $implementedType->getClassReflection();
@@ -535,12 +535,12 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         }
         return $this->reflectionProvider->hasClass($reflectionConstant->getDeclaringClass()->getName());
     }
-    public function getConstant(string $name) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $name) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\ConstantReflection
     {
         if (!isset($this->constants[$name])) {
             $reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
             if ($reflectionConstant === \false) {
-                throw new \_PhpScoper0a6b37af0871\PHPStan\Reflection\MissingConstantFromReflectionException($this->getName(), $name);
+                throw new \_PhpScoperb75b35f52b74\PHPStan\Reflection\MissingConstantFromReflectionException($this->getName(), $name);
             }
             $deprecatedDescription = null;
             $isDeprecated = \false;
@@ -554,7 +554,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
                 $isDeprecated = $resolvedPhpDoc->isDeprecated();
                 $isInternal = $resolvedPhpDoc->isInternal();
             }
-            $this->constants[$name] = new \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassConstantReflection($this->reflectionProvider->getClass($reflectionConstant->getDeclaringClass()->getName()), $reflectionConstant, $deprecatedDescription, $isDeprecated, $isInternal);
+            $this->constants[$name] = new \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassConstantReflection($this->reflectionProvider->getClass($reflectionConstant->getDeclaringClass()->getName()), $reflectionConstant, $deprecatedDescription, $isDeprecated, $isInternal);
         }
         return $this->constants[$name];
     }
@@ -626,7 +626,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         if ($this->isInterface() || $this->isTrait()) {
             return null;
         }
-        if ($this->reflection instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass) {
+        if ($this->reflection instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass) {
             foreach ($this->reflection->getBetterReflection()->getAttributes() as $attribute) {
                 if ($attribute->getName() === \Attribute::class) {
                     /** @var \Attribute */
@@ -649,27 +649,27 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
     {
         $attribute = $this->findAttributeClass();
         if ($attribute === null) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
         }
         return $attribute->flags;
     }
-    public function getTemplateTypeMap() : \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap
+    public function getTemplateTypeMap() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap
     {
         if ($this->templateTypeMap !== null) {
             return $this->templateTypeMap;
         }
         $resolvedPhpDoc = $this->getResolvedPhpDoc();
         if ($resolvedPhpDoc === null) {
-            $this->templateTypeMap = \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+            $this->templateTypeMap = \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
             return $this->templateTypeMap;
         }
-        $templateTypeMap = new \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap(\array_map(function (\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag\TemplateTag $tag) : Type {
-            return \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeFactory::fromTemplateTag(\_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeScope::createWithClass($this->getName()), $tag);
+        $templateTypeMap = new \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap(\array_map(function (\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\TemplateTag $tag) : Type {
+            return \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeFactory::fromTemplateTag(\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeScope::createWithClass($this->getName()), $tag);
         }, $this->getTemplateTags()));
         $this->templateTypeMap = $templateTypeMap;
         return $templateTypeMap;
     }
-    public function getActiveTemplateTypeMap() : \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap
+    public function getActiveTemplateTypeMap() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap
     {
         return $this->resolvedTemplateTypeMap ?? $this->getTemplateTypeMap();
     }
@@ -684,22 +684,22 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
      * @param array<int, Type> $types
      * @return \PHPStan\Type\Generic\TemplateTypeMap
      */
-    public function typeMapFromList(array $types) : \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap
+    public function typeMapFromList(array $types) : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap
     {
         $resolvedPhpDoc = $this->getResolvedPhpDoc();
         if ($resolvedPhpDoc === null) {
-            return \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+            return \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         }
         $map = [];
         $i = 0;
         foreach ($resolvedPhpDoc->getTemplateTags() as $tag) {
-            $map[$tag->getName()] = $types[$i] ?? new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
+            $map[$tag->getName()] = $types[$i] ?? new \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType();
             $i++;
         }
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap($map);
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap($map);
     }
     /** @return array<int, Type> */
-    public function typeMapToList(\_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap $typeMap) : array
+    public function typeMapToList(\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap $typeMap) : array
     {
         $resolvedPhpDoc = $this->getResolvedPhpDoc();
         if ($resolvedPhpDoc === null) {
@@ -707,7 +707,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         }
         $list = [];
         foreach ($resolvedPhpDoc->getTemplateTags() as $tag) {
-            $list[] = $typeMap->getType($tag->getName()) ?? new \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType();
+            $list[] = $typeMap->getType($tag->getName()) ?? new \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType();
         }
         return $list;
     }
@@ -718,7 +718,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
     {
         return new self($this->reflectionProvider, $this->fileTypeMapper, $this->phpVersion, $this->propertiesClassReflectionExtensions, $this->methodsClassReflectionExtensions, $this->displayName, $this->reflection, $this->anonymousFilename, $this->typeMapFromList($types), $this->stubPhpDocBlock);
     }
-    private function getResolvedPhpDoc() : ?\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    private function getResolvedPhpDoc() : ?\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if ($this->stubPhpDocBlock !== null) {
             return $this->stubPhpDocBlock;
@@ -733,7 +733,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         }
         return $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, null, $docComment);
     }
-    private function getFirstExtendsTag() : ?\_PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag\ExtendsTag
+    private function getFirstExtendsTag() : ?\_PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag\ExtendsTag
     {
         foreach ($this->getExtendsTags() as $tag) {
             return $tag;
@@ -775,7 +775,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
         $ancestors = $this->ancestors;
         if ($ancestors === null) {
             $ancestors = [$this->getName() => $this];
-            $addToAncestors = static function (string $name, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection) use(&$ancestors) : void {
+            $addToAncestors = static function (string $name, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection) use(&$ancestors) : void {
                 if (\array_key_exists($name, $ancestors)) {
                     return;
                 }
@@ -811,9 +811,9 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
     /**
      * @param string[] $ancestorClasses
      */
-    private function isValidAncestorType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, array $ancestorClasses) : bool
+    private function isValidAncestorType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, array $ancestorClasses) : bool
     {
-        if (!$type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\GenericObjectType) {
+        if (!$type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\GenericObjectType) {
             return \false;
         }
         $reflection = $type->getClassReflection();
@@ -866,7 +866,7 @@ class ClassReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Refl
                 $types[] = $mixinTag->getType();
                 continue;
             }
-            $types[] = \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($mixinTag->getType(), $this->getActiveTemplateTypeMap());
+            $types[] = \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($mixinTag->getType(), $this->getActiveTemplateTypeMap());
         }
         return $types;
     }

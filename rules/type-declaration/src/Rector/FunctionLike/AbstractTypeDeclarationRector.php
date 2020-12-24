@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\TypeDeclaration\Rector\FunctionLike;
+namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\Rector\FunctionLike;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\TypeDeclaration\PhpParserTypeAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\VendorLocker\VendorLockResolver;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\PhpParserTypeAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\VendorLocker\VendorLockResolver;
 /**
  * @see https://wiki.php.net/rfc/scalar_type_hints_v5
  * @see https://github.com/nikic/TypeUtil
  * @see https://github.com/nette/type-fixer
  * @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/3258
  */
-abstract class AbstractTypeDeclarationRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+abstract class AbstractTypeDeclarationRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PhpParserTypeAnalyzer
@@ -27,7 +27,7 @@ abstract class AbstractTypeDeclarationRector extends \_PhpScoper0a6b37af0871\Rec
     /**
      * @required
      */
-    public function autowireAbstractTypeDeclarationRector(\_PhpScoper0a6b37af0871\Rector\TypeDeclaration\PhpParserTypeAnalyzer $phpParserTypeAnalyzer, \_PhpScoper0a6b37af0871\Rector\VendorLocker\VendorLockResolver $vendorLockResolver) : void
+    public function autowireAbstractTypeDeclarationRector(\_PhpScoperb75b35f52b74\Rector\TypeDeclaration\PhpParserTypeAnalyzer $phpParserTypeAnalyzer, \_PhpScoperb75b35f52b74\Rector\VendorLocker\VendorLockResolver $vendorLockResolver) : void
     {
         $this->phpParserTypeAnalyzer = $phpParserTypeAnalyzer;
         $this->vendorLockResolver = $vendorLockResolver;
@@ -37,6 +37,6 @@ abstract class AbstractTypeDeclarationRector extends \_PhpScoper0a6b37af0871\Rec
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
     }
 }

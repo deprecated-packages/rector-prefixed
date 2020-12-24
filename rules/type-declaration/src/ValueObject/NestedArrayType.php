@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\TypeDeclaration\ValueObject;
+namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\ValueObject;
 
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 final class NestedArrayType
 {
     /**
@@ -19,13 +19,13 @@ final class NestedArrayType
      * @var Type|null
      */
     private $keyType;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $valueType, int $arrayNestingLevel, ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type $keyType = null)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $valueType, int $arrayNestingLevel, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type $keyType = null)
     {
         $this->type = $valueType;
         $this->arrayNestingLevel = $arrayNestingLevel;
         $this->keyType = $keyType;
     }
-    public function getType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this->type;
     }
@@ -33,8 +33,8 @@ final class NestedArrayType
     {
         return $this->arrayNestingLevel;
     }
-    public function getKeyType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getKeyType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return $this->keyType ?: new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+        return $this->keyType ?: new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
     }
 }

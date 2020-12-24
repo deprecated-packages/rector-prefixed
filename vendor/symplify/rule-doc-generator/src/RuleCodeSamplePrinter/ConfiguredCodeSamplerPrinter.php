@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
+namespace _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
 
-use _PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ConfiguredCodeSamplerPrinter
 {
     /**
@@ -22,7 +22,7 @@ final class ConfiguredCodeSamplerPrinter
      * @var DiffCodeSamplePrinter
      */
     private $diffCodeSamplePrinter;
-    public function __construct(\_PhpScoper0a6b37af0871\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter $smartPhpConfigPrinter, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter $diffCodeSamplePrinter)
+    public function __construct(\_PhpScoperb75b35f52b74\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter $smartPhpConfigPrinter, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter $diffCodeSamplePrinter)
     {
         $this->smartPhpConfigPrinter = $smartPhpConfigPrinter;
         $this->markdownCodeWrapper = $markdownCodeWrapper;
@@ -31,7 +31,7 @@ final class ConfiguredCodeSamplerPrinter
     /**
      * @return string[]
      */
-    public function printConfiguredCodeSample(\_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample) : array
+    public function printConfiguredCodeSample(\_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample) : array
     {
         $lines = [];
         $configPhpCode = $this->smartPhpConfigPrinter->printConfiguredServices([$ruleDefinition->getRuleClass() => $configuredCodeSample->getConfiguration()]);

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Nette;
+namespace _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Nette;
 
-use _PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container;
+use _PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container;
 /**
  * @internal
  */
-class NetteContainer implements \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\Container
+class NetteContainer implements \_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\Container
 {
     /** @var \Nette\DI\Container */
     private $container;
-    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Container $container)
+    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Container $container)
     {
         $this->container = $container;
     }
@@ -69,7 +69,7 @@ class NetteContainer implements \_PhpScoper0a6b37af0871\PHPStan\DependencyInject
     public function getParameter(string $parameterName)
     {
         if (!$this->hasParameter($parameterName)) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\DependencyInjection\ParameterNotFoundException($parameterName);
+            throw new \_PhpScoperb75b35f52b74\PHPStan\DependencyInjection\ParameterNotFoundException($parameterName);
         }
         return $this->container->parameters[$parameterName];
     }

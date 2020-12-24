@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector;
+namespace _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector;
 
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-interface RectorInterface extends \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+interface RectorInterface extends \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
 }

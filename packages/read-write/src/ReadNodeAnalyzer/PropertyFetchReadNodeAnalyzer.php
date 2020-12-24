@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\ReadWrite\ReadNodeAnalyzer;
+namespace _PhpScoperb75b35f52b74\Rector\ReadWrite\ReadNodeAnalyzer;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a6b37af0871\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface;
-final class PropertyFetchReadNodeAnalyzer extends \_PhpScoper0a6b37af0871\Rector\ReadWrite\ReadNodeAnalyzer\AbstractReadNodeAnalyzer implements \_PhpScoper0a6b37af0871\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoperb75b35f52b74\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface;
+final class PropertyFetchReadNodeAnalyzer extends \_PhpScoperb75b35f52b74\Rector\ReadWrite\ReadNodeAnalyzer\AbstractReadNodeAnalyzer implements \_PhpScoperb75b35f52b74\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface
 {
-    public function supports(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    public function supports(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
-        return $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
+        return $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
     }
     /**
      * @param PropertyFetch $node
      */
-    public function isRead(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    public function isRead(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
         $propertyFetchUsages = $this->nodeUsageFinder->findPropertyFetchUsages($node);
         foreach ($propertyFetchUsages as $propertyFetchUsage) {

@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Protocol;
+namespace _PhpScoperb75b35f52b74\Hoa\Protocol;
 
-use _PhpScoper0a6b37af0871\Hoa\Consistency;
+use _PhpScoperb75b35f52b74\Hoa\Consistency;
 /**
  * Class \Hoa\Protocol\Protocol.
  *
@@ -44,7 +44,7 @@ use _PhpScoper0a6b37af0871\Hoa\Consistency;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Protocol extends \_PhpScoper0a6b37af0871\Hoa\Protocol\Node
+class Protocol extends \_PhpScoperb75b35f52b74\Hoa\Protocol\Node
 {
     /**
      * No resolution value.
@@ -95,9 +95,9 @@ class Protocol extends \_PhpScoper0a6b37af0871\Hoa\Protocol\Node
     {
         $root = \dirname(\dirname(__DIR__));
         $cwd = 'cli' === \PHP_SAPI ? \dirname(\realpath($_SERVER['argv'][0])) : \getcwd();
-        $this[] = new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Application', $cwd . DS, [new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Public', 'Public' . DS)]);
-        $this[] = new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Data', \dirname($cwd) . DS, [new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Etc', 'Etc' . DS, [new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Configuration', 'Configuration' . DS), new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Locale', 'Locale' . DS)]), new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Lost+found', 'Lost+found' . DS), new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Temporary', 'Temporary' . DS), new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Variable', 'Variable' . DS, [new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Cache', 'Cache' . DS), new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Database', 'Database' . DS), new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Log', 'Log' . DS), new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Private', 'Private' . DS), new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Run', 'Run' . DS), new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node('Test', 'Test' . DS)])]);
-        $this[] = new \_PhpScoper0a6b37af0871\Hoa\Protocol\Node\Library('Library', $root . DS . 'Hoathis' . DS . RS . $root . DS . 'Hoa' . DS);
+        $this[] = new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Application', $cwd . DS, [new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Public', 'Public' . DS)]);
+        $this[] = new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Data', \dirname($cwd) . DS, [new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Etc', 'Etc' . DS, [new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Configuration', 'Configuration' . DS), new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Locale', 'Locale' . DS)]), new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Lost+found', 'Lost+found' . DS), new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Temporary', 'Temporary' . DS), new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Variable', 'Variable' . DS, [new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Cache', 'Cache' . DS), new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Database', 'Database' . DS), new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Log', 'Log' . DS), new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Private', 'Private' . DS), new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Run', 'Run' . DS), new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node('Test', 'Test' . DS)])]);
+        $this[] = new \_PhpScoperb75b35f52b74\Hoa\Protocol\Node\Library('Library', $root . DS . 'Hoathis' . DS . RS . $root . DS . 'Hoa' . DS);
         return;
     }
     /**
@@ -175,4 +175,4 @@ class Protocol extends \_PhpScoper0a6b37af0871\Hoa\Protocol\Node
 /**
  * Flex entity.
  */
-\_PhpScoper0a6b37af0871\Hoa\Consistency::flexEntity('_PhpScoper0a6b37af0871\\Hoa\\Protocol\\Protocol');
+\_PhpScoperb75b35f52b74\Hoa\Consistency::flexEntity('_PhpScoperb75b35f52b74\\Hoa\\Protocol\\Protocol');

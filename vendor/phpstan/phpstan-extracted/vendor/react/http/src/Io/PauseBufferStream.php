@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Http\Io;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\Util;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Pauses a given stream and buffers all events while paused
  *
@@ -20,7 +20,7 @@ use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInt
  * @see ReadableStreamInterface
  * @internal
  */
-class PauseBufferStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class PauseBufferStream extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
@@ -30,7 +30,7 @@ class PauseBufferStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\E
     private $closePaused = \false;
     private $errorPaused;
     private $implicit = \false;
-    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -98,9 +98,9 @@ class PauseBufferStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\E
         }
         $this->input->resume();
     }
-    public function pipe(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

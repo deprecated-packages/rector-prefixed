@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp80\Tests\Rector\Expression\DowngradeMatchToSwitchRector;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp80\Tests\Rector\Expression\DowngradeMatchToSwitchRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\DowngradePhp80\Rector\Expression\DowngradeMatchToSwitchRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class DowngradeMatchToSwitchRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\DowngradePhp80\Rector\Expression\DowngradeMatchToSwitchRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class DowngradeMatchToSwitchRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      * @requires PHP 8.0
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,6 +23,6 @@ final class DowngradeMatchToSwitchRectorTest extends \_PhpScoper0a6b37af0871\Rec
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a6b37af0871\Rector\DowngradePhp80\Rector\Expression\DowngradeMatchToSwitchRector::class;
+        return \_PhpScoperb75b35f52b74\Rector\DowngradePhp80\Rector\Expression\DowngradeMatchToSwitchRector::class;
     }
 }

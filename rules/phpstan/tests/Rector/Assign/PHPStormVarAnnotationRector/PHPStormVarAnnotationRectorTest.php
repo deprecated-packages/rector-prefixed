@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PHPStan\Tests\Rector\Assign\PHPStormVarAnnotationRector;
+namespace _PhpScoperb75b35f52b74\Rector\PHPStan\Tests\Rector\Assign\PHPStormVarAnnotationRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\PHPStan\Rector\Assign\PHPStormVarAnnotationRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class PHPStormVarAnnotationRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\PHPStan\Rector\Assign\PHPStormVarAnnotationRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class PHPStormVarAnnotationRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class PHPStormVarAnnotationRectorTest extends \_PhpScoper0a6b37af0871\Rect
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a6b37af0871\Rector\PHPStan\Rector\Assign\PHPStormVarAnnotationRector::class;
+        return \_PhpScoperb75b35f52b74\Rector\PHPStan\Rector\Assign\PHPStormVarAnnotationRector::class;
     }
 }

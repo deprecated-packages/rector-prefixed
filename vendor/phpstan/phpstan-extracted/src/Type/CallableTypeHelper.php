@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type;
 
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor;
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
 class CallableTypeHelper
 {
-    public static function isParametersAcceptorSuperTypeOf(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $ours, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $theirs, bool $treatMixedAsAny) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public static function isParametersAcceptorSuperTypeOf(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor $ours, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor $theirs, bool $treatMixedAsAny) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
         $theirParameters = $theirs->getParameters();
         $ourParameters = $ours->getParameters();
@@ -17,7 +17,7 @@ class CallableTypeHelper
                 if ($theirParameter->isOptional()) {
                     continue;
                 }
-                return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+                return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
             }
             $ourParameter = $ourParameters[$i];
             $ourParameterType = $ourParameter->getType();

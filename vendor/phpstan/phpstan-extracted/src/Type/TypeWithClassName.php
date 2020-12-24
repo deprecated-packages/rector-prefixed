@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type;
 
-interface TypeWithClassName extends \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+interface TypeWithClassName extends \_PhpScoperb75b35f52b74\PHPStan\Type\Type
 {
     public function getClassName() : string;
-    public function getAncestorWithClassName(string $className) : ?\_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
+    public function getAncestorWithClassName(string $className) : ?\_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
 }

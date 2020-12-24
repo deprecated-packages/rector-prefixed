@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
 /**
  * Closure.
  *
@@ -22,12 +22,12 @@ final class Closure
     private $uses = [];
     public static function from(\Closure $closure) : self
     {
-        return (new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($closure));
+        return (new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($closure));
     }
     public function __toString() : string
     {
         try {
-            return (new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer())->printClosure($this);
+            return (new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer())->printClosure($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
@@ -42,7 +42,7 @@ final class Closure
      */
     public function setUses(array $uses) : self
     {
-        (function (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Parameter ...$uses) {
+        (function (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Parameter ...$uses) {
         })(...$uses);
         $this->uses = $uses;
         return $this;
@@ -51,8 +51,8 @@ final class Closure
     {
         return $this->uses;
     }
-    public function addUse(string $name) : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Parameter
+    public function addUse(string $name) : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Parameter
     {
-        return $this->uses[] = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Parameter($name);
+        return $this->uses[] = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Parameter($name);
     }
 }

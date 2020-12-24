@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\SignatureMap;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\SignatureMap;
 
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 class ParameterSignature
 {
     /** @var string */
@@ -19,7 +19,7 @@ class ParameterSignature
     private $passedByReference;
     /** @var bool */
     private $variadic;
-    public function __construct(string $name, bool $optional, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $nativeType, \_PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic)
+    public function __construct(string $name, bool $optional, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $nativeType, \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic)
     {
         $this->name = $name;
         $this->optional = $optional;
@@ -36,15 +36,15 @@ class ParameterSignature
     {
         return $this->optional;
     }
-    public function getType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function getNativeType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getNativeType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this->nativeType;
     }
-    public function passedByReference() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }

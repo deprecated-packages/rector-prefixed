@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Command\ErrorFormatter;
+namespace _PhpScoperb75b35f52b74\PHPStan\Command\ErrorFormatter;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
-use _PhpScoper0a6b37af0871\PHPStan\Command\AnalysisResult;
-use _PhpScoper0a6b37af0871\PHPStan\Command\Output;
-use _PhpScoper0a6b37af0871\PHPStan\File\RelativePathHelper;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
+use _PhpScoperb75b35f52b74\PHPStan\Command\AnalysisResult;
+use _PhpScoperb75b35f52b74\PHPStan\Command\Output;
+use _PhpScoperb75b35f52b74\PHPStan\File\RelativePathHelper;
 /**
  * @see https://docs.gitlab.com/ee/user/project/merge_requests/code_quality.html#implementing-a-custom-tool
  */
-class GitlabErrorFormatter implements \_PhpScoper0a6b37af0871\PHPStan\Command\ErrorFormatter\ErrorFormatter
+class GitlabErrorFormatter implements \_PhpScoperb75b35f52b74\PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var RelativePathHelper */
     private $relativePathHelper;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\File\RelativePathHelper $relativePathHelper)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\File\RelativePathHelper $relativePathHelper)
     {
         $this->relativePathHelper = $relativePathHelper;
     }
-    public function formatErrors(\_PhpScoper0a6b37af0871\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoper0a6b37af0871\PHPStan\Command\Output $output) : int
+    public function formatErrors(\_PhpScoperb75b35f52b74\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoperb75b35f52b74\PHPStan\Command\Output $output) : int
     {
         $errorsArray = [];
         foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
@@ -31,7 +31,7 @@ class GitlabErrorFormatter implements \_PhpScoper0a6b37af0871\PHPStan\Command\Er
         foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
             $errorsArray[] = ['description' => $notFileSpecificError, 'fingerprint' => \hash('sha256', $notFileSpecificError), 'location' => ['path' => '', 'lines' => ['begin' => 0]]];
         }
-        $json = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($errorsArray, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY);
+        $json = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($errorsArray, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY);
         $output->writeRaw($json);
         return $analysisResult->hasErrors() ? 1 : 0;
     }

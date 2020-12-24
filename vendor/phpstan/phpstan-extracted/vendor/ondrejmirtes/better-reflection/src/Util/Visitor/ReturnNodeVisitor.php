@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Visitor;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Visitor;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract;
-class ReturnNodeVisitor extends \_PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract;
+class ReturnNodeVisitor extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
 {
     /** @var Node\Stmt\Return_[] */
     private $returnNodes = [];
-    public function enterNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?int
+    public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?int
     {
         if ($this->isScopeChangingNode($node)) {
-            return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+            return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_) {
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_) {
             $this->returnNodes[] = $node;
         }
         return null;
     }
-    private function isScopeChangingNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    private function isScopeChangingNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
-        return $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike || $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
+        return $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike || $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
     }
     /**
      * @return Node\Stmt\Return_[]

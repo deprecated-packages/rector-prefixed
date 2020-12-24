@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\EasyTesting\ValueObject;
+namespace _PhpScoperb75b35f52b74\Symplify\EasyTesting\ValueObject;
 
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoper0a6b37af0871\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class ExpectedAndOutputFileInfoPair
 {
     /**
@@ -15,7 +15,7 @@ final class ExpectedAndOutputFileInfoPair
      * @var SmartFileInfo|null
      */
     private $outputFileInfo;
-    public function __construct(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, ?\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $outputFileInfo)
+    public function __construct(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, ?\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $outputFileInfo)
     {
         $this->expectedFileInfo = $expectedFileInfo;
         $this->outputFileInfo = $outputFileInfo;
@@ -33,7 +33,7 @@ final class ExpectedAndOutputFileInfoPair
     public function getOutputFileContent() : string
     {
         if ($this->outputFileInfo === null) {
-            throw new \_PhpScoper0a6b37af0871\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->outputFileInfo->getContents();
     }

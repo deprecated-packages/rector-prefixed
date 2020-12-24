@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PHPUnit\Tests\Rector\Class_\ArrayArgumentInTestToDataProviderRector;
+namespace _PhpScoperb75b35f52b74\Rector\PHPUnit\Tests\Rector\Class_\ArrayArgumentInTestToDataProviderRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector;
-use _PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class ArrayArgumentInTestToDataProviderRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector;
+use _PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class ArrayArgumentInTestToDataProviderRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class ArrayArgumentInTestToDataProviderRectorTest extends \_PhpScoper0a6b3
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector::class => [\_PhpScoper0a6b37af0871\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS => [new \_PhpScoper0a6b37af0871\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider('_PhpScoper0a6b37af0871\\PHPUnit\\Framework\\TestCase', 'doTestMultiple', 'doTestSingle', 'variable')]]];
+        return [\_PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector::class => [\_PhpScoperb75b35f52b74\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS => [new \_PhpScoperb75b35f52b74\Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider('_PhpScoperb75b35f52b74\\PHPUnit\\Framework\\TestCase', 'doTestMultiple', 'doTestSingle', 'variable')]]];
     }
 }

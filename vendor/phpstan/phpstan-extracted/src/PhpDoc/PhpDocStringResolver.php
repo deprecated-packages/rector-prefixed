@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\PhpDoc;
+namespace _PhpScoperb75b35f52b74\PHPStan\PhpDoc;
 
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Lexer\Lexer;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Parser\PhpDocParser;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Parser\TokenIterator;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Lexer\Lexer;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\PhpDocParser;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\TokenIterator;
 class PhpDocStringResolver
 {
     /** @var Lexer */
     private $phpDocLexer;
     /** @var PhpDocParser */
     private $phpDocParser;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Lexer\Lexer $phpDocLexer, \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Lexer\Lexer $phpDocLexer, \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser)
     {
         $this->phpDocLexer = $phpDocLexer;
         $this->phpDocParser = $phpDocParser;
     }
-    public function resolve(string $phpDocString) : \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
+    public function resolve(string $phpDocString) : \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
-        $tokens = new \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Parser\TokenIterator($this->phpDocLexer->tokenize($phpDocString));
+        $tokens = new \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\TokenIterator($this->phpDocLexer->tokenize($phpDocString));
         $phpDocNode = $this->phpDocParser->parse($tokens);
-        $tokens->consumeTokenType(\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END);
+        $tokens->consumeTokenType(\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END);
         return $phpDocNode;
     }
 }

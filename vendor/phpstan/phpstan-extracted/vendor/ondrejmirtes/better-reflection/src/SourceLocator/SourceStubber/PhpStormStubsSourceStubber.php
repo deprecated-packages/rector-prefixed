@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber;
 
 use Error;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\PhpStormStubsMap;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\PhpStormStubsMap;
 use ParseError;
-use _PhpScoper0a6b37af0871\PhpParser\BuilderFactory;
-use _PhpScoper0a6b37af0871\PhpParser\BuilderHelpers;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract;
-use _PhpScoper0a6b37af0871\PhpParser\Parser;
-use _PhpScoper0a6b37af0871\PhpParser\PrettyPrinter\Standard;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\FileChecker;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker;
+use _PhpScoperb75b35f52b74\PhpParser\BuilderFactory;
+use _PhpScoperb75b35f52b74\PhpParser\BuilderHelpers;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NameResolver;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract;
+use _PhpScoperb75b35f52b74\PhpParser\Parser;
+use _PhpScoperb75b35f52b74\PhpParser\PrettyPrinter\Standard;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\FileChecker;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker;
 use Traversable;
 use function array_change_key_case;
 use function array_key_exists;
@@ -40,7 +40,7 @@ use const PHP_VERSION_ID;
 /**
  * @internal
  */
-final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+final class PhpStormStubsSourceStubber implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
 {
     private const BUILDER_OPTIONS = ['shortArraySyntax' => \true];
     private const SEARCH_DIRECTORIES = [__DIR__ . '/../../../../../jetbrains/phpstorm-stubs', __DIR__ . '/../../../vendor/jetbrains/phpstorm-stubs'];
@@ -74,19 +74,19 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
     private $functionMap;
     /** @var array<lowercase-string, string> */
     private $constantMap;
-    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Parser $phpParser, ?int $phpVersionId = null)
+    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Parser $phpParser, ?int $phpVersionId = null)
     {
         $this->phpParser = $phpParser;
         $this->phpVersionId = $phpVersionId ?? \PHP_VERSION_ID;
-        $this->builderFactory = new \_PhpScoper0a6b37af0871\PhpParser\BuilderFactory();
-        $this->prettyPrinter = new \_PhpScoper0a6b37af0871\PhpParser\PrettyPrinter\Standard(self::BUILDER_OPTIONS);
+        $this->builderFactory = new \_PhpScoperb75b35f52b74\PhpParser\BuilderFactory();
+        $this->prettyPrinter = new \_PhpScoperb75b35f52b74\PhpParser\PrettyPrinter\Standard(self::BUILDER_OPTIONS);
         $this->cachingVisitor = $this->createCachingVisitor();
-        $this->nodeTraverser = new \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser();
-        $this->nodeTraverser->addVisitor(new \_PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver());
+        $this->nodeTraverser = new \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser();
+        $this->nodeTraverser->addVisitor(new \_PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NameResolver());
         $this->nodeTraverser->addVisitor($this->cachingVisitor);
-        $this->classMap = \array_change_key_case(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\PhpStormStubsMap::CLASSES);
-        $this->functionMap = \array_change_key_case(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\PhpStormStubsMap::FUNCTIONS);
-        $this->constantMap = \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\PhpStormStubsMap::CONSTANTS;
+        $this->classMap = \array_change_key_case(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\PhpStormStubsMap::CLASSES);
+        $this->functionMap = \array_change_key_case(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\PhpStormStubsMap::FUNCTIONS);
+        $this->constantMap = \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\JetBrains\PHPStormStub\PhpStormStubsMap::CONSTANTS;
     }
     public function hasClass(string $className) : bool
     {
@@ -113,7 +113,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
         $functionNode = $this->findFunctionNode($filePath, $lowercaseFunctionName);
         return $functionNode !== null;
     }
-    public function generateClassStub(string $className) : ?\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateClassStub(string $className) : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowercaseClassName = \strtolower($className);
         if (!\array_key_exists($lowercaseClassName, $this->classMap)) {
@@ -124,9 +124,9 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
         if ($classNode === null) {
             return null;
         }
-        if ($classNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
-            if ($classNode->name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier && $classNode->name->toString() === \ParseError::class && $this->phpVersionId < 70300) {
-                $classNode->extends = new \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified(\Error::class);
+        if ($classNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
+            if ($classNode->name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier && $classNode->name->toString() === \ParseError::class && $this->phpVersionId < 70300) {
+                $classNode->extends = new \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified(\Error::class);
             } elseif ($classNode->extends !== null) {
                 $filteredExtends = $this->filterNames([$classNode->extends]);
                 if ($filteredExtends === []) {
@@ -134,7 +134,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
                 }
             }
             $classNode->implements = $this->filterNames($classNode->implements);
-        } elseif ($classNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_) {
+        } elseif ($classNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Interface_) {
             $classNode->extends = $this->filterNames($classNode->extends);
         }
         $stub = $this->createStub($classNode);
@@ -154,9 +154,9 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
         if ($className === 'SimpleXMLElement' && $this->phpVersionId < 80000) {
             $stub = \str_replace(', \\RecursiveIterator', '', $stub);
         }
-        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $this->getExtensionFromFilePath($filePath), $this->getAbsoluteFilePath($filePath));
+        return new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $this->getExtensionFromFilePath($filePath), $this->getAbsoluteFilePath($filePath));
     }
-    private function findClassNode(string $filePath, string $lowercaseName) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike
+    private function findClassNode(string $filePath, string $lowercaseName) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike
     {
         if (!\array_key_exists($lowercaseName, $this->classNodes)) {
             $this->parseFile($filePath);
@@ -189,7 +189,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
         }
         return $filtered;
     }
-    public function generateFunctionStub(string $functionName) : ?\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateFunctionStub(string $functionName) : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowercaseFunctionName = \strtolower($functionName);
         if (!\array_key_exists($lowercaseFunctionName, $this->functionMap)) {
@@ -200,9 +200,9 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
         if ($functionNode === null) {
             return null;
         }
-        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($this->createStub($functionNode), $this->getExtensionFromFilePath($filePath));
+        return new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($this->createStub($functionNode), $this->getExtensionFromFilePath($filePath));
     }
-    private function findFunctionNode(string $filePath, string $lowercaseFunctionName) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_
+    private function findFunctionNode(string $filePath, string $lowercaseFunctionName) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_
     {
         if (!\array_key_exists($lowercaseFunctionName, $this->functionNodes)) {
             $this->parseFile($filePath);
@@ -213,7 +213,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
         }
         return $this->functionNodes[$lowercaseFunctionName];
     }
-    public function generateConstantStub(string $constantName) : ?\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateConstantStub(string $constantName) : ?\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowercaseConstantName = $constantName;
         if (\in_array($constantName, ['TRUE', 'FALSE', 'NULL'], \true)) {
@@ -236,12 +236,12 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
                 return null;
             }
         }
-        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($this->createStub($constantNode), $this->getExtensionFromFilePath($filePath));
+        return new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($this->createStub($constantNode), $this->getExtensionFromFilePath($filePath));
     }
     private function parseFile(string $filePath) : void
     {
         $absoluteFilePath = $this->getAbsoluteFilePath($filePath);
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($absoluteFilePath);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($absoluteFilePath);
         $isCore = $this->isCoreExtension($this->getExtensionFromFilePath($filePath));
         $ast = $this->phpParser->parse(\file_get_contents($absoluteFilePath));
         /** @psalm-suppress UndefinedMethod */
@@ -252,7 +252,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
          */
         foreach ($this->cachingVisitor->getClassNodes() as $className => $classNode) {
             \assert(\is_string($className));
-            \assert($classNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike);
+            \assert($classNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike);
             if ($isCore && $this->hasLaterSinceVersion($classNode)) {
                 continue;
             }
@@ -264,7 +264,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
          */
         foreach ($this->cachingVisitor->getFunctionNodes() as $functionName => $functionNode) {
             \assert(\is_string($functionName));
-            \assert($functionNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_);
+            \assert($functionNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_);
             if (\strpos($functionName, '-')) {
                 [$functionName] = \explode('--', $functionName);
             }
@@ -278,7 +278,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
          */
         foreach ($this->cachingVisitor->getConstantNodes() as $constantName => $constantNode) {
             \assert(\is_string($constantName));
-            \assert($constantNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Const_ || $constantNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall);
+            \assert($constantNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Const_ || $constantNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall);
             if ($isCore && $this->hasLaterSinceVersion($constantNode)) {
                 continue;
             }
@@ -301,7 +301,7 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
         }
         return $newStmts;
     }
-    private function hasLaterSinceVersion(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    private function hasLaterSinceVersion(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
         $docComment = $node->getDocComment();
         if ($docComment === null) {
@@ -332,9 +332,9 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
     /**
      * @param Node\Stmt\ClassLike|Node\Stmt\Function_|Node\Stmt\Const_|Node\Expr\FuncCall $node
      */
-    private function createStub(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : string
+    private function createStub(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : string
     {
-        $nodeWithNamespaceName = $node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Const_ ? $node->consts[0] : $node;
+        $nodeWithNamespaceName = $node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Const_ ? $node->consts[0] : $node;
         if (isset($nodeWithNamespaceName->namespacedName)) {
             $namespaceBuilder = $this->builderFactory->namespace($nodeWithNamespaceName->namespacedName->slice(0, -1));
             $namespaceBuilder->addStmt($node);
@@ -342,11 +342,11 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
         }
         $printed = $this->prettyPrinter->prettyPrint([$node]);
         $printed = \str_replace('PS_UNRESERVE_PREFIX_', '', $printed);
-        return "<?php\n\n" . $printed . ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall ? ';' : '') . "\n";
+        return "<?php\n\n" . $printed . ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall ? ';' : '') . "\n";
     }
-    private function createCachingVisitor() : \_PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract
+    private function createCachingVisitor() : \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
     {
-        return new class extends \_PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract
+        return new class extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
         {
             /** @var array<string, Node\Stmt\ClassLike> */
             private $classNodes = [];
@@ -354,14 +354,14 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
             private $functionNodes = [];
             /** @var array<string, Node\Stmt\Const_|Node\Expr\FuncCall> */
             private $constantNodes = [];
-            public function enterNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?int
+            public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?int
             {
-                if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike) {
+                if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike) {
                     $nodeName = $node->namespacedName->toString();
                     $this->classNodes[$nodeName] = $node;
-                    return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                    return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
                 }
-                if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_) {
+                if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_) {
                     /** @psalm-suppress UndefinedPropertyFetch */
                     $nodeName = (string) $node->namespacedName->toString();
                     $i = 1;
@@ -372,24 +372,24 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
                         continue;
                     }
                     $this->functionNodes[$variantNodeName] = $node;
-                    return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                    return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
                 }
-                if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Const_) {
+                if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Const_) {
                     foreach ($node->consts as $constNode) {
                         /** @psalm-suppress UndefinedPropertyFetch */
                         $constNodeName = $constNode->namespacedName->toString();
                         $this->constantNodes[$constNodeName] = $node;
                     }
-                    return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                    return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
                 }
-                if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
+                if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
                     try {
-                        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
-                    } catch (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
+                        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
+                    } catch (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
                         return null;
                     }
                     $nameNode = $node->args[0]->value;
-                    \assert($nameNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_);
+                    \assert($nameNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_);
                     $constantName = $nameNode->value;
                     if (\in_array($constantName, ['true', 'false', 'null'], \true)) {
                         $constantName = \strtoupper($constantName);
@@ -399,13 +399,13 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
                     if (\defined($constantName)) {
                         /** @var scalar|scalar[]|null $constantValue */
                         $constantValue = \constant($constantName);
-                        $node->args[1]->value = \_PhpScoper0a6b37af0871\PhpParser\BuilderHelpers::normalizeValue($constantValue);
+                        $node->args[1]->value = \_PhpScoperb75b35f52b74\PhpParser\BuilderHelpers::normalizeValue($constantValue);
                     }
                     $this->constantNodes[$constantName] = $node;
-                    if (\count($node->args) === 3 && $node->args[2]->value instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch && $node->args[2]->value->name->toLowerString() === 'true') {
+                    if (\count($node->args) === 3 && $node->args[2]->value instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch && $node->args[2]->value->name->toLowerString() === 'true') {
                         $this->constantNodes[\strtolower($constantName)] = $node;
                     }
-                    return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                    return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
                 }
                 return null;
             }
@@ -456,6 +456,6 @@ final class PhpStormStubsSourceStubber implements \_PhpScoper0a6b37af0871\_Humbu
                 return $this->stubsDirectory = $directory;
             }
         }
-        throw \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs::create();
+        throw \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs::create();
     }
 }

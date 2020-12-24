@@ -1,44 +1,44 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp72\Rector\ClassMethod;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp72\Rector\ClassMethod;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Collector\RectorChangeCollector;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Interface_;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoperb75b35f52b74\Rector\ChangesReporting\Collector\RectorChangeCollector;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
 use ReflectionParameter;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.php.net/manual/en/migration72.new-features.php#migration72.new-features.param-type-widening
  *
  * @see \Rector\DowngradePhp72\Tests\Rector\ClassMethod\DowngradeParameterTypeWideningRector\DowngradeParameterTypeWideningRectorTest
  */
-final class DowngradeParameterTypeWideningRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class DowngradeParameterTypeWideningRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
     {
         $this->rectorChangeCollector = $rectorChangeCollector;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove argument type declarations in the parent and in all child classes, whenever some child class removes it', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove argument type declarations in the parent and in all child classes, whenever some child class removes it', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 interface A
 {
     public function test(array $input);
@@ -83,12 +83,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if ($node->params === null || $node->params === []) {
             return null;
@@ -98,14 +98,14 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorParamForAncestorsAndSiblings(\_PhpScoper0a6b37af0871\PhpParser\Node\Param $param, \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike, int $position) : void
+    private function refactorParamForAncestorsAndSiblings(\_PhpScoperb75b35f52b74\PhpParser\Node\Param $param, \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike, int $position) : void
     {
         // The param on the child class must have no type
         if ($param->type !== null) {
             return;
         }
         /** @var Scope|null $scope */
-        $scope = $functionLike->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $functionLike->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
             // possibly trait
             return;
@@ -125,7 +125,7 @@ CODE_SAMPLE
         // - all implemented interfaces + their implementing classes
         foreach ($ancestorAndInterfaceClassNames as $ancestorClassOrInterface) {
             /** @var string */
-            $parentClassName = $ancestorClassOrInterface->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $parentClassName = $ancestorClassOrInterface->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             $classMethod = $this->nodeRepository->findClassMethod($parentClassName, $methodName);
             /**
              * If it doesn't find the method, it's because the method
@@ -149,7 +149,7 @@ CODE_SAMPLE
      * Obtain the list of the ancestors classes with a different signature
      * @return Class_[]
      */
-    private function getClassesWithDifferentSignature(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, string $paramName) : array
+    private function getClassesWithDifferentSignature(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, string $paramName) : array
     {
         // 1. All ancestor classes with different signature
         $refactorableAncestorClassNames = \array_filter($classReflection->getParentClassesNames(), function (string $ancestorClassName) use($methodName, $paramName) : bool {
@@ -163,9 +163,9 @@ CODE_SAMPLE
      * Obtain the list of the implemented interfaces with a different signature
      * @return Interface_[]
      */
-    private function getInterfacesWithDifferentSignature(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, string $paramName) : array
+    private function getInterfacesWithDifferentSignature(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, string $paramName) : array
     {
-        $interfaceClassNames = \array_map(function (\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
+        $interfaceClassNames = \array_map(function (\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
             return $interfaceReflection->getName();
         }, $classReflection->getInterfaces());
         $refactorableInterfaceClassNames = \array_filter($interfaceClassNames, function (string $interfaceClassName) use($methodName, $paramName) : bool {
@@ -175,7 +175,7 @@ CODE_SAMPLE
             return $this->nodeRepository->findInterface($interfaceClassName);
         }, $refactorableInterfaceClassNames));
     }
-    private function removeParamTypeFromMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function removeParamTypeFromMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike $classLike, int $position, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $classMethodName = $this->getName($classMethod);
         $currentClassMethod = $classLike->getMethod($classMethodName);
@@ -200,7 +200,7 @@ CODE_SAMPLE
     {
         $childrenClassLikes = $this->nodeRepository->findClassesAndInterfacesByType($parentClassName);
         foreach ($childrenClassLikes as $childClassLike) {
-            $childClassName = $childClassLike->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            $childClassName = $childClassLike->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($childClassName === null) {
                 continue;
             }
@@ -229,13 +229,13 @@ CODE_SAMPLE
     /**
      * Add the current param type in the PHPDoc
      */
-    private function addPHPDocParamTypeToMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper0a6b37af0871\PhpParser\Node\Param $param) : void
+    private function addPHPDocParamTypeToMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoperb75b35f52b74\PhpParser\Node\Param $param) : void
     {
         if ($param->type === null) {
             return;
         }
         /** @var PhpDocInfo|null */
-        $phpDocInfo = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             $phpDocInfo = $this->phpDocInfoFactory->createEmpty($classMethod);
         }

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocManipulator;
+namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocManipulator;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\NeverType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a6b37af0871\Rector\ChangesReporting\Collector\RectorChangeCollector;
-use _PhpScoper0a6b37af0871\Rector\Core\Configuration\CurrentNodeProvider;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\TypeComparator;
-use _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper;
-use _PhpScoper0a6b37af0871\Rector\TypeDeclaration\PhpDocParser\ParamPhpDocNodeFactory;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantArrayType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\NeverType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoperb75b35f52b74\Rector\ChangesReporting\Collector\RectorChangeCollector;
+use _PhpScoperb75b35f52b74\Rector\Core\Configuration\CurrentNodeProvider;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\TypeComparator;
+use _PhpScoperb75b35f52b74\Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoperb75b35f52b74\Rector\TypeDeclaration\PhpDocParser\ParamPhpDocNodeFactory;
 final class PhpDocTypeChanger
 {
     /**
@@ -39,7 +39,7 @@ final class PhpDocTypeChanger
      * @var CurrentNodeProvider
      */
     private $currentNodeProvider;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\TypeDeclaration\PhpDocParser\ParamPhpDocNodeFactory $paramPhpDocNodeFactory, \_PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator, \_PhpScoper0a6b37af0871\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \_PhpScoper0a6b37af0871\Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\TypeDeclaration\PhpDocParser\ParamPhpDocNodeFactory $paramPhpDocNodeFactory, \_PhpScoperb75b35f52b74\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator, \_PhpScoperb75b35f52b74\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \_PhpScoperb75b35f52b74\Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider)
     {
         $this->typeComparator = $typeComparator;
         $this->staticTypeMapper = $staticTypeMapper;
@@ -47,14 +47,14 @@ final class PhpDocTypeChanger
         $this->rectorChangeCollector = $rectorChangeCollector;
         $this->currentNodeProvider = $currentNodeProvider;
     }
-    public function changeVarType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $newType) : void
+    public function changeVarType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $newType) : void
     {
         // make sure the tags are not identical, e.g imported class vs FQN class
         if ($this->typeComparator->areTypesEqual($phpDocInfo->getVarType(), $newType)) {
             return;
         }
         // prevent existing type override by mixed
-        if (!$phpDocInfo->getVarType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType && $newType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantArrayType && $newType->getItemType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\NeverType) {
+        if (!$phpDocInfo->getVarType() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType && $newType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantArrayType && $newType->getItemType() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\NeverType) {
             return;
         }
         // override existing type
@@ -65,13 +65,13 @@ final class PhpDocTypeChanger
             $currentVarTagValueNode->type = $newPHPStanPhpDocType;
         } else {
             // add completely new one
-            $attributeAwareVarTagValueNode = new \_PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode($newPHPStanPhpDocType, '', '');
+            $attributeAwareVarTagValueNode = new \_PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode($newPHPStanPhpDocType, '', '');
             $phpDocInfo->addTagValueNode($attributeAwareVarTagValueNode);
         }
         // notify about node change
         $this->notifyChange();
     }
-    public function changeReturnType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $newType) : void
+    public function changeReturnType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $newType) : void
     {
         // make sure the tags are not identical, e.g imported class vs FQN class
         if ($this->typeComparator->areTypesEqual($phpDocInfo->getReturnType(), $newType)) {
@@ -85,13 +85,13 @@ final class PhpDocTypeChanger
             $currentReturnTagValueNode->type = $newPHPStanPhpDocType;
         } else {
             // add completely new one
-            $attributeAwareReturnTagValueNode = new \_PhpScoper0a6b37af0871\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode($newPHPStanPhpDocType, '');
+            $attributeAwareReturnTagValueNode = new \_PhpScoperb75b35f52b74\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode($newPHPStanPhpDocType, '');
             $phpDocInfo->addTagValueNode($attributeAwareReturnTagValueNode);
         }
         // notify about node change
         $this->notifyChange();
     }
-    public function changeParamType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $newType, \_PhpScoper0a6b37af0871\PhpParser\Node\Param $param, string $paramName) : void
+    public function changeParamType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $newType, \_PhpScoperb75b35f52b74\PhpParser\Node\Param $param, string $paramName) : void
     {
         $phpDocType = $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($newType);
         $paramTagValueNode = $phpDocInfo->getParamTagValueByName($paramName);
@@ -114,7 +114,7 @@ final class PhpDocTypeChanger
     {
         $node = $this->currentNodeProvider->getNode();
         if ($node === null) {
-            throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->rectorChangeCollector->notifyNodeFileInfo($node);
     }

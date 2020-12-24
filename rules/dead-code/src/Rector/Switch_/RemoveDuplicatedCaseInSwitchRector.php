@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DeadCode\Rector\Switch_;
+namespace _PhpScoperb75b35f52b74\Rector\DeadCode\Rector\Switch_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Break_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Case_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Switch_;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Break_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Case_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Switch_;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\Switch_\RemoveDuplicatedCaseInSwitchRector\RemoveDuplicatedCaseInSwitchRectorTest
  */
-final class RemoveDuplicatedCaseInSwitchRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class RemoveDuplicatedCaseInSwitchRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('2 following switch keys with identical  will be reduced to one result', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('2 following switch keys with identical  will be reduced to one result', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -60,12 +60,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Switch_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
      * @param Switch_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (\count((array) $node->cases) < 2) {
             return null;
@@ -80,16 +80,16 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function areSwitchStmtsEqualsAndWithBreak(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Case_ $currentCase, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Case_ $previousCase) : bool
+    private function areSwitchStmtsEqualsAndWithBreak(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Case_ $currentCase, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Case_ $previousCase) : bool
     {
         if (!$this->areNodesEqual($currentCase->stmts, $previousCase->stmts)) {
             return \false;
         }
         foreach ($currentCase->stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Break_) {
+            if ($stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Break_) {
                 return \true;
             }
-            if ($stmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_) {
+            if ($stmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_) {
                 return \true;
             }
         }

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector;
+namespace _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
-use _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder;
-use _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeParentClient;
-use _PhpScoper0a6b37af0871\Rector\Generic\ValueObject\ArgumentAdder;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class ArgumentAdderRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
+use _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder;
+use _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeParentClient;
+use _PhpScoperb75b35f52b74\Rector\Generic\ValueObject\ArgumentAdder;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class ArgumentAdderRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -28,14 +28,14 @@ final class ArgumentAdderRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testi
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class => [\_PhpScoper0a6b37af0871\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => [
+        return [\_PhpScoperb75b35f52b74\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class => [\_PhpScoperb75b35f52b74\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => [
             // covers https://github.com/rectorphp/rector/issues/4267
-            new \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'sendResetLinkResponse', 0, 'request', null, '_PhpScoper0a6b37af0871\\Illuminate\\Http\\Illuminate\\Http'),
-            new \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'compile', 0, 'isCompiled', \false),
-            new \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'addCompilerPass', 2, 'priority', 0, 'int'),
+            new \_PhpScoperb75b35f52b74\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'sendResetLinkResponse', 0, 'request', null, '_PhpScoperb75b35f52b74\\Illuminate\\Http\\Illuminate\\Http'),
+            new \_PhpScoperb75b35f52b74\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'compile', 0, 'isCompiled', \false),
+            new \_PhpScoperb75b35f52b74\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'addCompilerPass', 2, 'priority', 0, 'int'),
             // scoped
-            new \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeParentClient::class, 'submit', 2, 'serverParameters', [], 'array', \_PhpScoper0a6b37af0871\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_PARENT_CALL),
-            new \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeParentClient::class, 'submit', 2, 'serverParameters', [], 'array', \_PhpScoper0a6b37af0871\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_CLASS_METHOD),
+            new \_PhpScoperb75b35f52b74\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeParentClient::class, 'submit', 2, 'serverParameters', [], 'array', \_PhpScoperb75b35f52b74\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_PARENT_CALL),
+            new \_PhpScoperb75b35f52b74\Rector\Generic\ValueObject\ArgumentAdder(\_PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeParentClient::class, 'submit', 2, 'serverParameters', [], 'array', \_PhpScoperb75b35f52b74\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::SCOPE_CLASS_METHOD),
         ]]];
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
+namespace _PhpScoperb75b35f52b74\PHPStan\Analyser;
 
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeScope;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeScope;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 class NameScope
 {
     /** @var string|null */
@@ -23,13 +23,13 @@ class NameScope
      * @param array<string, string> $uses alias(string) => fullName(string)
      * @param string|null $className
      */
-    public function __construct(?string $namespace, array $uses, ?string $className = null, ?string $functionName = null, ?\_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap = null)
+    public function __construct(?string $namespace, array $uses, ?string $className = null, ?string $functionName = null, ?\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap = null)
     {
         $this->namespace = $namespace;
         $this->uses = $uses;
         $this->className = $className;
         $this->functionName = $functionName;
-        $this->templateTypeMap = $templateTypeMap ?? \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        $this->templateTypeMap = $templateTypeMap ?? \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
     }
     public function getNamespace() : ?string
     {
@@ -65,30 +65,30 @@ class NameScope
         }
         return $name;
     }
-    public function getTemplateTypeScope() : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeScope
+    public function getTemplateTypeScope() : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeScope
     {
         if ($this->className !== null) {
             if ($this->functionName !== null) {
-                return \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeScope::createWithMethod($this->className, $this->functionName);
+                return \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeScope::createWithMethod($this->className, $this->functionName);
             }
-            return \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeScope::createWithClass($this->className);
+            return \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeScope::createWithClass($this->className);
         }
         if ($this->functionName !== null) {
-            return \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeScope::createWithFunction($this->functionName);
+            return \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeScope::createWithFunction($this->functionName);
         }
         return null;
     }
-    public function getTemplateTypeMap() : \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap
+    public function getTemplateTypeMap() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap
     {
         return $this->templateTypeMap;
     }
-    public function resolveTemplateTypeName(string $name) : ?\_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function resolveTemplateTypeName(string $name) : ?\_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this->templateTypeMap->getType($name);
     }
-    public function withTemplateTypeMap(\_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap $map) : self
+    public function withTemplateTypeMap(\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap $map) : self
     {
-        return new self($this->namespace, $this->uses, $this->className, $this->functionName, new \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap(\array_merge($this->templateTypeMap->getTypes(), $map->getTypes())));
+        return new self($this->namespace, $this->uses, $this->className, $this->functionName, new \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap(\array_merge($this->templateTypeMap->getTypes(), $map->getTypes())));
     }
     /**
      * @param mixed[] $properties

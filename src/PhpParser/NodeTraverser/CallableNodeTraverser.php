@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser;
+namespace _PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitor;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitor;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract;
 final class CallableNodeTraverser
 {
     /**
@@ -20,14 +20,14 @@ final class CallableNodeTraverser
         if (!\is_array($nodes)) {
             $nodes = [$nodes];
         }
-        $nodeTraverser = new \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser();
+        $nodeTraverser = new \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser();
         $callableNodeVisitor = $this->createNodeVisitor($callable);
         $nodeTraverser->addVisitor($callableNodeVisitor);
         $nodeTraverser->traverse($nodes);
     }
-    private function createNodeVisitor(callable $callable) : \_PhpScoper0a6b37af0871\PhpParser\NodeVisitor
+    private function createNodeVisitor(callable $callable) : \_PhpScoperb75b35f52b74\PhpParser\NodeVisitor
     {
-        return new class($callable) extends \_PhpScoper0a6b37af0871\PhpParser\NodeVisitorAbstract
+        return new class($callable) extends \_PhpScoperb75b35f52b74\PhpParser\NodeVisitorAbstract
         {
             /**
              * @var callable
@@ -40,7 +40,7 @@ final class CallableNodeTraverser
             /**
              * @return int|Node|null
              */
-            public function enterNode(\_PhpScoper0a6b37af0871\PhpParser\Node $node)
+            public function enterNode(\_PhpScoperb75b35f52b74\PhpParser\Node $node)
             {
                 $callable = $this->callable;
                 return $callable($node);

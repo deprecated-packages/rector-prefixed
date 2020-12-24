@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
+namespace _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
 
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Neon\NeonPrinter;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class PHPStanRuleCodeSamplePrinter implements \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Neon\NeonPrinter;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+final class PHPStanRuleCodeSamplePrinter implements \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
 {
     /**
      * @var NeonPrinter
@@ -24,7 +24,7 @@ final class PHPStanRuleCodeSamplePrinter implements \_PhpScoper0a6b37af0871\Symp
      * @var BadGoodCodeSamplePrinter
      */
     private $badGoodCodeSamplePrinter;
-    public function __construct(\_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Neon\NeonPrinter $neonPrinter, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter $badGoodCodeSamplePrinter)
+    public function __construct(\_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Neon\NeonPrinter $neonPrinter, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter $badGoodCodeSamplePrinter)
     {
         $this->neonPrinter = $neonPrinter;
         $this->markdownCodeWrapper = $markdownCodeWrapper;
@@ -33,14 +33,14 @@ final class PHPStanRuleCodeSamplePrinter implements \_PhpScoper0a6b37af0871\Symp
     public function isMatch(string $class) : bool
     {
         /** @noRector */
-        return \is_a($class, '_PhpScoper0a6b37af0871\\PHPStan\\Rules\\Rule', \true);
+        return \is_a($class, '_PhpScoperb75b35f52b74\\PHPStan\\Rules\\Rule', \true);
     }
     /**
      * @return string[]
      */
-    public function print(\_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
+    public function print(\_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
     {
-        if ($codeSample instanceof \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
+        if ($codeSample instanceof \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
             return $this->printConfigurableCodeSample($codeSample, $ruleDefinition);
         }
         return $this->badGoodCodeSamplePrinter->print($codeSample);
@@ -48,7 +48,7 @@ final class PHPStanRuleCodeSamplePrinter implements \_PhpScoper0a6b37af0871\Symp
     /**
      * @return string[]
      */
-    private function printConfigurableCodeSample(\_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample, \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
+    private function printConfigurableCodeSample(\_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample, \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
     {
         $lines = [];
         $phpstanNeon = ['services' => [['class' => $ruleDefinition->getRuleClass(), 'tags' => ['phpstan.rules.rule'], 'arguments' => $configuredCodeSample->getConfiguration()]]];

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
+namespace _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\LazyProxy\Instantiator;
 
-use _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\ContainerInterface;
-use _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Definition;
+use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Definition;
 /**
  * {@inheritdoc}
  *
@@ -19,12 +19,12 @@ use _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Definition;
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  */
-class RealServiceInstantiator implements \_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface
+class RealServiceInstantiator implements \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\LazyProxy\Instantiator\InstantiatorInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function instantiateProxy(\_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\ContainerInterface $container, \_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Definition $definition, string $id, callable $realInstantiator)
+    public function instantiateProxy(\_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\ContainerInterface $container, \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Definition $definition, string $id, callable $realInstantiator)
     {
         return $realInstantiator();
     }

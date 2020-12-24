@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Doctrine\Provider;
+namespace _PhpScoperb75b35f52b74\Rector\Doctrine\Provider;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
-use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
+use _PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
 final class EntityWithMissingUuidProvider
 {
     /**
@@ -36,7 +36,7 @@ final class EntityWithMissingUuidProvider
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
@@ -68,10 +68,10 @@ final class EntityWithMissingUuidProvider
         $this->entitiesWithMissingUuidProperty = $entitiesWithMissingUuidProperty;
         return $this->entitiesWithMissingUuidProperty;
     }
-    private function hasClassIdPropertyWithUuidType(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function hasClassIdPropertyWithUuidType(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->stmts as $classStmt) {
-            if (!$classStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property) {
+            if (!$classStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property) {
                 continue;
             }
             if (!$this->nodeNameResolver->isName($classStmt, 'id')) {
@@ -81,20 +81,20 @@ final class EntityWithMissingUuidProvider
         }
         return \false;
     }
-    private function isPropertyClassIdWithUuidType(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property) : bool
+    private function isPropertyClassIdWithUuidType(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var PhpDocInfo $propertyPhpDocInfo */
-        $propertyPhpDocInfo = $property->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$propertyPhpDocInfo->hasByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode::class)) {
+        $propertyPhpDocInfo = $property->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$propertyPhpDocInfo->hasByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode::class)) {
             return \false;
         }
-        $columnTagValueNode = $propertyPhpDocInfo->getByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
+        $columnTagValueNode = $propertyPhpDocInfo->getByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
         if ($columnTagValueNode === null) {
             return \false;
         }
         if ($columnTagValueNode->getType() === null) {
             return \false;
         }
-        return (bool) \_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($columnTagValueNode->getType(), self::UUID_PREFIX_REGEX);
+        return (bool) \_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($columnTagValueNode->getType(), self::UUID_PREFIX_REGEX);
     }
 }

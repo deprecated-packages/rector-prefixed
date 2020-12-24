@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Defluent\NodeAnalyzer;
+namespace _PhpScoperb75b35f52b74\Rector\Defluent\NodeAnalyzer;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
-use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
+use _PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\NodeRepository;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
 final class SameClassMethodCallAnalyzer
 {
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeRepository = $nodeRepository;
     }
@@ -27,8 +27,8 @@ final class SameClassMethodCallAnalyzer
         $classOfClassMethod = [];
         foreach ($chainMethodCalls as $chainMethodCall) {
             $classMethod = $this->nodeRepository->findClassMethodByMethodCall($chainMethodCall);
-            if ($classMethod instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod) {
-                $classOfClassMethod[] = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            if ($classMethod instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod) {
+                $classOfClassMethod[] = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             } else {
                 $classOfClassMethod[] = null;
             }
@@ -39,7 +39,7 @@ final class SameClassMethodCallAnalyzer
     /**
      * @param string[] $calleeUniqueTypes
      */
-    public function isCorrectTypeCount(array $calleeUniqueTypes, \_PhpScoper0a6b37af0871\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface $firstCallFactoryAware) : bool
+    public function isCorrectTypeCount(array $calleeUniqueTypes, \_PhpScoperb75b35f52b74\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface $firstCallFactoryAware) : bool
     {
         if ($calleeUniqueTypes === []) {
             return \false;

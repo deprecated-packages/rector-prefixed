@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Traits;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Traits;
 
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 trait MaybeIterableTypeTrait
 {
-    public function isIterable() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isIterable() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isIterableAtLeastOnce() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getIterableKeyType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getIterableKeyType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
     }
-    public function getIterableValueType() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getIterableValueType() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
     }
 }

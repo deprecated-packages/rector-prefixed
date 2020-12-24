@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Dependency;
+namespace _PhpScoperb75b35f52b74\PHPStan\Dependency;
 
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\ScopeContext;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\ScopeFactory;
-use _PhpScoper0a6b37af0871\PHPStan\File\FileFinder;
-use _PhpScoper0a6b37af0871\PHPStan\Parser\Parser;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\ScopeContext;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\ScopeFactory;
+use _PhpScoperb75b35f52b74\PHPStan\File\FileFinder;
+use _PhpScoperb75b35f52b74\PHPStan\Parser\Parser;
 class DependencyDumper
 {
     /** @var DependencyResolver */
@@ -21,7 +21,7 @@ class DependencyDumper
     private $scopeFactory;
     /** @var FileFinder */
     private $fileFinder;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Dependency\DependencyResolver $dependencyResolver, \_PhpScoper0a6b37af0871\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \_PhpScoper0a6b37af0871\PHPStan\Parser\Parser $parser, \_PhpScoper0a6b37af0871\PHPStan\Analyser\ScopeFactory $scopeFactory, \_PhpScoper0a6b37af0871\PHPStan\File\FileFinder $fileFinder)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Dependency\DependencyResolver $dependencyResolver, \_PhpScoperb75b35f52b74\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \_PhpScoperb75b35f52b74\PHPStan\Parser\Parser $parser, \_PhpScoperb75b35f52b74\PHPStan\Analyser\ScopeFactory $scopeFactory, \_PhpScoperb75b35f52b74\PHPStan\File\FileFinder $fileFinder)
     {
         $this->dependencyResolver = $dependencyResolver;
         $this->nodeScopeResolver = $nodeScopeResolver;
@@ -49,16 +49,16 @@ class DependencyDumper
         foreach ($files as $file) {
             try {
                 $parserNodes = $this->parser->parseFile($file);
-            } catch (\_PhpScoper0a6b37af0871\PHPStan\Parser\ParserErrorsException $e) {
+            } catch (\_PhpScoperb75b35f52b74\PHPStan\Parser\ParserErrorsException $e) {
                 continue;
             }
             $fileDependencies = [];
             try {
-                $this->nodeScopeResolver->processNodes($parserNodes, $this->scopeFactory->create(\_PhpScoper0a6b37af0871\PHPStan\Analyser\ScopeContext::create($file)), function (\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope) use($analysedFiles, &$fileDependencies) : void {
+                $this->nodeScopeResolver->processNodes($parserNodes, $this->scopeFactory->create(\_PhpScoperb75b35f52b74\PHPStan\Analyser\ScopeContext::create($file)), function (\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope) use($analysedFiles, &$fileDependencies) : void {
                     $dependencies = $this->dependencyResolver->resolveDependencies($node, $scope);
                     $fileDependencies = \array_merge($fileDependencies, $dependencies->getFileDependencies($scope->getFile(), $analysedFiles));
                 });
-            } catch (\_PhpScoper0a6b37af0871\PHPStan\AnalysedCodeException $e) {
+            } catch (\_PhpScoperb75b35f52b74\PHPStan\AnalysedCodeException $e) {
                 // pass
             }
             foreach (\array_unique($fileDependencies) as $fileDependency) {

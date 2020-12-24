@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper0a6b37af0871\Hoa\Iterator;
+namespace _PhpScoperb75b35f52b74\Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Repeater.
@@ -43,7 +43,7 @@ namespace _PhpScoper0a6b37af0871\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Repeater implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Iterator
+class Repeater implements \_PhpScoperb75b35f52b74\Hoa\Iterator\Iterator
 {
     /**
      * Current iterator.
@@ -80,7 +80,7 @@ class Repeater implements \_PhpScoper0a6b37af0871\Hoa\Iterator\Iterator
     public function __construct(\Traversable $iterator, $n, $body = null)
     {
         if (0 >= $n) {
-            throw new \_PhpScoper0a6b37af0871\Hoa\Iterator\Exception('n must be greater than 0, given %d.', 0, $n);
+            throw new \_PhpScoperb75b35f52b74\Hoa\Iterator\Exception('n must be greater than 0, given %d.', 0, $n);
         }
         if ($iterator instanceof \IteratorAggregate) {
             $iterator = $iterator->getIterator();

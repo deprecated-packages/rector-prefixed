@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator;
+namespace _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanOr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\AssignAndBinaryMap;
-use _PhpScoper0a6b37af0871\Rector\Php71\ValueObject\TwoNodeMatch;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanOr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\AssignAndBinaryMap;
+use _PhpScoperb75b35f52b74\Rector\Php71\ValueObject\TwoNodeMatch;
 final class BinaryOpManipulator
 {
     /**
      * @var AssignAndBinaryMap
      */
     private $assignAndBinaryMap;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap)
     {
         $this->assignAndBinaryMap = $assignAndBinaryMap;
     }
@@ -29,27 +29,27 @@ final class BinaryOpManipulator
      * @param callable|string $firstCondition callable or Node to instanceof
      * @param callable|string $secondCondition callable or Node to instanceof
      */
-    public function matchFirstAndSecondConditionNode(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp $binaryOp, $firstCondition, $secondCondition) : ?\_PhpScoper0a6b37af0871\Rector\Php71\ValueObject\TwoNodeMatch
+    public function matchFirstAndSecondConditionNode(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp $binaryOp, $firstCondition, $secondCondition) : ?\_PhpScoperb75b35f52b74\Rector\Php71\ValueObject\TwoNodeMatch
     {
         $this->validateCondition($firstCondition);
         $this->validateCondition($secondCondition);
         $firstCondition = $this->normalizeCondition($firstCondition);
         $secondCondition = $this->normalizeCondition($secondCondition);
         if ($firstCondition($binaryOp->left, $binaryOp->right) && $secondCondition($binaryOp->right, $binaryOp->left)) {
-            return new \_PhpScoper0a6b37af0871\Rector\Php71\ValueObject\TwoNodeMatch($binaryOp->left, $binaryOp->right);
+            return new \_PhpScoperb75b35f52b74\Rector\Php71\ValueObject\TwoNodeMatch($binaryOp->left, $binaryOp->right);
         }
         if ($firstCondition($binaryOp->right, $binaryOp->left) && $secondCondition($binaryOp->left, $binaryOp->right)) {
-            return new \_PhpScoper0a6b37af0871\Rector\Php71\ValueObject\TwoNodeMatch($binaryOp->right, $binaryOp->left);
+            return new \_PhpScoperb75b35f52b74\Rector\Php71\ValueObject\TwoNodeMatch($binaryOp->right, $binaryOp->left);
         }
         return null;
     }
-    public function inverseBinaryOp(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp
+    public function inverseBinaryOp(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp
     {
         // no nesting
-        if ($binaryOp->left instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
+        if ($binaryOp->left instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return null;
         }
-        if ($binaryOp->right instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
+        if ($binaryOp->right instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return null;
         }
         $inversedNodeClass = $this->resolveInversedNodeClass($binaryOp);
@@ -60,13 +60,13 @@ final class BinaryOpManipulator
         $secondInversedNode = $this->inverseNode($binaryOp->right);
         return new $inversedNodeClass($firstInversedNode, $secondInversedNode);
     }
-    public function invertCondition(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp
+    public function invertCondition(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp
     {
         // no nesting
-        if ($binaryOp->left instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
+        if ($binaryOp->left instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return null;
         }
-        if ($binaryOp->right instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
+        if ($binaryOp->right instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return null;
         }
         $inversedNodeClass = $this->resolveInversedNodeClass($binaryOp);
@@ -83,10 +83,10 @@ final class BinaryOpManipulator
         if (\is_callable($firstCondition)) {
             return;
         }
-        if (\is_a($firstCondition, \_PhpScoper0a6b37af0871\PhpParser\Node::class, \true)) {
+        if (\is_a($firstCondition, \_PhpScoperb75b35f52b74\PhpParser\Node::class, \true)) {
             return;
         }
-        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+        throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
     }
     /**
      * @param callable|string $condition
@@ -96,32 +96,32 @@ final class BinaryOpManipulator
         if (\is_callable($condition)) {
             return $condition;
         }
-        return function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use($condition) : bool {
+        return function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use($condition) : bool {
             return \is_a($node, $condition, \true);
         };
     }
-    private function resolveInversedNodeClass(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?string
+    private function resolveInversedNodeClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?string
     {
         $inversedNodeClass = $this->assignAndBinaryMap->getInversed($binaryOp);
         if ($inversedNodeClass !== null) {
             return $inversedNodeClass;
         }
-        if ($binaryOp instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
-            return \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp\BooleanAnd::class;
+        if ($binaryOp instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanOr) {
+            return \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp\BooleanAnd::class;
         }
         return null;
     }
-    private function inverseNode(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : \_PhpScoper0a6b37af0871\PhpParser\Node
+    private function inverseNode(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : \_PhpScoperb75b35f52b74\PhpParser\Node
     {
-        if ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BinaryOp) {
+        if ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BinaryOp) {
             $inversedBinaryOp = $this->assignAndBinaryMap->getInversed($expr);
             if ($inversedBinaryOp) {
                 return new $inversedBinaryOp($expr->left, $expr->right);
             }
         }
-        if ($expr instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot) {
+        if ($expr instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot) {
             return $expr->expr;
         }
-        return new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\BooleanNot($expr);
+        return new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\BooleanNot($expr);
     }
 }

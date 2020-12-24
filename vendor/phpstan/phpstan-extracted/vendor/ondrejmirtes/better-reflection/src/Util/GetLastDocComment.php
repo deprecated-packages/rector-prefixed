@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util;
 
-use _PhpScoper0a6b37af0871\PhpParser\Comment\Doc;
-use _PhpScoper0a6b37af0871\PhpParser\NodeAbstract;
+use _PhpScoperb75b35f52b74\PhpParser\Comment\Doc;
+use _PhpScoperb75b35f52b74\PhpParser\NodeAbstract;
 use function assert;
 use function is_string;
 /**
@@ -12,11 +12,11 @@ use function is_string;
  */
 final class GetLastDocComment
 {
-    public static function forNode(\_PhpScoper0a6b37af0871\PhpParser\NodeAbstract $node) : string
+    public static function forNode(\_PhpScoperb75b35f52b74\PhpParser\NodeAbstract $node) : string
     {
         $doc = null;
         foreach ($node->getComments() as $comment) {
-            if (!$comment instanceof \_PhpScoper0a6b37af0871\PhpParser\Comment\Doc) {
+            if (!$comment instanceof \_PhpScoperb75b35f52b74\PhpParser\Comment\Doc) {
                 continue;
             }
             $doc = $comment;

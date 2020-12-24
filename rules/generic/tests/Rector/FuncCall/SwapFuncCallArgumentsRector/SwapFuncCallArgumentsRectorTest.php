@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Generic\Tests\Rector\FuncCall\SwapFuncCallArgumentsRector;
+namespace _PhpScoperb75b35f52b74\Rector\Generic\Tests\Rector\FuncCall\SwapFuncCallArgumentsRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector;
-use _PhpScoper0a6b37af0871\Rector\Generic\ValueObject\SwapFuncCallArguments;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class SwapFuncCallArgumentsRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector;
+use _PhpScoperb75b35f52b74\Rector\Generic\ValueObject\SwapFuncCallArguments;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class SwapFuncCallArgumentsRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class SwapFuncCallArgumentsRectorTest extends \_PhpScoper0a6b37af0871\Rect
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::class => [\_PhpScoper0a6b37af0871\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::FUNCTION_ARGUMENT_SWAPS => [new \_PhpScoper0a6b37af0871\Rector\Generic\ValueObject\SwapFuncCallArguments('some_function', [1, 0])]]];
+        return [\_PhpScoperb75b35f52b74\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::class => [\_PhpScoperb75b35f52b74\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::FUNCTION_ARGUMENT_SWAPS => [new \_PhpScoperb75b35f52b74\Rector\Generic\ValueObject\SwapFuncCallArguments('some_function', [1, 0])]]];
     }
 }

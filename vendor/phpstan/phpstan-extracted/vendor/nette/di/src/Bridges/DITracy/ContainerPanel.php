@@ -5,15 +5,15 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Bridges\DITracy;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Bridges\DITracy;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Container;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Tracy;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Container;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Tracy;
 /**
  * Dependency injection container panel for Debugger Bar.
  */
-class ContainerPanel implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Tracy\IBarPanel
+class ContainerPanel implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Tracy\IBarPanel
 {
     use Nette\SmartObject;
     /** @var float|null */
@@ -22,7 +22,7 @@ class ContainerPanel implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\T
     private $container;
     /** @var float|null */
     private $elapsedTime;
-    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Container $container)
+    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Container $container)
     {
         $this->container = $container;
         $this->elapsedTime = self::$compilationTime ? \microtime(\true) - self::$compilationTime : null;
@@ -32,7 +32,7 @@ class ContainerPanel implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\T
      */
     public function getTab() : string
     {
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::capture(function () {
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::capture(function () {
             $elapsedTime = $this->elapsedTime;
             require __DIR__ . '/templates/ContainerPanel.tab.phtml';
         });
@@ -57,7 +57,7 @@ class ContainerPanel implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\T
                 $tags[$service][$tag] = $val;
             }
         }
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::capture(function () use($tags, $types, $rc) {
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::capture(function () use($tags, $types, $rc) {
             $container = $this->container;
             $file = $rc->getFileName();
             $instances = $this->getContainerProperty('instances');
@@ -67,7 +67,7 @@ class ContainerPanel implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\T
     }
     private function getContainerProperty(string $name)
     {
-        $prop = (new \ReflectionClass(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\Container::class))->getProperty($name);
+        $prop = (new \ReflectionClass(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\Container::class))->getProperty($name);
         $prop->setAccessible(\true);
         return $prop->getValue($this->container);
     }

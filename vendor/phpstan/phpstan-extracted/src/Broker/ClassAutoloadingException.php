@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Broker;
+namespace _PhpScoperb75b35f52b74\PHPStan\Broker;
 
-class ClassAutoloadingException extends \_PhpScoper0a6b37af0871\PHPStan\AnalysedCodeException
+class ClassAutoloadingException extends \_PhpScoperb75b35f52b74\PHPStan\AnalysedCodeException
 {
     /** @var string */
     private $className;

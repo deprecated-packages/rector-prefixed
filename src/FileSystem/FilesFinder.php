@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Core\FileSystem;
+namespace _PhpScoperb75b35f52b74\Rector\Core\FileSystem;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\Symfony\Component\Finder\Finder;
-use _PhpScoper0a6b37af0871\Symfony\Component\Finder\SplFileInfo;
-use _PhpScoper0a6b37af0871\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\FileSystemFilter;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\Symfony\Component\Finder\Finder;
+use _PhpScoperb75b35f52b74\Symfony\Component\Finder\SplFileInfo;
+use _PhpScoperb75b35f52b74\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\FileSystemFilter;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Core\Tests\FileSystem\FilesFinder\FilesFinderTest
  */
@@ -45,7 +45,7 @@ final class FilesFinder
      * @var SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\FileSystem\FilesystemTweaker $filesystemTweaker, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \_PhpScoper0a6b37af0871\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\FileSystem\FilesystemTweaker $filesystemTweaker, \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \_PhpScoperb75b35f52b74\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
     {
         $this->filesystemTweaker = $filesystemTweaker;
         $this->finderSanitizer = $finderSanitizer;
@@ -67,12 +67,12 @@ final class FilesFinder
         $directories = $this->fileSystemFilter->filterDirectories($source);
         $smartFileInfos = [];
         foreach ($files as $file) {
-            $smartFileInfos[] = new \_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo($file);
+            $smartFileInfos[] = new \_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo($file);
         }
         $smartFileInfos = \array_merge($smartFileInfos, $this->findInDirectories($directories, $suffixes));
         if ($matchDiff) {
             $gitDiffFiles = $this->getGitDiff();
-            $smartFileInfos = \array_filter($smartFileInfos, function (\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) use($gitDiffFiles) : bool {
+            $smartFileInfos = \array_filter($smartFileInfos, function (\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) use($gitDiffFiles) : bool {
                 return \in_array($fileInfo->getRealPath(), $gitDiffFiles, \true);
             });
             $smartFileInfos = \array_values($smartFileInfos);
@@ -94,7 +94,7 @@ final class FilesFinder
             return [];
         }
         $suffixesPattern = $this->normalizeSuffixesToPattern($suffixes);
-        $finder = \_PhpScoper0a6b37af0871\Symfony\Component\Finder\Finder::create()->followLinks()->files()->in($absoluteDirectories)->name($suffixesPattern)->sortByName();
+        $finder = \_PhpScoperb75b35f52b74\Symfony\Component\Finder\Finder::create()->followLinks()->files()->in($absoluteDirectories)->name($suffixesPattern)->sortByName();
         $this->addFilterWithExcludedPaths($finder);
         return $this->finderSanitizer->sanitize($finder);
     }
@@ -115,13 +115,13 @@ final class FilesFinder
         $suffixesPattern = \implode('|', $suffixes);
         return '#\\.(' . $suffixesPattern . ')$#';
     }
-    private function addFilterWithExcludedPaths(\_PhpScoper0a6b37af0871\Symfony\Component\Finder\Finder $finder) : void
+    private function addFilterWithExcludedPaths(\_PhpScoperb75b35f52b74\Symfony\Component\Finder\Finder $finder) : void
     {
         $excludePaths = $this->skippedPathsResolver->resolve();
         if ($excludePaths === []) {
             return;
         }
-        $finder->filter(function (\_PhpScoper0a6b37af0871\Symfony\Component\Finder\SplFileInfo $splFileInfo) use($excludePaths) : bool {
+        $finder->filter(function (\_PhpScoperb75b35f52b74\Symfony\Component\Finder\SplFileInfo $splFileInfo) use($excludePaths) : bool {
             /** @var string|false $realPath */
             $realPath = $splFileInfo->getRealPath();
             if (!$realPath) {
@@ -134,7 +134,7 @@ final class FilesFinder
             foreach ($excludePaths as $excludePath) {
                 // make the path work accross different OSes
                 $excludePath = \str_replace('\\', '/', $excludePath);
-                if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($realPath, '#' . \preg_quote($excludePath, '#') . '#')) {
+                if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($realPath, '#' . \preg_quote($excludePath, '#') . '#')) {
                     return \false;
                 }
                 $excludePath = $this->normalizeForFnmatch($excludePath);
@@ -152,11 +152,11 @@ final class FilesFinder
     private function normalizeForFnmatch(string $path) : string
     {
         // ends with *
-        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($path, self::ENDS_WITH_ASTERISK_REGEX)) {
+        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($path, self::ENDS_WITH_ASTERISK_REGEX)) {
             return '*' . $path;
         }
         // starts with *
-        if (\_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($path, self::STARTS_WITH_ASTERISK_REGEX)) {
+        if (\_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($path, self::STARTS_WITH_ASTERISK_REGEX)) {
             return $path . '*';
         }
         return $path;

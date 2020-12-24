@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement;
 
 interface EventEmitterInterface
 {

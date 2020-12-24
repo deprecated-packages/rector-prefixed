@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\SOLID\Rector\Class_;
+namespace _PhpScoperb75b35f52b74\Rector\SOLID\Rector\Class_;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use _PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\SOLID\NodeFactory\InjectMethodFactory;
-use _PhpScoper0a6b37af0871\Rector\SOLID\NodeRemover\ClassMethodNodeRemover;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use _PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\SOLID\NodeFactory\InjectMethodFactory;
+use _PhpScoperb75b35f52b74\Rector\SOLID\NodeRemover\ClassMethodNodeRemover;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\SOLID\Tests\Rector\Class_\MultiParentingToAbstractDependencyRector\MultiParentingToAbstractDependencyRectorTest
  */
-final class MultiParentingToAbstractDependencyRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class MultiParentingToAbstractDependencyRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -61,16 +61,16 @@ final class MultiParentingToAbstractDependencyRector extends \_PhpScoper0a6b37af
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\SOLID\NodeRemover\ClassMethodNodeRemover $classMethodNodeRemover, \_PhpScoper0a6b37af0871\Rector\SOLID\NodeFactory\InjectMethodFactory $injectMethodFactory, \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\SOLID\NodeRemover\ClassMethodNodeRemover $classMethodNodeRemover, \_PhpScoperb75b35f52b74\Rector\SOLID\NodeFactory\InjectMethodFactory $injectMethodFactory, \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->injectMethodFactory = $injectMethodFactory;
         $this->classMethodNodeRemover = $classMethodNodeRemover;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move dependency passed to all children to parent as @inject/@required dependency', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move dependency passed to all children to parent as @inject/@required dependency', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 abstract class AbstractParentClass
 {
     private $someDependency;
@@ -122,18 +122,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (!$node->isAbstract()) {
             return null;
         }
         /** @var string|null $className */
-        $className = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return null;
         }
@@ -141,7 +141,7 @@ CODE_SAMPLE
         if (\count($childrenClasses) < 2) {
             return null;
         }
-        $classMethod = $node->getMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $classMethod = $node->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($classMethod === null) {
             return null;
         }
@@ -149,7 +149,7 @@ CODE_SAMPLE
         // process
         $this->objectTypesToInject = [];
         foreach ($childrenClasses as $childrenClass) {
-            $constructorClassMethod = $childrenClass->getMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+            $constructorClassMethod = $childrenClass->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT);
             if ($constructorClassMethod === null) {
                 continue;
             }
@@ -169,9 +169,9 @@ CODE_SAMPLE
     /**
      * @return ObjectType[]
      */
-    private function resolveConstructorParamClassTypes(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : array
+    private function resolveConstructorParamClassTypes(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $constructorClassMethod = $class->getMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructorClassMethod = $class->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructorClassMethod === null) {
             return [];
         }
@@ -179,7 +179,7 @@ CODE_SAMPLE
         foreach ($constructorClassMethod->getParams() as $param) {
             $paramType = $this->getObjectType($param);
             $paramType = $this->popFirstObjectTypeFromUnionType($paramType);
-            if (!$paramType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
+            if (!$paramType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
                 continue;
             }
             $objectTypes[] = $paramType;
@@ -189,12 +189,12 @@ CODE_SAMPLE
     /**
      * @param ObjectType[] $abstractClassConstructorParamTypes
      */
-    private function refactorChildConstructorClassMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod, array $abstractClassConstructorParamTypes) : void
+    private function refactorChildConstructorClassMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod, array $abstractClassConstructorParamTypes) : void
     {
         foreach ($classMethod->getParams() as $key => $param) {
             $paramType = $this->getStaticType($param);
             $paramType = $this->popFirstObjectTypeFromUnionType($paramType);
-            if (!$paramType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
+            if (!$paramType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
                 continue;
             }
             if (!$this->isSameObjectTypes($paramType, $abstractClassConstructorParamTypes)) {
@@ -205,7 +205,7 @@ CODE_SAMPLE
             $this->objectTypesToInject[] = $paramType;
         }
     }
-    private function clearAbstractClassConstructor(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function clearAbstractClassConstructor(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach ($classMethod->getParams() as $key => $param) {
             if (!$this->isObjectTypes($param, $this->objectTypesToInject)) {
@@ -216,23 +216,23 @@ CODE_SAMPLE
         }
         $this->classMethodNodeRemover->removeClassMethodIfUseless($classMethod);
     }
-    private function addInjectOrRequiredClassMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : void
+    private function addInjectOrRequiredClassMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : void
     {
         /** @var string $className */
-        $className = $class->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $class->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($this->objectTypesToInject === []) {
             return;
         }
         $injectClassMethod = $this->injectMethodFactory->createFromTypes($this->objectTypesToInject, $className, $this->framework);
         $this->classInsertManipulator->addAsFirstMethod($class, $injectClassMethod);
     }
-    private function popFirstObjectTypeFromUnionType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $paramType) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    private function popFirstObjectTypeFromUnionType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $paramType) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        if (!$paramType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
+        if (!$paramType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
             return $paramType;
         }
         foreach ($paramType->getTypes() as $unionedType) {
-            if ($unionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType) {
+            if ($unionedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType) {
                 return $unionedType;
             }
         }

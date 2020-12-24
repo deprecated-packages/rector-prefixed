@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\ReadWrite\NodeAnalyzer;
+namespace _PhpScoperb75b35f52b74\Rector\ReadWrite\NodeAnalyzer;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\NotImplementedYetException;
-use _PhpScoper0a6b37af0871\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\NotImplementedYetException;
+use _PhpScoperb75b35f52b74\Rector\ReadWrite\Contract\ReadNodeAnalyzerInterface;
 final class ReadExprAnalyzer
 {
     /**
@@ -22,7 +22,7 @@ final class ReadExprAnalyzer
     /**
      * Is the value read or used for read purpose (at least, not only)
      */
-    public function isExprRead(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : bool
+    public function isExprRead(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : bool
     {
         foreach ($this->readNodeAnalyzers as $readNodeAnalyzer) {
             if (!$readNodeAnalyzer->supports($expr)) {
@@ -30,6 +30,6 @@ final class ReadExprAnalyzer
             }
             return $readNodeAnalyzer->isRead($expr);
         }
-        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\NotImplementedYetException(\get_class($expr));
+        throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\NotImplementedYetException(\get_class($expr));
     }
 }

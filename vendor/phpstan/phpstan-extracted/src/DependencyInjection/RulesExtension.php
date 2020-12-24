@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\DependencyInjection;
+namespace _PhpScoperb75b35f52b74\PHPStan\DependencyInjection;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
-use _PhpScoper0a6b37af0871\PHPStan\Rules\RegistryFactory;
-class RulesExtension extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
+use _PhpScoperb75b35f52b74\PHPStan\Rules\RegistryFactory;
+class RulesExtension extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    public function getConfigSchema() : \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string');
+        return \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string');
     }
     public function loadConfiguration() : void
     {
@@ -17,7 +17,7 @@ class RulesExtension extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Nett
         $config = $this->config;
         $builder = $this->getContainerBuilder();
         foreach ($config as $key => $rule) {
-            $builder->addDefinition($this->prefix((string) $key))->setFactory($rule)->setAutowired(\false)->addTag(\_PhpScoper0a6b37af0871\PHPStan\Rules\RegistryFactory::RULE_TAG);
+            $builder->addDefinition($this->prefix((string) $key))->setFactory($rule)->setAutowired(\false)->addTag(\_PhpScoperb75b35f52b74\PHPStan\Rules\RegistryFactory::RULE_TAG);
         }
     }
 }

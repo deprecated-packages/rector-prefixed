@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Rules;
+namespace _PhpScoperb75b35f52b74\PHPStan\Rules;
 
-interface TipRuleError extends \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleError
+interface TipRuleError extends \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleError
 {
     public function getTip() : string;
 }

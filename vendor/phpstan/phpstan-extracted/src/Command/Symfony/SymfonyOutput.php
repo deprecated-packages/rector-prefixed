@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Command\Symfony;
+namespace _PhpScoperb75b35f52b74\PHPStan\Command\Symfony;
 
-use _PhpScoper0a6b37af0871\PHPStan\Command\Output;
-use _PhpScoper0a6b37af0871\PHPStan\Command\OutputStyle;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperb75b35f52b74\PHPStan\Command\Output;
+use _PhpScoperb75b35f52b74\PHPStan\Command\OutputStyle;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @internal
  */
-class SymfonyOutput implements \_PhpScoper0a6b37af0871\PHPStan\Command\Output
+class SymfonyOutput implements \_PhpScoperb75b35f52b74\PHPStan\Command\Output
 {
     /** @var \Symfony\Component\Console\Output\OutputInterface */
     private $symfonyOutput;
     /** @var OutputStyle */
     private $style;
-    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $symfonyOutput, \_PhpScoper0a6b37af0871\PHPStan\Command\OutputStyle $style)
+    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $symfonyOutput, \_PhpScoperb75b35f52b74\PHPStan\Command\OutputStyle $style)
     {
         $this->symfonyOutput = $symfonyOutput;
         $this->style = $style;
     }
     public function writeFormatted(string $message) : void
     {
-        $this->symfonyOutput->write($message, \false, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL);
+        $this->symfonyOutput->write($message, \false, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL);
     }
     public function writeLineFormatted(string $message) : void
     {
-        $this->symfonyOutput->writeln($message, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL);
+        $this->symfonyOutput->writeln($message, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::OUTPUT_NORMAL);
     }
     public function writeRaw(string $message) : void
     {
-        $this->symfonyOutput->write($message, \false, \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
+        $this->symfonyOutput->write($message, \false, \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
     }
-    public function getStyle() : \_PhpScoper0a6b37af0871\PHPStan\Command\OutputStyle
+    public function getStyle() : \_PhpScoperb75b35f52b74\PHPStan\Command\OutputStyle
     {
         return $this->style;
     }

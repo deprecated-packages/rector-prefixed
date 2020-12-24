@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Autodiscovery\Configuration;
+namespace _PhpScoperb75b35f52b74\Rector\Autodiscovery\Configuration;
 
 /**
  * List of namespace category that are usually 1-level nested (e.g. "Controller", "Entity", "Repository"...).

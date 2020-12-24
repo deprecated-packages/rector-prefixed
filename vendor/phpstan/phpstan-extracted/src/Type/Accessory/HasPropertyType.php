@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Accessory;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Accessory;
 
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\TrivialParametersAcceptor;
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-use _PhpScoper0a6b37af0871\PHPStan\Type\CompoundType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\IntersectionType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\NonGenericTypeTrait;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\ObjectTypeTrait;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
-class HasPropertyType implements \_PhpScoper0a6b37af0871\PHPStan\Type\Accessory\AccessoryType, \_PhpScoper0a6b37af0871\PHPStan\Type\CompoundType
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\TrivialParametersAcceptor;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Type\CompoundType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\NonGenericTypeTrait;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\ObjectTypeTrait;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
+class HasPropertyType implements \_PhpScoperb75b35f52b74\PHPStan\Type\Accessory\AccessoryType, \_PhpScoperb75b35f52b74\PHPStan\Type\CompoundType
 {
     use ObjectTypeTrait;
     use NonGenericTypeTrait;
@@ -35,54 +35,54 @@ class HasPropertyType implements \_PhpScoper0a6b37af0871\PHPStan\Type\Accessory\
     {
         return $this->propertyName;
     }
-    public function accepts(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function accepts(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createFromBoolean($this->equals($type));
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createFromBoolean($this->equals($type));
     }
-    public function isSuperTypeOf(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
         return $type->hasProperty($this->propertyName);
     }
-    public function isSubTypeOf(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $otherType) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $otherType) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        if ($otherType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType || $otherType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\IntersectionType) {
+        if ($otherType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType || $otherType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType) {
             return $otherType->isSuperTypeOf($this);
         }
         if ($otherType instanceof self) {
-            $limit = \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
+            $limit = \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
         } else {
-            $limit = \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
+            $limit = \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
         }
         return $limit->and($otherType->hasProperty($this->propertyName));
     }
-    public function isAcceptedBy(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
-    public function equals(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : bool
+    public function equals(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : bool
     {
         return $type instanceof self && $this->propertyName === $type->propertyName;
     }
-    public function describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel $level) : string
     {
         return \sprintf('hasProperty(%s)', $this->propertyName);
     }
-    public function hasProperty(string $propertyName) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
         if ($this->propertyName === $propertyName) {
-            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
+            return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
         }
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createMaybe();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getCallableParametersAcceptors(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
-        return [new \_PhpScoper0a6b37af0871\PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \_PhpScoperb75b35f52b74\PHPStan\Reflection\TrivialParametersAcceptor()];
     }
-    public function traverse(callable $cb) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function traverse(callable $cb) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this;
     }
-    public static function __set_state(array $properties) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return new self($properties['propertyName']);
     }

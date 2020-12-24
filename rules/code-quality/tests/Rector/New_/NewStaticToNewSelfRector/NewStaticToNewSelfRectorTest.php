@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\Tests\Rector\New_\NewStaticToNewSelfRector;
+namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\Tests\Rector\New_\NewStaticToNewSelfRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\New_\NewStaticToNewSelfRector;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class NewStaticToNewSelfRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\New_\NewStaticToNewSelfRector;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class NewStaticToNewSelfRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class NewStaticToNewSelfRectorTest extends \_PhpScoper0a6b37af0871\Rector\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper0a6b37af0871\Rector\CodeQuality\Rector\New_\NewStaticToNewSelfRector::class;
+        return \_PhpScoperb75b35f52b74\Rector\CodeQuality\Rector\New_\NewStaticToNewSelfRector::class;
     }
 }

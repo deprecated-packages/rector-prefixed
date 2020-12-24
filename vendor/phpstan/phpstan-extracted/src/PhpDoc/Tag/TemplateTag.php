@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\PhpDoc\Tag;
+namespace _PhpScoperb75b35f52b74\PHPStan\PhpDoc\Tag;
 
-use _PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeVariance;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 class TemplateTag
 {
     /** @var string */
@@ -13,7 +13,7 @@ class TemplateTag
     private $bound;
     /** @var TemplateTypeVariance */
     private $variance;
-    public function __construct(string $name, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $bound, \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeVariance $variance)
+    public function __construct(string $name, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $bound, \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance $variance)
     {
         $this->name = $name;
         $this->bound = $bound;
@@ -23,11 +23,11 @@ class TemplateTag
     {
         return $this->name;
     }
-    public function getBound() : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function getBound() : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this->bound;
     }
-    public function getVariance() : \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeVariance
+    public function getVariance() : \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeVariance
     {
         return $this->variance;
     }

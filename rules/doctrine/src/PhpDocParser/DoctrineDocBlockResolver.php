@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Doctrine\PhpDocParser;
+namespace _PhpScoperb75b35f52b74\Rector\Doctrine\PhpDocParser;
 
-use _PhpScoper0a6b37af0871\Nette\Utils\Strings;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddableTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Nette\Utils\Strings;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddableTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException;
+use _PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
 final class DoctrineDocBlockResolver
 {
@@ -29,7 +29,7 @@ final class DoctrineDocBlockResolver
      * @var ParsedNodeCollector
      */
     private $parsedNodeCollector;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
     }
@@ -38,21 +38,21 @@ final class DoctrineDocBlockResolver
      */
     public function isDoctrineEntityClass($class) : bool
     {
-        if ($class instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
+        if ($class instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
             return $this->isDoctrineEntityClassNode($class);
         }
         if (\is_string($class)) {
             return $this->isStringClassEntity($class);
         }
-        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\ShouldNotHappenException();
+        throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\ShouldNotHappenException();
     }
-    public function isDoctrineEntityClassWithIdProperty(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isDoctrineEntityClassWithIdProperty(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if (!$this->isDoctrineEntityClass($class)) {
             return \false;
         }
         foreach ($class->stmts as $classStmt) {
-            if (!$classStmt instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property) {
+            if (!$classStmt instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property) {
                 continue;
             }
             if ($this->hasPropertyDoctrineIdTag($classStmt)) {
@@ -61,7 +61,7 @@ final class DoctrineDocBlockResolver
         }
         return \false;
     }
-    public function getTargetEntity(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property) : ?string
+    public function getTargetEntity(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property) : ?string
     {
         $doctrineRelationTagValueNode = $this->getDoctrineRelationTagValueNode($property);
         if ($doctrineRelationTagValueNode === null) {
@@ -69,50 +69,50 @@ final class DoctrineDocBlockResolver
         }
         return $doctrineRelationTagValueNode->getTargetEntity();
     }
-    public function getDoctrineRelationTagValueNode(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property) : ?\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface
+    public function getDoctrineRelationTagValueNode(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property) : ?\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface
     {
-        $phpDocInfo = $property->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }
-        return $phpDocInfo->getByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
+        return $phpDocInfo->getByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
     }
-    public function isDoctrineProperty(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property) : bool
+    public function isDoctrineProperty(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property) : bool
     {
-        $phpDocInfo = $property->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return \false;
         }
-        $hasTypeColumnTagValueNode = $phpDocInfo->hasByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
+        $hasTypeColumnTagValueNode = $phpDocInfo->hasByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
         if ($hasTypeColumnTagValueNode) {
             return \true;
         }
-        return $phpDocInfo->hasByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
+        return $phpDocInfo->hasByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
     }
-    public function isInDoctrineEntityClass(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool
+    public function isInDoctrineEntityClass(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool
     {
         /** @var ClassLike|null $classLike */
-        $classLike = $node->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_) {
+        $classLike = $node->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         return $this->isDoctrineEntityClass($classLike);
     }
-    private function isDoctrineEntityClassNode(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function isDoctrineEntityClassNode(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        $phpDocInfo = $class->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $class->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return \false;
         }
-        $hasTypeEntityTagValueNode = $phpDocInfo->hasByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);
+        $hasTypeEntityTagValueNode = $phpDocInfo->hasByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);
         if ($hasTypeEntityTagValueNode) {
             return \true;
         }
-        return $phpDocInfo->hasByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddableTagValueNode::class);
+        return $phpDocInfo->hasByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddableTagValueNode::class);
     }
     private function isStringClassEntity(string $class) : bool
     {
-        if (!\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($class)) {
+        if (!\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($class)) {
             return \false;
         }
         $classNode = $this->parsedNodeCollector->findClass($class);
@@ -122,11 +122,11 @@ final class DoctrineDocBlockResolver
         $reflectionClass = new \ReflectionClass($class);
         // dummy check of 3rd party code without running it
         $docCommentContent = (string) $reflectionClass->getDocComment();
-        return (bool) \_PhpScoper0a6b37af0871\Nette\Utils\Strings::match($docCommentContent, self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
+        return (bool) \_PhpScoperb75b35f52b74\Nette\Utils\Strings::match($docCommentContent, self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
     }
-    private function hasPropertyDoctrineIdTag(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property $property) : bool
+    private function hasPropertyDoctrineIdTag(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property $property) : bool
     {
-        $phpDocInfo = $property->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        return $phpDocInfo ? $phpDocInfo->hasByType(\_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode::class) : \false;
+        $phpDocInfo = $property->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        return $phpDocInfo ? $phpDocInfo->hasByType(\_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode::class) : \false;
     }
 }

@@ -1,35 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\NodeAnalyzer;
+namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\NodeAnalyzer;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\Rector\CodeQuality\TypeResolver\ArrayDimFetchTypeResolver;
-use _PhpScoper0a6b37af0871\Rector\Core\NodeAnalyzer\ClassNodeAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\Rector\CodeQuality\TypeResolver\ArrayDimFetchTypeResolver;
+use _PhpScoperb75b35f52b74\Rector\Core\NodeAnalyzer\ClassNodeAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 final class LocalPropertyAnalyzer
 {
     /**
      * @var string
      */
-    private const LARAVEL_COLLECTION_CLASS = '_PhpScoper0a6b37af0871\\Illuminate\\Support\\Collection';
+    private const LARAVEL_COLLECTION_CLASS = '_PhpScoperb75b35f52b74\\Illuminate\\Support\\Collection';
     /**
      * @var CallableNodeTraverser
      */
@@ -62,7 +62,7 @@ final class LocalPropertyAnalyzer
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper0a6b37af0871\Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper0a6b37af0871\Rector\CodeQuality\TypeResolver\ArrayDimFetchTypeResolver $arrayDimFetchTypeResolver, \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper0a6b37af0871\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoperb75b35f52b74\Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoperb75b35f52b74\Rector\CodeQuality\TypeResolver\ArrayDimFetchTypeResolver $arrayDimFetchTypeResolver, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoperb75b35f52b74\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->classNodeAnalyzer = $classNodeAnalyzer;
@@ -76,15 +76,15 @@ final class LocalPropertyAnalyzer
     /**
      * @return array<string, Type>
      */
-    public function resolveFetchedPropertiesToTypesFromClass(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_ $class) : array
+    public function resolveFetchedPropertiesToTypesFromClass(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $fetchedLocalPropertyNameToTypes = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) use(&$fetchedLocalPropertyNameToTypes) : ?int {
+        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) use(&$fetchedLocalPropertyNameToTypes) : ?int {
             // skip anonymous class scope
             if ($this->classNodeAnalyzer->isAnonymousClass($node)) {
-                return \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                return \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
-            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch) {
+            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch) {
                 return null;
             }
             if (!$this->propertyFetchAnalyzer->isLocalPropertyFetch($node)) {
@@ -103,7 +103,7 @@ final class LocalPropertyAnalyzer
         });
         return $this->normalizeToSingleType($fetchedLocalPropertyNameToTypes);
     }
-    private function shouldSkipPropertyFetch(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
+    private function shouldSkipPropertyFetch(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
         // special Laravel collection scope
         if ($this->shouldSkipForLaravelCollection($propertyFetch)) {
@@ -114,17 +114,17 @@ final class LocalPropertyAnalyzer
         }
         return $this->isPartOfClosureBindTo($propertyFetch);
     }
-    private function resolvePropertyFetchType(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    private function resolvePropertyFetchType(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        $parentNode = $propertyFetch->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $propertyFetch->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // possible get type
-        if ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
+        if ($parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
             return $this->nodeTypeResolver->getStaticType($parentNode->expr);
         }
-        if ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch) {
+        if ($parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch) {
             return $this->arrayDimFetchTypeResolver->resolve($parentNode);
         }
-        return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+        return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
     }
     /**
      * @param array<string, Type[]> $propertyNameToTypes
@@ -139,10 +139,10 @@ final class LocalPropertyAnalyzer
         }
         return $propertyNameToType;
     }
-    private function shouldSkipForLaravelCollection(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
+    private function shouldSkipForLaravelCollection(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
-        $staticCallOrClassMethod = $this->betterNodeFinder->findFirstAncestorInstancesOf($propertyFetch, [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall::class]);
-        if (!$staticCallOrClassMethod instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
+        $staticCallOrClassMethod = $this->betterNodeFinder->findFirstAncestorInstancesOf($propertyFetch, [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall::class]);
+        if (!$staticCallOrClassMethod instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
         return $this->nodeNameResolver->isName($staticCallOrClassMethod->class, self::LARAVEL_COLLECTION_CLASS);
@@ -151,10 +151,10 @@ final class LocalPropertyAnalyzer
      * Local property is actually not local one, but belongs to passed object
      * See https://ocramius.github.io/blog/accessing-private-php-class-members-without-reflection/
      */
-    private function isPartOfClosureBind(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
+    private function isPartOfClosureBind(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
-        $parentStaticCall = $this->betterNodeFinder->findFirstParentInstanceOf($propertyFetch, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall::class);
-        if (!$parentStaticCall instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
+        $parentStaticCall = $this->betterNodeFinder->findFirstParentInstanceOf($propertyFetch, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall::class);
+        if (!$parentStaticCall instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
         if (!$this->nodeNameResolver->isName($parentStaticCall->class, 'Closure')) {
@@ -162,13 +162,13 @@ final class LocalPropertyAnalyzer
         }
         return $this->nodeNameResolver->isName($parentStaticCall->name, 'bind');
     }
-    private function isPartOfClosureBindTo(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
+    private function isPartOfClosureBindTo(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
-        $parentMethodCall = $this->betterNodeFinder->findFirstParentInstanceOf($propertyFetch, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class);
-        if (!$parentMethodCall instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall) {
+        $parentMethodCall = $this->betterNodeFinder->findFirstParentInstanceOf($propertyFetch, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall::class);
+        if (!$parentMethodCall instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if (!$parentMethodCall->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Closure) {
+        if (!$parentMethodCall->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Closure) {
             return \false;
         }
         return $this->nodeNameResolver->isName($parentMethodCall->name, 'bindTo');

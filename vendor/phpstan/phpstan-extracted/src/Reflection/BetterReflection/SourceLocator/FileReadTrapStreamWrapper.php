@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\BetterReflection\SourceLocator;
 
 use function stat;
 use function stream_wrapper_register;

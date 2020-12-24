@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodeQuality\NodeAnalyzer;
+namespace _PhpScoperb75b35f52b74\Rector\CodeQuality\NodeAnalyzer;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 final class ForeachNodeAnalyzer
 {
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
@@ -25,19 +25,19 @@ final class ForeachNodeAnalyzer
      *      <$assigns[]> = $value;
      * }
      */
-    public function matchAssignItemsOnlyForeachArrayVariable(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr
+    public function matchAssignItemsOnlyForeachArrayVariable(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr
     {
         if (\count((array) $foreach->stmts) !== 1) {
             return null;
         }
         $onlyStatement = $foreach->stmts[0];
-        if ($onlyStatement instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Expression) {
+        if ($onlyStatement instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Expression) {
             $onlyStatement = $onlyStatement->expr;
         }
-        if (!$onlyStatement instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Assign) {
+        if (!$onlyStatement instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Assign) {
             return null;
         }
-        if (!$onlyStatement->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$onlyStatement->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
         if ($onlyStatement->var->dim !== null) {

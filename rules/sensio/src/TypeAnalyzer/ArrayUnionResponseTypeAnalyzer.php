@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Sensio\TypeAnalyzer;
+namespace _PhpScoperb75b35f52b74\Rector\Sensio\TypeAnalyzer;
 
-use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ArrayType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName;
+use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
 final class ArrayUnionResponseTypeAnalyzer
 {
-    public function isArrayUnionResponseType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, string $className) : bool
+    public function isArrayUnionResponseType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, string $className) : bool
     {
-        if (!$type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
+        if (!$type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
             return \false;
         }
         $hasArrayType = \false;
         $hasResponseType = \false;
         foreach ($type->getTypes() as $unionedType) {
-            if ($unionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
+            if ($unionedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType) {
                 $hasArrayType = \true;
                 continue;
             }
@@ -32,9 +32,9 @@ final class ArrayUnionResponseTypeAnalyzer
         }
         return $hasResponseType;
     }
-    private function isTypeOfClassName(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, string $className) : bool
+    private function isTypeOfClassName(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, string $className) : bool
     {
-        if (!$type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName) {
+        if (!$type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         return \is_a($type->getClassName(), $className, \true);

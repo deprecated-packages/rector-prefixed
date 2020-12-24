@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PSR4\Tests\Rector\FileWithoutNamespace\NormalizeNamespaceByPSR4ComposerAutoloadRector\Source;
+namespace _PhpScoperb75b35f52b74\Rector\PSR4\Tests\Rector\FileWithoutNamespace\NormalizeNamespaceByPSR4ComposerAutoloadRector\Source;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface;
-final class DummyPSR4AutoloadWithoutNamespaceMatcher implements \_PhpScoper0a6b37af0871\Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface;
+final class DummyPSR4AutoloadWithoutNamespaceMatcher implements \_PhpScoperb75b35f52b74\Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface
 {
-    public function getExpectedNamespace(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?string
+    public function getExpectedNamespace(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string
     {
-        return '_PhpScoper0a6b37af0871\\Rector\\PSR4\\Tests\\Rector\\FileWithoutNamespace\\NormalizeNamespaceByPSR4ComposerAutoloadRector\\Fixture';
+        return '_PhpScoperb75b35f52b74\\Rector\\PSR4\\Tests\\Rector\\FileWithoutNamespace\\NormalizeNamespaceByPSR4ComposerAutoloadRector\\Fixture';
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Analyser\ResultCache;
+namespace _PhpScoperb75b35f52b74\PHPStan\Analyser\ResultCache;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Component\Finder\Finder;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Finder\Finder;
 class ResultCacheClearer
 {
     /** @var string */
@@ -26,7 +26,7 @@ class ResultCacheClearer
     }
     public function clearTemporaryCaches() : void
     {
-        $finder = new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Symfony\Component\Finder\Finder();
+        $finder = new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Symfony\Component\Finder\Finder();
         foreach ($finder->files()->name('*.php')->in($this->tempResultCachePath) as $tmpResultCacheFile) {
             @\unlink($tmpResultCacheFile->getPathname());
         }

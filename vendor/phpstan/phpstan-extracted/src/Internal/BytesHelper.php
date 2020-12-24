@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Internal;
+namespace _PhpScoperb75b35f52b74\PHPStan\Internal;
 
 class BytesHelper
 {
@@ -16,7 +16,7 @@ class BytesHelper
             $bytes /= 1024;
         }
         if (!isset($unit)) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
         }
         return \round($bytes, 2) . ' ' . $unit;
     }

@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Generic;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Generic;
 
-use _PhpScoper0a6b37af0871\PHPStan\Type\ErrorType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\StaticType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeTraverser;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ErrorType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\StaticType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeTraverser;
 class TemplateTypeHelper
 {
     /**
      * Replaces template types with standin types
      */
-    public static function resolveTemplateTypes(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateTypeMap $standins) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public static function resolveTemplateTypes(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateTypeMap $standins) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\Type\TypeTraverser::map($type, static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, callable $traverse) use($standins) : Type {
-            if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateType && !$type->isArgument()) {
+        return \_PhpScoperb75b35f52b74\PHPStan\Type\TypeTraverser::map($type, static function (\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, callable $traverse) use($standins) : Type {
+            if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateType && !$type->isArgument()) {
                 $newType = $standins->getType($type->getName()) ?? $type;
-                if ($newType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ErrorType) {
+                if ($newType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ErrorType) {
                     $newType = $type->getBound();
                 }
-                if ($newType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\StaticType) {
+                if ($newType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\StaticType) {
                     $newType = $newType->getStaticObjectType();
                 }
                 return $newType;
@@ -28,10 +28,10 @@ class TemplateTypeHelper
             return $traverse($type);
         });
     }
-    public static function resolveToBounds(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public static function resolveToBounds(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\Type\TypeTraverser::map($type, static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, callable $traverse) : Type {
-            if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateType) {
+        return \_PhpScoperb75b35f52b74\PHPStan\Type\TypeTraverser::map($type, static function (\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, callable $traverse) : Type {
+            if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateType) {
                 return $traverse($type->getBound());
             }
             return $traverse($type);
@@ -40,10 +40,10 @@ class TemplateTypeHelper
     /**
      * Switches all template types to their argument strategy
      */
-    public static function toArgument(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public static function toArgument(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\Type\TypeTraverser::map($type, static function (\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, callable $traverse) : Type {
-            if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateType) {
+        return \_PhpScoperb75b35f52b74\PHPStan\Type\TypeTraverser::map($type, static function (\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, callable $traverse) : Type {
+            if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateType) {
                 return $traverse($type->toArgument());
             }
             return $traverse($type);

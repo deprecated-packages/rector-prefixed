@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Dns\Query;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Promise;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\Promise;
 /**
  * Cooperatively resolves hosts via the given base executor to ensure same query is not run concurrently
  *
@@ -34,16 +34,16 @@ use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Promise;
  * );
  * ```
  */
-final class CoopExecutor implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
+final class CoopExecutor implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
 {
     private $executor;
     private $pending = array();
     private $counts = array();
-    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $base)
+    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $base)
     {
         $this->executor = $base;
     }
-    public function query(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
+    public function query(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
     {
         $key = $this->serializeQueryToIdentity($query);
         if (isset($this->pending[$key])) {
@@ -68,7 +68,7 @@ final class CoopExecutor implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b8
         // when no other child promise is awaiting the same query.
         $pending =& $this->pending;
         $counts =& $this->counts;
-        return new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use($promise) {
+        return new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use($promise) {
             $promise->then($resolve, $reject);
         }, function () use(&$promise, $key, $query, &$pending, &$counts) {
             if (--$counts[$key] < 1) {
@@ -79,7 +79,7 @@ final class CoopExecutor implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b8
             throw new \RuntimeException('DNS query for ' . $query->name . ' has been cancelled');
         });
     }
-    private function serializeQueryToIdentity(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
+    private function serializeQueryToIdentity(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
     {
         return \sprintf('%s:%s:%s', $query->name, $query->type, $query->class);
     }

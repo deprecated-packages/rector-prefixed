@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Parallel;
+namespace _PhpScoperb75b35f52b74\PHPStan\Parallel;
 
 class Scheduler
 {
@@ -22,10 +22,10 @@ class Scheduler
      * @param array<string> $files
      * @return Schedule
      */
-    public function scheduleWork(int $cpuCores, array $files) : \_PhpScoper0a6b37af0871\PHPStan\Parallel\Schedule
+    public function scheduleWork(int $cpuCores, array $files) : \_PhpScoperb75b35f52b74\PHPStan\Parallel\Schedule
     {
         $jobs = \array_chunk($files, $this->jobSize);
         $numberOfProcesses = \min(\max((int) \floor(\count($jobs) / $this->minimumNumberOfJobsPerProcess), 1), $cpuCores);
-        return new \_PhpScoper0a6b37af0871\PHPStan\Parallel\Schedule(\min($numberOfProcesses, $this->maximumNumberOfProcesses), $jobs);
+        return new \_PhpScoperb75b35f52b74\PHPStan\Parallel\Schedule(\min($numberOfProcesses, $this->maximumNumberOfProcesses), $jobs);
     }
 }

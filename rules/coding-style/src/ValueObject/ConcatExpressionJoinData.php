@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\ValueObject;
+namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\ValueObject;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
 final class ConcatExpressionJoinData
 {
     /**
@@ -23,7 +23,7 @@ final class ConcatExpressionJoinData
     {
         $this->values[] = $value;
     }
-    public function addNodeToRemove(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : void
+    public function addNodeToRemove(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : void
     {
         $this->nodesToRemove[] = $node;
     }
@@ -38,7 +38,7 @@ final class ConcatExpressionJoinData
     {
         return $this->nodesToRemove;
     }
-    public function addPlaceholderToNode(string $objectHash, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr $expr) : void
+    public function addPlaceholderToNode(string $objectHash, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr $expr) : void
     {
         $this->placeholdersToNodes[$objectHash] = $expr;
     }

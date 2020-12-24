@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Defluent\Tests\Rector\Return_\ReturnFluentChainMethodCallToNormalMethodCallRector\Source;
+namespace _PhpScoperb75b35f52b74\Rector\Defluent\Tests\Rector\Return_\ReturnFluentChainMethodCallToNormalMethodCallRector\Source;
 
-final class FluentInterfaceClass extends \_PhpScoper0a6b37af0871\Rector\Defluent\Tests\Rector\Return_\ReturnFluentChainMethodCallToNormalMethodCallRector\Source\InterFluentInterfaceClass
+final class FluentInterfaceClass extends \_PhpScoperb75b35f52b74\Rector\Defluent\Tests\Rector\Return_\ReturnFluentChainMethodCallToNormalMethodCallRector\Source\InterFluentInterfaceClass
 {
     /**
      * @var int

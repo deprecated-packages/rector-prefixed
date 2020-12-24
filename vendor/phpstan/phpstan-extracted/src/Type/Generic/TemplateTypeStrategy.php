@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type\Generic;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type\Generic;
 
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
 interface TemplateTypeStrategy
 {
-    public function accepts(\_PhpScoper0a6b37af0871\PHPStan\Type\Generic\TemplateType $left, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $right, bool $strictTypes) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+    public function accepts(\_PhpScoperb75b35f52b74\PHPStan\Type\Generic\TemplateType $left, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $right, bool $strictTypes) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
     public function isArgument() : bool;
 }

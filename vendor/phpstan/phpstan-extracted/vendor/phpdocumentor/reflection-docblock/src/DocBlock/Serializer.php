@@ -10,10 +10,10 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Converts a DocBlock back from an object to a complete DocComment including Asterisks.
  */
@@ -40,16 +40,16 @@ class Serializer
      */
     public function __construct($indent = 0, $indentString = ' ', $indentFirstLine = \true, $lineLength = null, $tagFormatter = null)
     {
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::integer($indent);
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($indentString);
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::boolean($indentFirstLine);
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::nullOrInteger($lineLength);
-        \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::nullOrIsInstanceOf($tagFormatter, '_PhpScoper0a6b37af0871\\_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Formatter');
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::integer($indent);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($indentString);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::boolean($indentFirstLine);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::nullOrInteger($lineLength);
+        \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::nullOrIsInstanceOf($tagFormatter, '_PhpScoperb75b35f52b74\\_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\DocBlock\\Tags\\Formatter');
         $this->indent = $indent;
         $this->indentString = $indentString;
         $this->isFirstLineIndented = $indentFirstLine;
         $this->lineLength = $lineLength;
-        $this->tagFormatter = $tagFormatter ?: new \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+        $this->tagFormatter = $tagFormatter ?: new \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
     }
     /**
      * Generate a DocBlock comment.
@@ -58,7 +58,7 @@ class Serializer
      *
      * @return string The serialized doc block.
      */
-    public function getDocComment(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock $docblock)
+    public function getDocComment(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock $docblock)
     {
         $indent = \str_repeat($this->indentString, $this->indent);
         $firstIndent = $this->isFirstLineIndented ? $indent : '';
@@ -97,7 +97,7 @@ class Serializer
      * @param $wrapLength
      * @return string
      */
-    private function getSummaryAndDescriptionTextBlock(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock $docblock, $wrapLength)
+    private function getSummaryAndDescriptionTextBlock(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock $docblock, $wrapLength)
     {
         $text = $docblock->getSummary() . ((string) $docblock->getDescription() ? "\n\n" . $docblock->getDescription() : '');
         if ($wrapLength !== null) {
@@ -113,7 +113,7 @@ class Serializer
      * @param $comment
      * @return string
      */
-    private function addTagBlock(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock $docblock, $wrapLength, $indent, $comment)
+    private function addTagBlock(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock $docblock, $wrapLength, $indent, $comment)
     {
         foreach ($docblock->getTags() as $tag) {
             $tagText = $this->tagFormatter->format($tag);

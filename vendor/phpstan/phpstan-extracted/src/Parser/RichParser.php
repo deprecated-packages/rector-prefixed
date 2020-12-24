@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Parser;
+namespace _PhpScoperb75b35f52b74\PHPStan\Parser;
 
-use _PhpScoper0a6b37af0871\PhpParser\ErrorHandler\Collecting;
-use _PhpScoper0a6b37af0871\PhpParser\NodeTraverser;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NodeConnectingVisitor;
-use _PhpScoper0a6b37af0871\PHPStan\File\FileReader;
-use _PhpScoper0a6b37af0871\PHPStan\NodeVisitor\StatementOrderVisitor;
-class RichParser implements \_PhpScoper0a6b37af0871\PHPStan\Parser\Parser
+use _PhpScoperb75b35f52b74\PhpParser\ErrorHandler\Collecting;
+use _PhpScoperb75b35f52b74\PhpParser\NodeTraverser;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NameResolver;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NodeConnectingVisitor;
+use _PhpScoperb75b35f52b74\PHPStan\File\FileReader;
+use _PhpScoperb75b35f52b74\PHPStan\NodeVisitor\StatementOrderVisitor;
+class RichParser implements \_PhpScoperb75b35f52b74\PHPStan\Parser\Parser
 {
     /** @var \PhpParser\Parser */
     private $parser;
@@ -19,7 +19,7 @@ class RichParser implements \_PhpScoper0a6b37af0871\PHPStan\Parser\Parser
     private $nodeConnectingVisitor;
     /** @var StatementOrderVisitor */
     private $statementOrderVisitor;
-    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Parser $parser, \_PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NameResolver $nameResolver, \_PhpScoper0a6b37af0871\PhpParser\NodeVisitor\NodeConnectingVisitor $nodeConnectingVisitor, \_PhpScoper0a6b37af0871\PHPStan\NodeVisitor\StatementOrderVisitor $statementOrderVisitor)
+    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Parser $parser, \_PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NameResolver $nameResolver, \_PhpScoperb75b35f52b74\PhpParser\NodeVisitor\NodeConnectingVisitor $nodeConnectingVisitor, \_PhpScoperb75b35f52b74\PHPStan\NodeVisitor\StatementOrderVisitor $statementOrderVisitor)
     {
         $this->parser = $parser;
         $this->nameResolver = $nameResolver;
@@ -33,9 +33,9 @@ class RichParser implements \_PhpScoper0a6b37af0871\PHPStan\Parser\Parser
     public function parseFile(string $file) : array
     {
         try {
-            return $this->parseString(\_PhpScoper0a6b37af0871\PHPStan\File\FileReader::read($file));
-        } catch (\_PhpScoper0a6b37af0871\PHPStan\Parser\ParserErrorsException $e) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\Parser\ParserErrorsException($e->getErrors(), $file);
+            return $this->parseString(\_PhpScoperb75b35f52b74\PHPStan\File\FileReader::read($file));
+        } catch (\_PhpScoperb75b35f52b74\PHPStan\Parser\ParserErrorsException $e) {
+            throw new \_PhpScoperb75b35f52b74\PHPStan\Parser\ParserErrorsException($e->getErrors(), $file);
         }
     }
     /**
@@ -44,15 +44,15 @@ class RichParser implements \_PhpScoper0a6b37af0871\PHPStan\Parser\Parser
      */
     public function parseString(string $sourceCode) : array
     {
-        $errorHandler = new \_PhpScoper0a6b37af0871\PhpParser\ErrorHandler\Collecting();
+        $errorHandler = new \_PhpScoperb75b35f52b74\PhpParser\ErrorHandler\Collecting();
         $nodes = $this->parser->parse($sourceCode, $errorHandler);
         if ($errorHandler->hasErrors()) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\Parser\ParserErrorsException($errorHandler->getErrors(), null);
+            throw new \_PhpScoperb75b35f52b74\PHPStan\Parser\ParserErrorsException($errorHandler->getErrors(), null);
         }
         if ($nodes === null) {
-            throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+            throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
         }
-        $nodeTraverser = new \_PhpScoper0a6b37af0871\PhpParser\NodeTraverser();
+        $nodeTraverser = new \_PhpScoperb75b35f52b74\PhpParser\NodeTraverser();
         $nodeTraverser->addVisitor($this->nameResolver);
         $nodeTraverser->addVisitor($this->nodeConnectingVisitor);
         $nodeTraverser->addVisitor($this->statementOrderVisitor);

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocNodeFactory\JMS;
+namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocNodeFactory\JMS;
 
-use _PhpScoper0a6b37af0871\JMS\DiExtraBundle\Annotation\Inject;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use _PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Parser\TokenIterator;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-final class JMSInjectPhpDocNodeFactory extends \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface
+use _PhpScoperb75b35f52b74\JMS\DiExtraBundle\Annotation\Inject;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use _PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\TokenIterator;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+final class JMSInjectPhpDocNodeFactory extends \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -27,14 +27,14 @@ final class JMSInjectPhpDocNodeFactory extends \_PhpScoper0a6b37af0871\Rector\Be
      */
     public function getClasses() : array
     {
-        return ['_PhpScoper0a6b37af0871\\JMS\\DiExtraBundle\\Annotation\\Inject'];
+        return ['_PhpScoperb75b35f52b74\\JMS\\DiExtraBundle\\Annotation\\Inject'];
     }
     /**
      * @return JMSInjectTagValueNode|null
      */
-    public function createFromNodeAndTokens(\_PhpScoper0a6b37af0871\PhpParser\Node $node, \_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\_PhpScoper0a6b37af0871\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    public function createFromNodeAndTokens(\_PhpScoperb75b35f52b74\PhpParser\Node $node, \_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\_PhpScoperb75b35f52b74\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
-        if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Property) {
+        if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Property) {
             return null;
         }
         /** @var Inject|null $inject */
@@ -46,6 +46,6 @@ final class JMSInjectPhpDocNodeFactory extends \_PhpScoper0a6b37af0871\Rector\Be
         // needed for proper doc block formatting
         $annotationContent = $this->resolveContentFromTokenIterator($tokenIterator);
         $items = $this->annotationItemsResolver->resolve($inject);
-        return new \_PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode($items, $serviceName, $annotationContent);
+        return new \_PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode($items, $serviceName, $annotationContent);
     }
 }

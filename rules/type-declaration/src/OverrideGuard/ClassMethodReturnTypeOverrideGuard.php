@@ -1,33 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\TypeDeclaration\OverrideGuard;
+namespace _PhpScoperb75b35f52b74\Rector\TypeDeclaration\OverrideGuard;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\NodeVisitor;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ArrayType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\ShortenedObjectType;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\NodeVisitor;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ArrayType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName;
+use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\ShortenedObjectType;
 final class ClassMethodReturnTypeOverrideGuard
 {
     /**
      * @var array<string, array<string>>
      */
-    private const CHAOTIC_CLASS_METHOD_NAMES = [\_PhpScoper0a6b37af0871\PhpParser\NodeVisitor::class => ['enterNode', 'leaveNode', 'beforeTraverse', 'afterTraverse']];
+    private const CHAOTIC_CLASS_METHOD_NAMES = [\_PhpScoperb75b35f52b74\PhpParser\NodeVisitor::class => ['enterNode', 'leaveNode', 'beforeTraverse', 'afterTraverse']];
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function shouldSkipClassMethod(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function shouldSkipClassMethod(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         // 1. skip magic methods
         if ($this->nodeNameResolver->isName($classMethod->name, '__*')) {
@@ -36,9 +36,9 @@ final class ClassMethodReturnTypeOverrideGuard
         // 2. skip chaotic contract class methods
         return $this->shouldSkipChaoticClassMethods($classMethod);
     }
-    public function shouldSkipClassMethodOldTypeWithNewType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $oldType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $newType) : bool
+    public function shouldSkipClassMethodOldTypeWithNewType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $oldType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $newType) : bool
     {
-        if ($oldType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType) {
+        if ($oldType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType) {
             return \false;
         }
         if ($oldType->isSuperTypeOf($newType)->yes()) {
@@ -46,10 +46,10 @@ final class ClassMethodReturnTypeOverrideGuard
         }
         return $this->isArrayMutualType($newType, $oldType);
     }
-    private function shouldSkipChaoticClassMethods(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipChaoticClassMethods(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string|null $className */
-        $className = $classMethod->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classMethod->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
@@ -63,25 +63,25 @@ final class ClassMethodReturnTypeOverrideGuard
         }
         return \false;
     }
-    private function isArrayMutualType(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $newType, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $oldType) : bool
+    private function isArrayMutualType(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $newType, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $oldType) : bool
     {
-        if (!$newType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
+        if (!$newType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType) {
             return \false;
         }
-        if (!$oldType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\ArrayType) {
+        if (!$oldType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\ArrayType) {
             return \false;
         }
         $oldTypeWithClassName = $oldType->getItemType();
-        if (!$oldTypeWithClassName instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName) {
+        if (!$oldTypeWithClassName instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         $arrayItemType = $newType->getItemType();
-        if (!$arrayItemType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType) {
+        if (!$arrayItemType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType) {
             return \false;
         }
         $isMatchingClassTypes = \false;
         foreach ($arrayItemType->getTypes() as $newUnionedType) {
-            if (!$newUnionedType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName) {
+            if (!$newUnionedType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
                 return \false;
             }
             $oldClass = $this->resolveClass($oldTypeWithClassName);
@@ -94,9 +94,9 @@ final class ClassMethodReturnTypeOverrideGuard
         }
         return $isMatchingClassTypes;
     }
-    private function resolveClass(\_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
+    private function resolveClass(\_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
     {
-        if ($typeWithClassName instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\ShortenedObjectType) {
+        if ($typeWithClassName instanceof \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\ShortenedObjectType) {
             return $typeWithClassName->getFullyQualifiedName();
         }
         return $typeWithClassName->getClassName();

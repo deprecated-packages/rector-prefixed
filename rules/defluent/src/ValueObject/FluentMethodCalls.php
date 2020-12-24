@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Defluent\ValueObject;
+namespace _PhpScoperb75b35f52b74\Rector\Defluent\ValueObject;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
 final class FluentMethodCalls
 {
     /**
@@ -21,13 +21,13 @@ final class FluentMethodCalls
     /**
      * @param MethodCall[] $fluentMethodCalls
      */
-    public function __construct(\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $rootMethodCall, array $fluentMethodCalls, \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall $lastMethodCall)
+    public function __construct(\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $rootMethodCall, array $fluentMethodCalls, \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall $lastMethodCall)
     {
         $this->rootMethodCall = $rootMethodCall;
         $this->fluentMethodCalls = $fluentMethodCalls;
         $this->lastMethodCall = $lastMethodCall;
     }
-    public function getRootMethodCall() : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall
+    public function getRootMethodCall() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall
     {
         return $this->rootMethodCall;
     }
@@ -38,7 +38,7 @@ final class FluentMethodCalls
     {
         return $this->fluentMethodCalls;
     }
-    public function getLastMethodCall() : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall
+    public function getLastMethodCall() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall
     {
         return $this->lastMethodCall;
     }

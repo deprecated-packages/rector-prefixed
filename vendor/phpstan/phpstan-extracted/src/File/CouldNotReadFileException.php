@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\File;
+namespace _PhpScoperb75b35f52b74\PHPStan\File;
 
-class CouldNotReadFileException extends \_PhpScoper0a6b37af0871\PHPStan\AnalysedCodeException
+class CouldNotReadFileException extends \_PhpScoperb75b35f52b74\PHPStan\AnalysedCodeException
 {
     public function __construct(string $fileName)
     {

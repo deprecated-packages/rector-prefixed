@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Defluent\ValueObject;
+namespace _PhpScoperb75b35f52b74\Rector\Defluent\ValueObject;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Return_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Return_;
 final class AssignAndRootExprAndNodesToAdd
 {
     /**
@@ -18,7 +18,7 @@ final class AssignAndRootExprAndNodesToAdd
     /**
      * @param array<Expr|Return_> $nodesToAdd
      */
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, array $nodesToAdd)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, array $nodesToAdd)
     {
         $this->assignAndRootExpr = $assignAndRootExpr;
         $this->nodesToAdd = $nodesToAdd;
@@ -30,7 +30,7 @@ final class AssignAndRootExprAndNodesToAdd
     {
         return $this->nodesToAdd;
     }
-    public function getRootCallerExpr() : \_PhpScoper0a6b37af0871\PhpParser\Node\Expr
+    public function getRootCallerExpr() : \_PhpScoperb75b35f52b74\PhpParser\Node\Expr
     {
         return $this->assignAndRootExpr->getCallerExpr();
     }

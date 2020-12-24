@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
+namespace _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-final class ClassConstNameResolver implements \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+final class ClassConstNameResolver implements \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     /**
      * @var NodeNameResolver
@@ -16,18 +16,18 @@ final class ClassConstNameResolver implements \_PhpScoper0a6b37af0871\Rector\Nod
     /**
      * @required
      */
-    public function autowireClassConstNameResolver(\_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
+    public function autowireClassConstNameResolver(\_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
     public function getNode() : string
     {
-        return \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassConst::class;
+        return \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassConst::class;
     }
     /**
      * @param ClassConst $node
      */
-    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?string
+    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?string
     {
         if ($node->consts === []) {
             return null;

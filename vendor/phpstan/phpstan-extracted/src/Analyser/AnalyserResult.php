@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Analyser;
+namespace _PhpScoperb75b35f52b74\PHPStan\Analyser;
 
-use _PhpScoper0a6b37af0871\PHPStan\Dependency\ExportedNode;
+use _PhpScoperb75b35f52b74\PHPStan\Dependency\ExportedNode;
 class AnalyserResult
 {
     /** @var \PHPStan\Analyser\Error[] */
@@ -28,7 +28,7 @@ class AnalyserResult
     public function __construct(array $errors, array $internalErrors, ?array $dependencies, array $exportedNodes, bool $reachedInternalErrorsCountLimit)
     {
         $this->unorderedErrors = $errors;
-        \usort($errors, static function (\_PhpScoper0a6b37af0871\PHPStan\Analyser\Error $a, \_PhpScoper0a6b37af0871\PHPStan\Analyser\Error $b) : int {
+        \usort($errors, static function (\_PhpScoperb75b35f52b74\PHPStan\Analyser\Error $a, \_PhpScoperb75b35f52b74\PHPStan\Analyser\Error $b) : int {
             return [$a->getFile(), $a->getLine(), $a->getMessage()] <=> [$b->getFile(), $b->getLine(), $b->getMessage()];
         });
         $this->errors = $errors;

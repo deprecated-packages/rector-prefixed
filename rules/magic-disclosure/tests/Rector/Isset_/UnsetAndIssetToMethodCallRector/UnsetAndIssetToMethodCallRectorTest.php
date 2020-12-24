@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\MagicDisclosure\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector;
+namespace _PhpScoperb75b35f52b74\Rector\MagicDisclosure\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector;
 
 use Iterator;
-use _PhpScoper0a6b37af0871\Rector\MagicDisclosure\Rector\Isset_\UnsetAndIssetToMethodCallRector;
-use _PhpScoper0a6b37af0871\Rector\MagicDisclosure\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector\Source\LocalContainer;
-use _PhpScoper0a6b37af0871\Rector\MagicDisclosure\ValueObject\IssetUnsetToMethodCall;
-use _PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo;
-final class UnsetAndIssetToMethodCallRectorTest extends \_PhpScoper0a6b37af0871\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoperb75b35f52b74\Rector\MagicDisclosure\Rector\Isset_\UnsetAndIssetToMethodCallRector;
+use _PhpScoperb75b35f52b74\Rector\MagicDisclosure\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector\Source\LocalContainer;
+use _PhpScoperb75b35f52b74\Rector\MagicDisclosure\ValueObject\IssetUnsetToMethodCall;
+use _PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use _PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo;
+final class UnsetAndIssetToMethodCallRectorTest extends \_PhpScoperb75b35f52b74\Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper0a6b37af0871\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\_PhpScoperb75b35f52b74\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class UnsetAndIssetToMethodCallRectorTest extends \_PhpScoper0a6b37af0871\
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper0a6b37af0871\Rector\MagicDisclosure\Rector\Isset_\UnsetAndIssetToMethodCallRector::class => [\_PhpScoper0a6b37af0871\Rector\MagicDisclosure\Rector\Isset_\UnsetAndIssetToMethodCallRector::ISSET_UNSET_TO_METHOD_CALL => [new \_PhpScoper0a6b37af0871\Rector\MagicDisclosure\ValueObject\IssetUnsetToMethodCall(\_PhpScoper0a6b37af0871\Rector\MagicDisclosure\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector\Source\LocalContainer::class, 'hasService', 'removeService')]]];
+        return [\_PhpScoperb75b35f52b74\Rector\MagicDisclosure\Rector\Isset_\UnsetAndIssetToMethodCallRector::class => [\_PhpScoperb75b35f52b74\Rector\MagicDisclosure\Rector\Isset_\UnsetAndIssetToMethodCallRector::ISSET_UNSET_TO_METHOD_CALL => [new \_PhpScoperb75b35f52b74\Rector\MagicDisclosure\ValueObject\IssetUnsetToMethodCall(\_PhpScoperb75b35f52b74\Rector\MagicDisclosure\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector\Source\LocalContainer::class, 'hasService', 'removeService')]]];
     }
 }

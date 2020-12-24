@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Fixture\Event;
+namespace _PhpScoperb75b35f52b74\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Fixture\Event;
 
-final class DuplicatedEventParamsUploadEvent extends \_PhpScoper0a6b37af0871\Symfony\Contracts\EventDispatcher\Event
+final class DuplicatedEventParamsUploadEvent extends \_PhpScoperb75b35f52b74\Symfony\Contracts\EventDispatcher\Event
 {
     /**
      * @var mixed

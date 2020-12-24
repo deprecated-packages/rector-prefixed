@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\Doctrine\Tests\Rector\MethodCall\ChangeGetUuidMethodCallToGetIdRector\Source;
+namespace _PhpScoperb75b35f52b74\Rector\Doctrine\Tests\Rector\MethodCall\ChangeGetUuidMethodCallToGetIdRector\Source;
 
-use _PhpScoper0a6b37af0871\Doctrine\ORM\Mapping as ORM;
-use _PhpScoper0a6b37af0871\Ramsey\Uuid\UuidInterface;
+use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping as ORM;
+use _PhpScoperb75b35f52b74\Ramsey\Uuid\UuidInterface;
 /**
  * @ORM\Entity
  */
 class Car
 {
     private $uuid;
-    public function getUuid() : \_PhpScoper0a6b37af0871\Ramsey\Uuid\UuidInterface
+    public function getUuid() : \_PhpScoperb75b35f52b74\Ramsey\Uuid\UuidInterface
     {
         return $this->uuid;
     }

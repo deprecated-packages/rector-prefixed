@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\Stream;
+namespace _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\Stream;
 
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
 use InvalidArgumentException;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
-use _PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
+use _PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * @internal
  * @see unwrapWritable() instead
  */
-class UnwrapWritableStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface
+class UnwrapWritableStream extends \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface
 {
     private $promise;
     private $stream;
@@ -23,7 +23,7 @@ class UnwrapWritableStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81
      *
      * @param PromiseInterface $promise Promise<WritableStreamInterface, Exception>
      */
-    public function __construct(\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise)
+    public function __construct(\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise)
     {
         $out = $this;
         $store =& $this->stream;
@@ -31,11 +31,11 @@ class UnwrapWritableStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81
         $ending =& $this->ending;
         $closed =& $this->closed;
         $this->promise = $promise->then(function ($stream) {
-            if (!$stream instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface) {
+            if (!$stream instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface) {
                 throw new \InvalidArgumentException('Not a writable stream');
             }
             return $stream;
-        })->then(function (\_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $stream) use($out, &$store, &$buffer, &$ending, &$closed) {
+        })->then(function (\_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $stream) use($out, &$store, &$buffer, &$ending, &$closed) {
             // stream is already closed, make sure to close output stream
             if (!$stream->isWritable()) {
                 $out->close();
@@ -126,7 +126,7 @@ class UnwrapWritableStream extends \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81
         $this->ending = \true;
         $this->closed = \true;
         // try to cancel promise once the stream closes
-        if ($this->promise instanceof \_PhpScoper0a6b37af0871\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface) {
+        if ($this->promise instanceof \_PhpScoperb75b35f52b74\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface) {
             $this->promise->cancel();
         }
         $this->promise = $this->stream = null;

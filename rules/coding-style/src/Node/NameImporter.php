@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\CodingStyle\Node;
+namespace _PhpScoperb75b35f52b74\Rector\CodingStyle\Node;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\UseUse;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport\AliasUsesResolver;
-use _PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
-use _PhpScoper0a6b37af0871\Rector\Core\Configuration\Option;
-use _PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType;
-use _PhpScoper0a6b37af0871\Rector\PostRector\Collector\UseNodesToAddCollector;
-use _PhpScoper0a6b37af0871\Rector\PSR4\Collector\RenamedClassesCollector;
-use _PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper;
-use _PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\AliasUsesResolver;
+use _PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
+use _PhpScoperb75b35f52b74\Rector\Core\Configuration\Option;
+use _PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType;
+use _PhpScoperb75b35f52b74\Rector\PostRector\Collector\UseNodesToAddCollector;
+use _PhpScoperb75b35f52b74\Rector\PSR4\Collector\RenamedClassesCollector;
+use _PhpScoperb75b35f52b74\Rector\StaticTypeMapper\StaticTypeMapper;
+use _PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class NameImporter
 {
     /**
@@ -54,7 +54,7 @@ final class NameImporter
      * @var RenamedClassesCollector
      */
     private $renamedClassesCollector;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver, \_PhpScoper0a6b37af0871\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \_PhpScoper0a6b37af0871\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper0a6b37af0871\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper0a6b37af0871\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \_PhpScoper0a6b37af0871\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScoper0a6b37af0871\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver, \_PhpScoperb75b35f52b74\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \_PhpScoperb75b35f52b74\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoperb75b35f52b74\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoperb75b35f52b74\Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \_PhpScoperb75b35f52b74\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \_PhpScoperb75b35f52b74\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->aliasUsesResolver = $aliasUsesResolver;
@@ -64,7 +64,7 @@ final class NameImporter
         $this->useNodesToAddCollector = $useNodesToAddCollector;
         $this->renamedClassesCollector = $renamedClassesCollector;
     }
-    public function importName(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Name
+    public function importName(\_PhpScoperb75b35f52b74\PhpParser\Node\Name $name) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Name
     {
         if ($this->shouldSkipName($name)) {
             return null;
@@ -73,15 +73,15 @@ final class NameImporter
             return null;
         }
         $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($name);
-        if (!$staticType instanceof \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType) {
+        if (!$staticType instanceof \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType) {
             return null;
         }
         $this->aliasedUses = $this->aliasUsesResolver->resolveForNode($name);
         return $this->importNameAndCollectNewUseStatement($name, $staticType);
     }
-    private function shouldSkipName(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name) : bool
+    private function shouldSkipName(\_PhpScoperb75b35f52b74\PhpParser\Node\Name $name) : bool
     {
-        $virtualNode = $name->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::VIRTUAL_NODE);
+        $virtualNode = $name->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::VIRTUAL_NODE);
         if ($virtualNode) {
             return \true;
         }
@@ -101,7 +101,7 @@ final class NameImporter
             return \true;
         }
         // Importing root namespace classes (like \DateTime) is optional
-        $importShortClasses = $this->parameterProvider->provideParameter(\_PhpScoper0a6b37af0871\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES);
+        $importShortClasses = $this->parameterProvider->provideParameter(\_PhpScoperb75b35f52b74\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES);
         if (!$importShortClasses) {
             $name = $this->nodeNameResolver->getName($name);
             if ($name !== null && \substr_count($name, '\\') === 0) {
@@ -110,7 +110,7 @@ final class NameImporter
         }
         return \false;
     }
-    private function importNameAndCollectNewUseStatement(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name, \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : ?\_PhpScoper0a6b37af0871\PhpParser\Node\Name
+    private function importNameAndCollectNewUseStatement(\_PhpScoperb75b35f52b74\PhpParser\Node\Name $name, \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : ?\_PhpScoperb75b35f52b74\PhpParser\Node\Name
     {
         // the same end is already imported → skip
         if ($this->classNameImportSkipper->shouldSkipNameForFullyQualifiedObjectType($name, $fullyQualifiedObjectType)) {
@@ -136,25 +136,25 @@ final class NameImporter
      * - namespace name
      * - use import name
      */
-    private function isNamespaceOrUseImportName(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name) : bool
+    private function isNamespaceOrUseImportName(\_PhpScoperb75b35f52b74\PhpParser\Node\Name $name) : bool
     {
-        $parentNode = $name->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Namespace_) {
+        $parentNode = $name->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Namespace_) {
             return \true;
         }
-        return $parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\UseUse;
+        return $parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\UseUse;
     }
-    private function isFunctionOrConstantImportWithSingleName(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name) : bool
+    private function isFunctionOrConstantImportWithSingleName(\_PhpScoperb75b35f52b74\PhpParser\Node\Name $name) : bool
     {
-        $parentNode = $name->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch && !$parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
+        $parentNode = $name->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch && !$parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
         return \count((array) $name->parts) === 1;
     }
-    private function isNonExistingClassLikeAndFunctionFullyQualifiedName(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name) : bool
+    private function isNonExistingClassLikeAndFunctionFullyQualifiedName(\_PhpScoperb75b35f52b74\PhpParser\Node\Name $name) : bool
     {
-        if (!$name instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Name\FullyQualified) {
+        if (!$name instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Name\FullyQualified) {
             return \false;
         }
         // can be also in to be renamed classes
@@ -164,18 +164,18 @@ final class NameImporter
             return \false;
         }
         // skip-non existing class-likes and functions
-        if (\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($classOrFunctionName)) {
+        if (\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($classOrFunctionName)) {
             return \false;
         }
         return !\function_exists($classOrFunctionName);
     }
-    private function addUseImport(\_PhpScoper0a6b37af0871\PhpParser\Node\Name $name, \_PhpScoper0a6b37af0871\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : void
+    private function addUseImport(\_PhpScoperb75b35f52b74\PhpParser\Node\Name $name, \_PhpScoperb75b35f52b74\Rector\PHPStan\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : void
     {
         if ($this->useNodesToAddCollector->hasImport($name, $fullyQualifiedObjectType)) {
             return;
         }
-        $parentNode = $name->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\FuncCall) {
+        $parentNode = $name->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\FuncCall) {
             $this->useNodesToAddCollector->addFunctionUseImport($name, $fullyQualifiedObjectType);
         } else {
             $this->useNodesToAddCollector->addUseImport($name, $fullyQualifiedObjectType);

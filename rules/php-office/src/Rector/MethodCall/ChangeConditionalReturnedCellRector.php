@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\PHPOffice\Rector\MethodCall;
+namespace _PhpScoperb75b35f52b74\Rector\PHPOffice\Rector\MethodCall;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Identifier;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\PHPOffice\ValueObject\ConditionalSetValue;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Identifier;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\PHPOffice\ValueObject\ConditionalSetValue;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/migration-from-PHPExcel.md#dropped-conditionally-returned-cell
  *
  * @see \Rector\PHPOffice\Tests\Rector\MethodCall\ChangeConditionalReturnedCellRector\ChangeConditionalReturnedCellRectorTest
  */
-final class ChangeConditionalReturnedCellRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class ChangeConditionalReturnedCellRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ConditionalSetValue[]
@@ -23,14 +23,14 @@ final class ChangeConditionalReturnedCellRector extends \_PhpScoper0a6b37af0871\
     private $conditionalSetValues = [];
     public function __construct()
     {
-        $this->conditionalSetValues[] = new \_PhpScoper0a6b37af0871\Rector\PHPOffice\ValueObject\ConditionalSetValue('setCellValue', 'getCell', 'setValue', 2, \false);
-        $this->conditionalSetValues[] = new \_PhpScoper0a6b37af0871\Rector\PHPOffice\ValueObject\ConditionalSetValue('setCellValueByColumnAndRow', 'getCellByColumnAndRow', 'setValue', 3, \true);
-        $this->conditionalSetValues[] = new \_PhpScoper0a6b37af0871\Rector\PHPOffice\ValueObject\ConditionalSetValue('setCellValueExplicit', 'getCell', 'setValueExplicit', 3, \false);
-        $this->conditionalSetValues[] = new \_PhpScoper0a6b37af0871\Rector\PHPOffice\ValueObject\ConditionalSetValue('setCellValueExplicitByColumnAndRow', 'getCellByColumnAndRow', 'setValueExplicit', 4, \true);
+        $this->conditionalSetValues[] = new \_PhpScoperb75b35f52b74\Rector\PHPOffice\ValueObject\ConditionalSetValue('setCellValue', 'getCell', 'setValue', 2, \false);
+        $this->conditionalSetValues[] = new \_PhpScoperb75b35f52b74\Rector\PHPOffice\ValueObject\ConditionalSetValue('setCellValueByColumnAndRow', 'getCellByColumnAndRow', 'setValue', 3, \true);
+        $this->conditionalSetValues[] = new \_PhpScoperb75b35f52b74\Rector\PHPOffice\ValueObject\ConditionalSetValue('setCellValueExplicit', 'getCell', 'setValueExplicit', 3, \false);
+        $this->conditionalSetValues[] = new \_PhpScoperb75b35f52b74\Rector\PHPOffice\ValueObject\ConditionalSetValue('setCellValueExplicitByColumnAndRow', 'getCellByColumnAndRow', 'setValueExplicit', 4, \true);
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change conditional call to getCell()', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change conditional call to getCell()', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -57,12 +57,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (!$this->isObjectType($node->var, 'PHPExcel_Worksheet')) {
             return null;
@@ -84,10 +84,10 @@ CODE_SAMPLE
                 unset($args[1]);
             }
             $variable = clone $node->var;
-            $getCellMethodCall = new \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\MethodCall($variable, $conditionalSetValue->getNewGetMethod(), $locationArgs);
+            $getCellMethodCall = new \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\MethodCall($variable, $conditionalSetValue->getNewGetMethod(), $locationArgs);
             $node->var = $getCellMethodCall;
             $node->args = $args;
-            $node->name = new \_PhpScoper0a6b37af0871\PhpParser\Node\Identifier($conditionalSetValue->getNewSetMethod());
+            $node->name = new \_PhpScoperb75b35f52b74\PhpParser\Node\Identifier($conditionalSetValue->getNewSetMethod());
         }
         return $node;
     }

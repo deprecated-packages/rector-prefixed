@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\DoctrineEntity;
+namespace _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\DoctrineEntity;
 
-use _PhpScoper0a6b37af0871\Doctrine\ORM\Mapping as ORM;
+use _PhpScoperb75b35f52b74\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(
  *     name="my_entity",

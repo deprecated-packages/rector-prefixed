@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Rules;
+namespace _PhpScoperb75b35f52b74\PHPStan\Rules;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable;
-use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Param;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\UnionType;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Php\PhpVersion;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflectionWithPhpDocs;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a6b37af0871\PHPStan\Type\NonexistentParentClassType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel;
-use _PhpScoper0a6b37af0871\PHPStan\Type\VoidType;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable;
+use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Param;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\UnionType;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParameterReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParameterReflectionWithPhpDocs;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoperb75b35f52b74\PHPStan\Type\NonexistentParentClassType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel;
+use _PhpScoperb75b35f52b74\PHPStan\Type\VoidType;
 class FunctionDefinitionCheck
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
@@ -35,7 +35,7 @@ class FunctionDefinitionCheck
     private $checkClassCaseSensitivity;
     /** @var bool */
     private $checkThisOnly;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper0a6b37af0871\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \_PhpScoper0a6b37af0871\PHPStan\Php\PhpVersion $phpVersion, bool $checkClassCaseSensitivity, bool $checkThisOnly)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoperb75b35f52b74\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \_PhpScoperb75b35f52b74\PHPStan\Php\PhpVersion $phpVersion, bool $checkClassCaseSensitivity, bool $checkThisOnly)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
@@ -50,9 +50,9 @@ class FunctionDefinitionCheck
      * @param string $unionTypesMessage
      * @return RuleError[]
      */
-    public function checkFunction(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_ $function, \_PhpScoper0a6b37af0871\PHPStan\Reflection\FunctionReflection $functionReflection, string $parameterMessage, string $returnMessage, string $unionTypesMessage) : array
+    public function checkFunction(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_ $function, \_PhpScoperb75b35f52b74\PHPStan\Reflection\FunctionReflection $functionReflection, string $parameterMessage, string $returnMessage, string $unionTypesMessage) : array
     {
-        $parametersAcceptor = \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants());
+        $parametersAcceptor = \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants());
         return $this->checkParametersAcceptor($parametersAcceptor, $function, $parameterMessage, $returnMessage, $unionTypesMessage);
     }
     /**
@@ -64,7 +64,7 @@ class FunctionDefinitionCheck
      * @param string $unionTypesMessage
      * @return \PHPStan\Rules\RuleError[]
      */
-    public function checkAnonymousFunction(\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, array $parameters, $returnTypeNode, string $parameterMessage, string $returnMessage, string $unionTypesMessage) : array
+    public function checkAnonymousFunction(\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, array $parameters, $returnTypeNode, string $parameterMessage, string $returnMessage, string $unionTypesMessage) : array
     {
         $errors = [];
         $unionTypeReported = \false;
@@ -72,22 +72,22 @@ class FunctionDefinitionCheck
             if ($param->type === null) {
                 continue;
             }
-            if (!$unionTypeReported && $param->type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType && !$this->phpVersion->supportsNativeUnionTypes()) {
-                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message($unionTypesMessage)->line($param->getLine())->nonIgnorable()->build();
+            if (!$unionTypeReported && $param->type instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\UnionType && !$this->phpVersion->supportsNativeUnionTypes()) {
+                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message($unionTypesMessage)->line($param->getLine())->nonIgnorable()->build();
                 $unionTypeReported = \true;
             }
-            if (!$param->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
-                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+            if (!$param->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
+                throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
             }
             $type = $scope->getFunctionType($param->type, \false, \false);
-            if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\VoidType) {
-                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $param->var->name, 'void'))->line($param->type->getLine())->nonIgnorable()->build();
+            if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\VoidType) {
+                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $param->var->name, 'void'))->line($param->type->getLine())->nonIgnorable()->build();
             }
             foreach ($type->getReferencedClasses() as $class) {
                 if (!$this->reflectionProvider->hasClass($class) || $this->reflectionProvider->getClass($class)->isTrait()) {
-                    $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $param->var->name, $class))->line($param->type->getLine())->build();
+                    $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $param->var->name, $class))->line($param->type->getLine())->build();
                 } elseif ($this->checkClassCaseSensitivity) {
-                    $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames([new \_PhpScoper0a6b37af0871\PHPStan\Rules\ClassNameNodePair($class, $param->type)]));
+                    $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames([new \_PhpScoperb75b35f52b74\PHPStan\Rules\ClassNameNodePair($class, $param->type)]));
                 }
             }
         }
@@ -97,15 +97,15 @@ class FunctionDefinitionCheck
         if ($returnTypeNode === null) {
             return $errors;
         }
-        if (!$unionTypeReported && $returnTypeNode instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType && !$this->phpVersion->supportsNativeUnionTypes()) {
-            $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message($unionTypesMessage)->line($returnTypeNode->getLine())->nonIgnorable()->build();
+        if (!$unionTypeReported && $returnTypeNode instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\UnionType && !$this->phpVersion->supportsNativeUnionTypes()) {
+            $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message($unionTypesMessage)->line($returnTypeNode->getLine())->nonIgnorable()->build();
         }
         $returnType = $scope->getFunctionType($returnTypeNode, \false, \false);
         foreach ($returnType->getReferencedClasses() as $returnTypeClass) {
             if (!$this->reflectionProvider->hasClass($returnTypeClass) || $this->reflectionProvider->getClass($returnTypeClass)->isTrait()) {
-                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($returnMessage, $returnTypeClass))->line($returnTypeNode->getLine())->build();
+                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($returnMessage, $returnTypeClass))->line($returnTypeNode->getLine())->build();
             } elseif ($this->checkClassCaseSensitivity) {
-                $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames([new \_PhpScoper0a6b37af0871\PHPStan\Rules\ClassNameNodePair($returnTypeClass, $returnTypeNode)]));
+                $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames([new \_PhpScoperb75b35f52b74\PHPStan\Rules\ClassNameNodePair($returnTypeClass, $returnTypeNode)]));
             }
         }
         return $errors;
@@ -118,10 +118,10 @@ class FunctionDefinitionCheck
      * @param string $unionTypesMessage
      * @return RuleError[]
      */
-    public function checkClassMethod(\_PhpScoper0a6b37af0871\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection $methodReflection, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $methodNode, string $parameterMessage, string $returnMessage, string $unionTypesMessage) : array
+    public function checkClassMethod(\_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection $methodReflection, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $methodNode, string $parameterMessage, string $returnMessage, string $unionTypesMessage) : array
     {
         /** @var \PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parametersAcceptor */
-        $parametersAcceptor = \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
+        $parametersAcceptor = \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
         return $this->checkParametersAcceptor($parametersAcceptor, $methodNode, $parameterMessage, $returnMessage, $unionTypesMessage);
     }
     /**
@@ -132,22 +132,22 @@ class FunctionDefinitionCheck
      * @param string $unionTypesMessage
      * @return RuleError[]
      */
-    private function checkParametersAcceptor(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, \_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionNode, string $parameterMessage, string $returnMessage, string $unionTypesMessage) : array
+    private function checkParametersAcceptor(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, \_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionNode, string $parameterMessage, string $returnMessage, string $unionTypesMessage) : array
     {
         $errors = [];
         $parameterNodes = $functionNode->getParams();
         if (!$this->phpVersion->supportsNativeUnionTypes()) {
             $unionTypeReported = \false;
             foreach ($parameterNodes as $parameterNode) {
-                if (!$parameterNode->type instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType) {
+                if (!$parameterNode->type instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\UnionType) {
                     continue;
                 }
-                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message($unionTypesMessage)->line($parameterNode->getLine())->nonIgnorable()->build();
+                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message($unionTypesMessage)->line($parameterNode->getLine())->nonIgnorable()->build();
                 $unionTypeReported = \true;
                 break;
             }
-            if (!$unionTypeReported && $functionNode->getReturnType() instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\UnionType) {
-                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message($unionTypesMessage)->line($functionNode->getReturnType()->getLine())->nonIgnorable()->build();
+            if (!$unionTypeReported && $functionNode->getReturnType() instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\UnionType) {
+                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message($unionTypesMessage)->line($functionNode->getReturnType()->getLine())->nonIgnorable()->build();
             }
         }
         if ($this->phpVersion->deprecatesRequiredParameterAfterOptional()) {
@@ -163,43 +163,43 @@ class FunctionDefinitionCheck
                 }
                 return $parameterNode;
             };
-            if ($parameter instanceof \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflectionWithPhpDocs && $parameter->getNativeType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\VoidType) {
+            if ($parameter instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParameterReflectionWithPhpDocs && $parameter->getNativeType() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\VoidType) {
                 $parameterVar = $parameterNodeCallback()->var;
-                if (!$parameterVar instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable || !\is_string($parameterVar->name)) {
-                    throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+                if (!$parameterVar instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable || !\is_string($parameterVar->name)) {
+                    throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
                 }
-                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $parameterVar->name, 'void'))->line($parameterNodeCallback()->getLine())->nonIgnorable()->build();
+                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $parameterVar->name, 'void'))->line($parameterNodeCallback()->getLine())->nonIgnorable()->build();
             }
             foreach ($referencedClasses as $class) {
                 if ($this->reflectionProvider->hasClass($class) && !$this->reflectionProvider->getClass($class)->isTrait()) {
                     continue;
                 }
-                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $parameter->getName(), $class))->line($parameterNodeCallback()->getLine())->build();
+                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $parameter->getName(), $class))->line($parameterNodeCallback()->getLine())->build();
             }
             if ($this->checkClassCaseSensitivity) {
                 $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames(\array_map(static function (string $class) use($parameterNodeCallback) : ClassNameNodePair {
-                    return new \_PhpScoper0a6b37af0871\PHPStan\Rules\ClassNameNodePair($class, $parameterNodeCallback());
+                    return new \_PhpScoperb75b35f52b74\PHPStan\Rules\ClassNameNodePair($class, $parameterNodeCallback());
                 }, $referencedClasses)));
             }
-            if (!$parameter->getType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\NonexistentParentClassType) {
+            if (!$parameter->getType() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\NonexistentParentClassType) {
                 continue;
             }
-            $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::typeOnly())))->line($parameterNodeCallback()->getLine())->build();
+            $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly())))->line($parameterNodeCallback()->getLine())->build();
         }
         $returnTypeReferencedClasses = $this->getReturnTypeReferencedClasses($parametersAcceptor);
         foreach ($returnTypeReferencedClasses as $class) {
             if ($this->reflectionProvider->hasClass($class) && !$this->reflectionProvider->getClass($class)->isTrait()) {
                 continue;
             }
-            $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($returnMessage, $class))->line($returnTypeNode->getLine())->build();
+            $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($returnMessage, $class))->line($returnTypeNode->getLine())->build();
         }
         if ($this->checkClassCaseSensitivity) {
             $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames(\array_map(static function (string $class) use($returnTypeNode) : ClassNameNodePair {
-                return new \_PhpScoper0a6b37af0871\PHPStan\Rules\ClassNameNodePair($class, $returnTypeNode);
+                return new \_PhpScoperb75b35f52b74\PHPStan\Rules\ClassNameNodePair($class, $returnTypeNode);
             }, $returnTypeReferencedClasses)));
         }
-        if ($parametersAcceptor->getReturnType() instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\NonexistentParentClassType) {
-            $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe(\_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::typeOnly())))->line($returnTypeNode->getLine())->build();
+        if ($parametersAcceptor->getReturnType() instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\NonexistentParentClassType) {
+            $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe(\_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::typeOnly())))->line($returnTypeNode->getLine())->build();
         }
         return $errors;
     }
@@ -213,15 +213,15 @@ class FunctionDefinitionCheck
         $optionalParameter = null;
         $errors = [];
         foreach ($parameterNodes as $parameterNode) {
-            if (!$parameterNode->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Variable) {
-                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+            if (!$parameterNode->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Variable) {
+                throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
             }
             if (!\is_string($parameterNode->var->name)) {
-                throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException();
+                throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException();
             }
             $parameterName = $parameterNode->var->name;
             if ($optionalParameter !== null && $parameterNode->default === null && !$parameterNode->variadic) {
-                $errors[] = \_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Deprecated in PHP 8.0: Required parameter $%s follows optional parameter $%s.', $parameterName, $optionalParameter))->line($parameterNode->getStartLine())->nonIgnorable()->build();
+                $errors[] = \_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Deprecated in PHP 8.0: Required parameter $%s follows optional parameter $%s.', $parameterName, $optionalParameter))->line($parameterNode->getStartLine())->nonIgnorable()->build();
                 continue;
             }
             if ($parameterNode->default === null) {
@@ -232,7 +232,7 @@ class FunctionDefinitionCheck
                 continue;
             }
             $defaultValue = $parameterNode->default;
-            if (!$defaultValue instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\ConstFetch) {
+            if (!$defaultValue instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\ConstFetch) {
                 $optionalParameter = $parameterName;
                 continue;
             }
@@ -249,10 +249,10 @@ class FunctionDefinitionCheck
      * @param Param[] $parameterNodes
      * @return Param
      */
-    private function getParameterNode(string $parameterName, array $parameterNodes) : \_PhpScoper0a6b37af0871\PhpParser\Node\Param
+    private function getParameterNode(string $parameterName, array $parameterNodes) : \_PhpScoperb75b35f52b74\PhpParser\Node\Param
     {
         foreach ($parameterNodes as $param) {
-            if ($param->var instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\Error) {
+            if ($param->var instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\Error) {
                 continue;
             }
             if (!\is_string($param->var->name)) {
@@ -262,15 +262,15 @@ class FunctionDefinitionCheck
                 return $param;
             }
         }
-        throw new \_PhpScoper0a6b37af0871\PHPStan\ShouldNotHappenException(\sprintf('Parameter %s not found.', $parameterName));
+        throw new \_PhpScoperb75b35f52b74\PHPStan\ShouldNotHappenException(\sprintf('Parameter %s not found.', $parameterName));
     }
     /**
      * @param \PHPStan\Reflection\ParameterReflection $parameter
      * @return string[]
      */
-    private function getParameterReferencedClasses(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflection $parameter) : array
+    private function getParameterReferencedClasses(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ParameterReflection $parameter) : array
     {
-        if (!$parameter instanceof \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParameterReflectionWithPhpDocs) {
+        if (!$parameter instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParameterReflectionWithPhpDocs) {
             return $parameter->getType()->getReferencedClasses();
         }
         if ($this->checkThisOnly) {
@@ -282,9 +282,9 @@ class FunctionDefinitionCheck
      * @param \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor
      * @return string[]
      */
-    private function getReturnTypeReferencedClasses(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : array
+    private function getReturnTypeReferencedClasses(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : array
     {
-        if (!$parametersAcceptor instanceof \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
+        if (!$parametersAcceptor instanceof \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
             return $parametersAcceptor->getReturnType()->getReferencedClasses();
         }
         if ($this->checkThisOnly) {

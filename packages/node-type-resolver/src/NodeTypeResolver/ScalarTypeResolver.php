@@ -1,48 +1,48 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\NodeTypeResolver;
+namespace _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\NodeTypeResolver;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\DNumber;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\Encapsed;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\MagicConst;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantFloatType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\Rector\Core\Exception\NotImplementedException;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
-final class ScalarTypeResolver implements \_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\DNumber;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\Encapsed;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\LNumber;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\MagicConst;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantFloatType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\Rector\Core\Exception\NotImplementedException;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+final class ScalarTypeResolver implements \_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @return class-string[]
      */
     public function getNodeClasses() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Scalar::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Scalar::class];
     }
-    public function resolve(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function resolve(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\DNumber) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantFloatType($node->value);
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\DNumber) {
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantFloatType($node->value);
         }
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\String_) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType($node->value);
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\String_) {
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType($node->value);
         }
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\LNumber) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantIntegerType($node->value);
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\LNumber) {
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantIntegerType($node->value);
         }
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\MagicConst) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\Constant\ConstantStringType($node->getName());
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\MagicConst) {
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\Constant\ConstantStringType($node->getName());
         }
-        if ($node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Scalar\Encapsed) {
-            return new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+        if ($node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Scalar\Encapsed) {
+            return new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
         }
-        throw new \_PhpScoper0a6b37af0871\Rector\Core\Exception\NotImplementedException();
+        throw new \_PhpScoperb75b35f52b74\Rector\Core\Exception\NotImplementedException();
     }
 }

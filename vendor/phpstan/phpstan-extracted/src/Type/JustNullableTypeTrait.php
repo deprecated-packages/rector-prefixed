@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Type;
+namespace _PhpScoperb75b35f52b74\PHPStan\Type;
 
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
 trait JustNullableTypeTrait
 {
     /**
@@ -13,40 +13,40 @@ trait JustNullableTypeTrait
     {
         return [];
     }
-    public function accepts(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function accepts(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
         if ($type instanceof static) {
-            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
+            return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
         }
-        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\CompoundType) {
-            return \_PhpScoper0a6b37af0871\PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
+        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\CompoundType) {
+            return \_PhpScoperb75b35f52b74\PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function isSuperTypeOf(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
-            return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createYes();
+            return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createYes();
         }
-        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\CompoundType) {
+        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function equals(\_PhpScoper0a6b37af0871\PHPStan\Type\Type $type) : bool
+    public function equals(\_PhpScoperb75b35f52b74\PHPStan\Type\Type $type) : bool
     {
         return \get_class($type) === static::class;
     }
-    public function traverse(callable $cb) : \_PhpScoper0a6b37af0871\PHPStan\Type\Type
+    public function traverse(callable $cb) : \_PhpScoperb75b35f52b74\PHPStan\Type\Type
     {
         return $this;
     }
-    public function isArray() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isArray() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
-    public function isNumericString() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isNumericString() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createNo();
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createNo();
     }
 }

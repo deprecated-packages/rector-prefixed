@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper0a6b37af0871;
+namespace _PhpScoperb75b35f52b74;
 
 class UnhandledMatchError extends \Error
 {
 }
-\class_alias('_PhpScoper0a6b37af0871\\UnhandledMatchError', 'UnhandledMatchError', \false);
+\class_alias('_PhpScoperb75b35f52b74\\UnhandledMatchError', 'UnhandledMatchError', \false);

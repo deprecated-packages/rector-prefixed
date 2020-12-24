@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\MockistaToMockery\Rector\Class_;
+namespace _PhpScoperb75b35f52b74\Rector\MockistaToMockery\Rector\Class_;
 
-use _PhpScoper0a6b37af0871\PhpParser\BuilderHelpers;
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\Rector\Core\PhpParser\Builder\MethodBuilder;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName;
-use _PhpScoper0a6b37af0871\Rector\MockistaToMockery\MockistaDetector;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoperb75b35f52b74\PhpParser\BuilderHelpers;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\Rector\Core\PhpParser\Builder\MethodBuilder;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName;
+use _PhpScoperb75b35f52b74\Rector\MockistaToMockery\MockistaDetector;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use _PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\MockistaToMockery\Tests\Rector\Class_\MockeryTearDownRector\MockeryTearDownRectorTest
  */
-final class MockeryTearDownRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector
+final class MockeryTearDownRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector
 {
     /**
      * @var MockistaDetector
      */
     private $mockistaDetector;
-    public function __construct(\_PhpScoper0a6b37af0871\Rector\MockistaToMockery\MockistaDetector $mockistaDetector)
+    public function __construct(\_PhpScoperb75b35f52b74\Rector\MockistaToMockery\MockistaDetector $mockistaDetector)
     {
         $this->mockistaDetector = $mockistaDetector;
     }
-    public function getRuleDefinition() : \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add Mockery::close() in tearDown() method if not yet', [new \_PhpScoper0a6b37af0871\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add Mockery::close() in tearDown() method if not yet', [new \_PhpScoperb75b35f52b74\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 
 class SomeTest extends TestCase
@@ -63,17 +63,17 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Class_::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (!$this->mockistaDetector->isInClass($node)) {
             return null;
         }
-        $tearDownClassMethod = $node->getMethod(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
+        $tearDownClassMethod = $node->getMethod(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
         if ($tearDownClassMethod === null) {
             $node->stmts[] = $this->createTearDownMethodWithMockeryClose();
         } elseif (!$this->containsMockeryClose($tearDownClassMethod)) {
@@ -81,19 +81,19 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function createTearDownMethodWithMockeryClose() : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod
+    private function createTearDownMethodWithMockeryClose() : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new \_PhpScoper0a6b37af0871\Rector\Core\PhpParser\Builder\MethodBuilder(\_PhpScoper0a6b37af0871\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
+        $methodBuilder = new \_PhpScoperb75b35f52b74\Rector\Core\PhpParser\Builder\MethodBuilder(\_PhpScoperb75b35f52b74\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
         $methodBuilder->setReturnType('void');
         $methodBuilder->makeProtected();
         $staticCall = $this->createMockeryClose();
         $methodBuilder->addStmt($staticCall);
         return $methodBuilder->getNode();
     }
-    private function containsMockeryClose(\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function containsMockeryClose(\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\_PhpScoper0a6b37af0871\PhpParser\Node $node) : bool {
-            if (!$node instanceof \_PhpScoper0a6b37af0871\PhpParser\Node\Expr\StaticCall) {
+        return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\_PhpScoperb75b35f52b74\PhpParser\Node $node) : bool {
+            if (!$node instanceof \_PhpScoperb75b35f52b74\PhpParser\Node\Expr\StaticCall) {
                 return \false;
             }
             if (!$this->isName($node->class, 'Mockery')) {
@@ -102,9 +102,9 @@ CODE_SAMPLE
             return $this->isName($node->name, 'close');
         });
     }
-    private function createMockeryClose() : \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt
+    private function createMockeryClose() : \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt
     {
         $staticCall = $this->createStaticCall('Mockery', 'close');
-        return \_PhpScoper0a6b37af0871\PhpParser\BuilderHelpers::normalizeStmt($staticCall);
+        return \_PhpScoperb75b35f52b74\PhpParser\BuilderHelpers::normalizeStmt($staticCall);
     }
 }

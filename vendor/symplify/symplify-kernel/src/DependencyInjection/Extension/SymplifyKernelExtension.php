@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Symplify\SymplifyKernel\DependencyInjection\Extension;
+namespace _PhpScoperb75b35f52b74\Symplify\SymplifyKernel\DependencyInjection\Extension;
 
-use _PhpScoper0a6b37af0871\Symfony\Component\Config\FileLocator;
-use _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Extension\Extension;
-use _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-final class SymplifyKernelExtension extends \_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Extension\Extension
+use _PhpScoperb75b35f52b74\Symfony\Component\Config\FileLocator;
+use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Extension\Extension;
+use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+final class SymplifyKernelExtension extends \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Extension\Extension
 {
-    public function load(array $configs, \_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function load(array $configs, \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
-        $phpFileLoader = new \_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \_PhpScoper0a6b37af0871\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
+        $phpFileLoader = new \_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \_PhpScoperb75b35f52b74\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
         $phpFileLoader->load('common-config.php');
     }
 }

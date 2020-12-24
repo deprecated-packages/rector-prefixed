@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Rules;
+namespace _PhpScoperb75b35f52b74\PHPStan\Rules;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node\Expr;
-use _PhpScoper0a6b37af0871\PHPStan\Analyser\Scope;
-use _PhpScoper0a6b37af0871\PHPStan\Type\GenericTypeVariableResolver;
-use _PhpScoper0a6b37af0871\PHPStan\Type\NeverType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\Type;
-use _PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName;
-use _PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel;
-use _PhpScoper0a6b37af0871\PHPStan\Type\VoidType;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Expr;
+use _PhpScoperb75b35f52b74\PHPStan\Analyser\Scope;
+use _PhpScoperb75b35f52b74\PHPStan\Type\GenericTypeVariableResolver;
+use _PhpScoperb75b35f52b74\PHPStan\Type\NeverType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\Type;
+use _PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName;
+use _PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel;
+use _PhpScoperb75b35f52b74\PHPStan\Type\VoidType;
 class FunctionReturnTypeCheck
 {
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
     }
@@ -29,34 +29,34 @@ class FunctionReturnTypeCheck
      * @param bool $isGenerator
      * @return RuleError[]
      */
-    public function checkReturnType(\_PhpScoper0a6b37af0871\PHPStan\Analyser\Scope $scope, \_PhpScoper0a6b37af0871\PHPStan\Type\Type $returnType, ?\_PhpScoper0a6b37af0871\PhpParser\Node\Expr $returnValue, string $emptyReturnStatementMessage, string $voidMessage, string $typeMismatchMessage, string $neverMessage, bool $isGenerator) : array
+    public function checkReturnType(\_PhpScoperb75b35f52b74\PHPStan\Analyser\Scope $scope, \_PhpScoperb75b35f52b74\PHPStan\Type\Type $returnType, ?\_PhpScoperb75b35f52b74\PhpParser\Node\Expr $returnValue, string $emptyReturnStatementMessage, string $voidMessage, string $typeMismatchMessage, string $neverMessage, bool $isGenerator) : array
     {
-        if ($returnType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\NeverType && $returnType->isExplicit()) {
-            return [\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message($neverMessage)->build()];
+        if ($returnType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\NeverType && $returnType->isExplicit()) {
+            return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message($neverMessage)->build()];
         }
         if ($isGenerator) {
-            if (!$returnType instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\TypeWithClassName) {
+            if (!$returnType instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\TypeWithClassName) {
                 return [];
             }
-            $returnType = \_PhpScoper0a6b37af0871\PHPStan\Type\GenericTypeVariableResolver::getType($returnType, \Generator::class, 'TReturn');
+            $returnType = \_PhpScoperb75b35f52b74\PHPStan\Type\GenericTypeVariableResolver::getType($returnType, \Generator::class, 'TReturn');
             if ($returnType === null) {
                 return [];
             }
         }
-        $isVoidSuperType = (new \_PhpScoper0a6b37af0871\PHPStan\Type\VoidType())->isSuperTypeOf($returnType);
-        $verbosityLevel = \_PhpScoper0a6b37af0871\PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($returnType);
+        $isVoidSuperType = (new \_PhpScoperb75b35f52b74\PHPStan\Type\VoidType())->isSuperTypeOf($returnType);
+        $verbosityLevel = \_PhpScoperb75b35f52b74\PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($returnType);
         if ($returnValue === null) {
             if (!$isVoidSuperType->no()) {
                 return [];
             }
-            return [\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($emptyReturnStatementMessage, $returnType->describe($verbosityLevel)))->build()];
+            return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($emptyReturnStatementMessage, $returnType->describe($verbosityLevel)))->build()];
         }
         $returnValueType = $scope->getType($returnValue);
         if ($isVoidSuperType->yes()) {
-            return [\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($voidMessage, $returnValueType->describe($verbosityLevel)))->build()];
+            return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($voidMessage, $returnValueType->describe($verbosityLevel)))->build()];
         }
         if (!$this->ruleLevelHelper->accepts($returnType, $returnValueType, $scope->isDeclareStrictTypes())) {
-            return [\_PhpScoper0a6b37af0871\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($typeMismatchMessage, $returnType->describe($verbosityLevel), $returnValueType->describe($verbosityLevel)))->build()];
+            return [\_PhpScoperb75b35f52b74\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($typeMismatchMessage, $returnType->describe($verbosityLevel), $returnValueType->describe($verbosityLevel)))->build()];
         }
         return [];
     }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\Php;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Php;
 
-use _PhpScoper0a6b37af0871\PHPStan\TrinaryLogic;
-class NativeBuiltinMethodReflection implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\Php\BuiltinMethodReflection
+use _PhpScoperb75b35f52b74\PHPStan\TrinaryLogic;
+class NativeBuiltinMethodReflection implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\BuiltinMethodReflection
 {
     /** @var \ReflectionMethod */
     private $reflection;
@@ -69,13 +69,13 @@ class NativeBuiltinMethodReflection implements \_PhpScoper0a6b37af0871\PHPStan\R
     {
         return $this->reflection->isConstructor();
     }
-    public function getPrototype() : \_PhpScoper0a6b37af0871\PHPStan\Reflection\Php\BuiltinMethodReflection
+    public function getPrototype() : \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\BuiltinMethodReflection
     {
         return new self($this->reflection->getPrototype());
     }
-    public function isDeprecated() : \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic
+    public function isDeprecated() : \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic
     {
-        return \_PhpScoper0a6b37af0871\PHPStan\TrinaryLogic::createFromBoolean($this->reflection->isDeprecated());
+        return \_PhpScoperb75b35f52b74\PHPStan\TrinaryLogic::createFromBoolean($this->reflection->isDeprecated());
     }
     public function isFinal() : bool
     {

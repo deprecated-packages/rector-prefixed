@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\Rector\DowngradePhp70\Rector\FunctionLike;
+namespace _PhpScoperb75b35f52b74\Rector\DowngradePhp70\Rector\FunctionLike;
 
-use _PhpScoper0a6b37af0871\PhpParser\Node;
-use _PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_;
-use _PhpScoper0a6b37af0871\PHPStan\Type\IntersectionType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\IterableType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\ObjectType;
-use _PhpScoper0a6b37af0871\PHPStan\Type\UnionType;
-use _PhpScoper0a6b37af0871\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector;
-use _PhpScoper0a6b37af0871\Rector\DowngradePhp70\Contract\Rector\DowngradeReturnDeclarationRectorInterface;
-use _PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoperb75b35f52b74\PhpParser\Node;
+use _PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_;
+use _PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\IterableType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\ObjectType;
+use _PhpScoperb75b35f52b74\PHPStan\Type\UnionType;
+use _PhpScoperb75b35f52b74\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use _PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector;
+use _PhpScoperb75b35f52b74\Rector\DowngradePhp70\Contract\Rector\DowngradeReturnDeclarationRectorInterface;
+use _PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey;
 use Traversable;
-abstract class AbstractDowngradeReturnDeclarationRector extends \_PhpScoper0a6b37af0871\Rector\Core\Rector\AbstractRector implements \_PhpScoper0a6b37af0871\Rector\DowngradePhp70\Contract\Rector\DowngradeReturnDeclarationRectorInterface
+abstract class AbstractDowngradeReturnDeclarationRector extends \_PhpScoperb75b35f52b74\Rector\Core\Rector\AbstractRector implements \_PhpScoperb75b35f52b74\Rector\DowngradePhp70\Contract\Rector\DowngradeReturnDeclarationRectorInterface
 {
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\Function_::class, \_PhpScoper0a6b37af0871\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\Function_::class, \_PhpScoperb75b35f52b74\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod|Function_ $node
      */
-    public function refactor(\_PhpScoper0a6b37af0871\PhpParser\Node $node) : ?\_PhpScoper0a6b37af0871\PhpParser\Node
+    public function refactor(\_PhpScoperb75b35f52b74\PhpParser\Node $node) : ?\_PhpScoperb75b35f52b74\PhpParser\Node
     {
         if (!$this->shouldRemoveReturnDeclaration($node)) {
             return null;
@@ -40,10 +40,10 @@ abstract class AbstractDowngradeReturnDeclarationRector extends \_PhpScoper0a6b3
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function decorateFunctionLikeWithReturnTagValueNode(\_PhpScoper0a6b37af0871\PhpParser\Node\FunctionLike $functionLike) : void
+    private function decorateFunctionLikeWithReturnTagValueNode(\_PhpScoperb75b35f52b74\PhpParser\Node\FunctionLike $functionLike) : void
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $functionLike->getAttribute(\_PhpScoper0a6b37af0871\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $functionLike->getAttribute(\_PhpScoperb75b35f52b74\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             $phpDocInfo = $this->phpDocInfoFactory->createEmpty($functionLike);
         }
@@ -51,8 +51,8 @@ abstract class AbstractDowngradeReturnDeclarationRector extends \_PhpScoper0a6b3
             return;
         }
         $type = $this->staticTypeMapper->mapPhpParserNodePHPStanType($functionLike->returnType);
-        if ($type instanceof \_PhpScoper0a6b37af0871\PHPStan\Type\IterableType) {
-            $type = new \_PhpScoper0a6b37af0871\PHPStan\Type\UnionType([$type, new \_PhpScoper0a6b37af0871\PHPStan\Type\IntersectionType([new \_PhpScoper0a6b37af0871\PHPStan\Type\ObjectType(\Traversable::class)])]);
+        if ($type instanceof \_PhpScoperb75b35f52b74\PHPStan\Type\IterableType) {
+            $type = new \_PhpScoperb75b35f52b74\PHPStan\Type\UnionType([$type, new \_PhpScoperb75b35f52b74\PHPStan\Type\IntersectionType([new \_PhpScoperb75b35f52b74\PHPStan\Type\ObjectType(\Traversable::class)])]);
         }
         $phpDocInfo->changeReturnType($type);
     }

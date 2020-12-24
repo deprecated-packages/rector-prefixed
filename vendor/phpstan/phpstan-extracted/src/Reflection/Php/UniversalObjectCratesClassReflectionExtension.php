@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871\PHPStan\Reflection\Php;
+namespace _PhpScoperb75b35f52b74\PHPStan\Reflection\Php;
 
-use _PhpScoper0a6b37af0871\PHPStan\Broker\Broker;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper0a6b37af0871\PHPStan\Type\MixedType;
-class UniversalObjectCratesClassReflectionExtension implements \_PhpScoper0a6b37af0871\PHPStan\Reflection\PropertiesClassReflectionExtension, \_PhpScoper0a6b37af0871\PHPStan\Reflection\BrokerAwareExtension
+use _PhpScoperb75b35f52b74\PHPStan\Broker\Broker;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection;
+use _PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider;
+use _PhpScoperb75b35f52b74\PHPStan\Type\MixedType;
+class UniversalObjectCratesClassReflectionExtension implements \_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertiesClassReflectionExtension, \_PhpScoperb75b35f52b74\PHPStan\Reflection\BrokerAwareExtension
 {
     /** @var string[] */
     private $classes;
@@ -22,11 +22,11 @@ class UniversalObjectCratesClassReflectionExtension implements \_PhpScoper0a6b37
     {
         $this->classes = $classes;
     }
-    public function setBroker(\_PhpScoper0a6b37af0871\PHPStan\Broker\Broker $broker) : void
+    public function setBroker(\_PhpScoperb75b35f52b74\PHPStan\Broker\Broker $broker) : void
     {
         $this->broker = $broker;
     }
-    public function hasProperty(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
+    public function hasProperty(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
     {
         return self::isUniversalObjectCrate($this->broker, $this->classes, $classReflection);
     }
@@ -36,7 +36,7 @@ class UniversalObjectCratesClassReflectionExtension implements \_PhpScoper0a6b37
      * @param \PHPStan\Reflection\ClassReflection $classReflection
      * @return bool
      */
-    public static function isUniversalObjectCrate(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $classes, \_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection) : bool
+    public static function isUniversalObjectCrate(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $classes, \_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection) : bool
     {
         foreach ($classes as $className) {
             if (!$reflectionProvider->hasClass($className)) {
@@ -48,18 +48,18 @@ class UniversalObjectCratesClassReflectionExtension implements \_PhpScoper0a6b37
         }
         return \false;
     }
-    public function getProperty(\_PhpScoper0a6b37af0871\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScoper0a6b37af0871\PHPStan\Reflection\PropertyReflection
+    public function getProperty(\_PhpScoperb75b35f52b74\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScoperb75b35f52b74\PHPStan\Reflection\PropertyReflection
     {
         if ($classReflection->hasNativeMethod('__get')) {
-            $readableType = \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__get')->getVariants())->getReturnType();
+            $readableType = \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__get')->getVariants())->getReturnType();
         } else {
-            $readableType = new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+            $readableType = new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
         }
         if ($classReflection->hasNativeMethod('__set')) {
-            $writableType = \_PhpScoper0a6b37af0871\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__set')->getVariants())->getParameters()[1]->getType();
+            $writableType = \_PhpScoperb75b35f52b74\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__set')->getVariants())->getParameters()[1]->getType();
         } else {
-            $writableType = new \_PhpScoper0a6b37af0871\PHPStan\Type\MixedType();
+            $writableType = new \_PhpScoperb75b35f52b74\PHPStan\Type\MixedType();
         }
-        return new \_PhpScoper0a6b37af0871\PHPStan\Reflection\Php\UniversalObjectCrateProperty($classReflection, $readableType, $writableType);
+        return new \_PhpScoperb75b35f52b74\PHPStan\Reflection\Php\UniversalObjectCrateProperty($classReflection, $readableType, $writableType);
     }
 }

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper0a6b37af0871;
+namespace _PhpScoperb75b35f52b74;
 
-use _PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use _PhpScoper0a6b37af0871\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass;
-use _PhpScoper0a6b37af0871\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely;
-use _PhpScoper0a6b37af0871\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo;
-use _PhpScoper0a6b37af0871\Symplify\Skipper\ValueObject\Option;
-return static function (\_PhpScoper0a6b37af0871\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoperb75b35f52b74\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass;
+use _PhpScoperb75b35f52b74\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely;
+use _PhpScoperb75b35f52b74\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo;
+use _PhpScoperb75b35f52b74\Symplify\Skipper\ValueObject\Option;
+return static function (\_PhpScoperb75b35f52b74\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\_PhpScoper0a6b37af0871\Symplify\Skipper\ValueObject\Option::ONLY, [
-        \_PhpScoper0a6b37af0871\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class => ['SomeFileToOnlyInclude.php'],
+    $parameters->set(\_PhpScoperb75b35f52b74\Symplify\Skipper\ValueObject\Option::ONLY, [
+        \_PhpScoperb75b35f52b74\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class => ['SomeFileToOnlyInclude.php'],
         // these 2 lines should be identical
-        \_PhpScoper0a6b37af0871\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely::class => null,
-        \_PhpScoper0a6b37af0871\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo::class,
+        \_PhpScoperb75b35f52b74\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely::class => null,
+        \_PhpScoperb75b35f52b74\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo::class,
     ]);
 };
