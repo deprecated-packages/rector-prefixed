@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\French;
+namespace _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\French;
 
-use _PhpScoperbf340cb0be9d\Doctrine\Inflector\GenericLanguageInflectorFactory;
-use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset;
-final class InflectorFactory extends \_PhpScoperbf340cb0be9d\Doctrine\Inflector\GenericLanguageInflectorFactory
+use _PhpScoperf18a0c41e2d2\Doctrine\Inflector\GenericLanguageInflectorFactory;
+use _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset;
+final class InflectorFactory extends \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\GenericLanguageInflectorFactory
 {
-    protected function getSingularRuleset() : \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset
+    protected function getSingularRuleset() : \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset
     {
-        return \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\French\Rules::getSingularRuleset();
+        return \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\French\Rules::getSingularRuleset();
     }
-    protected function getPluralRuleset() : \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset
+    protected function getPluralRuleset() : \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset
     {
-        return \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\French\Rules::getPluralRuleset();
+        return \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\French\Rules::getPluralRuleset();
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Restoration\NameMatcher;
 
-use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
+use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
 use Rector\Restoration\ClassMap\ExistingClassesProvider;
 final class NameMatcher
 {
@@ -18,7 +18,7 @@ final class NameMatcher
     public function makeNameFullyQualified(string $shortName) : ?string
     {
         foreach ($this->existingClassesProvider->provide() as $declaredClass) {
-            $declaredShortClass = (string) \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::after($declaredClass, '\\', -1);
+            $declaredShortClass = (string) \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::after($declaredClass, '\\', -1);
             if ($declaredShortClass !== $shortName) {
                 continue;
             }

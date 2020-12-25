@@ -159,7 +159,7 @@ trait NameResolverTrait
         }
         return $this->isName($node->name, $methodName);
     }
-    protected function isVariableName(?\PhpParser\Node $node, string $name) : bool
+    protected function isVariableName(\PhpParser\Node $node, string $name) : bool
     {
         if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return \false;

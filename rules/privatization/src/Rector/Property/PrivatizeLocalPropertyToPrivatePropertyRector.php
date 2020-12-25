@@ -95,6 +95,9 @@ CODE_SAMPLE
     private function shouldSkip(\PhpParser\Node\Stmt\Property $property) : bool
     {
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if ($classLike === null) {
+            return \true;
+        }
         if ($this->shouldSkipClass($classLike)) {
             return \true;
         }
@@ -120,7 +123,7 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function shouldSkipClass(?\PhpParser\Node\Stmt\ClassLike $classLike) : bool
+    private function shouldSkipClass(\PhpParser\Node\Stmt\ClassLike $classLike) : bool
     {
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
@@ -128,10 +131,7 @@ CODE_SAMPLE
         if ($this->isAnonymousClass($classLike)) {
             return \true;
         }
-        if ($this->isObjectType($classLike, '_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\TestCase')) {
-            return \true;
-        }
-        return $this->isObjectType($classLike, '_PhpScoperbf340cb0be9d\\PHP_CodeSniffer\\Sniffs\\Sniff');
+        return $this->isObjectTypes($classLike, ['_PhpScoperf18a0c41e2d2\\PHPUnit\\Framework\\TestCase', '_PhpScoperf18a0c41e2d2\\PHP_CodeSniffer\\Sniffs\\Sniff']);
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {

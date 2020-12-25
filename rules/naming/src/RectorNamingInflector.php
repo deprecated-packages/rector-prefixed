@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Naming;
 
-use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Inflector;
-use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
+use _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Inflector;
+use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
 final class RectorNamingInflector
 {
     /**
@@ -16,13 +16,13 @@ final class RectorNamingInflector
      * @var Inflector
      */
     private $inflector;
-    public function __construct(\_PhpScoperbf340cb0be9d\Doctrine\Inflector\Inflector $inflector)
+    public function __construct(\_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Inflector $inflector)
     {
         $this->inflector = $inflector;
     }
     public function singularize(string $name) : string
     {
-        $matches = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($name, self::DATA_INFO_SUFFIX_REGEX);
+        $matches = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::match($name, self::DATA_INFO_SUFFIX_REGEX);
         if ($matches === null) {
             return $this->inflector->singularize($name);
         }

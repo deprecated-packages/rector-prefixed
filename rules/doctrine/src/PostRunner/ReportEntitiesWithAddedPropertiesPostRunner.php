@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\PostRunner;
 
-use _PhpScoperbf340cb0be9d\Nette\Utils\Json;
+use _PhpScoperf18a0c41e2d2\Nette\Utils\Json;
 use Rector\Core\Contract\PostRunnerInterface;
 use Rector\Doctrine\Collector\UuidMigrationDataCollector;
-use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @deprecated Replace with interface. Remove whole event system to keep 1 less pattern for same thing
@@ -25,7 +25,7 @@ final class ReportEntitiesWithAddedPropertiesPostRunner implements \Rector\Core\
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoperbf340cb0be9d\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoperf18a0c41e2d2\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector)
     {
         $this->uuidMigrationDataCollector = $uuidMigrationDataCollector;
         $this->symfonyStyle = $symfonyStyle;
@@ -44,7 +44,7 @@ final class ReportEntitiesWithAddedPropertiesPostRunner implements \Rector\Core\
         if ($data === []) {
             return;
         }
-        $jsonContent = \_PhpScoperbf340cb0be9d\Nette\Utils\Json::encode(['new_columns_by_class' => $data], \_PhpScoperbf340cb0be9d\Nette\Utils\Json::PRETTY);
+        $jsonContent = \_PhpScoperf18a0c41e2d2\Nette\Utils\Json::encode(['new_columns_by_class' => $data], \_PhpScoperf18a0c41e2d2\Nette\Utils\Json::PRETTY);
         $filePath = \getcwd() . '/' . $fileName;
         $this->smartFileSystem->dumpFile($filePath, $jsonContent);
         $message = \sprintf('See freshly created "%s" file for changes on entities', $fileName);

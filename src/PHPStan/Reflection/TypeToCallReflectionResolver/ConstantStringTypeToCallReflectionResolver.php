@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
+use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
 use PhpParser\Node\Name;
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\FunctionReflection;
@@ -24,7 +24,7 @@ final class ConstantStringTypeToCallReflectionResolver implements \Rector\Core\C
      *
      * @var string
      */
-    private const STATIC_METHOD_REGEX = '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#';
+    private const STATIC_METHOD_REGEX = '#^(?<class>[a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::(?<method>[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#';
     /**
      * @var ReflectionProvider
      */
@@ -50,17 +50,17 @@ final class ConstantStringTypeToCallReflectionResolver implements \Rector\Core\C
             return $this->reflectionProvider->getFunction($name, null);
         }
         // 'MyClass::myStaticFunction'
-        $matches = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($value, self::STATIC_METHOD_REGEX);
+        $matches = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::match($value, self::STATIC_METHOD_REGEX);
         if ($matches === null) {
             return null;
         }
-        if (!$this->reflectionProvider->hasClass($matches[1])) {
+        if (!$this->reflectionProvider->hasClass($matches['class'])) {
             return null;
         }
-        $classReflection = $this->reflectionProvider->getClass($matches[1]);
-        if (!$classReflection->hasMethod($matches[2])) {
+        $classReflection = $this->reflectionProvider->getClass($matches['class']);
+        if (!$classReflection->hasMethod($matches['method'])) {
             return null;
         }
-        return $classReflection->getMethod($matches[2], $classMemberAccessAnswerer);
+        return $classReflection->getMethod($matches['method'], $classMemberAccessAnswerer);
     }
 }

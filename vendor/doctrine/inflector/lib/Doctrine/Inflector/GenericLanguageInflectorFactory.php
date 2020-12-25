@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbf340cb0be9d\Doctrine\Inflector;
+namespace _PhpScoperf18a0c41e2d2\Doctrine\Inflector;
 
-use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset;
+use _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset;
 use function array_unshift;
-abstract class GenericLanguageInflectorFactory implements \_PhpScoperbf340cb0be9d\Doctrine\Inflector\LanguageInflectorFactory
+abstract class GenericLanguageInflectorFactory implements \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\LanguageInflectorFactory
 {
     /** @var Ruleset[] */
     private $singularRulesets = [];
@@ -16,30 +16,30 @@ abstract class GenericLanguageInflectorFactory implements \_PhpScoperbf340cb0be9
         $this->singularRulesets[] = $this->getSingularRuleset();
         $this->pluralRulesets[] = $this->getPluralRuleset();
     }
-    public final function build() : \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Inflector
+    public final function build() : \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Inflector
     {
-        return new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Inflector(new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\CachedWordInflector(new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\RulesetInflector(...$this->singularRulesets)), new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\CachedWordInflector(new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\RulesetInflector(...$this->pluralRulesets)));
+        return new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Inflector(new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\CachedWordInflector(new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\RulesetInflector(...$this->singularRulesets)), new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\CachedWordInflector(new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\RulesetInflector(...$this->pluralRulesets)));
     }
-    public final function withSingularRules(?\_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset $singularRules, bool $reset = \false) : \_PhpScoperbf340cb0be9d\Doctrine\Inflector\LanguageInflectorFactory
+    public final function withSingularRules(?\_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset $singularRules, bool $reset = \false) : \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\LanguageInflectorFactory
     {
         if ($reset) {
             $this->singularRulesets = [];
         }
-        if ($singularRules instanceof \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset) {
+        if ($singularRules instanceof \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset) {
             \array_unshift($this->singularRulesets, $singularRules);
         }
         return $this;
     }
-    public final function withPluralRules(?\_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset $pluralRules, bool $reset = \false) : \_PhpScoperbf340cb0be9d\Doctrine\Inflector\LanguageInflectorFactory
+    public final function withPluralRules(?\_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset $pluralRules, bool $reset = \false) : \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\LanguageInflectorFactory
     {
         if ($reset) {
             $this->pluralRulesets = [];
         }
-        if ($pluralRules instanceof \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset) {
+        if ($pluralRules instanceof \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset) {
             \array_unshift($this->pluralRulesets, $pluralRules);
         }
         return $this;
     }
-    protected abstract function getSingularRuleset() : \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset;
-    protected abstract function getPluralRuleset() : \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Ruleset;
+    protected abstract function getSingularRuleset() : \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset;
+    protected abstract function getPluralRuleset() : \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset;
 }

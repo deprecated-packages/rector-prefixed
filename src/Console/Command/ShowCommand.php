@@ -5,9 +5,9 @@ namespace Rector\Core\Console\Command;
 
 use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Configuration\Option;
-use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -25,7 +25,7 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\_PhpScoperbf340cb0be9d\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\_PhpScoperf18a0c41e2d2\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->activeRectorsProvider = $activeRectorsProvider;
@@ -36,7 +36,7 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
     {
         $this->setDescription('Show loaded Rectors with their configuration');
     }
-    protected function execute(\_PhpScoperbf340cb0be9d\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperbf340cb0be9d\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperf18a0c41e2d2\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperf18a0c41e2d2\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->reportLoadedRectors();
         $this->reportLoadedSets();

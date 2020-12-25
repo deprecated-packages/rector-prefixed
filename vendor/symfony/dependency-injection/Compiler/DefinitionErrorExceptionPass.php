@@ -8,32 +8,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Compiler;
+namespace _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Compiler;
 
-use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\ContainerInterface;
-use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Definition;
-use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Reference;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Definition;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Reference;
 /**
  * Throws an exception for any Definitions that have errors and still exist.
  *
  * @author Ryan Weaver <ryan@knpuniversity.com>
  */
-class DefinitionErrorExceptionPass extends \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class DefinitionErrorExceptionPass extends \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     /**
      * {@inheritdoc}
      */
     protected function processValue($value, bool $isRoot = \false)
     {
-        if (!$value instanceof \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Definition || !$value->hasErrors()) {
+        if (!$value instanceof \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Definition || !$value->hasErrors()) {
             return parent::processValue($value, $isRoot);
         }
         if ($isRoot && !$value->isPublic()) {
             $graph = $this->container->getCompiler()->getServiceReferenceGraph();
             $runtimeException = \false;
             foreach ($graph->getNode($this->currentId)->getInEdges() as $edge) {
-                if (!$edge->getValue() instanceof \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Reference || \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE !== $edge->getValue()->getInvalidBehavior()) {
+                if (!$edge->getValue() instanceof \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Reference || \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE !== $edge->getValue()->getInvalidBehavior()) {
                     $runtimeException = \false;
                     break;
                 }
@@ -46,6 +46,6 @@ class DefinitionErrorExceptionPass extends \_PhpScoperbf340cb0be9d\Symfony\Compo
         // only show the first error so the user can focus on it
         $errors = $value->getErrors();
         $message = \reset($errors);
-        throw new \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Exception\RuntimeException($message);
+        throw new \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Exception\RuntimeException($message);
     }
 }

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Laravel\Tests\Rector\StaticCall\MinutesToSecondsInCacheRector\Source;
 
-use _PhpScoperbf340cb0be9d\Illuminate\Contracts\Cache\Store;
-final class ArrayStore implements \_PhpScoperbf340cb0be9d\Illuminate\Contracts\Cache\Store
+use _PhpScoperf18a0c41e2d2\Illuminate\Contracts\Cache\Store;
+final class ArrayStore implements \_PhpScoperf18a0c41e2d2\Illuminate\Contracts\Cache\Store
 {
     public function get($key)
     {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Tests\Rector\FileNode\MoveInterfacesToContractNamespaceDirectoryRector\Source\Control;
 
-use _PhpScoperbf340cb0be9d\Nette\Application\UI\Form;
-final class SomeForm extends \_PhpScoperbf340cb0be9d\Nette\Application\UI\Form
+use _PhpScoperf18a0c41e2d2\Nette\Application\UI\Form;
+final class SomeForm extends \_PhpScoperf18a0c41e2d2\Nette\Application\UI\Form
 {
 }

@@ -59,11 +59,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->classManipulator->hasTrait($node, '_PhpScoperbf340cb0be9d\\Gedmo\\Timestampable\\Traits\\TimestampableEntity')) {
+        if (!$this->classManipulator->hasTrait($node, '_PhpScoperf18a0c41e2d2\\Gedmo\\Timestampable\\Traits\\TimestampableEntity')) {
             return null;
         }
-        $this->classManipulator->replaceTrait($node, '_PhpScoperbf340cb0be9d\\Gedmo\\Timestampable\\Traits\\TimestampableEntity', '_PhpScoperbf340cb0be9d\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampableTrait');
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbf340cb0be9d\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TimestampableInterface');
+        $this->classManipulator->replaceTrait($node, '_PhpScoperf18a0c41e2d2\\Gedmo\\Timestampable\\Traits\\TimestampableEntity', '_PhpScoperf18a0c41e2d2\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampableTrait');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoperf18a0c41e2d2\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TimestampableInterface');
         return $node;
     }
 }

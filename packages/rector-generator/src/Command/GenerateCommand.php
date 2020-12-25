@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\Command;
 
-use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
+use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater;
 use Rector\RectorGenerator\Config\ConfigFilesystem;
@@ -12,13 +12,13 @@ use Rector\RectorGenerator\Generator\FileGenerator;
 use Rector\RectorGenerator\Guard\OverrideGuard;
 use Rector\RectorGenerator\Provider\RectorRecipeProvider;
 use Rector\RectorGenerator\TemplateVariablesFactory;
-use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Command\Command;
-use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\Console\Command\Command;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileInfo;
-final class GenerateCommand extends \_PhpScoperbf340cb0be9d\Symfony\Component\Console\Command\Command
+final class GenerateCommand extends \_PhpScoperf18a0c41e2d2\Symfony\Component\Console\Command\Command
 {
     /**
      * @var SymfonyStyle
@@ -52,7 +52,7 @@ final class GenerateCommand extends \_PhpScoperbf340cb0be9d\Symfony\Component\Co
      * @var RectorRecipeProvider
      */
     private $rectorRecipeProvider;
-    public function __construct(\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater $composerPackageAutoloadUpdater, \Rector\RectorGenerator\Config\ConfigFilesystem $configFilesystem, \Rector\RectorGenerator\Generator\FileGenerator $fileGenerator, \Rector\RectorGenerator\Guard\OverrideGuard $overrideGuard, \_PhpScoperbf340cb0be9d\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\RectorGenerator\Finder\TemplateFinder $templateFinder, \Rector\RectorGenerator\TemplateVariablesFactory $templateVariablesFactory, \Rector\RectorGenerator\Provider\RectorRecipeProvider $rectorRecipeProvider)
+    public function __construct(\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater $composerPackageAutoloadUpdater, \Rector\RectorGenerator\Config\ConfigFilesystem $configFilesystem, \Rector\RectorGenerator\Generator\FileGenerator $fileGenerator, \Rector\RectorGenerator\Guard\OverrideGuard $overrideGuard, \_PhpScoperf18a0c41e2d2\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\RectorGenerator\Finder\TemplateFinder $templateFinder, \Rector\RectorGenerator\TemplateVariablesFactory $templateVariablesFactory, \Rector\RectorGenerator\Provider\RectorRecipeProvider $rectorRecipeProvider)
     {
         parent::__construct();
         $this->symfonyStyle = $symfonyStyle;
@@ -69,7 +69,7 @@ final class GenerateCommand extends \_PhpScoperbf340cb0be9d\Symfony\Component\Co
         $this->setAliases(['c', 'create', 'g']);
         $this->setDescription('[DEV] Create a new Rector, in a proper location, with new tests');
     }
-    protected function execute(\_PhpScoperbf340cb0be9d\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperbf340cb0be9d\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperf18a0c41e2d2\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperf18a0c41e2d2\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $rectorRecipe = $this->rectorRecipeProvider->provide();
         $templateVariables = $this->templateVariablesFactory->createFromRectorRecipe($rectorRecipe);
@@ -94,7 +94,7 @@ final class GenerateCommand extends \_PhpScoperbf340cb0be9d\Symfony\Component\Co
     private function resolveTestCaseDirectoryPath(array $generatedFilePaths) : string
     {
         foreach ($generatedFilePaths as $generatedFilePath) {
-            if (!\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
+            if (!\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
                 continue;
             }
             $generatedFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($generatedFilePath);

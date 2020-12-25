@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoperbf340cb0be9d;
+namespace _PhpScoperf18a0c41e2d2;
 
 $grammarFileToName = [__DIR__ . '/php5.y' => 'Php5', __DIR__ . '/php7.y' => 'Php7'];
 $tokensFile = __DIR__ . '/tokens.y';
@@ -38,20 +38,20 @@ foreach ($grammarFileToName as $grammarFile => $name) {
     echo "Building temporary {$name} grammar file.\n";
     $grammarCode = \file_get_contents($grammarFile);
     $grammarCode = \str_replace('%tokens', $tokens, $grammarCode);
-    $grammarCode = \_PhpScoperbf340cb0be9d\resolveNodes($grammarCode);
-    $grammarCode = \_PhpScoperbf340cb0be9d\resolveMacros($grammarCode);
-    $grammarCode = \_PhpScoperbf340cb0be9d\resolveStackAccess($grammarCode);
+    $grammarCode = \_PhpScoperf18a0c41e2d2\resolveNodes($grammarCode);
+    $grammarCode = \_PhpScoperf18a0c41e2d2\resolveMacros($grammarCode);
+    $grammarCode = \_PhpScoperf18a0c41e2d2\resolveStackAccess($grammarCode);
     \file_put_contents($tmpGrammarFile, $grammarCode);
     $additionalArgs = $optionDebug ? '-t -v' : '';
     echo "Building {$name} parser.\n";
-    $output = \_PhpScoperbf340cb0be9d\execCmd("{$kmyacc} {$additionalArgs} -m {$skeletonFile} -p {$name} {$tmpGrammarFile}");
+    $output = \_PhpScoperf18a0c41e2d2\execCmd("{$kmyacc} {$additionalArgs} -m {$skeletonFile} -p {$name} {$tmpGrammarFile}");
     $resultCode = \file_get_contents($tmpResultFile);
-    $resultCode = \_PhpScoperbf340cb0be9d\removeTrailingWhitespace($resultCode);
-    \_PhpScoperbf340cb0be9d\ensureDirExists($resultDir);
+    $resultCode = \_PhpScoperf18a0c41e2d2\removeTrailingWhitespace($resultCode);
+    \_PhpScoperf18a0c41e2d2\ensureDirExists($resultDir);
     \file_put_contents("{$resultDir}/{$name}.php", $resultCode);
     \unlink($tmpResultFile);
     echo "Building token definition.\n";
-    $output = \_PhpScoperbf340cb0be9d\execCmd("{$kmyacc} -m {$tokensTemplate} {$tmpGrammarFile}");
+    $output = \_PhpScoperf18a0c41e2d2\execCmd("{$kmyacc} -m {$tokensTemplate} {$tmpGrammarFile}");
     \rename($tmpResultFile, $tokensResultsFile);
     if (!$optionKeepTmpGrammar) {
         \unlink($tmpGrammarFile);
@@ -64,8 +64,8 @@ function resolveNodes($code)
 {
     return \preg_replace_callback('~\\b(?<name>[A-Z][a-zA-Z_\\\\]++)\\s*' . \PARAMS . '~', function ($matches) {
         // recurse
-        $matches['params'] = \_PhpScoperbf340cb0be9d\resolveNodes($matches['params']);
-        $params = \_PhpScoperbf340cb0be9d\magicSplit('(?:' . \PARAMS . '|' . \ARGS . ')(*SKIP)(*FAIL)|,', $matches['params']);
+        $matches['params'] = \_PhpScoperf18a0c41e2d2\resolveNodes($matches['params']);
+        $params = \_PhpScoperf18a0c41e2d2\magicSplit('(?:' . \PARAMS . '|' . \ARGS . ')(*SKIP)(*FAIL)|,', $matches['params']);
         $paramCode = '';
         foreach ($params as $param) {
             $paramCode .= $param . ', ';
@@ -77,54 +77,54 @@ function resolveMacros($code)
 {
     return \preg_replace_callback('~\\b(?<!::|->)(?!array\\()(?<name>[a-z][A-Za-z]++)' . \ARGS . '~', function ($matches) {
         // recurse
-        $matches['args'] = \_PhpScoperbf340cb0be9d\resolveMacros($matches['args']);
+        $matches['args'] = \_PhpScoperf18a0c41e2d2\resolveMacros($matches['args']);
         $name = $matches['name'];
-        $args = \_PhpScoperbf340cb0be9d\magicSplit('(?:' . \PARAMS . '|' . \ARGS . ')(*SKIP)(*FAIL)|,', $matches['args']);
+        $args = \_PhpScoperf18a0c41e2d2\magicSplit('(?:' . \PARAMS . '|' . \ARGS . ')(*SKIP)(*FAIL)|,', $matches['args']);
         if ('attributes' === $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(0, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(0, $args, $name);
             return '$this->startAttributeStack[#1] + $this->endAttributes';
         }
         if ('stackAttributes' === $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(1, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(1, $args, $name);
             return '$this->startAttributeStack[' . $args[0] . ']' . ' + $this->endAttributeStack[' . $args[0] . ']';
         }
         if ('init' === $name) {
             return '$$ = array(' . \implode(', ', $args) . ')';
         }
         if ('push' === $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(2, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(2, $args, $name);
             return $args[0] . '[] = ' . $args[1] . '; $$ = ' . $args[0];
         }
         if ('pushNormalizing' === $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(2, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(2, $args, $name);
             return 'if (is_array(' . $args[1] . ')) { $$ = array_merge(' . $args[0] . ', ' . $args[1] . '); }' . ' else { ' . $args[0] . '[] = ' . $args[1] . '; $$ = ' . $args[0] . '; }';
         }
         if ('toArray' == $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(1, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(1, $args, $name);
             return 'is_array(' . $args[0] . ') ? ' . $args[0] . ' : array(' . $args[0] . ')';
         }
         if ('parseVar' === $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(1, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(1, $args, $name);
             return 'substr(' . $args[0] . ', 1)';
         }
         if ('parseEncapsed' === $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(3, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(3, $args, $name);
             return 'foreach (' . $args[0] . ' as $s) { if ($s instanceof Node\\Scalar\\EncapsedStringPart) {' . ' $s->value = Node\\Scalar\\String_::parseEscapeSequences($s->value, ' . $args[1] . ', ' . $args[2] . '); } }';
         }
         if ('makeNop' === $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(3, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(3, $args, $name);
             return '$startAttributes = ' . $args[1] . ';' . ' if (isset($startAttributes[\'comments\']))' . ' { ' . $args[0] . ' = new Stmt\\Nop($startAttributes + ' . $args[2] . '); }' . ' else { ' . $args[0] . ' = null; }';
         }
         if ('makeZeroLengthNop' == $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(2, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(2, $args, $name);
             return '$startAttributes = ' . $args[1] . ';' . ' if (isset($startAttributes[\'comments\']))' . ' { ' . $args[0] . ' = new Stmt\\Nop($this->createCommentNopAttributes($startAttributes[\'comments\'])); }' . ' else { ' . $args[0] . ' = null; }';
         }
         if ('strKind' === $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(1, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(1, $args, $name);
             return '(' . $args[0] . '[0] === "\'" || (' . $args[0] . '[1] === "\'" && ' . '(' . $args[0] . '[0] === \'b\' || ' . $args[0] . '[0] === \'B\')) ' . '? Scalar\\String_::KIND_SINGLE_QUOTED : Scalar\\String_::KIND_DOUBLE_QUOTED)';
         }
         if ('prependLeadingComments' === $name) {
-            \_PhpScoperbf340cb0be9d\assertArgs(1, $args, $name);
+            \_PhpScoperf18a0c41e2d2\assertArgs(1, $args, $name);
             return '$attrs = $this->startAttributeStack[#1]; $stmts = ' . $args[0] . '; ' . 'if (!empty($attrs[\'comments\'])) {' . '$stmts[0]->setAttribute(\'comments\', ' . 'array_merge($attrs[\'comments\'], $stmts[0]->getAttribute(\'comments\', []))); }';
         }
         return $matches[0];
@@ -172,7 +172,7 @@ function regex($regex)
 }
 function magicSplit($regex, $string)
 {
-    $pieces = \preg_split(\_PhpScoperbf340cb0be9d\regex('(?:(?&string)|(?&comment)|(?&code))(*SKIP)(*FAIL)|' . $regex), $string);
+    $pieces = \preg_split(\_PhpScoperf18a0c41e2d2\regex('(?:(?&string)|(?&comment)|(?&code))(*SKIP)(*FAIL)|' . $regex), $string);
     foreach ($pieces as &$piece) {
         $piece = \trim($piece);
     }

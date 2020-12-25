@@ -144,14 +144,8 @@ CODE_SAMPLE
             }
         }
     }
-    private function areVariablesEqual(\PhpParser\Node\Expr\BinaryOp $binaryOp, ?\PhpParser\Node\Expr $firstValue, ?\PhpParser\Node\Expr $secondValue) : bool
+    private function areVariablesEqual(\PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Expr $firstValue, \PhpParser\Node\Expr $secondValue) : bool
     {
-        if ($firstValue === null) {
-            return \false;
-        }
-        if ($secondValue === null) {
-            return \false;
-        }
         if ($this->areNodesEqual($binaryOp->left, $firstValue) && $this->areNodesEqual($binaryOp->right, $secondValue)) {
             return \true;
         }

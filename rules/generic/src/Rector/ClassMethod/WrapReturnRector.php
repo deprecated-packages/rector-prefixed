@@ -13,7 +13,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\WrapReturn;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperbf340cb0be9d\Webmozart\Assert\Assert;
+use _PhpScoperf18a0c41e2d2\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\WrapReturnRector\WrapReturnRectorTest
  */
@@ -78,7 +78,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $typeMethodWraps = $configuration[self::TYPE_METHOD_WRAPS] ?? [];
-        \_PhpScoperbf340cb0be9d\Webmozart\Assert\Assert::allIsInstanceOf($typeMethodWraps, \Rector\Generic\ValueObject\WrapReturn::class);
+        \_PhpScoperf18a0c41e2d2\Webmozart\Assert\Assert::allIsInstanceOf($typeMethodWraps, \Rector\Generic\ValueObject\WrapReturn::class);
         $this->typeMethodWraps = $typeMethodWraps;
     }
     private function wrap(\PhpParser\Node\Stmt\ClassMethod $classMethod, bool $isArrayWrap) : ?\PhpParser\Node\Stmt\ClassMethod

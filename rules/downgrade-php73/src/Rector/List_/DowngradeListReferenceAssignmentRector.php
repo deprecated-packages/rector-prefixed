@@ -84,9 +84,9 @@ CODE_SAMPLE
             return null;
         }
         // Get all the params passed by reference
-        /** @var Assign */
+        /** @var Assign $parentNode */
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        /** @var Variable */
+        /** @var Variable $exprVariable */
         $exprVariable = $parentNode->expr;
         // Count number of params by ref on the right side, to remove them later on
         $rightSideRemovableParamsCount = $this->countRightSideMostParamsByRefOrEmpty($node->items);
@@ -108,7 +108,7 @@ CODE_SAMPLE
         $nodeItemsCount = \count($node->items);
         if ($rightSideRemovableParamsCount === $nodeItemsCount) {
             // Remove the parent Assign node
-            /** @var Assign */
+            /** @var Assign $parentNode */
             $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             $this->removeNode($parentNode);
             return null;
@@ -151,7 +151,7 @@ CODE_SAMPLE
             // If it is a nested list, check if all its items are by reference
             $isNested = $listItem->value instanceof \PhpParser\Node\Expr\List_ || $listItem->value instanceof \PhpParser\Node\Expr\Array_;
             if ($isNested) {
-                /** @var List_|Array_ */
+                /** @var List_|Array_ $nestedList */
                 $nestedList = $listItem->value;
                 if ($this->hasAllItemsByRef($nestedList->items)) {
                     ++$count;
@@ -183,7 +183,7 @@ CODE_SAMPLE
             $key = $this->getArrayItemKey($listItem, $position);
             // Either the item is a variable, or a nested list
             if ($listItem->value instanceof \PhpParser\Node\Expr\Variable) {
-                /** @var Variable */
+                /** @var Variable $itemVariable */
                 $itemVariable = $listItem->value;
                 // Remove the reference in the present node
                 $listItem->byRef = \false;
@@ -193,7 +193,7 @@ CODE_SAMPLE
                 continue;
             }
             // Nested list. Combine with the nodes from the recursive call
-            /** @var List_ */
+            /** @var List_ $nestedList */
             $nestedList = $listItem->value;
             $listNestedArrayIndexes = \array_merge($nestedArrayIndexes, [$key]);
             $newNodes = \array_merge($newNodes, $this->createAssignRefArrayFromListReferences($nestedList->items, $exprVariable, $listNestedArrayIndexes));
@@ -287,7 +287,7 @@ CODE_SAMPLE
         $isNested = $arrayItem->value instanceof \PhpParser\Node\Expr\List_ || $arrayItem->value instanceof \PhpParser\Node\Expr\Array_;
         if ($isNested) {
             // Recursive call
-            /** @var List_|Array_ */
+            /** @var List_|Array_ $nestedList */
             $nestedList = $arrayItem->value;
             if ($condition === self::ALL) {
                 return $this->hasAllItemsByRef($nestedList->items);

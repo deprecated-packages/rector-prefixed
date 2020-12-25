@@ -64,24 +64,24 @@ final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\Abs
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X to new factories', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoperbf340cb0be9d;
+namespace _PhpScoperf18a0c41e2d2;
 
 class SomeClass
 {
     public function run()
     {
-        return new \_PhpScoperbf340cb0be9d\AnotherClass();
+        return new \_PhpScoperf18a0c41e2d2\AnotherClass();
     }
 }
-\class_alias('_PhpScoperbf340cb0be9d\\SomeClass', 'SomeClass', \false);
+\class_alias('_PhpScoperf18a0c41e2d2\\SomeClass', 'SomeClass', \false);
 class AnotherClass
 {
     public function someFun()
     {
-        return \_PhpScoperbf340cb0be9d\StaticClass::staticMethod();
+        return \_PhpScoperf18a0c41e2d2\StaticClass::staticMethod();
     }
 }
-\class_alias('_PhpScoperbf340cb0be9d\\AnotherClass', 'AnotherClass', \false);
+\class_alias('_PhpScoperf18a0c41e2d2\\AnotherClass', 'AnotherClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass

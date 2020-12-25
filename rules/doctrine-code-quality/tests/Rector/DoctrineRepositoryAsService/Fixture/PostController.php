@@ -4,14 +4,14 @@ namespace Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\Fi
 
 use Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Entity\Post;
 use Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController;
-use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Response;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Response;
 final class PostController extends \Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController
 {
-    public function anythingAction(int $id) : \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Response
+    public function anythingAction(int $id) : \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Response
     {
         $em = $this->getDoctrine()->getManager();
         $em->getRepository(\Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Entity\Post::class)->findSomething($id);
-        return new \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Response();
+        return new \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Response();
     }
 }
 ?>
@@ -21,7 +21,7 @@ namespace Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\Fi
 
 use Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\Entity\Post;
 use Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController;
-use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Response;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Response;
 final class PostController extends \Rector\Core\Tests\Rector\Architecture\DoctrineRepositoryAsService\Source\SymfonyController
 {
     /**
@@ -32,10 +32,10 @@ final class PostController extends \Rector\Core\Tests\Rector\Architecture\Doctri
     {
         $this->postRepository = $postRepository;
     }
-    public function anythingAction(int $id) : \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Response
+    public function anythingAction(int $id) : \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Response
     {
         $em = $this->getDoctrine()->getManager();
         $this->postRepository->findSomething($id);
-        return new \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Response();
+        return new \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Response();
     }
 }

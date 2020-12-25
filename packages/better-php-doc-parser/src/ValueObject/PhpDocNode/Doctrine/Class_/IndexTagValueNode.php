@@ -22,6 +22,6 @@ final class IndexTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
     }
     public function getShortName() : string
     {
-        return '_PhpScoperbf340cb0be9d\\@ORM\\Index';
+        return '_PhpScoperf18a0c41e2d2\\@ORM\\Index';
     }
 }

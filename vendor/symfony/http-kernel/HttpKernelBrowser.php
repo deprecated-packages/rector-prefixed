@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperbf340cb0be9d\Symfony\Component\HttpKernel;
+namespace _PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel;
 
-use _PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\AbstractBrowser;
-use _PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\CookieJar;
-use _PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\History;
-use _PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\Request as DomRequest;
-use _PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\Response as DomResponse;
-use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\File\UploadedFile;
-use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Request;
-use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Response;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\AbstractBrowser;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\CookieJar;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\History;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\Request as DomRequest;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\Response as DomResponse;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\File\UploadedFile;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Request;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Response;
 /**
  * Simulates a browser and makes requests to an HttpKernel instance.
  *
@@ -26,14 +26,14 @@ use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Response;
  * @method Request  getRequest()  A Request instance
  * @method Response getResponse() A Response instance
  */
-class HttpKernelBrowser extends \_PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\AbstractBrowser
+class HttpKernelBrowser extends \_PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\AbstractBrowser
 {
     protected $kernel;
     private $catchExceptions = \true;
     /**
      * @param array $server The server parameters (equivalent of $_SERVER)
      */
-    public function __construct(\_PhpScoperbf340cb0be9d\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, array $server = [], \_PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\History $history = null, \_PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\CookieJar $cookieJar = null)
+    public function __construct(\_PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, array $server = [], \_PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\History $history = null, \_PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\CookieJar $cookieJar = null)
     {
         // These class properties must be set before calling the parent constructor, as it may depend on it.
         $this->kernel = $kernel;
@@ -54,8 +54,8 @@ class HttpKernelBrowser extends \_PhpScoperbf340cb0be9d\Symfony\Component\Browse
      */
     protected function doRequest($request)
     {
-        $response = $this->kernel->handle($request, \_PhpScoperbf340cb0be9d\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $this->catchExceptions);
-        if ($this->kernel instanceof \_PhpScoperbf340cb0be9d\Symfony\Component\HttpKernel\TerminableInterface) {
+        $response = $this->kernel->handle($request, \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $this->catchExceptions);
+        if ($this->kernel instanceof \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\TerminableInterface) {
             $this->kernel->terminate($request, $response);
         }
         return $response;
@@ -112,9 +112,9 @@ EOF;
      *
      * @return Request A Request instance
      */
-    protected function filterRequest(\_PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\Request $request)
+    protected function filterRequest(\_PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\Request $request)
     {
-        $httpRequest = \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $server = $request->getServer(), $request->getContent());
+        $httpRequest = \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $server = $request->getServer(), $request->getContent());
         if (!isset($server['HTTP_ACCEPT'])) {
             $httpRequest->headers->remove('Accept');
         }
@@ -142,11 +142,11 @@ EOF;
         foreach ($files as $key => $value) {
             if (\is_array($value)) {
                 $filtered[$key] = $this->filterFiles($value);
-            } elseif ($value instanceof \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\File\UploadedFile) {
-                if ($value->isValid() && $value->getSize() > \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\File\UploadedFile::getMaxFilesize()) {
-                    $filtered[$key] = new \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\File\UploadedFile('', $value->getClientOriginalName(), $value->getClientMimeType(), \UPLOAD_ERR_INI_SIZE, \true);
+            } elseif ($value instanceof \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\File\UploadedFile) {
+                if ($value->isValid() && $value->getSize() > \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\File\UploadedFile::getMaxFilesize()) {
+                    $filtered[$key] = new \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\File\UploadedFile('', $value->getClientOriginalName(), $value->getClientMimeType(), \UPLOAD_ERR_INI_SIZE, \true);
                 } else {
-                    $filtered[$key] = new \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\File\UploadedFile($value->getPathname(), $value->getClientOriginalName(), $value->getClientMimeType(), $value->getError(), \true);
+                    $filtered[$key] = new \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\File\UploadedFile($value->getPathname(), $value->getClientOriginalName(), $value->getClientMimeType(), $value->getError(), \true);
                 }
             }
         }
@@ -163,6 +163,6 @@ EOF;
         \ob_start();
         $response->sendContent();
         $content = \ob_get_clean();
-        return new \_PhpScoperbf340cb0be9d\Symfony\Component\BrowserKit\Response($content, $response->getStatusCode(), $response->headers->all());
+        return new \_PhpScoperf18a0c41e2d2\Symfony\Component\BrowserKit\Response($content, $response->getStatusCode(), $response->headers->all());
     }
 }

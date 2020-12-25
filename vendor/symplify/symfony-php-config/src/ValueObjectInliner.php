@@ -4,15 +4,15 @@ declare (strict_types=1);
 namespace Symplify\SymfonyPhpConfig;
 
 use ReflectionClass;
-use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator;
-use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
-use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
 use Symplify\SymfonyPhpConfig\Reflection\ArgumentAndParameterFactory;
-use function _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\inline_service;
-use function _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use function _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\inline_service;
+use function _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 final class ValueObjectInliner
 {
-    public static function inlineArgumentObject(object $object, \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $servicesConfigurator) : \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
+    public static function inlineArgumentObject(object $object, \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $servicesConfigurator) : \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
     {
         $reflectionClass = new \ReflectionClass($object);
         $className = $reflectionClass->getName();
@@ -21,8 +21,8 @@ final class ValueObjectInliner
         // @see https://symfony.com/doc/current/service_container/factories.html#passing-arguments-to-the-factory-method
         $servicesConfigurator->set(\Symplify\SymfonyPhpConfig\Reflection\ArgumentAndParameterFactory::class);
         $argumentValues = self::resolveArgumentValues($reflectionClass, $object);
-        $servicesConfigurator->set($className)->factory([\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\SymfonyPhpConfig\Reflection\ArgumentAndParameterFactory::class), 'create'])->args([$className, $argumentValues, $propertyValues]);
-        return \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\service($className);
+        $servicesConfigurator->set($className)->factory([\_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\SymfonyPhpConfig\Reflection\ArgumentAndParameterFactory::class), 'create'])->args([$className, $argumentValues, $propertyValues]);
+        return \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\service($className);
     }
     /**
      * @param object|object[] $object
@@ -81,12 +81,12 @@ final class ValueObjectInliner
         }
         return $propertyValues;
     }
-    private static function inlineSingle(object $object) : \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator
+    private static function inlineSingle(object $object) : \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator
     {
         $reflectionClass = new \ReflectionClass($object);
         $className = $reflectionClass->getName();
         $argumentValues = self::resolveArgumentValues($reflectionClass, $object);
-        $inlineServiceConfigurator = \_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\inline_service($className);
+        $inlineServiceConfigurator = \_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\inline_service($className);
         if ($argumentValues !== []) {
             $inlineServiceConfigurator->args($argumentValues);
         }

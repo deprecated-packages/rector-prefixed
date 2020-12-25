@@ -60,7 +60,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        if (!$this->isObjectType($node->var, '_PhpScoperbf340cb0be9d\\Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperf18a0c41e2d2\\Doctrine\\ORM\\EntityRepository')) {
             return null;
         }
         if (!$this->isNames($node->name, self::ENTITY_REPOSITORY_PUBLIC_METHODS)) {
@@ -75,6 +75,6 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
-        return !$this->isInObjectType($classLike, '_PhpScoperbf340cb0be9d\\Doctrine\\ORM\\EntityRepository');
+        return !$this->isInObjectType($classLike, '_PhpScoperf18a0c41e2d2\\Doctrine\\ORM\\EntityRepository');
     }
 }

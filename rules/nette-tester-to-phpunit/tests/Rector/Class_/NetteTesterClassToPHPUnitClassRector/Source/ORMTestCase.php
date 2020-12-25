@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPUnitClassRector\Source;
 
-use _PhpScoperbf340cb0be9d\Tester\TestCase;
-abstract class ORMTestCase extends \_PhpScoperbf340cb0be9d\Tester\TestCase
+use _PhpScoperf18a0c41e2d2\Tester\TestCase;
+abstract class ORMTestCase extends \_PhpScoperf18a0c41e2d2\Tester\TestCase
 {
 }

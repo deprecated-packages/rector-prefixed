@@ -109,6 +109,10 @@ CODE_SAMPLE
             return null;
         }
         $inferredReturnNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper::KIND_RETURN);
+        // nothing to change in PHP code
+        if ($inferredReturnNode === null) {
+            return null;
+        }
         if ($this->shouldSkipInferredReturnNode($node, $inferredReturnNode)) {
             return null;
         }
@@ -146,12 +150,8 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function shouldSkipInferredReturnNode(\PhpParser\Node\FunctionLike $functionLike, ?\PhpParser\Node $inferredReturnNode) : bool
+    private function shouldSkipInferredReturnNode(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $inferredReturnNode) : bool
     {
-        // nothing to change in PHP code
-        if ($inferredReturnNode === null) {
-            return \true;
-        }
         // already overridden by previous populateChild() method run
         if ($functionLike->returnType === null) {
             return \false;

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbf340cb0be9d\Manual\Twig;
+namespace _PhpScoperf18a0c41e2d2\Manual\Twig;
 
 final class TwigFilter
 {

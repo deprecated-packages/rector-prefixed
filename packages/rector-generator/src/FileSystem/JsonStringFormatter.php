@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\FileSystem;
 
-use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
+use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
 final class JsonStringFormatter
 {
     /**
@@ -18,8 +18,8 @@ final class JsonStringFormatter
     {
         foreach ($sections as $section) {
             $pattern = '#("' . \preg_quote($section, '#') . '": )\\[(.*?)\\](,)#ms';
-            $jsonContent = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($jsonContent, $pattern, function (array $match) : string {
-                $inlined = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($match[2], '#\\s+#', ' ');
+            $jsonContent = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::replace($jsonContent, $pattern, function (array $match) : string {
+                $inlined = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::replace($match[2], '#\\s+#', ' ');
                 $inlined = \trim($inlined);
                 $inlined = '[' . $inlined . ']';
                 return $match[1] . $inlined . $match[3];
@@ -29,10 +29,10 @@ final class JsonStringFormatter
     }
     public function inlineAuthors(string $jsonContent) : string
     {
-        return \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($jsonContent, self::REPLACE_REGEX, function (array $match) : string {
-            $inlined = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($match['content'], '#\\s+#', ' ');
+        return \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::replace($jsonContent, self::REPLACE_REGEX, function (array $match) : string {
+            $inlined = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::replace($match['content'], '#\\s+#', ' ');
             $inlined = \trim($inlined);
-            $inlined = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($inlined, '#},#', "},\n       ");
+            $inlined = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::replace($inlined, '#},#', "},\n       ");
             return $match['start'] . $inlined . $match['end'];
         });
     }

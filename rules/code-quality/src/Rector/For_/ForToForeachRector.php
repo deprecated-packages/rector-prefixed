@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\For_;
 
-use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Inflector;
+use _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Inflector;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -60,7 +60,7 @@ final class ForToForeachRector extends \Rector\Core\Rector\AbstractRector
      * @var Expr|null
      */
     private $iteratedExpr;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Inflector $inflector)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Inflector $inflector)
     {
         $this->assignManipulator = $assignManipulator;
         $this->inflector = $inflector;
@@ -240,7 +240,11 @@ CODE_SAMPLE
             if ($this->keyValueName === null) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            return $this->isVariableName($node->var->dim, $this->keyValueName);
+            $arrayDimFetch = $node->var;
+            if ($arrayDimFetch->dim === null) {
+                return \false;
+            }
+            return $this->isVariableName($arrayDimFetch->dim, $this->keyValueName);
         });
     }
     private function isArrayWithKeyValueNameUnsetted(\PhpParser\Node\Stmt\For_ $for) : bool
@@ -293,6 +297,9 @@ CODE_SAMPLE
             // is dim same as key value name, ...[$i]
             if ($this->keyValueName === null) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
+            }
+            if ($node->dim === null) {
+                return null;
             }
             if (!$this->isVariableName($node->dim, $this->keyValueName)) {
                 return null;

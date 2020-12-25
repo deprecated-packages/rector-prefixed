@@ -124,7 +124,7 @@ CODE_SAMPLE
     }
     private function isGetComponentMethodCallOrArrayDimFetchOnControl(\PhpParser\Node\Expr $expr) : bool
     {
-        if ($this->isOnClassMethodCall($expr, '_PhpScoperbf340cb0be9d\\Nette\\Application\\UI\\Control', 'getComponent')) {
+        if ($this->isOnClassMethodCall($expr, '_PhpScoperf18a0c41e2d2\\Nette\\Application\\UI\\Control', 'getComponent')) {
             return \true;
         }
         return $this->isArrayDimFetchStringOnControlVariable($expr);
@@ -155,7 +155,7 @@ CODE_SAMPLE
         if (!$varStaticType instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
-        return \is_a($varStaticType->getClassName(), '_PhpScoperbf340cb0be9d\\Nette\\Application\\UI\\Control', \true);
+        return \is_a($varStaticType->getClassName(), '_PhpScoperf18a0c41e2d2\\Nette\\Application\\UI\\Control', \true);
     }
     private function resolveCreateComponentMethodCallReturnType(\PhpParser\Node\Expr\MethodCall $methodCall) : \PHPStan\Type\Type
     {

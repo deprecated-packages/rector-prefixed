@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperbf340cb0be9d;
+namespace _PhpScoperf18a0c41e2d2;
 
 use Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
@@ -22,9 +22,9 @@ use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameClassConstant;
 use Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector;
 use Rector\Transform\ValueObject\StaticCallToMethodCall;
-use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $containerConfigurator->import(__DIR__ . '/nette-30-dependency-injection.php');
     $containerConfigurator->import(__DIR__ . '/nette-30-return-types.php');
     $containerConfigurator->import(__DIR__ . '/nette-30-param-types.php');
@@ -36,35 +36,35 @@ return static function (\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInje
     $services->set(\Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector::class);
     // https://github.com/nette/utils/commit/d0041ba59f5d8bf1f5b3795fd76d43fb13ea2e15
     $services->set(\Rector\Generic\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector::class);
-    $services->set(\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class)->call('configure', [[\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoperbf340cb0be9d\\Nette\\Security\\Passwords', 'hash', '_PhpScoperbf340cb0be9d\\Nette\\Security\\Passwords', 'hash'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoperbf340cb0be9d\\Nette\\Security\\Passwords', 'verify', '_PhpScoperbf340cb0be9d\\Nette\\Security\\Passwords', 'verify'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoperbf340cb0be9d\\Nette\\Security\\Passwords', 'needsRehash', '_PhpScoperbf340cb0be9d\\Nette\\Security\\Passwords', 'needsRehash')])]]);
+    $services->set(\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class)->call('configure', [[\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoperf18a0c41e2d2\\Nette\\Security\\Passwords', 'hash', '_PhpScoperf18a0c41e2d2\\Nette\\Security\\Passwords', 'hash'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoperf18a0c41e2d2\\Nette\\Security\\Passwords', 'verify', '_PhpScoperf18a0c41e2d2\\Nette\\Security\\Passwords', 'verify'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoperf18a0c41e2d2\\Nette\\Security\\Passwords', 'needsRehash', '_PhpScoperf18a0c41e2d2\\Nette\\Security\\Passwords', 'needsRehash')])]]);
     // https://github.com/contributte/event-dispatcher-extra/tree/v0.4.3 and higher
-    $services->set(\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::class)->call('configure', [[\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::CLASS_CONSTANT_RENAME => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperbf340cb0be9d\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent', 'NAME', 'class'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperbf340cb0be9d\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent', 'NAME', 'class'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperbf340cb0be9d\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent', 'NAME', 'class')])]]);
+    $services->set(\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::class)->call('configure', [[\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::CLASS_CONSTANT_RENAME => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperf18a0c41e2d2\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent', 'NAME', 'class'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperf18a0c41e2d2\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent', 'NAME', 'class'), new \Rector\Renaming\ValueObject\RenameClassConstant('_PhpScoperf18a0c41e2d2\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent', 'NAME', 'class')])]]);
     $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
         # nextras/forms was split into 2 packages
-        '_PhpScoperbf340cb0be9d\\Nextras\\FormComponents\\Controls\\DatePicker' => '_PhpScoperbf340cb0be9d\\Nextras\\FormComponents\\Controls\\DateControl',
+        '_PhpScoperf18a0c41e2d2\\Nextras\\FormComponents\\Controls\\DatePicker' => '_PhpScoperf18a0c41e2d2\\Nextras\\FormComponents\\Controls\\DateControl',
         # @see https://github.com/nette/di/commit/a0d361192f8ac35f1d9f82aab7eb351e4be395ea
-        '_PhpScoperbf340cb0be9d\\Nette\\DI\\ServiceDefinition' => '_PhpScoperbf340cb0be9d\\Nette\\DI\\Definitions\\ServiceDefinition',
-        '_PhpScoperbf340cb0be9d\\Nette\\DI\\Statement' => '_PhpScoperbf340cb0be9d\\Nette\\DI\\Definitions\\Statement',
-        '_PhpScoperbf340cb0be9d\\WebChemistry\\Forms\\Controls\\Multiplier' => '_PhpScoperbf340cb0be9d\\Contributte\\FormMultiplier\\Multiplier',
+        '_PhpScoperf18a0c41e2d2\\Nette\\DI\\ServiceDefinition' => '_PhpScoperf18a0c41e2d2\\Nette\\DI\\Definitions\\ServiceDefinition',
+        '_PhpScoperf18a0c41e2d2\\Nette\\DI\\Statement' => '_PhpScoperf18a0c41e2d2\\Nette\\DI\\Definitions\\Statement',
+        '_PhpScoperf18a0c41e2d2\\WebChemistry\\Forms\\Controls\\Multiplier' => '_PhpScoperf18a0c41e2d2\\Contributte\\FormMultiplier\\Multiplier',
     ]]]);
     $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::REPLACED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // json 2nd argument is now `int` typed
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperbf340cb0be9d\\Nette\\Utils\\Json', 'decode', 1, \true, 'Nette\\Utils\\Json::FORCE_ARRAY'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperf18a0c41e2d2\\Nette\\Utils\\Json', 'decode', 1, \true, 'Nette\\Utils\\Json::FORCE_ARRAY'),
         // @see https://github.com/nette/forms/commit/574b97f9d5e7a902a224e57d7d584e7afc9fefec
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperbf340cb0be9d\\Nette\\Forms\\Form', 'decode', 0, \true, 'array'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperf18a0c41e2d2\\Nette\\Forms\\Form', 'decode', 0, \true, 'array'),
     ])]]);
     $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // see https://github.com/nette/forms/commit/b99385aa9d24d729a18f6397a414ea88eab6895a
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbf340cb0be9d\\Nette\\Forms\\Controls\\BaseControl', 'setType', 'setHtmlType'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbf340cb0be9d\\Nette\\Forms\\Controls\\BaseControl', 'setAttribute', 'setHtmlAttribute'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperf18a0c41e2d2\\Nette\\Forms\\Controls\\BaseControl', 'setType', 'setHtmlType'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperf18a0c41e2d2\\Nette\\Forms\\Controls\\BaseControl', 'setAttribute', 'setHtmlAttribute'),
         new \Rector\Renaming\ValueObject\MethodCallRename(
-            '_PhpScoperbf340cb0be9d\\Nette\\DI\\Definitions\\ServiceDefinition',
+            '_PhpScoperf18a0c41e2d2\\Nette\\DI\\Definitions\\ServiceDefinition',
             # see https://github.com/nette/di/commit/1705a5db431423fc610a6f339f88dead1b5dc4fb
             'setClass',
             'setType'
         ),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbf340cb0be9d\\Nette\\DI\\Definitions\\ServiceDefinition', 'getClass', 'getType'),
-        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperbf340cb0be9d\\Nette\\DI\\Definitions\\Definition', 'isAutowired', 'getAutowired'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperf18a0c41e2d2\\Nette\\DI\\Definitions\\ServiceDefinition', 'getClass', 'getType'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperf18a0c41e2d2\\Nette\\DI\\Definitions\\Definition', 'isAutowired', 'getAutowired'),
     ])]]);
     $services->set(\Rector\Nette\Rector\MethodCall\MagicHtmlCallToAppendAttributeRector::class);
     $services->set(\Rector\Nette\Rector\MethodCall\RequestGetCookieDefaultArgumentToCoalesceRector::class);

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Rector\ClassMethod;
 
-use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
+use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -143,8 +143,8 @@ CODE_SAMPLE
     private function resolveMethodNameFromKdybyEventName(\PhpParser\Node\Expr $expr) : string
     {
         $kdybyEventName = $this->getValue($expr);
-        if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
-            return (string) \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
+        if (\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
+            return (string) \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
         }
         throw new \Rector\Core\Exception\NotImplementedException($kdybyEventName);
     }

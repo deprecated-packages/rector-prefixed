@@ -115,7 +115,7 @@ CODE_SAMPLE
     {
         $newItems = [];
         $accumulatedItems = [];
-        /** @var Scope */
+        /** @var Scope $nodeScope */
         $nodeScope = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         foreach ($array->items as $position => $item) {
             if ($item !== null && $item->unpack) {
@@ -151,7 +151,7 @@ CODE_SAMPLE
      */
     private function createArrayMerge(\PhpParser\Node\Expr\Array_ $array, array $items) : \PhpParser\Node\Expr\FuncCall
     {
-        /** @var Scope */
+        /** @var Scope $nodeScope */
         $nodeScope = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('array_merge'), \array_map(function (\PhpParser\Node\Expr\ArrayItem $item) use($nodeScope) : Arg {
             if ($item !== null && $item->unpack) {
@@ -172,7 +172,7 @@ CODE_SAMPLE
      */
     private function createVariableFromNonVariable(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Expr\ArrayItem $arrayItem, $position) : \PhpParser\Node\Expr\Variable
     {
-        /** @var Scope */
+        /** @var Scope $nodeScope */
         $nodeScope = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         // The variable name will be item0Unpacked, item1Unpacked, etc,
         // depending on their position.
@@ -194,7 +194,7 @@ CODE_SAMPLE
     private function createArgFromSpreadArrayItem(\PHPStan\Analyser\Scope $nodeScope, \PhpParser\Node\Expr\ArrayItem $arrayItem) : \PhpParser\Node\Arg
     {
         // By now every item is a variable
-        /** @var Variable */
+        /** @var Variable $variable */
         $variable = $arrayItem->value;
         $variableName = $this->getName($variable) ?? '';
         // If the variable is not in scope, it's one we just added.

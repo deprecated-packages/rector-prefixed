@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php70;
 
-use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
+use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
 use Rector\Php70\Exception\InvalidEregException;
 /**
  * @source https://gist.github.com/lifthrasiir/704754/7e486f43e62fd1c9d3669330c251f8ca4a59a3f8
@@ -26,7 +26,7 @@ final class EregToPcreTransformer
         ':print:' => '[:print:]',
         ':punct:' => '[:punct:]',
         // should include VT
-        ':space:' => '_PhpScoperbf340cb0be9d\\013\\s',
+        ':space:' => '_PhpScoperf18a0c41e2d2\\013\\s',
         ':upper:' => '[:upper:]',
         ':xdigit:' => '[:xdigit:]',
     ];
@@ -60,7 +60,7 @@ final class EregToPcreTransformer
     }
     public function transform(string $ereg, bool $isCaseInsensitive) : string
     {
-        if (!\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains($ereg, $this->pcreDelimiter)) {
+        if (!\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::contains($ereg, $this->pcreDelimiter)) {
             return $this->ere2pcre($ereg, $isCaseInsensitive);
         }
         // fallback
@@ -124,7 +124,7 @@ final class EregToPcreTransformer
             } elseif ($char === '*' || $char === '+' || $char === '?') {
                 throw new \Rector\Php70\Exception\InvalidEregException('unescaped metacharacter "' . $char . '"');
             } elseif ($char === '{') {
-                if ($i + 1 < $l && \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains('0123456789', $content[$i + 1])) {
+                if ($i + 1 < $l && \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::contains('0123456789', $content[$i + 1])) {
                     $r[$rr] .= '\\{';
                 } else {
                     throw new \Rector\Php70\Exception\InvalidEregException('unescaped metacharacter "' . $char . '"');
@@ -197,7 +197,7 @@ final class EregToPcreTransformer
     private function processSquareBracket(string $s, int $i, int $l, string $cls, bool $start) : array
     {
         do {
-            if ($s[$i] === '[' && $i + 1 < $l && \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains('.=:', $s[$i + 1])) {
+            if ($s[$i] === '[' && $i + 1 < $l && \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::contains('.=:', $s[$i + 1])) {
                 /** @var string $cls */
                 [$cls, $i] = $this->processCharacterClass($s, $i, $cls);
             } else {
@@ -229,7 +229,7 @@ final class EregToPcreTransformer
         if ($content === "\0") {
             throw new \Rector\Php70\Exception\InvalidEregException('a literal null byte in the regex');
         }
-        if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains('\\^$.[]|()?*+{}-/', $content)) {
+        if (\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::contains('\\^$.[]|()?*+{}-/', $content)) {
             return '\\' . $content;
         }
         return $content;
@@ -245,8 +245,8 @@ final class EregToPcreTransformer
         }
         $start = $i + 1;
         $length = $ii - ($i + 1);
-        $bound = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::substring($s, $start, $length);
-        $matches = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($bound, self::BOUND_REGEX);
+        $bound = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::substring($s, $start, $length);
+        $matches = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::match($bound, self::BOUND_REGEX);
         if (!$matches) {
             throw new \Rector\Php70\Exception\InvalidEregException('an invalid bound');
         }
@@ -274,7 +274,7 @@ final class EregToPcreTransformer
         }
         $start = $i + 1;
         $length = $ii - ($i + 1);
-        $ccls = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::substring($content, $start, $length);
+        $ccls = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::substring($content, $start, $length);
         if (!isset(self::CHARACTER_CLASS_MAP[$ccls])) {
             throw new \Rector\Php70\Exception\InvalidEregException('an invalid or unsupported character class [' . $ccls . ']');
         }

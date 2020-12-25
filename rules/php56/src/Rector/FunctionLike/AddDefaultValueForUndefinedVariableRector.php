@@ -150,6 +150,9 @@ CODE_SAMPLE
     private function shouldSkipVariable(\PhpParser\Node\Expr\Variable $variable) : bool
     {
         $parentNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode === null) {
+            return \true;
+        }
         if ($parentNode instanceof \PhpParser\Node\Stmt\Global_) {
             return \true;
         }
@@ -186,14 +189,9 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function isListAssign(?\PhpParser\Node $parentNode) : bool
+    private function isListAssign(\PhpParser\Node $node) : bool
     {
-        if ($parentNode instanceof \PhpParser\Node) {
-            $parentParentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (\Rector\Core\Util\StaticInstanceOf::isOneOf($parentParentNode, [\PhpParser\Node\Expr\List_::class, \PhpParser\Node\Expr\Array_::class])) {
-                return \true;
-            }
-        }
-        return \false;
+        $parentParentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        return \Rector\Core\Util\StaticInstanceOf::isOneOf($parentParentNode, [\PhpParser\Node\Expr\List_::class, \PhpParser\Node\Expr\Array_::class]);
     }
 }
