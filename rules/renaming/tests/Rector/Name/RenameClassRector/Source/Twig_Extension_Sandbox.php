@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce;
+namespace _PhpScoperbf340cb0be9d;
 
 final class Twig_Extension_Sandbox
 {
 }
-\class_alias('_PhpScoperfce0de0de1ce\\Twig_Extension_Sandbox', 'Twig_Extension_Sandbox', \false);
+\class_alias('_PhpScoperbf340cb0be9d\\Twig_Extension_Sandbox', 'Twig_Extension_Sandbox', \false);

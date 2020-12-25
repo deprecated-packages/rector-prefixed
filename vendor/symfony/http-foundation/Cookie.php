@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation;
+namespace _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation;
 
 /**
  * Represents a cookie.
@@ -41,11 +41,11 @@ class Cookie
     public static function fromString(string $cookie, bool $decode = \false)
     {
         $data = ['expires' => 0, 'path' => '/', 'domain' => null, 'secure' => \false, 'httponly' => \false, 'raw' => !$decode, 'samesite' => null];
-        $parts = \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\HeaderUtils::split($cookie, ';=');
+        $parts = \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\HeaderUtils::split($cookie, ';=');
         $part = \array_shift($parts);
         $name = $decode ? \urldecode($part[0]) : $part[0];
         $value = isset($part[1]) ? $decode ? \urldecode($part[1]) : $part[1] : null;
-        $data = \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\HeaderUtils::combine($parts) + $data;
+        $data = \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\HeaderUtils::combine($parts) + $data;
         $data['expires'] = self::expiresTimestamp($data['expires']);
         if (isset($data['max-age']) && ($data['max-age'] > 0 || $data['expires'] > \time())) {
             $data['expires'] = \time() + (int) $data['max-age'];

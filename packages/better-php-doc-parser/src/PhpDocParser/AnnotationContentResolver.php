@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory;
@@ -48,8 +48,8 @@ final class AnnotationContentResolver
             }
             // remove new line "*"
             $annotationContent = $this->appendPreviousWhitespace($tokenIterator, $annotationContent);
-            if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::contains($tokenIterator->currentTokenValue(), '*')) {
-                $tokenValueWithoutAsterisk = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($tokenIterator->currentTokenValue(), '#\\*#', '');
+            if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains($tokenIterator->currentTokenValue(), '*')) {
+                $tokenValueWithoutAsterisk = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($tokenIterator->currentTokenValue(), '#\\*#', '');
                 $annotationContent .= $tokenValueWithoutAsterisk;
             } else {
                 $annotationContent .= $tokenIterator->currentTokenValue();
@@ -116,7 +116,7 @@ final class AnnotationContentResolver
     }
     private function cleanMultilineAnnotationContent(string $annotationContent) : string
     {
-        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($annotationContent, self::MULTILINE_COMENT_ASTERISK_REGEX, '$1$3');
+        return \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($annotationContent, self::MULTILINE_COMENT_ASTERISK_REGEX, '$1$3');
     }
     private function tryStartWithKey(string $name, bool $start, \PHPStan\PhpDocParser\Parser\TokenIterator $localTokenIterator) : bool
     {

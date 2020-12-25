@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperfce0de0de1ce\Symfony\Contracts\Service\Attribute;
+namespace _PhpScoperbf340cb0be9d\Symfony\Contracts\Service\Attribute;
 
 use Attribute;
 /**

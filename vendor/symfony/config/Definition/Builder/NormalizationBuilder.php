@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperfce0de0de1ce\Symfony\Component\Config\Definition\Builder;
+namespace _PhpScoperbf340cb0be9d\Symfony\Component\Config\Definition\Builder;
 
 /**
  * This class builds normalization conditions.
@@ -20,7 +20,7 @@ class NormalizationBuilder
     protected $node;
     public $before = [];
     public $remappings = [];
-    public function __construct(\_PhpScoperfce0de0de1ce\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
+    public function __construct(\_PhpScoperbf340cb0be9d\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->node = $node;
     }
@@ -48,6 +48,6 @@ class NormalizationBuilder
             $this->before[] = $closure;
             return $this;
         }
-        return $this->before[] = new \_PhpScoperfce0de0de1ce\Symfony\Component\Config\Definition\Builder\ExprBuilder($this->node);
+        return $this->before[] = new \_PhpScoperbf340cb0be9d\Symfony\Component\Config\Definition\Builder\ExprBuilder($this->node);
     }
 }

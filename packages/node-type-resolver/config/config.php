@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce;
+namespace _PhpScoperbf340cb0be9d;
 
 use PhpParser\NodeVisitor\NodeConnectingVisitor;
 use PHPStan\Analyser\NodeScopeResolver;
@@ -14,9 +14,9 @@ use Rector\Core\Php\TypeAnalyzer;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory;
-use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ref;
-return static function (\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use function _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ref;
+return static function (\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\Rector\Core\Configuration\Option::PHPSTAN_FOR_RECTOR_PATH, \getcwd() . '/phpstan-for-rector.neon');
     $services = $containerConfigurator->services();
@@ -26,9 +26,9 @@ return static function (\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInje
     $services->set(\Rector\Core\FileSystem\FilesFinder::class);
     $services->set(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);
     $services->set(\Rector\Core\PhpParser\Node\BetterNodeFinder::class);
-    $services->set(\PHPStan\Reflection\ReflectionProvider::class)->factory([\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createReflectionProvider']);
-    $services->set(\PHPStan\Analyser\NodeScopeResolver::class)->factory([\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createNodeScopeResolver']);
-    $services->set(\PHPStan\Analyser\ScopeFactory::class)->factory([\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createScopeFactory']);
-    $services->set(\PHPStan\PhpDoc\TypeNodeResolver::class)->factory([\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createTypeNodeResolver']);
+    $services->set(\PHPStan\Reflection\ReflectionProvider::class)->factory([\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createReflectionProvider']);
+    $services->set(\PHPStan\Analyser\NodeScopeResolver::class)->factory([\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createNodeScopeResolver']);
+    $services->set(\PHPStan\Analyser\ScopeFactory::class)->factory([\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createScopeFactory']);
+    $services->set(\PHPStan\PhpDoc\TypeNodeResolver::class)->factory([\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createTypeNodeResolver']);
     $services->set(\PhpParser\NodeVisitor\NodeConnectingVisitor::class);
 };

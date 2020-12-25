@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\Variable;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -102,7 +102,7 @@ CODE_SAMPLE
         if ($className === null) {
             return \false;
         }
-        if (!\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::endsWith($className, 'Controller')) {
+        if (!\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::endsWith($className, 'Controller')) {
             return \false;
         }
         /** @var ClassMethod|null $classMethod */

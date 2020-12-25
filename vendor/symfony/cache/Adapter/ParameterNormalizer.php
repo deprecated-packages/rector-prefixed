@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperfce0de0de1ce\Symfony\Component\Cache\Adapter;
+namespace _PhpScoperbf340cb0be9d\Symfony\Component\Cache\Adapter;
 
 /**
  * @author Lars Strojny <lars@strojny.net>

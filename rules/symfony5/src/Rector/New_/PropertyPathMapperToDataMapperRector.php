@@ -64,7 +64,7 @@ CODE_SAMPLE
         if (!$new->class instanceof \PhpParser\Node\Name) {
             return \true;
         }
-        return !$this->isName($new->class, '_PhpScoperfce0de0de1ce\\Symfony\\Component\\Form\\Extension\\Core\\DataMapper\\PropertyPathMapper');
+        return !$this->isName($new->class, '_PhpScoperbf340cb0be9d\\Symfony\\Component\\Form\\Extension\\Core\\DataMapper\\PropertyPathMapper');
     }
     private function generateNewInstances(\PhpParser\Node\Expr\New_ $new) : \PhpParser\Node\Expr\New_
     {
@@ -72,7 +72,7 @@ CODE_SAMPLE
         if (isset($new->args[0])) {
             $arguments = [$new->args[0]];
         }
-        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\Symfony\\Component\\Form\\Extension\\Core\\DataAccessor\\PropertyPathAccessor'), $arguments);
-        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\Symfony\\Component\\Form\\Extension\\Core\\DataMapper\\DataMapper'), [$this->createArg($new)]);
+        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoperbf340cb0be9d\\Symfony\\Component\\Form\\Extension\\Core\\DataAccessor\\PropertyPathAccessor'), $arguments);
+        return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoperbf340cb0be9d\\Symfony\\Component\\Form\\Extension\\Core\\DataMapper\\DataMapper'), [$this->createArg($new)]);
     }
 }

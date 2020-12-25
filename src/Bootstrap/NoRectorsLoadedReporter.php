@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Rector\Core\Bootstrap;
 
-use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Style\SymfonyStyle;
 final class NoRectorsLoadedReporter
 {
     /**
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\_PhpScoperfce0de0de1ce\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\_PhpScoperbf340cb0be9d\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
     }

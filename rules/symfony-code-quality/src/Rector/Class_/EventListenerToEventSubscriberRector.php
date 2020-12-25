@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\SymfonyCodeQuality\Rector\Class_;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -36,15 +36,15 @@ final class EventListenerToEventSubscriberRector extends \Rector\Core\Rector\Abs
     /**
      * @var string
      */
-    private const EVENT_SUBSCRIBER_INTERFACE = '_PhpScoperfce0de0de1ce\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
+    private const EVENT_SUBSCRIBER_INTERFACE = '_PhpScoperbf340cb0be9d\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
     /**
      * @var string
      */
-    private const KERNEL_EVENTS_CLASS = '_PhpScoperfce0de0de1ce\\Symfony\\Component\\HttpKernel\\KernelEvents';
+    private const KERNEL_EVENTS_CLASS = '_PhpScoperbf340cb0be9d\\Symfony\\Component\\HttpKernel\\KernelEvents';
     /**
      * @var string
      */
-    private const CONSOLE_EVENTS_CLASS = '_PhpScoperfce0de0de1ce\\Symfony\\Component\\Console\\ConsoleEvents';
+    private const CONSOLE_EVENTS_CLASS = '_PhpScoperbf340cb0be9d\\Symfony\\Component\\Console\\ConsoleEvents';
     /**
      * @var string
      * @see https://regex101.com/r/qiHZ4T/1
@@ -160,7 +160,7 @@ CODE_SAMPLE
     private function isAlreadyEventSubscriber(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->implements as $implement) {
-            if ($this->isName($implement, '_PhpScoperfce0de0de1ce\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+            if ($this->isName($implement, '_PhpScoperbf340cb0be9d\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
                 return \true;
             }
         }
@@ -178,7 +178,7 @@ CODE_SAMPLE
         $eventListeners = $serviceMap->getServicesByTag('kernel.event_listener');
         foreach ($eventListeners as $eventListener) {
             // skip Symfony core listeners
-            if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match((string) $eventListener->getClass(), self::SYMFONY_FAMILY_REGEX)) {
+            if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match((string) $eventListener->getClass(), self::SYMFONY_FAMILY_REGEX)) {
                 continue;
             }
             foreach ($eventListener->getTags() as $tag) {
@@ -200,7 +200,7 @@ CODE_SAMPLE
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
         $classShortName = $this->getShortName($class);
         // remove suffix
-        $classShortName = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
+        $classShortName = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
         $class->name = new \PhpParser\Node\Identifier($classShortName . 'EventSubscriber');
         $classMethod = $this->createGetSubscribedEventsClassMethod($eventsToMethods);
         $class->stmts[] = $classMethod;

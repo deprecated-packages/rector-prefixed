@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
@@ -133,7 +133,7 @@ abstract class AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contra
     private function shouldPrintEmptyBrackets() : bool
     {
         // @todo decouple
-        if ($this->tagValueNodeConfiguration->getOriginalContent() !== null && \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::endsWith($this->tagValueNodeConfiguration->getOriginalContent(), '()')) {
+        if ($this->tagValueNodeConfiguration->getOriginalContent() !== null && \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::endsWith($this->tagValueNodeConfiguration->getOriginalContent(), '()')) {
             return \true;
         }
         if (!$this->tagValueNodeConfiguration->hasOpeningBracket()) {

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\NodeCollector;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Arrays;
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Arrays;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -195,7 +195,7 @@ final class NodeRepository
     }
     public function findClassMethod(string $className, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
-        if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::contains($methodName, '\\')) {
+        if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains($methodName, '\\')) {
             $message = \sprintf('Class and method arguments are switched in "%s"', __METHOD__);
             throw new \Rector\Core\Exception\ShouldNotHappenException($message);
         }
@@ -222,7 +222,7 @@ final class NodeRepository
      */
     public function getMethodsCalls() : array
     {
-        $calls = \_PhpScoperfce0de0de1ce\Nette\Utils\Arrays::flatten($this->callsByTypeAndMethod);
+        $calls = \_PhpScoperbf340cb0be9d\Nette\Utils\Arrays::flatten($this->callsByTypeAndMethod);
         return \array_filter($calls, function (\PhpParser\Node $node) : bool {
             return $node instanceof \PhpParser\Node\Expr\MethodCall;
         });
@@ -332,7 +332,7 @@ final class NodeRepository
     {
         $classNodes = [];
         foreach ($this->parsedNodeCollector->getClasses() as $className => $classNode) {
-            if (!\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::endsWith($className, $suffix)) {
+            if (!\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::endsWith($className, $suffix)) {
                 continue;
             }
             $classNodes[] = $classNode;

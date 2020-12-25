@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce\Doctrine\Inflector;
+namespace _PhpScoperbf340cb0be9d\Doctrine\Inflector;
 
-use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\English;
-use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\French;
-use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\NorwegianBokmal;
-use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Portuguese;
-use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Spanish;
-use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Turkish;
+use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\English;
+use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\French;
+use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\NorwegianBokmal;
+use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Portuguese;
+use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Spanish;
+use _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Turkish;
 use InvalidArgumentException;
 use function sprintf;
 final class InflectorFactory
 {
-    public static function create() : \_PhpScoperfce0de0de1ce\Doctrine\Inflector\LanguageInflectorFactory
+    public static function create() : \_PhpScoperbf340cb0be9d\Doctrine\Inflector\LanguageInflectorFactory
     {
-        return self::createForLanguage(\_PhpScoperfce0de0de1ce\Doctrine\Inflector\Language::ENGLISH);
+        return self::createForLanguage(\_PhpScoperbf340cb0be9d\Doctrine\Inflector\Language::ENGLISH);
     }
-    public static function createForLanguage(string $language) : \_PhpScoperfce0de0de1ce\Doctrine\Inflector\LanguageInflectorFactory
+    public static function createForLanguage(string $language) : \_PhpScoperbf340cb0be9d\Doctrine\Inflector\LanguageInflectorFactory
     {
         switch ($language) {
-            case \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Language::ENGLISH:
-                return new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\English\InflectorFactory();
-            case \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Language::FRENCH:
-                return new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\French\InflectorFactory();
-            case \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Language::NORWEGIAN_BOKMAL:
-                return new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\NorwegianBokmal\InflectorFactory();
-            case \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Language::PORTUGUESE:
-                return new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Portuguese\InflectorFactory();
-            case \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Language::SPANISH:
-                return new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Spanish\InflectorFactory();
-            case \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Language::TURKISH:
-                return new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Turkish\InflectorFactory();
+            case \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Language::ENGLISH:
+                return new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\English\InflectorFactory();
+            case \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Language::FRENCH:
+                return new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\French\InflectorFactory();
+            case \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Language::NORWEGIAN_BOKMAL:
+                return new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\NorwegianBokmal\InflectorFactory();
+            case \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Language::PORTUGUESE:
+                return new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Portuguese\InflectorFactory();
+            case \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Language::SPANISH:
+                return new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Spanish\InflectorFactory();
+            case \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Language::TURKISH:
+                return new \_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Turkish\InflectorFactory();
             default:
                 throw new \InvalidArgumentException(\sprintf('Language "%s" is not supported.', $language));
         }

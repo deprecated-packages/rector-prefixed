@@ -10,7 +10,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\RemoveFuncCallArg;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperfce0de0de1ce\Webmozart\Assert\Assert;
+use _PhpScoperbf340cb0be9d\Webmozart\Assert\Assert;
 /**
  * @sponsor Thanks https://twitter.com/afilina & Zenika (CAN) for sponsoring this rule - visit them on https://zenika.ca/en/en
  *
@@ -64,7 +64,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $removedFunctionArguments = $configuration[self::REMOVED_FUNCTION_ARGUMENTS] ?? [];
-        \_PhpScoperfce0de0de1ce\Webmozart\Assert\Assert::allIsInstanceOf($removedFunctionArguments, \Rector\Generic\ValueObject\RemoveFuncCallArg::class);
+        \_PhpScoperbf340cb0be9d\Webmozart\Assert\Assert::allIsInstanceOf($removedFunctionArguments, \Rector\Generic\ValueObject\RemoveFuncCallArg::class);
         $this->removedFunctionArguments = $removedFunctionArguments;
     }
 }

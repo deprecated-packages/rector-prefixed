@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PhpSpecToPHPUnit\Rector\FileNode;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
@@ -52,7 +52,7 @@ CODE_SAMPLE
         $fileInfo = $node->getFileInfo();
         $oldPathname = $fileInfo->getPathname();
         // ends with Spec.php
-        if (!\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match($oldPathname, self::SPEC_SUFFIX_REGEX)) {
+        if (!\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($oldPathname, self::SPEC_SUFFIX_REGEX)) {
             return null;
         }
         $newPathName = $this->createPathName($oldPathname);
@@ -63,8 +63,8 @@ CODE_SAMPLE
     private function createPathName(string $oldRealPath) : string
     {
         // suffix
-        $newRealPath = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($oldRealPath, self::SPEC_SUFFIX_REGEX, 'Test.php');
+        $newRealPath = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($oldRealPath, self::SPEC_SUFFIX_REGEX, 'Test.php');
         // directory
-        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($newRealPath, self::SPEC_REGEX, '/tests/');
+        return \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($newRealPath, self::SPEC_REGEX, '/tests/');
     }
 }

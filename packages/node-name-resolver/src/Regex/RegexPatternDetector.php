@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeNameResolver\Regex;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 final class RegexPatternDetector
 {
     /**
@@ -14,7 +14,7 @@ final class RegexPatternDetector
     private const POSSIBLE_DELIMITERS = ['#', '~', '/'];
     public function isRegexPattern(string $name) : bool
     {
-        if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::length($name) <= 2) {
+        if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::length($name) <= 2) {
             return \false;
         }
         $firstChar = $name[0];

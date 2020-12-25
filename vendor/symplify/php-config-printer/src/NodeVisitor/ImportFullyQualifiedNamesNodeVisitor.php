@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\PhpConfigPrinter\NodeVisitor;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -39,10 +39,10 @@ final class ImportFullyQualifiedNamesNodeVisitor extends \PhpParser\NodeVisitorA
         }
         $fullyQualifiedName = $node->toString();
         // namespace-less class name
-        if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::startsWith($fullyQualifiedName, '\\')) {
+        if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::startsWith($fullyQualifiedName, '\\')) {
             $fullyQualifiedName = \ltrim($fullyQualifiedName, '\\');
         }
-        if (!\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::contains($fullyQualifiedName, '\\')) {
+        if (!\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains($fullyQualifiedName, '\\')) {
             return new \PhpParser\Node\Name($fullyQualifiedName);
         }
         $shortClassName = $this->classNaming->getShortName($fullyQualifiedName);

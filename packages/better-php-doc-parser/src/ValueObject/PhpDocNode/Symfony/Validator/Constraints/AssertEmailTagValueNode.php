@@ -15,7 +15,7 @@ final class AssertEmailTagValueNode extends \Rector\BetterPhpDocParser\ValueObje
 {
     public function getShortName() : string
     {
-        return '_PhpScoperfce0de0de1ce\\@Assert\\Email';
+        return '_PhpScoperbf340cb0be9d\\@Assert\\Email';
     }
     public function getSilentKey() : string
     {

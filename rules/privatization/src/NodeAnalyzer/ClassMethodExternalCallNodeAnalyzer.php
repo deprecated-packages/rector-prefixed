@@ -100,7 +100,7 @@ final class ClassMethodExternalCallNodeAnalyzer
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
-        if (!$this->nodeTypeResolver->isObjectType($classLike, '_PhpScoperfce0de0de1ce\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+        if (!$this->nodeTypeResolver->isObjectType($classLike, '_PhpScoperbf340cb0be9d\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
             return \false;
         }
         $getSubscribedEventsClassMethod = $classLike->getMethod('getSubscribedEvents');

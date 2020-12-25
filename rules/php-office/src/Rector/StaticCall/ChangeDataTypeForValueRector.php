@@ -53,7 +53,7 @@ CODE_SAMPLE
         if (!$this->isStaticCallNamed($node, 'PHPExcel_Cell_DataType', 'dataTypeForValue')) {
             return null;
         }
-        $node->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\PhpOffice\\PhpSpreadsheet\\Cell\\DefaultValueBinder');
+        $node->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbf340cb0be9d\\PhpOffice\\PhpSpreadsheet\\Cell\\DefaultValueBinder');
         return $node;
     }
 }

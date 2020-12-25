@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce;
+namespace _PhpScoperbf340cb0be9d;
 
 final class Manual_Twig_Filter
 {
 }
-\class_alias('_PhpScoperfce0de0de1ce\\Manual_Twig_Filter', 'Manual_Twig_Filter', \false);
+\class_alias('_PhpScoperbf340cb0be9d\\Manual_Twig_Filter', 'Manual_Twig_Filter', \false);

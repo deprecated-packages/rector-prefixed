@@ -62,7 +62,7 @@ CODE_SAMPLE
         if (\count($node->args) !== 2) {
             return null;
         }
-        if (!$this->isObjectType($node->var, '_PhpScoperfce0de0de1ce\\Nette\\DI\\Definitions\\ServiceDefinition')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperbf340cb0be9d\\Nette\\DI\\Definitions\\ServiceDefinition')) {
             return null;
         }
         $node->name = new \PhpParser\Node\Identifier('setFactory');

@@ -47,13 +47,13 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoperfce0de0de1ce\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
+            "_PhpScoperbf340cb0be9d\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoperfce0de0de1ce\\Doctrine\\Performance\\Common\\Annotations\\": "tests\/Doctrine\/Performance\/Common\/Annotations",
-            "_PhpScoperfce0de0de1ce\\Doctrine\\Tests\\Common\\Annotations\\": "tests\/Doctrine\/Tests\/Common\/Annotations"
+            "_PhpScoperbf340cb0be9d\\Doctrine\\Performance\\Common\\Annotations\\": "tests\/Doctrine\/Performance\/Common\/Annotations",
+            "_PhpScoperbf340cb0be9d\\Doctrine\\Tests\\Common\\Annotations\\": "tests\/Doctrine\/Tests\/Common\/Annotations"
         },
         "files": [
             "tests\/Doctrine\/Tests\/Common\/Annotations\/Fixtures\/SingleClassLOC1000.php"

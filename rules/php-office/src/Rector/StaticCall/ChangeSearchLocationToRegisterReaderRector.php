@@ -54,7 +54,7 @@ CODE_SAMPLE
         if (!$this->isStaticCallNamed($node, 'PHPExcel_IOFactory', 'addSearchLocation')) {
             return null;
         }
-        $node->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\PhpOffice\\PhpSpreadsheet\\IOFactory');
+        $node->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbf340cb0be9d\\PhpOffice\\PhpSpreadsheet\\IOFactory');
         $node->name = new \PhpParser\Node\Identifier('registerReader');
         // remove middle argument
         $args = $node->args;

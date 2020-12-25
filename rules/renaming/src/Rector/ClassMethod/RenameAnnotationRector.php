@@ -14,7 +14,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Renaming\ValueObject\RenameAnnotation;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperfce0de0de1ce\Webmozart\Assert\Assert;
+use _PhpScoperbf340cb0be9d\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\ClassMethod\RenameAnnotationRector\RenameAnnotationRectorTest
  */
@@ -52,7 +52,7 @@ class SomeTest extends PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-, [self::RENAMED_ANNOTATIONS_IN_TYPES => [new \Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestCase', 'test', 'scenario')]])]);
+, [self::RENAMED_ANNOTATIONS_IN_TYPES => [new \Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\TestCase', 'test', 'scenario')]])]);
     }
     /**
      * @return string[]
@@ -87,7 +87,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $renamedAnnotationsInTypes = $configuration[self::RENAMED_ANNOTATIONS_IN_TYPES] ?? [];
-        \_PhpScoperfce0de0de1ce\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);
+        \_PhpScoperbf340cb0be9d\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);
         $this->renamedAnnotationInTypes = $renamedAnnotationsInTypes;
     }
 }

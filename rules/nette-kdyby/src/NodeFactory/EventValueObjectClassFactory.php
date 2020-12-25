@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\NodeFactory;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -64,7 +64,7 @@ final class EventValueObjectClassFactory
         $shortClassName = $this->classNaming->getShortName($className);
         $classBuilder = new \Rector\Core\PhpParser\Builder\ClassBuilder($shortClassName);
         $classBuilder->makeFinal();
-        $classBuilder->extend(new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\Symfony\\Contracts\\EventDispatcher\\Event'));
+        $classBuilder->extend(new \PhpParser\Node\Name\FullyQualified('_PhpScoperbf340cb0be9d\\Symfony\\Contracts\\EventDispatcher\\Event'));
         return $classBuilder;
     }
     /**
@@ -92,7 +92,7 @@ final class EventValueObjectClassFactory
     }
     private function wrapClassToNamespace(string $className, \PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Namespace_
     {
-        $namespace = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::before($className, '\\', -1);
+        $namespace = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::before($className, '\\', -1);
         $namespaceBuilder = new \Rector\Core\PhpParser\Builder\NamespaceBuilder($namespace);
         $namespaceBuilder->addStmt($class);
         return $namespaceBuilder->getNode();

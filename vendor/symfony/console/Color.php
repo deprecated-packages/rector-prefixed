@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperfce0de0de1ce\Symfony\Component\Console;
+namespace _PhpScoperbf340cb0be9d\Symfony\Component\Console;
 
-use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
@@ -27,7 +27,7 @@ final class Color
         $this->background = $this->parseColor($background);
         foreach ($options as $option) {
             if (!isset(self::AVAILABLE_OPTIONS[$option])) {
-                throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid option specified: "%s". Expected one of (%s).', $option, \implode(', ', \array_keys(self::AVAILABLE_OPTIONS))));
+                throw new \_PhpScoperbf340cb0be9d\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid option specified: "%s". Expected one of (%s).', $option, \implode(', ', \array_keys(self::AVAILABLE_OPTIONS))));
             }
             $this->options[$option] = self::AVAILABLE_OPTIONS[$option];
         }
@@ -81,12 +81,12 @@ final class Color
                 $color = $color[0] . $color[0] . $color[1] . $color[1] . $color[2] . $color[2];
             }
             if (6 !== \strlen($color)) {
-                throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid "%s" color.', $color));
+                throw new \_PhpScoperbf340cb0be9d\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid "%s" color.', $color));
             }
             return $this->convertHexColorToAnsi(\hexdec($color));
         }
         if (!isset(self::COLORS[$color])) {
-            throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid "%s" color; expected one of (%s).', $color, \implode(', ', \array_keys(self::COLORS))));
+            throw new \_PhpScoperbf340cb0be9d\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Invalid "%s" color; expected one of (%s).', $color, \implode(', ', \array_keys(self::COLORS))));
         }
         return (string) self::COLORS[$color];
     }

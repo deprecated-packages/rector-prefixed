@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session;
+namespace _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session;
 
-use _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
-use _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
-use _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
-use _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-use _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
+use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag::class);
-\class_exists(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Flash\FlashBag::class);
-\class_exists(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\SessionBagProxy::class);
+\class_exists(\_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag::class);
+\class_exists(\_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Flash\FlashBag::class);
+\class_exists(\_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\SessionBagProxy::class);
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Drak <drak@zikula.org>
  */
-class Session implements \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\SessionInterface, \IteratorAggregate, \Countable
+class Session implements \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\SessionInterface, \IteratorAggregate, \Countable
 {
     protected $storage;
     private $flashName;
@@ -32,14 +32,14 @@ class Session implements \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundatio
     private $data = [];
     private $usageIndex = 0;
     private $usageReporter;
-    public function __construct(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage = null, \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface $attributes = null, \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface $flashes = null, callable $usageReporter = null)
+    public function __construct(\_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage = null, \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface $attributes = null, \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface $flashes = null, callable $usageReporter = null)
     {
-        $this->storage = $storage ?: new \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage();
+        $this->storage = $storage ?: new \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage();
         $this->usageReporter = $usageReporter;
-        $attributes = $attributes ?: new \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag();
+        $attributes = $attributes ?: new \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag();
         $this->attributeName = $attributes->getName();
         $this->registerBag($attributes);
-        $flashes = $flashes ?: new \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Flash\FlashBag();
+        $flashes = $flashes ?: new \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Flash\FlashBag();
         $this->flashName = $flashes->getName();
         $this->registerBag($flashes);
     }
@@ -212,9 +212,9 @@ class Session implements \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundatio
     /**
      * {@inheritdoc}
      */
-    public function registerBag(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag)
+    public function registerBag(\_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag)
     {
-        $this->storage->registerBag(new \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\SessionBagProxy($bag, $this->data, $this->usageIndex, $this->usageReporter));
+        $this->storage->registerBag(new \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\SessionBagProxy($bag, $this->data, $this->usageIndex, $this->usageReporter));
     }
     /**
      * {@inheritdoc}
@@ -238,7 +238,7 @@ class Session implements \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundatio
      *
      * Note that this method was added to help with IDE autocompletion.
      */
-    private function getAttributeBag() : \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface
+    private function getAttributeBag() : \_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface
     {
         return $this->getBag($this->attributeName);
     }

@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\Property;
 
-use _PhpScoperfce0de0de1ce\DI\Annotation\Inject as PHPDIInject;
-use _PhpScoperfce0de0de1ce\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\DI\Annotation\Inject as PHPDIInject;
+use _PhpScoperbf340cb0be9d\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
@@ -40,7 +40,7 @@ final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var array<string, string>
      */
-    private const ANNOTATION_TO_TAG_CLASS = [\_PhpScoperfce0de0de1ce\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \_PhpScoperfce0de0de1ce\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
+    private const ANNOTATION_TO_TAG_CLASS = [\_PhpScoperbf340cb0be9d\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \_PhpScoperbf340cb0be9d\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
     /**
      * @var string
      * @see https://regex101.com/r/pjusUN/1
@@ -92,7 +92,7 @@ class SomeController
     }
 }
 CODE_SAMPLE
-, [self::ANNOTATION_CLASSES => [\_PhpScoperfce0de0de1ce\DI\Annotation\Inject::class, \_PhpScoperfce0de0de1ce\JMS\DiExtraBundle\Annotation\Inject::class]])]);
+, [self::ANNOTATION_CLASSES => [\_PhpScoperbf340cb0be9d\DI\Annotation\Inject::class, \_PhpScoperbf340cb0be9d\JMS\DiExtraBundle\Annotation\Inject::class]])]);
     }
     /**
      * @return string[]
@@ -145,7 +145,7 @@ CODE_SAMPLE
         if ($serviceName === null) {
             return \false;
         }
-        return (bool) \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
+        return (bool) \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
     }
     private function resolveType(\PhpParser\Node\Stmt\Property $property, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {

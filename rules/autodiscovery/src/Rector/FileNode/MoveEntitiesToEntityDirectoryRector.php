@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Rector\FileNode;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
@@ -73,7 +73,7 @@ CODE_SAMPLE
         }
         // is entity in expected directory?
         $smartFileInfo = $node->getFileInfo();
-        if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), self::ENTITY_PATH_REGEX)) {
+        if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), self::ENTITY_PATH_REGEX)) {
             return null;
         }
         $movedFileWithNodes = $this->movedFileWithNodesFactory->createWithDesiredGroup($smartFileInfo, $node->stmts, 'Entity');

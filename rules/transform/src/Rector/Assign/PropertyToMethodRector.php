@@ -13,7 +13,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\PropertyToMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperfce0de0de1ce\Webmozart\Assert\Assert;
+use _PhpScoperbf340cb0be9d\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\Assign\PropertyToMethodRector\PropertyToMethodRectorTest
  */
@@ -70,7 +70,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $propertiesToMethodCalls = $configuration[self::PROPERTIES_TO_METHOD_CALLS] ?? [];
-        \_PhpScoperfce0de0de1ce\Webmozart\Assert\Assert::allIsInstanceOf($propertiesToMethodCalls, \Rector\Transform\ValueObject\PropertyToMethod::class);
+        \_PhpScoperbf340cb0be9d\Webmozart\Assert\Assert::allIsInstanceOf($propertiesToMethodCalls, \Rector\Transform\ValueObject\PropertyToMethod::class);
         $this->propertiesToMethodCalls = $propertiesToMethodCalls;
     }
     private function processSetter(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node

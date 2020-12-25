@@ -54,7 +54,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoperfce0de0de1ce\\Symfony\\Component\\Console\\Style\\SymfonyStyle')) {
+        if (!$this->isObjectType($node, '_PhpScoperbf340cb0be9d\\Symfony\\Component\\Console\\Style\\SymfonyStyle')) {
             return null;
         }
         if (!isset($node->args[0])) {

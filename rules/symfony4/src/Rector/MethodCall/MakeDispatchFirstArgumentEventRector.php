@@ -71,7 +71,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->isObjectType($methodCall->var, '_PhpScoperfce0de0de1ce\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface')) {
+        if (!$this->isObjectType($methodCall->var, '_PhpScoperbf340cb0be9d\\Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface')) {
             return \true;
         }
         if (!$this->isName($methodCall->name, 'dispatch')) {

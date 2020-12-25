@@ -9,7 +9,7 @@ final class InheritanceTypeTagValueNode extends \Rector\BetterPhpDocParser\Value
 {
     public function getShortName() : string
     {
-        return '_PhpScoperfce0de0de1ce\\@ORM\\InheritanceType';
+        return '_PhpScoperbf340cb0be9d\\@ORM\\InheritanceType';
     }
     public function getSilentKey() : string
     {

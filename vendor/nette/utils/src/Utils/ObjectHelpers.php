@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce\Nette\Utils;
+namespace _PhpScoperbf340cb0be9d\Nette\Utils;
 
-use _PhpScoperfce0de0de1ce\Nette;
-use _PhpScoperfce0de0de1ce\Nette\MemberAccessException;
+use _PhpScoperbf340cb0be9d\Nette;
+use _PhpScoperbf340cb0be9d\Nette\MemberAccessException;
 /**
  * Nette\SmartObject helpers.
  */
@@ -22,7 +22,7 @@ final class ObjectHelpers
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
             return !$p->isStatic();
         }), self::parseFullDoc($rc, '~^[ \\t*]*@property(?:-read)?[ \\t]+(?:\\S+[ \\t]+)??\\$(\\w+)~m')), $name);
-        throw new \_PhpScoperfce0de0de1ce\Nette\MemberAccessException("Cannot read an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
+        throw new \_PhpScoperbf340cb0be9d\Nette\MemberAccessException("Cannot read an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
     }
     /** @throws MemberAccessException */
     public static function strictSet(string $class, string $name) : void
@@ -31,7 +31,7 @@ final class ObjectHelpers
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
             return !$p->isStatic();
         }), self::parseFullDoc($rc, '~^[ \\t*]*@property(?:-write)?[ \\t]+(?:\\S+[ \\t]+)??\\$(\\w+)~m')), $name);
-        throw new \_PhpScoperfce0de0de1ce\Nette\MemberAccessException("Cannot write to an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
+        throw new \_PhpScoperbf340cb0be9d\Nette\MemberAccessException("Cannot write to an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
     }
     /** @throws MemberAccessException */
     public static function strictCall(string $class, string $method, array $additionalMethods = []) : void
@@ -41,7 +41,7 @@ final class ObjectHelpers
             // called parent::$method()
             $class = 'parent';
         }
-        throw new \_PhpScoperfce0de0de1ce\Nette\MemberAccessException("Call to undefined method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
+        throw new \_PhpScoperbf340cb0be9d\Nette\MemberAccessException("Call to undefined method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
     }
     /** @throws MemberAccessException */
     public static function strictStaticCall(string $class, string $method) : void
@@ -49,7 +49,7 @@ final class ObjectHelpers
         $hint = self::getSuggestion(\array_filter((new \ReflectionClass($class))->getMethods(\ReflectionMethod::IS_PUBLIC), function ($m) {
             return $m->isStatic();
         }), $method);
-        throw new \_PhpScoperfce0de0de1ce\Nette\MemberAccessException("Call to undefined static method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
+        throw new \_PhpScoperbf340cb0be9d\Nette\MemberAccessException("Call to undefined static method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
     }
     /**
      * Returns array of magic properties defined by annotation @property.

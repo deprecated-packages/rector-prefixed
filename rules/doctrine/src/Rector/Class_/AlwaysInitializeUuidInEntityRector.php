@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Rector\Class_;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Class_;
@@ -113,7 +113,7 @@ CODE_SAMPLE
             if (!$varType instanceof \PHPStan\Type\ObjectType) {
                 continue;
             }
-            if (!\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::contains($varType->getClassName(), 'UuidInterface')) {
+            if (!\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains($varType->getClassName(), 'UuidInterface')) {
                 continue;
             }
             return $property;
@@ -130,7 +130,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
-            if (!$this->isStaticCallNamed($node->expr, '_PhpScoperfce0de0de1ce\\Ramsey\\Uuid\\Uuid', 'uuid4')) {
+            if (!$this->isStaticCallNamed($node->expr, '_PhpScoperbf340cb0be9d\\Ramsey\\Uuid\\Uuid', 'uuid4')) {
                 return \false;
             }
             return $this->isName($node->var, $uuidPropertyName);

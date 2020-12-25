@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperfce0de0de1ce\Symfony\Component\Console\CommandLoader;
+namespace _PhpScoperbf340cb0be9d\Symfony\Component\Console\CommandLoader;
 
-use _PhpScoperfce0de0de1ce\Psr\Container\ContainerInterface;
-use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\CommandNotFoundException;
+use _PhpScoperbf340cb0be9d\Psr\Container\ContainerInterface;
+use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * Loads commands from a PSR-11 container.
  *
  * @author Robin Chalas <robin.chalas@gmail.com>
  */
-class ContainerCommandLoader implements \_PhpScoperfce0de0de1ce\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
+class ContainerCommandLoader implements \_PhpScoperbf340cb0be9d\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
 {
     private $container;
     private $commandMap;
     /**
      * @param array $commandMap An array with command names as keys and service ids as values
      */
-    public function __construct(\_PhpScoperfce0de0de1ce\Psr\Container\ContainerInterface $container, array $commandMap)
+    public function __construct(\_PhpScoperbf340cb0be9d\Psr\Container\ContainerInterface $container, array $commandMap)
     {
         $this->container = $container;
         $this->commandMap = $commandMap;
@@ -35,7 +35,7 @@ class ContainerCommandLoader implements \_PhpScoperfce0de0de1ce\Symfony\Componen
     public function get(string $name)
     {
         if (!$this->has($name)) {
-            throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
+            throw new \_PhpScoperbf340cb0be9d\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
         return $this->container->get($this->commandMap[$name]);
     }

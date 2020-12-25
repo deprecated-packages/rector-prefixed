@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce;
+namespace _PhpScoperbf340cb0be9d;
 
 use Rector\Doctrine\Rector\ClassMethod\ChangeGetIdTypeToUuidRector;
 use Rector\Doctrine\Rector\ClassMethod\ChangeSetIdTypeToUuidRector;
 use Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector;
 use Rector\Doctrine\Rector\Property\RemoveTemporaryUuidColumnPropertyRector;
 use Rector\Doctrine\Rector\Property\RemoveTemporaryUuidRelationPropertyRector;
-use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     # properties
     $services->set(\Rector\Doctrine\Rector\Property\AddUuidAnnotationsToIdPropertyRector::class);

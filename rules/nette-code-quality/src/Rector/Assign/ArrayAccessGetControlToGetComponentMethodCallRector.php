@@ -71,6 +71,6 @@ CODE_SAMPLE
         if (!$assign->expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return \false;
         }
-        return $this->isObjectType($assign->expr, '_PhpScoperfce0de0de1ce\\Nette\\Application\\UI\\Presenter');
+        return $this->isObjectType($assign->expr, '_PhpScoperbf340cb0be9d\\Nette\\Application\\UI\\Presenter');
     }
 }

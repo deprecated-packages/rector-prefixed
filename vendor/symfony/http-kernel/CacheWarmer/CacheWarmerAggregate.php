@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperfce0de0de1ce\Symfony\Component\HttpKernel\CacheWarmer;
+namespace _PhpScoperbf340cb0be9d\Symfony\Component\HttpKernel\CacheWarmer;
 
 /**
  * Aggregates several cache warmers into a single one.
@@ -17,7 +17,7 @@ namespace _PhpScoperfce0de0de1ce\Symfony\Component\HttpKernel\CacheWarmer;
  *
  * @final
  */
-class CacheWarmerAggregate implements \_PhpScoperfce0de0de1ce\Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface
+class CacheWarmerAggregate implements \_PhpScoperbf340cb0be9d\Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface
 {
     private $warmers;
     private $debug;

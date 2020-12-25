@@ -2,7 +2,7 @@
 
 namespace Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\Event;
 
-final class SomeClassCopyEvent extends \_PhpScoperfce0de0de1ce\Symfony\Contracts\EventDispatcher\Event
+final class SomeClassCopyEvent extends \_PhpScoperbf340cb0be9d\Symfony\Contracts\EventDispatcher\Event
 {
     /**
      * @var \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass

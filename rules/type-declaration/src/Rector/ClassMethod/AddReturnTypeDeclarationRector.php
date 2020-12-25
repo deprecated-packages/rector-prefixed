@@ -14,7 +14,7 @@ use Rector\NodeTypeResolver\PHPStan\TypeComparator;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperfce0de0de1ce\Webmozart\Assert\Assert;
+use _PhpScoperbf340cb0be9d\Webmozart\Assert\Assert;
 /**
  * @see \Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddReturnTypeDeclarationRector\AddReturnTypeDeclarationRectorTest
  */
@@ -85,7 +85,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $methodReturnTypes = $configuration[self::METHOD_RETURN_TYPES] ?? [];
-        \_PhpScoperfce0de0de1ce\Webmozart\Assert\Assert::allIsInstanceOf($methodReturnTypes, \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration::class);
+        \_PhpScoperbf340cb0be9d\Webmozart\Assert\Assert::allIsInstanceOf($methodReturnTypes, \Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration::class);
         $this->methodReturnTypes = $methodReturnTypes;
     }
     private function processClassMethodNodeWithTypehints(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $newType) : void

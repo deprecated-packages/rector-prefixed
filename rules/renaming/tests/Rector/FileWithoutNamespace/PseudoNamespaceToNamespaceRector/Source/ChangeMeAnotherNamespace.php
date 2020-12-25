@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce;
+namespace _PhpScoperbf340cb0be9d;
 
 final class ChangeMe_AnotherNamespace
 {
 }
-\class_alias('_PhpScoperfce0de0de1ce\\ChangeMe_AnotherNamespace', 'ChangeMe_AnotherNamespace', \false);
+\class_alias('_PhpScoperbf340cb0be9d\\ChangeMe_AnotherNamespace', 'ChangeMe_AnotherNamespace', \false);

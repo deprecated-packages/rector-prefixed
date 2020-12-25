@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
@@ -61,12 +61,12 @@ final class MultilineSpaceFormatPreserver
     {
         /** @var string $originalContent */
         $originalContent = $attributeAwareNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::ORIGINAL_CONTENT);
-        $oldSpaces = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::matchAll($originalContent, '#\\s+#ms');
+        $oldSpaces = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::matchAll($originalContent, '#\\s+#ms');
         $currentText = $this->resolveCurrentPhpDocNodeText($attributeAwareNode);
         if ($currentText === null) {
             return null;
         }
-        $newParts = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::split($currentText, '#\\s+#');
+        $newParts = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::split($currentText, '#\\s+#');
         // we can't do this!
         if (\count($oldSpaces) + 1 !== \count($newParts)) {
             return null;
@@ -75,9 +75,9 @@ final class MultilineSpaceFormatPreserver
         foreach ($newParts as $key => $newPart) {
             $newText .= $newPart;
             if (isset($oldSpaces[$key])) {
-                if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match($oldSpaces[$key][0], self::NEWLINE_WITH_SPACE_REGEX)) {
+                if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($oldSpaces[$key][0], self::NEWLINE_WITH_SPACE_REGEX)) {
                     // remove last extra space
-                    $oldSpaces[$key][0] = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::substring($oldSpaces[$key][0], 0, -1);
+                    $oldSpaces[$key][0] = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::substring($oldSpaces[$key][0], 0, -1);
                 }
                 $newText .= $oldSpaces[$key][0];
             }

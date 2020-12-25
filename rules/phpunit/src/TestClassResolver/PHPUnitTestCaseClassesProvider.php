@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\TestClassResolver;
 
-use _PhpScoperfce0de0de1ce\Nette\Loaders\RobotLoader;
+use _PhpScoperbf340cb0be9d\Nette\Loaders\RobotLoader;
 use Rector\PHPUnit\Composer\ComposerAutoloadedDirectoryProvider;
 final class PHPUnitTestCaseClassesProvider
 {
@@ -34,9 +34,9 @@ final class PHPUnitTestCaseClassesProvider
         }
         return $this->phpUnitTestCaseClasses;
     }
-    private function createRobotLoadForDirectories() : \_PhpScoperfce0de0de1ce\Nette\Loaders\RobotLoader
+    private function createRobotLoadForDirectories() : \_PhpScoperbf340cb0be9d\Nette\Loaders\RobotLoader
     {
-        $robotLoader = new \_PhpScoperfce0de0de1ce\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoperbf340cb0be9d\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/tests_add_see_rector_tests');
         $directories = $this->composerAutoloadedDirectoryProvider->provide();
         $robotLoader->addDirectory(...$directories);

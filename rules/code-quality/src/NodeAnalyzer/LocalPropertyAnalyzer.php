@@ -29,7 +29,7 @@ final class LocalPropertyAnalyzer
     /**
      * @var string
      */
-    private const LARAVEL_COLLECTION_CLASS = '_PhpScoperfce0de0de1ce\\Illuminate\\Support\\Collection';
+    private const LARAVEL_COLLECTION_CLASS = '_PhpScoperbf340cb0be9d\\Illuminate\\Support\\Collection';
     /**
      * @var CallableNodeTraverser
      */

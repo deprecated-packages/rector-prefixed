@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Core\Autoloading;
 
-use _PhpScoperfce0de0de1ce\Nette\Loaders\RobotLoader;
+use _PhpScoperbf340cb0be9d\Nette\Loaders\RobotLoader;
 use Rector\Core\Configuration\Option;
 use Rector\Core\FileSystem\FileGuard;
-use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperbf340cb0be9d\Symfony\Component\Console\Input\InputInterface;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 use Symplify\SmartFileSystem\FileSystemFilter;
@@ -41,7 +41,7 @@ final class AdditionalAutoloader
     /**
      * @param string[] $source
      */
-    public function autoloadWithInputAndSource(\_PhpScoperfce0de0de1ce\Symfony\Component\Console\Input\InputInterface $input, array $source) : void
+    public function autoloadWithInputAndSource(\_PhpScoperbf340cb0be9d\Symfony\Component\Console\Input\InputInterface $input, array $source) : void
     {
         $autoloadDirectories = $this->fileSystemFilter->filterDirectories($this->autoloadPaths);
         $autoloadFiles = $this->fileSystemFilter->filterFiles($this->autoloadPaths);
@@ -57,7 +57,7 @@ final class AdditionalAutoloader
             }
         }
     }
-    private function autoloadFileFromInput(\_PhpScoperfce0de0de1ce\Symfony\Component\Console\Input\InputInterface $input) : void
+    private function autoloadFileFromInput(\_PhpScoperbf340cb0be9d\Symfony\Component\Console\Input\InputInterface $input) : void
     {
         if (!$input->hasOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE)) {
             return;
@@ -77,7 +77,7 @@ final class AdditionalAutoloader
         if ($directories === []) {
             return;
         }
-        $robotLoader = new \_PhpScoperfce0de0de1ce\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoperbf340cb0be9d\Nette\Loaders\RobotLoader();
         $robotLoader->ignoreDirs[] = '*Fixtures';
         $excludePaths = $this->skippedPathsResolver->resolve();
         foreach ($excludePaths as $excludePath) {

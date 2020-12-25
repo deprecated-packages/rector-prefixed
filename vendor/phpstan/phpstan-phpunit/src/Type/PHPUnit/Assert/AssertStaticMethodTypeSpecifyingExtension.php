@@ -21,7 +21,7 @@ class AssertStaticMethodTypeSpecifyingExtension implements \PHPStan\Type\StaticM
     }
     public function getClass() : string
     {
-        return '_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\Assert';
+        return '_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\Assert';
     }
     public function isStaticMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\StaticCall $node, \PHPStan\Analyser\TypeSpecifierContext $context) : bool
     {

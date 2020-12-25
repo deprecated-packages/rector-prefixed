@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce;
+namespace _PhpScoperbf340cb0be9d;
 
 use Rector\PHPUnit\Rector\Foreach_\SimplifyForeachInstanceOfRector;
 use Rector\PHPUnit\Rector\MethodCall\AssertCompareToSpecificMethodRector;
@@ -15,8 +15,8 @@ use Rector\PHPUnit\Rector\MethodCall\AssertRegExpRector;
 use Rector\PHPUnit\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector;
 use Rector\PHPUnit\Rector\MethodCall\AssertTrueFalseInternalTypeToSpecificMethodRector;
 use Rector\PHPUnit\Rector\MethodCall\AssertTrueFalseToSpecificMethodRector;
-use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\PHPUnit\Rector\MethodCall\AssertNotOperatorRector::class);
     $services->set(\Rector\PHPUnit\Rector\MethodCall\AssertComparisonToSpecificMethodRector::class);

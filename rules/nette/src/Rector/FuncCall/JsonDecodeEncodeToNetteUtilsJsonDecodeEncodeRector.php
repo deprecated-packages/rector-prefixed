@@ -85,11 +85,11 @@ CODE_SAMPLE
         if (isset($args[1])) {
             $secondArgumentValue = $args[1]->value;
             if ($this->isName($secondArgumentValue, 'JSON_PRETTY_PRINT')) {
-                $classConstFetch = $this->createClassConstFetch('_PhpScoperfce0de0de1ce\\Nette\\Utils\\Json', 'PRETTY');
+                $classConstFetch = $this->createClassConstFetch('_PhpScoperbf340cb0be9d\\Nette\\Utils\\Json', 'PRETTY');
                 $args[1] = new \PhpParser\Node\Arg($classConstFetch);
             }
         }
-        return $this->createStaticCall('_PhpScoperfce0de0de1ce\\Nette\\Utils\\Json', 'encode', $args);
+        return $this->createStaticCall('_PhpScoperbf340cb0be9d\\Nette\\Utils\\Json', 'encode', $args);
     }
     private function refactorJsonDecode(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\StaticCall
     {
@@ -99,10 +99,10 @@ CODE_SAMPLE
             if ($this->isFalse($secondArgumentValue)) {
                 unset($args[1]);
             } elseif ($this->isTrue($secondArgumentValue)) {
-                $classConstFetch = $this->createClassConstFetch('_PhpScoperfce0de0de1ce\\Nette\\Utils\\Json', 'FORCE_ARRAY');
+                $classConstFetch = $this->createClassConstFetch('_PhpScoperbf340cb0be9d\\Nette\\Utils\\Json', 'FORCE_ARRAY');
                 $args[1] = new \PhpParser\Node\Arg($classConstFetch);
             }
         }
-        return $this->createStaticCall('_PhpScoperfce0de0de1ce\\Nette\\Utils\\Json', 'decode', $args);
+        return $this->createStaticCall('_PhpScoperbf340cb0be9d\\Nette\\Utils\\Json', 'decode', $args);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce;
+namespace _PhpScoperbf340cb0be9d;
 
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Bootstrap\ConfigShifter;
@@ -23,7 +23,7 @@ use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \_PhpScoperfce0de0de1ce\AutoloadIncluder();
+$autoloadIncluder = new \_PhpScoperbf340cb0be9d\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(\getcwd() . '/vendor/autoload.php');
@@ -92,7 +92,7 @@ final class AutoloadIncluder
      */
     public function autoloadPhpStanExtracted() : void
     {
-        $this->loadIfExistsAndNotLoadedYet(require __DIR__ . '/../vendor/phpstan/phpstan-extracted/vendor/autoload.php');
+        $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/phpstan/phpstan-extracted/vendor/autoload.php');
     }
     public function autoloadFromCommandLine() : void
     {
@@ -120,4 +120,4 @@ final class AutoloadIncluder
         require_once $filePath;
     }
 }
-\class_alias('_PhpScoperfce0de0de1ce\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('_PhpScoperbf340cb0be9d\\AutoloadIncluder', 'AutoloadIncluder', \false);

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\Gedmo\Slug;
 
-use _PhpScoperfce0de0de1ce\Gedmo\Mapping\Annotation as Gedmo;
+use _PhpScoperbf340cb0be9d\Gedmo\Mapping\Annotation as Gedmo;
 final class SomeClassMethod
 {
     /**

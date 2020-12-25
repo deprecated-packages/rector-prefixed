@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperfce0de0de1ce\Symfony\Component\VarDumper\Caster;
+namespace _PhpScoperbf340cb0be9d\Symfony\Component\VarDumper\Caster;
 
-use _PhpScoperfce0de0de1ce\Doctrine\Common\Proxy\Proxy as CommonProxy;
-use _PhpScoperfce0de0de1ce\Doctrine\ORM\PersistentCollection;
-use _PhpScoperfce0de0de1ce\Doctrine\ORM\Proxy\Proxy as OrmProxy;
-use _PhpScoperfce0de0de1ce\Symfony\Component\VarDumper\Cloner\Stub;
+use _PhpScoperbf340cb0be9d\Doctrine\Common\Proxy\Proxy as CommonProxy;
+use _PhpScoperbf340cb0be9d\Doctrine\ORM\PersistentCollection;
+use _PhpScoperbf340cb0be9d\Doctrine\ORM\Proxy\Proxy as OrmProxy;
+use _PhpScoperbf340cb0be9d\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Casts Doctrine related classes to array representation.
  *
@@ -23,7 +23,7 @@ use _PhpScoperfce0de0de1ce\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class DoctrineCaster
 {
-    public static function castCommonProxy(\_PhpScoperfce0de0de1ce\Doctrine\Common\Proxy\Proxy $proxy, array $a, \_PhpScoperfce0de0de1ce\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
+    public static function castCommonProxy(\_PhpScoperbf340cb0be9d\Doctrine\Common\Proxy\Proxy $proxy, array $a, \_PhpScoperbf340cb0be9d\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         foreach (['__cloner__', '__initializer__'] as $k) {
             if (\array_key_exists($k, $a)) {
@@ -33,7 +33,7 @@ class DoctrineCaster
         }
         return $a;
     }
-    public static function castOrmProxy(\_PhpScoperfce0de0de1ce\Doctrine\ORM\Proxy\Proxy $proxy, array $a, \_PhpScoperfce0de0de1ce\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
+    public static function castOrmProxy(\_PhpScoperbf340cb0be9d\Doctrine\ORM\Proxy\Proxy $proxy, array $a, \_PhpScoperbf340cb0be9d\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         foreach (['_entityPersister', '_identifier'] as $k) {
             if (\array_key_exists($k = "\0Doctrine\\ORM\\Proxy\\Proxy\0" . $k, $a)) {
@@ -43,11 +43,11 @@ class DoctrineCaster
         }
         return $a;
     }
-    public static function castPersistentCollection(\_PhpScoperfce0de0de1ce\Doctrine\ORM\PersistentCollection $coll, array $a, \_PhpScoperfce0de0de1ce\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
+    public static function castPersistentCollection(\_PhpScoperbf340cb0be9d\Doctrine\ORM\PersistentCollection $coll, array $a, \_PhpScoperbf340cb0be9d\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         foreach (['snapshot', 'association', 'typeClass'] as $k) {
             if (\array_key_exists($k = "\0Doctrine\\ORM\\PersistentCollection\0" . $k, $a)) {
-                $a[$k] = new \_PhpScoperfce0de0de1ce\Symfony\Component\VarDumper\Caster\CutStub($a[$k]);
+                $a[$k] = new \_PhpScoperbf340cb0be9d\Symfony\Component\VarDumper\Caster\CutStub($a[$k]);
             }
         }
         return $a;

@@ -31,7 +31,7 @@ final class AddParentBootToModelClassMethodRector extends \Rector\Core\Rector\Ab
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoperfce0de0de1ce\\Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoperbf340cb0be9d\\Add parent::boot(); call to boot() class method in child of Illuminate\\Database\\Eloquent\\Model', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -66,7 +66,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isInObjectType($node, '_PhpScoperfce0de0de1ce\\Illuminate\\Database\\Eloquent\\Model')) {
+        if (!$this->isInObjectType($node, '_PhpScoperbf340cb0be9d\\Illuminate\\Database\\Eloquent\\Model')) {
             return null;
         }
         if (!$this->isName($node->name, self::BOOT)) {

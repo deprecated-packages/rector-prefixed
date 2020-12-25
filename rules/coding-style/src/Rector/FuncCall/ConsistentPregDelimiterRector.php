@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\FuncCall;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\FuncCall;
@@ -39,7 +39,7 @@ final class ConsistentPregDelimiterRector extends \Rector\Core\Rector\AbstractRe
      * All with pattern as 2st argument
      * @var array<string, array<string, int>>
      */
-    private const STATIC_METHODS_WITH_REGEX_PATTERN = ['_PhpScoperfce0de0de1ce\\Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
+    private const STATIC_METHODS_WITH_REGEX_PATTERN = ['_PhpScoperbf340cb0be9d\\Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
     /**
      * @var string
      */
@@ -120,7 +120,7 @@ CODE_SAMPLE
         /** @var String_ $string */
         $string = $arg->value;
         $value = $string->value;
-        $string->value = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
+        $string->value = \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
             $innerPattern = $match['content'];
             // change delimiter
             if (\strlen($innerPattern) > 2 && $innerPattern[0] === $innerPattern[\strlen($innerPattern) - 1]) {

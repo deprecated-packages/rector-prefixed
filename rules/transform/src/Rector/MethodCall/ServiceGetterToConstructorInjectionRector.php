@@ -17,7 +17,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\ServiceGetterToConstructorInjection;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperfce0de0de1ce\Webmozart\Assert\Assert;
+use _PhpScoperbf340cb0be9d\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\ServiceGetterToConstructorInjectionRectorTest
  */
@@ -141,7 +141,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $methodCallToServices = $configuration[self::METHOD_CALL_TO_SERVICES] ?? [];
-        \_PhpScoperfce0de0de1ce\Webmozart\Assert\Assert::allIsInstanceOf($methodCallToServices, \Rector\Transform\ValueObject\ServiceGetterToConstructorInjection::class);
+        \_PhpScoperbf340cb0be9d\Webmozart\Assert\Assert::allIsInstanceOf($methodCallToServices, \Rector\Transform\ValueObject\ServiceGetterToConstructorInjection::class);
         $this->methodCallToServices = $methodCallToServices;
     }
 }

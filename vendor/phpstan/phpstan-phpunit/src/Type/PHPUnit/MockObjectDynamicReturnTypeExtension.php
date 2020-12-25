@@ -11,13 +11,13 @@ use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
-use _PhpScoperfce0de0de1ce\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
-use _PhpScoperfce0de0de1ce\PHPUnit\Framework\MockObject\MockObject;
+use _PhpScoperbf340cb0be9d\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
+use _PhpScoperbf340cb0be9d\PHPUnit\Framework\MockObject\MockObject;
 class MockObjectDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMethodReturnTypeExtension
 {
     public function getClass() : string
     {
-        return \_PhpScoperfce0de0de1ce\PHPUnit\Framework\MockObject\MockObject::class;
+        return \_PhpScoperbf340cb0be9d\PHPUnit\Framework\MockObject\MockObject::class;
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {
@@ -27,14 +27,14 @@ class MockObjectDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMetho
     {
         $type = $scope->getType($methodCall->var);
         if (!$type instanceof \PHPStan\Type\IntersectionType) {
-            return new \PHPStan\Type\ObjectType(\_PhpScoperfce0de0de1ce\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class);
+            return new \PHPStan\Type\ObjectType(\_PhpScoperbf340cb0be9d\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class);
         }
         $mockClasses = \array_values(\array_filter($type->getTypes(), function (\PHPStan\Type\Type $type) : bool {
-            return !$type instanceof \PHPStan\Type\TypeWithClassName || $type->getClassName() !== \_PhpScoperfce0de0de1ce\PHPUnit\Framework\MockObject\MockObject::class;
+            return !$type instanceof \PHPStan\Type\TypeWithClassName || $type->getClassName() !== \_PhpScoperbf340cb0be9d\PHPUnit\Framework\MockObject\MockObject::class;
         }));
         if (\count($mockClasses) !== 1) {
-            return new \PHPStan\Type\ObjectType(\_PhpScoperfce0de0de1ce\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class);
+            return new \PHPStan\Type\ObjectType(\_PhpScoperbf340cb0be9d\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class);
         }
-        return new \PHPStan\Type\Generic\GenericObjectType(\_PhpScoperfce0de0de1ce\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class, $mockClasses);
+        return new \PHPStan\Type\Generic\GenericObjectType(\_PhpScoperbf340cb0be9d\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class, $mockClasses);
     }
 }

@@ -17,7 +17,7 @@ use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NetteKdyby\ContributeEventClassResolver;
 use Rector\NetteKdyby\ValueObject\EventAndListenerTree;
 use Rector\NetteKdyby\ValueObject\EventClassAndClassMethod;
-use _PhpScoperfce0de0de1ce\Symfony\Contracts\EventDispatcher\Event;
+use _PhpScoperbf340cb0be9d\Symfony\Contracts\EventDispatcher\Event;
 final class ListeningClassMethodArgumentManipulator
 {
     /**

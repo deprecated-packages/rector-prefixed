@@ -31,9 +31,9 @@ final class RenameNonPhpTest extends \Rector\Testing\PHPUnit\AbstractRectorTestC
         return [\Rector\Renaming\Rector\Name\RenameClassRector::class => [\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
             \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class,
             // Laravel
-            'Session' => '_PhpScoperfce0de0de1ce\\Illuminate\\Support\\Facades\\Session',
-            'Form' => '_PhpScoperfce0de0de1ce\\Collective\\Html\\FormFacade',
-            'Html' => '_PhpScoperfce0de0de1ce\\Collective\\Html\\HtmlFacade',
+            'Session' => '_PhpScoperbf340cb0be9d\\Illuminate\\Support\\Facades\\Session',
+            'Form' => '_PhpScoperbf340cb0be9d\\Collective\\Html\\FormFacade',
+            'Html' => '_PhpScoperbf340cb0be9d\\Collective\\Html\\HtmlFacade',
         ]]];
     }
 }

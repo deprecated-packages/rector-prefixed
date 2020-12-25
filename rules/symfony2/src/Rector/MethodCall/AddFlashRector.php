@@ -9,8 +9,8 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoperfce0de0de1ce\Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Request;
+use _PhpScoperbf340cb0be9d\Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use _PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Request;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -61,10 +61,10 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== \_PhpScoperfce0de0de1ce\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
+        if ($parentClassName !== \_PhpScoperbf340cb0be9d\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
             return null;
         }
-        if (!$this->fluentChainMethodCallNodeAnalyzer->isTypeAndChainCalls($node, new \PHPStan\Type\ObjectType(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Request::class), ['getSession', 'getFlashBag', 'add'])) {
+        if (!$this->fluentChainMethodCallNodeAnalyzer->isTypeAndChainCalls($node, new \PHPStan\Type\ObjectType(\_PhpScoperbf340cb0be9d\Symfony\Component\HttpFoundation\Request::class), ['getSession', 'getFlashBag', 'add'])) {
             return null;
         }
         return $this->createMethodCall('this', 'addFlash', $node->args);

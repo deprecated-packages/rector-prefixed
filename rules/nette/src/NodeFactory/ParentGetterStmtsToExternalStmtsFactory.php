@@ -51,7 +51,7 @@ final class ParentGetterStmtsToExternalStmtsFactory
             if (!$getUserStmt->expr instanceof \PhpParser\Node\Expr\StaticCall) {
                 continue;
             }
-            if (!$this->nodeTypeResolver->isObjectType($getUserStmt->expr, '_PhpScoperfce0de0de1ce\\Nette\\Security\\User')) {
+            if (!$this->nodeTypeResolver->isObjectType($getUserStmt->expr, '_PhpScoperbf340cb0be9d\\Nette\\Security\\User')) {
                 continue;
             }
             $userExpression = $getUserStmt->var;

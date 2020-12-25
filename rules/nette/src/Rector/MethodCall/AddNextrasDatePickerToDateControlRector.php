@@ -65,7 +65,7 @@ CODE_SAMPLE
     {
         // 1. chain call
         if ($node->var instanceof \PhpParser\Node\Expr\MethodCall) {
-            if (!$this->isOnClassMethodCall($node->var, '_PhpScoperfce0de0de1ce\\Nette\\Application\\UI\\Form', 'addDatePicker')) {
+            if (!$this->isOnClassMethodCall($node->var, '_PhpScoperbf340cb0be9d\\Nette\\Application\\UI\\Form', 'addDatePicker')) {
                 return null;
             }
             $assign = $this->createAssign($node->var);
@@ -80,7 +80,7 @@ CODE_SAMPLE
             return $node;
         }
         // 2. assign call
-        if (!$this->isOnClassMethodCall($node, '_PhpScoperfce0de0de1ce\\Nette\\Application\\UI\\Form', 'addDatePicker')) {
+        if (!$this->isOnClassMethodCall($node, '_PhpScoperbf340cb0be9d\\Nette\\Application\\UI\\Form', 'addDatePicker')) {
             return null;
         }
         return $this->createAssign($node);
@@ -118,7 +118,7 @@ CODE_SAMPLE
     }
     private function createDateTimeControlNew(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\New_
     {
-        $fullyQualified = new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\Nextras\\FormComponents\\Controls\\DateControl');
+        $fullyQualified = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbf340cb0be9d\\Nextras\\FormComponents\\Controls\\DateControl');
         $new = new \PhpParser\Node\Expr\New_($fullyQualified);
         if (isset($methodCall->args[1])) {
             $new->args[] = $methodCall->args[1];

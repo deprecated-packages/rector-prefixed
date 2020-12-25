@@ -76,13 +76,13 @@ CODE_SAMPLE
         if (!$assign->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return \false;
         }
-        if (!$this->isObjectType($assign->expr, '_PhpScoperfce0de0de1ce\\Nette\\Application\\UI\\Control')) {
+        if (!$this->isObjectType($assign->expr, '_PhpScoperbf340cb0be9d\\Nette\\Application\\UI\\Control')) {
             return \false;
         }
         $arrayDimFetch = $assign->var;
         if (!$arrayDimFetch->var instanceof \PhpParser\Node\Expr\Variable) {
             return \false;
         }
-        return $this->isObjectType($arrayDimFetch->var, '_PhpScoperfce0de0de1ce\\Nette\\Application\\UI\\Presenter');
+        return $this->isObjectType($arrayDimFetch->var, '_PhpScoperbf340cb0be9d\\Nette\\Application\\UI\\Presenter');
     }
 }

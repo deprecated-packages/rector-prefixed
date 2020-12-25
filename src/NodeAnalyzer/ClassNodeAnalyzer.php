@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\NodeAnalyzer;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -32,6 +32,6 @@ final class ClassNodeAnalyzer
             return \true;
         }
         // match PHPStan pattern for anonymous classes
-        return (bool) \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match($className, self::ANONYMOUS_CLASS_REGEX);
+        return (bool) \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($className, self::ANONYMOUS_CLASS_REGEX);
     }
 }

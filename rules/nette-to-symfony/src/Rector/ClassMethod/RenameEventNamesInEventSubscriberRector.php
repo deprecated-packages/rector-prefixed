@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\ClassMethod;
 
-use _PhpScoperfce0de0de1ce\Composer\Script\Event;
+use _PhpScoperbf340cb0be9d\Composer\Script\Event;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -77,7 +77,7 @@ CODE_SAMPLE
         if ($classLike === null) {
             return null;
         }
-        if (!$this->isObjectType($classLike, '_PhpScoperfce0de0de1ce\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+        if (!$this->isObjectType($classLike, '_PhpScoperbf340cb0be9d\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
             return null;
         }
         if (!$this->isName($node, 'getSubscribedEvents')) {

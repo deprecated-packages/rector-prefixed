@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Naming;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
@@ -82,7 +82,7 @@ final class MethodCallToVariableNameResolver
         $name = $classConstFetch->name;
         $argValueName = \strtolower($name->toString());
         if ($argValueName !== 'class') {
-            return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($argValueName, self::CONSTANT_REGEX, function ($matches) : string {
+            return \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::replace($argValueName, self::CONSTANT_REGEX, function ($matches) : string {
                 return \strtoupper($matches[2]);
             });
         }
@@ -94,7 +94,7 @@ final class MethodCallToVariableNameResolver
     private function getStringVarName(\PhpParser\Node\Scalar\String_ $string, string $methodCallVarName, string $fallbackVarName) : string
     {
         $normalizeStringVariableName = $this->normalizeStringVariableName($string->value . \ucfirst($fallbackVarName));
-        if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match($normalizeStringVariableName, self::START_ALPHA_REGEX) && $normalizeStringVariableName !== $methodCallVarName) {
+        if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($normalizeStringVariableName, self::START_ALPHA_REGEX) && $normalizeStringVariableName !== $methodCallVarName) {
             return $normalizeStringVariableName;
         }
         return $fallbackVarName;

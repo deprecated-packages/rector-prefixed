@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\NodeCollector;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -119,7 +119,7 @@ final class ParsedNodeCollector
     public function findByShortName(string $shortName) : ?\PhpParser\Node\Stmt\Class_
     {
         foreach ($this->classes as $className => $classNode) {
-            if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
+            if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
                 return $classNode;
             }
         }
@@ -127,7 +127,7 @@ final class ParsedNodeCollector
     }
     public function findClassConstant(string $className, string $constantName) : ?\PhpParser\Node\Stmt\ClassConst
     {
-        if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::contains($constantName, '\\')) {
+        if (\_PhpScoperbf340cb0be9d\Nette\Utils\Strings::contains($constantName, '\\')) {
             throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Switched arguments in "%s"', __METHOD__));
         }
         return $this->constantsByType[$className][$constantName] ?? null;
@@ -283,6 +283,6 @@ final class ParsedNodeCollector
             return \true;
         }
         // PHPStan polution
-        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::startsWith($className, 'AnonymousClass');
+        return \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::startsWith($className, 'AnonymousClass');
     }
 }

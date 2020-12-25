@@ -24,18 +24,18 @@ final class TestListenerToHooksRector extends \Rector\Core\Rector\AbstractRector
      * @var string[][]
      */
     private const LISTENER_METHOD_TO_HOOK_INTERFACES = [
-        'addIncompleteTest' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\AfterIncompleteTestHook', 'executeAfterIncompleteTest'],
-        'addRiskyTest' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\AfterRiskyTestHook', 'executeAfterRiskyTest'],
-        'addSkippedTest' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\AfterSkippedTestHook', 'executeAfterSkippedTest'],
-        'addError' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\AfterTestErrorHook', 'executeAfterTestError'],
-        'addFailure' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\AfterTestFailureHook', 'executeAfterTestFailure'],
-        'addWarning' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\AfterTestWarningHook', 'executeAfterTestWarning'],
+        'addIncompleteTest' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\AfterIncompleteTestHook', 'executeAfterIncompleteTest'],
+        'addRiskyTest' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\AfterRiskyTestHook', 'executeAfterRiskyTest'],
+        'addSkippedTest' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\AfterSkippedTestHook', 'executeAfterSkippedTest'],
+        'addError' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\AfterTestErrorHook', 'executeAfterTestError'],
+        'addFailure' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\AfterTestFailureHook', 'executeAfterTestFailure'],
+        'addWarning' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\AfterTestWarningHook', 'executeAfterTestWarning'],
         # test
-        'startTest' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\BeforeTestHook', 'executeBeforeTest'],
-        'endTest' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\AfterTestHook', 'executeAfterTest'],
+        'startTest' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\BeforeTestHook', 'executeBeforeTest'],
+        'endTest' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\AfterTestHook', 'executeAfterTest'],
         # suite
-        'startTestSuite' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\BeforeFirstTestHook', 'executeBeforeFirstTest'],
-        'endTestSuite' => ['_PhpScoperfce0de0de1ce\\PHPUnit\\Runner\\AfterLastTestHook', 'executeAfterLastTest'],
+        'startTestSuite' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\BeforeFirstTestHook', 'executeBeforeFirstTest'],
+        'endTestSuite' => ['_PhpScoperbf340cb0be9d\\PHPUnit\\Runner\\AfterLastTestHook', 'executeAfterLastTest'],
     ];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -121,11 +121,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestListener')) {
+        if (!$this->isObjectType($node, '_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\TestListener')) {
             return null;
         }
         foreach ($node->implements as $implement) {
-            if ($this->isName($implement, '_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestListener')) {
+            if ($this->isName($implement, '_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\TestListener')) {
                 $this->removeNode($implement);
             }
         }

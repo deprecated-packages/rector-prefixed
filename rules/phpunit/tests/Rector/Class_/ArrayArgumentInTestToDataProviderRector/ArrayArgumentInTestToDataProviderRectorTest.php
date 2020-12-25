@@ -26,6 +26,6 @@ final class ArrayArgumentInTestToDataProviderRectorTest extends \Rector\Testing\
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector::class => [\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS => [new \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider('_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestCase', 'doTestMultiple', 'doTestSingle', 'variable')]]];
+        return [\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector::class => [\Rector\PHPUnit\Rector\Class_\ArrayArgumentInTestToDataProviderRector::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS => [new \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider('_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\TestCase', 'doTestMultiple', 'doTestSingle', 'variable')]]];
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\NamingConvention;
 
-use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
+use _PhpScoperbf340cb0be9d\Nette\Utils\Strings;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
@@ -36,6 +36,6 @@ final class NamingConventionAnalyzer
             return \true;
         }
         // starts with or ends with
-        return (bool) \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match($currentName, '#^(' . $expectedName . '|' . $expectedName . '$)#i');
+        return (bool) \_PhpScoperbf340cb0be9d\Nette\Utils\Strings::match($currentName, '#^(' . $expectedName . '|' . $expectedName . '$)#i');
     }
 }

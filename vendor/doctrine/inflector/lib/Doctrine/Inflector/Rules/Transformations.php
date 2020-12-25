@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules;
+namespace _PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules;
 
-use _PhpScoperfce0de0de1ce\Doctrine\Inflector\WordInflector;
-class Transformations implements \_PhpScoperfce0de0de1ce\Doctrine\Inflector\WordInflector
+use _PhpScoperbf340cb0be9d\Doctrine\Inflector\WordInflector;
+class Transformations implements \_PhpScoperbf340cb0be9d\Doctrine\Inflector\WordInflector
 {
     /** @var Transformation[] */
     private $transformations;
-    public function __construct(\_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Transformation ...$transformations)
+    public function __construct(\_PhpScoperbf340cb0be9d\Doctrine\Inflector\Rules\Transformation ...$transformations)
     {
         $this->transformations = $transformations;
     }

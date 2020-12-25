@@ -142,14 +142,14 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->classManipulator->hasInterface($node, '_PhpScoperfce0de0de1ce\\Gedmo\\Translatable\\Translatable')) {
+        if (!$this->classManipulator->hasInterface($node, '_PhpScoperbf340cb0be9d\\Gedmo\\Translatable\\Translatable')) {
             return null;
         }
-        $this->classManipulator->removeInterface($node, '_PhpScoperfce0de0de1ce\\Gedmo\\Translatable\\Translatable');
+        $this->classManipulator->removeInterface($node, '_PhpScoperbf340cb0be9d\\Gedmo\\Translatable\\Translatable');
         // 1. replace trait
-        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoperfce0de0de1ce\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableTrait');
+        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoperbf340cb0be9d\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableTrait');
         // 2. add interface
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslatableInterface');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbf340cb0be9d\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslatableInterface');
         $removedPropertyNameToPhpDocInfo = $this->collectAndRemoveTranslatableProperties($node);
         $removePropertyNames = \array_keys($removedPropertyNameToPhpDocInfo);
         $this->removeSetAndGetMethods($node, $removePropertyNames);
@@ -220,8 +220,8 @@ CODE_SAMPLE
         }
         $namespace = new \PhpParser\Node\Stmt\Namespace_($namespace->name);
         $class = new \PhpParser\Node\Stmt\Class_($classShortName);
-        $class->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface');
-        $this->classInsertManipulator->addAsFirstTrait($class, '_PhpScoperfce0de0de1ce\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait');
+        $class->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoperbf340cb0be9d\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface');
+        $this->classInsertManipulator->addAsFirstTrait($class, '_PhpScoperbf340cb0be9d\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait');
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
         $phpDocInfo->addTagValueNodeWithShortName(new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode([]));
         foreach ($translatedPropertyToPhpDocInfos as $translatedPropertyName => $translatedPhpDocInfo) {

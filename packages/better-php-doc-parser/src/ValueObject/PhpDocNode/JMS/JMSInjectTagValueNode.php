@@ -23,7 +23,7 @@ final class JMSInjectTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     }
     public function getShortName() : string
     {
-        return '_PhpScoperfce0de0de1ce\\@DI\\Inject';
+        return '_PhpScoperbf340cb0be9d\\@DI\\Inject';
     }
     public function getSilentKey() : string
     {

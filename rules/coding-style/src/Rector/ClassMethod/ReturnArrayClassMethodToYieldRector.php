@@ -20,7 +20,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperfce0de0de1ce\Webmozart\Assert\Assert;
+use _PhpScoperbf340cb0be9d\Webmozart\Assert\Assert;
 /**
  * @see https://medium.com/tech-tajawal/use-memory-gently-with-yield-in-php-7e62e2480b8d
  * @see https://3v4l.org/5PJid
@@ -50,7 +50,7 @@ final class ReturnArrayClassMethodToYieldRector extends \Rector\Core\Rector\Abst
         $this->nodeTransformer = $nodeTransformer;
         $this->commentsMerger = $commentsMerger;
         // default values
-        $this->methodsToYields = [new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestCase', 'provideData'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestCase', 'provideData*'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestCase', 'dataProvider'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestCase', 'dataProvider*')];
+        $this->methodsToYields = [new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\TestCase', 'provideData'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\TestCase', 'provideData*'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\TestCase', 'dataProvider'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoperbf340cb0be9d\\PHPUnit\\Framework\\TestCase', 'dataProvider*')];
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -113,7 +113,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $methodsToYields = $configuration[self::METHODS_TO_YIELDS] ?? [];
-        \_PhpScoperfce0de0de1ce\Webmozart\Assert\Assert::allIsInstanceOf($methodsToYields, \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield::class);
+        \_PhpScoperbf340cb0be9d\Webmozart\Assert\Assert::allIsInstanceOf($methodsToYields, \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield::class);
         $this->methodsToYields = $methodsToYields;
     }
     private function collectReturnArrayNodesFromClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\Array_

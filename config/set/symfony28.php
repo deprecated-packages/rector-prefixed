@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperfce0de0de1ce;
+namespace _PhpScoperbf340cb0be9d;
 
 use Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
 use Rector\Generic\ValueObject\ArgumentDefaultValueReplacer;
 use Rector\Symfony2\Rector\StaticCall\ParseFileRector;
-use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\_PhpScoperbf340cb0be9d\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Symfony2\Rector\StaticCall\ParseFileRector::class);
     $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::REPLACED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // https://github.com/symfony/symfony/commit/912fc4de8fd6de1e5397be4a94d39091423e5188
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperfce0de0de1ce\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \true, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_URL'),
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperfce0de0de1ce\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \false, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_PATH'),
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperfce0de0de1ce\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'relative', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::RELATIVE_PATH'),
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperfce0de0de1ce\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'network', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::NETWORK_PATH'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperbf340cb0be9d\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \true, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_URL'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperbf340cb0be9d\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \false, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_PATH'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperbf340cb0be9d\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'relative', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::RELATIVE_PATH'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoperbf340cb0be9d\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'network', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::NETWORK_PATH'),
     ])]]);
 };
