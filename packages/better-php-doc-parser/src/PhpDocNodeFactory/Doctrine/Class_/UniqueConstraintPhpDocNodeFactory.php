@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
 
 use Doctrine\ORM\Mapping\UniqueConstraint;
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\UniqueConstraintTagValueNode;
 final class UniqueConstraintPhpDocNodeFactory
@@ -31,7 +31,7 @@ final class UniqueConstraintPhpDocNodeFactory
         if ($uniqueConstraints === null) {
             return [];
         }
-        $uniqueConstraintContents = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::matchAll($annotationContent, self::UNIQUE_CONSTRAINT_REGEX);
+        $uniqueConstraintContents = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::matchAll($annotationContent, self::UNIQUE_CONSTRAINT_REGEX);
         $uniqueConstraintTagValueNodes = [];
         foreach ($uniqueConstraints as $key => $uniqueConstraint) {
             $subAnnotationContent = $uniqueConstraintContents[$key];

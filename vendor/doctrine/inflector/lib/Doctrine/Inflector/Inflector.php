@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper8b9c402c5f32\Doctrine\Inflector;
+namespace _PhpScoperfce0de0de1ce\Doctrine\Inflector;
 
 use RuntimeException;
 use function chr;
@@ -25,7 +25,7 @@ class Inflector
     private $singularizer;
     /** @var WordInflector */
     private $pluralizer;
-    public function __construct(\_PhpScoper8b9c402c5f32\Doctrine\Inflector\WordInflector $singularizer, \_PhpScoper8b9c402c5f32\Doctrine\Inflector\WordInflector $pluralizer)
+    public function __construct(\_PhpScoperfce0de0de1ce\Doctrine\Inflector\WordInflector $singularizer, \_PhpScoperfce0de0de1ce\Doctrine\Inflector\WordInflector $pluralizer)
     {
         $this->singularizer = $singularizer;
         $this->pluralizer = $pluralizer;
@@ -168,7 +168,7 @@ class Inflector
         } else {
             $lowered = \strtolower($unaccented);
         }
-        $replacements = ['/\\W/' => ' ', '/([A-Z]+)([A-Z][a-z])/' => '_PhpScoper8b9c402c5f32\\1_\\2', '/([a-z\\d])([A-Z])/' => '_PhpScoper8b9c402c5f32\\1_\\2', '/[^A-Z^a-z^0-9^\\/]+/' => '-'];
+        $replacements = ['/\\W/' => ' ', '/([A-Z]+)([A-Z][a-z])/' => '_PhpScoperfce0de0de1ce\\1_\\2', '/([a-z\\d])([A-Z])/' => '_PhpScoperfce0de0de1ce\\1_\\2', '/[^A-Z^a-z^0-9^\\/]+/' => '-'];
         $urlized = $lowered;
         foreach ($replacements as $pattern => $replacement) {
             $replaced = \preg_replace($pattern, $replacement, $urlized);
@@ -202,4 +202,4 @@ class Inflector
         return $this->pluralizer->inflect($word);
     }
 }
-\class_alias('_PhpScoper8b9c402c5f32\\Doctrine\\Inflector\\Inflector', 'Doctrine\\Inflector\\Inflector', \false);
+\class_alias('_PhpScoperfce0de0de1ce\\Doctrine\\Inflector\\Inflector', 'Doctrine\\Inflector\\Inflector', \false);

@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper8b9c402c5f32;
+namespace _PhpScoperfce0de0de1ce;
 
 #[Attribute(\Attribute::TARGET_CLASS)]
 final class Attribute
@@ -20,4 +20,4 @@ final class Attribute
         $this->flags = $flags;
     }
 }
-\class_alias('_PhpScoper8b9c402c5f32\\Attribute', 'Attribute', \false);
+\class_alias('_PhpScoperfce0de0de1ce\\Attribute', 'Attribute', \false);

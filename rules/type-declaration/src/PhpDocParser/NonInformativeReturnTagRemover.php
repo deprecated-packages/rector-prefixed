@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\PhpDocParser;
 
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
@@ -103,7 +103,7 @@ final class NonInformativeReturnTagRemover
         if (!$nullabledReturnTagValueNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return;
         }
-        if (!\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::endsWith($nullabledReturnType->getClassName(), $nullabledReturnTagValueNode->name)) {
+        if (!\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::endsWith($nullabledReturnType->getClassName(), $nullabledReturnTagValueNode->name)) {
             return;
         }
         $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
@@ -175,6 +175,6 @@ final class NonInformativeReturnTagRemover
         if ('\\' . $className === $returnTagValueNodeType) {
             return \true;
         }
-        return \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::endsWith($className, '\\' . $returnTagValueNodeType);
+        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::endsWith($className, '\\' . $returnTagValueNodeType);
     }
 }

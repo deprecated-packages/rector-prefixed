@@ -41,7 +41,7 @@ final class BuilderFormNodeFactory
     private function createBuilderParam() : \PhpParser\Node\Param
     {
         $builderParamBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder('builder');
-        $builderParamBuilder->setType(new \PhpParser\Node\Name\FullyQualified('_PhpScoper8b9c402c5f32\\Symfony\\Component\\Form\\FormBuilderInterface'));
+        $builderParamBuilder->setType(new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\Symfony\\Component\\Form\\FormBuilderInterface'));
         return $builderParamBuilder->getNode();
     }
     private function createOptionsParam() : \PhpParser\Node\Param

@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
-use _PhpScoper8b9c402c5f32\Doctrine\ORM\EntityManager;
-use _PhpScoper8b9c402c5f32\Doctrine\ORM\EntityRepository;
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Doctrine\ORM\EntityManager;
+use _PhpScoperfce0de0de1ce\Doctrine\ORM\EntityRepository;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
@@ -89,7 +89,7 @@ CODE_SAMPLE
             return null;
         }
         $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== \_PhpScoper8b9c402c5f32\Doctrine\ORM\EntityRepository::class) {
+        if ($parentClassName !== \_PhpScoperfce0de0de1ce\Doctrine\ORM\EntityRepository::class) {
             return null;
         }
         /** @var string|null $className */
@@ -97,15 +97,15 @@ CODE_SAMPLE
         if ($className === null) {
             return null;
         }
-        if (!\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::endsWith($className, 'Repository')) {
+        if (!\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::endsWith($className, 'Repository')) {
             return null;
         }
         // remove parent class
         $node->extends = null;
         // add $repository property
-        $this->classInsertManipulator->addPropertyToClass($node, 'repository', new \PHPStan\Type\ObjectType(\_PhpScoper8b9c402c5f32\Doctrine\ORM\EntityRepository::class));
+        $this->classInsertManipulator->addPropertyToClass($node, 'repository', new \PHPStan\Type\ObjectType(\_PhpScoperfce0de0de1ce\Doctrine\ORM\EntityRepository::class));
         // add $entityManager and assign to constuctor
-        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \PHPStan\Type\ObjectType(\_PhpScoper8b9c402c5f32\Doctrine\ORM\EntityManager::class), $this->createRepositoryAssign($node));
+        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \PHPStan\Type\ObjectType(\_PhpScoperfce0de0de1ce\Doctrine\ORM\EntityManager::class), $this->createRepositoryAssign($node));
         return $node;
     }
     /**

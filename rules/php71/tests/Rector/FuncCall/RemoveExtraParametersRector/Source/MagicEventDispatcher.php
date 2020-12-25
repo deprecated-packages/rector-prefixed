@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Php71\Tests\Rector\FuncCall\RemoveExtraParametersRector\Source;
 
-use _PhpScoper8b9c402c5f32\Symfony\Component\EventDispatcher\Event;
-use _PhpScoper8b9c402c5f32\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use _PhpScoperfce0de0de1ce\Symfony\Component\EventDispatcher\Event;
+use _PhpScoperfce0de0de1ce\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 final class MagicEventDispatcher
 {
     /**

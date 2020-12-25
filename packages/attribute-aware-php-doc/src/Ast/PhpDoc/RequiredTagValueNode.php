@@ -20,7 +20,7 @@ final class RequiredTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc\Php
     }
     public function getAttributeClassName() : string
     {
-        return '_PhpScoper8b9c402c5f32\\Symfony\\Contracts\\Service\\Attribute\\Required';
+        return '_PhpScoperfce0de0de1ce\\Symfony\\Contracts\\Service\\Attribute\\Required';
     }
     /**
      * @return mixed[]

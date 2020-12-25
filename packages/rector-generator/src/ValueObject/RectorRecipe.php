@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\ValueObject;
 
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -207,7 +207,7 @@ final class RectorRecipe
     }
     private function setName(string $name) : void
     {
-        if (!\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::endsWith($name, 'Rector')) {
+        if (!\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::endsWith($name, 'Rector')) {
             $message = \sprintf('Rector name "%s" must end with "Rector"', $name);
             throw new \Rector\RectorGenerator\Exception\ConfigurationException($message);
         }
@@ -244,11 +244,11 @@ final class RectorRecipe
      */
     private function resolveCategory(array $nodeTypes) : void
     {
-        $this->category = (string) \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::after($nodeTypes[0], '\\', -1);
+        $this->category = (string) \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::after($nodeTypes[0], '\\', -1);
     }
     private function normalizeCode(string $code) : string
     {
-        if (\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::startsWith($code, '<?php')) {
+        if (\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::startsWith($code, '<?php')) {
             $code = \ltrim($code, '<?php');
         }
         return \trim($code);

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper8b9c402c5f32;
+namespace _PhpScoperfce0de0de1ce;
 
 use Rector\Core\ValueObject\Visibility;
 use Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector;
@@ -10,12 +10,12 @@ use Rector\NetteToSymfony\Rector\MethodCall\WrapTransParameterNameRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoper8b9c402c5f32\\Kdyby\\Events\\Subscriber', 'getSubscribedEvents', \Rector\Core\ValueObject\Visibility::STATIC)])]]);
-    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper8b9c402c5f32\\Kdyby\\Translation\\Translator', 'translate', 'trans'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoper8b9c402c5f32\\Kdyby\\RabbitMq\\IConsumer', 'process', 'execute')])]]);
-    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoper8b9c402c5f32\\Kdyby\\RabbitMq\\IConsumer' => '_PhpScoper8b9c402c5f32\\OldSound\\RabbitMqBundle\\RabbitMq\\ConsumerInterface', '_PhpScoper8b9c402c5f32\\Kdyby\\RabbitMq\\IProducer' => '_PhpScoper8b9c402c5f32\\OldSound\\RabbitMqBundle\\RabbitMq\\ProducerInterface', '_PhpScoper8b9c402c5f32\\Kdyby\\Monolog\\Logger' => '_PhpScoper8b9c402c5f32\\Psr\\Log\\LoggerInterface', '_PhpScoper8b9c402c5f32\\Kdyby\\Events\\Subscriber' => '_PhpScoper8b9c402c5f32\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', '_PhpScoper8b9c402c5f32\\Kdyby\\Translation\\Translator' => '_PhpScoper8b9c402c5f32\\Symfony\\Contracts\\Translation\\TranslatorInterface']]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoperfce0de0de1ce\\Kdyby\\Events\\Subscriber', 'getSubscribedEvents', \Rector\Core\ValueObject\Visibility::STATIC)])]]);
+    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperfce0de0de1ce\\Kdyby\\Translation\\Translator', 'translate', 'trans'), new \Rector\Renaming\ValueObject\MethodCallRename('_PhpScoperfce0de0de1ce\\Kdyby\\RabbitMq\\IConsumer', 'process', 'execute')])]]);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoperfce0de0de1ce\\Kdyby\\RabbitMq\\IConsumer' => '_PhpScoperfce0de0de1ce\\OldSound\\RabbitMqBundle\\RabbitMq\\ConsumerInterface', '_PhpScoperfce0de0de1ce\\Kdyby\\RabbitMq\\IProducer' => '_PhpScoperfce0de0de1ce\\OldSound\\RabbitMqBundle\\RabbitMq\\ProducerInterface', '_PhpScoperfce0de0de1ce\\Kdyby\\Monolog\\Logger' => '_PhpScoperfce0de0de1ce\\Psr\\Log\\LoggerInterface', '_PhpScoperfce0de0de1ce\\Kdyby\\Events\\Subscriber' => '_PhpScoperfce0de0de1ce\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface', '_PhpScoperfce0de0de1ce\\Kdyby\\Translation\\Translator' => '_PhpScoperfce0de0de1ce\\Symfony\\Contracts\\Translation\\TranslatorInterface']]]);
     $services->set(\Rector\NetteToSymfony\Rector\MethodCall\WrapTransParameterNameRector::class);
 };

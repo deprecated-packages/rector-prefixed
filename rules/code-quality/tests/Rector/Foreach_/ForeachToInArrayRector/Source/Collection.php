@@ -4,7 +4,7 @@ namespace Rector\CodeQuality\Tests\Rector\Foreach_\ForeachToInArrayRector\Source
 
 use ArrayIterator;
 use Closure;
-use _PhpScoper8b9c402c5f32\Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
+use _PhpScoperfce0de0de1ce\Doctrine\Common\Collections\Expr\ClosureExpressionVisitor;
 use const ARRAY_FILTER_USE_BOTH;
 use function array_filter;
 use function array_key_exists;

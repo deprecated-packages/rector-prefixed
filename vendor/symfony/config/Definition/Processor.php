@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper8b9c402c5f32\Symfony\Component\Config\Definition;
+namespace _PhpScoperfce0de0de1ce\Symfony\Component\Config\Definition;
 
 /**
  * This class is the entry point for config normalization/merging/finalization.
@@ -26,7 +26,7 @@ class Processor
      *
      * @return array The processed configuration
      */
-    public function process(\_PhpScoper8b9c402c5f32\Symfony\Component\Config\Definition\NodeInterface $configTree, array $configs) : array
+    public function process(\_PhpScoperfce0de0de1ce\Symfony\Component\Config\Definition\NodeInterface $configTree, array $configs) : array
     {
         $currentConfig = [];
         foreach ($configs as $config) {
@@ -42,7 +42,7 @@ class Processor
      *
      * @return array The processed configuration
      */
-    public function processConfiguration(\_PhpScoper8b9c402c5f32\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, array $configs) : array
+    public function processConfiguration(\_PhpScoperfce0de0de1ce\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, array $configs) : array
     {
         return $this->process($configuration->getConfigTreeBuilder()->buildTree(), $configs);
     }

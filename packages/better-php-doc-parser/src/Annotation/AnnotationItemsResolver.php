@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Annotation;
 
-use _PhpScoper8b9c402c5f32\Doctrine\Common\Annotations\Annotation;
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Doctrine\Common\Annotations\Annotation;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 final class AnnotationItemsResolver
 {
     /**
@@ -38,7 +38,7 @@ final class AnnotationItemsResolver
     {
         $items = [];
         foreach ((array) $object as $messedPropertyName => $value) {
-            $propertyName = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::after($messedPropertyName, "\0", -1);
+            $propertyName = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::after($messedPropertyName, "\0", -1);
             $items[$propertyName] = $value;
         }
         return $items;

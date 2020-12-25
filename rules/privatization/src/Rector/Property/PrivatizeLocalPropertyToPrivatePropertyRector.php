@@ -128,10 +128,10 @@ CODE_SAMPLE
         if ($this->isAnonymousClass($classLike)) {
             return \true;
         }
-        if ($this->isObjectType($classLike, '_PhpScoper8b9c402c5f32\\PHPUnit\\Framework\\TestCase')) {
+        if ($this->isObjectType($classLike, '_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestCase')) {
             return \true;
         }
-        return $this->isObjectType($classLike, '_PhpScoper8b9c402c5f32\\PHP_CodeSniffer\\Sniffs\\Sniff');
+        return $this->isObjectType($classLike, '_PhpScoperfce0de0de1ce\\PHP_CodeSniffer\\Sniffs\\Sniff');
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {

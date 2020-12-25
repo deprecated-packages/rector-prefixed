@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ReferenceConfigurator extends \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
+class ReferenceConfigurator extends \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
     /** @internal */
     protected $id;
     /** @internal */
-    protected $invalidBehavior = \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+    protected $invalidBehavior = \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
     public function __construct(string $id)
     {
         $this->id = $id;
@@ -29,7 +29,7 @@ class ReferenceConfigurator extends \_PhpScoper8b9c402c5f32\Symfony\Component\De
      */
     public final function ignoreOnInvalid() : self
     {
-        $this->invalidBehavior = \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE;
+        $this->invalidBehavior = \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE;
         return $this;
     }
     /**
@@ -37,7 +37,7 @@ class ReferenceConfigurator extends \_PhpScoper8b9c402c5f32\Symfony\Component\De
      */
     public final function nullOnInvalid() : self
     {
-        $this->invalidBehavior = \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE;
+        $this->invalidBehavior = \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE;
         return $this;
     }
     /**
@@ -45,7 +45,7 @@ class ReferenceConfigurator extends \_PhpScoper8b9c402c5f32\Symfony\Component\De
      */
     public final function ignoreOnUninitialized() : self
     {
-        $this->invalidBehavior = \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE;
+        $this->invalidBehavior = \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE;
         return $this;
     }
     /**

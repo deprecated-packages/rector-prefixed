@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper8b9c402c5f32\Symfony\Component\Console\Helper;
+namespace _PhpScoperfce0de0de1ce\Symfony\Component\Console\Helper;
 
-use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * @author Yewhen Khoptynskyi <khoptynskyi@gmail.com>
  */
@@ -23,10 +23,10 @@ class TableCellStyle
     public function __construct(array $options = [])
     {
         if ($diff = \array_diff(\array_keys($options), \array_keys($this->options))) {
-            throw new \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The TableCellStyle does not support the following options: \'%s\'.', \implode('\', \'', $diff)));
+            throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The TableCellStyle does not support the following options: \'%s\'.', \implode('\', \'', $diff)));
         }
         if (isset($options['align']) && !\array_key_exists($options['align'], $this->alignMap)) {
-            throw new \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Wrong align value. Value must be following: \'%s\'.', \implode('\', \'', \array_keys($this->alignMap))));
+            throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Wrong align value. Value must be following: \'%s\'.', \implode('\', \'', \array_keys($this->alignMap))));
         }
         $this->options = \array_merge($this->options, $options);
     }

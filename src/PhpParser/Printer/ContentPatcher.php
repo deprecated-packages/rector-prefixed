@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Printer;
 
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 final class ContentPatcher
 {
     /**
@@ -114,11 +114,11 @@ final class ContentPatcher
      */
     public function rollbackValidAnnotation(string $originalContent, string $content, string $validAnnotationRegex, string $invalidAnnotationRegex) : string
     {
-        $matchesValidAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::matchAll($originalContent, $validAnnotationRegex);
+        $matchesValidAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::matchAll($originalContent, $validAnnotationRegex);
         if ($matchesValidAnnotation === []) {
             return $content;
         }
-        $matchesInValidAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::matchAll($content, $invalidAnnotationRegex);
+        $matchesInValidAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::matchAll($content, $invalidAnnotationRegex);
         if ($matchesInValidAnnotation === []) {
             return $content;
         }
@@ -137,19 +137,19 @@ final class ContentPatcher
     }
     private function isSkipped(string $validAnnotationRegex, string $validAnnotation, string $invalidAnnotation) : bool
     {
-        $validAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($validAnnotation, self::SPACE_REGEX, '');
-        $invalidAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($invalidAnnotation, self::SPACE_REGEX, '');
+        $validAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($validAnnotation, self::SPACE_REGEX, '');
+        $invalidAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($invalidAnnotation, self::SPACE_REGEX, '');
         if ($validAnnotationRegex !== self::VALID_ANNOTATION_ROUTE_REGEX) {
-            $validAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($validAnnotation, self::STAR_QUOTE_PARENTHESIS_REGEX, '');
-            $invalidAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($invalidAnnotation, self::STAR_QUOTE_PARENTHESIS_REGEX, '');
+            $validAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($validAnnotation, self::STAR_QUOTE_PARENTHESIS_REGEX, '');
+            $invalidAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($invalidAnnotation, self::STAR_QUOTE_PARENTHESIS_REGEX, '');
             if ($validAnnotationRegex === self::VALID_ANNOTATION_ROUTE_LOCALIZATION_REGEX) {
-                $validAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($validAnnotation, self::ROUTE_LOCALIZATION_REPLACE_REGEX, '');
-                $invalidAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($invalidAnnotation, self::ROUTE_LOCALIZATION_REPLACE_REGEX, '');
+                $validAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($validAnnotation, self::ROUTE_LOCALIZATION_REPLACE_REGEX, '');
+                $invalidAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($invalidAnnotation, self::ROUTE_LOCALIZATION_REPLACE_REGEX, '');
             }
             return $validAnnotation !== $invalidAnnotation;
         }
-        $validAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($validAnnotation, self::ROUTE_VALID_REGEX, '');
-        $invalidAnnotation = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($invalidAnnotation, self::ROUTE_INVALID_REGEX, '');
+        $validAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($validAnnotation, self::ROUTE_VALID_REGEX, '');
+        $invalidAnnotation = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($invalidAnnotation, self::ROUTE_INVALID_REGEX, '');
         return $validAnnotation !== $invalidAnnotation;
     }
 }

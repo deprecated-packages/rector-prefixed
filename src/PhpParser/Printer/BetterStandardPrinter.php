@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Printer;
 
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Closure;
@@ -121,7 +121,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         $content = $this->contentPatcher->rollbackValidAnnotation($contentOriginal, $content, \Rector\Core\PhpParser\Printer\ContentPatcher::VALID_ANNOTATION_ROUTE_LOCALIZATION_REGEX, \Rector\Core\PhpParser\Printer\ContentPatcher::INVALID_ANNOTATION_ROUTE_LOCALIZATION_REGEX);
         $content = $this->contentPatcher->rollbackValidAnnotation($contentOriginal, $content, \Rector\Core\PhpParser\Printer\ContentPatcher::VALID_ANNOTATION_VAR_RETURN_EXPLICIT_FORMAT_REGEX, \Rector\Core\PhpParser\Printer\ContentPatcher::INVALID_ANNOTATION_VAR_RETURN_EXPLICIT_FORMAT_REGEX);
         // add new line in case of added stmts
-        if (\count($stmts) !== \count($origStmts) && !(bool) \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::match($content, self::NEWLINE_END_REGEX)) {
+        if (\count($stmts) !== \count($origStmts) && !(bool) \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match($content, self::NEWLINE_END_REGEX)) {
             $content .= $this->nl;
         }
         return $content;
@@ -245,7 +245,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         if (!$this->containsNop($nodes)) {
             return $content;
         }
-        return \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($content, self::EXTRA_SPACE_BEFORE_NOP_REGEX, '');
+        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($content, self::EXTRA_SPACE_BEFORE_NOP_REGEX, '');
     }
     /**
      * Do not preslash all slashes (parent behavior), but only those:
@@ -258,7 +258,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      */
     protected function pSingleQuotedString(string $string) : string
     {
-        return "'" . \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($string, self::QUOTED_SLASH_REGEX, '\\\\$0') . "'";
+        return "'" . \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($string, self::QUOTED_SLASH_REGEX, '\\\\$0') . "'";
     }
     /**
      * Emulates 1_000 in PHP 7.3- version
@@ -279,7 +279,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     protected function pExpr_Closure(\PhpParser\Node\Expr\Closure $closure) : string
     {
         $closureContent = parent::pExpr_Closure($closure);
-        return \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($closureContent, self::USE_REGEX, '$1 (');
+        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($closureContent, self::USE_REGEX, '$1 (');
     }
     /**
      * Do not add "()" on Expressions
@@ -339,7 +339,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     {
         $content = parent::pStmt_ClassMethod($classMethod);
         // this approach is chosen, to keep changes in parent pStmt_ClassMethod() updated
-        return \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($content, self::REPLACE_COLON_WITH_SPACE_REGEX, '$1: ');
+        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($content, self::REPLACE_COLON_WITH_SPACE_REGEX, '$1: ');
     }
     /**
      * Clean class and trait from empty "use x;" for traits causing invalid code
@@ -365,7 +365,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     protected function pStmt_Declare(\PhpParser\Node\Stmt\Declare_ $declare) : string
     {
         $declareString = parent::pStmt_Declare($declare);
-        return \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($declareString, '#\\s+#', '');
+        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($declareString, '#\\s+#', '');
     }
     /**
      * Remove extra \\ from FQN use imports, for easier use in the code
@@ -432,8 +432,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
             if ($fileInfo === null) {
                 continue;
             }
-            $whitespaces = \count(\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::matchAll($fileInfo->getContents(), self::FOUR_SPACE_START_REGEX));
-            $tabs = \count(\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::matchAll($fileInfo->getContents(), '#^\\t#m'));
+            $whitespaces = \count(\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::matchAll($fileInfo->getContents(), self::FOUR_SPACE_START_REGEX));
+            $tabs = \count(\_PhpScoperfce0de0de1ce\Nette\Utils\Strings::matchAll($fileInfo->getContents(), '#^\\t#m'));
             // tab vs space
             $this->tabOrSpaceIndentCharacter = ($whitespaces <=> $tabs) >= 0 ? ' ' : "\t";
         }

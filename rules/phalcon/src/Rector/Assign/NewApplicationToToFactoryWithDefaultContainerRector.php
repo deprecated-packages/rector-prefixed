@@ -76,10 +76,10 @@ CODE_SAMPLE
         if (!$expr instanceof \PhpParser\Node\Expr\New_) {
             return \false;
         }
-        return $this->isName($expr->class, '_PhpScoper8b9c402c5f32\\Phalcon\\Mvc\\Application');
+        return $this->isName($expr->class, '_PhpScoperfce0de0de1ce\\Phalcon\\Mvc\\Application');
     }
     private function createNewContainerToFactoryDefaultAssign(\PhpParser\Node\Expr\Variable $variable) : \PhpParser\Node\Expr\Assign
     {
-        return new \PhpParser\Node\Expr\Assign($variable, new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoper8b9c402c5f32\\Phalcon\\Di\\FactoryDefault')));
+        return new \PhpParser\Node\Expr\Assign($variable, new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\Phalcon\\Di\\FactoryDefault')));
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules;
+namespace _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules;
 
 use function preg_match;
 final class Pattern

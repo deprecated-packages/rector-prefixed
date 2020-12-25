@@ -2,9 +2,9 @@
 
 namespace Rector\NetteToSymfony\Tests\Rector\Class_\FormControlToControllerAndFormTypeRector\Fixture;
 
-class SomeFormController extends \_PhpScoper8b9c402c5f32\Symfony\Bundle\FrameworkBundle\Controller\AbstractController
+class SomeFormController extends \_PhpScoperfce0de0de1ce\Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
-    public function actionSomeForm(\_PhpScoper8b9c402c5f32\Symfony\Component\HttpFoundation\Request $request) : \_PhpScoper8b9c402c5f32\Symfony\Component\HttpFoundation\Response
+    public function actionSomeForm(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Request $request) : \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Response
     {
         $form = $this->createForm(\Rector\NetteToSymfony\Tests\Rector\Class_\FormControlToControllerAndFormTypeRector\Fixture\SomeFormType::class);
         $form->handleRequest($request);

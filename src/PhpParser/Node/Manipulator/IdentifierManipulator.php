@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -57,7 +57,7 @@ final class IdentifierManipulator
         if ($name === null) {
             return;
         }
-        $newName = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove), '');
+        $newName = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove), '');
         $node->name = new \PhpParser\Node\Identifier($newName);
     }
     private function ensureNodeHasIdentifier(\PhpParser\Node $node) : void

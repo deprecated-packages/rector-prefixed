@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace Rector\RectorGenerator\Command;
 
 use Rector\RectorGenerator\TemplateInitializer;
-use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Command\Command;
-use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Command\Command;
+use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\ShellCode;
-final class InitRecipeCommand extends \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Command\Command
+final class InitRecipeCommand extends \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Command\Command
 {
     /**
      * @var TemplateInitializer
@@ -24,7 +24,7 @@ final class InitRecipeCommand extends \_PhpScoper8b9c402c5f32\Symfony\Component\
         $this->setDescription('[DEV] Initialize "rector-recipe.php" config');
         $this->setAliases(['recipe-init']);
     }
-    protected function execute(\_PhpScoper8b9c402c5f32\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoperfce0de0de1ce\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->templateInitializer->initialize(__DIR__ . '/../../../../templates/rector-recipe.php.dist', 'rector-recipe.php');
         return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;

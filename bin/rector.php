@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper8b9c402c5f32;
+namespace _PhpScoperfce0de0de1ce;
 
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Bootstrap\ConfigShifter;
@@ -23,12 +23,13 @@ use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \_PhpScoper8b9c402c5f32\AutoloadIncluder();
+$autoloadIncluder = new \_PhpScoperfce0de0de1ce\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(\getcwd() . '/vendor/autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
+$autoloadIncluder->autoloadPhpStanExtracted();
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 try {
@@ -86,6 +87,13 @@ final class AutoloadIncluder
     {
         $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../../autoload.php');
     }
+    /**
+     * This autoloads extracted PHPStan autoload
+     */
+    public function autoloadPhpStanExtracted() : void
+    {
+        $this->loadIfExistsAndNotLoadedYet(require __DIR__ . '/../vendor/phpstan/phpstan-extracted/vendor/autoload.php');
+    }
     public function autoloadFromCommandLine() : void
     {
         $cliArgs = $_SERVER['argv'];
@@ -112,4 +120,4 @@ final class AutoloadIncluder
         require_once $filePath;
     }
 }
-\class_alias('_PhpScoper8b9c402c5f32\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('_PhpScoperfce0de0de1ce\\AutoloadIncluder', 'AutoloadIncluder', \false);

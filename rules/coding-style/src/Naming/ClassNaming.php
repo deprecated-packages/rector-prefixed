@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Naming;
 
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassLike;
@@ -54,19 +54,19 @@ final class ClassNaming
             }
         }
         $name = \trim($name, '\\');
-        return \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::after($name, '\\', -1) ?: $name;
+        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::after($name, '\\', -1) ?: $name;
     }
     public function getNamespace(string $fullyQualifiedName) : ?string
     {
         $fullyQualifiedName = \trim($fullyQualifiedName, '\\');
-        return \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::before($fullyQualifiedName, '\\', -1) ?: null;
+        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::before($fullyQualifiedName, '\\', -1) ?: null;
     }
     public function getNameFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $basenameWithoutSuffix = $smartFileInfo->getBasenameWithoutSuffix();
         // remove PHPUnit fixture file prefix
         if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            $basenameWithoutSuffix = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($basenameWithoutSuffix, self::INPUT_HASH_NAMING_REGEX, '');
+            $basenameWithoutSuffix = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::replace($basenameWithoutSuffix, self::INPUT_HASH_NAMING_REGEX, '');
         }
         return \Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($basenameWithoutSuffix);
     }

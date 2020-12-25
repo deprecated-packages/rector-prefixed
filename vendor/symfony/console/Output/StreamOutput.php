@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper8b9c402c5f32\Symfony\Component\Console\Output;
+namespace _PhpScoperfce0de0de1ce\Symfony\Component\Console\Output;
 
-use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * StreamOutput writes the output to a given stream.
  *
@@ -25,7 +25,7 @@ use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Formatter\OutputFormatterIn
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class StreamOutput extends \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\Output
+class StreamOutput extends \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Output\Output
 {
     private $stream;
     /**
@@ -36,10 +36,10 @@ class StreamOutput extends \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Out
      *
      * @throws InvalidArgumentException When first argument is not a real stream
      */
-    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         if (!\is_resource($stream) || 'stream' !== \get_resource_type($stream)) {
-            throw new \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
+            throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
         }
         $this->stream = $stream;
         if (null === $decorated) {

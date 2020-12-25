@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\If_;
 
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -140,6 +140,6 @@ CODE_SAMPLE
     }
     private function isNodeTooLong(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        return \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::length($this->print($assign)) > self::LINE_LENGHT_LIMIT;
+        return \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::length($this->print($assign)) > self::LINE_LENGHT_LIMIT;
     }
 }

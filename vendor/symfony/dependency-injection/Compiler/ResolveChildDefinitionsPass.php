@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Compiler;
+namespace _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Compiler;
 
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ChildDefinition;
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerInterface;
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Definition;
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Exception\ExceptionInterface;
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ChildDefinition;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Definition;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Exception\ExceptionInterface;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 /**
  * This replaces all ChildDefinition instances with their equivalent fully
  * merged Definition instance.
@@ -23,12 +23,12 @@ use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Exception\Servi
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveChildDefinitionsPass extends \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveChildDefinitionsPass extends \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $currentPath;
     protected function processValue($value, bool $isRoot = \false)
     {
-        if (!$value instanceof \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Definition) {
+        if (!$value instanceof \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);
         }
         if ($isRoot) {
@@ -36,7 +36,7 @@ class ResolveChildDefinitionsPass extends \_PhpScoper8b9c402c5f32\Symfony\Compon
             // container to ensure we are not operating on stale data
             $value = $this->container->getDefinition($this->currentId);
         }
-        if ($value instanceof \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ChildDefinition) {
+        if ($value instanceof \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ChildDefinition) {
             $this->currentPath = [];
             $value = $this->resolveDefinition($value);
             if ($isRoot) {
@@ -50,31 +50,31 @@ class ResolveChildDefinitionsPass extends \_PhpScoper8b9c402c5f32\Symfony\Compon
      *
      * @throws RuntimeException When the definition is invalid
      */
-    private function resolveDefinition(\_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ChildDefinition $definition) : \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Definition
+    private function resolveDefinition(\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ChildDefinition $definition) : \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Definition
     {
         try {
             return $this->doResolveDefinition($definition);
-        } catch (\_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException $e) {
+        } catch (\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException $e) {
             throw $e;
-        } catch (\_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Exception\ExceptionInterface $e) {
+        } catch (\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Exception\ExceptionInterface $e) {
             $r = new \ReflectionProperty($e, 'message');
             $r->setAccessible(\true);
             $r->setValue($e, \sprintf('Service "%s": %s', $this->currentId, $e->getMessage()));
             throw $e;
         }
     }
-    private function doResolveDefinition(\_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ChildDefinition $definition) : \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Definition
+    private function doResolveDefinition(\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ChildDefinition $definition) : \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Definition
     {
         if (!$this->container->has($parent = $definition->getParent())) {
-            throw new \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Parent definition "%s" does not exist.', $parent));
+            throw new \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Parent definition "%s" does not exist.', $parent));
         }
         $searchKey = \array_search($parent, $this->currentPath);
         $this->currentPath[] = $parent;
         if (\false !== $searchKey) {
-            throw new \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($parent, \array_slice($this->currentPath, $searchKey));
+            throw new \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($parent, \array_slice($this->currentPath, $searchKey));
         }
         $parentDef = $this->container->findDefinition($parent);
-        if ($parentDef instanceof \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ChildDefinition) {
+        if ($parentDef instanceof \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ChildDefinition) {
             $id = $this->currentId;
             $this->currentId = $parent;
             $parentDef = $this->resolveDefinition($parentDef);
@@ -82,7 +82,7 @@ class ResolveChildDefinitionsPass extends \_PhpScoper8b9c402c5f32\Symfony\Compon
             $this->currentId = $id;
         }
         $this->container->log($this, \sprintf('Resolving inheritance for "%s" (parent: %s).', $this->currentId, $parent));
-        $def = new \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Definition();
+        $def = new \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Definition();
         // merge in parent definition
         // purposely ignored attributes: abstract, shared, tags, autoconfigured
         $def->setClass($parentDef->getClass());
@@ -142,7 +142,7 @@ class ResolveChildDefinitionsPass extends \_PhpScoper8b9c402c5f32\Symfony\Compon
             if (null === $decoratedService) {
                 $def->setDecoratedService($decoratedService);
             } else {
-                $def->setDecoratedService($decoratedService[0], $decoratedService[1], $decoratedService[2], $decoratedService[3] ?? \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
+                $def->setDecoratedService($decoratedService[0], $decoratedService[1], $decoratedService[2], $decoratedService[3] ?? \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
             }
         }
         // merge arguments

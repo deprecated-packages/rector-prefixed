@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper8b9c402c5f32\Symfony\Component\HttpFoundation;
+namespace _PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation;
 
 // Help opcache.preload discover always-needed symbols
-\class_exists(\_PhpScoper8b9c402c5f32\Symfony\Component\HttpFoundation\ResponseHeaderBag::class);
+\class_exists(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\ResponseHeaderBag::class);
 /**
  * Response represents an HTTP response.
  *
@@ -231,7 +231,7 @@ class Response
      */
     public function __construct(?string $content = '', int $status = 200, array $headers = [])
     {
-        $this->headers = new \_PhpScoper8b9c402c5f32\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
+        $this->headers = new \_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
         $this->setContent($content);
         $this->setStatusCode($status);
         $this->setProtocolVersion('1.0');
@@ -284,7 +284,7 @@ class Response
      *
      * @return $this
      */
-    public function prepare(\_PhpScoper8b9c402c5f32\Symfony\Component\HttpFoundation\Request $request)
+    public function prepare(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Request $request)
     {
         $headers = $this->headers;
         if ($this->isInformational() || $this->isEmpty()) {
@@ -983,7 +983,7 @@ class Response
      *
      * @final
      */
-    public function isNotModified(\_PhpScoper8b9c402c5f32\Symfony\Component\HttpFoundation\Request $request) : bool
+    public function isNotModified(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Request $request) : bool
     {
         if (!$request->isMethodCacheable()) {
             return \false;
@@ -1144,7 +1144,7 @@ class Response
      *
      * @final
      */
-    protected function ensureIEOverSSLCompatibility(\_PhpScoper8b9c402c5f32\Symfony\Component\HttpFoundation\Request $request) : void
+    protected function ensureIEOverSSLCompatibility(\_PhpScoperfce0de0de1ce\Symfony\Component\HttpFoundation\Request $request) : void
     {
         if (\false !== \stripos($this->headers->get('Content-Disposition'), 'attachment') && 1 == \preg_match('/MSIE (.*?);/i', $request->server->get('HTTP_USER_AGENT'), $match) && \true === $request->isSecure()) {
             if ((int) \preg_replace('/(MSIE )(.*?);/', '$2', $match[0]) < 9) {

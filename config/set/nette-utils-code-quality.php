@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper8b9c402c5f32;
+namespace _PhpScoperfce0de0de1ce;
 
 use Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector;
 use Rector\Nette\Rector\FuncCall\FilePutContentsToFileSystemWriteRector;
@@ -14,12 +14,12 @@ use Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector;
 use Rector\Nette\Rector\NotIdentical\StrposToStringsContainsRector;
 use Rector\NetteUtilsCodeQuality\Rector\LNumber\ReplaceTimeNumberWithDateTimeConstantRector;
 use Rector\Transform\ValueObject\FuncCallToStaticCall;
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # @see https://www.tomasvotruba.cz/blog/2018/07/30/hidden-gems-of-php-packages-nette-utils
-return static function (\_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::class)->call('configure', [[\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::FUNC_CALLS_TO_STATIC_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\FuncCallToStaticCall('file_get_contents', '_PhpScoper8b9c402c5f32\\Nette\\Utils\\FileSystem', 'read'), new \Rector\Transform\ValueObject\FuncCallToStaticCall('unlink', '_PhpScoper8b9c402c5f32\\Nette\\Utils\\FileSystem', 'delete'), new \Rector\Transform\ValueObject\FuncCallToStaticCall('rmdir', '_PhpScoper8b9c402c5f32\\Nette\\Utils\\FileSystem', 'delete')])]]);
+    $services->set(\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::class)->call('configure', [[\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::FUNC_CALLS_TO_STATIC_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\FuncCallToStaticCall('file_get_contents', '_PhpScoperfce0de0de1ce\\Nette\\Utils\\FileSystem', 'read'), new \Rector\Transform\ValueObject\FuncCallToStaticCall('unlink', '_PhpScoperfce0de0de1ce\\Nette\\Utils\\FileSystem', 'delete'), new \Rector\Transform\ValueObject\FuncCallToStaticCall('rmdir', '_PhpScoperfce0de0de1ce\\Nette\\Utils\\FileSystem', 'delete')])]]);
     $services->set(\Rector\Nette\Rector\NotIdentical\StrposToStringsContainsRector::class);
     $services->set(\Rector\Nette\Rector\FuncCall\SubstrStrlenFunctionToNetteUtilsStringsRector::class);
     $services->set(\Rector\Nette\Rector\Identical\StartsWithFunctionToNetteUtilsStringsRector::class);

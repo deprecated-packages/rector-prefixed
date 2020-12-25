@@ -77,7 +77,7 @@ CODE_SAMPLE
         if (!$node->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
-        if (!$this->isObjectType($node->var, '_PhpScoper8b9c402c5f32\\Nette\\DI\\Container')) {
+        if (!$this->isObjectType($node->var, '_PhpScoperfce0de0de1ce\\Nette\\DI\\Container')) {
             return null;
         }
         if (!$this->isName($node->name, 'getByType')) {
@@ -91,6 +91,6 @@ CODE_SAMPLE
         if ($classLike === null) {
             return \false;
         }
-        return $this->isObjectTypes($classLike, ['_PhpScoper8b9c402c5f32\\PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
+        return $this->isObjectTypes($classLike, ['_PhpScoperfce0de0de1ce\\PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
     }
 }

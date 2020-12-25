@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper8b9c402c5f32\Symfony\Component\Config\Util;
+namespace _PhpScoperfce0de0de1ce\Symfony\Component\Config\Util;
 
-use _PhpScoper8b9c402c5f32\Symfony\Component\Config\Util\Exception\InvalidXmlException;
-use _PhpScoper8b9c402c5f32\Symfony\Component\Config\Util\Exception\XmlParsingException;
+use _PhpScoperfce0de0de1ce\Symfony\Component\Config\Util\Exception\InvalidXmlException;
+use _PhpScoperfce0de0de1ce\Symfony\Component\Config\Util\Exception\XmlParsingException;
 /**
  * XMLUtils is a bunch of utility methods to XML operations.
  *
@@ -57,7 +57,7 @@ class XmlUtils
             if (\LIBXML_VERSION < 20900) {
                 \libxml_disable_entity_loader($disableEntities);
             }
-            throw new \_PhpScoper8b9c402c5f32\Symfony\Component\Config\Util\Exception\XmlParsingException(\implode("\n", static::getXmlErrors($internalErrors)));
+            throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Config\Util\Exception\XmlParsingException(\implode("\n", static::getXmlErrors($internalErrors)));
         }
         $dom->normalizeDocument();
         \libxml_use_internal_errors($internalErrors);
@@ -66,7 +66,7 @@ class XmlUtils
         }
         foreach ($dom->childNodes as $child) {
             if (\XML_DOCUMENT_TYPE_NODE === $child->nodeType) {
-                throw new \_PhpScoper8b9c402c5f32\Symfony\Component\Config\Util\Exception\XmlParsingException('Document types are not allowed.');
+                throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Config\Util\Exception\XmlParsingException('Document types are not allowed.');
             }
         }
         if (null !== $schemaOrCallable) {
@@ -84,14 +84,14 @@ class XmlUtils
                 $valid = @$dom->schemaValidateSource($schemaSource);
             } else {
                 \libxml_use_internal_errors($internalErrors);
-                throw new \_PhpScoper8b9c402c5f32\Symfony\Component\Config\Util\Exception\XmlParsingException('The schemaOrCallable argument has to be a valid path to XSD file or callable.');
+                throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Config\Util\Exception\XmlParsingException('The schemaOrCallable argument has to be a valid path to XSD file or callable.');
             }
             if (!$valid) {
                 $messages = static::getXmlErrors($internalErrors);
                 if (empty($messages)) {
-                    throw new \_PhpScoper8b9c402c5f32\Symfony\Component\Config\Util\Exception\InvalidXmlException('The XML is not valid.', 0, $e);
+                    throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Config\Util\Exception\InvalidXmlException('The XML is not valid.', 0, $e);
                 }
-                throw new \_PhpScoper8b9c402c5f32\Symfony\Component\Config\Util\Exception\XmlParsingException(\implode("\n", $messages), 0, $e);
+                throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Config\Util\Exception\XmlParsingException(\implode("\n", $messages), 0, $e);
             }
         }
         \libxml_clear_errors();
@@ -124,8 +124,8 @@ class XmlUtils
         }
         try {
             return static::parse($content, $schemaOrCallable);
-        } catch (\_PhpScoper8b9c402c5f32\Symfony\Component\Config\Util\Exception\InvalidXmlException $e) {
-            throw new \_PhpScoper8b9c402c5f32\Symfony\Component\Config\Util\Exception\XmlParsingException(\sprintf('The XML file "%s" is not valid.', $file), 0, $e->getPrevious());
+        } catch (\_PhpScoperfce0de0de1ce\Symfony\Component\Config\Util\Exception\InvalidXmlException $e) {
+            throw new \_PhpScoperfce0de0de1ce\Symfony\Component\Config\Util\Exception\XmlParsingException(\sprintf('The XML file "%s" is not valid.', $file), 0, $e->getPrevious());
         }
     }
     /**

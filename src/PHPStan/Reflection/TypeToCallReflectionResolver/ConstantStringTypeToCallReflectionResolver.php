@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
+use _PhpScoperfce0de0de1ce\Nette\Utils\Strings;
 use PhpParser\Node\Name;
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\FunctionReflection;
@@ -50,7 +50,7 @@ final class ConstantStringTypeToCallReflectionResolver implements \Rector\Core\C
             return $this->reflectionProvider->getFunction($name, null);
         }
         // 'MyClass::myStaticFunction'
-        $matches = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::match($value, self::STATIC_METHOD_REGEX);
+        $matches = \_PhpScoperfce0de0de1ce\Nette\Utils\Strings::match($value, self::STATIC_METHOD_REGEX);
         if ($matches === null) {
             return null;
         }

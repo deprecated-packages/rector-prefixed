@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\DataProvider;
 
-use _PhpScoper8b9c402c5f32\Nette\Application\UI\Control;
+use _PhpScoperfce0de0de1ce\Nette\Application\UI\Control;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
@@ -72,7 +72,7 @@ final class OnPropertyMagicCallProvider
             return \false;
         }
         // control event, inner only
-        if (\is_a($className, \_PhpScoper8b9c402c5f32\Nette\Application\UI\Control::class, \true)) {
+        if (\is_a($className, \_PhpScoperfce0de0de1ce\Nette\Application\UI\Control::class, \true)) {
             return \false;
         }
         if (\method_exists($className, $methodName)) {

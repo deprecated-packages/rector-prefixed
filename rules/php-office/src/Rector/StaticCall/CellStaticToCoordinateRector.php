@@ -22,7 +22,7 @@ final class CellStaticToCoordinateRector extends \Rector\Core\Rector\AbstractRec
     private const DECOUPLED_METHODS = ['absoluteCoordinate', 'absoluteReference', 'buildRange', 'columnIndexFromString', 'coordinateFromString', 'extractAllCellReferencesInRange', 'getRangeBoundaries', 'mergeRangesInCollection', 'rangeBoundaries', 'rangeDimension', 'splitRange', 'stringFromColumnIndex'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoper8b9c402c5f32\\Methods to manipulate coordinates that used to exists in PHPExcel_Cell to PhpOffice\\PhpSpreadsheet\\Cell\\Coordinate', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoperfce0de0de1ce\\Methods to manipulate coordinates that used to exists in PHPExcel_Cell to PhpOffice\\PhpSpreadsheet\\Cell\\Coordinate', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -60,7 +60,7 @@ CODE_SAMPLE
         if (!$this->isNames($node->name, self::DECOUPLED_METHODS)) {
             return null;
         }
-        $node->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoper8b9c402c5f32\\PhpOffice\\PhpSpreadsheet\\Cell\\Coordinate');
+        $node->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoperfce0de0de1ce\\PhpOffice\\PhpSpreadsheet\\Cell\\Coordinate');
         return $node;
     }
 }

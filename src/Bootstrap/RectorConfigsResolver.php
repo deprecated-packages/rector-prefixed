@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Core\Bootstrap;
 
 use Rector\Set\RectorSetProvider;
-use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Input\ArgvInput;
+use _PhpScoperfce0de0de1ce\Symfony\Component\Console\Input\ArgvInput;
 use Symplify\SetConfigResolver\ConfigResolver;
 use Symplify\SetConfigResolver\SetAwareConfigResolver;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -45,7 +45,7 @@ final class RectorConfigsResolver
     public function provide() : array
     {
         $configFileInfos = [];
-        $argvInput = new \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Input\ArgvInput();
+        $argvInput = new \_PhpScoperfce0de0de1ce\Symfony\Component\Console\Input\ArgvInput();
         $inputOrFallbackConfigFileInfo = $this->configResolver->resolveFromInputWithFallback($argvInput, ['rector.php']);
         if ($inputOrFallbackConfigFileInfo !== null) {
             $configFileInfos[] = $inputOrFallbackConfigFileInfo;

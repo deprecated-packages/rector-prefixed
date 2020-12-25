@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Compiler;
+namespace _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Compiler;
 
-use _PhpScoper8b9c402c5f32\Psr\Container\ContainerInterface;
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Definition;
-use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Reference;
-use _PhpScoper8b9c402c5f32\Symfony\Contracts\Service\ServiceProviderInterface;
+use _PhpScoperfce0de0de1ce\Psr\Container\ContainerInterface;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Definition;
+use _PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Reference;
+use _PhpScoperfce0de0de1ce\Symfony\Contracts\Service\ServiceProviderInterface;
 /**
  * Compiler pass to inject their service locator to service subscribers.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveServiceSubscribersPass extends \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveServiceSubscribersPass extends \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $serviceLocator;
     protected function processValue($value, bool $isRoot = \false)
     {
-        if ($value instanceof \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Reference && $this->serviceLocator && \in_array((string) $value, [\_PhpScoper8b9c402c5f32\Psr\Container\ContainerInterface::class, \_PhpScoper8b9c402c5f32\Symfony\Contracts\Service\ServiceProviderInterface::class], \true)) {
-            return new \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Reference($this->serviceLocator);
+        if ($value instanceof \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Reference && $this->serviceLocator && \in_array((string) $value, [\_PhpScoperfce0de0de1ce\Psr\Container\ContainerInterface::class, \_PhpScoperfce0de0de1ce\Symfony\Contracts\Service\ServiceProviderInterface::class], \true)) {
+            return new \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Reference($this->serviceLocator);
         }
-        if (!$value instanceof \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Definition) {
+        if (!$value instanceof \_PhpScoperfce0de0de1ce\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);
         }
         $serviceLocator = $this->serviceLocator;

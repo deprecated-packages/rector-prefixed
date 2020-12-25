@@ -56,7 +56,7 @@ CODE_SAMPLE
         if (\count($node->args) === 1) {
             return null;
         }
-        $arg = new \PhpParser\Node\Arg($this->createClassConstantReference('_PhpScoper8b9c402c5f32\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\JpGraph'));
+        $arg = new \PhpParser\Node\Arg($this->createClassConstantReference('_PhpScoperfce0de0de1ce\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\JpGraph'));
         $node->args = [$arg];
         return $node;
     }

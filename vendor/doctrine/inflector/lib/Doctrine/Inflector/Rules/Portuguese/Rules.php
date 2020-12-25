@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Portuguese;
+namespace _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Portuguese;
 
-use _PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Patterns;
-use _PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Ruleset;
-use _PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Substitutions;
-use _PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Transformations;
+use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Patterns;
+use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Ruleset;
+use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Substitutions;
+use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Transformations;
 final class Rules
 {
-    public static function getSingularRuleset() : \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Ruleset
+    public static function getSingularRuleset() : \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Ruleset
     {
-        return new \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Ruleset(new \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Transformations(...\_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Portuguese\Inflectible::getSingular()), new \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Patterns(...\_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Portuguese\Uninflected::getSingular()), (new \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Substitutions(...\_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Portuguese\Inflectible::getIrregular()))->getFlippedSubstitutions());
+        return new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Ruleset(new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Transformations(...\_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Portuguese\Inflectible::getSingular()), new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Patterns(...\_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Portuguese\Uninflected::getSingular()), (new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Substitutions(...\_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Portuguese\Inflectible::getIrregular()))->getFlippedSubstitutions());
     }
-    public static function getPluralRuleset() : \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Ruleset
+    public static function getPluralRuleset() : \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Ruleset
     {
-        return new \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Ruleset(new \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Transformations(...\_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Portuguese\Inflectible::getPlural()), new \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Patterns(...\_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Portuguese\Uninflected::getPlural()), new \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Substitutions(...\_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Portuguese\Inflectible::getIrregular()));
+        return new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Ruleset(new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Transformations(...\_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Portuguese\Inflectible::getPlural()), new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Patterns(...\_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Portuguese\Uninflected::getPlural()), new \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Substitutions(...\_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Portuguese\Inflectible::getIrregular()));
     }
 }

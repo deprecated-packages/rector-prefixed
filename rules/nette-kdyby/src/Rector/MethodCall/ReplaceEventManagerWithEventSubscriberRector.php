@@ -124,7 +124,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->isObjectType($methodCall->var, '_PhpScoper8b9c402c5f32\\Kdyby\\Events\\EventManager')) {
+        if (!$this->isObjectType($methodCall->var, '_PhpScoperfce0de0de1ce\\Kdyby\\Events\\EventManager')) {
             return \true;
         }
         return !$this->isName($methodCall->name, 'dispatchEvent');

@@ -7,12 +7,12 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
-use _PhpScoper8b9c402c5f32\PHPUnit\Framework\MockObject\MockBuilder;
+use _PhpScoperfce0de0de1ce\PHPUnit\Framework\MockObject\MockBuilder;
 class MockBuilderDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMethodReturnTypeExtension
 {
     public function getClass() : string
     {
-        return \_PhpScoper8b9c402c5f32\PHPUnit\Framework\MockObject\MockBuilder::class;
+        return \_PhpScoperfce0de0de1ce\PHPUnit\Framework\MockObject\MockBuilder::class;
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Spanish;
+namespace _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Spanish;
 
-use _PhpScoper8b9c402c5f32\Doctrine\Inflector\GenericLanguageInflectorFactory;
-use _PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Ruleset;
-final class InflectorFactory extends \_PhpScoper8b9c402c5f32\Doctrine\Inflector\GenericLanguageInflectorFactory
+use _PhpScoperfce0de0de1ce\Doctrine\Inflector\GenericLanguageInflectorFactory;
+use _PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Ruleset;
+final class InflectorFactory extends \_PhpScoperfce0de0de1ce\Doctrine\Inflector\GenericLanguageInflectorFactory
 {
-    protected function getSingularRuleset() : \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Ruleset
+    protected function getSingularRuleset() : \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Ruleset
     {
-        return \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Spanish\Rules::getSingularRuleset();
+        return \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Spanish\Rules::getSingularRuleset();
     }
-    protected function getPluralRuleset() : \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Ruleset
+    protected function getPluralRuleset() : \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Ruleset
     {
-        return \_PhpScoper8b9c402c5f32\Doctrine\Inflector\Rules\Spanish\Rules::getPluralRuleset();
+        return \_PhpScoperfce0de0de1ce\Doctrine\Inflector\Rules\Spanish\Rules::getPluralRuleset();
     }
 }

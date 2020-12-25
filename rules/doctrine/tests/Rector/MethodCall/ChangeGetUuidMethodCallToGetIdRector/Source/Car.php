@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Tests\Rector\MethodCall\ChangeGetUuidMethodCallToGetIdRector\Source;
 
-use _PhpScoper8b9c402c5f32\Doctrine\ORM\Mapping as ORM;
-use _PhpScoper8b9c402c5f32\Ramsey\Uuid\UuidInterface;
+use _PhpScoperfce0de0de1ce\Doctrine\ORM\Mapping as ORM;
+use _PhpScoperfce0de0de1ce\Ramsey\Uuid\UuidInterface;
 /**
  * @ORM\Entity
  */
 class Car
 {
     private $uuid;
-    public function getUuid() : \_PhpScoper8b9c402c5f32\Ramsey\Uuid\UuidInterface
+    public function getUuid() : \_PhpScoperfce0de0de1ce\Ramsey\Uuid\UuidInterface
     {
         return $this->uuid;
     }

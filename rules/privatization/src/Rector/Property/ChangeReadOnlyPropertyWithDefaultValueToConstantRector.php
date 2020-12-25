@@ -122,7 +122,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
-        return $this->isObjectType($classLike, '_PhpScoper8b9c402c5f32\\PHP_CodeSniffer\\Sniffs\\Sniff');
+        return $this->isObjectType($classLike, '_PhpScoperfce0de0de1ce\\PHP_CodeSniffer\\Sniffs\\Sniff');
     }
     private function replacePropertyFetchWithClassConstFetch(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : void
     {
