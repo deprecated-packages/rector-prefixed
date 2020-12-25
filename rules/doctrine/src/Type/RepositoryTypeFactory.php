@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Type;
+namespace Rector\Doctrine\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedYetException;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PHPStan\Type\Generic\GenericObjectType;
+use Rector\Core\Exception\NotImplementedYetException;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class RepositoryTypeFactory
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function createRepositoryPropertyType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $entityReferenceExpr) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType
+    public function createRepositoryPropertyType(\PhpParser\Node\Expr $entityReferenceExpr) : \PHPStan\Type\Generic\GenericObjectType
     {
-        if (!$entityReferenceExpr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedYetException();
+        if (!$entityReferenceExpr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+            throw new \Rector\Core\Exception\NotImplementedYetException();
         }
         /** @var string $className */
         $className = $this->nodeNameResolver->getName($entityReferenceExpr->class);
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType('_PhpScoper2a4e7ab1ecbc\\Doctrine\\ORM\\EntityRepository', [new \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className)]);
+        return new \PHPStan\Type\Generic\GenericObjectType('_PhpScoper50d83356d739\\Doctrine\\ORM\\EntityRepository', [new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className)]);
     }
 }

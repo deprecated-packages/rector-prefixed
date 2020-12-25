@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+namespace PhpParser\Node\Expr;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-class MethodCall extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
+class MethodCall extends \PhpParser\Node\Expr
 {
     /** @var Expr Variable holding object */
     public $var;
@@ -22,11 +22,11 @@ class MethodCall extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
      * @param Arg[]                  $args       Arguments
      * @param array                  $attributes Additional attributes
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $var, $name, array $args = [], array $attributes = [])
+    public function __construct(\PhpParser\Node\Expr $var, $name, array $args = [], array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->var = $var;
-        $this->name = \is_string($name) ? new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($name) : $name;
+        $this->name = \is_string($name) ? new \PhpParser\Node\Identifier($name) : $name;
         $this->args = $args;
     }
     public function getSubNodeNames() : array

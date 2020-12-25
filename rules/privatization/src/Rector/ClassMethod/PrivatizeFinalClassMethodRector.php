@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Privatization\Rector\ClassMethod;
+namespace Rector\Privatization\Rector\ClassMethod;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Privatization\Tests\Rector\ClassMethod\PrivatizeFinalClassMethodRector\PrivatizeFinalClassMethodRectorTest
  */
-final class PrivatizeFinalClassMethodRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class PrivatizeFinalClassMethodRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassMethodVisibilityGuard
      */
     private $classMethodVisibilityGuard;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard $classMethodVisibilityGuard)
+    public function __construct(\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard $classMethodVisibilityGuard)
     {
         $this->classMethodVisibilityGuard = $classMethodVisibilityGuard;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change protected class method to private if possible', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change protected class method to private if possible', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     protected function someMethod()
@@ -49,15 +49,15 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classLike = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         if (!$classLike->isFinal()) {
@@ -76,7 +76,7 @@ CODE_SAMPLE
         $this->makePrivate($node);
         return $node;
     }
-    private function shouldSkipClassMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if ($this->isName($classMethod, 'createComponent*')) {
             return \true;

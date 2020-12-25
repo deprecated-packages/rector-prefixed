@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema;
+namespace _HumbugBox221ad6f1b81f\Nette\Schema;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f\Nette;
 /**
  * @internal
  */

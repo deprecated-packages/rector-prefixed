@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Parallel;
+namespace PHPStan\Parallel;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Random;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\AnalyserResult;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Error;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Process\ProcessHelper;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use _HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder;
+use _HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder;
+use _HumbugBox221ad6f1b81f\Nette\Utils\Random;
+use PHPStan\Analyser\AnalyserResult;
+use PHPStan\Analyser\Error;
+use PHPStan\Dependency\ExportedNode;
+use PHPStan\Process\ProcessHelper;
+use _HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop;
+use _HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
 use function parse_url;
 class ParallelAnalyser
 {
@@ -39,18 +39,18 @@ class ParallelAnalyser
      * @param string|null $insteadOfFile
      * @return AnalyserResult
      */
-    public function analyse(\_PhpScoper2a4e7ab1ecbc\PHPStan\Parallel\Schedule $schedule, string $mainScript, ?\Closure $postFileCallback, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\AnalyserResult
+    public function analyse(\PHPStan\Parallel\Schedule $schedule, string $mainScript, ?\Closure $postFileCallback, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
     {
         $jobs = \array_reverse($schedule->getJobs());
-        $loop = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop();
+        $loop = new \_HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop();
         $numberOfProcesses = $schedule->getNumberOfProcesses();
         $errors = [];
         $internalErrors = [];
-        $server = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\TcpServer('127.0.0.1:0', $loop);
-        $this->processPool = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Parallel\ProcessPool($server);
-        $server->on('connection', function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
-            $decoder = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $this->decoderBufferSize);
-            $encoder = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
+        $server = new \_HumbugBox221ad6f1b81f\React\Socket\TcpServer('127.0.0.1:0', $loop);
+        $this->processPool = new \PHPStan\Parallel\ProcessPool($server);
+        $server->on('connection', function (\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
+            $decoder = new \_HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $this->decoderBufferSize);
+            $encoder = new \_HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
             $decoder->on('data', function (array $data) use(&$jobs, $decoder, $encoder) : void {
                 if ($data['action'] !== 'hello') {
                     return;
@@ -84,7 +84,7 @@ class ParallelAnalyser
             if (\count($jobs) === 0) {
                 break;
             }
-            $processIdentifier = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Random::generate();
+            $processIdentifier = \_HumbugBox221ad6f1b81f\Nette\Utils\Random::generate();
             $commandOptions = ['--port', (string) $serverPort, '--identifier', $processIdentifier];
             if ($tmpFile !== null && $insteadOfFile !== null) {
                 $commandOptions[] = '--tmp-file';
@@ -92,14 +92,14 @@ class ParallelAnalyser
                 $commandOptions[] = '--instead-of';
                 $commandOptions[] = \escapeshellarg($insteadOfFile);
             }
-            $process = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Parallel\Process(\_PhpScoper2a4e7ab1ecbc\PHPStan\Process\ProcessHelper::getWorkerCommand($mainScript, 'worker', $projectConfigFile, $commandOptions, $input), $loop, $this->processTimeout);
+            $process = new \PHPStan\Parallel\Process(\PHPStan\Process\ProcessHelper::getWorkerCommand($mainScript, 'worker', $projectConfigFile, $commandOptions, $input), $loop, $this->processTimeout);
             $process->start(function (array $json) use($process, &$internalErrors, &$errors, &$dependencies, &$exportedNodes, &$jobs, $postFileCallback, &$internalErrorsCount, &$reachedInternalErrorsCountLimit, $processIdentifier) : void {
                 foreach ($json['errors'] as $jsonError) {
                     if (\is_string($jsonError)) {
                         $internalErrors[] = \sprintf('Internal error: %s', $jsonError);
                         continue;
                     }
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Error::decode($jsonError);
+                    $errors[] = \PHPStan\Analyser\Error::decode($jsonError);
                 }
                 /**
                  * @var string $file
@@ -153,6 +153,6 @@ class ParallelAnalyser
             $internalErrors[] = 'Some parallel worker jobs have not finished.';
             $internalErrorsCount++;
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\AnalyserResult($errors, $internalErrors, $internalErrorsCount === 0 ? $dependencies : null, $exportedNodes, $reachedInternalErrorsCountLimit);
+        return new \PHPStan\Analyser\AnalyserResult($errors, $internalErrors, $internalErrorsCount === 0 ? $dependencies : null, $exportedNodes, $reachedInternalErrorsCountLimit);
     }
 }

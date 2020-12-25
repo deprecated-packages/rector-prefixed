@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\ClassMethod;
+namespace Rector\PHPUnit\Rector\ClassMethod;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeFactory\ExpectExceptionMethodCallFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPUnit\NodeFactory\ExpectExceptionMethodCallFactory;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://thephp.cc/news/2016/02/questioning-phpunit-best-practices
  * @see https://github.com/sebastianbergmann/phpunit/commit/17c09b33ac5d9cad1459ace0ae7b1f942d1e9afd
  *
  * @see \Rector\PHPUnit\Tests\Rector\ClassMethod\ExceptionAnnotationRector\ExceptionAnnotationRectorTest
  */
-final class ExceptionAnnotationRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector
+final class ExceptionAnnotationRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * In reversed order, which they should be called in code.
@@ -29,13 +29,13 @@ final class ExceptionAnnotationRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Cor
      * @var ExpectExceptionMethodCallFactory
      */
     private $expectExceptionMethodCallFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeFactory\ExpectExceptionMethodCallFactory $expectExceptionMethodCallFactory)
+    public function __construct(\Rector\PHPUnit\NodeFactory\ExpectExceptionMethodCallFactory $expectExceptionMethodCallFactory)
     {
         $this->expectExceptionMethodCallFactory = $expectExceptionMethodCallFactory;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes `@expectedException annotations to `expectException*()` methods', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes `@expectedException annotations to `expectException*()` methods', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 /**
  * @expectedException Exception
  * @expectedExceptionMessage Message
@@ -60,18 +60,18 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }

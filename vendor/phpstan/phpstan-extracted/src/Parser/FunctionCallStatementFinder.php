@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Parser;
+namespace PHPStan\Parser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Name;
 class FunctionCallStatementFinder
 {
     /**
@@ -12,7 +12,7 @@ class FunctionCallStatementFinder
      * @param mixed $statements
      * @return \PhpParser\Node|null
      */
-    public function findFunctionCallInStatements(array $functionNames, $statements) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function findFunctionCallInStatements(array $functionNames, $statements) : ?\PhpParser\Node
     {
         foreach ($statements as $statement) {
             if (\is_array($statement)) {
@@ -21,10 +21,10 @@ class FunctionCallStatementFinder
                     return $result;
                 }
             }
-            if (!$statement instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node) {
+            if (!$statement instanceof \PhpParser\Node) {
                 continue;
             }
-            if ($statement instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall && $statement->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+            if ($statement instanceof \PhpParser\Node\Expr\FuncCall && $statement->name instanceof \PhpParser\Node\Name) {
                 if (\in_array((string) $statement->name, $functionNames, \true)) {
                     return $statement;
                 }

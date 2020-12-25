@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Parser;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Parser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\ErrorHandler;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Parser;
+use PhpParser\ErrorHandler;
+use PhpParser\Node;
+use PhpParser\Parser;
 use function array_key_exists;
 use function hash;
 use function strlen;
 /**
  * @internal
  */
-final class MemoizingParser implements \_PhpScoper2a4e7ab1ecbc\PhpParser\Parser
+final class MemoizingParser implements \PhpParser\Parser
 {
     /** @var Node\Stmt[][]|null[] indexed by source hash */
     private $sourceHashToAst = [];
     /** @var Parser */
     private $wrappedParser;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Parser $wrappedParser)
+    public function __construct(\PhpParser\Parser $wrappedParser)
     {
         $this->wrappedParser = $wrappedParser;
     }
     /**
      * {@inheritDoc}
      */
-    public function parse(string $code, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\ErrorHandler $errorHandler = null) : ?array
+    public function parse(string $code, ?\PhpParser\ErrorHandler $errorHandler = null) : ?array
     {
         // note: this code is mathematically buggy by default, as we are using a hash to identify
         //       cache entries. The string length is added to further reduce likeliness (although

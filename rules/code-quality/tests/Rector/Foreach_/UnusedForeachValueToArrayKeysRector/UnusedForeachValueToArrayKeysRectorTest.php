@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Tests\Rector\Foreach_\UnusedForeachValueToArrayKeysRector;
+namespace Rector\CodeQuality\Tests\Rector\Foreach_\UnusedForeachValueToArrayKeysRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Foreach_\UnusedForeachValueToArrayKeysRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class UnusedForeachValueToArrayKeysRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\CodeQuality\Rector\Foreach_\UnusedForeachValueToArrayKeysRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class UnusedForeachValueToArrayKeysRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class UnusedForeachValueToArrayKeysRectorTest extends \_PhpScoper2a4e7ab1e
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Foreach_\UnusedForeachValueToArrayKeysRector::class;
+        return \Rector\CodeQuality\Rector\Foreach_\UnusedForeachValueToArrayKeysRector::class;
     }
 }

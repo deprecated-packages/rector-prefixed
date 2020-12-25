@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeScope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Generic\TemplateTypeScope;
+use PHPStan\Type\Type;
 class NameScope
 {
     /** @var string|null */
@@ -23,13 +23,13 @@ class NameScope
      * @param array<string, string> $uses alias(string) => fullName(string)
      * @param string|null $className
      */
-    public function __construct(?string $namespace, array $uses, ?string $className = null, ?string $functionName = null, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap = null)
+    public function __construct(?string $namespace, array $uses, ?string $className = null, ?string $functionName = null, ?\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap = null)
     {
         $this->namespace = $namespace;
         $this->uses = $uses;
         $this->className = $className;
         $this->functionName = $functionName;
-        $this->templateTypeMap = $templateTypeMap ?? \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        $this->templateTypeMap = $templateTypeMap ?? \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
     }
     public function getNamespace() : ?string
     {
@@ -65,30 +65,30 @@ class NameScope
         }
         return $name;
     }
-    public function getTemplateTypeScope() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeScope
+    public function getTemplateTypeScope() : ?\PHPStan\Type\Generic\TemplateTypeScope
     {
         if ($this->className !== null) {
             if ($this->functionName !== null) {
-                return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeScope::createWithMethod($this->className, $this->functionName);
+                return \PHPStan\Type\Generic\TemplateTypeScope::createWithMethod($this->className, $this->functionName);
             }
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeScope::createWithClass($this->className);
+            return \PHPStan\Type\Generic\TemplateTypeScope::createWithClass($this->className);
         }
         if ($this->functionName !== null) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeScope::createWithFunction($this->functionName);
+            return \PHPStan\Type\Generic\TemplateTypeScope::createWithFunction($this->functionName);
         }
         return null;
     }
-    public function getTemplateTypeMap() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
+    public function getTemplateTypeMap() : \PHPStan\Type\Generic\TemplateTypeMap
     {
         return $this->templateTypeMap;
     }
-    public function resolveTemplateTypeName(string $name) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function resolveTemplateTypeName(string $name) : ?\PHPStan\Type\Type
     {
         return $this->templateTypeMap->getType($name);
     }
-    public function withTemplateTypeMap(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $map) : self
+    public function withTemplateTypeMap(\PHPStan\Type\Generic\TemplateTypeMap $map) : self
     {
-        return new self($this->namespace, $this->uses, $this->className, $this->functionName, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap(\array_merge($this->templateTypeMap->getTypes(), $map->getTypes())));
+        return new self($this->namespace, $this->uses, $this->className, $this->functionName, new \PHPStan\Type\Generic\TemplateTypeMap(\array_merge($this->templateTypeMap->getTypes(), $map->getTypes())));
     }
     /**
      * @param mixed[] $properties

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\FuncCall;
+namespace Rector\Php53\Rector\FuncCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\MagicConst\Dir;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\MagicConst\File;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Scalar\MagicConst\Dir;
+use PhpParser\Node\Scalar\MagicConst\File;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\PhpVersionFeature;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Php53\Tests\Rector\FuncCall\DirNameFileConstantToDirConstantRector\DirNameFileConstantToDirConstantRectorTest
  */
-final class DirNameFileConstantToDirConstantRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class DirNameFileConstantToDirConstantRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert dirname(__FILE__) to __DIR__', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert dirname(__FILE__) to __DIR__', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -43,14 +43,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::DIR_CONSTANT)) {
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::DIR_CONSTANT)) {
             return null;
         }
         if (!$this->isName($node, 'dirname')) {
@@ -60,9 +60,9 @@ CODE_SAMPLE
             return null;
         }
         $firstArgValue = $node->args[0]->value;
-        if (!$firstArgValue instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\MagicConst\File) {
+        if (!$firstArgValue instanceof \PhpParser\Node\Scalar\MagicConst\File) {
             return null;
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\MagicConst\Dir();
+        return new \PhpParser\Node\Scalar\MagicConst\Dir();
     }
 }

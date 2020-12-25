@@ -1,15 +1,15 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Middleware;
+namespace _HumbugBox221ad6f1b81f\React\Http\Middleware;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\ResponseInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\PauseBufferStream;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\Deferred;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\ResponseInterface;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream;
+use _HumbugBox221ad6f1b81f\React\Http\Io\PauseBufferStream;
+use _HumbugBox221ad6f1b81f\React\Promise;
+use _HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
+use _HumbugBox221ad6f1b81f\React\Promise\Deferred;
+use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
 /**
  * Limits how many next handlers can be executed concurrently.
  *
@@ -84,7 +84,7 @@ final class LimitConcurrentRequestsMiddleware
     {
         $this->limit = $limit;
     }
-    public function __invoke(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $next)
+    public function __invoke(\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $next)
     {
         // happy path: simply invoke next request handler if we're below limit
         if ($this->pending < $this->limit) {
@@ -103,31 +103,31 @@ final class LimitConcurrentRequestsMiddleware
             }
             // happy path: if next request handler returned immediately,
             // we can simply try to invoke the next queued request
-            if ($response instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\ResponseInterface) {
+            if ($response instanceof \_HumbugBox221ad6f1b81f\Psr\Http\Message\ResponseInterface) {
                 $this->processQueue();
                 return $response;
             }
             // if the next handler returns a pending promise, we have to
             // await its resolution before invoking next queued request
-            return $this->await(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve($response));
+            return $this->await(\_HumbugBox221ad6f1b81f\React\Promise\resolve($response));
         }
         // if we reach this point, then this request will need to be queued
         // check if the body is streaming, in which case we need to buffer everything
         $body = $request->getBody();
-        if ($body instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
+        if ($body instanceof \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
             // pause actual body to stop emitting data until the handler is called
             $size = $body->getSize();
-            $body = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\PauseBufferStream($body);
+            $body = new \_HumbugBox221ad6f1b81f\React\Http\Io\PauseBufferStream($body);
             $body->pauseImplicit();
             // replace with buffering body to ensure any readable events will be buffered
-            $request = $request->withBody(new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream($body, $size));
+            $request = $request->withBody(new \_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream($body, $size));
         }
         // get next queue position
         $queue =& $this->queue;
         $queue[] = null;
         \end($queue);
         $id = \key($queue);
-        $deferred = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\Deferred(function ($_, $reject) use(&$queue, $id) {
+        $deferred = new \_HumbugBox221ad6f1b81f\React\Promise\Deferred(function ($_, $reject) use(&$queue, $id) {
             // queued promise cancelled before its next handler is invoked
             // remove from queue and reject explicitly
             unset($queue[$id]);
@@ -153,12 +153,12 @@ final class LimitConcurrentRequestsMiddleware
                 // @codeCoverageIgnoreEnd
             }
             // resume readable stream and replay buffered events
-            if ($body instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\PauseBufferStream) {
+            if ($body instanceof \_HumbugBox221ad6f1b81f\React\Http\Io\PauseBufferStream) {
                 $body->resumeImplicit();
             }
             // if the next handler returns a pending promise, we have to
             // await its resolution before invoking next queued request
-            return $that->await(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve($response));
+            return $that->await(\_HumbugBox221ad6f1b81f\React\Promise\resolve($response));
         });
     }
     /**
@@ -166,7 +166,7 @@ final class LimitConcurrentRequestsMiddleware
      * @param PromiseInterface $promise
      * @return PromiseInterface
      */
-    public function await(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise)
+    public function await(\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise)
     {
         $that = $this;
         return $promise->then(function ($response) use($that) {
@@ -174,7 +174,7 @@ final class LimitConcurrentRequestsMiddleware
             return $response;
         }, function ($error) use($that) {
             $that->processQueue();
-            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\reject($error);
+            return \_HumbugBox221ad6f1b81f\React\Promise\reject($error);
         });
     }
     /**

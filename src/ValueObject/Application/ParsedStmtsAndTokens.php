@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\Application;
+namespace Rector\Core\ValueObject\Application;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use PhpParser\Node;
 final class ParsedStmtsAndTokens
 {
     /**

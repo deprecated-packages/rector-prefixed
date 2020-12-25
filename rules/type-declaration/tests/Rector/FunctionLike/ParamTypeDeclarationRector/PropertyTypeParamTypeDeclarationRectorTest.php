@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Tests\Rector\FunctionLike\ParamTypeDeclarationRector;
+namespace Rector\TypeDeclaration\Tests\Rector\FunctionLike\ParamTypeDeclarationRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class PropertyTypeParamTypeDeclarationRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class PropertyTypeParamTypeDeclarationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -24,10 +24,10 @@ final class PropertyTypeParamTypeDeclarationRectorTest extends \_PhpScoper2a4e7a
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector::class;
+        return \Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector::class;
     }
     protected function getPhpVersion() : int
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES;
+        return \Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\Tests\Rector\Catch_\RemoveUnusedVariableInCatchRector;
+namespace Rector\Php80\Tests\Rector\Catch_\RemoveUnusedVariableInCatchRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveUnusedVariableInCatchRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveUnusedVariableInCatchRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveUnusedVariableInCatchRectorTest extends \_PhpScoper2a4e7ab1ecb
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector::class;
+        return \Rector\Php80\Rector\Catch_\RemoveUnusedVariableInCatchRector::class;
     }
 }

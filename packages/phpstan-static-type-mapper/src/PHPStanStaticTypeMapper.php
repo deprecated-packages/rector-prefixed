@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper;
+namespace Rector\PHPStanStaticTypeMapper;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType as PhpParserUnionType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedException;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
+use PhpParser\Node;
+use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
+use PhpParser\Node\UnionType as PhpParserUnionType;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\Type\Type;
+use Rector\Core\Exception\NotImplementedException;
+use Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
+use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 final class PHPStanStaticTypeMapper
 {
     /**
@@ -36,13 +36,13 @@ final class PHPStanStaticTypeMapper
     public function __construct(array $typeMappers)
     {
         foreach ($typeMappers as $typeMapper) {
-            if ($typeMapper instanceof \_PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface) {
+            if ($typeMapper instanceof \Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface) {
                 $typeMapper->setPHPStanStaticTypeMapper($this);
             }
         }
         $this->typeMappers = $typeMappers;
     }
-    public function mapToPHPStanPhpDocTypeNode(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         foreach ($this->typeMappers as $typeMapper) {
             if (!\is_a($type, $typeMapper->getNodeClass(), \true)) {
@@ -50,12 +50,12 @@ final class PHPStanStaticTypeMapper
             }
             return $typeMapper->mapToPHPStanPhpDocTypeNode($type);
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
+        throw new \Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
     }
     /**
      * @return Name|NullableType|PhpParserUnionType|null
      */
-    public function mapToPhpParserNode(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         foreach ($this->typeMappers as $typeMapper) {
             if (!\is_a($type, $typeMapper->getNodeClass(), \true)) {
@@ -63,9 +63,9 @@ final class PHPStanStaticTypeMapper
             }
             return $typeMapper->mapToPhpParserNode($type, $kind);
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
+        throw new \Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
     }
-    public function mapToDocString(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
         foreach ($this->typeMappers as $typeMapper) {
             if (!\is_a($type, $typeMapper->getNodeClass(), \true)) {
@@ -73,6 +73,6 @@ final class PHPStanStaticTypeMapper
             }
             return $typeMapper->mapToDocString($type, $parentType);
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
+        throw new \Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($type));
     }
 }

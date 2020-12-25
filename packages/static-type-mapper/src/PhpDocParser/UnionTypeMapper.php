@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\PhpDocParser;
+namespace Rector\StaticTypeMapper\PhpDocParser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\PhpDoc\PhpDocTypeMapper;
-final class UnionTypeMapper implements \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface
+use PhpParser\Node;
+use PHPStan\Analyser\NameScope;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
+use PHPStan\Type\Type;
+use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
+use Rector\StaticTypeMapper\PhpDoc\PhpDocTypeMapper;
+final class UnionTypeMapper implements \Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface
 {
     /**
      * @var PhpDocTypeMapper
@@ -21,25 +21,25 @@ final class UnionTypeMapper implements \_PhpScoper2a4e7ab1ecbc\Rector\StaticType
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode::class;
+        return \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode::class;
     }
     /**
      * @required
      */
-    public function autowireUnionTypeMapper(\_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\PhpDoc\PhpDocTypeMapper $phpDocTypeMapper) : void
+    public function autowireUnionTypeMapper(\Rector\StaticTypeMapper\PhpDoc\PhpDocTypeMapper $phpDocTypeMapper) : void
     {
         $this->phpDocTypeMapper = $phpDocTypeMapper;
     }
     /**
      * @param UnionTypeNode $typeNode
      */
-    public function mapToPHPStanType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $unionedTypes = [];
         foreach ($typeNode->types as $unionedTypeNode) {

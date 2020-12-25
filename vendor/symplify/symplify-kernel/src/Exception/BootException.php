@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Exception;
+namespace Symplify\SymplifyKernel\Exception;
 
 use Exception;
 final class BootException extends \Exception

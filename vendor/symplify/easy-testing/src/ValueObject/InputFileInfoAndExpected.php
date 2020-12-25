@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\EasyTesting\ValueObject;
+namespace Symplify\EasyTesting\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class InputFileInfoAndExpected
 {
     /**
@@ -17,7 +17,7 @@ final class InputFileInfoAndExpected
     /**
      * @param mixed $expected
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, $expected)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, $expected)
     {
         $this->inputFileInfo = $inputFileInfo;
         $this->expected = $expected;
@@ -26,7 +26,7 @@ final class InputFileInfoAndExpected
     {
         return $this->inputFileInfo->getContents();
     }
-    public function getInputFileInfo() : \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo
+    public function getInputFileInfo() : \Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->inputFileInfo;
     }

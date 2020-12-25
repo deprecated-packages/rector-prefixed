@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeFactory;
+namespace Rector\Defluent\NodeFactory;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\AssignAndRootExpr;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FluentCallsKind;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\Naming\VariableNaming;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Return_;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
+use Rector\Defluent\ValueObject\AssignAndRootExpr;
+use Rector\Defluent\ValueObject\FluentCallsKind;
+use Rector\NetteKdyby\Naming\VariableNaming;
 final class NonFluentChainMethodCallFactory
 {
     /**
@@ -25,7 +25,7 @@ final class NonFluentChainMethodCallFactory
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    public function __construct(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
     {
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
         $this->variableNaming = $variableNaming;
@@ -33,21 +33,21 @@ final class NonFluentChainMethodCallFactory
     /**
      * @return Expression[]
      */
-    public function createFromNewAndRootMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_ $new, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $rootMethodCall) : array
+    public function createFromNewAndRootMethodCall(\PhpParser\Node\Expr\New_ $new, \PhpParser\Node\Expr\MethodCall $rootMethodCall) : array
     {
         $variableName = $this->variableNaming->resolveFromNode($new);
         if ($variableName === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $newVariable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($variableName);
+        $newVariable = new \PhpParser\Node\Expr\Variable($variableName);
         $newStmts = [];
         $newStmts[] = $this->createAssignExpression($newVariable, $new);
         // resolve chain calls
         $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChainWithoutRootOne($rootMethodCall);
         $chainMethodCalls = \array_reverse($chainMethodCalls);
         foreach ($chainMethodCalls as $chainMethodCall) {
-            $methodCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($newVariable, $chainMethodCall->name, $chainMethodCall->args);
-            $newStmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($methodCall);
+            $methodCall = new \PhpParser\Node\Expr\MethodCall($newVariable, $chainMethodCall->name, $chainMethodCall->args);
+            $newStmts[] = new \PhpParser\Node\Stmt\Expression($methodCall);
         }
         return $newStmts;
     }
@@ -55,7 +55,7 @@ final class NonFluentChainMethodCallFactory
      * @param MethodCall[] $chainMethodCalls
      * @return Assign[]|MethodCall[]|Return_[]
      */
-    public function createFromAssignObjectAndMethodCalls(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, array $chainMethodCalls, string $kind) : array
+    public function createFromAssignObjectAndMethodCalls(\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, array $chainMethodCalls, string $kind) : array
     {
         $nodesToAdd = [];
         $isNewNodeNeeded = $this->isNewNodeNeeded($assignAndRootExpr);
@@ -64,17 +64,17 @@ final class NonFluentChainMethodCallFactory
         }
         $decoupledMethodCalls = $this->createNonFluentMethodCalls($chainMethodCalls, $assignAndRootExpr, $isNewNodeNeeded);
         $nodesToAdd = \array_merge($nodesToAdd, $decoupledMethodCalls);
-        if ($assignAndRootExpr->getSilentVariable() !== null && $kind !== \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FluentCallsKind::IN_ARGS) {
+        if ($assignAndRootExpr->getSilentVariable() !== null && $kind !== \Rector\Defluent\ValueObject\FluentCallsKind::IN_ARGS) {
             $nodesToAdd[] = $assignAndRootExpr->getReturnSilentVariable();
         }
         return $nodesToAdd;
     }
-    private function createAssignExpression(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $newVariable, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_ $new) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression
+    private function createAssignExpression(\PhpParser\Node\Expr\Variable $newVariable, \PhpParser\Node\Expr\New_ $new) : \PhpParser\Node\Stmt\Expression
     {
-        $assign = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($newVariable, $new);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($assign);
+        $assign = new \PhpParser\Node\Expr\Assign($newVariable, $new);
+        return new \PhpParser\Node\Stmt\Expression($assign);
     }
-    private function isNewNodeNeeded(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr) : bool
+    private function isNewNodeNeeded(\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr) : bool
     {
         if ($assignAndRootExpr->isFirstCallFactory()) {
             return \true;
@@ -82,13 +82,13 @@ final class NonFluentChainMethodCallFactory
         if ($assignAndRootExpr->getRootExpr() === $assignAndRootExpr->getAssignExpr()) {
             return \false;
         }
-        return $assignAndRootExpr->getRootExpr() instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
+        return $assignAndRootExpr->getRootExpr() instanceof \PhpParser\Node\Expr\New_;
     }
     /**
      * @param MethodCall[] $chainMethodCalls
      * @return Assign[]|MethodCall[]
      */
-    private function createNonFluentMethodCalls(array $chainMethodCalls, \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, bool $isNewNodeNeeded) : array
+    private function createNonFluentMethodCalls(array $chainMethodCalls, \Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, bool $isNewNodeNeeded) : array
     {
         $decoupledMethodCalls = [];
         $lastKey = \array_key_last($chainMethodCalls);
@@ -101,12 +101,12 @@ final class NonFluentChainMethodCallFactory
             $chainMethodCall->var = $var;
             $decoupledMethodCalls[] = $chainMethodCall;
         }
-        if ($assignAndRootExpr->getRootExpr() instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_ && $assignAndRootExpr->getSilentVariable() !== null) {
-            $decoupledMethodCalls[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($assignAndRootExpr->getSilentVariable(), $assignAndRootExpr->getRootExpr());
+        if ($assignAndRootExpr->getRootExpr() instanceof \PhpParser\Node\Expr\New_ && $assignAndRootExpr->getSilentVariable() !== null) {
+            $decoupledMethodCalls[] = new \PhpParser\Node\Expr\Assign($assignAndRootExpr->getSilentVariable(), $assignAndRootExpr->getRootExpr());
         }
         return \array_reverse($decoupledMethodCalls);
     }
-    private function resolveMethodCallVar(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, int $key) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    private function resolveMethodCallVar(\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, int $key) : \PhpParser\Node\Expr
     {
         if (!$assignAndRootExpr->isFirstCallFactory()) {
             return $assignAndRootExpr->getCallerExpr();

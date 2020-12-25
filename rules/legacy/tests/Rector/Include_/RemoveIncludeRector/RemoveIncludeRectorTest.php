@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Legacy\Tests\Rector\Include_\RemoveIncludeRector;
+namespace Rector\Legacy\Tests\Rector\Include_\RemoveIncludeRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Legacy\Rector\Include_\RemoveIncludeRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveIncludeRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Legacy\Rector\Include_\RemoveIncludeRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveIncludeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveIncludeRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testi
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Legacy\Rector\Include_\RemoveIncludeRector::class;
+        return \Rector\Legacy\Rector\Include_\RemoveIncludeRector::class;
     }
 }

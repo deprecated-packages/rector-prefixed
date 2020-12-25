@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Query;
+namespace _HumbugBox221ad6f1b81f\React\Dns\Query;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Config\HostsFile;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Message;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Record;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise;
+use _HumbugBox221ad6f1b81f\React\Dns\Config\HostsFile;
+use _HumbugBox221ad6f1b81f\React\Dns\Model\Message;
+use _HumbugBox221ad6f1b81f\React\Dns\Model\Record;
+use _HumbugBox221ad6f1b81f\React\Promise;
 /**
  * Resolves hosts from the given HostsFile or falls back to another executor
  *
@@ -13,40 +13,40 @@ use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise;
  * DNS executor. If the host is not found in the hosts file, it will be passed
  * to the DNS executor as a fallback.
  */
-final class HostsFileExecutor implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
+final class HostsFileExecutor implements \_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface
 {
     private $hosts;
     private $fallback;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Config\HostsFile $hosts, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $fallback)
+    public function __construct(\_HumbugBox221ad6f1b81f\React\Dns\Config\HostsFile $hosts, \_HumbugBox221ad6f1b81f\React\Dns\Query\ExecutorInterface $fallback)
     {
         $this->hosts = $hosts;
         $this->fallback = $fallback;
     }
-    public function query(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
+    public function query(\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
     {
-        if ($query->class === \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::CLASS_IN && ($query->type === \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_A || $query->type === \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_AAAA)) {
+        if ($query->class === \_HumbugBox221ad6f1b81f\React\Dns\Model\Message::CLASS_IN && ($query->type === \_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_A || $query->type === \_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_AAAA)) {
             // forward lookup for type A or AAAA
             $records = array();
-            $expectsColon = $query->type === \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_AAAA;
+            $expectsColon = $query->type === \_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_AAAA;
             foreach ($this->hosts->getIpsForHost($query->name) as $ip) {
                 // ensure this is an IPv4/IPV6 address according to query type
                 if ((\strpos($ip, ':') !== \false) === $expectsColon) {
-                    $records[] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Record($query->name, $query->type, $query->class, 0, $ip);
+                    $records[] = new \_HumbugBox221ad6f1b81f\React\Dns\Model\Record($query->name, $query->type, $query->class, 0, $ip);
                 }
             }
             if ($records) {
-                return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::createResponseWithAnswersForQuery($query, $records));
+                return \_HumbugBox221ad6f1b81f\React\Promise\resolve(\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::createResponseWithAnswersForQuery($query, $records));
             }
-        } elseif ($query->class === \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::CLASS_IN && $query->type === \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_PTR) {
+        } elseif ($query->class === \_HumbugBox221ad6f1b81f\React\Dns\Model\Message::CLASS_IN && $query->type === \_HumbugBox221ad6f1b81f\React\Dns\Model\Message::TYPE_PTR) {
             // reverse lookup: extract IPv4 or IPv6 from special `.arpa` domain
             $ip = $this->getIpFromHost($query->name);
             if ($ip !== null) {
                 $records = array();
                 foreach ($this->hosts->getHostsForIp($ip) as $host) {
-                    $records[] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Record($query->name, $query->type, $query->class, 0, $host);
+                    $records[] = new \_HumbugBox221ad6f1b81f\React\Dns\Model\Record($query->name, $query->type, $query->class, 0, $host);
                 }
                 if ($records) {
-                    return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::createResponseWithAnswersForQuery($query, $records));
+                    return \_HumbugBox221ad6f1b81f\React\Promise\resolve(\_HumbugBox221ad6f1b81f\React\Dns\Model\Message::createResponseWithAnswersForQuery($query, $records));
                 }
             }
         }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties;
+namespace PHPStan\Rules\Properties;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\PropertyReflection;
 class PropertyDescriptor
 {
-    public function describePropertyByName(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection $property, string $propertyName) : string
+    public function describePropertyByName(\PHPStan\Reflection\PropertyReflection $property, string $propertyName) : string
     {
         if (!$property->isStatic()) {
             return \sprintf('Property %s::$%s', $property->getDeclaringClass()->getDisplayName(), $propertyName);
@@ -18,7 +18,7 @@ class PropertyDescriptor
      * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
      * @return string
      */
-    public function describeProperty(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection $property, $propertyFetch) : string
+    public function describeProperty(\PHPStan\Reflection\PropertyReflection $property, $propertyFetch) : string
     {
         /** @var \PhpParser\Node\Identifier $name */
         $name = $propertyFetch->name;

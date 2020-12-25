@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrors;
+namespace PHPStan\Rules\RuleErrors;
 
 /**
  * @internal Use PHPStan\Rules\RuleErrorBuilder instead.
  */
-class RuleError33 implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleError, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\MetadataRuleError
+class RuleError33 implements \PHPStan\Rules\RuleError, \PHPStan\Rules\MetadataRuleError
 {
     /** @var string */
     public $message;

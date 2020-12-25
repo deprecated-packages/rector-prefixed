@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\FormControlTypeResolver;
+namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-final class AssignDimFetchFormTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\TypeWithClassName;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+final class AssignDimFetchFormTypeResolver implements \Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface
 {
     /**
      * @var BetterNodeFinder
@@ -21,7 +21,7 @@ final class AssignDimFetchFormTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Re
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -29,9 +29,9 @@ final class AssignDimFetchFormTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Re
     /**
      * @return array<string, string>
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return [];
         }
         // traverse up and find all $this['some_name'] = $type
@@ -40,11 +40,11 @@ final class AssignDimFetchFormTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Re
         if ($formVariableAssign === null) {
             return [];
         }
-        if (!$node->dim instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
+        if (!$node->dim instanceof \PhpParser\Node\Scalar\String_) {
             return [];
         }
         $exprType = $this->nodeTypeResolver->getStaticType($formVariableAssign->expr);
-        if (!$exprType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+        if (!$exprType instanceof \PHPStan\Type\TypeWithClassName) {
             return [];
         }
         $name = $node->dim->value;

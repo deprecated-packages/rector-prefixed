@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector;
+namespace Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\TestCase;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\EventSubscriberInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\ParentTestCase;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ReturnArrayClassMethodToYieldRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper50d83356d739\PHPUnit\Framework\TestCase;
+use Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector;
+use Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\EventSubscriberInterface;
+use Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\ParentTestCase;
+use Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ReturnArrayClassMethodToYieldRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -29,6 +29,6 @@ final class ReturnArrayClassMethodToYieldRectorTest extends \_PhpScoper2a4e7ab1e
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector::METHODS_TO_YIELDS => [new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield(\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\EventSubscriberInterface::class, 'getSubscribedEvents'), new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield(\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\ParentTestCase::class, 'provide*'), new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield(\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\ParentTestCase::class, 'dataProvider*'), new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield(\_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\TestCase::class, 'provideData')]]];
+        return [\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector::class => [\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector::METHODS_TO_YIELDS => [new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield(\Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\EventSubscriberInterface::class, 'getSubscribedEvents'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield(\Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\ParentTestCase::class, 'provide*'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield(\Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector\Source\ParentTestCase::class, 'dataProvider*'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield(\_PhpScoper50d83356d739\PHPUnit\Framework\TestCase::class, 'provideData')]]];
     }
 }

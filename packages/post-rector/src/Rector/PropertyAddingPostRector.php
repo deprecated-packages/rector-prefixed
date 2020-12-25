@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Rector;
+namespace Rector\PostRector\Rector;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\PropertyToAddCollector;
-use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\NodeAnalyzer\NetteInjectDetector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator;
+use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use Rector\PostRector\Collector\PropertyToAddCollector;
+use Rector\PostRector\NodeAnalyzer\NetteInjectDetector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Adds new private properties to class + to constructor
  */
-final class PropertyAddingPostRector extends \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Rector\AbstractPostRector
+final class PropertyAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var ClassDependencyManipulator
@@ -32,7 +32,7 @@ final class PropertyAddingPostRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Post
      * @var NetteInjectDetector
      */
     private $netteInjectDetector;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator $classDependencyManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\NodeAnalyzer\NetteInjectDetector $netteInjectDetector, \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator $classDependencyManipulator, \Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PostRector\NodeAnalyzer\NetteInjectDetector $netteInjectDetector, \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector)
     {
         $this->classDependencyManipulator = $classDependencyManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
@@ -43,9 +43,9 @@ final class PropertyAddingPostRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Post
     {
         return 900;
     }
-    public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         if ($node->isAnonymous()) {
@@ -56,9 +56,9 @@ final class PropertyAddingPostRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Post
         $this->addPropertiesWithoutConstructor($node);
         return $node;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds properties', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds properties', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
 }
@@ -71,14 +71,14 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
-    private function addConstants(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
+    private function addConstants(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $constants = $this->propertyToAddCollector->getConstantsByClass($class);
         foreach ($constants as $constantName => $nodeConst) {
             $this->classInsertManipulator->addConstantToClass($class, $constantName, $nodeConst);
         }
     }
-    private function addProperties(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
+    private function addProperties(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $properties = $this->propertyToAddCollector->getPropertiesByClass($class);
         $isNetteInjectPreferred = $this->netteInjectDetector->isNetteInjectPreferred($class);
@@ -90,7 +90,7 @@ CODE_SAMPLE
             }
         }
     }
-    private function addPropertiesWithoutConstructor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
+    private function addPropertiesWithoutConstructor(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $propertiesWithoutConstructor = $this->propertyToAddCollector->getPropertiesWithoutConstructorByClass($class);
         foreach ($propertiesWithoutConstructor as $propertyName => $propertyType) {

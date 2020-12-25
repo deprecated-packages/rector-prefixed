@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PhpParser\Builder;
+namespace PhpParser\Builder;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\BuilderHelpers;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
-class Namespace_ extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration
+use _PhpScoper50d83356d739\PhpParser;
+use PhpParser\BuilderHelpers;
+use PhpParser\Node;
+use PhpParser\Node\Stmt;
+class Namespace_ extends \PhpParser\Builder\Declaration
 {
     private $name;
     private $stmts = [];
@@ -18,7 +18,7 @@ class Namespace_ extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration
      */
     public function __construct($name)
     {
-        $this->name = null !== $name ? \_PhpScoper2a4e7ab1ecbc\PhpParser\BuilderHelpers::normalizeName($name) : null;
+        $this->name = null !== $name ? \PhpParser\BuilderHelpers::normalizeName($name) : null;
     }
     /**
      * Adds a statement.
@@ -29,7 +29,7 @@ class Namespace_ extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration
      */
     public function addStmt($stmt)
     {
-        $this->stmts[] = \_PhpScoper2a4e7ab1ecbc\PhpParser\BuilderHelpers::normalizeStmt($stmt);
+        $this->stmts[] = \PhpParser\BuilderHelpers::normalizeStmt($stmt);
         return $this;
     }
     /**
@@ -37,8 +37,8 @@ class Namespace_ extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration
      *
      * @return Node The built node
      */
-    public function getNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function getNode() : \PhpParser\Node
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_($this->name, $this->stmts, $this->attributes);
+        return new \PhpParser\Node\Stmt\Namespace_($this->name, $this->stmts, $this->attributes);
     }
 }

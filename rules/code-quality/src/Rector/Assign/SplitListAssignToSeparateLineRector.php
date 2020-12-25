@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Assign;
+namespace Rector\CodeQuality\Rector\Assign;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\List_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\List_;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://mobile.twitter.com/ivanhoe011/status/1246376872931401728
  *
  * @see \Rector\CodeQuality\Tests\Rector\Assign\SplitListAssignToSeparateLineRector\SplitListAssignToSeparateLineRectorTest
  */
-final class SplitListAssignToSeparateLineRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class SplitListAssignToSeparateLineRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Splits `[$a, $b] = [5, 10]` scalar assign to standalone lines', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Splits `[$a, $b] = [5, 10]` scalar assign to standalone lines', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run(): void
@@ -45,12 +45,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign::class];
+        return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -64,12 +64,12 @@ CODE_SAMPLE
         $this->removeNode($node);
         return $node;
     }
-    private function shouldSkip(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign $assign) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        if (!$assign->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ && !$assign->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\List_) {
+        if (!$assign->var instanceof \PhpParser\Node\Expr\Array_ && !$assign->var instanceof \PhpParser\Node\Expr\List_) {
             return \true;
         }
-        if (!$assign->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
+        if (!$assign->expr instanceof \PhpParser\Node\Expr\Array_) {
             return \true;
         }
         if (\count((array) $assign->var->items) !== \count((array) $assign->expr->items)) {
@@ -82,7 +82,7 @@ CODE_SAMPLE
      * @param Array_|List_ $node
      * @return Assign[]
      */
-    private function createStandaloneAssigns(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $rightArray) : array
+    private function createStandaloneAssigns(\PhpParser\Node $node, \PhpParser\Node\Expr\Array_ $rightArray) : array
     {
         $standaloneAssigns = [];
         foreach ($node->items as $key => $leftArrayItem) {
@@ -93,7 +93,7 @@ CODE_SAMPLE
             if ($rightArrayItem === null) {
                 continue;
             }
-            $standaloneAssigns[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($leftArrayItem->value, $rightArrayItem);
+            $standaloneAssigns[] = new \PhpParser\Node\Expr\Assign($leftArrayItem->value, $rightArrayItem);
         }
         return $standaloneAssigns;
     }
@@ -110,7 +110,7 @@ CODE_SAMPLE
     /**
      * @param Array_|List_ $node
      */
-    private function getArrayItemsHash(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : string
+    private function getArrayItemsHash(\PhpParser\Node $node) : string
     {
         $arrayItemsHashes = [];
         foreach ($node->items as $arrayItem) {

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics;
+namespace PHPStan\Rules\Generics;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\MissingTypehintCheck;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
+use PhpParser\Node\Name;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\MissingTypehintCheck;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\Generic\TemplateTypeVariance;
+use PHPStan\Type\VerbosityLevel;
 class GenericAncestorsCheck
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
@@ -20,7 +20,7 @@ class GenericAncestorsCheck
     private $varianceCheck;
     /** @var bool */
     private $checkGenericClassInNonGenericObjectType;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\VarianceCheck $varianceCheck, bool $checkGenericClassInNonGenericObjectType)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck, \PHPStan\Rules\Generics\VarianceCheck $varianceCheck, bool $checkGenericClassInNonGenericObjectType)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->genericObjectTypeCheck = $genericObjectTypeCheck;
@@ -34,22 +34,22 @@ class GenericAncestorsCheck
      */
     public function check(array $nameNodes, array $ancestorTypes, string $incompatibleTypeMessage, string $noNamesMessage, string $noRelatedNameMessage, string $classNotGenericMessage, string $notEnoughTypesMessage, string $extraTypesMessage, string $typeIsNotSubtypeMessage, string $invalidTypeMessage, string $genericClassInNonGenericObjectType, string $invalidVarianceMessage) : array
     {
-        $names = \array_fill_keys(\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name $nameNode) : string {
+        $names = \array_fill_keys(\array_map(static function (\PhpParser\Node\Name $nameNode) : string {
             return $nameNode->toString();
         }, $nameNodes), \true);
         $unusedNames = $names;
         $messages = [];
         foreach ($ancestorTypes as $ancestorType) {
-            if (!$ancestorType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType) {
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($incompatibleTypeMessage, $ancestorType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+            if (!$ancestorType instanceof \PHPStan\Type\Generic\GenericObjectType) {
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($incompatibleTypeMessage, $ancestorType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
                 continue;
             }
             $ancestorTypeClassName = $ancestorType->getClassName();
             if (!isset($names[$ancestorTypeClassName])) {
                 if (\count($names) === 0) {
-                    $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message($noNamesMessage)->build();
+                    $messages[] = \PHPStan\Rules\RuleErrorBuilder::message($noNamesMessage)->build();
                 } else {
-                    $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($noRelatedNameMessage, $ancestorTypeClassName, \implode(', ', \array_keys($names))))->build();
+                    $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($noRelatedNameMessage, $ancestorTypeClassName, \implode(', ', \array_keys($names))))->build();
                 }
                 continue;
             }
@@ -60,10 +60,10 @@ class GenericAncestorsCheck
                 if ($this->reflectionProvider->hasClass($referencedClass) && !$this->reflectionProvider->getClass($referencedClass)->isTrait()) {
                     continue;
                 }
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($invalidTypeMessage, $referencedClass))->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($invalidTypeMessage, $referencedClass))->build();
             }
-            $variance = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance::createInvariant();
-            $messageContext = \sprintf($invalidVarianceMessage, $ancestorType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()));
+            $variance = \PHPStan\Type\Generic\TemplateTypeVariance::createInvariant();
+            $messageContext = \sprintf($invalidVarianceMessage, $ancestorType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()));
             foreach ($this->varianceCheck->check($variance, $ancestorType, $messageContext) as $message) {
                 $messages[] = $message;
             }
@@ -77,7 +77,7 @@ class GenericAncestorsCheck
                 if (!$unusedNameClassReflection->isGeneric()) {
                     continue;
                 }
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($genericClassInNonGenericObjectType, $unusedName, \implode(', ', \array_keys($unusedNameClassReflection->getTemplateTypeMap()->getTypes()))))->tip(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\MissingTypehintCheck::TURN_OFF_NON_GENERIC_CHECK_TIP)->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($genericClassInNonGenericObjectType, $unusedName, \implode(', ', \array_keys($unusedNameClassReflection->getTemplateTypeMap()->getTypes()))))->tip(\PHPStan\Rules\MissingTypehintCheck::TURN_OFF_NON_GENERIC_CHECK_TIP)->build();
             }
         }
         return $messages;

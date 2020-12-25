@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Bin;
+namespace Hoa\Protocol\Bin;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Console;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Protocol;
+use Hoa\Console;
+use Hoa\Protocol;
 /**
  * Class \Hoa\Protocol\Bin\Resolve.
  *
@@ -45,14 +45,14 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Protocol;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Resolve extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
+class Resolve extends \Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['exists', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, 'E'], ['unfold', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, 'u'], ['tree', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, 't'], ['no-verbose', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, 'V'], ['help', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['exists', \Hoa\Console\GetOption::NO_ARGUMENT, 'E'], ['unfold', \Hoa\Console\GetOption::NO_ARGUMENT, 'u'], ['tree', \Hoa\Console\GetOption::NO_ARGUMENT, 't'], ['no-verbose', \Hoa\Console\GetOption::NO_ARGUMENT, 'V'], ['help', \Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -63,7 +63,7 @@ class Resolve extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
         $exists = \true;
         $unfold = \false;
         $tree = \false;
-        $verbose = \_PhpScoper2a4e7ab1ecbc\Hoa\Console::isDirect(\STDOUT);
+        $verbose = \Hoa\Console::isDirect(\STDOUT);
         while (\false !== ($c = $this->getOption($v))) {
             switch ($c) {
                 case 'E':
@@ -91,7 +91,7 @@ class Resolve extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
             return $this->usage();
         }
         if (\true === $tree) {
-            $protocol = \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol::getInstance();
+            $protocol = \Hoa\Protocol::getInstance();
             $foo = \substr($path, 0, 6);
             if ('hoa://' !== $foo) {
                 return;
@@ -108,7 +108,7 @@ class Resolve extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
             return;
         }
         if (\true === $verbose) {
-            echo \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Cursor::colorize('foreground(yellow)'), $path, \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Cursor::colorize('normal'), ' is equivalent to:', "\n";
+            echo \Hoa\Console\Cursor::colorize('foreground(yellow)'), $path, \Hoa\Console\Cursor::colorize('normal'), ' is equivalent to:', "\n";
         }
         $resolved = resolve($path, $exists, $unfold);
         foreach ((array) $resolved as $r) {
@@ -129,5 +129,4 @@ class Resolve extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
 }
 __halt_compiler();
 Resolve `hoa://` paths.
-
 

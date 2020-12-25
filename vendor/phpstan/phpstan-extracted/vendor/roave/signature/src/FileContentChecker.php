@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\Signature;
+namespace _HumbugBox221ad6f1b81f\Roave\Signature;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\Signature\Encoder\EncoderInterface;
-final class FileContentChecker implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\Signature\CheckerInterface
+use _HumbugBox221ad6f1b81f\Roave\Signature\Encoder\EncoderInterface;
+final class FileContentChecker implements \_HumbugBox221ad6f1b81f\Roave\Signature\CheckerInterface
 {
     /**
      * @var EncoderInterface
@@ -13,7 +13,7 @@ final class FileContentChecker implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221a
     /**
      * {@inheritDoc}
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\Signature\Encoder\EncoderInterface $encoder)
+    public function __construct(\_HumbugBox221ad6f1b81f\Roave\Signature\Encoder\EncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }

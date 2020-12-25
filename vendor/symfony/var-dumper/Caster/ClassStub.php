@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Symfony\Component\VarDumper\Caster;
+namespace _PhpScoper50d83356d739\Symfony\Component\VarDumper\Caster;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\VarDumper\Cloner\Stub;
+use _PhpScoper50d83356d739\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Represents a PHP class identifier.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ClassStub extends \_PhpScoper2a4e7ab1ecbc\Symfony\Component\VarDumper\Caster\ConstStub
+class ClassStub extends \_PhpScoper50d83356d739\Symfony\Component\VarDumper\Caster\ConstStub
 {
     /**
      * @param string   $identifier A PHP identifier, e.g. a class, method, interface, etc. name
@@ -52,12 +52,12 @@ class ClassStub extends \_PhpScoper2a4e7ab1ecbc\Symfony\Component\VarDumper\Cast
             }
             if (\false !== \strpos($identifier, "@anonymous\0")) {
                 $this->value = $identifier = \preg_replace_callback('/[a-zA-Z_\\x7f-\\xff][\\\\a-zA-Z0-9_\\x7f-\\xff]*+@anonymous\\x00.*?\\.php(?:0x?|:[0-9]++\\$)[0-9a-fA-F]++/', function ($m) {
-                    return \class_exists($m[0], \false) ? (\get_parent_class($m[0]) ?: \key(\class_implements($m[0])) ?: 'class') . '@anonymous' : $m[0];
+                    return \class_exists($m[0], \false) ? ((\get_parent_class($m[0]) ?: \key(\class_implements($m[0]))) ?: 'class') . '@anonymous' : $m[0];
                 }, $identifier);
             }
             if (null !== $callable && $r instanceof \ReflectionFunctionAbstract) {
-                $s = \_PhpScoper2a4e7ab1ecbc\Symfony\Component\VarDumper\Caster\ReflectionCaster::castFunctionAbstract($r, [], new \_PhpScoper2a4e7ab1ecbc\Symfony\Component\VarDumper\Cloner\Stub(), \true, \_PhpScoper2a4e7ab1ecbc\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE);
-                $s = \_PhpScoper2a4e7ab1ecbc\Symfony\Component\VarDumper\Caster\ReflectionCaster::getSignature($s);
+                $s = \_PhpScoper50d83356d739\Symfony\Component\VarDumper\Caster\ReflectionCaster::castFunctionAbstract($r, [], new \_PhpScoper50d83356d739\Symfony\Component\VarDumper\Cloner\Stub(), \true, \_PhpScoper50d83356d739\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE);
+                $s = \_PhpScoper50d83356d739\Symfony\Component\VarDumper\Caster\ReflectionCaster::getSignature($s);
                 if ('()' === \substr($identifier, -2)) {
                     $this->value = \substr_replace($identifier, $s, -2);
                 } else {

@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\Mapper;
+namespace Rector\StaticTypeMapper\Mapper;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\CallableType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ResourceType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VoidType;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\CallableType;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\IterableType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\ResourceType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
+use PHPStan\Type\VoidType;
 final class ScalarStringToTypeMapper
 {
     /**
      * @var string[][]
      */
-    private const SCALAR_NAME_BY_TYPE = [\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType::class => ['string'], \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType::class => ['float', 'real', 'double'], \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType::class => ['int', 'integer'], \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType::class => ['false', 'true', 'bool', 'boolean'], \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType::class => ['null'], \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VoidType::class => ['void'], \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ResourceType::class => ['resource'], \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CallableType::class => ['callback', 'callable'], \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType::class => ['object']];
-    public function mapScalarStringToType(string $scalarName) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    private const SCALAR_NAME_BY_TYPE = [\PHPStan\Type\StringType::class => ['string'], \PHPStan\Type\FloatType::class => ['float', 'real', 'double'], \PHPStan\Type\IntegerType::class => ['int', 'integer'], \PHPStan\Type\BooleanType::class => ['false', 'true', 'bool', 'boolean'], \PHPStan\Type\NullType::class => ['null'], \PHPStan\Type\VoidType::class => ['void'], \PHPStan\Type\ResourceType::class => ['resource'], \PHPStan\Type\CallableType::class => ['callback', 'callable'], \PHPStan\Type\ObjectWithoutClassType::class => ['object']];
+    public function mapScalarStringToType(string $scalarName) : \PHPStan\Type\Type
     {
-        $loweredScalarName = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::lower($scalarName);
+        $loweredScalarName = \_PhpScoper50d83356d739\Nette\Utils\Strings::lower($scalarName);
         foreach (self::SCALAR_NAME_BY_TYPE as $objectType => $scalarNames) {
             if (!\in_array($loweredScalarName, $scalarNames, \true)) {
                 continue;
@@ -33,14 +33,14 @@ final class ScalarStringToTypeMapper
             return new $objectType();
         }
         if ($loweredScalarName === 'array') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType());
+            return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         }
         if ($loweredScalarName === 'iterable') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType());
+            return new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         }
         if ($loweredScalarName === 'mixed') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(\true);
+            return new \PHPStan\Type\MixedType(\true);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+        return new \PHPStan\Type\MixedType();
     }
 }

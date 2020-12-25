@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Parser;
+namespace Rector\Core\PhpParser\Parser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitor\NodeConnectingVisitor;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Parser;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem;
+use PhpParser\Node;
+use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor\NodeConnectingVisitor;
+use PhpParser\Parser;
+use Symplify\SmartFileSystem\SmartFileSystem;
 final class SimplePhpParser
 {
     /**
@@ -18,7 +18,7 @@ final class SimplePhpParser
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Parser $parser, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\PhpParser\Parser $parser, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->parser = $parser;
         $this->smartFileSystem = $smartFileSystem;
@@ -33,8 +33,8 @@ final class SimplePhpParser
         if ($nodes === null) {
             return [];
         }
-        $nodeTraverser = new \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser();
-        $nodeTraverser->addVisitor(new \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitor\NodeConnectingVisitor());
+        $nodeTraverser = new \PhpParser\NodeTraverser();
+        $nodeTraverser->addVisitor(new \PhpParser\NodeVisitor\NodeConnectingVisitor());
         return $nodeTraverser->traverse($nodes);
     }
 }

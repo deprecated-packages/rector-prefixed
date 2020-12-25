@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Tests\Rector\LogicalAnd\AndAssignsToSeparateLinesRector;
+namespace Rector\CodeQuality\Tests\Rector\LogicalAnd\AndAssignsToSeparateLinesRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\LogicalAnd\AndAssignsToSeparateLinesRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class AndAssignsToSeparateLinesRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\CodeQuality\Rector\LogicalAnd\AndAssignsToSeparateLinesRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class AndAssignsToSeparateLinesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class AndAssignsToSeparateLinesRectorTest extends \_PhpScoper2a4e7ab1ecbc\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\LogicalAnd\AndAssignsToSeparateLinesRector::class;
+        return \Rector\CodeQuality\Rector\LogicalAnd\AndAssignsToSeparateLinesRector::class;
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo;
+namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
-final class SlugTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
+final class SlugTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface, \Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface
 {
     /**
      * @return mixed[]
@@ -17,7 +17,7 @@ final class SlugTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDoc
     }
     public function getShortName() : string
     {
-        return '_PhpScoper2a4e7ab1ecbc\\@Gedmo\\Slug';
+        return '_PhpScoper50d83356d739\\@Gedmo\\Slug';
     }
     public function getSilentKey() : string
     {

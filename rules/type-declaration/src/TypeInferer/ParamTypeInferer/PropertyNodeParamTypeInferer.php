@@ -1,42 +1,42 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
+namespace Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
-final class PropertyNodeParamTypeInferer extends \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+use Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface;
+use Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
+final class PropertyNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ParamTypeInfererInterface
 {
     /**
      * @var PropertyFetchManipulator
      */
     private $propertyFetchManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator)
     {
         $this->propertyFetchManipulator = $propertyFetchManipulator;
     }
-    public function inferParam(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
         /** @var Class_|null $classLike */
-        $classLike = $param->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+            return new \PHPStan\Type\MixedType();
         }
         $paramName = $this->nodeNameResolver->getName($param);
         /** @var ClassMethod $classMethod */
-        $classMethod = $param->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $classMethod = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         $propertyStaticTypes = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($paramName, &$propertyStaticTypes) {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use($paramName, &$propertyStaticTypes) {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }
             if (!$this->propertyFetchManipulator->isVariableAssignToThisPropertyFetch($node, $paramName)) {

@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php74\Rector\StaticCall;
+namespace Rector\Php74\Rector\StaticCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\String_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Cast\String_;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/deprecations_php_7_4 (not confirmed yet)
  * @see https://3v4l.org/RTCUq
  * @see \Rector\Php74\Tests\Rector\StaticCall\ExportToReflectionFunctionRector\ExportToReflectionFunctionRectorTest
  */
-final class ExportToReflectionFunctionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ExportToReflectionFunctionRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change export() to ReflectionFunction alternatives', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change export() to ReflectionFunction alternatives', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $reflectionFunction = ReflectionFunction::export('foo');
 $reflectionFunctionAsString = ReflectionFunction::export('foo', true);
 CODE_SAMPLE
@@ -36,22 +36,22 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$node->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+        if (!$node->class instanceof \PhpParser\Node\Name) {
             return null;
         }
         if (!$this->isStaticCallNamed($node, 'ReflectionFunction', 'export')) {
             return null;
         }
-        $new = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_($node->class, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($node->args[0]->value)]);
+        $new = new \PhpParser\Node\Expr\New_($node->class, [new \PhpParser\Node\Arg($node->args[0]->value)]);
         if (isset($node->args[1]) && $this->isTrue($node->args[1]->value)) {
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\String_($new);
+            return new \PhpParser\Node\Expr\Cast\String_($new);
         }
         return $new;
     }

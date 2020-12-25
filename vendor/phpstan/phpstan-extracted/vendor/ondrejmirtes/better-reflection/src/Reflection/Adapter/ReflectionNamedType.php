@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter;
 
 use ReflectionNamedType as CoreReflectionNamedType;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionType;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionType;
 use function ltrim;
 class ReflectionNamedType extends \ReflectionNamedType
 {
     /** @var BetterReflectionType */
     private $betterReflectionType;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionNamedType $betterReflectionType)
+    public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionNamedType $betterReflectionType)
     {
         $this->betterReflectionType = $betterReflectionType;
     }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Symfony\Component\Finder\Iterator;
+namespace _PhpScoper50d83356d739\Symfony\Component\Finder\Iterator;
 
 /**
  * DepthRangeFilterIterator limits the directory depth.

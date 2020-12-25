@@ -1,10 +1,10 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Cache;
+namespace _HumbugBox221ad6f1b81f\React\Cache;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
-class ArrayCache implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Cache\CacheInterface
+use _HumbugBox221ad6f1b81f\React\Promise;
+use _HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
+class ArrayCache implements \_HumbugBox221ad6f1b81f\React\Cache\CacheInterface
 {
     private $limit;
     private $data = array();
@@ -60,13 +60,13 @@ class ArrayCache implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React
             unset($this->data[$key], $this->expires[$key]);
         }
         if (!\array_key_exists($key, $this->data)) {
-            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve($default);
+            return \_HumbugBox221ad6f1b81f\React\Promise\resolve($default);
         }
         // remove and append to end of array to keep track of LRU info
         $value = $this->data[$key];
         unset($this->data[$key]);
         $this->data[$key] = $value;
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve($value);
+        return \_HumbugBox221ad6f1b81f\React\Promise\resolve($value);
     }
     public function set($key, $value, $ttl = null)
     {
@@ -93,12 +93,12 @@ class ArrayCache implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React
             }
             unset($this->data[$key], $this->expires[$key]);
         }
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
+        return \_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
     }
     public function delete($key)
     {
         unset($this->data[$key], $this->expires[$key]);
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
+        return \_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
     }
     public function getMultiple(array $keys, $default = null)
     {
@@ -106,27 +106,27 @@ class ArrayCache implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React
         foreach ($keys as $key) {
             $values[$key] = $this->get($key, $default);
         }
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\all($values);
+        return \_HumbugBox221ad6f1b81f\React\Promise\all($values);
     }
     public function setMultiple(array $values, $ttl = null)
     {
         foreach ($values as $key => $value) {
             $this->set($key, $value, $ttl);
         }
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
+        return \_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
     }
     public function deleteMultiple(array $keys)
     {
         foreach ($keys as $key) {
             unset($this->data[$key], $this->expires[$key]);
         }
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
+        return \_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
     }
     public function clear()
     {
         $this->data = array();
         $this->expires = array();
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
+        return \_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
     }
     public function has($key)
     {
@@ -135,13 +135,13 @@ class ArrayCache implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React
             unset($this->data[$key], $this->expires[$key]);
         }
         if (!\array_key_exists($key, $this->data)) {
-            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve(\false);
+            return \_HumbugBox221ad6f1b81f\React\Promise\resolve(\false);
         }
         // remove and append to end of array to keep track of LRU info
         $value = $this->data[$key];
         unset($this->data[$key]);
         $this->data[$key] = $value;
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
+        return \_HumbugBox221ad6f1b81f\React\Promise\resolve(\true);
     }
     /**
      * @return float

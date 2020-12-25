@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\MethodCall;
+namespace Rector\Nette\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Name\FullyQualified;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -20,11 +20,11 @@ use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Nette\Tests\Rector\MethodCall\BuilderExpandToHelperExpandRector\BuilderExpandToHelperExpandRectorTest
  */
-final class BuilderExpandToHelperExpandRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class BuilderExpandToHelperExpandRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change containerBuilder->expand() to static call with parameters', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change containerBuilder->expand() to static call with parameters', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\DI\CompilerExtension;
 
 final class SomeClass extends CompilerExtension
@@ -53,20 +53,20 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, '_PhpScoper2a4e7ab1ecbc\\Nette\\DI\\ContainerBuilder', 'expand')) {
+        if (!$this->isOnClassMethodCall($node, '_PhpScoper50d83356d739\\Nette\\DI\\ContainerBuilder', 'expand')) {
             return null;
         }
         $args = $node->args;
-        $getContainerBuilderMethodCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this'), 'getContainerBuilder');
-        $parametersPropertyFetch = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch($getContainerBuilderMethodCall, 'parameters');
-        $args[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($parametersPropertyFetch);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified('_PhpScoper2a4e7ab1ecbc\\Nette\\DI\\Helpers'), 'expand', $args);
+        $getContainerBuilderMethodCall = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), 'getContainerBuilder');
+        $parametersPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch($getContainerBuilderMethodCall, 'parameters');
+        $args[] = new \PhpParser\Node\Arg($parametersPropertyFetch);
+        return new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name\FullyQualified('_PhpScoper50d83356d739\\Nette\\DI\\Helpers'), 'expand', $args);
     }
 }

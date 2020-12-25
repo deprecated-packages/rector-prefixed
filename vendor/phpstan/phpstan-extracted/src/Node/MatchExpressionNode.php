@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
+namespace PHPStan\Node;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-class MatchExpressionNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode
+use PhpParser\Node\Expr;
+use PhpParser\NodeAbstract;
+use PHPStan\Analyser\Scope;
+class MatchExpressionNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var Expr */
     private $condition;
@@ -18,14 +18,14 @@ class MatchExpressionNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
      * @param Expr $condition
      * @param MatchExpressionArm[] $arms
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $condition, array $arms, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Match_ $originalNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $endScope)
+    public function __construct(\PhpParser\Node\Expr $condition, array $arms, \PhpParser\Node\Expr\Match_ $originalNode, \PHPStan\Analyser\Scope $endScope)
     {
         parent::__construct($originalNode->getAttributes());
         $this->condition = $condition;
         $this->arms = $arms;
         $this->endScope = $endScope;
     }
-    public function getCondition() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    public function getCondition() : \PhpParser\Node\Expr
     {
         return $this->condition;
     }
@@ -36,7 +36,7 @@ class MatchExpressionNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
     {
         return $this->arms;
     }
-    public function getEndScope() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope
+    public function getEndScope() : \PHPStan\Analyser\Scope
     {
         return $this->endScope;
     }

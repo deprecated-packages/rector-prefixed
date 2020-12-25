@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Tests\Rector\Class_\AddSeeTestAnnotationRector\Source;
+namespace Rector\PHPUnit\Tests\Rector\Class_\AddSeeTestAnnotationRector\Source;
 
 class DifferentNamespaceTest
 {

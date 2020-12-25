@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\SomeNamespace;
+namespace _PhpScoper50d83356d739\SomeNamespace;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\AnotherType;
-\array_map(function (\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\AnotherType $useUse) {
+use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\AnotherType;
+\array_map(function (\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\AnotherType $useUse) {
     return $useUse;
 }, []);

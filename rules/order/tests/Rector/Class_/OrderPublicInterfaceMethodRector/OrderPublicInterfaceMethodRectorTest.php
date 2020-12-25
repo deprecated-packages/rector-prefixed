@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Order\Tests\Rector\Class_\OrderPublicInterfaceMethodRector;
+namespace Rector\Order\Tests\Rector\Class_\OrderPublicInterfaceMethodRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Order\Tests\Rector\Class_\OrderPublicInterfaceMethodRector\Source\FoodRecipeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class OrderPublicInterfaceMethodRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector;
+use Rector\Order\Tests\Rector\Class_\OrderPublicInterfaceMethodRector\Source\FoodRecipeInterface;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class OrderPublicInterfaceMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class OrderPublicInterfaceMethodRectorTest extends \_PhpScoper2a4e7ab1ecbc
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector::METHOD_ORDER_BY_INTERFACES => [\_PhpScoper2a4e7ab1ecbc\Rector\Order\Tests\Rector\Class_\OrderPublicInterfaceMethodRector\Source\FoodRecipeInterface::class => ['getDescription', 'process']]]];
+        return [\Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector::class => [\Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector::METHOD_ORDER_BY_INTERFACES => [\Rector\Order\Tests\Rector\Class_\OrderPublicInterfaceMethodRector\Source\FoodRecipeInterface::class => ['getDescription', 'process']]]];
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Rector\Assign;
+namespace Rector\NetteCodeQuality\Rector\Assign;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -17,11 +17,11 @@ use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\NetteCodeQuality\Tests\Rector\Assign\ArrayAccessGetControlToGetComponentMethodCallRector\ArrayAccessGetControlToGetComponentMethodCallRectorTest
  */
-final class ArrayAccessGetControlToGetComponentMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ArrayAccessGetControlToGetComponentMethodCallRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change magic arrays access get, to explicit $this->getComponent(...) method', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change magic arrays access get, to explicit $this->getComponent(...) method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Presenter;
 
 class SomeClass extends Presenter
@@ -50,12 +50,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign::class];
+        return [\PhpParser\Node\Expr\Assign::class];
     }
     /**
      * @param Assign $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isFetchOfControlFromPresenterDimFetch($node)) {
             return null;
@@ -63,14 +63,14 @@ CODE_SAMPLE
         /** @var ArrayDimFetch $arrayDimFetch */
         $arrayDimFetch = $node->expr;
         $args = $this->createArgs([$arrayDimFetch->dim]);
-        $node->expr = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, 'getComponent', $args);
+        $node->expr = new \PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, 'getComponent', $args);
         return $node;
     }
-    private function isFetchOfControlFromPresenterDimFetch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign $assign) : bool
+    private function isFetchOfControlFromPresenterDimFetch(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        if (!$assign->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$assign->expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return \false;
         }
-        return $this->isObjectType($assign->expr, '_PhpScoper2a4e7ab1ecbc\\Nette\\Application\\UI\\Presenter');
+        return $this->isObjectType($assign->expr, '_PhpScoper50d83356d739\\Nette\\Application\\UI\\Presenter');
     }
 }

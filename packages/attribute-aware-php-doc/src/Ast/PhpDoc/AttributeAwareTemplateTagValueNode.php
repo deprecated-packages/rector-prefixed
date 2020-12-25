@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc;
+namespace Rector\AttributeAwarePhpDoc\Ast\PhpDoc;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareTemplateTagValueNode extends \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode implements \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+final class AttributeAwareTemplateTagValueNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
 {
     use AttributeTrait;
     /**
@@ -20,10 +20,10 @@ final class AttributeAwareTemplateTagValueNode extends \_PhpScoper2a4e7ab1ecbc\P
      * @var string
      */
     private $preposition;
-    public function __construct(string $name, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $description, string $originalContent)
+    public function __construct(string $name, ?\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $description, string $originalContent)
     {
         parent::__construct($name, $typeNode, $description);
-        $matches = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($originalContent, self::AS_OF_PREPOSITOIN_REGEX);
+        $matches = \_PhpScoper50d83356d739\Nette\Utils\Strings::match($originalContent, self::AS_OF_PREPOSITOIN_REGEX);
         $this->preposition = $matches['preposition'] ?? 'of';
     }
     public function __toString() : string

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
+namespace Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\Lookahead.
@@ -43,7 +43,7 @@ namespace _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Lookahead extends \_PhpScoper2a4e7ab1ecbc\Hoa\Iterator\IteratorIterator implements \_PhpScoper2a4e7ab1ecbc\Hoa\Iterator\Outer
+class Lookahead extends \Hoa\Iterator\IteratorIterator implements \Hoa\Iterator\Outer
 {
     /**
      * Current iterator.

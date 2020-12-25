@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler;
+namespace Hoa\Compiler\Llk\Sampler;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Compiler;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Math;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Visitor;
+use Hoa\Compiler;
+use Hoa\Math;
+use Hoa\Visitor;
 /**
  * Class \Hoa\Compiler\Llk\Sampler\Uniform.
  *
@@ -50,7 +50,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Visitor;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
+class Uniform extends \Hoa\Compiler\Llk\Sampler\Sampler
 {
     /**
      * Data (pre-computing).
@@ -70,14 +70,14 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
      * @param   \Hoa\Compiler\Llk\Parser  $compiler        Compiler/parser.
      * @param   \Hoa\Visitor\Visit        $tokenSampler    Token sampler.
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Parser $compiler, \_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Visit $tokenSampler, $length = 5)
+    public function __construct(\Hoa\Compiler\Llk\Parser $compiler, \Hoa\Visitor\Visit $tokenSampler, $length = 5)
     {
         parent::__construct($compiler, $tokenSampler);
         foreach ($this->_rules as $name => $_) {
             $this->_data[$name] = [];
         }
         $this->setLength($length);
-        $this->_sampler = new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Sampler\Random();
+        $this->_sampler = new \Hoa\Math\Sampler\Random();
         return;
     }
     /**
@@ -87,7 +87,7 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
      * @param   int                     $n       Size.
      * @return  string
      */
-    public function uniform(\_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule $rule = null, $n = -1)
+    public function uniform(\Hoa\Compiler\Llk\Rule $rule = null, $n = -1)
     {
         if (null === $rule && -1 === $n) {
             $rule = $this->_rules[$this->_rootRuleName];
@@ -98,7 +98,7 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
         if (0 === $n || 0 === $computed) {
             return null;
         }
-        if ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Choice) {
+        if ($rule instanceof \Hoa\Compiler\Llk\Rule\Choice) {
             $children = $rule->getChildren();
             $stat = [];
             foreach ($children as $c => $child) {
@@ -108,7 +108,7 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
             for ($e = 0, $b = $stat[$e], $max = \count($stat) - 1; $e < $max && $i > $b; $b += $stat[++$e]) {
             }
             return $this->uniform($this->_rules[$children[$e]], $n);
-        } elseif ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Concatenation) {
+        } elseif ($rule instanceof \Hoa\Compiler\Llk\Rule\Concatenation) {
             $children = $rule->getChildren();
             $out = null;
             $Γ = $data['Γ'];
@@ -117,7 +117,7 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
                 $out .= $this->uniform($this->_rules[$child], $γ[$i]);
             }
             return $out;
-        } elseif ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Repetition) {
+        } elseif ($rule instanceof \Hoa\Compiler\Llk\Rule\Repetition) {
             $out = null;
             $stat =& $data['xy'];
             $child = $this->_rules[$rule->getChildren()];
@@ -134,7 +134,7 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
                 $out .= $this->uniform($child, $γ[$j]);
             }
             return $out;
-        } elseif ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Token) {
+        } elseif ($rule instanceof \Hoa\Compiler\Llk\Rule\Token) {
             return $this->generateToken($rule);
         }
         return null;
@@ -146,7 +146,7 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
      * @param   int                     $n       Size.
      * @return  int
      */
-    public function count(\_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule $rule = null, $n = -1)
+    public function count(\Hoa\Compiler\Llk\Rule $rule = null, $n = -1)
     {
         if (null === $rule || -1 === $n) {
             return 0;
@@ -158,13 +158,13 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
         $this->_data[$ruleName][$n] = ['n' => 0];
         $out =& $this->_data[$ruleName][$n]['n'];
         $rule = $this->_rules[$ruleName];
-        if ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Choice) {
+        if ($rule instanceof \Hoa\Compiler\Llk\Rule\Choice) {
             foreach ($rule->getChildren() as $child) {
                 $out += $this->count($this->_rules[$child], $n);
             }
-        } elseif ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Concatenation) {
+        } elseif ($rule instanceof \Hoa\Compiler\Llk\Rule\Concatenation) {
             $children = $rule->getChildren();
-            $Γ = new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Combinatorics\Combination\Gamma(\count($children), $n);
+            $Γ = new \Hoa\Math\Combinatorics\Combination\Gamma(\count($children), $n);
             $this->_data[$ruleName][$n]['Γ'] = [];
             $handle =& $this->_data[$ruleName][$n]['Γ'];
             foreach ($Γ as $γ) {
@@ -177,7 +177,7 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
                 }
                 $out += $oout;
             }
-        } elseif ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Repetition) {
+        } elseif ($rule instanceof \Hoa\Compiler\Llk\Rule\Repetition) {
             $this->_data[$ruleName][$n]['xy'] = [];
             $handle =& $this->_data[$ruleName][$n]['xy'];
             $child = $this->_rules[$rule->getChildren()];
@@ -194,7 +194,7 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
                 for ($α = $x; $α <= $y; ++$α) {
                     $ut = 0;
                     $handle[$α] = ['n' => 0, 'Γ' => []];
-                    $Γ = new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Combinatorics\Combination\Gamma($α, $n);
+                    $Γ = new \Hoa\Math\Combinatorics\Combination\Gamma($α, $n);
                     foreach ($Γ as $γ) {
                         $oout = 1;
                         foreach ($γ as $β => $_γ) {
@@ -209,8 +209,8 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
                     $out += $ut;
                 }
             }
-        } elseif ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Token) {
-            $out = \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Util::δ($n, 1);
+        } elseif ($rule instanceof \Hoa\Compiler\Llk\Rule\Token) {
+            $out = \Hoa\Math\Util::δ($n, 1);
         }
         return $out;
     }
@@ -224,7 +224,7 @@ class Uniform extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Sampler
     public function setLength($length)
     {
         if (0 >= $length) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Sampler\Exception('Length must be greater than 0, given %d.', 0, $length);
+            throw new \Hoa\Compiler\Llk\Sampler\Exception('Length must be greater than 0, given %d.', 0, $length);
         }
         $old = $this->_length;
         $this->_length = $length;

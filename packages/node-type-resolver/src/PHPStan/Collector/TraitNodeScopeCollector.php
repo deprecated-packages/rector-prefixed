@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Collector;
+namespace Rector\NodeTypeResolver\PHPStan\Collector;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\VirtualNode;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 final class TraitNodeScopeCollector
 {
     /**
@@ -17,13 +17,13 @@ final class TraitNodeScopeCollector
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
-    public function addForTraitAndNode(string $traitName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : void
+    public function addForTraitAndNode(string $traitName, \PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : void
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode) {
+        if ($node instanceof \PHPStan\Node\VirtualNode) {
             return;
         }
         $traitNodeHash = $this->createHash($traitName, $node);
@@ -33,12 +33,12 @@ final class TraitNodeScopeCollector
         }
         $this->scopeByTraitNodeHash[$traitNodeHash] = $scope;
     }
-    public function getScopeForTraitAndNode(string $traitName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope
+    public function getScopeForTraitAndNode(string $traitName, \PhpParser\Node $node) : ?\PHPStan\Analyser\Scope
     {
         $traitNodeHash = $this->createHash($traitName, $node);
         return $this->scopeByTraitNodeHash[$traitNodeHash] ?? null;
     }
-    private function createHash(string $traitName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : string
+    private function createHash(string $traitName, \PhpParser\Node $node) : string
     {
         $printedNode = $this->betterStandardPrinter->print($node);
         return \sha1($traitName . $printedNode);

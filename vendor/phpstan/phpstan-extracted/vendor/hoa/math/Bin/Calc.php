@@ -33,12 +33,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Math\Bin;
+namespace Hoa\Math\Bin;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Compiler;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Console;
-use _PhpScoper2a4e7ab1ecbc\Hoa\File;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Math;
+use Hoa\Compiler;
+use Hoa\Console;
+use Hoa\File;
+use Hoa\Math;
 /**
  * Class \Hoa\Math\Bin\Calc.
  *
@@ -47,14 +47,14 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Math;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Calc extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
+class Calc extends \Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['help', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['help', \Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -73,16 +73,16 @@ class Calc extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
             }
         }
         $this->parser->listInputs($expression);
-        $compiler = \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk::load(new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Read('hoa://Library/Math/Arithmetic.pp'));
-        $visitor = new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Visitor\Arithmetic();
-        $dump = new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Visitor\Dump();
+        $compiler = \Hoa\Compiler\Llk::load(new \Hoa\File\Read('hoa://Library/Math/Arithmetic.pp'));
+        $visitor = new \Hoa\Math\Visitor\Arithmetic();
+        $dump = new \Hoa\Compiler\Visitor\Dump();
         if (null !== $expression) {
             $ast = $compiler->parse($expression);
             echo $expression . ' = ' . $visitor->visit($ast), "\n";
             return;
         }
-        $readline = new \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Readline();
-        $readline->setAutocompleter(new \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Readline\Autocompleter\Word(\array_merge(\array_keys($visitor->getConstants()->getArrayCopy()), \array_keys($visitor->getFunctions()->getArrayCopy()))));
+        $readline = new \Hoa\Console\Readline();
+        $readline->setAutocompleter(new \Hoa\Console\Readline\Autocompleter\Word(\array_merge(\array_keys($visitor->getConstants()->getArrayCopy()), \array_keys($visitor->getFunctions()->getArrayCopy()))));
         $handle = null;
         $expression = 'h';
         do {
@@ -120,7 +120,7 @@ class Calc extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
                     }
                     try {
                         echo $visitor->visit($compiler->parse($expression)), "\n";
-                    } catch (\_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception $e) {
+                    } catch (\Hoa\Compiler\Exception $e) {
                         echo $e->getMessage(), "\n";
                         break;
                     }
@@ -143,5 +143,4 @@ class Calc extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
 }
 __halt_compiler();
 A simple calculator.
-
 

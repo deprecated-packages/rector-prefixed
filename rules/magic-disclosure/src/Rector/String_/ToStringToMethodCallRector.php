@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\MagicDisclosure\Rector\String_;
+namespace Rector\MagicDisclosure\Rector\String_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\String_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Cast\String_;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Identifier;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\MagicDisclosure\Tests\Rector\String_\ToStringToMethodCallRector\ToStringToMethodCallRectorTest
  */
-final class ToStringToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ToStringToMethodCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -25,9 +25,9 @@ final class ToStringToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Co
      * @var string[]
      */
     private $methodNamesByType = [];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined code uses of "__toString()" method  to specific method calls.', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined code uses of "__toString()" method  to specific method calls.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $someValue = new SomeObject;
 $result = (string) $someValue;
 $result = $someValue->__toString();
@@ -44,14 +44,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\String_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\Cast\String_::class, \PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param String_|MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\String_) {
+        if ($node instanceof \PhpParser\Node\Expr\Cast\String_) {
             return $this->processStringNode($node);
         }
         return $this->processMethodCall($node);
@@ -60,7 +60,7 @@ CODE_SAMPLE
     {
         $this->methodNamesByType = $configuration[self::METHOD_NAMES_BY_TYPE] ?? [];
     }
-    private function processStringNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\String_ $string) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function processStringNode(\PhpParser\Node\Expr\Cast\String_ $string) : ?\PhpParser\Node
     {
         foreach ($this->methodNamesByType as $type => $methodName) {
             if (!$this->isObjectType($string, $type)) {
@@ -70,7 +70,7 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function processMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function processMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
     {
         foreach ($this->methodNamesByType as $type => $methodName) {
             if (!$this->isObjectType($methodCall, $type)) {
@@ -79,7 +79,7 @@ CODE_SAMPLE
             if (!$this->isName($methodCall->name, '__toString')) {
                 continue;
             }
-            $methodCall->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($methodName);
+            $methodCall->name = new \PhpParser\Node\Identifier($methodName);
             return $methodCall;
         }
         return null;

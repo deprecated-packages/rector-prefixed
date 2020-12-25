@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+namespace Rector\Core\Rector\AbstractRector;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -17,7 +17,7 @@ trait NodeCollectorTrait
     /**
      * @required
      */
-    public function autowireNodeCollectorTrait(\_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository) : void
+    public function autowireNodeCollectorTrait(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository) : void
     {
         $this->nodeRepository = $nodeRepository;
     }

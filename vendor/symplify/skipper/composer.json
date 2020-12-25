@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\Skipper\\": "src"
+            "Symplify\\Skipper\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\Skipper\\Tests\\": "tests"
+            "Symplify\\Skipper\\Tests\\": "tests"
         }
     },
     "extra": {

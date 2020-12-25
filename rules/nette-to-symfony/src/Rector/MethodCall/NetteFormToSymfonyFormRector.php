@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteToSymfony\Rector\MethodCall;
+namespace Rector\NetteToSymfony\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Scalar\String_;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://doc.nette.org/en/2.4/forms
  * ↓
@@ -25,34 +25,34 @@ use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://github.com/symfony/symfony/tree/master/src/Symfony/Component/Form/Extension/Core/Type
  * @see \Rector\NetteToSymfony\Tests\Rector\MethodCall\NetteFormToSymfonyFormRector\NetteFormToSymfonyFormRectorTest
  */
-final class NetteFormToSymfonyFormRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class NetteFormToSymfonyFormRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
     private const ADD_METHOD_TO_FORM_TYPE = [
-        'addText' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
-        'addPassword' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType',
-        'addTextArea' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
-        'addEmail' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
-        'addInteger' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType',
-        'addHidden' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType',
+        'addText' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
+        'addPassword' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType',
+        'addTextArea' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
+        'addEmail' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
+        'addInteger' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType',
+        'addHidden' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType',
         // https://symfony.com/doc/current/reference/forms/types/checkbox.html
-        'addCheckbox' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
-        'addUpload' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
-        'addImage' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
-        'addMultiUpload' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addCheckbox' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
+        'addUpload' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addImage' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addMultiUpload' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
         // https://symfony.com/doc/current/reference/forms/types/choice.html#select-tag-checkboxes-or-radio-buttons
-        'addSelect' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addRadioList' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addCheckboxList' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addMultiSelect' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addSubmit' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType',
-        'addButton' => '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ButtonType',
+        'addSelect' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addRadioList' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addCheckboxList' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addMultiSelect' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addSubmit' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType',
+        'addButton' => '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ButtonType',
     ];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate Nette\\Forms in Presenter to Symfony', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Migrate Nette\\Forms in Presenter to Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI;
 
 class SomePresenter extends UI\Presenter
@@ -93,25 +93,25 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\New_::class, \PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param New_|MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classLike = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return null;
         }
-        if (!$this->isObjectType($classLike, '_PhpScoper2a4e7ab1ecbc\\Nette\\Application\\IPresenter')) {
+        if (!$this->isObjectType($classLike, '_PhpScoper50d83356d739\\Nette\\Application\\IPresenter')) {
             return null;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_) {
+        if ($node instanceof \PhpParser\Node\Expr\New_) {
             return $this->processNew($node);
         }
         /** @var MethodCall $node */
-        if (!$this->isObjectType($node->var, '_PhpScoper2a4e7ab1ecbc\\Nette\\Application\\UI\\Form')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper50d83356d739\\Nette\\Application\\UI\\Form')) {
             return null;
         }
         foreach (self::ADD_METHOD_TO_FORM_TYPE as $method => $classType) {
@@ -122,33 +122,33 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processNew(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_ $new) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
+    private function processNew(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node\Expr\MethodCall
     {
-        if (!$this->isName($new->class, '_PhpScoper2a4e7ab1ecbc\\Nette\\Application\\UI\\Form')) {
+        if (!$this->isName($new->class, '_PhpScoper50d83356d739\\Nette\\Application\\UI\\Form')) {
             return null;
         }
         return $this->createMethodCall('this', 'createFormBuilder');
     }
-    private function processAddMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall, string $method, string $classType) : void
+    private function processAddMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $method, string $classType) : void
     {
-        $methodCall->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier('add');
+        $methodCall->name = new \PhpParser\Node\Identifier('add');
         // remove unused params
         if ($method === 'addText') {
             unset($methodCall->args[3], $methodCall->args[4]);
         }
         // has label
-        $optionsArray = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_();
+        $optionsArray = new \PhpParser\Node\Expr\Array_();
         if (isset($methodCall->args[1])) {
-            $optionsArray->items[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem($methodCall->args[1]->value, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('label'));
+            $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($methodCall->args[1]->value, new \PhpParser\Node\Scalar\String_('label'));
         }
         $this->addChoiceTypeOptions($method, $optionsArray);
         $this->addMultiFileTypeOptions($method, $optionsArray);
-        $methodCall->args[1] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($this->createClassConstantReference($classType));
+        $methodCall->args[1] = new \PhpParser\Node\Arg($this->createClassConstantReference($classType));
         if ($optionsArray->items !== []) {
-            $methodCall->args[2] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($optionsArray);
+            $methodCall->args[2] = new \PhpParser\Node\Arg($optionsArray);
         }
     }
-    private function addChoiceTypeOptions(string $method, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $optionsArray) : void
+    private function addChoiceTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray) : void
     {
         if ($method === 'addSelect') {
             $expanded = \false;
@@ -165,14 +165,14 @@ CODE_SAMPLE
         } else {
             return;
         }
-        $optionsArray->items[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem($expanded ? $this->createTrue() : $this->createFalse(), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('expanded'));
-        $optionsArray->items[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem($multiple ? $this->createTrue() : $this->createFalse(), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('multiple'));
+        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($expanded ? $this->createTrue() : $this->createFalse(), new \PhpParser\Node\Scalar\String_('expanded'));
+        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multiple ? $this->createTrue() : $this->createFalse(), new \PhpParser\Node\Scalar\String_('multiple'));
     }
-    private function addMultiFileTypeOptions(string $method, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $optionsArray) : void
+    private function addMultiFileTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray) : void
     {
         if ($method !== 'addMultiUpload') {
             return;
         }
-        $optionsArray->items[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem($this->createTrue(), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('multiple'));
+        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($this->createTrue(), new \PhpParser\Node\Scalar\String_('multiple'));
     }
 }

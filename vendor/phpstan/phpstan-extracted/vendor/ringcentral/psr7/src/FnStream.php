@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
+namespace _HumbugBox221ad6f1b81f\RingCentral\Psr7;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
 /**
  * Compose stream implementations based on a hash of functions.
  *
@@ -23,7 +23,7 @@ use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterfa
  * @property callable _fn_getContents
  * @property callable _fn_getMetadata
  */
-class FnStream implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
+class FnStream implements \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
 {
     /** @var array */
     private $methods;
@@ -66,7 +66,7 @@ class FnStream implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Htt
      *
      * @return FnStream
      */
-    public static function decorate(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $stream, array $methods)
+    public static function decorate(\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $stream, array $methods)
     {
         // If any of the required methods were not provided, then simply
         // proxy to the decorated stream.

@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\MethodCall;
+namespace Rector\PHPUnit\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Identifier;
+use Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator;
+use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/sebastianbergmann/phpunit/issues/3120
  * "If, and only if, the expects() method is called on this stub to set up expectations then that stub becomes a mock."
  *
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\CreateMockToCreateStubRector\CreateMockToCreateStubRectorTest
  */
-final class CreateMockToCreateStubRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector
+final class CreateMockToCreateStubRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var MethodCallManipulator
      */
     private $methodCallManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator $methodCallManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator $methodCallManipulator)
     {
         $this->methodCallManipulator = $methodCallManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces createMock() with createStub() when relevant', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces createMock() with createStub() when relevant', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase
 
 class MyTest extends TestCase
@@ -80,12 +80,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
@@ -93,19 +93,19 @@ CODE_SAMPLE
         if (!$this->isName($node->name, 'createMock')) {
             return null;
         }
-        $parentNode = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
         $mockVariable = $parentNode->var;
-        if (!$mockVariable instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+        if (!$mockVariable instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
         $methodCallNamesOnVariable = $this->methodCallManipulator->findMethodCallNamesOnVariable($mockVariable);
         if (\in_array('expects', $methodCallNamesOnVariable, \true)) {
             return null;
         }
-        $node->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier('createStub');
+        $node->name = new \PhpParser\Node\Identifier('createStub');
         return $node;
     }
 }

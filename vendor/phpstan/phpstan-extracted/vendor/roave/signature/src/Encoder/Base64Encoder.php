@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\Signature\Encoder;
+namespace _HumbugBox221ad6f1b81f\Roave\Signature\Encoder;
 
-final class Base64Encoder implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\Signature\Encoder\EncoderInterface
+final class Base64Encoder implements \_HumbugBox221ad6f1b81f\Roave\Signature\Encoder\EncoderInterface
 {
     /**
      * {@inheritDoc}

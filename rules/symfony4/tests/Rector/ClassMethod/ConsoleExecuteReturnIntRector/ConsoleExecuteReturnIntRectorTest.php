@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Tests\Rector\ClassMethod\ConsoleExecuteReturnIntRector;
+namespace Rector\Symfony4\Tests\Rector\ClassMethod\ConsoleExecuteReturnIntRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Rector\ClassMethod\ConsoleExecuteReturnIntRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ConsoleExecuteReturnIntRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Symfony4\Rector\ClassMethod\ConsoleExecuteReturnIntRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ConsoleExecuteReturnIntRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ConsoleExecuteReturnIntRectorTest extends \_PhpScoper2a4e7ab1ecbc\Re
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Rector\ClassMethod\ConsoleExecuteReturnIntRector::class;
+        return \Rector\Symfony4\Rector\ClassMethod\ConsoleExecuteReturnIntRector::class;
     }
 }

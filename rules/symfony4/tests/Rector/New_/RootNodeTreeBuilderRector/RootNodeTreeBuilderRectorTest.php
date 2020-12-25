@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Tests\Rector\New_\RootNodeTreeBuilderRector;
+namespace Rector\Symfony4\Tests\Rector\New_\RootNodeTreeBuilderRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Rector\New_\RootNodeTreeBuilderRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RootNodeTreeBuilderRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Symfony4\Rector\New_\RootNodeTreeBuilderRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RootNodeTreeBuilderRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RootNodeTreeBuilderRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Rector\New_\RootNodeTreeBuilderRector::class;
+        return \Rector\Symfony4\Rector\New_\RootNodeTreeBuilderRector::class;
     }
 }

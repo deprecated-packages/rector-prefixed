@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\DependencyInjection\Collector;
+namespace Rector\Core\DependencyInjection\Collector;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Definition;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use _PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Definition;
+use Symplify\PackageBuilder\Yaml\ParametersMerger;
 final class ConfigureCallValuesCollector
 {
     /**
@@ -17,7 +17,7 @@ final class ConfigureCallValuesCollector
     private $parametersMerger;
     public function __construct()
     {
-        $this->parametersMerger = new \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Yaml\ParametersMerger();
+        $this->parametersMerger = new \Symplify\PackageBuilder\Yaml\ParametersMerger();
     }
     /**
      * @return mixed[]
@@ -26,7 +26,7 @@ final class ConfigureCallValuesCollector
     {
         return $this->configureCallValuesByRectorClass[$rectorClass] ?? [];
     }
-    public function collectFromServiceAndClassName(string $className, \_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Definition $definition) : void
+    public function collectFromServiceAndClassName(string $className, \_PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         foreach ($definition->getMethodCalls() as $methodCall) {
             if ($methodCall[0] !== 'configure') {

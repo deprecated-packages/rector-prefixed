@@ -1,33 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Php;
+namespace PHPStan\Type\Php;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayTypeBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class PathinfoFunctionDynamicReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
+use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
+class PathinfoFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'pathinfo';
     }
-    public function getTypeFromFunctionCall(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $argsCount = \count($functionCall->args);
         if ($argsCount === 0) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+            return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         } elseif ($argsCount === 1) {
-            $stringType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType();
-            $builder = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayTypeBuilder::createFromConstantArray(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType('dirname'), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType('basename'), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType('filename')], [$stringType, $stringType, $stringType]));
-            $builder->setOffsetValueType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType('extension'), $stringType, \true);
+            $stringType = new \PHPStan\Type\StringType();
+            $builder = \PHPStan\Type\Constant\ConstantArrayTypeBuilder::createFromConstantArray(new \PHPStan\Type\Constant\ConstantArrayType([new \PHPStan\Type\Constant\ConstantStringType('dirname'), new \PHPStan\Type\Constant\ConstantStringType('basename'), new \PHPStan\Type\Constant\ConstantStringType('filename')], [$stringType, $stringType, $stringType]));
+            $builder->setOffsetValueType(new \PHPStan\Type\Constant\ConstantStringType('extension'), $stringType, \true);
             return $builder->getArray();
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType();
+        return new \PHPStan\Type\StringType();
     }
 }

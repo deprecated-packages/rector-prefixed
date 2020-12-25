@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Annotations;
+namespace PHPStan\Reflection\Annotations;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariant;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class AnnotationMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
+use PHPStan\Reflection\ClassMemberReflection;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\FunctionVariant;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Type;
+class AnnotationMethodReflection implements \PHPStan\Reflection\MethodReflection
 {
     /** @var string */
     private $name;
@@ -34,7 +34,7 @@ class AnnotationMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refl
      * @param bool $isStatic
      * @param bool $isVariadic
      */
-    public function __construct(string $name, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $returnType, array $parameters, bool $isStatic, bool $isVariadic)
+    public function __construct(string $name, \PHPStan\Reflection\ClassReflection $declaringClass, \PHPStan\Type\Type $returnType, array $parameters, bool $isStatic, bool $isVariadic)
     {
         $this->name = $name;
         $this->declaringClass = $declaringClass;
@@ -43,11 +43,11 @@ class AnnotationMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refl
         $this->isStatic = $isStatic;
         $this->isVariadic = $isVariadic;
     }
-    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
-    public function getPrototype() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
     {
         return $this;
     }
@@ -73,33 +73,33 @@ class AnnotationMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refl
     public function getVariants() : array
     {
         if ($this->variants === null) {
-            $this->variants = [new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariant(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $this->parameters, $this->isVariadic, $this->returnType)];
+            $this->variants = [new \PHPStan\Reflection\FunctionVariant(\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $this->parameters, $this->isVariadic, $this->returnType)];
         }
         return $this->variants;
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isFinal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isFinal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function getThrowType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getThrowType() : ?\PHPStan\Type\Type
     {
         return null;
     }
-    public function hasSideEffects() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk;
+namespace Hoa\Compiler\Llk;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Compiler;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Consistency;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+use Hoa\Compiler;
+use Hoa\Consistency;
+use Hoa\Stream;
 /**
  * Class \Hoa\Compiler\Llk.
  *
@@ -58,24 +58,24 @@ abstract class Llk
      * @return  \Hoa\Compiler\Llk\Parser
      * @throws  \Hoa\Compiler\Exception
      */
-    public static function load(\_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\In $stream)
+    public static function load(\Hoa\Stream\IStream\In $stream)
     {
         $pp = $stream->readAll();
         if (empty($pp)) {
             $message = 'The grammar is empty';
-            if ($stream instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Pointable) {
+            if ($stream instanceof \Hoa\Stream\IStream\Pointable) {
                 if (0 < $stream->tell()) {
                     $message .= ': The stream ' . $stream->getStreamName() . ' is pointable and not rewinded, maybe it ' . 'could be the reason';
                 } else {
                     $message .= ': Nothing to read on the stream ' . $stream->getStreamName();
                 }
             }
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception($message . '.', 0);
+            throw new \Hoa\Compiler\Exception($message . '.', 0);
         }
         static::parsePP($pp, $tokens, $rawRules, $pragmas, $stream->getStreamName());
-        $ruleAnalyzer = new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Analyzer($tokens);
+        $ruleAnalyzer = new \Hoa\Compiler\Llk\Rule\Analyzer($tokens);
         $rules = $ruleAnalyzer->analyzeRules($rawRules);
-        return new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Parser($tokens, $rules, $pragmas);
+        return new \Hoa\Compiler\Llk\Parser($tokens, $rules, $pragmas);
     }
     /**
      * Save in-memory parser to PHP code.
@@ -87,7 +87,7 @@ abstract class Llk
      * @param   string                    $className    Parser classname.
      * @return  string
      */
-    public static function save(\_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Parser $parser, $className)
+    public static function save(\Hoa\Compiler\Llk\Parser $parser, $className)
     {
         $out = null;
         $outTokens = null;
@@ -111,11 +111,11 @@ abstract class Llk
             $arguments = [];
             // Name.
             $arguments['name'] = $escapeRuleName($rule->getName());
-            if ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Token) {
+            if ($rule instanceof \Hoa\Compiler\Llk\Rule\Token) {
                 // Token name.
                 $arguments['tokenName'] = '\'' . $rule->getTokenName() . '\'';
             } else {
-                if ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Repetition) {
+                if ($rule instanceof \Hoa\Compiler\Llk\Rule\Repetition) {
                     // Minimum.
                     $arguments['min'] = $rule->getMin();
                     // Maximum.
@@ -138,7 +138,7 @@ abstract class Llk
             } else {
                 $arguments['nodeId'] = '\'' . $nodeId . '\'';
             }
-            if ($rule instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Token) {
+            if ($rule instanceof \Hoa\Compiler\Llk\Rule\Token) {
                 // Unification.
                 $arguments['unification'] = $rule->getUnificationIndex();
                 // Kept.
@@ -227,7 +227,7 @@ abstract class Llk
                     }
                     $tokens[$matches[1]][$matches[2]] = $matches[3];
                 } else {
-                    throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception('Unrecognized instructions:' . "\n" . '    %s' . "\n" . 'in file %s at line %d.', 1, [$line, $streamName, $i + 1]);
+                    throw new \Hoa\Compiler\Exception('Unrecognized instructions:' . "\n" . '    %s' . "\n" . 'in file %s at line %d.', 1, [$line, $streamName, $i + 1]);
                 }
                 continue;
             }
@@ -252,4 +252,4 @@ abstract class Llk
 /**
  * Flex entity.
  */
-\_PhpScoper2a4e7ab1ecbc\Hoa\Consistency::flexEntity('_PhpScoper2a4e7ab1ecbc\\Hoa\\Compiler\\Llk\\Llk');
+\Hoa\Consistency::flexEntity('Hoa\\Compiler\\Llk\\Llk');

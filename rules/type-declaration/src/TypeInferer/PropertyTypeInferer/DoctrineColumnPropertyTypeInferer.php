@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
+namespace Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 
 use DateTimeInterface;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
-final class DoctrineColumnPropertyTypeInferer implements \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
+use PhpParser\Node\Stmt\Property;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface;
+final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\PropertyTypeInfererInterface
 {
     /**
      * @var Type[]
@@ -31,69 +31,69 @@ final class DoctrineColumnPropertyTypeInferer implements \_PhpScoper2a4e7ab1ecbc
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
         $this->doctrineTypeToScalarType = [
-            'tinyint' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType(),
+            'tinyint' => new \PHPStan\Type\BooleanType(),
             // integers
-            'smallint' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(),
-            'mediumint' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(),
-            'int' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(),
-            'integer' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(),
-            'bigint' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(),
-            'numeric' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(),
+            'smallint' => new \PHPStan\Type\IntegerType(),
+            'mediumint' => new \PHPStan\Type\IntegerType(),
+            'int' => new \PHPStan\Type\IntegerType(),
+            'integer' => new \PHPStan\Type\IntegerType(),
+            'bigint' => new \PHPStan\Type\IntegerType(),
+            'numeric' => new \PHPStan\Type\IntegerType(),
             // floats
-            'decimal' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType(),
-            'float' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType(),
-            'double' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType(),
-            'real' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType(),
+            'decimal' => new \PHPStan\Type\FloatType(),
+            'float' => new \PHPStan\Type\FloatType(),
+            'double' => new \PHPStan\Type\FloatType(),
+            'real' => new \PHPStan\Type\FloatType(),
             // strings
-            'tinytext' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'mediumtext' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'longtext' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'text' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'varchar' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'string' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'char' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'longblob' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'blob' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'mediumblob' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'tinyblob' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'binary' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'varbinary' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
-            'set' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(),
+            'tinytext' => new \PHPStan\Type\StringType(),
+            'mediumtext' => new \PHPStan\Type\StringType(),
+            'longtext' => new \PHPStan\Type\StringType(),
+            'text' => new \PHPStan\Type\StringType(),
+            'varchar' => new \PHPStan\Type\StringType(),
+            'string' => new \PHPStan\Type\StringType(),
+            'char' => new \PHPStan\Type\StringType(),
+            'longblob' => new \PHPStan\Type\StringType(),
+            'blob' => new \PHPStan\Type\StringType(),
+            'mediumblob' => new \PHPStan\Type\StringType(),
+            'tinyblob' => new \PHPStan\Type\StringType(),
+            'binary' => new \PHPStan\Type\StringType(),
+            'varbinary' => new \PHPStan\Type\StringType(),
+            'set' => new \PHPStan\Type\StringType(),
             // date time objects
-            'date' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType(\DateTimeInterface::class),
-            'datetime' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType(\DateTimeInterface::class),
-            'timestamp' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType(\DateTimeInterface::class),
-            'time' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType(\DateTimeInterface::class),
-            'year' => new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType(\DateTimeInterface::class),
+            'date' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
+            'datetime' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
+            'timestamp' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
+            'time' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
+            'year' => new \PHPStan\Type\ObjectType(\DateTimeInterface::class),
         ];
     }
-    public function inferProperty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-        $doctrineColumnTagValueNode = $phpDocInfo->getByType(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
+        $doctrineColumnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
         if ($doctrineColumnTagValueNode === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+            return new \PHPStan\Type\MixedType();
         }
         $type = $doctrineColumnTagValueNode->getType();
         if ($type === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+            return new \PHPStan\Type\MixedType();
         }
         $scalarType = $this->doctrineTypeToScalarType[$type] ?? null;
         if ($scalarType === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+            return new \PHPStan\Type\MixedType();
         }
         $types = [$scalarType];
         // is nullable?
         if ($doctrineColumnTagValueNode->isNullable()) {
-            $types[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType();
+            $types[] = new \PHPStan\Type\NullType();
         }
         return $this->typeFactory->createMixedPassedOrUnionType($types);
     }

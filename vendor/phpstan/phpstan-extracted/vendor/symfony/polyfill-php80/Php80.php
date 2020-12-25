@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Polyfill\Php80;
+namespace _HumbugBox221ad6f1b81f\Symfony\Polyfill\Php80;
 
 /**
  * @author Ion Bazan <ion.bazan@gmail.com>
@@ -60,7 +60,7 @@ final class Php80
     public static function get_resource_id($res) : int
     {
         if (!\is_resource($res) && null === @\get_resource_type($res)) {
-            throw new \TypeError(\sprintf('Argument 1 passed to get_resource_id() must be of the type resource, %s given', \get_debug_type($res)));
+            throw new \TypeError(\sprintf('Argument 1 passed to get_resource_id() must be of the type resource, %s given', get_debug_type($res)));
         }
         return (int) $res;
     }

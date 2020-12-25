@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Iterator\Recursive;
+namespace Hoa\Iterator\Recursive;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
+use Hoa\Iterator;
 /**
  * Class \Hoa\Iterator\Recursive\RegularExpression.
  *
@@ -48,7 +48,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class RegularExpression extends \_PhpScoper2a4e7ab1ecbc\Hoa\Iterator\RegularExpression implements \_PhpScoper2a4e7ab1ecbc\Hoa\Iterator\Recursive\Recursive
+class RegularExpression extends \Hoa\Iterator\RegularExpression implements \Hoa\Iterator\Recursive\Recursive
 {
     /**
      * Constructor.

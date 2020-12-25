@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration;
+namespace Rector\TypeDeclaration;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType;
+use PhpParser\Node;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
+use PhpParser\Node\UnionType;
 final class PhpParserTypeAnalyzer
 {
     /**
      * @param Name|NullableType|UnionType|Identifier $possibleSubtype
      * @param Name|NullableType|UnionType|Identifier $possibleParentType
      */
-    public function isSubtypeOf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $possibleSubtype, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $possibleParentType) : bool
+    public function isSubtypeOf(\PhpParser\Node $possibleSubtype, \PhpParser\Node $possibleParentType) : bool
     {
         // skip until PHP 8 is out
         if ($this->isUnionType($possibleSubtype, $possibleParentType)) {
             return \false;
         }
         // possible - https://3v4l.org/ZuJCh
-        if ($possibleSubtype instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType && !$possibleParentType instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType) {
+        if ($possibleSubtype instanceof \PhpParser\Node\NullableType && !$possibleParentType instanceof \PhpParser\Node\NullableType) {
             return $this->isSubtypeOf($possibleSubtype->type, $possibleParentType);
         }
         // not possible - https://3v4l.org/iNDTc
-        if (!$possibleSubtype instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType && $possibleParentType instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType) {
+        if (!$possibleSubtype instanceof \PhpParser\Node\NullableType && $possibleParentType instanceof \PhpParser\Node\NullableType) {
             return \false;
         }
         // unwrap nullable types
@@ -45,16 +45,16 @@ final class PhpParserTypeAnalyzer
         }
         return $possibleParentType === 'object';
     }
-    private function isUnionType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $possibleSubtype, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $possibleParentType) : bool
+    private function isUnionType(\PhpParser\Node $possibleSubtype, \PhpParser\Node $possibleParentType) : bool
     {
-        if ($possibleSubtype instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType) {
+        if ($possibleSubtype instanceof \PhpParser\Node\UnionType) {
             return \true;
         }
-        return $possibleParentType instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType;
+        return $possibleParentType instanceof \PhpParser\Node\UnionType;
     }
-    private function unwrapNullableAndToString(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : string
+    private function unwrapNullableAndToString(\PhpParser\Node $node) : string
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType && \method_exists($node, 'toString')) {
+        if (!$node instanceof \PhpParser\Node\NullableType && \method_exists($node, 'toString')) {
             return $node->toString();
         }
         /** @var NullableType $type */

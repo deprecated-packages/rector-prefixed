@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Broker;
+namespace PHPStan\Broker;
 
-class FunctionNotFoundException extends \_PhpScoper2a4e7ab1ecbc\PHPStan\AnalysedCodeException
+class FunctionNotFoundException extends \PHPStan\AnalysedCodeException
 {
     /** @var string */
     private $functionName;

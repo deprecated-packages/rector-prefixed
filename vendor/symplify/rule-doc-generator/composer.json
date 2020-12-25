@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\RuleDocGenerator\\": "src"
+            "Symplify\\RuleDocGenerator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\RuleDocGenerator\\Tests\\": "tests"
+            "Symplify\\RuleDocGenerator\\Tests\\": "tests"
         },
         "classmap": [
             "stubs"

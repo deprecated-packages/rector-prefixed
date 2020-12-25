@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Renaming\ValueObject;
+namespace Rector\Renaming\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Contract\MethodCallRenameInterface;
-final class MethodCallRenameWithArrayKey implements \_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Contract\MethodCallRenameInterface
+use Rector\Renaming\Contract\MethodCallRenameInterface;
+final class MethodCallRenameWithArrayKey implements \Rector\Renaming\Contract\MethodCallRenameInterface
 {
     /**
      * @var string

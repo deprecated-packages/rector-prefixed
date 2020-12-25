@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\If_;
+namespace Rector\CodeQuality\Rector\If_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ElseIf_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\ElseIf_;
+use PhpParser\Node\Stmt\If_;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\If_\ShortenElseIfRector\ShortenElseIfRectorTest
  */
-final class ShortenElseIfRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ShortenElseIfRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Shortens else/if to elseif', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Shortens else/if to elseif', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -51,16 +51,16 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_::class];
+        return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         return $this->shortenElseIf($node);
     }
-    private function shortenElseIf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_
+    private function shortenElseIf(\PhpParser\Node\Stmt\If_ $node) : ?\PhpParser\Node\Stmt\If_
     {
         if ($node->else === null) {
             return null;
@@ -70,7 +70,7 @@ CODE_SAMPLE
             return null;
         }
         $if = $else->stmts[0];
-        if (!$if instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_) {
+        if (!$if instanceof \PhpParser\Node\Stmt\If_) {
             return null;
         }
         // Try to shorten the nested if before transforming it to elseif
@@ -78,7 +78,7 @@ CODE_SAMPLE
         if ($refactored !== null) {
             $if = $refactored;
         }
-        $node->elseifs[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ElseIf_($if->cond, $if->stmts);
+        $node->elseifs[] = new \PhpParser\Node\Stmt\ElseIf_($if->cond, $if->stmts);
         $node->else = $if->else;
         $node->elseifs = \array_merge($node->elseifs, $if->elseifs);
         return $node;

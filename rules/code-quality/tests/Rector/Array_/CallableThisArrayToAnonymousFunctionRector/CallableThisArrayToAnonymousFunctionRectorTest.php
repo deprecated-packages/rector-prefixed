@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Tests\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
+namespace Rector\CodeQuality\Tests\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class CallableThisArrayToAnonymousFunctionRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class CallableThisArrayToAnonymousFunctionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class CallableThisArrayToAnonymousFunctionRectorTest extends \_PhpScoper2a
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class;
+        return \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class;
     }
 }

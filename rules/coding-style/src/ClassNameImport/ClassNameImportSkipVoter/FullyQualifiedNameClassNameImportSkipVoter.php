@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipVoter;
+namespace Rector\CodingStyle\ClassNameImport\ClassNameImportSkipVoter;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ClassNameImport\ShortNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use PhpParser\Node;
+use Rector\CodingStyle\ClassNameImport\ShortNameResolver;
+use Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 /**
  * Prevents adding:
  *
@@ -16,17 +16,17 @@ use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifi
  *
  * SomeClass::callThis();
  */
-final class FullyQualifiedNameClassNameImportSkipVoter implements \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
+final class FullyQualifiedNameClassNameImportSkipVoter implements \Rector\CodingStyle\Contract\ClassNameImport\ClassNameImportSkipVoterInterface
 {
     /**
      * @var ShortNameResolver
      */
     private $shortNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
+    public function __construct(\Rector\CodingStyle\ClassNameImport\ShortNameResolver $shortNameResolver)
     {
         $this->shortNameResolver = $shortNameResolver;
     }
-    public function shouldSkip(\_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    public function shouldSkip(\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType, \PhpParser\Node $node) : bool
     {
         // "new X" or "X::static()"
         $shortNames = $this->shortNameResolver->resolveForNode($node);

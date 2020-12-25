@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules;
+namespace PHPStan\Rules;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\AttributeGroup;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+use PhpParser\Node\AttributeGroup;
+use PhpParser\Node\Expr\New_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\ReflectionProvider;
 class AttributesCheck
 {
     /** @var ReflectionProvider */
@@ -16,7 +16,7 @@ class AttributesCheck
     private $functionCallParametersCheck;
     /** @var ClassCaseSensitivityCheck */
     private $classCaseSensitivityCheck;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\FunctionCallParametersCheck $functionCallParametersCheck, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\FunctionCallParametersCheck $functionCallParametersCheck, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->functionCallParametersCheck = $functionCallParametersCheck;
@@ -27,7 +27,7 @@ class AttributesCheck
      * @param \Attribute::TARGET_* $requiredTarget
      * @return RuleError[]
      */
-    public function check(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, array $attrGroups, int $requiredTarget, string $targetName) : array
+    public function check(\PHPStan\Analyser\Scope $scope, array $attrGroups, int $requiredTarget, string $targetName) : array
     {
         $errors = [];
         $alreadyPresent = [];
@@ -35,42 +35,42 @@ class AttributesCheck
             foreach ($attrGroup->attrs as $attribute) {
                 $name = $attribute->name->toString();
                 if (!$this->reflectionProvider->hasClass($name)) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s does not exist.', $name))->line($attribute->getLine())->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s does not exist.', $name))->line($attribute->getLine())->build();
                     continue;
                 }
                 $attributeClass = $this->reflectionProvider->getClass($name);
                 if (!$attributeClass->isAttributeClass()) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Class %s is not an Attribute class.', $attributeClass->getDisplayName()))->line($attribute->getLine())->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Class %s is not an Attribute class.', $attributeClass->getDisplayName()))->line($attribute->getLine())->build();
                     continue;
                 }
                 if ($attributeClass->isAbstract()) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s is abstract.', $name))->line($attribute->getLine())->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s is abstract.', $name))->line($attribute->getLine())->build();
                 }
-                foreach ($this->classCaseSensitivityCheck->checkClassNames([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassNameNodePair($name, $attribute)]) as $caseSensitivityError) {
+                foreach ($this->classCaseSensitivityCheck->checkClassNames([new \PHPStan\Rules\ClassNameNodePair($name, $attribute)]) as $caseSensitivityError) {
                     $errors[] = $caseSensitivityError;
                 }
                 $flags = $attributeClass->getAttributeClassFlags();
                 if (($flags & $requiredTarget) === 0) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s does not have the %s target.', $name, $targetName))->line($attribute->getLine())->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s does not have the %s target.', $name, $targetName))->line($attribute->getLine())->build();
                 }
                 if (($flags & \Attribute::IS_REPEATABLE) === 0) {
                     $loweredName = \strtolower($name);
                     if (\array_key_exists($loweredName, $alreadyPresent)) {
-                        $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s is not repeatable but is already present above the %s.', $name, $targetName))->line($attribute->getLine())->build();
+                        $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s is not repeatable but is already present above the %s.', $name, $targetName))->line($attribute->getLine())->build();
                     }
                     $alreadyPresent[$loweredName] = \true;
                 }
                 if (!$attributeClass->hasConstructor()) {
                     if (\count($attribute->args) > 0) {
-                        $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s does not have a constructor and must be instantiated without any parameters.', $name))->line($attribute->getLine())->build();
+                        $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s does not have a constructor and must be instantiated without any parameters.', $name))->line($attribute->getLine())->build();
                     }
                     continue;
                 }
                 $attributeConstructor = $attributeClass->getConstructor();
                 if (!$attributeConstructor->isPublic()) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Constructor of attribute class %s is not public.', $name))->line($attribute->getLine())->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Constructor of attribute class %s is not public.', $name))->line($attribute->getLine())->build();
                 }
-                $parameterErrors = $this->functionCallParametersCheck->check(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($attributeConstructor->getVariants()), $scope, $attributeConstructor->getDeclaringClass()->isBuiltin(), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_($attribute->name, $attribute->args, $attribute->getAttributes()), [
+                $parameterErrors = $this->functionCallParametersCheck->check(\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($attributeConstructor->getVariants()), $scope, $attributeConstructor->getDeclaringClass()->isBuiltin(), new \PhpParser\Node\Expr\New_($attribute->name, $attribute->args, $attribute->getAttributes()), [
                     'Attribute class ' . $attributeClass->getDisplayName() . ' constructor invoked with %d parameter, %d required.',
                     'Attribute class ' . $attributeClass->getDisplayName() . ' constructor invoked with %d parameters, %d required.',
                     'Attribute class ' . $attributeClass->getDisplayName() . ' constructor invoked with %d parameter, at least %d required.',

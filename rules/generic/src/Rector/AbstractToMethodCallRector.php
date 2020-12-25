@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector;
+namespace Rector\Generic\Rector;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\NodeTypeAnalyzer\TypeProvidingExprFromClassResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-abstract class AbstractToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Generic\NodeTypeAnalyzer\TypeProvidingExprFromClassResolver;
+use Rector\Naming\Naming\PropertyNaming;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+abstract class AbstractToMethodCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var PropertyNaming
@@ -29,7 +29,7 @@ abstract class AbstractToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector
     /**
      * @required
      */
-    public function autowireAbstractToMethodCallRector(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming $propertyNaming, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\NodeTypeAnalyzer\TypeProvidingExprFromClassResolver $typeProvidingExprFromClassResolver) : void
+    public function autowireAbstractToMethodCallRector(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Generic\NodeTypeAnalyzer\TypeProvidingExprFromClassResolver $typeProvidingExprFromClassResolver) : void
     {
         $this->propertyNaming = $propertyNaming;
         $this->typeProvidingExprFromClassResolver = $typeProvidingExprFromClassResolver;
@@ -38,11 +38,11 @@ abstract class AbstractToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector
      * @param ClassMethod|Function_ $functionLike
      * @return MethodCall|PropertyFetch|Variable
      */
-    protected function matchTypeProvidingExpr(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike, string $type) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    protected function matchTypeProvidingExpr(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\FunctionLike $functionLike, string $type) : \PhpParser\Node\Expr
     {
         $expr = $this->typeProvidingExprFromClassResolver->resolveTypeProvidingExprFromClass($class, $functionLike, $type);
         if ($expr !== null) {
-            if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+            if ($expr instanceof \PhpParser\Node\Expr\Variable) {
                 $this->addClassMethodParamForVariable($expr, $type, $functionLike);
             }
             return $expr;
@@ -53,24 +53,24 @@ abstract class AbstractToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector
     /**
      * @param ClassMethod|Function_ $functionLike
      */
-    private function addClassMethodParamForVariable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable, string $type, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike) : void
+    private function addClassMethodParamForVariable(\PhpParser\Node\Expr\Variable $variable, string $type, \PhpParser\Node\FunctionLike $functionLike) : void
     {
         /** @var string $variableName */
         $variableName = $this->getName($variable);
         // add variable to __construct as dependency
-        $param = $this->nodeFactory->createParamFromNameAndType($variableName, new \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type));
+        $param = $this->nodeFactory->createParamFromNameAndType($variableName, new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type));
         $functionLike->params[] = $param;
     }
-    private function addPropertyTypeToClass(string $type, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
+    private function addPropertyTypeToClass(string $type, \PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $fullyQualifiedObjectType = new \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type);
+        $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type);
         $propertyName = $this->propertyNaming->fqnToVariableName($fullyQualifiedObjectType);
         $this->addConstructorDependencyToClass($class, $fullyQualifiedObjectType, $propertyName);
     }
-    private function createPropertyFetchFromClass(string $type) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch
+    private function createPropertyFetchFromClass(string $type) : \PhpParser\Node\Expr\PropertyFetch
     {
-        $thisVariable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this');
+        $thisVariable = new \PhpParser\Node\Expr\Variable('this');
         $propertyName = $this->propertyNaming->fqnToVariableName($type);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch($thisVariable, $propertyName);
+        return new \PhpParser\Node\Expr\PropertyFetch($thisVariable, $propertyName);
     }
 }

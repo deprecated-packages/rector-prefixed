@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Tests\Rector\MethodCall\MethodCallRemoverRector;
+namespace Rector\Generic\Tests\Rector\MethodCall\MethodCallRemoverRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\MethodCall\MethodCallRemoverRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class MethodCallRemoverRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Generic\Rector\MethodCall\MethodCallRemoverRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class MethodCallRemoverRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class MethodCallRemoverRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\T
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\MethodCall\MethodCallRemoverRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\MethodCall\MethodCallRemoverRector::METHOD_CALL_REMOVER_ARGUMENT => ['_PhpScoper2a4e7ab1ecbc\\Rector\\Generic\\Tests\\Rector\\MethodCall\\MethodCallRemoverRector\\Source\\Car' => 'getCarType']]];
+        return [\Rector\Generic\Rector\MethodCall\MethodCallRemoverRector::class => [\Rector\Generic\Rector\MethodCall\MethodCallRemoverRector::METHOD_CALL_REMOVER_ARGUMENT => ['Rector\\Generic\\Tests\\Rector\\MethodCall\\MethodCallRemoverRector\\Source\\Car' => 'getCarType']]];
     }
 }

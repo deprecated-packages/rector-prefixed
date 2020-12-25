@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\StaticCall;
+namespace Rector\Php70\Rector\StaticCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\StaticAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Type\ObjectType;
+use Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeCollector\StaticAnalyzer;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://thephp.cc/news/2017/07/dont-call-instance-methods-statically
  * @see https://3v4l.org/tQ32f
@@ -25,7 +25,7 @@ use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Php70\Tests\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector\StaticCallOnNonStaticToInstanceCallRectorTest
  */
-final class StaticCallOnNonStaticToInstanceCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class StaticCallOnNonStaticToInstanceCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassMethodManipulator
@@ -35,14 +35,14 @@ final class StaticCallOnNonStaticToInstanceCallRector extends \_PhpScoper2a4e7ab
      * @var StaticAnalyzer
      */
     private $staticAnalyzer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\StaticAnalyzer $staticAnalyzer)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator $classMethodManipulator, \Rector\NodeCollector\StaticAnalyzer $staticAnalyzer)
     {
         $this->classMethodManipulator = $classMethodManipulator;
         $this->staticAnalyzer = $staticAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes static call to instance call, where not useful', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes static call to instance call, where not useful', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class Something
 {
     public function doWork()
@@ -81,14 +81,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr) {
+        if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;
         }
         $methodName = $this->getName($node->name);
@@ -103,8 +103,8 @@ CODE_SAMPLE
             return null;
         }
         if ($this->isInstantiable($className)) {
-            $new = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_($node->class);
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($new, $node->name, $node->args);
+            $new = new \PhpParser\Node\Expr\New_($node->class);
+            return new \PhpParser\Node\Expr\MethodCall($new, $node->name, $node->args);
         }
         // can we add static to method?
         $classMethodNode = $this->nodeRepository->findClassMethod($className, $methodName);
@@ -117,17 +117,17 @@ CODE_SAMPLE
         $this->makeStatic($classMethodNode);
         return null;
     }
-    private function resolveStaticCallClassName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $staticCall) : ?string
+    private function resolveStaticCallClassName(\PhpParser\Node\Expr\StaticCall $staticCall) : ?string
     {
-        if ($staticCall->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
+        if ($staticCall->class instanceof \PhpParser\Node\Expr\PropertyFetch) {
             $objectType = $this->getObjectType($staticCall->class);
-            if ($objectType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
+            if ($objectType instanceof \PHPStan\Type\ObjectType) {
                 return $objectType->getClassName();
             }
         }
         return $this->getName($staticCall->class);
     }
-    private function shouldSkip(string $methodName, string $className, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $staticCall) : bool
+    private function shouldSkip(string $methodName, string $className, \PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
         $isStaticMethod = $this->staticAnalyzer->isStaticMethod($methodName, $className);
         if ($isStaticMethod) {
@@ -136,7 +136,7 @@ CODE_SAMPLE
         if ($this->isNames($staticCall->class, ['self', 'parent', 'static', 'class'])) {
             return \true;
         }
-        $parentClassName = $staticCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         return $className === $parentClassName;
     }
     private function isInstantiable(string $className) : bool

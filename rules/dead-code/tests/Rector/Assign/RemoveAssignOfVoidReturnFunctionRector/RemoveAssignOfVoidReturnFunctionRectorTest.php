@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Tests\Rector\Assign\RemoveAssignOfVoidReturnFunctionRector;
+namespace Rector\DeadCode\Tests\Rector\Assign\RemoveAssignOfVoidReturnFunctionRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\Assign\RemoveAssignOfVoidReturnFunctionRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveAssignOfVoidReturnFunctionRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\DeadCode\Rector\Assign\RemoveAssignOfVoidReturnFunctionRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveAssignOfVoidReturnFunctionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveAssignOfVoidReturnFunctionRectorTest extends \_PhpScoper2a4e7a
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\Assign\RemoveAssignOfVoidReturnFunctionRector::class;
+        return \Rector\DeadCode\Rector\Assign\RemoveAssignOfVoidReturnFunctionRector::class;
     }
 }

@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\Switch_;
+namespace Rector\Php80\Rector\Switch_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Match_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\MatchArm;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php80\NodeAnalyzer\SwitchAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php80\NodeResolver\SwitchExprsResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\CondAndExpr;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\Match_;
+use PhpParser\Node\MatchArm;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Return_;
+use PhpParser\Node\Stmt\Switch_;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Php80\NodeAnalyzer\SwitchAnalyzer;
+use Rector\Php80\NodeResolver\SwitchExprsResolver;
+use Rector\Php80\ValueObject\CondAndExpr;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/match_expression_v2
  * @see https://3v4l.org/572T5
  *
  * @see \Rector\Php80\Tests\Rector\Switch_\ChangeSwitchToMatchRector\ChangeSwitchToMatchRectorTest
  */
-final class ChangeSwitchToMatchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ChangeSwitchToMatchRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var SwitchExprsResolver
@@ -37,14 +37,14 @@ final class ChangeSwitchToMatchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Cor
      * @var Expr|null
      */
     private $assignExpr;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Php80\NodeResolver\SwitchExprsResolver $switchExprsResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Php80\NodeAnalyzer\SwitchAnalyzer $switchAnalyzer)
+    public function __construct(\Rector\Php80\NodeResolver\SwitchExprsResolver $switchExprsResolver, \Rector\Php80\NodeAnalyzer\SwitchAnalyzer $switchAnalyzer)
     {
         $this->switchExprsResolver = $switchExprsResolver;
         $this->switchAnalyzer = $switchAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change switch() to match()', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change switch() to match()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -85,12 +85,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_::class];
+        return [\PhpParser\Node\Stmt\Switch_::class];
     }
     /**
      * @param Switch_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipSwitch($node)) {
             return null;
@@ -105,22 +105,22 @@ CODE_SAMPLE
         $this->assignExpr = null;
         $isReturn = \false;
         foreach ($condAndExprs as $condAndExpr) {
-            if ($condAndExpr->getKind() === \_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\CondAndExpr::TYPE_RETURN) {
+            if ($condAndExpr->getKind() === \Rector\Php80\ValueObject\CondAndExpr::TYPE_RETURN) {
                 $isReturn = \true;
                 break;
             }
         }
         $matchArms = $this->createMatchArmsFromCases($condAndExprs);
-        $match = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Match_($node->cond, $matchArms);
+        $match = new \PhpParser\Node\Expr\Match_($node->cond, $matchArms);
         if ($isReturn) {
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_($match);
+            return new \PhpParser\Node\Stmt\Return_($match);
         }
         if ($this->assignExpr) {
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($this->assignExpr, $match);
+            return new \PhpParser\Node\Expr\Assign($this->assignExpr, $match);
         }
         return $match;
     }
-    private function shouldSkipSwitch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_ $switch) : bool
+    private function shouldSkipSwitch(\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
         if (!$this->switchAnalyzer->hasEachCaseBreak($switch)) {
             return \true;
@@ -139,7 +139,7 @@ CODE_SAMPLE
         $assignVariableNames = [];
         foreach ($condAndExprs as $condAndExpr) {
             $expr = $condAndExpr->getExpr();
-            if (!$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+            if (!$expr instanceof \PhpParser\Node\Expr\Assign) {
                 continue;
             }
             $assignVariableNames[] = $this->getName($expr->var);
@@ -156,13 +156,13 @@ CODE_SAMPLE
         $matchArms = [];
         foreach ($condAndExprs as $condAndExpr) {
             $expr = $condAndExpr->getExpr();
-            if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+            if ($expr instanceof \PhpParser\Node\Expr\Assign) {
                 $this->assignExpr = $expr->var;
                 $expr = $expr->expr;
             }
             $condExpr = $condAndExpr->getCondExpr();
             $condList = $condExpr === null ? null : [$condExpr];
-            $matchArms[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\MatchArm($condList, $expr);
+            $matchArms[] = new \PhpParser\Node\MatchArm($condList, $expr);
         }
         return $matchArms;
     }

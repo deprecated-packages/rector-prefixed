@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPStan\Rector\Cast;
+namespace Rector\PHPStan\Rector\Cast;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Bool_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Double;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Int_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Object_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\String_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Cast;
+use PhpParser\Node\Expr\Cast\Array_;
+use PhpParser\Node\Expr\Cast\Bool_;
+use PhpParser\Node\Expr\Cast\Double;
+use PhpParser\Node\Expr\Cast\Int_;
+use PhpParser\Node\Expr\Cast\Object_;
+use PhpParser\Node\Expr\Cast\String_;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\StringType;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPStan\Tests\Rector\Cast\RecastingRemovalRector\RecastingRemovalRectorTest
  */
-final class RecastingRemovalRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class RecastingRemovalRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
      */
-    private const CAST_CLASS_TO_NODE_TYPE = [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\String_::class => \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Bool_::class => \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Array_::class => \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Int_::class => \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Object_::class => \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Double::class => \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType::class];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    private const CAST_CLASS_TO_NODE_TYPE = [\PhpParser\Node\Expr\Cast\String_::class => \PHPStan\Type\StringType::class, \PhpParser\Node\Expr\Cast\Bool_::class => \PHPStan\Type\BooleanType::class, \PhpParser\Node\Expr\Cast\Array_::class => \PHPStan\Type\ArrayType::class, \PhpParser\Node\Expr\Cast\Int_::class => \PHPStan\Type\IntegerType::class, \PhpParser\Node\Expr\Cast\Object_::class => \PHPStan\Type\ObjectType::class, \PhpParser\Node\Expr\Cast\Double::class => \PHPStan\Type\FloatType::class];
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes recasting of the same type', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes recasting of the same type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $string = '';
 $string = (string) $string;
 
@@ -53,19 +53,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast::class];
+        return [\PhpParser\Node\Expr\Cast::class];
     }
     /**
      * @param Cast $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $nodeClass = \get_class($node);
         if (!isset(self::CAST_CLASS_TO_NODE_TYPE[$nodeClass])) {
             return null;
         }
         $nodeType = $this->getStaticType($node->expr);
-        if ($nodeType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
+        if ($nodeType instanceof \PHPStan\Type\MixedType) {
             return null;
         }
         $sameNodeType = self::CAST_CLASS_TO_NODE_TYPE[$nodeClass];

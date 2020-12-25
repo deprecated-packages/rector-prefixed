@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php72\Tests\Rector\Assign\ReplaceEachAssignmentWithKeyCurrentRector;
+namespace Rector\Php72\Tests\Rector\Assign\ReplaceEachAssignmentWithKeyCurrentRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\Assign\ReplaceEachAssignmentWithKeyCurrentRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Php72\Rector\Assign\ReplaceEachAssignmentWithKeyCurrentRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ReplaceEachAssignmentWithKeyCurrentRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ReplaceEachAssignmentWithKeyCurrentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      * @requires PHP < 8.0
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class ReplaceEachAssignmentWithKeyCurrentRectorTest extends \_PhpScoper2a4
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\Assign\ReplaceEachAssignmentWithKeyCurrentRector::class;
+        return \Rector\Php72\Rector\Assign\ReplaceEachAssignmentWithKeyCurrentRector::class;
     }
 }

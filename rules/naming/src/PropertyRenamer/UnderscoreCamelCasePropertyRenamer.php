@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\PropertyRenamer;
+namespace Rector\Naming\PropertyRenamer;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Guard\PropertyConflictingNameGuard\UnderscoreCamelCaseConflictingNameGuard;
-final class UnderscoreCamelCasePropertyRenamer extends \_PhpScoper2a4e7ab1ecbc\Rector\Naming\PropertyRenamer\AbstractPropertyRenamer
+use Rector\Naming\Guard\PropertyConflictingNameGuard\UnderscoreCamelCaseConflictingNameGuard;
+final class UnderscoreCamelCasePropertyRenamer extends \Rector\Naming\PropertyRenamer\AbstractPropertyRenamer
 {
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\Guard\PropertyConflictingNameGuard\UnderscoreCamelCaseConflictingNameGuard $underscoreCamelCaseConflictingNameGuard)
+    public function __construct(\Rector\Naming\Guard\PropertyConflictingNameGuard\UnderscoreCamelCaseConflictingNameGuard $underscoreCamelCaseConflictingNameGuard)
     {
         $this->conflictingPropertyNameGuard = $underscoreCamelCaseConflictingNameGuard;
     }

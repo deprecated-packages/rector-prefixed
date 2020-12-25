@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\MethodCall;
+namespace Rector\PHPUnit\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
+use Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
+use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertEqualsToSameRector\AssertEqualsToSameRectorTest
  */
-final class AssertEqualsToSameRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var array<string, string>
@@ -33,30 +33,30 @@ final class AssertEqualsToSameRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core
      *
      * @var string[]
      */
-    private const SCALAR_TYPES = [\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType::class, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType::class, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType::class];
+    private const SCALAR_TYPES = [\PHPStan\Type\FloatType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\StringType::class];
     /**
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
     {
         $this->identifierManipulator = $identifierManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns `assertEquals()` into stricter `assertSame()` for scalar values in PHPUnit TestCase', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertEquals(2, $result, "message");', '$this->assertSame(2, $result, "message");'), new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertEquals($aString, $result, "message");', '$this->assertSame($aString, $result, "message");')]);
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns `assertEquals()` into stricter `assertSame()` for scalar values in PHPUnit TestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertEquals(2, $result, "message");', '$this->assertSame(2, $result, "message");'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertEquals($aString, $result, "message");', '$this->assertSame($aString, $result, "message");')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
@@ -76,16 +76,16 @@ final class AssertEqualsToSameRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core
         $this->identifierManipulator->renameNodeWithMap($node, self::RENAME_METHODS_MAP);
         return $node;
     }
-    private function getNodeType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    private function getNodeType(\PhpParser\Node\Expr $expr) : \PHPStan\Type\Type
     {
         /** @var Scope $nodeScope */
-        $nodeScope = $expr->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $nodeScope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         return $nodeScope->getType($expr);
     }
     /**
      * @param string[] $types
      */
-    private function isTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $valueType, array $types) : bool
+    private function isTypes(\PHPStan\Type\Type $valueType, array $types) : bool
     {
         foreach ($types as $type) {
             if (\is_a($valueType, $type, \true)) {

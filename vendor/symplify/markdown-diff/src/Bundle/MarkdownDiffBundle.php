@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\MarkdownDiff\Bundle;
+namespace Symplify\MarkdownDiff\Bundle;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpKernel\Bundle\Bundle;
-use _PhpScoper2a4e7ab1ecbc\Symplify\MarkdownDiff\DependencyInjection\Extension\MarkdownDiffExtension;
-final class MarkdownDiffBundle extends \_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpKernel\Bundle\Bundle
+use _PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use _PhpScoper50d83356d739\Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symplify\MarkdownDiff\DependencyInjection\Extension\MarkdownDiffExtension;
+final class MarkdownDiffBundle extends \_PhpScoper50d83356d739\Symfony\Component\HttpKernel\Bundle\Bundle
 {
-    protected function createContainerExtension() : ?\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
+    protected function createContainerExtension() : ?\_PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Extension\ExtensionInterface
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\MarkdownDiff\DependencyInjection\Extension\MarkdownDiffExtension();
+        return new \Symplify\MarkdownDiff\DependencyInjection\Extension\MarkdownDiffExtension();
     }
 }

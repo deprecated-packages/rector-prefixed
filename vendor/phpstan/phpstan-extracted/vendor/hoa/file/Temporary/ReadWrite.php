@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\File\Temporary;
+namespace Hoa\File\Temporary;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\File;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+use Hoa\File;
+use Hoa\Stream;
 /**
  * Class \Hoa\File\Temporary\ReadWrite.
  *
@@ -45,7 +45,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class ReadWrite extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Temporary\Temporary implements \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\In, \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Out
+class ReadWrite extends \Hoa\File\Temporary\Temporary implements \Hoa\Stream\IStream\In, \Hoa\Stream\IStream\Out
 {
     /**
      * Open a file.
@@ -70,15 +70,15 @@ class ReadWrite extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Temporary\Temporary imp
      * @throws  \Hoa\File\Exception\FileDoesNotExist
      * @throws  \Hoa\File\Exception
      */
-    protected function &_open($streamName, \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Context $context = null)
+    protected function &_open($streamName, \Hoa\Stream\Context $context = null)
     {
         static $createModes = [parent::MODE_READ_WRITE, parent::MODE_TRUNCATE_READ_WRITE, parent::MODE_APPEND_READ_WRITE, parent::MODE_CREATE_READ_WRITE];
         if (!\in_array($this->getMode(), $createModes)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
+            throw new \Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
         }
         \preg_match('#^(\\w+)://#', $streamName, $match);
         if ((isset($match[1]) && $match[1] == 'file' || !isset($match[1])) && !\file_exists($streamName) && parent::MODE_READ_WRITE == $this->getMode()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
+            throw new \Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
         }
         $out = parent::_open($streamName, $context);
         return $out;
@@ -102,7 +102,7 @@ class ReadWrite extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Temporary\Temporary imp
     public function read($length)
     {
         if (0 > $length) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
+            throw new \Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
         }
         return \fread($this->getStream(), $length);
     }
@@ -205,7 +205,7 @@ class ReadWrite extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Temporary\Temporary imp
     public function write($string, $length)
     {
         if (0 > $length) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('Length must be greater than 0, given %d.', 3, $length);
+            throw new \Hoa\File\Exception('Length must be greater than 0, given %d.', 3, $length);
         }
         return \fwrite($this->getStream(), $string, $length);
     }

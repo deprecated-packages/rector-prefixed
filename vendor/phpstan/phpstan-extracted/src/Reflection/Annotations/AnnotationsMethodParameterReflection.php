@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Annotations;
+namespace PHPStan\Reflection\Annotations;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParameterReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class AnnotationsMethodParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParameterReflection
+use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\Type;
+class AnnotationsMethodParameterReflection implements \PHPStan\Reflection\ParameterReflection
 {
     /** @var string */
     private $name;
@@ -20,7 +20,7 @@ class AnnotationsMethodParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PH
     private $isVariadic;
     /** @var Type|null */
     private $defaultValue;
-    public function __construct(string $name, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $defaultValue)
+    public function __construct(string $name, \PHPStan\Type\Type $type, \PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\PHPStan\Type\Type $defaultValue)
     {
         $this->name = $name;
         $this->type = $type;
@@ -37,11 +37,11 @@ class AnnotationsMethodParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PH
     {
         return $this->isOptional;
     }
-    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getType() : \PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function passedByReference() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }
@@ -49,7 +49,7 @@ class AnnotationsMethodParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PH
     {
         return $this->isVariadic;
     }
-    public function getDefaultValue() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getDefaultValue() : ?\PHPStan\Type\Type
     {
         return $this->defaultValue;
     }

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Console;
+namespace Symplify\SymplifyKernel\Console;
 
-use _PhpScoper2a4e7ab1ecbc\Jean85\PrettyVersions;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Command\Command;
-use _PhpScoper2a4e7ab1ecbc\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Strings\StringsConverter;
+use _PhpScoper50d83356d739\Jean85\PrettyVersions;
+use _PhpScoper50d83356d739\Symfony\Component\Console\Command\Command;
+use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\SmartFileSystem\SmartFileSystem;
+use Symplify\SymplifyKernel\Strings\StringsConverter;
 use Throwable;
 final class ConsoleApplicationFactory
 {
@@ -35,21 +35,21 @@ final class ConsoleApplicationFactory
     /**
      * @param Command[] $commands
      */
-    public function __construct(array $commands, \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper2a4e7ab1ecbc\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(array $commands, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->commands = $commands;
-        $this->stringsConverter = new \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Strings\StringsConverter();
+        $this->stringsConverter = new \Symplify\SymplifyKernel\Strings\StringsConverter();
         $this->parameterProvider = $parameterProvider;
         $this->composerJsonFactory = $composerJsonFactory;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function create() : \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication
+    public function create() : \Symplify\SymplifyKernel\Console\AutowiredConsoleApplication
     {
-        $autowiredConsoleApplication = new \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication($this->commands);
+        $autowiredConsoleApplication = new \Symplify\SymplifyKernel\Console\AutowiredConsoleApplication($this->commands);
         $this->decorateApplicationWithNameAndVersion($autowiredConsoleApplication);
         return $autowiredConsoleApplication;
     }
-    private function decorateApplicationWithNameAndVersion(\_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication $autowiredConsoleApplication) : void
+    private function decorateApplicationWithNameAndVersion(\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication $autowiredConsoleApplication) : void
     {
         $projectDir = $this->parameterProvider->provideStringParameter('kernel.project_dir');
         $packageComposerJsonFilePath = $projectDir . \DIRECTORY_SEPARATOR . 'composer.json';
@@ -75,7 +75,7 @@ final class ConsoleApplicationFactory
     private function resolveVersionFromPackageName(string $packageName) : string
     {
         try {
-            $version = \_PhpScoper2a4e7ab1ecbc\Jean85\PrettyVersions::getVersion($packageName);
+            $version = \_PhpScoper50d83356d739\Jean85\PrettyVersions::getVersion($packageName);
             return $version->getPrettyVersion();
         } catch (\Throwable $throwable) {
             return 'Unknown';

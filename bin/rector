@@ -1,5 +1,5 @@
 #!/usr/bin/env php
 <?php 
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
 require_once __DIR__ . '/rector.php';

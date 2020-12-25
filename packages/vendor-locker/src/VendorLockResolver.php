@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\VendorLocker;
+namespace Rector\VendorLocker;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnVendorLockResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\ClassMethodVendorLockResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\PropertyTypeVendorLockResolver;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Property;
+use Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver;
+use Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnVendorLockResolver;
+use Rector\VendorLocker\NodeVendorLocker\ClassMethodVendorLockResolver;
+use Rector\VendorLocker\NodeVendorLocker\PropertyTypeVendorLockResolver;
 final class VendorLockResolver
 {
     /**
@@ -28,29 +28,29 @@ final class VendorLockResolver
      * @var ClassMethodVendorLockResolver
      */
     private $classMethodVendorLockResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver $classMethodParamVendorLockResolver, \_PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnVendorLockResolver $classMethodReturnVendorLockResolver, \_PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\ClassMethodVendorLockResolver $classMethodVendorLockResolver, \_PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\PropertyTypeVendorLockResolver $propertyTypeVendorLockResolver)
+    public function __construct(\Rector\VendorLocker\NodeVendorLocker\ClassMethodParamVendorLockResolver $classMethodParamVendorLockResolver, \Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnVendorLockResolver $classMethodReturnVendorLockResolver, \Rector\VendorLocker\NodeVendorLocker\ClassMethodVendorLockResolver $classMethodVendorLockResolver, \Rector\VendorLocker\NodeVendorLocker\PropertyTypeVendorLockResolver $propertyTypeVendorLockResolver)
     {
         $this->classMethodReturnVendorLockResolver = $classMethodReturnVendorLockResolver;
         $this->classMethodParamVendorLockResolver = $classMethodParamVendorLockResolver;
         $this->propertyTypeVendorLockResolver = $propertyTypeVendorLockResolver;
         $this->classMethodVendorLockResolver = $classMethodVendorLockResolver;
     }
-    public function isClassMethodParamLockedIn(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, int $paramPosition) : bool
+    public function isClassMethodParamLockedIn(\PhpParser\Node $node, int $paramPosition) : bool
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+        if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
         return $this->classMethodParamVendorLockResolver->isVendorLocked($node, $paramPosition);
     }
-    public function isReturnChangeVendorLockedIn(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isReturnChangeVendorLockedIn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return $this->classMethodReturnVendorLockResolver->isVendorLocked($classMethod);
     }
-    public function isPropertyTypeChangeVendorLockedIn(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : bool
+    public function isPropertyTypeChangeVendorLockedIn(\PhpParser\Node\Stmt\Property $property) : bool
     {
         return $this->propertyTypeVendorLockResolver->isVendorLocked($property);
     }
-    public function isClassMethodRemovalVendorLocked(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isClassMethodRemovalVendorLocked(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return $this->classMethodVendorLockResolver->isRemovalVendorLocked($classMethod);
     }

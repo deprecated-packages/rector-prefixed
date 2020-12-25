@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Tests\Rector\StaticCall\MinutesToSecondsInCacheRector\Source;
+namespace Rector\Laravel\Tests\Rector\StaticCall\MinutesToSecondsInCacheRector\Source;
 
-use _PhpScoper2a4e7ab1ecbc\Illuminate\Contracts\Cache\Store;
-final class ArrayStore implements \_PhpScoper2a4e7ab1ecbc\Illuminate\Contracts\Cache\Store
+use _PhpScoper50d83356d739\Illuminate\Contracts\Cache\Store;
+final class ArrayStore implements \_PhpScoper50d83356d739\Illuminate\Contracts\Cache\Store
 {
     public function get($key)
     {

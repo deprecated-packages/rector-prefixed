@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector;
+use Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector::class)->call('configure', [[\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector::METHODS_TO_YIELDS => \_PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase', 'provide*'), new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase', 'dataProvider*')])]]);
+    $services->set(\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector::class)->call('configure', [[\Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector::METHODS_TO_YIELDS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase', 'provide*'), new \Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield('_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase', 'dataProvider*')])]]);
 };

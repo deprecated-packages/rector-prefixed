@@ -9,22 +9,22 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection;
 
 use ArrayIterator;
 use InvalidArgumentException;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Array_;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\ClassString;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Collection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Expression;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Intersection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Iterable_;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Nullable;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\String_;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Array_;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\ClassString;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Collection;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Expression;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Intersection;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Iterable_;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Nullable;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\String_;
 use RuntimeException;
 use function array_key_exists;
 use function array_pop;
@@ -59,7 +59,7 @@ final class TypeResolver
      * @var array<string, string> List of recognized keywords and unto which Value Object they map
      * @psalm-var array<string, class-string<Type>>
      */
-    private $keywords = ['string' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\String_::class, 'class-string' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\ClassString::class, 'int' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer::class, 'integer' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer::class, 'bool' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean::class, 'boolean' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean::class, 'real' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Float_::class, 'float' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Float_::class, 'double' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Float_::class, 'object' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_::class, 'mixed' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Mixed_::class, 'array' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Array_::class, 'resource' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Resource_::class, 'void' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_::class, 'null' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Null_::class, 'scalar' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Scalar::class, 'callback' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Callable_::class, 'callable' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Callable_::class, 'false' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoTypes\False_::class, 'true' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoTypes\True_::class, 'self' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Self_::class, '$this' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\This::class, 'static' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Static_::class, 'parent' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Parent_::class, 'iterable' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Iterable_::class];
+    private $keywords = ['string' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\String_::class, 'class-string' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\ClassString::class, 'int' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer::class, 'integer' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer::class, 'bool' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean::class, 'boolean' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean::class, 'real' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Float_::class, 'float' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Float_::class, 'double' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Float_::class, 'object' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_::class, 'mixed' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Mixed_::class, 'array' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Array_::class, 'resource' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Resource_::class, 'void' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Void_::class, 'null' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Null_::class, 'scalar' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Scalar::class, 'callback' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Callable_::class, 'callable' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Callable_::class, 'false' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoTypes\False_::class, 'true' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoTypes\True_::class, 'self' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Self_::class, '$this' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\This::class, 'static' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Static_::class, 'parent' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Parent_::class, 'iterable' => \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Iterable_::class];
     /**
      * @var FqsenResolver
      * @psalm-readonly
@@ -68,9 +68,9 @@ final class TypeResolver
     /**
      * Initializes this TypeResolver with the means to create and resolve Fqsen objects.
      */
-    public function __construct(?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver $fqsenResolver = null)
+    public function __construct(?\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver $fqsenResolver = null)
     {
-        $this->fqsenResolver = $fqsenResolver ?: new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver();
+        $this->fqsenResolver = $fqsenResolver ?: new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver();
     }
     /**
      * Analyzes the given type and returns the FQCN variant.
@@ -88,14 +88,14 @@ final class TypeResolver
      *
      * @param string $type The relative or absolute type.
      */
-    public function resolve(string $type, ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    public function resolve(string $type, ?\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null) : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         $type = \trim($type);
         if (!$type) {
             throw new \InvalidArgumentException('Attempted to resolve "' . $type . '" but it appears to be empty');
         }
         if ($context === null) {
-            $context = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context('');
+            $context = new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context('');
         }
         // split the type string into tokens `|`, `?`, `<`, `>`, `,`, `(`, `)`, `[]`, '<', '>' and type names
         $tokens = \preg_split('/(\\||\\?|<|>|&|, ?|\\(|\\)|\\[\\]+)/', $type, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
@@ -113,7 +113,7 @@ final class TypeResolver
      * @param int                        $parserContext on of self::PARSER_* constants, indicating
      * the context where we are in the parsing
      */
-    private function parseTypes(\ArrayIterator $tokens, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context, int $parserContext) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    private function parseTypes(\ArrayIterator $tokens, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context, int $parserContext) : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         $types = [];
         $token = '';
@@ -138,7 +138,7 @@ final class TypeResolver
                 }
                 $tokens->next();
                 $type = $this->parseTypes($tokens, $context, self::PARSER_IN_NULLABLE);
-                $types[] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Nullable($type);
+                $types[] = new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Nullable($type);
             } elseif ($token === '(') {
                 $tokens->next();
                 $type = $this->parseTypes($tokens, $context, self::PARSER_IN_ARRAY_EXPRESSION);
@@ -148,7 +148,7 @@ final class TypeResolver
                     break;
                 }
                 $tokens->next();
-                $resolvedType = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Expression($type);
+                $resolvedType = new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Expression($type);
                 $types[] = $resolvedType;
             } elseif ($parserContext === self::PARSER_IN_ARRAY_EXPRESSION && $token[0] === ')') {
                 break;
@@ -171,10 +171,10 @@ final class TypeResolver
                 \end($types);
                 $last = \key($types);
                 $lastItem = $types[$last];
-                if ($lastItem instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Expression) {
+                if ($lastItem instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Expression) {
                     $lastItem = $lastItem->getValueType();
                 }
-                $types[$last] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Array_($lastItem);
+                $types[$last] = new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Array_($lastItem);
                 $tokens->next();
             } else {
                 $type = $this->resolveSingleType($token, $context);
@@ -202,9 +202,9 @@ final class TypeResolver
             return $types[0];
         }
         if ($compoundToken === '|') {
-            return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound(\array_values($types));
+            return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound(\array_values($types));
         }
-        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Intersection(\array_values($types));
+        return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Intersection(\array_values($types));
     }
     /**
      * resolve the given type into a type object
@@ -215,7 +215,7 @@ final class TypeResolver
      *
      * @psalm-mutation-free
      */
-    private function resolveSingleType(string $type, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context) : object
+    private function resolveSingleType(string $type, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context) : object
     {
         switch (\true) {
             case $this->isKeyword($type):
@@ -241,7 +241,7 @@ final class TypeResolver
         if (!\class_exists($typeClassName)) {
             throw new \InvalidArgumentException('The Value Object that needs to be created with a keyword "' . $keyword . '" must be an existing class' . ' but we could not find the class ' . $typeClassName);
         }
-        if (!\in_array(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type::class, \class_implements($typeClassName), \true)) {
+        if (!\in_array(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type::class, \class_implements($typeClassName), \true)) {
             throw new \InvalidArgumentException('The class "' . $typeClassName . '" must implement the interface "phpDocumentor\\Reflection\\Type"');
         }
         $this->keywords[$keyword] = $typeClassName;
@@ -282,7 +282,7 @@ final class TypeResolver
      *
      * @psalm-mutation-free
      */
-    private function resolveKeyword(string $type) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    private function resolveKeyword(string $type) : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         $className = $this->keywords[\strtolower($type)];
         return new $className();
@@ -292,20 +292,20 @@ final class TypeResolver
      *
      * @psalm-mutation-free
      */
-    private function resolveTypedObject(string $type, ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_
+    private function resolveTypedObject(string $type, ?\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null) : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_
     {
-        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_($this->fqsenResolver->resolve($type, $context));
+        return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_($this->fqsenResolver->resolve($type, $context));
     }
     /**
      * Resolves class string
      *
      * @param ArrayIterator<int, (string|null)> $tokens
      */
-    private function resolveClassString(\ArrayIterator $tokens, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    private function resolveClassString(\ArrayIterator $tokens, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context) : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         $tokens->next();
         $classType = $this->parseTypes($tokens, $context, self::PARSER_IN_COLLECTION_EXPRESSION);
-        if (!$classType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_ || $classType->getFqsen() === null) {
+        if (!$classType instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_ || $classType->getFqsen() === null) {
             throw new \RuntimeException($classType . ' is not a class string');
         }
         $token = $tokens->current();
@@ -315,7 +315,7 @@ final class TypeResolver
             }
             throw new \RuntimeException('Unexpected character "' . $token . '", ">" is missing');
         }
-        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\ClassString($classType->getFqsen());
+        return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\ClassString($classType->getFqsen());
     }
     /**
      * Resolves the collection values and keys
@@ -324,12 +324,12 @@ final class TypeResolver
      *
      * @return Array_|Iterable_|Collection
      */
-    private function resolveCollection(\ArrayIterator $tokens, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $classType, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    private function resolveCollection(\ArrayIterator $tokens, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $classType, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context) : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         $isArray = (string) $classType === 'array';
         $isIterable = (string) $classType === 'iterable';
         // allow only "array", "iterable" or class name before "<"
-        if (!$isArray && !$isIterable && (!$classType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_ || $classType->getFqsen() === null)) {
+        if (!$isArray && !$isIterable && (!$classType instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_ || $classType->getFqsen() === null)) {
             throw new \RuntimeException($classType . ' is not a collection');
         }
         $tokens->next();
@@ -342,12 +342,12 @@ final class TypeResolver
             if ($isArray) {
                 // check the key type for an "array" collection. We allow only
                 // strings or integers.
-                if (!$keyType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\String_ && !$keyType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer && !$keyType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound) {
+                if (!$keyType instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\String_ && !$keyType instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer && !$keyType instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound) {
                     throw new \RuntimeException('An array can have only integers or strings as keys');
                 }
-                if ($keyType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound) {
+                if ($keyType instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound) {
                     foreach ($keyType->getIterator() as $item) {
-                        if (!$item instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\String_ && !$item instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer) {
+                        if (!$item instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\String_ && !$item instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer) {
                             throw new \RuntimeException('An array can have only integers or strings as keys');
                         }
                     }
@@ -365,12 +365,12 @@ final class TypeResolver
             throw new \RuntimeException('Unexpected character "' . $token . '", ">" is missing');
         }
         if ($isArray) {
-            return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Array_($valueType, $keyType);
+            return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Array_($valueType, $keyType);
         }
         if ($isIterable) {
-            return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Iterable_($valueType, $keyType);
+            return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Iterable_($valueType, $keyType);
         }
-        if ($classType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_) {
+        if ($classType instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_) {
             return $this->makeCollectionFromObject($classType, $valueType, $keyType);
         }
         throw new \RuntimeException('Invalid $classType provided');
@@ -378,8 +378,8 @@ final class TypeResolver
     /**
      * @psalm-pure
      */
-    private function makeCollectionFromObject(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_ $object, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $valueType, ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $keyType = null) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Collection
+    private function makeCollectionFromObject(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Object_ $object, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $valueType, ?\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $keyType = null) : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Collection
     {
-        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Collection($object->getFqsen(), $valueType, $keyType);
+        return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Collection($object->getFqsen(), $valueType, $keyType);
     }
 }

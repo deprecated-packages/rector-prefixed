@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Order\Tests;
+namespace Rector\Order\Tests;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\Order\StmtOrder;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class StmtOrderTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Property;
+use PhpParser\Node\Stmt\PropertyProperty;
+use Rector\Core\HttpKernel\RectorKernel;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\Order\StmtOrder;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class StmtOrderTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var int[]
@@ -27,9 +27,9 @@ final class StmtOrderTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilde
     private $nodeNameResolver;
     protected function setUp() : void
     {
-        $this->bootKernel(\_PhpScoper2a4e7ab1ecbc\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->stmtOrder = $this->getService(\_PhpScoper2a4e7ab1ecbc\Rector\Order\StmtOrder::class);
-        $this->nodeNameResolver = $this->getService(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver::class);
+        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->stmtOrder = $this->getService(\Rector\Order\StmtOrder::class);
+        $this->nodeNameResolver = $this->getService(\Rector\NodeNameResolver\NodeNameResolver::class);
     }
     public function dataProvider() : \Iterator
     {
@@ -57,20 +57,20 @@ final class StmtOrderTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilde
         $this->assertSame($this->nodeNameResolver->getName($expectedClass->stmts[1]), $this->nodeNameResolver->getName($classLike->stmts[1]));
         $this->assertSame($this->nodeNameResolver->getName($expectedClass->stmts[2]), $this->nodeNameResolver->getName($classLike->stmts[2]));
     }
-    private function getTestClassNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_
+    private function getTestClassNode() : \PhpParser\Node\Stmt\Class_
     {
-        $class = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_('ClassUnderTest');
-        $class->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty('name')]);
-        $class->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty('service')]);
-        $class->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty('price')]);
+        $class = new \PhpParser\Node\Stmt\Class_('ClassUnderTest');
+        $class->stmts[] = new \PhpParser\Node\Stmt\Property(\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \PhpParser\Node\Stmt\PropertyProperty('name')]);
+        $class->stmts[] = new \PhpParser\Node\Stmt\Property(\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \PhpParser\Node\Stmt\PropertyProperty('service')]);
+        $class->stmts[] = new \PhpParser\Node\Stmt\Property(\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \PhpParser\Node\Stmt\PropertyProperty('price')]);
         return $class;
     }
-    private function getExpectedClassNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_
+    private function getExpectedClassNode() : \PhpParser\Node\Stmt\Class_
     {
-        $expectedClass = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_('ExpectedClass');
-        $expectedClass->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty('name')]);
-        $expectedClass->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty('price')]);
-        $expectedClass->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty('service')]);
+        $expectedClass = new \PhpParser\Node\Stmt\Class_('ExpectedClass');
+        $expectedClass->stmts[] = new \PhpParser\Node\Stmt\Property(\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \PhpParser\Node\Stmt\PropertyProperty('name')]);
+        $expectedClass->stmts[] = new \PhpParser\Node\Stmt\Property(\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \PhpParser\Node\Stmt\PropertyProperty('price')]);
+        $expectedClass->stmts[] = new \PhpParser\Node\Stmt\Property(\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE, [new \PhpParser\Node\Stmt\PropertyProperty('service')]);
         return $expectedClass;
     }
 }

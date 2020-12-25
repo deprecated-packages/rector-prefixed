@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\Expression;
+namespace Rector\DeadCode\Rector\Expression;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Nop;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\Expression\RemoveDeadStmtRector\RemoveDeadStmtRectorTest
  */
-final class RemoveDeadStmtRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class RemoveDeadStmtRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes dead code statements', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes dead code statements', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $value = 5;
 $value;
 CODE_SAMPLE
@@ -32,12 +32,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression::class];
+        return [\PhpParser\Node\Stmt\Expression::class];
     }
     /**
      * @param Expression $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $livingCode = $this->livingCodeManipulator->keepLivingCodeFromExpr($node->expr);
         if ($livingCode === []) {
@@ -46,18 +46,18 @@ CODE_SAMPLE
         $firstExpr = \array_shift($livingCode);
         $node->expr = $firstExpr;
         foreach ($livingCode as $expr) {
-            $newNode = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($expr);
+            $newNode = new \PhpParser\Node\Stmt\Expression($expr);
             $this->addNodeAfterNode($newNode, $node);
         }
         return null;
     }
-    private function removeNodeAndKeepComments(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression $expression) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function removeNodeAndKeepComments(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $expression->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($expression->getComments() !== []) {
-            $nop = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop();
-            $nop->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
+            $nop = new \PhpParser\Node\Stmt\Nop();
+            $nop->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
             $this->phpDocInfoFactory->createFromNode($nop);
             return $nop;
         }

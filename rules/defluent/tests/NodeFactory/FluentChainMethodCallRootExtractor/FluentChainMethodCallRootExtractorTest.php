@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Tests\NodeFactory\FluentChainMethodCallRootExtractor;
+namespace Rector\Defluent\Tests\NodeFactory\FluentChainMethodCallRootExtractor;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\AssignAndRootExpr;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FluentCallsKind;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\TestingParser\TestingParser;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class FluentChainMethodCallRootExtractorTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
+use Rector\Core\HttpKernel\RectorKernel;
+use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor;
+use Rector\Defluent\ValueObject\AssignAndRootExpr;
+use Rector\Defluent\ValueObject\FluentCallsKind;
+use Rector\Testing\TestingParser\TestingParser;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class FluentChainMethodCallRootExtractorTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var FluentChainMethodCallRootExtractor
@@ -23,9 +23,9 @@ final class FluentChainMethodCallRootExtractorTest extends \_PhpScoper2a4e7ab1ec
     private $testingParser;
     protected function setUp() : void
     {
-        $this->bootKernel(\_PhpScoper2a4e7ab1ecbc\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->fluentChainMethodCallRootExtractor = $this->getService(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor::class);
-        $this->testingParser = $this->getService(\_PhpScoper2a4e7ab1ecbc\Rector\Testing\TestingParser\TestingParser::class);
+        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->fluentChainMethodCallRootExtractor = $this->getService(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor::class);
+        $this->testingParser = $this->getService(\Rector\Testing\TestingParser\TestingParser::class);
     }
     public function test() : void
     {
@@ -44,7 +44,7 @@ final class FluentChainMethodCallRootExtractorTest extends \_PhpScoper2a4e7ab1ec
         $this->assertFalse($assignAndRootExpr->isFirstCallFactory());
         $silentVariable = $assignAndRootExpr->getSilentVariable();
         /** @var Variable $silentVariable */
-        $this->assertInstanceOf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable::class, $silentVariable);
+        $this->assertInstanceOf(\PhpParser\Node\Expr\Variable::class, $silentVariable);
         $this->assertIsString($silentVariable->name);
         $this->assertSame('someClassWithFluentMethods', $silentVariable->name);
     }
@@ -53,17 +53,17 @@ final class FluentChainMethodCallRootExtractorTest extends \_PhpScoper2a4e7ab1ec
         $assignAndRootExpr = $this->parseFileAndCreateAssignAndRootExpr(__DIR__ . '/Fixture/skip_non_fluent_nette_container_builder.php.inc');
         $this->assertNull($assignAndRootExpr);
     }
-    private function parseFileAndCreateAssignAndRootExprForSure(string $filePath) : \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\AssignAndRootExpr
+    private function parseFileAndCreateAssignAndRootExprForSure(string $filePath) : \Rector\Defluent\ValueObject\AssignAndRootExpr
     {
         $assignAndRootExpr = $this->parseFileAndCreateAssignAndRootExpr($filePath);
-        $this->assertInstanceOf(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\AssignAndRootExpr::class, $assignAndRootExpr);
+        $this->assertInstanceOf(\Rector\Defluent\ValueObject\AssignAndRootExpr::class, $assignAndRootExpr);
         /** @var AssignAndRootExpr $assignAndRootExpr */
         return $assignAndRootExpr;
     }
-    private function parseFileAndCreateAssignAndRootExpr(string $filePath) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\AssignAndRootExpr
+    private function parseFileAndCreateAssignAndRootExpr(string $filePath) : ?\Rector\Defluent\ValueObject\AssignAndRootExpr
     {
         /** @var MethodCall[] $methodCalls */
-        $methodCalls = $this->testingParser->parseFileToDecoratedNodesAndFindNodesByType($filePath, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class);
-        return $this->fluentChainMethodCallRootExtractor->extractFromMethodCalls($methodCalls, \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FluentCallsKind::NORMAL);
+        $methodCalls = $this->testingParser->parseFileToDecoratedNodesAndFindNodesByType($filePath, \PhpParser\Node\Expr\MethodCall::class);
+        return $this->fluentChainMethodCallRootExtractor->extractFromMethodCalls($methodCalls, \Rector\Defluent\ValueObject\FluentCallsKind::NORMAL);
     }
 }

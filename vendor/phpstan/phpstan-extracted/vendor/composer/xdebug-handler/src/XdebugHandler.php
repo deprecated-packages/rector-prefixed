@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler;
+namespace _HumbugBox221ad6f1b81f\Composer\XdebugHandler;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LoggerInterface;
+use _HumbugBox221ad6f1b81f\Psr\Log\LoggerInterface;
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>
  */
@@ -63,7 +63,7 @@ class XdebugHandler
         if ($this->cli = \PHP_SAPI === 'cli') {
             $this->debug = \getenv(self::DEBUG);
         }
-        $this->statusWriter = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status($this->envAllowXdebug, (bool) $this->debug);
+        $this->statusWriter = new \_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status($this->envAllowXdebug, (bool) $this->debug);
     }
     /**
      * Activates status message output to a PSR3 logger
@@ -72,7 +72,7 @@ class XdebugHandler
      *
      * @return $this
      */
-    public function setLogger(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LoggerInterface $logger)
+    public function setLogger(\_HumbugBox221ad6f1b81f\Psr\Log\LoggerInterface $logger)
     {
         $this->statusWriter->setLogger($logger);
         return $this;
@@ -108,11 +108,11 @@ class XdebugHandler
      */
     public function check()
     {
-        $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::CHECK, $this->loaded);
+        $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::CHECK, $this->loaded);
         $envArgs = \explode('|', (string) \getenv($this->envAllowXdebug));
         if (empty($envArgs[0]) && $this->requiresRestart((bool) $this->loaded)) {
             // Restart required
-            $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::RESTART);
+            $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::RESTART);
             if ($this->prepareRestart()) {
                 $command = $this->getCommand();
                 $this->restart($command);
@@ -121,8 +121,8 @@ class XdebugHandler
         }
         if (self::RESTART_ID === $envArgs[0] && \count($envArgs) === 5) {
             // Restarted, so unset environment variable and use saved values
-            $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::RESTARTED);
-            \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::setEnv($this->envAllowXdebug);
+            $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::RESTARTED);
+            \_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::setEnv($this->envAllowXdebug);
             self::$inRestart = \true;
             if (!$this->loaded) {
                 // Skipped version is only set if Xdebug is not loaded
@@ -133,7 +133,7 @@ class XdebugHandler
             $this->setEnvRestartSettings($envArgs);
             return;
         }
-        $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::NORESTART);
+        $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::NORESTART);
         if ($settings = self::getRestartSettings()) {
             // Called with existing settings, so sync our settings
             $this->syncSettings($settings);
@@ -214,11 +214,11 @@ class XdebugHandler
     private function doRestart($command)
     {
         $this->tryEnableSignals();
-        $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::RESTARTING, $command);
+        $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::RESTARTING, $command);
         \passthru($command, $exitCode);
-        $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::INFO, 'Restarted process exited ' . $exitCode);
+        $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::INFO, 'Restarted process exited ' . $exitCode);
         if ($this->debug === '2') {
-            $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::INFO, 'Temp ini saved: ' . $this->tmpIni);
+            $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::INFO, 'Temp ini saved: ' . $this->tmpIni);
         } else {
             @\unlink($this->tmpIni);
         }
@@ -256,7 +256,7 @@ class XdebugHandler
             $error = 'Unable to set environment variables';
         }
         if ($error) {
-            $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::ERROR, $error);
+            $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::ERROR, $error);
         }
         return empty($error);
     }
@@ -310,13 +310,13 @@ class XdebugHandler
             // Use command-line options
             \array_push($php, '-n', '-c', $this->tmpIni);
         }
-        if (\defined('STDOUT') && \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::supportsColor(\STDOUT)) {
-            $args = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::addColorOption($args, $this->colorOption);
+        if (\defined('STDOUT') && \_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::supportsColor(\STDOUT)) {
+            $args = \_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::addColorOption($args, $this->colorOption);
         }
         $args = \array_merge($php, array($this->script), $args);
-        $cmd = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::escape(\array_shift($args), \true, \true);
+        $cmd = \_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::escape(\array_shift($args), \true, \true);
         foreach ($args as $arg) {
-            $cmd .= ' ' . \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::escape($arg);
+            $cmd .= ' ' . \_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::escape($arg);
         }
         return $cmd;
     }
@@ -411,7 +411,7 @@ class XdebugHandler
     private function setEnvRestartSettings($envArgs)
     {
         $settings = array(\php_ini_loaded_file(), $envArgs[2], $envArgs[3], $envArgs[4], \getenv($this->envOriginalInis), self::$skipped);
-        \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::setEnv(self::RESTART_SETTINGS, \implode('|', $settings));
+        \_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::setEnv(self::RESTART_SETTINGS, \implode('|', $settings));
     }
     /**
      * Syncs settings and the environment if called with existing settings
@@ -422,10 +422,10 @@ class XdebugHandler
     {
         if (\false === \getenv($this->envOriginalInis)) {
             // Called by another app, so make original inis available
-            \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::setEnv($this->envOriginalInis, \implode(\PATH_SEPARATOR, $settings['inis']));
+            \_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Process::setEnv($this->envOriginalInis, \implode(\PATH_SEPARATOR, $settings['inis']));
         }
         self::$skipped = $settings['skipped'];
-        $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::INFO, 'Process called with existing restart settings');
+        $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::INFO, 'Process called with existing restart settings');
     }
     /**
      * Returns true if there are scanned inis and PHP is able to report them
@@ -483,6 +483,6 @@ class XdebugHandler
             \pcntl_signal(\SIGINT, \SIG_DFL);
             $message .= ' (SIGINT = SIG_DFL)';
         }
-        $this->notify(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::INFO, $message);
+        $this->notify(\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\Status::INFO, $message);
     }
 }

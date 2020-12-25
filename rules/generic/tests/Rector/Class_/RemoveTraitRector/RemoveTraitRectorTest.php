@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector;
+namespace Rector\Generic\Tests\Rector\Class_\RemoveTraitRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\Class_\RemoveTraitRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector\Source\TraitToBeRemoved;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveTraitRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Generic\Rector\Class_\RemoveTraitRector;
+use Rector\Generic\Tests\Rector\Class_\RemoveTraitRector\Source\TraitToBeRemoved;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveTraitRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class RemoveTraitRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\Class_\RemoveTraitRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\Class_\RemoveTraitRector::TRAITS_TO_REMOVE => [\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector\Source\TraitToBeRemoved::class]]];
+        return [\Rector\Generic\Rector\Class_\RemoveTraitRector::class => [\Rector\Generic\Rector\Class_\RemoveTraitRector::TRAITS_TO_REMOVE => [\Rector\Generic\Tests\Rector\Class_\RemoveTraitRector\Source\TraitToBeRemoved::class]]];
     }
 }

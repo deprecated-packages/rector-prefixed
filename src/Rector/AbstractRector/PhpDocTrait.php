@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+namespace Rector\Core\Rector\AbstractRector;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator;
+use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -31,37 +31,37 @@ trait PhpDocTrait
     /**
      * @required
      */
-    public function autowirePhpDocTrait(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter $phpDocInfoPrinter, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator $phpDocInfoManipulator) : void
+    public function autowirePhpDocTrait(\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter $phpDocInfoPrinter, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator $phpDocInfoManipulator) : void
     {
         $this->phpDocInfoPrinter = $phpDocInfoPrinter;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->phpDocInfoManipulator = $phpDocInfoManipulator;
     }
-    protected function hasTagByName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $tagName) : bool
+    protected function hasTagByName(\PhpParser\Node $node, string $tagName) : bool
     {
-        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return \false;
         }
         return $phpDocInfo->hasByName($tagName);
     }
-    protected function getPhpDocTagValueNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $phpDocTagNodeClass) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    protected function getPhpDocTagValueNode(\PhpParser\Node $node, string $phpDocTagNodeClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
         return $this->phpDocInfoManipulator->getPhpDocTagValueNode($node, $phpDocTagNodeClass);
     }
-    protected function hasPhpDocTagValueNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $phpDocTagNodeClass) : bool
+    protected function hasPhpDocTagValueNode(\PhpParser\Node $node, string $phpDocTagNodeClass) : bool
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return \false;
         }
         return $phpDocInfo->hasByType($phpDocTagNodeClass);
     }
-    protected function removePhpDocTagValueNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $phpDocTagNodeClass) : void
+    protected function removePhpDocTagValueNode(\PhpParser\Node $node, string $phpDocTagNodeClass) : void
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return;
         }

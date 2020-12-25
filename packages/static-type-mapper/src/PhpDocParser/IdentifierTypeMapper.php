@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\PhpDocParser;
+namespace Rector\StaticTypeMapper\PhpDocParser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ClassStringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
-final class IdentifierTypeMapper implements \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface
+use PhpParser\Node;
+use PHPStan\Analyser\NameScope;
+use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\Type\ClassStringType;
+use PHPStan\Type\IterableType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\StaticType;
+use PHPStan\Type\Type;
+use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
+use Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper;
+use Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType;
+use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
+use Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
+final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface
 {
     /**
      * @var ScalarStringToTypeMapper
@@ -30,22 +30,22 @@ final class IdentifierTypeMapper implements \_PhpScoper2a4e7ab1ecbc\Rector\Stati
      * @var ObjectTypeSpecifier
      */
     private $objectTypeSpecifier;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper)
+    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\StaticTypeMapper\Mapper\ScalarStringToTypeMapper $scalarStringToTypeMapper)
     {
         $this->scalarStringToTypeMapper = $scalarStringToTypeMapper;
         $this->objectTypeSpecifier = $objectTypeSpecifier;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode::class;
+        return \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode::class;
     }
     /**
      * @param AttributeAwareIdentifierTypeNode&IdentifierTypeNode $typeNode
      */
-    public function mapToPHPStanType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $type = $this->scalarStringToTypeMapper->mapScalarStringToType($typeNode->name);
-        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
+        if (!$type instanceof \PHPStan\Type\MixedType) {
             return $type;
         }
         if ($type->isExplicitMixed()) {
@@ -53,7 +53,7 @@ final class IdentifierTypeMapper implements \_PhpScoper2a4e7ab1ecbc\Rector\Stati
         }
         $loweredName = \strtolower($typeNode->name);
         if ($loweredName === 'class-string') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ClassStringType();
+            return new \PHPStan\Type\ClassStringType();
         }
         if ($loweredName === 'self') {
             return $this->mapSelf($node);
@@ -65,37 +65,37 @@ final class IdentifierTypeMapper implements \_PhpScoper2a4e7ab1ecbc\Rector\Stati
             return $this->mapStatic($node);
         }
         if ($loweredName === 'iterable') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType());
+            return new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         }
-        $objectType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($typeNode->name);
+        $objectType = new \PHPStan\Type\ObjectType($typeNode->name);
         return $this->objectTypeSpecifier->narrowToFullyQualifiedOrAliasedObjectType($node, $objectType);
     }
-    private function mapSelf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    private function mapSelf(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         /** @var string|null $className */
-        $className = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             // self outside the class, e.g. in a function
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-        return new \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType($className);
+        return new \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType($className);
     }
-    private function mapParent(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    private function mapParent(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         /** @var string|null $parentClassName */
-        $parentClassName = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         if ($parentClassName === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-        return new \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType($parentClassName);
+        return new \Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType($parentClassName);
     }
-    private function mapStatic(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    private function mapStatic(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         /** @var string|null $className */
-        $className = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+            return new \PHPStan\Type\MixedType();
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticType($className);
+        return new \PHPStan\Type\StaticType($className);
     }
 }

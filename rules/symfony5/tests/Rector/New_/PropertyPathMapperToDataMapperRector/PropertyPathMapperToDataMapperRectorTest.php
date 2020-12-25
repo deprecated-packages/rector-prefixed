@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony5\Tests\Rector\New_\PropertyPathMapperToDataMapperRector;
+namespace Rector\Symfony5\Tests\Rector\New_\PropertyPathMapperToDataMapperRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony5\Rector\New_\PropertyPathMapperToDataMapperRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class PropertyPathMapperToDataMapperRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Symfony5\Rector\New_\PropertyPathMapperToDataMapperRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class PropertyPathMapperToDataMapperRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class PropertyPathMapperToDataMapperRectorTest extends \_PhpScoper2a4e7ab1
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Symfony5\Rector\New_\PropertyPathMapperToDataMapperRector::class;
+        return \Rector\Symfony5\Rector\New_\PropertyPathMapperToDataMapperRector::class;
     }
 }

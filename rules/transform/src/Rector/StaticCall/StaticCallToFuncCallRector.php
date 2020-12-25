@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\StaticCall;
+namespace Rector\Transform\Rector\StaticCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\StaticCallToFuncCall;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name\FullyQualified;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Transform\ValueObject\StaticCallToFuncCall;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\StaticCall\StaticCallToFuncCallRector\StaticCallToFuncCallRectorTest
  */
-final class StaticCallToFuncCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class StaticCallToFuncCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -33,21 +33,21 @@ final class StaticCallToFuncCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Co
     {
         $this->staticCallsToFunctions = $staticCallToFunctions;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns static call to function call.', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('OldClass::oldMethod("args");', 'new_function("args");', [self::STATIC_CALLS_TO_FUNCTIONS => [new \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\StaticCallToFuncCall('OldClass', 'oldMethod', 'new_function')]])]);
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns static call to function call.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('OldClass::oldMethod("args");', 'new_function("args");', [self::STATIC_CALLS_TO_FUNCTIONS => [new \Rector\Transform\ValueObject\StaticCallToFuncCall('OldClass', 'oldMethod', 'new_function')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->staticCallsToFunctions as $staticCallsToFunctions) {
             if (!$this->isObjectType($node, $staticCallsToFunctions->getClass())) {
@@ -56,14 +56,14 @@ final class StaticCallToFuncCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Co
             if (!$this->isName($node->name, $staticCallsToFunctions->getMethod())) {
                 continue;
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($staticCallsToFunctions->getFunction()), $node->args);
+            return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified($staticCallsToFunctions->getFunction()), $node->args);
         }
         return null;
     }
     public function configure(array $configuration) : void
     {
         $staticCallsToFunctions = $configuration[self::STATIC_CALLS_TO_FUNCTIONS] ?? [];
-        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToFunctions, \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\StaticCallToFuncCall::class);
+        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToFunctions, \Rector\Transform\ValueObject\StaticCallToFuncCall::class);
         $this->staticCallsToFunctions = $staticCallsToFunctions;
     }
 }

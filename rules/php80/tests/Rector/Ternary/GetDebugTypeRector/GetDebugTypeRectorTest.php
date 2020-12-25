@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\Tests\Rector\Ternary\GetDebugTypeRector;
+namespace Rector\Php80\Tests\Rector\Ternary\GetDebugTypeRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\Ternary\GetDebugTypeRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class GetDebugTypeRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php80\Rector\Ternary\GetDebugTypeRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class GetDebugTypeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class GetDebugTypeRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testin
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\Ternary\GetDebugTypeRector::class;
+        return \Rector\Php80\Rector\Ternary\GetDebugTypeRector::class;
     }
 }

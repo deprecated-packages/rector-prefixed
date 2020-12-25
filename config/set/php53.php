@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\AssignRef\ClearReturnNewByReferenceRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\FuncCall\DirNameFileConstantToDirConstantRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\Ternary\TernaryToElvisRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\Variable\ReplaceHttpServerVarsByServerRector;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Rector\Php53\Rector\AssignRef\ClearReturnNewByReferenceRector;
+use Rector\Php53\Rector\FuncCall\DirNameFileConstantToDirConstantRector;
+use Rector\Php53\Rector\Ternary\TernaryToElvisRector;
+use Rector\Php53\Rector\Variable\ReplaceHttpServerVarsByServerRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\Ternary\TernaryToElvisRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\FuncCall\DirNameFileConstantToDirConstantRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\AssignRef\ClearReturnNewByReferenceRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\Variable\ReplaceHttpServerVarsByServerRector::class);
+    $services->set(\Rector\Php53\Rector\Ternary\TernaryToElvisRector::class);
+    $services->set(\Rector\Php53\Rector\FuncCall\DirNameFileConstantToDirConstantRector::class);
+    $services->set(\Rector\Php53\Rector\AssignRef\ClearReturnNewByReferenceRector::class);
+    $services->set(\Rector\Php53\Rector\Variable\ReplaceHttpServerVarsByServerRector::class);
 };

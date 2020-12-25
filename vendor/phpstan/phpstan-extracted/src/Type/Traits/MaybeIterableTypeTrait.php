@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits;
+namespace PHPStan\Type\Traits;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
 trait MaybeIterableTypeTrait
 {
-    public function isIterable() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isIterable() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isIterableAtLeastOnce() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getIterableKeyType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getIterableKeyType() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+        return new \PHPStan\Type\MixedType();
     }
-    public function getIterableValueType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getIterableValueType() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+        return new \PHPStan\Type\MixedType();
     }
 }

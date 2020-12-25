@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker;
+namespace Rector\VendorLocker\NodeVendorLocker;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Interface_;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
-final class ClassMethodVendorLockResolver extends \_PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+final class ClassMethodVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
     /**
      * Checks for:
@@ -18,12 +18,12 @@ final class ClassMethodVendorLockResolver extends \_PhpScoper2a4e7ab1ecbc\Rector
      * Prevent:
      * - removing class methods, that breaks the code
      */
-    public function isRemovalVendorLocked(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isRemovalVendorLocked(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         /** @var string $classMethodName */
         $classMethodName = $this->nodeNameResolver->getName($classMethod);
         /** @var Class_|Interface_|null $classLike */
-        $classLike = $classMethod->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return \false;
         }
@@ -34,7 +34,7 @@ final class ClassMethodVendorLockResolver extends \_PhpScoper2a4e7ab1ecbc\Rector
             return \false;
         }
         /** @var string $className */
-        $className = $classMethod->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var string[] $classParents */
         $classParents = (array) \class_parents($className);
         foreach ($classParents as $classParent) {

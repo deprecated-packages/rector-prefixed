@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source;
+namespace Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source;
 
 final class SomeModelType
 {
-    public function makeEntity() : \_PhpScoper2a4e7ab1ecbc\Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\Entity
+    public function makeEntity() : \Rector\CakePHP\Tests\Rector\MethodCall\ModalToGetSetRector\Source\Entity
     {
     }
 }

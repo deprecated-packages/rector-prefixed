@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Carbon\Rector\MethodCall;
+namespace Rector\Carbon\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://carbon.nesbot.com/docs/#api-carbon-2
  *
  * @see \Rector\Carbon\Tests\Rector\MethodCall\ChangeDiffForHumansArgsRector\ChangeDiffForHumansArgsRectorTest
  */
-final class ChangeDiffForHumansArgsRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ChangeDiffForHumansArgsRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoper2a4e7ab1ecbc\\Change methods arguments of diffForHumans() on Carbon\\Carbon', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoper50d83356d739\\Change methods arguments of diffForHumans() on Carbon\\Carbon', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Carbon\Carbon;
 
 final class SomeClass
@@ -50,14 +50,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, '_PhpScoper2a4e7ab1ecbc\\Carbon\\Carbon', 'diffForHumans')) {
+        if (!$this->isOnClassMethodCall($node, '_PhpScoper50d83356d739\\Carbon\\Carbon', 'diffForHumans')) {
             return null;
         }
         if (!isset($node->args[1])) {
@@ -65,11 +65,11 @@ CODE_SAMPLE
         }
         $secondArgValue = $node->args[1]->value;
         if ($this->isTrue($secondArgValue)) {
-            $node->args[1]->value = $this->createClassConstFetch('_PhpScoper2a4e7ab1ecbc\\Carbon\\CarbonInterface', 'DIFF_ABSOLUTE');
+            $node->args[1]->value = $this->createClassConstFetch('_PhpScoper50d83356d739\\Carbon\\CarbonInterface', 'DIFF_ABSOLUTE');
             return $node;
         }
         if ($this->isFalse($secondArgValue)) {
-            $node->args[1]->value = $this->createClassConstFetch('_PhpScoper2a4e7ab1ecbc\\Carbon\\CarbonInterface', 'DIFF_RELATIVE_AUTO');
+            $node->args[1]->value = $this->createClassConstFetch('_PhpScoper50d83356d739\\Carbon\\CarbonInterface', 'DIFF_RELATIVE_AUTO');
             return $node;
         }
         return null;

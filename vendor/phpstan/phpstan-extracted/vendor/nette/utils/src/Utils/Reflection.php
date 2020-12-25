@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils;
+namespace _HumbugBox221ad6f1b81f\Nette\Utils;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f\Nette;
 /**
  * PHP reflection helpers.
  */
@@ -148,7 +148,7 @@ final class Reflection
         } elseif ($ref instanceof \ReflectionParameter) {
             return '$' . $ref->name . ' in ' . self::toString($ref->getDeclaringFunction()) . '()';
         } else {
-            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException();
+            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException();
         }
     }
     /**
@@ -160,7 +160,7 @@ final class Reflection
     {
         $lower = \strtolower($name);
         if (empty($name)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Class name must not be empty.');
+            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Class name must not be empty.');
         } elseif (isset(self::BUILTIN_TYPES[$lower])) {
             return $lower;
         } elseif ($lower === 'self' || $lower === 'static') {
@@ -184,7 +184,7 @@ final class Reflection
     public static function getUseStatements(\ReflectionClass $class) : array
     {
         if ($class->isAnonymous()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\NotImplementedException('Anonymous classes are not supported.');
+            throw new \_HumbugBox221ad6f1b81f\Nette\NotImplementedException('Anonymous classes are not supported.');
         }
         static $cache = [];
         if (!isset($cache[$name = $class->name])) {
@@ -210,7 +210,7 @@ final class Reflection
         }
         $namespace = $class = $classLevel = $level = null;
         $res = $uses = [];
-        $nameTokens = \PHP_VERSION_ID < 80000 ? [\T_STRING, \T_NS_SEPARATOR] : [\T_STRING, \T_NS_SEPARATOR, \T_NAME_QUALIFIED, \T_NAME_FULLY_QUALIFIED];
+        $nameTokens = \PHP_VERSION_ID < 80000 ? [\T_STRING, \T_NS_SEPARATOR] : [\T_STRING, \T_NS_SEPARATOR, T_NAME_QUALIFIED, T_NAME_FULLY_QUALIFIED];
         while ($token = \current($tokens)) {
             \next($tokens);
             switch (\is_array($token) ? $token[0] : $token) {

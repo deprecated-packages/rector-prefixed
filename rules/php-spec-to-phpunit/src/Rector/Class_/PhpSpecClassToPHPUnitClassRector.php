@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Rector\Class_;
+namespace Rector\PhpSpecToPHPUnit\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\LetManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming;
-use _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Name;
+use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
+use PHPStan\Type\ObjectType;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use Rector\PhpSpecToPHPUnit\LetManipulator;
+use Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming;
+use Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
+use Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
 /**
  * @see \Rector\PhpSpecToPHPUnit\Tests\Rector\Variable\PhpSpecToPHPUnitRector\PhpSpecToPHPUnitRectorTest
  */
-final class PhpSpecClassToPHPUnitClassRector extends \_PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
+final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector
 {
     /**
      * @var ObjectType
@@ -46,7 +46,7 @@ final class PhpSpecClassToPHPUnitClassRector extends \_PhpScoper2a4e7ab1ecbc\Rec
      * @var SetUpClassMethodFactory
      */
     private $setUpClassMethodFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\LetManipulator $letManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming, \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \Rector\PhpSpecToPHPUnit\LetManipulator $letManipulator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming, \Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory $setUpClassMethodFactory)
     {
         $this->phpSpecRenaming = $phpSpecRenaming;
         $this->letManipulator = $letManipulator;
@@ -58,12 +58,12 @@ final class PhpSpecClassToPHPUnitClassRector extends \_PhpScoper2a4e7ab1ecbc\Rec
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInPhpSpecBehavior($node)) {
             return null;
@@ -74,7 +74,7 @@ final class PhpSpecClassToPHPUnitClassRector extends \_PhpScoper2a4e7ab1ecbc\Rec
         $this->phpSpecRenaming->renameClass($node);
         $this->phpSpecRenaming->renameExtends($node);
         $testedClass = $this->phpSpecRenaming->resolveTestedClass($node);
-        $this->testedObjectType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($testedClass);
+        $this->testedObjectType = new \PHPStan\Type\ObjectType($testedClass);
         $this->classInsertManipulator->addPropertyToClass($node, $propertyName, $this->testedObjectType);
         $classMethod = $node->getMethod('let');
         // add let if missing
@@ -87,21 +87,21 @@ final class PhpSpecClassToPHPUnitClassRector extends \_PhpScoper2a4e7ab1ecbc\Rec
         }
         return $this->removeSelfTypeMethod($node);
     }
-    private function createLetClassMethod(string $propertyName) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod
+    private function createLetClassMethod(string $propertyName) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $propertyFetch = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this'), $propertyName);
+        $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
         $testedObjectType = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($this->testedObjectType);
-        if (!$testedObjectType instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+        if (!$testedObjectType instanceof \PhpParser\Node\Name) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $new = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_($testedObjectType);
-        $assign = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($propertyFetch, $new);
+        $new = new \PhpParser\Node\Expr\New_($testedObjectType);
+        $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $new);
         return $this->setUpClassMethodFactory->createSetUpMethod([$assign]);
     }
     /**
      * This is already checked on construction of object
      */
-    private function removeSelfTypeMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_
+    private function removeSelfTypeMethod(\PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getMethods() as $classMethod) {
             $classMethodStmts = (array) $classMethod->stmts;
@@ -109,7 +109,7 @@ final class PhpSpecClassToPHPUnitClassRector extends \_PhpScoper2a4e7ab1ecbc\Rec
                 continue;
             }
             $innerClassMethodStmt = $this->resolveFirstNonExpressionStmt($classMethodStmts);
-            if (!$innerClassMethodStmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+            if (!$innerClassMethodStmt instanceof \PhpParser\Node\Expr\MethodCall) {
                 continue;
             }
             if (!$this->isName($innerClassMethodStmt->name, 'shouldHaveType')) {
@@ -127,13 +127,13 @@ final class PhpSpecClassToPHPUnitClassRector extends \_PhpScoper2a4e7ab1ecbc\Rec
     /**
      * @param Stmt[] $stmts
      */
-    private function resolveFirstNonExpressionStmt(array $stmts) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function resolveFirstNonExpressionStmt(array $stmts) : ?\PhpParser\Node
     {
         if (!isset($stmts[0])) {
             return null;
         }
         $firstStmt = $stmts[0];
-        if ($firstStmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        if ($firstStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return $firstStmt->expr;
         }
         return $firstStmt;

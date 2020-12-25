@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\FileSystem;
+namespace Rector\RectorGenerator\FileSystem;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Json;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper50d83356d739\Nette\Utils\Json;
+use Symplify\SmartFileSystem\SmartFileSystem;
 final class JsonFileSystem
 {
     /**
@@ -15,7 +15,7 @@ final class JsonFileSystem
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\FileSystem\JsonStringFormatter $jsonStringFormatter, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\Rector\RectorGenerator\FileSystem\JsonStringFormatter $jsonStringFormatter, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->jsonStringFormatter = $jsonStringFormatter;
         $this->smartFileSystem = $smartFileSystem;
@@ -26,14 +26,14 @@ final class JsonFileSystem
     public function loadFileToJson(string $filePath) : array
     {
         $fileContent = $this->smartFileSystem->readFile($filePath);
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::decode($fileContent, \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::FORCE_ARRAY);
+        return \_PhpScoper50d83356d739\Nette\Utils\Json::decode($fileContent, \_PhpScoper50d83356d739\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param mixed[] $json
      */
     public function saveJsonToFile(string $filePath, array $json) : void
     {
-        $content = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::encode($json, \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::PRETTY);
+        $content = \_PhpScoper50d83356d739\Nette\Utils\Json::encode($json, \_PhpScoper50d83356d739\Nette\Utils\Json::PRETTY);
         $content = $this->jsonStringFormatter->inlineSections($content, ['keywords', 'bin']);
         $content = $this->jsonStringFormatter->inlineAuthors($content);
         // make sure there is newline in the end

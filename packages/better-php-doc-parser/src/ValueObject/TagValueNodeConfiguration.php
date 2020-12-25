@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject;
+namespace Rector\BetterPhpDocParser\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
 final class TagValueNodeConfiguration
 {
     /**
@@ -123,6 +123,6 @@ final class TagValueNodeConfiguration
         if ($this->originalContent === null) {
             return \false;
         }
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($this->originalContent, $needle);
+        return \_PhpScoper50d83356d739\Nette\Utils\Strings::contains($this->originalContent, $needle);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic;
+namespace PHPStan\Type\Generic;
 
 class TemplateTypeReference
 {
@@ -9,16 +9,16 @@ class TemplateTypeReference
     private $type;
     /** @var TemplateTypeVariance */
     private $positionVariance;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance $positionVariance)
+    public function __construct(\PHPStan\Type\Generic\TemplateType $type, \PHPStan\Type\Generic\TemplateTypeVariance $positionVariance)
     {
         $this->type = $type;
         $this->positionVariance = $positionVariance;
     }
-    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType
+    public function getType() : \PHPStan\Type\Generic\TemplateType
     {
         return $this->type;
     }
-    public function getPositionVariance() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance
+    public function getPositionVariance() : \PHPStan\Type\Generic\TemplateTypeVariance
     {
         return $this->positionVariance;
     }

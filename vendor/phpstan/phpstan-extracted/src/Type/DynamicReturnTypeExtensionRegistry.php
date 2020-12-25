@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
+namespace PHPStan\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BrokerAwareExtension;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\BrokerAwareExtension;
+use PHPStan\Reflection\ReflectionProvider;
 class DynamicReturnTypeExtensionRegistry
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
@@ -27,10 +27,10 @@ class DynamicReturnTypeExtensionRegistry
      * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
      * @param \PHPStan\Type\DynamicFunctionReturnTypeExtension[] $dynamicFunctionReturnTypeExtensions
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker $broker, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $dynamicMethodReturnTypeExtensions, array $dynamicStaticMethodReturnTypeExtensions, array $dynamicFunctionReturnTypeExtensions)
+    public function __construct(\PHPStan\Broker\Broker $broker, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $dynamicMethodReturnTypeExtensions, array $dynamicStaticMethodReturnTypeExtensions, array $dynamicFunctionReturnTypeExtensions)
     {
         foreach (\array_merge($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions, $dynamicFunctionReturnTypeExtensions) as $extension) {
-            if (!$extension instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BrokerAwareExtension) {
+            if (!$extension instanceof \PHPStan\Reflection\BrokerAwareExtension) {
                 continue;
             }
             $extension->setBroker($broker);

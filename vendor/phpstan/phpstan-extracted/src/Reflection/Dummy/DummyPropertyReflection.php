@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Dummy;
+namespace PHPStan\Reflection\Dummy;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class DummyPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+class DummyPropertyReflection implements \PHPStan\Reflection\PropertyReflection
 {
-    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
-        $broker = \_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::getInstance();
+        $broker = \PHPStan\Broker\Broker::getInstance();
         return $broker->getClass(\stdClass::class);
     }
     public function isStatic() : bool
@@ -28,13 +28,13 @@ class DummyPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
     {
         return \true;
     }
-    public function getReadableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getReadableType() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+        return new \PHPStan\Type\MixedType();
     }
-    public function getWritableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getWritableType() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+        return new \PHPStan\Type\MixedType();
     }
     public function canChangeTypeAfterAssignment() : bool
     {
@@ -48,17 +48,17 @@ class DummyPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
     {
         return \true;
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

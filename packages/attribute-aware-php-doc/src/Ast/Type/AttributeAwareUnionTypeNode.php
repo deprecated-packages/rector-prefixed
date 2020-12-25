@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\Type;
+namespace Rector\AttributeAwarePhpDoc\Ast\Type;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareUnionTypeNode extends \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode implements \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
+use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+final class AttributeAwareUnionTypeNode extends \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
 {
     use AttributeTrait;
     /**
@@ -26,7 +26,7 @@ final class AttributeAwareUnionTypeNode extends \_PhpScoper2a4e7ab1ecbc\PHPStan\
     public function __construct(array $types, string $originalContent = '')
     {
         parent::__construct($types);
-        $this->isWrappedWithBrackets = (bool) \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($originalContent, self::BRACKET_WRAPPING_REGEX);
+        $this->isWrappedWithBrackets = (bool) \_PhpScoper50d83356d739\Nette\Utils\Strings::match($originalContent, self::BRACKET_WRAPPING_REGEX);
     }
     /**
      * Preserve common format

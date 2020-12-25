@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\Tests\Rector\If_\NullsafeOperatorRector;
+namespace Rector\Php80\Tests\Rector\If_\NullsafeOperatorRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\If_\NullsafeOperatorRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class NullsafeOperatorRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php80\Rector\If_\NullsafeOperatorRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class NullsafeOperatorRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class NullsafeOperatorRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Te
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php80\Rector\If_\NullsafeOperatorRector::class;
+        return \Rector\Php80\Rector\If_\NullsafeOperatorRector::class;
     }
 }

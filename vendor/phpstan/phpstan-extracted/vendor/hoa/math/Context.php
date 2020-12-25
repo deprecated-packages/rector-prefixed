@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Math;
+namespace Hoa\Math;
 
 /**
  * Class \Hoa\Math\Context.
@@ -83,7 +83,7 @@ class Context
     public function addConstant($name, $value)
     {
         if (\true === $this->_constants->offsetExists($name)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Exception\AlreadyDefinedConstant('Constant %s is already defined.', 0, $name);
+            throw new \Hoa\Math\Exception\AlreadyDefinedConstant('Constant %s is already defined.', 0, $name);
         }
         $this->_constants[$name] = $value;
         return;
@@ -98,7 +98,7 @@ class Context
     public function getConstant($name)
     {
         if (\false === $this->_constants->offsetExists($name)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Exception\UnknownConstant('Constant %s does not exist.', 1, $name);
+            throw new \Hoa\Math\Exception\UnknownConstant('Constant %s does not exist.', 1, $name);
         }
         return $this->_constants[$name];
     }
@@ -123,7 +123,7 @@ class Context
     {
         if (null === $callable) {
             if (\false === \function_exists($name)) {
-                throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Exception\UnknownFunction('Function %s does not exist, cannot add it.', 2, $name);
+                throw new \Hoa\Math\Exception\UnknownFunction('Function %s does not exist, cannot add it.', 2, $name);
             }
             $callable = $name;
         }
@@ -140,7 +140,7 @@ class Context
     public function getFunction($name)
     {
         if (\false === $this->_functions->offsetExists($name)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Exception\UnknownFunction('Function %s does not exist.', 3, $name);
+            throw new \Hoa\Math\Exception\UnknownFunction('Function %s does not exist.', 3, $name);
         }
         return $this->_functions[$name];
     }
@@ -175,7 +175,7 @@ class Context
     public function getVariable($name)
     {
         if (\false === $this->_variables->offsetExists($name)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Exception\UnknownVariable('Variable %s does not exist.', 4, $name);
+            throw new \Hoa\Math\Exception\UnknownVariable('Variable %s does not exist.', 4, $name);
         }
         return $this->_variables[$name]($this);
     }

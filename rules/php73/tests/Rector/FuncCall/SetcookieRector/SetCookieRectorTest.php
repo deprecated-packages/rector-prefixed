@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php73\Tests\Rector\FuncCall\SetcookieRector;
+namespace Rector\Php73\Tests\Rector\FuncCall\SetcookieRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\SetCookieRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class SetCookieRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php73\Rector\FuncCall\SetCookieRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class SetCookieRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class SetCookieRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\P
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\SetCookieRector::class;
+        return \Rector\Php73\Rector\FuncCall\SetCookieRector::class;
     }
 }

@@ -1,41 +1,41 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BetterReflection\SourceStubber;
+namespace PHPStan\Reflection\BetterReflection\SourceStubber;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileReader;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
-class Php8StubsSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+use PHPStan\File\FileReader;
+use PHPStan\Php8StubsMap;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData;
+class Php8StubsSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
 {
     private const DIRECTORY = __DIR__ . '/../../../../vendor/phpstan/php-8-stubs';
     public function hasClass(string $className) : bool
     {
         $className = \strtolower($className);
-        return \array_key_exists($className, \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::CLASSES);
+        return \array_key_exists($className, \PHPStan\Php8StubsMap::CLASSES);
     }
-    public function generateClassStub(string $className) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateClassStub(string $className) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowerClassName = \strtolower($className);
-        if (!\array_key_exists($lowerClassName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::CLASSES)) {
+        if (!\array_key_exists($lowerClassName, \PHPStan\Php8StubsMap::CLASSES)) {
             return null;
         }
-        $relativeFilePath = \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::CLASSES[$lowerClassName];
+        $relativeFilePath = \PHPStan\Php8StubsMap::CLASSES[$lowerClassName];
         $file = self::DIRECTORY . '/' . $relativeFilePath;
-        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData(\_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileReader::read($file), $this->getExtensionFromFilePath($relativeFilePath), $file);
+        return new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData(\PHPStan\File\FileReader::read($file), $this->getExtensionFromFilePath($relativeFilePath), $file);
     }
-    public function generateFunctionStub(string $functionName) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateFunctionStub(string $functionName) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         $lowerFunctionName = \strtolower($functionName);
-        if (!\array_key_exists($lowerFunctionName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::FUNCTIONS)) {
+        if (!\array_key_exists($lowerFunctionName, \PHPStan\Php8StubsMap::FUNCTIONS)) {
             return null;
         }
-        $relativeFilePath = \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::FUNCTIONS[$lowerFunctionName];
+        $relativeFilePath = \PHPStan\Php8StubsMap::FUNCTIONS[$lowerFunctionName];
         $file = self::DIRECTORY . '/' . $relativeFilePath;
-        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData(\_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileReader::read($file), $this->getExtensionFromFilePath($relativeFilePath), $file);
+        return new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData(\PHPStan\File\FileReader::read($file), $this->getExtensionFromFilePath($relativeFilePath), $file);
     }
-    public function generateConstantStub(string $constantName) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateConstantStub(string $constantName) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         return null;
     }

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\TypeMapper;
+namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
-use _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Php\PhpVersionProvider;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-final class ObjectWithoutClassTypeMapper implements \_PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface, \_PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface
+use PhpParser\Node;
+use PhpParser\Node\Name;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
+use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
+use Rector\Core\Php\PhpVersionProvider;
+use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
+use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
+use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+final class ObjectWithoutClassTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface, \Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface
 {
     /**
      * @var PhpVersionProvider
@@ -25,40 +25,40 @@ final class ObjectWithoutClassTypeMapper implements \_PhpScoper2a4e7ab1ecbc\Rect
      * @var PHPStanStaticTypeMapper
      */
     private $phpStanStaticTypeMapper;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }
     public function getNodeClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType::class;
+        return \PHPStan\Type\ObjectWithoutClassType::class;
     }
     /**
      * @param ObjectWithoutClassType $type
      */
-    public function mapToPHPStanPhpDocTypeNode(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('object');
+        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode('object');
     }
     /**
      * @param ObjectWithoutClassType $type
      */
-    public function mapToPhpParserNode(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, ?string $kind = null) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
         $subtractedType = $type->getSubtractedType();
         if ($subtractedType !== null) {
             return $this->phpStanStaticTypeMapper->mapToPhpParserNode($subtractedType);
         }
-        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::OBJECT_TYPE)) {
+        if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::OBJECT_TYPE)) {
             return null;
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('object');
+        return new \PhpParser\Node\Name('object');
     }
-    public function mapToDocString(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $parentType = null) : string
+    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
-        return $type->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly());
+        return $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
     }
-    public function setPHPStanStaticTypeMapper(\_PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }

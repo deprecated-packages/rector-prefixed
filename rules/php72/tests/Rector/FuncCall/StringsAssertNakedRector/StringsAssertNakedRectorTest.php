@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php72\Tests\Rector\FuncCall\StringsAssertNakedRector;
+namespace Rector\Php72\Tests\Rector\FuncCall\StringsAssertNakedRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\FuncCall\StringsAssertNakedRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\Php72\Rector\FuncCall\StringsAssertNakedRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @requires PHP < 8.0
  */
-final class StringsAssertNakedRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class StringsAssertNakedRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class StringsAssertNakedRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\FuncCall\StringsAssertNakedRector::class;
+        return \Rector\Php72\Rector\FuncCall\StringsAssertNakedRector::class;
     }
 }

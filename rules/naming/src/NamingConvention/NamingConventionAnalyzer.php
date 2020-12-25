@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\NamingConvention;
+namespace Rector\Naming\NamingConvention;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use Rector\NodeNameResolver\NodeNameResolver;
 final class NamingConventionAnalyzer
 {
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -28,7 +28,7 @@ final class NamingConventionAnalyzer
      *
      * @param FuncCall|StaticCall|MethodCall $expr
      */
-    public function isCallMatchingVariableName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, string $currentName, string $expectedName) : bool
+    public function isCallMatchingVariableName(\PhpParser\Node\Expr $expr, string $currentName, string $expectedName) : bool
     {
         // skip "$call = $method->call();" based conventions
         $callName = $this->nodeNameResolver->getName($expr->name);
@@ -36,6 +36,6 @@ final class NamingConventionAnalyzer
             return \true;
         }
         // starts with or ends with
-        return (bool) \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($currentName, '#^(' . $expectedName . '|' . $expectedName . '$)#i');
+        return (bool) \_PhpScoper50d83356d739\Nette\Utils\Strings::match($currentName, '#^(' . $expectedName . '|' . $expectedName . '$)#i');
     }
 }

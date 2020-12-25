@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeFactory;
+namespace Rector\PHPUnit\NodeFactory;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Builder\MethodBuilder;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\NodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
-use _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeManipulator\StmtManipulator;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
+use Rector\Core\PhpParser\Builder\MethodBuilder;
+use Rector\Core\PhpParser\Node\NodeFactory;
+use Rector\Core\ValueObject\MethodName;
+use Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator;
+use Rector\PHPUnit\NodeManipulator\StmtManipulator;
 final class SetUpClassMethodFactory
 {
     /**
@@ -26,7 +26,7 @@ final class SetUpClassMethodFactory
      * @var StmtManipulator
      */
     private $stmtManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator $phpUnitTypeDeclarationDecorator, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeManipulator\StmtManipulator $stmtManipulator)
+    public function __construct(\Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator $phpUnitTypeDeclarationDecorator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\PHPUnit\NodeManipulator\StmtManipulator $stmtManipulator)
     {
         $this->phpUnitTypeDeclarationDecorator = $phpUnitTypeDeclarationDecorator;
         $this->nodeFactory = $nodeFactory;
@@ -35,10 +35,10 @@ final class SetUpClassMethodFactory
     /**
      * @param Stmt[]|Expr[] $stmts
      */
-    public function createSetUpMethod(array $stmts) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod
+    public function createSetUpMethod(array $stmts) : \PhpParser\Node\Stmt\ClassMethod
     {
         $stmts = $this->stmtManipulator->normalizeStmts($stmts);
-        $classMethodBuilder = new \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Builder\MethodBuilder(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::SET_UP);
+        $classMethodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder(\Rector\Core\ValueObject\MethodName::SET_UP);
         $classMethodBuilder->makeProtected();
         $classMethodBuilder->addStmt($this->createParentSetUpStaticCall());
         $classMethodBuilder->addStmts($stmts);
@@ -46,9 +46,9 @@ final class SetUpClassMethodFactory
         $this->phpUnitTypeDeclarationDecorator->decorate($classMethod);
         return $classMethod;
     }
-    private function createParentSetUpStaticCall() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression
+    private function createParentSetUpStaticCall() : \PhpParser\Node\Stmt\Expression
     {
-        $parentSetupStaticCall = $this->nodeFactory->createStaticCall('parent', \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::SET_UP);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($parentSetupStaticCall);
+        $parentSetupStaticCall = $this->nodeFactory->createStaticCall('parent', \Rector\Core\ValueObject\MethodName::SET_UP);
+        return new \PhpParser\Node\Stmt\Expression($parentSetupStaticCall);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode;
+namespace PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode;
-class ExportedInterfaceNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use PHPStan\Dependency\ExportedNode;
+class ExportedInterfaceNode implements \PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $name;
@@ -18,13 +18,13 @@ class ExportedInterfaceNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependenc
      * @param ExportedPhpDocNode|null $phpDoc
      * @param string[] $extends
      */
-    public function __construct(string $name, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, array $extends)
+    public function __construct(string $name, ?\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, array $extends)
     {
         $this->name = $name;
         $this->phpDoc = $phpDoc;
         $this->extends = $extends;
     }
-    public function equals(\_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -46,7 +46,7 @@ class ExportedInterfaceNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependenc
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
     {
         return new self($properties['name'], $properties['phpDoc'], $properties['extends']);
     }
@@ -61,8 +61,8 @@ class ExportedInterfaceNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependenc
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
     {
-        return new self($data['name'], $data['phpDoc'] !== null ? \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['extends']);
+        return new self($data['name'], $data['phpDoc'] !== null ? \PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['extends']);
     }
 }

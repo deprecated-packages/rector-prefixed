@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Contract;
+namespace Symplify\Skipper\Contract;
 
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 interface SkipVoterInterface
 {
     /**
@@ -13,5 +13,5 @@ interface SkipVoterInterface
     /**
      * @param string|object $element
      */
-    public function shouldSkip($element, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool;
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool;
 }

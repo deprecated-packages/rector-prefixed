@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Foreach_;
+namespace Rector\CodeQuality\Rector\Foreach_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Name;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Foreach_;
+use PhpParser\Node\Stmt\If_;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Foreach_\SimplifyForeachToArrayFilterRector\SimplifyForeachToArrayFilterRectorTest
  */
-final class SimplifyForeachToArrayFilterRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class SimplifyForeachToArrayFilterRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify foreach with function filtering to array filter', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify foreach with function filtering to array filter', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $directories = [];
 $possibleDirectories = [];
 foreach ($possibleDirectories as $possibleDirectory) {
@@ -43,12 +43,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_::class];
+        return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
      * @param Foreach_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -66,14 +66,14 @@ CODE_SAMPLE
         if (!$this->areNodesEqual($funcCallNode->args[0], $node->valueVar)) {
             return null;
         }
-        if (!$ifNode->stmts[0] instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        if (!$ifNode->stmts[0] instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
         $onlyNodeInIf = $ifNode->stmts[0]->expr;
-        if (!$onlyNodeInIf instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        if (!$onlyNodeInIf instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
-        if (!$onlyNodeInIf->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$onlyNodeInIf->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
         if (!$this->areNodesEqual($onlyNodeInIf->expr, $node->valueVar)) {
@@ -85,12 +85,12 @@ CODE_SAMPLE
         }
         return $this->createAssignNode($node, $name, $onlyNodeInIf->var);
     }
-    private function shouldSkip(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
         if (\count((array) $foreach->stmts) !== 1) {
             return \true;
         }
-        if (!$foreach->stmts[0] instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_) {
+        if (!$foreach->stmts[0] instanceof \PhpParser\Node\Stmt\If_) {
             return \true;
         }
         /** @var If_ $ifNode */
@@ -101,13 +101,13 @@ CODE_SAMPLE
         if ($ifNode->elseifs !== []) {
             return \true;
         }
-        return !$ifNode->cond instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
+        return !$ifNode->cond instanceof \PhpParser\Node\Expr\FuncCall;
     }
-    private function createAssignNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_ $foreach, string $name, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign
+    private function createAssignNode(\PhpParser\Node\Stmt\Foreach_ $foreach, string $name, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : \PhpParser\Node\Expr\Assign
     {
-        $string = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($name);
-        $args = [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($foreach->expr), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($string)];
-        $arrayFilterFuncCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('array_filter'), $args);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($arrayDimFetch->var, $arrayFilterFuncCall);
+        $string = new \PhpParser\Node\Scalar\String_($name);
+        $args = [new \PhpParser\Node\Arg($foreach->expr), new \PhpParser\Node\Arg($string)];
+        $arrayFilterFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('array_filter'), $args);
+        return new \PhpParser\Node\Expr\Assign($arrayDimFetch->var, $arrayFilterFuncCall);
     }
 }

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes;
+namespace PHPStan\Rules\Classes;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\InClassNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleError;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\InClassNode;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements Rule<InClassNode>
  */
-class NonClassAttributeClassRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class NonClassAttributeClassRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\InClassNode::class;
+        return \PHPStan\Node\InClassNode::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $originalNode = $node->getOriginalNode();
         foreach ($originalNode->attrGroups as $attrGroup) {
@@ -35,23 +35,23 @@ class NonClassAttributeClassRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rule
      * @param Scope $scope
      * @return RuleError[]
      */
-    private function check(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    private function check(\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$scope->isInClass()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
         if (!$classReflection->isClass()) {
-            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('Interface cannot be an Attribute class.')->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message('Interface cannot be an Attribute class.')->build()];
         }
         if ($classReflection->isAbstract()) {
-            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Abstract class %s cannot be an Attribute class.', $classReflection->getDisplayName()))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Abstract class %s cannot be an Attribute class.', $classReflection->getDisplayName()))->build()];
         }
         if (!$classReflection->hasConstructor()) {
             return [];
         }
         if (!$classReflection->getConstructor()->isPublic()) {
-            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s constructor must be public.', $classReflection->getDisplayName()))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Attribute class %s constructor must be public.', $classReflection->getDisplayName()))->build()];
         }
         return [];
     }

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules;
+namespace PHPStan\Rules;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeTraverser;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\Generic\TemplateType;
+use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeTraverser;
+use PHPStan\Type\TypeWithClassName;
 class MissingTypehintCheck
 {
     public const TURN_OFF_MISSING_ITERABLE_VALUE_TYPE_TIP = "Consider adding something like <fg=cyan>%s<Foo></> to the PHPDoc.\nYou can turn off this check by setting <fg=cyan>checkMissingIterableValueType: false</> in your <fg=cyan>%%configurationFile%%</>.";
@@ -23,7 +23,7 @@ class MissingTypehintCheck
     private $checkMissingIterableValueType;
     /** @var bool */
     private $checkGenericClassInNonGenericObjectType;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkMissingIterableValueType, bool $checkGenericClassInNonGenericObjectType)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkMissingIterableValueType, bool $checkGenericClassInNonGenericObjectType)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->checkMissingIterableValueType = $checkMissingIterableValueType;
@@ -33,20 +33,20 @@ class MissingTypehintCheck
      * @param \PHPStan\Type\Type $type
      * @return \PHPStan\Type\Type[]
      */
-    public function getIterableTypesWithMissingValueTypehint(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : array
+    public function getIterableTypesWithMissingValueTypehint(\PHPStan\Type\Type $type) : array
     {
         if (!$this->checkMissingIterableValueType) {
             return [];
         }
         $iterablesWithMissingValueTypehint = [];
-        \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeTraverser::map($type, function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, callable $traverse) use(&$iterablesWithMissingValueTypehint) : Type {
-            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType) {
+        \PHPStan\Type\TypeTraverser::map($type, function (\PHPStan\Type\Type $type, callable $traverse) use(&$iterablesWithMissingValueTypehint) : Type {
+            if ($type instanceof \PHPStan\Type\Generic\TemplateType) {
                 return $type;
             }
             if ($type->isIterable()->yes()) {
                 $iterableValue = $type->getIterableValueType();
-                if ($iterableValue instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType && !$iterableValue->isExplicitMixed()) {
-                    if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName && !\in_array($type->getClassName(), self::ITERABLE_GENERIC_CLASS_NAMES, \true) && $this->reflectionProvider->hasClass($type->getClassName())) {
+                if ($iterableValue instanceof \PHPStan\Type\MixedType && !$iterableValue->isExplicitMixed()) {
+                    if ($type instanceof \PHPStan\Type\TypeWithClassName && !\in_array($type->getClassName(), self::ITERABLE_GENERIC_CLASS_NAMES, \true) && $this->reflectionProvider->hasClass($type->getClassName())) {
                         $classReflection = $this->reflectionProvider->getClass($type->getClassName());
                         if ($classReflection->isGeneric()) {
                             return $type;
@@ -64,21 +64,21 @@ class MissingTypehintCheck
      * @param \PHPStan\Type\Type $type
      * @return array<int, array{string, string[]}>
      */
-    public function getNonGenericObjectTypesWithGenericClass(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : array
+    public function getNonGenericObjectTypesWithGenericClass(\PHPStan\Type\Type $type) : array
     {
         if (!$this->checkGenericClassInNonGenericObjectType) {
             return [];
         }
         $objectTypes = [];
-        \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeTraverser::map($type, static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, callable $traverse) use(&$objectTypes) : Type {
-            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType) {
+        \PHPStan\Type\TypeTraverser::map($type, static function (\PHPStan\Type\Type $type, callable $traverse) use(&$objectTypes) : Type {
+            if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
                 $traverse($type);
                 return $type;
             }
-            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType) {
+            if ($type instanceof \PHPStan\Type\Generic\TemplateType) {
                 return $type;
             }
-            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
+            if ($type instanceof \PHPStan\Type\ObjectType) {
                 $classReflection = $type->getClassReflection();
                 if ($classReflection === null) {
                     return $type;
@@ -93,9 +93,9 @@ class MissingTypehintCheck
                 if (!$classReflection->isGeneric()) {
                     return $type;
                 }
-                $resolvedType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($type);
-                if (!$resolvedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
-                    throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                $resolvedType = \PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($type);
+                if (!$resolvedType instanceof \PHPStan\Type\ObjectType) {
+                    throw new \PHPStan\ShouldNotHappenException();
                 }
                 $objectTypes[] = [\sprintf('%s %s', $classReflection->isInterface() ? 'interface' : 'class', $classReflection->getDisplayName(\false)), \array_keys($classReflection->getTemplateTypeMap()->getTypes())];
                 return $type;

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci;
+namespace _HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic;
-class Wercker extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\AbstractCi
+use _HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
+use _HumbugBox221ad6f1b81f\OndraM\CiDetector\Env;
+use _HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic;
+class Wercker extends \_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\AbstractCi
 {
-    public static function isDetected(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('WERCKER') === 'true';
     }
     public function getCiName() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_WERCKER;
+        return \_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_WERCKER;
     }
-    public function isPullRequest() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic::createMaybe();
+        return \_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic::createMaybe();
     }
     public function getBuildNumber() : string
     {

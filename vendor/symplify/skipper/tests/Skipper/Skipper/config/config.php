@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option;
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement;
+use Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense;
+use Symplify\Skipper\ValueObject\Option;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option::SKIP, [
+    $parameters->set(\Symplify\Skipper\ValueObject\Option::SKIP, [
         // windows like path
         '*\\SomeSkipped\\*',
         // elements
-        \_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement::class,
-        \_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense::class,
+        \Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement::class,
+        \Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense::class,
     ]);
 };

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_;
+namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
-final class EmbeddedTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
+final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode
 {
     /**
      * @var string
@@ -17,7 +17,7 @@ final class EmbeddedTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPh
     }
     public function getShortName() : string
     {
-        return '_PhpScoper2a4e7ab1ecbc\\@ORM\\Embedded';
+        return '_PhpScoper50d83356d739\\@ORM\\Embedded';
     }
     public function getClass() : string
     {

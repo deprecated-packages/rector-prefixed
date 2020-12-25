@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap;
+namespace PHPStan\Reflection\SignatureMap;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\Type;
 class ParameterSignature
 {
     /** @var string */
@@ -19,7 +19,7 @@ class ParameterSignature
     private $passedByReference;
     /** @var bool */
     private $variadic;
-    public function __construct(string $name, bool $optional, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $nativeType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic)
+    public function __construct(string $name, bool $optional, \PHPStan\Type\Type $type, \PHPStan\Type\Type $nativeType, \PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic)
     {
         $this->name = $name;
         $this->optional = $optional;
@@ -36,15 +36,15 @@ class ParameterSignature
     {
         return $this->optional;
     }
-    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getType() : \PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function getNativeType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getNativeType() : \PHPStan\Type\Type
     {
         return $this->nativeType;
     }
-    public function passedByReference() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }

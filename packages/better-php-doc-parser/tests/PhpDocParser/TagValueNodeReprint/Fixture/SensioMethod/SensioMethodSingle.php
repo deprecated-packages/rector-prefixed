@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SensioMethod;
+namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SensioMethod;
 
-use _PhpScoper2a4e7ab1ecbc\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use _PhpScoper50d83356d739\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 final class SensioMethodSingle
 {
     /**

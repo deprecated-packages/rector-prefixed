@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall;
+namespace Rector\Generic\Rector\FuncCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\SwapFuncCallArguments;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Generic\ValueObject\SwapFuncCallArguments;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\FuncCall\SwapFuncCallArgumentsRector\SwapFuncCallArgumentsRectorTest
  */
-final class SwapFuncCallArgumentsRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class SwapFuncCallArgumentsRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -24,9 +24,9 @@ final class SwapFuncCallArgumentsRector extends \_PhpScoper2a4e7ab1ecbc\Rector\C
      * @var SwapFuncCallArguments[]
      */
     private $functionArgumentSwaps = [];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Swap arguments in function calls', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Swap arguments in function calls', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run($one, $two)
@@ -44,19 +44,19 @@ final class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::FUNCTION_ARGUMENT_SWAPS => [new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\SwapFuncCallArguments('some_function', [1, 0])]])]);
+, [self::FUNCTION_ARGUMENT_SWAPS => [new \Rector\Generic\ValueObject\SwapFuncCallArguments('some_function', [1, 0])]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->functionArgumentSwaps as $functionArgumentSwap) {
             if (!$this->isName($node, $functionArgumentSwap->getFunction())) {
@@ -78,7 +78,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $functionArgumentSwaps = $configuration[self::FUNCTION_ARGUMENT_SWAPS] ?? [];
-        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::allIsInstanceOf($functionArgumentSwaps, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\SwapFuncCallArguments::class);
+        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($functionArgumentSwaps, \Rector\Generic\ValueObject\SwapFuncCallArguments::class);
         $this->functionArgumentSwaps = $functionArgumentSwaps;
     }
 }

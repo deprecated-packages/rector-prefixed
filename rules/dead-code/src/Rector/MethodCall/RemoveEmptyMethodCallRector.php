@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\MethodCall;
+namespace Rector\DeadCode\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ThisType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Reflection\ClassReflectionToAstResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\If_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\ThisType;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Reflection\ClassReflectionToAstResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DeadCode\Tests\Rector\MethodCall\RemoveEmptyMethodCallRector\RemoveEmptyMethodCallRectorTest
  */
-final class RemoveEmptyMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class RemoveEmptyMethodCallRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassReflectionToAstResolver
      */
     private $classReflectionToAstResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Reflection\ClassReflectionToAstResolver $classReflectionToAstResolver)
+    public function __construct(\Rector\Core\Reflection\ClassReflectionToAstResolver $classReflectionToAstResolver)
     {
         $this->classReflectionToAstResolver = $classReflectionToAstResolver;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove empty method call', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove empty method call', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function callThis()
@@ -59,23 +59,23 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var Scope|null $scope */
-        $scope = $node->var->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $node->var->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
             return null;
         }
         $type = $scope->getType($node->var);
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ThisType) {
+        if ($type instanceof \PHPStan\Type\ThisType) {
             $type = $type->getStaticObjectType();
         }
-        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
+        if (!$type instanceof \PHPStan\Type\ObjectType) {
             return null;
         }
         $class = $this->classReflectionToAstResolver->getClassFromObjectType($type);
@@ -86,17 +86,17 @@ CODE_SAMPLE
             return null;
         }
         // if->cond cannot removed, it has to be replaced with false, see https://3v4l.org/U9S9i
-        $parent = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ && $parent->cond === $node) {
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Stmt\If_ && $parent->cond === $node) {
             return $this->createFalse();
         }
-        if ($parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        if ($parent instanceof \PhpParser\Node\Expr\Assign) {
             return $this->createFalse();
         }
         $this->removeNode($node);
         return $node;
     }
-    private function shouldSkipClassMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function shouldSkipClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         $methodName = $this->getName($methodCall->name);
         if ($methodName === null) {

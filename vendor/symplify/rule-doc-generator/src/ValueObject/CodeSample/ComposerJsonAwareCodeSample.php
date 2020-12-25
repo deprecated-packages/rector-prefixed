@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample;
+namespace Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ComposerJsonAwareCodeSample extends \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+use Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
+final class ComposerJsonAwareCodeSample extends \Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
 {
     /**
      * @var string

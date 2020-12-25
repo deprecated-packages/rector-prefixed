@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper;
+namespace Symplify\Skipper\Tests\Skipper\Skipper;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\HttpKernel\SkipperKernel;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Skipper\Skipper;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\ThreeMan;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class SkipperTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Symplify\Skipper\HttpKernel\SkipperKernel;
+use Symplify\Skipper\Skipper\Skipper;
+use Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement;
+use Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense;
+use Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\ThreeMan;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class SkipperTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var Skipper
@@ -19,15 +19,15 @@ final class SkipperTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\
     private $skipper;
     protected function setUp() : void
     {
-        $this->bootKernelWithConfigs(\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
-        $this->skipper = $this->getService(\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Skipper\Skipper::class);
+        $this->bootKernelWithConfigs(\Symplify\Skipper\HttpKernel\SkipperKernel::class, [__DIR__ . '/config/config.php']);
+        $this->skipper = $this->getService(\Symplify\Skipper\Skipper\Skipper::class);
     }
     /**
      * @dataProvider provideDataShouldSkipFileInfo()
      */
     public function testSkipFileInfo(string $filePath, bool $expectedSkip) : void
     {
-        $smartFileInfo = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo($filePath);
+        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($filePath);
         $resultSkip = $this->skipper->shouldSkipFileInfo($smartFileInfo);
         $this->assertSame($expectedSkip, $resultSkip);
     }
@@ -46,8 +46,8 @@ final class SkipperTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\
     }
     public function provideDataShouldSkipElement() : \Iterator
     {
-        (yield [\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\ThreeMan::class, \false]);
-        (yield [\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense::class, \true]);
-        (yield [new \_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement(), \true]);
+        (yield [\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\ThreeMan::class, \false]);
+        (yield [\Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense::class, \true]);
+        (yield [new \Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement(), \true]);
     }
 }

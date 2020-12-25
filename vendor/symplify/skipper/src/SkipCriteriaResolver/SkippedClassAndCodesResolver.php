@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\SkipCriteriaResolver;
+namespace Symplify\Skipper\SkipCriteriaResolver;
 
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\Skipper\ValueObject\Option;
 final class SkippedClassAndCodesResolver
 {
     /**
@@ -15,7 +15,7 @@ final class SkippedClassAndCodesResolver
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
@@ -27,7 +27,7 @@ final class SkippedClassAndCodesResolver
         if ($this->skippedClassAndCodes !== []) {
             return $this->skippedClassAndCodes;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option::SKIP);
+        $skip = $this->parameterProvider->provideArrayParameter(\Symplify\Skipper\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
             if (\is_int($key)) {

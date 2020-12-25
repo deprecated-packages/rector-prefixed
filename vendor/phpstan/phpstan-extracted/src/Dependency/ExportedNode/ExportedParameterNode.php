@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode;
+namespace PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode;
-class ExportedParameterNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use PHPStan\Dependency\ExportedNode;
+class ExportedParameterNode implements \PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $name;
@@ -25,7 +25,7 @@ class ExportedParameterNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependenc
         $this->variadic = $variadic;
         $this->hasDefault = $hasDefault;
     }
-    public function equals(\_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -36,7 +36,7 @@ class ExportedParameterNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependenc
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
     {
         return new self($properties['name'], $properties['type'], $properties['byRef'], $properties['variadic'], $properties['hasDefault']);
     }
@@ -51,7 +51,7 @@ class ExportedParameterNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependenc
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
     {
         return new self($data['name'], $data['type'], $data['byRef'], $data['variadic'], $data['hasDefault']);
     }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject;
+namespace Rector\BetterPhpDocParser\ValueObject;
 
 final class AroundSpaces
 {

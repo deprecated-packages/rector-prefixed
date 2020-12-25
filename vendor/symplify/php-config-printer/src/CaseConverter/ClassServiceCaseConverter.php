@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\CaseConverter;
+namespace Symplify\PhpConfigPrinter\CaseConverter;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\MethodName;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\VariableName;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\Expression;
+use Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory;
+use Symplify\PhpConfigPrinter\ValueObject\MethodName;
+use Symplify\PhpConfigPrinter\ValueObject\VariableName;
+use Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 /**
  * Handles this part:
  *
@@ -19,7 +19,7 @@ use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
  *     Some:
  *         class: Other <---
  */
-final class ClassServiceCaseConverter implements \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
+final class ClassServiceCaseConverter implements \Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
      * @var ArgsNodeFactory
@@ -29,27 +29,27 @@ final class ClassServiceCaseConverter implements \_PhpScoper2a4e7ab1ecbc\Symplif
      * @var ServiceOptionNodeFactory
      */
     private $serviceOptionNodeFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory)
+    public function __construct(\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->serviceOptionNodeFactory = $serviceOptionNodeFactory;
     }
-    public function convertToMethodCall($key, $values) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression
+    public function convertToMethodCall($key, $values) : \PhpParser\Node\Stmt\Expression
     {
-        $args = $this->argsNodeFactory->createFromValues([$key, $values[\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY]]);
-        $setMethodCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable(\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\VariableName::SERVICES), \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\MethodName::SET, $args);
-        unset($values[\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY]);
+        $args = $this->argsNodeFactory->createFromValues([$key, $values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY]]);
+        $setMethodCall = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable(\Symplify\PhpConfigPrinter\ValueObject\VariableName::SERVICES), \Symplify\PhpConfigPrinter\ValueObject\MethodName::SET, $args);
+        unset($values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY]);
         $setMethodCall = $this->serviceOptionNodeFactory->convertServiceOptionsToNodes($values, $setMethodCall);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($setMethodCall);
+        return new \PhpParser\Node\Stmt\Expression($setMethodCall);
     }
     public function match(string $rootKey, $key, $values) : bool
     {
-        if ($rootKey !== \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::SERVICES) {
+        if ($rootKey !== \Symplify\PhpConfigPrinter\ValueObject\YamlKey::SERVICES) {
             return \false;
         }
         if (\is_array($values) && \count($values) !== 1) {
             return \false;
         }
-        return isset($values[\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY]) && !isset($values[\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::ALIAS]);
+        return isset($values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY]) && !isset($values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::ALIAS]);
     }
 }

@@ -9,29 +9,29 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing a nullable type. The real type is wrapped.
  *
  * @psalm-immutable
  */
-final class Nullable implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+final class Nullable implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
 {
     /** @var Type The actual type that is wrapped */
     private $realType;
     /**
      * Initialises this nullable type using the real type embedded
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $realType)
+    public function __construct(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $realType)
     {
         $this->realType = $realType;
     }
     /**
      * Provide access to the actual type directly, if needed.
      */
-    public function getActualType() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    public function getActualType() : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         return $this->realType;
     }

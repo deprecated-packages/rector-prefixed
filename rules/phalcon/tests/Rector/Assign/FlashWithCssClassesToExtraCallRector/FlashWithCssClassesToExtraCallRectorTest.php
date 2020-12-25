@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Phalcon\Tests\Rector\Assign\FlashWithCssClassesToExtraCallRector;
+namespace Rector\Phalcon\Tests\Rector\Assign\FlashWithCssClassesToExtraCallRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Phalcon\Rector\Assign\FlashWithCssClassesToExtraCallRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class FlashWithCssClassesToExtraCallRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Phalcon\Rector\Assign\FlashWithCssClassesToExtraCallRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class FlashWithCssClassesToExtraCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class FlashWithCssClassesToExtraCallRectorTest extends \_PhpScoper2a4e7ab1
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Phalcon\Rector\Assign\FlashWithCssClassesToExtraCallRector::class;
+        return \Rector\Phalcon\Rector\Assign\FlashWithCssClassesToExtraCallRector::class;
     }
 }

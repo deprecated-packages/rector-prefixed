@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer;
+namespace Rector\Defluent\NodeAnalyzer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class SameClassMethodCallAnalyzer
 {
     /**
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeRepository = $nodeRepository;
     }
@@ -27,8 +27,8 @@ final class SameClassMethodCallAnalyzer
         $classOfClassMethod = [];
         foreach ($chainMethodCalls as $chainMethodCall) {
             $classMethod = $this->nodeRepository->findClassMethodByMethodCall($chainMethodCall);
-            if ($classMethod instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
-                $classOfClassMethod[] = $classMethod->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            if ($classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+                $classOfClassMethod[] = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             } else {
                 $classOfClassMethod[] = null;
             }
@@ -39,7 +39,7 @@ final class SameClassMethodCallAnalyzer
     /**
      * @param string[] $calleeUniqueTypes
      */
-    public function isCorrectTypeCount(array $calleeUniqueTypes, \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface $firstCallFactoryAware) : bool
+    public function isCorrectTypeCount(array $calleeUniqueTypes, \Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface $firstCallFactoryAware) : bool
     {
         if ($calleeUniqueTypes === []) {
             return \false;

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\FuncCall\StrictArraySearchRector;
+namespace Rector\CodingStyle\Tests\Rector\FuncCall\StrictArraySearchRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\FuncCall\StrictArraySearchRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class StrictArraySearchRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\CodingStyle\Rector\FuncCall\StrictArraySearchRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class StrictArraySearchRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class StrictArraySearchRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\T
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\FuncCall\StrictArraySearchRector::class;
+        return \Rector\CodingStyle\Rector\FuncCall\StrictArraySearchRector::class;
     }
 }

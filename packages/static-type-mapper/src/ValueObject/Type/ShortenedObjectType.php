@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type;
+namespace Rector\StaticTypeMapper\ValueObject\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-final class ShortenedObjectType extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType
+use PHPStan\Type\ObjectType;
+final class ShortenedObjectType extends \PHPStan\Type\ObjectType
 {
     /**
      * @var string

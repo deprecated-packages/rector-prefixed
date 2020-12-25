@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall;
+namespace Rector\Php73\Rector\FuncCall;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Php\Regex\RegexPatternArgumentManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Scalar\String_;
+use Rector\Core\Php\Regex\RegexPatternArgumentManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/dRG8U
  * @see \Rector\Php73\Tests\Rector\FuncCall\RegexDashEscapeRector\RegexDashEscapeRectorTest
  */
-final class RegexDashEscapeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class RegexDashEscapeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -33,13 +33,13 @@ final class RegexDashEscapeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Re
      * @var RegexPatternArgumentManipulator
      */
     private $regexPatternArgumentManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Php\Regex\RegexPatternArgumentManipulator $regexPatternArgumentManipulator)
+    public function __construct(\Rector\Core\Php\Regex\RegexPatternArgumentManipulator $regexPatternArgumentManipulator)
     {
         $this->regexPatternArgumentManipulator = $regexPatternArgumentManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Escape - in some cases', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Escape - in some cases', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 preg_match("#[\w-()]#", 'some text');
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -52,12 +52,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param FuncCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $regexArguments = $this->regexPatternArgumentManipulator->matchCallArgumentWithRegexPattern($node);
         if ($regexArguments === []) {
@@ -68,19 +68,19 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function escapeStringNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string) : void
+    private function escapeStringNode(\PhpParser\Node\Scalar\String_ $string) : void
     {
         $stringValue = $string->value;
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX)) {
-            $string->value = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX, '$1\\-');
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::match($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX)) {
+            $string->value = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX, '$1\\-');
             // helped needed to skip re-escaping regular expression
-            $string->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::IS_REGULAR_PATTERN, \true);
+            $string->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_REGULAR_PATTERN, \true);
             return;
         }
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($stringValue, self::RIGHT_HAND_UNESCAPED_DASH_REGEX)) {
-            $string->value = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($stringValue, self::RIGHT_HAND_UNESCAPED_DASH_REGEX, '\\-$1]');
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::match($stringValue, self::RIGHT_HAND_UNESCAPED_DASH_REGEX)) {
+            $string->value = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($stringValue, self::RIGHT_HAND_UNESCAPED_DASH_REGEX, '\\-$1]');
             // helped needed to skip re-escaping regular expression
-            $string->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::IS_REGULAR_PATTERN, \true);
+            $string->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_REGULAR_PATTERN, \true);
         }
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator;
+namespace Rector\RectorGenerator;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemGuard;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\SmartFileSystem\FileSystemGuard;
+use Symplify\SmartFileSystem\SmartFileSystem;
 final class TemplateInitializer
 {
     /**
@@ -20,7 +20,7 @@ final class TemplateInitializer
      * @var FileSystemGuard
      */
     private $fileSystemGuard;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
+    public function __construct(\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->smartFileSystem = $smartFileSystem;

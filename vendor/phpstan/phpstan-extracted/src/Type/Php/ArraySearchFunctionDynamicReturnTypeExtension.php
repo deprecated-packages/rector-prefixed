@@ -1,66 +1,66 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Php;
+namespace PHPStan\Type\Php;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicFunctionReturnTypeExtension;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
-final class ArraySearchFunctionDynamicReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use PhpParser\Node\Expr\FuncCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\DynamicFunctionReturnTypeExtension;
+use PHPStan\Type\IntersectionType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
+final class ArraySearchFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'array_search';
     }
-    public function getTypeFromFunctionCall(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $argsCount = \count($functionCall->args);
         if ($argsCount < 2) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+            return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         }
         $haystackArgType = $scope->getType($functionCall->args[1]->value);
-        $haystackIsArray = (new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType()))->isSuperTypeOf($haystackArgType);
+        $haystackIsArray = (new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType()))->isSuperTypeOf($haystackArgType);
         if ($haystackIsArray->no()) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType();
+            return new \PHPStan\Type\NullType();
         }
         if ($argsCount < 3) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($haystackArgType->getIterableKeyType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false));
+            return \PHPStan\Type\TypeCombinator::union($haystackArgType->getIterableKeyType(), new \PHPStan\Type\Constant\ConstantBooleanType(\false));
         }
         $strictArgType = $scope->getType($functionCall->args[2]->value);
-        if (!$strictArgType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($haystackArgType->getIterableKeyType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType());
+        if (!$strictArgType instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
+            return \PHPStan\Type\TypeCombinator::union($haystackArgType->getIterableKeyType(), new \PHPStan\Type\Constant\ConstantBooleanType(\false), new \PHPStan\Type\NullType());
         } elseif ($strictArgType->getValue() === \false) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($haystackArgType->getIterableKeyType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false));
+            return \PHPStan\Type\TypeCombinator::union($haystackArgType->getIterableKeyType(), new \PHPStan\Type\Constant\ConstantBooleanType(\false));
         }
         $needleArgType = $scope->getType($functionCall->args[0]->value);
         if ($haystackArgType->getIterableValueType()->isSuperTypeOf($needleArgType)->no()) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false);
+            return new \PHPStan\Type\Constant\ConstantBooleanType(\false);
         }
         $typesFromConstantArrays = [];
         if ($haystackIsArray->maybe()) {
-            $typesFromConstantArrays[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType();
+            $typesFromConstantArrays[] = new \PHPStan\Type\NullType();
         }
         $haystackArrays = $this->pickArrays($haystackArgType);
         if (\count($haystackArrays) === 0) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+            return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         }
         $arrays = [];
         $typesFromConstantArraysCount = 0;
         foreach ($haystackArrays as $haystackArray) {
-            if (!$haystackArray instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType) {
+            if (!$haystackArray instanceof \PHPStan\Type\Constant\ConstantArrayType) {
                 $arrays[] = $haystackArray;
                 continue;
             }
@@ -68,50 +68,50 @@ final class ArraySearchFunctionDynamicReturnTypeExtension implements \_PhpScoper
             $typesFromConstantArraysCount++;
         }
         if ($typesFromConstantArraysCount > 0 && \count($haystackArrays) === $typesFromConstantArraysCount) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$typesFromConstantArrays);
+            return \PHPStan\Type\TypeCombinator::union(...$typesFromConstantArrays);
         }
-        $iterableKeyType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$arrays)->getIterableKeyType();
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($iterableKeyType, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false), ...$typesFromConstantArrays);
+        $iterableKeyType = \PHPStan\Type\TypeCombinator::union(...$arrays)->getIterableKeyType();
+        return \PHPStan\Type\TypeCombinator::union($iterableKeyType, new \PHPStan\Type\Constant\ConstantBooleanType(\false), ...$typesFromConstantArrays);
     }
-    private function resolveTypeFromConstantHaystackAndNeedle(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $needle, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType $haystack) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    private function resolveTypeFromConstantHaystackAndNeedle(\PHPStan\Type\Type $needle, \PHPStan\Type\Constant\ConstantArrayType $haystack) : \PHPStan\Type\Type
     {
         $matchesByType = [];
         foreach ($haystack->getValueTypes() as $index => $valueType) {
             $isNeedleSuperType = $valueType->isSuperTypeOf($needle);
             if ($isNeedleSuperType->no()) {
-                $matchesByType[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false);
+                $matchesByType[] = new \PHPStan\Type\Constant\ConstantBooleanType(\false);
                 continue;
             }
-            if ($needle instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType && $valueType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType && $needle->getValue() === $valueType->getValue()) {
+            if ($needle instanceof \PHPStan\Type\ConstantScalarType && $valueType instanceof \PHPStan\Type\ConstantScalarType && $needle->getValue() === $valueType->getValue()) {
                 return $haystack->getKeyTypes()[$index];
             }
             $matchesByType[] = $haystack->getKeyTypes()[$index];
             if (!$isNeedleSuperType->maybe()) {
                 continue;
             }
-            $matchesByType[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false);
+            $matchesByType[] = new \PHPStan\Type\Constant\ConstantBooleanType(\false);
         }
         if (\count($matchesByType) > 0) {
-            if ($haystack->getIterableValueType()->accepts($needle, \true)->yes() && $needle->isSuperTypeOf(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType())->no()) {
-                return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$matchesByType);
+            if ($haystack->getIterableValueType()->accepts($needle, \true)->yes() && $needle->isSuperTypeOf(new \PHPStan\Type\ObjectWithoutClassType())->no()) {
+                return \PHPStan\Type\TypeCombinator::union(...$matchesByType);
             }
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false), ...$matchesByType);
+            return \PHPStan\Type\TypeCombinator::union(new \PHPStan\Type\Constant\ConstantBooleanType(\false), ...$matchesByType);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false);
+        return new \PHPStan\Type\Constant\ConstantBooleanType(\false);
     }
     /**
      * @param Type $type
      * @return Type[]
      */
-    private function pickArrays(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : array
+    private function pickArrays(\PHPStan\Type\Type $type) : array
     {
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+        if ($type instanceof \PHPStan\Type\ArrayType) {
             return [$type];
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType) {
+        if ($type instanceof \PHPStan\Type\UnionType || $type instanceof \PHPStan\Type\IntersectionType) {
             $arrayTypes = [];
             foreach ($type->getTypes() as $innerType) {
-                if (!$innerType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+                if (!$innerType instanceof \PHPStan\Type\ArrayType) {
                     continue;
                 }
                 $arrayTypes[] = $innerType;

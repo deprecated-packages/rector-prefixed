@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Tests\Rector\Switch_\BinarySwitchToIfElseRector;
+namespace Rector\CodingStyle\Tests\Rector\Switch_\BinarySwitchToIfElseRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class BinarySwitchToIfElseRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class BinarySwitchToIfElseRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class BinarySwitchToIfElseRectorTest extends \_PhpScoper2a4e7ab1ecbc\Recto
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class;
+        return \Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class;
     }
 }

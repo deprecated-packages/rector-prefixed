@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class FunctionVariant implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Type;
+class FunctionVariant implements \PHPStan\Reflection\ParametersAcceptor
 {
     /** @var TemplateTypeMap */
     private $templateTypeMap;
@@ -22,7 +22,7 @@ class FunctionVariant implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Para
      * @param bool $isVariadic
      * @param Type $returnType
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, array $parameters, bool $isVariadic, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $returnType)
+    public function __construct(\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, ?\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, array $parameters, bool $isVariadic, \PHPStan\Type\Type $returnType)
     {
         $this->templateTypeMap = $templateTypeMap;
         $this->resolvedTemplateTypeMap = $resolvedTemplateTypeMap;
@@ -30,13 +30,13 @@ class FunctionVariant implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Para
         $this->isVariadic = $isVariadic;
         $this->returnType = $returnType;
     }
-    public function getTemplateTypeMap() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
+    public function getTemplateTypeMap() : \PHPStan\Type\Generic\TemplateTypeMap
     {
         return $this->templateTypeMap;
     }
-    public function getResolvedTemplateTypeMap() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
+    public function getResolvedTemplateTypeMap() : \PHPStan\Type\Generic\TemplateTypeMap
     {
-        return $this->resolvedTemplateTypeMap ?? \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        return $this->resolvedTemplateTypeMap ?? \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
     }
     /**
      * @return array<int, ParameterReflection>
@@ -49,7 +49,7 @@ class FunctionVariant implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Para
     {
         return $this->isVariadic;
     }
-    public function getReturnType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getReturnType() : \PHPStan\Type\Type
     {
         return $this->returnType;
     }

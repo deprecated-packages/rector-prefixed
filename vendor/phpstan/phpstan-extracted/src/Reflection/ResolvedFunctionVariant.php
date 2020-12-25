@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\DummyParameter;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class ResolvedFunctionVariant implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor
+use PHPStan\Reflection\Php\DummyParameter;
+use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Type;
+class ResolvedFunctionVariant implements \PHPStan\Reflection\ParametersAcceptor
 {
     /** @var ParametersAcceptor */
     private $parametersAcceptor;
@@ -17,16 +17,16 @@ class ResolvedFunctionVariant implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
     private $parameters = null;
     /** @var Type|null */
     private $returnType = null;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap)
+    public function __construct(\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, \PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap)
     {
         $this->parametersAcceptor = $parametersAcceptor;
         $this->resolvedTemplateTypeMap = $resolvedTemplateTypeMap;
     }
-    public function getTemplateTypeMap() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
+    public function getTemplateTypeMap() : \PHPStan\Type\Generic\TemplateTypeMap
     {
         return $this->parametersAcceptor->getTemplateTypeMap();
     }
-    public function getResolvedTemplateTypeMap() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
+    public function getResolvedTemplateTypeMap() : \PHPStan\Type\Generic\TemplateTypeMap
     {
         return $this->resolvedTemplateTypeMap;
     }
@@ -34,8 +34,8 @@ class ResolvedFunctionVariant implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
     {
         $parameters = $this->parameters;
         if ($parameters === null) {
-            $parameters = \array_map(function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParameterReflection $param) : ParameterReflection {
-                return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\DummyParameter($param->getName(), \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($param->getType(), $this->resolvedTemplateTypeMap), $param->isOptional(), $param->passedByReference(), $param->isVariadic(), $param->getDefaultValue());
+            $parameters = \array_map(function (\PHPStan\Reflection\ParameterReflection $param) : ParameterReflection {
+                return new \PHPStan\Reflection\Php\DummyParameter($param->getName(), \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($param->getType(), $this->resolvedTemplateTypeMap), $param->isOptional(), $param->passedByReference(), $param->isVariadic(), $param->getDefaultValue());
             }, $this->parametersAcceptor->getParameters());
             $this->parameters = $parameters;
         }
@@ -45,11 +45,11 @@ class ResolvedFunctionVariant implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
     {
         return $this->parametersAcceptor->isVariadic();
     }
-    public function getReturnType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getReturnType() : \PHPStan\Type\Type
     {
         $type = $this->returnType;
         if ($type === null) {
-            $type = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($this->parametersAcceptor->getReturnType(), $this->resolvedTemplateTypeMap);
+            $type = \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($this->parametersAcceptor->getReturnType(), $this->resolvedTemplateTypeMap);
             $this->returnType = $type;
         }
         return $type;

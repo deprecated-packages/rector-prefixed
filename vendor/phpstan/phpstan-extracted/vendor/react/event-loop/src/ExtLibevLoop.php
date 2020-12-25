@@ -1,14 +1,14 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop;
+namespace _HumbugBox221ad6f1b81f\React\EventLoop;
 
 use BadMethodCallException;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\EventLoop;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\IOEvent;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\SignalEvent;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\TimerEvent;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer;
+use _HumbugBox221ad6f1b81f\libev\EventLoop;
+use _HumbugBox221ad6f1b81f\libev\IOEvent;
+use _HumbugBox221ad6f1b81f\libev\SignalEvent;
+use _HumbugBox221ad6f1b81f\libev\TimerEvent;
+use _HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue;
+use _HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-libev` based event loop.
@@ -23,7 +23,7 @@ use SplObjectStorage;
  * @see https://github.com/m4rw3r/php-libev
  * @see https://gist.github.com/1688204
  */
-final class ExtLibevLoop implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface
+final class ExtLibevLoop implements \_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface
 {
     private $loop;
     private $futureTickQueue;
@@ -35,13 +35,13 @@ final class ExtLibevLoop implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b8
     private $signalEvents = array();
     public function __construct()
     {
-        if (!\class_exists('_PhpScoper2a4e7ab1ecbc\\_HumbugBox221ad6f1b81f\\libev\\EventLoop', \false)) {
+        if (!\class_exists('_HumbugBox221ad6f1b81f\\libev\\EventLoop', \false)) {
             throw new \BadMethodCallException('Cannot create ExtLibevLoop, ext-libev extension missing');
         }
-        $this->loop = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\EventLoop();
-        $this->futureTickQueue = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue();
+        $this->loop = new \_HumbugBox221ad6f1b81f\libev\EventLoop();
+        $this->futureTickQueue = new \_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue();
         $this->timerEvents = new \SplObjectStorage();
-        $this->signals = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\SignalsHandler();
+        $this->signals = new \_HumbugBox221ad6f1b81f\React\EventLoop\SignalsHandler();
     }
     public function addReadStream($stream, $listener)
     {
@@ -51,7 +51,7 @@ final class ExtLibevLoop implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b8
         $callback = function () use($stream, $listener) {
             \call_user_func($listener, $stream);
         };
-        $event = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\IOEvent($callback, $stream, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\IOEvent::READ);
+        $event = new \_HumbugBox221ad6f1b81f\libev\IOEvent($callback, $stream, \_HumbugBox221ad6f1b81f\libev\IOEvent::READ);
         $this->loop->add($event);
         $this->readEvents[(int) $stream] = $event;
     }
@@ -63,7 +63,7 @@ final class ExtLibevLoop implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b8
         $callback = function () use($stream, $listener) {
             \call_user_func($listener, $stream);
         };
-        $event = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\IOEvent($callback, $stream, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\IOEvent::WRITE);
+        $event = new \_HumbugBox221ad6f1b81f\libev\IOEvent($callback, $stream, \_HumbugBox221ad6f1b81f\libev\IOEvent::WRITE);
         $this->loop->add($event);
         $this->writeEvents[(int) $stream] = $event;
     }
@@ -87,7 +87,7 @@ final class ExtLibevLoop implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b8
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $that = $this;
         $timers = $this->timerEvents;
         $callback = function () use($timer, $timers, $that) {
@@ -96,23 +96,23 @@ final class ExtLibevLoop implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b8
                 $that->cancelTimer($timer);
             }
         };
-        $event = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\TimerEvent($callback, $timer->getInterval());
+        $event = new \_HumbugBox221ad6f1b81f\libev\TimerEvent($callback, $timer->getInterval());
         $this->timerEvents->attach($timer, $event);
         $this->loop->add($event);
         return $timer;
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $callback = function () use($timer) {
             \call_user_func($timer->getCallback(), $timer);
         };
-        $event = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\TimerEvent($callback, $interval, $interval);
+        $event = new \_HumbugBox221ad6f1b81f\libev\TimerEvent($callback, $interval, $interval);
         $this->timerEvents->attach($timer, $event);
         $this->loop->add($event);
         return $timer;
     }
-    public function cancelTimer(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
+    public function cancelTimer(\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
     {
         if (isset($this->timerEvents[$timer])) {
             $this->loop->remove($this->timerEvents[$timer]);
@@ -128,7 +128,7 @@ final class ExtLibevLoop implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b8
         $this->signals->add($signal, $listener);
         if (!isset($this->signalEvents[$signal])) {
             $signals = $this->signals;
-            $this->signalEvents[$signal] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\SignalEvent(function () use($signals, $signal) {
+            $this->signalEvents[$signal] = new \_HumbugBox221ad6f1b81f\libev\SignalEvent(function () use($signals, $signal) {
                 $signals->call($signal);
             }, $signal);
             $this->loop->add($this->signalEvents[$signal]);
@@ -148,9 +148,9 @@ final class ExtLibevLoop implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b8
         $this->running = \true;
         while ($this->running) {
             $this->futureTickQueue->tick();
-            $flags = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\EventLoop::RUN_ONCE;
+            $flags = \_HumbugBox221ad6f1b81f\libev\EventLoop::RUN_ONCE;
             if (!$this->running || !$this->futureTickQueue->isEmpty()) {
-                $flags |= \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\libev\EventLoop::RUN_NOWAIT;
+                $flags |= \_HumbugBox221ad6f1b81f\libev\EventLoop::RUN_NOWAIT;
             } elseif (!$this->readEvents && !$this->writeEvents && !$this->timerEvents->count() && $this->signals->isEmpty()) {
                 break;
             }

@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Mixin;
+namespace PHPStan\Reflection\Mixin;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class MixinMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
+use PHPStan\Reflection\ClassMemberReflection;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Type;
+class MixinMethodReflection implements \PHPStan\Reflection\MethodReflection
 {
     /** @var MethodReflection */
     private $reflection;
     /** @var bool */
     private $static;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $reflection, bool $static)
+    public function __construct(\PHPStan\Reflection\MethodReflection $reflection, bool $static)
     {
         $this->reflection = $reflection;
         $this->static = $static;
     }
-    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
         return $this->reflection->getDeclaringClass();
     }
@@ -43,7 +43,7 @@ class MixinMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflectio
     {
         return $this->reflection->getName();
     }
-    public function getPrototype() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
     {
         return $this->reflection->getPrototype();
     }
@@ -51,7 +51,7 @@ class MixinMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflectio
     {
         return $this->reflection->getVariants();
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
@@ -59,19 +59,19 @@ class MixinMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflectio
     {
         return $this->reflection->getDeprecatedDescription();
     }
-    public function isFinal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isFinal() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isFinal();
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isInternal();
     }
-    public function getThrowType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getThrowType() : ?\PHPStan\Type\Type
     {
         return $this->reflection->getThrowType();
     }
-    public function hasSideEffects() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->hasSideEffects();
     }

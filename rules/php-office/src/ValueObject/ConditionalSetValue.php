@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPOffice\ValueObject;
+namespace Rector\PHPOffice\ValueObject;
 
 final class ConditionalSetValue
 {

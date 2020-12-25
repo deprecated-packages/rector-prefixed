@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\ClassMethod;
+namespace Rector\CodingStyle\Rector\ClassMethod;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\Closure;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
+use PhpParser\Node\Stmt\Nop;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\ClassMethod\NewlineBeforeNewAssignSetRector\NewlineBeforeNewAssignSetRectorTest
  */
-final class NewlineBeforeNewAssignSetRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class NewlineBeforeNewAssignSetRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string|null
@@ -28,9 +28,9 @@ final class NewlineBeforeNewAssignSetRector extends \_PhpScoper2a4e7ab1ecbc\Rect
      * @var string|null
      */
     private $previousPreviousStmtVariableName;
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add extra space before new assign set', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add extra space before new assign set', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -62,12 +62,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Expr\Closure::class];
     }
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->reset();
         $hasChanged = \false;
@@ -77,7 +77,7 @@ CODE_SAMPLE
                 $hasChanged = \true;
                 // insert newline before
                 $stmts = (array) $node->stmts;
-                \array_splice($stmts, $key, 0, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop()]);
+                \array_splice($stmts, $key, 0, [new \PhpParser\Node\Stmt\Nop()]);
                 $node->stmts = $stmts;
             }
             $this->previousPreviousStmtVariableName = $this->previousStmtVariableName;
@@ -90,14 +90,14 @@ CODE_SAMPLE
         $this->previousStmtVariableName = null;
         $this->previousPreviousStmtVariableName = null;
     }
-    private function resolveCurrentStmtVariableName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt $stmt) : ?string
+    private function resolveCurrentStmtVariableName(\PhpParser\Node\Stmt $stmt) : ?string
     {
         $stmt = $this->unwrapExpression($stmt);
-        if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign || $stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+        if ($stmt instanceof \PhpParser\Node\Expr\Assign || $stmt instanceof \PhpParser\Node\Expr\MethodCall) {
             if ($this->shouldSkipLeftVariable($stmt)) {
                 return null;
             }
-            if (!$stmt->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall && !$stmt->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall) {
+            if (!$stmt->var instanceof \PhpParser\Node\Expr\MethodCall && !$stmt->var instanceof \PhpParser\Node\Expr\StaticCall) {
                 return $this->getName($stmt->var);
             }
         }
@@ -106,7 +106,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    private function shouldAddEmptyLine(?string $currentStmtVariableName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, int $key) : bool
+    private function shouldAddEmptyLine(?string $currentStmtVariableName, \PhpParser\Node $node, int $key) : bool
     {
         if (!$this->isNewVariableThanBefore($currentStmtVariableName)) {
             return \false;
@@ -117,7 +117,7 @@ CODE_SAMPLE
     /**
      * @param Assign|MethodCall $node
      */
-    private function shouldSkipLeftVariable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    private function shouldSkipLeftVariable(\PhpParser\Node $node) : bool
     {
         // local method call
         return $this->isVariableName($node->var, 'this');
@@ -141,7 +141,7 @@ CODE_SAMPLE
     /**
      * @param ClassMethod|Function_|Closure $node
      */
-    private function isPreceededByEmptyLine(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, int $key) : bool
+    private function isPreceededByEmptyLine(\PhpParser\Node $node, int $key) : bool
     {
         if ($node->stmts === null) {
             return \false;

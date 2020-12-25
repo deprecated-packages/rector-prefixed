@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+namespace Rector\NodeNameResolver\NodeNameResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-final class FuncCallNameResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\Contract\NodeNameResolverInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Name;
+use PhpParser\Node\Name\FullyQualified;
+use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+final class FuncCallNameResolver implements \Rector\NodeNameResolver\Contract\NodeNameResolverInterface
 {
     public function getNode() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class;
+        return \PhpParser\Node\Expr\FuncCall::class;
     }
     /**
      * If some function is namespaced, it will be used over global one.
@@ -22,17 +22,17 @@ final class FuncCallNameResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NodeN
      *
      * @param FuncCall $node
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
+    public function resolve(\PhpParser\Node $node) : ?string
     {
-        if ($node->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr) {
+        if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;
         }
         $functionName = $node->name;
-        if (!$functionName instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+        if (!$functionName instanceof \PhpParser\Node\Name) {
             return (string) $functionName;
         }
-        $namespaceName = $functionName->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACED_NAME);
-        if ($namespaceName instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified) {
+        $namespaceName = $functionName->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACED_NAME);
+        if ($namespaceName instanceof \PhpParser\Node\Name\FullyQualified) {
             $functionFqnName = $namespaceName->toString();
             if (\function_exists($functionFqnName)) {
                 return $functionFqnName;

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Tests\Rector\ClassMethod\ReturnThisRemoveRector;
+namespace Rector\Defluent\Tests\Rector\ClassMethod\ReturnThisRemoveRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\ClassMethod\ReturnThisRemoveRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ReturnThisRemoveRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Defluent\Rector\ClassMethod\ReturnThisRemoveRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ReturnThisRemoveRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ReturnThisRemoveRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Te
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\ClassMethod\ReturnThisRemoveRector::class;
+        return \Rector\Defluent\Rector\ClassMethod\ReturnThisRemoveRector::class;
     }
 }

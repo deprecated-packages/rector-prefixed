@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+namespace Hoa\Stream;
 
 /**
  * Class \Hoa\Stream\Composite.
@@ -84,7 +84,7 @@ abstract class Composite
      * @param   \Hoa\Stream  $innerStream    Inner stream.
      * @return  \Hoa\Stream
      */
-    protected function setInnerStream(\_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Stream $innerStream)
+    protected function setInnerStream(\Hoa\Stream\Stream $innerStream)
     {
         $old = $this->_innerStream;
         $this->_innerStream = $innerStream;

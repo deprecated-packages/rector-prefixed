@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject;
+namespace Rector\CodingStyle\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use PhpParser\Node\Expr;
 final class ConcatStringAndPlaceholders
 {
     /**

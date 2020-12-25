@@ -1,51 +1,51 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc;
+namespace PHPStan\PhpDoc;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayTypeBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantTypeHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
+use PHPStan\Type\ConstantTypeHelper;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
 class ConstExprNodeResolver
 {
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode $node) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function resolve(\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode $node) : \PHPStan\Type\Type
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode) {
+        if ($node instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode) {
             return $this->resolveArrayNode($node);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\false);
+        if ($node instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode) {
+            return \PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\false);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\true);
+        if ($node instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode) {
+            return \PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\true);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantTypeHelper::getTypeFromValue((float) $node->value);
+        if ($node instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode) {
+            return \PHPStan\Type\ConstantTypeHelper::getTypeFromValue((float) $node->value);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantTypeHelper::getTypeFromValue((int) $node->value);
+        if ($node instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode) {
+            return \PHPStan\Type\ConstantTypeHelper::getTypeFromValue((int) $node->value);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantTypeHelper::getTypeFromValue(null);
+        if ($node instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode) {
+            return \PHPStan\Type\ConstantTypeHelper::getTypeFromValue(null);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantTypeHelper::getTypeFromValue($node->value);
+        if ($node instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode) {
+            return \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($node->value);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+        return new \PHPStan\Type\MixedType();
     }
-    private function resolveArrayNode(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode $node) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType
+    private function resolveArrayNode(\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode $node) : \PHPStan\Type\ArrayType
     {
-        $arrayBuilder = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayTypeBuilder::createEmpty();
+        $arrayBuilder = \PHPStan\Type\Constant\ConstantArrayTypeBuilder::createEmpty();
         foreach ($node->items as $item) {
             if ($item->key === null) {
                 $key = null;

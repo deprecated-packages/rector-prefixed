@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci;
+namespace _HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic;
-class GitHubActions extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\AbstractCi
+use _HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
+use _HumbugBox221ad6f1b81f\OndraM\CiDetector\Env;
+use _HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic;
+class GitHubActions extends \_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\AbstractCi
 {
     public const GITHUB_BASE_URL = 'https://github.com';
-    public static function isDetected(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('GITHUB_ACTIONS') !== \false;
     }
     public function getCiName() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS;
+        return \_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS;
     }
-    public function isPullRequest() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('GITHUB_EVENT_NAME') === 'pull_request');
+        return \_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('GITHUB_EVENT_NAME') === 'pull_request');
     }
     public function getBuildNumber() : string
     {

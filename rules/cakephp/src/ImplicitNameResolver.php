@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CakePHP;
+namespace Rector\CakePHP;
 
 /**
  * @inspired https://github.com/cakephp/upgrade/blob/756410c8b7d5aff9daec3fa1fe750a3858d422ac/src/Shell/Task/AppUsesTask.php
@@ -14,37 +14,37 @@ final class ImplicitNameResolver
      * @var string[]
      */
     private const IMPLICIT_MAP = [
-        'App' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Core\\App',
-        'AppController' => '_PhpScoper2a4e7ab1ecbc\\App\\Controller\\AppController',
-        'AppHelper' => '_PhpScoper2a4e7ab1ecbc\\App\\View\\Helper\\AppHelper',
-        'AppModel' => '_PhpScoper2a4e7ab1ecbc\\App\\Model\\AppModel',
-        'Cache' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Cache\\Cache',
-        'CakeEventListener' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Event\\EventListener',
-        'CakeLog' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Log\\Log',
-        'CakePlugin' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Core\\Plugin',
-        'CakeTestCase' => '_PhpScoper2a4e7ab1ecbc\\Cake\\TestSuite\\TestCase',
-        'CakeTestFixture' => '_PhpScoper2a4e7ab1ecbc\\Cake\\TestSuite\\Fixture\\TestFixture',
-        'Component' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Controller\\Component',
-        'ComponentRegistry' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Controller\\ComponentRegistry',
-        'Configure' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Core\\Configure',
-        'ConnectionManager' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Database\\ConnectionManager',
-        'Controller' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Controller\\Controller',
-        'Debugger' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Error\\Debugger',
-        'ExceptionRenderer' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Error\\ExceptionRenderer',
-        'Helper' => '_PhpScoper2a4e7ab1ecbc\\Cake\\View\\Helper',
-        'HelperRegistry' => '_PhpScoper2a4e7ab1ecbc\\Cake\\View\\HelperRegistry',
-        'Inflector' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Utility\\Inflector',
-        'Model' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Model\\Model',
-        'ModelBehavior' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Model\\Behavior',
-        'Object' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Core\\Object',
-        'Router' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Routing\\Router',
-        'Shell' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Console\\Shell',
-        'View' => '_PhpScoper2a4e7ab1ecbc\\Cake\\View\\View',
+        'App' => '_PhpScoper50d83356d739\\Cake\\Core\\App',
+        'AppController' => '_PhpScoper50d83356d739\\App\\Controller\\AppController',
+        'AppHelper' => '_PhpScoper50d83356d739\\App\\View\\Helper\\AppHelper',
+        'AppModel' => '_PhpScoper50d83356d739\\App\\Model\\AppModel',
+        'Cache' => '_PhpScoper50d83356d739\\Cake\\Cache\\Cache',
+        'CakeEventListener' => '_PhpScoper50d83356d739\\Cake\\Event\\EventListener',
+        'CakeLog' => '_PhpScoper50d83356d739\\Cake\\Log\\Log',
+        'CakePlugin' => '_PhpScoper50d83356d739\\Cake\\Core\\Plugin',
+        'CakeTestCase' => '_PhpScoper50d83356d739\\Cake\\TestSuite\\TestCase',
+        'CakeTestFixture' => '_PhpScoper50d83356d739\\Cake\\TestSuite\\Fixture\\TestFixture',
+        'Component' => '_PhpScoper50d83356d739\\Cake\\Controller\\Component',
+        'ComponentRegistry' => '_PhpScoper50d83356d739\\Cake\\Controller\\ComponentRegistry',
+        'Configure' => '_PhpScoper50d83356d739\\Cake\\Core\\Configure',
+        'ConnectionManager' => '_PhpScoper50d83356d739\\Cake\\Database\\ConnectionManager',
+        'Controller' => '_PhpScoper50d83356d739\\Cake\\Controller\\Controller',
+        'Debugger' => '_PhpScoper50d83356d739\\Cake\\Error\\Debugger',
+        'ExceptionRenderer' => '_PhpScoper50d83356d739\\Cake\\Error\\ExceptionRenderer',
+        'Helper' => '_PhpScoper50d83356d739\\Cake\\View\\Helper',
+        'HelperRegistry' => '_PhpScoper50d83356d739\\Cake\\View\\HelperRegistry',
+        'Inflector' => '_PhpScoper50d83356d739\\Cake\\Utility\\Inflector',
+        'Model' => '_PhpScoper50d83356d739\\Cake\\Model\\Model',
+        'ModelBehavior' => '_PhpScoper50d83356d739\\Cake\\Model\\Behavior',
+        'Object' => '_PhpScoper50d83356d739\\Cake\\Core\\Object',
+        'Router' => '_PhpScoper50d83356d739\\Cake\\Routing\\Router',
+        'Shell' => '_PhpScoper50d83356d739\\Cake\\Console\\Shell',
+        'View' => '_PhpScoper50d83356d739\\Cake\\View\\View',
         // Also apply to already renamed ones
-        'Log' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Log\\Log',
-        'Plugin' => '_PhpScoper2a4e7ab1ecbc\\Cake\\Core\\Plugin',
-        'TestCase' => '_PhpScoper2a4e7ab1ecbc\\Cake\\TestSuite\\TestCase',
-        'TestFixture' => '_PhpScoper2a4e7ab1ecbc\\Cake\\TestSuite\\Fixture\\TestFixture',
+        'Log' => '_PhpScoper50d83356d739\\Cake\\Log\\Log',
+        'Plugin' => '_PhpScoper50d83356d739\\Cake\\Core\\Plugin',
+        'TestCase' => '_PhpScoper50d83356d739\\Cake\\TestSuite\\TestCase',
+        'TestFixture' => '_PhpScoper50d83356d739\\Cake\\TestSuite\\Fixture\\TestFixture',
     ];
     /**
      * This value used to be directory

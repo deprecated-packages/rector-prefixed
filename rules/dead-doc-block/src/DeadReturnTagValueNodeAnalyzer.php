@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadDocBlock;
+namespace Rector\DeadDocBlock;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\TypeComparator;
+use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
+use Rector\NodeTypeResolver\PHPStan\TypeComparator;
 final class DeadReturnTagValueNodeAnalyzer
 {
     /**
      * @var TypeComparator
      */
     private $typeComparator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator)
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator)
     {
         $this->typeComparator = $typeComparator;
     }
-    public function isDead(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode $returnTagValueNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isDead(\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode $returnTagValueNode, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $returnType = $classMethod->getReturnType();
         if ($returnType === null) {

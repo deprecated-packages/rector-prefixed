@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php53\Tests\Rector\FuncCall\DirNameFileConstantToDirConstantRector;
+namespace Rector\Php53\Tests\Rector\FuncCall\DirNameFileConstantToDirConstantRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\FuncCall\DirNameFileConstantToDirConstantRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class DirNameFileConstantToDirConstantRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php53\Rector\FuncCall\DirNameFileConstantToDirConstantRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class DirNameFileConstantToDirConstantRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class DirNameFileConstantToDirConstantRectorTest extends \_PhpScoper2a4e7a
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php53\Rector\FuncCall\DirNameFileConstantToDirConstantRector::class;
+        return \Rector\Php53\Rector\FuncCall\DirNameFileConstantToDirConstantRector::class;
     }
 }

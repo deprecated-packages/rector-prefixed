@@ -5,40 +5,40 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Extensions;
+namespace _HumbugBox221ad6f1b81f\Nette\DI\Extensions;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
+use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f\Nette\DI\Definitions;
+use _HumbugBox221ad6f1b81f\Nette\Schema\Expect;
 /**
  * Decorators for services.
  */
-final class DecoratorExtension extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
+final class DecoratorExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    public function getConfigSchema() : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['setup' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::list(), 'tags' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'inject' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool()]));
+        return \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf(\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['setup' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::list(), 'tags' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'inject' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool()]));
     }
     public function beforeCompile()
     {
         $this->getContainerBuilder()->resolve();
         foreach ($this->config as $type => $info) {
             if ($info->inject !== null) {
-                $info->tags[\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Extensions\InjectExtension::TAG_INJECT] = $info->inject;
+                $info->tags[\_HumbugBox221ad6f1b81f\Nette\DI\Extensions\InjectExtension::TAG_INJECT] = $info->inject;
             }
-            $this->addSetups($type, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::filterArguments($info->setup));
-            $this->addTags($type, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::filterArguments($info->tags));
+            $this->addSetups($type, \_HumbugBox221ad6f1b81f\Nette\DI\Helpers::filterArguments($info->setup));
+            $this->addTags($type, \_HumbugBox221ad6f1b81f\Nette\DI\Helpers::filterArguments($info->tags));
         }
     }
     public function addSetups(string $type, array $setups) : void
     {
         foreach ($this->findByType($type) as $def) {
-            if ($def instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition) {
+            if ($def instanceof \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition) {
                 $def = $def->getResultDefinition();
             }
             foreach ($setups as $setup) {
                 if (\is_array($setup)) {
-                    $setup = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
+                    $setup = new \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement(\key($setup), \array_values($setup));
                 }
                 $def->addSetup($setup);
             }
@@ -46,15 +46,15 @@ final class DecoratorExtension extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f
     }
     public function addTags(string $type, array $tags) : void
     {
-        $tags = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::normalize($tags, \true);
+        $tags = \_HumbugBox221ad6f1b81f\Nette\Utils\Arrays::normalize($tags, \true);
         foreach ($this->findByType($type) as $def) {
             $def->setTags($def->getTags() + $tags);
         }
     }
     private function findByType(string $type) : array
     {
-        return \array_filter($this->getContainerBuilder()->getDefinitions(), function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition $def) use($type) : bool {
-            return \is_a($def->getType(), $type, \true) || $def instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition && \is_a($def->getResultType(), $type, \true);
+        return \array_filter($this->getContainerBuilder()->getDefinitions(), function (\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Definition $def) use($type) : bool {
+            return \is_a($def->getType(), $type, \true) || $def instanceof \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition && \is_a($def->getResultType(), $type, \true);
         });
     }
 }

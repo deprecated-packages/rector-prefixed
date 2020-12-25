@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Parser;
+namespace PHPStan\Parser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\ErrorHandler\Collecting;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitor\NameResolver;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileReader;
-class SimpleParser implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\Parser
+use PhpParser\ErrorHandler\Collecting;
+use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor\NameResolver;
+use PHPStan\File\FileReader;
+class SimpleParser implements \PHPStan\Parser\Parser
 {
     /** @var \PhpParser\Parser */
     private $parser;
     /** @var NameResolver */
     private $nameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Parser $parser, \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitor\NameResolver $nameResolver)
+    public function __construct(\PhpParser\Parser $parser, \PhpParser\NodeVisitor\NameResolver $nameResolver)
     {
         $this->parser = $parser;
         $this->nameResolver = $nameResolver;
@@ -25,9 +25,9 @@ class SimpleParser implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\Parser
     public function parseFile(string $file) : array
     {
         try {
-            return $this->parseString(\_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileReader::read($file));
-        } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\ParserErrorsException $e) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\ParserErrorsException($e->getErrors(), $file);
+            return $this->parseString(\PHPStan\File\FileReader::read($file));
+        } catch (\PHPStan\Parser\ParserErrorsException $e) {
+            throw new \PHPStan\Parser\ParserErrorsException($e->getErrors(), $file);
         }
     }
     /**
@@ -36,15 +36,15 @@ class SimpleParser implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\Parser
      */
     public function parseString(string $sourceCode) : array
     {
-        $errorHandler = new \_PhpScoper2a4e7ab1ecbc\PhpParser\ErrorHandler\Collecting();
+        $errorHandler = new \PhpParser\ErrorHandler\Collecting();
         $nodes = $this->parser->parse($sourceCode, $errorHandler);
         if ($errorHandler->hasErrors()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\ParserErrorsException($errorHandler->getErrors(), null);
+            throw new \PHPStan\Parser\ParserErrorsException($errorHandler->getErrors(), null);
         }
         if ($nodes === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
-        $nodeTraverser = new \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser();
+        $nodeTraverser = new \PhpParser\NodeTraverser();
         $nodeTraverser->addVisitor($this->nameResolver);
         /** @var array<\PhpParser\Node\Stmt> */
         return $nodeTraverser->traverse($nodes);

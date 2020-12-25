@@ -1,48 +1,48 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc;
+namespace PHPStan\Rules\PhpDoc;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericObjectTypeCheck;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Variable;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Generics\GenericObjectTypeCheck;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\NeverType;
+use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\FunctionLike>
  */
-class IncompatiblePhpDocTypeRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 {
     /** @var FileTypeMapper */
     private $fileTypeMapper;
     /** @var \PHPStan\Rules\Generics\GenericObjectTypeCheck */
     private $genericObjectTypeCheck;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper $fileTypeMapper, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck)
+    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Rules\Generics\GenericObjectTypeCheck $genericObjectTypeCheck)
     {
         $this->fileTypeMapper = $fileTypeMapper;
         $this->genericObjectTypeCheck = $genericObjectTypeCheck;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike::class;
+        return \PhpParser\Node\FunctionLike::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $docComment = $node->getDocComment();
         if ($docComment === null) {
             return [];
         }
         $functionName = null;
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $functionName = $node->name->name;
-        } elseif ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_) {
+        } elseif ($node instanceof \PhpParser\Node\Stmt\Function_) {
             $functionName = \trim($scope->getNamespace() . '\\' . $node->name->name, '\\');
         }
         $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($scope->getFile(), $scope->isInClass() ? $scope->getClassReflection()->getName() : null, $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null, $functionName, $docComment->getText());
@@ -52,34 +52,34 @@ class IncompatiblePhpDocTypeRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rule
         foreach ($resolvedPhpDoc->getParamTags() as $parameterName => $phpDocParamTag) {
             $phpDocParamType = $phpDocParamTag->getType();
             if (!isset($nativeParameterTypes[$parameterName])) {
-                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param references unknown parameter: $%s', $parameterName))->identifier('phpDoc.unknownParameter')->metadata(['parameterName' => $parameterName])->build();
-            } elseif ($phpDocParamType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType || $phpDocParamType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType && !$phpDocParamType->isExplicit()) {
-                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param for parameter $%s contains unresolvable type.', $parameterName))->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param references unknown parameter: $%s', $parameterName))->identifier('phpDoc.unknownParameter')->metadata(['parameterName' => $parameterName])->build();
+            } elseif ($phpDocParamType instanceof \PHPStan\Type\ErrorType || $phpDocParamType instanceof \PHPStan\Type\NeverType && !$phpDocParamType->isExplicit()) {
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param for parameter $%s contains unresolvable type.', $parameterName))->build();
             } else {
                 $nativeParamType = $nativeParameterTypes[$parameterName];
-                if ($phpDocParamTag->isVariadic() && $phpDocParamType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType && !$nativeParamType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+                if ($phpDocParamTag->isVariadic() && $phpDocParamType instanceof \PHPStan\Type\ArrayType && !$nativeParamType instanceof \PHPStan\Type\ArrayType) {
                     $phpDocParamType = $phpDocParamType->getItemType();
                 }
-                $isParamSuperType = $nativeParamType->isSuperTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($phpDocParamType));
+                $isParamSuperType = $nativeParamType->isSuperTypeOf(\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($phpDocParamType));
                 $errors = \array_merge($errors, $this->genericObjectTypeCheck->check($phpDocParamType, \sprintf('PHPDoc tag @param for parameter $%s contains generic type %%s but class %%s is not generic.', $parameterName), \sprintf('Generic type %%s in PHPDoc tag @param for parameter $%s does not specify all template types of class %%s: %%s', $parameterName), \sprintf('Generic type %%s in PHPDoc tag @param for parameter $%s specifies %%d template types, but class %%s supports only %%d: %%s', $parameterName), \sprintf('Type %%s in generic type %%s in PHPDoc tag @param for parameter $%s is not subtype of template type %%s of class %%s.', $parameterName)));
                 if ($isParamSuperType->no()) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param for parameter $%s with type %s is incompatible with native type %s.', $parameterName, $phpDocParamType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $nativeParamType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param for parameter $%s with type %s is incompatible with native type %s.', $parameterName, $phpDocParamType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $nativeParamType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
                 } elseif ($isParamSuperType->maybe()) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param for parameter $%s with type %s is not subtype of native type %s.', $parameterName, $phpDocParamType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $nativeParamType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @param for parameter $%s with type %s is not subtype of native type %s.', $parameterName, $phpDocParamType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $nativeParamType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
                 }
             }
         }
         if ($resolvedPhpDoc->getReturnTag() !== null) {
-            $phpDocReturnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($resolvedPhpDoc->getReturnTag()->getType());
-            if ($phpDocReturnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType || $phpDocReturnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType && !$phpDocReturnType->isExplicit()) {
-                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @return contains unresolvable type.')->build();
+            $phpDocReturnType = \PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($resolvedPhpDoc->getReturnTag()->getType());
+            if ($phpDocReturnType instanceof \PHPStan\Type\ErrorType || $phpDocReturnType instanceof \PHPStan\Type\NeverType && !$phpDocReturnType->isExplicit()) {
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @return contains unresolvable type.')->build();
             } else {
                 $isReturnSuperType = $nativeReturnType->isSuperTypeOf($phpDocReturnType);
                 $errors = \array_merge($errors, $this->genericObjectTypeCheck->check($phpDocReturnType, 'PHPDoc tag @return contains generic type %s but class %s is not generic.', 'Generic type %s in PHPDoc tag @return does not specify all template types of class %s: %s', 'Generic type %s in PHPDoc tag @return specifies %d template types, but class %s supports only %d: %s', 'Type %s in generic type %s in PHPDoc tag @return is not subtype of template type %s of class %s.'));
                 if ($isReturnSuperType->no()) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @return with type %s is incompatible with native type %s.', $phpDocReturnType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $nativeReturnType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @return with type %s is incompatible with native type %s.', $phpDocReturnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $nativeReturnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
                 } elseif ($isReturnSuperType->maybe()) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @return with type %s is not subtype of native type %s.', $phpDocReturnType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $nativeReturnType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @return with type %s is not subtype of native type %s.', $phpDocReturnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $nativeReturnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
                 }
             }
         }
@@ -90,19 +90,19 @@ class IncompatiblePhpDocTypeRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rule
      * @param Scope $scope
      * @return Type[]
      */
-    private function getNativeParameterTypes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    private function getNativeParameterTypes(\PhpParser\Node\FunctionLike $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $nativeParameterTypes = [];
         foreach ($node->getParams() as $parameter) {
             $isNullable = $scope->isParameterValueNullable($parameter);
-            if (!$parameter->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable || !\is_string($parameter->var->name)) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            if (!$parameter->var instanceof \PhpParser\Node\Expr\Variable || !\is_string($parameter->var->name)) {
+                throw new \PHPStan\ShouldNotHappenException();
             }
             $nativeParameterTypes[$parameter->var->name] = $scope->getFunctionType($parameter->type, $isNullable, \false);
         }
         return $nativeParameterTypes;
     }
-    private function getNativeReturnType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    private function getNativeReturnType(\PhpParser\Node\FunctionLike $node, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         return $scope->getFunctionType($node->getReturnType(), \false, \false);
     }

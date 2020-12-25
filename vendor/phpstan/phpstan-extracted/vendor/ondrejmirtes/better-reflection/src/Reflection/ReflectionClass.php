@@ -1,41 +1,41 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
 use LogicException;
 use OutOfBoundsException;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ as ClassNode;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst as ConstNode;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike as ClassLikeNode;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_ as InterfaceNode;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ as NamespaceNode;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property as PropertyNode;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Trait_ as TraitNode;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUse;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_ as ClassNode;
+use PhpParser\Node\Stmt\ClassConst as ConstNode;
+use PhpParser\Node\Stmt\ClassLike as ClassLikeNode;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Interface_ as InterfaceNode;
+use PhpParser\Node\Stmt\Namespace_ as NamespaceNode;
+use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Property as PropertyNode;
+use PhpParser\Node\Stmt\Trait_ as TraitNode;
+use PhpParser\Node\Stmt\TraitUse;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionException;
 use ReflectionProperty as CoreReflectionProperty;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompilerContext;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\PropertyDoesNotExist;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionClassStringCast;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\GetLastDocComment;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompilerContext;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\PropertyDoesNotExist;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionClassStringCast;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\GetLastDocComment;
 use Traversable;
 use function array_combine;
 use function array_filter;
@@ -54,7 +54,7 @@ use function ltrim;
 use function sha1;
 use function sprintf;
 use function strtolower;
-class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+class ReflectionClass implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
 {
     public const ANONYMOUS_CLASS_NAME_PREFIX = 'class@anonymous';
     /** @var Reflector */
@@ -88,7 +88,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     }
     public function __toString() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionClassStringCast::toString($this);
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionClassStringCast::toString($this);
     }
     /**
      * Create a ReflectionClass by name, using default reflectors etc.
@@ -97,7 +97,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public static function createFromName(string $className) : self
     {
-        return (new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->classReflector()->reflect($className);
+        return (new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->classReflector()->reflect($className);
     }
     /**
      * Create a ReflectionClass from an instance, using default reflectors etc.
@@ -113,7 +113,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public static function createFromInstance($instance) : self
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionObject::createFromInstance($instance);
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionObject::createFromInstance($instance);
     }
     /**
      * Create from a Class Node.
@@ -123,7 +123,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      * @param ClassLikeNode      $node      Node has to be processed by the PhpParser\NodeVisitor\NameResolver
      * @param NamespaceNode|null $namespace optional - if omitted, we assume it is global namespaced class
      */
-    public static function createFromNode(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $node, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ $namespace = null) : self
+    public static function createFromNode(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\Stmt\ClassLike $node, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $namespace = null) : self
     {
         $class = new self();
         $class->reflector = $reflector;
@@ -139,7 +139,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     public function getShortName() : string
     {
         if (!$this->isAnonymous()) {
-            \assert($this->node->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier);
+            \assert($this->node->name instanceof \PhpParser\Node\Identifier);
             return $this->node->name->name;
         }
         $fileName = $this->getFileName();
@@ -193,15 +193,15 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     /**
      * @return ReflectionMethod[]
      */
-    private function createMethodsFromTrait(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $method) : array
+    private function createMethodsFromTrait(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $method) : array
     {
         $traitAliases = $this->getTraitAliases();
         $traitPrecedences = $this->getTraitPrecedences();
         $methodAst = $method->getAst();
-        \assert($methodAst instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod);
+        \assert($methodAst instanceof \PhpParser\Node\Stmt\ClassMethod);
         $methodHash = $this->methodHash($method->getImplementingClass()->getName(), $method->getName());
         $createMethod = function (?string $aliasMethodName) use($method, $methodAst) : ReflectionMethod {
-            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod::createFromNode($this->reflector, $methodAst, $method->getDeclaringClass()->getDeclaringNamespaceAst(), $method->getDeclaringClass(), $this, $aliasMethodName);
+            return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod::createFromNode($this->reflector, $methodAst, $method->getDeclaringClass()->getDeclaringNamespaceAst(), $method->getDeclaringClass(), $this, $aliasMethodName);
         };
         $methods = [];
         foreach ($traitAliases as $aliasMethodName => $traitAliasDefinition) {
@@ -220,7 +220,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     private function getParentMethods() : array
     {
-        return \array_merge([], ...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $ancestor) : array {
+        return \array_merge([], ...\array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $ancestor) : array {
             return $ancestor->getMethods();
         }, \array_filter([$this->getParentClass()])));
     }
@@ -229,8 +229,8 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     private function getMethodsFromTraits() : array
     {
-        return \array_merge([], ...\array_map(function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $trait) : array {
-            return \array_merge([], ...\array_map(function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $method) : array {
+        return \array_merge([], ...\array_map(function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $trait) : array {
+            return \array_merge([], ...\array_map(function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $method) : array {
                 return $this->createMethodsFromTrait($method);
             }, $trait->getMethods()));
         }, $this->getTraits()));
@@ -240,7 +240,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     private function getMethodsFromInterfaces() : array
     {
-        return \array_merge([], ...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $ancestor) : array {
+        return \array_merge([], ...\array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $ancestor) : array {
             return $ancestor->getMethods();
         }, \array_values($this->getInterfaces())));
     }
@@ -312,7 +312,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
         if ($filter === null) {
             return \array_values($this->getMethodsIndexedByName());
         }
-        return \array_values(\array_filter($this->getMethodsIndexedByName(), static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $method) use($filter) : bool {
+        return \array_values(\array_filter($this->getMethodsIndexedByName(), static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $method) use($filter) : bool {
             return (bool) ($filter & $method->getModifiers());
         }));
     }
@@ -327,8 +327,8 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     public function getImmediateMethods(?int $filter = null) : array
     {
         /** @var ReflectionMethod[] $methods */
-        $methods = \array_map(function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $methodNode) : ReflectionMethod {
-            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod::createFromNode($this->reflector, $methodNode, $this->declaringNamespace, $this, $this);
+        $methods = \array_map(function (\PhpParser\Node\Stmt\ClassMethod $methodNode) : ReflectionMethod {
+            return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod::createFromNode($this->reflector, $methodNode, $this->declaringNamespace, $this, $this);
         }, $this->node->getMethods());
         $methodsByName = [];
         foreach ($methods as $method) {
@@ -344,7 +344,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      *
      * @throws OutOfBoundsException
      */
-    public function getMethod(string $methodName) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
+    public function getMethod(string $methodName) : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
     {
         $lowercaseMethodName = \strtolower($methodName);
         $methods = $this->getMethodsIndexedByName();
@@ -373,7 +373,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function getImmediateConstants() : array
     {
-        return \array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant $classConstant) {
+        return \array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant $classConstant) {
             return $classConstant->getValue();
         }, $this->getImmediateReflectionConstants());
     }
@@ -385,7 +385,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function getConstants() : array
     {
-        return \array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant $classConstant) {
+        return \array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant $classConstant) {
             return $classConstant->getValue();
         }, $this->getReflectionConstants());
     }
@@ -416,7 +416,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      *
      * Returns null if not specified.
      */
-    public function getReflectionConstant(string $name) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant
+    public function getReflectionConstant(string $name) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant
     {
         return $this->getReflectionConstants()[$name] ?? null;
     }
@@ -431,16 +431,16 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
         if ($this->cachedReflectionConstants !== null) {
             return $this->cachedReflectionConstants;
         }
-        $constants = \array_merge([], ...\array_map(function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst $constNode) : array {
+        $constants = \array_merge([], ...\array_map(function (\PhpParser\Node\Stmt\ClassConst $constNode) : array {
             $constants = [];
             foreach ($constNode->consts as $constantPositionInNode => $constantNode) {
-                $constants[] = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant::createFromNode($this->reflector, $constNode, $constantPositionInNode, $this);
+                $constants[] = \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant::createFromNode($this->reflector, $constNode, $constantPositionInNode, $this);
             }
             return $constants;
-        }, \array_filter($this->node->stmts, static function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt $stmt) : bool {
-            return $stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst;
+        }, \array_filter($this->node->stmts, static function (\PhpParser\Node\Stmt $stmt) : bool {
+            return $stmt instanceof \PhpParser\Node\Stmt\ClassConst;
         })));
-        return $this->cachedReflectionConstants = \array_combine(\array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant $constant) : string {
+        return $this->cachedReflectionConstants = \array_combine(\array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant $constant) : string {
             return $constant->getName();
         }, $constants), $constants);
     }
@@ -455,11 +455,11 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
         // Note: constants are not merged via their name as array index, since internal PHP constant
         //       sorting does not follow `\array_merge()` semantics
         /** @var ReflectionClassConstant[] $allReflectionConstants */
-        $allReflectionConstants = \array_merge(\array_values($this->getImmediateReflectionConstants()), ...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $ancestor) : array {
-            return \array_filter(\array_values($ancestor->getReflectionConstants()), static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant $classConstant) : bool {
+        $allReflectionConstants = \array_merge(\array_values($this->getImmediateReflectionConstants()), ...\array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $ancestor) : array {
+            return \array_filter(\array_values($ancestor->getReflectionConstants()), static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant $classConstant) : bool {
                 return !$classConstant->isPrivate();
             });
-        }, \array_filter([$this->getParentClass()])), ...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $interface) : array {
+        }, \array_filter([$this->getParentClass()])), ...\array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $interface) : array {
             return \array_values($interface->getReflectionConstants());
         }, \array_values($this->getInterfaces())));
         $reflectionConstants = [];
@@ -477,9 +477,9 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      *
      * @throws OutOfBoundsException
      */
-    public function getConstructor() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
+    public function getConstructor() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod
     {
-        $constructors = \array_values(\array_filter($this->getMethods(), static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $method) : bool {
+        $constructors = \array_values(\array_filter($this->getMethods(), static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod $method) : bool {
             return $method->isConstructor();
         }));
         if (!isset($constructors[0])) {
@@ -500,23 +500,23 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
         if ($this->cachedImmediateProperties === null) {
             $properties = [];
             foreach ($this->node->stmts as $stmt) {
-                if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod && $stmt->name->toLowerString() === '__construct') {
+                if ($stmt instanceof \PhpParser\Node\Stmt\ClassMethod && $stmt->name->toLowerString() === '__construct') {
                     foreach ($stmt->params as $param) {
                         if ($param->flags === 0) {
                             continue;
                         }
-                        if (!$param->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
+                        if (!$param->var instanceof \PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
                             throw new \LogicException('Param should have a name.');
                         }
-                        $prop = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property($param->flags, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\VarLikeIdentifier($param->var->name))], $param->getAttributes(), $param->type, $param->attrGroups), 0, $this->declaringNamespace, $this, $this, \true, \true);
+                        $prop = \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, new \PhpParser\Node\Stmt\Property($param->flags, [new \PhpParser\Node\Stmt\PropertyProperty(new \PhpParser\Node\VarLikeIdentifier($param->var->name))], $param->getAttributes(), $param->type, $param->attrGroups), 0, $this->declaringNamespace, $this, $this, \true, \true);
                         $properties[$prop->getName()] = $prop;
                     }
                 }
-                if (!$stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property) {
+                if (!$stmt instanceof \PhpParser\Node\Stmt\Property) {
                     continue;
                 }
                 foreach ($stmt->props as $propertyPositionInNode => $propertyNode) {
-                    $prop = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, $stmt, $propertyPositionInNode, $this->declaringNamespace, $this, $this);
+                    $prop = \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, $stmt, $propertyPositionInNode, $this->declaringNamespace, $this, $this);
                     $properties[$prop->getName()] = $prop;
                 }
             }
@@ -525,7 +525,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
         if ($filter === null) {
             return $this->cachedImmediateProperties;
         }
-        return \array_filter($this->cachedImmediateProperties, static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) use($filter) : bool {
+        return \array_filter($this->cachedImmediateProperties, static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) use($filter) : bool {
             return (bool) ($filter & $property->getModifiers());
         });
     }
@@ -547,20 +547,20 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     {
         if ($this->cachedProperties === null) {
             // merging together properties from parent class, traits, current class (in this precise order)
-            $this->cachedProperties = \array_merge(\array_merge([], ...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $ancestor) use($filter) : array {
-                return \array_filter($ancestor->getProperties($filter), static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) : bool {
+            $this->cachedProperties = \array_merge(\array_merge([], ...\array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $ancestor) use($filter) : array {
+                return \array_filter($ancestor->getProperties($filter), static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) : bool {
                     return !$property->isPrivate();
                 });
-            }, \array_filter([$this->getParentClass()])), ...\array_map(function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $trait) use($filter) {
-                return \array_map(function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) use($trait) : ReflectionProperty {
-                    return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, $property->getAst(), $property->getPositionInAst(), $trait->declaringNamespace, $property->getDeclaringClass(), $this, $property->isDefault(), $property->isPromoted());
+            }, \array_filter([$this->getParentClass()])), ...\array_map(function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $trait) use($filter) {
+                return \array_map(function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) use($trait) : ReflectionProperty {
+                    return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty::createFromNode($this->reflector, $property->getAst(), $property->getPositionInAst(), $trait->declaringNamespace, $property->getDeclaringClass(), $this, $property->isDefault(), $property->isPromoted());
                 }, $trait->getProperties($filter));
             }, $this->getTraits())), $this->getImmediateProperties());
         }
         if ($filter === null) {
             return $this->cachedProperties;
         }
-        return \array_filter($this->cachedProperties, static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) use($filter) : bool {
+        return \array_filter($this->cachedProperties, static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) use($filter) : bool {
             return (bool) ($filter & $property->getModifiers());
         });
     }
@@ -569,7 +569,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      *
      * Returns null if property does not exist.
      */
-    public function getProperty(string $name) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty
+    public function getProperty(string $name) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty
     {
         $properties = $this->getProperties();
         if (!isset($properties[$name])) {
@@ -589,9 +589,9 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function getDefaultProperties() : array
     {
-        return \array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) {
+        return \array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) {
             return $property->getDefaultValue();
-        }, \array_filter($this->getProperties(), static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) : bool {
+        }, \array_filter($this->getProperties(), static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionProperty $property) : bool {
             return $property->isDefault();
         }));
     }
@@ -599,7 +599,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     {
         return $this->locatedSource->getFileName();
     }
-    public function getLocatedSource() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    public function getLocatedSource() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
         return $this->locatedSource;
     }
@@ -619,11 +619,11 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     }
     public function getStartColumn() : int
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->locatedSource->getSource(), $this->node);
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->locatedSource->getSource(), $this->node);
     }
     public function getEndColumn() : int
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->locatedSource->getSource(), $this->node);
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->locatedSource->getSource(), $this->node);
     }
     /**
      * Get the parent class, if it is defined. If this class does not have a
@@ -631,9 +631,9 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      *
      * @throws NotAClassReflection
      */
-    public function getParentClass() : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getParentClass() : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
     {
-        if (!$this->node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ || $this->node->extends === null) {
+        if (!$this->node instanceof \PhpParser\Node\Stmt\Class_ || $this->node->extends === null) {
             return null;
         }
         if ($this->cachedParentClass === null) {
@@ -643,7 +643,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
             $this->cachedParentClass = $parent;
         }
         if ($this->cachedParentClass->isInterface() || $this->cachedParentClass->isTrait()) {
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection::fromReflectionClass($this->cachedParentClass);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection::fromReflectionClass($this->cachedParentClass);
         }
         return $this->cachedParentClass;
     }
@@ -660,7 +660,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     }
     public function getDocComment() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->node);
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->node);
     }
     public function isAnonymous() : bool
     {
@@ -686,14 +686,14 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function isAbstract() : bool
     {
-        return $this->node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ && $this->node->isAbstract();
+        return $this->node instanceof \PhpParser\Node\Stmt\Class_ && $this->node->isAbstract();
     }
     /**
      * Is this class a final class.
      */
     public function isFinal() : bool
     {
-        return $this->node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ && $this->node->isFinal();
+        return $this->node instanceof \PhpParser\Node\Stmt\Class_ && $this->node->isFinal();
     }
     /**
      * Get the core-reflection-compatible modifier values.
@@ -710,14 +710,14 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function isTrait() : bool
     {
-        return $this->node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Trait_;
+        return $this->node instanceof \PhpParser\Node\Stmt\Trait_;
     }
     /**
      * Is this reflection an interface?
      */
     public function isInterface() : bool
     {
-        return $this->node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_;
+        return $this->node instanceof \PhpParser\Node\Stmt\Interface_;
     }
     /**
      * Get the traits used, if any are defined. If this class does not have any
@@ -727,22 +727,22 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function getTraits() : array
     {
-        return \array_map(function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name $importedTrait) : ReflectionClass {
+        return \array_map(function (\PhpParser\Node\Name $importedTrait) : ReflectionClass {
             return $this->reflectClassForNamedNode($importedTrait);
-        }, \array_merge([], ...\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUse $traitUse) : array {
+        }, \array_merge([], ...\array_map(static function (\PhpParser\Node\Stmt\TraitUse $traitUse) : array {
             return $traitUse->traits;
-        }, \array_filter($this->node->stmts, static function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool {
-            return $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUse;
+        }, \array_filter($this->node->stmts, static function (\PhpParser\Node $node) : bool {
+            return $node instanceof \PhpParser\Node\Stmt\TraitUse;
         }))));
     }
     /**
      * Given an AST Node\Name, create a new ReflectionClass for the element.
      */
-    private function reflectClassForNamedNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name $node) : self
+    private function reflectClassForNamedNode(\PhpParser\Node\Name $node) : self
     {
         // @TODO use actual `ClassReflector` or `FunctionReflector`?
         if ($this->isAnonymous()) {
-            $class = (new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->classReflector()->reflect($node->toString());
+            $class = (new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->classReflector()->reflect($node->toString());
         } else {
             $class = $this->reflector->reflect($node->toString());
             \assert($class instanceof self);
@@ -758,7 +758,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function getTraitNames() : array
     {
-        return \array_map(static function (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $trait) : string {
+        return \array_map(static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $trait) : string {
             return $trait->getName();
         }, $this->getTraits());
     }
@@ -818,8 +818,8 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
             return;
         }
         /** @var Node\Stmt\TraitUse[] $traitUsages */
-        $traitUsages = \array_filter($this->node->stmts, static function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool {
-            return $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUse;
+        $traitUsages = \array_filter($this->node->stmts, static function (\PhpParser\Node $node) : bool {
+            return $node instanceof \PhpParser\Node\Stmt\TraitUse;
         });
         $this->cachedTraitAliases = [];
         $this->cachedTraitPrecedences = [];
@@ -831,11 +831,11 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
                 if ($usedTrait === null) {
                     $usedTrait = $traitNames[0];
                 }
-                if ($adaptation instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUseAdaptation\Alias && $adaptation->newName) {
+                if ($adaptation instanceof \PhpParser\Node\Stmt\TraitUseAdaptation\Alias && $adaptation->newName) {
                     $this->cachedTraitAliases[$adaptation->newName->name] = $this->methodHash($usedTrait->toString(), $adaptation->method->toString());
                     continue;
                 }
-                if (!$adaptation instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUseAdaptation\Precedence || !$adaptation->insteadof) {
+                if (!$adaptation instanceof \PhpParser\Node\Stmt\TraitUseAdaptation\Precedence || !$adaptation->insteadof) {
                     continue;
                 }
                 foreach ($adaptation->insteadof as $insteadof) {
@@ -878,11 +878,11 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
         if ($this->isTrait()) {
             return [];
         }
-        \assert($this->node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ || $this->node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_);
-        $nodes = $this->node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_ ? $this->node->extends : $this->node->implements;
-        return \array_combine(\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name $interfaceName) : string {
+        \assert($this->node instanceof \PhpParser\Node\Stmt\Class_ || $this->node instanceof \PhpParser\Node\Stmt\Interface_);
+        $nodes = $this->node instanceof \PhpParser\Node\Stmt\Interface_ ? $this->node->extends : $this->node->implements;
+        return \array_combine(\array_map(static function (\PhpParser\Node\Name $interfaceName) : string {
             return $interfaceName->toString();
-        }, $nodes), \array_map(function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name $interfaceName) : ReflectionClass {
+        }, $nodes), \array_map(function (\PhpParser\Node\Name $interfaceName) : ReflectionClass {
             return $this->reflectClassForNamedNode($interfaceName);
         }, $nodes));
     }
@@ -909,7 +909,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     public function isInstance($object) : bool
     {
         if (!\is_object($object)) {
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject::fromNonObject($object);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnObject::fromNonObject($object);
         }
         $className = $this->getName();
         // note: since $object was loaded, we can safely assume that $className is available in the current
@@ -989,11 +989,11 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     private function getCurrentClassImplementedInterfacesIndexedByName() : array
     {
         $node = $this->node;
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
-            $interfaces = \array_merge([], ...\array_map(function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name $interfaceName) : array {
+        if ($node instanceof \PhpParser\Node\Stmt\Class_) {
+            $interfaces = \array_merge([], ...\array_map(function (\PhpParser\Node\Name $interfaceName) : array {
                 return $this->reflectClassForNamedNode($interfaceName)->getInterfacesHierarchy();
             }, $node->implements));
-            if (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::$phpVersion >= 80000) {
+            if (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::$phpVersion >= 80000) {
                 foreach ($node->getMethods() as $method) {
                     if ($method->name->toLowerString() !== '__tostring') {
                         continue;
@@ -1003,7 +1003,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
                             return $interfaces;
                         }
                     }
-                    $interfaces['Stringable'] = $this->reflectClassForNamedNode(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('Stringable'));
+                    $interfaces['Stringable'] = $this->reflectClassForNamedNode(new \PhpParser\Node\Name('Stringable'));
                     break;
                 }
             }
@@ -1033,14 +1033,14 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     private function getInterfacesHierarchy() : array
     {
         if (!$this->isInterface()) {
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection::fromReflectionClass($this);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection::fromReflectionClass($this);
         }
         $node = $this->node;
-        \assert($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_);
-        $interfaces = \array_merge([$this->getName() => $this], ...\array_map(function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name $interfaceName) : array {
+        \assert($node instanceof \PhpParser\Node\Stmt\Interface_);
+        $interfaces = \array_merge([$this->getName() => $this], ...\array_map(function (\PhpParser\Node\Name $interfaceName) : array {
             return $this->reflectClassForNamedNode($interfaceName)->getInterfacesHierarchy();
         }, $node->extends));
-        if (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::$phpVersion >= 80000) {
+        if (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::$phpVersion >= 80000) {
             foreach ($node->getMethods() as $method) {
                 if ($method->name->toLowerString() !== '__tostring') {
                     continue;
@@ -1050,7 +1050,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
                         return $interfaces;
                     }
                 }
-                $interfaces['Stringable'] = $this->reflectClassForNamedNode(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('Stringable'));
+                $interfaces['Stringable'] = $this->reflectClassForNamedNode(new \PhpParser\Node\Name('Stringable'));
                 break;
             }
         }
@@ -1061,7 +1061,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function __clone()
     {
-        throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable::fromClass(static::class);
+        throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable::fromClass(static::class);
     }
     /**
      * Get the value of a static property, if it exists. Throws a
@@ -1079,7 +1079,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     {
         $property = $this->getProperty($propertyName);
         if (!$property || !$property->isStatic()) {
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\PropertyDoesNotExist::fromName($propertyName);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\PropertyDoesNotExist::fromName($propertyName);
         }
         return $property->getValue();
     }
@@ -1097,7 +1097,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     {
         $property = $this->getProperty($propertyName);
         if (!$property || !$property->isStatic()) {
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\PropertyDoesNotExist::fromName($propertyName);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\PropertyDoesNotExist::fromName($propertyName);
         }
         $property->setValue($value);
     }
@@ -1118,11 +1118,11 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     /**
      * Retrieve the AST node for this class
      */
-    public function getAst() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike
+    public function getAst() : \PhpParser\Node\Stmt\ClassLike
     {
         return $this->node;
     }
-    public function getDeclaringNamespaceAst() : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_
+    public function getDeclaringNamespaceAst() : ?\PhpParser\Node\Stmt\Namespace_
     {
         return $this->declaringNamespace;
     }
@@ -1133,14 +1133,14 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function setFinal(bool $isFinal) : void
     {
-        if (!$this->node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection::fromReflectionClass($this);
+        if (!$this->node instanceof \PhpParser\Node\Stmt\Class_) {
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection::fromReflectionClass($this);
         }
         if ($isFinal === \true) {
-            $this->node->flags |= \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
+            $this->node->flags |= \PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
             return;
         }
-        $this->node->flags &= ~\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
+        $this->node->flags &= ~\PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
     }
     /**
      * Remove the named method from the class.
@@ -1152,7 +1152,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     {
         $lowerName = \strtolower($methodName);
         foreach ($this->node->stmts as $key => $stmt) {
-            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod && $lowerName === $stmt->name->toLowerString()) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\ClassMethod && $lowerName === $stmt->name->toLowerString()) {
                 unset($this->node->stmts[$key]);
                 $this->cachedMethods = null;
                 return \true;
@@ -1165,7 +1165,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
      */
     public function addMethod(string $methodName) : void
     {
-        $this->node->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod($methodName);
+        $this->node->stmts[] = new \PhpParser\Node\Stmt\ClassMethod($methodName);
         $this->cachedMethods = null;
     }
     /**
@@ -1178,19 +1178,19 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
         $type = 0;
         switch ($visibility) {
             case \ReflectionProperty::IS_PRIVATE:
-                $type |= \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+                $type |= \PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
                 break;
             case \ReflectionProperty::IS_PROTECTED:
-                $type |= \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
+                $type |= \PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
                 break;
             default:
-                $type |= \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
+                $type |= \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
                 break;
         }
         if ($static) {
-            $type |= \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC;
+            $type |= \PhpParser\Node\Stmt\Class_::MODIFIER_STATIC;
         }
-        $this->node->stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property($type, [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty($propertyName)]);
+        $this->node->stmts[] = new \PhpParser\Node\Stmt\Property($type, [new \PhpParser\Node\Stmt\PropertyProperty($propertyName)]);
         $this->cachedProperties = null;
         $this->cachedImmediateProperties = null;
     }
@@ -1201,10 +1201,10 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     {
         $lowerName = \strtolower($propertyName);
         foreach ($this->node->stmts as $key => $stmt) {
-            if (!$stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property) {
+            if (!$stmt instanceof \PhpParser\Node\Stmt\Property) {
                 continue;
             }
-            $propertyNames = \array_map(static function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : string {
+            $propertyNames = \array_map(static function (\PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : string {
                 return $propertyProperty->name->toLowerString();
             }, $stmt->props);
             if (\in_array($lowerName, $propertyNames, \true)) {
@@ -1222,7 +1222,7 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
     public function getAttributes() : array
     {
         $attributes = [];
-        $compileNodeToValue = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompileNodeToValue();
+        $compileNodeToValue = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompileNodeToValue();
         foreach ($this->node->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attr) {
                 $arguments = [];
@@ -1231,9 +1231,9 @@ class ReflectionClass implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\
                     if ($arg->name !== null) {
                         $key = $arg->name->toString();
                     }
-                    $arguments[$key] = $compileNodeToValue->__invoke($arg->value, new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->getFileName(), $this, $this->declaringNamespace !== null && $this->declaringNamespace->name !== null ? $this->declaringNamespace->name->toString() : null, null));
+                    $arguments[$key] = $compileNodeToValue->__invoke($arg->value, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\CompilerContext($this->reflector, $this->getFileName(), $this, $this->declaringNamespace !== null && $this->declaringNamespace->name !== null ? $this->declaringNamespace->name->toString() : null, null));
                 }
-                $attributes[] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionAttribute($attr->name->toString(), $arguments);
+                $attributes[] = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionAttribute($attr->name->toString(), $arguments);
             }
         }
         return $attributes;

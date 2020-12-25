@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
+namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
-final class ManyToManyTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface, \_PhpScoper2a4e7ab1ecbc\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
+use Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
+use Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
+use Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
+use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
+final class ManyToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface, \Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface, \Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface, \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
 {
     /**
      * @var string
@@ -53,7 +53,7 @@ final class ManyToManyTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\Better
     }
     public function getShortName() : string
     {
-        return '_PhpScoper2a4e7ab1ecbc\\@ORM\\ManyToMany';
+        return '_PhpScoper50d83356d739\\@ORM\\ManyToMany';
     }
     public function getAttributeClassName() : string
     {

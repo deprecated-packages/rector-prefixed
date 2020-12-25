@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocParser;
+namespace Rector\BetterPhpDocParser\PhpDocParser;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\Parser\TokenIterator;
+use Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory;
+use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class AnnotationContentResolver
 {
     /**
@@ -23,7 +23,7 @@ final class AnnotationContentResolver
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory)
+    public function __construct(\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\BetterPhpDocParser\PhpDocInfo\TokenIteratorFactory $tokenIteratorFactory)
     {
         $this->tokenIteratorFactory = $tokenIteratorFactory;
         $this->privatesAccessor = $privatesAccessor;
@@ -32,30 +32,30 @@ final class AnnotationContentResolver
      * Skip all tokens for this annotation, so next annotation can work with tokens after this one
      * Inspired at @see \PHPStan\PhpDocParser\Parser\PhpDocParser::parseText()
      */
-    public function resolveFromTokenIterator(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
+    public function resolveFromTokenIterator(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
     {
         $annotationContent = '';
         $unclosedOpenedBracketCount = 0;
         while (\true) {
-            if ($tokenIterator->currentTokenType() === \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES) {
+            if ($tokenIterator->currentTokenType() === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES) {
                 ++$unclosedOpenedBracketCount;
             }
-            if ($tokenIterator->currentTokenType() === \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES) {
+            if ($tokenIterator->currentTokenType() === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES) {
                 --$unclosedOpenedBracketCount;
             }
-            if ($unclosedOpenedBracketCount === 0 && $tokenIterator->currentTokenType() === \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
+            if ($unclosedOpenedBracketCount === 0 && $tokenIterator->currentTokenType() === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
                 break;
             }
             // remove new line "*"
             $annotationContent = $this->appendPreviousWhitespace($tokenIterator, $annotationContent);
-            if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($tokenIterator->currentTokenValue(), '*')) {
-                $tokenValueWithoutAsterisk = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($tokenIterator->currentTokenValue(), '#\\*#', '');
+            if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($tokenIterator->currentTokenValue(), '*')) {
+                $tokenValueWithoutAsterisk = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($tokenIterator->currentTokenValue(), '#\\*#', '');
                 $annotationContent .= $tokenValueWithoutAsterisk;
             } else {
                 $annotationContent .= $tokenIterator->currentTokenValue();
             }
             // this is the end of single-line comment
-            if ($tokenIterator->currentTokenType() === \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END) {
+            if ($tokenIterator->currentTokenType() === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END) {
                 break;
             }
             $tokenIterator->next();
@@ -70,7 +70,7 @@ final class AnnotationContentResolver
         $tokenIterator = $this->tokenIteratorFactory->create($annotationContent);
         while (\true) {
             // the end
-            if (\in_array($tokenIterator->currentTokenType(), [\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END], \true)) {
+            if (\in_array($tokenIterator->currentTokenType(), [\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END], \true)) {
                 break;
             }
             $start = $this->tryStartWithKey($name, $start, $tokenIterator);
@@ -80,11 +80,11 @@ final class AnnotationContentResolver
             }
             $tokenContents[] = $tokenIterator->currentTokenValue();
             // opening bracket {
-            if ($tokenIterator->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET)) {
+            if ($tokenIterator->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET)) {
                 ++$openedCurlyBracketCount;
             }
             // closing bracket }
-            if ($tokenIterator->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_CURLY_BRACKET)) {
+            if ($tokenIterator->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_CURLY_BRACKET)) {
                 --$openedCurlyBracketCount;
                 // the final one
                 if ($openedCurlyBracketCount === 0) {
@@ -95,7 +95,7 @@ final class AnnotationContentResolver
         }
         return \implode('', $tokenContents);
     }
-    private function appendPreviousWhitespace(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationContent) : string
+    private function appendPreviousWhitespace(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationContent) : string
     {
         // is space?
         if (!$tokenIterator->isPrecededByHorizontalWhitespace()) {
@@ -116,17 +116,17 @@ final class AnnotationContentResolver
     }
     private function cleanMultilineAnnotationContent(string $annotationContent) : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($annotationContent, self::MULTILINE_COMENT_ASTERISK_REGEX, '$1$3');
+        return \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($annotationContent, self::MULTILINE_COMENT_ASTERISK_REGEX, '$1$3');
     }
-    private function tryStartWithKey(string $name, bool $start, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $localTokenIterator) : bool
+    private function tryStartWithKey(string $name, bool $start, \PHPStan\PhpDocParser\Parser\TokenIterator $localTokenIterator) : bool
     {
         if ($start) {
             return \true;
         }
-        if ($localTokenIterator->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER) && $localTokenIterator->currentTokenValue() === $name) {
+        if ($localTokenIterator->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER) && $localTokenIterator->currentTokenValue() === $name) {
             // consume "=" as well
             $localTokenIterator->next();
-            $localTokenIterator->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_EQUAL);
+            $localTokenIterator->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_EQUAL);
             return \true;
         }
         return \false;

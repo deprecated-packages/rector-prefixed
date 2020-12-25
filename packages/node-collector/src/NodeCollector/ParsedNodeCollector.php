@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector;
+namespace Rector\NodeCollector\NodeCollector;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Trait_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassConst;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Interface_;
+use PhpParser\Node\Stmt\Trait_;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * All parsed nodes grouped type
  * @template TNodeType of Node
@@ -31,20 +31,20 @@ final class ParsedNodeCollector
      * @var class-string[]
      */
     private const COLLECTABLE_NODE_TYPES = [
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class,
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_::class,
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst::class,
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch::class,
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Trait_::class,
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class,
+        \PhpParser\Node\Stmt\Class_::class,
+        \PhpParser\Node\Stmt\Interface_::class,
+        \PhpParser\Node\Stmt\ClassConst::class,
+        \PhpParser\Node\Expr\ClassConstFetch::class,
+        \PhpParser\Node\Stmt\Trait_::class,
+        \PhpParser\Node\Stmt\ClassMethod::class,
         // simply collected
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_::class,
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class,
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class,
+        \PhpParser\Node\Expr\New_::class,
+        \PhpParser\Node\Expr\StaticCall::class,
+        \PhpParser\Node\Expr\MethodCall::class,
         // for array callable - [$this, 'someCall']
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_::class,
+        \PhpParser\Node\Expr\Array_::class,
         // for unused classes
-        \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param::class,
+        \PhpParser\Node\Param::class,
     ];
     /**
      * @var Class_[]
@@ -82,7 +82,7 @@ final class ParsedNodeCollector
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -100,15 +100,15 @@ final class ParsedNodeCollector
     {
         return $this->classes;
     }
-    public function findClass(string $name) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_
+    public function findClass(string $name) : ?\PhpParser\Node\Stmt\Class_
     {
         return $this->classes[$name] ?? null;
     }
-    public function findInterface(string $name) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_
+    public function findInterface(string $name) : ?\PhpParser\Node\Stmt\Interface_
     {
         return $this->interfaces[$name] ?? null;
     }
-    public function findTrait(string $name) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Trait_
+    public function findTrait(string $name) : ?\PhpParser\Node\Stmt\Trait_
     {
         return $this->traits[$name] ?? null;
     }
@@ -116,23 +116,23 @@ final class ParsedNodeCollector
      * Guessing the nearest neighboor.
      * Used e.g. for "XController"
      */
-    public function findByShortName(string $shortName) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_
+    public function findByShortName(string $shortName) : ?\PhpParser\Node\Stmt\Class_
     {
         foreach ($this->classes as $className => $classNode) {
-            if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
+            if (\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
                 return $classNode;
             }
         }
         return null;
     }
-    public function findClassConstant(string $className, string $constantName) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst
+    public function findClassConstant(string $className, string $constantName) : ?\PhpParser\Node\Stmt\ClassConst
     {
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($constantName, '\\')) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException(\sprintf('Switched arguments in "%s"', __METHOD__));
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($constantName, '\\')) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Switched arguments in "%s"', __METHOD__));
         }
         return $this->constantsByType[$className][$constantName] ?? null;
     }
-    public function isCollectableNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    public function isCollectableNode(\PhpParser\Node $node) : bool
     {
         foreach (self::COLLECTABLE_NODE_TYPES as $collectableNodeType) {
             if (\is_a($node, $collectableNodeType, \true)) {
@@ -141,33 +141,33 @@ final class ParsedNodeCollector
         }
         return \false;
     }
-    public function collect(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    public function collect(\PhpParser\Node $node) : void
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             $this->addClass($node);
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_ || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Trait_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Interface_ || $node instanceof \PhpParser\Node\Stmt\Trait_) {
             $this->collectInterfaceOrTrait($node);
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassConst) {
             $this->addClassConstant($node);
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall) {
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
             $this->staticCalls[] = $node;
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_) {
+        if ($node instanceof \PhpParser\Node\Expr\New_) {
             $this->news[] = $node;
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param) {
+        if ($node instanceof \PhpParser\Node\Param) {
             $this->params[] = $node;
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch) {
+        if ($node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             $this->classConstFetches[] = $node;
         }
     }
@@ -185,7 +185,7 @@ final class ParsedNodeCollector
         }
         return $newsByClass;
     }
-    public function findClassConstByClassConstFetch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst
+    public function findClassConstByClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch) : ?\PhpParser\Node\Stmt\ClassConst
     {
         $className = $this->nodeNameResolver->getName($classConstFetch->class);
         if ($className === null) {
@@ -227,35 +227,35 @@ final class ParsedNodeCollector
     {
         return $this->staticCalls;
     }
-    private function addClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
+    private function addClass(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         if ($this->isClassAnonymous($class)) {
             return;
         }
-        $className = $class->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->classes[$className] = $class;
     }
     /**
      * @param Interface_|Trait_ $classLike
      */
-    private function collectInterfaceOrTrait(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $classLike) : void
+    private function collectInterfaceOrTrait(\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         $name = $this->nodeNameResolver->getName($classLike);
         if ($name === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        if ($classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_) {
+        if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
             $this->interfaces[$name] = $classLike;
-        } elseif ($classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Trait_) {
+        } elseif ($classLike instanceof \PhpParser\Node\Stmt\Trait_) {
             $this->traits[$name] = $classLike;
         }
     }
-    private function addClassConstant(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst $classConst) : void
+    private function addClassConstant(\PhpParser\Node\Stmt\ClassConst $classConst) : void
     {
-        $className = $classConst->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             // anonymous class constant
             return;
@@ -263,17 +263,17 @@ final class ParsedNodeCollector
         $constantName = $this->nodeNameResolver->getName($classConst);
         $this->constantsByType[$className][$constantName] = $classConst;
     }
-    private function resolveClassConstant(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, string $className) : ?string
+    private function resolveClassConstant(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch, string $className) : ?string
     {
         if ($className === 'self') {
-            return $classConstFetch->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            return $classConstFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         }
         if ($className === 'parent') {
-            return $classConstFetch->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+            return $classConstFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         }
         return $className;
     }
-    private function isClassAnonymous(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function isClassAnonymous(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($class->isAnonymous()) {
             return \true;
@@ -283,6 +283,6 @@ final class ParsedNodeCollector
             return \true;
         }
         // PHPStan polution
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($className, 'AnonymousClass');
+        return \_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($className, 'AnonymousClass');
     }
 }

@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\ClassMethod;
+namespace Rector\DowngradePhp74\Rector\ClassMethod;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\NullableType;
+use PhpParser\Node\Param;
+use PhpParser\Node\UnionType;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
+use Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.php.net/manual/en/language.oop5.variance.php#language.oop5.variance.contravariance
  *
  * @see \Rector\DowngradePhp74\Tests\Rector\ClassMethod\DowngradeContravariantArgumentTypeRector\DowngradeContravariantArgumentTypeRectorTest
  */
-final class DowngradeContravariantArgumentTypeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector
+final class DowngradeContravariantArgumentTypeRector extends \Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove contravariant argument type declarations', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove contravariant argument type declarations', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class ParentType {}
 class ChildType extends ParentType {}
 
@@ -63,7 +63,7 @@ class B extends A
 CODE_SAMPLE
 )]);
     }
-    public function shouldRemoveParamDeclaration(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike) : bool
+    public function shouldRemoveParamDeclaration(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($param->variadic) {
             return \false;
@@ -72,16 +72,16 @@ CODE_SAMPLE
             return \false;
         }
         // Don't consider for Union types
-        if ($param->type instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType) {
+        if ($param->type instanceof \PhpParser\Node\UnionType) {
             return \false;
         }
         // Check if the type is different from the one declared in some ancestor
         return $this->getDifferentParamTypeFromAncestorClass($param, $functionLike) !== null;
     }
-    private function getDifferentParamTypeFromAncestorClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike) : ?string
+    private function getDifferentParamTypeFromAncestorClass(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : ?string
     {
         /** @var Scope|null $scope */
-        $scope = $functionLike->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
             // possibly trait
             return null;
@@ -94,7 +94,7 @@ CODE_SAMPLE
         // If it is the NullableType, extract the name from its inner type
         /** @var Node */
         $paramType = $param->type;
-        $isNullableType = $param->type instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
+        $isNullableType = $param->type instanceof \PhpParser\Node\NullableType;
         if ($isNullableType) {
             /** @var NullableType */
             $nullableType = $paramType;
@@ -108,7 +108,7 @@ CODE_SAMPLE
         /** @var string $methodName */
         $methodName = $this->getName($functionLike);
         // Either Ancestor classes or implemented interfaces
-        $parentClassNames = \array_merge($classReflection->getParentClassesNames(), \array_map(function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
+        $parentClassNames = \array_merge($classReflection->getParentClassesNames(), \array_map(function (\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
             return $interfaceReflection->getName();
         }, $classReflection->getInterfaces()));
         foreach ($parentClassNames as $parentClassName) {

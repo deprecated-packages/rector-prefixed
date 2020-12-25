@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\ValueObject;
+namespace Rector\NetteKdyby\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PhpParser\Node;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
+use PhpParser\Node\UnionType;
+use PHPStan\Type\Type;
 final class VariableWithType
 {
     /**
@@ -26,7 +26,7 @@ final class VariableWithType
     /**
      * @param Identifier|Name|NullableType|UnionType|null $phpParserTypeNode
      */
-    public function __construct(string $name, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $staticType, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $phpParserTypeNode)
+    public function __construct(string $name, \PHPStan\Type\Type $staticType, ?\PhpParser\Node $phpParserTypeNode)
     {
         $this->name = $name;
         $this->type = $staticType;
@@ -36,14 +36,14 @@ final class VariableWithType
     {
         return $this->name;
     }
-    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getType() : \PHPStan\Type\Type
     {
         return $this->type;
     }
     /**
      * @return Identifier|Name|NullableType|UnionType|null
      */
-    public function getPhpParserTypeNode() : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function getPhpParserTypeNode() : ?\PhpParser\Node
     {
         return $this->phpParserTypeNode;
     }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\NodeFinder;
+namespace Rector\NodeNestingScope\NodeFinder;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\ValueObject\ControlStructure;
+use PhpParser\Node;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\NodeNestingScope\ValueObject\ControlStructure;
 final class ScopeAwareNodeFinder
 {
     /**
@@ -16,7 +16,7 @@ final class ScopeAwareNodeFinder
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->betterNodeFinder = $betterNodeFinder;
     }
@@ -24,9 +24,9 @@ final class ScopeAwareNodeFinder
      * Find node based on $callable or null, when the nesting scope is broken
      * @param class-string[] $allowedTypes
      */
-    public function findParentType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, array $allowedTypes) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function findParentType(\PhpParser\Node $node, array $allowedTypes) : ?\PhpParser\Node
     {
-        $callable = function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($allowedTypes) : bool {
+        $callable = function (\PhpParser\Node $node) use($allowedTypes) : bool {
             foreach ($allowedTypes as $allowedType) {
                 if (!\is_a($node, $allowedType)) {
                     continue;
@@ -41,11 +41,11 @@ final class ScopeAwareNodeFinder
      * Find node based on $callable or null, when the nesting scope is broken
      * @param class-string[] $allowedTypes
      */
-    public function findParent(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, callable $callable, array $allowedTypes) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function findParent(\PhpParser\Node $node, callable $callable, array $allowedTypes) : ?\PhpParser\Node
     {
-        $parentNestingBreakTypes = \array_diff(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\ValueObject\ControlStructure::BREAKING_SCOPE_NODE_TYPES, $allowedTypes);
+        $parentNestingBreakTypes = \array_diff(\Rector\NodeNestingScope\ValueObject\ControlStructure::BREAKING_SCOPE_NODE_TYPES, $allowedTypes);
         $this->isBreakingNodeFoundFirst = \false;
-        $foundNode = $this->betterNodeFinder->findFirstPrevious($node, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($callable, $parentNestingBreakTypes) : bool {
+        $foundNode = $this->betterNodeFinder->findFirstPrevious($node, function (\PhpParser\Node $node) use($callable, $parentNestingBreakTypes) : bool {
             if ($callable($node)) {
                 return \true;
             }

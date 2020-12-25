@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag;
+namespace PHPStan\PhpDoc\Tag;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\Type\Type;
 class UsesTag
 {
     /** @var \PHPStan\Type\Type */
     private $type;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type)
+    public function __construct(\PHPStan\Type\Type $type)
     {
         $this->type = $type;
     }
-    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getType() : \PHPStan\Type\Type
     {
         return $this->type;
     }

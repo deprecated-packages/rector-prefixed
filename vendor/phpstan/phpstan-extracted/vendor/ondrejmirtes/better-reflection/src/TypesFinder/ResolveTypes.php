@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context;
 class ResolveTypes
 {
     /** @var TypeResolver */
     private $typeResolver;
     public function __construct()
     {
-        $this->typeResolver = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver();
+        $this->typeResolver = new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver();
     }
     /**
      * @param string[] $stringTypes
      *
      * @return Type[]
      */
-    public function __invoke(array $stringTypes, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context) : array
+    public function __invoke(array $stringTypes, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context) : array
     {
         $resolvedTypes = [];
         foreach ($stringTypes as $stringType) {

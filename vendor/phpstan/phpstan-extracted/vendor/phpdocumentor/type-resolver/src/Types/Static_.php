@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing the 'static' type.
  *
@@ -24,7 +24,7 @@ use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
  *
  * @psalm-immutable
  */
-final class Static_ implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+final class Static_ implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
 {
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Tests\Rector\FuncCall\RenameFunctionRector;
+namespace Rector\Renaming\Tests\Rector\FuncCall\RenameFunctionRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RenameFunctionRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RenameFunctionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class RenameFunctionRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Test
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => '_PhpScoper2a4e7ab1ecbc\\Laravel\\Templating\\render', 'sprintf' => '_PhpScoper2a4e7ab1ecbc\\Safe\\sprintf']]];
+        return [\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::class => [\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => '_PhpScoper50d83356d739\\Laravel\\Templating\\render', 'sprintf' => '_PhpScoper50d83356d739\\Safe\\sprintf']]];
     }
 }

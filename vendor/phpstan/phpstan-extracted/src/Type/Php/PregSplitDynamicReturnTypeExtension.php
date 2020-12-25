@@ -1,59 +1,59 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Php;
+namespace PHPStan\Type\Php;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicFunctionReturnTypeExtension;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
-class PregSplitDynamicReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Name;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\DynamicFunctionReturnTypeExtension;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+class PregSplitDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
     /** @var ReflectionProvider */
     private $reflectionProvider;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function isFunctionSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return \strtolower($functionReflection->getName()) === 'preg_split';
     }
-    public function getTypeFromFunctionCall(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $flagsArg = $functionCall->args[3] ?? null;
         if ($this->hasFlag($this->getConstant('PREG_SPLIT_OFFSET_CAPTURE'), $flagsArg, $scope)) {
-            $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType(0), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType(1)], [new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()]));
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($type, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false));
+            $type = new \PHPStan\Type\ArrayType(new \PHPStan\Type\IntegerType(), new \PHPStan\Type\Constant\ConstantArrayType([new \PHPStan\Type\Constant\ConstantIntegerType(0), new \PHPStan\Type\Constant\ConstantIntegerType(1)], [new \PHPStan\Type\StringType(), new \PHPStan\Type\IntegerType()]));
+            return \PHPStan\Type\TypeCombinator::union($type, new \PHPStan\Type\Constant\ConstantBooleanType(\false));
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
     }
-    private function hasFlag(int $flag, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg $expression, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : bool
+    private function hasFlag(int $flag, ?\PhpParser\Node\Arg $expression, \PHPStan\Analyser\Scope $scope) : bool
     {
         if ($expression === null) {
             return \false;
         }
         $type = $scope->getType($expression->value);
-        return $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType && ($type->getValue() & $flag) === $flag;
+        return $type instanceof \PHPStan\Type\Constant\ConstantIntegerType && ($type->getValue() & $flag) === $flag;
     }
     private function getConstant(string $constantName) : int
     {
-        $constant = $this->reflectionProvider->getConstant(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($constantName), null);
+        $constant = $this->reflectionProvider->getConstant(new \PhpParser\Node\Name($constantName), null);
         $valueType = $constant->getValueType();
-        if (!$valueType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException(\sprintf('Constant %s does not have integer type.', $constantName));
+        if (!$valueType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
+            throw new \PHPStan\ShouldNotHappenException(\sprintf('Constant %s does not have integer type.', $constantName));
         }
         return $valueType->getValue();
     }

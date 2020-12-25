@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules;
+namespace PHPStan\Rules;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 class ClassCaseSensitivityCheck
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
     /** @var bool */
     private $checkInternalClassCaseSensitivity;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkInternalClassCaseSensitivity = \false)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkInternalClassCaseSensitivity = \false)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->checkInternalClassCaseSensitivity = $checkInternalClassCaseSensitivity;
@@ -41,11 +41,11 @@ class ClassCaseSensitivityCheck
             if ($realClassName === $className) {
                 continue;
             }
-            $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s %s referenced with incorrect case: %s.', $this->getTypeName($classReflection), $realClassName, $className))->line($pair->getNode()->getLine())->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s %s referenced with incorrect case: %s.', $this->getTypeName($classReflection), $realClassName, $className))->line($pair->getNode()->getLine())->build();
         }
         return $errors;
     }
-    private function getTypeName(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection) : string
+    private function getTypeName(\PHPStan\Reflection\ClassReflection $classReflection) : string
     {
         if ($classReflection->isInterface()) {
             return 'Interface';

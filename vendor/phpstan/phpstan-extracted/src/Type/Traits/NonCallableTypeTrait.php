@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits;
+namespace PHPStan\Type\Traits;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\TrinaryLogic;
 trait NonCallableTypeTrait
 {
-    public function isCallable() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isCallable() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function getCallableParametersAcceptors(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
-        throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+        throw new \PHPStan\ShouldNotHappenException();
     }
 }

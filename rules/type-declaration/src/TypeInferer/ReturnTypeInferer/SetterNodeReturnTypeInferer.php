@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
+namespace Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\FunctionLikeManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer;
-final class SetterNodeReturnTypeInferer extends \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
+use PhpParser\Node\FunctionLike;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+use Rector\Core\PhpParser\Node\Manipulator\FunctionLikeManipulator;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
+use Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
+use Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer;
+final class SetterNodeReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer implements \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface
 {
     /**
      * @var FunctionLikeManipulator
@@ -21,16 +21,16 @@ final class SetterNodeReturnTypeInferer extends \_PhpScoper2a4e7ab1ecbc\Rector\T
      * @var AssignToPropertyTypeInferer
      */
     private $assignToPropertyTypeInferer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer $assignToPropertyTypeInferer, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\FunctionLikeManipulator $functionLikeManipulator)
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer $assignToPropertyTypeInferer, \Rector\Core\PhpParser\Node\Manipulator\FunctionLikeManipulator $functionLikeManipulator)
     {
         $this->functionLikeManipulator = $functionLikeManipulator;
         $this->assignToPropertyTypeInferer = $assignToPropertyTypeInferer;
     }
-    public function inferFunctionLike(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function inferFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : \PHPStan\Type\Type
     {
-        $classLike = $functionLike->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+            return new \PHPStan\Type\MixedType();
         }
         $returnedPropertyNames = $this->functionLikeManipulator->getReturnedLocalPropertyNames($functionLike);
         $types = [];

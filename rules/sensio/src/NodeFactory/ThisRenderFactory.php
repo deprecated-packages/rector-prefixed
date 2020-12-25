@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Sensio\NodeFactory;
+namespace Rector\Sensio\NodeFactory;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\NodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\Sensio\Helper\TemplateGuesser;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Return_;
+use PHPStan\Type\ArrayType;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode;
+use Rector\Core\PhpParser\Node\NodeFactory;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\Sensio\Helper\TemplateGuesser;
 final class ThisRenderFactory
 {
     /**
@@ -41,7 +41,7 @@ final class ThisRenderFactory
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Sensio\NodeFactory\ArrayFromCompactFactory $arrayFromCompactFactory, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Sensio\Helper\TemplateGuesser $templateGuesser)
+    public function __construct(\Rector\Sensio\NodeFactory\ArrayFromCompactFactory $arrayFromCompactFactory, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Sensio\Helper\TemplateGuesser $templateGuesser)
     {
         $this->nodeFactory = $nodeFactory;
         $this->templateGuesser = $templateGuesser;
@@ -49,7 +49,7 @@ final class ThisRenderFactory
         $this->arrayFromCompactFactory = $arrayFromCompactFactory;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function create(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_ $return, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
+    public function create(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : \PhpParser\Node\Expr\MethodCall
     {
         $renderArguments = $this->resolveRenderArguments($classMethod, $return, $sensioTemplateTagValueNode);
         return $this->nodeFactory->createMethodCall('this', 'render', $renderArguments);
@@ -57,24 +57,24 @@ final class ThisRenderFactory
     /**
      * @return Arg[]
      */
-    private function resolveRenderArguments(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_ $return, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : array
+    private function resolveRenderArguments(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?\PhpParser\Node\Stmt\Return_ $return, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : array
     {
         $templateNameString = $this->resolveTemplateName($classMethod, $sensioTemplateTagValueNode);
         $arguments = [$templateNameString];
         $parametersExpr = $this->resolveParametersExpr($return, $sensioTemplateTagValueNode);
         if ($parametersExpr !== null) {
-            $arguments[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($parametersExpr);
+            $arguments[] = new \PhpParser\Node\Arg($parametersExpr);
         }
         return $this->nodeFactory->createArgs($arguments);
     }
-    private function resolveTemplateName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : string
+    private function resolveTemplateName(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : string
     {
         if ($sensioTemplateTagValueNode->getTemplate() !== null) {
             return $sensioTemplateTagValueNode->getTemplate();
         }
         return $this->templateGuesser->resolveFromClassMethodNode($classMethod);
     }
-    private function resolveParametersExpr(?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_ $return, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    private function resolveParametersExpr(?\PhpParser\Node\Stmt\Return_ $return, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode) : ?\PhpParser\Node\Expr
     {
         if ($sensioTemplateTagValueNode->getVars() !== []) {
             return $this->createArrayFromVars($sensioTemplateTagValueNode->getVars());
@@ -82,16 +82,16 @@ final class ThisRenderFactory
         if ($return === null) {
             return null;
         }
-        if ($return->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ && \count((array) $return->expr->items)) {
+        if ($return->expr instanceof \PhpParser\Node\Expr\Array_ && \count((array) $return->expr->items)) {
             return $return->expr;
         }
-        if ($return->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+        if ($return->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             $returnStaticType = $this->nodeTypeResolver->getStaticType($return->expr);
-            if ($returnStaticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+            if ($returnStaticType instanceof \PHPStan\Type\ArrayType) {
                 return $return->expr;
             }
         }
-        if ($return->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall && $this->nodeNameResolver->isName($return->expr, 'compact')) {
+        if ($return->expr instanceof \PhpParser\Node\Expr\FuncCall && $this->nodeNameResolver->isName($return->expr, 'compact')) {
             /** @var FuncCall $compactFunCall */
             $compactFunCall = $return->expr;
             return $this->arrayFromCompactFactory->createArrayFromCompactFuncCall($compactFunCall);
@@ -101,12 +101,12 @@ final class ThisRenderFactory
     /**
      * @param string[] $vars
      */
-    private function createArrayFromVars(array $vars) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_
+    private function createArrayFromVars(array $vars) : \PhpParser\Node\Expr\Array_
     {
         $arrayItems = [];
         foreach ($vars as $var) {
-            $arrayItems[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($var), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($var));
+            $arrayItems[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\Variable($var), new \PhpParser\Node\Scalar\String_($var));
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_($arrayItems);
+        return new \PhpParser\Node\Expr\Array_($arrayItems);
     }
 }

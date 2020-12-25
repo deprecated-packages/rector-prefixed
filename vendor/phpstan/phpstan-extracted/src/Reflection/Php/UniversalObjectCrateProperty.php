@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php;
+namespace PHPStan\Reflection\Php;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class UniversalObjectCrateProperty implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Type;
+class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -14,13 +14,13 @@ class UniversalObjectCrateProperty implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Re
     private $readableType;
     /** @var \PHPStan\Type\Type */
     private $writableType;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $declaringClass, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $readableType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $writableType)
+    public function __construct(\PHPStan\Reflection\ClassReflection $declaringClass, \PHPStan\Type\Type $readableType, \PHPStan\Type\Type $writableType)
     {
         $this->declaringClass = $declaringClass;
         $this->readableType = $readableType;
         $this->writableType = $writableType;
     }
-    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
@@ -36,11 +36,11 @@ class UniversalObjectCrateProperty implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Re
     {
         return \true;
     }
-    public function getReadableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getReadableType() : \PHPStan\Type\Type
     {
         return $this->readableType;
     }
-    public function getWritableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getWritableType() : \PHPStan\Type\Type
     {
         return $this->writableType;
     }
@@ -56,17 +56,17 @@ class UniversalObjectCrateProperty implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Re
     {
         return \true;
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function getDocComment() : ?string
     {

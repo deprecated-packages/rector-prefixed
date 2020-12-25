@@ -9,29 +9,29 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
 /**
  * Represents an expression type as described in the PSR-5, the PHPDoc Standard.
  *
  * @psalm-immutable
  */
-final class Expression implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+final class Expression implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
 {
     /** @var Type */
     protected $valueType;
     /**
      * Initializes this representation of an array with the given Type.
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $valueType)
+    public function __construct(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $valueType)
     {
         $this->valueType = $valueType;
     }
     /**
      * Returns the value for the keys of this array.
      */
-    public function getValueType() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    public function getValueType() : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         return $this->valueType;
     }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\File;
+namespace PHPStan\File;
 
-class CouldNotWriteFileException extends \_PhpScoper2a4e7ab1ecbc\PHPStan\AnalysedCodeException
+class CouldNotWriteFileException extends \PHPStan\AnalysedCodeException
 {
     public function __construct(string $fileName, string $error)
     {

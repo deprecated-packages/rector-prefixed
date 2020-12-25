@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Process\Runnable;
+namespace PHPStan\Process\Runnable;
 
 class RunnableCanceledException extends \Exception
 {

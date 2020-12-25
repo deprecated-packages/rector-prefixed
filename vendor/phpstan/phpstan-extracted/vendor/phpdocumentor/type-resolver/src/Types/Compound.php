@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing a Compound Type.
  *
@@ -21,7 +21,7 @@ use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
  *
  * @psalm-immutable
  */
-final class Compound extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\AggregatedType
+final class Compound extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\AggregatedType
 {
     /**
      * Initializes a compound type (i.e. `string|int`) and tests if the provided types all implement the Type interface.

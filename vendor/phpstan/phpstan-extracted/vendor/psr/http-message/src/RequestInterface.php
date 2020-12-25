@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message;
+namespace _HumbugBox221ad6f1b81f\Psr\Http\Message;
 
 /**
  * Representation of an outgoing, client-side request.
@@ -21,7 +21,7 @@ namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message;
  * be implemented such that they retain the internal state of the current
  * message and return an instance that contains the changed state.
  */
-interface RequestInterface extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\MessageInterface
+interface RequestInterface extends \_HumbugBox221ad6f1b81f\Psr\Http\Message\MessageInterface
 {
     /**
      * Retrieves the message's request target.
@@ -120,5 +120,5 @@ interface RequestInterface extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81
      * @param bool $preserveHost Preserve the original state of the Host header.
      * @return static
      */
-    public function withUri(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface $uri, $preserveHost = \false);
+    public function withUri(\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface $uri, $preserveHost = \false);
 }

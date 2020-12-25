@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Transform\Tests\Rector\Assign\PropertyToMethodRector;
+namespace Rector\Transform\Tests\Rector\Assign\PropertyToMethodRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\Assign\PropertyToMethodRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\Tests\Rector\Assign\PropertyToMethodRector\Source\Translator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\PropertyToMethod;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class PropertyToMethodRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Transform\Rector\Assign\PropertyToMethodRector;
+use Rector\Transform\Tests\Rector\Assign\PropertyToMethodRector\Source\Translator;
+use Rector\Transform\ValueObject\PropertyToMethod;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class PropertyToMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class PropertyToMethodRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Te
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\Assign\PropertyToMethodRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\Assign\PropertyToMethodRector::PROPERTIES_TO_METHOD_CALLS => [new \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\PropertyToMethod(\_PhpScoper2a4e7ab1ecbc\Rector\Transform\Tests\Rector\Assign\PropertyToMethodRector\Source\Translator::class, 'locale', 'getLocale', 'setLocale'), new \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\PropertyToMethod('_PhpScoper2a4e7ab1ecbc\\Rector\\Transform\\Tests\\Rector\\Assign\\PropertyToMethodRector\\Fixture\\Fixture2', 'parameter', 'getConfig', null, ['parameter'])]]];
+        return [\Rector\Transform\Rector\Assign\PropertyToMethodRector::class => [\Rector\Transform\Rector\Assign\PropertyToMethodRector::PROPERTIES_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\PropertyToMethod(\Rector\Transform\Tests\Rector\Assign\PropertyToMethodRector\Source\Translator::class, 'locale', 'getLocale', 'setLocale'), new \Rector\Transform\ValueObject\PropertyToMethod('Rector\\Transform\\Tests\\Rector\\Assign\\PropertyToMethodRector\\Fixture\\Fixture2', 'parameter', 'getConfig', null, ['parameter'])]]];
     }
 }

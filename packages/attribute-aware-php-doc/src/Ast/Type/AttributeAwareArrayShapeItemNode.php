@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\Type;
+namespace Rector\AttributeAwarePhpDoc\Ast\Type;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareArrayShapeItemNode extends \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode implements \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
+use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
+use PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode;
+use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+final class AttributeAwareArrayShapeItemNode extends \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
 {
     use AttributeTrait;
     /**
@@ -21,12 +21,12 @@ final class AttributeAwareArrayShapeItemNode extends \_PhpScoper2a4e7ab1ecbc\PHP
     /**
      * @param ConstExprIntegerNode|ConstExprStringNode|IdentifierTypeNode|null $keyName
      */
-    public function __construct($keyName, bool $optional, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $docComment = '')
+    public function __construct($keyName, bool $optional, \PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $docComment = '')
     {
         parent::__construct($keyName, $optional, $typeNode);
         // spaces after double colon
         $keyWithSpacePattern = $this->createKeyWithSpacePattern($keyName, $optional);
-        $this->hasSpaceAfterDoubleColon = (bool) \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::matchAll($docComment, $keyWithSpacePattern);
+        $this->hasSpaceAfterDoubleColon = (bool) \_PhpScoper50d83356d739\Nette\Utils\Strings::matchAll($docComment, $keyWithSpacePattern);
     }
     public function __toString() : string
     {

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Event;
+namespace Hoa\Event;
 
 /**
  * Class \Hoa\Event\Listener.
@@ -64,7 +64,7 @@ class Listener
      * @param   \Hoa\Event\Listenable  $source    Source (for Bucket).
      * @param   array                  $ids       Accepted ID.
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Hoa\Event\Listenable $source, array $ids)
+    public function __construct(\Hoa\Event\Listenable $source, array $ids)
     {
         $this->_source = $source;
         $this->addIds($ids);
@@ -94,7 +94,7 @@ class Listener
     public function attach($listenerId, $callable)
     {
         if (\false === $this->listenerExists($listenerId)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Event\Exception('Cannot listen %s because it is not defined.', 0, $listenerId);
+            throw new \Hoa\Event\Exception('Cannot listen %s because it is not defined.', 0, $listenerId);
         }
         $callable = xcallable($callable);
         $this->_callables[$listenerId][$callable->getHash()] = $callable;
@@ -141,10 +141,10 @@ class Listener
      * @return  array
      * @throws  \Hoa\Event\Exception
      */
-    public function fire($listenerId, \_PhpScoper2a4e7ab1ecbc\Hoa\Event\Bucket $data)
+    public function fire($listenerId, \Hoa\Event\Bucket $data)
     {
         if (\false === $this->listenerExists($listenerId)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Event\Exception('Cannot fire on %s because it is not defined.', 1, $listenerId);
+            throw new \Hoa\Event\Exception('Cannot fire on %s because it is not defined.', 1, $listenerId);
         }
         $data->setSource($this->_source);
         $out = [];

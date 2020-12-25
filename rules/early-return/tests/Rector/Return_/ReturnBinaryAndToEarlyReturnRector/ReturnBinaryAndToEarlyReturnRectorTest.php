@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Tests\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
+namespace Rector\EarlyReturn\Tests\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ReturnBinaryAndToEarlyReturnRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ReturnBinaryAndToEarlyReturnRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ReturnBinaryAndToEarlyReturnRectorTest extends \_PhpScoper2a4e7ab1ec
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector::class;
+        return \Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector::class;
     }
 }

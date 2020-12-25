@@ -1,49 +1,49 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Php;
+namespace PHPStan\Type\Php;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils;
-class ArrayShiftFunctionReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use PhpParser\Node\Expr\FuncCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Type\NullType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
+class ArrayShiftFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'array_shift';
     }
-    public function getTypeFromFunctionCall(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         if (!isset($functionCall->args[0])) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+            return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         }
         $argType = $scope->getType($functionCall->args[0]->value);
         $iterableAtLeastOnce = $argType->isIterableAtLeastOnce();
         if ($iterableAtLeastOnce->no()) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType();
+            return new \PHPStan\Type\NullType();
         }
-        $constantArrays = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::getConstantArrays($argType);
+        $constantArrays = \PHPStan\Type\TypeUtils::getConstantArrays($argType);
         if (\count($constantArrays) > 0) {
             $valueTypes = [];
             foreach ($constantArrays as $constantArray) {
                 $arrayKeyTypes = $constantArray->getKeyTypes();
                 if (\count($arrayKeyTypes) === 0) {
-                    $valueTypes[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType();
+                    $valueTypes[] = new \PHPStan\Type\NullType();
                     continue;
                 }
                 $valueTypes[] = $constantArray->getOffsetValueType($arrayKeyTypes[0]);
             }
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$valueTypes);
+            return \PHPStan\Type\TypeCombinator::union(...$valueTypes);
         }
         $itemType = $argType->getIterableValueType();
         if ($iterableAtLeastOnce->yes()) {
             return $itemType;
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($itemType, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType());
+        return \PHPStan\Type\TypeCombinator::union($itemType, new \PHPStan\Type\NullType());
     }
 }

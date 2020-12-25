@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Tests\Rector\FuncCall\SwapFuncCallArgumentsRector;
+namespace Rector\Generic\Tests\Rector\FuncCall\SwapFuncCallArgumentsRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\SwapFuncCallArguments;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class SwapFuncCallArgumentsRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector;
+use Rector\Generic\ValueObject\SwapFuncCallArguments;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class SwapFuncCallArgumentsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class SwapFuncCallArgumentsRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rect
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::FUNCTION_ARGUMENT_SWAPS => [new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\SwapFuncCallArguments('some_function', [1, 0])]]];
+        return [\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::class => [\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::FUNCTION_ARGUMENT_SWAPS => [new \Rector\Generic\ValueObject\SwapFuncCallArguments('some_function', [1, 0])]]];
     }
 }

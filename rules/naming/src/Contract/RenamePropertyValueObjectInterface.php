@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract;
+namespace Rector\Naming\Contract;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty;
-interface RenamePropertyValueObjectInterface extends \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\RenameValueObjectInterface
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\Property;
+use PhpParser\Node\Stmt\PropertyProperty;
+interface RenamePropertyValueObjectInterface extends \Rector\Naming\Contract\RenameValueObjectInterface
 {
-    public function getClassLike() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
+    public function getClassLike() : \PhpParser\Node\Stmt\ClassLike;
     public function getClassLikeName() : string;
-    public function getProperty() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-    public function getPropertyProperty() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty;
+    public function getProperty() : \PhpParser\Node\Stmt\Property;
+    public function getPropertyProperty() : \PhpParser\Node\Stmt\PropertyProperty;
 }

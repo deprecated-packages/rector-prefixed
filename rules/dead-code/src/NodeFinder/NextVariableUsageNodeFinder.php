@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\NodeFinder;
+namespace Rector\DeadCode\NodeFinder;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\ParentScopeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\NodeTraverser;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeNestingScope\ParentScopeFinder;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class NextVariableUsageNodeFinder
 {
     /**
@@ -35,7 +35,7 @@ final class NextVariableUsageNodeFinder
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -43,7 +43,7 @@ final class NextVariableUsageNodeFinder
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function find(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign $assign) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function find(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
     {
         $scopeNode = $this->parentScopeFinder->find($assign);
         if ($scopeNode === null) {
@@ -51,7 +51,7 @@ final class NextVariableUsageNodeFinder
         }
         /** @var Variable $expr */
         $expr = $assign->var;
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $scopeNode->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $currentNode) use($expr, &$nextUsageOfVariable) : ?int {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $scopeNode->stmts, function (\PhpParser\Node $currentNode) use($expr, &$nextUsageOfVariable) : ?int {
             // used above the assign
             if ($currentNode->getStartTokenPos() < $expr->getStartTokenPos()) {
                 return null;
@@ -63,16 +63,16 @@ final class NextVariableUsageNodeFinder
             if (!$this->betterStandardPrinter->areNodesEqual($currentNode, $expr)) {
                 return null;
             }
-            $currentNodeParent = $currentNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($currentNodeParent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign && !$this->hasInParentExpression($currentNodeParent, $expr)) {
-                return \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser::STOP_TRAVERSAL;
+            $currentNodeParent = $currentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($currentNodeParent instanceof \PhpParser\Node\Expr\Assign && !$this->hasInParentExpression($currentNodeParent, $expr)) {
+                return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
             }
             $nextUsageOfVariable = $currentNode;
-            return \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser::STOP_TRAVERSAL;
+            return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
         return $nextUsageOfVariable;
     }
-    private function hasInParentExpression(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign $assign, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable) : bool
+    private function hasInParentExpression(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         $name = $this->nodeNameResolver->getName($variable);
         if ($name === null) {

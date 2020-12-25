@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Command;
+namespace PHPStan\Command;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\ResultCache\ResultCacheClearer;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Command\ErrorFormatter\ErrorFormatter;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Command\ErrorFormatter\TableErrorFormatter;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Command\Symfony\SymfonyOutput;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Command\Symfony\SymfonyStyle;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileWriter;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\ParentDirectoryRelativePathHelper;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\StringInput;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\StreamOutput;
+use _HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
+use PHPStan\Analyser\ResultCache\ResultCacheClearer;
+use PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter;
+use PHPStan\Command\ErrorFormatter\ErrorFormatter;
+use PHPStan\Command\ErrorFormatter\TableErrorFormatter;
+use PHPStan\Command\Symfony\SymfonyOutput;
+use PHPStan\Command\Symfony\SymfonyStyle;
+use PHPStan\File\FileWriter;
+use PHPStan\File\ParentDirectoryRelativePathHelper;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\StringInput;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\StreamOutput;
 use function stream_get_contents;
-class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command
+class AnalyseCommand extends \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command
 {
     private const NAME = 'analyse';
     public const OPTION_LEVEL = 'level';
-    public const DEFAULT_LEVEL = \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\CommandHelper::DEFAULT_LEVEL;
+    public const DEFAULT_LEVEL = \PHPStan\Command\CommandHelper::DEFAULT_LEVEL;
     /** @var string[] */
     private $composerAutoloaderProjectPaths;
     /**
@@ -36,7 +36,7 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
     }
     protected function configure() : void
     {
-        $this->setName(self::NAME)->setDescription('Analyses source code')->setDefinition([new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument('paths', \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('paths-file', null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption(self::OPTION_LEVEL, 'l', \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption(\_PhpScoper2a4e7ab1ecbc\PHPStan\Command\ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Do not show progress bar, only results'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('debug', null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('error-format', null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', null), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('generate-baseline', null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, 'Path to a file where the baseline should be saved', \false), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('memory-limit', null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('xdebug', null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('fix', null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('watch', null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro'), new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('pro', null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro')]);
+        $this->setName(self::NAME)->setDescription('Analyses source code')->setDefinition([new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument('paths', \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('paths-file', null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('configuration', 'c', \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption(self::OPTION_LEVEL, 'l', \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption(\PHPStan\Command\ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Do not show progress bar, only results'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('debug', null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('error-format', null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', null), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('generate-baseline', null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, 'Path to a file where the baseline should be saved', \false), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('memory-limit', null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('xdebug', null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('fix', null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('watch', null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro'), new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('pro', null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro')]);
     }
     /**
      * @return string[]
@@ -45,18 +45,18 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
     {
         return ['analyze'];
     }
-    protected function initialize(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output) : void
+    protected function initialize(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         if ((bool) $input->getOption('debug')) {
             $application = $this->getApplication();
             if ($application === null) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                throw new \PHPStan\ShouldNotHappenException();
             }
             $application->setCatchExceptions(\false);
             return;
         }
     }
-    protected function execute(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $paths = $input->getArgument('paths');
         $memoryLimit = $input->getOption('memory-limit');
@@ -75,11 +75,11 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
             $generateBaselineFile = 'phpstan-baseline.neon';
         }
         if (!\is_array($paths) || !\is_string($memoryLimit) && $memoryLimit !== null || !\is_string($autoloadFile) && $autoloadFile !== null || !\is_string($configuration) && $configuration !== null || !\is_string($level) && $level !== null || !\is_string($pathsFile) && $pathsFile !== null || !\is_bool($allowXdebug)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         try {
-            $inceptionResult = \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\CommandHelper::begin($input, $output, $paths, $pathsFile, $memoryLimit, $autoloadFile, $this->composerAutoloaderProjectPaths, $configuration, $generateBaselineFile, $level, $allowXdebug, \true, $debugEnabled);
-        } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\Command\InceptionNotSuccessfulException $e) {
+            $inceptionResult = \PHPStan\Command\CommandHelper::begin($input, $output, $paths, $pathsFile, $memoryLimit, $autoloadFile, $this->composerAutoloaderProjectPaths, $configuration, $generateBaselineFile, $level, $allowXdebug, \true, $debugEnabled);
+        } catch (\PHPStan\Command\InceptionNotSuccessfulException $e) {
             return 1;
         }
         $errorOutput = $inceptionResult->getErrorOutput();
@@ -93,19 +93,19 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
         }
         $errorFormat = $input->getOption('error-format');
         if (!\is_string($errorFormat) && $errorFormat !== null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         if ($errorFormat === null) {
             $errorFormat = 'table';
-            $ciDetector = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector();
+            $ciDetector = new \_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector();
             try {
                 $ci = $ciDetector->detect();
-                if ($ci->getCiName() === \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS) {
+                if ($ci->getCiName() === \_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS) {
                     $errorFormat = 'github';
-                } elseif ($ci->getCiName() === \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_TEAMCITY) {
+                } elseif ($ci->getCiName() === \_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_TEAMCITY) {
                     $errorFormat = 'teamcity';
                 }
-            } catch (\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Exception\CiNotDetectedException $e) {
+            } catch (\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Exception\CiNotDetectedException $e) {
                 // pass
             }
         }
@@ -114,7 +114,7 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
         if (!$container->hasService($errorFormatterServiceName)) {
             $errorOutput->writeLineFormatted(\sprintf('Error formatter "%s" not found. Available error formatters are: %s', $errorFormat, \implode(', ', \array_map(static function (string $name) : string {
                 return \substr($name, \strlen('errorFormatter.'));
-            }, $container->findServiceNamesByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Command\ErrorFormatter\ErrorFormatter::class)))));
+            }, $container->findServiceNamesByType(\PHPStan\Command\ErrorFormatter\ErrorFormatter::class)))));
             return 1;
         }
         if ($errorFormat === 'baselineNeon') {
@@ -143,15 +143,15 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
         }
         try {
             [$files, $onlyFiles] = $inceptionResult->getFiles();
-        } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\File\PathNotFoundException $e) {
+        } catch (\PHPStan\File\PathNotFoundException $e) {
             $inceptionResult->getErrorOutput()->writeLineFormatted(\sprintf('<error>%s</error>', $e->getMessage()));
             return 1;
         }
         /** @var AnalyseApplication  $application */
-        $application = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Command\AnalyseApplication::class);
+        $application = $container->getByType(\PHPStan\Command\AnalyseApplication::class);
         $debug = $input->getOption('debug');
         if (!\is_bool($debug)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $analysisResult = $application->analyse($files, $onlyFiles, $inceptionResult->getStdOutput(), $inceptionResult->getErrorOutput(), $inceptionResult->isDefaultLevelUsed(), $debug, $inceptionResult->getProjectConfigFile(), $inceptionResult->getProjectConfigArray(), $input);
         if ($generateBaselineFile !== null) {
@@ -164,16 +164,16 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
                 return $inceptionResult->handleReturn(1);
             }
             $baselineFileDirectory = \dirname($generateBaselineFile);
-            $baselineErrorFormatter = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter(new \_PhpScoper2a4e7ab1ecbc\PHPStan\File\ParentDirectoryRelativePathHelper($baselineFileDirectory));
+            $baselineErrorFormatter = new \PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter(new \PHPStan\File\ParentDirectoryRelativePathHelper($baselineFileDirectory));
             $streamOutput = $this->createStreamOutput();
-            $errorConsoleStyle = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\ErrorsConsoleStyle(new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\StringInput(''), $streamOutput);
-            $baselineOutput = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\Symfony\SymfonyOutput($streamOutput, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\Symfony\SymfonyStyle($errorConsoleStyle));
+            $errorConsoleStyle = new \PHPStan\Command\ErrorsConsoleStyle(new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\StringInput(''), $streamOutput);
+            $baselineOutput = new \PHPStan\Command\Symfony\SymfonyOutput($streamOutput, new \PHPStan\Command\Symfony\SymfonyStyle($errorConsoleStyle));
             $baselineErrorFormatter->formatErrors($analysisResult, $baselineOutput);
             $stream = $streamOutput->getStream();
             \rewind($stream);
             $baselineContents = \stream_get_contents($stream);
             if ($baselineContents === \false) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                throw new \PHPStan\ShouldNotHappenException();
             }
             if (!\is_dir($baselineFileDirectory)) {
                 $mkdirResult = @\mkdir($baselineFileDirectory, 0644, \true);
@@ -183,8 +183,8 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
                 }
             }
             try {
-                \_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileWriter::write($generateBaselineFile, $baselineContents);
-            } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\File\CouldNotWriteFileException $e) {
+                \PHPStan\File\FileWriter::write($generateBaselineFile, $baselineContents);
+            } catch (\PHPStan\File\CouldNotWriteFileException $e) {
                 $inceptionResult->getStdOutput()->writeLineFormatted($e->getMessage());
                 return $inceptionResult->handleReturn(1);
             }
@@ -212,12 +212,12 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
             return $inceptionResult->handleReturn(0);
         }
         if ($fix) {
-            $ciDetector = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector();
+            $ciDetector = new \_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector();
             if ($ciDetector->isCiDetected()) {
                 $inceptionResult->getStdOutput()->writeLineFormatted('PHPStan Pro can\'t run in CI environment yet. Stay tuned!');
                 return $inceptionResult->handleReturn(1);
             }
-            $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\ResultCache\ResultCacheClearer::class)->clearTemporaryCaches();
+            $container->getByType(\PHPStan\Analyser\ResultCache\ResultCacheClearer::class)->clearTemporaryCaches();
             $hasInternalErrors = $analysisResult->hasInternalErrors();
             $nonIgnorableErrorsByException = [];
             foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
@@ -227,7 +227,7 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
                 $nonIgnorableErrorsByException[] = $fileSpecificError;
             }
             if ($hasInternalErrors || \count($nonIgnorableErrorsByException) > 0) {
-                $fixerAnalysisResult = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\AnalysisResult($nonIgnorableErrorsByException, $analysisResult->getInternalErrors(), $analysisResult->getInternalErrors(), [], $analysisResult->isDefaultLevelUsed(), $analysisResult->getProjectConfigFile(), $analysisResult->isResultCacheSaved());
+                $fixerAnalysisResult = new \PHPStan\Command\AnalysisResult($nonIgnorableErrorsByException, $analysisResult->getInternalErrors(), $analysisResult->getInternalErrors(), [], $analysisResult->isDefaultLevelUsed(), $analysisResult->getProjectConfigFile(), $analysisResult->isResultCacheSaved());
                 $stdOutput = $inceptionResult->getStdOutput();
                 $stdOutput->getStyle()->error('PHPStan Pro can\'t be launched because of these errors:');
                 /** @var TableErrorFormatter $tableErrorFormatter */
@@ -260,19 +260,19 @@ class AnalyseCommand extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symf
             $inceptionResult->handleReturn(0);
             // delete memory limit file
             /** @var FixerApplication $fixerApplication */
-            $fixerApplication = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Command\FixerApplication::class);
+            $fixerApplication = $container->getByType(\PHPStan\Command\FixerApplication::class);
             return $fixerApplication->run($inceptionResult->getProjectConfigFile(), $inceptionResult, $input, $output, $analysisResult->getFileSpecificErrors(), $analysisResult->getNotFileSpecificErrors(), \count($files), $_SERVER['argv'][0]);
         }
         /** @var ErrorFormatter $errorFormatter */
         $errorFormatter = $container->getService($errorFormatterServiceName);
         return $inceptionResult->handleReturn($errorFormatter->formatErrors($analysisResult, $inceptionResult->getStdOutput()));
     }
-    private function createStreamOutput() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\StreamOutput
+    private function createStreamOutput() : \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\StreamOutput
     {
         $resource = \fopen('php://memory', 'w', \false);
         if ($resource === \false) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
-        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\StreamOutput($resource);
+        return new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\StreamOutput($resource);
     }
 }

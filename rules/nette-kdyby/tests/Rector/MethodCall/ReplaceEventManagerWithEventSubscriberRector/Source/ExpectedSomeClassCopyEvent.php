@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\Event;
+namespace Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\Event;
 
-final class SomeClassCopyEvent extends \_PhpScoper2a4e7ab1ecbc\Symfony\Contracts\EventDispatcher\Event
+final class SomeClassCopyEvent extends \_PhpScoper50d83356d739\Symfony\Contracts\EventDispatcher\Event
 {
     /**
      * @var \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass
@@ -12,12 +12,12 @@ final class SomeClassCopyEvent extends \_PhpScoper2a4e7ab1ecbc\Symfony\Contracts
      * @var string
      */
     private $key;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass $someClass, string $key)
+    public function __construct(\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass $someClass, string $key)
     {
         $this->someClass = $someClass;
         $this->key = $key;
     }
-    public function getSomeClass() : \_PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass
+    public function getSomeClass() : \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector\Fixture\SomeClass
     {
         return $this->someClass;
     }

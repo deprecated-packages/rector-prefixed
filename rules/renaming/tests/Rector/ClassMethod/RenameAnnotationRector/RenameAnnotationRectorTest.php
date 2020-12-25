@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Tests\Rector\ClassMethod\RenameAnnotationRector;
+namespace Rector\Renaming\Tests\Rector\ClassMethod\RenameAnnotationRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\ValueObject\RenameAnnotation;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RenameAnnotationRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector;
+use Rector\Renaming\ValueObject\RenameAnnotation;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RenameAnnotationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class RenameAnnotationRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Te
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::RENAMED_ANNOTATIONS_IN_TYPES => [new \_PhpScoper2a4e7ab1ecbc\Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase', 'scenario', 'test')]]];
+        return [\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::class => [\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::RENAMED_ANNOTATIONS_IN_TYPES => [new \Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase', 'scenario', 'test')]]];
     }
 }

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Polyfill\Rector\If_;
+namespace Rector\Polyfill\Rector\If_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Polyfill\ConditionEvaluator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Polyfill\ConditionResolver;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\If_;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Polyfill\ConditionEvaluator;
+use Rector\Polyfill\ConditionResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.php.net/manual/en/function.version-compare.php
  *
  * @see \Rector\Polyfill\Tests\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRector\UnwrapFutureCompatibleIfPhpVersionRectorTest
  */
-final class UnwrapFutureCompatibleIfPhpVersionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class UnwrapFutureCompatibleIfPhpVersionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ConditionEvaluator
@@ -25,14 +25,14 @@ final class UnwrapFutureCompatibleIfPhpVersionRector extends \_PhpScoper2a4e7ab1
      * @var ConditionResolver
      */
     private $conditionResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Polyfill\ConditionEvaluator $conditionEvaluator, \_PhpScoper2a4e7ab1ecbc\Rector\Polyfill\ConditionResolver $conditionResolver)
+    public function __construct(\Rector\Polyfill\ConditionEvaluator $conditionEvaluator, \Rector\Polyfill\ConditionResolver $conditionResolver)
     {
         $this->conditionEvaluator = $conditionEvaluator;
         $this->conditionResolver = $conditionResolver;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove php version checks if they are passed', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove php version checks if they are passed', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 // current PHP: 7.2
 if (version_compare(PHP_VERSION, '7.2', '<')) {
     return 'is PHP 7.1-';
@@ -51,12 +51,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_::class];
+        return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ((bool) $node->elseifs) {
             return null;
@@ -77,7 +77,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function refactorIsMatch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ $if) : void
+    private function refactorIsMatch(\PhpParser\Node\Stmt\If_ $if) : void
     {
         if ((bool) $if->elseifs) {
             return;
@@ -85,7 +85,7 @@ CODE_SAMPLE
         $this->unwrapStmts($if->stmts, $if);
         $this->removeNode($if);
     }
-    private function refactorIsNotMatch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ $if) : void
+    private function refactorIsNotMatch(\PhpParser\Node\Stmt\If_ $if) : void
     {
         // no else → just remove the node
         if ($if->else === null) {

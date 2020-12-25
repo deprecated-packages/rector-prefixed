@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic;
+namespace PHPStan\Type\Generic;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\IntersectionType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
 /**
  * Template type strategy suitable for return type acceptance contexts
  */
-class TemplateTypeArgumentStrategy implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeStrategy
+class TemplateTypeArgumentStrategy implements \PHPStan\Type\Generic\TemplateTypeStrategy
 {
-    public function accepts(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType $left, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $right, bool $strictTypes) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Generic\TemplateType $left, \PHPStan\Type\Type $right, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
-        if ($right instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType) {
+        if ($right instanceof \PHPStan\Type\IntersectionType) {
             foreach ($right->getTypes() as $type) {
                 if ($this->accepts($left, $type, $strictTypes)->yes()) {
-                    return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+                    return \PHPStan\TrinaryLogic::createYes();
                 }
             }
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+            return \PHPStan\TrinaryLogic::createNo();
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createFromBoolean($left->equals($right))->or(\_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createFromBoolean($right->equals(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType())));
+        return \PHPStan\TrinaryLogic::createFromBoolean($left->equals($right))->or(\PHPStan\TrinaryLogic::createFromBoolean($right->equals(new \PHPStan\Type\MixedType())));
     }
     public function isArgument() : bool
     {

@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\FuncCall;
+namespace Rector\Php70\Rector\FuncCall;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php70\EregToPcreTransformer;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Ternary;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Name;
+use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\String_;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Php70\EregToPcreTransformer;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see http://php.net/reference.pcre.pattern.posix
  * @see https://stackoverflow.com/a/17033826/1348344
@@ -27,7 +27,7 @@ use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\Php70\Tests\Rector\FuncCall\EregToPregMatchRector\EregToPregMatchRectorTest
  */
-final class EregToPregMatchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
@@ -37,25 +37,25 @@ final class EregToPregMatchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Re
      * @var EregToPcreTransformer
      */
     private $eregToPcreTransformer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Php70\EregToPcreTransformer $eregToPcreTransformer)
+    public function __construct(\Rector\Php70\EregToPcreTransformer $eregToPcreTransformer)
     {
         $this->eregToPcreTransformer = $eregToPcreTransformer;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes ereg*() to preg*() calls', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('ereg("hi")', 'preg_match("#hi#");')]);
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes ereg*() to preg*() calls', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('ereg("hi")', 'preg_match("#hi#");')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $functionName = $this->getName($node);
         if ($functionName === null) {
@@ -65,34 +65,34 @@ final class EregToPregMatchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Re
             return null;
         }
         $patternNode = $node->args[0]->value;
-        if ($patternNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
+        if ($patternNode instanceof \PhpParser\Node\Scalar\String_) {
             $this->processStringPattern($node, $patternNode, $functionName);
-        } elseif ($patternNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+        } elseif ($patternNode instanceof \PhpParser\Node\Expr\Variable) {
             $this->processVariablePattern($node, $patternNode, $functionName);
         }
         $this->processSplitLimitArgument($node, $functionName);
-        $node->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name(self::OLD_NAMES_TO_NEW_ONES[$functionName]);
+        $node->name = new \PhpParser\Node\Name(self::OLD_NAMES_TO_NEW_ONES[$functionName]);
         // ereg|eregi 3rd argument return value fix
         if (\in_array($functionName, ['ereg', 'eregi'], \true) && isset($node->args[2])) {
-            $parentNode = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentNode instanceof \PhpParser\Node\Expr\Assign) {
                 return $this->createTernaryWithStrlenOfFirstMatch($node);
             }
         }
         return $node;
     }
-    private function processStringPattern(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string, string $functionName) : void
+    private function processStringPattern(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Scalar\String_ $string, string $functionName) : void
     {
         $pattern = $string->value;
         $pattern = $this->eregToPcreTransformer->transform($pattern, $this->isCaseInsensitiveFunction($functionName));
-        $funcCall->args[0]->value = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($pattern);
+        $funcCall->args[0]->value = new \PhpParser\Node\Scalar\String_($pattern);
     }
-    private function processVariablePattern(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable, string $functionName) : void
+    private function processVariablePattern(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\Variable $variable, string $functionName) : void
     {
-        $pregQuotePatternNode = $this->createFuncCall('preg_quote', [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($variable), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('#'))]);
-        $startConcat = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('#'), $pregQuotePatternNode);
+        $pregQuotePatternNode = $this->createFuncCall('preg_quote', [new \PhpParser\Node\Arg($variable), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_('#'))]);
+        $startConcat = new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\String_('#'), $pregQuotePatternNode);
         $endDelimiter = $this->isCaseInsensitiveFunction($functionName) ? '#mi' : '#m';
-        $concat = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat($startConcat, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($endDelimiter));
+        $concat = new \PhpParser\Node\Expr\BinaryOp\Concat($startConcat, new \PhpParser\Node\Scalar\String_($endDelimiter));
         $funcCall->args[0]->value = $concat;
     }
     /**
@@ -101,16 +101,16 @@ final class EregToPregMatchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Re
      * ↓
      * preg_split('# #', 'hey Tom', 1);
      */
-    private function processSplitLimitArgument(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall, string $functionName) : void
+    private function processSplitLimitArgument(\PhpParser\Node\Expr\FuncCall $funcCall, string $functionName) : void
     {
-        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($functionName, 'split')) {
+        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($functionName, 'split')) {
             return;
         }
         // 3rd argument - $limit, 0 → 1
         if (!isset($funcCall->args[2])) {
             return;
         }
-        if (!$funcCall->args[2]->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber) {
+        if (!$funcCall->args[2]->value instanceof \PhpParser\Node\Scalar\LNumber) {
             return;
         }
         /** @var LNumber $limitNumberNode */
@@ -120,17 +120,17 @@ final class EregToPregMatchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Re
         }
         $limitNumberNode->value = 1;
     }
-    private function createTernaryWithStrlenOfFirstMatch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary
+    private function createTernaryWithStrlenOfFirstMatch(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\Ternary
     {
-        $arrayDimFetch = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch($funcCall->args[2]->value, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber(0));
+        $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($funcCall->args[2]->value, new \PhpParser\Node\Scalar\LNumber(0));
         $strlenFuncCall = $this->createFuncCall('strlen', [$arrayDimFetch]);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary($funcCall, $strlenFuncCall, $this->createFalse());
+        return new \PhpParser\Node\Expr\Ternary($funcCall, $strlenFuncCall, $this->createFalse());
     }
     private function isCaseInsensitiveFunction(string $functionName) : bool
     {
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($functionName, 'eregi')) {
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($functionName, 'eregi')) {
             return \true;
         }
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($functionName, 'spliti');
+        return \_PhpScoper50d83356d739\Nette\Utils\Strings::contains($functionName, 'spliti');
     }
 }

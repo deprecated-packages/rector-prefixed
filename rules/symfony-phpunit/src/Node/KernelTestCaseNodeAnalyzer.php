@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\Node;
+namespace Rector\SymfonyPHPUnit\Node;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use Rector\Core\ValueObject\MethodName;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeTypeResolver\NodeTypeResolver;
 final class KernelTestCaseNodeAnalyzer
 {
     /**
@@ -19,35 +19,35 @@ final class KernelTestCaseNodeAnalyzer
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function isOnContainerGetMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    public function isOnContainerGetMethodCall(\PhpParser\Node $node) : bool
     {
         return $this->isSelfContainerGetMethodCall($node);
     }
     /**
      * Is inside setUp() class method
      */
-    public function isSetUpOrEmptyMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    public function isSetUpOrEmptyMethod(\PhpParser\Node $node) : bool
     {
-        $methodName = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
-        return $methodName === \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::SET_UP || $methodName === null;
+        $methodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+        return $methodName === \Rector\Core\ValueObject\MethodName::SET_UP || $methodName === null;
     }
     /**
      * Matches:
      * $this->getService()
      */
-    private function isSelfContainerGetMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    private function isSelfContainerGetMethodCall(\PhpParser\Node $node) : bool
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
         if (!$this->nodeNameResolver->isName($node->name, 'get')) {
             return \false;
         }
-        return $this->nodeTypeResolver->isObjectType($node->var, '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\DependencyInjection\\ContainerInterface');
+        return $this->nodeTypeResolver->isObjectType($node->var, '_PhpScoper50d83356d739\\Symfony\\Component\\DependencyInjection\\ContainerInterface');
     }
 }

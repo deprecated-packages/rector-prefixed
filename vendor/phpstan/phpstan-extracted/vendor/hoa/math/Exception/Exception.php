@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Math\Exception;
+namespace Hoa\Math\Exception;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Consistency;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Exception as HoaException;
+use Hoa\Consistency;
+use Hoa\Exception as HoaException;
 /**
  * Class \Hoa\Math\Exception.
  *
@@ -45,10 +45,10 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Exception as HoaException;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \_PhpScoper2a4e7ab1ecbc\Hoa\Exception
+class Exception extends \Hoa\Exception
 {
 }
 /**
  * Flex entity.
  */
-\_PhpScoper2a4e7ab1ecbc\Hoa\Consistency::flexEntity('_PhpScoper2a4e7ab1ecbc\\Hoa\\Math\\Exception\\Exception');
+\Hoa\Consistency::flexEntity('Hoa\\Math\\Exception\\Exception');

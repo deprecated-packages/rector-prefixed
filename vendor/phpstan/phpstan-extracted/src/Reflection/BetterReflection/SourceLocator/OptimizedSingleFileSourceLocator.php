@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-class OptimizedSingleFileSourceLocator implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+use PhpParser\Node\Expr\FuncCall;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+class OptimizedSingleFileSourceLocator implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var \PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher */
     private $fileNodesFetcher;
@@ -21,17 +21,17 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbu
     private $fileName;
     /** @var \PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNodesResult|null */
     private $fetchedNodesResult = null;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, string $fileName)
+    public function __construct(\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, string $fileName)
     {
         $this->fileNodesFetcher = $fileNodesFetcher;
         $this->fileName = $fileName;
     }
-    public function locateIdentifier(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         if ($this->fetchedNodesResult === null) {
             $this->fetchedNodesResult = $this->fileNodesFetcher->fetchNodes($this->fileName);
         }
-        $nodeToReflection = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+        $nodeToReflection = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
         if ($identifier->isClass()) {
             $classNodes = $this->fetchedNodesResult->getClassNodes();
             $className = \strtolower($identifier->getName());
@@ -40,8 +40,8 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbu
             }
             foreach ($classNodes[$className] as $classNode) {
                 $classReflection = $nodeToReflection->__invoke($reflector, $classNode->getNode(), $this->fetchedNodesResult->getLocatedSource(), $classNode->getNamespace());
-                if (!$classReflection instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass) {
-                    throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                if (!$classReflection instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass) {
+                    throw new \PHPStan\ShouldNotHappenException();
                 }
                 return $classReflection;
             }
@@ -53,21 +53,21 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbu
                 return null;
             }
             $functionReflection = $nodeToReflection->__invoke($reflector, $functionNodes[$functionName]->getNode(), $this->fetchedNodesResult->getLocatedSource(), $functionNodes[$functionName]->getNamespace());
-            if (!$functionReflection instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            if (!$functionReflection instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction) {
+                throw new \PHPStan\ShouldNotHappenException();
             }
             return $functionReflection;
         }
         if ($identifier->isConstant()) {
             $constantNodes = $this->fetchedNodesResult->getConstantNodes();
             foreach ($constantNodes as $stmtConst) {
-                if ($stmtConst->getNode() instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
+                if ($stmtConst->getNode() instanceof \PhpParser\Node\Expr\FuncCall) {
                     $constantReflection = $nodeToReflection->__invoke($reflector, $stmtConst->getNode(), $this->fetchedNodesResult->getLocatedSource(), $stmtConst->getNamespace());
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant) {
-                        throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                    if (!$constantReflection instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                        throw new \PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
                         continue;
@@ -79,8 +79,8 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbu
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant) {
-                        throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                    if (!$constantReflection instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                        throw new \PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
                         continue;
@@ -90,9 +90,9 @@ class OptimizedSingleFileSourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbu
             }
             return null;
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+        throw new \PHPStan\ShouldNotHappenException();
     }
-    public function locateIdentifiersByType(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
     }

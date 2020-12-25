@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Tests;
+namespace Rector\TypeDeclaration\Tests;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\HttpKernel\RectorKernel;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\StaticTypeMapper;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeNormalizer;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class TypeNormalizerTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\UnionType;
+use Rector\Core\HttpKernel\RectorKernel;
+use Rector\StaticTypeMapper\StaticTypeMapper;
+use Rector\TypeDeclaration\TypeNormalizer;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class TypeNormalizerTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var TypeNormalizer
@@ -25,31 +25,31 @@ final class TypeNormalizerTest extends \_PhpScoper2a4e7ab1ecbc\Symplify\PackageB
     private $staticTypeMapper;
     protected function setUp() : void
     {
-        $this->bootKernel(\_PhpScoper2a4e7ab1ecbc\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->typeNormalizer = $this->getService(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeNormalizer::class);
-        $this->staticTypeMapper = $this->getService(\_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\StaticTypeMapper::class);
+        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->typeNormalizer = $this->getService(\Rector\TypeDeclaration\TypeNormalizer::class);
+        $this->staticTypeMapper = $this->getService(\Rector\StaticTypeMapper\StaticTypeMapper::class);
     }
     /**
      * @dataProvider provideDataNormalizeArrayOfUnionToUnionArray()
      */
-    public function testNormalizeArrayOfUnionToUnionArray(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType $arrayType, string $expectedDocString) : void
+    public function testNormalizeArrayOfUnionToUnionArray(\PHPStan\Type\ArrayType $arrayType, string $expectedDocString) : void
     {
         $arrayDocString = $this->staticTypeMapper->mapPHPStanTypeToDocString($arrayType);
         $this->assertSame($expectedDocString, $arrayDocString);
         $unionType = $this->typeNormalizer->normalizeArrayOfUnionToUnionArray($arrayType);
-        $this->assertInstanceOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType::class, $unionType);
+        $this->assertInstanceOf(\PHPStan\Type\UnionType::class, $unionType);
         $unionDocString = $this->staticTypeMapper->mapPHPStanTypeToDocString($unionType);
         $this->assertSame($expectedDocString, $unionDocString);
     }
     public function provideDataNormalizeArrayOfUnionToUnionArray() : \Iterator
     {
-        $unionType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()]);
-        $arrayType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), $unionType);
+        $unionType = new \PHPStan\Type\UnionType([new \PHPStan\Type\StringType(), new \PHPStan\Type\IntegerType()]);
+        $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $unionType);
         (yield [$arrayType, 'int[]|string[]']);
-        $arrayType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), $unionType);
-        $moreNestedArrayType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), $arrayType);
+        $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $unionType);
+        $moreNestedArrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $arrayType);
         (yield [$moreNestedArrayType, 'int[][]|string[][]']);
-        $evenMoreNestedArrayType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), $moreNestedArrayType);
+        $evenMoreNestedArrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $moreNestedArrayType);
         (yield [$evenMoreNestedArrayType, 'int[][][]|string[][][]']);
     }
 }

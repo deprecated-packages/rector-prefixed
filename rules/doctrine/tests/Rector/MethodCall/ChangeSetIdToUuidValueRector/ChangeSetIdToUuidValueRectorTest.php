@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Tests\Rector\MethodCall\ChangeSetIdToUuidValueRector;
+namespace Rector\Doctrine\Tests\Rector\MethodCall\ChangeSetIdToUuidValueRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\MethodCall\ChangeSetIdToUuidValueRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeSetIdToUuidValueRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Doctrine\Rector\MethodCall\ChangeSetIdToUuidValueRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeSetIdToUuidValueRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeSetIdToUuidValueRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rec
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\MethodCall\ChangeSetIdToUuidValueRector::class;
+        return \Rector\Doctrine\Rector\MethodCall\ChangeSetIdToUuidValueRector::class;
     }
 }

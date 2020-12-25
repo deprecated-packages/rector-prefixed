@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\PHPUnit\Assert;
+namespace PHPStan\Type\PHPUnit\Assert;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifier;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierAwareExtension;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticMethodTypeSpecifyingExtension;
-class AssertStaticMethodTypeSpecifyingExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticMethodTypeSpecifyingExtension, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierAwareExtension
+use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Analyser\SpecifiedTypes;
+use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\Analyser\TypeSpecifierAwareExtension;
+use PHPStan\Analyser\TypeSpecifierContext;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\StaticMethodTypeSpecifyingExtension;
+class AssertStaticMethodTypeSpecifyingExtension implements \PHPStan\Type\StaticMethodTypeSpecifyingExtension, \PHPStan\Analyser\TypeSpecifierAwareExtension
 {
     /** @var TypeSpecifier */
     private $typeSpecifier;
-    public function setTypeSpecifier(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void
+    public function setTypeSpecifier(\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void
     {
         $this->typeSpecifier = $typeSpecifier;
     }
     public function getClass() : string
     {
-        return '_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\Assert';
+        return '_PhpScoper50d83356d739\\PHPUnit\\Framework\\Assert';
     }
-    public function isStaticMethodSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $methodReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext $context) : bool
+    public function isStaticMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\StaticCall $node, \PHPStan\Analyser\TypeSpecifierContext $context) : bool
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\PHPUnit\Assert\AssertTypeSpecifyingExtensionHelper::isSupported($methodReflection->getName(), $node->args);
+        return \PHPStan\Type\PHPUnit\Assert\AssertTypeSpecifyingExtensionHelper::isSupported($methodReflection->getName(), $node->args);
     }
-    public function specifyTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext $context) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes
+    public function specifyTypes(\PHPStan\Reflection\MethodReflection $functionReflection, \PhpParser\Node\Expr\StaticCall $node, \PHPStan\Analyser\Scope $scope, \PHPStan\Analyser\TypeSpecifierContext $context) : \PHPStan\Analyser\SpecifiedTypes
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\PHPUnit\Assert\AssertTypeSpecifyingExtensionHelper::specifyTypes($this->typeSpecifier, $scope, $functionReflection->getName(), $node->args);
+        return \PHPStan\Type\PHPUnit\Assert\AssertTypeSpecifyingExtensionHelper::specifyTypes($this->typeSpecifier, $scope, $functionReflection->getName(), $node->args);
     }
 }

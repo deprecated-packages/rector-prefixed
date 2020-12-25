@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CakePHP\ValueObject;
+namespace Rector\CakePHP\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\ArrayItem;
 final class ArrayItemsAndFluentClass
 {
     /**

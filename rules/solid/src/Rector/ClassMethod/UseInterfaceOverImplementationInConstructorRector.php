@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\SOLID\Rector\ClassMethod;
+namespace Rector\SOLID\Rector\ClassMethod;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
+use PhpParser\Node;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\MethodName;
 use ReflectionClass;
 use ReflectionMethod;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\UseInterfaceOverImplementationInConstructorRectorTest
  */
-final class UseInterfaceOverImplementationInConstructorRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class UseInterfaceOverImplementationInConstructorRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use interface instead of specific class', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use interface instead of specific class', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct(SomeImplementation $someImplementation)
@@ -58,14 +58,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isName($node, \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+        if (!$this->isName($node, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return null;
         }
         foreach ($node->params as $param) {
@@ -91,7 +91,7 @@ CODE_SAMPLE
             if ($this->hasClassWiderPublicApiThanInterface($typeName, $interfaceNames[0])) {
                 continue;
             }
-            $param->type = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($interfaceNames[0]);
+            $param->type = new \PhpParser\Node\Name\FullyQualified($interfaceNames[0]);
         }
         return $node;
     }

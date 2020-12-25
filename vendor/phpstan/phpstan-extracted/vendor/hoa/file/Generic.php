@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\File;
+namespace Hoa\File;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+use Hoa\Stream;
 /**
  * Class \Hoa\File\Generic.
  *
@@ -44,7 +44,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class Generic extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream implements \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Pathable, \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Statable, \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Touchable
+abstract class Generic extends \Hoa\Stream implements \Hoa\Stream\IStream\Pathable, \Hoa\Stream\IStream\Statable, \Hoa\Stream\IStream\Touchable
 {
     /**
      * Mode.
@@ -257,10 +257,10 @@ abstract class Generic extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream implements \_P
      *                            constants.
      * @return  bool
      */
-    public function copy($to, $force = \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE)
+    public function copy($to, $force = \Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE)
     {
         $from = $this->getStreamName();
-        if ($force === \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE && \true === \file_exists($to)) {
+        if ($force === \Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE && \true === \file_exists($to)) {
             return \true;
         }
         if (null === $this->getStreamContext()) {
@@ -281,14 +281,14 @@ abstract class Generic extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream implements \_P
      *                            constants.
      * @return  bool
      */
-    public function move($name, $force = \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE, $mkdir = \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Touchable::DO_NOT_MAKE_DIRECTORY)
+    public function move($name, $force = \Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE, $mkdir = \Hoa\Stream\IStream\Touchable::DO_NOT_MAKE_DIRECTORY)
     {
         $from = $this->getStreamName();
-        if ($force === \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE && \true === \file_exists($name)) {
+        if ($force === \Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE && \true === \file_exists($name)) {
             return \false;
         }
-        if (\_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Touchable::MAKE_DIRECTORY === $mkdir) {
-            \_PhpScoper2a4e7ab1ecbc\Hoa\File\Directory::create(\dirname($name), \_PhpScoper2a4e7ab1ecbc\Hoa\File\Directory::MODE_CREATE_RECURSIVE);
+        if (\Hoa\Stream\IStream\Touchable::MAKE_DIRECTORY === $mkdir) {
+            \Hoa\File\Directory::create(\dirname($name), \Hoa\File\Directory::MODE_CREATE_RECURSIVE);
         }
         if (null === $this->getStreamContext()) {
             return @\rename($from, $name);

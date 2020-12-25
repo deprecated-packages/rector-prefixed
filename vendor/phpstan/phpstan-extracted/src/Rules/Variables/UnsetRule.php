@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Variables;
+namespace PHPStan\Rules\Variables;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleError;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Unset_>
  */
-class UnsetRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class UnsetRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Unset_::class;
+        return \PhpParser\Node\Stmt\Unset_::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $functionArguments = $node->vars;
         $errors = [];
@@ -30,18 +30,18 @@ class UnsetRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
         }
         return $errors;
     }
-    private function canBeUnset(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleError
+    private function canBeUnset(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : ?\PHPStan\Rules\RuleError
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && \is_string($node->name)) {
+        if ($node instanceof \PhpParser\Node\Expr\Variable && \is_string($node->name)) {
             $hasVariable = $scope->hasVariableType($node->name);
             if ($hasVariable->no()) {
-                return \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function unset() contains undefined variable $%s.', $node->name))->line($node->getLine())->build();
+                return \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function unset() contains undefined variable $%s.', $node->name))->line($node->getLine())->build();
             }
-        } elseif ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch && $node->dim !== null) {
+        } elseif ($node instanceof \PhpParser\Node\Expr\ArrayDimFetch && $node->dim !== null) {
             $type = $scope->getType($node->var);
             $dimType = $scope->getType($node->dim);
             if ($type->isOffsetAccessible()->no() || $type->hasOffsetValueType($dimType)->no()) {
-                return \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot unset offset %s on %s.', $dimType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::value()), $type->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::value())))->line($node->getLine())->build();
+                return \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot unset offset %s on %s.', $dimType->describe(\PHPStan\Type\VerbosityLevel::value()), $type->describe(\PHPStan\Type\VerbosityLevel::value())))->line($node->getLine())->build();
             }
             return $this->canBeUnset($node->var, $scope);
         }

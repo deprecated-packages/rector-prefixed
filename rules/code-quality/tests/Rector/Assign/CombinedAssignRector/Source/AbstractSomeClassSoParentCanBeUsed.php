@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Tests\Rector\Assign\CombinedAssignRector\Source;
+namespace Rector\CodeQuality\Tests\Rector\Assign\CombinedAssignRector\Source;
 
 class AbstractSomeClassSoParentCanBeUsed
 {

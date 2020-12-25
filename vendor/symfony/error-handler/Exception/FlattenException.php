@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Symfony\Component\ErrorHandler\Exception;
+namespace _PhpScoper50d83356d739\Symfony\Component\ErrorHandler\Exception;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use _PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
+use _PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Response;
+use _PhpScoper50d83356d739\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 /**
  * FlattenException wraps a PHP Error or Exception to be able to serialize it.
  *
@@ -49,17 +49,17 @@ class FlattenException
         $e = new static();
         $e->setMessage($exception->getMessage());
         $e->setCode($exception->getCode());
-        if ($exception instanceof \_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
+        if ($exception instanceof \_PhpScoper50d83356d739\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
             $headers = \array_merge($headers, $exception->getHeaders());
-        } elseif ($exception instanceof \_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface) {
+        } elseif ($exception instanceof \_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface) {
             $statusCode = 400;
         }
         if (null === $statusCode) {
             $statusCode = 500;
         }
-        if (\class_exists(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response::class) && isset(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response::$statusTexts[$statusCode])) {
-            $statusText = \_PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpFoundation\Response::$statusTexts[$statusCode];
+        if (\class_exists(\_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Response::class) && isset(\_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Response::$statusTexts[$statusCode])) {
+            $statusText = \_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Response::$statusTexts[$statusCode];
         } else {
             $statusText = 'Whoops, looks like something went wrong.';
         }
@@ -117,7 +117,7 @@ class FlattenException
      */
     public function setClass($class) : self
     {
-        $this->class = \false !== \strpos($class, "@anonymous\0") ? (\get_parent_class($class) ?: \key(\class_implements($class)) ?: 'class') . '@anonymous' : $class;
+        $this->class = \false !== \strpos($class, "@anonymous\0") ? ((\get_parent_class($class) ?: \key(\class_implements($class))) ?: 'class') . '@anonymous' : $class;
         return $this;
     }
     public function getFile() : string
@@ -164,7 +164,7 @@ class FlattenException
     {
         if (\false !== \strpos($message, "@anonymous\0")) {
             $message = \preg_replace_callback('/[a-zA-Z_\\x7f-\\xff][\\\\a-zA-Z0-9_\\x7f-\\xff]*+@anonymous\\x00.*?\\.php(?:0x?|:[0-9]++\\$)[0-9a-fA-F]++/', function ($m) {
-                return \class_exists($m[0], \false) ? (\get_parent_class($m[0]) ?: \key(\class_implements($m[0])) ?: 'class') . '@anonymous' : $m[0];
+                return \class_exists($m[0], \false) ? ((\get_parent_class($m[0]) ?: \key(\class_implements($m[0]))) ?: 'class') . '@anonymous' : $m[0];
             }, $message);
         }
         $this->message = $message;

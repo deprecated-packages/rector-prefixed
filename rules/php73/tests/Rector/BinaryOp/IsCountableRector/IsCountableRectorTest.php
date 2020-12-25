@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php73\Tests\Rector\BinaryOp\IsCountableRector;
+namespace Rector\Php73\Tests\Rector\BinaryOp\IsCountableRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\BinaryOp\IsCountableRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class IsCountableRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php73\Rector\BinaryOp\IsCountableRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class IsCountableRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.3
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,6 +23,6 @@ final class IsCountableRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\BinaryOp\IsCountableRector::class;
+        return \Rector\Php73\Rector\BinaryOp\IsCountableRector::class;
     }
 }

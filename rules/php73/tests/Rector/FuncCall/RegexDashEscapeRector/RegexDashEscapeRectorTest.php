@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php73\Tests\Rector\FuncCall\RegexDashEscapeRector;
+namespace Rector\Php73\Tests\Rector\FuncCall\RegexDashEscapeRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\RegexDashEscapeRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RegexDashEscapeRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php73\Rector\FuncCall\RegexDashEscapeRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RegexDashEscapeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RegexDashEscapeRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Tes
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\RegexDashEscapeRector::class;
+        return \Rector\Php73\Rector\FuncCall\RegexDashEscapeRector::class;
     }
 }

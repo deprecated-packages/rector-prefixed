@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Order\Rector\Class_;
+namespace Rector\Order\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper2a4e7ab1ecbc\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassConst;
+use Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\Order\Tests\Rector\Class_\OrderClassConstantsByIntegerValueRector\OrderClassConstantsByIntegerValueRectorTest
  */
-final class OrderClassConstantsByIntegerValueRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
+final class OrderClassConstantsByIntegerValueRector extends \Rector\Order\Rector\AbstractConstantPropertyMethodOrderRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order class constant order by their integer value', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Order class constant order by their integer value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     const MODE_ON = 0;
@@ -46,12 +46,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $numericClassConstsByKey = $this->resolveClassConstByPosition($node);
         if ($numericClassConstsByKey === []) {
@@ -70,18 +70,18 @@ CODE_SAMPLE
     /**
      * @return ClassConst[]
      */
-    private function resolveClassConstByPosition(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    private function resolveClassConstByPosition(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classConstConstsByValue = [];
         foreach ($class->stmts as $key => $classStmt) {
-            if (!$classStmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst) {
+            if (!$classStmt instanceof \PhpParser\Node\Stmt\ClassConst) {
                 continue;
             }
             if (\count((array) $classStmt->consts) !== 1) {
                 continue;
             }
             $classConstConst = $classStmt->consts[0];
-            if (!$classConstConst->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber) {
+            if (!$classConstConst->value instanceof \PhpParser\Node\Scalar\LNumber) {
                 continue;
             }
             $classConstConstsByValue[$key] = $classStmt;

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
+use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
 class ConditionalExpressionHolder
 {
     /** @var array<string, Type> */
@@ -15,10 +15,10 @@ class ConditionalExpressionHolder
      * @param array<string, Type> $conditionExpressionTypes
      * @param VariableTypeHolder $typeHolder
      */
-    public function __construct(array $conditionExpressionTypes, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\VariableTypeHolder $typeHolder)
+    public function __construct(array $conditionExpressionTypes, \PHPStan\Analyser\VariableTypeHolder $typeHolder)
     {
         if (\count($conditionExpressionTypes) === 0) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $this->conditionExpressionTypes = $conditionExpressionTypes;
         $this->typeHolder = $typeHolder;
@@ -30,7 +30,7 @@ class ConditionalExpressionHolder
     {
         return $this->conditionExpressionTypes;
     }
-    public function getTypeHolder() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\VariableTypeHolder
+    public function getTypeHolder() : \PHPStan\Analyser\VariableTypeHolder
     {
         return $this->typeHolder;
     }
@@ -38,8 +38,8 @@ class ConditionalExpressionHolder
     {
         $parts = [];
         foreach ($this->conditionExpressionTypes as $exprString => $type) {
-            $parts[] = $exprString . '=' . $type->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::precise());
+            $parts[] = $exprString . '=' . $type->describe(\PHPStan\Type\VerbosityLevel::precise());
         }
-        return \sprintf('%s => %s (%s)', \implode(' && ', $parts), $this->typeHolder->getType()->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::precise()), $this->typeHolder->getCertainty()->describe());
+        return \sprintf('%s => %s (%s)', \implode(' && ', $parts), $this->typeHolder->getType()->describe(\PHPStan\Type\VerbosityLevel::precise()), $this->typeHolder->getCertainty()->describe());
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc;
+namespace PHPStan\PhpDocParser\Ast\PhpDoc;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-class ParamTagValueNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+class ParamTagValueNode implements \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
 {
     /** @var TypeNode */
     public $type;
@@ -14,7 +14,7 @@ class ParamTagValueNode implements \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\
     public $parameterName;
     /** @var string (may be empty) */
     public $description;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $type, bool $isVariadic, string $parameterName, string $description)
+    public function __construct(\PHPStan\PhpDocParser\Ast\Type\TypeNode $type, bool $isVariadic, string $parameterName, string $description)
     {
         $this->type = $type;
         $this->isVariadic = $isVariadic;

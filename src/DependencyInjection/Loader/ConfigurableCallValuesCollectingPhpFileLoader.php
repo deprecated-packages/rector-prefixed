@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\DependencyInjection\Loader;
+namespace Rector\Core\DependencyInjection\Loader;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\FileLocatorInterface;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-final class ConfigurableCallValuesCollectingPhpFileLoader extends \_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
+use _PhpScoper50d83356d739\Symfony\Component\Config\FileLocatorInterface;
+use _PhpScoper50d83356d739\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+final class ConfigurableCallValuesCollectingPhpFileLoader extends \_PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
     /**
      * @var ConfigureCallValuesCollector
      */
     private $configureCallValuesCollector;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\FileLocatorInterface $fileLocator, \_PhpScoper2a4e7ab1ecbc\Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector)
+    public function __construct(\_PhpScoper50d83356d739\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \_PhpScoper50d83356d739\Symfony\Component\Config\FileLocatorInterface $fileLocator, \Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector $configureCallValuesCollector)
     {
         $this->configureCallValuesCollector = $configureCallValuesCollector;
         parent::__construct($containerBuilder, $fileLocator);
@@ -30,7 +30,7 @@ final class ConfigurableCallValuesCollectingPhpFileLoader extends \_PhpScoper2a4
     {
         foreach ($this->container->getDefinitions() as $class => $definition) {
             /** @var string $class */
-            if (!\is_a($class, \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface::class, \true)) {
+            if (!\is_a($class, \Rector\Core\Contract\Rector\ConfigurableRectorInterface::class, \true)) {
                 continue;
             }
             $this->configureCallValuesCollector->collectFromServiceAndClassName($class, $definition);

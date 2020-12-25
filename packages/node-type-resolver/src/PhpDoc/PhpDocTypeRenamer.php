@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PhpDoc;
+namespace Rector\NodeTypeResolver\PhpDoc;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Node as PhpDocParserNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\PseudoNamespaceToNamespace;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\StaticTypeMapper;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PHPStan\PhpDocParser\Ast\Node as PhpDocParserNode;
+use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\Type\ObjectType;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Generic\ValueObject\PseudoNamespaceToNamespace;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\StaticTypeMapper\StaticTypeMapper;
+use Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class PhpDocTypeRenamer
 {
     /**
@@ -24,22 +24,22 @@ final class PhpDocTypeRenamer
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
         $this->staticTypeMapper = $staticTypeMapper;
     }
-    public function changeUnderscoreType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : void
+    public function changeUnderscoreType(\PhpParser\Node $node, \Rector\Generic\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : void
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return;
         }
         $attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
         $phpParserNode = $node;
-        $this->phpDocNodeTraverser->traverseWithCallable($attributeAwarePhpDocNode, '', function (\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Node $node) use($pseudoNamespaceToNamespace, $phpParserNode) : PhpDocParserNode {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode) {
+        $this->phpDocNodeTraverser->traverseWithCallable($attributeAwarePhpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $node) use($pseudoNamespaceToNamespace, $phpParserNode) : PhpDocParserNode {
+            if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
                 return $node;
             }
             if ($this->shouldSkip($node, $phpParserNode, $pseudoNamespaceToNamespace)) {
@@ -47,25 +47,25 @@ final class PhpDocTypeRenamer
             }
             /** @var IdentifierTypeNode $node */
             $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($node, $phpParserNode);
-            if (!$staticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
+            if (!$staticType instanceof \PHPStan\Type\ObjectType) {
                 return $node;
             }
             // change underscore to \\
-            $slashedName = '\\' . \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($staticType->getClassName(), '#_#', '\\');
+            $slashedName = '\\' . \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($staticType->getClassName(), '#_#', '\\');
             $node->name = $slashedName;
             return $node;
         });
     }
-    private function shouldSkip(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $phpParserNode, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : bool
+    private function shouldSkip(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $phpParserNode, \Rector\Generic\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : bool
     {
-        if (!$typeNode instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+        if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return \true;
         }
         $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($typeNode, $phpParserNode);
-        if (!$staticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
+        if (!$staticType instanceof \PHPStan\Type\ObjectType) {
             return \true;
         }
-        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($staticType->getClassName(), $pseudoNamespaceToNamespace->getNamespacePrefix())) {
+        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($staticType->getClassName(), $pseudoNamespaceToNamespace->getNamespacePrefix())) {
             return \true;
         }
         // excluded?

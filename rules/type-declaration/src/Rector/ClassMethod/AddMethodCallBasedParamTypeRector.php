@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\ClassMethod;
+namespace Rector\TypeDeclaration\Rector\ClassMethod;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\ValueObject\ArrayCallable;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeCollector\ValueObject\ArrayCallable;
+use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddMethodCallBasedParamTypeRector\AddMethodCallBasedParamTypeRectorTest
  */
-final class AddMethodCallBasedParamTypeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class AddMethodCallBasedParamTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type of passed getId() to UuidInterface type declaration', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type of passed getId() to UuidInterface type declaration', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function getById($id)
@@ -74,12 +74,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classMethodCalls = $this->nodeRepository->findCallsByClassMethod($node);
         $classParameterTypes = $this->getCallTypesByPosition($classMethodCalls);
@@ -101,7 +101,7 @@ CODE_SAMPLE
     {
         $staticTypesByArgumentPosition = [];
         foreach ($classMethodCalls as $classMethodCall) {
-            if (!$classMethodCall instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall && !$classMethodCall instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+            if (!$classMethodCall instanceof \PhpParser\Node\Expr\StaticCall && !$classMethodCall instanceof \PhpParser\Node\Expr\MethodCall) {
                 continue;
             }
             foreach ($classMethodCall->args as $position => $arg) {
@@ -115,9 +115,9 @@ CODE_SAMPLE
         }
         return $staticTypeByArgumentPosition;
     }
-    private function shouldSkipArgumentStaticType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $argumentStaticType, int $position) : bool
+    private function shouldSkipArgumentStaticType(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Type $argumentStaticType, int $position) : bool
     {
-        if ($argumentStaticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
+        if ($argumentStaticType instanceof \PHPStan\Type\MixedType) {
             return \true;
         }
         if (!isset($classMethod->params[$position])) {

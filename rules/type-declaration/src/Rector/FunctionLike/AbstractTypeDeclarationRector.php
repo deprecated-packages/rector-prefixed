@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\FunctionLike;
+namespace Rector\TypeDeclaration\Rector\FunctionLike;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\PhpParserTypeAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\VendorLockResolver;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
+use Rector\Core\Rector\AbstractRector;
+use Rector\TypeDeclaration\PhpParserTypeAnalyzer;
+use Rector\VendorLocker\VendorLockResolver;
 /**
  * @see https://wiki.php.net/rfc/scalar_type_hints_v5
  * @see https://github.com/nikic/TypeUtil
  * @see https://github.com/nette/type-fixer
  * @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/3258
  */
-abstract class AbstractTypeDeclarationRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+abstract class AbstractTypeDeclarationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PhpParserTypeAnalyzer
@@ -27,7 +27,7 @@ abstract class AbstractTypeDeclarationRector extends \_PhpScoper2a4e7ab1ecbc\Rec
     /**
      * @required
      */
-    public function autowireAbstractTypeDeclarationRector(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\PhpParserTypeAnalyzer $phpParserTypeAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\VendorLockResolver $vendorLockResolver) : void
+    public function autowireAbstractTypeDeclarationRector(\Rector\TypeDeclaration\PhpParserTypeAnalyzer $phpParserTypeAnalyzer, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver) : void
     {
         $this->phpParserTypeAnalyzer = $phpParserTypeAnalyzer;
         $this->vendorLockResolver = $vendorLockResolver;
@@ -37,6 +37,6 @@ abstract class AbstractTypeDeclarationRector extends \_PhpScoper2a4e7ab1ecbc\Rec
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Stmt\ClassMethod::class];
     }
 }

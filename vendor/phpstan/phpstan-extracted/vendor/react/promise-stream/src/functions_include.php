@@ -1,7 +1,7 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\Stream;
+namespace _HumbugBox221ad6f1b81f\React\Promise\Stream;
 
-if (!\function_exists('_PhpScoper2a4e7ab1ecbc\\_HumbugBox221ad6f1b81f\\React\\Promise\\Stream\\buffer')) {
+if (!\function_exists('_HumbugBox221ad6f1b81f\\React\\Promise\\Stream\\buffer')) {
     require __DIR__ . '/functions.php';
 }

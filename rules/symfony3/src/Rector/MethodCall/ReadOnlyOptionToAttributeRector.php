@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Rector\MethodCall;
+namespace Rector\Symfony3\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Scalar\String_;
+use Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Symfony3\Tests\Rector\MethodCall\ReadOnlyOptionToAttributeRector\ReadOnlyOptionToAttributeRectorTest
  */
-final class ReadOnlyOptionToAttributeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Rector\MethodCall\AbstractFormAddRector
+final class ReadOnlyOptionToAttributeRector extends \Rector\Symfony3\Rector\MethodCall\AbstractFormAddRector
 {
     /**
      * @var ArrayManipulator
      */
     private $arrayManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator $arrayManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator $arrayManipulator)
     {
         $this->arrayManipulator = $arrayManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change "read_only" option in form to attribute', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change "read_only" option in form to attribute', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Form\FormBuilderInterface;
 
 function buildForm(FormBuilderInterface $builder, array $options)
@@ -48,12 +48,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isFormAddMethodCall($node)) {
             return null;
@@ -62,7 +62,7 @@ CODE_SAMPLE
         if ($optionsArray === null) {
             return null;
         }
-        if (!$optionsArray instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
+        if (!$optionsArray instanceof \PhpParser\Node\Expr\Array_) {
             return null;
         }
         $readOnlyArrayItem = $this->arrayManipulator->findItemInInArrayByKeyAndUnset($optionsArray, 'read_only');
@@ -70,7 +70,7 @@ CODE_SAMPLE
             return null;
         }
         // rename string
-        $readOnlyArrayItem->key = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('readonly');
+        $readOnlyArrayItem->key = new \PhpParser\Node\Scalar\String_('readonly');
         $this->arrayManipulator->addItemToArrayUnderKey($optionsArray, $readOnlyArrayItem, 'attr');
         return $node;
     }

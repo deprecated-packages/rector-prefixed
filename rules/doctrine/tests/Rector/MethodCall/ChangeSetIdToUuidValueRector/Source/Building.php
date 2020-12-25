@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Tests\Rector\MethodCall\ChangeSetIdToUuidValueRector\Source;
+namespace Rector\Doctrine\Tests\Rector\MethodCall\ChangeSetIdToUuidValueRector\Source;
 
-use _PhpScoper2a4e7ab1ecbc\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper50d83356d739\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */

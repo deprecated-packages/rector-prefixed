@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native;
+namespace PHPStan\Reflection\Native;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class NativeFunctionReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Type;
+class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 {
     /** @var string */
     private $name;
@@ -21,7 +21,7 @@ class NativeFunctionReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
      * @param \PHPStan\Type\Type|null $throwType
      * @param \PHPStan\TrinaryLogic $hasSideEffects
      */
-    public function __construct(string $name, array $variants, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $throwType, \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic $hasSideEffects)
+    public function __construct(string $name, array $variants, ?\PHPStan\Type\Type $throwType, \PHPStan\TrinaryLogic $hasSideEffects)
     {
         $this->name = $name;
         $this->variants = $variants;
@@ -39,7 +39,7 @@ class NativeFunctionReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
     {
         return $this->variants;
     }
-    public function getThrowType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getThrowType() : ?\PHPStan\Type\Type
     {
         return $this->throwType;
     }
@@ -47,19 +47,19 @@ class NativeFunctionReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
     {
         return null;
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isFinal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isFinal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function hasSideEffects() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \PHPStan\TrinaryLogic
     {
         return $this->hasSideEffects;
     }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules;
+namespace PHPStan\Rules;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
 /**
  * @phpstan-template TNodeType of \PhpParser\Node
  */
@@ -21,5 +21,5 @@ interface Rule
      * @param \PHPStan\Analyser\Scope $scope
      * @return (string|RuleError)[] errors
      */
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array;
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array;
 }

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Command\ErrorFormatter;
+namespace PHPStan\Command\ErrorFormatter;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Command\AnalysisResult;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Command\Output;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\RelativePathHelper;
-class CheckstyleErrorFormatter implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\ErrorFormatter\ErrorFormatter
+use PHPStan\Command\AnalysisResult;
+use PHPStan\Command\Output;
+use PHPStan\File\RelativePathHelper;
+class CheckstyleErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var RelativePathHelper */
     private $relativePathHelper;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\File\RelativePathHelper $relativePathHelper)
+    public function __construct(\PHPStan\File\RelativePathHelper $relativePathHelper)
     {
         $this->relativePathHelper = $relativePathHelper;
     }
-    public function formatErrors(\_PhpScoper2a4e7ab1ecbc\PHPStan\Command\AnalysisResult $analysisResult, \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\Output $output) : int
+    public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
     {
         $output->writeRaw('<?xml version="1.0" encoding="UTF-8"?>');
         $output->writeLineFormatted('');
@@ -72,7 +72,7 @@ class CheckstyleErrorFormatter implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Comman
      * @return array<string, array> Array that have as key the relative path of file
      *                              and as value an array with occurred errors.
      */
-    private function groupByFile(\_PhpScoper2a4e7ab1ecbc\PHPStan\Command\AnalysisResult $analysisResult) : array
+    private function groupByFile(\PHPStan\Command\AnalysisResult $analysisResult) : array
     {
         $files = [];
         /** @var \PHPStan\Analyser\Error $fileSpecificError */

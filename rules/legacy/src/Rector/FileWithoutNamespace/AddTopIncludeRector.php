@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Legacy\Rector\FileWithoutNamespace;
+namespace Rector\Legacy\Rector\FileWithoutNamespace;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Include_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\MagicConst\Dir;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\Include_;
+use PhpParser\Node\Scalar\MagicConst\Dir;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Nop;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://github.com/rectorphp/rector/issues/3679
  *
  * @see \Rector\Legacy\Tests\Rector\FileWithoutNamespace\AddTopIncludeRector\AddTopIncludeRectorTest
  */
-final class AddTopIncludeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class AddTopIncludeRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -43,9 +43,9 @@ final class AddTopIncludeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rect
      * @var string[]
      */
     private $patterns = [];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds an include file at the top of matching files, except class definitions', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds an include file at the top of matching files, except class definitions', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 if (isset($_POST['csrf'])) {
     processPost($_POST);
 }
@@ -64,14 +64,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_::class];
+        return [\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class, \PhpParser\Node\Stmt\Namespace_::class];
     }
     /**
      * @param FileWithoutNamespace|Namespace_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $smartFileInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $node->getAttribute(\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }
@@ -80,15 +80,15 @@ CODE_SAMPLE
         }
         $stmts = $node->stmts;
         // we are done if there is a class definition in this file
-        if ($this->betterNodeFinder->hasInstancesOf($stmts, [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class])) {
+        if ($this->betterNodeFinder->hasInstancesOf($stmts, [\PhpParser\Node\Stmt\Class_::class])) {
             return null;
         }
         if ($this->hasIncludeAlready($stmts)) {
             return null;
         }
         // add the include to the statements and print it
-        \array_unshift($stmts, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop());
-        \array_unshift($stmts, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($this->createInclude()));
+        \array_unshift($stmts, new \PhpParser\Node\Stmt\Nop());
+        \array_unshift($stmts, new \PhpParser\Node\Stmt\Expression($this->createInclude()));
         $node->stmts = $stmts;
         return $node;
     }
@@ -119,7 +119,7 @@ CODE_SAMPLE
     private function hasIncludeAlready(array $nodes) : bool
     {
         /** @var Include_[] $includes */
-        $includes = $this->betterNodeFinder->findInstanceOf($nodes, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Include_::class);
+        $includes = $this->betterNodeFinder->findInstanceOf($nodes, \PhpParser\Node\Expr\Include_::class);
         foreach ($includes as $include) {
             if ($this->isTopFileInclude($include)) {
                 return \true;
@@ -127,12 +127,12 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function createInclude() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Include_
+    private function createInclude() : \PhpParser\Node\Expr\Include_
     {
-        $filePathConcat = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\MagicConst\Dir(), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($this->autoloadFilePath));
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Include_($filePathConcat, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Include_::TYPE_REQUIRE_ONCE);
+        $filePathConcat = new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\MagicConst\Dir(), new \PhpParser\Node\Scalar\String_($this->autoloadFilePath));
+        return new \PhpParser\Node\Expr\Include_($filePathConcat, \PhpParser\Node\Expr\Include_::TYPE_REQUIRE_ONCE);
     }
-    private function isTopFileInclude(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Include_ $include) : bool
+    private function isTopFileInclude(\PhpParser\Node\Expr\Include_ $include) : bool
     {
         return $this->areNodesEqual($include->expr, $this->createInclude()->expr);
     }

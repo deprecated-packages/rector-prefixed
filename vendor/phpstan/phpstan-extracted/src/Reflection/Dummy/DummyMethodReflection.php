@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Dummy;
+namespace PHPStan\Reflection\Dummy;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\TrivialParametersAcceptor;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class DummyMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberReflection;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\TrivialParametersAcceptor;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Type;
+class DummyMethodReflection implements \PHPStan\Reflection\MethodReflection
 {
     /** @var string */
     private $name;
@@ -18,9 +18,9 @@ class DummyMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflectio
     {
         $this->name = $name;
     }
-    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
-        $broker = \_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::getInstance();
+        $broker = \PHPStan\Broker\Broker::getInstance();
         return $broker->getClass(\stdClass::class);
     }
     public function isStatic() : bool
@@ -39,7 +39,7 @@ class DummyMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflectio
     {
         return $this->name;
     }
-    public function getPrototype() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
     {
         return $this;
     }
@@ -48,31 +48,31 @@ class DummyMethodReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflectio
      */
     public function getVariants() : array
     {
-        return [new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isFinal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isFinal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getThrowType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getThrowType() : ?\PHPStan\Type\Type
     {
         return null;
     }
-    public function hasSideEffects() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

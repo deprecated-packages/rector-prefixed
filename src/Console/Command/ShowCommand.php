@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Console\Command;
+namespace Rector\Core\Console\Command;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Application\ActiveRectorsProvider;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Console\ShellCode;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ShowCommand extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Console\Command\AbstractCommand
+use Rector\Core\Application\ActiveRectorsProvider;
+use Rector\Core\Configuration\Option;
+use _PhpScoper50d83356d739\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper50d83356d739\Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\PackageBuilder\Console\ShellCode;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
 {
     /**
      * @var SymfonyStyle
@@ -25,7 +25,7 @@ final class ShowCommand extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Console\Comm
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper2a4e7ab1ecbc\Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->activeRectorsProvider = $activeRectorsProvider;
@@ -36,11 +36,11 @@ final class ShowCommand extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Console\Comm
     {
         $this->setDescription('Show loaded Rectors with their configuration');
     }
-    protected function execute(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper50d83356d739\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper50d83356d739\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->reportLoadedRectors();
         $this->reportLoadedSets();
-        return \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
     private function reportLoadedRectors() : void
     {
@@ -60,7 +60,7 @@ final class ShowCommand extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Console\Comm
     }
     private function reportLoadedSets() : void
     {
-        $sets = (array) $this->parameterProvider->provideParameter(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option::SETS);
+        $sets = (array) $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::SETS);
         if ($sets === []) {
             return;
         }
@@ -69,7 +69,7 @@ final class ShowCommand extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Console\Comm
         \sort($sets);
         $setFilePaths = [];
         foreach ($sets as $set) {
-            $setFileInfo = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo($set);
+            $setFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($set);
             $setFilePaths[] = $setFileInfo->getRelativeFilePathFromCwd();
         }
         $this->symfonyStyle->listing($setFilePaths);

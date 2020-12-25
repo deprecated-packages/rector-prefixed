@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Stream\Filter;
+namespace Hoa\Stream\Filter;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Consistency;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+use Hoa\Consistency;
+use Hoa\Stream;
 /**
  * Class \Hoa\Stream\Filter.
  *
@@ -45,7 +45,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-abstract class Filter extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream
+abstract class Filter extends \Hoa\Stream
 {
     /**
      * Overwrite filter if already exists.
@@ -96,16 +96,16 @@ abstract class Filter extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream
     public static function register($name, $class, $overwrite = self::DO_NOT_OVERWRITE)
     {
         if ($overwrite === self::DO_NOT_OVERWRITE && \true === self::isRegistered($name)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Filter\Exception('Filter %s is already registered.', 0, $name);
+            throw new \Hoa\Stream\Filter\Exception('Filter %s is already registered.', 0, $name);
         }
         if (\is_object($class)) {
             $class = \get_class($class);
         }
         if (empty($name)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Filter\Exception('Filter name cannot be empty (implementation class is %s).', 1, $class);
+            throw new \Hoa\Stream\Filter\Exception('Filter name cannot be empty (implementation class is %s).', 1, $class);
         }
         if (\false === \class_exists($class, \false)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Filter\Exception('Cannot register the %s class for the filter %s ' . 'because it does not exist.', 2, [$class, $name]);
+            throw new \Hoa\Stream\Filter\Exception('Cannot register the %s class for the filter %s ' . 'because it does not exist.', 2, [$class, $name]);
         }
         return \stream_filter_register($name, $class);
     }
@@ -123,7 +123,7 @@ abstract class Filter extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream
      */
     public static function append($stream, $name, $mode = self::READ, $parameters = null)
     {
-        if ($stream instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Stream) {
+        if ($stream instanceof \Hoa\Stream) {
             $stream = $stream->getStream();
         }
         if (null === $parameters) {
@@ -145,7 +145,7 @@ abstract class Filter extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream
      */
     public static function prepend($stream, $name, $mode = self::READ, $parameters = null)
     {
-        if ($stream instanceof \_PhpScoper2a4e7ab1ecbc\Hoa\Stream) {
+        if ($stream instanceof \Hoa\Stream) {
             $stream = $stream->getStream();
         }
         if (null === $parameters) {
@@ -166,7 +166,7 @@ abstract class Filter extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream
             if (isset(self::$_resources[$streamFilter])) {
                 $streamFilter = self::$_resources[$streamFilter];
             } else {
-                throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Filter\Exception('Cannot remove the stream filter %s because no resource was ' . 'found with this name.', 3, $streamFilter);
+                throw new \Hoa\Stream\Filter\Exception('Cannot remove the stream filter %s because no resource was ' . 'found with this name.', 3, $streamFilter);
             }
         }
         return \stream_filter_remove($streamFilter);
@@ -194,4 +194,4 @@ abstract class Filter extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream
 /**
  * Flex entity.
  */
-\_PhpScoper2a4e7ab1ecbc\Hoa\Consistency::flexEntity('_PhpScoper2a4e7ab1ecbc\\Hoa\\Stream\\Filter\\Filter');
+\Hoa\Consistency::flexEntity('Hoa\\Stream\\Filter\\Filter');

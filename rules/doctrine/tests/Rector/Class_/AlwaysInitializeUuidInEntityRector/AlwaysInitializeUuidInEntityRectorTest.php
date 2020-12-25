@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Tests\Rector\Class_\AlwaysInitializeUuidInEntityRector;
+namespace Rector\Doctrine\Tests\Rector\Class_\AlwaysInitializeUuidInEntityRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_\AlwaysInitializeUuidInEntityRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class AlwaysInitializeUuidInEntityRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Doctrine\Rector\Class_\AlwaysInitializeUuidInEntityRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class AlwaysInitializeUuidInEntityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class AlwaysInitializeUuidInEntityRectorTest extends \_PhpScoper2a4e7ab1ec
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_\AlwaysInitializeUuidInEntityRector::class;
+        return \Rector\Doctrine\Rector\Class_\AlwaysInitializeUuidInEntityRector::class;
     }
 }

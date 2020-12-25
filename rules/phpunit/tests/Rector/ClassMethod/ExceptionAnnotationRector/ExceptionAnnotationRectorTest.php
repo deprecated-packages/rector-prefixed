@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Tests\Rector\ClassMethod\ExceptionAnnotationRector;
+namespace Rector\PHPUnit\Tests\Rector\ClassMethod\ExceptionAnnotationRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\ClassMethod\ExceptionAnnotationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ExceptionAnnotationRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\PHPUnit\Rector\ClassMethod\ExceptionAnnotationRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ExceptionAnnotationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ExceptionAnnotationRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\ClassMethod\ExceptionAnnotationRector::class;
+        return \Rector\PHPUnit\Rector\ClassMethod\ExceptionAnnotationRector::class;
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\NodeManipulator;
+namespace Rector\PHPUnit\NodeManipulator;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\Expression;
 final class StmtManipulator
 {
     /**
@@ -16,11 +16,11 @@ final class StmtManipulator
     {
         $normalizedStmts = [];
         foreach ($stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\Expression) {
                 $normalizedStmts[] = $stmt;
                 continue;
             }
-            $normalizedStmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($stmt);
+            $normalizedStmts[] = new \PhpParser\Node\Stmt\Expression($stmt);
         }
         return $normalizedStmts;
     }

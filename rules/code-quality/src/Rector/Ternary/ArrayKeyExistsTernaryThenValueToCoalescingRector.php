@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Ternary;
+namespace Rector\CodeQuality\Rector\Ternary;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Coalesce;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\BinaryOp\Coalesce;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Ternary;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/f7itn
  *
  * @see \Rector\CodeQuality\Tests\Rector\Ternary\ArrayKeyExistsTernaryThenValueToCoalescingRector\ArrayKeyExistsTernaryThenValueToCoalescingRectorTest
  */
-final class ArrayKeyExistsTernaryThenValueToCoalescingRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ArrayKeyExistsTernaryThenValueToCoalescingRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array_key_exists() ternary to coalesing', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array_key_exists() ternary to coalesing', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($values, $keyToMatch)
@@ -45,20 +45,20 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary::class];
+        return [\PhpParser\Node\Expr\Ternary::class];
     }
     /**
      * @param Ternary $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$node->cond instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
+        if (!$node->cond instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         if (!$this->isName($node->cond, 'array_key_exists')) {
             return null;
         }
-        if (!$node->if instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$node->if instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
         if (!$this->areArrayKeysExistsArgsMatchingDimFetch($node->cond, $node->if)) {
@@ -67,7 +67,7 @@ CODE_SAMPLE
         if (!$this->isNull($node->else)) {
             return null;
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Coalesce($node->if, $node->else);
+        return new \PhpParser\Node\Expr\BinaryOp\Coalesce($node->if, $node->else);
     }
     /**
      * Equals if:
@@ -76,7 +76,7 @@ CODE_SAMPLE
      * =
      * $values[$key]
      */
-    private function areArrayKeysExistsArgsMatchingDimFetch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+    private function areArrayKeysExistsArgsMatchingDimFetch(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
         $keyExpr = $funcCall->args[0]->value;
         $valuesExpr = $funcCall->args[1]->value;

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Output;
+namespace Rector\ChangesReporting\Output;
 
 use DOMDocument;
-use _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
-use _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Xml\CheckstyleDOMElementFactory;
+use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
+use Rector\ChangesReporting\Xml\CheckstyleDOMElementFactory;
 /**
  * Inspired by https://github.com/phpstan/phpstan-src/commit/fa1f416981438b80e2f39eabd9f1b62fca9a6803#diff-7a7d635d9f9cf3388e34d414731dece3
  */
-final class CheckstyleOutputFormatter implements \_PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
+final class CheckstyleOutputFormatter implements \Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
     /**
      * @var string
@@ -20,7 +20,7 @@ final class CheckstyleOutputFormatter implements \_PhpScoper2a4e7ab1ecbc\Rector\
      * @var CheckstyleDOMElementFactory
      */
     private $checkstyleDOMElementFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Xml\CheckstyleDOMElementFactory $checkstyleDOMElementFactory)
+    public function __construct(\Rector\ChangesReporting\Xml\CheckstyleDOMElementFactory $checkstyleDOMElementFactory)
     {
         $this->checkstyleDOMElementFactory = $checkstyleDOMElementFactory;
     }
@@ -28,7 +28,7 @@ final class CheckstyleOutputFormatter implements \_PhpScoper2a4e7ab1ecbc\Rector\
     {
         return self::NAME;
     }
-    public function report(\_PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
+    public function report(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
         $domDocument = new \DOMDocument('1.0', 'UTF-8');
         $domElement = $this->checkstyleDOMElementFactory->create($domDocument, $errorAndDiffCollector);

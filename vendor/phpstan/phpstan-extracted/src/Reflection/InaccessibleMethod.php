@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class InaccessibleMethod implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+class InaccessibleMethod implements \PHPStan\Reflection\ParametersAcceptor
 {
     /** @var MethodReflection */
     private $methodReflection;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $methodReflection)
+    public function __construct(\PHPStan\Reflection\MethodReflection $methodReflection)
     {
         $this->methodReflection = $methodReflection;
     }
-    public function getMethod() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
+    public function getMethod() : \PHPStan\Reflection\MethodReflection
     {
         return $this->methodReflection;
     }
-    public function getTemplateTypeMap() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
+    public function getTemplateTypeMap() : \PHPStan\Type\Generic\TemplateTypeMap
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        return \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
     }
-    public function getResolvedTemplateTypeMap() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
+    public function getResolvedTemplateTypeMap() : \PHPStan\Type\Generic\TemplateTypeMap
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+        return \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
     }
     /**
      * @return array<int, \PHPStan\Reflection\ParameterReflection>
@@ -37,8 +37,8 @@ class InaccessibleMethod implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\P
     {
         return \true;
     }
-    public function getReturnType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getReturnType() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+        return new \PHPStan\Type\MixedType();
     }
 }

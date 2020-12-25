@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Array_\DowngradeArraySpreadRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\ArrowFunction\ArrowFunctionToAnonymousFunctionRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\ClassMethod\DowngradeContravariantArgumentTypeRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\ClassMethod\DowngradeCovariantReturnTypeRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Coalesce\DowngradeNullCoalescingOperatorRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\FuncCall\DowngradeArrayMergeCallWithoutArgumentsRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\FuncCall\DowngradeStripTagsCallWithArrayRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Identical\DowngradeFreadFwriteFalsyToNegationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Rector\DowngradePhp74\Rector\Array_\DowngradeArraySpreadRector;
+use Rector\DowngradePhp74\Rector\ArrowFunction\ArrowFunctionToAnonymousFunctionRector;
+use Rector\DowngradePhp74\Rector\ClassMethod\DowngradeContravariantArgumentTypeRector;
+use Rector\DowngradePhp74\Rector\ClassMethod\DowngradeCovariantReturnTypeRector;
+use Rector\DowngradePhp74\Rector\Coalesce\DowngradeNullCoalescingOperatorRector;
+use Rector\DowngradePhp74\Rector\FuncCall\DowngradeArrayMergeCallWithoutArgumentsRector;
+use Rector\DowngradePhp74\Rector\FuncCall\DowngradeStripTagsCallWithArrayRector;
+use Rector\DowngradePhp74\Rector\Identical\DowngradeFreadFwriteFalsyToNegationRector;
+use Rector\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector;
+use Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\ArrowFunction\ArrowFunctionToAnonymousFunctionRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\ClassMethod\DowngradeCovariantReturnTypeRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\ClassMethod\DowngradeContravariantArgumentTypeRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Coalesce\DowngradeNullCoalescingOperatorRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\FuncCall\DowngradeStripTagsCallWithArrayRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Array_\DowngradeArraySpreadRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\FuncCall\DowngradeArrayMergeCallWithoutArgumentsRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Identical\DowngradeFreadFwriteFalsyToNegationRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\Property\DowngradeTypedPropertyRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\ArrowFunction\ArrowFunctionToAnonymousFunctionRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\ClassMethod\DowngradeCovariantReturnTypeRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\ClassMethod\DowngradeContravariantArgumentTypeRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\Coalesce\DowngradeNullCoalescingOperatorRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\FuncCall\DowngradeStripTagsCallWithArrayRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\Array_\DowngradeArraySpreadRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\FuncCall\DowngradeArrayMergeCallWithoutArgumentsRector::class);
+    $services->set(\Rector\DowngradePhp74\Rector\Identical\DowngradeFreadFwriteFalsyToNegationRector::class);
 };

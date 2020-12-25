@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Tests\Rector\If_\RemoveAlwaysElseRector;
+namespace Rector\EarlyReturn\Tests\Rector\If_\RemoveAlwaysElseRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Rector\If_\RemoveAlwaysElseRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveAlwaysElseRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\EarlyReturn\Rector\If_\RemoveAlwaysElseRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveAlwaysElseRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveAlwaysElseRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Te
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Rector\If_\RemoveAlwaysElseRector::class;
+        return \Rector\EarlyReturn\Rector\If_\RemoveAlwaysElseRector::class;
     }
 }

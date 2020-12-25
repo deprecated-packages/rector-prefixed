@@ -1,52 +1,52 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanAnd;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanOr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\LogicalAnd;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\LogicalOr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\HasOffsetType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\HasPropertyType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\NonEmptyArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericClassStringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NonexistentParentClassType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticTypeFactory;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeTraverser;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use PhpParser\Node\Expr\BinaryOp\BooleanOr;
+use PhpParser\Node\Expr\BinaryOp\LogicalAnd;
+use PhpParser\Node\Expr\BinaryOp\LogicalOr;
+use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Instanceof_;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\StaticPropertyFetch;
+use PhpParser\Node\Name;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Type\Accessory\HasOffsetType;
+use PHPStan\Type\Accessory\HasPropertyType;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\ConstantType;
+use PHPStan\Type\Generic\GenericClassStringType;
+use PHPStan\Type\IntegerRangeType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\IntersectionType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
+use PHPStan\Type\NonexistentParentClassType;
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\StaticType;
+use PHPStan\Type\StaticTypeFactory;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeTraverser;
+use PHPStan\Type\TypeUtils;
+use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\UnionType;
 use function array_reverse;
 class TypeSpecifier
 {
@@ -71,12 +71,12 @@ class TypeSpecifier
      * @param \PHPStan\Type\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
      * @param \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\PrettyPrinter\Standard $printer, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $functionTypeSpecifyingExtensions, array $methodTypeSpecifyingExtensions, array $staticMethodTypeSpecifyingExtensions)
+    public function __construct(\PhpParser\PrettyPrinter\Standard $printer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $functionTypeSpecifyingExtensions, array $methodTypeSpecifyingExtensions, array $staticMethodTypeSpecifyingExtensions)
     {
         $this->printer = $printer;
         $this->reflectionProvider = $reflectionProvider;
         foreach (\array_merge($functionTypeSpecifyingExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions) as $extension) {
-            if (!$extension instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierAwareExtension) {
+            if (!$extension instanceof \PHPStan\Analyser\TypeSpecifierAwareExtension) {
                 continue;
             }
             $extension->setTypeSpecifier($this);
@@ -85,99 +85,99 @@ class TypeSpecifier
         $this->methodTypeSpecifyingExtensions = $methodTypeSpecifyingExtensions;
         $this->staticMethodTypeSpecifyingExtensions = $staticMethodTypeSpecifyingExtensions;
     }
-    public function specifyTypesInCondition(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext $context, bool $defaultHandleFunctions = \false) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes
+    public function specifyTypesInCondition(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr, \PHPStan\Analyser\TypeSpecifierContext $context, bool $defaultHandleFunctions = \false) : \PHPStan\Analyser\SpecifiedTypes
     {
-        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_) {
+        if ($expr instanceof \PhpParser\Node\Expr\Instanceof_) {
             $exprNode = $expr->expr;
-            if ($exprNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+            if ($exprNode instanceof \PhpParser\Node\Expr\Assign) {
                 $exprNode = $exprNode->var;
             }
-            if ($expr->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+            if ($expr->class instanceof \PhpParser\Node\Name) {
                 $className = (string) $expr->class;
                 $lowercasedClassName = \strtolower($className);
                 if ($lowercasedClassName === 'self' && $scope->isInClass()) {
-                    $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($scope->getClassReflection()->getName());
+                    $type = new \PHPStan\Type\ObjectType($scope->getClassReflection()->getName());
                 } elseif ($lowercasedClassName === 'static' && $scope->isInClass()) {
-                    $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticType($scope->getClassReflection()->getName());
+                    $type = new \PHPStan\Type\StaticType($scope->getClassReflection()->getName());
                 } elseif ($lowercasedClassName === 'parent') {
                     if ($scope->isInClass() && $scope->getClassReflection()->getParentClass() !== \false) {
-                        $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($scope->getClassReflection()->getParentClass()->getName());
+                        $type = new \PHPStan\Type\ObjectType($scope->getClassReflection()->getParentClass()->getName());
                     } else {
-                        $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NonexistentParentClassType();
+                        $type = new \PHPStan\Type\NonexistentParentClassType();
                     }
                 } else {
-                    $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($className);
+                    $type = new \PHPStan\Type\ObjectType($className);
                 }
                 return $this->create($exprNode, $type, $context);
             }
             $classType = $scope->getType($expr->class);
-            $type = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeTraverser::map($classType, static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, callable $traverse) : Type {
-                if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType) {
+            $type = \PHPStan\Type\TypeTraverser::map($classType, static function (\PHPStan\Type\Type $type, callable $traverse) : Type {
+                if ($type instanceof \PHPStan\Type\UnionType || $type instanceof \PHPStan\Type\IntersectionType) {
                     return $traverse($type);
                 }
-                if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+                if ($type instanceof \PHPStan\Type\TypeWithClassName) {
                     return $type;
                 }
-                if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericClassStringType) {
+                if ($type instanceof \PHPStan\Type\Generic\GenericClassStringType) {
                     return $type->getGenericType();
                 }
-                if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType) {
-                    return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($type->getValue());
+                if ($type instanceof \PHPStan\Type\Constant\ConstantStringType) {
+                    return new \PHPStan\Type\ObjectType($type->getValue());
                 }
-                return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+                return new \PHPStan\Type\MixedType();
             });
-            if (!$type->isSuperTypeOf(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType())->yes()) {
+            if (!$type->isSuperTypeOf(new \PHPStan\Type\MixedType())->yes()) {
                 if ($context->true()) {
-                    $type = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::intersect($type, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType());
+                    $type = \PHPStan\Type\TypeCombinator::intersect($type, new \PHPStan\Type\ObjectWithoutClassType());
                 }
                 return $this->create($exprNode, $type, $context);
             }
             if ($context->true()) {
-                return $this->create($exprNode, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType(), $context);
+                return $this->create($exprNode, new \PHPStan\Type\ObjectWithoutClassType(), $context);
             }
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical) {
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             $expressions = $this->findTypeExpressionsFromBinaryOperation($scope, $expr);
             if ($expressions !== null) {
                 /** @var Expr $exprNode */
                 $exprNode = $expressions[0];
-                if ($exprNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+                if ($exprNode instanceof \PhpParser\Node\Expr\Assign) {
                     $exprNode = $exprNode->var;
                 }
                 /** @var \PHPStan\Type\ConstantScalarType $constantType */
                 $constantType = $expressions[1];
                 if ($constantType->getValue() === \false) {
                     $types = $this->create($exprNode, $constantType, $context);
-                    return $types->unionWith($this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalse() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalse()->negate()));
+                    return $types->unionWith($this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \PHPStan\Analyser\TypeSpecifierContext::createFalse() : \PHPStan\Analyser\TypeSpecifierContext::createFalse()->negate()));
                 }
                 if ($constantType->getValue() === \true) {
                     $types = $this->create($exprNode, $constantType, $context);
-                    return $types->unionWith($this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createTrue() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createTrue()->negate()));
+                    return $types->unionWith($this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \PHPStan\Analyser\TypeSpecifierContext::createTrue() : \PHPStan\Analyser\TypeSpecifierContext::createTrue()->negate()));
                 }
                 if ($constantType->getValue() === null) {
                     return $this->create($exprNode, $constantType, $context);
                 }
-                if (!$context->null() && $exprNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall && \count($exprNode->args) === 1 && $exprNode->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name && \strtolower((string) $exprNode->name) === 'count' && $constantType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType) {
+                if (!$context->null() && $exprNode instanceof \PhpParser\Node\Expr\FuncCall && \count($exprNode->args) === 1 && $exprNode->name instanceof \PhpParser\Node\Name && \strtolower((string) $exprNode->name) === 'count' && $constantType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
                     if ($context->truthy() || $constantType->getValue() === 0) {
                         $newContext = $context;
                         if ($constantType->getValue() === 0) {
                             $newContext = $newContext->negate();
                         }
                         $argType = $scope->getType($exprNode->args[0]->value);
-                        if ((new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType()))->isSuperTypeOf($argType)->yes()) {
-                            return $this->create($exprNode->args[0]->value, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\NonEmptyArrayType(), $newContext);
+                        if ((new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType()))->isSuperTypeOf($argType)->yes()) {
+                            return $this->create($exprNode->args[0]->value, new \PHPStan\Type\Accessory\NonEmptyArrayType(), $newContext);
                         }
                     }
                 }
             }
             if ($context->true()) {
-                $type = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
+                $type = \PHPStan\Type\TypeCombinator::intersect($scope->getType($expr->right), $scope->getType($expr->left));
                 $leftTypes = $this->create($expr->left, $type, $context);
                 $rightTypes = $this->create($expr->right, $type, $context);
                 return $leftTypes->unionWith($rightTypes);
             } elseif ($context->false()) {
                 $identicalType = $scope->getType($expr);
-                if ($identicalType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType) {
-                    $never = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType();
+                if ($identicalType instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
+                    $never = new \PHPStan\Type\NeverType();
                     $contextForTypes = $identicalType->getValue() ? $context->negate() : $context;
                     $leftTypes = $this->create($expr->left, $never, $contextForTypes);
                     $rightTypes = $this->create($expr->right, $never, $contextForTypes);
@@ -186,10 +186,10 @@ class TypeSpecifier
                 $exprLeftType = $scope->getType($expr->left);
                 $exprRightType = $scope->getType($expr->right);
                 $types = null;
-                if ($exprLeftType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantType && !$expr->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar) {
+                if ($exprLeftType instanceof \PHPStan\Type\ConstantType && !$expr->right instanceof \PhpParser\Node\Scalar) {
                     $types = $this->create($expr->right, $exprLeftType, $context);
                 }
-                if ($exprRightType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantType && !$expr->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar) {
+                if ($exprRightType instanceof \PHPStan\Type\ConstantType && !$expr->left instanceof \PhpParser\Node\Scalar) {
                     $leftType = $this->create($expr->left, $exprRightType, $context);
                     if ($types !== null) {
                         $types = $types->unionWith($leftType);
@@ -201,9 +201,9 @@ class TypeSpecifier
                     return $types;
                 }
             }
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical) {
-            return $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical($expr->left, $expr->right)), $context);
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Equal) {
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
+            return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\BinaryOp\Identical($expr->left, $expr->right)), $context);
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Equal) {
             $expressions = $this->findTypeExpressionsFromBinaryOperation($scope, $expr);
             if ($expressions !== null) {
                 /** @var Expr $exprNode */
@@ -211,73 +211,73 @@ class TypeSpecifier
                 /** @var \PHPStan\Type\ConstantScalarType $constantType */
                 $constantType = $expressions[1];
                 if ($constantType->getValue() === \false || $constantType->getValue() === null) {
-                    return $this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalsey() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalsey()->negate());
+                    return $this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \PHPStan\Analyser\TypeSpecifierContext::createFalsey() : \PHPStan\Analyser\TypeSpecifierContext::createFalsey()->negate());
                 }
                 if ($constantType->getValue() === \true) {
-                    return $this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createTruthy() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createTruthy()->negate());
+                    return $this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \PHPStan\Analyser\TypeSpecifierContext::createTruthy() : \PHPStan\Analyser\TypeSpecifierContext::createTruthy()->negate());
                 }
             }
             $leftType = $scope->getType($expr->left);
             $leftBooleanType = $leftType->toBoolean();
             $rightType = $scope->getType($expr->right);
-            if ($leftBooleanType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType && $rightType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType) {
-                return $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($leftBooleanType->getValue() ? 'true' : 'false')), $expr->right), $context);
+            if ($leftBooleanType instanceof \PHPStan\Type\Constant\ConstantBooleanType && $rightType instanceof \PHPStan\Type\BooleanType) {
+                return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\BinaryOp\Identical(new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($leftBooleanType->getValue() ? 'true' : 'false')), $expr->right), $context);
             }
             $rightBooleanType = $rightType->toBoolean();
-            if ($rightBooleanType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType && $leftType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType) {
-                return $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical($expr->left, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($rightBooleanType->getValue() ? 'true' : 'false'))), $context);
+            if ($rightBooleanType instanceof \PHPStan\Type\Constant\ConstantBooleanType && $leftType instanceof \PHPStan\Type\BooleanType) {
+                return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\BinaryOp\Identical($expr->left, new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name($rightBooleanType->getValue() ? 'true' : 'false'))), $context);
             }
-            if ($expr->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall && $expr->left->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name && \strtolower($expr->left->name->toString()) === 'get_class' && isset($expr->left->args[0]) && $rightType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType) {
-                return $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_($expr->left->args[0]->value, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($rightType->getValue())), $context);
+            if ($expr->left instanceof \PhpParser\Node\Expr\FuncCall && $expr->left->name instanceof \PhpParser\Node\Name && \strtolower($expr->left->name->toString()) === 'get_class' && isset($expr->left->args[0]) && $rightType instanceof \PHPStan\Type\Constant\ConstantStringType) {
+                return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\Instanceof_($expr->left->args[0]->value, new \PhpParser\Node\Name($rightType->getValue())), $context);
             }
-            if ($expr->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall && $expr->right->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name && \strtolower($expr->right->name->toString()) === 'get_class' && isset($expr->right->args[0]) && $leftType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType) {
-                return $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_($expr->right->args[0]->value, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($leftType->getValue())), $context);
+            if ($expr->right instanceof \PhpParser\Node\Expr\FuncCall && $expr->right->name instanceof \PhpParser\Node\Name && \strtolower($expr->right->name->toString()) === 'get_class' && isset($expr->right->args[0]) && $leftType instanceof \PHPStan\Type\Constant\ConstantStringType) {
+                return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\Instanceof_($expr->right->args[0]->value, new \PhpParser\Node\Name($leftType->getValue())), $context);
             }
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotEqual) {
-            return $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Equal($expr->left, $expr->right)), $context);
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller || $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual) {
-            $offset = $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller ? 1 : 0;
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\NotEqual) {
+            return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\BinaryOp\Equal($expr->left, $expr->right)), $context);
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Smaller || $expr instanceof \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual) {
+            $offset = $expr instanceof \PhpParser\Node\Expr\BinaryOp\Smaller ? 1 : 0;
             $leftType = $scope->getType($expr->left);
             $rightType = $scope->getType($expr->right);
-            if ($expr->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall && \count($expr->left->args) === 1 && $expr->left->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name && \strtolower((string) $expr->left->name) === 'count' && $rightType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType) {
-                $inverseOperator = $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller ? new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual($expr->right, $expr->left) : new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller($expr->right, $expr->left);
-                return $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot($inverseOperator), $context);
+            if ($expr->left instanceof \PhpParser\Node\Expr\FuncCall && \count($expr->left->args) === 1 && $expr->left->name instanceof \PhpParser\Node\Name && \strtolower((string) $expr->left->name) === 'count' && $rightType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
+                $inverseOperator = $expr instanceof \PhpParser\Node\Expr\BinaryOp\Smaller ? new \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual($expr->right, $expr->left) : new \PhpParser\Node\Expr\BinaryOp\Smaller($expr->right, $expr->left);
+                return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\BooleanNot($inverseOperator), $context);
             }
-            $result = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes();
-            if (!$context->null() && $expr->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall && \count($expr->right->args) === 1 && $expr->right->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name && \strtolower((string) $expr->right->name) === 'count' && $leftType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType) {
+            $result = new \PHPStan\Analyser\SpecifiedTypes();
+            if (!$context->null() && $expr->right instanceof \PhpParser\Node\Expr\FuncCall && \count($expr->right->args) === 1 && $expr->right->name instanceof \PhpParser\Node\Name && \strtolower((string) $expr->right->name) === 'count' && $leftType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
                 if ($context->truthy() || $leftType->getValue() + $offset === 1) {
                     $argType = $scope->getType($expr->right->args[0]->value);
-                    if ((new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType()))->isSuperTypeOf($argType)->yes()) {
-                        $result = $result->unionWith($this->create($expr->right->args[0]->value, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\NonEmptyArrayType(), $context));
+                    if ((new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType()))->isSuperTypeOf($argType)->yes()) {
+                        $result = $result->unionWith($this->create($expr->right->args[0]->value, new \PHPStan\Type\Accessory\NonEmptyArrayType(), $context));
                     }
                 }
             }
-            if ($leftType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType) {
-                if ($expr->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PostInc) {
-                    $result = $result->unionWith($this->createRangeTypes($expr->right->var, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType::fromInterval($leftType->getValue(), null, $offset + 1), $context));
-                } elseif ($expr->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PostDec) {
-                    $result = $result->unionWith($this->createRangeTypes($expr->right->var, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType::fromInterval($leftType->getValue(), null, $offset - 1), $context));
-                } elseif ($expr->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PreInc || $expr->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PreDec) {
-                    $result = $result->unionWith($this->createRangeTypes($expr->right->var, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType::fromInterval($leftType->getValue(), null, $offset), $context));
+            if ($leftType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
+                if ($expr->right instanceof \PhpParser\Node\Expr\PostInc) {
+                    $result = $result->unionWith($this->createRangeTypes($expr->right->var, \PHPStan\Type\IntegerRangeType::fromInterval($leftType->getValue(), null, $offset + 1), $context));
+                } elseif ($expr->right instanceof \PhpParser\Node\Expr\PostDec) {
+                    $result = $result->unionWith($this->createRangeTypes($expr->right->var, \PHPStan\Type\IntegerRangeType::fromInterval($leftType->getValue(), null, $offset - 1), $context));
+                } elseif ($expr->right instanceof \PhpParser\Node\Expr\PreInc || $expr->right instanceof \PhpParser\Node\Expr\PreDec) {
+                    $result = $result->unionWith($this->createRangeTypes($expr->right->var, \PHPStan\Type\IntegerRangeType::fromInterval($leftType->getValue(), null, $offset), $context));
                 }
-                $result = $result->unionWith($this->createRangeTypes($expr->right, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType::fromInterval($leftType->getValue(), null, $offset), $context));
+                $result = $result->unionWith($this->createRangeTypes($expr->right, \PHPStan\Type\IntegerRangeType::fromInterval($leftType->getValue(), null, $offset), $context));
             }
-            if ($rightType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType) {
-                if ($expr->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PostInc) {
-                    $result = $result->unionWith($this->createRangeTypes($expr->left->var, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType::fromInterval(null, $rightType->getValue(), -$offset + 1), $context));
-                } elseif ($expr->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PostDec) {
-                    $result = $result->unionWith($this->createRangeTypes($expr->left->var, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType::fromInterval(null, $rightType->getValue(), -$offset - 1), $context));
-                } elseif ($expr->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PreInc || $expr->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PreDec) {
-                    $result = $result->unionWith($this->createRangeTypes($expr->left->var, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType::fromInterval(null, $rightType->getValue(), -$offset), $context));
+            if ($rightType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
+                if ($expr->left instanceof \PhpParser\Node\Expr\PostInc) {
+                    $result = $result->unionWith($this->createRangeTypes($expr->left->var, \PHPStan\Type\IntegerRangeType::fromInterval(null, $rightType->getValue(), -$offset + 1), $context));
+                } elseif ($expr->left instanceof \PhpParser\Node\Expr\PostDec) {
+                    $result = $result->unionWith($this->createRangeTypes($expr->left->var, \PHPStan\Type\IntegerRangeType::fromInterval(null, $rightType->getValue(), -$offset - 1), $context));
+                } elseif ($expr->left instanceof \PhpParser\Node\Expr\PreInc || $expr->left instanceof \PhpParser\Node\Expr\PreDec) {
+                    $result = $result->unionWith($this->createRangeTypes($expr->left->var, \PHPStan\Type\IntegerRangeType::fromInterval(null, $rightType->getValue(), -$offset), $context));
                 }
-                $result = $result->unionWith($this->createRangeTypes($expr->left, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType::fromInterval(null, $rightType->getValue(), -$offset), $context));
+                $result = $result->unionWith($this->createRangeTypes($expr->left, \PHPStan\Type\IntegerRangeType::fromInterval(null, $rightType->getValue(), -$offset), $context));
             }
             return $result;
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Greater) {
-            return $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller($expr->right, $expr->left), $context, $defaultHandleFunctions);
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual) {
-            return $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual($expr->right, $expr->left), $context, $defaultHandleFunctions);
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall && $expr->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Greater) {
+            return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\BinaryOp\Smaller($expr->right, $expr->left), $context, $defaultHandleFunctions);
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual) {
+            return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual($expr->right, $expr->left), $context, $defaultHandleFunctions);
+        } elseif ($expr instanceof \PhpParser\Node\Expr\FuncCall && $expr->name instanceof \PhpParser\Node\Name) {
             if ($this->reflectionProvider->hasFunction($expr->name, $scope)) {
                 $functionReflection = $this->reflectionProvider->getFunction($expr->name, $scope);
                 foreach ($this->getFunctionTypeSpecifyingExtensions() as $extension) {
@@ -290,9 +290,9 @@ class TypeSpecifier
             if ($defaultHandleFunctions) {
                 return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
             }
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall && $expr->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
+        } elseif ($expr instanceof \PhpParser\Node\Expr\MethodCall && $expr->name instanceof \PhpParser\Node\Identifier) {
             $methodCalledOnType = $scope->getType($expr->var);
-            $referencedClasses = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::getDirectClassNames($methodCalledOnType);
+            $referencedClasses = \PHPStan\Type\TypeUtils::getDirectClassNames($methodCalledOnType);
             if (\count($referencedClasses) === 1 && $this->reflectionProvider->hasClass($referencedClasses[0])) {
                 $methodClassReflection = $this->reflectionProvider->getClass($referencedClasses[0]);
                 if ($methodClassReflection->hasMethod($expr->name->name)) {
@@ -308,15 +308,15 @@ class TypeSpecifier
             if ($defaultHandleFunctions) {
                 return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
             }
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall && $expr->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
-            if ($expr->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
-                $calleeType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($scope->resolveName($expr->class));
+        } elseif ($expr instanceof \PhpParser\Node\Expr\StaticCall && $expr->name instanceof \PhpParser\Node\Identifier) {
+            if ($expr->class instanceof \PhpParser\Node\Name) {
+                $calleeType = new \PHPStan\Type\ObjectType($scope->resolveName($expr->class));
             } else {
                 $calleeType = $scope->getType($expr->class);
             }
             if ($calleeType->hasMethod($expr->name->name)->yes()) {
                 $staticMethodReflection = $calleeType->getMethod($expr->name->name, $scope);
-                $referencedClasses = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::getDirectClassNames($calleeType);
+                $referencedClasses = \PHPStan\Type\TypeUtils::getDirectClassNames($calleeType);
                 if (\count($referencedClasses) === 1 && $this->reflectionProvider->hasClass($referencedClasses[0])) {
                     $staticMethodClassReflection = $this->reflectionProvider->getClass($referencedClasses[0]);
                     foreach ($this->getStaticMethodTypeSpecifyingExtensionsForClass($staticMethodClassReflection->getName()) as $extension) {
@@ -330,35 +330,35 @@ class TypeSpecifier
             if ($defaultHandleFunctions) {
                 return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
             }
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanAnd || $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\LogicalAnd) {
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd || $expr instanceof \PhpParser\Node\Expr\BinaryOp\LogicalAnd) {
             $leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
             $rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
             return $context->true() ? $leftTypes->unionWith($rightTypes) : $leftTypes->intersectWith($rightTypes);
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanOr || $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\LogicalOr) {
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr || $expr instanceof \PhpParser\Node\Expr\BinaryOp\LogicalOr) {
             $leftTypes = $this->specifyTypesInCondition($scope, $expr->left, $context);
             $rightTypes = $this->specifyTypesInCondition($scope, $expr->right, $context);
             return $context->true() ? $leftTypes->intersectWith($rightTypes) : $leftTypes->unionWith($rightTypes);
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot && !$context->null()) {
+        } elseif ($expr instanceof \PhpParser\Node\Expr\BooleanNot && !$context->null()) {
             return $this->specifyTypesInCondition($scope, $expr->expr, $context->negate());
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
-            if (!$scope instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\MutatingScope) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+        } elseif ($expr instanceof \PhpParser\Node\Expr\Assign) {
+            if (!$scope instanceof \PHPStan\Analyser\MutatingScope) {
+                throw new \PHPStan\ShouldNotHappenException();
             }
             if ($context->null()) {
                 return $this->specifyTypesInCondition($scope->exitFirstLevelStatements(), $expr->expr, $context);
             }
             return $this->specifyTypesInCondition($scope->exitFirstLevelStatements(), $expr->var, $context);
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_ && \count($expr->vars) > 0 && $context->true() || $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Empty_ && $context->false()) {
+        } elseif ($expr instanceof \PhpParser\Node\Expr\Isset_ && \count($expr->vars) > 0 && $context->true() || $expr instanceof \PhpParser\Node\Expr\Empty_ && $context->false()) {
             $vars = [];
-            if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_) {
+            if ($expr instanceof \PhpParser\Node\Expr\Isset_) {
                 $varsToIterate = $expr->vars;
             } else {
                 $varsToIterate = [$expr->expr];
             }
             foreach ($varsToIterate as $var) {
                 $tmpVars = [$var];
-                while ($var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch || $var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch || $var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch && $var->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr) {
-                    if ($var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch) {
+                while ($var instanceof \PhpParser\Node\Expr\ArrayDimFetch || $var instanceof \PhpParser\Node\Expr\PropertyFetch || $var instanceof \PhpParser\Node\Expr\StaticPropertyFetch && $var->class instanceof \PhpParser\Node\Expr) {
+                    if ($var instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
                         /** @var Expr $var */
                         $var = $var->class;
                     } else {
@@ -369,28 +369,28 @@ class TypeSpecifier
                 $vars = \array_merge($vars, \array_reverse($tmpVars));
             }
             if (\count($vars) === 0) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                throw new \PHPStan\ShouldNotHappenException();
             }
             $types = null;
             foreach ($vars as $var) {
-                if ($var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && \is_string($var->name)) {
+                if ($var instanceof \PhpParser\Node\Expr\Variable && \is_string($var->name)) {
                     if ($scope->hasVariableType($var->name)->no()) {
-                        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes([], []);
+                        return new \PHPStan\Analyser\SpecifiedTypes([], []);
                     }
                 }
-                if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_) {
-                    if ($var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch && $var->dim !== null && !$scope->getType($var->var) instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
-                        $type = $this->create($var->var, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\HasOffsetType($scope->getType($var->dim)), $context)->unionWith($this->create($var, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType(), \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalse()));
+                if ($expr instanceof \PhpParser\Node\Expr\Isset_) {
+                    if ($var instanceof \PhpParser\Node\Expr\ArrayDimFetch && $var->dim !== null && !$scope->getType($var->var) instanceof \PHPStan\Type\MixedType) {
+                        $type = $this->create($var->var, new \PHPStan\Type\Accessory\HasOffsetType($scope->getType($var->dim)), $context)->unionWith($this->create($var, new \PHPStan\Type\NullType(), \PHPStan\Analyser\TypeSpecifierContext::createFalse()));
                     } else {
-                        $type = $this->create($var, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType(), \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalse());
+                        $type = $this->create($var, new \PHPStan\Type\NullType(), \PHPStan\Analyser\TypeSpecifierContext::createFalse());
                     }
                 } else {
-                    $type = $this->create($var, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false)]), \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalse());
+                    $type = $this->create($var, new \PHPStan\Type\UnionType([new \PHPStan\Type\NullType(), new \PHPStan\Type\Constant\ConstantBooleanType(\false)]), \PHPStan\Analyser\TypeSpecifierContext::createFalse());
                 }
-                if ($var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch && $var->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
-                    $type = $type->unionWith($this->create($var->var, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\HasPropertyType($var->name->toString())]), \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createTruthy()));
-                } elseif ($var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch && $var->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr && $var->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\VarLikeIdentifier) {
-                    $type = $type->unionWith($this->create($var->class, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\HasPropertyType($var->name->toString())]), \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createTruthy()));
+                if ($var instanceof \PhpParser\Node\Expr\PropertyFetch && $var->name instanceof \PhpParser\Node\Identifier) {
+                    $type = $type->unionWith($this->create($var->var, new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectWithoutClassType(), new \PHPStan\Type\Accessory\HasPropertyType($var->name->toString())]), \PHPStan\Analyser\TypeSpecifierContext::createTruthy()));
+                } elseif ($var instanceof \PhpParser\Node\Expr\StaticPropertyFetch && $var->class instanceof \PhpParser\Node\Expr && $var->name instanceof \PhpParser\Node\VarLikeIdentifier) {
+                    $type = $type->unionWith($this->create($var->class, new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectWithoutClassType(), new \PHPStan\Type\Accessory\HasPropertyType($var->name->toString())]), \PHPStan\Analyser\TypeSpecifierContext::createTruthy()));
                 }
                 if ($types === null) {
                     $types = $type;
@@ -398,54 +398,54 @@ class TypeSpecifier
                     $types = $types->unionWith($type);
                 }
             }
-            if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Empty_ && (new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()) {
-                $types = $types->unionWith($this->create($expr->expr, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\NonEmptyArrayType(), $context->negate()));
+            if ($expr instanceof \PhpParser\Node\Expr\Empty_ && (new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()) {
+                $types = $types->unionWith($this->create($expr->expr, new \PHPStan\Type\Accessory\NonEmptyArrayType(), $context->negate()));
             }
             return $types;
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Empty_ && $context->truthy() && (new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()) {
-            return $this->create($expr->expr, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\NonEmptyArrayType(), $context->negate());
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ErrorSuppress) {
+        } elseif ($expr instanceof \PhpParser\Node\Expr\Empty_ && $context->truthy() && (new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType()))->isSuperTypeOf($scope->getType($expr->expr))->yes()) {
+            return $this->create($expr->expr, new \PHPStan\Type\Accessory\NonEmptyArrayType(), $context->negate());
+        } elseif ($expr instanceof \PhpParser\Node\Expr\ErrorSuppress) {
             return $this->specifyTypesInCondition($scope, $expr->expr, $context, $defaultHandleFunctions);
-        } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\NullsafePropertyFetch && !$context->null()) {
-            $types = $this->specifyTypesInCondition($scope, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanAnd(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical($expr->var, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('null'))), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch($expr->var, $expr->name)), $context, $defaultHandleFunctions);
+        } elseif ($expr instanceof \PhpParser\Node\Expr\NullsafePropertyFetch && !$context->null()) {
+            $types = $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\BinaryOp\BooleanAnd(new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr->var, new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null'))), new \PhpParser\Node\Expr\PropertyFetch($expr->var, $expr->name)), $context, $defaultHandleFunctions);
             $nullSafeTypes = $this->handleDefaultTruthyOrFalseyContext($context, $expr);
             return $context->true() ? $types->unionWith($nullSafeTypes) : $types->intersectWith($nullSafeTypes);
         } elseif (!$context->null()) {
             return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes();
+        return new \PHPStan\Analyser\SpecifiedTypes();
     }
-    private function handleDefaultTruthyOrFalseyContext(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext $context, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes
+    private function handleDefaultTruthyOrFalseyContext(\PHPStan\Analyser\TypeSpecifierContext $context, \PhpParser\Node\Expr $expr) : \PHPStan\Analyser\SpecifiedTypes
     {
         if (!$context->truthy()) {
-            $type = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticTypeFactory::truthy();
-            return $this->create($expr, $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalse());
+            $type = \PHPStan\Type\StaticTypeFactory::truthy();
+            return $this->create($expr, $type, \PHPStan\Analyser\TypeSpecifierContext::createFalse());
         } elseif (!$context->falsey()) {
-            $type = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticTypeFactory::falsey();
-            return $this->create($expr, $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalse());
+            $type = \PHPStan\Type\StaticTypeFactory::falsey();
+            return $this->create($expr, $type, \PHPStan\Analyser\TypeSpecifierContext::createFalse());
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes();
+        return new \PHPStan\Analyser\SpecifiedTypes();
     }
     /**
      * @param \PHPStan\Analyser\Scope $scope
      * @param \PhpParser\Node\Expr\BinaryOp $binaryOperation
      * @return (Expr|\PHPStan\Type\ConstantScalarType)[]|null
      */
-    private function findTypeExpressionsFromBinaryOperation(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp $binaryOperation) : ?array
+    private function findTypeExpressionsFromBinaryOperation(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr\BinaryOp $binaryOperation) : ?array
     {
         $leftType = $scope->getType($binaryOperation->left);
         $rightType = $scope->getType($binaryOperation->right);
-        if ($leftType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType && !$binaryOperation->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch && !$binaryOperation->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch) {
+        if ($leftType instanceof \PHPStan\Type\ConstantScalarType && !$binaryOperation->right instanceof \PhpParser\Node\Expr\ConstFetch && !$binaryOperation->right instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return [$binaryOperation->right, $leftType];
-        } elseif ($rightType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType && !$binaryOperation->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch && !$binaryOperation->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch) {
+        } elseif ($rightType instanceof \PHPStan\Type\ConstantScalarType && !$binaryOperation->left instanceof \PhpParser\Node\Expr\ConstFetch && !$binaryOperation->left instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return [$binaryOperation->left, $rightType];
         }
         return null;
     }
-    public function create(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext $context, bool $overwrite = \false) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes
+    public function create(\PhpParser\Node\Expr $expr, \PHPStan\Type\Type $type, \PHPStan\Analyser\TypeSpecifierContext $context, bool $overwrite = \false) : \PHPStan\Analyser\SpecifiedTypes
     {
-        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_ || $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes();
+        if ($expr instanceof \PhpParser\Node\Expr\New_ || $expr instanceof \PhpParser\Node\Expr\Instanceof_) {
+            return new \PHPStan\Analyser\SpecifiedTypes();
         }
         $sureTypes = [];
         $sureNotTypes = [];
@@ -455,31 +455,31 @@ class TypeSpecifier
         } elseif ($context->true()) {
             $sureTypes[$exprString] = [$expr, $type];
         }
-        $types = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes($sureTypes, $sureNotTypes, $overwrite);
-        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\NullsafePropertyFetch && !$context->null()) {
-            $propertyFetchTypes = $this->create(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch($expr->var, $expr->name), $type, $context);
-            if ($context->true() && !\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::containsNull($type)) {
-                $propertyFetchTypes = $propertyFetchTypes->unionWith($this->create($expr->var, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType(), \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalse()));
-            } elseif ($context->false() && \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::containsNull($type)) {
-                $propertyFetchTypes = $propertyFetchTypes->unionWith($this->create($expr->var, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType(), \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext::createFalse()));
+        $types = new \PHPStan\Analyser\SpecifiedTypes($sureTypes, $sureNotTypes, $overwrite);
+        if ($expr instanceof \PhpParser\Node\Expr\NullsafePropertyFetch && !$context->null()) {
+            $propertyFetchTypes = $this->create(new \PhpParser\Node\Expr\PropertyFetch($expr->var, $expr->name), $type, $context);
+            if ($context->true() && !\PHPStan\Type\TypeCombinator::containsNull($type)) {
+                $propertyFetchTypes = $propertyFetchTypes->unionWith($this->create($expr->var, new \PHPStan\Type\NullType(), \PHPStan\Analyser\TypeSpecifierContext::createFalse()));
+            } elseif ($context->false() && \PHPStan\Type\TypeCombinator::containsNull($type)) {
+                $propertyFetchTypes = $propertyFetchTypes->unionWith($this->create($expr->var, new \PHPStan\Type\NullType(), \PHPStan\Analyser\TypeSpecifierContext::createFalse()));
             }
             return $types->unionWith($propertyFetchTypes);
         }
         return $types;
     }
-    private function createRangeTypes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\TypeSpecifierContext $context) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes
+    private function createRangeTypes(\PhpParser\Node\Expr $expr, \PHPStan\Type\Type $type, \PHPStan\Analyser\TypeSpecifierContext $context) : \PHPStan\Analyser\SpecifiedTypes
     {
         $sureNotTypes = [];
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType) {
+        if ($type instanceof \PHPStan\Type\IntegerRangeType || $type instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
             $exprString = $this->printer->prettyPrintExpr($expr);
             if ($context->false()) {
                 $sureNotTypes[$exprString] = [$expr, $type];
             } elseif ($context->true()) {
-                $inverted = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::remove(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType(), $type);
+                $inverted = \PHPStan\Type\TypeCombinator::remove(new \PHPStan\Type\IntegerType(), $type);
                 $sureNotTypes[$exprString] = [$expr, $inverted];
             }
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\SpecifiedTypes([], $sureNotTypes);
+        return new \PHPStan\Analyser\SpecifiedTypes([], $sureNotTypes);
     }
     /**
      * @return \PHPStan\Type\FunctionTypeSpecifyingExtension[]

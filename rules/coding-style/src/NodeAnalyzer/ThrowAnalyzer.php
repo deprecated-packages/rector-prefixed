@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\NodeAnalyzer;
+namespace Rector\CodingStyle\NodeAnalyzer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Throw_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
+use PhpParser\Node\Stmt\Throw_;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\UnionType;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 final class ThrowAnalyzer
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     /**
      * @return string[]
      */
-    public function resolveThrownTypes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Throw_ $throw) : array
+    public function resolveThrownTypes(\PhpParser\Node\Stmt\Throw_ $throw) : array
     {
         $thrownType = $this->nodeTypeResolver->getStaticType($throw->expr);
-        if ($thrownType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
+        if ($thrownType instanceof \PHPStan\Type\MixedType) {
             return [];
         }
-        if ($thrownType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
+        if ($thrownType instanceof \PHPStan\Type\UnionType) {
             $types = [];
             foreach ($thrownType->getTypes() as $unionedType) {
                 $types[] = $this->resolveClassFromType($unionedType);
@@ -40,14 +40,14 @@ final class ThrowAnalyzer
         $class = $this->resolveClassFromType($thrownType);
         return [$class];
     }
-    private function resolveClassFromType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $thrownType) : string
+    private function resolveClassFromType(\PHPStan\Type\Type $thrownType) : string
     {
-        if ($thrownType instanceof \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
+        if ($thrownType instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
             return $thrownType->getFullyQualifiedName();
         }
-        if ($thrownType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+        if ($thrownType instanceof \PHPStan\Type\TypeWithClassName) {
             return $thrownType->getClassName();
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+        throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
 }

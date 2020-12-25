@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+namespace PhpParser\Node\Expr;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-class New_ extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+class New_ extends \PhpParser\Node\Expr
 {
     /** @var Node\Name|Expr|Node\Stmt\Class_ Class name */
     public $class;

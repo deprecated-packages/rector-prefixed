@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeVisitor;
+namespace Rector\NodeTypeResolver\NodeVisitor;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Declare_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-final class NamespaceNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Declare_;
+use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Use_;
+use PhpParser\NodeVisitorAbstract;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+final class NamespaceNodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /**
      * @var Declare_[]
@@ -32,7 +32,7 @@ final class NamespaceNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeV
      * @var Namespace_|null
      */
     private $namespace;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->betterNodeFinder = $betterNodeFinder;
     }
@@ -46,26 +46,26 @@ final class NamespaceNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeV
         $this->namespace = null;
         // init basic use nodes for non-namespaced code
         /** @var Use_[] $uses */
-        $uses = $this->betterNodeFinder->findInstanceOf($nodes, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_::class);
+        $uses = $this->betterNodeFinder->findInstanceOf($nodes, \PhpParser\Node\Stmt\Use_::class);
         $this->useNodes = $uses;
         /** @var Declare_[] $declares */
-        $declares = $this->betterNodeFinder->findInstanceOf($nodes, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Declare_::class);
+        $declares = $this->betterNodeFinder->findInstanceOf($nodes, \PhpParser\Node\Stmt\Declare_::class);
         $this->declares = $declares;
         return null;
     }
-    public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
             $this->namespaceName = $node->name !== null ? $node->name->toString() : null;
             $this->namespace = $node;
             /** @var Use_[] $uses */
-            $uses = $this->betterNodeFinder->findInstanceOf($node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_::class);
+            $uses = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Stmt\Use_::class);
             $this->useNodes = $uses;
         }
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME, $this->namespaceName);
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE, $this->namespace);
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES, $this->useNodes);
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES, $this->declares);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME, $this->namespaceName);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE, $this->namespace);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES, $this->useNodes);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES, $this->declares);
         return $node;
     }
 }

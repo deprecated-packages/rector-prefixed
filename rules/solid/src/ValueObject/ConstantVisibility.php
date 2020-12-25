@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\SOLID\ValueObject;
+namespace Rector\SOLID\ValueObject;
 
 final class ConstantVisibility
 {

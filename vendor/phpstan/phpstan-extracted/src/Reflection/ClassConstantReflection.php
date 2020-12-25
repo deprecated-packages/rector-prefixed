@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantTypeHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class ClassConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ConstantReflection
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\ConstantTypeHelper;
+use PHPStan\Type\Type;
+class ClassConstantReflection implements \PHPStan\Reflection\ConstantReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -18,7 +18,7 @@ class ClassConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
     private $isDeprecated;
     /** @var bool */
     private $isInternal;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $declaringClass, \ReflectionClassConstant $reflection, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal)
+    public function __construct(\PHPStan\Reflection\ClassReflection $declaringClass, \ReflectionClassConstant $reflection, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal)
     {
         $this->declaringClass = $declaringClass;
         $this->reflection = $reflection;
@@ -45,11 +45,11 @@ class ClassConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
     {
         return $this->reflection->getValue();
     }
-    public function getValueType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getValueType() : \PHPStan\Type\Type
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantTypeHelper::getTypeFromValue($this->getValue());
+        return \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($this->getValue());
     }
-    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
@@ -65,9 +65,9 @@ class ClassConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
     {
         return $this->reflection->isPublic();
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
+        return \PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
     }
     public function getDeprecatedDescription() : ?string
     {
@@ -76,9 +76,9 @@ class ClassConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
         }
         return null;
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
+        return \PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
     }
     public function getDocComment() : ?string
     {

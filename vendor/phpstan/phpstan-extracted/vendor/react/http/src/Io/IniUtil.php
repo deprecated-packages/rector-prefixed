@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _HumbugBox221ad6f1b81f\React\Http\Io;
 
 /**
  * @internal

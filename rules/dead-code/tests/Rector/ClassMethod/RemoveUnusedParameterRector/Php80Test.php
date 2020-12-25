@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedParameterRector;
+namespace Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedParameterRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedParameterRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class Php80Test extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedParameterRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class Php80Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 8.0
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -24,10 +24,10 @@ final class Php80Test extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\Abs
     }
     protected function getPhpVersion() : int
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION;
+        return \Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION;
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedParameterRector::class;
+        return \Rector\DeadCode\Rector\ClassMethod\RemoveUnusedParameterRector::class;
     }
 }

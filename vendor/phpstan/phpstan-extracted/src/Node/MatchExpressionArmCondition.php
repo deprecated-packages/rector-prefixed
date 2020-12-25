@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
+namespace PHPStan\Node;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
+use PhpParser\Node\Expr;
+use PHPStan\Analyser\Scope;
 class MatchExpressionArmCondition
 {
     /** @var Expr */
@@ -13,17 +13,17 @@ class MatchExpressionArmCondition
     private $scope;
     /** @var int */
     private $line;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $condition, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, int $line)
+    public function __construct(\PhpParser\Node\Expr $condition, \PHPStan\Analyser\Scope $scope, int $line)
     {
         $this->condition = $condition;
         $this->scope = $scope;
         $this->line = $line;
     }
-    public function getCondition() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    public function getCondition() : \PhpParser\Node\Expr
     {
         return $this->condition;
     }
-    public function getScope() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope
+    public function getScope() : \PHPStan\Analyser\Scope
     {
         return $this->scope;
     }

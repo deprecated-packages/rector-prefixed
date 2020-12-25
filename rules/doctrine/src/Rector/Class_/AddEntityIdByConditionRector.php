@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_;
+namespace Rector\Doctrine\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\NodeFactory\EntityIdNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Doctrine\NodeFactory\EntityIdNodeFactory;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Doctrine\Tests\Rector\Class_\AddEntityIdByConditionRector\AddEntityIdByConditionRectorTest
  */
-final class AddEntityIdByConditionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class AddEntityIdByConditionRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -37,15 +37,15 @@ final class AddEntityIdByConditionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\NodeFactory\EntityIdNodeFactory $entityIdNodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \Rector\Doctrine\NodeFactory\EntityIdNodeFactory $entityIdNodeFactory, \Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator)
     {
         $this->classManipulator = $classManipulator;
         $this->entityIdNodeFactory = $entityIdNodeFactory;
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add entity id with annotations when meets condition', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add entity id with annotations when meets condition', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     use SomeTrait;
@@ -69,19 +69,19 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::DETECTED_TRAITS => ['_PhpScoper2a4e7ab1ecbc\\Knp\\DoctrineBehaviors\\Model\\Translatable\\Translation', '_PhpScoper2a4e7ab1ecbc\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait']])]);
+, [self::DETECTED_TRAITS => ['_PhpScoper50d83356d739\\Knp\\DoctrineBehaviors\\Model\\Translatable\\Translation', '_PhpScoper50d83356d739\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait']])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -94,7 +94,7 @@ CODE_SAMPLE
     {
         $this->detectedTraits = $configuration[self::DETECTED_TRAITS] ?? [];
     }
-    private function shouldSkip(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($this->isAnonymousClass($class)) {
             return \true;
@@ -104,7 +104,7 @@ CODE_SAMPLE
         }
         return (bool) $class->getProperty('id');
     }
-    private function isTraitMatch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function isTraitMatch(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         $usedTraits = $this->classManipulator->getUsedTraits($class);
         foreach (\array_keys($usedTraits) as $traitName) {

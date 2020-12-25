@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\HttpKernel;
+namespace Symplify\RuleDocGenerator\HttpKernel;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\Loader\LoaderInterface;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class RuleDocGeneratorKernel extends \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use _PhpScoper50d83356d739\Symfony\Component\Config\Loader\LoaderInterface;
+use _PhpScoper50d83356d739\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle;
+use Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
+use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class RuleDocGeneratorKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
-    public function registerContainerConfiguration(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\_PhpScoper50d83356d739\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         parent::registerContainerConfiguration($loader);
@@ -21,6 +21,6 @@ final class RuleDocGeneratorKernel extends \_PhpScoper2a4e7ab1ecbc\Symplify\Symp
      */
     public function registerBundles() : iterable
     {
-        return [new \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \_PhpScoper2a4e7ab1ecbc\Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle(), new \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
+        return [new \Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \Symplify\MarkdownDiff\Bundle\MarkdownDiffBundle(), new \Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
     }
 }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Symfony\Component\Config;
+namespace _PhpScoper50d83356d739\Symfony\Component\Config;
 
 /**
  * A ConfigCacheFactory implementation that validates the
@@ -16,7 +16,7 @@ namespace _PhpScoper2a4e7ab1ecbc\Symfony\Component\Config;
  *
  * @author Matthias Pigulla <mp@webfactory.de>
  */
-class ResourceCheckerConfigCacheFactory implements \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\ConfigCacheFactoryInterface
+class ResourceCheckerConfigCacheFactory implements \_PhpScoper50d83356d739\Symfony\Component\Config\ConfigCacheFactoryInterface
 {
     private $resourceCheckers = [];
     /**
@@ -31,7 +31,7 @@ class ResourceCheckerConfigCacheFactory implements \_PhpScoper2a4e7ab1ecbc\Symfo
      */
     public function cache(string $file, callable $callable)
     {
-        $cache = new \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\ResourceCheckerConfigCache($file, $this->resourceCheckers);
+        $cache = new \_PhpScoper50d83356d739\Symfony\Component\Config\ResourceCheckerConfigCache($file, $this->resourceCheckers);
         if (!$cache->isFresh()) {
             $callable($cache);
         }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\ConsoleDiffer\Diff\Output;
+namespace Rector\ConsoleDiffer\Diff\Output;
 
-use _PhpScoper2a4e7ab1ecbc\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use _PhpScoper50d83356d739\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 /**
  * Creates @see UnifiedDiffOutputBuilder with "$contextLines = 1000;"
  */
@@ -16,14 +16,14 @@ final class CompleteUnifiedDiffOutputBuilderFactory
     private $privatesAccessor;
     public function __construct()
     {
-        $this->privatesAccessor = new \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        $this->privatesAccessor = new \Symplify\PackageBuilder\Reflection\PrivatesAccessor();
     }
     /**
      * @api
      */
-    public function create() : \_PhpScoper2a4e7ab1ecbc\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder
+    public function create() : \_PhpScoper50d83356d739\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder
     {
-        $unifiedDiffOutputBuilder = new \_PhpScoper2a4e7ab1ecbc\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder('');
+        $unifiedDiffOutputBuilder = new \_PhpScoper50d83356d739\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder('');
         $this->privatesAccessor->setPrivateProperty($unifiedDiffOutputBuilder, 'contextLines', 1000);
         return $unifiedDiffOutputBuilder;
     }

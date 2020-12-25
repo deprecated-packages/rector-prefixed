@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteToSymfony\NodeFactory;
+namespace Rector\NetteToSymfony\NodeFactory;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use PhpParser\Node\Name;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Namespace_;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class SymfonyControllerFactory
 {
     /**
@@ -20,25 +20,25 @@ final class SymfonyControllerFactory
      * @var ActionWithFormProcessClassMethodFactory
      */
     private $actionWithFormProcessClassMethodFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NetteToSymfony\NodeFactory\ActionWithFormProcessClassMethodFactory $actionWithFormProcessClassMethodFactory)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NetteToSymfony\NodeFactory\ActionWithFormProcessClassMethodFactory $actionWithFormProcessClassMethodFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->actionWithFormProcessClassMethodFactory = $actionWithFormProcessClassMethodFactory;
     }
-    public function createNamespace(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $formTypeClass) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_
+    public function createNamespace(\PhpParser\Node\Stmt\Class_ $node, \PhpParser\Node\Stmt\Class_ $formTypeClass) : ?\PhpParser\Node\Stmt\Namespace_
     {
         /** @var SmartFileInfo|null $fileInfo */
-        $fileInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($fileInfo === null) {
             return null;
         }
         /** @var string $namespaceName */
-        $namespaceName = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
-        $formControllerClass = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_('SomeFormController');
-        $formControllerClass->extends = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified('_PhpScoper2a4e7ab1ecbc\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
+        $namespaceName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
+        $formControllerClass = new \PhpParser\Node\Stmt\Class_('SomeFormController');
+        $formControllerClass->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper50d83356d739\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
         $formTypeClass = $namespaceName . '\\' . $this->nodeNameResolver->getName($formTypeClass);
         $formControllerClass->stmts[] = $this->actionWithFormProcessClassMethodFactory->create($formTypeClass);
-        $namespace = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($namespaceName));
+        $namespace = new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($namespaceName));
         $namespace->stmts[] = $formControllerClass;
         return $namespace;
     }

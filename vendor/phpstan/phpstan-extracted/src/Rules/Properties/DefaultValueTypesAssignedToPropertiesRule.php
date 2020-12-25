@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties;
+namespace PHPStan\Rules\Properties;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\ClassPropertyNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleLevelHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\ClassPropertyNode;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\ClassPropertyNode>
  */
-class DefaultValueTypesAssignedToPropertiesRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\ClassPropertyNode::class;
+        return \PHPStan\Node\ClassPropertyNode::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$scope->isInClass()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
         $default = $node->getDefault();
@@ -37,8 +37,8 @@ class DefaultValueTypesAssignedToPropertiesRule implements \_PhpScoper2a4e7ab1ec
         }
         $propertyReflection = $classReflection->getNativeProperty($node->getName());
         $propertyType = $propertyReflection->getWritableType();
-        if ($propertyReflection->getNativeType() instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
-            if ($default instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch && (string) $default->name === 'null') {
+        if ($propertyReflection->getNativeType() instanceof \PHPStan\Type\MixedType) {
+            if ($default instanceof \PhpParser\Node\Expr\ConstFetch && (string) $default->name === 'null') {
                 return [];
             }
         }
@@ -46,7 +46,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \_PhpScoper2a4e7ab1ec
         if ($this->ruleLevelHelper->accepts($propertyType, $defaultValueType, \true)) {
             return [];
         }
-        $verbosityLevel = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($propertyType);
-        return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s %s::$%s (%s) does not accept default value of type %s.', $node->isStatic() ? 'Static property' : 'Property', $classReflection->getDisplayName(), $node->getName(), $propertyType->describe($verbosityLevel), $defaultValueType->describe($verbosityLevel)))->build()];
+        $verbosityLevel = \PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($propertyType);
+        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s %s::$%s (%s) does not accept default value of type %s.', $node->isStatic() ? 'Static property' : 'Property', $classReflection->getDisplayName(), $node->getName(), $propertyType->describe($verbosityLevel), $defaultValueType->describe($verbosityLevel)))->build()];
     }
 }

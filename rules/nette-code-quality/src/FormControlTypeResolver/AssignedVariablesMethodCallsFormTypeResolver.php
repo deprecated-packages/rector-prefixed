@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\FormControlTypeResolver;
+namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
-final class AssignedVariablesMethodCallsFormTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface, \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\Variable;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
+use Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
+use Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
+final class AssignedVariablesMethodCallsFormTypeResolver implements \Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface, \Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @var BetterNodeFinder
@@ -20,16 +20,16 @@ final class AssignedVariablesMethodCallsFormTypeResolver implements \_PhpScoper2
      * @var MethodNamesByInputNamesResolver
      */
     private $methodNamesByInputNamesResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->betterNodeFinder = $betterNodeFinder;
     }
     /**
      * @return array<string, string>
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+        if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return [];
         }
         /** @var Assign|null $formVariableAssign */
@@ -39,7 +39,7 @@ final class AssignedVariablesMethodCallsFormTypeResolver implements \_PhpScoper2
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($formVariableAssign->expr);
     }
-    public function setResolver(\_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Legacy\Tests\Rector\Class_\ChangeSingletonToServiceRector;
+namespace Rector\Legacy\Tests\Rector\Class_\ChangeSingletonToServiceRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Legacy\Rector\Class_\ChangeSingletonToServiceRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeSingletonToServiceRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Legacy\Rector\Class_\ChangeSingletonToServiceRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeSingletonToServiceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeSingletonToServiceRectorTest extends \_PhpScoper2a4e7ab1ecbc\R
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Legacy\Rector\Class_\ChangeSingletonToServiceRector::class;
+        return \Rector\Legacy\Rector\Class_\ChangeSingletonToServiceRector::class;
     }
 }

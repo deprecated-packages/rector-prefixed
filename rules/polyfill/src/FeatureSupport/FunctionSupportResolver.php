@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Polyfill\FeatureSupport;
+namespace Rector\Polyfill\FeatureSupport;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Php\PhpVersionProvider;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersion;
+use Rector\Core\Php\PhpVersionProvider;
+use Rector\Core\ValueObject\PhpVersion;
 final class FunctionSupportResolver
 {
     /**
      * @var array<int, string[]>
      */
-    private const FUNCTIONS_BY_VERSION = [\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersion::PHP_56 => ['session_abort', 'hash_equals', 'ldap_escape'], \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersion::PHP_70 => ['random_int', 'random_bytes', 'intdiv', 'preg_replace_callback_array', 'error_clear_last'], \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersion::PHP_71 => ['is_iterable'], \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersion::PHP_72 => ['spl_object_id', 'stream_isatty'], \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersion::PHP_73 => ['array_key_first', 'array_key_last', 'hrtime', 'is_countable'], \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersion::PHP_74 => ['get_mangled_object_vars', 'mb_str_split', 'password_algos']];
+    private const FUNCTIONS_BY_VERSION = [\Rector\Core\ValueObject\PhpVersion::PHP_56 => ['session_abort', 'hash_equals', 'ldap_escape'], \Rector\Core\ValueObject\PhpVersion::PHP_70 => ['random_int', 'random_bytes', 'intdiv', 'preg_replace_callback_array', 'error_clear_last'], \Rector\Core\ValueObject\PhpVersion::PHP_71 => ['is_iterable'], \Rector\Core\ValueObject\PhpVersion::PHP_72 => ['spl_object_id', 'stream_isatty'], \Rector\Core\ValueObject\PhpVersion::PHP_73 => ['array_key_first', 'array_key_last', 'hrtime', 'is_countable'], \Rector\Core\ValueObject\PhpVersion::PHP_74 => ['get_mangled_object_vars', 'mb_str_split', 'password_algos']];
     /**
      * @var PhpVersionProvider
      */
     private $phpVersionProvider;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
+    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider)
     {
         $this->phpVersionProvider = $phpVersionProvider;
     }

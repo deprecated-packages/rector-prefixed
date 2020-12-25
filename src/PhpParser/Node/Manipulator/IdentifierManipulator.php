@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator;
+namespace Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NodeChanger\NodeMissingIdentifierException;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\Exception\NodeChanger\NodeMissingIdentifierException;
+use Rector\NodeNameResolver\NodeNameResolver;
 /**
  * This class renames node identifier, e.g. ClassMethod rename:
  *
@@ -24,12 +24,12 @@ final class IdentifierManipulator
     /**
      * @var string[]
      */
-    private const NODE_CLASSES_WITH_IDENTIFIER = [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
+    private const NODE_CLASSES_WITH_IDENTIFIER = [\PhpParser\Node\Expr\ClassConstFetch::class, \PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\ClassMethod::class];
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -37,41 +37,41 @@ final class IdentifierManipulator
      * @param ClassConstFetch|MethodCall|PropertyFetch|StaticCall|ClassMethod $node
      * @param string[] $renameMethodMap
      */
-    public function renameNodeWithMap(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, array $renameMethodMap) : void
+    public function renameNodeWithMap(\PhpParser\Node $node, array $renameMethodMap) : void
     {
         $this->ensureNodeHasIdentifier($node);
         $oldNodeMethodName = $this->resolveOldMethodName($node);
         if ($oldNodeMethodName === null) {
             return;
         }
-        $node->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($renameMethodMap[$oldNodeMethodName]);
+        $node->name = new \PhpParser\Node\Identifier($renameMethodMap[$oldNodeMethodName]);
     }
     /**
      * @param ClassConstFetch|MethodCall|PropertyFetch|StaticCall|ClassMethod $node
      */
-    public function removeSuffix(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $suffixToRemove) : void
+    public function removeSuffix(\PhpParser\Node $node, string $suffixToRemove) : void
     {
         $this->ensureNodeHasIdentifier($node);
         $name = $this->nodeNameResolver->getName($node);
         if ($name === null) {
             return;
         }
-        $newName = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove), '');
-        $node->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($newName);
+        $newName = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove), '');
+        $node->name = new \PhpParser\Node\Identifier($newName);
     }
-    private function ensureNodeHasIdentifier(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function ensureNodeHasIdentifier(\PhpParser\Node $node) : void
     {
         if (\in_array(\get_class($node), self::NODE_CLASSES_WITH_IDENTIFIER, \true)) {
             return;
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NodeChanger\NodeMissingIdentifierException(\sprintf('Node "%s" does not contain a "$name" property with "%s". Pass only one of "%s".', \get_class($node), \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier::class, \implode('", "', self::NODE_CLASSES_WITH_IDENTIFIER)));
+        throw new \Rector\Core\Exception\NodeChanger\NodeMissingIdentifierException(\sprintf('Node "%s" does not contain a "$name" property with "%s". Pass only one of "%s".', \get_class($node), \PhpParser\Node\Identifier::class, \implode('", "', self::NODE_CLASSES_WITH_IDENTIFIER)));
     }
-    private function resolveOldMethodName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
+    private function resolveOldMethodName(\PhpParser\Node $node) : ?string
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall) {
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
             return $this->nodeNameResolver->getName($node->name);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return $this->nodeNameResolver->getName($node->name);
         }
         return $this->nodeNameResolver->getName($node);

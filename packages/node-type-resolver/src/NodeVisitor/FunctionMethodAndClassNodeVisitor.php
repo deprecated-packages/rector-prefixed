@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeVisitor;
+namespace Rector\NodeTypeResolver\NodeVisitor;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Naming\ClassNaming;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Closure;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
+use PhpParser\NodeVisitorAbstract;
+use Rector\CodingStyle\Naming\ClassNaming;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * @see \Rector\NodeTypeResolver\Tests\NodeVisitor\FunctionMethodAndClassNodeVisitor\FunctionMethodAndClassNodeVisitorTest
  */
-final class FunctionMethodAndClassNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract
+final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /**
      * @var ClassNaming
@@ -58,7 +58,7 @@ final class FunctionMethodAndClassNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\Ph
      * @var Closure|null
      */
     private $closure;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Naming\ClassNaming $classNaming)
+    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming)
     {
         $this->classNaming = $classNaming;
     }
@@ -76,7 +76,7 @@ final class FunctionMethodAndClassNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\Ph
         $this->closure = null;
         return null;
     }
-    public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->processClass($node);
         $this->processMethod($node);
@@ -84,59 +84,59 @@ final class FunctionMethodAndClassNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\Ph
         $this->processClosure($node);
         return $node;
     }
-    public function leaveNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node)
+    public function leaveNode(\PhpParser\Node $node)
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassLike) {
             $classLike = \array_pop($this->classStack);
             $this->setClassNodeAndName($classLike);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->classMethod = \array_pop($this->methodStack);
             $this->methodName = (string) $this->methodName;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure) {
+        if ($node instanceof \PhpParser\Node\Expr\Closure) {
             $this->closure = null;
         }
         return null;
     }
-    private function processClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function processClass(\PhpParser\Node $node) : void
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassLike) {
             $this->classStack[] = $this->classLike;
             $this->setClassNodeAndName($node);
         }
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, $this->classLike);
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $this->className);
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME, $this->classShortName);
-        if ($this->classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, $this->classLike);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $this->className);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME, $this->classShortName);
+        if ($this->classLike instanceof \PhpParser\Node\Stmt\Class_) {
             $this->setParentClassName($this->classLike, $node);
         }
     }
-    private function processMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function processMethod(\PhpParser\Node $node) : void
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $this->methodStack[] = $this->classMethod;
             $this->classMethod = $node;
             $this->methodName = (string) $node->name;
         }
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME, $this->methodName);
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE, $this->classMethod);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME, $this->methodName);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE, $this->classMethod);
     }
-    private function processFunction(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function processFunction(\PhpParser\Node $node) : void
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Function_) {
             $this->function = $node;
         }
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE, $this->function);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FUNCTION_NODE, $this->function);
     }
-    private function processClosure(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function processClosure(\PhpParser\Node $node) : void
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure) {
+        if ($node instanceof \PhpParser\Node\Expr\Closure) {
             $this->closure = $node;
         }
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE, $this->closure);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE, $this->closure);
     }
-    private function setClassNodeAndName(?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $classLike) : void
+    private function setClassNodeAndName(?\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         $this->classLike = $classLike;
         if ($classLike === null || $classLike->name === null) {
@@ -149,15 +149,15 @@ final class FunctionMethodAndClassNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\Ph
             $this->classShortName = $this->classNaming->getShortName($this->className);
         }
     }
-    private function setParentClassName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function setParentClassName(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node $node) : void
     {
         if ($class->extends === null) {
             return;
         }
-        $parentClassResolvedName = $class->extends->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME);
-        if ($parentClassResolvedName instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified) {
+        $parentClassResolvedName = $class->extends->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME);
+        if ($parentClassResolvedName instanceof \PhpParser\Node\Name\FullyQualified) {
             $parentClassResolvedName = $parentClassResolvedName->toString();
         }
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME, $parentClassResolvedName);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME, $parentClassResolvedName);
     }
 }

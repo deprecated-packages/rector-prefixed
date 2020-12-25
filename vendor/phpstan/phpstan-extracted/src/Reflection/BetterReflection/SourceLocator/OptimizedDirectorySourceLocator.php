@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileFinder;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use PHPStan\File\FileFinder;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_key_exists;
-class OptimizedDirectorySourceLocator implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+class OptimizedDirectorySourceLocator implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var \PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher */
     private $fileNodesFetcher;
@@ -29,13 +29,13 @@ class OptimizedDirectorySourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbug
     private $functionNodes = [];
     /** @var array<string, \Roave\BetterReflection\SourceLocator\Located\LocatedSource> */
     private $locatedSourcesByFile = [];
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, \_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileFinder $fileFinder, string $directory)
+    public function __construct(\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, \PHPStan\File\FileFinder $fileFinder, string $directory)
     {
         $this->fileNodesFetcher = $fileNodesFetcher;
         $this->fileFinder = $fileFinder;
         $this->directory = $directory;
     }
-    public function locateIdentifier(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         if ($identifier->isClass()) {
             $className = \strtolower($identifier->getName());
@@ -86,12 +86,12 @@ class OptimizedDirectorySourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbug
      * @param FetchedNode<\PhpParser\Node\Stmt\ClassLike>|FetchedNode<\PhpParser\Node\Stmt\Function_> $fetchedNode
      * @return Reflection
      */
-    private function nodeToReflection(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode $fetchedNode) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    private function nodeToReflection(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode $fetchedNode) : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
-        $nodeToReflection = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+        $nodeToReflection = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
         $reflection = $nodeToReflection->__invoke($reflector, $fetchedNode->getNode(), $this->locatedSourcesByFile[$fetchedNode->getFileName()], $fetchedNode->getNamespace());
         if ($reflection === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $reflection;
     }
@@ -100,7 +100,7 @@ class OptimizedDirectorySourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbug
         if ($this->classToFile === null) {
             $this->init();
             if ($this->classToFile === null) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                throw new \PHPStan\ShouldNotHappenException();
             }
         }
         if (!\array_key_exists($className, $this->classToFile)) {
@@ -117,7 +117,7 @@ class OptimizedDirectorySourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbug
         if ($this->functionToFiles === null) {
             $this->init();
             if ($this->functionToFiles === null) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                throw new \PHPStan\ShouldNotHappenException();
             }
         }
         if (!\array_key_exists($functionName, $this->functionToFiles)) {
@@ -214,7 +214,7 @@ class OptimizedDirectorySourceLocator implements \_PhpScoper2a4e7ab1ecbc\_Humbug
         }
         return ['classes' => $classes, 'functions' => $functions];
     }
-    public function locateIdentifiersByType(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
     }

@@ -1,55 +1,55 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes;
+namespace PHPStan\Rules\Classes;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassCaseSensitivityCheck;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassNameNodePair;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Class_>
  */
-class ExistingClassInClassExtendsRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class ExistingClassInClassExtendsRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
     private $classCaseSensitivityCheck;
     /** @var ReflectionProvider */
     private $reflectionProvider;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
         $this->reflectionProvider = $reflectionProvider;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class;
+        return \PhpParser\Node\Stmt\Class_::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if ($node->extends === null) {
             return [];
         }
         $extendedClassName = (string) $node->extends;
-        $messages = $this->classCaseSensitivityCheck->checkClassNames([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassNameNodePair($extendedClassName, $node->extends)]);
+        $messages = $this->classCaseSensitivityCheck->checkClassNames([new \PHPStan\Rules\ClassNameNodePair($extendedClassName, $node->extends)]);
         $currentClassName = null;
         if (isset($node->namespacedName)) {
             $currentClassName = (string) $node->namespacedName;
         }
         if (!$this->reflectionProvider->hasClass($extendedClassName)) {
             if (!$scope->isInClassExists($extendedClassName)) {
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s extends unknown class %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $extendedClassName))->nonIgnorable()->discoveringSymbolsTip()->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s extends unknown class %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $extendedClassName))->nonIgnorable()->discoveringSymbolsTip()->build();
             }
         } else {
             $reflection = $this->reflectionProvider->getClass($extendedClassName);
             if ($reflection->isInterface()) {
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s extends interface %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $extendedClassName))->nonIgnorable()->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s extends interface %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $extendedClassName))->nonIgnorable()->build();
             } elseif ($reflection->isTrait()) {
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s extends trait %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $extendedClassName))->nonIgnorable()->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s extends trait %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $extendedClassName))->nonIgnorable()->build();
             } elseif ($reflection->isFinalByKeyword()) {
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s extends final class %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $extendedClassName))->nonIgnorable()->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s extends final class %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $extendedClassName))->nonIgnorable()->build();
             }
         }
         return $messages;

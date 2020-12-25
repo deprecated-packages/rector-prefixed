@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
+namespace PhpParser\Node\Stmt;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use PhpParser\Node;
 /**
  * @property Node\Name $namespacedName Namespaced name (if using NameResolver)
  */
-abstract class ClassLike extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt
+abstract class ClassLike extends \PhpParser\Node\Stmt
 {
     /** @var Node\Identifier|null Name */
     public $name;
@@ -22,7 +22,7 @@ abstract class ClassLike extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt
     {
         $traitUses = [];
         foreach ($this->stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUse) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\TraitUse) {
                 $traitUses[] = $stmt;
             }
         }
@@ -35,7 +35,7 @@ abstract class ClassLike extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt
     {
         $constants = [];
         foreach ($this->stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\ClassConst) {
                 $constants[] = $stmt;
             }
         }
@@ -48,7 +48,7 @@ abstract class ClassLike extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt
     {
         $properties = [];
         foreach ($this->stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\Property) {
                 $properties[] = $stmt;
             }
         }
@@ -64,9 +64,9 @@ abstract class ClassLike extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt
     public function getProperty(string $name)
     {
         foreach ($this->stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\Property) {
                 foreach ($stmt->props as $prop) {
-                    if ($prop instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty && $name === $prop->name->toString()) {
+                    if ($prop instanceof \PhpParser\Node\Stmt\PropertyProperty && $name === $prop->name->toString()) {
                         return $stmt;
                     }
                 }
@@ -83,7 +83,7 @@ abstract class ClassLike extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt
     {
         $methods = [];
         foreach ($this->stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 $methods[] = $stmt;
             }
         }
@@ -100,7 +100,7 @@ abstract class ClassLike extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt
     {
         $lowerName = \strtolower($name);
         foreach ($this->stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod && $lowerName === $stmt->name->toLowerString()) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\ClassMethod && $lowerName === $stmt->name->toLowerString()) {
                 return $stmt;
             }
         }

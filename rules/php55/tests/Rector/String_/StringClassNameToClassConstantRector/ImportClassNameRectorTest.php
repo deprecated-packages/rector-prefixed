@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php55\Tests\Rector\String_\StringClassNameToClassConstantRector;
+namespace Rector\Php55\Tests\Rector\String_\StringClassNameToClassConstantRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ImportClassNameRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Core\Configuration\Option;
+use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ImportClassNameRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
+        $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
@@ -24,6 +24,6 @@ final class ImportClassNameRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Tes
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php55\Rector\String_\StringClassNameToClassConstantRector::class;
+        return \Rector\Php55\Rector\String_\StringClassNameToClassConstantRector::class;
     }
 }

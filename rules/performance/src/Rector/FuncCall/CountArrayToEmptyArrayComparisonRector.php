@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Performance\Rector\FuncCall;
+namespace Rector\Performance\Rector\FuncCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Greater;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ElseIf_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\BinaryOp\Greater;
+use PhpParser\Node\Expr\BinaryOp\Identical;
+use PhpParser\Node\Expr\BinaryOp\NotIdentical;
+use PhpParser\Node\Expr\BinaryOp\Smaller;
+use PhpParser\Node\Expr\BooleanNot;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Stmt\ElseIf_;
+use PhpParser\Node\Stmt\If_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Type\ArrayType;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Performance\Tests\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector\CountArrayToEmptyArrayComparisonRectorTest
  */
-final class CountArrayToEmptyArrayComparisonRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class CountArrayToEmptyArrayComparisonRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change count array comparison to empty array comparison to improve performance', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change count array comparison to empty array comparison to improve performance', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 count($array) === 0;
 count($array) > 0;
 ! count($array);
@@ -45,14 +45,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot::class];
+        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\BooleanNot::class];
     }
     /**
      * @param FuncCall|BooleanNot $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot) {
+        if ($node instanceof \PhpParser\Node\Expr\BooleanNot) {
             return $this->processMarkTruthyNegation($node);
         }
         if ($this->getName($node) !== 'count') {
@@ -64,8 +64,8 @@ CODE_SAMPLE
         if (!$this->isArray($expr)) {
             return null;
         }
-        $parent = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node) {
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node) {
             return null;
         }
         $processIdentical = $this->processIdentical($parent, $node, $expr);
@@ -78,9 +78,9 @@ CODE_SAMPLE
         }
         return $this->processMarkTruthy($parent, $node, $expr);
     }
-    private function processMarkTruthyNegation(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot $booleanNot) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical
+    private function processMarkTruthyNegation(\PhpParser\Node\Expr\BooleanNot $booleanNot) : ?\PhpParser\Node\Expr\BinaryOp\Identical
     {
-        if (!$booleanNot->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
+        if (!$booleanNot->expr instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         if ($this->getName($booleanNot->expr) !== 'count') {
@@ -92,52 +92,52 @@ CODE_SAMPLE
         if (!$this->isArray($expr)) {
             return null;
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical($expr, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_([]));
+        return new \PhpParser\Node\Expr\BinaryOp\Identical($expr, new \PhpParser\Node\Expr\Array_([]));
     }
-    private function isArray(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    private function isArray(\PhpParser\Node\Expr $expr) : bool
     {
         /** @var Scope|null $scope */
-        $scope = $expr->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope) {
+        $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return \false;
         }
-        return $scope->getType($expr) instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
+        return $scope->getType($expr) instanceof \PHPStan\Type\ArrayType;
     }
-    private function processIdentical(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    private function processIdentical(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical && $node->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber && $node->right->value === 0) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical && $node->right instanceof \PhpParser\Node\Scalar\LNumber && $node->right->value === 0) {
             $this->removeNode($funcCall);
-            $node->right = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_([]);
+            $node->right = new \PhpParser\Node\Expr\Array_([]);
             return $expr;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical && $node->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber && $node->left->value === 0) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical && $node->left instanceof \PhpParser\Node\Scalar\LNumber && $node->left->value === 0) {
             $this->removeNode($funcCall);
-            $node->left = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_([]);
+            $node->left = new \PhpParser\Node\Expr\Array_([]);
             return $expr;
         }
         return null;
     }
-    private function processGreaterOrSmaller(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical
+    private function processGreaterOrSmaller(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\BinaryOp\NotIdentical
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Greater && $node->right instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber && $node->right->value === 0) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Greater && $node->right instanceof \PhpParser\Node\Scalar\LNumber && $node->right->value === 0) {
             $this->removeNode($funcCall);
             $this->removeNode($node->right);
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_([]));
+            return new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, new \PhpParser\Node\Expr\Array_([]));
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller && $node->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber && $node->left->value === 0) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Smaller && $node->left instanceof \PhpParser\Node\Scalar\LNumber && $node->left->value === 0) {
             $this->removeNode($funcCall);
             $this->removeNode($node->left);
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_([]), $expr);
+            return new \PhpParser\Node\Expr\BinaryOp\NotIdentical(new \PhpParser\Node\Expr\Array_([]), $expr);
         }
         return null;
     }
-    private function processMarkTruthy(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    private function processMarkTruthy(\PhpParser\Node $node, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ElseIf_) {
+        if (!$node instanceof \PhpParser\Node\Stmt\If_ && !$node instanceof \PhpParser\Node\Stmt\ElseIf_) {
             return null;
         }
         if ($node->cond === $funcCall) {
-            $node->cond = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_([]));
+            $node->cond = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, new \PhpParser\Node\Expr\Array_([]));
             return $node->cond;
         }
         return null;

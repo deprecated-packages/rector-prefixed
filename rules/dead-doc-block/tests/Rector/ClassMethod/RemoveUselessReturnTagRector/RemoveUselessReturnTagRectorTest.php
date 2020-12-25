@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadDocBlock\Tests\Rector\ClassMethod\RemoveUselessReturnTagRector;
+namespace Rector\DeadDocBlock\Tests\Rector\ClassMethod\RemoveUselessReturnTagRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessReturnTagRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessReturnTagRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveUselessReturnTagRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveUselessReturnTagRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class RemoveUselessReturnTagRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rec
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessReturnTagRector::class;
+        return \Rector\DeadDocBlock\Rector\ClassMethod\RemoveUselessReturnTagRector::class;
     }
 }

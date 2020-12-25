@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Php;
+namespace PHPStan\Type\Php;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\SimpleXMLElementProperty;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertiesClassReflectionExtension;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-class SimpleXMLElementClassPropertyReflectionExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertiesClassReflectionExtension
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\Php\SimpleXMLElementProperty;
+use PHPStan\Reflection\PropertiesClassReflectionExtension;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Type\ObjectType;
+class SimpleXMLElementClassPropertyReflectionExtension implements \PHPStan\Reflection\PropertiesClassReflectionExtension
 {
-    public function hasProperty(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
+    public function hasProperty(\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
     {
         return $classReflection->getName() === 'SimpleXMLElement' || $classReflection->isSubclassOf('SimpleXMLElement');
     }
-    public function getProperty(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
+    public function getProperty(\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \PHPStan\Reflection\PropertyReflection
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\SimpleXMLElementProperty($classReflection, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($classReflection->getName()));
+        return new \PHPStan\Reflection\Php\SimpleXMLElementProperty($classReflection, new \PHPStan\Type\ObjectType($classReflection->getName()));
     }
 }

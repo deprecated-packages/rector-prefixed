@@ -1,42 +1,42 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\MethodCall;
+namespace Rector\Generic\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\DNumber;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\NodeTypeAnalyzer\CallTypeAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Scalar\DNumber;
+use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Generic\NodeTypeAnalyzer\CallTypeAnalyzer;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\Generic\Tests\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector\FormerNullableArgumentToScalarTypedRectorTest
  */
-final class FormerNullableArgumentToScalarTypedRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class FormerNullableArgumentToScalarTypedRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var CallTypeAnalyzer
      */
     private $callTypeAnalyzer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Generic\NodeTypeAnalyzer\CallTypeAnalyzer $callTypeAnalyzer)
+    public function __construct(\Rector\Generic\NodeTypeAnalyzer\CallTypeAnalyzer $callTypeAnalyzer)
     {
         $this->callTypeAnalyzer = $callTypeAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change null in argument, that is now not nullable anymore', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change null in argument, that is now not nullable anymore', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()
@@ -69,12 +69,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->args === []) {
             return null;
@@ -95,22 +95,22 @@ CODE_SAMPLE
     /**
      * @param Type[] $methodParameterTypes
      */
-    private function refactorArg(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg $arg, array $methodParameterTypes, int $key) : void
+    private function refactorArg(\PhpParser\Node\Arg $arg, array $methodParameterTypes, int $key) : void
     {
         if (!isset($methodParameterTypes[$key])) {
             return;
         }
         $parameterType = $methodParameterTypes[$key];
-        if ($parameterType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType) {
-            $arg->value = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_('');
+        if ($parameterType instanceof \PHPStan\Type\StringType) {
+            $arg->value = new \PhpParser\Node\Scalar\String_('');
         }
-        if ($parameterType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType) {
-            $arg->value = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber(0);
+        if ($parameterType instanceof \PHPStan\Type\IntegerType) {
+            $arg->value = new \PhpParser\Node\Scalar\LNumber(0);
         }
-        if ($parameterType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType) {
-            $arg->value = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\DNumber(0);
+        if ($parameterType instanceof \PHPStan\Type\FloatType) {
+            $arg->value = new \PhpParser\Node\Scalar\DNumber(0);
         }
-        if ($parameterType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType) {
+        if ($parameterType instanceof \PHPStan\Type\BooleanType) {
             $arg->value = $this->createFalse();
         }
     }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject;
+namespace Rector\TypeDeclaration\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\Type\Type;
 final class AddParamTypeDeclaration
 {
     /**
@@ -22,7 +22,7 @@ final class AddParamTypeDeclaration
      * @var Type
      */
     private $paramType;
-    public function __construct(string $className, string $methodName, int $position, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $paramType)
+    public function __construct(string $className, string $methodName, int $position, \PHPStan\Type\Type $paramType)
     {
         $this->className = $className;
         $this->methodName = $methodName;
@@ -41,7 +41,7 @@ final class AddParamTypeDeclaration
     {
         return $this->position;
     }
-    public function getParamType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getParamType() : \PHPStan\Type\Type
     {
         return $this->paramType;
     }

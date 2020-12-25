@@ -1,119 +1,119 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\IterableType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\UnionType;
+use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
+use Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # see https://symfony.com/blog/symfony-type-declarations-return-types-and-phpunit-compatibility
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $arrayType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType());
-    $iterableType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType());
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::class)->call('configure', [[\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \_PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
+    $iterableType = new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
+    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // see https://github.com/symfony/symfony/issues/32179
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'addListener', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'addListener', 2, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'removeListener', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'getListeners', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'getListenerPriority', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'hasListeners', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'setCatchExceptions', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'setAutoExit', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'setName', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'setVersion', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'register', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'get', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'has', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'findNamespace', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'find', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'all', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'getAbbreviations', 0, $arrayType),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'extractNamespace', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'extractNamespace', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'setDefaultCommand', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Application', 'setDefaultCommand', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'mergeApplicationDefinition', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'addArgument', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'addArgument', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'addArgument', 2, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'addOption', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'addOption', 2, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'addOption', 3, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'setName', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'setProcessTitle', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'setHidden', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'setDescription', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'setHelp', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'setAliases', 0, $iterableType),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'getSynopsis', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'addUsage', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Command\\Command', 'getHelper', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\CommandLoader\\CommandLoaderInterface', 'get', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\CommandLoader\\CommandLoaderInterface', 'has', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Input\\InputInterface', 'getArgument', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Input\\InputInterface', 'setArgument', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Input\\InputInterface', 'getOption', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Input\\InputInterface', 'setOption', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Input\\InputInterface', 'hasOption', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Input\\InputInterface', 'setInteractive', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Output\\OutputInterface', 'write', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Output\\OutputInterface', 'write', 2, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Output\\OutputInterface', 'writeln', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Output\\OutputInterface', 'setVerbosity', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Console\\Output\\OutputInterface', 'setDecorated', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Process\\Process', 'signal', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Process\\Process', 'stop', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Process\\Process', 'stop', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Process\\Process', 'setTty', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Process\\Process', 'setPty', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Process\\Process', 'setWorkingDirectory', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Process\\Process', 'inheritEnvironmentVariables', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Process\\Process', 'updateStatus', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\EventDispatcher\\EventDispatcher', 'dispatch', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Contracts\\Translation\\TranslatorInterface', 'setLocale', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Contracts\\Translation\\TranslatorInterface', 'trans', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType()])),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Contracts\\Translation\\TranslatorInterface', 'trans', 2, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Contracts\\Translation\\TranslatorInterface', 'trans', 3, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\AbstractExtension', 'getType', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\AbstractExtension', 'hasType', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\AbstractExtension', 'getTypeExtensions', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\AbstractExtension', 'hasTypeExtensions', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\DataMapperInterface', 'mapFormsToData', 0, $iterableType),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\DataMapperInterface', 'mapDataToForms', 1, $iterableType),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Form', 'add', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Form', 'remove', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Form', 'has', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\Form', 'get', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormBuilderInterface', 'add', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormBuilderInterface', 'create', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormBuilderInterface', 'create', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormBuilderInterface', 'get', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormBuilderInterface', 'remove', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormBuilderInterface', 'has', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormExtensionInterface', 'getTypeExtensions', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormExtensionInterface', 'hasTypeExtensions', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'create', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'createNamed', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'createNamed', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'createForProperty', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'createForProperty', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'createBuilder', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'createNamedBuilder', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'createNamedBuilder', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'createBuilderForProperty', 0, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
-        new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\Form\\FormFactory', 'createBuilderForProperty', 1, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'addListener', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'addListener', 2, new \PHPStan\Type\IntegerType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'removeListener', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'getListeners', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'getListenerPriority', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'hasListeners', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'setCatchExceptions', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'setAutoExit', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'setName', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'setVersion', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'register', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'get', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'has', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'findNamespace', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'find', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'all', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'getAbbreviations', 0, $arrayType),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'extractNamespace', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'extractNamespace', 1, new \PHPStan\Type\IntegerType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'setDefaultCommand', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Application', 'setDefaultCommand', 1, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'mergeApplicationDefinition', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'addArgument', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'addArgument', 1, new \PHPStan\Type\IntegerType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'addArgument', 2, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'addOption', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'addOption', 2, new \PHPStan\Type\IntegerType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'addOption', 3, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'setName', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'setProcessTitle', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'setHidden', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'setDescription', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'setHelp', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'setAliases', 0, $iterableType),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'getSynopsis', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'addUsage', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command', 'getHelper', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\CommandLoader\\CommandLoaderInterface', 'get', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\CommandLoader\\CommandLoaderInterface', 'has', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Input\\InputInterface', 'getArgument', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Input\\InputInterface', 'setArgument', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Input\\InputInterface', 'getOption', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Input\\InputInterface', 'setOption', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Input\\InputInterface', 'hasOption', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Input\\InputInterface', 'setInteractive', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Output\\OutputInterface', 'write', 1, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Output\\OutputInterface', 'write', 2, new \PHPStan\Type\IntegerType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Output\\OutputInterface', 'writeln', 1, new \PHPStan\Type\IntegerType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Output\\OutputInterface', 'setVerbosity', 0, new \PHPStan\Type\IntegerType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Output\\OutputInterface', 'setDecorated', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Process\\Process', 'signal', 0, new \PHPStan\Type\IntegerType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Process\\Process', 'stop', 0, new \PHPStan\Type\FloatType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Process\\Process', 'stop', 1, new \PHPStan\Type\IntegerType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Process\\Process', 'setTty', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Process\\Process', 'setPty', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Process\\Process', 'setWorkingDirectory', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Process\\Process', 'inheritEnvironmentVariables', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Process\\Process', 'updateStatus', 0, new \PHPStan\Type\BooleanType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\EventDispatcher\\EventDispatcher', 'dispatch', 0, new \PHPStan\Type\ObjectWithoutClassType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Contracts\\Translation\\TranslatorInterface', 'setLocale', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Contracts\\Translation\\TranslatorInterface', 'trans', 0, new \PHPStan\Type\UnionType([new \PHPStan\Type\StringType(), new \PHPStan\Type\NullType()])),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Contracts\\Translation\\TranslatorInterface', 'trans', 2, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Contracts\\Translation\\TranslatorInterface', 'trans', 3, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\AbstractExtension', 'getType', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\AbstractExtension', 'hasType', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\AbstractExtension', 'getTypeExtensions', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\AbstractExtension', 'hasTypeExtensions', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\DataMapperInterface', 'mapFormsToData', 0, $iterableType),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\DataMapperInterface', 'mapDataToForms', 1, $iterableType),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Form', 'add', 1, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Form', 'remove', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Form', 'has', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\Form', 'get', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormBuilderInterface', 'add', 1, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormBuilderInterface', 'create', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormBuilderInterface', 'create', 1, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormBuilderInterface', 'get', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormBuilderInterface', 'remove', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormBuilderInterface', 'has', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormExtensionInterface', 'getTypeExtensions', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormExtensionInterface', 'hasTypeExtensions', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'create', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'createNamed', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'createNamed', 1, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'createForProperty', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'createForProperty', 1, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'createBuilder', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'createNamedBuilder', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'createNamedBuilder', 1, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'createBuilderForProperty', 0, new \PHPStan\Type\StringType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('_PhpScoper50d83356d739\\Symfony\\Component\\Form\\FormFactory', 'createBuilderForProperty', 1, new \PHPStan\Type\StringType()),
     ])]]);
 };

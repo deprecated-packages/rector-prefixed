@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\Guard;
+namespace Rector\Naming\Guard;
 
 use DateTimeInterface;
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\Guard\ConflictingGuardInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\RenameValueObjectInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Naming\ValueObject\PropertyRename;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
-final class DateTimeAtNamingConventionGuard implements \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\Guard\ConflictingGuardInterface
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PHPStan\Type\TypeWithClassName;
+use Rector\Naming\Contract\Guard\ConflictingGuardInterface;
+use Rector\Naming\Contract\RenameValueObjectInterface;
+use Rector\Naming\ValueObject\PropertyRename;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
+final class DateTimeAtNamingConventionGuard implements \Rector\Naming\Contract\Guard\ConflictingGuardInterface
 {
     /**
      * @var string
@@ -26,7 +26,7 @@ final class DateTimeAtNamingConventionGuard implements \_PhpScoper2a4e7ab1ecbc\R
      * @var TypeUnwrapper
      */
     private $typeUnwrapper;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->typeUnwrapper = $typeUnwrapper;
@@ -34,20 +34,20 @@ final class DateTimeAtNamingConventionGuard implements \_PhpScoper2a4e7ab1ecbc\R
     /**
      * @param PropertyRename $renameValueObject
      */
-    public function check(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : bool
+    public function check(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : bool
     {
         return $this->isDateTimeAtNamingConvention($renameValueObject);
     }
-    private function isDateTimeAtNamingConvention(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\ValueObject\PropertyRename $propertyRename) : bool
+    private function isDateTimeAtNamingConvention(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : bool
     {
         $type = $this->nodeTypeResolver->resolve($propertyRename->getProperty());
         $type = $this->typeUnwrapper->unwrapFirstObjectTypeFromUnionType($type);
-        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+        if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         if (!\is_a($type->getClassName(), \DateTimeInterface::class, \true)) {
             return \false;
         }
-        return (bool) \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($propertyRename->getCurrentName(), self::AT_NAMING_REGEX . '');
+        return (bool) \_PhpScoper50d83356d739\Nette\Utils\Strings::match($propertyRename->getCurrentName(), self::AT_NAMING_REGEX . '');
     }
 }

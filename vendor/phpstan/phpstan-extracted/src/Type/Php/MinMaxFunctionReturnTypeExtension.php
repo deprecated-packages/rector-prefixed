@@ -1,46 +1,46 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Php;
+namespace PHPStan\Type\Php;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
-class MinMaxFunctionReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicFunctionReturnTypeExtension
+use PhpParser\Node\Expr\FuncCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\ConstantType;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
+class MinMaxFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
     /** @var string[] */
     private $functionNames = ['min' => '', 'max' => ''];
-    public function isFunctionSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return isset($this->functionNames[$functionReflection->getName()]);
     }
-    public function getTypeFromFunctionCall(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection $functionReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $functionCall, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         if (!isset($functionCall->args[0])) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+            return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         }
         if (\count($functionCall->args) === 1) {
             $argType = $scope->getType($functionCall->args[0]->value);
             if ($argType->isArray()->yes()) {
                 $isIterable = $argType->isIterableAtLeastOnce();
                 if ($isIterable->no()) {
-                    return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false);
+                    return new \PHPStan\Type\Constant\ConstantBooleanType(\false);
                 }
                 $iterableValueType = $argType->getIterableValueType();
                 $argumentTypes = [];
                 if (!$isIterable->yes()) {
-                    $argumentTypes[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false);
+                    $argumentTypes[] = new \PHPStan\Type\Constant\ConstantBooleanType(\false);
                 }
-                if ($iterableValueType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
+                if ($iterableValueType instanceof \PHPStan\Type\UnionType) {
                     foreach ($iterableValueType->getTypes() as $innerType) {
                         $argumentTypes[] = $innerType;
                     }
@@ -49,14 +49,14 @@ class MinMaxFunctionReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPSt
                 }
                 return $this->processType($functionReflection->getName(), $argumentTypes);
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+            return new \PHPStan\Type\ErrorType();
         }
         $argumentTypes = [];
         foreach ($functionCall->args as $arg) {
             $argType = $scope->getType($arg->value);
             if ($arg->unpack) {
                 $iterableValueType = $argType->getIterableValueType();
-                if ($iterableValueType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
+                if ($iterableValueType instanceof \PHPStan\Type\UnionType) {
                     foreach ($iterableValueType->getTypes() as $innerType) {
                         $argumentTypes[] = $innerType;
                     }
@@ -74,12 +74,12 @@ class MinMaxFunctionReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPSt
      * @param \PHPStan\Type\Type[] $types
      * @return Type
      */
-    private function processType(string $functionName, array $types) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    private function processType(string $functionName, array $types) : \PHPStan\Type\Type
     {
         $resultType = null;
         foreach ($types as $type) {
-            if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantType) {
-                return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$types);
+            if (!$type instanceof \PHPStan\Type\ConstantType) {
+                return \PHPStan\Type\TypeCombinator::union(...$types);
             }
             if ($resultType === null) {
                 $resultType = $type;
@@ -97,19 +97,19 @@ class MinMaxFunctionReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPSt
             }
         }
         if ($resultType === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+            return new \PHPStan\Type\ErrorType();
         }
         return $resultType;
     }
-    private function compareTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $firstType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $secondType) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    private function compareTypes(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : ?\PHPStan\Type\Type
     {
-        if ($firstType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType && $secondType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType) {
+        if ($firstType instanceof \PHPStan\Type\Constant\ConstantArrayType && $secondType instanceof \PHPStan\Type\ConstantScalarType) {
             return $secondType;
         }
-        if ($firstType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType && $secondType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType) {
+        if ($firstType instanceof \PHPStan\Type\ConstantScalarType && $secondType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             return $firstType;
         }
-        if ($firstType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType && $secondType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType) {
+        if ($firstType instanceof \PHPStan\Type\Constant\ConstantArrayType && $secondType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             if ($secondType->count() < $firstType->count()) {
                 return $secondType;
             } elseif ($firstType->count() < $secondType->count()) {
@@ -127,7 +127,7 @@ class MinMaxFunctionReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPSt
             }
             return null;
         }
-        if ($firstType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType && $secondType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType) {
+        if ($firstType instanceof \PHPStan\Type\ConstantScalarType && $secondType instanceof \PHPStan\Type\ConstantScalarType) {
             if ($secondType->getValue() < $firstType->getValue()) {
                 return $secondType;
             }

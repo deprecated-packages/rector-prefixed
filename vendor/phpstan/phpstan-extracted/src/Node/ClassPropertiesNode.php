@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
+namespace PHPStan\Node;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\Method\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\Property\PropertyRead;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\Property\PropertyWrite;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Properties\ReadWritePropertiesExtension;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\NodeAbstract;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\Method\MethodCall;
+use PHPStan\Node\Property\PropertyRead;
+use PHPStan\Node\Property\PropertyWrite;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Rules\Properties\ReadWritePropertiesExtension;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\ObjectType;
+class ClassPropertiesNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */
     private $class;
@@ -34,7 +34,7 @@ class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
      * @param array<int, PropertyRead|PropertyWrite> $propertyUsages
      * @param array<int, MethodCall> $methodCalls
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $class, array $properties, array $propertyUsages, array $methodCalls)
+    public function __construct(\PhpParser\Node\Stmt\ClassLike $class, array $properties, array $propertyUsages, array $methodCalls)
     {
         parent::__construct($class->getAttributes());
         $this->class = $class;
@@ -42,7 +42,7 @@ class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
         $this->propertyUsages = $propertyUsages;
         $this->methodCalls = $methodCalls;
     }
-    public function getClass() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike
+    public function getClass() : \PhpParser\Node\Stmt\ClassLike
     {
         return $this->class;
     }
@@ -76,13 +76,13 @@ class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
      * @param ReadWritePropertiesExtension[] $extensions
      * @return array{array<string, ClassPropertyNode>, array<array{string, int}>}
      */
-    public function getUninitializedProperties(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, array $constructors, array $extensions) : array
+    public function getUninitializedProperties(\PHPStan\Analyser\Scope $scope, array $constructors, array $extensions) : array
     {
-        if (!$this->getClass() instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        if (!$this->getClass() instanceof \PhpParser\Node\Stmt\Class_) {
             return [[], []];
         }
         if (!$scope->isInClass()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
         $properties = [];
@@ -114,12 +114,12 @@ class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
         if ($constructors === []) {
             return [$properties, []];
         }
-        $classType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($scope->getClassReflection()->getName());
+        $classType = new \PHPStan\Type\ObjectType($scope->getClassReflection()->getName());
         $methodsCalledFromConstructor = $this->getMethodsCalledFromConstructor($classType, $this->methodCalls, $constructors);
         $prematureAccess = [];
         foreach ($this->getPropertyUsages() as $usage) {
             $fetch = $usage->getFetch();
-            if (!$fetch instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
+            if (!$fetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
                 continue;
             }
             $usageScope = $usage->getScope();
@@ -127,7 +127,7 @@ class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
                 continue;
             }
             $function = $usageScope->getFunction();
-            if (!$function instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection) {
+            if (!$function instanceof \PHPStan\Reflection\MethodReflection) {
                 continue;
             }
             if ($function->getDeclaringClass()->getName() !== $classReflection->getName()) {
@@ -136,7 +136,7 @@ class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
             if (!\in_array($function->getName(), $methodsCalledFromConstructor, \true)) {
                 continue;
             }
-            if (!$fetch->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
+            if (!$fetch->name instanceof \PhpParser\Node\Identifier) {
                 continue;
             }
             $propertyName = $fetch->name->toString();
@@ -147,10 +147,10 @@ class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
             if ($classType->isSuperTypeOf($fetchedOnType)->no()) {
                 continue;
             }
-            if ($fetchedOnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
+            if ($fetchedOnType instanceof \PHPStan\Type\MixedType) {
                 continue;
             }
-            if ($usage instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\Property\PropertyWrite) {
+            if ($usage instanceof \PHPStan\Node\Property\PropertyWrite) {
                 unset($properties[$propertyName]);
             } elseif (\array_key_exists($propertyName, $properties)) {
                 $prematureAccess[] = [$propertyName, $fetch->getLine()];
@@ -164,30 +164,30 @@ class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
      * @param string[] $methods
      * @return string[]
      */
-    private function getMethodsCalledFromConstructor(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType $classType, array $methodCalls, array $methods) : array
+    private function getMethodsCalledFromConstructor(\PHPStan\Type\ObjectType $classType, array $methodCalls, array $methods) : array
     {
         $originalCount = \count($methods);
         foreach ($methodCalls as $methodCall) {
             $methodCallNode = $methodCall->getNode();
-            if ($methodCallNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_) {
+            if ($methodCallNode instanceof \PhpParser\Node\Expr\Array_) {
                 continue;
             }
-            if (!$methodCallNode->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
+            if (!$methodCallNode->name instanceof \PhpParser\Node\Identifier) {
                 continue;
             }
             $callScope = $methodCall->getScope();
-            if ($methodCallNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+            if ($methodCallNode instanceof \PhpParser\Node\Expr\MethodCall) {
                 $calledOnType = $callScope->getType($methodCallNode->var);
             } else {
-                if (!$methodCallNode->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+                if (!$methodCallNode->class instanceof \PhpParser\Node\Name) {
                     continue;
                 }
-                $calledOnType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($callScope->resolveName($methodCallNode->class));
+                $calledOnType = new \PHPStan\Type\ObjectType($callScope->resolveName($methodCallNode->class));
             }
             if ($classType->isSuperTypeOf($calledOnType)->no()) {
                 continue;
             }
-            if ($calledOnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
+            if ($calledOnType instanceof \PHPStan\Type\MixedType) {
                 continue;
             }
             $methodName = $methodCallNode->name->toString();
@@ -195,7 +195,7 @@ class ClassPropertiesNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
                 continue;
             }
             $inMethod = $callScope->getFunction();
-            if (!$inMethod instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection) {
+            if (!$inMethod instanceof \PHPStan\Reflection\MethodReflection) {
                 continue;
             }
             if (!\in_array($inMethod->getName(), $methods, \true)) {

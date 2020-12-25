@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Tests\Rector\MethodCall\StringFormTypeToClassRector;
+namespace Rector\Symfony3\Tests\Rector\MethodCall\StringFormTypeToClassRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Rector\MethodCall\StringFormTypeToClassRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class StringFormTypeToClassRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Symfony3\Rector\MethodCall\StringFormTypeToClassRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class StringFormTypeToClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class StringFormTypeToClassRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rect
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Rector\MethodCall\StringFormTypeToClassRector::class;
+        return \Rector\Symfony3\Rector\MethodCall\StringFormTypeToClassRector::class;
     }
 }

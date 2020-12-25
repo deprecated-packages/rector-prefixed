@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules;
+namespace _PhpScoper50d83356d739\Doctrine\Inflector\Rules;
 
 final class Substitution
 {
@@ -9,16 +9,16 @@ final class Substitution
     private $from;
     /** @var Word */
     private $to;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Word $from, \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Word $to)
+    public function __construct(\_PhpScoper50d83356d739\Doctrine\Inflector\Rules\Word $from, \_PhpScoper50d83356d739\Doctrine\Inflector\Rules\Word $to)
     {
         $this->from = $from;
         $this->to = $to;
     }
-    public function getFrom() : \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Word
+    public function getFrom() : \_PhpScoper50d83356d739\Doctrine\Inflector\Rules\Word
     {
         return $this->from;
     }
-    public function getTo() : \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\Rules\Word
+    public function getTo() : \_PhpScoper50d83356d739\Doctrine\Inflector\Rules\Word
     {
         return $this->to;
     }

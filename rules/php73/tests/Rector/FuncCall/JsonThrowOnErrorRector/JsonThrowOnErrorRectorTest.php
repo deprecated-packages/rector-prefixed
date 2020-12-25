@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php73\Tests\Rector\FuncCall\JsonThrowOnErrorRector;
+namespace Rector\Php73\Tests\Rector\FuncCall\JsonThrowOnErrorRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class JsonThrowOnErrorRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class JsonThrowOnErrorRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class JsonThrowOnErrorRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Te
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector::class;
+        return \Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector::class;
     }
 }

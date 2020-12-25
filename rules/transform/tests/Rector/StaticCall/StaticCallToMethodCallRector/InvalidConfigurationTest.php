@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Transform\Tests\Rector\StaticCall\StaticCallToMethodCallRector;
+namespace Rector\Transform\Tests\Rector\StaticCall\StaticCallToMethodCallRector;
 
 use InvalidArgumentException;
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class InvalidConfigurationTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class InvalidConfigurationTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @var string[][]
      */
-    private const CONFIGURATION = [['_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\FileSystem', 'write', '_PhpScoper2a4e7ab1ecbc\\Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile']];
+    private const CONFIGURATION = [['_PhpScoper50d83356d739\\Nette\\Utils\\FileSystem', 'write', 'Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile']];
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->doTestFileInfo($fileInfo);
@@ -31,6 +31,6 @@ final class InvalidConfigurationTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Test
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => self::CONFIGURATION]];
+        return [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class => [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => self::CONFIGURATION]];
     }
 }

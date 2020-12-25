@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+namespace PhpParser\Node\Expr;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-class Throw_ extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+use PhpParser\Node;
+class Throw_ extends \PhpParser\Node\Expr
 {
     /** @var Node\Expr Expression */
     public $expr;
@@ -14,7 +14,7 @@ class Throw_ extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
      * @param Node\Expr $expr       Expression
      * @param array     $attributes Additional attributes
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, array $attributes = [])
+    public function __construct(\PhpParser\Node\Expr $expr, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->expr = $expr;

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DoctrineCodeQuality\NodeManipulator;
+namespace Rector\DoctrineCodeQuality\NodeManipulator;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
 final class DoctrineItemDefaultValueManipulator
 {
     /**
@@ -13,7 +13,7 @@ final class DoctrineItemDefaultValueManipulator
     /**
      * @param string|bool|int $defaultValue
      */
-    public function remove(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode $doctrineTagValueNode, string $item, $defaultValue) : void
+    public function remove(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode $doctrineTagValueNode, string $item, $defaultValue) : void
     {
         if (!$this->hasItemWithDefaultValue($doctrineTagValueNode, $item, $defaultValue)) {
             return;
@@ -32,7 +32,7 @@ final class DoctrineItemDefaultValueManipulator
     /**
      * @param string|bool|int $defaultValue
      */
-    private function hasItemWithDefaultValue(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode $doctrineTagValueNode, string $item, $defaultValue) : bool
+    private function hasItemWithDefaultValue(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode $doctrineTagValueNode, string $item, $defaultValue) : bool
     {
         $attributableItems = $doctrineTagValueNode->getAttributableItems();
         if (!isset($attributableItems[$item])) {

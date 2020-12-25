@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\CaseConverter;
+namespace Symplify\PhpConfigPrinter\CaseConverter;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\MethodName;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\VariableName;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\Expression;
+use Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory;
+use Symplify\PhpConfigPrinter\ValueObject\MethodName;
+use Symplify\PhpConfigPrinter\ValueObject\VariableName;
+use Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 /**
  * Handles this part:
  *
  * services:
  *     SomeNamespace\SomeClass: null <---
  */
-final class ConfiguredServiceCaseConverter implements \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
+final class ConfiguredServiceCaseConverter implements \Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
      * @var ArgsNodeFactory
@@ -29,34 +29,34 @@ final class ConfiguredServiceCaseConverter implements \_PhpScoper2a4e7ab1ecbc\Sy
      * @var ServiceOptionNodeFactory
      */
     private $serviceOptionNodeFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory)
+    public function __construct(\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->serviceOptionNodeFactory = $serviceOptionNodeFactory;
     }
-    public function convertToMethodCall($key, $values) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression
+    public function convertToMethodCall($key, $values) : \PhpParser\Node\Stmt\Expression
     {
         $valuesForArgs = [$key];
-        if (isset($values[\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY])) {
-            $valuesForArgs[] = $values[\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY];
+        if (isset($values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY])) {
+            $valuesForArgs[] = $values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::CLASS_KEY];
         }
         $args = $this->argsNodeFactory->createFromValues($valuesForArgs);
-        $methodCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable(\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\VariableName::SERVICES), \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\MethodName::SET, $args);
+        $methodCall = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable(\Symplify\PhpConfigPrinter\ValueObject\VariableName::SERVICES), \Symplify\PhpConfigPrinter\ValueObject\MethodName::SET, $args);
         $methodCall = $this->serviceOptionNodeFactory->convertServiceOptionsToNodes($values, $methodCall);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($methodCall);
+        return new \PhpParser\Node\Stmt\Expression($methodCall);
     }
     public function match(string $rootKey, $key, $values) : bool
     {
-        if ($rootKey !== \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::SERVICES) {
+        if ($rootKey !== \Symplify\PhpConfigPrinter\ValueObject\YamlKey::SERVICES) {
             return \false;
         }
-        if ($key === \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::_DEFAULTS) {
+        if ($key === \Symplify\PhpConfigPrinter\ValueObject\YamlKey::_DEFAULTS) {
             return \false;
         }
-        if ($key === \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::_INSTANCEOF) {
+        if ($key === \Symplify\PhpConfigPrinter\ValueObject\YamlKey::_INSTANCEOF) {
             return \false;
         }
-        if (isset($values[\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::RESOURCE])) {
+        if (isset($values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::RESOURCE])) {
             return \false;
         }
         // handled by @see \Symplify\PhpConfigPrinter\CaseConverter\CaseConverter\AliasCaseConverter
@@ -70,9 +70,9 @@ final class ConfiguredServiceCaseConverter implements \_PhpScoper2a4e7ab1ecbc\Sy
     }
     private function isAlias($values) : bool
     {
-        if (isset($values[\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\ValueObject\YamlKey::ALIAS])) {
+        if (isset($values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::ALIAS])) {
             return \true;
         }
-        return \is_string($values) && \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($values, '@');
+        return \is_string($values) && \_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($values, '@');
     }
 }

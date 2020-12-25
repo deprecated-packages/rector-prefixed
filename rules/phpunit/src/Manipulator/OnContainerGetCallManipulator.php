@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Manipulator;
+namespace Rector\PHPUnit\Manipulator;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ValueResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Collector\FormerVariablesByMethodCollector;
-use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToRemoveCollector;
-use _PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\Naming\ServiceNaming;
-use _PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\Class_;
+use Rector\Core\PhpParser\Node\Value\ValueResolver;
+use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPUnit\Collector\FormerVariablesByMethodCollector;
+use Rector\PostRector\Collector\NodesToRemoveCollector;
+use Rector\SymfonyPHPUnit\Naming\ServiceNaming;
+use Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer;
 final class OnContainerGetCallManipulator
 {
     /**
@@ -47,7 +47,7 @@ final class OnContainerGetCallManipulator
      * @var FormerVariablesByMethodCollector
      */
     private $formerVariablesByMethodCollector;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \_PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\Naming\ServiceNaming $serviceNaming, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Collector\FormerVariablesByMethodCollector $formerVariablesByMethodCollector)
+    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\SymfonyPHPUnit\Naming\ServiceNaming $serviceNaming, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\PHPUnit\Collector\FormerVariablesByMethodCollector $formerVariablesByMethodCollector)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -61,10 +61,10 @@ final class OnContainerGetCallManipulator
      * E.g. $someService ↓
      * $this->someService
      */
-    public function replaceFormerVariablesWithPropertyFetch(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
+    public function replaceFormerVariablesWithPropertyFetch(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?PropertyFetch {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) : ?PropertyFetch {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return null;
             }
             $variableName = $this->nodeNameResolver->getName($node);
@@ -72,7 +72,7 @@ final class OnContainerGetCallManipulator
                 return null;
             }
             /** @var string|null $methodName */
-            $methodName = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+            $methodName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
             if ($methodName === null) {
                 return null;
             }
@@ -81,13 +81,13 @@ final class OnContainerGetCallManipulator
                 return null;
             }
             $propertyName = $this->serviceNaming->resolvePropertyNameFromServiceType($serviceType);
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this'), $propertyName);
+            return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
         });
     }
-    public function removeAndCollectFormerAssignedVariables(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, bool $skipSetUpMethod = \true) : void
+    public function removeAndCollectFormerAssignedVariables(\PhpParser\Node\Stmt\Class_ $class, bool $skipSetUpMethod = \true) : void
     {
-        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($skipSetUpMethod) : ?PropertyFetch {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use($skipSetUpMethod) : ?PropertyFetch {
+            if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
             if ($skipSetUpMethod && $this->kernelTestCaseNodeAnalyzer->isSetUpOrEmptyMethod($node)) {
@@ -100,23 +100,23 @@ final class OnContainerGetCallManipulator
             if ($type === null) {
                 return null;
             }
-            $parentNode = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentNode instanceof \PhpParser\Node\Expr\Assign) {
                 $this->processAssign($node, $parentNode, $type);
                 return null;
             }
             $propertyName = $this->serviceNaming->resolvePropertyNameFromServiceType($type);
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this'), $propertyName);
+            return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $propertyName);
         });
     }
-    private function processAssign(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign $assign, string $type) : void
+    private function processAssign(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Assign $assign, string $type) : void
     {
         $variableName = $this->nodeNameResolver->getName($assign->var);
         if ($variableName === null) {
             return;
         }
         /** @var string $methodName */
-        $methodName = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
+        $methodName = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME);
         $this->formerVariablesByMethodCollector->addMethodVariable($methodName, $variableName, $type);
         $this->nodesToRemoveCollector->addNodeToRemove($assign);
     }

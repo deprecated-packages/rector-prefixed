@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\Property\PropertyTypeDeclarationRector;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector;
+use Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector;
+use Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector;
+use Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector;
+use Rector\TypeDeclaration\Rector\Property\PropertyTypeDeclarationRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\Property\PropertyTypeDeclarationRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class);
+    $services->set(\Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector::class);
+    $services->set(\Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class);
+    $services->set(\Rector\TypeDeclaration\Rector\Property\PropertyTypeDeclarationRector::class);
+    $services->set(\Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector::class);
+    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class);
+    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class);
 };

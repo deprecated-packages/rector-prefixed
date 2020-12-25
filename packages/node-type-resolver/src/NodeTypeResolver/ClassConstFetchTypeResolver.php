@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
+namespace Rector\NodeTypeResolver\NodeTypeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-final class ClassConstFetchTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PHPStan\Type\Type;
+use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+final class ClassConstFetchTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @var NodeTypeResolver
@@ -17,7 +17,7 @@ final class ClassConstFetchTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Recto
     /**
      * @required
      */
-    public function autowireClassConstFetchTypeResolver(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireClassConstFetchTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -26,12 +26,12 @@ final class ClassConstFetchTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Recto
      */
     public function getNodeClasses() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch::class];
+        return [\PhpParser\Node\Expr\ClassConstFetch::class];
     }
     /**
      * @param ClassConstFetch $node
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         return $this->nodeTypeResolver->resolve($node->class);
     }

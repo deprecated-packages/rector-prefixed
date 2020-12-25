@@ -21,12 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\PackageBuilder\\": "src"
+            "Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {

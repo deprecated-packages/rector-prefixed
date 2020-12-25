@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Missing;
+namespace PHPStan\Rules\Missing;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\ClosureReturnStatementsNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ResourceType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\ClosureReturnStatementsNode;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\IntersectionType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\ResourceType;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
+use PHPStan\Type\UnionType;
+use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\ClosureReturnStatementsNode>
  */
-class MissingClosureNativeReturnTypehintRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class MissingClosureNativeReturnTypehintRule implements \PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkObjectTypehint;
@@ -31,9 +31,9 @@ class MissingClosureNativeReturnTypehintRule implements \_PhpScoper2a4e7ab1ecbc\
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\ClosureReturnStatementsNode::class;
+        return \PHPStan\Node\ClosureReturnStatementsNode::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $closure = $node->getClosureExpr();
         if ($closure->returnType !== null) {
@@ -42,11 +42,11 @@ class MissingClosureNativeReturnTypehintRule implements \_PhpScoper2a4e7ab1ecbc\
         $messagePattern = 'Anonymous function should have native return typehint "%s".';
         $statementResult = $node->getStatementResult();
         if ($statementResult->hasYield()) {
-            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'Generator'))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'Generator'))->build()];
         }
         $returnStatements = $node->getReturnStatements();
         if (\count($returnStatements) === 0) {
-            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'void'))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'void'))->build()];
         }
         $returnTypes = [];
         $voidReturnNodes = [];
@@ -61,39 +61,39 @@ class MissingClosureNativeReturnTypehintRule implements \_PhpScoper2a4e7ab1ecbc\
             $returnTypes[] = $returnStatement->getScope()->getType($returnNode->expr);
         }
         if (\count($returnTypes) === 0) {
-            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'void'))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'void'))->build()];
         }
         $messages = [];
         foreach ($voidReturnNodes as $voidReturnStatement) {
-            $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('Mixing returning values with empty return statements - return null should be used here.')->line($voidReturnStatement->getLine())->build();
+            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message('Mixing returning values with empty return statements - return null should be used here.')->line($voidReturnStatement->getLine())->build();
         }
-        $returnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$returnTypes);
-        if ($returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType || $returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType || $returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType || $returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType) {
+        $returnType = \PHPStan\Type\TypeCombinator::union(...$returnTypes);
+        if ($returnType instanceof \PHPStan\Type\MixedType || $returnType instanceof \PHPStan\Type\NeverType || $returnType instanceof \PHPStan\Type\IntersectionType || $returnType instanceof \PHPStan\Type\NullType) {
             return $messages;
         }
-        if (\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::containsNull($returnType)) {
+        if (\PHPStan\Type\TypeCombinator::containsNull($returnType)) {
             $hasNull = \true;
-            $returnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::removeNull($returnType);
+            $returnType = \PHPStan\Type\TypeCombinator::removeNull($returnType);
         }
-        if ($returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType || $returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ResourceType) {
+        if ($returnType instanceof \PHPStan\Type\UnionType || $returnType instanceof \PHPStan\Type\ResourceType) {
             return $messages;
         }
         if (!$statementResult->isAlwaysTerminating()) {
-            $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('Anonymous function sometimes return something but return statement at the end is missing.')->build();
+            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message('Anonymous function sometimes return something but return statement at the end is missing.')->build();
             return $messages;
         }
-        $returnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::generalizeType($returnType);
-        $description = $returnType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly());
+        $returnType = \PHPStan\Type\TypeUtils::generalizeType($returnType);
+        $description = $returnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly());
         if ($returnType->isArray()->yes()) {
             $description = 'array';
         }
         if ($hasNull) {
             $description = '?' . $description;
         }
-        if (!$this->checkObjectTypehint && $returnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType) {
+        if (!$this->checkObjectTypehint && $returnType instanceof \PHPStan\Type\ObjectWithoutClassType) {
             return $messages;
         }
-        $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, $description))->build();
+        $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, $description))->build();
         return $messages;
     }
 }

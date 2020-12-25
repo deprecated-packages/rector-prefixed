@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Math\Visitor;
+namespace Hoa\Math\Visitor;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Math;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Visitor;
+use Hoa\Math;
+use Hoa\Visitor;
 /**
  * Class \Hoa\Math\Visitor\Arithmetic.
  *
@@ -46,7 +46,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Visitor;
  *             Ivan Enderlin, Cédric Dugat.
  * @license    New BSD License
  */
-class Arithmetic implements \_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Visit
+class Arithmetic implements \Hoa\Visitor\Visit
 {
     /**
      * Visitor context containing the list of supported functions, constants and variables
@@ -69,7 +69,7 @@ class Arithmetic implements \_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Visit
      * @param   \Hoa\Math\Context $context
      * @return  \Hoa\Math\Context
      */
-    public function setContext(\_PhpScoper2a4e7ab1ecbc\Hoa\Math\Context $context)
+    public function setContext(\Hoa\Math\Context $context)
     {
         $old = $this->_context;
         $this->_context = $context;
@@ -92,7 +92,7 @@ class Arithmetic implements \_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Visit
      * @param   mixed                 $eldnah     Handle (not reference).
      * @return  float
      */
-    public function visit(\_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
+    public function visit(\Hoa\Visitor\Element $element, &$handle = null, $eldnah = null)
     {
         $type = $element->getId();
         $children = $element->getChildren();
@@ -270,7 +270,7 @@ class Arithmetic implements \_PhpScoper2a4e7ab1ecbc\Hoa\Visitor\Visit
     protected function initializeContext()
     {
         if (null === $this->_context) {
-            $this->_context = new \_PhpScoper2a4e7ab1ecbc\Hoa\Math\Context();
+            $this->_context = new \Hoa\Math\Context();
         }
         return;
     }

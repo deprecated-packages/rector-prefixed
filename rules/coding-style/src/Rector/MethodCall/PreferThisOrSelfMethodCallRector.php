@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\MethodCall;
+namespace Rector\CodingStyle\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\TestCase;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\Rector\InvalidRectorConfigurationException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use _PhpScoper50d83356d739\PHPUnit\Framework\TestCase;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Exception\Rector\InvalidRectorConfigurationException;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\PreferThisOrSelfMethodCallRectorTest
  */
-final class PreferThisOrSelfMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class PreferThisOrSelfMethodCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -45,9 +45,9 @@ final class PreferThisOrSelfMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rec
      * @var array<string, string>
      */
     private $typeToPreference = [];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes $this->... and static:: to self:: or vise versa for given types', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes $this->... and static:: to self:: or vise versa for given types', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass extends \PHPUnit\Framework\TestCase
 {
     public function run()
@@ -65,19 +65,19 @@ class SomeClass extends \PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-, [self::TYPE_TO_PREFERENCE => [\_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\TestCase::class => self::PREFER_SELF]])]);
+, [self::TYPE_TO_PREFERENCE => [\_PhpScoper50d83356d739\PHPUnit\Framework\TestCase::class => self::PREFER_SELF]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->typeToPreference as $type => $preference) {
             if (!$this->isMethodStaticCallOrClassMethodObjectType($node, $type)) {
@@ -96,7 +96,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $typeToPreference = $configuration[self::TYPE_TO_PREFERENCE] ?? [];
-        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::allString($typeToPreference);
+        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allString($typeToPreference);
         foreach ($typeToPreference as $preference) {
             $this->ensurePreferenceIsValid($preference);
         }
@@ -105,12 +105,12 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processToSelf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall
+    private function processToSelf(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\StaticCall
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall && !$this->isNames($node->class, [self::SELF, 'static'])) {
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall && !$this->isNames($node->class, [self::SELF, 'static'])) {
             return null;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall && !$this->isName($node->var, 'this')) {
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall && !$this->isName($node->var, 'this')) {
             return null;
         }
         $name = $this->getName($node->name);
@@ -122,9 +122,9 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processToThis(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
+    private function processToThis(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\MethodCall
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         if (!$this->isNames($node->class, [self::SELF, 'static'])) {
@@ -141,6 +141,6 @@ CODE_SAMPLE
         if (\in_array($preference, self::ALLOWED_OPTIONS, \true)) {
             return;
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\Rector\InvalidRectorConfigurationException(\sprintf('Preference configuration "%s" for "%s" is not valid. Use one of "%s"', $preference, self::class, \implode('", "', self::ALLOWED_OPTIONS)));
+        throw new \Rector\Core\Exception\Rector\InvalidRectorConfigurationException(\sprintf('Preference configuration "%s" for "%s" is not valid. Use one of "%s"', $preference, self::class, \implode('", "', self::ALLOWED_OPTIONS)));
     }
 }

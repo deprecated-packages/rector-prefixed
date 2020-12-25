@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\Class_\RemoveDataProviderTestPrefixRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\ValueObject\RenameAnnotation;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Rector\PHPUnit\Rector\Class_\RemoveDataProviderTestPrefixRector;
+use Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector;
+use Rector\Renaming\ValueObject\RenameAnnotation;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $containerConfigurator->import(__DIR__ . '/phpunit-exception.php');
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::class)->call('configure', [[\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::RENAMED_ANNOTATIONS_IN_TYPES => \_PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \_PhpScoper2a4e7ab1ecbc\Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase', 'scenario', 'test')])]]);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\Class_\RemoveDataProviderTestPrefixRector::class);
+    $services->set(\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::class)->call('configure', [[\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::RENAMED_ANNOTATIONS_IN_TYPES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase', 'scenario', 'test')])]]);
+    $services->set(\Rector\PHPUnit\Rector\Class_\RemoveDataProviderTestPrefixRector::class);
 };

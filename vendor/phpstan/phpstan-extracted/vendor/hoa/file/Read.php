@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\File;
+namespace Hoa\File;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+use Hoa\Stream;
 /**
  * Class \Hoa\File\Read.
  *
@@ -44,7 +44,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Read extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\File implements \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\In
+class Read extends \Hoa\File\File implements \Hoa\Stream\IStream\In
 {
     /**
      * Open a file.
@@ -69,15 +69,15 @@ class Read extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\File implements \_PhpScoper2
      * @throws  \Hoa\File\Exception\FileDoesNotExist
      * @throws  \Hoa\File\Exception
      */
-    protected function &_open($streamName, \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Context $context = null)
+    protected function &_open($streamName, \Hoa\Stream\Context $context = null)
     {
         static $createModes = [parent::MODE_READ];
         if (!\in_array($this->getMode(), $createModes)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
+            throw new \Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
         }
         \preg_match('#^(\\w+)://#', $streamName, $match);
         if ((isset($match[1]) && $match[1] == 'file' || !isset($match[1])) && !\file_exists($streamName)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
+            throw new \Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
         }
         $out = parent::_open($streamName, $context);
         return $out;
@@ -101,7 +101,7 @@ class Read extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\File implements \_PhpScoper2
     public function read($length)
     {
         if (0 > $length) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
+            throw new \Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
         }
         return \fread($this->getStream(), $length);
     }

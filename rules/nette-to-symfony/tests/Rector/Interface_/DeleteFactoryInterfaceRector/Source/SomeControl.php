@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteToSymfony\Tests\Rector\Interface_\DeleteFactoryInterfaceRector\Source;
+namespace Rector\NetteToSymfony\Tests\Rector\Interface_\DeleteFactoryInterfaceRector\Source;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Application\UI\Control;
-final class SomeControl extends \_PhpScoper2a4e7ab1ecbc\Nette\Application\UI\Control
+use _PhpScoper50d83356d739\Nette\Application\UI\Control;
+final class SomeControl extends \_PhpScoper50d83356d739\Nette\Application\UI\Control
 {
 }

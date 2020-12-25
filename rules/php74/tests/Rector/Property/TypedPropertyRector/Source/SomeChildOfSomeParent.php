@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php74\Tests\Rector\Property\TypedPropertyRector\Source;
+namespace Rector\Php74\Tests\Rector\Property\TypedPropertyRector\Source;
 
-final class SomeChildOfSomeParent extends \_PhpScoper2a4e7ab1ecbc\Rector\Php74\Tests\Rector\Property\TypedPropertyRector\Source\AbstractSomeParent
+final class SomeChildOfSomeParent extends \Rector\Php74\Tests\Rector\Property\TypedPropertyRector\Source\AbstractSomeParent
 {
 }

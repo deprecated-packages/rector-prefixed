@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc;
+namespace PHPStan\PhpDoc;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpMethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpPropertyReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ResolvedMethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ResolvedPropertyReflection;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\Php\PhpMethodReflection;
+use PHPStan\Reflection\Php\PhpPropertyReflection;
+use PHPStan\Reflection\ResolvedMethodReflection;
+use PHPStan\Reflection\ResolvedPropertyReflection;
 class PhpDocBlock
 {
     /** @var string */
@@ -34,7 +34,7 @@ class PhpDocBlock
      * @param array<string, string> $parameterNameMapping
      * @param array<int, self> $parents
      */
-    private function __construct(string $docComment, string $file, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, ?string $trait, bool $explicit, array $parameterNameMapping, array $parents)
+    private function __construct(string $docComment, string $file, \PHPStan\Reflection\ClassReflection $classReflection, ?string $trait, bool $explicit, array $parameterNameMapping, array $parents)
     {
         $this->docComment = $docComment;
         $this->file = $file;
@@ -52,7 +52,7 @@ class PhpDocBlock
     {
         return $this->file;
     }
-    public function getClassReflection() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getClassReflection() : \PHPStan\Reflection\ClassReflection
     {
         return $this->classReflection;
     }
@@ -98,7 +98,7 @@ class PhpDocBlock
      * @param array<int, string> $newPositionalParameterNames
      * @return self
      */
-    public static function resolvePhpDocBlockForProperty(?string $docComment, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, ?string $trait, string $propertyName, string $file, ?bool $explicit, array $originalPositionalParameterNames, array $newPositionalParameterNames) : self
+    public static function resolvePhpDocBlockForProperty(?string $docComment, \PHPStan\Reflection\ClassReflection $classReflection, ?string $trait, string $propertyName, string $file, ?bool $explicit, array $originalPositionalParameterNames, array $newPositionalParameterNames) : self
     {
         return self::resolvePhpDocBlockTree($docComment, $classReflection, $trait, $propertyName, $file, 'hasNativeProperty', 'getNativeProperty', __FUNCTION__, $explicit, [], []);
     }
@@ -113,7 +113,7 @@ class PhpDocBlock
      * @param array<int, string> $newPositionalParameterNames
      * @return self
      */
-    public static function resolvePhpDocBlockForMethod(?string $docComment, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, ?string $trait, string $methodName, string $file, ?bool $explicit, array $originalPositionalParameterNames, array $newPositionalParameterNames) : self
+    public static function resolvePhpDocBlockForMethod(?string $docComment, \PHPStan\Reflection\ClassReflection $classReflection, ?string $trait, string $methodName, string $file, ?bool $explicit, array $originalPositionalParameterNames, array $newPositionalParameterNames) : self
     {
         return self::resolvePhpDocBlockTree($docComment, $classReflection, $trait, $methodName, $file, 'hasNativeMethod', 'getNativeMethod', __FUNCTION__, $explicit, $originalPositionalParameterNames, $newPositionalParameterNames);
     }
@@ -131,7 +131,7 @@ class PhpDocBlock
      * @param array<int, string> $newPositionalParameterNames
      * @return self
      */
-    private static function resolvePhpDocBlockTree(?string $docComment, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, ?string $trait, string $name, string $file, string $hasMethodName, string $getMethodName, string $resolveMethodName, ?bool $explicit, array $originalPositionalParameterNames, array $newPositionalParameterNames) : self
+    private static function resolvePhpDocBlockTree(?string $docComment, \PHPStan\Reflection\ClassReflection $classReflection, ?string $trait, string $name, string $file, string $hasMethodName, string $getMethodName, string $resolveMethodName, ?bool $explicit, array $originalPositionalParameterNames, array $newPositionalParameterNames) : self
     {
         $docBlocksFromParents = self::resolveParentPhpDocBlocks($classReflection, $name, $hasMethodName, $getMethodName, $resolveMethodName, $explicit ?? $docComment !== null, $newPositionalParameterNames);
         return new self($docComment ?? '/** */', $file, $classReflection, $trait, $explicit ?? \true, self::remapParameterNames($originalPositionalParameterNames, $newPositionalParameterNames), $docBlocksFromParents);
@@ -162,7 +162,7 @@ class PhpDocBlock
      * @param array<int, string> $positionalParameterNames
      * @return array<int, self>
      */
-    private static function resolveParentPhpDocBlocks(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, string $name, string $hasMethodName, string $getMethodName, string $resolveMethodName, bool $explicit, array $positionalParameterNames) : array
+    private static function resolveParentPhpDocBlocks(\PHPStan\Reflection\ClassReflection $classReflection, string $name, string $hasMethodName, string $getMethodName, string $resolveMethodName, bool $explicit, array $positionalParameterNames) : array
     {
         $result = [];
         $parentReflections = self::getParentReflections($classReflection);
@@ -180,7 +180,7 @@ class PhpDocBlock
      * @param ClassReflection $classReflection
      * @return array<int, ClassReflection>
      */
-    private static function getParentReflections(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection) : array
+    private static function getParentReflections(\PHPStan\Reflection\ClassReflection $classReflection) : array
     {
         $result = [];
         $parent = $classReflection->getParentClass();
@@ -202,7 +202,7 @@ class PhpDocBlock
      * @param array<int, string> $positionalParameterNames
      * @return self|null
      */
-    private static function resolvePhpDocBlockFromClass(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, string $name, string $hasMethodName, string $getMethodName, string $resolveMethodName, bool $explicit, array $positionalParameterNames) : ?self
+    private static function resolvePhpDocBlockFromClass(\PHPStan\Reflection\ClassReflection $classReflection, string $name, string $hasMethodName, string $getMethodName, string $resolveMethodName, bool $explicit, array $positionalParameterNames) : ?self
     {
         if ($classReflection->getFileNameWithPhpDocs() !== null && $classReflection->{$hasMethodName}($name)) {
             /** @var \PHPStan\Reflection\PropertyReflection|\PHPStan\Reflection\MethodReflection $parentReflection */
@@ -210,12 +210,12 @@ class PhpDocBlock
             if ($parentReflection->isPrivate()) {
                 return null;
             }
-            if ($parentReflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpPropertyReflection || $parentReflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ResolvedPropertyReflection) {
+            if ($parentReflection instanceof \PHPStan\Reflection\Php\PhpPropertyReflection || $parentReflection instanceof \PHPStan\Reflection\ResolvedPropertyReflection) {
                 $traitReflection = $parentReflection->getDeclaringTrait();
                 $positionalMethodParameterNames = [];
-            } elseif ($parentReflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection) {
+            } elseif ($parentReflection instanceof \PHPStan\Reflection\MethodReflection) {
                 $traitReflection = null;
-                if ($parentReflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpMethodReflection || $parentReflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ResolvedMethodReflection) {
+                if ($parentReflection instanceof \PHPStan\Reflection\Php\PhpMethodReflection || $parentReflection instanceof \PHPStan\Reflection\ResolvedMethodReflection) {
                     $traitReflection = $parentReflection->getDeclaringTrait();
                 }
                 $methodVariants = $parentReflection->getVariants();

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver;
+namespace Symplify\SetConfigResolver;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Config\SetsParameterResolver;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use _PhpScoper50d83356d739\Symfony\Component\Console\Input\InputInterface;
+use Symplify\SetConfigResolver\Config\SetsParameterResolver;
+use Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SetConfigResolver\Tests\ConfigResolver\SetAwareConfigResolverTest
  */
-final class SetAwareConfigResolver extends \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\AbstractConfigResolver
+final class SetAwareConfigResolver extends \Symplify\SetConfigResolver\AbstractConfigResolver
 {
     /**
      * @var SetsParameterResolver
@@ -20,10 +20,10 @@ final class SetAwareConfigResolver extends \_PhpScoper2a4e7ab1ecbc\Symplify\SetC
      * @var SetResolver
      */
     private $setResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
+    public function __construct(\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
     {
-        $this->setResolver = new \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\SetResolver($setProvider);
-        $this->setsParameterResolver = new \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Config\SetsParameterResolver($this->setResolver);
+        $this->setResolver = new \Symplify\SetConfigResolver\SetResolver($setProvider);
+        $this->setsParameterResolver = new \Symplify\SetConfigResolver\Config\SetsParameterResolver($this->setResolver);
         parent::__construct();
     }
     /**
@@ -34,7 +34,7 @@ final class SetAwareConfigResolver extends \_PhpScoper2a4e7ab1ecbc\Symplify\SetC
     {
         return $this->setsParameterResolver->resolveFromFileInfos($fileInfos);
     }
-    public function resolveSetFromInput(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Input\InputInterface $input) : ?\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo
+    public function resolveSetFromInput(\_PhpScoper50d83356d739\Symfony\Component\Console\Input\InputInterface $input) : ?\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->setResolver->detectFromInput($input);
     }

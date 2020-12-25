@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator;
+namespace Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use PhpParser\Node;
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt\Function_;
+use PhpParser\Node\Stmt\Return_;
+use Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
+use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use Rector\NodeNameResolver\NodeNameResolver;
 final class FunctionLikeManipulator
 {
     /**
@@ -24,7 +24,7 @@ final class FunctionLikeManipulator
      * @var PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer)
+    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
@@ -33,15 +33,15 @@ final class FunctionLikeManipulator
     /**
      * @return string[]
      */
-    public function getReturnedLocalPropertyNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike) : array
+    public function getReturnedLocalPropertyNames(\PhpParser\Node\FunctionLike $functionLike) : array
     {
         // process only class methods
-        if ($functionLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_) {
+        if ($functionLike instanceof \PhpParser\Node\Stmt\Function_) {
             return [];
         }
         $returnedLocalPropertyNames = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($functionLike, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use(&$returnedLocalPropertyNames) {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($functionLike, function (\PhpParser\Node $node) use(&$returnedLocalPropertyNames) {
+            if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                 return null;
             }
             if ($node->expr === null) {

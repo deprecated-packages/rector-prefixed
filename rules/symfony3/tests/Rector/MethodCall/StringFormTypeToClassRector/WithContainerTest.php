@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Tests\Rector\MethodCall\StringFormTypeToClassRector;
+namespace Rector\Symfony3\Tests\Rector\MethodCall\StringFormTypeToClassRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Rector\MethodCall\StringFormTypeToClassRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class WithContainerTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Core\Configuration\Option;
+use Rector\Symfony3\Rector\MethodCall\StringFormTypeToClassRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class WithContainerTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,10 +23,10 @@ final class WithContainerTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHP
     }
     protected function setParameter(string $name, $value) : void
     {
-        parent::setParameter(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/Source/custom_container.xml');
+        parent::setParameter(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/Source/custom_container.xml');
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Rector\MethodCall\StringFormTypeToClassRector::class;
+        return \Rector\Symfony3\Rector\MethodCall\StringFormTypeToClassRector::class;
     }
 }

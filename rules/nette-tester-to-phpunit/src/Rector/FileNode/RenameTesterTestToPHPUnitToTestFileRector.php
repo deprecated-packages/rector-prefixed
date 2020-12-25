@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteTesterToPHPUnit\Rector\FileNode;
+namespace Rector\NetteTesterToPHPUnit\Rector\FileNode;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\ValueObject\MovedFileWithContent;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use Rector\Core\PhpParser\Node\CustomNode\FileNode;
+use Rector\Core\Rector\AbstractRector;
+use Rector\FileSystemRector\ValueObject\MovedFileWithContent;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\NetteTesterToPHPUnit\Tests\Rector\FileNode\RenameTesterTestToPHPUnitToTestFileRector\RenameTesterTestToPHPUnitToTestFileRectorTest
  */
-final class RenameTesterTestToPHPUnitToTestFileRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class RenameTesterTestToPHPUnitToTestFileRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -25,9 +25,9 @@ final class RenameTesterTestToPHPUnitToTestFileRector extends \_PhpScoper2a4e7ab
      * @see https://regex101.com/r/cOMZIj/1
      */
     private const PHPT_SUFFIX_REGEX = '#\\.phpt$#';
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename "*.phpt" file to "*Test.php" file', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename "*.phpt" file to "*Test.php" file', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 // tests/SomeTestCase.phpt
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -40,33 +40,33 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
+        return [\Rector\Core\PhpParser\Node\CustomNode\FileNode::class];
     }
     /**
      * @param FileNode $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $smartFileInfo = $node->getFileInfo();
         $oldRealPath = $smartFileInfo->getRealPath();
-        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::endsWith($oldRealPath, '.phpt')) {
+        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($oldRealPath, '.phpt')) {
             return null;
         }
         $newRealPath = $this->createNewRealPath($oldRealPath);
         if ($newRealPath === $oldRealPath) {
             return null;
         }
-        $movedFileWithContent = new \_PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\ValueObject\MovedFileWithContent($smartFileInfo, $newRealPath);
+        $movedFileWithContent = new \Rector\FileSystemRector\ValueObject\MovedFileWithContent($smartFileInfo, $newRealPath);
         $this->addMovedFile($movedFileWithContent);
         return null;
     }
     private function createNewRealPath(string $oldRealPath) : string
     {
         // file suffix
-        $newRealPath = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($oldRealPath, self::PHPT_SUFFIX_REGEX, '.php');
+        $newRealPath = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($oldRealPath, self::PHPT_SUFFIX_REGEX, '.php');
         // Test suffix
-        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::endsWith($newRealPath, 'Test.php')) {
-            return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($newRealPath, self::PHP_SUFFIX_REGEX, 'Test.php');
+        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($newRealPath, 'Test.php')) {
+            return \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($newRealPath, self::PHP_SUFFIX_REGEX, 'Test.php');
         }
         return $newRealPath;
     }

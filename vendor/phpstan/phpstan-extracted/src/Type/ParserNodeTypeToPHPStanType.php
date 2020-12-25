@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
+namespace PHPStan\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
+use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
+use PHPStan\Type\Constant\ConstantBooleanType;
 class ParserNodeTypeToPHPStanType
 {
     /**
@@ -13,57 +13,57 @@ class ParserNodeTypeToPHPStanType
      * @param string|null $className
      * @return Type
      */
-    public static function resolve($type, ?string $className) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public static function resolve($type, ?string $className) : \PHPStan\Type\Type
     {
         if ($type === null) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
-        } elseif ($type instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+            return new \PHPStan\Type\MixedType();
+        } elseif ($type instanceof \PhpParser\Node\Name) {
             $typeClassName = (string) $type;
             $lowercasedClassName = \strtolower($typeClassName);
             if ($className !== null && \in_array($lowercasedClassName, ['self', 'static'], \true)) {
                 $typeClassName = $className;
             } elseif ($lowercasedClassName === 'parent') {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException('parent type is not supported here');
+                throw new \PHPStan\ShouldNotHappenException('parent type is not supported here');
             }
             if ($lowercasedClassName === 'static') {
-                return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StaticType($typeClassName);
+                return new \PHPStan\Type\StaticType($typeClassName);
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($typeClassName);
-        } elseif ($type instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::addNull(self::resolve($type->type, $className));
-        } elseif ($type instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType) {
+            return new \PHPStan\Type\ObjectType($typeClassName);
+        } elseif ($type instanceof \PhpParser\Node\NullableType) {
+            return \PHPStan\Type\TypeCombinator::addNull(self::resolve($type->type, $className));
+        } elseif ($type instanceof \PhpParser\Node\UnionType) {
             $types = [];
             foreach ($type->types as $unionTypeType) {
                 $types[] = self::resolve($unionTypeType, $className);
             }
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union(...$types);
+            return \PHPStan\Type\TypeCombinator::union(...$types);
         }
         $type = $type->name;
         if ($type === 'string') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType();
+            return new \PHPStan\Type\StringType();
         } elseif ($type === 'int') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType();
+            return new \PHPStan\Type\IntegerType();
         } elseif ($type === 'bool') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType();
+            return new \PHPStan\Type\BooleanType();
         } elseif ($type === 'float') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType();
+            return new \PHPStan\Type\FloatType();
         } elseif ($type === 'callable') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CallableType();
+            return new \PHPStan\Type\CallableType();
         } elseif ($type === 'array') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType());
+            return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         } elseif ($type === 'iterable') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType());
+            return new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         } elseif ($type === 'void') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VoidType();
+            return new \PHPStan\Type\VoidType();
         } elseif ($type === 'object') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType();
+            return new \PHPStan\Type\ObjectWithoutClassType();
         } elseif ($type === 'false') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType(\false);
+            return new \PHPStan\Type\Constant\ConstantBooleanType(\false);
         } elseif ($type === 'null') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType();
+            return new \PHPStan\Type\NullType();
         } elseif ($type === 'mixed') {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(\true);
+            return new \PHPStan\Type\MixedType(\true);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+        return new \PHPStan\Type\MixedType();
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Tests\Rector\StaticCall\MinutesToSecondsInCacheRector;
+namespace Rector\Laravel\Tests\Rector\StaticCall\MinutesToSecondsInCacheRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\StaticCall\MinutesToSecondsInCacheRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class MinutesToSecondsInCacheRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Laravel\Rector\StaticCall\MinutesToSecondsInCacheRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class MinutesToSecondsInCacheRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class MinutesToSecondsInCacheRectorTest extends \_PhpScoper2a4e7ab1ecbc\Re
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\StaticCall\MinutesToSecondsInCacheRector::class;
+        return \Rector\Laravel\Rector\StaticCall\MinutesToSecondsInCacheRector::class;
     }
 }

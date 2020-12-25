@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\StaticCall;
+namespace Rector\Transform\Rector\StaticCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\AbstractToMethodCallRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\StaticCallToMethodCall;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Generic\Rector\AbstractToMethodCallRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Transform\ValueObject\StaticCallToMethodCall;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\StaticCall\StaticCallToMethodCallRector\StaticCallToMethodCallRectorTest
  */
-final class StaticCallToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\AbstractToMethodCallRector
+final class StaticCallToMethodCallRector extends \Rector\Generic\Rector\AbstractToMethodCallRector
 {
     /**
      * @api
@@ -31,9 +31,9 @@ final class StaticCallToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\
      * @var StaticCallToMethodCall[]
      */
     private $staticCallsToMethodCalls = [];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change static call to service method via constructor injection', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change static call to service method via constructor injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 use Nette\Utils\FileSystem;
 
 class SomeClass
@@ -65,26 +65,26 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::STATIC_CALLS_TO_METHOD_CALLS => [new \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\FileSystem', 'write', '_PhpScoper2a4e7ab1ecbc\\Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile')]])]);
+, [self::STATIC_CALLS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper50d83356d739\\Nette\\Utils\\FileSystem', 'write', 'Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classLike = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        $classMethod = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if (!$classMethod instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+        $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         foreach ($this->staticCallsToMethodCalls as $staticCallToMethodCall) {
@@ -101,21 +101,21 @@ CODE_SAMPLE
                 $methodName = $staticCallToMethodCall->getMethodName();
             }
             if (!\is_string($methodName)) {
-                throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($expr, $methodName, $node->args);
+            return new \PhpParser\Node\Expr\MethodCall($expr, $methodName, $node->args);
         }
         return $node;
     }
     public function configure(array $configuration) : void
     {
         $staticCallsToMethodCalls = $configuration[self::STATIC_CALLS_TO_METHOD_CALLS] ?? [];
-        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToMethodCalls, \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\StaticCallToMethodCall::class);
+        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToMethodCalls, \Rector\Transform\ValueObject\StaticCallToMethodCall::class);
         $this->staticCallsToMethodCalls = $staticCallsToMethodCalls;
     }
-    private function refactorToInstanceCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall $staticCall, \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\StaticCallToMethodCall $staticCallToMethodCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
+    private function refactorToInstanceCall(\PhpParser\Node\Expr\StaticCall $staticCall, \Rector\Transform\ValueObject\StaticCallToMethodCall $staticCallToMethodCall) : \PhpParser\Node\Expr\MethodCall
     {
-        $new = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($staticCallToMethodCall->getClassType()));
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($new, $staticCallToMethodCall->getMethodName(), $staticCall->args);
+        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($staticCallToMethodCall->getClassType()));
+        return new \PhpParser\Node\Expr\MethodCall($new, $staticCallToMethodCall->getMethodName(), $staticCall->args);
     }
 }

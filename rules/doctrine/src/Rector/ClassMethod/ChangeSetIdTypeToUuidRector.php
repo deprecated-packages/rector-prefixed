@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\ClassMethod;
+namespace Rector\Doctrine\Rector\ClassMethod;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Ramsey\Uuid\UuidInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\ClassMethod;
+use _PhpScoper50d83356d739\Ramsey\Uuid\UuidInterface;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\Doctrine\Tests\Rector\ClassMethod\ChangeSetIdTypeToUuidRector\ChangeSetIdTypeToUuidRectorTest
  */
-final class ChangeSetIdTypeToUuidRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ChangeSetIdTypeToUuidRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type of setId() to uuid interface', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change param type of setId() to uuid interface', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,12 +59,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInDoctrineEntityClass($node)) {
             return null;
@@ -76,23 +76,23 @@ CODE_SAMPLE
         // is already set?
         if ($node->params[0]->type !== null) {
             $currentType = $this->getName($node->params[0]->type);
-            if ($currentType === \_PhpScoper2a4e7ab1ecbc\Ramsey\Uuid\UuidInterface::class) {
+            if ($currentType === \_PhpScoper50d83356d739\Ramsey\Uuid\UuidInterface::class) {
                 return null;
             }
         }
-        $node->params[0]->type = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified(\_PhpScoper2a4e7ab1ecbc\Ramsey\Uuid\UuidInterface::class);
+        $node->params[0]->type = new \PhpParser\Node\Name\FullyQualified(\_PhpScoper50d83356d739\Ramsey\Uuid\UuidInterface::class);
         return $node;
     }
-    private function renameUuidVariableToId(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function renameUuidVariableToId(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        $this->traverseNodesWithCallable($classMethod, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?Identifier {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
+        $this->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) : ?Identifier {
+            if (!$node instanceof \PhpParser\Node\Identifier) {
                 return null;
             }
             if (!$this->isName($node, 'uuid')) {
                 return null;
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier('id');
+            return new \PhpParser\Node\Identifier('id');
         });
     }
 }

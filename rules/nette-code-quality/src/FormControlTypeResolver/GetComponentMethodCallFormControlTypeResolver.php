@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\FormControlTypeResolver;
+namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ValueResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-final class GetComponentMethodCallFormControlTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface, \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\TypeWithClassName;
+use Rector\Core\PhpParser\Node\Value\ValueResolver;
+use Rector\Core\ValueObject\MethodName;
+use Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
+use Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
+use Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+final class GetComponentMethodCallFormControlTypeResolver implements \Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface, \Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @var ValueResolver
@@ -37,7 +37,7 @@ final class GetComponentMethodCallFormControlTypeResolver implements \_PhpScoper
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->valueResolver = $valueResolver;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -47,9 +47,9 @@ final class GetComponentMethodCallFormControlTypeResolver implements \_PhpScoper
     /**
      * @return array<string, string>
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
             return [];
         }
         if (!$this->nodeNameResolver->isName($node->name, 'getComponent')) {
@@ -57,18 +57,18 @@ final class GetComponentMethodCallFormControlTypeResolver implements \_PhpScoper
         }
         $createComponentClassMethodName = $this->createCreateComponentMethodName($node);
         $staticType = $this->nodeTypeResolver->getStaticType($node);
-        if (!$staticType instanceof \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
+        if (!$staticType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
             return [];
         }
         // combine constructor + method body name
         $constructorClassMethodData = [];
-        $constructorClassMethod = $this->nodeRepository->findClassMethod($staticType->getClassName(), \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructorClassMethod = $this->nodeRepository->findClassMethod($staticType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructorClassMethod !== null) {
             $constructorClassMethodData = $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
         }
         $callerType = $this->nodeTypeResolver->getStaticType($node->var);
         $createComponentClassMethodData = [];
-        if ($callerType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+        if ($callerType instanceof \PHPStan\Type\TypeWithClassName) {
             $createComponentClassMethod = $this->nodeRepository->findClassMethod($callerType->getClassName(), $createComponentClassMethodName);
             if ($createComponentClassMethod !== null) {
                 $createComponentClassMethodData = $this->methodNamesByInputNamesResolver->resolveExpr($createComponentClassMethod);
@@ -76,11 +76,11 @@ final class GetComponentMethodCallFormControlTypeResolver implements \_PhpScoper
         }
         return \array_merge($constructorClassMethodData, $createComponentClassMethodData);
     }
-    public function setResolver(\_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }
-    private function createCreateComponentMethodName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : string
+    private function createCreateComponentMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : string
     {
         $firstArgumentValue = $methodCall->args[0]->value;
         return 'createComponent' . \ucfirst($this->valueResolver->getValue($firstArgumentValue));

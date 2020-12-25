@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Nette\Tests\Rector\MethodCall\BuilderExpandToHelperExpandRector;
+namespace Rector\Nette\Tests\Rector\MethodCall\BuilderExpandToHelperExpandRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\MethodCall\BuilderExpandToHelperExpandRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class BuilderExpandToHelperExpandRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Nette\Rector\MethodCall\BuilderExpandToHelperExpandRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class BuilderExpandToHelperExpandRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class BuilderExpandToHelperExpandRectorTest extends \_PhpScoper2a4e7ab1ecb
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Nette\Rector\MethodCall\BuilderExpandToHelperExpandRector::class;
+        return \Rector\Nette\Rector\MethodCall\BuilderExpandToHelperExpandRector::class;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Comparison;
+namespace PHPStan\Rules\Comparison;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\ObjectType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\StaticCall>
  */
-class ImpossibleCheckTypeStaticMethodCallRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class ImpossibleCheckTypeStaticMethodCallRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper */
     private $impossibleCheckTypeHelper;
@@ -20,7 +20,7 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \_PhpScoper2a4e7ab1ecbc
     private $checkAlwaysTrueCheckTypeFunctionCall;
     /** @var bool */
     private $treatPhpDocTypesAsCertain;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $checkAlwaysTrueCheckTypeFunctionCall, bool $treatPhpDocTypesAsCertain)
+    public function __construct(\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $checkAlwaysTrueCheckTypeFunctionCall, bool $treatPhpDocTypesAsCertain)
     {
         $this->impossibleCheckTypeHelper = $impossibleCheckTypeHelper;
         $this->checkAlwaysTrueCheckTypeFunctionCall = $checkAlwaysTrueCheckTypeFunctionCall;
@@ -28,18 +28,18 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \_PhpScoper2a4e7ab1ecbc
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class;
+        return \PhpParser\Node\Expr\StaticCall::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
+        if (!$node->name instanceof \PhpParser\Node\Identifier) {
             return [];
         }
         $isAlways = $this->impossibleCheckTypeHelper->findSpecifiedType($scope, $node);
         if ($isAlways === null) {
             return [];
         }
-        $addTip = function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
+        $addTip = function (\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
             if (!$this->treatPhpDocTypesAsCertain) {
                 return $ruleErrorBuilder;
             }
@@ -51,10 +51,10 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \_PhpScoper2a4e7ab1ecbc
         };
         if (!$isAlways) {
             $method = $this->getMethod($node->class, $node->name->name, $scope);
-            return [$addTip(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to static method %s::%s()%s will always evaluate to false.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
+            return [$addTip(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to static method %s::%s()%s will always evaluate to false.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
         } elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
             $method = $this->getMethod($node->class, $node->name->name, $scope);
-            return [$addTip(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to static method %s::%s()%s will always evaluate to true.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
+            return [$addTip(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to static method %s::%s()%s will always evaluate to true.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
         }
         return [];
     }
@@ -65,15 +65,15 @@ class ImpossibleCheckTypeStaticMethodCallRule implements \_PhpScoper2a4e7ab1ecbc
      * @return MethodReflection
      * @throws \PHPStan\ShouldNotHappenException
      */
-    private function getMethod($class, string $methodName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
+    private function getMethod($class, string $methodName, \PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\MethodReflection
     {
-        if ($class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
-            $calledOnType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($scope->resolveName($class));
+        if ($class instanceof \PhpParser\Node\Name) {
+            $calledOnType = new \PHPStan\Type\ObjectType($scope->resolveName($class));
         } else {
             $calledOnType = $scope->getType($class);
         }
         if (!$calledOnType->hasMethod($methodName)->yes()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $calledOnType->getMethod($methodName, $scope);
     }

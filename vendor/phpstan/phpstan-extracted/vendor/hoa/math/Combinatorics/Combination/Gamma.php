@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Math\Combinatorics\Combination;
+namespace Hoa\Math\Combinatorics\Combination;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
+use Hoa\Iterator;
 /**
  * Class \Hoa\Math\Combinatorics\Combination\Gamma.
  *
@@ -48,7 +48,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Gamma implements \_PhpScoper2a4e7ab1ecbc\Hoa\Iterator
+class Gamma implements \Hoa\Iterator
 {
     /**
      * n.

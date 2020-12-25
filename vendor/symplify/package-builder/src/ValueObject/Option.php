@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\ValueObject;
+namespace Symplify\PackageBuilder\ValueObject;
 
 final class Option
 {

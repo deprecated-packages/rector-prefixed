@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeVisitor;
+namespace Rector\NodeTypeResolver\NodeVisitor;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-final class FunctionLikeParamArgPositionNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\FunctionLike;
+use PhpParser\NodeVisitorAbstract;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+final class FunctionLikeParamArgPositionNodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /**
      * @return Node
      */
-    public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike) {
+        if ($node instanceof \PhpParser\Node\FunctionLike) {
             foreach ($node->getParams() as $position => $param) {
-                $param->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARAMETER_POSITION, $position);
+                $param->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARAMETER_POSITION, $position);
             }
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_) {
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall || $node instanceof \PhpParser\Node\Expr\FuncCall || $node instanceof \PhpParser\Node\Expr\New_) {
             foreach ($node->args as $position => $arg) {
-                $arg->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION, $position);
+                $arg->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ARGUMENT_POSITION, $position);
             }
         }
         return $node;

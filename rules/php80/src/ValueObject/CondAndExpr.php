@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject;
+namespace Rector\Php80\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+use PhpParser\Node\Expr;
 final class CondAndExpr
 {
     /**
@@ -30,17 +30,17 @@ final class CondAndExpr
      * @var Expr|null
      */
     private $condExpr;
-    public function __construct(?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $condExpr, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, string $kind)
+    public function __construct(?\PhpParser\Node\Expr $condExpr, \PhpParser\Node\Expr $expr, string $kind)
     {
         $this->condExpr = $condExpr;
         $this->expr = $expr;
         $this->kind = $kind;
     }
-    public function getExpr() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    public function getExpr() : \PhpParser\Node\Expr
     {
         return $this->expr;
     }
-    public function getCondExpr() : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    public function getCondExpr() : ?\PhpParser\Node\Expr
     {
         return $this->condExpr;
     }

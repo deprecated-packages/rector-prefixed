@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Protocol;
+namespace Hoa\Protocol;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Consistency;
+use Hoa\Consistency;
 /**
  * Class \Hoa\Protocol\Protocol.
  *
@@ -44,7 +44,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Consistency;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Protocol extends \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node
+class Protocol extends \Hoa\Protocol\Node
 {
     /**
      * No resolution value.
@@ -95,9 +95,9 @@ class Protocol extends \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node
     {
         $root = \dirname(\dirname(__DIR__));
         $cwd = 'cli' === \PHP_SAPI ? \dirname(\realpath($_SERVER['argv'][0])) : \getcwd();
-        $this[] = new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Application', $cwd . DS, [new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Public', 'Public' . DS)]);
-        $this[] = new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Data', \dirname($cwd) . DS, [new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Etc', 'Etc' . DS, [new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Configuration', 'Configuration' . DS), new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Locale', 'Locale' . DS)]), new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Lost+found', 'Lost+found' . DS), new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Temporary', 'Temporary' . DS), new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Variable', 'Variable' . DS, [new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Cache', 'Cache' . DS), new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Database', 'Database' . DS), new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Log', 'Log' . DS), new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Private', 'Private' . DS), new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Run', 'Run' . DS), new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node('Test', 'Test' . DS)])]);
-        $this[] = new \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node\Library('Library', $root . DS . 'Hoathis' . DS . RS . $root . DS . 'Hoa' . DS);
+        $this[] = new \Hoa\Protocol\Node('Application', $cwd . DS, [new \Hoa\Protocol\Node('Public', 'Public' . DS)]);
+        $this[] = new \Hoa\Protocol\Node('Data', \dirname($cwd) . DS, [new \Hoa\Protocol\Node('Etc', 'Etc' . DS, [new \Hoa\Protocol\Node('Configuration', 'Configuration' . DS), new \Hoa\Protocol\Node('Locale', 'Locale' . DS)]), new \Hoa\Protocol\Node('Lost+found', 'Lost+found' . DS), new \Hoa\Protocol\Node('Temporary', 'Temporary' . DS), new \Hoa\Protocol\Node('Variable', 'Variable' . DS, [new \Hoa\Protocol\Node('Cache', 'Cache' . DS), new \Hoa\Protocol\Node('Database', 'Database' . DS), new \Hoa\Protocol\Node('Log', 'Log' . DS), new \Hoa\Protocol\Node('Private', 'Private' . DS), new \Hoa\Protocol\Node('Run', 'Run' . DS), new \Hoa\Protocol\Node('Test', 'Test' . DS)])]);
+        $this[] = new \Hoa\Protocol\Node\Library('Library', $root . DS . 'Hoathis' . DS . RS . $root . DS . 'Hoa' . DS);
         return;
     }
     /**
@@ -175,4 +175,4 @@ class Protocol extends \_PhpScoper2a4e7ab1ecbc\Hoa\Protocol\Node
 /**
  * Flex entity.
  */
-\_PhpScoper2a4e7ab1ecbc\Hoa\Consistency::flexEntity('_PhpScoper2a4e7ab1ecbc\\Hoa\\Protocol\\Protocol');
+\Hoa\Consistency::flexEntity('Hoa\\Protocol\\Protocol');

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic;
+namespace PHPStan\Type\Generic;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
 class TemplateTypeVariance
 {
     private const INVARIANT = 1;
@@ -78,12 +78,12 @@ class TemplateTypeVariance
         }
         return $other;
     }
-    public function isValidVariance(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $a, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $b) : bool
+    public function isValidVariance(\PHPStan\Type\Type $a, \PHPStan\Type\Type $b) : bool
     {
-        if ($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType && !$a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType) {
+        if ($a instanceof \PHPStan\Type\MixedType && !$a instanceof \PHPStan\Type\Generic\TemplateType) {
             return \true;
         }
-        if ($b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType && !$b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType) {
+        if ($b instanceof \PHPStan\Type\MixedType && !$b instanceof \PHPStan\Type\Generic\TemplateType) {
             return \true;
         }
         if ($this->invariant()) {
@@ -95,7 +95,7 @@ class TemplateTypeVariance
         if ($this->contravariant()) {
             return $b->isSuperTypeOf($a)->yes();
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+        throw new \PHPStan\ShouldNotHappenException();
     }
     public function equals(self $other) : bool
     {
@@ -117,7 +117,7 @@ class TemplateTypeVariance
             case self::STATIC:
                 return 'static';
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+        throw new \PHPStan\ShouldNotHappenException();
     }
     /**
      * @param array{value: int} $properties

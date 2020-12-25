@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Polyfill\Rector\If_;
+namespace Rector\Polyfill\Rector\If_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Polyfill\FeatureSupport\FunctionSupportResolver;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Stmt\If_;
+use Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Polyfill\FeatureSupport\FunctionSupportResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Polyfill\Tests\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector\UnwrapFutureCompatibleIfFunctionExistsRectorTest
  */
-final class UnwrapFutureCompatibleIfFunctionExistsRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class UnwrapFutureCompatibleIfFunctionExistsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var IfManipulator
@@ -24,14 +24,14 @@ final class UnwrapFutureCompatibleIfFunctionExistsRector extends \_PhpScoper2a4e
      * @var FunctionSupportResolver
      */
     private $functionSupportResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Polyfill\FeatureSupport\FunctionSupportResolver $functionSupportResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator)
+    public function __construct(\Rector\Polyfill\FeatureSupport\FunctionSupportResolver $functionSupportResolver, \Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->functionSupportResolver = $functionSupportResolver;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove functions exists if with else for always existing', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove functions exists if with else for always existing', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -62,12 +62,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_::class];
+        return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $match = $this->ifManipulator->isIfOrIfElseWithFunctionCondition($node, 'function_exists');
         if (!$match) {

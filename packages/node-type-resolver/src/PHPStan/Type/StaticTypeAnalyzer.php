@@ -1,41 +1,41 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PHPStan\Type;
+namespace Rector\NodeTypeResolver\PHPStan\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 final class StaticTypeAnalyzer
 {
-    public function isAlwaysTruableType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    public function isAlwaysTruableType(\PHPStan\Type\Type $type) : bool
     {
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
+        if ($type instanceof \PHPStan\Type\MixedType) {
             return \false;
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType) {
+        if ($type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             return \true;
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+        if ($type instanceof \PHPStan\Type\ArrayType) {
             return \false;
         }
         if ($this->isNullable($type)) {
             return \false;
         }
         // always trueish
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
+        if ($type instanceof \PHPStan\Type\ObjectType) {
             return \true;
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType && !$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType) {
+        if ($type instanceof \PHPStan\Type\ConstantScalarType && !$type instanceof \PHPStan\Type\NullType) {
             return (bool) $type->getValue();
         }
         if ($this->isScalarType($type)) {
@@ -43,28 +43,28 @@ final class StaticTypeAnalyzer
         }
         return $this->isAlwaysTruableUnionType($type);
     }
-    private function isNullable(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    private function isNullable(\PHPStan\Type\Type $type) : bool
     {
-        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
+        if (!$type instanceof \PHPStan\Type\UnionType) {
             return \false;
         }
         foreach ($type->getTypes() as $unionedType) {
-            if ($unionedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType) {
+            if ($unionedType instanceof \PHPStan\Type\NullType) {
                 return \true;
             }
         }
         return \false;
     }
-    private function isScalarType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    private function isScalarType(\PHPStan\Type\Type $type) : bool
     {
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType) {
+        if ($type instanceof \PHPStan\Type\NullType) {
             return \true;
         }
-        return $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
+        return $type instanceof \PHPStan\Type\BooleanType || $type instanceof \PHPStan\Type\StringType || $type instanceof \PHPStan\Type\IntegerType || $type instanceof \PHPStan\Type\FloatType;
     }
-    private function isAlwaysTruableUnionType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    private function isAlwaysTruableUnionType(\PHPStan\Type\Type $type) : bool
     {
-        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
+        if (!$type instanceof \PHPStan\Type\UnionType) {
             return \false;
         }
         foreach ($type->getTypes() as $unionedType) {

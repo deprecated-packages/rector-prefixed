@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\ComposerJsonManipulator\FileSystem;
+namespace Symplify\ComposerJsonManipulator\FileSystem;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Json;
-use _PhpScoper2a4e7ab1ecbc\Symplify\ComposerJsonManipulator\Json\JsonCleaner;
-use _PhpScoper2a4e7ab1ecbc\Symplify\ComposerJsonManipulator\Json\JsonInliner;
-use _PhpScoper2a4e7ab1ecbc\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper50d83356d739\Nette\Utils\Json;
+use Symplify\ComposerJsonManipulator\Json\JsonCleaner;
+use Symplify\ComposerJsonManipulator\Json\JsonInliner;
+use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\MonorepoBuilder\Tests\FileSystem\JsonFileManager\JsonFileManagerTest
  */
@@ -27,7 +27,7 @@ final class JsonFileManager
      * @var JsonInliner
      */
     private $jsonInliner;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper2a4e7ab1ecbc\Symplify\ComposerJsonManipulator\Json\JsonCleaner $jsonCleaner, \_PhpScoper2a4e7ab1ecbc\Symplify\ComposerJsonManipulator\Json\JsonInliner $jsonInliner)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\ComposerJsonManipulator\Json\JsonCleaner $jsonCleaner, \Symplify\ComposerJsonManipulator\Json\JsonInliner $jsonInliner)
     {
         $this->smartFileSystem = $smartFileSystem;
         $this->jsonCleaner = $jsonCleaner;
@@ -36,9 +36,9 @@ final class JsonFileManager
     /**
      * @return mixed[]
      */
-    public function loadFromFileInfo(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function loadFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::decode($smartFileInfo->getContents(), \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::FORCE_ARRAY);
+        return \_PhpScoper50d83356d739\Nette\Utils\Json::decode($smartFileInfo->getContents(), \_PhpScoper50d83356d739\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @return mixed[]
@@ -46,18 +46,18 @@ final class JsonFileManager
     public function loadFromFilePath(string $filePath) : array
     {
         $fileContent = $this->smartFileSystem->readFile($filePath);
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::decode($fileContent, \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::FORCE_ARRAY);
+        return \_PhpScoper50d83356d739\Nette\Utils\Json::decode($fileContent, \_PhpScoper50d83356d739\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param mixed[] $json
      */
-    public function printJsonToFileInfo(array $json, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function printJsonToFileInfo(array $json, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $jsonString = $this->encodeJsonToFileContent($json);
         $this->smartFileSystem->dumpFile($smartFileInfo->getPathname(), $jsonString);
         return $jsonString;
     }
-    public function printComposerJsonToFilePath(\_PhpScoper2a4e7ab1ecbc\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, string $filePath) : string
+    public function printComposerJsonToFilePath(\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, string $filePath) : string
     {
         $jsonString = $this->encodeJsonToFileContent($composerJson->getJsonArray());
         $this->smartFileSystem->dumpFile($filePath, $jsonString);
@@ -70,7 +70,7 @@ final class JsonFileManager
     {
         // Empty arrays may lead to bad encoding since we can't be sure whether they need to be arrays or objects.
         $json = $this->jsonCleaner->removeEmptyKeysFromJsonArray($json);
-        $jsonContent = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::encode($json, \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::PRETTY) . \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar();
+        $jsonContent = \_PhpScoper50d83356d739\Nette\Utils\Json::encode($json, \_PhpScoper50d83356d739\Nette\Utils\Json::PRETTY) . \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar();
         return $this->jsonInliner->inlineSections($jsonContent);
     }
 }

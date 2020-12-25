@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
 use RuntimeException;
 class CompilerContext
 {
@@ -18,7 +18,7 @@ class CompilerContext
     private $namespace;
     /** @var string|null */
     private $functionName;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, ?string $fileName, ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $self, ?string $namespace, ?string $functionName)
+    public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, ?string $fileName, ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $self, ?string $namespace, ?string $functionName)
     {
         $this->reflector = $reflector;
         $this->fileName = $fileName;
@@ -35,14 +35,14 @@ class CompilerContext
     {
         return $this->self !== null;
     }
-    public function getSelf() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
+    public function getSelf() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass
     {
         if (!$this->hasSelf()) {
             throw new \RuntimeException('The current context does not have a class for self');
         }
         return $this->self;
     }
-    public function getReflector() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector
+    public function getReflector() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector
     {
         return $this->reflector;
     }

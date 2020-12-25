@@ -1,11 +1,11 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _HumbugBox221ad6f1b81f\React\Http\Io;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\Util;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f\React\Stream\Util;
+use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Protects a given stream from actually closing and only discards its incoming data instead.
  *
@@ -14,7 +14,7 @@ use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInt
  *
  * @internal
  * */
-class CloseProtectionStream extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class CloseProtectionStream extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
@@ -22,7 +22,7 @@ class CloseProtectionStream extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b8
     /**
      * @param ReadableStreamInterface $input stream that will be discarded instead of closing it on an 'close' event.
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -50,9 +50,9 @@ class CloseProtectionStream extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b8
         $this->paused = \false;
         $this->input->resume();
     }
-    public function pipe(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        \_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

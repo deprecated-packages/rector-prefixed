@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input;
+namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidOptionException;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidOptionException;
 /**
  * ArrayInput represents an input provided as an array.
  *
@@ -21,10 +21,10 @@ use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exce
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ArrayInput extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\Input
+class ArrayInput extends \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\Input
 {
     private $parameters;
-    public function __construct(array $parameters, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition $definition = null)
+    public function __construct(array $parameters, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition $definition = null)
     {
         $this->parameters = $parameters;
         parent::__construct($definition);
@@ -130,7 +130,7 @@ class ArrayInput extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\
     private function addShortOption(string $shortcut, $value)
     {
         if (!$this->definition->hasShortcut($shortcut)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "-%s" option does not exist.', $shortcut));
+            throw new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "-%s" option does not exist.', $shortcut));
         }
         $this->addLongOption($this->definition->getOptionForShortcut($shortcut)->getName(), $value);
     }
@@ -143,12 +143,12 @@ class ArrayInput extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\
     private function addLongOption(string $name, $value)
     {
         if (!$this->definition->hasOption($name)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "--%s" option does not exist.', $name));
+            throw new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "--%s" option does not exist.', $name));
         }
         $option = $this->definition->getOption($name);
         if (null === $value) {
             if ($option->isValueRequired()) {
-                throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "--%s" option requires a value.', $name));
+                throw new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "--%s" option requires a value.', $name));
             }
             if (!$option->isValueOptional()) {
                 $value = \true;
@@ -167,7 +167,7 @@ class ArrayInput extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\
     private function addArgument($name, $value)
     {
         if (!$this->definition->hasArgument($name)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
+            throw new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
         $this->arguments[$name] = $value;
     }

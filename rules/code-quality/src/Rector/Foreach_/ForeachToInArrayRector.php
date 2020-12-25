@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Foreach_;
+namespace Rector\CodeQuality\Rector\Foreach_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Equal;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Comment\CommentsMerger;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php71\ValueObject\TwoNodeMatch;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BinaryOp\Equal;
+use PhpParser\Node\Expr\BinaryOp\Identical;
+use PhpParser\Node\Expr\BooleanNot;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\Foreach_;
+use PhpParser\Node\Stmt\If_;
+use PhpParser\Node\Stmt\Return_;
+use PHPStan\Type\ObjectType;
+use Rector\BetterPhpDocParser\Comment\CommentsMerger;
+use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Php71\ValueObject\TwoNodeMatch;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Foreach_\ForeachToInArrayRector\ForeachToInArrayRectorTest
  */
-final class ForeachToInArrayRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ForeachToInArrayRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var BinaryOpManipulator
@@ -35,14 +35,14 @@ final class ForeachToInArrayRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\R
      * @var CommentsMerger
      */
     private $commentsMerger;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator, \Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger)
     {
         $this->binaryOpManipulator = $binaryOpManipulator;
         $this->commentsMerger = $commentsMerger;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify `foreach` loops into `in_array` when possible', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify `foreach` loops into `in_array` when possible', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 foreach ($items as $item) {
     if ($item === 'something') {
         return true;
@@ -58,12 +58,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_::class];
+        return [\PhpParser\Node\Stmt\Foreach_::class];
     }
     /**
      * @param Foreach_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipForeach($node)) {
             return null;
@@ -86,7 +86,7 @@ CODE_SAMPLE
         }
         $funcCall = $this->createInArrayFunction($comparedNode, $ifCondition, $node);
         /** @var Return_ $returnToRemove */
-        $returnToRemove = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        $returnToRemove = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         /** @var Return_ $return */
         $return = $firstNodeInsideForeach->stmts[0];
         if ($returnToRemove->expr === null) {
@@ -107,7 +107,7 @@ CODE_SAMPLE
         $this->commentsMerger->keepChildren($return, $node);
         return $return;
     }
-    private function shouldSkipForeach(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
+    private function shouldSkipForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
         if ($foreach->keyVar !== null) {
             return \true;
@@ -115,11 +115,11 @@ CODE_SAMPLE
         if (\count((array) $foreach->stmts) > 1) {
             return \true;
         }
-        $nextNode = $foreach->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        $nextNode = $foreach->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         if ($nextNode === null) {
             return \true;
         }
-        if (!$nextNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_) {
+        if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
             return \true;
         }
         $returnExpression = $nextNode->expr;
@@ -130,29 +130,29 @@ CODE_SAMPLE
             return \true;
         }
         $foreachValueStaticType = $this->getStaticType($foreach->expr);
-        if ($foreachValueStaticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
+        if ($foreachValueStaticType instanceof \PHPStan\Type\ObjectType) {
             return \true;
         }
-        return !$foreach->stmts[0] instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
+        return !$foreach->stmts[0] instanceof \PhpParser\Node\Stmt\If_;
     }
-    private function shouldSkipIf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ $if) : bool
+    private function shouldSkipIf(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         $ifCondition = $if->cond;
-        if ($ifCondition instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical) {
+        if ($ifCondition instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return \false;
         }
-        return !$ifCondition instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Equal;
+        return !$ifCondition instanceof \PhpParser\Node\Expr\BinaryOp\Equal;
     }
-    private function matchNodes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp $binaryOp, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Php71\ValueObject\TwoNodeMatch
+    private function matchNodes(\PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Expr $expr) : ?\Rector\Php71\ValueObject\TwoNodeMatch
     {
-        return $this->binaryOpManipulator->matchFirstAndSecondConditionNode($binaryOp, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable::class, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $otherNode) use($expr) : bool {
+        return $this->binaryOpManipulator->matchFirstAndSecondConditionNode($binaryOp, \PhpParser\Node\Expr\Variable::class, function (\PhpParser\Node $node, \PhpParser\Node $otherNode) use($expr) : bool {
             return $this->areNodesEqual($otherNode, $expr);
         });
     }
-    private function isIfBodyABoolReturnNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ $if) : bool
+    private function isIfBodyABoolReturnNode(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         $ifStatment = $if->stmts[0];
-        if (!$ifStatment instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_) {
+        if (!$ifStatment instanceof \PhpParser\Node\Stmt\Return_) {
             return \false;
         }
         if ($ifStatment->expr === null) {
@@ -163,17 +163,17 @@ CODE_SAMPLE
     /**
      * @param Identical|Equal $binaryOp
      */
-    private function createInArrayFunction(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp $binaryOp, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_ $foreach) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall
+    private function createInArrayFunction(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Stmt\Foreach_ $foreach) : \PhpParser\Node\Expr\FuncCall
     {
         $arguments = $this->createArgs([$expr, $foreach->expr]);
-        if ($binaryOp instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Identical) {
+        if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             $arguments[] = $this->createArg($this->createTrue());
         }
         return $this->createFuncCall('in_array', $arguments);
     }
-    private function createReturn(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_
+    private function createReturn(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Stmt\Return_
     {
-        $expr = $this->isFalse($expr) ? new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot($funcCall) : $funcCall;
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_($expr);
+        $expr = $this->isFalse($expr) ? new \PhpParser\Node\Expr\BooleanNot($funcCall) : $funcCall;
+        return new \PhpParser\Node\Stmt\Return_($expr);
     }
 }

@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception;
+namespace Hoa\Compiler\Exception;
 
 /**
  * Class \Hoa\Compiler\Exception\FinalStateHasNotBeenReached.
@@ -43,6 +43,6 @@ namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Rule extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\Exception
+class Rule extends \Hoa\Compiler\Exception\Exception
 {
 }

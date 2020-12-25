@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Stream\Wrapper;
+namespace Hoa\Stream\Wrapper;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+use Hoa\Stream;
 /**
  * Class \Hoa\Stream\Wrapper\Exception.
  *
@@ -44,6 +44,6 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Exception
+class Exception extends \Hoa\Stream\Exception
 {
 }

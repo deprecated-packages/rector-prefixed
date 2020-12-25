@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\ValueObject;
+namespace Rector\DeadCode\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Variable;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class VariableNodeUse
 {
     /**
@@ -37,7 +37,7 @@ final class VariableNodeUse
      * @var string|null
      */
     private $nestingHash;
-    public function __construct(int $startTokenPosition, string $variableName, string $type, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable, ?string $nestingHash = null)
+    public function __construct(int $startTokenPosition, string $variableName, string $type, \PhpParser\Node\Expr\Variable $variable, ?string $nestingHash = null)
     {
         $this->startTokenPosition = $startTokenPosition;
         $this->variableName = $variableName;
@@ -57,15 +57,15 @@ final class VariableNodeUse
     {
         return $this->type === $type;
     }
-    public function getVariableNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function getVariableNode() : \PhpParser\Node
     {
         return $this->variable;
     }
-    public function getParentNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function getParentNode() : \PhpParser\Node
     {
-        $parentNode = $this->variable->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $this->variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $parentNode;
     }

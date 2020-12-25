@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\MethodCall;
+namespace Rector\Defluent\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeFactory\VariableFromNewFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
+use Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer;
+use Rector\Defluent\NodeFactory\VariableFromNewFactory;
+use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\Defluent\Tests\Rector\MethodCall\MethodCallOnSetterMethodCallToStandaloneAssignRector\MethodCallOnSetterMethodCallToStandaloneAssignRectorTest
  */
-final class MethodCallOnSetterMethodCallToStandaloneAssignRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\AbstractFluentChainMethodCallRector
+final class MethodCallOnSetterMethodCallToStandaloneAssignRector extends \Rector\Defluent\Rector\AbstractFluentChainMethodCallRector
 {
     /**
      * @var NewFluentChainMethodCallNodeAnalyzer
@@ -27,14 +27,14 @@ final class MethodCallOnSetterMethodCallToStandaloneAssignRector extends \_PhpSc
      * @var VariableFromNewFactory
      */
     private $variableFromNewFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer $newFluentChainMethodCallNodeAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeFactory\VariableFromNewFactory $variableFromNewFactory)
+    public function __construct(\Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer $newFluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeFactory\VariableFromNewFactory $variableFromNewFactory)
     {
         $this->newFluentChainMethodCallNodeAnalyzer = $newFluentChainMethodCallNodeAnalyzer;
         $this->variableFromNewFactory = $variableFromNewFactory;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change method call on setter to standalone assign before the setter', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change method call on setter to standalone assign before the setter', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function some()
@@ -70,12 +70,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipMethodCall($node)) {
             return null;
@@ -92,7 +92,7 @@ CODE_SAMPLE
         $this->addNodesBeforeNode($newStmts, $node);
         // change new arg to root variable
         $newVariable = $this->variableFromNewFactory->create($new);
-        $rootMethodCall->args = [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($newVariable)];
+        $rootMethodCall->args = [new \PhpParser\Node\Arg($newVariable)];
         return $rootMethodCall;
     }
 }

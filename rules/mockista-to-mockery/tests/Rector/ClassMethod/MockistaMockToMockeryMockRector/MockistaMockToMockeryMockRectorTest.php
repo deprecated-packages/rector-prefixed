@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\MockistaToMockery\Tests\Rector\ClassMethod\MockistaMockToMockeryMockRector;
+namespace Rector\MockistaToMockery\Tests\Rector\ClassMethod\MockistaMockToMockeryMockRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\MockistaToMockery\Rector\ClassMethod\MockistaMockToMockeryMockRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class MockistaMockToMockeryMockRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\MockistaToMockery\Rector\ClassMethod\MockistaMockToMockeryMockRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class MockistaMockToMockeryMockRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class MockistaMockToMockeryMockRectorTest extends \_PhpScoper2a4e7ab1ecbc\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\MockistaToMockery\Rector\ClassMethod\MockistaMockToMockeryMockRector::class;
+        return \Rector\MockistaToMockery\Rector\ClassMethod\MockistaMockToMockeryMockRector::class;
     }
 }

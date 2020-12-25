@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\FormControlTypeResolver;
+namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-final class VariableConstructorFormControlTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface, \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr\Variable;
+use PHPStan\Type\TypeWithClassName;
+use Rector\Core\ValueObject\MethodName;
+use Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
+use Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
+use Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+final class VariableConstructorFormControlTypeResolver implements \Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface, \Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface
 {
     /**
      * @var MethodNamesByInputNamesResolver
@@ -31,7 +31,7 @@ final class VariableConstructorFormControlTypeResolver implements \_PhpScoper2a4
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -40,9 +40,9 @@ final class VariableConstructorFormControlTypeResolver implements \_PhpScoper2a4
     /**
      * @return array<string, string>
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+        if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return [];
         }
         // handled else-where
@@ -50,19 +50,19 @@ final class VariableConstructorFormControlTypeResolver implements \_PhpScoper2a4
             return [];
         }
         $formType = $this->nodeTypeResolver->getStaticType($node);
-        if (!$formType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+        if (!$formType instanceof \PHPStan\Type\TypeWithClassName) {
             return [];
         }
-        if (!\is_a($formType->getClassName(), '_PhpScoper2a4e7ab1ecbc\\Nette\\Application\\UI\\Form', \true)) {
+        if (!\is_a($formType->getClassName(), '_PhpScoper50d83356d739\\Nette\\Application\\UI\\Form', \true)) {
             return [];
         }
-        $constructorClassMethod = $this->nodeRepository->findClassMethod($formType->getClassName(), \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructorClassMethod = $this->nodeRepository->findClassMethod($formType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructorClassMethod === null) {
             return [];
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);
     }
-    public function setResolver(\_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
+    public function setResolver(\Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver $methodNamesByInputNamesResolver) : void
     {
         $this->methodNamesByInputNamesResolver = $methodNamesByInputNamesResolver;
     }

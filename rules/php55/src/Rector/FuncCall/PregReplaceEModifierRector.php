@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php55\Rector\FuncCall;
+namespace Rector\Php55\Rector\FuncCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php55\NodeFactory\AnonymousFunctionNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php55\RegexMatcher;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Name;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Php55\NodeFactory\AnonymousFunctionNodeFactory;
+use Rector\Php55\RegexMatcher;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/remove_preg_replace_eval_modifier
  * @see https://stackoverflow.com/q/19245205/1348344
  *
  * @see \Rector\Php55\Tests\Rector\FuncCall\PregReplaceEModifierRector\PregReplaceEModifierRectorTest
  */
-final class PregReplaceEModifierRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class PregReplaceEModifierRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var RegexMatcher
@@ -27,14 +27,14 @@ final class PregReplaceEModifierRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Co
      * @var AnonymousFunctionNodeFactory
      */
     private $anonymousFunctionNodeFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Php55\NodeFactory\AnonymousFunctionNodeFactory $anonymousFunctionNodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\Php55\RegexMatcher $regexMatcher)
+    public function __construct(\Rector\Php55\NodeFactory\AnonymousFunctionNodeFactory $anonymousFunctionNodeFactory, \Rector\Php55\RegexMatcher $regexMatcher)
     {
         $this->regexMatcher = $regexMatcher;
         $this->anonymousFunctionNodeFactory = $anonymousFunctionNodeFactory;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('The /e modifier is no longer supported, use preg_replace_callback instead', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('The /e modifier is no longer supported, use preg_replace_callback instead', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -61,12 +61,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isName($node, 'preg_replace')) {
             return null;
@@ -81,7 +81,7 @@ CODE_SAMPLE
         if ($anonymousFunction === null) {
             return null;
         }
-        $node->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('preg_replace_callback');
+        $node->name = new \PhpParser\Node\Name('preg_replace_callback');
         $node->args[0]->value = $patternWithoutE;
         $node->args[1]->value = $anonymousFunction;
         return $node;

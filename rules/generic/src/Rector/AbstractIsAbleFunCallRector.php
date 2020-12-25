@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector;
+namespace Rector\Generic\Rector;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanOr;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Contract\IsAbleFuncCallInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php71\IsArrayAndDualCheckToAble;
-abstract class AbstractIsAbleFunCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Generic\Contract\IsAbleFuncCallInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp\BooleanOr;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Generic\Contract\IsAbleFuncCallInterface;
+use Rector\Php71\IsArrayAndDualCheckToAble;
+abstract class AbstractIsAbleFunCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Generic\Contract\IsAbleFuncCallInterface
 {
     /**
      * @var IsArrayAndDualCheckToAble
      */
     private $isArrayAndDualCheckToAble;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Php71\IsArrayAndDualCheckToAble $isArrayAndDualCheckToAble)
+    public function __construct(\Rector\Php71\IsArrayAndDualCheckToAble $isArrayAndDualCheckToAble)
     {
         $this->isArrayAndDualCheckToAble = $isArrayAndDualCheckToAble;
     }
@@ -23,12 +23,12 @@ abstract class AbstractIsAbleFunCallRector extends \_PhpScoper2a4e7ab1ecbc\Recto
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\BooleanOr::class];
+        return [\PhpParser\Node\Expr\BinaryOp\BooleanOr::class];
     }
     /**
      * @param BooleanOr $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip()) {
             return null;

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php;
+namespace PHPStan\Reflection\Php;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariantWithPhpDocs;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VoidType;
-class PhpFunctionFromParserNodeReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\FunctionVariantWithPhpDocs;
+use PHPStan\Reflection\PassedByReference;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypehintHelper;
+use PHPStan\Type\VoidType;
+class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\FunctionReflection
 {
     /** @var \PhpParser\Node\FunctionLike */
     private $functionLike;
@@ -56,7 +56,7 @@ class PhpFunctionFromParserNodeReflection implements \_PhpScoper2a4e7ab1ecbc\PHP
      * @param bool $isInternal
      * @param bool $isFinal
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $realParameterTypes, array $phpDocParameterTypes, array $realParameterDefaultValues, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $realReturnType, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $phpDocReturnType = null, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $throwType = null, ?string $deprecatedDescription = null, bool $isDeprecated = \false, bool $isInternal = \false, bool $isFinal = \false)
+    public function __construct(\PhpParser\Node\FunctionLike $functionLike, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $realParameterTypes, array $phpDocParameterTypes, array $realParameterDefaultValues, \PHPStan\Type\Type $realReturnType, ?\PHPStan\Type\Type $phpDocReturnType = null, ?\PHPStan\Type\Type $throwType = null, ?string $deprecatedDescription = null, bool $isDeprecated = \false, bool $isInternal = \false, bool $isFinal = \false)
     {
         $this->functionLike = $functionLike;
         $this->templateTypeMap = $templateTypeMap;
@@ -71,13 +71,13 @@ class PhpFunctionFromParserNodeReflection implements \_PhpScoper2a4e7ab1ecbc\PHP
         $this->isInternal = $isInternal;
         $this->isFinal = $isFinal;
     }
-    protected function getFunctionLike() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike
+    protected function getFunctionLike() : \PhpParser\Node\FunctionLike
     {
         return $this->functionLike;
     }
     public function getName() : string
     {
-        if ($this->functionLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+        if ($this->functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->functionLike->name->name;
         }
         return (string) $this->functionLike->namespacedName;
@@ -88,7 +88,7 @@ class PhpFunctionFromParserNodeReflection implements \_PhpScoper2a4e7ab1ecbc\PHP
     public function getVariants() : array
     {
         if ($this->variants === null) {
-            $this->variants = [new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariantWithPhpDocs($this->templateTypeMap, null, $this->getParameters(), $this->isVariadic(), $this->getReturnType(), $this->phpDocReturnType ?? new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), $this->realReturnType)];
+            $this->variants = [new \PHPStan\Reflection\FunctionVariantWithPhpDocs($this->templateTypeMap, null, $this->getParameters(), $this->isVariadic(), $this->getReturnType(), $this->phpDocReturnType ?? new \PHPStan\Type\MixedType(), $this->realReturnType)];
         }
         return $this->variants;
     }
@@ -104,10 +104,10 @@ class PhpFunctionFromParserNodeReflection implements \_PhpScoper2a4e7ab1ecbc\PHP
             if ($parameter->default === null && !$parameter->variadic) {
                 $isOptional = \false;
             }
-            if (!$parameter->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable || !\is_string($parameter->var->name)) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            if (!$parameter->var instanceof \PhpParser\Node\Expr\Variable || !\is_string($parameter->var->name)) {
+                throw new \PHPStan\ShouldNotHappenException();
             }
-            $parameters[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpParameterFromParserNodeReflection($parameter->var->name, $isOptional, $this->realParameterTypes[$parameter->var->name], $this->phpDocParameterTypes[$parameter->var->name] ?? null, $parameter->byRef ? \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference::createNo(), $this->realParameterDefaultValues[$parameter->var->name] ?? null, $parameter->variadic);
+            $parameters[] = new \PHPStan\Reflection\Php\PhpParameterFromParserNodeReflection($parameter->var->name, $isOptional, $this->realParameterTypes[$parameter->var->name], $this->phpDocParameterTypes[$parameter->var->name] ?? null, $parameter->byRef ? \PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \PHPStan\Reflection\PassedByReference::createNo(), $this->realParameterDefaultValues[$parameter->var->name] ?? null, $parameter->variadic);
         }
         return \array_reverse($parameters);
     }
@@ -120,9 +120,9 @@ class PhpFunctionFromParserNodeReflection implements \_PhpScoper2a4e7ab1ecbc\PHP
         }
         return \false;
     }
-    protected function getReturnType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    protected function getReturnType() : \PHPStan\Type\Type
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper::decideType($this->realReturnType, $this->phpDocReturnType);
+        return \PHPStan\Type\TypehintHelper::decideType($this->realReturnType, $this->phpDocReturnType);
     }
     public function getDeprecatedDescription() : ?string
     {
@@ -131,32 +131,32 @@ class PhpFunctionFromParserNodeReflection implements \_PhpScoper2a4e7ab1ecbc\PHP
         }
         return null;
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
+        return \PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
+        return \PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
     }
-    public function isFinal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isFinal() : \PHPStan\TrinaryLogic
     {
         $finalMethod = \false;
-        if ($this->functionLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+        if ($this->functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $finalMethod = $this->functionLike->isFinal();
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createFromBoolean($finalMethod || $this->isFinal);
+        return \PHPStan\TrinaryLogic::createFromBoolean($finalMethod || $this->isFinal);
     }
-    public function getThrowType() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getThrowType() : ?\PHPStan\Type\Type
     {
         return $this->throwType;
     }
-    public function hasSideEffects() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \PHPStan\TrinaryLogic
     {
-        if ($this->getReturnType() instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VoidType) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+        if ($this->getReturnType() instanceof \PHPStan\Type\VoidType) {
+            return \PHPStan\TrinaryLogic::createYes();
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function isBuiltin() : bool
     {

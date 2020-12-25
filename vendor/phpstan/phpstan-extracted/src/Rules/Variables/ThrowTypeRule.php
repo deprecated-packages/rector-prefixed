@@ -1,45 +1,45 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Variables;
+namespace PHPStan\Rules\Variables;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleLevelHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Throw_>
  */
-class ThrowTypeRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class ThrowTypeRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Throw_::class;
+        return \PhpParser\Node\Stmt\Throw_::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
-        $throwableType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType(\Throwable::class);
-        $typeResult = $this->ruleLevelHelper->findTypeToCheck($scope, $node->expr, 'Throwing object of an unknown class %s.', static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) use($throwableType) : bool {
+        $throwableType = new \PHPStan\Type\ObjectType(\Throwable::class);
+        $typeResult = $this->ruleLevelHelper->findTypeToCheck($scope, $node->expr, 'Throwing object of an unknown class %s.', static function (\PHPStan\Type\Type $type) use($throwableType) : bool {
             return $throwableType->isSuperTypeOf($type)->yes();
         });
         $foundType = $typeResult->getType();
-        if ($foundType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType) {
+        if ($foundType instanceof \PHPStan\Type\ErrorType) {
             return $typeResult->getUnknownClassErrors();
         }
         $isSuperType = $throwableType->isSuperTypeOf($foundType);
         if ($isSuperType->yes()) {
             return [];
         }
-        return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Invalid type %s to throw.', $foundType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Invalid type %s to throw.', $foundType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
     }
 }

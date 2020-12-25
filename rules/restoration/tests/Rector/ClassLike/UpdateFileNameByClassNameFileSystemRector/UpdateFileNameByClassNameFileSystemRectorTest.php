@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Restoration\Tests\Rector\ClassLike\UpdateFileNameByClassNameFileSystemRector;
+namespace Rector\Restoration\Tests\Rector\ClassLike\UpdateFileNameByClassNameFileSystemRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Restoration\Rector\ClassLike\UpdateFileNameByClassNameFileSystemRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class UpdateFileNameByClassNameFileSystemRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Restoration\Rector\ClassLike\UpdateFileNameByClassNameFileSystemRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class UpdateFileNameByClassNameFileSystemRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
         $path = $this->originalTempFileInfo->getPath();
@@ -24,6 +24,6 @@ final class UpdateFileNameByClassNameFileSystemRectorTest extends \_PhpScoper2a4
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Restoration\Rector\ClassLike\UpdateFileNameByClassNameFileSystemRector::class;
+        return \Rector\Restoration\Rector\ClassLike\UpdateFileNameByClassNameFileSystemRector::class;
     }
 }

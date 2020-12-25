@@ -1,51 +1,51 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Ternary;
+namespace Rector\CodeQuality\Rector\Ternary;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Bool_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\AssignAndBinaryMap;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BooleanNot;
+use PhpParser\Node\Expr\Cast\Bool_;
+use PhpParser\Node\Expr\Ternary;
+use PHPStan\Type\BooleanType;
+use Rector\Core\PhpParser\Node\AssignAndBinaryMap;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\Ternary\UnnecessaryTernaryExpressionRector\UnnecessaryTernaryExpressionRectorTest
  */
-final class UnnecessaryTernaryExpressionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class UnnecessaryTernaryExpressionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var AssignAndBinaryMap
      */
     private $assignAndBinaryMap;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap)
+    public function __construct(\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap)
     {
         $this->assignAndBinaryMap = $assignAndBinaryMap;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unnecessary ternary expressions.', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$foo === $bar ? true : false;', '$foo === $bar;')]);
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove unnecessary ternary expressions.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$foo === $bar ? true : false;', '$foo === $bar;')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary::class];
+        return [\PhpParser\Node\Expr\Ternary::class];
     }
     /**
      * @param Ternary $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var Ternary $ternaryExpression */
         $ternaryExpression = $node;
-        if (!$ternaryExpression->if instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr) {
+        if (!$ternaryExpression->if instanceof \PhpParser\Node\Expr) {
             return null;
         }
         $ifExpression = $ternaryExpression->if;
@@ -57,7 +57,7 @@ final class UnnecessaryTernaryExpressionRector extends \_PhpScoper2a4e7ab1ecbc\R
             return null;
         }
         $condition = $ternaryExpression->cond;
-        if (!$condition instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp) {
+        if (!$condition instanceof \PhpParser\Node\Expr\BinaryOp) {
             return $this->processNonBinaryCondition($ifExpression, $elseExpression, $condition);
         }
         if ($this->isNull($ifExpression)) {
@@ -77,19 +77,19 @@ final class UnnecessaryTernaryExpressionRector extends \_PhpScoper2a4e7ab1ecbc\R
         }
         return new $inversedBinaryClass($binaryOperation->left, $binaryOperation->right);
     }
-    private function processNonBinaryCondition(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $ifExpression, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $elseExpression, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $condition) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function processNonBinaryCondition(\PhpParser\Node\Expr $ifExpression, \PhpParser\Node\Expr $elseExpression, \PhpParser\Node\Expr $condition) : ?\PhpParser\Node
     {
         if ($this->isTrue($ifExpression) && $this->isFalse($elseExpression)) {
-            if ($this->isStaticType($condition, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType::class)) {
+            if ($this->isStaticType($condition, \PHPStan\Type\BooleanType::class)) {
                 return $condition;
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Bool_($condition);
+            return new \PhpParser\Node\Expr\Cast\Bool_($condition);
         }
         if ($this->isFalse($ifExpression) && $this->isTrue($elseExpression)) {
-            if ($this->isStaticType($condition, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType::class)) {
-                return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot($condition);
+            if ($this->isStaticType($condition, \PHPStan\Type\BooleanType::class)) {
+                return new \PhpParser\Node\Expr\BooleanNot($condition);
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BooleanNot(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast\Bool_($condition));
+            return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Cast\Bool_($condition));
         }
         return null;
     }

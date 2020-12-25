@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator;
+namespace Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use PhpParser\Node;
+use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
+use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 final class StmtsManipulator
 {
     /**
@@ -19,7 +19,7 @@ final class StmtsManipulator
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser)
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -27,11 +27,11 @@ final class StmtsManipulator
     /**
      * @param Stmt[] $stmts
      */
-    public function getUnwrappedLastStmt(array $stmts) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function getUnwrappedLastStmt(array $stmts) : ?\PhpParser\Node
     {
         $lastStmtKey = \array_key_last($stmts);
         $lastStmt = $stmts[$lastStmtKey];
-        if ($lastStmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        if ($lastStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return $lastStmt->expr;
         }
         return $lastStmt;
@@ -40,9 +40,9 @@ final class StmtsManipulator
      * @param Stmt[] $stmts
      * @return Stmt[]
      */
-    public function filterOutExistingStmts(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, array $stmts) : array
+    public function filterOutExistingStmts(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $stmts) : array
     {
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use(&$stmts) {
+        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use(&$stmts) {
             foreach ($stmts as $key => $assign) {
                 if (!$this->betterStandardPrinter->areNodesEqual($node, $assign)) {
                     continue;

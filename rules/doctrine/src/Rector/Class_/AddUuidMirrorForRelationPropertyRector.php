@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_;
+namespace Rector\Doctrine\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\VarLikeIdentifier;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Collector\UuidMigrationDataCollector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Property;
+use PhpParser\Node\Stmt\PropertyProperty;
+use PhpParser\Node\VarLikeIdentifier;
+use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
+use Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Doctrine\Collector\UuidMigrationDataCollector;
+use Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
  * @see \Rector\Doctrine\Tests\Rector\Class_\AddUuidMirrorForRelationPropertyRector\AddUuidMirrorForRelationPropertyRectorTest
  */
-final class AddUuidMirrorForRelationPropertyRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class AddUuidMirrorForRelationPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var PhpDocTagNodeFactory
@@ -35,14 +35,14 @@ final class AddUuidMirrorForRelationPropertyRector extends \_PhpScoper2a4e7ab1ec
      * @var UuidMigrationDataCollector
      */
     private $uuidMigrationDataCollector;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector)
+    public function __construct(\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector)
     {
         $this->phpDocTagNodeFactory = $phpDocTagNodeFactory;
         $this->uuidMigrationDataCollector = $uuidMigrationDataCollector;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds $uuid property to entities, that already have $id with integer type.' . 'Require for step-by-step migration from int to uuid.', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds $uuid property to entities, that already have $id with integer type.' . 'Require for step-by-step migration from int to uuid.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -117,12 +117,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isDoctrineEntityClass($node)) {
             return null;
@@ -136,7 +136,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function shouldSkipProperty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : bool
+    private function shouldSkipProperty(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property) : bool
     {
         // this relation already is or has uuid property
         if ($this->isName($property, '*Uuid')) {
@@ -154,11 +154,11 @@ CODE_SAMPLE
             return \true;
         }
         /** @var PhpDocInfo|null $propertyPhpDocInfo */
-        $propertyPhpDocInfo = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $propertyPhpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($propertyPhpDocInfo === null) {
             return \true;
         }
-        $oneToOneTagValueNode = $propertyPhpDocInfo->getByType(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode::class);
+        $oneToOneTagValueNode = $propertyPhpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode::class);
         // skip mappedBy oneToOne, as the column doesn't really exist
         if ($oneToOneTagValueNode === null) {
             return \false;
@@ -169,7 +169,7 @@ CODE_SAMPLE
      * Creates duplicated property, that has "*uuidSuffix"
      * and nullable join column, so we cna complete them manually
      */
-    private function createMirrorNullable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property
+    private function createMirrorNullable(\PhpParser\Node\Stmt\Property $property) : \PhpParser\Node\Stmt\Property
     {
         $oldPropertyName = $this->getName($property);
         $propertyWithUuid = clone $property;
@@ -178,12 +178,12 @@ CODE_SAMPLE
         // name must be changed after the doc comment update, because the reflection annotation needed for update of doc comment
         // would miss non existing *Uuid property
         $uuidPropertyName = $oldPropertyName . 'Uuid';
-        $newPropertyProperty = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\PropertyProperty(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\VarLikeIdentifier($uuidPropertyName));
+        $newPropertyProperty = new \PhpParser\Node\Stmt\PropertyProperty(new \PhpParser\Node\VarLikeIdentifier($uuidPropertyName));
         $propertyWithUuid->props = [$newPropertyProperty];
         $this->addNewPropertyToCollector($property, $oldPropertyName, $uuidPropertyName);
         return $propertyWithUuid;
     }
-    private function hasClassPropertyName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, string $uuidPropertyName) : bool
+    private function hasClassPropertyName(\PhpParser\Node\Stmt\Class_ $class, string $uuidPropertyName) : bool
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->isName($property, $uuidPropertyName)) {
@@ -193,30 +193,30 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function mirrorPhpDocInfoToUuid(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : void
+    private function mirrorPhpDocInfoToUuid(\PhpParser\Node\Stmt\Property $property) : void
     {
         /** @var PhpDocInfo $propertyPhpDocInfo */
-        $propertyPhpDocInfo = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $propertyPhpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $newPropertyPhpDocInfo = clone $propertyPhpDocInfo;
         /** @var DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode */
         $doctrineRelationTagValueNode = $this->getDoctrineRelationTagValueNode($property);
-        if ($doctrineRelationTagValueNode instanceof \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface) {
+        if ($doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface) {
             $this->refactorToManyPropertyPhpDocInfo($newPropertyPhpDocInfo, $property);
-        } elseif ($doctrineRelationTagValueNode instanceof \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface) {
+        } elseif ($doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface) {
             $this->refactorToOnePropertyPhpDocInfo($newPropertyPhpDocInfo);
         }
     }
-    private function addNewPropertyToCollector(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property, string $oldPropertyName, string $uuidPropertyName) : void
+    private function addNewPropertyToCollector(\PhpParser\Node\Stmt\Property $property, string $oldPropertyName, string $uuidPropertyName) : void
     {
         /** @var string $className */
-        $className = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         /** @var DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode */
         $doctrineRelationTagValueNode = $this->getDoctrineRelationTagValueNode($property);
         $this->uuidMigrationDataCollector->addClassToManyRelationProperty($className, $oldPropertyName, $uuidPropertyName, $doctrineRelationTagValueNode);
     }
-    private function refactorToManyPropertyPhpDocInfo(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $propertyPhpDocInfo, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : void
+    private function refactorToManyPropertyPhpDocInfo(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $propertyPhpDocInfo, \PhpParser\Node\Stmt\Property $property) : void
     {
-        $doctrineJoinColumnTagValueNode = $propertyPhpDocInfo->getByType(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
+        $doctrineJoinColumnTagValueNode = $propertyPhpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
         if ($doctrineJoinColumnTagValueNode !== null) {
             // replace @ORM\JoinColumn with @ORM\JoinTable
             $propertyPhpDocInfo->removeTagValueNodeFromNode($doctrineJoinColumnTagValueNode);
@@ -224,14 +224,14 @@ CODE_SAMPLE
         $joinTableTagNode = $this->phpDocTagNodeFactory->createJoinTableTagNode($property);
         $propertyPhpDocInfo->addPhpDocTagNode($joinTableTagNode);
     }
-    private function refactorToOnePropertyPhpDocInfo(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $propertyPhpDocInfo) : void
+    private function refactorToOnePropertyPhpDocInfo(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $propertyPhpDocInfo) : void
     {
         /** @var JoinColumnTagValueNode|null $joinColumnTagValueNode */
-        $joinColumnTagValueNode = $propertyPhpDocInfo->getByType(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
+        $joinColumnTagValueNode = $propertyPhpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
         if ($joinColumnTagValueNode !== null) {
             // remove first
-            $propertyPhpDocInfo->removeByType(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
-            $mirrorJoinColumnTagValueNode = new \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode(['referencedColumnName' => 'uuid', 'unique' => $joinColumnTagValueNode->getUnique(), 'nullable' => \true]);
+            $propertyPhpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
+            $mirrorJoinColumnTagValueNode = new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode(['referencedColumnName' => 'uuid', 'unique' => $joinColumnTagValueNode->getUnique(), 'nullable' => \true]);
         } else {
             $mirrorJoinColumnTagValueNode = $this->phpDocTagNodeFactory->createJoinColumnTagNode(\true);
         }

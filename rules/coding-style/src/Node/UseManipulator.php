@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Node;
+namespace Rector\CodingStyle\Node;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\NameAndParent;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\UseUse;
+use Rector\CodingStyle\ValueObject\NameAndParent;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class UseManipulator
 {
     /**
@@ -27,7 +27,7 @@ final class UseManipulator
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -35,7 +35,7 @@ final class UseManipulator
     /**
      * @return NameAndParent[][]
      */
-    public function resolveUsedNameNodes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
+    public function resolveUsedNameNodes(\PhpParser\Node $node) : array
     {
         $this->resolvedNodeNames = [];
         $this->resolveUsedNames($node);
@@ -43,24 +43,24 @@ final class UseManipulator
         $this->resolveTraitUseNames($node);
         return $this->resolvedNodeNames;
     }
-    private function resolveUsedNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function resolveUsedNames(\PhpParser\Node $node) : void
     {
         /** @var Name[] $namedNodes */
-        $namedNodes = $this->betterNodeFinder->findInstanceOf($node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name::class);
+        $namedNodes = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Name::class);
         foreach ($namedNodes as $nameNode) {
             /** node name before becoming FQN - attribute from @see NameResolver */
-            $originalName = $nameNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
-            if (!$originalName instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+            $originalName = $nameNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
+            if (!$originalName instanceof \PhpParser\Node\Name) {
                 continue;
             }
-            $parentNode = $nameNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            $parentNode = $nameNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if ($parentNode === null) {
-                throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            $this->resolvedNodeNames[$originalName->toString()][] = new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\NameAndParent($nameNode, $parentNode);
+            $this->resolvedNodeNames[$originalName->toString()][] = new \Rector\CodingStyle\ValueObject\NameAndParent($nameNode, $parentNode);
         }
     }
-    private function resolveUsedClassNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $searchNode) : void
+    private function resolveUsedClassNames(\PhpParser\Node $searchNode) : void
     {
         /** @var ClassLike[] $classLikes */
         $classLikes = $this->betterNodeFinder->findClassLikes([$searchNode]);
@@ -73,19 +73,19 @@ final class UseManipulator
             if ($name === null) {
                 continue;
             }
-            $this->resolvedNodeNames[$name][] = new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\NameAndParent($classLikeName, $classLike);
+            $this->resolvedNodeNames[$name][] = new \Rector\CodingStyle\ValueObject\NameAndParent($classLikeName, $classLike);
         }
     }
-    private function resolveTraitUseNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $searchNode) : void
+    private function resolveTraitUseNames(\PhpParser\Node $searchNode) : void
     {
         /** @var Identifier[] $identifiers */
-        $identifiers = $this->betterNodeFinder->findInstanceOf($searchNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier::class);
+        $identifiers = $this->betterNodeFinder->findInstanceOf($searchNode, \PhpParser\Node\Identifier::class);
         foreach ($identifiers as $identifier) {
-            $parentNode = $identifier->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse) {
+            $parentNode = $identifier->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if (!$parentNode instanceof \PhpParser\Node\Stmt\UseUse) {
                 continue;
             }
-            $this->resolvedNodeNames[$identifier->name][] = new \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\ValueObject\NameAndParent($identifier, $parentNode);
+            $this->resolvedNodeNames[$identifier->name][] = new \Rector\CodingStyle\ValueObject\NameAndParent($identifier, $parentNode);
         }
     }
 }

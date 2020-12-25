@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\Ternary;
+namespace Rector\Php70\Rector\Ternary;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Greater;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Spaceship;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BinaryOp\Greater;
+use PhpParser\Node\Expr\BinaryOp\Smaller;
+use PhpParser\Node\Expr\BinaryOp\Spaceship;
+use PhpParser\Node\Expr\Ternary;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\PhpVersionFeature;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/combined-comparison-operator
  * @see \Rector\Php70\Tests\Rector\Ternary\TernaryToSpaceshipRector\TernaryToSpaceshipRectorTest
  */
-final class TernaryToSpaceshipRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class TernaryToSpaceshipRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use <=> spaceship instead of ternary with same effect', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use <=> spaceship instead of ternary with same effect', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 function order_func($a, $b) {
     return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
 }
@@ -38,14 +38,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary::class];
+        return [\PhpParser\Node\Expr\Ternary::class];
     }
     /**
      * @param Ternary $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::SPACESHIP)) {
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SPACESHIP)) {
             return null;
         }
         if ($this->shouldSkip($node)) {
@@ -59,16 +59,16 @@ CODE_SAMPLE
         }
         return $this->processGreaterThanTernary($node, $nestedTernary);
     }
-    private function shouldSkip(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary $ternary) : bool
+    private function shouldSkip(\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
-        if (!$ternary->cond instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp) {
+        if (!$ternary->cond instanceof \PhpParser\Node\Expr\BinaryOp) {
             return \true;
         }
-        if (!$ternary->else instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary) {
+        if (!$ternary->else instanceof \PhpParser\Node\Expr\Ternary) {
             return \true;
         }
         $nestedTernary = $ternary->else;
-        if (!$nestedTernary->cond instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp) {
+        if (!$nestedTernary->cond instanceof \PhpParser\Node\Expr\BinaryOp) {
             return \true;
         }
         // $a X $b ? . : ($a X $b ? . : .)
@@ -81,20 +81,20 @@ CODE_SAMPLE
     /**
      * Matches "$a < $b ? -1 : ($a > $b ? 1 : 0)"
      */
-    private function processSmallerThanTernary(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary $nestedTernary) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Spaceship
+    private function processSmallerThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
     {
-        if ($node->cond instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller && $nestedTernary->cond instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Greater && $this->areValues([$node->if, $nestedTernary->if, $nestedTernary->else], [-1, 1, 0])) {
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Spaceship($node->cond->left, $node->cond->right);
+        if ($node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Smaller && $nestedTernary->cond instanceof \PhpParser\Node\Expr\BinaryOp\Greater && $this->areValues([$node->if, $nestedTernary->if, $nestedTernary->else], [-1, 1, 0])) {
+            return new \PhpParser\Node\Expr\BinaryOp\Spaceship($node->cond->left, $node->cond->right);
         }
         return null;
     }
     /**
      * Matches "$a > $b ? -1 : ($a < $b ? 1 : 0)"
      */
-    private function processGreaterThanTernary(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary $nestedTernary) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Spaceship
+    private function processGreaterThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
     {
-        if ($node->cond instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Greater && $nestedTernary->cond instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller && $this->areValues([$node->if, $nestedTernary->if, $nestedTernary->else], [-1, 1, 0])) {
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Spaceship($node->cond->right, $node->cond->left);
+        if ($node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Greater && $nestedTernary->cond instanceof \PhpParser\Node\Expr\BinaryOp\Smaller && $this->areValues([$node->if, $nestedTernary->if, $nestedTernary->else], [-1, 1, 0])) {
+            return new \PhpParser\Node\Expr\BinaryOp\Spaceship($node->cond->right, $node->cond->left);
         }
         return null;
     }

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\Class_;
+namespace Rector\PHPUnit\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Collector\FormerVariablesByMethodCollector;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\Rector\Class_\SelfContainerGetMethodCallFromTestToSetUpMethodRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Property;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPUnit\Collector\FormerVariablesByMethodCollector;
+use Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator;
+use Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory;
+use Rector\SymfonyPHPUnit\Rector\Class_\SelfContainerGetMethodCallFromTestToSetUpMethodRector;
+use Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Inspiration
  * @see SelfContainerGetMethodCallFromTestToSetUpMethodRector
@@ -26,7 +26,7 @@ use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\PHPUnit\Tests\Rector\Class_\SelfContainerGetMethodCallFromTestToInjectPropertyRector\SelfContainerGetMethodCallFromTestToInjectPropertyRectorTest
  */
-final class SelfContainerGetMethodCallFromTestToInjectPropertyRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector
+final class SelfContainerGetMethodCallFromTestToInjectPropertyRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var SelfContainerMethodCallCollector
@@ -48,7 +48,7 @@ final class SelfContainerGetMethodCallFromTestToInjectPropertyRector extends \_P
      * @var FormerVariablesByMethodCollector
      */
     private $formerVariablesByMethodCollector;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory $kernelTestCaseNodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator $onContainerGetCallManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector $selfContainerMethodCallCollector, \_PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Collector\FormerVariablesByMethodCollector $formerVariablesByMethodCollector)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory $kernelTestCaseNodeFactory, \Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator $onContainerGetCallManipulator, \Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector $selfContainerMethodCallCollector, \Rector\PHPUnit\Collector\FormerVariablesByMethodCollector $formerVariablesByMethodCollector)
     {
         $this->selfContainerMethodCallCollector = $selfContainerMethodCallCollector;
         $this->kernelTestCaseNodeFactory = $kernelTestCaseNodeFactory;
@@ -56,9 +56,9 @@ final class SelfContainerGetMethodCallFromTestToInjectPropertyRector extends \_P
         $this->classManipulator = $classManipulator;
         $this->formerVariablesByMethodCollector = $formerVariablesByMethodCollector;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $container->get() calls in PHPUnit to @inject properties autowired by jakzal/phpunit-injector', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $container->get() calls in PHPUnit to @inject properties autowired by jakzal/phpunit-injector', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 class SomeClassTest extends TestCase {
     public function test()
@@ -96,12 +96,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isInTestClass($node)) {
             return null;
@@ -130,10 +130,10 @@ CODE_SAMPLE
         $this->onContainerGetCallManipulator->replaceFormerVariablesWithPropertyFetch($node);
         return $node;
     }
-    private function addInjectAnnotationToProperty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $privateProperty) : void
+    private function addInjectAnnotationToProperty(\PhpParser\Node\Stmt\Property $privateProperty) : void
     {
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $privateProperty->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $privateProperty->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $phpDocInfo->addBareTag('@inject');
     }
     /**

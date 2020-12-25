@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Namespaces;
+namespace PHPStan\Rules\Namespaces;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassCaseSensitivityCheck;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassNameNodePair;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleError;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Use_>
  */
-class ExistingNamesInUseRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class ExistingNamesInUseRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -21,7 +21,7 @@ class ExistingNamesInUseRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Ru
     private $classCaseSensitivityCheck;
     /** @var bool */
     private $checkFunctionNameCase;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, bool $checkFunctionNameCase)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, bool $checkFunctionNameCase)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
@@ -29,22 +29,22 @@ class ExistingNamesInUseRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Ru
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_::class;
+        return \PhpParser\Node\Stmt\Use_::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
-        if ($node->type === \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+        if ($node->type === \PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN) {
+            throw new \PHPStan\ShouldNotHappenException();
         }
         foreach ($node->uses as $use) {
-            if ($use->type !== \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            if ($use->type !== \PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN) {
+                throw new \PHPStan\ShouldNotHappenException();
             }
         }
-        if ($node->type === \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_::TYPE_CONSTANT) {
+        if ($node->type === \PhpParser\Node\Stmt\Use_::TYPE_CONSTANT) {
             return $this->checkConstants($node->uses);
         }
-        if ($node->type === \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION) {
+        if ($node->type === \PhpParser\Node\Stmt\Use_::TYPE_FUNCTION) {
             return $this->checkFunctions($node->uses);
         }
         return $this->checkClasses($node->uses);
@@ -60,7 +60,7 @@ class ExistingNamesInUseRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Ru
             if ($this->reflectionProvider->hasConstant($use->name, null)) {
                 continue;
             }
-            $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Used constant %s not found.', (string) $use->name))->line($use->name->getLine())->discoveringSymbolsTip()->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Used constant %s not found.', (string) $use->name))->line($use->name->getLine())->discoveringSymbolsTip()->build();
         }
         return $errors;
     }
@@ -73,13 +73,13 @@ class ExistingNamesInUseRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Ru
         $errors = [];
         foreach ($uses as $use) {
             if (!$this->reflectionProvider->hasFunction($use->name, null)) {
-                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Used function %s not found.', (string) $use->name))->line($use->name->getLine())->discoveringSymbolsTip()->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Used function %s not found.', (string) $use->name))->line($use->name->getLine())->discoveringSymbolsTip()->build();
             } elseif ($this->checkFunctionNameCase) {
                 $functionReflection = $this->reflectionProvider->getFunction($use->name, null);
                 $realName = $functionReflection->getName();
                 $usedName = (string) $use->name;
                 if (\strtolower($realName) === \strtolower($usedName) && $realName !== $usedName) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Function %s used with incorrect case: %s.', $realName, $usedName))->line($use->name->getLine())->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Function %s used with incorrect case: %s.', $realName, $usedName))->line($use->name->getLine())->build();
                 }
             }
         }
@@ -91,8 +91,8 @@ class ExistingNamesInUseRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Ru
      */
     private function checkClasses(array $uses) : array
     {
-        return $this->classCaseSensitivityCheck->checkClassNames(\array_map(static function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse $use) : ClassNameNodePair {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\ClassNameNodePair((string) $use->name, $use->name);
+        return $this->classCaseSensitivityCheck->checkClassNames(\array_map(static function (\PhpParser\Node\Stmt\UseUse $use) : ClassNameNodePair {
+            return new \PHPStan\Rules\ClassNameNodePair((string) $use->name, $use->name);
         }, $uses));
     }
 }

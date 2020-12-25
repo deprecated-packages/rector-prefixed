@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator;
+namespace Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ValueResolver;
+use PhpParser\Node\Expr\FuncCall;
+use Rector\Core\PhpParser\Node\Value\ValueResolver;
 final class FuncCallManipulator
 {
     /**
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->valueResolver = $valueResolver;
     }

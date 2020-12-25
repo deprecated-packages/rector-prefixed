@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPOffice\Tests\Rector\StaticCall\ChangeDataTypeForValueRector;
+namespace Rector\PHPOffice\Tests\Rector\StaticCall\ChangeDataTypeForValueRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPOffice\Rector\StaticCall\ChangeDataTypeForValueRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeDataTypeForValueRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\PHPOffice\Rector\StaticCall\ChangeDataTypeForValueRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeDataTypeForValueRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeDataTypeForValueRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rec
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\PHPOffice\Rector\StaticCall\ChangeDataTypeForValueRector::class;
+        return \Rector\PHPOffice\Rector\StaticCall\ChangeDataTypeForValueRector::class;
     }
 }

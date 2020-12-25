@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Parser;
+namespace PHPStan\Parser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use PhpParser\Node;
 class NodeList
 {
     /** @var Node */
     private $node;
     /** @var self|null */
     private $next;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, ?self $next = null)
+    public function __construct(\PhpParser\Node $node, ?self $next = null)
     {
         $this->node = $node;
         $this->next = $next;
     }
-    public function append(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : self
+    public function append(\PhpParser\Node $node) : self
     {
         $current = $this;
         while ($current->next !== null) {
@@ -25,7 +25,7 @@ class NodeList
         $current->next = $new;
         return $new;
     }
-    public function getNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function getNode() : \PhpParser\Node
     {
         return $this->node;
     }

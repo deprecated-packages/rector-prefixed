@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector;
+namespace Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\Assign\PropertyAssignToMethodCallRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector\Source\ChoiceControl;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\PropertyAssignToMethodCall;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class PropertyAssignToMethodCallRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Transform\Rector\Assign\PropertyAssignToMethodCallRector;
+use Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector\Source\ChoiceControl;
+use Rector\Transform\ValueObject\PropertyAssignToMethodCall;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class PropertyAssignToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -27,6 +27,6 @@ final class PropertyAssignToMethodCallRectorTest extends \_PhpScoper2a4e7ab1ecbc
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\Assign\PropertyAssignToMethodCallRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\Assign\PropertyAssignToMethodCallRector::PROPERTY_ASSIGNS_TO_METHODS_CALLS => [new \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\PropertyAssignToMethodCall(\_PhpScoper2a4e7ab1ecbc\Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector\Source\ChoiceControl::class, 'checkAllowedValues', 'checkDefaultValue')]]];
+        return [\Rector\Transform\Rector\Assign\PropertyAssignToMethodCallRector::class => [\Rector\Transform\Rector\Assign\PropertyAssignToMethodCallRector::PROPERTY_ASSIGNS_TO_METHODS_CALLS => [new \Rector\Transform\ValueObject\PropertyAssignToMethodCall(\Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector\Source\ChoiceControl::class, 'checkAllowedValues', 'checkDefaultValue')]]];
     }
 }

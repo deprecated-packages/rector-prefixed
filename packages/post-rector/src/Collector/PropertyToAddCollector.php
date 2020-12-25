@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector;
+namespace Rector\PostRector\Collector;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Contract\Collector\NodeCollectorInterface;
-final class PropertyToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Contract\Collector\NodeCollectorInterface
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassConst;
+use PHPStan\Type\Type;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
+final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
      * @var ClassConst[][]
@@ -26,7 +26,7 @@ final class PropertyToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
      * @var Type[][]|null[][]
      */
     private $propertiesWithoutConstructorByClass = [];
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
@@ -40,16 +40,16 @@ final class PropertyToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
         }
         return $this->constantsByClass !== [];
     }
-    public function addPropertyToClass(string $propertyName, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $propertyType, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
+    public function addPropertyToClass(string $propertyName, ?\PHPStan\Type\Type $propertyType, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $this->propertiesByClass[\spl_object_hash($class)][$propertyName] = $propertyType;
     }
-    public function addConstantToClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst $classConst) : void
+    public function addConstantToClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassConst $classConst) : void
     {
         $constantName = $this->nodeNameResolver->getName($classConst);
         $this->constantsByClass[\spl_object_hash($class)][$constantName] = $classConst;
     }
-    public function addPropertyWithoutConstructorToClass(string $propertyName, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $propertyType, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
+    public function addPropertyWithoutConstructorToClass(string $propertyName, ?\PHPStan\Type\Type $propertyType, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $this->propertiesWithoutConstructorByClass[\spl_object_hash($class)][$propertyName] = $propertyType;
     }
@@ -57,7 +57,7 @@ final class PropertyToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
      * @var ClassConst[]
      * @return ClassConst[]
      */
-    public function getConstantsByClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    public function getConstantsByClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classHash = \spl_object_hash($class);
         return $this->constantsByClass[$classHash] ?? [];
@@ -65,7 +65,7 @@ final class PropertyToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
     /**
      * @return Type[]|null[]
      */
-    public function getPropertiesByClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    public function getPropertiesByClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classHash = \spl_object_hash($class);
         return $this->propertiesByClass[$classHash] ?? [];
@@ -73,7 +73,7 @@ final class PropertyToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
     /**
      * @return Type[]|null[]
      */
-    public function getPropertiesWithoutConstructorByClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    public function getPropertiesWithoutConstructorByClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classHash = \spl_object_hash($class);
         return $this->propertiesWithoutConstructorByClass[$classHash] ?? [];

@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService;
+namespace Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector;
+use Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector;
+use Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector;
+use Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector
  * @see \Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector
  * @see \Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector
  */
-final class DoctrineRepositoryAsServiceTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class DoctrineRepositoryAsServiceTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -35,10 +35,10 @@ final class DoctrineRepositoryAsServiceTest extends \_PhpScoper2a4e7ab1ecbc\Rect
     {
         return [
             # order matters, this needs to be first to correctly detect parent repository
-            \_PhpScoper2a4e7ab1ecbc\Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector::class => [],
-            \_PhpScoper2a4e7ab1ecbc\Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector::class => [],
-            \_PhpScoper2a4e7ab1ecbc\Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector::class => [],
-            \_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class => [],
+            \Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector::class => [],
+            \Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector::class => [],
+            \Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector::class => [],
+            \Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class => [],
         ];
     }
 }

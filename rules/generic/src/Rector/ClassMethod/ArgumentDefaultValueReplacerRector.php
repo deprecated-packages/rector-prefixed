@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod;
+namespace Rector\Generic\Rector\ClassMethod;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\BuilderHelpers;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentDefaultValueReplacer;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\BuilderHelpers;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Generic\ValueObject\ArgumentDefaultValueReplacer;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\ArgumentDefaultValueReplacerRector\ArgumentDefaultValueReplacerRectorTest
  */
-final class ArgumentDefaultValueReplacerRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ArgumentDefaultValueReplacerRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -29,9 +29,9 @@ final class ArgumentDefaultValueReplacerRector extends \_PhpScoper2a4e7ab1ecbc\R
      * @var ArgumentDefaultValueReplacer[]
      */
     private $replacedArguments = [];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined map of arguments in defined methods and their calls.', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined map of arguments in defined methods and their calls.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $someObject = new SomeClass;
 $someObject->someMethod(SomeClass::OLD_CONSTANT);
 CODE_SAMPLE
@@ -39,19 +39,19 @@ CODE_SAMPLE
 $someObject = new SomeClass;
 $someObject->someMethod(false);'
 CODE_SAMPLE
-, [self::REPLACED_ARGUMENTS => [new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('SomeExampleClass', 'someMethod', 0, 'SomeClass::OLD_CONSTANT', 'false')]])]);
+, [self::REPLACED_ARGUMENTS => [new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('SomeExampleClass', 'someMethod', 0, 'SomeClass::OLD_CONSTANT', 'false')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->replacedArguments as $replacedArgument) {
             if (!$this->isMethodStaticCallOrClassMethodObjectType($node, $replacedArgument->getClass())) {
@@ -67,15 +67,15 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $replacedArguments = $configuration[self::REPLACED_ARGUMENTS] ?? [];
-        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::allIsInstanceOf($replacedArguments, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentDefaultValueReplacer::class);
+        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($replacedArguments, \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer::class);
         $this->replacedArguments = $replacedArguments;
     }
     /**
      * @param MethodCall|StaticCall|ClassMethod $node
      */
-    private function processReplaces(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function processReplaces(\PhpParser\Node $node, \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             if (!isset($node->params[$argumentDefaultValueReplacer->getPosition()])) {
                 return null;
             }
@@ -87,7 +87,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processArgs(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : void
+    private function processArgs(\PhpParser\Node $node, \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : void
     {
         $position = $argumentDefaultValueReplacer->getPosition();
         $argValue = $this->getValue($node->args[$position]->value);
@@ -103,21 +103,21 @@ CODE_SAMPLE
     /**
      * @param mixed $value
      */
-    private function normalizeValueToArgument($value) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg
+    private function normalizeValueToArgument($value) : \PhpParser\Node\Arg
     {
         // class constants → turn string to composite
-        if (\is_string($value) && \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($value, '::')) {
+        if (\is_string($value) && \_PhpScoper50d83356d739\Nette\Utils\Strings::contains($value, '::')) {
             [$class, $constant] = \explode('::', $value);
             $classConstFetch = $this->createClassConstFetch($class, $constant);
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($classConstFetch);
+            return new \PhpParser\Node\Arg($classConstFetch);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg(\_PhpScoper2a4e7ab1ecbc\PhpParser\BuilderHelpers::normalizeValue($value));
+        return new \PhpParser\Node\Arg(\PhpParser\BuilderHelpers::normalizeValue($value));
     }
     /**
      * @param Arg[] $argumentNodes
      * @return Arg[]|null
      */
-    private function processArrayReplacement(array $argumentNodes, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?array
+    private function processArrayReplacement(array $argumentNodes, \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : ?array
     {
         $argumentValues = $this->resolveArgumentValuesToBeforeRecipe($argumentNodes, $argumentDefaultValueReplacer);
         if ($argumentValues !== $argumentDefaultValueReplacer->getValueBefore()) {
@@ -137,7 +137,7 @@ CODE_SAMPLE
      * @param Arg[] $argumentNodes
      * @return mixed[]
      */
-    private function resolveArgumentValuesToBeforeRecipe(array $argumentNodes, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : array
+    private function resolveArgumentValuesToBeforeRecipe(array $argumentNodes, \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : array
     {
         $argumentValues = [];
         /** @var mixed[] $valueBefore */

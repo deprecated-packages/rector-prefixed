@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\Throw_;
+namespace Rector\CodingStyle\Rector\Throw_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Throw_;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\DocBlock\ThrowsFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\NodeAnalyzer\ThrowAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ClassResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Reflection\ClassMethodReflectionHelper;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Reflection\FunctionAnnotationResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
+use PhpParser\Node\Stmt\Throw_;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\CodingStyle\DocBlock\ThrowsFactory;
+use Rector\CodingStyle\NodeAnalyzer\ThrowAnalyzer;
+use Rector\Core\PhpParser\Node\Value\ClassResolver;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Reflection\ClassMethodReflectionHelper;
+use Rector\Core\Reflection\FunctionAnnotationResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionFunction;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector\AnnotateThrowablesRectorTest
  */
-final class AnnotateThrowablesRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class AnnotateThrowablesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
@@ -51,7 +51,7 @@ final class AnnotateThrowablesRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core
      * @var ThrowsFactory
      */
     private $throwsFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Reflection\ClassMethodReflectionHelper $classMethodReflectionHelper, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Value\ClassResolver $classResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Core\Reflection\FunctionAnnotationResolver $functionAnnotationResolver, \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\NodeAnalyzer\ThrowAnalyzer $throwAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\DocBlock\ThrowsFactory $throwsFactory)
+    public function __construct(\Rector\Core\Reflection\ClassMethodReflectionHelper $classMethodReflectionHelper, \Rector\Core\PhpParser\Node\Value\ClassResolver $classResolver, \Rector\Core\Reflection\FunctionAnnotationResolver $functionAnnotationResolver, \Rector\CodingStyle\NodeAnalyzer\ThrowAnalyzer $throwAnalyzer, \Rector\CodingStyle\DocBlock\ThrowsFactory $throwsFactory)
     {
         $this->functionAnnotationResolver = $functionAnnotationResolver;
         $this->classMethodReflectionHelper = $classMethodReflectionHelper;
@@ -64,14 +64,14 @@ final class AnnotateThrowablesRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Throw_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Stmt\Throw_::class, \PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * From this method documentation is generated.
      */
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds @throws DocBlock comments to methods that thrwo \\Throwables.', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Adds @throws DocBlock comments to methods that thrwo \\Throwables.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(
             // code before
             <<<'CODE_SAMPLE'
 class RootExceptionInMethodWithDocblock
@@ -110,7 +110,7 @@ CODE_SAMPLE
     /**
      * @param Throw_|MethodCall|FuncCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->throwablesToAnnotate = [];
         if ($this->hasThrowablesToAnnotate($node)) {
@@ -122,16 +122,16 @@ CODE_SAMPLE
     /**
      * @param Throw_|MethodCall|FuncCall $node
      */
-    private function hasThrowablesToAnnotate(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    private function hasThrowablesToAnnotate(\PhpParser\Node $node) : bool
     {
         $foundThrowables = 0;
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Throw_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Throw_) {
             $foundThrowables = $this->analyzeStmtThrow($node);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
+        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             $foundThrowables = $this->analyzeStmtFuncCall($node);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall) {
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
             $foundThrowables = $this->analyzeStmtMethodCall($node);
         }
         return $foundThrowables > 0;
@@ -139,25 +139,25 @@ CODE_SAMPLE
     /**
      * @param Throw_|MethodCall|FuncCall $node
      */
-    private function annotateThrowables(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function annotateThrowables(\PhpParser\Node $node) : void
     {
         $callee = $this->identifyCaller($node);
         if ($callee === null) {
             return;
         }
-        $phpDocInfo = $callee->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $callee->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         foreach ($this->throwablesToAnnotate as $throwableToAnnotate) {
             $docComment = $this->throwsFactory->crateDocTagNodeFromClass($throwableToAnnotate);
             $phpDocInfo->addPhpDocTagNode($docComment);
         }
     }
-    private function analyzeStmtThrow(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Throw_ $throw) : int
+    private function analyzeStmtThrow(\PhpParser\Node\Stmt\Throw_ $throw) : int
     {
         $foundThrownThrowables = $this->throwAnalyzer->resolveThrownTypes($throw);
         $alreadyAnnotatedThrowables = $this->extractAlreadyAnnotatedThrowables($throw);
         return $this->diffThrowsTypes($foundThrownThrowables, $alreadyAnnotatedThrowables);
     }
-    private function analyzeStmtFuncCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall) : int
+    private function analyzeStmtFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : int
     {
         $functionFqn = $this->getName($funcCall);
         if ($functionFqn === null) {
@@ -168,7 +168,7 @@ CODE_SAMPLE
         $alreadyAnnotatedThrowsTypes = $this->extractAlreadyAnnotatedThrowables($funcCall);
         return $this->diffThrowsTypes($throwsTypes, $alreadyAnnotatedThrowsTypes);
     }
-    private function analyzeStmtMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : int
+    private function analyzeStmtMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : int
     {
         $foundThrowsTypes = $this->identifyThrownThrowablesInMethodCall($methodCall);
         $alreadyAnnotatedThrowsTypes = $this->extractAlreadyAnnotatedThrowables($methodCall);
@@ -177,22 +177,22 @@ CODE_SAMPLE
     /**
      * @param Throw_|MethodCall|FuncCall $node
      */
-    private function identifyCaller(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function identifyCaller(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        return $this->betterNodeFinder->findFirstAncestorInstancesOf($node, [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_::class]);
+        return $this->betterNodeFinder->findFirstAncestorInstancesOf($node, [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class]);
     }
     /**
      * @param Throw_|MethodCall|FuncCall $node
      * @return class-string[]
      */
-    private function extractAlreadyAnnotatedThrowables(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
+    private function extractAlreadyAnnotatedThrowables(\PhpParser\Node $node) : array
     {
         $callee = $this->identifyCaller($node);
         if ($callee === null) {
             return [];
         }
         /** @var PhpDocInfo|null $callePhpDocInfo */
-        $callePhpDocInfo = $callee->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $callePhpDocInfo = $callee->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($callePhpDocInfo === null) {
             return [];
         }
@@ -221,14 +221,14 @@ CODE_SAMPLE
     /**
      * @return class-string[]
      */
-    private function identifyThrownThrowablesInMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : array
+    private function identifyThrownThrowablesInMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : array
     {
         $fullyQualified = $this->classResolver->getClassFromMethodCall($methodCall);
         $methodName = $methodCall->name;
-        if (!$fullyQualified instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified) {
+        if (!$fullyQualified instanceof \PhpParser\Node\Name\FullyQualified) {
             return [];
         }
-        if (!$methodName instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
+        if (!$methodName instanceof \PhpParser\Node\Identifier) {
             return [];
         }
         return $this->extractMethodThrows($fullyQualified, $methodName);
@@ -236,7 +236,7 @@ CODE_SAMPLE
     /**
      * @return class-string[]
      */
-    private function extractMethodThrows(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified $fullyQualified, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier $identifier) : array
+    private function extractMethodThrows(\PhpParser\Node\Name\FullyQualified $fullyQualified, \PhpParser\Node\Identifier $identifier) : array
     {
         $method = $identifier->name;
         $class = $this->getName($fullyQualified);

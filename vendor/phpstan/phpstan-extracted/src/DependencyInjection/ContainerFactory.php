@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection;
+namespace PHPStan\DependencyInjection;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Extensions\PhpExtension;
+use _HumbugBox221ad6f1b81f\Nette\DI\Extensions\PhpExtension;
 use Phar;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Command\CommandHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use PHPStan\Broker\Broker;
+use PHPStan\Command\CommandHelper;
+use PHPStan\File\FileHelper;
+use PHPStan\Php\PhpVersion;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
 use function sys_get_temp_dir;
 class ContainerFactory
 {
@@ -25,7 +25,7 @@ class ContainerFactory
     public function __construct(string $currentWorkingDirectory)
     {
         $this->currentWorkingDirectory = $currentWorkingDirectory;
-        $this->fileHelper = new \_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper($currentWorkingDirectory);
+        $this->fileHelper = new \PHPStan\File\FileHelper($currentWorkingDirectory);
         $rootDir = __DIR__ . '/../..';
         $originalRootDir = $this->fileHelper->normalizePath($rootDir);
         if (\extension_loaded('phar')) {
@@ -49,10 +49,10 @@ class ContainerFactory
      * @param string|null $singleReflectionFile
      * @return \PHPStan\DependencyInjection\Container
      */
-    public function create(string $tempDirectory, array $additionalConfigFiles, array $analysedPaths, array $composerAutoloaderProjectPaths = [], array $analysedPathsFromConfig = [], string $usedLevel = \_PhpScoper2a4e7ab1ecbc\PHPStan\Command\CommandHelper::DEFAULT_LEVEL, ?string $generateBaselineFile = null, ?string $cliAutoloadFile = null, ?string $singleReflectionFile = null) : \_PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\Container
+    public function create(string $tempDirectory, array $additionalConfigFiles, array $analysedPaths, array $composerAutoloaderProjectPaths = [], array $analysedPathsFromConfig = [], string $usedLevel = \PHPStan\Command\CommandHelper::DEFAULT_LEVEL, ?string $generateBaselineFile = null, ?string $cliAutoloadFile = null, ?string $singleReflectionFile = null) : \PHPStan\DependencyInjection\Container
     {
-        $configurator = new \_PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\Configurator(new \_PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\LoaderFactory($this->fileHelper, $this->rootDirectory, $this->currentWorkingDirectory, $generateBaselineFile));
-        $configurator->defaultExtensions = ['php' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Extensions\PhpExtension::class, 'extensions' => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Extensions\ExtensionsExtension::class];
+        $configurator = new \PHPStan\DependencyInjection\Configurator(new \PHPStan\DependencyInjection\LoaderFactory($this->fileHelper, $this->rootDirectory, $this->currentWorkingDirectory, $generateBaselineFile));
+        $configurator->defaultExtensions = ['php' => \_HumbugBox221ad6f1b81f\Nette\DI\Extensions\PhpExtension::class, 'extensions' => \_HumbugBox221ad6f1b81f\Nette\DI\Extensions\ExtensionsExtension::class];
         $configurator->setDebugMode(\true);
         $configurator->setTempDirectory($tempDirectory);
         $configurator->addParameters(['rootDir' => $this->rootDirectory, 'currentWorkingDirectory' => $this->currentWorkingDirectory, 'cliArgumentsVariablesRegistered' => \ini_get('register_argc_argv') === '1', 'tmpDir' => $tempDirectory, 'additionalConfigFiles' => $additionalConfigFiles, 'analysedPaths' => $analysedPaths, 'composerAutoloaderProjectPaths' => $composerAutoloaderProjectPaths, 'analysedPathsFromConfig' => $analysedPathsFromConfig, 'generateBaselineFile' => $generateBaselineFile, 'usedLevel' => $usedLevel, 'cliAutoloadFile' => $cliAutoloadFile, 'fixerTmpDir' => \sys_get_temp_dir() . '/phpstan-fixer']);
@@ -62,8 +62,8 @@ class ContainerFactory
             $configurator->addConfig($additionalConfigFile);
         }
         $container = $configurator->createContainer();
-        \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::$phpVersion = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion::class)->getVersionId();
-        \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::populate(
+        \_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::$phpVersion = $container->getByType(\PHPStan\Php\PhpVersion::class)->getVersionId();
+        \_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::populate(
             $container->getService('betterReflectionSourceLocator'),
             // @phpstan-ignore-line
             $container->getService('betterReflectionClassReflector'),
@@ -74,13 +74,13 @@ class ContainerFactory
             // @phpstan-ignore-line
             $container->getService('phpParserDecorator'),
             // @phpstan-ignore-line
-            $container->getByType(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class)
+            $container->getByType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class)
         );
         /** @var Broker $broker */
-        $broker = $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::class);
-        \_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::registerInstance($broker);
+        $broker = $container->getByType(\PHPStan\Broker\Broker::class);
+        \PHPStan\Broker\Broker::registerInstance($broker);
         $container->getService('typeSpecifier');
-        return $container->getByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\DependencyInjection\Container::class);
+        return $container->getByType(\PHPStan\DependencyInjection\Container::class);
     }
     public function getCurrentWorkingDirectory() : string
     {

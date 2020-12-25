@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native\NativeParameterReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\TypeCombinator;
 class ParametersAcceptorSelector
 {
     /**
@@ -16,10 +16,10 @@ class ParametersAcceptorSelector
      * @param T[] $parametersAcceptors
      * @return T
      */
-    public static function selectSingle(array $parametersAcceptors) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor
+    public static function selectSingle(array $parametersAcceptors) : \PHPStan\Reflection\ParametersAcceptor
     {
         if (\count($parametersAcceptors) !== 1) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $parametersAcceptors[0];
     }
@@ -29,7 +29,7 @@ class ParametersAcceptorSelector
      * @param ParametersAcceptor[] $parametersAcceptors
      * @return ParametersAcceptor
      */
-    public static function selectFromArgs(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, array $args, array $parametersAcceptors) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor
+    public static function selectFromArgs(\PHPStan\Analyser\Scope $scope, array $args, array $parametersAcceptors) : \PHPStan\Reflection\ParametersAcceptor
     {
         $types = [];
         $unpack = \false;
@@ -50,13 +50,13 @@ class ParametersAcceptorSelector
      * @param bool $unpack
      * @return ParametersAcceptor
      */
-    public static function selectFromTypes(array $types, array $parametersAcceptors, bool $unpack) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor
+    public static function selectFromTypes(array $types, array $parametersAcceptors, bool $unpack) : \PHPStan\Reflection\ParametersAcceptor
     {
         if (\count($parametersAcceptors) === 1) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $parametersAcceptors[0]);
+            return \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $parametersAcceptors[0]);
         }
         if (\count($parametersAcceptors) === 0) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException('getVariants() must return at least one variant.');
+            throw new \PHPStan\ShouldNotHappenException('getVariants() must return at least one variant.');
         }
         $typesCount = \count($types);
         $acceptableAcceptors = [];
@@ -82,16 +82,16 @@ class ParametersAcceptorSelector
             $acceptableAcceptors[] = $parametersAcceptor;
         }
         if (\count($acceptableAcceptors) === 0) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($parametersAcceptors));
+            return \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($parametersAcceptors));
         }
         if (\count($acceptableAcceptors) === 1) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptors[0]);
+            return \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptors[0]);
         }
         $winningAcceptors = [];
         $winningCertainty = null;
         foreach ($acceptableAcceptors as $acceptableAcceptor) {
-            $isSuperType = \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
-            $acceptableAcceptor = \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptor);
+            $isSuperType = \PHPStan\TrinaryLogic::createYes();
+            $acceptableAcceptor = \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptor);
             foreach ($acceptableAcceptor->getParameters() as $i => $parameter) {
                 if (!isset($types[$i])) {
                     if (!$unpack || \count($types) <= 0) {
@@ -101,8 +101,8 @@ class ParametersAcceptorSelector
                 } else {
                     $type = $types[$i];
                 }
-                if ($parameter->getType() instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
-                    $isSuperType = $isSuperType->and(\_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe());
+                if ($parameter->getType() instanceof \PHPStan\Type\MixedType) {
+                    $isSuperType = $isSuperType->and(\PHPStan\TrinaryLogic::createMaybe());
                 } else {
                     $isSuperType = $isSuperType->and($parameter->getType()->isSuperTypeOf($type));
                 }
@@ -124,7 +124,7 @@ class ParametersAcceptorSelector
             }
         }
         if (\count($winningAcceptors) === 0) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($acceptableAcceptors));
+            return \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($acceptableAcceptors));
         }
         return self::combineAcceptors($winningAcceptors);
     }
@@ -132,10 +132,10 @@ class ParametersAcceptorSelector
      * @param ParametersAcceptor[] $acceptors
      * @return ParametersAcceptor
      */
-    public static function combineAcceptors(array $acceptors) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptor
+    public static function combineAcceptors(array $acceptors) : \PHPStan\Reflection\ParametersAcceptor
     {
         if (\count($acceptors) === 0) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException('getVariants() must return at least one variant.');
+            throw new \PHPStan\ShouldNotHappenException('getVariants() must return at least one variant.');
         }
         if (\count($acceptors) === 1) {
             return $acceptors[0];
@@ -161,29 +161,29 @@ class ParametersAcceptorSelector
             if ($returnType === null) {
                 $returnType = $acceptor->getReturnType();
             } else {
-                $returnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($returnType, $acceptor->getReturnType());
+                $returnType = \PHPStan\Type\TypeCombinator::union($returnType, $acceptor->getReturnType());
             }
             $isVariadic = $isVariadic || $acceptor->isVariadic();
             foreach ($acceptor->getParameters() as $i => $parameter) {
                 if (!isset($parameters[$i])) {
-                    $parameters[$i] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native\NativeParameterReflection($parameter->getName(), $i + 1 > $minimumNumberOfParameters, $parameter->getType(), $parameter->passedByReference(), $parameter->isVariadic(), $parameter->getDefaultValue());
+                    $parameters[$i] = new \PHPStan\Reflection\Native\NativeParameterReflection($parameter->getName(), $i + 1 > $minimumNumberOfParameters, $parameter->getType(), $parameter->passedByReference(), $parameter->isVariadic(), $parameter->getDefaultValue());
                     continue;
                 }
                 $isVariadic = $parameters[$i]->isVariadic() || $parameter->isVariadic();
                 $defaultValueLeft = $parameters[$i]->getDefaultValue();
                 $defaultValueRight = $parameter->getDefaultValue();
                 if ($defaultValueLeft !== null && $defaultValueRight !== null) {
-                    $defaultValue = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($defaultValueLeft, $defaultValueRight);
+                    $defaultValue = \PHPStan\Type\TypeCombinator::union($defaultValueLeft, $defaultValueRight);
                 } else {
                     $defaultValue = null;
                 }
-                $parameters[$i] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native\NativeParameterReflection($parameters[$i]->getName() !== $parameter->getName() ? \sprintf('%s|%s', $parameters[$i]->getName(), $parameter->getName()) : $parameter->getName(), $i + 1 > $minimumNumberOfParameters, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::union($parameters[$i]->getType(), $parameter->getType()), $parameters[$i]->passedByReference()->combine($parameter->passedByReference()), $isVariadic, $defaultValue);
+                $parameters[$i] = new \PHPStan\Reflection\Native\NativeParameterReflection($parameters[$i]->getName() !== $parameter->getName() ? \sprintf('%s|%s', $parameters[$i]->getName(), $parameter->getName()) : $parameter->getName(), $i + 1 > $minimumNumberOfParameters, \PHPStan\Type\TypeCombinator::union($parameters[$i]->getType(), $parameter->getType()), $parameters[$i]->passedByReference()->combine($parameter->passedByReference()), $isVariadic, $defaultValue);
                 if ($isVariadic) {
                     $parameters = \array_slice($parameters, 0, $i + 1);
                     break;
                 }
             }
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariant(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $parameters, $isVariadic, $returnType);
+        return new \PHPStan\Reflection\FunctionVariant(\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $parameters, $isVariadic, $returnType);
     }
 }

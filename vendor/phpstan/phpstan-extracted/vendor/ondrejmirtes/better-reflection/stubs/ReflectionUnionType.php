@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f;
+namespace _HumbugBox221ad6f1b81f;
 
-if (\class_exists('_PhpScoper2a4e7ab1ecbc\\_HumbugBox221ad6f1b81f\\ReflectionUnionType', \false)) {
+if (\class_exists('_HumbugBox221ad6f1b81f\\ReflectionUnionType', \false)) {
     return;
 }
 class ReflectionUnionType extends \ReflectionType

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Generic\Tests\Rector\FuncCall\RemoveFuncCallArgRector;
+namespace Rector\Generic\Tests\Rector\FuncCall\RemoveFuncCallArgRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\RemoveFuncCallArg;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector;
+use Rector\Generic\ValueObject\RemoveFuncCallArg;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveFuncCallArgRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveFuncCallArgRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -30,6 +30,6 @@ final class RemoveFuncCallArgRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\T
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => [new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2)]]];
+        return [\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::class => [\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => [new \Rector\Generic\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2)]]];
     }
 }

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Functions;
+namespace PHPStan\Rules\Functions;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ThisType;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\ThisType;
 /**
  * @implements Rule<Node\Expr\Closure>
  */
-class ClosureUsesThisRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class ClosureUsesThisRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Closure::class;
+        return \PhpParser\Node\Expr\Closure::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if ($node->static) {
             return [];
@@ -28,10 +28,10 @@ class ClosureUsesThisRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
             if (!\is_string($closureUse->var->name)) {
                 continue;
             }
-            if (!$varType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ThisType) {
+            if (!$varType instanceof \PHPStan\Type\ThisType) {
                 continue;
             }
-            $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Anonymous function uses $this assigned to variable $%s. Use $this directly in the function body.', $closureUse->var->name))->line($closureUse->getLine())->build();
+            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Anonymous function uses $this assigned to variable $%s. Use $this directly in the function body.', $closureUse->var->name))->line($closureUse->getLine())->build();
         }
         return $messages;
     }

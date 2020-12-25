@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Doctrine\Inflector;
+namespace _PhpScoper50d83356d739\Doctrine\Inflector;
 
-class NoopWordInflector implements \_PhpScoper2a4e7ab1ecbc\Doctrine\Inflector\WordInflector
+class NoopWordInflector implements \_PhpScoper50d83356d739\Doctrine\Inflector\WordInflector
 {
     public function inflect(string $word) : string
     {

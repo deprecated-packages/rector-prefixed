@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Caching\Application;
+namespace Rector\Caching\Application;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Caching\Detector\ChangedFilesDetector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Caching\UnchangedFilesFilter;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Configuration;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\Caching\Detector\ChangedFilesDetector;
+use Rector\Caching\UnchangedFilesFilter;
+use Rector\Core\Configuration\Configuration;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class CachedFileInfoFilterAndReporter
 {
     /**
@@ -26,7 +26,7 @@ final class CachedFileInfoFilterAndReporter
      * @var UnchangedFilesFilter
      */
     private $unchangedFilesFilter;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper2a4e7ab1ecbc\Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper2a4e7ab1ecbc\Rector\Caching\UnchangedFilesFilter $unchangedFilesFilter)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Caching\UnchangedFilesFilter $unchangedFilesFilter)
     {
         $this->configuration = $configuration;
         $this->changedFilesDetector = $changedFilesDetector;

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type\PHPUnit;
+namespace PHPStan\Type\PHPUnit;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
-class InvocationMockerDynamicReturnTypeExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\DynamicMethodReturnTypeExtension
+use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\Type;
+use _PhpScoper50d83356d739\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
+class InvocationMockerDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMethodReturnTypeExtension
 {
     public function getClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class;
+        return \_PhpScoper50d83356d739\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class;
     }
-    public function isMethodSupported(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $methodReflection) : bool
+    public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {
         return $methodReflection->getName() !== 'getMatcher';
     }
-    public function getTypeFromMethodCall(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection $methodReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getTypeFromMethodCall(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\MethodCall $methodCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         return $scope->getType($methodCall->var);
     }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
+namespace PHPStan\Node;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\StatementResult;
-class ExecutionEndNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode
+use PhpParser\Node;
+use PhpParser\NodeAbstract;
+use PHPStan\Analyser\StatementResult;
+class ExecutionEndNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var Node */
     private $node;
@@ -14,18 +14,18 @@ class ExecutionEndNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract im
     private $statementResult;
     /** @var bool */
     private $hasNativeReturnTypehint;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\StatementResult $statementResult, bool $hasNativeReturnTypehint)
+    public function __construct(\PhpParser\Node $node, \PHPStan\Analyser\StatementResult $statementResult, bool $hasNativeReturnTypehint)
     {
         parent::__construct($node->getAttributes());
         $this->node = $node;
         $this->statementResult = $statementResult;
         $this->hasNativeReturnTypehint = $hasNativeReturnTypehint;
     }
-    public function getNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function getNode() : \PhpParser\Node
     {
         return $this->node;
     }
-    public function getStatementResult() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\StatementResult
+    public function getStatementResult() : \PHPStan\Analyser\StatementResult
     {
         return $this->statementResult;
     }

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
+namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
-final class OneToOneTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface
+use Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
+use Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
+use Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
+final class OneToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface, \Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface, \Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface
 {
     /**
      * @var string|null
@@ -48,6 +48,6 @@ final class OneToOneTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPh
     }
     public function getShortName() : string
     {
-        return '_PhpScoper2a4e7ab1ecbc\\@ORM\\OneToOne';
+        return '_PhpScoper50d83356d739\\@ORM\\OneToOne';
     }
 }

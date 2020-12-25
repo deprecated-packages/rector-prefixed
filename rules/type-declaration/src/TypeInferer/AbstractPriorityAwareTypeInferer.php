@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer;
+namespace Rector\TypeDeclaration\TypeInferer;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Exception\ConflictingPriorityException;
+use Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface;
+use Rector\TypeDeclaration\Exception\ConflictingPriorityException;
 abstract class AbstractPriorityAwareTypeInferer
 {
     /**
@@ -25,12 +25,12 @@ abstract class AbstractPriorityAwareTypeInferer
         \krsort($this->sortedTypeInferers);
         return $this->sortedTypeInferers;
     }
-    private function ensurePriorityIsUnique(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface $priorityAwareTypeInferer) : void
+    private function ensurePriorityIsUnique(\Rector\TypeDeclaration\Contract\TypeInferer\PriorityAwareTypeInfererInterface $priorityAwareTypeInferer) : void
     {
         if (!isset($this->sortedTypeInferers[$priorityAwareTypeInferer->getPriority()])) {
             return;
         }
         $alreadySetPropertyTypeInferer = $this->sortedTypeInferers[$priorityAwareTypeInferer->getPriority()];
-        throw new \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Exception\ConflictingPriorityException($priorityAwareTypeInferer, $alreadySetPropertyTypeInferer);
+        throw new \Rector\TypeDeclaration\Exception\ConflictingPriorityException($priorityAwareTypeInferer, $alreadySetPropertyTypeInferer);
     }
 }

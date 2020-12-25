@@ -1,30 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentAdder;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentRemover;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ChangeMethodVisibility;
-use _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\ClassMethod\AddParentBootToModelClassMethodRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\MethodCall\ChangeQueryWhereDateValueWithCarbonRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\New_\AddGuardToLoginEventRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\StaticCall\Redirect301ToPermanentRedirectRector;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner;
+use Rector\Core\ValueObject\Visibility;
+use Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
+use Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector;
+use Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector;
+use Rector\Generic\ValueObject\ArgumentAdder;
+use Rector\Generic\ValueObject\ArgumentRemover;
+use Rector\Generic\ValueObject\ChangeMethodVisibility;
+use Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector;
+use Rector\Laravel\Rector\ClassMethod\AddParentBootToModelClassMethodRector;
+use Rector\Laravel\Rector\MethodCall\ChangeQueryWhereDateValueWithCarbonRector;
+use Rector\Laravel\Rector\New_\AddGuardToLoginEventRector;
+use Rector\Laravel\Rector\StaticCall\Redirect301ToPermanentRedirectRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # see: https://laravel.com/docs/5.7/upgrade
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \_PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoper2a4e7ab1ecbc\\Illuminate\\Routing\\Router', 'addRoute', 'public'), new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoper2a4e7ab1ecbc\\Illuminate\\Contracts\\Auth\\Access\\Gate', 'raw', 'public')])]]);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \_PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper2a4e7ab1ecbc\\Illuminate\\Auth\\Middleware\\Authenticate', 'authenticate', 0, 'request'), new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper2a4e7ab1ecbc\\Illuminate\\Foundation\\Auth\\ResetsPasswords', 'sendResetResponse', 0, 'request', null, '_PhpScoper2a4e7ab1ecbc\\Illuminate\\Http\\Illuminate\\Http'), new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper2a4e7ab1ecbc\\Illuminate\\Foundation\\Auth\\SendsPasswordResetEmails', 'sendResetLinkResponse', 0, 'request', null, '_PhpScoper2a4e7ab1ecbc\\Illuminate\\Http\\Illuminate\\Http'), new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper2a4e7ab1ecbc\\Illuminate\\Database\\ConnectionInterface', 'select', 2, 'useReadPdo', \true), new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper2a4e7ab1ecbc\\Illuminate\\Database\\ConnectionInterface', 'selectOne', 2, 'useReadPdo', \true)])]]);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\StaticCall\Redirect301ToPermanentRedirectRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::class)->call('configure', [[\_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::REMOVED_ARGUMENTS => \_PhpScoper2a4e7ab1ecbc\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\ArgumentRemover('_PhpScoper2a4e7ab1ecbc\\Illuminate\\Foundation\\Application', 'register', 1, ['name' => 'options'])])]]);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\ClassMethod\AddParentBootToModelClassMethodRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\MethodCall\ChangeQueryWhereDateValueWithCarbonRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\New_\AddGuardToLoginEventRector::class);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoper50d83356d739\\Illuminate\\Routing\\Router', 'addRoute', \Rector\Core\ValueObject\Visibility::PUBLIC), new \Rector\Generic\ValueObject\ChangeMethodVisibility('_PhpScoper50d83356d739\\Illuminate\\Contracts\\Auth\\Access\\Gate', 'raw', \Rector\Core\ValueObject\Visibility::PUBLIC)])]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper50d83356d739\\Illuminate\\Auth\\Middleware\\Authenticate', 'authenticate', 0, 'request'), new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper50d83356d739\\Illuminate\\Foundation\\Auth\\ResetsPasswords', 'sendResetResponse', 0, 'request', null, '_PhpScoper50d83356d739\\Illuminate\\Http\\Illuminate\\Http'), new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper50d83356d739\\Illuminate\\Foundation\\Auth\\SendsPasswordResetEmails', 'sendResetLinkResponse', 0, 'request', null, '_PhpScoper50d83356d739\\Illuminate\\Http\\Illuminate\\Http'), new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper50d83356d739\\Illuminate\\Database\\ConnectionInterface', 'select', 2, 'useReadPdo', \true), new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper50d83356d739\\Illuminate\\Database\\ConnectionInterface', 'selectOne', 2, 'useReadPdo', \true)])]]);
+    $services->set(\Rector\Laravel\Rector\StaticCall\Redirect301ToPermanentRedirectRector::class);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::REMOVED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentRemover('_PhpScoper50d83356d739\\Illuminate\\Foundation\\Application', 'register', 1, ['name' => 'options'])])]]);
+    $services->set(\Rector\Laravel\Rector\ClassMethod\AddParentBootToModelClassMethodRector::class);
+    $services->set(\Rector\Laravel\Rector\MethodCall\ChangeQueryWhereDateValueWithCarbonRector::class);
+    $services->set(\Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector::class);
+    $services->set(\Rector\Laravel\Rector\New_\AddGuardToLoginEventRector::class);
 };

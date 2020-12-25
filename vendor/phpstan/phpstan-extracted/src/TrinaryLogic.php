@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan;
+namespace PHPStan;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\Constant\ConstantBooleanType;
 /**
  * @see https://en.wikipedia.org/wiki/Three-valued_logic
  */
@@ -54,12 +54,12 @@ class TrinaryLogic
     {
         return $this->value === self::NO;
     }
-    public function toBooleanType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType
+    public function toBooleanType() : \PHPStan\Type\BooleanType
     {
         if ($this->value === self::MAYBE) {
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType();
+            return new \PHPStan\Type\BooleanType();
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType($this->value === self::YES);
+        return new \PHPStan\Type\Constant\ConstantBooleanType($this->value === self::YES);
     }
     public function and(self ...$operands) : self
     {

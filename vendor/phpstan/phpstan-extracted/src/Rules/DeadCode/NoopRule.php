@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\DeadCode;
+namespace PHPStan\Rules\DeadCode;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\PrettyPrinter\Standard;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use PhpParser\Node;
+use PhpParser\PrettyPrinter\Standard;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Expression>
  */
-class NoopRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class NoopRule implements \PHPStan\Rules\Rule
 {
     /** @var Standard */
     private $printer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\PrettyPrinter\Standard $printer)
+    public function __construct(\PhpParser\PrettyPrinter\Standard $printer)
     {
         $this->printer = $printer;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression::class;
+        return \PhpParser\Node\Stmt\Expression::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $originalExpr = $node->expr;
         $expr = $originalExpr;
-        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast || $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\UnaryMinus || $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\UnaryPlus || $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ErrorSuppress) {
+        if ($expr instanceof \PhpParser\Node\Expr\Cast || $expr instanceof \PhpParser\Node\Expr\UnaryMinus || $expr instanceof \PhpParser\Node\Expr\UnaryPlus || $expr instanceof \PhpParser\Node\Expr\ErrorSuppress) {
             $expr = $expr->expr;
         }
-        if (!$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\NullsafePropertyFetch && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_ && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Empty_ && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch) {
+        if (!$expr instanceof \PhpParser\Node\Expr\Variable && !$expr instanceof \PhpParser\Node\Expr\PropertyFetch && !$expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch && !$expr instanceof \PhpParser\Node\Expr\NullsafePropertyFetch && !$expr instanceof \PhpParser\Node\Expr\ArrayDimFetch && !$expr instanceof \PhpParser\Node\Scalar && !$expr instanceof \PhpParser\Node\Expr\Isset_ && !$expr instanceof \PhpParser\Node\Expr\Empty_ && !$expr instanceof \PhpParser\Node\Expr\ConstFetch && !$expr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return [];
         }
-        return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Expression "%s" on a separate line does not do anything.', $this->printer->prettyPrintExpr($originalExpr)))->line($expr->getLine())->identifier('deadCode.noopExpression')->metadata(['depth' => $node->getAttribute('statementDepth'), 'order' => $node->getAttribute('statementOrder')])->build()];
+        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Expression "%s" on a separate line does not do anything.', $this->printer->prettyPrintExpr($originalExpr)))->line($expr->getLine())->identifier('deadCode.noopExpression')->metadata(['depth' => $node->getAttribute('statementDepth'), 'order' => $node->getAttribute('statementOrder')])->build()];
     }
 }

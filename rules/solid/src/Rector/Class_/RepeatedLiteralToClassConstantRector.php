@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\SOLID\Rector\Class_;
+namespace Rector\SOLID\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Php\ReservedKeywordAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Name;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassConst;
+use Rector\Core\Php\ReservedKeywordAnalyzer;
+use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticRectorStrings;
+use Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\SOLID\Tests\Rector\Class_\RepeatedLiteralToClassConstantRector\RepeatedLiteralToClassConstantRectorTest
  */
-final class RepeatedLiteralToClassConstantRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class RepeatedLiteralToClassConstantRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
@@ -55,15 +55,15 @@ final class RepeatedLiteralToClassConstantRector extends \_PhpScoper2a4e7ab1ecbc
      * @var ReservedKeywordAnalyzer
      */
     private $reservedKeywordAnalyzer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\Php\ReservedKeywordAnalyzer $reservedKeywordAnalyzer, \Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder)
     {
         $this->classInsertManipulator = $classInsertManipulator;
         $this->scopeAwareNodeFinder = $scopeAwareNodeFinder;
         $this->reservedKeywordAnalyzer = $reservedKeywordAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace repeated strings with constant', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace repeated strings with constant', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($key, $items)
@@ -96,19 +96,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // skip tests, where string values are often used as fixtures
         if ($this->isName($node, '*Test')) {
             return null;
         }
         /** @var String_[] $strings */
-        $strings = $this->betterNodeFinder->findInstanceOf($node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_::class);
+        $strings = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Scalar\String_::class);
         $stringsToReplace = $this->resolveStringsToReplace($strings);
         if ($stringsToReplace === []) {
             return null;
@@ -142,31 +142,31 @@ CODE_SAMPLE
     /**
      * @param string[] $stringsToReplace
      */
-    private function replaceStringsWithClassConstReferences(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, array $stringsToReplace) : void
+    private function replaceStringsWithClassConstReferences(\PhpParser\Node\Stmt\Class_ $class, array $stringsToReplace) : void
     {
-        $this->traverseNodesWithCallable($class, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($stringsToReplace) : ?ClassConstFetch {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
+        $this->traverseNodesWithCallable($class, function (\PhpParser\Node $node) use($stringsToReplace) : ?ClassConstFetch {
+            if (!$node instanceof \PhpParser\Node\Scalar\String_) {
                 return null;
             }
             if (!$this->isValues($node, $stringsToReplace)) {
                 return null;
             }
             $constantName = $this->createConstName($node->value);
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('self'), $constantName);
+            return new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name('self'), $constantName);
         });
     }
     /**
      * @param string[] $stringsToReplace
      */
-    private function addClassConsts(array $stringsToReplace, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : void
+    private function addClassConsts(array $stringsToReplace, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         foreach ($stringsToReplace as $stringToReplace) {
             $constantName = $this->createConstName($stringToReplace);
-            $classConst = $this->nodeFactory->createPrivateClassConst($constantName, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($stringToReplace));
+            $classConst = $this->nodeFactory->createPrivateClassConst($constantName, new \PhpParser\Node\Scalar\String_($stringToReplace));
             $this->classInsertManipulator->addConstantToClass($class, $stringToReplace, $classConst);
         }
     }
-    private function shouldSkipString(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string) : bool
+    private function shouldSkipString(\PhpParser\Node\Scalar\String_ $string) : bool
     {
         $value = (string) $string->value;
         // value is too short
@@ -180,12 +180,12 @@ CODE_SAMPLE
             return \true;
         }
         // is replaceable value?
-        $matches = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($value, '#(?<' . self::VALUE . '>[\\w\\-\\/\\_]+)#');
+        $matches = \_PhpScoper50d83356d739\Nette\Utils\Strings::match($value, '#(?<' . self::VALUE . '>[\\w\\-\\/\\_]+)#');
         if (!isset($matches[self::VALUE])) {
             return \true;
         }
         // skip values in another constants
-        $parentConst = $this->scopeAwareNodeFinder->findParentType($string, [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst::class]);
+        $parentConst = $this->scopeAwareNodeFinder->findParentType($string, [\PhpParser\Node\Stmt\ClassConst::class]);
         if ($parentConst !== null) {
             return \true;
         }
@@ -194,10 +194,10 @@ CODE_SAMPLE
     private function createConstName(string $value) : string
     {
         // replace slashes and dashes
-        $value = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($value, self::SLASH_AND_DASH_REGEX, self::UNDERSCORE);
+        $value = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($value, self::SLASH_AND_DASH_REGEX, self::UNDERSCORE);
         // find beginning numbers
         $beginningNumbers = '';
-        $matches = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($value, '#(?<' . self::NUMBERS . '>[0-9]*)(?<' . self::VALUE . '>.*)#');
+        $matches = \_PhpScoper50d83356d739\Nette\Utils\Strings::match($value, '#(?<' . self::NUMBERS . '>[0-9]*)(?<' . self::VALUE . '>.*)#');
         if (isset($matches[self::NUMBERS])) {
             $beginningNumbers = $matches[self::NUMBERS];
         }
@@ -206,14 +206,14 @@ CODE_SAMPLE
         }
         // convert camelcase parts to underscore
         $parts = \array_map(function (string $v) : string {
-            return \_PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($v);
+            return \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($v);
         }, \explode(self::UNDERSCORE, $value));
         // apply "CONST" prefix if constant beginning with number
         if ($beginningNumbers !== '') {
             $parts = \array_merge(['CONST', $beginningNumbers], $parts);
         }
         $value = \implode(self::UNDERSCORE, $parts);
-        return \strtoupper(\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($value, '#_+#', self::UNDERSCORE));
+        return \strtoupper(\_PhpScoper50d83356d739\Nette\Utils\Strings::replace($value, '#_+#', self::UNDERSCORE));
     }
     private function isNativeConstantResemblingValue(string $value) : bool
     {

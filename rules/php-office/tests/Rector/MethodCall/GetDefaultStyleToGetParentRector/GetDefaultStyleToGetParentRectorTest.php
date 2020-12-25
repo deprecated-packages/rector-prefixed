@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPOffice\Tests\Rector\MethodCall\GetDefaultStyleToGetParentRector;
+namespace Rector\PHPOffice\Tests\Rector\MethodCall\GetDefaultStyleToGetParentRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\PHPOffice\Rector\MethodCall\GetDefaultStyleToGetParentRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class GetDefaultStyleToGetParentRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\PHPOffice\Rector\MethodCall\GetDefaultStyleToGetParentRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class GetDefaultStyleToGetParentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class GetDefaultStyleToGetParentRectorTest extends \_PhpScoper2a4e7ab1ecbc
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\PHPOffice\Rector\MethodCall\GetDefaultStyleToGetParentRector::class;
+        return \Rector\PHPOffice\Rector\MethodCall\GetDefaultStyleToGetParentRector::class;
     }
 }

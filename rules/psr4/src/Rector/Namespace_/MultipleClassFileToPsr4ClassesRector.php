@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PSR4\Rector\Namespace_;
+namespace Rector\PSR4\Rector\Namespace_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Declare_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\PSR4\NodeManipulator\NamespaceManipulator;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\Declare_;
+use PhpParser\Node\Stmt\Namespace_;
+use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use Rector\Core\Rector\AbstractRector;
+use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
+use Rector\PSR4\NodeManipulator\NamespaceManipulator;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PSR4\Tests\Rector\Namespace_\MultipleClassFileToPsr4ClassesRector\MultipleClassFileToPsr4ClassesRectorTest
  */
-final class MultipleClassFileToPsr4ClassesRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class MultipleClassFileToPsr4ClassesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var NamespaceManipulator
@@ -29,14 +29,14 @@ final class MultipleClassFileToPsr4ClassesRector extends \_PhpScoper2a4e7ab1ecbc
      * @var FileInfoDeletionAnalyzer
      */
     private $fileInfoDeletionAnalyzer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\PSR4\NodeManipulator\NamespaceManipulator $namespaceManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer $fileInfoDeletionAnalyzer)
+    public function __construct(\Rector\PSR4\NodeManipulator\NamespaceManipulator $namespaceManipulator, \Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer $fileInfoDeletionAnalyzer)
     {
         $this->namespaceManipulator = $namespaceManipulator;
         $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change multiple classes in one file to standalone PSR-4 classes.', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change multiple classes in one file to standalone PSR-4 classes.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 namespace App\Exceptions;
 
 use Exception;
@@ -75,21 +75,21 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_::class, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class];
+        return [\PhpParser\Node\Stmt\Namespace_::class, \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class];
     }
     /**
      * @param Namespace_|FileWithoutNamespace $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->hasAtLeastTwoClassLikes($node)) {
             return null;
         }
         $nodeToReturn = null;
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
             $nodeToReturn = $this->refactorNamespace($node);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
+        if ($node instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
             $nodeToReturn = $this->refactorFileWithoutNamespace($node);
         }
         // 1. remove this node
@@ -97,17 +97,17 @@ CODE_SAMPLE
             return $nodeToReturn;
         }
         /** @var SmartFileInfo $smartFileInfo */
-        $smartFileInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $smartFileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         // 2. nothing to return - remove the file
         $this->removeFile($smartFileInfo);
         return null;
     }
-    private function hasAtLeastTwoClassLikes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    private function hasAtLeastTwoClassLikes(\PhpParser\Node $node) : bool
     {
         $classes = $this->betterNodeFinder->findClassLikes($node);
         return \count($classes) > 1;
     }
-    private function refactorNamespace(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_ $namespace) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_
+    private function refactorNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace) : ?\PhpParser\Node\Stmt\Namespace_
     {
         /** @var ClassLike[] $classLikes */
         $classLikes = $this->betterNodeFinder->findClassLikes($namespace->stmts);
@@ -126,7 +126,7 @@ CODE_SAMPLE
         }
         return $nodeToReturn;
     }
-    private function refactorFileWithoutNamespace(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
+    private function refactorFileWithoutNamespace(\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace $fileWithoutNamespace) : ?\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace
     {
         /** @var ClassLike[] $classLikes */
         $classLikes = $this->betterNodeFinder->findClassLikes($fileWithoutNamespace->stmts);
@@ -145,22 +145,22 @@ CODE_SAMPLE
     /**
      * @param Namespace_|FileWithoutNamespace $mainNode
      */
-    private function printNewNodes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $classLike, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $mainNode) : void
+    private function printNewNodes(\PhpParser\Node\Stmt\ClassLike $classLike, \PhpParser\Node $mainNode) : void
     {
         /** @var SmartFileInfo $smartFileInfo */
-        $smartFileInfo = $mainNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $smartFileInfo = $mainNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         /** @var Declare_[] $declares */
-        $declares = (array) $mainNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES);
-        if ($mainNode instanceof \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
+        $declares = (array) $mainNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES);
+        if ($mainNode instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
             $nodesToPrint = \array_merge($declares, [$classLike]);
         } else {
             $nodesToPrint = \array_merge($declares, [$mainNode]);
         }
         $fileDestination = $this->createClassLikeFileDestination($classLike, $smartFileInfo);
-        $movedFileWithNodes = new \_PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\ValueObject\MovedFileWithNodes($nodesToPrint, $fileDestination, $smartFileInfo);
+        $movedFileWithNodes = new \Rector\FileSystemRector\ValueObject\MovedFileWithNodes($nodesToPrint, $fileDestination, $smartFileInfo);
         $this->addMovedFile($movedFileWithNodes);
     }
-    private function createClassLikeFileDestination(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $classLike, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function createClassLikeFileDestination(\PhpParser\Node\Stmt\ClassLike $classLike, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $currentDirectory = \dirname($smartFileInfo->getRealPath());
         return $currentDirectory . \DIRECTORY_SEPARATOR . $classLike->name . '.php';

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic;
+namespace Rector\RemovingStatic;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use PhpParser\Node;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\ObjectType;
+use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class StaticTypesInClassResolver
 {
     /**
@@ -20,7 +20,7 @@ final class StaticTypesInClassResolver
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -29,16 +29,16 @@ final class StaticTypesInClassResolver
      * @param string[] $types
      * @return ObjectType[]
      */
-    public function collectStaticCallTypeInClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, array $types) : array
+    public function collectStaticCallTypeInClass(\PhpParser\Node\Stmt\Class_ $class, array $types) : array
     {
         $staticTypesInClass = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $class) use($types, &$staticTypesInClass) {
-            if (!$class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall) {
+        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $class) use($types, &$staticTypesInClass) {
+            if (!$class instanceof \PhpParser\Node\Expr\StaticCall) {
                 return null;
             }
             foreach ($types as $type) {
                 if ($this->nodeTypeResolver->isObjectType($class->class, $type)) {
-                    $staticTypesInClass[] = new \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type);
+                    $staticTypesInClass[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type);
                 }
             }
             return null;

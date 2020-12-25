@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker;
+namespace Rector\VendorLocker\NodeVendorLocker;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\Interface_;
+use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
+use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 abstract class AbstractNodeVendorLockResolver
 {
     /**
@@ -32,19 +32,19 @@ abstract class AbstractNodeVendorLockResolver
     /**
      * @required
      */
-    public function autowireAbstractNodeVendorLockResolver(\_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer) : void
+    public function autowireAbstractNodeVendorLockResolver(\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer) : void
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->classManipulator = $classManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
     }
-    protected function hasParentClassChildrenClassesOrImplementsInterface(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $classLike) : bool
+    protected function hasParentClassChildrenClassesOrImplementsInterface(\PhpParser\Node\Stmt\ClassLike $classLike) : bool
     {
-        if (($classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ || $classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_) && $classLike->extends) {
+        if (($classLike instanceof \PhpParser\Node\Stmt\Class_ || $classLike instanceof \PhpParser\Node\Stmt\Interface_) && $classLike->extends) {
             return \true;
         }
-        if ($classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        if ($classLike instanceof \PhpParser\Node\Stmt\Class_) {
             if ((bool) $classLike->implements) {
                 return \true;
             }
@@ -56,7 +56,7 @@ abstract class AbstractNodeVendorLockResolver
     /**
      * @param Class_|Interface_ $classLike
      */
-    protected function isMethodVendorLockedByInterface(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $classLike, string $methodName) : bool
+    protected function isMethodVendorLockedByInterface(\PhpParser\Node\Stmt\ClassLike $classLike, string $methodName) : bool
     {
         $interfaceNames = $this->classManipulator->getClassLikeNodeParentInterfaceNames($classLike);
         foreach ($interfaceNames as $interfaceName) {
@@ -70,9 +70,9 @@ abstract class AbstractNodeVendorLockResolver
     /**
      * @return class-string[]
      */
-    protected function getChildrenClassesByClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    protected function getChildrenClassesByClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $desiredClassName = $class->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $desiredClassName = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($desiredClassName === null) {
             return [];
         }

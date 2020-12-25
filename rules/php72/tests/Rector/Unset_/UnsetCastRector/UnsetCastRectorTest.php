@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php72\Tests\Rector\Unset_\UnsetCastRector;
+namespace Rector\Php72\Tests\Rector\Unset_\UnsetCastRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\Unset_\UnsetCastRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\Php72\Rector\Unset_\UnsetCastRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @requires PHP <= 8.0
  */
-final class UnsetCastRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class UnsetCastRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class UnsetCastRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\P
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\Unset_\UnsetCastRector::class;
+        return \Rector\Php72\Rector\Unset_\UnsetCastRector::class;
     }
 }

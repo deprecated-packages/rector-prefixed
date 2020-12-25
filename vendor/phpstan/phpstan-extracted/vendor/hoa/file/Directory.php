@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\File;
+namespace Hoa\File;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+use Hoa\Stream;
 /**
  * Class \Hoa\File\Directory.
  *
@@ -44,7 +44,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Directory extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Generic
+class Directory extends \Hoa\File\Generic
 {
     /**
      * Open for reading.
@@ -90,11 +90,11 @@ class Directory extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Generic
      * @throws  \Hoa\File\Exception\FileDoesNotExist
      * @throws  \Hoa\File\Exception
      */
-    protected function &_open($streamName, \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Context $context = null)
+    protected function &_open($streamName, \Hoa\Stream\Context $context = null)
     {
         if (\false === \is_dir($streamName)) {
             if ($this->getMode() == self::MODE_READ) {
-                throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception\FileDoesNotExist('Directory %s does not exist.', 0, $streamName);
+                throw new \Hoa\File\Exception\FileDoesNotExist('Directory %s does not exist.', 0, $streamName);
             } else {
                 self::create($streamName, $this->getMode(), null !== $context ? $context->getContext() : null);
             }
@@ -121,14 +121,14 @@ class Directory extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Generic
      * @return  bool
      * @throws  \Hoa\File\Exception
      */
-    public function copy($to, $force = \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE)
+    public function copy($to, $force = \Hoa\Stream\IStream\Touchable::DO_NOT_OVERWRITE)
     {
         if (empty($to)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('The destination path (to copy) is empty.', 1);
+            throw new \Hoa\File\Exception('The destination path (to copy) is empty.', 1);
         }
         $from = $this->getStreamName();
         $fromLength = \strlen($from) + 1;
-        $finder = new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Finder();
+        $finder = new \Hoa\File\Finder();
         $finder->in($from);
         self::create($to, self::MODE_CREATE_RECURSIVE);
         foreach ($finder as $file) {
@@ -145,11 +145,11 @@ class Directory extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Generic
             // only mode.
             $handle = null;
             if (\true === $file->isFile()) {
-                $handle = new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Read($file->getPathname());
+                $handle = new \Hoa\File\Read($file->getPathname());
             } elseif (\true === $file->isDir()) {
-                $handle = new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Directory($file->getPathName());
+                $handle = new \Hoa\File\Directory($file->getPathName());
             } elseif (\true === $file->isLink()) {
-                $handle = new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Link\Read($file->getPathName());
+                $handle = new \Hoa\File\Link\Read($file->getPathName());
             }
             if (null !== $handle) {
                 $handle->copy($_to, $force);
@@ -166,7 +166,7 @@ class Directory extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Generic
     public function delete()
     {
         $from = $this->getStreamName();
-        $finder = new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Finder();
+        $finder = new \Hoa\File\Finder();
         $finder->in($from)->childFirst();
         foreach ($finder as $file) {
             $file->open()->delete();
@@ -197,10 +197,10 @@ class Directory extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Generic
             return \false;
         }
         if (null !== $context) {
-            if (\false === \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Context::contextExists($context)) {
-                throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('Context %s was not previously declared, cannot retrieve ' . 'this context.', 2, $context);
+            if (\false === \Hoa\Stream\Context::contextExists($context)) {
+                throw new \Hoa\File\Exception('Context %s was not previously declared, cannot retrieve ' . 'this context.', 2, $context);
             } else {
-                $context = \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Context::getInstance($context);
+                $context = \Hoa\Stream\Context::getInstance($context);
             }
         }
         if (null === $context) {

@@ -1,9 +1,9 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket;
+namespace _HumbugBox221ad6f1b81f\React\Socket;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise;
+use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f\React\Promise;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -12,10 +12,10 @@ use RuntimeException;
  * Unix domain sockets use atomic operations, so we can as well emulate
  * async behavior.
  */
-final class UnixConnector implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface
+final class UnixConnector implements \_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface
 {
     private $loop;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
+    public function __construct(\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
     {
         $this->loop = $loop;
     }
@@ -24,14 +24,14 @@ final class UnixConnector implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b
         if (\strpos($path, '://') === \false) {
             $path = 'unix://' . $path;
         } elseif (\substr($path, 0, 7) !== 'unix://') {
-            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $path . '" is invalid'));
+            return \_HumbugBox221ad6f1b81f\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $path . '" is invalid'));
         }
         $resource = @\stream_socket_client($path, $errno, $errstr, 1.0);
         if (!$resource) {
-            return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('Unable to connect to unix domain socket "' . $path . '": ' . $errstr, $errno));
+            return \_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('Unable to connect to unix domain socket "' . $path . '": ' . $errstr, $errno));
         }
-        $connection = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\Connection($resource, $this->loop);
+        $connection = new \_HumbugBox221ad6f1b81f\React\Socket\Connection($resource, $this->loop);
         $connection->unix = \true;
-        return \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Promise\resolve($connection);
+        return \_HumbugBox221ad6f1b81f\React\Promise\resolve($connection);
     }
 }

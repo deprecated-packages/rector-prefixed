@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper;
+use PHPStan\File\FileHelper;
 class IgnoredErrorHelperResult
 {
     /** @var FileHelper */
@@ -29,7 +29,7 @@ class IgnoredErrorHelperResult
      * @param (string|mixed[])[] $ignoreErrors
      * @param bool $reportUnmatchedIgnoredErrors
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper $fileHelper, array $errors, array $warnings, array $otherIgnoreErrors, array $ignoreErrorsByFile, array $ignoreErrors, bool $reportUnmatchedIgnoredErrors)
+    public function __construct(\PHPStan\File\FileHelper $fileHelper, array $errors, array $warnings, array $otherIgnoreErrors, array $ignoreErrorsByFile, array $ignoreErrors, bool $reportUnmatchedIgnoredErrors)
     {
         $this->fileHelper = $fileHelper;
         $this->errors = $errors;
@@ -62,16 +62,16 @@ class IgnoredErrorHelperResult
     {
         $unmatchedIgnoredErrors = $this->ignoreErrors;
         $addErrors = [];
-        $processIgnoreError = function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Error $error, int $i, $ignore) use(&$unmatchedIgnoredErrors, &$addErrors) : bool {
+        $processIgnoreError = function (\PHPStan\Analyser\Error $error, int $i, $ignore) use(&$unmatchedIgnoredErrors, &$addErrors) : bool {
             $shouldBeIgnored = \false;
             if (\is_string($ignore)) {
-                $shouldBeIgnored = \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore, null);
+                $shouldBeIgnored = \PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore, null);
                 if ($shouldBeIgnored) {
                     unset($unmatchedIgnoredErrors[$i]);
                 }
             } else {
                 if (isset($ignore['path'])) {
-                    $shouldBeIgnored = \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignore['path']);
+                    $shouldBeIgnored = \PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignore['path']);
                     if ($shouldBeIgnored) {
                         if (isset($ignore['count'])) {
                             $realCount = $unmatchedIgnoredErrors[$i]['realCount'] ?? 0;
@@ -90,13 +90,13 @@ class IgnoredErrorHelperResult
                     }
                 } elseif (isset($ignore['paths'])) {
                     foreach ($ignore['paths'] as $j => $ignorePath) {
-                        $shouldBeIgnored = \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignorePath);
+                        $shouldBeIgnored = \PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignorePath);
                         if (!$shouldBeIgnored) {
                             continue;
                         }
                         if (isset($unmatchedIgnoredErrors[$i])) {
                             if (!\is_array($unmatchedIgnoredErrors[$i])) {
-                                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                                throw new \PHPStan\ShouldNotHappenException();
                             }
                             unset($unmatchedIgnoredErrors[$i]['paths'][$j]);
                             if (isset($unmatchedIgnoredErrors[$i]['paths']) && \count($unmatchedIgnoredErrors[$i]['paths']) === 0) {
@@ -106,7 +106,7 @@ class IgnoredErrorHelperResult
                         break;
                     }
                 } else {
-                    throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                    throw new \PHPStan\ShouldNotHappenException();
                 }
             }
             if ($shouldBeIgnored) {
@@ -118,7 +118,7 @@ class IgnoredErrorHelperResult
             }
             return \true;
         };
-        $errors = \array_values(\array_filter($errors, function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Error $error) use($processIgnoreError) : bool {
+        $errors = \array_values(\array_filter($errors, function (\PHPStan\Analyser\Error $error) use($processIgnoreError) : bool {
             $filePath = $this->fileHelper->normalizePath($error->getFilePath());
             if (isset($this->ignoreErrorsByFile[$filePath])) {
                 foreach ($this->ignoreErrorsByFile[$filePath] as $ignoreError) {
@@ -161,7 +161,7 @@ class IgnoredErrorHelperResult
             if ($unmatchedIgnoredError['realCount'] <= $unmatchedIgnoredError['count']) {
                 continue;
             }
-            $addErrors[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s is expected to occur %d %s, but occurred %d %s.', \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError), $unmatchedIgnoredError['count'], $unmatchedIgnoredError['count'] === 1 ? 'time' : 'times', $unmatchedIgnoredError['realCount'], $unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'), $unmatchedIgnoredError['file'], $unmatchedIgnoredError['line'], \false);
+            $addErrors[] = new \PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s is expected to occur %d %s, but occurred %d %s.', \PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError), $unmatchedIgnoredError['count'], $unmatchedIgnoredError['count'] === 1 ? 'time' : 'times', $unmatchedIgnoredError['realCount'], $unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'), $unmatchedIgnoredError['file'], $unmatchedIgnoredError['line'], \false);
         }
         $errors = \array_merge($errors, $addErrors);
         $analysedFilesKeys = \array_fill_keys($analysedFiles, \true);
@@ -169,15 +169,15 @@ class IgnoredErrorHelperResult
             foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
                 if (isset($unmatchedIgnoredError['count']) && isset($unmatchedIgnoredError['realCount']) && (isset($unmatchedIgnoredError['realPath']) || !$onlyFiles)) {
                     if ($unmatchedIgnoredError['realCount'] < $unmatchedIgnoredError['count']) {
-                        $errors[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s is expected to occur %d %s, but occurred only %d %s.', \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError), $unmatchedIgnoredError['count'], $unmatchedIgnoredError['count'] === 1 ? 'time' : 'times', $unmatchedIgnoredError['realCount'], $unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'), $unmatchedIgnoredError['file'], $unmatchedIgnoredError['line'], \false);
+                        $errors[] = new \PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s is expected to occur %d %s, but occurred only %d %s.', \PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError), $unmatchedIgnoredError['count'], $unmatchedIgnoredError['count'] === 1 ? 'time' : 'times', $unmatchedIgnoredError['realCount'], $unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'), $unmatchedIgnoredError['file'], $unmatchedIgnoredError['line'], \false);
                     }
                 } elseif (isset($unmatchedIgnoredError['realPath'])) {
                     if (!\array_key_exists($unmatchedIgnoredError['realPath'], $analysedFilesKeys)) {
                         continue;
                     }
-                    $errors[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s was not matched in reported errors.', \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError)), $unmatchedIgnoredError['realPath'], null, \false);
+                    $errors[] = new \PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s was not matched in reported errors.', \PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError)), $unmatchedIgnoredError['realPath'], null, \false);
                 } elseif (!$onlyFiles) {
-                    $errors[] = \sprintf('Ignored error pattern %s was not matched in reported errors.', \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError));
+                    $errors[] = \sprintf('Ignored error pattern %s was not matched in reported errors.', \PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError));
                 }
             }
         }

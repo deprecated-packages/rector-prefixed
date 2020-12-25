@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\PostRunner;
+namespace Rector\Doctrine\PostRunner;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Json;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\PostRunnerInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Collector\UuidMigrationDataCollector;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper50d83356d739\Nette\Utils\Json;
+use Rector\Core\Contract\PostRunnerInterface;
+use Rector\Doctrine\Collector\UuidMigrationDataCollector;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @deprecated Replace with interface. Remove whole event system to keep 1 less pattern for same thing
  */
-final class ReportEntitiesWithAddedPropertiesPostRunner implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\PostRunnerInterface
+final class ReportEntitiesWithAddedPropertiesPostRunner implements \Rector\Core\Contract\PostRunnerInterface
 {
     /**
      * @var UuidMigrationDataCollector
@@ -25,7 +25,7 @@ final class ReportEntitiesWithAddedPropertiesPostRunner implements \_PhpScoper2a
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper2a4e7ab1ecbc\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector)
     {
         $this->uuidMigrationDataCollector = $uuidMigrationDataCollector;
         $this->symfonyStyle = $symfonyStyle;
@@ -44,7 +44,7 @@ final class ReportEntitiesWithAddedPropertiesPostRunner implements \_PhpScoper2a
         if ($data === []) {
             return;
         }
-        $jsonContent = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::encode(['new_columns_by_class' => $data], \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::PRETTY);
+        $jsonContent = \_PhpScoper50d83356d739\Nette\Utils\Json::encode(['new_columns_by_class' => $data], \_PhpScoper50d83356d739\Nette\Utils\Json::PRETTY);
         $filePath = \getcwd() . '/' . $fileName;
         $this->smartFileSystem->dumpFile($filePath, $jsonContent);
         $message = \sprintf('See freshly created "%s" file for changes on entities', $fileName);

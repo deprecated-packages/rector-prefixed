@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php71\Tests\Rector\BinaryOp\IsIterableRector;
+namespace Rector\Php71\Tests\Rector\BinaryOp\IsIterableRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php71\Rector\BinaryOp\IsIterableRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class IsIterableRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php71\Rector\BinaryOp\IsIterableRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class IsIterableRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class IsIterableRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php71\Rector\BinaryOp\IsIterableRector::class;
+        return \Rector\Php71\Rector\BinaryOp\IsIterableRector::class;
     }
 }

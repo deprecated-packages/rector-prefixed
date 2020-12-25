@@ -1,17 +1,17 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http;
+namespace _HumbugBox221ad6f1b81f\React\Http;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\MiddlewareRunner;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\StreamingServer;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Middleware\LimitConcurrentRequestsMiddleware;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Middleware\StreamingRequestMiddleware;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Middleware\RequestBodyBufferMiddleware;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Middleware\RequestBodyParserMiddleware;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface;
+use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f\React\Http\Io\IniUtil;
+use _HumbugBox221ad6f1b81f\React\Http\Io\MiddlewareRunner;
+use _HumbugBox221ad6f1b81f\React\Http\Io\StreamingServer;
+use _HumbugBox221ad6f1b81f\React\Http\Middleware\LimitConcurrentRequestsMiddleware;
+use _HumbugBox221ad6f1b81f\React\Http\Middleware\StreamingRequestMiddleware;
+use _HumbugBox221ad6f1b81f\React\Http\Middleware\RequestBodyBufferMiddleware;
+use _HumbugBox221ad6f1b81f\React\Http\Middleware\RequestBodyParserMiddleware;
+use _HumbugBox221ad6f1b81f\React\Socket\ServerInterface;
 /**
  * The `React\Http\Server` class is responsible for handling incoming connections and then
  * processing each incoming HTTP request.
@@ -162,7 +162,7 @@ use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface;
  * concurrency settings. See also [streaming incoming request](#streaming-incoming-request)
  * below for more details.
  */
-final class Server extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenement\EventEmitter
+final class Server extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter
 {
     /**
      * The maximum buffer size used for each request.
@@ -193,7 +193,7 @@ final class Server extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenem
      * @param callable[] ...$requestHandler
      * @see self::listen()
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
+    public function __construct(\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
     {
         $requestHandlers = \func_get_args();
         \array_shift($requestHandlers);
@@ -203,7 +203,7 @@ final class Server extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenem
         }
         $streaming = \false;
         foreach ((array) $requestHandlers as $handler) {
-            if ($handler instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Middleware\StreamingRequestMiddleware) {
+            if ($handler instanceof \_HumbugBox221ad6f1b81f\React\Http\Middleware\StreamingRequestMiddleware) {
                 $streaming = \true;
                 break;
             }
@@ -213,9 +213,9 @@ final class Server extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenem
             $maxSize = $this->getMaxRequestSize();
             $concurrency = $this->getConcurrentRequestsLimit(\ini_get('memory_limit'), $maxSize);
             if ($concurrency !== null) {
-                $middleware[] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Middleware\LimitConcurrentRequestsMiddleware($concurrency);
+                $middleware[] = new \_HumbugBox221ad6f1b81f\React\Http\Middleware\LimitConcurrentRequestsMiddleware($concurrency);
             }
-            $middleware[] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Middleware\RequestBodyBufferMiddleware($maxSize);
+            $middleware[] = new \_HumbugBox221ad6f1b81f\React\Http\Middleware\RequestBodyBufferMiddleware($maxSize);
             // Checking for an empty string because that is what a boolean
             // false is returned as by ini_get depending on the PHP version.
             // @link http://php.net/manual/en/ini.core.php#ini.enable-post-data-reading
@@ -223,11 +223,11 @@ final class Server extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenem
             // @link https://3v4l.org/qJtsa
             $enablePostDataReading = \ini_get('enable_post_data_reading');
             if ($enablePostDataReading !== '') {
-                $middleware[] = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Middleware\RequestBodyParserMiddleware();
+                $middleware[] = new \_HumbugBox221ad6f1b81f\React\Http\Middleware\RequestBodyParserMiddleware();
             }
         }
         $middleware = \array_merge($middleware, $requestHandlers);
-        $this->streamingServer = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\StreamingServer($loop, new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\MiddlewareRunner($middleware));
+        $this->streamingServer = new \_HumbugBox221ad6f1b81f\React\Http\Io\StreamingServer($loop, new \_HumbugBox221ad6f1b81f\React\Http\Io\MiddlewareRunner($middleware));
         $that = $this;
         $this->streamingServer->on('error', function ($error) use($that) {
             $that->emit('error', array($error));
@@ -284,7 +284,7 @@ final class Server extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenem
      *
      * @param ServerInterface $socket
      */
-    public function listen(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface $socket)
+    public function listen(\_HumbugBox221ad6f1b81f\React\Socket\ServerInterface $socket)
     {
         $this->streamingServer->listen($socket);
     }
@@ -298,8 +298,8 @@ final class Server extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenem
         if ($memory_limit == -1) {
             return null;
         }
-        $availableMemory = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($memory_limit) / 2;
-        $concurrentRequests = (int) \ceil($availableMemory / \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($post_max_size));
+        $availableMemory = \_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($memory_limit) / 2;
+        $concurrentRequests = (int) \ceil($availableMemory / \_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($post_max_size));
         return $concurrentRequests;
     }
     /**
@@ -308,7 +308,7 @@ final class Server extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenem
      */
     private function getMaxRequestSize($post_max_size = null)
     {
-        $maxSize = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($post_max_size === null ? \ini_get('post_max_size') : $post_max_size);
+        $maxSize = \_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($post_max_size === null ? \ini_get('post_max_size') : $post_max_size);
         return $maxSize === 0 || $maxSize >= self::MAXIMUM_BUFFER_SIZE ? self::MAXIMUM_BUFFER_SIZE : $maxSize;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\NodeManipulator;
+namespace Rector\DeadCode\NodeManipulator;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Greater;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\BinaryOp\Greater;
+use PhpParser\Node\Expr\BinaryOp\GreaterOrEqual;
+use PhpParser\Node\Expr\BinaryOp\Smaller;
+use PhpParser\Node\Expr\BinaryOp\SmallerOrEqual;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Scalar\LNumber;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\NodeNameResolver\NodeNameResolver;
 final class CountManipulator
 {
     /**
@@ -23,69 +23,69 @@ final class CountManipulator
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isCounterHigherThanOne(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    public function isCounterHigherThanOne(\PhpParser\Node $node, \PhpParser\Node\Expr $expr) : bool
     {
         // e.g. count($values) > 0
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Greater) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Greater) {
             return $this->processGreater($node, $expr);
         }
         // e.g. count($values) >= 1
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual) {
             return $this->processGreaterOrEqual($node, $expr);
         }
         // e.g. 0 < count($values)
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Smaller) {
             return $this->processSmaller($node, $expr);
         }
         // e.g. 1 <= count($values)
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual) {
             return $this->processSmallerOrEqual($node, $expr);
         }
         return \false;
     }
-    private function processGreater(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Greater $greater, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    private function processGreater(\PhpParser\Node\Expr\BinaryOp\Greater $greater, \PhpParser\Node\Expr $expr) : bool
     {
         if (!$this->isNumber($greater->right, 0)) {
             return \false;
         }
         return $this->isCountWithExpression($greater->left, $expr);
     }
-    private function processGreaterOrEqual(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual $greaterOrEqual, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    private function processGreaterOrEqual(\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual $greaterOrEqual, \PhpParser\Node\Expr $expr) : bool
     {
         if (!$this->isNumber($greaterOrEqual->right, 1)) {
             return \false;
         }
         return $this->isCountWithExpression($greaterOrEqual->left, $expr);
     }
-    private function processSmaller(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Smaller $smaller, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    private function processSmaller(\PhpParser\Node\Expr\BinaryOp\Smaller $smaller, \PhpParser\Node\Expr $expr) : bool
     {
         if (!$this->isNumber($smaller->left, 0)) {
             return \false;
         }
         return $this->isCountWithExpression($smaller->right, $expr);
     }
-    private function processSmallerOrEqual(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual $smallerOrEqual, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    private function processSmallerOrEqual(\PhpParser\Node\Expr\BinaryOp\SmallerOrEqual $smallerOrEqual, \PhpParser\Node\Expr $expr) : bool
     {
         if (!$this->isNumber($smallerOrEqual->left, 1)) {
             return \false;
         }
         return $this->isCountWithExpression($smallerOrEqual->right, $expr);
     }
-    private function isNumber(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, int $value) : bool
+    private function isNumber(\PhpParser\Node $node, int $value) : bool
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber) {
+        if (!$node instanceof \PhpParser\Node\Scalar\LNumber) {
             return \false;
         }
         return $node->value === $value;
     }
-    private function isCountWithExpression(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    private function isCountWithExpression(\PhpParser\Node $node, \PhpParser\Node\Expr $expr) : bool
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
+        if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
         if (!$this->nodeNameResolver->isName($node, 'count')) {

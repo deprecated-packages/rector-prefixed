@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Config;
+namespace _HumbugBox221ad6f1b81f\Nette\DI\Config;
 
 /**
  * Adapter for reading and writing configuration files.
@@ -21,4 +21,4 @@ interface Adapter
      */
     function dump(array $data) : string;
 }
-\class_exists(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\DI\Config\IAdapter::class);
+\class_exists(\_HumbugBox221ad6f1b81f\Nette\DI\Config\IAdapter::class);

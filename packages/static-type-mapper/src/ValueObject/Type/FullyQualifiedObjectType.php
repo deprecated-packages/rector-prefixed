@@ -1,53 +1,53 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type;
+namespace Rector\StaticTypeMapper\ValueObject\Type;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-final class FullyQualifiedObjectType extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node\Name;
+use PhpParser\Node\Stmt\Use_;
+use PhpParser\Node\Stmt\UseUse;
+use PHPStan\Type\ObjectType;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+final class FullyQualifiedObjectType extends \PHPStan\Type\ObjectType
 {
-    public function getShortNameType() : \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType
+    public function getShortNameType() : \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType($this->getShortName(), $this->getClassName());
+        return new \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType($this->getShortName(), $this->getClassName());
     }
     /**
      * @param AliasedObjectType|FullyQualifiedObjectType $comparedObjectType
      */
-    public function areShortNamesEqual(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType $comparedObjectType) : bool
+    public function areShortNamesEqual(\PHPStan\Type\ObjectType $comparedObjectType) : bool
     {
         return $this->getShortName() === $comparedObjectType->getShortName();
     }
     public function getShortName() : string
     {
-        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($this->getClassName(), '\\')) {
+        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($this->getClassName(), '\\')) {
             return $this->getClassName();
         }
-        return (string) \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::after($this->getClassName(), '\\', -1);
+        return (string) \_PhpScoper50d83356d739\Nette\Utils\Strings::after($this->getClassName(), '\\', -1);
     }
-    public function getShortNameNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name
+    public function getShortNameNode() : \PhpParser\Node\Name
     {
-        $name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($this->getShortName());
-        $name->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::VIRTUAL_NODE, \true);
+        $name = new \PhpParser\Node\Name($this->getShortName());
+        $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::VIRTUAL_NODE, \true);
         return $name;
     }
-    public function getUseNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_
+    public function getUseNode() : \PhpParser\Node\Stmt\Use_
     {
-        $name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($this->getClassName());
-        $useUse = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse($name);
-        $name->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $useUse);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_([$useUse]);
+        $name = new \PhpParser\Node\Name($this->getClassName());
+        $useUse = new \PhpParser\Node\Stmt\UseUse($name);
+        $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $useUse);
+        return new \PhpParser\Node\Stmt\Use_([$useUse]);
     }
-    public function getFunctionUseNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_
+    public function getFunctionUseNode() : \PhpParser\Node\Stmt\Use_
     {
-        $name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($this->getClassName());
-        $useUse = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\UseUse($name, null, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_::TYPE_FUNCTION);
-        $name->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $useUse);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Use_([$useUse]);
+        $name = new \PhpParser\Node\Name($this->getClassName());
+        $useUse = new \PhpParser\Node\Stmt\UseUse($name, null, \PhpParser\Node\Stmt\Use_::TYPE_FUNCTION);
+        $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $useUse);
+        return new \PhpParser\Node\Stmt\Use_([$useUse]);
     }
     public function getShortNameLowered() : string
     {

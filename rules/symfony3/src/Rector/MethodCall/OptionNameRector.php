@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Rector\MethodCall;
+namespace Rector\Symfony3\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Scalar\String_;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Symfony3\Tests\Rector\MethodCall\OptionNameRector\OptionNameRectorTest
  */
-final class OptionNameRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Symfony3\Rector\MethodCall\AbstractFormAddRector
+final class OptionNameRector extends \Rector\Symfony3\Rector\MethodCall\AbstractFormAddRector
 {
     /**
      * @var array<string, string>
      */
     private const OLD_TO_NEW_OPTION = ['precision' => 'scale', 'virtual' => 'inherit_data'];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns old option names to new ones in FormTypes in Form in Symfony', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns old option names to new ones in FormTypes in Form in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $builder = new FormBuilder;
 $builder->add("...", ["precision" => "...", "virtual" => "..."];
 CODE_SAMPLE
@@ -34,12 +34,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isFormAddMethodCall($node)) {
             return null;
@@ -52,14 +52,14 @@ CODE_SAMPLE
             if ($arrayItemNode === null) {
                 continue;
             }
-            if (!$arrayItemNode->key instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
+            if (!$arrayItemNode->key instanceof \PhpParser\Node\Scalar\String_) {
                 continue;
             }
             $this->processStringKey($arrayItemNode->key);
         }
         return $node;
     }
-    private function processStringKey(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string) : void
+    private function processStringKey(\PhpParser\Node\Scalar\String_ $string) : void
     {
         $currentOptionName = $string->value;
         $string->value = self::OLD_TO_NEW_OPTION[$currentOptionName] ?? $string->value;

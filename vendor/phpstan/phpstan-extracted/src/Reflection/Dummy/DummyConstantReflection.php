@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Dummy;
+namespace PHPStan\Reflection\Dummy;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ConstantReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class DummyConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ConstantReflection
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ConstantReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+class DummyConstantReflection implements \PHPStan\Reflection\ConstantReflection
 {
     /** @var string */
     private $name;
@@ -17,9 +17,9 @@ class DummyConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
     {
         $this->name = $name;
     }
-    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
-        $broker = \_PhpScoper2a4e7ab1ecbc\PHPStan\Broker\Broker::getInstance();
+        $broker = \PHPStan\Broker\Broker::getInstance();
         return $broker->getClass(\stdClass::class);
     }
     public function getFileName() : ?string
@@ -50,21 +50,21 @@ class DummyConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
         // so that Scope::getTypeFromValue() returns mixed
         return new \stdClass();
     }
-    public function getValueType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getValueType() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType();
+        return new \PHPStan\Type\MixedType();
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

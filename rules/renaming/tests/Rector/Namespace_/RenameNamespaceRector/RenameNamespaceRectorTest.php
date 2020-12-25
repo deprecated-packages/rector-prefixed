@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Tests\Rector\Namespace_\RenameNamespaceRector;
+namespace Rector\Renaming\Tests\Rector\Namespace_\RenameNamespaceRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RenameNamespaceRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RenameNamespaceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class RenameNamespaceRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Tes
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => ['OldNamespace' => 'NewNamespace', '_PhpScoper2a4e7ab1ecbc\\OldNamespaceWith\\OldSplitNamespace' => '_PhpScoper2a4e7ab1ecbc\\NewNamespaceWith\\NewSplitNamespace', '_PhpScoper2a4e7ab1ecbc\\Old\\Long\\AnyNamespace' => '_PhpScoper2a4e7ab1ecbc\\Short\\AnyNamespace', 'PHPUnit_Framework_' => 'PHPUnit\\Framework\\']]];
+        return [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::class => [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => ['OldNamespace' => 'NewNamespace', '_PhpScoper50d83356d739\\OldNamespaceWith\\OldSplitNamespace' => '_PhpScoper50d83356d739\\NewNamespaceWith\\NewSplitNamespace', '_PhpScoper50d83356d739\\Old\\Long\\AnyNamespace' => '_PhpScoper50d83356d739\\Short\\AnyNamespace', 'PHPUnit_Framework_' => 'PHPUnit\\Framework\\']]];
     }
 }

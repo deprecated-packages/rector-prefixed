@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Parser;
+namespace PHPStan\Parser;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper;
-class PathRoutingParser implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\Parser
+use PHPStan\File\FileHelper;
+class PathRoutingParser implements \PHPStan\Parser\Parser
 {
     /** @var FileHelper */
     private $fileHelper;
@@ -14,7 +14,7 @@ class PathRoutingParser implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\Parser
     private $currentPhpVersionSimpleParser;
     /** @var Parser */
     private $php8Parser;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper $fileHelper, \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\Parser $currentPhpVersionRichParser, \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\Parser $currentPhpVersionSimpleParser, \_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\Parser $php8Parser)
+    public function __construct(\PHPStan\File\FileHelper $fileHelper, \PHPStan\Parser\Parser $currentPhpVersionRichParser, \PHPStan\Parser\Parser $currentPhpVersionSimpleParser, \PHPStan\Parser\Parser $php8Parser)
     {
         $this->fileHelper = $fileHelper;
         $this->currentPhpVersionRichParser = $currentPhpVersionRichParser;

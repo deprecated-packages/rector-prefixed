@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Tests\Rector\Name\RenameClassRector;
+namespace Rector\Renaming\Tests\Rector\Name\RenameClassRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\Name\RenameClassRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\Core\Configuration\Option;
+use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass;
+use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PostRector\Rector\NameImportingPostRector
  */
-final class FunctionAutoImportNamesParameterTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class FunctionAutoImportNamesParameterTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
+        $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
@@ -32,6 +32,6 @@ final class FunctionAutoImportNamesParameterTest extends \_PhpScoper2a4e7ab1ecbc
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\Name\RenameClassRector::class => [\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class]]];
+        return [\Rector\Renaming\Rector\Name\RenameClassRector::class => [\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class]]];
     }
 }

@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\MethodCall;
+namespace Rector\PHPUnit\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use Rector\Core\Rector\AbstractPHPUnitRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-9.0.md
  * @see https://github.com/sebastianbergmann/phpunit/commit/1ba2e3e1bb091acda3139f8a9259fa8161f3242d
  *
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\ExplicitPhpErrorApiRector\ExplicitPhpErrorApiRectorTest
  */
-final class ExplicitPhpErrorApiRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector
+final class ExplicitPhpErrorApiRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var array<string, string>
      */
-    private const REPLACEMENTS = ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', '_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', '_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase\\Error' => 'expectError', '_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    private const REPLACEMENTS = ['_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', '_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', '_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase\\Error' => 'expectError', '_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use explicit API for expecting PHP errors, warnings, and notices', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use explicit API for expecting PHP errors, warnings, and notices', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
@@ -54,12 +54,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isPHPUnitMethodNames($node, ['expectException'])) {
             return null;
@@ -75,7 +75,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function replaceExceptionWith(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $exceptionClass, string $explicitMethod) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function replaceExceptionWith(\PhpParser\Node $node, string $exceptionClass, string $explicitMethod) : ?\PhpParser\Node
     {
         if (!isset($node->args[0])) {
             return null;

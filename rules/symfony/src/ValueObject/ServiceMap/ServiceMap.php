@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceMap;
+namespace Rector\Symfony\ValueObject\ServiceMap;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceDefinition;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
+use Rector\Symfony\ValueObject\ServiceDefinition;
 final class ServiceMap
 {
     /**
@@ -23,7 +23,7 @@ final class ServiceMap
     {
         return isset($this->services[$id]);
     }
-    public function getServiceType(string $id) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getServiceType(string $id) : ?\PHPStan\Type\Type
     {
         $serviceDefinition = $this->getService($id);
         if ($serviceDefinition === null) {
@@ -37,9 +37,9 @@ final class ServiceMap
         $interfaces = (array) \class_implements($class);
         foreach ($interfaces as $interface) {
             // return first interface
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($interface);
+            return new \PHPStan\Type\ObjectType($interface);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($class);
+        return new \PHPStan\Type\ObjectType($class);
     }
     /**
      * @return ServiceDefinition[]
@@ -58,7 +58,7 @@ final class ServiceMap
         }
         return $servicesWithTag;
     }
-    private function getService(string $id) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceDefinition
+    private function getService(string $id) : ?\Rector\Symfony\ValueObject\ServiceDefinition
     {
         return $this->services[$id] ?? null;
     }

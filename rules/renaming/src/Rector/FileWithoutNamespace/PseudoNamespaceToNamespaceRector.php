@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\FileWithoutNamespace;
+namespace Rector\Renaming\Rector\FileWithoutNamespace;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\PseudoNamespaceToNamespace;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PhpDoc\PhpDocTypeRenamer;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
+use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\Node\Stmt\Property;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Generic\ValueObject\PseudoNamespaceToNamespace;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeTypeResolver\PhpDoc\PhpDocTypeRenamer;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\FileWithoutNamespace\PseudoNamespaceToNamespaceRector\PseudoNamespaceToNamespaceRectorTest
  */
-final class PseudoNamespaceToNamespaceRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class PseudoNamespaceToNamespaceRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -48,13 +48,13 @@ final class PseudoNamespaceToNamespaceRector extends \_PhpScoper2a4e7ab1ecbc\Rec
      * @var string|null
      */
     private $newNamespace;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\PhpDoc\PhpDocTypeRenamer $phpDocTypeRenamer)
+    public function __construct(\Rector\NodeTypeResolver\PhpDoc\PhpDocTypeRenamer $phpDocTypeRenamer)
     {
         $this->phpDocTypeRenamer = $phpDocTypeRenamer;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined Pseudo_Namespaces by Namespace\\Ones.', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined Pseudo_Namespaces by Namespace\\Ones.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 /** @var Some_Chicken $someService */
 $someService = new Some_Chicken;
 $someClassToKeep = new Some_Class_To_Keep;
@@ -64,7 +64,7 @@ CODE_SAMPLE
 $someService = new Some\Chicken;
 $someClassToKeep = new Some_Class_To_Keep;
 CODE_SAMPLE
-, [self::NAMESPACE_PREFIXES_WITH_EXCLUDED_CLASSES => [new \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\PseudoNamespaceToNamespace('Some_', ['Some_Class_To_Keep'])]])]);
+, [self::NAMESPACE_PREFIXES_WITH_EXCLUDED_CLASSES => [new \Rector\Generic\ValueObject\PseudoNamespaceToNamespace('Some_', ['Some_Class_To_Keep'])]])]);
     }
     /**
      * @return string[]
@@ -72,25 +72,25 @@ CODE_SAMPLE
     public function getNodeTypes() : array
     {
         // property, method
-        return [\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_::class];
+        return [\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace::class, \PhpParser\Node\Stmt\Namespace_::class];
     }
     /**
      * @param Namespace_|FileWithoutNamespace $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->newNamespace = null;
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
+        if ($node instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
             $stmts = $this->refactorStmts((array) $node->stmts);
             $node->stmts = $stmts;
             // add a new namespace?
             if ($this->newNamespace) {
-                $namespace = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($this->newNamespace));
+                $namespace = new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($this->newNamespace));
                 $namespace->stmts = $stmts;
                 return $namespace;
             }
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Namespace_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
             $this->refactorStmts([$node]);
             return $node;
         }
@@ -99,7 +99,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $namespacePrefixesWithExcludedClasses = $configuration[self::NAMESPACE_PREFIXES_WITH_EXCLUDED_CLASSES] ?? [];
-        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::allIsInstanceOf($namespacePrefixesWithExcludedClasses, \_PhpScoper2a4e7ab1ecbc\Rector\Generic\ValueObject\PseudoNamespaceToNamespace::class);
+        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($namespacePrefixesWithExcludedClasses, \Rector\Generic\ValueObject\PseudoNamespaceToNamespace::class);
         $this->pseudoNamespacesToNamespaces = $namespacePrefixesWithExcludedClasses;
     }
     /**
@@ -108,18 +108,18 @@ CODE_SAMPLE
      */
     private function refactorStmts(array $stmts) : array
     {
-        $this->traverseNodesWithCallable($stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?Node {
-            if (!$this->isInstancesOf($node, [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike::class])) {
+        $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) : ?Node {
+            if (!$this->isInstancesOf($node, [\PhpParser\Node\Name::class, \PhpParser\Node\Identifier::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\FunctionLike::class])) {
                 return null;
             }
             // replace on @var/@param/@return/@throws
             foreach ($this->pseudoNamespacesToNamespaces as $namespacePrefixWithExcludedClasses) {
                 $this->phpDocTypeRenamer->changeUnderscoreType($node, $namespacePrefixWithExcludedClasses);
             }
-            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+            if ($node instanceof \PhpParser\Node\Name) {
                 return $this->processNameOrIdentifier($node);
             }
-            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
+            if ($node instanceof \PhpParser\Node\Identifier) {
                 return $this->processNameOrIdentifier($node);
             }
             return null;
@@ -129,7 +129,7 @@ CODE_SAMPLE
     /**
      * @param class-string[] $types
      */
-    private function isInstancesOf(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, array $types) : bool
+    private function isInstancesOf(\PhpParser\Node $node, array $types) : bool
     {
         foreach ($types as $type) {
             if (\is_a($node, $type, \true)) {
@@ -142,7 +142,7 @@ CODE_SAMPLE
      * @param Name|Identifier $node
      * @return Name|Identifier
      */
-    private function processNameOrIdentifier(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function processNameOrIdentifier(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // no name → skip
         if ($node->toString() === '') {
@@ -156,14 +156,14 @@ CODE_SAMPLE
             if (\is_array($excludedClasses) && $this->isNames($node, $excludedClasses)) {
                 return null;
             }
-            if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+            if ($node instanceof \PhpParser\Node\Name) {
                 return $this->processName($node);
             }
             return $this->processIdentifier($node);
         }
         return null;
     }
-    private function processName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name $name) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name
+    private function processName(\PhpParser\Node\Name $name) : \PhpParser\Node\Name
     {
         $nodeName = $this->getName($name);
         if ($nodeName !== null) {
@@ -171,10 +171,10 @@ CODE_SAMPLE
         }
         return $name;
     }
-    private function processIdentifier(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier $identifier) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier
+    private function processIdentifier(\PhpParser\Node\Identifier $identifier) : ?\PhpParser\Node\Identifier
     {
-        $parentNode = $identifier->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        $parentNode = $identifier->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         $name = $this->getName($identifier);
@@ -182,12 +182,12 @@ CODE_SAMPLE
             return null;
         }
         /** @var string $namespaceName */
-        $namespaceName = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::before($name, '_', -1);
+        $namespaceName = \_PhpScoper50d83356d739\Nette\Utils\Strings::before($name, '_', -1);
         /** @var string $lastNewNamePart */
-        $lastNewNamePart = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::after($name, '_', -1);
-        $newNamespace = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($namespaceName, self::SPLIT_BY_UNDERSCORE_REGEX, '$1$2\\\\$4');
+        $lastNewNamePart = \_PhpScoper50d83356d739\Nette\Utils\Strings::after($name, '_', -1);
+        $newNamespace = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($namespaceName, self::SPLIT_BY_UNDERSCORE_REGEX, '$1$2\\\\$4');
         if ($this->newNamespace !== null && $this->newNamespace !== $newNamespace) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException('There cannot be 2 different namespaces in one file');
+            throw new \Rector\Core\Exception\ShouldNotHappenException('There cannot be 2 different namespaces in one file');
         }
         $this->newNamespace = $newNamespace;
         $identifier->name = $lastNewNamePart;

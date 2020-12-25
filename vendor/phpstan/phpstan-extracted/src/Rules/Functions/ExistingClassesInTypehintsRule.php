@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Functions;
+namespace PHPStan\Rules\Functions;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\InFunctionNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\FunctionDefinitionCheck;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\InFunctionNode;
+use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
+use PHPStan\Rules\FunctionDefinitionCheck;
 /**
  * @implements \PHPStan\Rules\Rule<InFunctionNode>
  */
-class ExistingClassesInTypehintsRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\FunctionDefinitionCheck */
     private $check;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\FunctionDefinitionCheck $check)
+    public function __construct(\PHPStan\Rules\FunctionDefinitionCheck $check)
     {
         $this->check = $check;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\InFunctionNode::class;
+        return \PHPStan\Node\InFunctionNode::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$scope->getFunction() instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection) {
+        if (!$scope->getFunction() instanceof \PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection) {
             return [];
         }
         $functionName = $scope->getFunction()->getName();

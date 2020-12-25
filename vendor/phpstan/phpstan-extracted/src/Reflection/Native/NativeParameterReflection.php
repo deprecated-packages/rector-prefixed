@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Native;
+namespace PHPStan\Reflection\Native;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParameterReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class NativeParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParameterReflection
+use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\Type;
+class NativeParameterReflection implements \PHPStan\Reflection\ParameterReflection
 {
     /** @var string */
     private $name;
@@ -20,7 +20,7 @@ class NativeParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refle
     private $variadic;
     /** @var \PHPStan\Type\Type|null */
     private $defaultValue;
-    public function __construct(string $name, bool $optional, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $defaultValue)
+    public function __construct(string $name, bool $optional, \PHPStan\Type\Type $type, \PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\PHPStan\Type\Type $defaultValue)
     {
         $this->name = $name;
         $this->optional = $optional;
@@ -37,11 +37,11 @@ class NativeParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refle
     {
         return $this->optional;
     }
-    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getType() : \PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function passedByReference() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }
@@ -49,7 +49,7 @@ class NativeParameterReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refle
     {
         return $this->variadic;
     }
-    public function getDefaultValue() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getDefaultValue() : ?\PHPStan\Type\Type
     {
         return $this->defaultValue;
     }

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PostRector\NodeAnalyzer;
+namespace Rector\PostRector\NodeAnalyzer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node\Stmt\Class_;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\ValueObject\MethodName;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
 use ReflectionMethod;
 final class NetteInjectDetector
@@ -16,25 +16,25 @@ final class NetteInjectDetector
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isNetteInjectPreferred(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isNetteInjectPreferred(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if ($this->isInjectPropertyAlreadyInTheClass($class)) {
             return \true;
         }
         return $this->hasParentClassConstructor($class);
     }
-    private function isInjectPropertyAlreadyInTheClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function isInjectPropertyAlreadyInTheClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->getProperties() as $property) {
             if (!$property->isPublic()) {
                 continue;
             }
             /** @var PhpDocInfo|null $phpDocInfo */
-            $phpDocInfo = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+            $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
             if ($phpDocInfo === null) {
                 continue;
             }
@@ -46,13 +46,13 @@ final class NetteInjectDetector
         }
         return \false;
     }
-    private function hasParentClassConstructor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function hasParentClassConstructor(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         $className = $this->nodeNameResolver->getName($class);
         if ($className === null) {
             return \false;
         }
-        if (!\is_a($className, '_PhpScoper2a4e7ab1ecbc\\Nette\\Application\\IPresenter', \true)) {
+        if (!\is_a($className, '_PhpScoper50d83356d739\\Nette\\Application\\IPresenter', \true)) {
             return \false;
         }
         // has parent class
@@ -66,7 +66,7 @@ final class NetteInjectDetector
         }
         // prefer local constructor
         $classReflection = new \ReflectionClass($className);
-        if ($classReflection->hasMethod(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+        if ($classReflection->hasMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             /** @var ReflectionMethod $constructorReflectionMethod */
             $constructorReflectionMethod = $classReflection->getConstructor();
             // be sure its local constructor

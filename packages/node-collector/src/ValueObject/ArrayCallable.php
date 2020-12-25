@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\ValueObject;
+namespace Rector\NodeCollector\ValueObject;
 
 use ReflectionMethod;
 final class ArrayCallable

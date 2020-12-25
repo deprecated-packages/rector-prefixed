@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
+namespace PHPStan\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ConstantReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonGenericTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
-class StaticType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
+use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+class StaticType implements \PHPStan\Type\TypeWithClassName
 {
     use NonGenericTypeTrait;
     use UndecidedComparisonTypeTrait;
@@ -27,14 +27,14 @@ class StaticType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassNa
     {
         return $this->baseClass;
     }
-    public function getAncestorWithClassName(string $className) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType
+    public function getAncestorWithClassName(string $className) : ?\PHPStan\Type\ObjectType
     {
         return $this->getStaticObjectType()->getAncestorWithClassName($className);
     }
-    public function getStaticObjectType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType
+    public function getStaticObjectType() : \PHPStan\Type\ObjectType
     {
         if ($this->staticObjectType === null) {
-            $this->staticObjectType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($this->baseClass);
+            $this->staticObjectType = new \PHPStan\Type\ObjectType($this->baseClass);
         }
         return $this->staticObjectType;
     }
@@ -49,33 +49,33 @@ class StaticType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassNa
     {
         return $this->baseClass;
     }
-    public function accepts(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
+        if ($type instanceof \PHPStan\Type\CompoundType) {
+            return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
         if (!$type instanceof static) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+            return \PHPStan\TrinaryLogic::createNo();
         }
         return $this->getStaticObjectType()->accepts($type->getStaticObjectType(), $strictTypes);
     }
-    public function isSuperTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
             return $this->getStaticObjectType()->isSuperTypeOf($type);
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectWithoutClassType) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        if ($type instanceof \PHPStan\Type\ObjectWithoutClassType) {
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe()->and($this->getStaticObjectType()->isSuperTypeOf($type));
+        if ($type instanceof \PHPStan\Type\ObjectType) {
+            return \PHPStan\TrinaryLogic::createMaybe()->and($this->getStaticObjectType()->isSuperTypeOf($type));
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType) {
+        if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function equals(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    public function equals(\PHPStan\Type\Type $type) : bool
     {
         if (\get_class($type) !== static::class) {
             return \false;
@@ -84,91 +84,91 @@ class StaticType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassNa
         $type = $type;
         return $this->getStaticObjectType()->equals($type->getStaticObjectType());
     }
-    public function describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
         return \sprintf('static(%s)', $this->getClassName());
     }
-    public function canAccessProperties() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function canAccessProperties() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->canAccessProperties();
     }
-    public function hasProperty(string $propertyName) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->hasProperty($propertyName);
     }
-    public function getProperty(string $propertyName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
     {
         return $this->getStaticObjectType()->getProperty($propertyName, $scope);
     }
-    public function canCallMethods() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function canCallMethods() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->canCallMethods();
     }
-    public function hasMethod(string $methodName) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->hasMethod($methodName);
     }
-    public function getMethod(string $methodName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
     {
         return $this->getStaticObjectType()->getMethod($methodName, $scope);
     }
-    public function canAccessConstants() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function canAccessConstants() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->canAccessConstants();
     }
-    public function hasConstant(string $constantName) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->hasConstant($constantName);
     }
-    public function getConstant(string $constantName) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \PHPStan\Reflection\ConstantReflection
     {
         return $this->getStaticObjectType()->getConstant($constantName);
     }
-    public function changeBaseClass(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection) : self
+    public function changeBaseClass(\PHPStan\Reflection\ClassReflection $classReflection) : self
     {
         return new self($classReflection->getName());
     }
-    public function isIterable() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isIterable() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isIterable();
     }
-    public function isIterableAtLeastOnce() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isIterableAtLeastOnce();
     }
-    public function getIterableKeyType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getIterableKeyType() : \PHPStan\Type\Type
     {
         return $this->getStaticObjectType()->getIterableKeyType();
     }
-    public function getIterableValueType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getIterableValueType() : \PHPStan\Type\Type
     {
         return $this->getStaticObjectType()->getIterableValueType();
     }
-    public function isOffsetAccessible() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isOffsetAccessible();
     }
-    public function hasOffsetValueType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $offsetType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->hasOffsetValueType($offsetType);
     }
-    public function getOffsetValueType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $offsetType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type
     {
         return $this->getStaticObjectType()->getOffsetValueType($offsetType);
     }
-    public function setOffsetValueType(?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $offsetType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $valueType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function setOffsetValueType(?\PHPStan\Type\Type $offsetType, \PHPStan\Type\Type $valueType) : \PHPStan\Type\Type
     {
         return $this->getStaticObjectType()->setOffsetValueType($offsetType, $valueType);
     }
-    public function isCallable() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isCallable() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isCallable();
     }
-    public function isArray() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isArray();
     }
-    public function isNumericString() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isNumericString();
     }
@@ -176,39 +176,39 @@ class StaticType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassNa
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
         return $this->getStaticObjectType()->getCallableParametersAcceptors($scope);
     }
-    public function isCloneable() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isCloneable() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function toNumber() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toNumber() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toString() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toString() : \PHPStan\Type\Type
     {
         return $this->getStaticObjectType()->toString();
     }
-    public function toInteger() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toInteger() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toFloat() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toFloat() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toArray() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toArray() : \PHPStan\Type\Type
     {
         return $this->getStaticObjectType()->toArray();
     }
-    public function toBoolean() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType
+    public function toBoolean() : \PHPStan\Type\BooleanType
     {
         return $this->getStaticObjectType()->toBoolean();
     }
-    public function traverse(callable $cb) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function traverse(callable $cb) : \PHPStan\Type\Type
     {
         return $this;
     }
@@ -216,7 +216,7 @@ class StaticType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassNa
      * @param mixed[] $properties
      * @return Type
      */
-    public static function __set_state(array $properties) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \PHPStan\Type\Type
     {
         return new self($properties['baseClass']);
     }

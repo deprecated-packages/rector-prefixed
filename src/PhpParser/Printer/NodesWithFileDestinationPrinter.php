@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer;
+namespace Rector\Core\PhpParser\Printer;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Lexer;
-use _PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
-use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Application\PostFileProcessor;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Lexer;
+use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
+use Rector\PostRector\Application\PostFileProcessor;
 final class NodesWithFileDestinationPrinter
 {
     /**
@@ -21,13 +21,13 @@ final class NodesWithFileDestinationPrinter
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper2a4e7ab1ecbc\PhpParser\Lexer $lexer, \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Application\PostFileProcessor $postFileProcessor)
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \PhpParser\Lexer $lexer, \Rector\PostRector\Application\PostFileProcessor $postFileProcessor)
     {
         $this->postFileProcessor = $postFileProcessor;
         $this->lexer = $lexer;
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
-    public function printNodesWithFileDestination(\_PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\ValueObject\MovedFileWithNodes $movedFileWithNodes) : string
+    public function printNodesWithFileDestination(\Rector\FileSystemRector\ValueObject\MovedFileWithNodes $movedFileWithNodes) : string
     {
         $nodes = $this->postFileProcessor->traverse($movedFileWithNodes->getNodes());
         $prettyPrintContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
@@ -40,7 +40,7 @@ final class NodesWithFileDestinationPrinter
     {
         $tokens = $this->lexer->getTokens();
         $lastToken = \array_pop($tokens);
-        if ($lastToken && isset($lastToken[1]) && \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($lastToken[1], "\n")) {
+        if ($lastToken && isset($lastToken[1]) && \_PhpScoper50d83356d739\Nette\Utils\Strings::contains($lastToken[1], "\n")) {
             $prettyPrintContent = \trim($prettyPrintContent) . \PHP_EOL;
         }
         return $prettyPrintContent;

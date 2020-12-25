@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Symfony\Polyfill\Php80;
+namespace _PhpScoper50d83356d739\Symfony\Polyfill\Php80;
 
 /**
  * @author Ion Bazan <ion.bazan@gmail.com>
@@ -55,7 +55,7 @@ final class Php80
         if (\false === \strpos($class, '@')) {
             return $class;
         }
-        return (\get_parent_class($class) ?: \key(\class_implements($class)) ?: 'class') . '@anonymous';
+        return ((\get_parent_class($class) ?: \key(\class_implements($class))) ?: 'class') . '@anonymous';
     }
     public static function get_resource_id($res) : int
     {

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS;
+namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
-final class JMSInjectParamsTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
+final class JMSInjectParamsTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface
 {
     public function getShortName() : string
     {
-        return '_PhpScoper2a4e7ab1ecbc\\@DI\\InjectParams';
+        return '_PhpScoper50d83356d739\\@DI\\InjectParams';
     }
 }

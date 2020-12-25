@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
+namespace PHPStan\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\AccessoryType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantFloatType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Accessory\AccessoryType;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantFloatType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 class UnionTypeHelper
 {
     /**
@@ -29,53 +29,53 @@ class UnionTypeHelper
      */
     public static function sortTypes(array $types) : array
     {
-        \usort($types, static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $a, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $b) : int {
-            if ($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType) {
+        \usort($types, static function (\PHPStan\Type\Type $a, \PHPStan\Type\Type $b) : int {
+            if ($a instanceof \PHPStan\Type\NullType) {
                 return 1;
-            } elseif ($b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType) {
+            } elseif ($b instanceof \PHPStan\Type\NullType) {
                 return -1;
             }
-            if ($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\AccessoryType) {
-                if ($b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\AccessoryType) {
-                    return \strcasecmp($a->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::value()), $b->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::value()));
+            if ($a instanceof \PHPStan\Type\Accessory\AccessoryType) {
+                if ($b instanceof \PHPStan\Type\Accessory\AccessoryType) {
+                    return \strcasecmp($a->describe(\PHPStan\Type\VerbosityLevel::value()), $b->describe(\PHPStan\Type\VerbosityLevel::value()));
                 }
                 return 1;
             }
-            if ($b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\AccessoryType) {
+            if ($b instanceof \PHPStan\Type\Accessory\AccessoryType) {
                 return -1;
             }
-            $aIsBool = $a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
-            $bIsBool = $b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
+            $aIsBool = $a instanceof \PHPStan\Type\Constant\ConstantBooleanType;
+            $bIsBool = $b instanceof \PHPStan\Type\Constant\ConstantBooleanType;
             if ($aIsBool && !$bIsBool) {
                 return 1;
             } elseif ($bIsBool && !$aIsBool) {
                 return -1;
             }
-            if ($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType && !$b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType) {
+            if ($a instanceof \PHPStan\Type\ConstantScalarType && !$b instanceof \PHPStan\Type\ConstantScalarType) {
                 return -1;
-            } elseif (!$a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType && $b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantScalarType) {
+            } elseif (!$a instanceof \PHPStan\Type\ConstantScalarType && $b instanceof \PHPStan\Type\ConstantScalarType) {
                 return 1;
             }
-            if (($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType || $a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantFloatType) && ($b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType || $b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantFloatType)) {
+            if (($a instanceof \PHPStan\Type\Constant\ConstantIntegerType || $a instanceof \PHPStan\Type\Constant\ConstantFloatType) && ($b instanceof \PHPStan\Type\Constant\ConstantIntegerType || $b instanceof \PHPStan\Type\Constant\ConstantFloatType)) {
                 $cmp = $a->getValue() <=> $b->getValue();
                 if ($cmp !== 0) {
                     return $cmp;
                 }
-                if ($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType && $b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantFloatType) {
+                if ($a instanceof \PHPStan\Type\Constant\ConstantIntegerType && $b instanceof \PHPStan\Type\Constant\ConstantFloatType) {
                     return -1;
                 }
-                if ($b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantIntegerType && $a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantFloatType) {
+                if ($b instanceof \PHPStan\Type\Constant\ConstantIntegerType && $a instanceof \PHPStan\Type\Constant\ConstantFloatType) {
                     return 1;
                 }
                 return 0;
             }
-            if ($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType && $b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerRangeType) {
+            if ($a instanceof \PHPStan\Type\IntegerRangeType && $b instanceof \PHPStan\Type\IntegerRangeType) {
                 return $a->getMin() <=> $b->getMin();
             }
-            if ($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType && $b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType) {
+            if ($a instanceof \PHPStan\Type\Constant\ConstantStringType && $b instanceof \PHPStan\Type\Constant\ConstantStringType) {
                 return \strcasecmp($a->getValue(), $b->getValue());
             }
-            if ($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType && $b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType) {
+            if ($a instanceof \PHPStan\Type\Constant\ConstantArrayType && $b instanceof \PHPStan\Type\Constant\ConstantArrayType) {
                 if ($a->isEmpty()) {
                     if ($b->isEmpty()) {
                         return 0;
@@ -84,9 +84,9 @@ class UnionTypeHelper
                 } elseif ($b->isEmpty()) {
                     return 1;
                 }
-                return \strcasecmp($a->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::value()), $b->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::value()));
+                return \strcasecmp($a->describe(\PHPStan\Type\VerbosityLevel::value()), $b->describe(\PHPStan\Type\VerbosityLevel::value()));
             }
-            return \strcasecmp($a->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $b->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()));
+            return \strcasecmp($a->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $b->describe(\PHPStan\Type\VerbosityLevel::typeOnly()));
         });
         return $types;
     }

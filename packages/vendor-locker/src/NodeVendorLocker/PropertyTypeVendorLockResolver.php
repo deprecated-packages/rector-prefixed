@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker;
+namespace Rector\VendorLocker\NodeVendorLocker;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Interface_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\Interface_;
+use PhpParser\Node\Stmt\Property;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionProperty;
-final class PropertyTypeVendorLockResolver extends \_PhpScoper2a4e7ab1ecbc\Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
+final class PropertyTypeVendorLockResolver extends \Rector\VendorLocker\NodeVendorLocker\AbstractNodeVendorLockResolver
 {
-    public function isVendorLocked(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : bool
+    public function isVendorLocked(\PhpParser\Node\Stmt\Property $property) : bool
     {
         /** @var Class_|null $classLike */
-        $classLike = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return \false;
         }
@@ -32,14 +32,14 @@ final class PropertyTypeVendorLockResolver extends \_PhpScoper2a4e7ab1ecbc\Recto
     /**
      * @param Class_|Interface_ $classLike
      */
-    private function isParentClassLocked(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
+    private function isParentClassLocked(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
     {
-        if (!$classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         // extract to some "inherited parent method" service
         /** @var string|null $parentClassName */
-        $parentClassName = $classLike->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $classLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         if ($parentClassName === null) {
             return \false;
         }
@@ -55,9 +55,9 @@ final class PropertyTypeVendorLockResolver extends \_PhpScoper2a4e7ab1ecbc\Recto
     /**
      * @param Class_|Interface_ $classLike
      */
-    private function isChildClassLocked(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
+    private function isChildClassLocked(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
     {
-        if (!$classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         // is child class locker

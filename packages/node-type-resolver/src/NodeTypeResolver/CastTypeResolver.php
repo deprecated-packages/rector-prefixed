@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
+namespace Rector\NodeTypeResolver\NodeTypeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-final class CastTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr\Cast;
+use PHPStan\Type\Type;
+use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+final class CastTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
     /**
      * @var NodeTypeResolver
@@ -17,7 +17,7 @@ final class CastTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeR
     /**
      * @required
      */
-    public function autowireCastTypeResolver(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
+    public function autowireCastTypeResolver(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
@@ -26,12 +26,12 @@ final class CastTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeR
      */
     public function getNodeClasses() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Cast::class];
+        return [\PhpParser\Node\Expr\Cast::class];
     }
     /**
      * @param Cast $node
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
         return $this->nodeTypeResolver->resolve($node->expr);
     }

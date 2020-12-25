@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Sensio\TypeAnalyzer;
+namespace Rector\Sensio\TypeAnalyzer;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\UnionType;
 final class ArrayUnionResponseTypeAnalyzer
 {
-    public function isArrayUnionResponseType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, string $className) : bool
+    public function isArrayUnionResponseType(\PHPStan\Type\Type $type, string $className) : bool
     {
-        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
+        if (!$type instanceof \PHPStan\Type\UnionType) {
             return \false;
         }
         $hasArrayType = \false;
         $hasResponseType = \false;
         foreach ($type->getTypes() as $unionedType) {
-            if ($unionedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+            if ($unionedType instanceof \PHPStan\Type\ArrayType) {
                 $hasArrayType = \true;
                 continue;
             }
@@ -32,9 +32,9 @@ final class ArrayUnionResponseTypeAnalyzer
         }
         return $hasResponseType;
     }
-    private function isTypeOfClassName(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, string $className) : bool
+    private function isTypeOfClassName(\PHPStan\Type\Type $type, string $className) : bool
     {
-        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+        if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         return \is_a($type->getClassName(), $className, \true);

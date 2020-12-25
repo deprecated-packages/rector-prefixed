@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeCorrector;
+namespace Rector\NodeTypeResolver\NodeTypeCorrector;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\ParentScopeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Variable;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeNestingScope\ParentScopeFinder;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class PregMatchTypeCorrector
 {
     /**
@@ -33,7 +33,7 @@ final class PregMatchTypeCorrector
      * @var ParentScopeFinder
      */
     private $parentScopeFinder;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -44,22 +44,22 @@ final class PregMatchTypeCorrector
      * Special case for "preg_match(), preg_match_all()" - with 3rd argument
      * @see https://github.com/rectorphp/rector/issues/786
      */
-    public function correct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $originalType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function correct(\PhpParser\Node $node, \PHPStan\Type\Type $originalType) : \PHPStan\Type\Type
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+        if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return $originalType;
         }
-        if ($originalType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+        if ($originalType instanceof \PHPStan\Type\ArrayType) {
             return $originalType;
         }
         $variableUsages = $this->getVariableUsages($node);
         foreach ($variableUsages as $variableUsage) {
-            $possiblyArg = $variableUsage->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$possiblyArg instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg) {
+            $possiblyArg = $variableUsage->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if (!$possiblyArg instanceof \PhpParser\Node\Arg) {
                 continue;
             }
-            $funcCallNode = $possiblyArg->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$funcCallNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
+            $funcCallNode = $possiblyArg->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if (!$funcCallNode instanceof \PhpParser\Node\Expr\FuncCall) {
                 continue;
             }
             if (!$this->nodeNameResolver->isNames($funcCallNode, ['preg_match', 'preg_match_all'])) {
@@ -72,21 +72,21 @@ final class PregMatchTypeCorrector
             if (!$this->betterStandardPrinter->areNodesEqual($funcCallNode->args[2]->value, $node)) {
                 continue;
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType());
+            return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         }
         return $originalType;
     }
     /**
      * @return Node[]
      */
-    private function getVariableUsages(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $variable) : array
+    private function getVariableUsages(\PhpParser\Node\Expr\Variable $variable) : array
     {
         $scope = $this->parentScopeFinder->find($variable);
         if ($scope === null) {
             return [];
         }
-        return $this->betterNodeFinder->find((array) $scope->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($variable) : bool {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+        return $this->betterNodeFinder->find((array) $scope->stmts, function (\PhpParser\Node $node) use($variable) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return \false;
             }
             return $node->name === $variable->name;

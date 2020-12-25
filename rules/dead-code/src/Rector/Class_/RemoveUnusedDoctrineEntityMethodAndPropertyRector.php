@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\Class_;
+namespace Rector\DeadCode\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\Doctrine\Common\Collections\ArrayCollection;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\UnusedNodeResolver\ClassUnusedPrivateClassMethodResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Doctrine\Common\Collections\ArrayCollection;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Property;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
+use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
+use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
+use Rector\DeadCode\UnusedNodeResolver\ClassUnusedPrivateClassMethodResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  * @see \Rector\DeadCode\Tests\Rector\Class_\RemoveUnusedDoctrineEntityMethodAndPropertyRector\RemoveUnusedDoctrineEntityMethodAndPropertyRectorTest
  */
-final class RemoveUnusedDoctrineEntityMethodAndPropertyRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
+final class RemoveUnusedDoctrineEntityMethodAndPropertyRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface
 {
     /**
      * @var Assign[]
@@ -41,15 +41,15 @@ final class RemoveUnusedDoctrineEntityMethodAndPropertyRector extends \_PhpScope
      * @var DoctrineEntityManipulator
      */
     private $doctrineEntityManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\DeadCode\UnusedNodeResolver\ClassUnusedPrivateClassMethodResolver $classUnusedPrivateClassMethodResolver, \_PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Doctrine\DoctrineEntityManipulator $doctrineEntityManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \Rector\DeadCode\UnusedNodeResolver\ClassUnusedPrivateClassMethodResolver $classUnusedPrivateClassMethodResolver, \Rector\DeadCode\Doctrine\DoctrineEntityManipulator $doctrineEntityManipulator)
     {
         $this->classUnusedPrivateClassMethodResolver = $classUnusedPrivateClassMethodResolver;
         $this->classManipulator = $classManipulator;
         $this->doctrineEntityManipulator = $doctrineEntityManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes unused methods and properties from Doctrine entity classes', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes unused methods and properties from Doctrine entity classes', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -90,12 +90,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->doctrineEntityManipulator->isNonAbstractDoctrineEntityClass($node)) {
             return null;
@@ -114,7 +114,7 @@ CODE_SAMPLE
      * Remove unused methods immediately, so we can then remove unused properties.
      * @param string[] $unusedMethodNames
      */
-    private function removeClassMethodsByNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, array $unusedMethodNames) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_
+    private function removeClassMethodsByNames(\PhpParser\Node\Stmt\Class_ $class, array $unusedMethodNames) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getMethods() as $classMethod) {
             if (!$this->isNames($classMethod, $unusedMethodNames)) {
@@ -127,7 +127,7 @@ CODE_SAMPLE
     /**
      * @return string[]
      */
-    private function resolveUnusedPrivatePropertyNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    private function resolveUnusedPrivatePropertyNames(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $privatePropertyNames = $this->classManipulator->getPrivatePropertyNames($class);
         // get list of fetched properties
@@ -137,10 +137,10 @@ CODE_SAMPLE
     /**
      * @param string[] $unusedPropertyNames
      */
-    private function removeClassPrivatePropertiesByNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, array $unusedPropertyNames) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_
+    private function removeClassPrivatePropertiesByNames(\PhpParser\Node\Stmt\Class_ $class, array $unusedPropertyNames) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getProperties() as $property) {
-            if ($this->hasPhpDocTagValueNode($property, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode::class)) {
+            if ($this->hasPhpDocTagValueNode($property, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode::class)) {
                 continue;
             }
             if (!$this->isNames($property, $unusedPropertyNames)) {
@@ -159,11 +159,11 @@ CODE_SAMPLE
     /**
      * @return string[]
      */
-    private function resolveClassUsedPropertyFetchNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    private function resolveClassUsedPropertyFetchNames(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $usedPropertyNames = [];
-        $this->traverseNodesWithCallable($class->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use(&$usedPropertyNames) {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
+        $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use(&$usedPropertyNames) {
+            if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch) {
                 return null;
             }
             if (!$this->isName($node->var, 'this')) {
@@ -174,7 +174,7 @@ CODE_SAMPLE
             // skip collection initialization, e.g. "$this->someProperty = new ArrayCollection();"
             if ($this->isPropertyFetchAssignOfArrayCollection($node)) {
                 /** @var Assign $parentNode */
-                $parentNode = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+                $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
                 $this->collectionByPropertyName[$propertyName] = $parentNode;
                 return null;
             }
@@ -183,7 +183,7 @@ CODE_SAMPLE
         });
         return $usedPropertyNames;
     }
-    private function removeInversedByOrMappedByOnRelatedProperty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : void
+    private function removeInversedByOrMappedByOnRelatedProperty(\PhpParser\Node\Stmt\Property $property) : void
     {
         $otherRelationProperty = $this->getOtherRelationProperty($property);
         if ($otherRelationProperty === null) {
@@ -191,20 +191,20 @@ CODE_SAMPLE
         }
         $this->doctrineEntityManipulator->removeMappedByOrInversedByFromProperty($otherRelationProperty);
     }
-    private function isPropertyFetchAssignOfArrayCollection(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
+    private function isPropertyFetchAssignOfArrayCollection(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
-        $parentNode = $propertyFetch->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        $parentNode = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \PhpParser\Node\Expr\Assign) {
             return \false;
         }
-        if (!$parentNode->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_) {
+        if (!$parentNode->expr instanceof \PhpParser\Node\Expr\New_) {
             return \false;
         }
         /** @var New_ $new */
         $new = $parentNode->expr;
-        return $this->isName($new->class, \_PhpScoper2a4e7ab1ecbc\Doctrine\Common\Collections\ArrayCollection::class);
+        return $this->isName($new->class, \_PhpScoper50d83356d739\Doctrine\Common\Collections\ArrayCollection::class);
     }
-    private function getOtherRelationProperty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property
+    private function getOtherRelationProperty(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
         $targetEntity = $this->docBlockManipulator->getDoctrineFqnTargetEntity($property);
         if ($targetEntity === null) {
@@ -216,7 +216,7 @@ CODE_SAMPLE
         }
         // get the class property and remove "mappedBy/inversedBy" from annotation
         $relatedEntityClass = $this->nodeRepository->findClass($targetEntity);
-        if (!$relatedEntityClass instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        if (!$relatedEntityClass instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         foreach ($relatedEntityClass->getProperties() as $relatedEntityClassStmt) {

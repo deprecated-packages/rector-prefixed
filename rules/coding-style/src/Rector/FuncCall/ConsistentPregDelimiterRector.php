@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\FuncCall;
+namespace Rector\CodingStyle\Rector\FuncCall;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Scalar\String_;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\FuncCall\ConsistentPregDelimiterRector\ConsistentPregDelimiterRectorTest
  */
-final class ConsistentPregDelimiterRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ConsistentPregDelimiterRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -39,14 +39,14 @@ final class ConsistentPregDelimiterRector extends \_PhpScoper2a4e7ab1ecbc\Rector
      * All with pattern as 2st argument
      * @var array<string, array<string, int>>
      */
-    private const STATIC_METHODS_WITH_REGEX_PATTERN = ['_PhpScoper2a4e7ab1ecbc\\Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
+    private const STATIC_METHODS_WITH_REGEX_PATTERN = ['_PhpScoper50d83356d739\\Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
     /**
      * @var string
      */
     private $delimiter = '#';
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace PREG delimiter with configured one', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace PREG delimiter with configured one', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -73,14 +73,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param FuncCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
+        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             return $this->refactorFuncCall($node);
         }
         foreach (self::STATIC_METHODS_WITH_REGEX_PATTERN as $type => $methodsToPositions) {
@@ -101,7 +101,7 @@ CODE_SAMPLE
     {
         $this->delimiter = $configuration[self::DELIMITER] ?? '#';
     }
-    private function refactorFuncCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall $funcCall) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall
+    private function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr\FuncCall
     {
         foreach (self::FUNCTIONS_WITH_REGEX_PATTERN as $function => $position) {
             if (!$this->isName($funcCall, $function)) {
@@ -112,15 +112,15 @@ CODE_SAMPLE
         }
         return null;
     }
-    private function refactorArgument(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg $arg) : void
+    private function refactorArgument(\PhpParser\Node\Arg $arg) : void
     {
-        if (!$arg->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
+        if (!$arg->value instanceof \PhpParser\Node\Scalar\String_) {
             return;
         }
         /** @var String_ $string */
         $string = $arg->value;
         $value = $string->value;
-        $string->value = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
+        $string->value = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
             $innerPattern = $match['content'];
             // change delimiter
             if (\strlen($innerPattern) > 2 && $innerPattern[0] === $innerPattern[\strlen($innerPattern) - 1]) {

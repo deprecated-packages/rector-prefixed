@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+namespace PHPStan\Reflection\ReflectionProvider;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Reflection\ReflectionProvider;
 interface ReflectionProviderProvider
 {
-    public function getReflectionProvider() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
+    public function getReflectionProvider() : \PHPStan\Reflection\ReflectionProvider;
 }

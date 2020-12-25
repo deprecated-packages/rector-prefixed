@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\NodeResolver;
+namespace Rector\Php80\NodeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\PropertyPromotionCandidate;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Property;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\ValueObject\MethodName;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\Php80\ValueObject\PropertyPromotionCandidate;
 final class PromotedPropertyResolver
 {
     /**
@@ -24,7 +24,7 @@ final class PromotedPropertyResolver
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -32,9 +32,9 @@ final class PromotedPropertyResolver
     /**
      * @return PropertyPromotionCandidate[]
      */
-    public function resolveFromClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    public function resolveFromClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
-        $constructClassMethod = $class->getMethod(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructClassMethod === null) {
             return [];
         }
@@ -51,16 +51,16 @@ final class PromotedPropertyResolver
         }
         return $propertyPromotionCandidates;
     }
-    private function matchPropertyPromotionCandidate(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $constructClassMethod) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\PropertyPromotionCandidate
+    private function matchPropertyPromotionCandidate(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\ClassMethod $constructClassMethod) : ?\Rector\Php80\ValueObject\PropertyPromotionCandidate
     {
         $onlyProperty = $property->props[0];
         $propertyName = $this->nodeNameResolver->getName($onlyProperty);
         // match property name to assign in constructor
         foreach ((array) $constructClassMethod->stmts as $stmt) {
-            if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+            if ($stmt instanceof \PhpParser\Node\Stmt\Expression) {
                 $stmt = $stmt->expr;
             }
-            if (!$stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+            if (!$stmt instanceof \PhpParser\Node\Expr\Assign) {
                 continue;
             }
             $assign = $stmt;
@@ -74,11 +74,11 @@ final class PromotedPropertyResolver
             if ($matchedParam === null) {
                 continue;
             }
-            return new \_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\PropertyPromotionCandidate($property, $assign, $matchedParam);
+            return new \Rector\Php80\ValueObject\PropertyPromotionCandidate($property, $assign, $matchedParam);
         }
         return null;
     }
-    private function matchClassMethodParamByAssignedVariable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $assignedExpr) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param
+    private function matchClassMethodParamByAssignedVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr $assignedExpr) : ?\PhpParser\Node\Param
     {
         foreach ($classMethod->params as $param) {
             if (!$this->betterStandardPrinter->areNodesEqual($assignedExpr, $param->var)) {

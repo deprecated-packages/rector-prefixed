@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream;
+namespace Hoa\Stream\IStream;
 
 /**
  * Interface \Hoa\Stream\IStream\Pointable.
@@ -43,7 +43,7 @@ namespace _PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-interface Pointable extends \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Stream
+interface Pointable extends \Hoa\Stream\IStream\Stream
 {
     /**
      * Set position equal to $offset bytes.

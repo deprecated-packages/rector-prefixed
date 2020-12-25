@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
+namespace PHPStan\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\AccessoryNumericStringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\NonEmptyArrayType;
+use PHPStan\Type\Accessory\AccessoryNumericStringType;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
 class VerbosityLevel
 {
     private const TYPE_ONLY = 1;
@@ -40,23 +40,23 @@ class VerbosityLevel
     {
         return self::create(self::CACHE);
     }
-    public static function getRecommendedLevelByType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : self
+    public static function getRecommendedLevelByType(\PHPStan\Type\Type $type) : self
     {
         $moreVerbose = \false;
-        \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeTraverser::map($type, static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, callable $traverse) use(&$moreVerbose) : Type {
+        \PHPStan\Type\TypeTraverser::map($type, static function (\PHPStan\Type\Type $type, callable $traverse) use(&$moreVerbose) : Type {
             if ($type->isCallable()->yes()) {
                 $moreVerbose = \true;
                 return $type;
             }
-            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ConstantType && !$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NullType) {
+            if ($type instanceof \PHPStan\Type\ConstantType && !$type instanceof \PHPStan\Type\NullType) {
                 $moreVerbose = \true;
                 return $type;
             }
-            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\AccessoryNumericStringType) {
+            if ($type instanceof \PHPStan\Type\Accessory\AccessoryNumericStringType) {
                 $moreVerbose = \true;
                 return $type;
             }
-            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Accessory\NonEmptyArrayType) {
+            if ($type instanceof \PHPStan\Type\Accessory\NonEmptyArrayType) {
                 $moreVerbose = \true;
                 return $type;
             }
@@ -94,6 +94,6 @@ class VerbosityLevel
             }
             return $valueCallback();
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+        throw new \PHPStan\ShouldNotHappenException();
     }
 }

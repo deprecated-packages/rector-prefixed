@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer;
+namespace Rector\Defluent\NodeAnalyzer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\MethodCall;
 final class FluentCallStaticTypeResolver
 {
     /**
      * @var ExprStringTypeResolver
      */
     private $exprStringTypeResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeAnalyzer\ExprStringTypeResolver $exprStringTypeResolver)
+    public function __construct(\Rector\Defluent\NodeAnalyzer\ExprStringTypeResolver $exprStringTypeResolver)
     {
         $this->exprStringTypeResolver = $exprStringTypeResolver;
     }

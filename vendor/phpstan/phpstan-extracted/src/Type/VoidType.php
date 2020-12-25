@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
+namespace PHPStan\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\FalseyBooleanTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonCallableTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonGenericTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonIterableTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonObjectTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
-class VoidType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Traits\FalseyBooleanTypeTrait;
+use PHPStan\Type\Traits\NonCallableTypeTrait;
+use PHPStan\Type\Traits\NonGenericTypeTrait;
+use PHPStan\Type\Traits\NonIterableTypeTrait;
+use PHPStan\Type\Traits\NonObjectTypeTrait;
+use PHPStan\Type\Traits\NonOffsetAccessibleTypeTrait;
+use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
+class VoidType implements \PHPStan\Type\Type
 {
     use NonCallableTypeTrait;
     use NonIterableTypeTrait;
@@ -27,57 +27,57 @@ class VoidType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
     {
         return [];
     }
-    public function accepts(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createFromBoolean($type instanceof self);
+        return \PHPStan\TrinaryLogic::createFromBoolean($type instanceof self);
     }
-    public function isSuperTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType) {
+        if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function equals(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    public function equals(\PHPStan\Type\Type $type) : bool
     {
         return $type instanceof self;
     }
-    public function describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
         return 'void';
     }
-    public function toNumber() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toNumber() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toString() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toString() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toInteger() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toInteger() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toFloat() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toFloat() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toArray() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toArray() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function isArray() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isNumericString() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function traverse(callable $cb) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function traverse(callable $cb) : \PHPStan\Type\Type
     {
         return $this;
     }
@@ -85,7 +85,7 @@ class VoidType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
      * @param mixed[] $properties
      * @return Type
      */
-    public static function __set_state(array $properties) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \PHPStan\Type\Type
     {
         return new self();
     }

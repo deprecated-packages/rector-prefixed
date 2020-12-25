@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics;
+namespace PHPStan\Rules\Generics;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeTraverser;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\Generic\TemplateType;
+use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeTraverser;
+use PHPStan\Type\VerbosityLevel;
 class GenericObjectTypeCheck
 {
     /**
@@ -20,7 +20,7 @@ class GenericObjectTypeCheck
      * @param string $typeIsNotSubtypeMessage
      * @return \PHPStan\Rules\RuleError[]
      */
-    public function check(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $phpDocType, string $classNotGenericMessage, string $notEnoughTypesMessage, string $extraTypesMessage, string $typeIsNotSubtypeMessage) : array
+    public function check(\PHPStan\Type\Type $phpDocType, string $classNotGenericMessage, string $notEnoughTypesMessage, string $extraTypesMessage, string $typeIsNotSubtypeMessage) : array
     {
         $genericTypes = $this->getGenericTypes($phpDocType);
         $messages = [];
@@ -30,7 +30,7 @@ class GenericObjectTypeCheck
                 continue;
             }
             if (!$classReflection->isGeneric()) {
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($classNotGenericMessage, $genericType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName()))->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($classNotGenericMessage, $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName()))->build();
                 continue;
             }
             $templateTypes = \array_values($classReflection->getTemplateTypeMap()->getTypes());
@@ -38,23 +38,23 @@ class GenericObjectTypeCheck
             $templateTypesCount = \count($templateTypes);
             $genericTypeTypesCount = \count($genericTypeTypes);
             if ($templateTypesCount > $genericTypeTypesCount) {
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($notEnoughTypesMessage, $genericType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName(\false), \implode(', ', \array_keys($classReflection->getTemplateTypeMap()->getTypes()))))->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($notEnoughTypesMessage, $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName(\false), \implode(', ', \array_keys($classReflection->getTemplateTypeMap()->getTypes()))))->build();
             } elseif ($templateTypesCount < $genericTypeTypesCount) {
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($extraTypesMessage, $genericType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $genericTypeTypesCount, $classReflection->getDisplayName(\false), $templateTypesCount, \implode(', ', \array_keys($classReflection->getTemplateTypeMap()->getTypes()))))->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($extraTypesMessage, $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $genericTypeTypesCount, $classReflection->getDisplayName(\false), $templateTypesCount, \implode(', ', \array_keys($classReflection->getTemplateTypeMap()->getTypes()))))->build();
             }
             foreach ($templateTypes as $i => $templateType) {
                 if (!isset($genericTypeTypes[$i])) {
                     continue;
                 }
                 $boundType = $templateType;
-                if ($templateType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType) {
+                if ($templateType instanceof \PHPStan\Type\Generic\TemplateType) {
                     $boundType = $templateType->getBound();
                 }
                 $genericTypeType = $genericTypeTypes[$i];
                 if ($boundType->isSuperTypeOf($genericTypeType)->yes()) {
                     continue;
                 }
-                $messages[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($typeIsNotSubtypeMessage, $genericTypeType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $genericType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $templateType->describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName(\false)))->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($typeIsNotSubtypeMessage, $genericTypeType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $templateType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName(\false)))->build();
             }
         }
         return $messages;
@@ -63,14 +63,14 @@ class GenericObjectTypeCheck
      * @param \PHPStan\Type\Type $phpDocType
      * @return \PHPStan\Type\Generic\GenericObjectType[]
      */
-    private function getGenericTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $phpDocType) : array
+    private function getGenericTypes(\PHPStan\Type\Type $phpDocType) : array
     {
         $genericObjectTypes = [];
-        \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeTraverser::map($phpDocType, static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, callable $traverse) use(&$genericObjectTypes) : Type {
-            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType) {
-                $resolvedType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($type);
-                if (!$resolvedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\GenericObjectType) {
-                    throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+        \PHPStan\Type\TypeTraverser::map($phpDocType, static function (\PHPStan\Type\Type $type, callable $traverse) use(&$genericObjectTypes) : Type {
+            if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
+                $resolvedType = \PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($type);
+                if (!$resolvedType instanceof \PHPStan\Type\Generic\GenericObjectType) {
+                    throw new \PHPStan\ShouldNotHappenException();
                 }
                 $genericObjectTypes[] = $resolvedType;
                 $traverse($type);

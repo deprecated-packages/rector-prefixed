@@ -1,44 +1,44 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser;
+namespace PHPStan\PhpDocParser\Parser;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\Ast;
+use PHPStan\PhpDocParser\Lexer\Lexer;
 class TypeParser
 {
     /** @var ConstExprParser|null */
     private $constExprParser;
-    public function __construct(?\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser = null)
+    public function __construct(?\PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser = null)
     {
         $this->constExprParser = $constExprParser;
     }
-    public function parse(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    public function parse(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_NULLABLE)) {
+        if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_NULLABLE)) {
             $type = $this->parseNullable($tokens);
         } else {
             $type = $this->parseAtomic($tokens);
-            if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_UNION)) {
+            if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_UNION)) {
                 $type = $this->parseUnion($tokens, $type);
-            } elseif ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTERSECTION)) {
+            } elseif ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTERSECTION)) {
                 $type = $this->parseIntersection($tokens, $type);
             }
         }
         return $type;
     }
-    private function parseAtomic(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    private function parseAtomic(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        if ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES)) {
+        if ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES)) {
             $type = $this->parse($tokens);
-            $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES);
-            if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
+            $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES);
+            if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
                 return $this->tryParseArray($tokens, $type);
             }
             return $type;
-        } elseif ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_THIS_VARIABLE)) {
-            $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ThisTypeNode();
-            if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
+        } elseif ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_THIS_VARIABLE)) {
+            $type = new \PHPStan\PhpDocParser\Ast\Type\ThisTypeNode();
+            if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
                 return $this->tryParseArray($tokens, $type);
             }
             return $type;
@@ -46,12 +46,12 @@ class TypeParser
         $currentTokenValue = $tokens->currentTokenValue();
         $tokens->pushSavePoint();
         // because of ConstFetchNode
-        if ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER)) {
-            $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($currentTokenValue);
-            if (!$tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_DOUBLE_COLON)) {
+        if ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER)) {
+            $type = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($currentTokenValue);
+            if (!$tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_DOUBLE_COLON)) {
                 $tokens->dropSavePoint();
                 // because of ConstFetchNode
-                if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET)) {
+                if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET)) {
                     $tokens->pushSavePoint();
                     $isHtml = $this->isHtml($tokens);
                     $tokens->rollback();
@@ -59,16 +59,16 @@ class TypeParser
                         return $type;
                     }
                     $type = $this->parseGeneric($tokens, $type);
-                    if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
+                    if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
                         $type = $this->tryParseArray($tokens, $type);
                     }
-                } elseif ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES)) {
+                } elseif ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES)) {
                     $type = $this->tryParseCallable($tokens, $type);
-                } elseif ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
+                } elseif ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
                     $type = $this->tryParseArray($tokens, $type);
-                } elseif ($type->name === 'array' && $tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
+                } elseif ($type->name === 'array' && $tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
                     $type = $this->parseArrayShape($tokens, $type);
-                    if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
+                    if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
                         $type = $this->tryParseArray($tokens, $type);
                     }
                 }
@@ -81,218 +81,218 @@ class TypeParser
             $tokens->dropSavePoint();
             // because of ConstFetchNode
         }
-        $exception = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\ParserException($tokens->currentTokenValue(), $tokens->currentTokenType(), $tokens->currentTokenOffset(), \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
+        $exception = new \PHPStan\PhpDocParser\Parser\ParserException($tokens->currentTokenValue(), $tokens->currentTokenType(), $tokens->currentTokenOffset(), \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
         if ($this->constExprParser === null) {
             throw $exception;
         }
         try {
             $constExpr = $this->constExprParser->parse($tokens, \true);
-            if ($constExpr instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode) {
+            if ($constExpr instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode) {
                 throw $exception;
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ConstTypeNode($constExpr);
+            return new \PHPStan\PhpDocParser\Ast\Type\ConstTypeNode($constExpr);
         } catch (\LogicException $e) {
             throw $exception;
         }
     }
-    private function parseUnion(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    private function parseUnion(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \PHPStan\PhpDocParser\Ast\Type\TypeNode $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $types = [$type];
-        while ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_UNION)) {
+        while ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_UNION)) {
             $types[] = $this->parseAtomic($tokens);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode($types);
+        return new \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode($types);
     }
-    private function parseIntersection(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    private function parseIntersection(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \PHPStan\PhpDocParser\Ast\Type\TypeNode $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $types = [$type];
-        while ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTERSECTION)) {
+        while ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTERSECTION)) {
             $types[] = $this->parseAtomic($tokens);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode($types);
+        return new \PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode($types);
     }
-    private function parseNullable(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    private function parseNullable(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_NULLABLE);
-        $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($tokens->currentTokenValue());
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
-        if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET)) {
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_NULLABLE);
+        $type = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($tokens->currentTokenValue());
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
+        if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET)) {
             $type = $this->parseGeneric($tokens, $type);
-        } elseif ($type->name === 'array' && $tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
+        } elseif ($type->name === 'array' && $tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
             $type = $this->parseArrayShape($tokens, $type);
         }
-        if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
+        if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
             $type = $this->tryParseArray($tokens, $type);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\NullableTypeNode($type);
+        return new \PHPStan\PhpDocParser\Ast\Type\NullableTypeNode($type);
     }
-    public function isHtml(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : bool
+    public function isHtml(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : bool
     {
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET);
-        if (!$tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER)) {
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET);
+        if (!$tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER)) {
             return \false;
         }
         $htmlTagName = $tokens->currentTokenValue();
         $tokens->next();
-        if (!$tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_ANGLE_BRACKET)) {
+        if (!$tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_ANGLE_BRACKET)) {
             return \false;
         }
-        while (!$tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END)) {
-            if ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET) && \strpos($tokens->currentTokenValue(), '/' . $htmlTagName . '>') !== \false) {
+        while (!$tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_END)) {
+            if ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET) && \strpos($tokens->currentTokenValue(), '/' . $htmlTagName . '>') !== \false) {
                 return \true;
             }
             $tokens->next();
         }
         return \false;
     }
-    public function parseGeneric(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $baseType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\GenericTypeNode
+    public function parseGeneric(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $baseType) : \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode
     {
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET);
-        $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET);
+        $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
         $genericTypes = [$this->parse($tokens)];
-        $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
-        while ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COMMA)) {
-            $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
-            if ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_ANGLE_BRACKET)) {
+        $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+        while ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COMMA)) {
+            $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+            if ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_ANGLE_BRACKET)) {
                 // trailing comma case
-                return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\GenericTypeNode($baseType, $genericTypes);
+                return new \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode($baseType, $genericTypes);
             }
             $genericTypes[] = $this->parse($tokens);
-            $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+            $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
         }
-        $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_ANGLE_BRACKET);
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\GenericTypeNode($baseType, $genericTypes);
+        $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_ANGLE_BRACKET);
+        return new \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode($baseType, $genericTypes);
     }
-    private function parseCallable(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $identifier) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    private function parseCallable(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $identifier) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES);
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES);
         $parameters = [];
-        if (!$tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES)) {
+        if (!$tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES)) {
             $parameters[] = $this->parseCallableParameter($tokens);
-            while ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COMMA)) {
+            while ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COMMA)) {
                 $parameters[] = $this->parseCallableParameter($tokens);
             }
         }
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES);
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COLON);
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES);
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COLON);
         $returnType = $this->parseCallableReturnType($tokens);
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\CallableTypeNode($identifier, $parameters, $returnType);
+        return new \PHPStan\PhpDocParser\Ast\Type\CallableTypeNode($identifier, $parameters, $returnType);
     }
-    private function parseCallableParameter(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\CallableTypeParameterNode
+    private function parseCallableParameter(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\Type\CallableTypeParameterNode
     {
         $type = $this->parse($tokens);
-        $isReference = $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_REFERENCE);
-        $isVariadic = $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_VARIADIC);
-        if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_VARIABLE)) {
+        $isReference = $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_REFERENCE);
+        $isVariadic = $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_VARIADIC);
+        if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_VARIABLE)) {
             $parameterName = $tokens->currentTokenValue();
-            $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_VARIABLE);
+            $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_VARIABLE);
         } else {
             $parameterName = '';
         }
-        $isOptional = $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_EQUAL);
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\CallableTypeParameterNode($type, $isReference, $isVariadic, $parameterName, $isOptional);
+        $isOptional = $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_EQUAL);
+        return new \PHPStan\PhpDocParser\Ast\Type\CallableTypeParameterNode($type, $isReference, $isVariadic, $parameterName, $isOptional);
     }
-    private function parseCallableReturnType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    private function parseCallableReturnType(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_NULLABLE)) {
+        if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_NULLABLE)) {
             $type = $this->parseNullable($tokens);
-        } elseif ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES)) {
+        } elseif ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PARENTHESES)) {
             $type = $this->parse($tokens);
-            $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES);
+            $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PARENTHESES);
         } else {
-            $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($tokens->currentTokenValue());
-            $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
-            if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET)) {
+            $type = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($tokens->currentTokenValue());
+            $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
+            if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_ANGLE_BRACKET)) {
                 $type = $this->parseGeneric($tokens, $type);
-            } elseif ($type->name === 'array' && $tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
+            } elseif ($type->name === 'array' && $tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET) && !$tokens->isPrecededByHorizontalWhitespace()) {
                 $type = $this->parseArrayShape($tokens, $type);
             }
         }
-        if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
+        if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
             $type = $this->tryParseArray($tokens, $type);
         }
         return $type;
     }
-    private function tryParseCallable(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $identifier) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    private function tryParseCallable(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $identifier) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         try {
             $tokens->pushSavePoint();
             $type = $this->parseCallable($tokens, $identifier);
             $tokens->dropSavePoint();
-        } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\ParserException $e) {
+        } catch (\PHPStan\PhpDocParser\Parser\ParserException $e) {
             $tokens->rollback();
             $type = $identifier;
         }
         return $type;
     }
-    private function tryParseArray(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode
+    private function tryParseArray(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \PHPStan\PhpDocParser\Ast\Type\TypeNode $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         try {
-            while ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
+            while ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
                 $tokens->pushSavePoint();
-                $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET);
-                $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_SQUARE_BRACKET);
+                $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET);
+                $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_SQUARE_BRACKET);
                 $tokens->dropSavePoint();
-                $type = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode($type);
+                $type = new \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode($type);
             }
-        } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\ParserException $e) {
+        } catch (\PHPStan\PhpDocParser\Parser\ParserException $e) {
             $tokens->rollback();
         }
         return $type;
     }
-    private function parseArrayShape(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode
+    private function parseArrayShape(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens, \PHPStan\PhpDocParser\Ast\Type\TypeNode $type) : \PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode
     {
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET);
-        $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_CURLY_BRACKET);
+        $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
         $items = [$this->parseArrayShapeItem($tokens)];
-        $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
-        while ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COMMA)) {
-            $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
-            if ($tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_CURLY_BRACKET)) {
+        $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+        while ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COMMA)) {
+            $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+            if ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_CURLY_BRACKET)) {
                 // trailing comma case
-                return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode($items);
+                return new \PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode($items);
             }
             $items[] = $this->parseArrayShapeItem($tokens);
-            $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+            $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
         }
-        $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
-        $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_CURLY_BRACKET);
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode($items);
+        $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+        $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_CURLY_BRACKET);
+        return new \PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode($items);
     }
-    private function parseArrayShapeItem(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode
+    private function parseArrayShapeItem(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens) : \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode
     {
         try {
             $tokens->pushSavePoint();
             $key = $this->parseArrayShapeKey($tokens);
-            $optional = $tokens->tryConsumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_NULLABLE);
-            $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COLON);
+            $optional = $tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_NULLABLE);
+            $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_COLON);
             $value = $this->parse($tokens);
             $tokens->dropSavePoint();
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode($key, $optional, $value);
-        } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\ParserException $e) {
+            return new \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode($key, $optional, $value);
+        } catch (\PHPStan\PhpDocParser\Parser\ParserException $e) {
             $tokens->rollback();
             $value = $this->parse($tokens);
-            return new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode(null, \false, $value);
+            return new \PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode(null, \false, $value);
         }
     }
     /**
      * @return Ast\ConstExpr\ConstExprIntegerNode|Ast\ConstExpr\ConstExprStringNode|Ast\Type\IdentifierTypeNode
      */
-    private function parseArrayShapeKey(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator $tokens)
+    private function parseArrayShapeKey(\PHPStan\PhpDocParser\Parser\TokenIterator $tokens)
     {
-        if ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTEGER)) {
-            $key = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode($tokens->currentTokenValue());
+        if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTEGER)) {
+            $key = new \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode($tokens->currentTokenValue());
             $tokens->next();
-        } elseif ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_SINGLE_QUOTED_STRING)) {
-            $key = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode(\trim($tokens->currentTokenValue(), "'"));
+        } elseif ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_SINGLE_QUOTED_STRING)) {
+            $key = new \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode(\trim($tokens->currentTokenValue(), "'"));
             $tokens->next();
-        } elseif ($tokens->isCurrentTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_DOUBLE_QUOTED_STRING)) {
-            $key = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode(\trim($tokens->currentTokenValue(), '"'));
+        } elseif ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_DOUBLE_QUOTED_STRING)) {
+            $key = new \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode(\trim($tokens->currentTokenValue(), '"'));
             $tokens->next();
         } else {
-            $key = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($tokens->currentTokenValue());
-            $tokens->consumeTokenType(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
+            $key = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($tokens->currentTokenValue());
+            $tokens->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER);
         }
         return $key;
     }

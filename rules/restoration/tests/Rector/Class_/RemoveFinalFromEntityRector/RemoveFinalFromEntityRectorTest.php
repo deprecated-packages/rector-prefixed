@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Restoration\Tests\Rector\Class_\RemoveFinalFromEntityRector;
+namespace Rector\Restoration\Tests\Rector\Class_\RemoveFinalFromEntityRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Restoration\Rector\Class_\RemoveFinalFromEntityRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveFinalFromEntityRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Restoration\Rector\Class_\RemoveFinalFromEntityRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveFinalFromEntityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveFinalFromEntityRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rect
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Restoration\Rector\Class_\RemoveFinalFromEntityRector::class;
+        return \Rector\Restoration\Rector\Class_\RemoveFinalFromEntityRector::class;
     }
 }

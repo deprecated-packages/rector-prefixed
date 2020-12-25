@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\MarkdownDiff\\": "src"
+            "Symplify\\MarkdownDiff\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\MarkdownDiff\\Tests\\": "tests"
+            "Symplify\\MarkdownDiff\\Tests\\": "tests"
         }
     },
     "extra": {

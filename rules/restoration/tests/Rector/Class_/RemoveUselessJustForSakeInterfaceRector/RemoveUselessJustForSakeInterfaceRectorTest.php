@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Restoration\Tests\Rector\Class_\RemoveUselessJustForSakeInterfaceRector;
+namespace Rector\Restoration\Tests\Rector\Class_\RemoveUselessJustForSakeInterfaceRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Restoration\Rector\Class_\RemoveUselessJustForSakeInterfaceRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RemoveUselessJustForSakeInterfaceRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Restoration\Rector\Class_\RemoveUselessJustForSakeInterfaceRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RemoveUselessJustForSakeInterfaceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class RemoveUselessJustForSakeInterfaceRectorTest extends \_PhpScoper2a4e7
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Restoration\Rector\Class_\RemoveUselessJustForSakeInterfaceRector::class;
+        return \Rector\Restoration\Rector\Class_\RemoveUselessJustForSakeInterfaceRector::class;
     }
 }

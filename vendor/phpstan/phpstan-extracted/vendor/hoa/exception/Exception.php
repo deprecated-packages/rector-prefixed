@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Exception;
+namespace Hoa\Exception;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Consistency;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Event;
+use Hoa\Consistency;
+use Hoa\Event;
 /**
  * Class \Hoa\Exception\Exception.
  *
@@ -45,7 +45,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Event;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Exception extends \_PhpScoper2a4e7ab1ecbc\Hoa\Exception\Idle implements \_PhpScoper2a4e7ab1ecbc\Hoa\Event\Source
+class Exception extends \Hoa\Exception\Idle implements \Hoa\Event\Source
 {
     /**
      * Create an exception.
@@ -61,8 +61,8 @@ class Exception extends \_PhpScoper2a4e7ab1ecbc\Hoa\Exception\Idle implements \_
     public function __construct($message, $code = 0, $arguments = [], $previous = null)
     {
         parent::__construct($message, $code, $arguments, $previous);
-        if (\false === \_PhpScoper2a4e7ab1ecbc\Hoa\Event::eventExists('hoa://Event/Exception')) {
-            \_PhpScoper2a4e7ab1ecbc\Hoa\Event::register('hoa://Event/Exception', __CLASS__);
+        if (\false === \Hoa\Event::eventExists('hoa://Event/Exception')) {
+            \Hoa\Event::register('hoa://Event/Exception', __CLASS__);
         }
         $this->send();
         return;
@@ -74,11 +74,11 @@ class Exception extends \_PhpScoper2a4e7ab1ecbc\Hoa\Exception\Idle implements \_
      */
     public function send()
     {
-        \_PhpScoper2a4e7ab1ecbc\Hoa\Event::notify('hoa://Event/Exception', $this, new \_PhpScoper2a4e7ab1ecbc\Hoa\Event\Bucket($this));
+        \Hoa\Event::notify('hoa://Event/Exception', $this, new \Hoa\Event\Bucket($this));
         return;
     }
 }
 /**
  * Flex entity.
  */
-\_PhpScoper2a4e7ab1ecbc\Hoa\Consistency::flexEntity('_PhpScoper2a4e7ab1ecbc\\Hoa\\Exception\\Exception');
+\Hoa\Consistency::flexEntity('Hoa\\Exception\\Exception');

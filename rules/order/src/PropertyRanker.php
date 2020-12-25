@@ -1,34 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Order;
+namespace Rector\Order;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\CallableType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedException;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PhpParser\Node\Stmt\Property;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\CallableType;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\IntersectionType;
+use PHPStan\Type\IterableType;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\StringType;
+use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\UnionType;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Exception\NotImplementedException;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class PropertyRanker
 {
     /**
      * @var string[]
      */
-    private const TYPE_TO_RANK = [\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\StringType::class => 5, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntegerType::class => 5, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\BooleanType::class => 5, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FloatType::class => 5, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType::class => 10, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType::class => 10, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName::class => 15, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType::class => 20, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType::class => 25, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType::class => 30, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CallableType::class => 35];
-    public function rank(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : int
+    private const TYPE_TO_RANK = [\PHPStan\Type\StringType::class => 5, \PHPStan\Type\IntegerType::class => 5, \PHPStan\Type\BooleanType::class => 5, \PHPStan\Type\FloatType::class => 5, \PHPStan\Type\ArrayType::class => 10, \PHPStan\Type\IterableType::class => 10, \PHPStan\Type\TypeWithClassName::class => 15, \PHPStan\Type\IntersectionType::class => 20, \PHPStan\Type\UnionType::class => 25, \PHPStan\Type\MixedType::class => 30, \PHPStan\Type\CallableType::class => 35];
+    public function rank(\PhpParser\Node\Stmt\Property $property) : int
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return 1;
         }
@@ -38,6 +37,6 @@ final class PropertyRanker
                 return $rank;
             }
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedException(\get_class($varType));
+        throw new \Rector\Core\Exception\NotImplementedException(\get_class($varType));
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Transform\Rector\FuncCall;
+namespace Rector\Transform\Rector\FuncCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\AbstractToMethodCallRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\FuncNameToMethodCallName;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Generic\Rector\AbstractToMethodCallRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Transform\ValueObject\FuncNameToMethodCallName;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\FuncCallToMethodCallRectorTest
  */
-final class FuncCallToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Generic\Rector\AbstractToMethodCallRector
+final class FuncCallToMethodCallRector extends \Rector\Generic\Rector\AbstractToMethodCallRector
 {
     /**
      * @var string
@@ -26,9 +26,9 @@ final class FuncCallToMethodCallRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Ge
      * @var FuncNameToMethodCallName[]
      */
     private $funcNameToMethodCallNames = [];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined function calls to local method calls.', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined function calls to local method calls.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -56,26 +56,26 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\FuncNameToMethodCallName('view', '_PhpScoper2a4e7ab1ecbc\\Namespaced\\SomeRenderer', 'render')]])]);
+, [self::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \Rector\Transform\ValueObject\FuncNameToMethodCallName('view', '_PhpScoper50d83356d739\\Namespaced\\SomeRenderer', 'render')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class];
+        return [\PhpParser\Node\Expr\FuncCall::class];
     }
     /**
      * @param FuncCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $classLike = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        $classMethod = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if (!$classMethod instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+        $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         if ($classMethod->isStatic()) {
@@ -93,7 +93,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $funcCallsToClassMethodCalls = $configuration[self::FUNC_CALL_TO_CLASS_METHOD_CALL] ?? [];
-        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \_PhpScoper2a4e7ab1ecbc\Rector\Transform\ValueObject\FuncNameToMethodCallName::class);
+        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \Rector\Transform\ValueObject\FuncNameToMethodCallName::class);
         $this->funcNameToMethodCallNames = $funcCallsToClassMethodCalls;
     }
 }

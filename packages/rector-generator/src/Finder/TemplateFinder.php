@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\Finder;
+namespace Rector\RectorGenerator\Finder;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemGuard;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\RectorGenerator\ValueObject\RectorRecipe;
+use Symplify\SmartFileSystem\FileSystemGuard;
+use Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use Symplify\SmartFileSystem\SmartFileInfo;
 final class TemplateFinder
 {
     /**
@@ -21,7 +21,7 @@ final class TemplateFinder
      * @var FileSystemGuard
      */
     private $fileSystemGuard;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
+    public function __construct(\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
     {
         $this->finderSanitizer = $finderSanitizer;
         $this->fileSystemGuard = $fileSystemGuard;
@@ -29,7 +29,7 @@ final class TemplateFinder
     /**
      * @return SmartFileInfo[]
      */
-    public function find(\_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : array
+    public function find(\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : array
     {
         $filePaths = [];
         if ($rectorRecipe->getExtraFileContent()) {
@@ -48,7 +48,7 @@ final class TemplateFinder
      * @note the ".inc" suffix is needed, so PHPUnit doens't load it as a test case;
      * unfortunately we haven't found a way to preven it
      */
-    private function addRuleAndTestCase(\_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, array $filePaths) : array
+    private function addRuleAndTestCase(\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, array $filePaths) : array
     {
         if ($rectorRecipe->getConfiguration() !== []) {
             $filePaths[] = __DIR__ . '/../../templates/rules/__package__/src/Rector/__Category__/__Configured__Name__.php';

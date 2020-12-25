@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\MethodCall;
+namespace Rector\PHPUnit\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Instanceof_;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
+use Rector\Core\Rector\AbstractPHPUnitRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertInstanceOfComparisonRector\AssertInstanceOfComparisonRectorTest
  */
-final class AssertInstanceOfComparisonRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertInstanceOfComparisonRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
     /**
      * @var array<string, string>
@@ -25,32 +25,32 @@ final class AssertInstanceOfComparisonRector extends \_PhpScoper2a4e7ab1ecbc\Rec
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
     {
         $this->identifierManipulator = $identifierManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns instanceof comparisons to their method name alternatives in PHPUnit TestCase', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertTrue($foo instanceof Foo, "message");', '$this->assertInstanceOf("Foo", $foo, "message");'), new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertFalse($foo instanceof Foo, "message");', '$this->assertNotInstanceOf("Foo", $foo, "message");')]);
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns instanceof comparisons to their method name alternatives in PHPUnit TestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertTrue($foo instanceof Foo, "message");', '$this->assertInstanceOf("Foo", $foo, "message");'), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$this->assertFalse($foo instanceof Foo, "message");', '$this->assertNotInstanceOf("Foo", $foo, "message");')]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $oldMethodNames = \array_keys(self::RENAME_METHODS_MAP);
         if (!$this->isPHPUnitMethodNames($node, $oldMethodNames)) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;
-        if (!$firstArgumentValue instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Instanceof_) {
+        if (!$firstArgumentValue instanceof \PhpParser\Node\Expr\Instanceof_) {
             return null;
         }
         $this->identifierManipulator->renameNodeWithMap($node, self::RENAME_METHODS_MAP);
@@ -60,7 +60,7 @@ final class AssertInstanceOfComparisonRector extends \_PhpScoper2a4e7ab1ecbc\Rec
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function changeArgumentsOrder(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function changeArgumentsOrder(\PhpParser\Node $node) : void
     {
         $oldArguments = $node->args;
         /** @var Instanceof_ $comparison */
@@ -68,6 +68,6 @@ final class AssertInstanceOfComparisonRector extends \_PhpScoper2a4e7ab1ecbc\Rec
         $class = $comparison->class;
         $argument = $comparison->expr;
         unset($oldArguments[0]);
-        $node->args = \array_merge([new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($this->builderFactory->classConstFetch($class, 'class')), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($argument)], $oldArguments);
+        $node->args = \array_merge([new \PhpParser\Node\Arg($this->builderFactory->classConstFetch($class, 'class')), new \PhpParser\Node\Arg($argument)], $oldArguments);
     }
 }

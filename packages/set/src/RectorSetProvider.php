@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Set;
+namespace Rector\Set;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings;
-use _PhpScoper2a4e7ab1ecbc\Rector\Set\ValueObject\DowngradeSetList;
-use _PhpScoper2a4e7ab1ecbc\Rector\Set\ValueObject\SetList;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\Util\StaticRectorStrings;
+use Rector\Set\ValueObject\DowngradeSetList;
+use Rector\Set\ValueObject\SetList;
 use ReflectionClass;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Provider\AbstractSetProvider;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\ValueObject\Set;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RectorSetProvider extends \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Provider\AbstractSetProvider
+use Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use Symplify\SetConfigResolver\Provider\AbstractSetProvider;
+use Symplify\SetConfigResolver\ValueObject\Set;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RectorSetProvider extends \Symplify\SetConfigResolver\Provider\AbstractSetProvider
 {
     /**
      * @var string
@@ -21,12 +21,16 @@ final class RectorSetProvider extends \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfig
      */
     private const DASH_NUMBER_REGEX = '#\\-(\\d+)#';
     /**
+     * @var string[]
+     */
+    private const SET_LIST_CLASSES = [\Rector\Set\ValueObject\SetList::class, \Rector\Set\ValueObject\DowngradeSetList::class];
+    /**
      * @var Set[]
      */
     private $sets = [];
     public function __construct()
     {
-        foreach ([\_PhpScoper2a4e7ab1ecbc\Rector\Set\ValueObject\SetList::class, \_PhpScoper2a4e7ab1ecbc\Rector\Set\ValueObject\DowngradeSetList::class] as $setListClass) {
+        foreach (self::SET_LIST_CLASSES as $setListClass) {
             $setListReflectionClass = new \ReflectionClass($setListClass);
             $this->hydrateSetsFromConstants($setListReflectionClass);
         }
@@ -38,10 +42,10 @@ final class RectorSetProvider extends \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfig
     {
         return $this->sets;
     }
-    public function provideByName(string $desiredSetName) : ?\_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\ValueObject\Set
+    public function provideByName(string $desiredSetName) : ?\Symplify\SetConfigResolver\ValueObject\Set
     {
         $foundSet = parent::provideByName($desiredSetName);
-        if ($foundSet instanceof \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\ValueObject\Set) {
+        if ($foundSet instanceof \Symplify\SetConfigResolver\ValueObject\Set) {
             return $foundSet;
         }
         // sencond approach by set path
@@ -49,7 +53,7 @@ final class RectorSetProvider extends \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfig
             if (!\file_exists($desiredSetName)) {
                 continue;
             }
-            $desiredSetFileInfo = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo($desiredSetName);
+            $desiredSetFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($desiredSetName);
             $setFileInfo = $set->getSetFileInfo();
             if ($setFileInfo->getRealPath() !== $desiredSetFileInfo->getRealPath()) {
                 continue;
@@ -57,19 +61,19 @@ final class RectorSetProvider extends \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfig
             return $set;
         }
         $message = \sprintf('Set "%s" was not found', $desiredSetName);
-        throw new \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
+        throw new \Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
     }
     private function hydrateSetsFromConstants(\ReflectionClass $setListReflectionClass) : void
     {
         foreach ((array) $setListReflectionClass->getConstants() as $name => $setPath) {
             if (!\file_exists($setPath)) {
                 $message = \sprintf('Set path "%s" was not found', $name);
-                throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException($message);
+                throw new \Rector\Core\Exception\ShouldNotHappenException($message);
             }
-            $setName = \_PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings::constantToDashes($name);
+            $setName = \Rector\Core\Util\StaticRectorStrings::constantToDashes($name);
             // remove `-` before numbers
-            $setName = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
-            $this->sets[] = new \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\ValueObject\Set($setName, new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo($setPath));
+            $setName = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
+            $this->sets[] = new \Symplify\SetConfigResolver\ValueObject\Set($setName, new \Symplify\SmartFileSystem\SmartFileInfo($setPath));
         }
     }
 }

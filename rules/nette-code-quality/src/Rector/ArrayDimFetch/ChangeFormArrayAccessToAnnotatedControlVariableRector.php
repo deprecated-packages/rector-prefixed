@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Rector\ArrayDimFetch;
+namespace Rector\NetteCodeQuality\Rector\ArrayDimFetch;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Unset_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Isset_;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\Unset_;
+use PHPStan\Type\ObjectType;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
  * @see \Rector\NetteCodeQuality\Tests\Rector\ArrayDimFetch\ChangeFormArrayAccessToAnnotatedControlVariableRector\ChangeFormArrayAccessToAnnotatedControlVariableRectorTest
  */
-final class ChangeFormArrayAccessToAnnotatedControlVariableRector extends \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Rector\ArrayDimFetch\AbstractArrayDimFetchToAnnotatedControlVariableRector
+final class ChangeFormArrayAccessToAnnotatedControlVariableRector extends \Rector\NetteCodeQuality\Rector\ArrayDimFetch\AbstractArrayDimFetchToAnnotatedControlVariableRector
 {
     /**
      * @var FormVariableInputNameTypeResolver
      */
     private $formVariableInputNameTypeResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver)
+    public function __construct(\Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver)
     {
         $this->formVariableInputNameTypeResolver = $formVariableInputNameTypeResolver;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array access magic on $form to explicit standalone typed variable', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array access magic on $form to explicit standalone typed variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Form;
 
 class SomePresenter
@@ -67,17 +67,17 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch::class];
+        return [\PhpParser\Node\Expr\ArrayDimFetch::class];
     }
     /**
      * @param ArrayDimFetch $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->isBeingAssignedOrInitialized($node)) {
             return null;
         }
-        if ($this->hasParentTypes($node, [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Unset_::class])) {
+        if ($this->hasParentTypes($node, [\PhpParser\Node\Expr\Isset_::class, \PhpParser\Node\Stmt\Unset_::class])) {
             return null;
         }
         $inputName = $this->controlDimFetchAnalyzer->matchNameOnFormOrControlVariable($node);
@@ -86,13 +86,13 @@ CODE_SAMPLE
         }
         $formVariableName = $this->getName($node->var);
         if ($formVariableName === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         // 1. find previous calls on variable
         $controlType = $this->formVariableInputNameTypeResolver->resolveControlTypeByInputName($node->var, $inputName);
         $controlVariableName = $this->netteControlNaming->createVariableName($inputName);
-        $controlObjectType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType($controlType);
+        $controlObjectType = new \PHPStan\Type\ObjectType($controlType);
         $this->addAssignExpressionForFirstCase($controlVariableName, $node, $controlObjectType);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($controlVariableName);
+        return new \PhpParser\Node\Expr\Variable($controlVariableName);
     }
 }

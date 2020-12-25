@@ -1,46 +1,46 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Comparison;
+namespace PHPStan\Rules\Comparison;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\Constant\ConstantBooleanType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\Ternary>
  */
-class UnreachableTernaryElseBranchRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class UnreachableTernaryElseBranchRule implements \PHPStan\Rules\Rule
 {
     /** @var ConstantConditionRuleHelper */
     private $helper;
     /** @var bool */
     private $treatPhpDocTypesAsCertain;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Comparison\ConstantConditionRuleHelper $helper, bool $treatPhpDocTypesAsCertain)
+    public function __construct(\PHPStan\Rules\Comparison\ConstantConditionRuleHelper $helper, bool $treatPhpDocTypesAsCertain)
     {
         $this->helper = $helper;
         $this->treatPhpDocTypesAsCertain = $treatPhpDocTypesAsCertain;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary::class;
+        return \PhpParser\Node\Expr\Ternary::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $conditionType = $scope->getType($node->cond)->toBoolean();
-        if ($conditionType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType && $conditionType->getValue() && $this->helper->shouldSkip($scope, $node->cond) && !$this->helper->shouldReportAlwaysTrueByDefault($node->cond)) {
-            $addTip = function (\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
+        if ($conditionType instanceof \PHPStan\Type\Constant\ConstantBooleanType && $conditionType->getValue() && $this->helper->shouldSkip($scope, $node->cond) && !$this->helper->shouldReportAlwaysTrueByDefault($node->cond)) {
+            $addTip = function (\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
                 if (!$this->treatPhpDocTypesAsCertain) {
                     return $ruleErrorBuilder;
                 }
                 $booleanNativeType = $scope->doNotTreatPhpDocTypesAsCertain()->getType($node->cond);
-                if ($booleanNativeType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantBooleanType) {
+                if ($booleanNativeType instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
                     return $ruleErrorBuilder;
                 }
                 return $ruleErrorBuilder->tip('Because the type is coming from a PHPDoc, you can turn off this check by setting <fg=cyan>treatPhpDocTypesAsCertain: false</> in your <fg=cyan>%configurationFile%</>.');
             };
-            return [$addTip(\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('Else branch is unreachable because ternary operator condition is always true.'))->line($node->else->getLine())->identifier('deadCode.unreachableTernaryElse')->metadata(['statementDepth' => $node->getAttribute('statementDepth'), 'statementOrder' => $node->getAttribute('statementOrder'), 'depth' => $node->getAttribute('expressionDepth'), 'order' => $node->getAttribute('expressionOrder')])->build()];
+            return [$addTip(\PHPStan\Rules\RuleErrorBuilder::message('Else branch is unreachable because ternary operator condition is always true.'))->line($node->else->getLine())->identifier('deadCode.unreachableTernaryElse')->metadata(['statementDepth' => $node->getAttribute('statementDepth'), 'statementOrder' => $node->getAttribute('statementOrder'), 'depth' => $node->getAttribute('expressionDepth'), 'order' => $node->getAttribute('expressionOrder')])->build()];
         }
         return [];
     }

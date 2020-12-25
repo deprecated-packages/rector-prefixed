@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\ReadWrite\ReadNodeAnalyzer;
+namespace Rector\ReadWrite\ReadNodeAnalyzer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedYetException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\NodeFinder\NodeUsageFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\ParentScopeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Stmt\Return_;
+use Rector\Core\Exception\NotImplementedYetException;
+use Rector\Core\NodeFinder\NodeUsageFinder;
+use Rector\NodeNestingScope\ParentScopeFinder;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 abstract class AbstractReadNodeAnalyzer
 {
     /**
@@ -25,27 +25,27 @@ abstract class AbstractReadNodeAnalyzer
     /**
      * @required
      */
-    public function autowireAbstractReadNodeAnalyzer(\_PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder, \_PhpScoper2a4e7ab1ecbc\Rector\Core\NodeFinder\NodeUsageFinder $nodeUsageFinder) : void
+    public function autowireAbstractReadNodeAnalyzer(\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder, \Rector\Core\NodeFinder\NodeUsageFinder $nodeUsageFinder) : void
     {
         $this->parentScopeFinder = $parentScopeFinder;
         $this->nodeUsageFinder = $nodeUsageFinder;
     }
-    protected function isCurrentContextRead(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    protected function isCurrentContextRead(\PhpParser\Node\Expr $expr) : bool
     {
-        $parent = $expr->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_) {
+        $parent = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Stmt\Return_) {
             return \true;
         }
-        if ($parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg) {
+        if ($parent instanceof \PhpParser\Node\Arg) {
             return \true;
         }
-        if ($parent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch) {
-            $parentParent = $parent->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$parentParent instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        if ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+            $parentParent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if (!$parentParent instanceof \PhpParser\Node\Expr\Assign) {
                 return \true;
             }
             return $parentParent->var !== $parent;
         }
-        throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\NotImplementedYetException();
+        throw new \Rector\Core\Exception\NotImplementedYetException();
     }
 }

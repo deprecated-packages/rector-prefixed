@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\Contract\TypeInferer;
+namespace Rector\TypeDeclaration\Contract\TypeInferer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PhpParser\Node\Param;
+use PHPStan\Type\Type;
 interface ParamTypeInfererInterface
 {
-    public function inferParam(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+    public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type;
 }

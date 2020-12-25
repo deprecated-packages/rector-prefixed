@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap;
+namespace PHPStan\Reflection\SignatureMap;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ParamTag;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ParserNodeTypeToPHPStanType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper;
-class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\SignatureMapProvider
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
+use PHPStan\Php8StubsMap;
+use PHPStan\PhpDoc\Tag\ParamTag;
+use PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher;
+use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\MixedType;
+use PHPStan\Type\ParserNodeTypeToPHPStanType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypehintHelper;
+class Php8SignatureMapProvider implements \PHPStan\Reflection\SignatureMap\SignatureMapProvider
 {
     private const DIRECTORY = __DIR__ . '/../../../vendor/phpstan/php-8-stubs';
     /** @var FunctionSignatureMapProvider */
@@ -28,7 +28,7 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
     private $fileTypeMapper;
     /** @var array<string, array<string, array{ClassMethod, string}>> */
     private $methodNodes = [];
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignatureMapProvider $functionSignatureMapProvider, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper $fileTypeMapper)
+    public function __construct(\PHPStan\Reflection\SignatureMap\FunctionSignatureMapProvider $functionSignatureMapProvider, \PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, \PHPStan\Type\FileTypeMapper $fileTypeMapper)
     {
         $this->functionSignatureMapProvider = $functionSignatureMapProvider;
         $this->fileNodesFetcher = $fileNodesFetcher;
@@ -37,7 +37,7 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
     public function hasMethodSignature(string $className, string $methodName, int $variant = 0) : bool
     {
         $lowerClassName = \strtolower($className);
-        if (!\array_key_exists($lowerClassName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::CLASSES)) {
+        if (!\array_key_exists($lowerClassName, \PHPStan\Php8StubsMap::CLASSES)) {
             return $this->functionSignatureMapProvider->hasMethodSignature($className, $methodName, $variant);
         }
         if ($variant > 0) {
@@ -61,18 +61,18 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
         if (isset($this->methodNodes[$lowerClassName][$lowerMethodName])) {
             return $this->methodNodes[$lowerClassName][$lowerMethodName];
         }
-        $stubFile = self::DIRECTORY . '/' . \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::CLASSES[$lowerClassName];
+        $stubFile = self::DIRECTORY . '/' . \PHPStan\Php8StubsMap::CLASSES[$lowerClassName];
         $nodes = $this->fileNodesFetcher->fetchNodes($stubFile);
         $classes = $nodes->getClassNodes();
         if (\count($classes) !== 1) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException(\sprintf('Class %s stub not found in %s.', $className, $stubFile));
+            throw new \PHPStan\ShouldNotHappenException(\sprintf('Class %s stub not found in %s.', $className, $stubFile));
         }
         $class = $classes[$lowerClassName];
         if (\count($class) !== 1) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException(\sprintf('Class %s stub not found in %s.', $className, $stubFile));
+            throw new \PHPStan\ShouldNotHappenException(\sprintf('Class %s stub not found in %s.', $className, $stubFile));
         }
         foreach ($class[0]->getNode()->stmts as $stmt) {
-            if (!$stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod) {
+            if (!$stmt instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
             if ($stmt->name->toLowerString() === $lowerMethodName) {
@@ -84,7 +84,7 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
     public function hasFunctionSignature(string $name, int $variant = 0) : bool
     {
         $lowerName = \strtolower($name);
-        if (!\array_key_exists($lowerName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::FUNCTIONS)) {
+        if (!\array_key_exists($lowerName, \PHPStan\Php8StubsMap::FUNCTIONS)) {
             return $this->functionSignatureMapProvider->hasFunctionSignature($name, $variant);
         }
         if ($variant > 0) {
@@ -92,10 +92,10 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
         }
         return \true;
     }
-    public function getMethodSignature(string $className, string $methodName, ?\ReflectionMethod $reflectionMethod, int $variant = 0) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature
+    public function getMethodSignature(string $className, string $methodName, ?\ReflectionMethod $reflectionMethod, int $variant = 0) : \PHPStan\Reflection\SignatureMap\FunctionSignature
     {
         $lowerClassName = \strtolower($className);
-        if (!\array_key_exists($lowerClassName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::CLASSES)) {
+        if (!\array_key_exists($lowerClassName, \PHPStan\Php8StubsMap::CLASSES)) {
             return $this->functionSignatureMapProvider->getMethodSignature($className, $methodName, $reflectionMethod, $variant);
         }
         if ($variant > 0) {
@@ -115,10 +115,10 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
         }
         return $signature;
     }
-    public function getFunctionSignature(string $functionName, ?string $className, int $variant = 0) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature
+    public function getFunctionSignature(string $functionName, ?string $className, int $variant = 0) : \PHPStan\Reflection\SignatureMap\FunctionSignature
     {
         $lowerName = \strtolower($functionName);
-        if (!\array_key_exists($lowerName, \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::FUNCTIONS)) {
+        if (!\array_key_exists($lowerName, \PHPStan\Php8StubsMap::FUNCTIONS)) {
             return $this->functionSignatureMapProvider->getFunctionSignature($functionName, $className, $variant);
         }
         if ($variant > 0) {
@@ -127,11 +127,11 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
         if ($this->functionSignatureMapProvider->hasFunctionSignature($functionName, 1)) {
             return $this->functionSignatureMapProvider->getFunctionSignature($functionName, $className, $variant);
         }
-        $stubFile = self::DIRECTORY . '/' . \_PhpScoper2a4e7ab1ecbc\PHPStan\Php8StubsMap::FUNCTIONS[$lowerName];
+        $stubFile = self::DIRECTORY . '/' . \PHPStan\Php8StubsMap::FUNCTIONS[$lowerName];
         $nodes = $this->fileNodesFetcher->fetchNodes($stubFile);
         $functions = $nodes->getFunctionNodes();
         if (\count($functions) !== 1) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException(\sprintf('Function %s stub not found in %s.', $functionName, $stubFile));
+            throw new \PHPStan\ShouldNotHappenException(\sprintf('Function %s stub not found in %s.', $functionName, $stubFile));
         }
         $signature = $this->getSignature($functions[$lowerName]->getNode(), null, $stubFile);
         if ($this->functionSignatureMapProvider->hasFunctionSignature($functionName)) {
@@ -139,7 +139,7 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
         }
         return $signature;
     }
-    private function mergeSignatures(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature $nativeSignature, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature $functionMapSignature) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature
+    private function mergeSignatures(\PHPStan\Reflection\SignatureMap\FunctionSignature $nativeSignature, \PHPStan\Reflection\SignatureMap\FunctionSignature $functionMapSignature) : \PHPStan\Reflection\SignatureMap\FunctionSignature
     {
         $parameters = [];
         foreach ($nativeSignature->getParameters() as $i => $nativeParameter) {
@@ -149,15 +149,15 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
             }
             $functionMapParameter = $functionMapSignature->getParameters()[$i];
             $nativeParameterType = $nativeParameter->getNativeType();
-            $parameters[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\ParameterSignature($nativeParameter->getName(), $nativeParameter->isOptional(), \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper::decideType($nativeParameterType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper::decideType($nativeParameter->getType(), $functionMapParameter->getType())), $nativeParameterType, $nativeParameter->passedByReference()->yes() ? $functionMapParameter->passedByReference() : $nativeParameter->passedByReference(), $nativeParameter->isVariadic());
+            $parameters[] = new \PHPStan\Reflection\SignatureMap\ParameterSignature($nativeParameter->getName(), $nativeParameter->isOptional(), \PHPStan\Type\TypehintHelper::decideType($nativeParameterType, \PHPStan\Type\TypehintHelper::decideType($nativeParameter->getType(), $functionMapParameter->getType())), $nativeParameterType, $nativeParameter->passedByReference()->yes() ? $functionMapParameter->passedByReference() : $nativeParameter->passedByReference(), $nativeParameter->isVariadic());
         }
         $nativeReturnType = $nativeSignature->getNativeReturnType();
-        if ($nativeReturnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType && !$nativeReturnType->isExplicitMixed()) {
+        if ($nativeReturnType instanceof \PHPStan\Type\MixedType && !$nativeReturnType->isExplicitMixed()) {
             $returnType = $functionMapSignature->getReturnType();
         } else {
-            $returnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper::decideType($nativeReturnType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper::decideType($nativeSignature->getReturnType(), $functionMapSignature->getReturnType()));
+            $returnType = \PHPStan\Type\TypehintHelper::decideType($nativeReturnType, \PHPStan\Type\TypehintHelper::decideType($nativeSignature->getReturnType(), $functionMapSignature->getReturnType()));
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature($parameters, $returnType, $nativeReturnType, $nativeSignature->isVariadic());
+        return new \PHPStan\Reflection\SignatureMap\FunctionSignature($parameters, $returnType, $nativeReturnType, $nativeSignature->isVariadic());
     }
     public function hasMethodMetadata(string $className, string $methodName) : bool
     {
@@ -189,13 +189,13 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
      * @param string $stubFile
      * @return FunctionSignature
      */
-    private function getSignature(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $function, ?string $className, string $stubFile) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature
+    private function getSignature(\PhpParser\Node\FunctionLike $function, ?string $className, string $stubFile) : \PHPStan\Reflection\SignatureMap\FunctionSignature
     {
         $phpDocParameterTypes = null;
         $phpDocReturnType = null;
         if ($function->getDocComment() !== null) {
-            $phpDoc = $this->fileTypeMapper->getResolvedPhpDoc($stubFile, $className, null, $function instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod ? $function->name->toString() : $function->namespacedName->toString(), $function->getDocComment()->getText());
-            $phpDocParameterTypes = \array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ParamTag $param) : Type {
+            $phpDoc = $this->fileTypeMapper->getResolvedPhpDoc($stubFile, $className, null, $function instanceof \PhpParser\Node\Stmt\ClassMethod ? $function->name->toString() : $function->namespacedName->toString(), $function->getDocComment()->getText());
+            $phpDocParameterTypes = \array_map(static function (\PHPStan\PhpDoc\Tag\ParamTag $param) : Type {
                 return $param->getType();
             }, $phpDoc->getParamTags());
             if ($phpDoc->getReturnTag() !== null) {
@@ -206,18 +206,18 @@ class Php8SignatureMapProvider implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflec
         $variadic = \false;
         foreach ($function->getParams() as $param) {
             $name = $param->var;
-            if (!$name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable || !\is_string($name->name)) {
-                throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            if (!$name instanceof \PhpParser\Node\Expr\Variable || !\is_string($name->name)) {
+                throw new \PHPStan\ShouldNotHappenException();
             }
             if ($name->name === 'array') {
-                $parameterType = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType(), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType());
+                $parameterType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
             } else {
-                $parameterType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ParserNodeTypeToPHPStanType::resolve($param->type, null);
+                $parameterType = \PHPStan\Type\ParserNodeTypeToPHPStanType::resolve($param->type, null);
             }
-            $parameters[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\ParameterSignature($name->name, $param->default !== null || $param->variadic, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper::decideType($parameterType, $phpDocParameterTypes[$name->name] ?? null), $parameterType, $param->byRef ? \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference::createNo(), $param->variadic);
+            $parameters[] = new \PHPStan\Reflection\SignatureMap\ParameterSignature($name->name, $param->default !== null || $param->variadic, \PHPStan\Type\TypehintHelper::decideType($parameterType, $phpDocParameterTypes[$name->name] ?? null), $parameterType, $param->byRef ? \PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \PHPStan\Reflection\PassedByReference::createNo(), $param->variadic);
             $variadic = $variadic || $param->variadic;
         }
-        $returnType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ParserNodeTypeToPHPStanType::resolve($function->getReturnType(), null);
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature($parameters, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypehintHelper::decideType($returnType, $phpDocReturnType ?? null), $returnType, $variadic);
+        $returnType = \PHPStan\Type\ParserNodeTypeToPHPStanType::resolve($function->getReturnType(), null);
+        return new \PHPStan\Reflection\SignatureMap\FunctionSignature($parameters, \PHPStan\Type\TypehintHelper::decideType($returnType, $phpDocReturnType ?? null), $returnType, $variadic);
     }
 }

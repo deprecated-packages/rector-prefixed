@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
+namespace Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
 
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\RuleDocGenerator\Tests\DirectoryToMarkdownPrinter\DirectoryToMarkdownPrinterTest
  */
@@ -24,7 +24,7 @@ final class CodeSamplePrinter
     /**
      * @return string[]
      */
-    public function print(\_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
+    public function print(\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
     {
         $lines = [];
         foreach ($ruleDefinition->getCodeSamples() as $codeSample) {

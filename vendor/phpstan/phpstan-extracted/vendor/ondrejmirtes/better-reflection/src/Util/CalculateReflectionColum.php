@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\InvalidNodePosition;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\NoNodePosition;
+use PhpParser\Node;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\InvalidNodePosition;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\NoNodePosition;
 use function strlen;
 use function strrpos;
 /**
@@ -17,10 +17,10 @@ final class CalculateReflectionColum
      * @throws InvalidNodePosition
      * @throws NoNodePosition
      */
-    public static function getStartColumn(string $source, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : int
+    public static function getStartColumn(string $source, \PhpParser\Node $node) : int
     {
         if (!$node->hasAttribute('startFilePos')) {
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\NoNodePosition::fromNode($node);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\NoNodePosition::fromNode($node);
         }
         return self::calculateColumn($source, $node->getStartFilePos());
     }
@@ -28,10 +28,10 @@ final class CalculateReflectionColum
      * @throws InvalidNodePosition
      * @throws NoNodePosition
      */
-    public static function getEndColumn(string $source, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : int
+    public static function getEndColumn(string $source, \PhpParser\Node $node) : int
     {
         if (!$node->hasAttribute('endFilePos')) {
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\NoNodePosition::fromNode($node);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\NoNodePosition::fromNode($node);
         }
         return self::calculateColumn($source, $node->getEndFilePos());
     }
@@ -42,7 +42,7 @@ final class CalculateReflectionColum
     {
         $sourceLength = \strlen($source);
         if ($position > $sourceLength) {
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\InvalidNodePosition::fromPosition($position);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\InvalidNodePosition::fromPosition($position);
         }
         $lineStartPosition = \strrpos($source, "\n", $position - $sourceLength);
         if ($lineStartPosition === \false) {

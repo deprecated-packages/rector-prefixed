@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Mapper;
+namespace Rector\Doctrine\Mapper;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
-final class DefaultDoctrineEntityAndRepositoryMapper implements \_PhpScoper2a4e7ab1ecbc\Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
+final class DefaultDoctrineEntityAndRepositoryMapper implements \Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface
 {
     /**
      * @var string
@@ -24,15 +24,15 @@ final class DefaultDoctrineEntityAndRepositoryMapper implements \_PhpScoper2a4e7
     public function mapRepositoryToEntity(string $repository) : ?string
     {
         // "SomeRepository" => "Some"
-        $withoutSuffix = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::substring($repository, 0, -\strlen(self::REPOSITORY));
+        $withoutSuffix = \_PhpScoper50d83356d739\Nette\Utils\Strings::substring($repository, 0, -\strlen(self::REPOSITORY));
         // "App\Repository\Some" => "App\Entity\Some"
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($withoutSuffix, self::REPOSITORY_REGEX, 'Entity');
+        return \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($withoutSuffix, self::REPOSITORY_REGEX, 'Entity');
     }
     public function mapEntityToRepository(string $entity) : ?string
     {
         // "Some" => "SomeRepository"
         $withSuffix = $entity . self::REPOSITORY;
         // "App\Entity\SomeRepository" => "App\Repository\SomeRepository"
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($withSuffix, self::ENTITY_REGEX, self::REPOSITORY);
+        return \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($withSuffix, self::ENTITY_REGEX, self::REPOSITORY);
     }
 }

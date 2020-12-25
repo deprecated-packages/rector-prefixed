@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Order\ValueObject;
+namespace Rector\Order\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\Rector\Order\Contract\RankeableInterface;
-final class PropertyRankeable implements \_PhpScoper2a4e7ab1ecbc\Rector\Order\Contract\RankeableInterface
+use PhpParser\Node\Stmt\Property;
+use Rector\Order\Contract\RankeableInterface;
+final class PropertyRankeable implements \Rector\Order\Contract\RankeableInterface
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ final class PropertyRankeable implements \_PhpScoper2a4e7ab1ecbc\Rector\Order\Co
      * @var Property
      */
     private $property;
-    public function __construct(string $name, int $visibility, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property, int $position)
+    public function __construct(string $name, int $visibility, \PhpParser\Node\Stmt\Property $property, int $position)
     {
         $this->name = $name;
         $this->visibility = $visibility;

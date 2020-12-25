@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Testing\Application;
+namespace Rector\Testing\Application;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\RenamedClassesDataCollector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\RectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\Name\RenameClassRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use Rector\Core\Configuration\RenamedClassesDataCollector;
+use Rector\Core\Contract\Rector\RectorInterface;
+use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 final class EnabledRectorsProvider
 {
     /**
@@ -17,7 +17,7 @@ final class EnabledRectorsProvider
      * @var RenamedClassesDataCollector
      */
     private $renamedClassesDataCollector;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector)
+    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector)
     {
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
     }
@@ -27,14 +27,14 @@ final class EnabledRectorsProvider
     public function addEnabledRector(string $rector, array $configuration = []) : void
     {
         $this->enabledRectorsWithConfiguration[$rector] = $configuration;
-        if (!\_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (!\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return;
         }
-        if (!\is_a($rector, \_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\Name\RenameClassRector::class, \true)) {
+        if (!\is_a($rector, \Rector\Renaming\Rector\Name\RenameClassRector::class, \true)) {
             return;
         }
         // only in unit tests
-        $this->renamedClassesDataCollector->setOldToNewClasses($configuration[\_PhpScoper2a4e7ab1ecbc\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES] ?? []);
+        $this->renamedClassesDataCollector->setOldToNewClasses($configuration[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES] ?? []);
     }
     public function reset() : void
     {
@@ -54,7 +54,7 @@ final class EnabledRectorsProvider
     /**
      * @return mixed[]
      */
-    public function getRectorConfiguration(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\RectorInterface $rector) : array
+    public function getRectorConfiguration(\Rector\Core\Contract\Rector\RectorInterface $rector) : array
     {
         foreach ($this->enabledRectorsWithConfiguration as $rectorClass => $configuration) {
             if (!\is_a($rector, $rectorClass, \true)) {

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\If_\MoveOutMethodCallInsideIfConditionRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Rector\CodeQuality\Rector\If_\MoveOutMethodCallInsideIfConditionRector;
+use Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\If_\MoveOutMethodCallInsideIfConditionRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector::class);
+    $services->set(\Rector\CodeQuality\Rector\If_\MoveOutMethodCallInsideIfConditionRector::class);
+    $services->set(\Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector::class);
 };

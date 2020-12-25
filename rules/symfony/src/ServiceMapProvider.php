@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony;
+namespace Rector\Symfony;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Json;
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\Exception\XmlContainerNotExistsException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceDefinition;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceMap\ServiceMap;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\Tag;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\Tag\EventListenerTag;
+use _PhpScoper50d83356d739\Nette\Utils\Json;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use Rector\Symfony\Exception\XmlContainerNotExistsException;
+use Rector\Symfony\ValueObject\ServiceDefinition;
+use Rector\Symfony\ValueObject\ServiceMap\ServiceMap;
+use Rector\Symfony\ValueObject\Tag;
+use Rector\Symfony\ValueObject\Tag\EventListenerTag;
 use SimpleXMLElement;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Inspired by https://github.com/phpstan/phpstan-symfony/tree/master/src/Symfony
  */
@@ -34,16 +34,16 @@ final class ServiceMapProvider
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function provide() : \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceMap\ServiceMap
+    public function provide() : \Rector\Symfony\ValueObject\ServiceMap\ServiceMap
     {
         $symfonyContainerXmlPath = $this->getSymfonyContainerXmlPath();
         if ($symfonyContainerXmlPath === '') {
-            return new \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceMap\ServiceMap([]);
+            return new \Rector\Symfony\ValueObject\ServiceMap\ServiceMap([]);
         }
         $fileContents = $this->smartFileSystem->readFile($symfonyContainerXmlPath);
         return $this->createServiceMapFromXml($fileContents);
@@ -52,12 +52,12 @@ final class ServiceMapProvider
     {
         return (string) $this->parameterProvider->provideParameter(self::SYMFONY_CONTAINER_XML_PATH_PARAMETER);
     }
-    private function createServiceMapFromXml(string $fileContents) : \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceMap\ServiceMap
+    private function createServiceMapFromXml(string $fileContents) : \Rector\Symfony\ValueObject\ServiceMap\ServiceMap
     {
         // "@" intentionally
         $xml = @\simplexml_load_string($fileContents);
         if (!$xml) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\Exception\XmlContainerNotExistsException(\sprintf('Container "%s" cannot be parsed', $this->getSymfonyContainerXmlPath()));
+            throw new \Rector\Symfony\Exception\XmlContainerNotExistsException(\sprintf('Container "%s" cannot be parsed', $this->getSymfonyContainerXmlPath()));
         }
         /** @var ServiceDefinition[] $services */
         $services = [];
@@ -79,14 +79,14 @@ final class ServiceMapProvider
             }
         }
         $services = $this->createAliasServiceDefinitions($aliases, $services);
-        return new \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceMap\ServiceMap($services);
+        return new \Rector\Symfony\ValueObject\ServiceMap\ServiceMap($services);
     }
     /**
      * @return mixed[]
      */
     private function convertXmlToArray(\SimpleXMLElement $simpleXMLElement) : array
     {
-        $data = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::decode(\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::encode((array) $simpleXMLElement), \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Json::FORCE_ARRAY);
+        $data = \_PhpScoper50d83356d739\Nette\Utils\Json::decode(\_PhpScoper50d83356d739\Nette\Utils\Json::encode((array) $simpleXMLElement), \_PhpScoper50d83356d739\Nette\Utils\Json::FORCE_ARRAY);
         $data = $this->unWrapAttributes($data);
         foreach ($data as $key => $value) {
             if (\is_array($value)) {
@@ -119,10 +119,10 @@ final class ServiceMapProvider
     /**
      * @param mixed[] $tags
      */
-    private function createServiceFromXmlAndTagsData(\SimpleXMLElement $attrs, array $tags) : \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceDefinition
+    private function createServiceFromXmlAndTagsData(\SimpleXMLElement $attrs, array $tags) : \Rector\Symfony\ValueObject\ServiceDefinition
     {
         $tags = $this->createTagsFromData($tags);
-        return new \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceDefinition(\strpos((string) $attrs->id, '.') === 0 ? \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::substring((string) $attrs->id, 1) : (string) $attrs->id, \property_exists($attrs, 'class') && $attrs->class !== null ? (string) $attrs->class : null, !(\property_exists($attrs, 'public') && $attrs->public !== null) || (string) $attrs->public !== 'false', \property_exists($attrs, 'synthetic') && $attrs->synthetic !== null && (string) $attrs->synthetic === 'true', \property_exists($attrs, 'alias') && $attrs->alias !== null ? (string) $attrs->alias : null, $tags);
+        return new \Rector\Symfony\ValueObject\ServiceDefinition(\strpos((string) $attrs->id, '.') === 0 ? \_PhpScoper50d83356d739\Nette\Utils\Strings::substring((string) $attrs->id, 1) : (string) $attrs->id, \property_exists($attrs, 'class') && $attrs->class !== null ? (string) $attrs->class : null, !(\property_exists($attrs, 'public') && $attrs->public !== null) || (string) $attrs->public !== 'false', \property_exists($attrs, 'synthetic') && $attrs->synthetic !== null && (string) $attrs->synthetic === 'true', \property_exists($attrs, 'alias') && $attrs->alias !== null ? (string) $attrs->alias : null, $tags);
     }
     /**
      * @param ServiceDefinition[] $aliases
@@ -140,7 +140,7 @@ final class ServiceMapProvider
                 continue;
             }
             $id = $service->getId();
-            $services[$id] = new \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\ServiceDefinition($id, $services[$alias]->getClass(), $service->isPublic(), $service->isSynthetic(), $alias, []);
+            $services[$id] = new \Rector\Symfony\ValueObject\ServiceDefinition($id, $services[$alias]->getClass(), $service->isPublic(), $service->isSynthetic(), $alias, []);
         }
         return $services;
     }
@@ -186,10 +186,10 @@ final class ServiceMapProvider
             $data = $tag;
             $name = $data['name'] ?? '';
             if ($name === 'kernel.event_listener') {
-                $tagValueObjects[$key] = new \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\Tag\EventListenerTag($data['event'] ?? '', $data['method'] ?? '', (int) ($data['priority'] ?? 0));
+                $tagValueObjects[$key] = new \Rector\Symfony\ValueObject\Tag\EventListenerTag($data['event'] ?? '', $data['method'] ?? '', (int) ($data['priority'] ?? 0));
             } else {
                 unset($data['name']);
-                $tagValueObjects[$key] = new \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\ValueObject\Tag($name, $data ?? []);
+                $tagValueObjects[$key] = new \Rector\Symfony\ValueObject\Tag($name, $data ?? []);
             }
         }
         return $tagValueObjects;

@@ -33,11 +33,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\File\Temporary;
+namespace Hoa\File\Temporary;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Consistency;
-use _PhpScoper2a4e7ab1ecbc\Hoa\File;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+use Hoa\Consistency;
+use Hoa\File;
+use Hoa\Stream;
 /**
  * Class \Hoa\File\Temporary.
  *
@@ -46,7 +46,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Temporary extends \_PhpScoper2a4e7ab1ecbc\Hoa\File
+class Temporary extends \Hoa\File
 {
     /**
      * Temporary file index.
@@ -81,10 +81,10 @@ class Temporary extends \_PhpScoper2a4e7ab1ecbc\Hoa\File
      * @return  resource
      * @throws  \Hoa\File\Exception
      */
-    protected function &_open($streamName, \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Context $context = null)
+    protected function &_open($streamName, \Hoa\Stream\Context $context = null)
     {
         if (\false === ($out = @\tmpfile())) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('Failed to open a temporary stream.', 0);
+            throw new \Hoa\File\Exception('Failed to open a temporary stream.', 0);
         }
         return $out;
     }
@@ -121,4 +121,4 @@ class Temporary extends \_PhpScoper2a4e7ab1ecbc\Hoa\File
 /**
  * Flex entity.
  */
-\_PhpScoper2a4e7ab1ecbc\Hoa\Consistency::flexEntity('_PhpScoper2a4e7ab1ecbc\\Hoa\\File\\Temporary\\Temporary');
+\Hoa\Consistency::flexEntity('Hoa\\File\\Temporary\\Temporary');

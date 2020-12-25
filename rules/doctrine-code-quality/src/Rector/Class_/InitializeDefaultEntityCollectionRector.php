@@ -1,39 +1,39 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DoctrineCodeQuality\Rector\Class_;
+namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\Doctrine\Common\Collections\ArrayCollection;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Doctrine\Common\Collections\ArrayCollection;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Expression;
+use Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
+use Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.doctrine-project.org/projects/doctrine-orm/en/2.6/reference/best-practices.html#initialize-collections-in-the-constructor
  *
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\Class_\InitializeDefaultEntityCollectionRector\InitializeDefaultEntityCollectionRectorTest
  */
-final class InitializeDefaultEntityCollectionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class InitializeDefaultEntityCollectionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ClassDependencyManipulator
      */
     private $classDependencyManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator $classDependencyManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator $classDependencyManipulator)
     {
         $this->classDependencyManipulator = $classDependencyManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Initialize collection property in Entity constructor', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Initialize collection property in Entity constructor', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -73,14 +73,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->hasPhpDocTagValueNode($node, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class)) {
+        if (!$this->hasPhpDocTagValueNode($node, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class)) {
             return null;
         }
         $toManyPropertyNames = $this->resolveToManyPropertyNames($node);
@@ -94,14 +94,14 @@ CODE_SAMPLE
     /**
      * @return string[]
      */
-    private function resolveToManyPropertyNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    private function resolveToManyPropertyNames(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $collectionPropertyNames = [];
         foreach ($class->getProperties() as $property) {
             if (\count((array) $property->props) !== 1) {
                 continue;
             }
-            if (!$this->hasPhpDocTagValueNode($property, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface::class)) {
+            if (!$this->hasPhpDocTagValueNode($property, \Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface::class)) {
                 continue;
             }
             /** @var string $propertyName */
@@ -122,11 +122,11 @@ CODE_SAMPLE
         }
         return $assigns;
     }
-    private function createPropertyArrayCollectionAssign(string $toManyPropertyName) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression
+    private function createPropertyArrayCollectionAssign(string $toManyPropertyName) : \PhpParser\Node\Stmt\Expression
     {
         $propertyFetch = $this->createPropertyFetch('this', $toManyPropertyName);
-        $new = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified(\_PhpScoper2a4e7ab1ecbc\Doctrine\Common\Collections\ArrayCollection::class));
-        $assign = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($propertyFetch, $new);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression($assign);
+        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified(\_PhpScoper50d83356d739\Doctrine\Common\Collections\ArrayCollection::class));
+        $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $new);
+        return new \PhpParser\Node\Stmt\Expression($assign);
     }
 }

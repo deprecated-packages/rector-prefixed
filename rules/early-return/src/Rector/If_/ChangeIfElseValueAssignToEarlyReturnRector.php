@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Rector\If_;
+namespace Rector\EarlyReturn\Rector\If_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Else_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Stmt\Else_;
+use PhpParser\Node\Stmt\If_;
+use PhpParser\Node\Stmt\Return_;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
+use Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://engineering.helpscout.com/reducing-complexity-with-guard-clauses-in-php-and-javascript-74600fd865c7
  *
  * @see \Rector\EarlyReturn\Tests\Rector\If_\ChangeIfElseValueAssignToEarlyReturnRector\ChangeIfElseValueAssignToEarlyReturnRectorTest
  */
-final class ChangeIfElseValueAssignToEarlyReturnRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ChangeIfElseValueAssignToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var IfManipulator
@@ -30,14 +30,14 @@ final class ChangeIfElseValueAssignToEarlyReturnRector extends \_PhpScoper2a4e7a
      * @var StmtsManipulator
      */
     private $stmtsManipulator;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator $stmtsManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator, \Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator $stmtsManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->stmtsManipulator = $stmtsManipulator;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change if/else value to early return', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change if/else value to early return', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -71,15 +71,15 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_::class];
+        return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $nextNode = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if (!$nextNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_) {
+        $nextNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
             return null;
         }
         if ($nextNode->expr === null) {
@@ -91,18 +91,18 @@ CODE_SAMPLE
         $lastIfStmtKey = \array_key_last($node->stmts);
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($node->stmts);
-        $return = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_($assign->expr);
+        $return = new \PhpParser\Node\Stmt\Return_($assign->expr);
         $this->mirrorComments($return, $assign);
         $node->stmts[$lastIfStmtKey] = $return;
         $else = $node->else;
-        if (!$else instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Else_) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+        if (!$else instanceof \PhpParser\Node\Stmt\Else_) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $elseStmts = (array) $else->stmts;
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($elseStmts);
         $lastElseStmtKey = \array_key_last($elseStmts);
-        $return = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_($assign->expr);
+        $return = new \PhpParser\Node\Stmt\Return_($assign->expr);
         $this->mirrorComments($return, $assign);
         $elseStmts[$lastElseStmtKey] = $return;
         $node->else = null;

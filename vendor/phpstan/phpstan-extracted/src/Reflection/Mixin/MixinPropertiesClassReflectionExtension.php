@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Mixin;
+namespace PHPStan\Reflection\Mixin;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\OutOfClassScope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertiesClassReflectionExtension;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils;
-class MixinPropertiesClassReflectionExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertiesClassReflectionExtension
+use PHPStan\Analyser\OutOfClassScope;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\PropertiesClassReflectionExtension;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Type\TypeUtils;
+class MixinPropertiesClassReflectionExtension implements \PHPStan\Reflection\PropertiesClassReflectionExtension
 {
     /** @var string[] */
     private $mixinExcludeClasses;
@@ -19,29 +19,29 @@ class MixinPropertiesClassReflectionExtension implements \_PhpScoper2a4e7ab1ecbc
     {
         $this->mixinExcludeClasses = $mixinExcludeClasses;
     }
-    public function hasProperty(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
+    public function hasProperty(\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
     {
         return $this->findProperty($classReflection, $propertyName) !== null;
     }
-    public function getProperty(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
+    public function getProperty(\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \PHPStan\Reflection\PropertyReflection
     {
         $property = $this->findProperty($classReflection, $propertyName);
         if ($property === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $property;
     }
-    private function findProperty(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
+    private function findProperty(\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : ?\PHPStan\Reflection\PropertyReflection
     {
         $mixinTypes = $classReflection->getResolvedMixinTypes();
         foreach ($mixinTypes as $type) {
-            if (\count(\array_intersect(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeUtils::getDirectClassNames($type), $this->mixinExcludeClasses)) > 0) {
+            if (\count(\array_intersect(\PHPStan\Type\TypeUtils::getDirectClassNames($type), $this->mixinExcludeClasses)) > 0) {
                 continue;
             }
             if (!$type->hasProperty($propertyName)->yes()) {
                 continue;
             }
-            return $type->getProperty($propertyName, new \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\OutOfClassScope());
+            return $type->getProperty($propertyName, new \PHPStan\Analyser\OutOfClassScope());
         }
         foreach ($classReflection->getParents() as $parentClass) {
             $property = $this->findProperty($parentClass, $propertyName);

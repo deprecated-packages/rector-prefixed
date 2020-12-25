@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag;
+namespace PHPStan\PhpDoc\Tag;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\Type;
 class MethodTagParameter
 {
     /** @var \PHPStan\Type\Type */
@@ -17,7 +17,7 @@ class MethodTagParameter
     private $isVariadic;
     /** @var \PHPStan\Type\Type|null */
     private $defaultValue;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $defaultValue)
+    public function __construct(\PHPStan\Type\Type $type, \PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\PHPStan\Type\Type $defaultValue)
     {
         $this->type = $type;
         $this->passedByReference = $passedByReference;
@@ -25,11 +25,11 @@ class MethodTagParameter
         $this->isVariadic = $isVariadic;
         $this->defaultValue = $defaultValue;
     }
-    public function getType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getType() : \PHPStan\Type\Type
     {
         return $this->type;
     }
-    public function passedByReference() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }
@@ -41,7 +41,7 @@ class MethodTagParameter
     {
         return $this->isVariadic;
     }
-    public function getDefaultValue() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getDefaultValue() : ?\PHPStan\Type\Type
     {
         return $this->defaultValue;
     }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Constant;
+namespace PHPStan\Reflection\Constant;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\GlobalConstantReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class RuntimeConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\GlobalConstantReflection
+use PHPStan\Reflection\GlobalConstantReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Type;
+class RuntimeConstantReflection implements \PHPStan\Reflection\GlobalConstantReflection
 {
     /** @var string */
     private $name;
@@ -14,7 +14,7 @@ class RuntimeConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refle
     private $valueType;
     /** @var string|null */
     private $fileName;
-    public function __construct(string $name, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $valueType, ?string $fileName)
+    public function __construct(string $name, \PHPStan\Type\Type $valueType, ?string $fileName)
     {
         $this->name = $name;
         $this->valueType = $valueType;
@@ -24,7 +24,7 @@ class RuntimeConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refle
     {
         return $this->name;
     }
-    public function getValueType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getValueType() : \PHPStan\Type\Type
     {
         return $this->valueType;
     }
@@ -32,16 +32,16 @@ class RuntimeConstantReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refle
     {
         return $this->fileName;
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
 }

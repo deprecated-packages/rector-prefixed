@@ -1,36 +1,36 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Classes;
+namespace PHPStan\Rules\Classes;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\InClassNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\InClassNode;
+use PHPStan\Rules\RuleErrorBuilder;
 use function array_key_exists;
 use function sprintf;
 use function strtolower;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\InClassNode>
  */
-class DuplicateDeclarationRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class DuplicateDeclarationRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\InClassNode::class;
+        return \PHPStan\Node\InClassNode::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $classReflection = $scope->getClassReflection();
         if ($classReflection === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $errors = [];
         $declaredClassConstants = [];
         foreach ($node->getOriginalNode()->getConstants() as $constDecl) {
             foreach ($constDecl->consts as $const) {
                 if (\array_key_exists($const->name->name, $declaredClassConstants)) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot redeclare constant %s::%s.', $classReflection->getDisplayName(), $const->name->name))->line($const->getLine())->nonIgnorable()->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot redeclare constant %s::%s.', $classReflection->getDisplayName(), $const->name->name))->line($const->getLine())->nonIgnorable()->build();
                 } else {
                     $declaredClassConstants[$const->name->name] = \true;
                 }
@@ -40,7 +40,7 @@ class DuplicateDeclarationRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\
         foreach ($node->getOriginalNode()->getProperties() as $propertyDecl) {
             foreach ($propertyDecl->props as $property) {
                 if (\array_key_exists($property->name->name, $declaredProperties)) {
-                    $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot redeclare property %s::$%s.', $classReflection->getDisplayName(), $property->name->name))->line($property->getLine())->nonIgnorable()->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot redeclare property %s::$%s.', $classReflection->getDisplayName(), $property->name->name))->line($property->getLine())->nonIgnorable()->build();
                 } else {
                     $declaredProperties[$property->name->name] = \true;
                 }
@@ -53,19 +53,19 @@ class DuplicateDeclarationRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\
                     if ($param->flags === 0) {
                         continue;
                     }
-                    if (!$param->var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
-                        throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+                    if (!$param->var instanceof \PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
+                        throw new \PHPStan\ShouldNotHappenException();
                     }
                     $propertyName = $param->var->name;
                     if (\array_key_exists($propertyName, $declaredProperties)) {
-                        $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot redeclare property %s::$%s.', $classReflection->getDisplayName(), $propertyName))->line($param->getLine())->nonIgnorable()->build();
+                        $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot redeclare property %s::$%s.', $classReflection->getDisplayName(), $propertyName))->line($param->getLine())->nonIgnorable()->build();
                     } else {
                         $declaredProperties[$propertyName] = \true;
                     }
                 }
             }
             if (\array_key_exists(\strtolower($method->name->name), $declaredFunctions)) {
-                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot redeclare method %s::%s().', $classReflection->getDisplayName(), $method->name->name))->line($method->getStartLine())->nonIgnorable()->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot redeclare method %s::%s().', $classReflection->getDisplayName(), $method->name->name))->line($method->getStartLine())->nonIgnorable()->build();
             } else {
                 $declaredFunctions[\strtolower($method->name->name)] = \true;
             }

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_key_exists;
 use function assert;
 use function strtolower;
-class ClassReflector implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector
+class ClassReflector implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector
 {
     /** @var SourceLocator */
     private $sourceLocator;
     /** @var (ReflectionClass|null)[] */
     private $cachedReflections = [];
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator)
+    public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator)
     {
         $this->sourceLocator = $sourceLocator;
     }
@@ -29,22 +29,22 @@ class ClassReflector implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\R
      *
      * @throws IdentifierNotFound
      */
-    public function reflect(string $className) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $className) : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         $lowerClassName = \strtolower($className);
         if (\array_key_exists($lowerClassName, $this->cachedReflections)) {
             $classInfo = $this->cachedReflections[$lowerClassName];
         } else {
-            $identifier = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier($className, new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
+            $identifier = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier($className, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
             $classInfo = $this->sourceLocator->locateIdentifier($this, $identifier);
-            \assert($classInfo instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass || $classInfo === null);
+            \assert($classInfo instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass || $classInfo === null);
             $this->cachedReflections[$lowerClassName] = $classInfo;
         }
         if ($classInfo === null) {
             if (!isset($identifier)) {
-                $identifier = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier($className, new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
+                $identifier = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier($className, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
             }
-            throw \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound::fromIdentifier($identifier);
         }
         return $classInfo;
     }
@@ -56,7 +56,7 @@ class ClassReflector implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\R
     public function getAllClasses() : array
     {
         /** @var ReflectionClass[] $allClasses */
-        $allClasses = $this->sourceLocator->locateIdentifiersByType($this, new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
+        $allClasses = $this->sourceLocator->locateIdentifiersByType($this, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS));
         return $allClasses;
     }
 }

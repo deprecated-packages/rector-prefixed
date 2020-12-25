@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use Symplify\Skipper\ValueObject\Option;
+use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option::SKIP, []);
-    $parameters->set(\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option::ONLY, []);
+    $parameters->set(\Symplify\Skipper\ValueObject\Option::SKIP, []);
+    $parameters->set(\Symplify\Skipper\ValueObject\Option::ONLY, []);
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('Symplify\\Skipper\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Normalizer\PathNormalizer::class);
+    $services->set(\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker::class);
+    $services->set(\Symplify\SmartFileSystem\Normalizer\PathNormalizer::class);
 };

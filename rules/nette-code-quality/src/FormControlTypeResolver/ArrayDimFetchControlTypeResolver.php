@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\FormControlTypeResolver;
+namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Naming\NetteControlNaming;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
-final class ArrayDimFetchControlTypeResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface
+use PhpParser\Node;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\TypeWithClassName;
+use Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
+use Rector\NetteCodeQuality\Naming\NetteControlNaming;
+use Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
+use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
+final class ArrayDimFetchControlTypeResolver implements \Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface
 {
     /**
      * @var ControlDimFetchAnalyzer
@@ -35,7 +35,7 @@ final class ArrayDimFetchControlTypeResolver implements \_PhpScoper2a4e7ab1ecbc\
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming, \_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\Rector\NetteCodeQuality\NodeAnalyzer\ControlDimFetchAnalyzer $controlDimFetchAnalyzer, \Rector\NetteCodeQuality\Naming\NetteControlNaming $netteControlNaming, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->controlDimFetchAnalyzer = $controlDimFetchAnalyzer;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -46,9 +46,9 @@ final class ArrayDimFetchControlTypeResolver implements \_PhpScoper2a4e7ab1ecbc\
     /**
      * @return array<string, string>
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
+    public function resolve(\PhpParser\Node $node) : array
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return [];
         }
         $controlShortName = $this->controlDimFetchAnalyzer->matchName($node);
@@ -60,15 +60,15 @@ final class ArrayDimFetchControlTypeResolver implements \_PhpScoper2a4e7ab1ecbc\
             return [];
         }
         $createComponentClassMethodReturnType = $this->returnTypeInferer->inferFunctionLike($createComponentClassMethod);
-        if (!$createComponentClassMethodReturnType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+        if (!$createComponentClassMethodReturnType instanceof \PHPStan\Type\TypeWithClassName) {
             return [];
         }
         return [$controlShortName => $createComponentClassMethodReturnType->getClassName()];
     }
-    private function matchCreateComponentClassMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $controlShortName) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod
+    private function matchCreateComponentClassMethod(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $controlShortName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $callerType = $this->nodeTypeResolver->getStaticType($arrayDimFetch->var);
-        if (!$callerType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+        if (!$callerType instanceof \PHPStan\Type\TypeWithClassName) {
             return null;
         }
         $createComponentClassMethodName = $this->netteControlNaming->createCreateComponentClassMethodName($controlShortName);

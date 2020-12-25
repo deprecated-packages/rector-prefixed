@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\Include_;
+namespace Rector\CodingStyle\Rector\Include_;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Include_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\MagicConst\Dir;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\Include_;
+use PhpParser\Node\Scalar\MagicConst\Dir;
+use PhpParser\Node\Scalar\String_;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Include_\FollowRequireByDirRector\FollowRequireByDirRectorTest
  */
-final class FollowRequireByDirRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class FollowRequireByDirRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('include/require should be followed by absolute path', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('include/require should be followed by absolute path', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -44,47 +44,47 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Include_::class];
+        return [\PhpParser\Node\Expr\Include_::class];
     }
     /**
      * @param Include_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat && $node->expr->left instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ && $this->isRefactorableStringPath($node->expr->left)) {
+        if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\Concat && $node->expr->left instanceof \PhpParser\Node\Scalar\String_ && $this->isRefactorableStringPath($node->expr->left)) {
             $node->expr->left = $this->prefixWithDir($node->expr->left);
             return $node;
         }
-        if ($node->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ && $this->isRefactorableStringPath($node->expr)) {
+        if ($node->expr instanceof \PhpParser\Node\Scalar\String_ && $this->isRefactorableStringPath($node->expr)) {
             $node->expr = $this->prefixWithDir($node->expr);
             return $node;
         }
         // nothing we can do
         return null;
     }
-    private function isRefactorableStringPath(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string) : bool
+    private function isRefactorableStringPath(\PhpParser\Node\Scalar\String_ $string) : bool
     {
-        return !\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($string->value, 'phar://');
+        return !\_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($string->value, 'phar://');
     }
-    private function prefixWithDir(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat
+    private function prefixWithDir(\PhpParser\Node\Scalar\String_ $string) : \PhpParser\Node\Expr\BinaryOp\Concat
     {
         $this->removeExtraDotSlash($string);
         $this->prependSlashIfMissing($string);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\MagicConst\Dir(), $string);
+        return new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\MagicConst\Dir(), $string);
     }
     /**
      * Remove "./" which would break the path
      */
-    private function removeExtraDotSlash(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string) : void
+    private function removeExtraDotSlash(\PhpParser\Node\Scalar\String_ $string) : void
     {
-        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($string->value, './')) {
+        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($string->value, './')) {
             return;
         }
-        $string->value = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
+        $string->value = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
     }
-    private function prependSlashIfMissing(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string) : void
+    private function prependSlashIfMissing(\PhpParser\Node\Scalar\String_ $string) : void
     {
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($string->value, '/')) {
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($string->value, '/')) {
             return;
         }
         $string->value = '/' . $string->value;

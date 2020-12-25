@@ -1,38 +1,38 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DoctrineCodeQuality\Rector\MethodCall;
+namespace Rector\DoctrineCodeQuality\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Scalar\String_;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/doctrine/orm/blob/2.7/UPGRADE.md#query-querybuilder-and-nativequery-parameters-bc-break
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\MethodCall\ChangeSetParametersArrayToArrayCollectionRector\ChangeSetParametersArrayToArrayCollectionRectorTest
  */
-final class ChangeSetParametersArrayToArrayCollectionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ChangeSetParametersArrayToArrayCollectionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipMethodCall($node)) {
             return null;
@@ -47,12 +47,12 @@ final class ChangeSetParametersArrayToArrayCollectionRector extends \_PhpScoper2
         }
         unset($node->args);
         $new = $this->getNewArrayCollectionFromSetParametersArgument($firstArgument);
-        $node->args = [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($new)];
+        $node->args = [new \PhpParser\Node\Arg($new)];
         return $node;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array to ArrayCollection in setParameters method of query builder', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array to ArrayCollection in setParameters method of query builder', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\EntityRepository;
 
 class SomeRepository extends EntityRepository
@@ -96,22 +96,22 @@ class SomeRepository extends EntityRepository
 CODE_SAMPLE
 )]);
     }
-    private function shouldSkipMethodCall(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    private function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        $classLike = $methodCall->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $classLike = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike === null) {
             return \true;
         }
         //one of the cases when we are in the repo and it's extended from EntityRepository
-        if (!$this->isObjectType($classLike, '_PhpScoper2a4e7ab1ecbc\\Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($classLike, '_PhpScoper50d83356d739\\Doctrine\\ORM\\EntityRepository')) {
             return \true;
         }
-        if (!$this->isObjectType($methodCall->var, '_PhpScoper2a4e7ab1ecbc\\Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($methodCall->var, '_PhpScoper50d83356d739\\Doctrine\\ORM\\EntityRepository')) {
             return \true;
         }
         return !$this->isName($methodCall->name, 'setParameters');
     }
-    private function getNewArrayCollectionFromSetParametersArgument(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg $arg) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_
+    private function getNewArrayCollectionFromSetParametersArgument(\PhpParser\Node\Arg $arg) : \PhpParser\Node\Expr\New_
     {
         /** @var Array_ $arrayExpression */
         $arrayExpression = $arg->value;
@@ -119,15 +119,15 @@ CODE_SAMPLE
         $firstArgumentArrayItems = $arrayExpression->items;
         $arrayCollectionArrayArguments = [];
         foreach ($firstArgumentArrayItems as $firstArgumentArrayItem) {
-            if (!$firstArgumentArrayItem->key instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ || !$firstArgumentArrayItem->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
-                throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+            if (!$firstArgumentArrayItem->key instanceof \PhpParser\Node\Scalar\String_ || !$firstArgumentArrayItem->value instanceof \PhpParser\Node\Scalar\String_) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            $queryParameter = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified('_PhpScoper2a4e7ab1ecbc\\Doctrine\\ORM\\Query\\Parameter'));
-            $queryParameter->args = [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($firstArgumentArrayItem->key), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($firstArgumentArrayItem->value)];
-            $arrayCollectionArrayArguments[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem($queryParameter);
+            $queryParameter = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoper50d83356d739\\Doctrine\\ORM\\Query\\Parameter'));
+            $queryParameter->args = [new \PhpParser\Node\Arg($firstArgumentArrayItem->key), new \PhpParser\Node\Arg($firstArgumentArrayItem->value)];
+            $arrayCollectionArrayArguments[] = new \PhpParser\Node\Expr\ArrayItem($queryParameter);
         }
-        $arrayCollection = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\New_(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified('_PhpScoper2a4e7ab1ecbc\\Doctrine\\Common\\Collections\\ArrayCollection'));
-        $arrayCollection->args = [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_($arrayCollectionArrayArguments))];
+        $arrayCollection = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('_PhpScoper50d83356d739\\Doctrine\\Common\\Collections\\ArrayCollection'));
+        $arrayCollection->args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($arrayCollectionArrayArguments))];
         return $arrayCollection;
     }
 }

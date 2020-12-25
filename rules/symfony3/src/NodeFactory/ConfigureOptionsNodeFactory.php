@@ -1,41 +1,41 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony3\NodeFactory;
+namespace Rector\Symfony3\NodeFactory;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Builder\MethodBuilder;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Builder\ParamBuilder;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Param;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\PhpParser\Builder\MethodBuilder;
+use Rector\Core\PhpParser\Builder\ParamBuilder;
 final class ConfigureOptionsNodeFactory
 {
     /**
      * @param array<string, Arg> $namesToArgs
      */
-    public function create(array $namesToArgs) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod
+    public function create(array $namesToArgs) : \PhpParser\Node\Stmt\ClassMethod
     {
         $resolverParam = $this->createParam();
         $args = $this->createArgs($namesToArgs);
-        $setDefaultsMethodCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall($resolverParam->var, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier('setDefaults'), $args);
-        $methodBuilder = new \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Builder\MethodBuilder('configureOptions');
+        $setDefaultsMethodCall = new \PhpParser\Node\Expr\MethodCall($resolverParam->var, new \PhpParser\Node\Identifier('setDefaults'), $args);
+        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder('configureOptions');
         $methodBuilder->makePublic();
         $methodBuilder->addParam($resolverParam);
         $methodBuilder->addStmt($setDefaultsMethodCall);
         return $methodBuilder->getNode();
     }
-    private function createParam() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param
+    private function createParam() : \PhpParser\Node\Param
     {
-        $paramBuilder = new \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Builder\ParamBuilder('resolver');
-        $paramBuilder->setType(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified('_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\OptionsResolver\\OptionsResolver'));
+        $paramBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder('resolver');
+        $paramBuilder->setType(new \PhpParser\Node\Name\FullyQualified('_PhpScoper50d83356d739\\Symfony\\Component\\OptionsResolver\\OptionsResolver'));
         return $paramBuilder->getNode();
     }
     /**
@@ -44,14 +44,14 @@ final class ConfigureOptionsNodeFactory
      */
     private function createArgs(array $namesToArgs) : array
     {
-        $array = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_();
+        $array = new \PhpParser\Node\Expr\Array_();
         foreach (\array_keys($namesToArgs) as $optionName) {
-            $array->items[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem($this->createNull(), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($optionName));
+            $array->items[] = new \PhpParser\Node\Expr\ArrayItem($this->createNull(), new \PhpParser\Node\Scalar\String_($optionName));
         }
-        return [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($array)];
+        return [new \PhpParser\Node\Arg($array)];
     }
-    private function createNull() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch
+    private function createNull() : \PhpParser\Node\Expr\ConstFetch
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('null'));
+        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null'));
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Caching\FileSystem;
+namespace Rector\Caching\FileSystem;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\DependencyResolver as PHPStanDependencyResolver;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Configuration;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Dependency\DependencyResolver as PHPStanDependencyResolver;
+use PHPStan\File\FileHelper;
+use Rector\Core\Configuration\Configuration;
 final class DependencyResolver
 {
     /**
@@ -22,7 +22,7 @@ final class DependencyResolver
      * @var PHPStanDependencyResolver
      */
     private $phpStanDependencyResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Configuration $configuration, \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileHelper $fileHelper)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \PHPStan\File\FileHelper $fileHelper)
     {
         $this->fileHelper = $fileHelper;
         $this->configuration = $configuration;
@@ -31,7 +31,7 @@ final class DependencyResolver
     /**
      * @return string[]
      */
-    public function resolveDependencies(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function resolveDependencies(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $fileInfos = $this->configuration->getFileInfos();
         $analysedFileAbsolutesPaths = [];

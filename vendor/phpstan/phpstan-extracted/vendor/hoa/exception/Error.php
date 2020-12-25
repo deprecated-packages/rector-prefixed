@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Exception;
+namespace Hoa\Exception;
 
 /**
  * Class \Hoa\Exception\Error.
@@ -43,7 +43,7 @@ namespace _PhpScoper2a4e7ab1ecbc\Hoa\Exception;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Error extends \_PhpScoper2a4e7ab1ecbc\Hoa\Exception\Exception
+class Error extends \Hoa\Exception\Exception
 {
     /**
      * Constructor.
@@ -80,7 +80,7 @@ class Error extends \_PhpScoper2a4e7ab1ecbc\Hoa\Exception\Exception
             $trace = \debug_backtrace();
             \array_shift($trace);
             \array_shift($trace);
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Exception\Error($str, $no, $file, $line, $trace);
+            throw new \Hoa\Exception\Error($str, $no, $file, $line, $trace);
         });
     }
 }

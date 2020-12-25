@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php71\Rector\BinaryOp;
+namespace Rector\Php71\Rector\BinaryOp;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Scalar;
+use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\Constant\ConstantStringType;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/XPEEl
  * @see https://3v4l.org/ObNQZ
  * @see \Rector\Php71\Tests\Rector\BinaryOp\BinaryOpBetweenNumberAndStringRector\BinaryOpBetweenNumberAndStringRectorTest
  */
-final class BinaryOpBetweenNumberAndStringRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class BinaryOpBetweenNumberAndStringRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change binary operation between some number + string to PHP 7.1 compatible version', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change binary operation between some number + string to PHP 7.1 compatible version', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -51,37 +51,37 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp::class];
+        return [\PhpParser\Node\Expr\BinaryOp::class];
     }
     /**
      * @param BinaryOp $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat) {
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             return null;
         }
         if ($this->isStringOrStaticNonNumbericString($node->left) && $this->isNumberType($node->right)) {
-            $node->left = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber(0);
+            $node->left = new \PhpParser\Node\Scalar\LNumber(0);
             return $node;
         }
         if ($this->isStringOrStaticNonNumbericString($node->right) && $this->isNumberType($node->left)) {
-            $node->right = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber(0);
+            $node->right = new \PhpParser\Node\Scalar\LNumber(0);
             return $node;
         }
         return null;
     }
-    private function isStringOrStaticNonNumbericString(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : bool
+    private function isStringOrStaticNonNumbericString(\PhpParser\Node\Expr $expr) : bool
     {
         // replace only scalar values, not variables/constants/etc.
-        if (!$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar && !$expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+        if (!$expr instanceof \PhpParser\Node\Scalar && !$expr instanceof \PhpParser\Node\Expr\Variable) {
             return \false;
         }
         $value = null;
         $exprStaticType = $this->getStaticType($expr);
-        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
+        if ($expr instanceof \PhpParser\Node\Scalar\String_) {
             $value = $expr->value;
-        } elseif ($exprStaticType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType) {
+        } elseif ($exprStaticType instanceof \PHPStan\Type\Constant\ConstantStringType) {
             $value = $exprStaticType->getValue();
         } else {
             return \false;

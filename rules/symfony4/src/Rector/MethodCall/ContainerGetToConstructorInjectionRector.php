@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony4\Rector\MethodCall;
+namespace Rector\Symfony4\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\Rector\MethodCall\AbstractToConstructorInjectionRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Symfony\Rector\MethodCall\AbstractToConstructorInjectionRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Ref: https://github.com/symfony/symfony/blob/master/UPGRADE-4.0.md#console
  * @see \Rector\Symfony4\Tests\Rector\MethodCall\ContainerGetToConstructorInjectionRector\ContainerGetToConstructorInjectionRectorTest
  */
-final class ContainerGetToConstructorInjectionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\Rector\MethodCall\AbstractToConstructorInjectionRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ContainerGetToConstructorInjectionRector extends \Rector\Symfony\Rector\MethodCall\AbstractToConstructorInjectionRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -24,10 +24,10 @@ final class ContainerGetToConstructorInjectionRector extends \_PhpScoper2a4e7ab1
     /**
      * @var string[]
      */
-    private $containerAwareParentTypes = ['_PhpScoper2a4e7ab1ecbc\\Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand', '_PhpScoper2a4e7ab1ecbc\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller'];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    private $containerAwareParentTypes = ['_PhpScoper50d83356d739\\Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand', '_PhpScoper50d83356d739\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller'];
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$container->get()` in ContainerAware to constructor injection in Command and Controller in Symfony', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$container->get()` in ContainerAware to constructor injection in Command and Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 final class SomeCommand extends ContainerAwareCommand
 {
     public function someMethod()
@@ -61,20 +61,20 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class];
     }
     /**
      * @param MethodCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper2a4e7ab1ecbc\\Symfony\\Component\\DependencyInjection\\ContainerInterface')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper50d83356d739\\Symfony\\Component\\DependencyInjection\\ContainerInterface')) {
             return null;
         }
         if (!$this->isName($node->name, 'get')) {
             return null;
         }
-        $parentClassName = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
         if (!\in_array($parentClassName, $this->containerAwareParentTypes, \true)) {
             return null;
         }

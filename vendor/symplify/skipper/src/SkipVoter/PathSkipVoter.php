@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\SkipVoter;
+namespace Symplify\Skipper\SkipVoter;
 
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Contract\SkipVoterInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Matcher\FileInfoMatcher;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class PathSkipVoter implements \_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Contract\SkipVoterInterface
+use Symplify\Skipper\Contract\SkipVoterInterface;
+use Symplify\Skipper\Matcher\FileInfoMatcher;
+use Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class PathSkipVoter implements \Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var FileInfoMatcher
@@ -17,7 +17,7 @@ final class PathSkipVoter implements \_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Co
      * @var SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher, \_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
+    public function __construct(\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher, \Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
         $this->skippedPathsResolver = $skippedPathsResolver;
@@ -32,7 +32,7 @@ final class PathSkipVoter implements \_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\Co
     /**
      * @param string $element
      */
-    public function shouldSkip($element, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $skippedPaths = $this->skippedPathsResolver->resolve();
         return $this->fileInfoMatcher->doesFileInfoMatchPatterns($smartFileInfo, $skippedPaths);

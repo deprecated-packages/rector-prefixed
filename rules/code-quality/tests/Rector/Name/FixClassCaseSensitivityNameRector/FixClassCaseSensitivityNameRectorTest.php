@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Tests\Rector\Name\FixClassCaseSensitivityNameRector;
+namespace Rector\CodeQuality\Tests\Rector\Name\FixClassCaseSensitivityNameRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Name\FixClassCaseSensitivityNameRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class FixClassCaseSensitivityNameRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\CodeQuality\Rector\Name\FixClassCaseSensitivityNameRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class FixClassCaseSensitivityNameRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         // for PHPStan class reflection
         require_once __DIR__ . '/Source/MissCaseTypedClass.php';
@@ -24,6 +24,6 @@ final class FixClassCaseSensitivityNameRectorTest extends \_PhpScoper2a4e7ab1ecb
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Name\FixClassCaseSensitivityNameRector::class;
+        return \Rector\CodeQuality\Rector\Name\FixClassCaseSensitivityNameRector::class;
     }
 }

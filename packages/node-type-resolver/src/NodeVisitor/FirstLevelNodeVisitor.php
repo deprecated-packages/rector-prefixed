@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeVisitor;
+namespace Rector\NodeTypeResolver\NodeVisitor;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-final class FirstLevelNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract
+use PhpParser\Node;
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\NodeVisitorAbstract;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+final class FirstLevelNodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /**
      * @return Node
      */
-    public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike) {
+        if ($node instanceof \PhpParser\Node\FunctionLike) {
             foreach ((array) $node->getStmts() as $stmt) {
-                $stmt->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::IS_FIRST_LEVEL_STATEMENT, \true);
-                if ($stmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
-                    $stmt->expr->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::IS_FIRST_LEVEL_STATEMENT, \true);
+                $stmt->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_FIRST_LEVEL_STATEMENT, \true);
+                if ($stmt instanceof \PhpParser\Node\Stmt\Expression) {
+                    $stmt->expr->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_FIRST_LEVEL_STATEMENT, \true);
                 }
             }
         }

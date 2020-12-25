@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f;
+namespace _HumbugBox221ad6f1b81f;
 
 /*
  * This file is part of the Symfony package.

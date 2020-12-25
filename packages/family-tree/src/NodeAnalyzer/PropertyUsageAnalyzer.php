@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\FamilyTree\NodeAnalyzer;
+namespace Rector\FamilyTree\NodeAnalyzer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Property;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class PropertyUsageAnalyzer
 {
     /**
@@ -29,21 +29,21 @@ final class PropertyUsageAnalyzer
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper2a4e7ab1ecbc\Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->familyRelationsAnalyzer = $familyRelationsAnalyzer;
         $this->nodeRepository = $nodeRepository;
     }
-    public function isPropertyFetchedInChildClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property $property) : bool
+    public function isPropertyFetchedInChildClass(\PhpParser\Node\Stmt\Property $property) : bool
     {
-        $className = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $className = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \false;
         }
-        $classLike = $property->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ && $classLike->isFinal()) {
+        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if ($classLike instanceof \PhpParser\Node\Stmt\Class_ && $classLike->isFinal()) {
             return \false;
         }
         $propertyName = $this->nodeNameResolver->getName($property);
@@ -53,7 +53,7 @@ final class PropertyUsageAnalyzer
             if ($childClass === null) {
                 continue;
             }
-            $isPropertyFetched = (bool) $this->betterNodeFinder->findFirst((array) $childClass->stmts, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($propertyName) : bool {
+            $isPropertyFetched = (bool) $this->betterNodeFinder->findFirst((array) $childClass->stmts, function (\PhpParser\Node $node) use($propertyName) : bool {
                 return $this->nodeNameResolver->isLocalPropertyFetchNamed($node, $propertyName);
             });
             if ($isPropertyFetched) {

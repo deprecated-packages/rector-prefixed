@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\Contract;
+namespace Symplify\RuleDocGenerator\Contract;
 
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 interface DocumentedRuleInterface
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 }

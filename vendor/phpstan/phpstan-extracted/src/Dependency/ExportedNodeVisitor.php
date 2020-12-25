@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency;
+namespace PHPStan\Dependency;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract;
-class ExportedNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorAbstract
+use PhpParser\Node;
+use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitorAbstract;
+class ExportedNodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /** @var ExportedNodeResolver */
     private $exportedNodeResolver;
@@ -19,7 +19,7 @@ class ExportedNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorA
      *
      * @param ExportedNodeResolver $exportedNodeResolver
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNodeResolver $exportedNodeResolver)
+    public function __construct(\PHPStan\Dependency\ExportedNodeResolver $exportedNodeResolver)
     {
         $this->exportedNodeResolver = $exportedNodeResolver;
     }
@@ -35,17 +35,17 @@ class ExportedNodeVisitor extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeVisitorA
     {
         return $this->currentNodes;
     }
-    public function enterNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?int
+    public function enterNode(\PhpParser\Node $node) : ?int
     {
         if ($this->fileName === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $exportedNode = $this->exportedNodeResolver->resolve($this->fileName, $node);
         if ($exportedNode !== null) {
             $this->currentNodes[] = $exportedNode;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Function_ || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Trait_) {
-            return \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod || $node instanceof \PhpParser\Node\Stmt\Function_ || $node instanceof \PhpParser\Node\Stmt\Trait_) {
+            return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
         return null;
     }

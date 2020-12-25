@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php72\Tests\Rector\FuncCall\GetClassOnNullRector;
+namespace Rector\Php72\Tests\Rector\FuncCall\GetClassOnNullRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\FuncCall\GetClassOnNullRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class GetClassOnNullRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php72\Rector\FuncCall\GetClassOnNullRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class GetClassOnNullRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class GetClassOnNullRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Test
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\FuncCall\GetClassOnNullRector::class;
+        return \Rector\Php72\Rector\FuncCall\GetClassOnNullRector::class;
     }
 }

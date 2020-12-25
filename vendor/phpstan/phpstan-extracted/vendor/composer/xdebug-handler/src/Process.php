@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Composer\XdebugHandler;
+namespace _HumbugBox221ad6f1b81f\Composer\XdebugHandler;
 
 /**
  * Provides utility functions to prepare a child process command-line and set

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
+namespace PHPStan\Node;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\Constant\ClassConstantFetch;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\Property\PropertyRead;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\Property\PropertyWrite;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\StaticPropertyFetch;
+use PhpParser\Node\Identifier;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\Constant\ClassConstantFetch;
+use PHPStan\Node\Property\PropertyRead;
+use PHPStan\Node\Property\PropertyWrite;
+use PHPStan\Reflection\ClassReflection;
 class ClassStatementsGatherer
 {
     /** @var ClassReflection */
@@ -38,7 +38,7 @@ class ClassStatementsGatherer
      * @param ClassReflection $classReflection
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, callable $nodeCallback)
+    public function __construct(\PHPStan\Reflection\ClassReflection $classReflection, callable $nodeCallback)
     {
         $this->classReflection = $classReflection;
         $this->nodeCallback = $nodeCallback;
@@ -85,68 +85,68 @@ class ClassStatementsGatherer
     {
         return $this->constantFetches;
     }
-    public function __invoke(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : void
+    public function __invoke(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : void
     {
         $nodeCallback = $this->nodeCallback;
         $nodeCallback($node, $scope);
         $this->gatherNodes($node, $scope);
     }
-    private function gatherNodes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : void
+    private function gatherNodes(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : void
     {
         if (!$scope->isInClass()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         if ($scope->getClassReflection()->getName() !== $this->classReflection->getName()) {
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\ClassPropertyNode && !$scope->isInTrait()) {
+        if ($node instanceof \PHPStan\Node\ClassPropertyNode && !$scope->isInTrait()) {
             $this->properties[] = $node;
             if ($node->isPromoted()) {
-                $this->propertyUsages[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\Property\PropertyWrite(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this'), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($node->getName())), $scope);
+                $this->propertyUsages[] = new \PHPStan\Node\Property\PropertyWrite(new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), new \PhpParser\Node\Identifier($node->getName())), $scope);
             }
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod && !$scope->isInTrait()) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod && !$scope->isInTrait()) {
             $this->methods[] = $node;
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassConst) {
             $this->constants[] = $node;
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall) {
-            $this->methodCalls[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\Method\MethodCall($node, $scope);
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
+            $this->methodCalls[] = new \PHPStan\Node\Method\MethodCall($node, $scope);
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ && \count($node->items) === 2) {
-            $this->methodCalls[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\Method\MethodCall($node, $scope);
+        if ($node instanceof \PhpParser\Node\Expr\Array_ && \count($node->items) === 2) {
+            $this->methodCalls[] = new \PHPStan\Node\Method\MethodCall($node, $scope);
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch) {
-            $this->constantFetches[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\Constant\ClassConstantFetch($node, $scope);
+        if ($node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+            $this->constantFetches[] = new \PHPStan\Node\Constant\ClassConstantFetch($node, $scope);
             return;
         }
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr) {
+        if (!$node instanceof \PhpParser\Node\Expr) {
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignOp\Coalesce) {
+        if ($node instanceof \PhpParser\Node\Expr\AssignOp\Coalesce) {
             $this->gatherNodes($node->var, $scope);
             return;
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\EncapsedStringPart) {
+        if ($node instanceof \PhpParser\Node\Scalar\EncapsedStringPart) {
             return;
         }
         $inAssign = $scope->isInExpressionAssign($node);
-        while ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch) {
+        while ($node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             $node = $node->var;
         }
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticPropertyFetch) {
+        if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch && !$node instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
             return;
         }
         if ($inAssign) {
-            $this->propertyUsages[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\Property\PropertyWrite($node, $scope);
+            $this->propertyUsages[] = new \PHPStan\Node\Property\PropertyWrite($node, $scope);
         } else {
-            $this->propertyUsages[] = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\Property\PropertyRead($node, $scope);
+            $this->propertyUsages[] = new \PHPStan\Node\Property\PropertyRead($node, $scope);
         }
     }
 }

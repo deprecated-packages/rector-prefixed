@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\ClassMethod\ReturnThisRemoveRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\MethodCall\InArgFluentChainMethodCallToStandaloneMethodCallRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\MethodCall\MethodCallOnSetterMethodCallToStandaloneAssignRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\MethodCall\NewFluentChainMethodCallToNonFluentRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\Return_\ReturnFluentChainMethodCallToNormalMethodCallRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\Return_\ReturnNewFluentChainMethodCallToNonFluentRector;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Defluent\Rector\ClassMethod\ReturnThisRemoveRector;
+use Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector;
+use Rector\Defluent\Rector\MethodCall\InArgFluentChainMethodCallToStandaloneMethodCallRector;
+use Rector\Defluent\Rector\MethodCall\MethodCallOnSetterMethodCallToStandaloneAssignRector;
+use Rector\Defluent\Rector\MethodCall\NewFluentChainMethodCallToNonFluentRector;
+use Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
+use Rector\Defluent\Rector\Return_\ReturnFluentChainMethodCallToNormalMethodCallRector;
+use Rector\Defluent\Rector\Return_\ReturnNewFluentChainMethodCallToNonFluentRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 // @see https://ocramius.github.io/blog/fluent-interfaces-are-evil/
 // @see https://www.yegor256.com/2018/03/13/fluent-interfaces.html
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     // variable/property
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\Return_\ReturnFluentChainMethodCallToNormalMethodCallRector::class);
+    $services->set(\Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector::class);
+    $services->set(\Rector\Defluent\Rector\Return_\ReturnFluentChainMethodCallToNormalMethodCallRector::class);
     // new
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\MethodCall\NewFluentChainMethodCallToNonFluentRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\Return_\ReturnNewFluentChainMethodCallToNonFluentRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\ClassMethod\ReturnThisRemoveRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\MethodCall\MethodCallOnSetterMethodCallToStandaloneAssignRector::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\Rector\MethodCall\InArgFluentChainMethodCallToStandaloneMethodCallRector::class);
+    $services->set(\Rector\Defluent\Rector\MethodCall\NewFluentChainMethodCallToNonFluentRector::class);
+    $services->set(\Rector\Defluent\Rector\Return_\ReturnNewFluentChainMethodCallToNonFluentRector::class);
+    $services->set(\Rector\Defluent\Rector\ClassMethod\ReturnThisRemoveRector::class);
+    $services->set(\Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector::class);
+    $services->set(\Rector\Defluent\Rector\MethodCall\MethodCallOnSetterMethodCallToStandaloneAssignRector::class);
+    $services->set(\Rector\Defluent\Rector\MethodCall\InArgFluentChainMethodCallToStandaloneMethodCallRector::class);
 };

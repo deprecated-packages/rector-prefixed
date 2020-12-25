@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Tests\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector;
+namespace Rector\Laravel\Tests\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class AddMockConsoleOutputFalseToConsoleTestsRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class AddMockConsoleOutputFalseToConsoleTestsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class AddMockConsoleOutputFalseToConsoleTestsRectorTest extends \_PhpScope
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector::class;
+        return \Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector::class;
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_;
+namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
-final class IndexTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
+final class IndexTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface
 {
     /**
      * @var string|null
@@ -22,6 +22,6 @@ final class IndexTagValueNode extends \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDo
     }
     public function getShortName() : string
     {
-        return '_PhpScoper2a4e7ab1ecbc\\@ORM\\Index';
+        return '_PhpScoper50d83356d739\\@ORM\\Index';
     }
 }

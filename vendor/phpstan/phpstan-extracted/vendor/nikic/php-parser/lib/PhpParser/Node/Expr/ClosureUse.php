@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
+namespace PhpParser\Node\Expr;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-class ClosureUse extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+use PhpParser\Node\Expr;
+class ClosureUse extends \PhpParser\Node\Expr
 {
     /** @var Expr\Variable Variable to use */
     public $var;
@@ -17,7 +17,7 @@ class ClosureUse extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
      * @param bool          $byRef      Whether to use by reference
      * @param array         $attributes Additional attributes
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable $var, bool $byRef = \false, array $attributes = [])
+    public function __construct(\PhpParser\Node\Expr\Variable $var, bool $byRef = \false, array $attributes = [])
     {
         $this->attributes = $attributes;
         $this->var = $var;

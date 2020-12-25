@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp72\Rector\FunctionLike;
+namespace Rector\DowngradePhp72\Rector\FunctionLike;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp72\Contract\Rector\DowngradeTypeRectorInterface;
-abstract class AbstractDowngradeParamTypeDeclarationRector extends \_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector implements \_PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp72\Contract\Rector\DowngradeTypeRectorInterface
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Param;
+use Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector;
+use Rector\DowngradePhp72\Contract\Rector\DowngradeTypeRectorInterface;
+abstract class AbstractDowngradeParamTypeDeclarationRector extends \Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector implements \Rector\DowngradePhp72\Contract\Rector\DowngradeTypeRectorInterface
 {
-    public function shouldRemoveParamDeclaration(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike) : bool
+    public function shouldRemoveParamDeclaration(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
         if ($param->variadic) {
             return \false;

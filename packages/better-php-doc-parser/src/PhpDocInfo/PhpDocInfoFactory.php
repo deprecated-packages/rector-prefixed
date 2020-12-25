@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo;
+namespace Rector\BetterPhpDocParser\PhpDocInfo;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\PhpDocParser;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\CurrentNodeProvider;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\StaticTypeMapper;
+use PhpParser\Node;
+use PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\Parser\PhpDocParser;
+use PHPStan\PhpDocParser\Parser\TokenIterator;
+use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
+use Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
+use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+use Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
+use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
+use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
+use Rector\Core\Configuration\CurrentNodeProvider;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\StaticTypeMapper\StaticTypeMapper;
 final class PhpDocInfoFactory
 {
     /**
@@ -49,7 +49,7 @@ final class PhpDocInfoFactory
      * @var PhpDocRemover
      */
     private $phpDocRemover;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer $lexer, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover $phpDocRemover, \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover $phpDocRemover, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->betterPhpDocParser = $betterPhpDocParser;
         $this->lexer = $lexer;
@@ -59,7 +59,7 @@ final class PhpDocInfoFactory
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->phpDocRemover = $phpDocRemover;
     }
-    public function createFromNodeOrEmpty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    public function createFromNodeOrEmpty(\PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
         $phpDocInfo = $this->createFromNode($node);
         if ($phpDocInfo !== null) {
@@ -67,7 +67,7 @@ final class PhpDocInfoFactory
         }
         return $this->createEmpty($node);
     }
-    public function createFromNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    public function createFromNode(\PhpParser\Node $node) : ?\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
         /** needed for @see PhpDocNodeFactoryInterface */
         $this->currentNodeProvider->setNode($node);
@@ -79,7 +79,7 @@ final class PhpDocInfoFactory
             // create empty node
             $content = '';
             $tokens = [];
-            $phpDocNode = new \_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode([]);
+            $phpDocNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode([]);
         } else {
             $content = $docComment->getText();
             $tokens = $this->lexer->tokenize($content);
@@ -88,25 +88,25 @@ final class PhpDocInfoFactory
         }
         return $this->createFromPhpDocNode($phpDocNode, $content, $tokens, $node);
     }
-    public function createEmpty(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    public function createEmpty(\PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
         /** needed for @see PhpDocNodeFactoryInterface */
         $this->currentNodeProvider->setNode($node);
-        $attributeAwarePhpDocNode = new \_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode([]);
+        $attributeAwarePhpDocNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode([]);
         return $this->createFromPhpDocNode($attributeAwarePhpDocNode, '', [], $node);
     }
     /**
      * @param mixed[][] $tokens
      */
-    private function parseTokensToPhpDocNode(array $tokens) : \_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode
+    private function parseTokensToPhpDocNode(array $tokens) : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode
     {
-        $tokenIterator = new \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
+        $tokenIterator = new \PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
         return $this->betterPhpDocParser->parse($tokenIterator);
     }
     /**
      * Needed for printing
      */
-    private function setPositionOfLastToken(\_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode $attributeAwarePhpDocNode) : void
+    private function setPositionOfLastToken(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode $attributeAwarePhpDocNode) : void
     {
         if ($attributeAwarePhpDocNode->children === []) {
             return;
@@ -115,20 +115,20 @@ final class PhpDocInfoFactory
         /** @var AttributeAwareNodeInterface $lastChildNode */
         $lastChildNode = \array_pop($phpDocChildNodes);
         /** @var StartAndEnd $startAndEnd */
-        $startAndEnd = $lastChildNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
+        $startAndEnd = $lastChildNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
         if ($startAndEnd !== null) {
-            $attributeAwarePhpDocNode->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::LAST_TOKEN_POSITION, $startAndEnd->getEnd());
+            $attributeAwarePhpDocNode->setAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::LAST_TOKEN_POSITION, $startAndEnd->getEnd());
         }
     }
     /**
      * @param mixed[] $tokens
      */
-    private function createFromPhpDocNode(\_PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode $attributeAwarePhpDocNode, string $content, array $tokens, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    private function createFromPhpDocNode(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode $attributeAwarePhpDocNode, string $content, array $tokens, \PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
         /** @var AttributeAwarePhpDocNode $attributeAwarePhpDocNode */
         $attributeAwarePhpDocNode = $this->attributeAwareNodeFactory->createFromNode($attributeAwarePhpDocNode, $content);
-        $phpDocInfo = new \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo($attributeAwarePhpDocNode, $tokens, $content, $this->staticTypeMapper, $node, $this->phpDocTypeChanger, $this->phpDocRemover, $this->attributeAwareNodeFactory);
-        $node->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
+        $phpDocInfo = new \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo($attributeAwarePhpDocNode, $tokens, $content, $this->staticTypeMapper, $node, $this->phpDocTypeChanger, $this->phpDocRemover, $this->attributeAwareNodeFactory);
+        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
         return $phpDocInfo;
     }
 }

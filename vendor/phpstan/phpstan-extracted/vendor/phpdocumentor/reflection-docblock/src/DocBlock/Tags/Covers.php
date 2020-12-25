@@ -10,18 +10,18 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Reflection class for a @covers tag in a Docblock.
  */
-final class Covers extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Covers extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'covers';
     /** @var Fqsen */
@@ -32,7 +32,7 @@ final class Covers extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDoc
      * @param Fqsen $refers
      * @param Description $description
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen $refers, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen $refers, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
         $this->refers = $refers;
         $this->description = $description;
@@ -40,10 +40,10 @@ final class Covers extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDoc
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($body);
-        \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::notEmpty($body);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($body);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::notEmpty($body);
         $parts = \preg_split('/\\s+/Su', $body, 2);
         return new static($resolver->resolve($parts[0], $context), $descriptionFactory->create(isset($parts[1]) ? $parts[1] : '', $context));
     }

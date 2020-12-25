@@ -1,33 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber;
 
 use LogicException;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Function_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Interface_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Method;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Param;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Property;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Trait_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\BuilderFactory;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\BuilderHelpers;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Comment\Doc;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Const_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ as ClassNode;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUse;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUseAdaptation;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\PrettyPrinter\Standard;
+use PhpParser\Builder;
+use PhpParser\Builder\Class_;
+use PhpParser\Builder\Declaration;
+use PhpParser\Builder\Function_;
+use PhpParser\Builder\FunctionLike;
+use PhpParser\Builder\Interface_;
+use PhpParser\Builder\Method;
+use PhpParser\Builder\Param;
+use PhpParser\Builder\Property;
+use PhpParser\Builder\Trait_;
+use PhpParser\BuilderFactory;
+use PhpParser\BuilderHelpers;
+use PhpParser\Comment\Doc;
+use PhpParser\Node;
+use PhpParser\Node\Const_;
+use PhpParser\Node\Name;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\NullableType;
+use PhpParser\Node\Stmt\Class_ as ClassNode;
+use PhpParser\Node\Stmt\ClassConst;
+use PhpParser\Node\Stmt\TraitUse;
+use PhpParser\Node\Stmt\TraitUseAdaptation;
+use PhpParser\NodeAbstract;
+use PhpParser\PrettyPrinter\Standard;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionClassConstant;
 use ReflectionFunction as CoreReflectionFunction;
@@ -36,7 +36,7 @@ use ReflectionMethod as CoreReflectionMethod;
 use ReflectionNamedType as CoreReflectionNamedType;
 use ReflectionParameter;
 use ReflectionProperty as CoreReflectionProperty;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\ReflectionUnionType as CoreReflectionUnionType;
+use _HumbugBox221ad6f1b81f\ReflectionUnionType as CoreReflectionUnionType;
 use Reflector as CoreReflector;
 use function array_diff;
 use function array_key_exists;
@@ -55,7 +55,7 @@ use function trait_exists;
  *
  * @internal
  */
-final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
 {
     private const BUILDER_OPTIONS = ['shortArraySyntax' => \true];
     /** @var BuilderFactory */
@@ -64,27 +64,27 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
     private $prettyPrinter;
     public function __construct()
     {
-        $this->builderFactory = new \_PhpScoper2a4e7ab1ecbc\PhpParser\BuilderFactory();
-        $this->prettyPrinter = new \_PhpScoper2a4e7ab1ecbc\PhpParser\PrettyPrinter\Standard(self::BUILDER_OPTIONS);
+        $this->builderFactory = new \PhpParser\BuilderFactory();
+        $this->prettyPrinter = new \PhpParser\PrettyPrinter\Standard(self::BUILDER_OPTIONS);
     }
     public function hasClass(string $className) : bool
     {
         return \class_exists($className, \false) || \interface_exists($className, \false) || \trait_exists($className, \false);
     }
-    public function generateClassStub(string $className) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateClassStub(string $className) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         if (!$this->hasClass($className)) {
             return null;
         }
         $classReflection = new \ReflectionClass($className);
         $classNode = $this->createClass($classReflection);
-        if ($classNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Class_) {
+        if ($classNode instanceof \PhpParser\Builder\Class_) {
             $this->addClassModifiers($classNode, $classReflection);
         }
-        if ($classNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Class_ || $classNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Interface_) {
+        if ($classNode instanceof \PhpParser\Builder\Class_ || $classNode instanceof \PhpParser\Builder\Interface_) {
             $this->addExtendsAndImplements($classNode, $classReflection);
         }
-        if ($classNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Class_ || $classNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Trait_) {
+        if ($classNode instanceof \PhpParser\Builder\Class_ || $classNode instanceof \PhpParser\Builder\Trait_) {
             $this->addProperties($classNode, $classReflection);
             $this->addTraitUse($classNode, $classReflection);
         }
@@ -97,7 +97,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
         }
         return $this->createStubData($this->generateStubInNamespace($classNode->getNode(), $classReflection->getNamespaceName()), $extensionName);
     }
-    public function generateFunctionStub(string $functionName) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateFunctionStub(string $functionName) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         if (!\function_exists($functionName)) {
             return null;
@@ -107,7 +107,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
         $this->addDocComment($functionNode, $functionReflection);
         $this->addParameters($functionNode, $functionReflection);
         $returnType = $functionReflection->getReturnType();
-        \assert($returnType instanceof \ReflectionNamedType || $returnType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\ReflectionUnionType || $returnType === null);
+        \assert($returnType instanceof \ReflectionNamedType || $returnType instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType || $returnType === null);
         if ($returnType !== null) {
             $functionNode->setReturnType($this->formatType($returnType));
         }
@@ -117,7 +117,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
         }
         return $this->createStubData($this->generateStubInNamespace($functionNode->getNode(), $functionReflection->getNamespaceName()), $extensionName);
     }
-    public function generateConstantStub(string $constantName) : ?\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateConstantStub(string $constantName) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         // Not supported because of resource as value
         if (\in_array($constantName, ['STDIN', 'STDOUT', 'STDERR'], \true)) {
@@ -148,7 +148,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
     /**
      * @return Class_|Interface_|Trait_
      */
-    private function createClass(\ReflectionClass $classReflection) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration
+    private function createClass(\ReflectionClass $classReflection) : \PhpParser\Builder\Declaration
     {
         if ($classReflection->isTrait()) {
             return $this->builderFactory->trait($classReflection->getShortName());
@@ -162,14 +162,14 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
      * @param Class_|Interface_|Trait_|Method|Property|Function_                                     $node
      * @param CoreReflectionClass|CoreReflectionMethod|CoreReflectionProperty|CoreReflectionFunction $reflection
      */
-    private function addDocComment(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder $node, \Reflector $reflection) : void
+    private function addDocComment(\PhpParser\Builder $node, \Reflector $reflection) : void
     {
         if ($reflection->getDocComment() === \false) {
             return;
         }
-        $node->setDocComment(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Comment\Doc($reflection->getDocComment()));
+        $node->setDocComment(new \PhpParser\Comment\Doc($reflection->getDocComment()));
     }
-    private function addClassModifiers(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Class_ $classNode, \ReflectionClass $classReflection) : void
+    private function addClassModifiers(\PhpParser\Builder\Class_ $classNode, \ReflectionClass $classReflection) : void
     {
         if (!$classReflection->isInterface() && $classReflection->isAbstract()) {
             // Interface \Iterator is interface and abstract
@@ -183,39 +183,39 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
     /**
      * @param Class_|Interface_ $classNode
      */
-    private function addExtendsAndImplements(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
+    private function addExtendsAndImplements(\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
     {
         $parentClass = $classReflection->getParentClass();
         $interfaces = $classReflection->getInterfaceNames();
         if ($parentClass) {
-            $classNode->extend(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($parentClass->getName()));
+            $classNode->extend(new \PhpParser\Node\Name\FullyQualified($parentClass->getName()));
             $interfaces = \array_diff($interfaces, $parentClass->getInterfaceNames());
         }
         foreach ($classReflection->getInterfaces() as $interface) {
             $interfaces = \array_diff($interfaces, $interface->getInterfaceNames());
         }
         foreach ($interfaces as $interfaceName) {
-            if ($classNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Interface_) {
-                $classNode->extend(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($interfaceName));
+            if ($classNode instanceof \PhpParser\Builder\Interface_) {
+                $classNode->extend(new \PhpParser\Node\Name\FullyQualified($interfaceName));
             } else {
-                $classNode->implement(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($interfaceName));
+                $classNode->implement(new \PhpParser\Node\Name\FullyQualified($interfaceName));
             }
         }
     }
-    private function addTraitUse(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
+    private function addTraitUse(\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
     {
         $alreadyUsedTraitNames = [];
         foreach ($classReflection->getTraitAliases() as $methodNameAlias => $methodInfo) {
             [$traitName, $methodName] = \explode('::', $methodInfo);
-            $traitUseNode = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUse([new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($traitName)], [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUseAdaptation\Alias(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($traitName), $methodName, null, $methodNameAlias)]);
+            $traitUseNode = new \PhpParser\Node\Stmt\TraitUse([new \PhpParser\Node\Name\FullyQualified($traitName)], [new \PhpParser\Node\Stmt\TraitUseAdaptation\Alias(new \PhpParser\Node\Name\FullyQualified($traitName), $methodName, null, $methodNameAlias)]);
             $classNode->addStmt($traitUseNode);
             $alreadyUsedTraitNames[] = $traitName;
         }
         foreach (\array_diff($classReflection->getTraitNames(), $alreadyUsedTraitNames) as $traitName) {
-            $classNode->addStmt(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\TraitUse([new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($traitName)]));
+            $classNode->addStmt(new \PhpParser\Node\Stmt\TraitUse([new \PhpParser\Node\Name\FullyQualified($traitName)]));
         }
     }
-    private function addProperties(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
+    private function addProperties(\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
     {
         $defaultProperties = $classReflection->getDefaultProperties();
         foreach ($classReflection->getProperties() as $propertyReflection) {
@@ -234,7 +234,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
             }
             if (\method_exists($propertyReflection, 'getType')) {
                 $propertyType = $propertyReflection->getType();
-                \assert($propertyType instanceof \ReflectionNamedType || $propertyType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\ReflectionUnionType || $propertyType === null);
+                \assert($propertyType instanceof \ReflectionNamedType || $propertyType instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType || $propertyType === null);
                 if ($propertyType !== null) {
                     $propertyNode->setType($this->formatType($propertyType));
                 }
@@ -254,7 +254,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
         }
         return \true;
     }
-    private function addPropertyModifiers(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Property $propertyNode, \ReflectionProperty $propertyReflection) : void
+    private function addPropertyModifiers(\PhpParser\Builder\Property $propertyNode, \ReflectionProperty $propertyReflection) : void
     {
         if ($propertyReflection->isStatic()) {
             $propertyNode->makeStatic();
@@ -270,15 +270,15 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
         }
         $propertyNode->makePrivate();
     }
-    private function addConstants(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
+    private function addConstants(\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
     {
         foreach ($classReflection->getReflectionConstants() as $constantReflection) {
             if ($constantReflection->getDeclaringClass()->getName() !== $classReflection->getName()) {
                 continue;
             }
-            $classConstantNode = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst([new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Const_($constantReflection->getName(), \_PhpScoper2a4e7ab1ecbc\PhpParser\BuilderHelpers::normalizeValue($constantReflection->getValue()))], $this->constantVisibilityFlags($constantReflection));
+            $classConstantNode = new \PhpParser\Node\Stmt\ClassConst([new \PhpParser\Node\Const_($constantReflection->getName(), \PhpParser\BuilderHelpers::normalizeValue($constantReflection->getValue()))], $this->constantVisibilityFlags($constantReflection));
             if ($constantReflection->getDocComment() !== \false) {
-                $classConstantNode->setDocComment(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Comment\Doc($constantReflection->getDocComment()));
+                $classConstantNode->setDocComment(new \PhpParser\Comment\Doc($constantReflection->getDocComment()));
             }
             $classNode->addStmt($classConstantNode);
         }
@@ -286,14 +286,14 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
     private function constantVisibilityFlags(\ReflectionClassConstant $constant) : int
     {
         if ($constant->isPrivate()) {
-            return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+            return \PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
         }
         if ($constant->isProtected()) {
-            return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
+            return \PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
         }
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
+        return \PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
     }
-    private function addMethods(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
+    private function addMethods(\PhpParser\Builder\Declaration $classNode, \ReflectionClass $classReflection) : void
     {
         foreach ($classReflection->getMethods() as $methodReflection) {
             if (!$this->isMethodDeclaredInClass($methodReflection, $classReflection)) {
@@ -304,7 +304,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
             $this->addDocComment($methodNode, $methodReflection);
             $this->addParameters($methodNode, $methodReflection);
             $returnType = $methodReflection->getReturnType();
-            \assert($returnType instanceof \ReflectionNamedType || $returnType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\ReflectionUnionType || $returnType === null);
+            \assert($returnType instanceof \ReflectionNamedType || $returnType instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType || $returnType === null);
             if ($methodReflection->getReturnType() !== null) {
                 $methodNode->setReturnType($this->formatType($returnType));
             }
@@ -326,7 +326,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
         }
         return \true;
     }
-    private function addMethodFlags(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Method $methodNode, \ReflectionMethod $methodReflection) : void
+    private function addMethodFlags(\PhpParser\Builder\Method $methodNode, \ReflectionMethod $methodReflection) : void
     {
         if ($methodReflection->isFinal()) {
             $methodNode->makeFinal();
@@ -351,7 +351,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
         }
         $methodNode->makeReturnByRef();
     }
-    private function addParameters(\_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\FunctionLike $functionNode, \ReflectionFunctionAbstract $functionReflectionAbstract) : void
+    private function addParameters(\PhpParser\Builder\FunctionLike $functionNode, \ReflectionFunctionAbstract $functionReflectionAbstract) : void
     {
         foreach ($functionReflectionAbstract->getParameters() as $parameterReflection) {
             $parameterNode = $this->builderFactory->param($parameterReflection->getName());
@@ -366,7 +366,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
             $functionNode->addParam($this->addParameterModifiers($parameterReflection, $parameterNode));
         }
     }
-    private function addParameterModifiers(\ReflectionParameter $parameterReflection, \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Param $parameterNode) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Builder\Param
+    private function addParameterModifiers(\ReflectionParameter $parameterReflection, \PhpParser\Builder\Param $parameterNode) : \PhpParser\Builder\Param
     {
         if ($parameterReflection->isVariadic()) {
             $parameterNode->makeVariadic();
@@ -375,7 +375,7 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
             $parameterNode->makeByRef();
         }
         $parameterType = $parameterReflection->getType();
-        \assert($parameterType instanceof \ReflectionNamedType || $parameterType instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\ReflectionUnionType || $parameterType === null);
+        \assert($parameterType instanceof \ReflectionNamedType || $parameterType instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType || $parameterType === null);
         if ($parameterReflection->getType() !== null) {
             $parameterNode->setType($this->formatType($parameterType));
         }
@@ -396,9 +396,9 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
      *
      * @return Name|FullyQualified|NullableType|Node\UnionType
      */
-    private function formatType($type) : \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract
+    private function formatType($type) : \PhpParser\NodeAbstract
     {
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\ReflectionUnionType) {
+        if ($type instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType) {
             $innerTypes = [];
             $addNull = $type->allowsNull();
             $hasNull = \false;
@@ -408,33 +408,33 @@ final class ReflectionSourceStubber implements \_PhpScoper2a4e7ab1ecbc\_HumbugBo
                     $hasNull = \true;
                 }
                 $formattedType = $this->formatType($innerType);
-                if ($formattedType instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType) {
+                if ($formattedType instanceof \PhpParser\Node\NullableType) {
                     $addNull = \true;
                     $formattedType = $formattedType->type;
                 }
                 $innerTypes[] = $formattedType;
             }
             if ($addNull && !$hasNull) {
-                $innerTypes[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('null');
+                $innerTypes[] = new \PhpParser\Node\Name('null');
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\UnionType($innerTypes);
+            return new \PhpParser\Node\UnionType($innerTypes);
         }
         $name = $type->getName();
-        $nameNode = $type->isBuiltin() || \in_array($name, ['self', 'parent'], \true) ? new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($name) : new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($name);
-        return $type->allowsNull() ? new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\NullableType($nameNode) : $nameNode;
+        $nameNode = $type->isBuiltin() || \in_array($name, ['self', 'parent'], \true) ? new \PhpParser\Node\Name($name) : new \PhpParser\Node\Name\FullyQualified($name);
+        return $type->allowsNull() ? new \PhpParser\Node\NullableType($nameNode) : $nameNode;
     }
-    private function generateStubInNamespace(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $namespaceName) : string
+    private function generateStubInNamespace(\PhpParser\Node $node, string $namespaceName) : string
     {
         $namespaceBuilder = $this->builderFactory->namespace($namespaceName);
         $namespaceBuilder->addStmt($node);
         return $this->generateStub($namespaceBuilder->getNode());
     }
-    private function generateStub(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : string
+    private function generateStub(\PhpParser\Node $node) : string
     {
-        return "<?php\n\n" . $this->prettyPrinter->prettyPrint([$node]) . ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall ? ';' : '') . "\n";
+        return "<?php\n\n" . $this->prettyPrinter->prettyPrint([$node]) . ($node instanceof \PhpParser\Node\Expr\FuncCall ? ';' : '') . "\n";
     }
-    private function createStubData(string $stub, ?string $extensionName) : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    private function createStubData(string $stub, ?string $extensionName) : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
-        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $extensionName);
+        return new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $extensionName);
     }
 }

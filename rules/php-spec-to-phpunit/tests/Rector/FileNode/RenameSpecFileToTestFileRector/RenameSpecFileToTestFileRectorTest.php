@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Tests\Rector\FileNode\RenameSpecFileToTestFileRector;
+namespace Rector\PhpSpecToPHPUnit\Tests\Rector\FileNode\RenameSpecFileToTestFileRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\Contract\MovedFileInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Rector\FileNode\RenameSpecFileToTestFileRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class RenameSpecFileToTestFileRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use Rector\FileSystemRector\Contract\MovedFileInterface;
+use Rector\PhpSpecToPHPUnit\Rector\FileNode\RenameSpecFileToTestFileRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class RenameSpecFileToTestFileRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
         // test file is moved
         $movedFile = $this->matchMovedFile($this->originalTempFileInfo);
-        $this->assertInstanceOf(\_PhpScoper2a4e7ab1ecbc\Rector\FileSystemRector\Contract\MovedFileInterface::class, $movedFile);
-        $this->assertTrue(\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::endsWith($movedFile->getNewPathname(), 'Test.php'));
+        $this->assertInstanceOf(\Rector\FileSystemRector\Contract\MovedFileInterface::class, $movedFile);
+        $this->assertTrue(\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($movedFile->getNewPathname(), 'Test.php'));
     }
     public function provideData() : \Iterator
     {
@@ -28,6 +28,6 @@ final class RenameSpecFileToTestFileRectorTest extends \_PhpScoper2a4e7ab1ecbc\R
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\PhpSpecToPHPUnit\Rector\FileNode\RenameSpecFileToTestFileRector::class;
+        return \Rector\PhpSpecToPHPUnit\Rector\FileNode\RenameSpecFileToTestFileRector::class;
     }
 }

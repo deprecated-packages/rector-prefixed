@@ -1,12 +1,12 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _HumbugBox221ad6f1b81f\React\Http\Io;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\Util;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f\React\Stream\Util;
+use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Bridge between an empty StreamInterface from PSR-7 and ReadableStreamInterface from ReactPHP
  *
@@ -24,7 +24,7 @@ use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInt
  * @see ReadableStreamInterface
  * @internal
  */
-class EmptyBodyStream extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class EmptyBodyStream extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface, \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
 {
     private $closed = \false;
     public function isReadable()
@@ -39,9 +39,9 @@ class EmptyBodyStream extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Eve
     {
         // NOOP
     }
-    public function pipe(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        \_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

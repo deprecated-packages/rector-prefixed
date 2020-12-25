@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php70\Tests\Rector\FuncCall\CallUserMethodRector;
+namespace Rector\Php70\Tests\Rector\FuncCall\CallUserMethodRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\FuncCall\CallUserMethodRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\Php70\Rector\FuncCall\CallUserMethodRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://www.mail-archive.com/php-dev@lists.php.net/msg11576.html
  */
-final class CallUserMethodRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class CallUserMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class CallUserMethodRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Test
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\FuncCall\CallUserMethodRector::class;
+        return \Rector\Php70\Rector\FuncCall\CallUserMethodRector::class;
     }
 }

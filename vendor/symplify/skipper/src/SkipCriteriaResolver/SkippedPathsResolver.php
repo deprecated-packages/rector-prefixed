@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\SkipCriteriaResolver;
+namespace Symplify\Skipper\SkipCriteriaResolver;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use _PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Normalizer\PathNormalizer;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\Skipper\ValueObject\Option;
+use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
 /**
  * @see \Symplify\Skipper\Tests\SkipCriteriaResolver\SkippedPathsResolver\SkippedPathsResolverTest
  */
@@ -24,7 +24,7 @@ final class SkippedPathsResolver
      * @var PathNormalizer
      */
     private $pathNormalizer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Normalizer\PathNormalizer $pathNormalizer)
+    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\SmartFileSystem\Normalizer\PathNormalizer $pathNormalizer)
     {
         $this->parameterProvider = $parameterProvider;
         $this->pathNormalizer = $pathNormalizer;
@@ -37,7 +37,7 @@ final class SkippedPathsResolver
         if ($this->skippedPaths !== []) {
             return $this->skippedPaths;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\_PhpScoper2a4e7ab1ecbc\Symplify\Skipper\ValueObject\Option::SKIP);
+        $skip = $this->parameterProvider->provideArrayParameter(\Symplify\Skipper\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             if (!\is_int($key)) {
                 continue;
@@ -46,7 +46,7 @@ final class SkippedPathsResolver
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }
-            if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($value, '*')) {
+            if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($value, '*')) {
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Parallel;
+namespace PHPStan\Parallel;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface;
+use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 class Process
 {
     /** @var string */
@@ -29,7 +29,7 @@ class Process
     private $onError;
     /** @var TimerInterface|null */
     private $timer = null;
-    public function __construct(string $command, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, float $timeoutSeconds)
+    public function __construct(string $command, \_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, float $timeoutSeconds)
     {
         $this->command = $command;
         $this->loop = $loop;
@@ -44,15 +44,15 @@ class Process
     {
         $tmpStdOut = \tmpfile();
         if ($tmpStdOut === \false) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException('Failed creating temp file for stdout.');
+            throw new \PHPStan\ShouldNotHappenException('Failed creating temp file for stdout.');
         }
         $tmpStdErr = \tmpfile();
         if ($tmpStdErr === \false) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException('Failed creating temp file for stderr.');
+            throw new \PHPStan\ShouldNotHappenException('Failed creating temp file for stderr.');
         }
         $this->stdOut = $tmpStdOut;
         $this->stdErr = $tmpStdErr;
-        $this->process = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\ChildProcess\Process($this->command, null, null, [1 => $this->stdOut, 2 => $this->stdErr]);
+        $this->process = new \_HumbugBox221ad6f1b81f\React\ChildProcess\Process($this->command, null, null, [1 => $this->stdOut, 2 => $this->stdErr]);
         $this->process->start($this->loop);
         $this->onData = $onData;
         $this->onError = $onError;
@@ -105,7 +105,7 @@ class Process
         }
         $this->in->end();
     }
-    public function bindConnection(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $out, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $in) : void
+    public function bindConnection(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $out, \_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $in) : void
     {
         $out->on('data', function (array $json) : void {
             if ($json['action'] !== 'result') {

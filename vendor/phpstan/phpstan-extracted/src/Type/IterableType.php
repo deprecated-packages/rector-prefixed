@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
+namespace PHPStan\Type;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateMixedType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\MaybeCallableTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\MaybeObjectTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
-class IterableType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\Generic\TemplateMixedType;
+use PHPStan\Type\Generic\TemplateType;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Generic\TemplateTypeVariance;
+use PHPStan\Type\Traits\MaybeCallableTypeTrait;
+use PHPStan\Type\Traits\MaybeObjectTypeTrait;
+use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
+use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
+use PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
+class IterableType implements \PHPStan\Type\CompoundType
 {
     use MaybeCallableTypeTrait;
     use MaybeObjectTypeTrait;
@@ -25,16 +25,16 @@ class IterableType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType
     private $keyType;
     /** @var \PHPStan\Type\Type */
     private $itemType;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $keyType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $itemType)
+    public function __construct(\PHPStan\Type\Type $keyType, \PHPStan\Type\Type $itemType)
     {
         $this->keyType = $keyType;
         $this->itemType = $itemType;
     }
-    public function getKeyType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getKeyType() : \PHPStan\Type\Type
     {
         return $this->keyType;
     }
-    public function getItemType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getItemType() : \PHPStan\Type\Type
     {
         return $this->itemType;
     }
@@ -45,73 +45,73 @@ class IterableType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType
     {
         return \array_merge($this->keyType->getReferencedClasses(), $this->getItemType()->getReferencedClasses());
     }
-    public function accepts(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, bool $strictTypes) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType && $type->isEmpty()) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+        if ($type instanceof \PHPStan\Type\Constant\ConstantArrayType && $type->isEmpty()) {
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type->isIterable()->yes()) {
             return $this->getIterableValueType()->accepts($type->getIterableValueType(), $strictTypes)->and($this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes));
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
+        if ($type instanceof \PHPStan\Type\CompoundType) {
+            return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isSuperTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         return $type->isIterable()->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()))->and($this->getIterableKeyType()->isSuperTypeOf($type->getIterableKeyType()));
     }
-    public function isSuperTypeOfMixed(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isSuperTypeOfMixed(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         return $type->isIterable()->and($this->isNestedTypeSuperTypeOf($this->getIterableValueType(), $type->getIterableValueType()))->and($this->isNestedTypeSuperTypeOf($this->getIterableKeyType(), $type->getIterableKeyType()));
     }
-    private function isNestedTypeSuperTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $a, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $b) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    private function isNestedTypeSuperTypeOf(\PHPStan\Type\Type $a, \PHPStan\Type\Type $b) : \PHPStan\TrinaryLogic
     {
-        if (!$a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType || !$b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType) {
+        if (!$a instanceof \PHPStan\Type\MixedType || !$b instanceof \PHPStan\Type\MixedType) {
             return $a->isSuperTypeOf($b);
         }
-        if ($a instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateMixedType || $b instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateMixedType) {
+        if ($a instanceof \PHPStan\Type\Generic\TemplateMixedType || $b instanceof \PHPStan\Type\Generic\TemplateMixedType) {
             return $a->isSuperTypeOf($b);
         }
         if ($a->isExplicitMixed()) {
             if ($b->isExplicitMixed()) {
-                return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+                return \PHPStan\TrinaryLogic::createYes();
             }
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function isSubTypeOf(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $otherType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
     {
-        if ($otherType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType || $otherType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
-            return $otherType->isSuperTypeOf(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType($this->keyType, $this->itemType), new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType([new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType(\Traversable::class), $this])]));
+        if ($otherType instanceof \PHPStan\Type\IntersectionType || $otherType instanceof \PHPStan\Type\UnionType) {
+            return $otherType->isSuperTypeOf(new \PHPStan\Type\UnionType([new \PHPStan\Type\ArrayType($this->keyType, $this->itemType), new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectType(\Traversable::class), $this])]));
         }
         if ($otherType instanceof self) {
-            $limit = \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+            $limit = \PHPStan\TrinaryLogic::createYes();
         } else {
-            $limit = \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+            $limit = \PHPStan\TrinaryLogic::createMaybe();
         }
-        if ($otherType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantArrayType && $otherType->isEmpty()) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        if ($otherType instanceof \PHPStan\Type\Constant\ConstantArrayType && $otherType->isEmpty()) {
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
         return $limit->and($otherType->isIterable(), $otherType->getIterableValueType()->isSuperTypeOf($this->itemType), $otherType->getIterableKeyType()->isSuperTypeOf($this->keyType));
     }
-    public function isAcceptedBy(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
-    public function equals(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    public function equals(\PHPStan\Type\Type $type) : bool
     {
         if (!$type instanceof self) {
             return \false;
         }
         return $this->keyType->equals($type->keyType) && $this->itemType->equals($type->itemType);
     }
-    public function describe(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\VerbosityLevel $level) : string
+    public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
-        $isMixedKeyType = $this->keyType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType && !$this->keyType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType;
-        $isMixedItemType = $this->itemType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\MixedType && !$this->itemType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateType;
+        $isMixedKeyType = $this->keyType instanceof \PHPStan\Type\MixedType && !$this->keyType instanceof \PHPStan\Type\Generic\TemplateType;
+        $isMixedItemType = $this->itemType instanceof \PHPStan\Type\MixedType && !$this->itemType instanceof \PHPStan\Type\Generic\TemplateType;
         if ($isMixedKeyType) {
             if ($isMixedItemType) {
                 return 'iterable';
@@ -120,74 +120,74 @@ class IterableType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType
         }
         return \sprintf('iterable<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
     }
-    public function hasOffsetValueType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $offsetType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
     {
         if ($this->getIterableKeyType()->isSuperTypeOf($offsetType)->no()) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+            return \PHPStan\TrinaryLogic::createNo();
         }
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function toNumber() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toNumber() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toString() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toString() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toInteger() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toInteger() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toFloat() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toFloat() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ErrorType();
+        return new \PHPStan\Type\ErrorType();
     }
-    public function toArray() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function toArray() : \PHPStan\Type\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType($this->keyType, $this->getItemType());
+        return new \PHPStan\Type\ArrayType($this->keyType, $this->getItemType());
     }
-    public function isIterable() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isIterable() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function isIterableAtLeastOnce() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getIterableKeyType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getIterableKeyType() : \PHPStan\Type\Type
     {
         return $this->keyType;
     }
-    public function getIterableValueType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getIterableValueType() : \PHPStan\Type\Type
     {
         return $this->getItemType();
     }
-    public function isArray() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isNumericString() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function inferTemplateTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $receivedType) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap
+    public function inferTemplateTypes(\PHPStan\Type\Type $receivedType) : \PHPStan\Type\Generic\TemplateTypeMap
     {
-        if ($receivedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType || $receivedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IntersectionType) {
+        if ($receivedType instanceof \PHPStan\Type\UnionType || $receivedType instanceof \PHPStan\Type\IntersectionType) {
             return $receivedType->inferTemplateTypesOn($this);
         }
         if (!$receivedType->isIterable()->yes()) {
-            return \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
+            return \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         }
         $keyTypeMap = $this->getIterableKeyType()->inferTemplateTypes($receivedType->getIterableKeyType());
         $valueTypeMap = $this->getIterableValueType()->inferTemplateTypes($receivedType->getIterableValueType());
         return $keyTypeMap->union($valueTypeMap);
     }
-    public function getReferencedTemplateTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance $positionVariance) : array
+    public function getReferencedTemplateTypes(\PHPStan\Type\Generic\TemplateTypeVariance $positionVariance) : array
     {
-        return \array_merge($this->getIterableKeyType()->getReferencedTemplateTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance::createCovariant()), $this->getIterableValueType()->getReferencedTemplateTypes(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance::createCovariant()));
+        return \array_merge($this->getIterableKeyType()->getReferencedTemplateTypes(\PHPStan\Type\Generic\TemplateTypeVariance::createCovariant()), $this->getIterableValueType()->getReferencedTemplateTypes(\PHPStan\Type\Generic\TemplateTypeVariance::createCovariant()));
     }
-    public function traverse(callable $cb) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function traverse(callable $cb) : \PHPStan\Type\Type
     {
         $keyType = $cb($this->keyType);
         $itemType = $cb($this->itemType);
@@ -200,7 +200,7 @@ class IterableType implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\CompoundType
      * @param mixed[] $properties
      * @return Type
      */
-    public static function __set_state(array $properties) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public static function __set_state(array $properties) : \PHPStan\Type\Type
     {
         return new self($properties['keyType'], $properties['itemType']);
     }

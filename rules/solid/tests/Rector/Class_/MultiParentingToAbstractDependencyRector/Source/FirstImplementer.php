@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\SOLID\Tests\Rector\Class_\MultiParentingToAbstractDependencyRector\Source;
+namespace Rector\SOLID\Tests\Rector\Class_\MultiParentingToAbstractDependencyRector\Source;
 
-class FirstImplementer implements \_PhpScoper2a4e7ab1ecbc\Rector\SOLID\Tests\Rector\Class_\MultiParentingToAbstractDependencyRector\Source\ImplementInterface
+class FirstImplementer implements \Rector\SOLID\Tests\Rector\Class_\MultiParentingToAbstractDependencyRector\Source\ImplementInterface
 {
 }

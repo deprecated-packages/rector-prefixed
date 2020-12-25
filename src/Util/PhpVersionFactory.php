@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Util;
+namespace Rector\Core\Util;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion;
+use PHPStan\Php\PhpVersion;
 final class PhpVersionFactory
 {
     public function createIntVersion(string $version) : int
@@ -24,7 +24,7 @@ final class PhpVersionFactory
     }
     public function createStringVersion(int $version) : string
     {
-        $phpVersion = new \_PhpScoper2a4e7ab1ecbc\PHPStan\Php\PhpVersion($version);
+        $phpVersion = new \PHPStan\Php\PhpVersion($version);
         return $phpVersion->getVersionString();
     }
 }

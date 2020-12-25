@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\NodeFinder;
+namespace Rector\DeadCode\NodeFinder;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\NodeNameResolver\NodeNameResolver;
 final class PreviousVariableAssignNodeFinder
 {
     /**
@@ -17,17 +17,17 @@ final class PreviousVariableAssignNodeFinder
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function find(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign $assign) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function find(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
     {
         $currentAssign = $assign;
         $variableName = $this->nodeNameResolver->getName($assign->var);
-        $assign = $this->betterNodeFinder->findFirstPrevious($assign, function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) use($variableName, $currentAssign) : bool {
-            if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        $assign = $this->betterNodeFinder->findFirstPrevious($assign, function (\PhpParser\Node $node) use($variableName, $currentAssign) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
             // skil self

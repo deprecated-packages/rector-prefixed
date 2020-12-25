@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\UnusedNodeResolver;
+namespace Rector\DeadCode\UnusedNodeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node\Stmt\Class_;
+use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
+use Rector\NodeNameResolver\NodeNameResolver;
 use ReflectionMethod;
 final class ClassUnusedPrivateClassMethodResolver
 {
@@ -23,7 +23,7 @@ final class ClassUnusedPrivateClassMethodResolver
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \_PhpScoper2a4e7ab1ecbc\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \_PhpScoper2a4e7ab1ecbc\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->classManipulator = $classManipulator;
@@ -32,7 +32,7 @@ final class ClassUnusedPrivateClassMethodResolver
     /**
      * @return string[]
      */
-    public function getClassUnusedMethodNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : array
+    public function getClassUnusedMethodNames(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         /** @var string $className */
         $className = $this->nodeNameResolver->getName($class);
@@ -46,7 +46,7 @@ final class ClassUnusedPrivateClassMethodResolver
      * @param string[] $usedMethodNames
      * @return string[]
      */
-    private function getUnusedMethodNames(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, array $classPublicMethodNames, array $usedMethodNames) : array
+    private function getUnusedMethodNames(\PhpParser\Node\Stmt\Class_ $class, array $classPublicMethodNames, array $usedMethodNames) : array
     {
         $unusedMethods = \array_diff($classPublicMethodNames, $usedMethodNames);
         $unusedMethods = $this->filterOutSystemMethods($unusedMethods);
@@ -65,7 +65,7 @@ final class ClassUnusedPrivateClassMethodResolver
                 unset($unusedMethods[$key]);
             }
             // skip magic methods
-            if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($unusedMethod, '__')) {
+            if (\_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($unusedMethod, '__')) {
                 unset($unusedMethods[$key]);
             }
         }
@@ -75,7 +75,7 @@ final class ClassUnusedPrivateClassMethodResolver
      * @param string[] $unusedMethods
      * @return string[]
      */
-    private function filterOutInterfaceRequiredMethods(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, array $unusedMethods) : array
+    private function filterOutInterfaceRequiredMethods(\PhpParser\Node\Stmt\Class_ $class, array $unusedMethods) : array
     {
         /** @var string $className */
         $className = $this->nodeNameResolver->getName($class);
@@ -91,7 +91,7 @@ final class ClassUnusedPrivateClassMethodResolver
      * @param string[] $unusedMethods
      * @return string[]
      */
-    private function filterOutParentAbstractMethods(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, array $unusedMethods) : array
+    private function filterOutParentAbstractMethods(\PhpParser\Node\Stmt\Class_ $class, array $unusedMethods) : array
     {
         if ($class->extends === null) {
             return $unusedMethods;

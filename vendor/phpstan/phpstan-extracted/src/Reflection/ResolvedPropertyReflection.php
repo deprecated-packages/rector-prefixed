@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpPropertyReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class ResolvedPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
+use PHPStan\Reflection\Php\PhpPropertyReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Type;
+class ResolvedPropertyReflection implements \PHPStan\Reflection\PropertyReflection
 {
     /** @var PropertyReflection */
     private $reflection;
@@ -18,22 +18,22 @@ class ResolvedPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refl
     private $readableType = null;
     /** @var Type|null */
     private $writableType = null;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection $reflection, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap)
+    public function __construct(\PHPStan\Reflection\PropertyReflection $reflection, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap)
     {
         $this->reflection = $reflection;
         $this->templateTypeMap = $templateTypeMap;
     }
-    public function getOriginalReflection() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\PropertyReflection
+    public function getOriginalReflection() : \PHPStan\Reflection\PropertyReflection
     {
         return $this->reflection;
     }
-    public function getDeclaringClass() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
         return $this->reflection->getDeclaringClass();
     }
-    public function getDeclaringTrait() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getDeclaringTrait() : ?\PHPStan\Reflection\ClassReflection
     {
-        if ($this->reflection instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\Php\PhpPropertyReflection) {
+        if ($this->reflection instanceof \PHPStan\Reflection\Php\PhpPropertyReflection) {
             return $this->reflection->getDeclaringTrait();
         }
         return null;
@@ -50,23 +50,23 @@ class ResolvedPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refl
     {
         return $this->reflection->isPublic();
     }
-    public function getReadableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getReadableType() : \PHPStan\Type\Type
     {
         $type = $this->readableType;
         if ($type !== null) {
             return $type;
         }
-        $type = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($this->reflection->getReadableType(), $this->templateTypeMap);
+        $type = \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($this->reflection->getReadableType(), $this->templateTypeMap);
         $this->readableType = $type;
         return $type;
     }
-    public function getWritableType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getWritableType() : \PHPStan\Type\Type
     {
         $type = $this->writableType;
         if ($type !== null) {
             return $type;
         }
-        $type = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($this->reflection->getWritableType(), $this->templateTypeMap);
+        $type = \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($this->reflection->getWritableType(), $this->templateTypeMap);
         $this->writableType = $type;
         return $type;
     }
@@ -86,7 +86,7 @@ class ResolvedPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refl
     {
         return $this->reflection->getDocComment();
     }
-    public function isDeprecated() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
@@ -94,7 +94,7 @@ class ResolvedPropertyReflection implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Refl
     {
         return $this->reflection->getDeprecatedDescription();
     }
-    public function isInternal() : \_PhpScoper2a4e7ab1ecbc\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isInternal();
     }

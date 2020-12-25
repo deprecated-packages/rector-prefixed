@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Type;
+namespace PHPStan\Type;
 
 class TypeTraverser
 {
@@ -31,7 +31,7 @@ class TypeTraverser
      *
      * @param callable(Type $type, callable(Type): Type $traverse): Type $cb
      */
-    public static function map(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, callable $cb) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public static function map(\PHPStan\Type\Type $type, callable $cb) : \PHPStan\Type\Type
     {
         $self = new self($cb);
         return $self->mapInternal($type);
@@ -42,12 +42,12 @@ class TypeTraverser
         $this->cb = $cb;
     }
     /** @internal */
-    public function mapInternal(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function mapInternal(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
     {
         return ($this->cb)($type, [$this, 'traverseInternal']);
     }
     /** @internal */
-    public function traverseInternal(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function traverseInternal(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
     {
         return $type->traverse([$this, 'mapInternal']);
     }

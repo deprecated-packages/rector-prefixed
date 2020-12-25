@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\Class_;
+namespace Rector\PHPUnit\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/sebastianbergmann/phpunit/issues/3388
  * @see https://github.com/sebastianbergmann/phpunit/commit/34a0abd8b56a4a9de83c9e56384f462541a0f939
@@ -18,28 +18,28 @@ use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://github.com/sebastianbergmann/phpunit/tree/master/src/Runner/Hook
  * @see \Rector\PHPUnit\Tests\Rector\Class_\TestListenerToHooksRector\TestListenerToHooksRectorTest
  */
-final class TestListenerToHooksRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class TestListenerToHooksRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[][]
      */
     private const LISTENER_METHOD_TO_HOOK_INTERFACES = [
-        'addIncompleteTest' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\AfterIncompleteTestHook', 'executeAfterIncompleteTest'],
-        'addRiskyTest' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\AfterRiskyTestHook', 'executeAfterRiskyTest'],
-        'addSkippedTest' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\AfterSkippedTestHook', 'executeAfterSkippedTest'],
-        'addError' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\AfterTestErrorHook', 'executeAfterTestError'],
-        'addFailure' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\AfterTestFailureHook', 'executeAfterTestFailure'],
-        'addWarning' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\AfterTestWarningHook', 'executeAfterTestWarning'],
+        'addIncompleteTest' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\AfterIncompleteTestHook', 'executeAfterIncompleteTest'],
+        'addRiskyTest' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\AfterRiskyTestHook', 'executeAfterRiskyTest'],
+        'addSkippedTest' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\AfterSkippedTestHook', 'executeAfterSkippedTest'],
+        'addError' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\AfterTestErrorHook', 'executeAfterTestError'],
+        'addFailure' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\AfterTestFailureHook', 'executeAfterTestFailure'],
+        'addWarning' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\AfterTestWarningHook', 'executeAfterTestWarning'],
         # test
-        'startTest' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\BeforeTestHook', 'executeBeforeTest'],
-        'endTest' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\AfterTestHook', 'executeAfterTest'],
+        'startTest' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\BeforeTestHook', 'executeBeforeTest'],
+        'endTest' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\AfterTestHook', 'executeAfterTest'],
         # suite
-        'startTestSuite' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\BeforeFirstTestHook', 'executeBeforeFirstTest'],
-        'endTestSuite' => ['_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Runner\\AfterLastTestHook', 'executeAfterLastTest'],
+        'startTestSuite' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\BeforeFirstTestHook', 'executeBeforeFirstTest'],
+        'endTestSuite' => ['_PhpScoper50d83356d739\\PHPUnit\\Runner\\AfterLastTestHook', 'executeAfterLastTest'],
     ];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Refactor "*TestListener.php" to particular "*Hook.php" files', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Refactor "*TestListener.php" to particular "*Hook.php" files', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 namespace App\Tests;
 
 use PHPUnit\Framework\TestListener;
@@ -113,19 +113,19 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * Process Node of matched type
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestListener')) {
+        if (!$this->isObjectType($node, '_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestListener')) {
             return null;
         }
         foreach ($node->implements as $implement) {
-            if ($this->isName($implement, '_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestListener')) {
+            if ($this->isName($implement, '_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestListener')) {
                 $this->removeNode($implement);
             }
         }
@@ -134,7 +134,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processClassMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    private function processClassMethod(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         foreach (self::LISTENER_METHOD_TO_HOOK_INTERFACES as $methodName => $hookClassAndMethod) {
             /** @var string $methodName */
@@ -145,8 +145,8 @@ CODE_SAMPLE
             if ($classMethod->stmts === [] || $classMethod->stmts === null) {
                 $this->removeNode($classMethod);
             } else {
-                $class->implements[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($hookClassAndMethod[0]);
-                $classMethod->name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier($hookClassAndMethod[1]);
+                $class->implements[] = new \PhpParser\Node\Name\FullyQualified($hookClassAndMethod[0]);
+                $classMethod->name = new \PhpParser\Node\Identifier($hookClassAndMethod[1]);
             }
         }
     }

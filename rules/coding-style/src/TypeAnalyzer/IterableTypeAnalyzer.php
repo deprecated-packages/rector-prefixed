@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\TypeAnalyzer;
+namespace Rector\CodingStyle\TypeAnalyzer;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\IterableType;
+use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 final class IterableTypeAnalyzer
 {
-    public function detect(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    public function detect(\PHPStan\Type\Type $type) : bool
     {
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+        if ($type instanceof \PHPStan\Type\ArrayType) {
             return \true;
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType) {
+        if ($type instanceof \PHPStan\Type\IterableType) {
             return \true;
         }
-        if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
+        if ($type instanceof \PHPStan\Type\UnionType) {
             foreach ($type->getTypes() as $unionedType) {
                 if (!$this->detect($unionedType)) {
                     return \false;

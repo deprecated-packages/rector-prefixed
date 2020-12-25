@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\DeadCode;
+namespace PHPStan\Rules\DeadCode;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\ClassConstantsNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\ClassConstantsNode;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements Rule<ClassConstantsNode>
  */
-class UnusedPrivateConstantRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class UnusedPrivateConstantRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\ClassConstantsNode::class;
+        return \PHPStan\Node\ClassConstantsNode::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node->getClass() instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        if (!$node->getClass() instanceof \PhpParser\Node\Stmt\Class_) {
             return [];
         }
         if (!$scope->isInClass()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
         $constants = [];
@@ -37,10 +37,10 @@ class UnusedPrivateConstantRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules
         }
         foreach ($node->getFetches() as $fetch) {
             $fetchNode = $fetch->getNode();
-            if (!$fetchNode->class instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name) {
+            if (!$fetchNode->class instanceof \PhpParser\Node\Name) {
                 continue;
             }
-            if (!$fetchNode->name instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Identifier) {
+            if (!$fetchNode->name instanceof \PhpParser\Node\Identifier) {
                 continue;
             }
             $fetchScope = $fetch->getScope();
@@ -52,7 +52,7 @@ class UnusedPrivateConstantRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules
         }
         $errors = [];
         foreach ($constants as $constantName => $constantNode) {
-            $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Constant %s::%s is unused.', $classReflection->getDisplayName(), $constantName))->line($constantNode->getLine())->identifier('deadCode.unusedClassConstant')->metadata(['classOrder' => $node->getClass()->getAttribute('statementOrder'), 'classDepth' => $node->getClass()->getAttribute('statementDepth'), 'classStartLine' => $node->getClass()->getStartLine(), 'constantName' => $constantName])->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Constant %s::%s is unused.', $classReflection->getDisplayName(), $constantName))->line($constantNode->getLine())->identifier('deadCode.unusedClassConstant')->metadata(['classOrder' => $node->getClass()->getAttribute('statementOrder'), 'classDepth' => $node->getClass()->getAttribute('statementDepth'), 'classStartLine' => $node->getClass()->getStartLine(), 'constantName' => $constantName])->build();
         }
         return $errors;
     }

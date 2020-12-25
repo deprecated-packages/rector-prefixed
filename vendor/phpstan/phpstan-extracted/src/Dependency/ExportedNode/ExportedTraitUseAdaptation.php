@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode;
+namespace PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode;
-class ExportedTraitUseAdaptation implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use PHPStan\Dependency\ExportedNode;
+class ExportedTraitUseAdaptation implements \PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string|null */
     private $traitName;
@@ -46,7 +46,7 @@ class ExportedTraitUseAdaptation implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Depe
     {
         return new self($traitName, $method, null, null, $insteadOfs);
     }
-    public function equals(\_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -57,7 +57,7 @@ class ExportedTraitUseAdaptation implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Depe
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
     {
         return new self($properties['traitName'], $properties['method'], $properties['newModifier'], $properties['newName'], $properties['insteadOfs']);
     }
@@ -65,7 +65,7 @@ class ExportedTraitUseAdaptation implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Depe
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
     {
         return new self($data['traitName'], $data['method'], $data['newModifier'], $data['newName'], $data['insteadOfs']);
     }

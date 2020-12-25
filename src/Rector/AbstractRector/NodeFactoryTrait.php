@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
+namespace Rector\Core\Rector\AbstractRector;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\NodeFactory;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Name;
+use PhpParser\Node\Name\FullyQualified;
+use Rector\Core\PhpParser\Node\NodeFactory;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -32,50 +32,50 @@ trait NodeFactoryTrait
     /**
      * @required
      */
-    public function autowireNodeFactoryTrait(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory) : void
+    public function autowireNodeFactoryTrait(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory) : void
     {
         $this->nodeFactory = $nodeFactory;
     }
     /**
      * @param Expr[]|Arg[] $args
      */
-    protected function createStaticCall(string $class, string $method, array $args = []) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall
+    protected function createStaticCall(string $class, string $method, array $args = []) : \PhpParser\Node\Expr\StaticCall
     {
         $args = $this->wrapToArg($args);
         if (\in_array($class, ['self', 'parent', 'static'], \true)) {
-            $class = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($class);
+            $class = new \PhpParser\Node\Name($class);
         } else {
-            $class = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($class);
+            $class = new \PhpParser\Node\Name\FullyQualified($class);
         }
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall($class, $method, $args);
+        return new \PhpParser\Node\Expr\StaticCall($class, $method, $args);
     }
     /**
      * @param Expr[] $exprsToConcat
      */
-    protected function createConcat(array $exprsToConcat) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Concat
+    protected function createConcat(array $exprsToConcat) : ?\PhpParser\Node\Expr\BinaryOp\Concat
     {
         return $this->nodeFactory->createConcat($exprsToConcat);
     }
-    protected function createClassConstFetch(string $class, string $constant) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch
+    protected function createClassConstFetch(string $class, string $constant) : \PhpParser\Node\Expr\ClassConstFetch
     {
         return $this->nodeFactory->createClassConstFetch($class, $constant);
     }
-    protected function createNull() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch
+    protected function createNull() : \PhpParser\Node\Expr\ConstFetch
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('null'));
+        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null'));
     }
-    protected function createFalse() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch
+    protected function createFalse() : \PhpParser\Node\Expr\ConstFetch
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('false'));
+        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('false'));
     }
-    protected function createTrue() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch
+    protected function createTrue() : \PhpParser\Node\Expr\ConstFetch
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('true'));
+        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('true'));
     }
     /**
      * @param mixed $argument
      */
-    protected function createArg($argument) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg
+    protected function createArg($argument) : \PhpParser\Node\Arg
     {
         return $this->nodeFactory->createArg($argument);
     }
@@ -90,22 +90,22 @@ trait NodeFactoryTrait
     /**
      * @param Node[]|mixed[] $nodes
      */
-    protected function createArray(array $nodes) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_
+    protected function createArray(array $nodes) : \PhpParser\Node\Expr\Array_
     {
         return $this->nodeFactory->createArray($nodes);
     }
     /**
      * @param mixed[] $arguments
      */
-    protected function createFuncCall(string $name, array $arguments = []) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall
+    protected function createFuncCall(string $name, array $arguments = []) : \PhpParser\Node\Expr\FuncCall
     {
         return $this->nodeFactory->createFuncCall($name, $arguments);
     }
-    protected function createClassConstantReference(string $class) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch
+    protected function createClassConstantReference(string $class) : \PhpParser\Node\Expr\ClassConstFetch
     {
         return $this->nodeFactory->createClassConstReference($class);
     }
-    protected function createPropertyAssignmentWithExpr(string $propertyName, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign
+    protected function createPropertyAssignmentWithExpr(string $propertyName, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\Assign
     {
         return $this->nodeFactory->createPropertyAssignmentWithExpr($propertyName, $expr);
     }
@@ -113,22 +113,22 @@ trait NodeFactoryTrait
      * @param string|Expr $variable
      * @param mixed[] $arguments
      */
-    protected function createMethodCall($variable, string $method, array $arguments = []) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
+    protected function createMethodCall($variable, string $method, array $arguments = []) : \PhpParser\Node\Expr\MethodCall
     {
         return $this->nodeFactory->createMethodCall($variable, $method, $arguments);
     }
     /**
      * @param mixed[] $arguments
      */
-    protected function createLocalMethodCall(string $method, array $arguments = []) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall
+    protected function createLocalMethodCall(string $method, array $arguments = []) : \PhpParser\Node\Expr\MethodCall
     {
-        $variable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable('this');
+        $variable = new \PhpParser\Node\Expr\Variable('this');
         return $this->nodeFactory->createMethodCall($variable, $method, $arguments);
     }
     /**
      * @param string|Expr $variable
      */
-    protected function createPropertyFetch($variable, string $property) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch
+    protected function createPropertyFetch($variable, string $property) : \PhpParser\Node\Expr\PropertyFetch
     {
         return $this->nodeFactory->createPropertyFetch($variable, $property);
     }
@@ -140,11 +140,11 @@ trait NodeFactoryTrait
     {
         $sureArgs = [];
         foreach ($args as $arg) {
-            if ($arg instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg) {
+            if ($arg instanceof \PhpParser\Node\Arg) {
                 $sureArgs[] = $arg;
                 continue;
             }
-            $sureArgs[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($arg);
+            $sureArgs[] = new \PhpParser\Node\Arg($arg);
         }
         return $sureArgs;
     }

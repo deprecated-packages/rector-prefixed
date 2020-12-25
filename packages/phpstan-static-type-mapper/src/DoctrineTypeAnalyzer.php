@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPStanStaticTypeMapper;
+namespace Rector\PHPStanStaticTypeMapper;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\UnionType;
 final class DoctrineTypeAnalyzer
 {
-    public function isDoctrineCollectionWithIterableUnionType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    public function isDoctrineCollectionWithIterableUnionType(\PHPStan\Type\Type $type) : bool
     {
-        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
+        if (!$type instanceof \PHPStan\Type\UnionType) {
             return \false;
         }
         $arrayType = null;
@@ -20,7 +20,7 @@ final class DoctrineTypeAnalyzer
             if ($this->isCollectionObjectType($unionedType)) {
                 $hasDoctrineCollectionType = \true;
             }
-            if ($unionedType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
+            if ($unionedType instanceof \PHPStan\Type\ArrayType) {
                 $arrayType = $unionedType;
             }
         }
@@ -29,9 +29,9 @@ final class DoctrineTypeAnalyzer
         }
         return $arrayType !== null;
     }
-    private function isCollectionObjectType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    private function isCollectionObjectType(\PHPStan\Type\Type $type) : bool
     {
-        if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+        if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
         return $type->getClassName() === 'Doctrine\\Common\\Collections\\Collection';

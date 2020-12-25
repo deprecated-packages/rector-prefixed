@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocManipulator;
+namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 final class PhpDocRemover
 {
-    public function removeByName(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $name) : void
+    public function removeByName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $name) : void
     {
         $attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
         foreach ($attributeAwarePhpDocNode->children as $key => $phpDocChildNode) {
-            if (!$phpDocChildNode instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
+            if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
                 continue;
             }
             if (!$this->areAnnotationNamesEqual($name, $phpDocChildNode->name)) {
@@ -21,11 +21,11 @@ final class PhpDocRemover
             unset($attributeAwarePhpDocNode->children[$key]);
         }
     }
-    public function removeTagValueFromNode(\_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : void
+    public function removeTagValueFromNode(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : void
     {
         $attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
         foreach ($attributeAwarePhpDocNode->children as $key => $phpDocChildNode) {
-            if (!$phpDocChildNode instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
+            if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
                 continue;
             }
             if ($phpDocChildNode->value !== $phpDocTagValueNode) {

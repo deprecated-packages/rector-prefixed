@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\Guard\PropertyConflictingNameGuard;
+namespace Rector\Naming\Guard\PropertyConflictingNameGuard;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver;
-final class UnderscoreCamelCaseConflictingNameGuard extends \_PhpScoper2a4e7ab1ecbc\Rector\Naming\Guard\PropertyConflictingNameGuard\AbstractPropertyConflictingNameGuard
+use Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver;
+final class UnderscoreCamelCaseConflictingNameGuard extends \Rector\Naming\Guard\PropertyConflictingNameGuard\AbstractPropertyConflictingNameGuard
 {
     /**
      * @required
      */
-    public function autowireUnderscoreCamelCaseConflictingNameGuard(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver $underscoreCamelCaseExpectedNameResolver) : void
+    public function autowireUnderscoreCamelCaseConflictingNameGuard(\Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver $underscoreCamelCaseExpectedNameResolver) : void
     {
         $this->expectedNameResolver = $underscoreCamelCaseExpectedNameResolver;
     }

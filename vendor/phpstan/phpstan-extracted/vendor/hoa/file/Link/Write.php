@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\File\Link;
+namespace Hoa\File\Link;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\File;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
+use Hoa\File;
+use Hoa\Stream;
 /**
  * Class \Hoa\File\Link\Write.
  *
@@ -44,7 +44,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Stream;
  *
  * @license    New BSD License
  */
-class Write extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Link\Link implements \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\IStream\Out
+class Write extends \Hoa\File\Link\Link implements \Hoa\Stream\IStream\Out
 {
     /**
      * Open a file.
@@ -69,15 +69,15 @@ class Write extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Link\Link implements \_PhpS
      * @throws  \Hoa\File\Exception\FileDoesNotExist
      * @throws  \Hoa\File\Exception
      */
-    protected function &_open($streamName, \_PhpScoper2a4e7ab1ecbc\Hoa\Stream\Context $context = null)
+    protected function &_open($streamName, \Hoa\Stream\Context $context = null)
     {
         static $createModes = [parent::MODE_TRUNCATE_WRITE, parent::MODE_APPEND_WRITE, parent::MODE_CREATE_WRITE];
         if (!\in_array($this->getMode(), $createModes)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
+            throw new \Hoa\File\Exception('Open mode are not supported; given %d. Only %s are supported.', 0, [$this->getMode(), \implode(', ', $createModes)]);
         }
         \preg_match('#^(\\w+)://#', $streamName, $match);
         if ((isset($match[1]) && $match[1] == 'file' || !isset($match[1])) && !\file_exists($streamName)) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
+            throw new \Hoa\File\Exception\FileDoesNotExist('File %s does not exist.', 1, $streamName);
         }
         $out = parent::_open($streamName, $context);
         return $out;
@@ -93,7 +93,7 @@ class Write extends \_PhpScoper2a4e7ab1ecbc\Hoa\File\Link\Link implements \_PhpS
     public function write($string, $length)
     {
         if (0 > $length) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
+            throw new \Hoa\File\Exception('Length must be greater than 0, given %d.', 2, $length);
         }
         return \fwrite($this->getStream(), $string, $length);
     }

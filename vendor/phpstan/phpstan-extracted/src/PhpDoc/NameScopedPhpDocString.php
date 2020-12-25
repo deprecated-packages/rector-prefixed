@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc;
+namespace PHPStan\PhpDoc;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope;
+use PHPStan\Analyser\NameScope;
 class NameScopedPhpDocString
 {
     /** @var string */
     private $phpDocString;
     /** @var \PHPStan\Analyser\NameScope */
     private $nameScope;
-    public function __construct(string $phpDocString, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope)
+    public function __construct(string $phpDocString, \PHPStan\Analyser\NameScope $nameScope)
     {
         $this->phpDocString = $phpDocString;
         $this->nameScope = $nameScope;
@@ -19,7 +19,7 @@ class NameScopedPhpDocString
     {
         return $this->phpDocString;
     }
-    public function getNameScope() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope
+    public function getNameScope() : \PHPStan\Analyser\NameScope
     {
         return $this->nameScope;
     }

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator;
+namespace Rector\RectorGenerator;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\BuilderHelpers;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\NodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\Config\ConfigFilesystem;
-use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\NodeFactory\ConfigurationNodeFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\BuilderHelpers;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Name;
+use PhpParser\Node\Name\FullyQualified;
+use Rector\Core\PhpParser\Node\NodeFactory;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\RectorGenerator\Config\ConfigFilesystem;
+use Rector\RectorGenerator\NodeFactory\ConfigurationNodeFactory;
+use Rector\RectorGenerator\ValueObject\RectorRecipe;
 final class TemplateVariablesFactory
 {
     /**
@@ -45,7 +45,7 @@ final class TemplateVariablesFactory
      * @var TemplateFactory
      */
     private $templateFactory;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\NodeFactory\ConfigurationNodeFactory $configurationNodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\TemplateFactory $templateFactory)
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\RectorGenerator\NodeFactory\ConfigurationNodeFactory $configurationNodeFactory, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\RectorGenerator\TemplateFactory $templateFactory)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeFactory = $nodeFactory;
@@ -55,10 +55,10 @@ final class TemplateVariablesFactory
     /**
      * @return array<string, mixed>
      */
-    public function createFromRectorRecipe(\_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : array
+    public function createFromRectorRecipe(\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : array
     {
         $data = [self::VARIABLE_PACKAGE => $rectorRecipe->getPackage(), self::VARIABLE_PACKAGE_LOWERCASE => $rectorRecipe->getPackageDirectory(), '__Category__' => $rectorRecipe->getCategory(), '__Description__' => $rectorRecipe->getDescription(), '__Name__' => $rectorRecipe->getName(), '__CodeBefore__' => \trim($rectorRecipe->getCodeBefore()) . \PHP_EOL, '__CodeBeforeExample__' => $this->createCodeForDefinition($rectorRecipe->getCodeBefore()), '__CodeAfter__' => \trim($rectorRecipe->getCodeAfter()) . \PHP_EOL, '__CodeAfterExample__' => $this->createCodeForDefinition($rectorRecipe->getCodeAfter()), '__Resources__' => $this->createSourceDocBlock($rectorRecipe->getResources())];
-        $rectorClass = $this->templateFactory->create(\_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\Config\ConfigFilesystem::RECTOR_FQN_NAME_PATTERN, $data);
+        $rectorClass = $this->templateFactory->create(\Rector\RectorGenerator\Config\ConfigFilesystem::RECTOR_FQN_NAME_PATTERN, $data);
         if ($rectorRecipe->getConfiguration() !== []) {
             $data['__TestRuleConfiguration__'] = $this->createRuleConfiguration($rectorClass, $rectorRecipe->getConfiguration());
             $data['__RuleConfiguration__'] = $this->createRuleConfiguration(self::SELF, $rectorRecipe->getConfiguration());
@@ -77,7 +77,7 @@ final class TemplateVariablesFactory
     }
     private function createCodeForDefinition(string $code) : string
     {
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($code, \PHP_EOL)) {
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($code, \PHP_EOL)) {
             // multi lines
             return \sprintf("<<<'PHP'%s%s%sPHP%s", \PHP_EOL, $code, \PHP_EOL, \PHP_EOL);
         }
@@ -107,19 +107,19 @@ final class TemplateVariablesFactory
         $arrayItems = [];
         foreach ($configuration as $constantName => $variableConfiguration) {
             if ($rectorClass === self::SELF) {
-                $class = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name(self::SELF);
+                $class = new \PhpParser\Node\Name(self::SELF);
             } else {
-                $class = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($rectorClass);
+                $class = new \PhpParser\Node\Name\FullyQualified($rectorClass);
             }
-            $classConstFetch = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch($class, $constantName);
+            $classConstFetch = new \PhpParser\Node\Expr\ClassConstFetch($class, $constantName);
             if (\is_array($variableConfiguration)) {
                 $variableConfiguration = $this->nodeFactory->createArray($variableConfiguration);
             } else {
-                $variableConfiguration = \_PhpScoper2a4e7ab1ecbc\PhpParser\BuilderHelpers::normalizeValue($variableConfiguration);
+                $variableConfiguration = \PhpParser\BuilderHelpers::normalizeValue($variableConfiguration);
             }
-            $arrayItems[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem($variableConfiguration, $classConstFetch);
+            $arrayItems[] = new \PhpParser\Node\Expr\ArrayItem($variableConfiguration, $classConstFetch);
         }
-        $array = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_($arrayItems);
+        $array = new \PhpParser\Node\Expr\Array_($arrayItems);
         return $this->betterStandardPrinter->print($array);
     }
     /**
@@ -146,7 +146,7 @@ final class TemplateVariablesFactory
         $classMethod = $this->configurationNodeFactory->createConfigureClassMethod($ruleConfiguration);
         return $this->betterStandardPrinter->print($classMethod);
     }
-    private function createNodeTypePhp(\_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : string
+    private function createNodeTypePhp(\Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe) : string
     {
         $referencingClassConsts = [];
         foreach ($rectorRecipe->getNodeTypes() as $nodeType) {

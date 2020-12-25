@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\PHPUnit;
+namespace PHPStan\PhpDoc\PHPUnit;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\TypeNodeResolver;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\TypeNodeResolverAwareExtension;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\TypeNodeResolverExtension;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName;
-class MockObjectTypeNodeResolverExtension implements \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\TypeNodeResolverExtension, \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\TypeNodeResolverAwareExtension
+use PHPStan\PhpDoc\TypeNodeResolver;
+use PHPStan\PhpDoc\TypeNodeResolverAwareExtension;
+use PHPStan\PhpDoc\TypeNodeResolverExtension;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
+use PHPStan\Type\NeverType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeWithClassName;
+class MockObjectTypeNodeResolverExtension implements \PHPStan\PhpDoc\TypeNodeResolverExtension, \PHPStan\PhpDoc\TypeNodeResolverAwareExtension
 {
     /** @var TypeNodeResolver */
     private $typeNodeResolver;
-    public function setTypeNodeResolver(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver) : void
+    public function setTypeNodeResolver(\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver) : void
     {
         $this->typeNodeResolver = $typeNodeResolver;
     }
@@ -23,20 +23,20 @@ class MockObjectTypeNodeResolverExtension implements \_PhpScoper2a4e7ab1ecbc\PHP
     {
         return 'phpunit-v1';
     }
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\NameScope $nameScope) : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function resolve(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : ?\PHPStan\Type\Type
     {
-        if (!$typeNode instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
+        if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
             return null;
         }
-        static $mockClassNames = ['PHPUnit_Framework_MockObject_MockObject' => \true, '_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\MockObject\\MockObject' => \true];
+        static $mockClassNames = ['PHPUnit_Framework_MockObject_MockObject' => \true, '_PhpScoper50d83356d739\\PHPUnit\\Framework\\MockObject\\MockObject' => \true];
         $types = $this->typeNodeResolver->resolveMultiple($typeNode->types, $nameScope);
         foreach ($types as $type) {
-            if (!$type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeWithClassName) {
+            if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
                 continue;
             }
             if (\array_key_exists($type->getClassName(), $mockClassNames)) {
-                $resultType = \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\TypeCombinator::intersect(...$types);
-                if ($resultType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\NeverType) {
+                $resultType = \PHPStan\Type\TypeCombinator::intersect(...$types);
+                if ($resultType instanceof \PHPStan\Type\NeverType) {
                     continue;
                 }
                 return $resultType;

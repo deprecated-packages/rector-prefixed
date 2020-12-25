@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Restoration\Rector\ClassMethod;
+namespace Rector\Restoration\Rector\ClassMethod;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\Restoration\Type\ConstantReturnToParamTypeConverter;
-use _PhpScoper2a4e7ab1ecbc\Rector\Restoration\ValueObject\InferParamFromClassMethodReturn;
-use _PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
+use PhpParser\Node;
+use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Restoration\Type\ConstantReturnToParamTypeConverter;
+use Rector\Restoration\ValueObject\InferParamFromClassMethodReturn;
+use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
 /**
  * @sponsor Thanks https://github.com/eonx-com for sponsoring this rule
  *
  * @see \Rector\Restoration\Tests\Rector\ClassMethod\InferParamFromClassMethodReturnRector\InferParamFromClassMethodReturnRectorTest
  */
-final class InferParamFromClassMethodReturnRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class InferParamFromClassMethodReturnRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -42,14 +42,14 @@ final class InferParamFromClassMethodReturnRector extends \_PhpScoper2a4e7ab1ecb
      * @var ConstantReturnToParamTypeConverter
      */
     private $constantReturnToParamTypeConverter;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \_PhpScoper2a4e7ab1ecbc\Rector\Restoration\Type\ConstantReturnToParamTypeConverter $constantReturnToParamTypeConverter)
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\Restoration\Type\ConstantReturnToParamTypeConverter $constantReturnToParamTypeConverter)
     {
         $this->returnTypeInferer = $returnTypeInferer;
         $this->constantReturnToParamTypeConverter = $constantReturnToParamTypeConverter;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change @param doc based on another method return type', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change @param doc based on another method return type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function getNodeTypes(): array
@@ -78,19 +78,19 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS => [new \_PhpScoper2a4e7ab1ecbc\Rector\Restoration\ValueObject\InferParamFromClassMethodReturn('SomeClass', 'process', 'getNodeTypes')]])]);
+, [self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS => [new \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn('SomeClass', 'process', 'getNodeTypes')]])]);
     }
     /**
      * @return string[]
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class];
     }
     /**
      * @param ClassMethod $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // must be exactly 1 param
         if (\count((array) $node->params) !== 1) {
@@ -105,7 +105,7 @@ CODE_SAMPLE
             }
             $returnType = $this->returnTypeInferer->inferFunctionLike($returnClassMethod);
             /** @var PhpDocInfo|null $currentPhpDocInfo */
-            $currentPhpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+            $currentPhpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
             if ($currentPhpDocInfo === null) {
                 $currentPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
             }
@@ -127,10 +127,10 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $inferParamsFromClassMethodReturns = $configuration[self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS] ?? [];
-        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \_PhpScoper2a4e7ab1ecbc\Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
+        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
         $this->inferParamFromClassMethodReturn = $inferParamsFromClassMethodReturns;
     }
-    private function matchReturnClassMethod(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $classMethod, \_PhpScoper2a4e7ab1ecbc\Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod
+    private function matchReturnClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn $inferParamFromClassMethodReturn) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         if (!$this->isInClassNamed($classMethod, $inferParamFromClassMethodReturn->getClass())) {
             return null;
@@ -138,16 +138,16 @@ CODE_SAMPLE
         if (!$this->isName($classMethod->name, $inferParamFromClassMethodReturn->getParamMethod())) {
             return null;
         }
-        $classLike = $classMethod->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_) {
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         return $classLike->getMethod($inferParamFromClassMethodReturn->getReturnMethod());
     }
-    private function isParamDocTypeEqualToPhpType(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Param $param, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $paramType) : bool
+    private function isParamDocTypeEqualToPhpType(\PhpParser\Node\Param $param, \PHPStan\Type\Type $paramType) : bool
     {
         $currentParamType = $this->getObjectType($param);
-        if ($currentParamType instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\UnionType) {
+        if ($currentParamType instanceof \PHPStan\Type\UnionType) {
             $currentParamType = $currentParamType->getTypes()[0];
         }
         return $currentParamType->equals($paramType);

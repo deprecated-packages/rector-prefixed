@@ -33,10 +33,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Ustring\Bin;
+namespace Hoa\Ustring\Bin;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Console;
-use _PhpScoper2a4e7ab1ecbc\Hoa\Ustring;
+use Hoa\Console;
+use Hoa\Ustring;
 /**
  * Class Hoa\Ustring\Bin\Tocode.
  *
@@ -45,14 +45,14 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Ustring;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Tocode extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
+class Tocode extends \Hoa\Console\Dispatcher\Kit
 {
     /**
      * Options description.
      *
      * @var array
      */
-    protected $options = [['base', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'b'], ['help', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \_PhpScoper2a4e7ab1ecbc\Hoa\Console\GetOption::NO_ARGUMENT, '?']];
+    protected $options = [['base', \Hoa\Console\GetOption::REQUIRED_ARGUMENT, 'b'], ['help', \Hoa\Console\GetOption::NO_ARGUMENT, 'h'], ['help', \Hoa\Console\GetOption::NO_ARGUMENT, '?']];
     /**
      * The entry method.
      *
@@ -76,7 +76,7 @@ class Tocode extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
             }
         }
         $this->parser->listInputs($char);
-        $code = \base_convert((string) \_PhpScoper2a4e7ab1ecbc\Hoa\Ustring::toCode($char), 10, $base);
+        $code = \base_convert((string) \Hoa\Ustring::toCode($char), 10, $base);
         echo $code, "\n";
         return;
     }
@@ -93,5 +93,4 @@ class Tocode extends \_PhpScoper2a4e7ab1ecbc\Hoa\Console\Dispatcher\Kit
 }
 __halt_compiler();
 Transform a character into its code.
-
 

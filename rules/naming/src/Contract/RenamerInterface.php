@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract;
+namespace Rector\Naming\Contract;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+use PhpParser\Node;
 interface RenamerInterface
 {
-    public function rename(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node;
+    public function rename(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : ?\PhpParser\Node;
 }

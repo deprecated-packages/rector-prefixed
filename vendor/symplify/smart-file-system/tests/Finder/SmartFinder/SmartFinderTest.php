@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Tests\Finder\SmartFinder;
+namespace Symplify\SmartFileSystem\Tests\Finder\SmartFinder;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\TestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemFilter;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Finder\SmartFinder;
-final class SmartFinderTest extends \_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\TestCase
+use _PhpScoper50d83356d739\PHPUnit\Framework\TestCase;
+use Symplify\SmartFileSystem\FileSystemFilter;
+use Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use Symplify\SmartFileSystem\Finder\SmartFinder;
+final class SmartFinderTest extends \_PhpScoper50d83356d739\PHPUnit\Framework\TestCase
 {
     /**
      * @var SmartFinder
@@ -16,7 +16,7 @@ final class SmartFinderTest extends \_PhpScoper2a4e7ab1ecbc\PHPUnit\Framework\Te
     private $smartFinder;
     protected function setUp() : void
     {
-        $this->smartFinder = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Finder\SmartFinder(new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\Finder\FinderSanitizer(), new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\FileSystemFilter());
+        $this->smartFinder = new \Symplify\SmartFileSystem\Finder\SmartFinder(new \Symplify\SmartFileSystem\Finder\FinderSanitizer(), new \Symplify\SmartFileSystem\FileSystemFilter());
     }
     /**
      * @dataProvider provideData()

@@ -37,7 +37,7 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\PHPStan\\": "src\/"
+            "PHPStan\\": "src\/"
         }
     },
     "autoload-dev": {

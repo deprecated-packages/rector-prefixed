@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Caching\Contract\Rector;
+namespace Rector\Caching\Contract\Rector;
 
 /**
  * Rectors implementing this interface require to run with --clear-cache, so full application is analysed.

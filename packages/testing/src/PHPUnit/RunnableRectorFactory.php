@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit;
+namespace Rector\Testing\PHPUnit;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Random;
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeFinder;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\Contract\RunnableInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\Runnable\ClassLikeNamesSuffixer;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\Runnable\RunnableClassFinder;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem;
+use _PhpScoper50d83356d739\Nette\Utils\Random;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\NodeFinder;
+use Rector\Testing\Contract\RunnableInterface;
+use Rector\Testing\PHPUnit\Runnable\ClassLikeNamesSuffixer;
+use Rector\Testing\PHPUnit\Runnable\RunnableClassFinder;
+use Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileSystem;
 final class RunnableRectorFactory
 {
     /**
@@ -27,11 +27,11 @@ final class RunnableRectorFactory
     private $smartFileSystem;
     public function __construct()
     {
-        $this->runnableClassFinder = new \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\Runnable\RunnableClassFinder(new \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeFinder());
-        $this->classLikeNamesSuffixer = new \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\Runnable\ClassLikeNamesSuffixer();
-        $this->smartFileSystem = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->runnableClassFinder = new \Rector\Testing\PHPUnit\Runnable\RunnableClassFinder(new \PhpParser\NodeFinder());
+        $this->classLikeNamesSuffixer = new \Rector\Testing\PHPUnit\Runnable\ClassLikeNamesSuffixer();
+        $this->smartFileSystem = new \Symplify\SmartFileSystem\SmartFileSystem();
     }
-    public function createRunnableClass(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $classContentFileInfo) : \_PhpScoper2a4e7ab1ecbc\Rector\Testing\Contract\RunnableInterface
+    public function createRunnableClass(\Symplify\SmartFileSystem\SmartFileInfo $classContentFileInfo) : \Rector\Testing\Contract\RunnableInterface
     {
         $temporaryPath = $this->createTemporaryPathWithPrefix($classContentFileInfo);
         $contents = $classContentFileInfo->getContents();
@@ -42,14 +42,14 @@ final class RunnableRectorFactory
         $runnableFullyQualifiedClassName = $this->runnableClassFinder->find($suffixedFileContent);
         return new $runnableFullyQualifiedClassName();
     }
-    private function createTemporaryPathWithPrefix(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function createTemporaryPathWithPrefix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         // warning: if this hash is too short, the file can becom "identical"; took me 1 hour to find out
-        $hash = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -15);
+        $hash = \_PhpScoper50d83356d739\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -15);
         return \sprintf(\sys_get_temp_dir() . '/_rector_runnable_%s_%s', $hash, $smartFileInfo->getBasename('.inc'));
     }
     private function getTemporaryClassSuffix() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Random::generate(30);
+        return \_PhpScoper50d83356d739\Nette\Utils\Random::generate(30);
     }
 }

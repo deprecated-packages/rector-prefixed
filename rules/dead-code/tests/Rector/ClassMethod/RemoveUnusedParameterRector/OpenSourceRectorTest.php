@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedParameterRector;
+namespace Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedParameterRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\ProjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedParameterRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class OpenSourceRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Core\Configuration\Option;
+use Rector\Core\ValueObject\ProjectType;
+use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedParameterRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class OpenSourceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Configuration\Option::PROJECT_TYPE, \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\ProjectType::OPEN_SOURCE);
+        $this->setParameter(\Rector\Core\Configuration\Option::PROJECT_TYPE, \Rector\Core\ValueObject\ProjectType::OPEN_SOURCE);
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
@@ -25,6 +25,6 @@ final class OpenSourceRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\DeadCode\Rector\ClassMethod\RemoveUnusedParameterRector::class;
+        return \Rector\DeadCode\Rector\ClassMethod\RemoveUnusedParameterRector::class;
     }
 }

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\DependencyInjection\CompilerPass;
+namespace Rector\Core\DependencyInjection\CompilerPass;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\RectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\ContainerBuilder;
+use Rector\Core\Contract\Rector\RectorInterface;
+use _PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use _PhpScoper50d83356d739\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Needed for @see \Rector\Core\Configuration\RectorClassesProvider
  */
-final class MakeRectorsPublicCompilerPass implements \_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class MakeRectorsPublicCompilerPass implements \_PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    public function process(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function process(\_PhpScoper50d83356d739\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             if ($definition->getClass() === null) {
                 continue;
             }
-            if (!\is_a($definition->getClass(), \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\RectorInterface::class, \true)) {
+            if (!\is_a($definition->getClass(), \Rector\Core\Contract\Rector\RectorInterface::class, \true)) {
                 continue;
             }
             $definition->setPublic(\true);

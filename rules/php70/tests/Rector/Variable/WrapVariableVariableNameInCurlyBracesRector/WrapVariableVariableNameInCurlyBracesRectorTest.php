@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php70\Tests\Rector\Variable\WrapVariableVariableNameInCurlyBracesRector;
+namespace Rector\Php70\Tests\Rector\Variable\WrapVariableVariableNameInCurlyBracesRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\Variable\WrapVariableVariableNameInCurlyBracesRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class WrapVariableVariableNameInCurlyBracesRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php70\Rector\Variable\WrapVariableVariableNameInCurlyBracesRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class WrapVariableVariableNameInCurlyBracesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class WrapVariableVariableNameInCurlyBracesRectorTest extends \_PhpScoper2
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php70\Rector\Variable\WrapVariableVariableNameInCurlyBracesRector::class;
+        return \Rector\Php70\Rector\Variable\WrapVariableVariableNameInCurlyBracesRector::class;
     }
 }

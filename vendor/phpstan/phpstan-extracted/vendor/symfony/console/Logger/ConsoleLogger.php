@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Logger;
+namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Logger;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\AbstractLogger;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\InvalidArgumentException;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
+use _HumbugBox221ad6f1b81f\Psr\Log\AbstractLogger;
+use _HumbugBox221ad6f1b81f\Psr\Log\InvalidArgumentException;
+use _HumbugBox221ad6f1b81f\Psr\Log\LogLevel;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
 /**
  * PSR-3 compliant console logger.
  *
@@ -22,15 +22,15 @@ use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Outp
  *
  * @see https://www.php-fig.org/psr/psr-3/
  */
-class ConsoleLogger extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\AbstractLogger
+class ConsoleLogger extends \_HumbugBox221ad6f1b81f\Psr\Log\AbstractLogger
 {
     const INFO = 'info';
     const ERROR = 'error';
     private $output;
-    private $verbosityLevelMap = [\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::EMERGENCY => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::ALERT => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::CRITICAL => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::ERROR => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::WARNING => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::NOTICE => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::INFO => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::DEBUG => \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG];
-    private $formatLevelMap = [\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::EMERGENCY => self::ERROR, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::ALERT => self::ERROR, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::CRITICAL => self::ERROR, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::ERROR => self::ERROR, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::WARNING => self::INFO, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::NOTICE => self::INFO, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::INFO => self::INFO, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::DEBUG => self::INFO];
+    private $verbosityLevelMap = [\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::EMERGENCY => \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::ALERT => \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::CRITICAL => \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::ERROR => \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::WARNING => \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_NORMAL, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::NOTICE => \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::INFO => \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::DEBUG => \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG];
+    private $formatLevelMap = [\_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::EMERGENCY => self::ERROR, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::ALERT => self::ERROR, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::CRITICAL => self::ERROR, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::ERROR => self::ERROR, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::WARNING => self::INFO, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::NOTICE => self::INFO, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::INFO => self::INFO, \_HumbugBox221ad6f1b81f\Psr\Log\LogLevel::DEBUG => self::INFO];
     private $errored = \false;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output, array $verbosityLevelMap = [], array $formatLevelMap = [])
+    public function __construct(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output, array $verbosityLevelMap = [], array $formatLevelMap = [])
     {
         $this->output = $output;
         $this->verbosityLevelMap = $verbosityLevelMap + $this->verbosityLevelMap;
@@ -44,12 +44,12 @@ class ConsoleLogger extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\L
     public function log($level, $message, array $context = [])
     {
         if (!isset($this->verbosityLevelMap[$level])) {
-            throw new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
+            throw new \_HumbugBox221ad6f1b81f\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
         }
         $output = $this->output;
         // Write to the error output if necessary and available
         if (self::ERROR === $this->formatLevelMap[$level]) {
-            if ($this->output instanceof \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+            if ($this->output instanceof \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\ConsoleOutputInterface) {
                 $output = $output->getErrorOutput();
             }
             $this->errored = \true;

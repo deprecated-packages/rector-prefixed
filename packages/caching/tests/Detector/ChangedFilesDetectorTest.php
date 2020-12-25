@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Caching\Tests\Detector;
+namespace Rector\Caching\Tests\Detector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Caching\Detector\ChangedFilesDetector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangedFilesDetectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Caching\Detector\ChangedFilesDetector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangedFilesDetectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @var ChangedFilesDetector
@@ -16,7 +16,7 @@ final class ChangedFilesDetectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Test
     protected function setUp() : void
     {
         parent::setUp();
-        $this->changedFilesDetector = $this->getService(\_PhpScoper2a4e7ab1ecbc\Rector\Caching\Detector\ChangedFilesDetector::class);
+        $this->changedFilesDetector = $this->getService(\Rector\Caching\Detector\ChangedFilesDetector::class);
     }
     protected function tearDown() : void
     {
@@ -25,7 +25,7 @@ final class ChangedFilesDetectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Test
     }
     public function testHasFileChanged() : void
     {
-        $smartFileInfo = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file.php');
+        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file.php');
         $this->assertTrue($this->changedFilesDetector->hasFileChanged($smartFileInfo));
         $this->changedFilesDetector->addFileWithDependencies($smartFileInfo, []);
         $this->assertFalse($this->changedFilesDetector->hasFileChanged($smartFileInfo));
@@ -38,7 +38,7 @@ final class ChangedFilesDetectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Test
      */
     public function testGetDependentFileInfos(string $filePathName, array $dependantFiles) : void
     {
-        $smartFileInfo = new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo($filePathName);
+        $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($filePathName);
         $this->changedFilesDetector->addFileWithDependencies($smartFileInfo, $dependantFiles);
         $dependantSmartFileInfos = $this->changedFilesDetector->getDependentFileInfos($smartFileInfo);
         $dependantFilesCount = \count($dependantFiles);
@@ -53,8 +53,8 @@ final class ChangedFilesDetectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Test
         (yield [__DIR__ . '/Source/file.php', [__DIR__ . '/Source/file.php']]);
         (yield [__DIR__ . '/Source/file.php', [__DIR__ . '/Source/file.php', __DIR__ . '/Source/file2.php', __DIR__ . '/Source/file3.php']]);
     }
-    protected function provideConfigFileInfo() : \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : \Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config.php');
+        return new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config.php');
     }
 }

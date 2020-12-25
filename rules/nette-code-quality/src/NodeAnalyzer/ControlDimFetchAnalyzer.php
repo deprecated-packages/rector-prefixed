@@ -1,41 +1,41 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NetteCodeQuality\NodeAnalyzer;
+namespace Rector\NetteCodeQuality\NodeAnalyzer;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver;
+use PhpParser\Node;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Scalar\String_;
+use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ControlDimFetchAnalyzer
 {
     /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
-    public function matchNameOnFormOrControlVariable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
+    public function matchNameOnFormOrControlVariable(\PhpParser\Node $node) : ?string
     {
-        return $this->matchNameOnVariableTypes($node, ['_PhpScoper2a4e7ab1ecbc\\Nette\\Application\\UI\\Form']);
+        return $this->matchNameOnVariableTypes($node, ['_PhpScoper50d83356d739\\Nette\\Application\\UI\\Form']);
     }
-    public function matchNameOnControlVariable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
+    public function matchNameOnControlVariable(\PhpParser\Node $node) : ?string
     {
-        return $this->matchNameOnVariableTypes($node, ['_PhpScoper2a4e7ab1ecbc\\Nette\\Application\\UI\\Control']);
+        return $this->matchNameOnVariableTypes($node, ['_PhpScoper50d83356d739\\Nette\\Application\\UI\\Control']);
     }
-    public function matchName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
+    public function matchName(\PhpParser\Node $node) : ?string
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayDimFetch) {
+        if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
-        if (!$this->isVariableTypes($node->var, ['_PhpScoper2a4e7ab1ecbc\\Nette\\ComponentModel\\IContainer'])) {
+        if (!$this->isVariableTypes($node->var, ['_PhpScoper50d83356d739\\Nette\\ComponentModel\\IContainer'])) {
             return null;
         }
-        if (!$node->dim instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_) {
+        if (!$node->dim instanceof \PhpParser\Node\Scalar\String_) {
             return null;
         }
         return $node->dim->value;
@@ -43,7 +43,7 @@ final class ControlDimFetchAnalyzer
     /**
      * @param string[] $types
      */
-    private function matchNameOnVariableTypes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, array $types) : ?string
+    private function matchNameOnVariableTypes(\PhpParser\Node $node, array $types) : ?string
     {
         $matchedName = $this->matchName($node);
         if ($matchedName === null) {
@@ -58,9 +58,9 @@ final class ControlDimFetchAnalyzer
     /**
      * @param string[] $types
      */
-    private function isVariableTypes(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, array $types) : bool
+    private function isVariableTypes(\PhpParser\Node $node, array $types) : bool
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+        if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return \false;
         }
         foreach ($types as $type) {

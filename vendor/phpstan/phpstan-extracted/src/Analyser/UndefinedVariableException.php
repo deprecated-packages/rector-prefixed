@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
-class UndefinedVariableException extends \_PhpScoper2a4e7ab1ecbc\PHPStan\AnalysedCodeException
+class UndefinedVariableException extends \PHPStan\AnalysedCodeException
 {
     /** @var \PHPStan\Analyser\Scope */
     private $scope;
     /** @var string */
     private $variableName;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, string $variableName)
+    public function __construct(\PHPStan\Analyser\Scope $scope, string $variableName)
     {
         parent::__construct(\sprintf('Undefined variable: $%s', $variableName));
         $this->scope = $scope;
         $this->variableName = $variableName;
     }
-    public function getScope() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope
+    public function getScope() : \PHPStan\Analyser\Scope
     {
         return $this->scope;
     }

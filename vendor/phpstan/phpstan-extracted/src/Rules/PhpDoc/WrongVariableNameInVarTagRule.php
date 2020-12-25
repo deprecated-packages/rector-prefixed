@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\PhpDoc;
+namespace PHPStan\Rules\PhpDoc;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\FileTypeMapper;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node>
  */
-class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class WrongVariableNameInVarTagRule implements \PHPStan\Rules\Rule
 {
     /** @var FileTypeMapper */
     private $fileTypeMapper;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper $fileTypeMapper)
+    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper)
     {
         $this->fileTypeMapper = $fileTypeMapper;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node::class;
+        return \PhpParser\Node::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignRef && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Static_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Echo_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Throw_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\While_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_ && !$node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Nop) {
+        if (!$node instanceof \PhpParser\Node\Stmt\Foreach_ && !$node instanceof \PhpParser\Node\Expr\Assign && !$node instanceof \PhpParser\Node\Expr\AssignRef && !$node instanceof \PhpParser\Node\Stmt\Static_ && !$node instanceof \PhpParser\Node\Stmt\Echo_ && !$node instanceof \PhpParser\Node\Stmt\Return_ && !$node instanceof \PhpParser\Node\Stmt\Expression && !$node instanceof \PhpParser\Node\Stmt\Throw_ && !$node instanceof \PhpParser\Node\Stmt\If_ && !$node instanceof \PhpParser\Node\Stmt\While_ && !$node instanceof \PhpParser\Node\Stmt\Switch_ && !$node instanceof \PhpParser\Node\Stmt\Nop) {
             return [];
         }
         $docComment = $node->getDocComment();
@@ -39,19 +39,19 @@ class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\R
         if (\count($varTags) === 0) {
             return [];
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignRef) {
+        if ($node instanceof \PhpParser\Node\Expr\Assign || $node instanceof \PhpParser\Node\Expr\AssignRef) {
             return $this->processAssign($scope, $node->var, $varTags);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Foreach_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Foreach_) {
             return $this->processForeach($node->keyVar, $node->valueVar, $varTags);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Static_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Static_) {
             return $this->processStatic($node->vars, $varTags);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        if ($node instanceof \PhpParser\Node\Stmt\Expression) {
             return $this->processExpression($scope, $node->expr, $varTags);
         }
-        if ($node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Throw_ || $node instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_) {
+        if ($node instanceof \PhpParser\Node\Stmt\Throw_ || $node instanceof \PhpParser\Node\Stmt\Return_) {
             return $this->processStmt($scope, $varTags, $node->expr);
         }
         return $this->processStmt($scope, $varTags, null);
@@ -62,9 +62,9 @@ class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\R
      * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
      * @return \PHPStan\Rules\RuleError[]
      */
-    private function processAssign(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $var, array $varTags) : array
+    private function processAssign(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $var, array $varTags) : array
     {
-        if ($var instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && \is_string($var->name)) {
+        if ($var instanceof \PhpParser\Node\Expr\Variable && \is_string($var->name)) {
             if (\count($varTags) === 1) {
                 $key = \key($varTags);
                 if (\is_int($key)) {
@@ -74,11 +74,11 @@ class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\R
                     if (!$scope->hasVariableType($key)->no()) {
                         return [];
                     }
-                    return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match assigned variable $%s.', $key, $var->name))->build()];
+                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match assigned variable $%s.', $key, $var->name))->build()];
                 }
                 return [];
             }
-            return [\_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('Multiple PHPDoc @var tags above single variable assignment are not supported.')->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message('Multiple PHPDoc @var tags above single variable assignment are not supported.')->build()];
         }
         return [];
     }
@@ -88,28 +88,28 @@ class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\R
      * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
      * @return \PHPStan\Rules\RuleError[]
      */
-    private function processForeach(?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $keyVar, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $valueVar, array $varTags) : array
+    private function processForeach(?\PhpParser\Node\Expr $keyVar, \PhpParser\Node\Expr $valueVar, array $varTags) : array
     {
         $variableNames = [];
-        if ($keyVar instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && \is_string($keyVar->name)) {
+        if ($keyVar instanceof \PhpParser\Node\Expr\Variable && \is_string($keyVar->name)) {
             $variableNames[$keyVar->name] = \true;
         }
-        if ($valueVar instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && \is_string($valueVar->name)) {
+        if ($valueVar instanceof \PhpParser\Node\Expr\Variable && \is_string($valueVar->name)) {
             $variableNames[$valueVar->name] = \true;
         }
-        if ($valueVar instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ || $valueVar instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\List_) {
+        if ($valueVar instanceof \PhpParser\Node\Expr\Array_ || $valueVar instanceof \PhpParser\Node\Expr\List_) {
             $variableNames = $this->getVariablesFromList($variableNames, $valueVar->items);
         }
         $errors = [];
         foreach (\array_keys($varTags) as $name) {
             if (\is_int($name)) {
-                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var above foreach loop does not specify variable name.')->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var above foreach loop does not specify variable name.')->build();
                 continue;
             }
             if (isset($variableNames[$name])) {
                 continue;
             }
-            $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match any variable in the foreach loop: %s', $name, \implode(', ', \array_map(static function (string $name) : string {
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match any variable in the foreach loop: %s', $name, \implode(', ', \array_map(static function (string $name) : string {
                 return \sprintf('$%s', $name);
             }, \array_keys($variableNames)))))->build();
         }
@@ -127,11 +127,11 @@ class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\R
                 continue;
             }
             $value = $item->value;
-            if ($value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable && \is_string($value->name)) {
+            if ($value instanceof \PhpParser\Node\Expr\Variable && \is_string($value->name)) {
                 $variableNames[$value->name] = \true;
                 continue;
             }
-            if (!$value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ && !$value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\List_) {
+            if (!$value instanceof \PhpParser\Node\Expr\Array_ && !$value instanceof \PhpParser\Node\Expr\List_) {
                 continue;
             }
             $variableNames = $this->getVariablesFromList($variableNames, $value->items);
@@ -158,13 +158,13 @@ class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\R
                 if (\count($vars) === 1) {
                     continue;
                 }
-                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var above multiple static variables does not specify variable name.')->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var above multiple static variables does not specify variable name.')->build();
                 continue;
             }
             if (isset($variableNames[$name])) {
                 continue;
             }
-            $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match any static variable: %s', $name, \implode(', ', \array_map(static function (string $name) : string {
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match any static variable: %s', $name, \implode(', ', \array_map(static function (string $name) : string {
                 return \sprintf('$%s', $name);
             }, \array_keys($variableNames)))))->build();
         }
@@ -176,9 +176,9 @@ class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\R
      * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
      * @return \PHPStan\Rules\RuleError[]
      */
-    private function processExpression(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $expr, array $varTags) : array
+    private function processExpression(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr, array $varTags) : array
     {
-        if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign || $expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\AssignRef) {
+        if ($expr instanceof \PhpParser\Node\Expr\Assign || $expr instanceof \PhpParser\Node\Expr\AssignRef) {
             return [];
         }
         return $this->processStmt($scope, $varTags, null);
@@ -189,7 +189,7 @@ class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\R
      * @param Expr|null $defaultExpr
      * @return \PHPStan\Rules\RuleError[]
      */
-    private function processStmt(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope, array $varTags, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $defaultExpr) : array
+    private function processStmt(\PHPStan\Analyser\Scope $scope, array $varTags, ?\PhpParser\Node\Expr $defaultExpr) : array
     {
         $errors = [];
         $variableLessVarTags = [];
@@ -201,11 +201,11 @@ class WrongVariableNameInVarTagRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\R
             if (!$scope->hasVariableType($name)->no()) {
                 continue;
             }
-            $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not exist.', $name))->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not exist.', $name))->build();
         }
         if (\count($variableLessVarTags) !== 1 || $defaultExpr === null) {
             if (\count($variableLessVarTags) > 0) {
-                $errors[] = \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var does not specify variable name.')->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var does not specify variable name.')->build();
             }
         }
         return $errors;

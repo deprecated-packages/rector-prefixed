@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Polyfill\ValueObject;
+namespace Rector\Polyfill\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Polyfill\Contract\ConditionInterface;
-final class BinaryToVersionCompareCondition implements \_PhpScoper2a4e7ab1ecbc\Rector\Polyfill\Contract\ConditionInterface
+use Rector\Polyfill\Contract\ConditionInterface;
+final class BinaryToVersionCompareCondition implements \Rector\Polyfill\Contract\ConditionInterface
 {
     /**
      * @var string
@@ -21,13 +21,13 @@ final class BinaryToVersionCompareCondition implements \_PhpScoper2a4e7ab1ecbc\R
     /**
      * @param mixed $expectedValue
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Polyfill\ValueObject\VersionCompareCondition $versionCompareCondition, string $binaryClass, $expectedValue)
+    public function __construct(\Rector\Polyfill\ValueObject\VersionCompareCondition $versionCompareCondition, string $binaryClass, $expectedValue)
     {
         $this->versionCompareCondition = $versionCompareCondition;
         $this->binaryClass = $binaryClass;
         $this->expectedValue = $expectedValue;
     }
-    public function getVersionCompareCondition() : \_PhpScoper2a4e7ab1ecbc\Rector\Polyfill\ValueObject\VersionCompareCondition
+    public function getVersionCompareCondition() : \Rector\Polyfill\ValueObject\VersionCompareCondition
     {
         return $this->versionCompareCondition;
     }

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\Behavior;
+namespace Rector\Testing\PHPUnit\Behavior;
 
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\RunnableRectorFactory;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
+use Rector\Testing\PHPUnit\RunnableRectorFactory;
+use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @property-read RunnableRectorFactory $runnableRectorFactory
  */
 trait RunnableTestTrait
 {
-    protected function assertOriginalAndFixedFileResultEquals(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo) : void
+    protected function assertOriginalAndFixedFileResultEquals(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo) : void
     {
         $runnable = $this->runnableRectorFactory->createRunnableClass($originalFileInfo);
         $expectedInstance = $this->runnableRectorFactory->createRunnableClass($expectedFileInfo);

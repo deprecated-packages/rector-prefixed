@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Cache;
+namespace PHPStan\Cache;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Random;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\File\FileWriter;
-class FileCacheStorage implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Cache\CacheStorage
+use _HumbugBox221ad6f1b81f\Nette\Utils\Random;
+use PHPStan\File\FileWriter;
+class FileCacheStorage implements \PHPStan\Cache\CacheStorage
 {
     /** @var string */
     private $directory;
@@ -41,7 +41,7 @@ class FileCacheStorage implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Cache\CacheSto
                 return null;
             }
             $cacheItem = (require $filePath);
-            if (!$cacheItem instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Cache\CacheItem) {
+            if (!$cacheItem instanceof \PHPStan\Cache\CacheItem) {
                 return null;
             }
             if (!$cacheItem->isVariableKeyValid($variableKey)) {
@@ -62,14 +62,14 @@ class FileCacheStorage implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Cache\CacheSto
         $this->makeDir($this->directory);
         $this->makeDir($firstDirectory);
         $this->makeDir($secondDirectory);
-        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\Utils\Random::generate());
+        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, \_HumbugBox221ad6f1b81f\Nette\Utils\Random::generate());
         $errorBefore = \error_get_last();
-        $exported = @\var_export(new \_PhpScoper2a4e7ab1ecbc\PHPStan\Cache\CacheItem($variableKey, $data), \true);
+        $exported = @\var_export(new \PHPStan\Cache\CacheItem($variableKey, $data), \true);
         $errorAfter = \error_get_last();
         if ($errorAfter !== null && $errorBefore !== $errorAfter) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException(\sprintf('Error occurred while saving item %s (%s) to cache: %s', $key, $variableKey, $errorAfter['message']));
+            throw new \PHPStan\ShouldNotHappenException(\sprintf('Error occurred while saving item %s (%s) to cache: %s', $key, $variableKey, $errorAfter['message']));
         }
-        \_PhpScoper2a4e7ab1ecbc\PHPStan\File\FileWriter::write($tmpPath, \sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", $exported));
+        \PHPStan\File\FileWriter::write($tmpPath, \sprintf("<?php declare(strict_types = 1);\n\nreturn %s;", $exported));
         $renameSuccess = @\rename($tmpPath, $path);
         if ($renameSuccess) {
             return;

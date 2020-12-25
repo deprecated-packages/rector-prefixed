@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
+namespace PHPStan\Node;
 
-class InClassMethodNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode
+class InClassMethodNode extends \PhpParser\Node\Stmt implements \PHPStan\Node\VirtualNode
 {
     /** @var \PhpParser\Node\Stmt\ClassMethod */
     private $originalNode;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $originalNode)
+    public function __construct(\PhpParser\Node\Stmt\ClassMethod $originalNode)
     {
         parent::__construct($originalNode->getAttributes());
         $this->originalNode = $originalNode;
     }
-    public function getOriginalNode() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod
+    public function getOriginalNode() : \PhpParser\Node\Stmt\ClassMethod
     {
         return $this->originalNode;
     }

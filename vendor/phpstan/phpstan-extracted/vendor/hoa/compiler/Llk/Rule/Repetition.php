@@ -33,9 +33,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule;
+namespace Hoa\Compiler\Llk\Rule;
 
-use _PhpScoper2a4e7ab1ecbc\Hoa\Compiler;
+use Hoa\Compiler;
 /**
  * Class \Hoa\Compiler\Llk\Rule\Repetition.
  *
@@ -44,7 +44,7 @@ use _PhpScoper2a4e7ab1ecbc\Hoa\Compiler;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class Repetition extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Rule
+class Repetition extends \Hoa\Compiler\Llk\Rule\Rule
 {
     /**
      * Minimum bound.
@@ -73,7 +73,7 @@ class Repetition extends \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Llk\Rule\Rule
         $min = \max(0, (int) $min);
         $max = \max(-1, (int) $max);
         if (-1 !== $max && $min > $max) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Hoa\Compiler\Exception\Rule('Cannot repeat with a min (%d) greater than max (%d).', 0, [$min, $max]);
+            throw new \Hoa\Compiler\Exception\Rule('Cannot repeat with a min (%d) greater than max (%d).', 0, [$min, $max]);
         }
         $this->_min = $min;
         $this->_max = $max;

@@ -1,37 +1,37 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Defluent\NodeFactory;
+namespace Rector\Defluent\NodeFactory;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FirstAssignFluentCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FluentMethodCalls;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Stmt\Return_;
+use Rector\Defluent\ValueObject\FirstAssignFluentCall;
+use Rector\Defluent\ValueObject\FluentMethodCalls;
 final class SeparateReturnMethodCallFactory
 {
     /**
      * @return Node[]
      */
-    public function createReturnFromFirstAssignFluentCallAndFluentMethodCalls(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall, \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FluentMethodCalls $fluentMethodCalls) : array
+    public function createReturnFromFirstAssignFluentCallAndFluentMethodCalls(\Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall, \Rector\Defluent\ValueObject\FluentMethodCalls $fluentMethodCalls) : array
     {
         $nodesToAdd = [];
-        if (!$firstAssignFluentCall->getAssignExpr() instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\PropertyFetch) {
+        if (!$firstAssignFluentCall->getAssignExpr() instanceof \PhpParser\Node\Expr\PropertyFetch) {
             $nodesToAdd[] = $firstAssignFluentCall->createFirstAssign();
         }
         $decoupledMethodCalls = $this->createNonFluentMethodCalls($fluentMethodCalls->getFluentMethodCalls(), $firstAssignFluentCall, \true);
         $nodesToAdd = \array_merge($nodesToAdd, $decoupledMethodCalls);
         // return the first value
-        $nodesToAdd[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_($firstAssignFluentCall->getAssignExpr());
+        $nodesToAdd[] = new \PhpParser\Node\Stmt\Return_($firstAssignFluentCall->getAssignExpr());
         return $nodesToAdd;
     }
     /**
      * @param MethodCall[] $chainMethodCalls
      * @return MethodCall[]
      */
-    private function createNonFluentMethodCalls(array $chainMethodCalls, \_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall, bool $isNewNodeNeeded) : array
+    private function createNonFluentMethodCalls(array $chainMethodCalls, \Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall, bool $isNewNodeNeeded) : array
     {
         $decoupledMethodCalls = [];
         $lastKey = \array_key_last($chainMethodCalls);
@@ -45,7 +45,7 @@ final class SeparateReturnMethodCallFactory
         }
         return \array_reverse($decoupledMethodCalls);
     }
-    private function resolveMethodCallVar(\_PhpScoper2a4e7ab1ecbc\Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall, int $key) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr
+    private function resolveMethodCallVar(\Rector\Defluent\ValueObject\FirstAssignFluentCall $firstAssignFluentCall, int $key) : \PhpParser\Node\Expr
     {
         if (!$firstAssignFluentCall->isFirstCallFactory()) {
             return $firstAssignFluentCall->getCallerExpr();

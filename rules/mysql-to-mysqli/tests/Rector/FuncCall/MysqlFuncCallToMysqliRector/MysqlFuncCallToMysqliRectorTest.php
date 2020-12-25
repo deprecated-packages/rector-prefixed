@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\MysqlToMysqli\Tests\Rector\FuncCall\MysqlFuncCallToMysqliRector;
+namespace Rector\MysqlToMysqli\Tests\Rector\FuncCall\MysqlFuncCallToMysqliRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\MysqlToMysqli\Rector\FuncCall\MysqlFuncCallToMysqliRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class MysqlFuncCallToMysqliRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\MysqlToMysqli\Rector\FuncCall\MysqlFuncCallToMysqliRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class MysqlFuncCallToMysqliRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class MysqlFuncCallToMysqliRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rect
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\MysqlToMysqli\Rector\FuncCall\MysqlFuncCallToMysqliRector::class;
+        return \Rector\MysqlToMysqli\Rector\FuncCall\MysqlFuncCallToMysqliRector::class;
     }
 }

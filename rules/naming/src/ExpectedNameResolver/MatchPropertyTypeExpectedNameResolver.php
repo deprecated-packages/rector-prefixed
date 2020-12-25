@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Naming\ExpectedNameResolver;
+namespace Rector\Naming\ExpectedNameResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Property;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use _PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-final class MatchPropertyTypeExpectedNameResolver extends \_PhpScoper2a4e7ab1ecbc\Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Property;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Naming\Naming\PropertyNaming;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+final class MatchPropertyTypeExpectedNameResolver extends \Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
 {
     /**
      * @var PropertyNaming
@@ -17,17 +17,17 @@ final class MatchPropertyTypeExpectedNameResolver extends \_PhpScoper2a4e7ab1ecb
     /**
      * @required
      */
-    public function autowireMatchPropertyTypeExpectedNameResolver(\_PhpScoper2a4e7ab1ecbc\Rector\Naming\Naming\PropertyNaming $propertyNaming) : void
+    public function autowireMatchPropertyTypeExpectedNameResolver(\Rector\Naming\Naming\PropertyNaming $propertyNaming) : void
     {
         $this->propertyNaming = $propertyNaming;
     }
     /**
      * @param Property $node
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
+    public function resolve(\PhpParser\Node $node) : ?string
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($phpDocInfo === null) {
             return null;
         }

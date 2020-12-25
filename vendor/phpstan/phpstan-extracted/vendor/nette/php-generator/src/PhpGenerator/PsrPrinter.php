@@ -5,12 +5,12 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\PhpGenerator;
+namespace _HumbugBox221ad6f1b81f\Nette\PhpGenerator;
 
 /**
  * Generates PHP code compatible with PSR-2 and PSR-12.
  */
-final class PsrPrinter extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer
+final class PsrPrinter extends \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer
 {
     /** @var string */
     protected $indentation = '    ';

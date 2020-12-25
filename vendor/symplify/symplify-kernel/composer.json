@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\SymplifyKernel\\": "src"
+            "Symplify\\SymplifyKernel\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\SymplifyKernel\\Tests\\": "tests"
+            "Symplify\\SymplifyKernel\\Tests\\": "tests"
         }
     },
     "extra": {

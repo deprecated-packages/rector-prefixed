@@ -1,28 +1,28 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php55\Rector\String_;
+namespace Rector\Php55\Rector\String_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\ClassExistenceStaticHelper;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Scalar\String_;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticRectorStrings;
+use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/class_name_scalars
  * @see https://github.com/symfony/symfony/blob/2.8/UPGRADE-2.8.md#form
  *
  * @see \Rector\Php55\Tests\Rector\String_\StringClassNameToClassConstantRector\StringClassNameToClassConstantRectorTest
  */
-final class StringClassNameToClassConstantRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class StringClassNameToClassConstantRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -45,9 +45,9 @@ final class StringClassNameToClassConstantRector extends \_PhpScoper2a4e7ab1ecbc
      * @var string[]
      */
     private $sensitiveNonExistingClasses = [];
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace string class names by <class>::class constant', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace string class names by <class>::class constant', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class AnotherClass
 {
 }
@@ -80,14 +80,14 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_::class];
+        return [\PhpParser\Node\Scalar\String_::class];
     }
     /**
      * @param String_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::CLASSNAME_CONSTANT)) {
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::CLASSNAME_CONSTANT)) {
             return null;
         }
         $classLikeName = $node->value;
@@ -99,13 +99,13 @@ CODE_SAMPLE
         if (!$this->classLikeSensitiveExists($classLikeName)) {
             return null;
         }
-        if (\_PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings::isInArrayInsensitive($classLikeName, $this->classesToSkip)) {
+        if (\Rector\Core\Util\StaticRectorStrings::isInArrayInsensitive($classLikeName, $this->classesToSkip)) {
             return null;
         }
-        $fullyQualified = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified($classLikeName);
+        $fullyQualified = new \PhpParser\Node\Name\FullyQualified($classLikeName);
         /** @see \Rector\PostRector\Collector\UseNodesToAddCollector::isShortImported() */
-        $fullyQualified->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO));
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch($fullyQualified, 'class');
+        $fullyQualified->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO));
+        return new \PhpParser\Node\Expr\ClassConstFetch($fullyQualified, 'class');
     }
     public function configure(array $configuration) : void
     {
@@ -115,7 +115,7 @@ CODE_SAMPLE
     }
     private function classLikeSensitiveExists(string $classLikeName) : bool
     {
-        if (!\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($classLikeName)) {
+        if (!\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($classLikeName)) {
             return \false;
         }
         // already known values

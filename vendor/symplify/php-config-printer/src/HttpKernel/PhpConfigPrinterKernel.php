@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\HttpKernel;
+namespace Symplify\PhpConfigPrinter\HttpKernel;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\Loader\LoaderInterface;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class PhpConfigPrinterKernel extends \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel implements \_PhpScoper2a4e7ab1ecbc\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
+use _PhpScoper50d83356d739\Symfony\Component\Config\Loader\LoaderInterface;
+use _PhpScoper50d83356d739\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
+use Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
+use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class PhpConfigPrinterKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel implements \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
 {
     /**
      * @var string[]
      */
     private $configs = [];
-    public function registerContainerConfiguration(\_PhpScoper2a4e7ab1ecbc\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\_PhpScoper50d83356d739\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         foreach ($this->configs as $config) {
@@ -26,7 +26,7 @@ final class PhpConfigPrinterKernel extends \_PhpScoper2a4e7ab1ecbc\Symplify\Symp
      */
     public function registerBundles() : iterable
     {
-        return [new \_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
+        return [new \Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
     }
     /**
      * @param string[] $configs

@@ -13,12 +13,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\AutowireArrayParameter\\": "src"
+            "Symplify\\AutowireArrayParameter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper2a4e7ab1ecbc\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
+            "Symplify\\AutowireArrayParameter\\Tests\\": "tests"
         }
     },
     "extra": {

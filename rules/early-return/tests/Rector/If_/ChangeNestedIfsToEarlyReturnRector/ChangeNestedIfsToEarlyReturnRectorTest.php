@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Tests\Rector\If_\ChangeNestedIfsToEarlyReturnRector;
+namespace Rector\EarlyReturn\Tests\Rector\If_\ChangeNestedIfsToEarlyReturnRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Rector\If_\ChangeNestedIfsToEarlyReturnRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeNestedIfsToEarlyReturnRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\EarlyReturn\Rector\If_\ChangeNestedIfsToEarlyReturnRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeNestedIfsToEarlyReturnRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeNestedIfsToEarlyReturnRectorTest extends \_PhpScoper2a4e7ab1ec
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\EarlyReturn\Rector\If_\ChangeNestedIfsToEarlyReturnRector::class;
+        return \Rector\EarlyReturn\Rector\If_\ChangeNestedIfsToEarlyReturnRector::class;
     }
 }

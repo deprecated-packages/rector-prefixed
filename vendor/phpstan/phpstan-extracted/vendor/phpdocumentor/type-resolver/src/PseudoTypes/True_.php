@@ -9,26 +9,26 @@ declare (strict_types=1);
  *
  * @link https://phpdoc.org
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoTypes;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoTypes;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean;
 use function class_alias;
 /**
  * Value Object representing the PseudoType 'False', which is a Boolean type.
  *
  * @psalm-immutable
  */
-final class True_ extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType
+final class True_ extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType
 {
-    public function underlyingType() : \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    public function underlyingType() : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
-        return new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean();
+        return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean();
     }
     public function __toString() : string
     {
         return 'true';
     }
 }
-\class_alias('_PhpScoper2a4e7ab1ecbc\\_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\PseudoTypes\\True_', '_PhpScoper2a4e7ab1ecbc\\_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\Types\\True_', \false);
+\class_alias('_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\PseudoTypes\\True_', '_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\Types\\True_', \false);

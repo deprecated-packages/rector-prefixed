@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag;
+namespace PHPStan\PhpDoc\Tag;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PHPStan\Type\Generic\TemplateTypeVariance;
+use PHPStan\Type\Type;
 class TemplateTag
 {
     /** @var string */
@@ -13,7 +13,7 @@ class TemplateTag
     private $bound;
     /** @var TemplateTypeVariance */
     private $variance;
-    public function __construct(string $name, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $bound, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance $variance)
+    public function __construct(string $name, \PHPStan\Type\Type $bound, \PHPStan\Type\Generic\TemplateTypeVariance $variance)
     {
         $this->name = $name;
         $this->bound = $bound;
@@ -23,11 +23,11 @@ class TemplateTag
     {
         return $this->name;
     }
-    public function getBound() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getBound() : \PHPStan\Type\Type
     {
         return $this->bound;
     }
-    public function getVariance() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeVariance
+    public function getVariance() : \PHPStan\Type\Generic\TemplateTypeVariance
     {
         return $this->variance;
     }

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Parser;
+namespace PHPStan\Parser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\ErrorHandler;
-class PhpParserDecorator implements \_PhpScoper2a4e7ab1ecbc\PhpParser\Parser
+use PhpParser\ErrorHandler;
+class PhpParserDecorator implements \PhpParser\Parser
 {
     /** @var \PHPStan\Parser\Parser */
     private $wrappedParser;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\Parser $wrappedParser)
+    public function __construct(\PHPStan\Parser\Parser $wrappedParser)
     {
         $this->wrappedParser = $wrappedParser;
     }
@@ -17,16 +17,16 @@ class PhpParserDecorator implements \_PhpScoper2a4e7ab1ecbc\PhpParser\Parser
      * @param \PhpParser\ErrorHandler|null $errorHandler
      * @return \PhpParser\Node\Stmt[]
      */
-    public function parse(string $code, ?\_PhpScoper2a4e7ab1ecbc\PhpParser\ErrorHandler $errorHandler = null) : array
+    public function parse(string $code, ?\PhpParser\ErrorHandler $errorHandler = null) : array
     {
         try {
             return $this->wrappedParser->parseString($code);
-        } catch (\_PhpScoper2a4e7ab1ecbc\PHPStan\Parser\ParserErrorsException $e) {
+        } catch (\PHPStan\Parser\ParserErrorsException $e) {
             $message = $e->getMessage();
             if ($e->getParsedFile() !== null) {
                 $message .= \sprintf(' in file %s', $e->getParsedFile());
             }
-            throw new \_PhpScoper2a4e7ab1ecbc\PhpParser\Error($message);
+            throw new \PhpParser\Error($message);
         }
     }
 }

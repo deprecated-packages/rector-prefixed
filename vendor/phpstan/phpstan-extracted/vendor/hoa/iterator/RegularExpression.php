@@ -33,7 +33,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-namespace _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
+namespace Hoa\Iterator;
 
 /**
  * Class \Hoa\Iterator\RegularExpression.
@@ -47,7 +47,7 @@ namespace _PhpScoper2a4e7ab1ecbc\Hoa\Iterator;
  * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
-class RegularExpression extends \_PhpScoper2a4e7ab1ecbc\Hoa\Iterator\Filter
+class RegularExpression extends \Hoa\Iterator\Filter
 {
     /**
      * Flag: match the entry key instead of the entry value.

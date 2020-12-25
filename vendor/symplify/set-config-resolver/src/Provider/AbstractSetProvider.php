@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Provider;
+namespace Symplify\SetConfigResolver\Provider;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\ValueObject\Set;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-abstract class AbstractSetProvider implements \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Contract\SetProviderInterface
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use Symplify\SetConfigResolver\ValueObject\Set;
+use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+abstract class AbstractSetProvider implements \Symplify\SetConfigResolver\Contract\SetProviderInterface
 {
     /**
      * @return string[]
@@ -22,7 +22,7 @@ abstract class AbstractSetProvider implements \_PhpScoper2a4e7ab1ecbc\Symplify\S
         }
         return $setNames;
     }
-    public function provideByName(string $desiredSetName) : ?\_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\ValueObject\Set
+    public function provideByName(string $desiredSetName) : ?\Symplify\SetConfigResolver\ValueObject\Set
     {
         // 1. name-based approach
         $sets = $this->provide();
@@ -45,16 +45,16 @@ abstract class AbstractSetProvider implements \_PhpScoper2a4e7ab1ecbc\Symplify\S
                 }
                 return $set;
             }
-        } catch (\_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Exception\ShouldNotHappenException $shouldNotHappenException) {
+        } catch (\Symplify\SymplifyKernel\Exception\ShouldNotHappenException $shouldNotHappenException) {
         }
         $message = \sprintf('Set "%s" was not found', $desiredSetName);
-        throw new \_PhpScoper2a4e7ab1ecbc\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
+        throw new \Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
     }
     private function resolveSetUniquePathId(string $setPath) : string
     {
-        $setPath = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
+        $setPath = \_PhpScoper50d83356d739\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
         if ($setPath === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $setPath;
     }

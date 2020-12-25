@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
+namespace Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\MethodReflection;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node\Name;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Type;
+use Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
 /**
  * @see https://github.com/phpstan/phpstan-src/blob/b1fd47bda2a7a7d25091197b125c0adf82af6757/src/Type/Constant/ConstantStringType.php#L147
  */
-final class ConstantStringTypeToCallReflectionResolver implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface
+final class ConstantStringTypeToCallReflectionResolver implements \Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface
 {
     /**
      * Took from https://github.com/phpstan/phpstan-src/blob/8376548f76e2c845ae047e3010e873015b796818/src/Type/Constant/ConstantStringType.php#L158
@@ -29,28 +29,28 @@ final class ConstantStringTypeToCallReflectionResolver implements \_PhpScoper2a4
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function supports(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    public function supports(\PHPStan\Type\Type $type) : bool
     {
-        return $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Constant\ConstantStringType;
+        return $type instanceof \PHPStan\Type\Constant\ConstantStringType;
     }
     /**
      * @param ConstantStringType $type
      * @return FunctionReflection|MethodReflection|null
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type, \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
+    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
     {
         $value = $type->getValue();
         // 'my_function'
-        $name = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name($value);
+        $name = new \PhpParser\Node\Name($value);
         if ($this->reflectionProvider->hasFunction($name, null)) {
             return $this->reflectionProvider->getFunction($name, null);
         }
         // 'MyClass::myStaticFunction'
-        $matches = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($value, self::STATIC_METHOD_REGEX);
+        $matches = \_PhpScoper50d83356d739\Nette\Utils\Strings::match($value, self::STATIC_METHOD_REGEX);
         if ($matches === null) {
             return null;
         }

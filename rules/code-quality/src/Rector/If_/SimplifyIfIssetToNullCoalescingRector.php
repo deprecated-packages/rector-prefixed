@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\If_;
+namespace Rector\CodeQuality\Rector\If_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Coalesce;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Else_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\BinaryOp\Coalesce;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Isset_;
+use PhpParser\Node\Name;
+use PhpParser\Node\Stmt\Else_;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\If_;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQuality\Tests\Rector\If_\SimplifyIfIssetToNullCoalescingRector\SimplifyIfIssetToNullCoalescingRectorTest
  */
-final class SimplifyIfIssetToNullCoalescingRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class SimplifyIfIssetToNullCoalescingRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify binary if to null coalesce', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Simplify binary if to null coalesce', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeController
 {
     public function run($possibleStatieYamlFile)
@@ -53,12 +53,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_::class];
+        return [\PhpParser\Node\Stmt\If_::class];
     }
     /**
      * @param If_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -68,15 +68,15 @@ CODE_SAMPLE
         $valueNode = $issetNode->vars[0];
         // various scenarios
         $ifFirstStmt = $node->stmts[0];
-        if (!$ifFirstStmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        if (!$ifFirstStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
         $else = $node->else;
-        if (!$else instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Else_) {
+        if (!$else instanceof \PhpParser\Node\Stmt\Else_) {
             return null;
         }
         $elseFirstStmt = $else->stmts[0];
-        if (!$elseFirstStmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        if (!$elseFirstStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
         /** @var Assign $firstAssign */
@@ -84,7 +84,7 @@ CODE_SAMPLE
         /** @var Assign $secondAssign */
         $secondAssign = $elseFirstStmt->expr;
         // 1. array_merge
-        if (!$firstAssign->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall) {
+        if (!$firstAssign->expr instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         if (!$this->isName($firstAssign->expr, 'array_merge')) {
@@ -96,11 +96,11 @@ CODE_SAMPLE
         if (!$this->areNodesEqual($secondAssign->expr, $firstAssign->expr->args[1]->value)) {
             return null;
         }
-        $args = [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp\Coalesce($valueNode, new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_([]))), new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($secondAssign->expr)];
-        $funcCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('array_merge'), $args);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($valueNode, $funcCall);
+        $args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\BinaryOp\Coalesce($valueNode, new \PhpParser\Node\Expr\Array_([]))), new \PhpParser\Node\Arg($secondAssign->expr)];
+        $funcCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('array_merge'), $args);
+        return new \PhpParser\Node\Expr\Assign($valueNode, $funcCall);
     }
-    private function shouldSkip(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\If_ $if) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if ($if->else === null) {
             return \true;
@@ -108,7 +108,7 @@ CODE_SAMPLE
         if (\count((array) $if->elseifs) > 1) {
             return \true;
         }
-        if (!$if->cond instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Isset_) {
+        if (!$if->cond instanceof \PhpParser\Node\Expr\Isset_) {
             return \true;
         }
         if (!$this->hasOnlyStatementAssign($if)) {
@@ -118,20 +118,20 @@ CODE_SAMPLE
             return \true;
         }
         $ifStmt = $if->stmts[0];
-        if (!$ifStmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        if (!$ifStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return \true;
         }
-        if (!$ifStmt->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        if (!$ifStmt->expr instanceof \PhpParser\Node\Expr\Assign) {
             return \true;
         }
         if (!$this->areNodesEqual($if->cond->vars[0], $ifStmt->expr->var)) {
             return \true;
         }
         $firstElseStmt = $if->else->stmts[0];
-        if (!$firstElseStmt instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        if (!$firstElseStmt instanceof \PhpParser\Node\Stmt\Expression) {
             return \false;
         }
-        if (!$firstElseStmt->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        if (!$firstElseStmt->expr instanceof \PhpParser\Node\Expr\Assign) {
             return \false;
         }
         return !$this->areNodesEqual($if->cond->vars[0], $firstElseStmt->expr->var);
@@ -139,14 +139,14 @@ CODE_SAMPLE
     /**
      * @param If_|Else_ $node
      */
-    private function hasOnlyStatementAssign(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : bool
+    private function hasOnlyStatementAssign(\PhpParser\Node $node) : bool
     {
         if (\count((array) $node->stmts) !== 1) {
             return \false;
         }
-        if (!$node->stmts[0] instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        if (!$node->stmts[0] instanceof \PhpParser\Node\Stmt\Expression) {
             return \false;
         }
-        return $node->stmts[0]->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
+        return $node->stmts[0]->expr instanceof \PhpParser\Node\Expr\Assign;
     }
 }

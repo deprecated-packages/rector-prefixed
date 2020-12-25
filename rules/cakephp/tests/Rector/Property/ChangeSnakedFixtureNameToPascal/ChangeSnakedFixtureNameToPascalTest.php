@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CakePHP\Tests\Rector\Property\ChangeSnakedFixtureNameToPascal;
+namespace Rector\CakePHP\Tests\Rector\Property\ChangeSnakedFixtureNameToPascal;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\CakePHP\Rector\Property\ChangeSnakedFixtureNameToPascalRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeSnakedFixtureNameToPascalTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\CakePHP\Rector\Property\ChangeSnakedFixtureNameToPascalRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ChangeSnakedFixtureNameToPascalTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ChangeSnakedFixtureNameToPascalTest extends \_PhpScoper2a4e7ab1ecbc\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\CakePHP\Rector\Property\ChangeSnakedFixtureNameToPascalRector::class;
+        return \Rector\CakePHP\Rector\Property\ChangeSnakedFixtureNameToPascalRector::class;
     }
 }

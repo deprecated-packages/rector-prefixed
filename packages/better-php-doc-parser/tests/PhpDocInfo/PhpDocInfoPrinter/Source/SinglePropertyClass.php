@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
+namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\Validator\Constraints as Assert;
+use _PhpScoper50d83356d739\Symfony\Component\Validator\Constraints as Assert;
 final class SinglePropertyClass
 {
     /**

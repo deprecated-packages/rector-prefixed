@@ -1,44 +1,44 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp74\Rector\Array_;
+namespace Rector\DowngradePhp74\Rector\Array_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\Naming\VariableNaming;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Ternary;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Name;
+use PHPStan\Analyser\Scope;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\IterableType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\Type;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NetteKdyby\Naming\VariableNaming;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Traversable;
 /**
  * @see \Rector\DowngradePhp74\Tests\Rector\Array_\DowngradeArraySpreadRector\DowngradeArraySpreadRectorTest
  */
-final class DowngradeArraySpreadRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class DowngradeArraySpreadRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    public function __construct(\Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
     {
         $this->variableNaming = $variableNaming;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace array spread with array_merge function', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace array spread with array_merge function', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -76,29 +76,29 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_::class];
+        return [\PhpParser\Node\Expr\Array_::class];
     }
     /**
      * @param Array_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->shouldRefactor($node)) {
             return null;
         }
         return $this->refactorNode($node);
     }
-    private function shouldRefactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array) : bool
+    private function shouldRefactor(\PhpParser\Node\Expr\Array_ $array) : bool
     {
         // Check that any item in the array is the spread
-        return \array_filter($array->items, function (?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem $item) : bool {
+        return \array_filter($array->items, function (?\PhpParser\Node\Expr\ArrayItem $item) : bool {
             if ($item === null) {
                 return \false;
             }
             return $item->unpack;
         }) !== [];
     }
-    private function refactorNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    private function refactorNode(\PhpParser\Node\Expr\Array_ $array) : \PhpParser\Node
     {
         $newItems = $this->createArrayItems($array);
         // Replace this array node with an `array_merge`
@@ -111,19 +111,19 @@ CODE_SAMPLE
      *    to be added once the next spread is found, or at the end
      * @return ArrayItem[]
      */
-    private function createArrayItems(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array) : array
+    private function createArrayItems(\PhpParser\Node\Expr\Array_ $array) : array
     {
         $newItems = [];
         $accumulatedItems = [];
         /** @var Scope */
-        $nodeScope = $array->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $nodeScope = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         foreach ($array->items as $position => $item) {
             if ($item !== null && $item->unpack) {
                 // Spread operator found
-                if (!$item->value instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable) {
+                if (!$item->value instanceof \PhpParser\Node\Expr\Variable) {
                     // If it is a not variable, transform it to a variable
                     // Keep the original type, will be needed later
-                    $item->setAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_TYPE, $nodeScope->getType($item->value));
+                    $item->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_TYPE, $nodeScope->getType($item->value));
                     $item->value = $this->createVariableFromNonVariable($array, $item, $position);
                 }
                 if ($accumulatedItems !== []) {
@@ -149,17 +149,17 @@ CODE_SAMPLE
      * @see https://wiki.php.net/rfc/spread_operator_for_array
      * @param (ArrayItem|null)[] $items
      */
-    private function createArrayMerge(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array, array $items) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall
+    private function createArrayMerge(\PhpParser\Node\Expr\Array_ $array, array $items) : \PhpParser\Node\Expr\FuncCall
     {
         /** @var Scope */
-        $nodeScope = $array->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('array_merge'), \array_map(function (\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem $item) use($nodeScope) : Arg {
+        $nodeScope = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('array_merge'), \array_map(function (\PhpParser\Node\Expr\ArrayItem $item) use($nodeScope) : Arg {
             if ($item !== null && $item->unpack) {
                 // Do not unpack anymore
                 $item->unpack = \false;
                 return $this->createArgFromSpreadArrayItem($nodeScope, $item);
             }
-            return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($item);
+            return new \PhpParser\Node\Arg($item);
         }, $items));
     }
     /**
@@ -170,28 +170,28 @@ CODE_SAMPLE
      * such as a method executing some side-effect
      * @param int|string $position
      */
-    private function createVariableFromNonVariable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_ $array, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem $arrayItem, $position) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable
+    private function createVariableFromNonVariable(\PhpParser\Node\Expr\Array_ $array, \PhpParser\Node\Expr\ArrayItem $arrayItem, $position) : \PhpParser\Node\Expr\Variable
     {
         /** @var Scope */
-        $nodeScope = $array->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $nodeScope = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         // The variable name will be item0Unpacked, item1Unpacked, etc,
         // depending on their position.
         // The number can't be at the end of the var name, or it would
         // conflict with the counter (for if that name is already taken)
         $variableName = $this->variableNaming->resolveFromNodeWithScopeCountAndFallbackName($array, $nodeScope, 'item' . $position . 'Unpacked');
         // Assign the value to the variable, and replace the element with the variable
-        $newVariable = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Variable($variableName);
-        $this->addNodeBeforeNode(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($newVariable, $arrayItem->value), $array);
+        $newVariable = new \PhpParser\Node\Expr\Variable($variableName);
+        $this->addNodeBeforeNode(new \PhpParser\Node\Expr\Assign($newVariable, $arrayItem->value), $array);
         return $newVariable;
     }
     /**
      * @param (ArrayItem|null)[] $items
      */
-    private function createArrayItem(array $items) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem
+    private function createArrayItem(array $items) : \PhpParser\Node\Expr\ArrayItem
     {
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Array_($items));
+        return new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\Array_($items));
     }
-    private function createArgFromSpreadArrayItem(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $nodeScope, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ArrayItem $arrayItem) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg
+    private function createArgFromSpreadArrayItem(\PHPStan\Analyser\Scope $nodeScope, \PhpParser\Node\Expr\ArrayItem $arrayItem) : \PhpParser\Node\Arg
     {
         // By now every item is a variable
         /** @var Variable */
@@ -199,30 +199,30 @@ CODE_SAMPLE
         $variableName = $this->getName($variable) ?? '';
         // If the variable is not in scope, it's one we just added.
         // Then get the type from the attribute
-        $type = $nodeScope->hasVariableType($variableName)->yes() ? $nodeScope->getVariableType($variableName) : $arrayItem->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_TYPE);
-        $iteratorToArrayFuncCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('iterator_to_array'), [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($arrayItem)]);
+        $type = $nodeScope->hasVariableType($variableName)->yes() ? $nodeScope->getVariableType($variableName) : $arrayItem->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_TYPE);
+        $iteratorToArrayFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('iterator_to_array'), [new \PhpParser\Node\Arg($arrayItem)]);
         if ($type !== null) {
             // If we know it is an array, then print it directly
             // Otherwise PHPStan throws an error:
             // "Else branch is unreachable because ternary operator condition is always true."
-            if ($type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ArrayType) {
-                return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($arrayItem);
+            if ($type instanceof \PHPStan\Type\ArrayType) {
+                return new \PhpParser\Node\Arg($arrayItem);
             }
             // If it is iterable, then directly return `iterator_to_array`
             if ($this->isIterableType($type)) {
-                return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($iteratorToArrayFuncCall);
+                return new \PhpParser\Node\Arg($iteratorToArrayFuncCall);
             }
         }
         // Print a ternary, handling either an array or an iterator
-        $inArrayFuncCall = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name('is_array'), [new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg($arrayItem)]);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Arg(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Ternary($inArrayFuncCall, $arrayItem, $iteratorToArrayFuncCall));
+        $inArrayFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_array'), [new \PhpParser\Node\Arg($arrayItem)]);
+        return new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Ternary($inArrayFuncCall, $arrayItem, $iteratorToArrayFuncCall));
     }
     /**
      * Iterables: either objects declaring the interface Traversable,
      * or the pseudo-type iterable
      */
-    private function isIterableType(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $type) : bool
+    private function isIterableType(\PHPStan\Type\Type $type) : bool
     {
-        return $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\IterableType || $type instanceof \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType && \is_a($type->getClassName(), \Traversable::class, \true);
+        return $type instanceof \PHPStan\Type\IterableType || $type instanceof \PHPStan\Type\ObjectType && \is_a($type->getClassName(), \Traversable::class, \true);
     }
 }

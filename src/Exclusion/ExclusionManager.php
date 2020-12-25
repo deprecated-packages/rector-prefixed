@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Core\Exclusion;
+namespace Rector\Core\Exclusion;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Exclusion\ExclusionCheckInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\PhpRectorInterface;
+use PhpParser\Node;
+use Rector\Core\Contract\Exclusion\ExclusionCheckInterface;
+use Rector\Core\Contract\Rector\PhpRectorInterface;
 final class ExclusionManager
 {
     /**
@@ -19,7 +19,7 @@ final class ExclusionManager
     {
         $this->exclusionChecks = $exclusionChecks;
     }
-    public function isNodeSkippedByRector(\_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $onNode) : bool
+    public function isNodeSkippedByRector(\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector, \PhpParser\Node $onNode) : bool
     {
         foreach ($this->exclusionChecks as $exclusionCheck) {
             if ($exclusionCheck->isNodeSkippedByRector($phpRector, $onNode)) {

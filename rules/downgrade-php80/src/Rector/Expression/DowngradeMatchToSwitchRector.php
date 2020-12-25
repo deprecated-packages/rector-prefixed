@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\DowngradePhp80\Rector\Expression;
+namespace Rector\DowngradePhp80\Rector\Expression;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Match_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\MatchArm;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Break_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Case_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\Match_;
+use PhpParser\Node\MatchArm;
+use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\Break_;
+use PhpParser\Node\Stmt\Case_;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Switch_;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/match_expression_v2
  *
  * @see \Rector\DowngradePhp80\Tests\Rector\Expression\DowngradeMatchToSwitchRector\DowngradeMatchToSwitchRectorTest
  */
-final class DowngradeMatchToSwitchRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class DowngradeMatchToSwitchRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade match() to switch()', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Downgrade match() to switch()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -66,46 +66,46 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression::class];
+        return [\PhpParser\Node\Stmt\Expression::class];
     }
     /**
      * @param Expression $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$node->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
+        if (!$node->expr instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
         $assign = $node->expr;
-        if (!$assign->expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Match_) {
+        if (!$assign->expr instanceof \PhpParser\Node\Expr\Match_) {
             return null;
         }
         /** @var Match_ $match */
         $match = $assign->expr;
         $switchCases = $this->createSwitchCasesFromMatchArms((array) $match->arms, $assign->var);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_($match->cond, $switchCases);
+        return new \PhpParser\Node\Stmt\Switch_($match->cond, $switchCases);
     }
     /**
      * @param MatchArm[] $matchArms
      * @return Case_[]
      */
-    private function createSwitchCasesFromMatchArms(array $matchArms, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $assignVarExpr) : array
+    private function createSwitchCasesFromMatchArms(array $matchArms, \PhpParser\Node\Expr $assignVarExpr) : array
     {
         $switchCases = [];
         foreach ($matchArms as $matchArm) {
             if (\count((array) $matchArm->conds) > 1) {
                 $lastCase = null;
                 foreach ((array) $matchArm->conds as $matchArmCond) {
-                    $lastCase = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Case_($matchArmCond);
+                    $lastCase = new \PhpParser\Node\Stmt\Case_($matchArmCond);
                     $switchCases[] = $lastCase;
                 }
-                if (!$lastCase instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Case_) {
-                    throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException();
+                if (!$lastCase instanceof \PhpParser\Node\Stmt\Case_) {
+                    throw new \Rector\Core\Exception\ShouldNotHappenException();
                 }
                 $lastCase->stmts = $this->createSwitchStmts($matchArm, $assignVarExpr);
             } else {
                 $stmts = $this->createSwitchStmts($matchArm, $assignVarExpr);
-                $switchCases[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Case_($matchArm->conds[0] ?? null, $stmts);
+                $switchCases[] = new \PhpParser\Node\Stmt\Case_($matchArm->conds[0] ?? null, $stmts);
             }
         }
         return $switchCases;
@@ -113,11 +113,11 @@ CODE_SAMPLE
     /**
      * @return Stmt[]
      */
-    private function createSwitchStmts(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\MatchArm $matchArm, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr $assignVarExpr) : array
+    private function createSwitchStmts(\PhpParser\Node\MatchArm $matchArm, \PhpParser\Node\Expr $assignVarExpr) : array
     {
         $stmts = [];
-        $stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign($assignVarExpr, $matchArm->body));
-        $stmts[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Break_();
+        $stmts[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\Assign($assignVarExpr, $matchArm->body));
+        $stmts[] = new \PhpParser\Node\Stmt\Break_();
         return $stmts;
     }
 }

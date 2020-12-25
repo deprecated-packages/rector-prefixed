@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\RemovingStatic\ValueObject;
+namespace Rector\RemovingStatic\ValueObject;
 
 final class PHPUnitClass
 {
     /**
      * @var string
      */
-    public const TEST_CASE = '_PhpScoper2a4e7ab1ecbc\\PHPUnit\\Framework\\TestCase';
+    public const TEST_CASE = '_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase';
 }

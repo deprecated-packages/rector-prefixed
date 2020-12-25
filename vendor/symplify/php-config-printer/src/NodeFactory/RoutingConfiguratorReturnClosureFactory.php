@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\NodeFactory;
+namespace Symplify\PhpConfigPrinter\NodeFactory;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Return_;
+use Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
+use Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory;
 final class RoutingConfiguratorReturnClosureFactory
 {
     /**
@@ -20,16 +20,16 @@ final class RoutingConfiguratorReturnClosureFactory
     /**
      * @param RoutingCaseConverterInterface[] $routingCaseConverters
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $containerConfiguratorClosureNodeFactory, array $routingCaseConverters)
+    public function __construct(\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $containerConfiguratorClosureNodeFactory, array $routingCaseConverters)
     {
         $this->containerConfiguratorClosureNodeFactory = $containerConfiguratorClosureNodeFactory;
         $this->routingCaseConverters = $routingCaseConverters;
     }
-    public function createFromArrayData(array $arrayData) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_
+    public function createFromArrayData(array $arrayData) : \PhpParser\Node\Stmt\Return_
     {
         $stmts = $this->createClosureStmts($arrayData);
         $closure = $this->containerConfiguratorClosureNodeFactory->createRoutingClosureFromStmts($stmts);
-        return new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_($closure);
+        return new \PhpParser\Node\Stmt\Return_($closure);
     }
     /**
      * @return Node[]

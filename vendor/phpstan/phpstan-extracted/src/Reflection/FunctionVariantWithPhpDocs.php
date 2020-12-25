@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-class FunctionVariantWithPhpDocs extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\FunctionVariant implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ParametersAcceptorWithPhpDocs
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Type;
+class FunctionVariantWithPhpDocs extends \PHPStan\Reflection\FunctionVariant implements \PHPStan\Reflection\ParametersAcceptorWithPhpDocs
 {
     /** @var Type */
     private $phpDocReturnType;
@@ -19,7 +19,7 @@ class FunctionVariantWithPhpDocs extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
      * @param Type $phpDocReturnType
      * @param Type $nativeReturnType
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, array $parameters, bool $isVariadic, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $returnType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $phpDocReturnType, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type $nativeReturnType)
+    public function __construct(\PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, ?\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, array $parameters, bool $isVariadic, \PHPStan\Type\Type $returnType, \PHPStan\Type\Type $phpDocReturnType, \PHPStan\Type\Type $nativeReturnType)
     {
         parent::__construct($templateTypeMap, $resolvedTemplateTypeMap, $parameters, $isVariadic, $returnType);
         $this->phpDocReturnType = $phpDocReturnType;
@@ -34,11 +34,11 @@ class FunctionVariantWithPhpDocs extends \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflect
         $parameters = parent::getParameters();
         return $parameters;
     }
-    public function getPhpDocReturnType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getPhpDocReturnType() : \PHPStan\Type\Type
     {
         return $this->phpDocReturnType;
     }
-    public function getNativeReturnType() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type
+    public function getNativeReturnType() : \PHPStan\Type\Type
     {
         return $this->nativeReturnType;
     }

@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodingStyle\Rector\String_;
+namespace Rector\CodingStyle\Rector\String_;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Scalar\String_;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\String_\UseClassKeywordForClassNameResolutionRector\UseClassKeywordForClassNameResolutionRectorTest
  */
-final class UseClassKeywordForClassNameResolutionRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class UseClassKeywordForClassNameResolutionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string
      * @see https://regex101.com/r/Vv41Qr/1/
      */
     private const CLASS_BEFORE_STATIC_ACCESS_REGEX = '#(?<class_name>[\\\\a-zA-Z0-9_\\x80-\\xff]*)::#';
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use `class` keyword for class name resolution in string instead of hardcoded string reference', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use `class` keyword for class name resolution in string instead of hardcoded string reference', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $value = 'App\SomeClass::someMethod()';
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -36,12 +36,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_::class];
+        return [\PhpParser\Node\Scalar\String_::class];
     }
     /**
      * @param String_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classNames = $this->getExistingClasses($node);
         if ($classNames === []) {
@@ -57,10 +57,10 @@ CODE_SAMPLE
     /**
      * @return string[]
      */
-    public function getExistingClasses(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string) : array
+    public function getExistingClasses(\PhpParser\Node\Scalar\String_ $string) : array
     {
         /** @var mixed[] $matches */
-        $matches = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::matchAll($string->value, self::CLASS_BEFORE_STATIC_ACCESS_REGEX, \PREG_PATTERN_ORDER);
+        $matches = \_PhpScoper50d83356d739\Nette\Utils\Strings::matchAll($string->value, self::CLASS_BEFORE_STATIC_ACCESS_REGEX, \PREG_PATTERN_ORDER);
         if (!isset($matches['class_name'])) {
             return [];
         }
@@ -77,13 +77,13 @@ CODE_SAMPLE
      * @param string[] $classNames
      * @return mixed[]
      */
-    public function getParts(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_ $string, array $classNames) : array
+    public function getParts(\PhpParser\Node\Scalar\String_ $string, array $classNames) : array
     {
         $classNames = \array_map(function (string $className) : string {
             return \preg_quote($className);
         }, $classNames);
         // @see https://regex101.com/r/8nGS0F/1
-        $parts = \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::split($string->value, '#(' . \implode('|', $classNames) . ')#');
+        $parts = \_PhpScoper50d83356d739\Nette\Utils\Strings::split($string->value, '#(' . \implode('|', $classNames) . ')#');
         return \array_filter($parts, function (string $className) : bool {
             return $className !== '';
         });
@@ -97,9 +97,9 @@ CODE_SAMPLE
         $exprsToConcat = [];
         foreach ($parts as $part) {
             if (\class_exists($part)) {
-                $exprsToConcat[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\ClassConstFetch(new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Name\FullyQualified(\ltrim($part, '\\')), 'class');
+                $exprsToConcat[] = new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name\FullyQualified(\ltrim($part, '\\')), 'class');
             } else {
-                $exprsToConcat[] = new \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\String_($part);
+                $exprsToConcat[] = new \PhpParser\Node\Scalar\String_($part);
             }
         }
         return $exprsToConcat;

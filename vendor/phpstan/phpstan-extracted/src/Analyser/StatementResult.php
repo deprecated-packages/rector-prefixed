@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt;
 class StatementResult
 {
     /** @var MutatingScope */
@@ -20,14 +20,14 @@ class StatementResult
      * @param bool $isAlwaysTerminating
      * @param StatementExitPoint[] $exitPoints
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\MutatingScope $scope, bool $hasYield, bool $isAlwaysTerminating, array $exitPoints)
+    public function __construct(\PHPStan\Analyser\MutatingScope $scope, bool $hasYield, bool $isAlwaysTerminating, array $exitPoints)
     {
         $this->scope = $scope;
         $this->hasYield = $hasYield;
         $this->isAlwaysTerminating = $isAlwaysTerminating;
         $this->exitPoints = $exitPoints;
     }
-    public function getScope() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\MutatingScope
+    public function getScope() : \PHPStan\Analyser\MutatingScope
     {
         return $this->scope;
     }
@@ -46,7 +46,7 @@ class StatementResult
         }
         foreach ($this->exitPoints as $exitPoint) {
             $statement = $exitPoint->getStatement();
-            if ($statement instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Break_ || $statement instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Continue_) {
+            if ($statement instanceof \PhpParser\Node\Stmt\Break_ || $statement instanceof \PhpParser\Node\Stmt\Continue_) {
                 return new self($this->scope, $this->hasYield, \false, $this->exitPoints);
             }
         }

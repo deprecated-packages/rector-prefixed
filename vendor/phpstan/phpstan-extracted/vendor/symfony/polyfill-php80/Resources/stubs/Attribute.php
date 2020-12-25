@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f;
+namespace _HumbugBox221ad6f1b81f;
 
 #[Attribute(Attribute::TARGET_CLASS)]
 final class Attribute
@@ -15,7 +15,7 @@ final class Attribute
     const IS_REPEATABLE = 64;
     /** @var int */
     public $flags;
-    public function __construct(int $flags = \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Attribute::TARGET_ALL)
+    public function __construct(int $flags = \_HumbugBox221ad6f1b81f\Attribute::TARGET_ALL)
     {
         $this->flags = $flags;
     }

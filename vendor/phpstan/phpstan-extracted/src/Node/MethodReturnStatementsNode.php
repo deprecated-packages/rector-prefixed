@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
+namespace PHPStan\Node;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\StatementResult;
-class MethodReturnStatementsNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\ReturnStatementsNode
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\NodeAbstract;
+use PHPStan\Analyser\StatementResult;
+class MethodReturnStatementsNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\ReturnStatementsNode
 {
     /** @var ClassMethod */
     private $classMethod;
@@ -19,7 +19,7 @@ class MethodReturnStatementsNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeA
      * @param \PHPStan\Node\ReturnStatement[] $returnStatements
      * @param \PHPStan\Analyser\StatementResult $statementResult
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassMethod $method, array $returnStatements, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\StatementResult $statementResult)
+    public function __construct(\PhpParser\Node\Stmt\ClassMethod $method, array $returnStatements, \PHPStan\Analyser\StatementResult $statementResult)
     {
         parent::__construct($method->getAttributes());
         $this->classMethod = $method;
@@ -33,7 +33,7 @@ class MethodReturnStatementsNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeA
     {
         return $this->returnStatements;
     }
-    public function getStatementResult() : \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\StatementResult
+    public function getStatementResult() : \PHPStan\Analyser\StatementResult
     {
         return $this->statementResult;
     }

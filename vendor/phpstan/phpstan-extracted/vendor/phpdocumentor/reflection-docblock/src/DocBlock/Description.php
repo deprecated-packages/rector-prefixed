@@ -10,11 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter;
+use _HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Object representing to description for a DocBlock.
  *
@@ -61,7 +61,7 @@ class Description
      */
     public function __construct($bodyTemplate, array $tags = [])
     {
-        \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($bodyTemplate);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($bodyTemplate);
         $this->bodyTemplate = $bodyTemplate;
         $this->tags = $tags;
     }
@@ -82,10 +82,10 @@ class Description
      *
      * @return string
      */
-    public function render(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null)
+    public function render(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null)
     {
         if ($formatter === null) {
-            $formatter = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+            $formatter = new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
         }
         $tags = [];
         foreach ($this->tags as $tag) {

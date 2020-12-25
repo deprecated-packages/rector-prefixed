@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Order\ValueObject;
+namespace Rector\Order\ValueObject;
 
 final class PropertyNameRankAndPosition
 {

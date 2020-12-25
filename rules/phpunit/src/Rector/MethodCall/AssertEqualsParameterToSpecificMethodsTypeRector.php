@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PHPUnit\Rector\MethodCall;
+namespace Rector\PHPUnit\Rector\MethodCall;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use Rector\Core\Rector\AbstractPHPUnitRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-8.0.md
  * @see https://github.com/sebastianbergmann/phpunit/commit/90e9e0379584bdf34220322e202617cd56d8ba65
  * @see https://github.com/sebastianbergmann/phpunit/commit/a4b60a5c625ff98a52bb3222301d223be7367483
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertEqualsParameterToSpecificMethodsTypeRector\AssertEqualsParameterToSpecificMethodsTypeRectorTest
  */
-final class AssertEqualsParameterToSpecificMethodsTypeRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertEqualsParameterToSpecificMethodsTypeRector extends \Rector\Core\Rector\AbstractPHPUnitRector
 {
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertEquals()/assertNotEquals() method parameters to new specific alternatives', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change assertEquals()/assertNotEquals() method parameters to new specific alternatives', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()
@@ -58,12 +58,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\MethodCall::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\StaticCall::class];
+        return [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class];
     }
     /**
      * @param MethodCall|StaticCall $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isPHPUnitMethodNames($node, ['assertEquals', 'assertNotEquals'])) {
             return null;
@@ -84,7 +84,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processAssertEqualsIgnoringCase(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function processAssertEqualsIgnoringCase(\PhpParser\Node $node) : void
     {
         if (isset($node->args[6])) {
             if ($this->isTrue($node->args[6]->value)) {
@@ -100,7 +100,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processAssertEqualsCanonicalizing(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function processAssertEqualsCanonicalizing(\PhpParser\Node $node) : void
     {
         if (isset($node->args[5])) {
             // add new node only in case of non-default value
@@ -117,7 +117,7 @@ CODE_SAMPLE
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function processAssertEqualsWithDelta(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : void
+    private function processAssertEqualsWithDelta(\PhpParser\Node $node) : void
     {
         if (isset($node->args[3])) {
             // add new node only in case of non-default value

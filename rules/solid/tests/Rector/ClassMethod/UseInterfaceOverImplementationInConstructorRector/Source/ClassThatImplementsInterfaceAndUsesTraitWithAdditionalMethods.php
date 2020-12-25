@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source;
+namespace Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source;
 
-final class ClassThatImplementsInterfaceAndUsesTraitWithAdditionalMethods implements \_PhpScoper2a4e7ab1ecbc\Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source\InterfaceFive
+final class ClassThatImplementsInterfaceAndUsesTraitWithAdditionalMethods implements \Rector\SOLID\Tests\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector\Source\InterfaceFive
 {
     use TraitOne;
     public function methodFromInterface() : void

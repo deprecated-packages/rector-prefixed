@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap;
+namespace PHPStan\Reflection\SignatureMap;
 
 interface SignatureMapProvider
 {
     public function hasMethodSignature(string $className, string $methodName, int $variant = 0) : bool;
     public function hasFunctionSignature(string $name, int $variant = 0) : bool;
-    public function getMethodSignature(string $className, string $methodName, ?\ReflectionMethod $reflectionMethod, int $variant = 0) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature;
-    public function getFunctionSignature(string $functionName, ?string $className, int $variant = 0) : \_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\SignatureMap\FunctionSignature;
+    public function getMethodSignature(string $className, string $methodName, ?\ReflectionMethod $reflectionMethod, int $variant = 0) : \PHPStan\Reflection\SignatureMap\FunctionSignature;
+    public function getFunctionSignature(string $functionName, ?string $className, int $variant = 0) : \PHPStan\Reflection\SignatureMap\FunctionSignature;
     public function hasMethodMetadata(string $className, string $methodName) : bool;
     public function hasFunctionMetadata(string $name) : bool;
     /**

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc;
+namespace _PhpScoper50d83356d739;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\ConstExprParser;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\PhpDocParser;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TypeParser;
-use _PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoper2a4e7ab1ecbc\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\Parser\ConstExprParser;
+use PHPStan\PhpDocParser\Parser\PhpDocParser;
+use PHPStan\PhpDocParser\Parser\TypeParser;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('Symplify\\SimplePhpDocParser\\', __DIR__ . '/../src');
-    $services->set(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\PhpDocParser::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Lexer\Lexer::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\TypeParser::class);
-    $services->set(\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Parser\ConstExprParser::class);
+    $services->set(\PHPStan\PhpDocParser\Parser\PhpDocParser::class);
+    $services->set(\PHPStan\PhpDocParser\Lexer\Lexer::class);
+    $services->set(\PHPStan\PhpDocParser\Parser\TypeParser::class);
+    $services->set(\PHPStan\PhpDocParser\Parser\ConstExprParser::class);
 };

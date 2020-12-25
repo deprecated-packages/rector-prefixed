@@ -1,35 +1,35 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Legacy\Rector\Class_;
+namespace Rector\Legacy\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName;
-use _PhpScoper2a4e7ab1ecbc\Rector\Legacy\NodeAnalyzer\SingletonClassMethodAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\Legacy\ValueObject\PropertyAndClassMethodName;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\MethodName;
+use Rector\Legacy\NodeAnalyzer\SingletonClassMethodAnalyzer;
+use Rector\Legacy\ValueObject\PropertyAndClassMethodName;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/lifbH
  * @see https://stackoverflow.com/a/203359/1348344
  * @see http://cleancode.blog/2017/07/20/how-to-avoid-many-instances-in-singleton-pattern/
  * @see \Rector\Legacy\Tests\Rector\Class_\ChangeSingletonToServiceRector\ChangeSingletonToServiceRectorTest
  */
-final class ChangeSingletonToServiceRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class ChangeSingletonToServiceRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var SingletonClassMethodAnalyzer
      */
     private $singletonClassMethodAnalyzer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\Legacy\NodeAnalyzer\SingletonClassMethodAnalyzer $singletonClassMethodAnalyzer)
+    public function __construct(\Rector\Legacy\NodeAnalyzer\SingletonClassMethodAnalyzer $singletonClassMethodAnalyzer)
     {
         $this->singletonClassMethodAnalyzer = $singletonClassMethodAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change singleton class to normal class that can be registered as a service', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change singleton class to normal class that can be registered as a service', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     private static $instance;
@@ -63,12 +63,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node->isAnonymous()) {
             return null;
@@ -79,7 +79,7 @@ CODE_SAMPLE
         }
         return $this->refactorClassStmts($node, $propertyAndClassMethodName);
     }
-    private function matchStaticPropertyFetchAndGetSingletonMethodName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : ?\_PhpScoper2a4e7ab1ecbc\Rector\Legacy\ValueObject\PropertyAndClassMethodName
+    private function matchStaticPropertyFetchAndGetSingletonMethodName(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\Legacy\ValueObject\PropertyAndClassMethodName
     {
         foreach ($class->getMethods() as $classMethod) {
             if (!$classMethod->isStatic()) {
@@ -93,18 +93,18 @@ CODE_SAMPLE
             $propertyName = $this->getName($staticPropertyFetch);
             /** @var string $classMethodName */
             $classMethodName = $this->getName($classMethod);
-            return new \_PhpScoper2a4e7ab1ecbc\Rector\Legacy\ValueObject\PropertyAndClassMethodName($propertyName, $classMethodName);
+            return new \Rector\Legacy\ValueObject\PropertyAndClassMethodName($propertyName, $classMethodName);
         }
         return null;
     }
-    private function refactorClassStmts(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, \_PhpScoper2a4e7ab1ecbc\Rector\Legacy\ValueObject\PropertyAndClassMethodName $propertyAndClassMethodName) : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_
+    private function refactorClassStmts(\PhpParser\Node\Stmt\Class_ $class, \Rector\Legacy\ValueObject\PropertyAndClassMethodName $propertyAndClassMethodName) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getMethods() as $classMethod) {
             if ($this->isName($classMethod, $propertyAndClassMethodName->getClassMethodName())) {
                 $this->removeNodeFromStatements($class, $classMethod);
                 continue;
             }
-            if (!$this->isNames($classMethod, [\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\MethodName::CONSTRUCT, '__clone', '__wakeup'])) {
+            if (!$this->isNames($classMethod, [\Rector\Core\ValueObject\MethodName::CONSTRUCT, '__clone', '__wakeup'])) {
                 continue;
             }
             if ($classMethod->isPublic()) {
@@ -120,7 +120,7 @@ CODE_SAMPLE
         $this->removePropertyByName($class, $propertyAndClassMethodName->getPropertyName());
         return $class;
     }
-    private function removePropertyByName(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : void
+    private function removePropertyByName(\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : void
     {
         foreach ($class->getProperties() as $property) {
             if (!$this->isName($property, $propertyName)) {

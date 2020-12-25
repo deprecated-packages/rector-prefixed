@@ -1,13 +1,13 @@
 <?php
 
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7;
+namespace _HumbugBox221ad6f1b81f\RingCentral\Psr7;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that can cache previously read bytes from a sequentially
  * read stream.
  */
-class CachingStream extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\StreamDecoratorTrait implements \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
+class CachingStream extends \_HumbugBox221ad6f1b81f\RingCentral\Psr7\StreamDecoratorTrait implements \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
 {
     /** @var StreamInterface Stream being wrapped */
     private $remoteStream;
@@ -19,10 +19,10 @@ class CachingStream extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingC
      * @param StreamInterface $stream Stream to cache
      * @param StreamInterface $target Optionally specify where data is cached
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $stream, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $target = null)
+    public function __construct(\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $stream, \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $target = null)
     {
         $this->remoteStream = $stream;
-        parent::__construct($target ?: new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\Stream(\fopen('php://temp', 'r+')));
+        parent::__construct($target ?: new \_HumbugBox221ad6f1b81f\RingCentral\Psr7\Stream(\fopen('php://temp', 'r+')));
     }
     public function getSize()
     {
@@ -105,7 +105,7 @@ class CachingStream extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingC
     }
     private function cacheEntireStream()
     {
-        $target = new \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\RingCentral\Psr7\FnStream(array('write' => 'strlen'));
+        $target = new \_HumbugBox221ad6f1b81f\RingCentral\Psr7\FnStream(array('write' => 'strlen'));
         copy_to_stream($this, $target);
         return $this->tell();
     }

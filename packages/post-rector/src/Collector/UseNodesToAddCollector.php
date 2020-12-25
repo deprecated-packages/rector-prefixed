@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Collector;
+namespace Rector\PostRector\Collector;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Rector\PostRector\Contract\Collector\NodeCollectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
-use _PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class UseNodesToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\PostRector\Contract\Collector\NodeCollectorInterface
+use PhpParser\Node;
+use PHPStan\Type\ObjectType;
+use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
+use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
      * @var string[][]
@@ -29,7 +29,7 @@ final class UseNodesToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
      * @var FullyQualifiedObjectType[][]|AliasedObjectType[][]
      */
     private $useImportTypesInFilePath = [];
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
+    public function __construct(\Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
     {
         $this->currentFileInfoProvider = $currentFileInfoProvider;
     }
@@ -40,10 +40,10 @@ final class UseNodesToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
     /**
      * @param FullyQualifiedObjectType|AliasedObjectType $objectType
      */
-    public function addUseImport(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $positionNode, \_PhpScoper2a4e7ab1ecbc\PHPStan\Type\ObjectType $objectType) : void
+    public function addUseImport(\PhpParser\Node $positionNode, \PHPStan\Type\ObjectType $objectType) : void
     {
         /** @var SmartFileInfo|null $fileInfo */
-        $fileInfo = $positionNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $fileInfo = $positionNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($fileInfo === null) {
             // fallback for freshly created Name nodes
             $fileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
@@ -53,22 +53,22 @@ final class UseNodesToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
         }
         $this->useImportTypesInFilePath[$fileInfo->getRealPath()][] = $objectType;
     }
-    public function addFunctionUseImport(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : void
+    public function addFunctionUseImport(\PhpParser\Node $node, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : void
     {
         /** @var SmartFileInfo $fileInfo */
-        $fileInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         $this->functionUseImportTypesInFilePath[$fileInfo->getRealPath()][] = $fullyQualifiedObjectType;
     }
-    public function removeShortUse(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $shortUse) : void
+    public function removeShortUse(\PhpParser\Node $node, string $shortUse) : void
     {
         /** @var SmartFileInfo|null $fileInfo */
-        $fileInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($fileInfo === null) {
             return;
         }
         $this->removedShortUsesInFilePath[$fileInfo->getRealPath()][] = $shortUse;
     }
-    public function clear(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function clear(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         // clear applied imports, so isActive() doesn't return any false positives
         unset($this->useImportTypesInFilePath[$smartFileInfo->getRealPath()], $this->functionUseImportTypesInFilePath[$smartFileInfo->getRealPath()]);
@@ -76,12 +76,12 @@ final class UseNodesToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
     /**
      * @return AliasedObjectType[]|FullyQualifiedObjectType[]
      */
-    public function getUseImportTypesByNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : array
+    public function getUseImportTypesByNode(\PhpParser\Node $node) : array
     {
         $filePath = $this->getRealPathFromNode($node);
         return $this->useImportTypesInFilePath[$filePath] ?? [];
     }
-    public function hasImport(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
+    public function hasImport(\PhpParser\Node $node, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
     {
         $useImports = $this->getUseImportTypesByNode($node);
         foreach ($useImports as $useImport) {
@@ -91,7 +91,7 @@ final class UseNodesToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
         }
         return \false;
     }
-    public function isShortImported(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
+    public function isShortImported(\PhpParser\Node $node, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
     {
         $filePath = $this->getRealPathFromNode($node);
         if ($filePath === null) {
@@ -109,7 +109,7 @@ final class UseNodesToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
         }
         return \false;
     }
-    public function isImportShortable(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
+    public function isImportShortable(\PhpParser\Node $node, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : bool
     {
         $filePath = $this->getRealPathFromNode($node);
         $fileUseImportTypes = $this->useImportTypesInFilePath[$filePath] ?? [];
@@ -129,28 +129,28 @@ final class UseNodesToAddCollector implements \_PhpScoper2a4e7ab1ecbc\Rector\Pos
     /**
      * @return AliasedObjectType[]|FullyQualifiedObjectType[]
      */
-    public function getObjectImportsByFileInfo(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getObjectImportsByFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         return $this->useImportTypesInFilePath[$smartFileInfo->getRealPath()] ?? [];
     }
     /**
      * @return FullyQualifiedObjectType[]
      */
-    public function getFunctionImportsByFileInfo(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getFunctionImportsByFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         return $this->functionUseImportTypesInFilePath[$smartFileInfo->getRealPath()] ?? [];
     }
     /**
      * @return string[]
      */
-    public function getShortUsesByFileInfo(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getShortUsesByFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         return $this->removedShortUsesInFilePath[$smartFileInfo->getRealPath()] ?? [];
     }
-    private function getRealPathFromNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?string
+    private function getRealPathFromNode(\PhpParser\Node $node) : ?string
     {
         /** @var SmartFileInfo|null $fileInfo */
-        $fileInfo = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         if ($fileInfo !== null) {
             return $fileInfo->getRealPath();
         }

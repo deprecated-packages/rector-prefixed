@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php72\Tests\Rector\FuncCall\IsObjectOnIncompleteClassRector;
+namespace Rector\Php72\Tests\Rector\FuncCall\IsObjectOnIncompleteClassRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\FuncCall\IsObjectOnIncompleteClassRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class IsObjectOnIncompleteClassRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Php72\Rector\FuncCall\IsObjectOnIncompleteClassRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class IsObjectOnIncompleteClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class IsObjectOnIncompleteClassRectorTest extends \_PhpScoper2a4e7ab1ecbc\
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Php72\Rector\FuncCall\IsObjectOnIncompleteClassRector::class;
+        return \Rector\Php72\Rector\FuncCall\IsObjectOnIncompleteClassRector::class;
     }
 }

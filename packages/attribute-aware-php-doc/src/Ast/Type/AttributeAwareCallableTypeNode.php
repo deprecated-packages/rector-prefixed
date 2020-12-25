@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\AttributeAwarePhpDoc\Ast\Type;
+namespace Rector\AttributeAwarePhpDoc\Ast\Type;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\CallableTypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
-use _PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
-final class AttributeAwareCallableTypeNode extends \_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDocParser\Ast\Type\CallableTypeNode implements \_PhpScoper2a4e7ab1ecbc\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PHPStan\PhpDocParser\Ast\Type\CallableTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+final class AttributeAwareCallableTypeNode extends \PHPStan\PhpDocParser\Ast\Type\CallableTypeNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
 {
     use AttributeTrait;
     public function __toString() : string
@@ -23,7 +23,7 @@ final class AttributeAwareCallableTypeNode extends \_PhpScoper2a4e7ab1ecbc\PHPSt
         $returnType = $this->returnType;
         $parameterTypeString = $this->createParameterTypeString();
         $returnTypeAsString = (string) $returnType;
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($returnTypeAsString, '|')) {
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($returnTypeAsString, '|')) {
             $returnTypeAsString = '(' . $returnTypeAsString . ')';
         }
         $parameterTypeString = $this->normalizeParameterType($parameterTypeString, $returnTypeAsString);

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Symfony\Tests\Rector\ClassMethod\ActionSuffixRemoverRector;
+namespace Rector\Symfony\Tests\Rector\ClassMethod\ActionSuffixRemoverRector;
 
 use Iterator;
-use _PhpScoper2a4e7ab1ecbc\Rector\Symfony\Rector\ClassMethod\ActionSuffixRemoverRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo;
-final class ActionSuffixRemoverRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector\Testing\PHPUnit\AbstractRectorTestCase
+use Rector\Symfony\Rector\ClassMethod\ActionSuffixRemoverRector;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
+final class ActionSuffixRemoverRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\_PhpScoper2a4e7ab1ecbc\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,6 +22,6 @@ final class ActionSuffixRemoverRectorTest extends \_PhpScoper2a4e7ab1ecbc\Rector
     }
     protected function getRectorClass() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Symfony\Rector\ClassMethod\ActionSuffixRemoverRector::class;
+        return \Rector\Symfony\Rector\ClassMethod\ActionSuffixRemoverRector::class;
     }
 }

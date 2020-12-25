@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Event;
+namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Event;
 
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\EventDispatcher\Event;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
+use _HumbugBox221ad6f1b81f\Symfony\Component\EventDispatcher\Event;
 /**
  * Allows to inspect input and output of a command.
  *
  * @author Francesco Levorato <git@flevour.net>
  */
-class ConsoleEvent extends \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\EventDispatcher\Event
+class ConsoleEvent extends \_HumbugBox221ad6f1b81f\Symfony\Component\EventDispatcher\Event
 {
     protected $command;
     private $input;
     private $output;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command $command = null, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper2a4e7ab1ecbc\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command $command = null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->command = $command;
         $this->input = $input;

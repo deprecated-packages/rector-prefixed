@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Node;
+namespace PHPStan\Node;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassConst;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Node\Constant\ClassConstantFetch;
-class ClassConstantsNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Node\VirtualNode
+use PhpParser\Node\Stmt\ClassConst;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\NodeAbstract;
+use PHPStan\Node\Constant\ClassConstantFetch;
+class ClassConstantsNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */
     private $class;
@@ -20,14 +20,14 @@ class ClassConstantsNode extends \_PhpScoper2a4e7ab1ecbc\PhpParser\NodeAbstract 
      * @param ClassConst[] $constants
      * @param ClassConstantFetch[] $fetches
      */
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike $class, array $constants, array $fetches)
+    public function __construct(\PhpParser\Node\Stmt\ClassLike $class, array $constants, array $fetches)
     {
         parent::__construct($class->getAttributes());
         $this->class = $class;
         $this->constants = $constants;
         $this->fetches = $fetches;
     }
-    public function getClass() : \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\ClassLike
+    public function getClass() : \PhpParser\Node\Stmt\ClassLike
     {
         return $this->class;
     }

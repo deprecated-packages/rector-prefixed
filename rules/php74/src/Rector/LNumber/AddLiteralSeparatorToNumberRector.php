@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php74\Rector\LNumber;
+namespace Rector\Php74\Rector\LNumber;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\DNumber;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Scalar\DNumber;
+use PhpParser\Node\Scalar\LNumber;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
 /**
  * @see https://wiki.php.net/rfc/numeric_literal_separator
  * @see https://github.com/nikic/PHP-Parser/pull/615
@@ -23,7 +23,7 @@ use _PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert;
  * Taking the most generic use case to the account: https://wiki.php.net/rfc/numeric_literal_separator#should_it_be_the_role_of_an_ide_to_group_digits
  * The final check should be done manually
  */
-final class AddLiteralSeparatorToNumberRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector implements \_PhpScoper2a4e7ab1ecbc\Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class AddLiteralSeparatorToNumberRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -44,12 +44,12 @@ final class AddLiteralSeparatorToNumberRector extends \_PhpScoper2a4e7ab1ecbc\Re
     public function configure(array $configuration) : void
     {
         $limitValue = $configuration[self::LIMIT_VALUE] ?? 1000000;
-        \_PhpScoper2a4e7ab1ecbc\Webmozart\Assert\Assert::integer($limitValue);
+        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::integer($limitValue);
         $this->limitValue = $limitValue;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add "_" as thousands separator in numbers for higher or equals to limitValue config', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add "_" as thousands separator in numbers for higher or equals to limitValue config', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -76,21 +76,21 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber::class, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\DNumber::class];
+        return [\PhpParser\Node\Scalar\LNumber::class, \PhpParser\Node\Scalar\DNumber::class];
     }
     /**
      * @param LNumber|DNumber $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isAtLeastPhpVersion(\_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\PhpVersionFeature::LITERAL_SEPARATOR)) {
+        if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::LITERAL_SEPARATOR)) {
             return null;
         }
         $numericValueAsString = (string) $node->value;
         if ($this->shouldSkip($node, $numericValueAsString)) {
             return null;
         }
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($numericValueAsString, '.')) {
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($numericValueAsString, '.')) {
             [$mainPart, $decimalPart] = \explode('.', $numericValueAsString);
             $chunks = $this->strSplitNegative($mainPart, self::GROUP_SIZE);
             $literalSeparatedNumber = \implode('_', $chunks) . '.' . $decimalPart;
@@ -108,25 +108,25 @@ CODE_SAMPLE
     /**
      * @param LNumber|DNumber $node
      */
-    private function shouldSkip(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, string $numericValueAsString) : bool
+    private function shouldSkip(\PhpParser\Node $node, string $numericValueAsString) : bool
     {
         if ($numericValueAsString < $this->limitValue) {
             return \true;
         }
         // already separated
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::contains($numericValueAsString, '_')) {
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($numericValueAsString, '_')) {
             return \true;
         }
-        $kind = $node->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
-        if (\in_array($kind, [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber::KIND_BIN, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber::KIND_OCT, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Scalar\LNumber::KIND_HEX], \true)) {
+        $kind = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND);
+        if (\in_array($kind, [\PhpParser\Node\Scalar\LNumber::KIND_BIN, \PhpParser\Node\Scalar\LNumber::KIND_OCT, \PhpParser\Node\Scalar\LNumber::KIND_HEX], \true)) {
             return \true;
         }
         // e+/e-
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::match($numericValueAsString, '#e#i')) {
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::match($numericValueAsString, '#e#i')) {
             return \true;
         }
         // too short
-        return \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::length($numericValueAsString) <= self::GROUP_SIZE;
+        return \_PhpScoper50d83356d739\Nette\Utils\Strings::length($numericValueAsString) <= self::GROUP_SIZE;
     }
     /**
      * @return string[]

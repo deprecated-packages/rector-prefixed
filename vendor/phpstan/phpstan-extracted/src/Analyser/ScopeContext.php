@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ClassReflection;
 class ScopeContext
 {
     /** @var string */
@@ -12,7 +12,7 @@ class ScopeContext
     private $classReflection;
     /** @var ClassReflection|null */
     private $traitReflection;
-    private function __construct(string $file, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection, ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $traitReflection)
+    private function __construct(string $file, ?\PHPStan\Reflection\ClassReflection $classReflection, ?\PHPStan\Reflection\ClassReflection $traitReflection)
     {
         $this->file = $file;
         $this->classReflection = $classReflection;
@@ -26,23 +26,23 @@ class ScopeContext
     {
         return new self($this->file, null, null);
     }
-    public function enterClass(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $classReflection) : self
+    public function enterClass(\PHPStan\Reflection\ClassReflection $classReflection) : self
     {
         if ($this->classReflection !== null && !$classReflection->isAnonymous()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         if ($classReflection->isTrait()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return new self($this->file, $classReflection, null);
     }
-    public function enterTrait(\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection $traitReflection) : self
+    public function enterTrait(\PHPStan\Reflection\ClassReflection $traitReflection) : self
     {
         if ($this->classReflection === null) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         if (!$traitReflection->isTrait()) {
-            throw new \_PhpScoper2a4e7ab1ecbc\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return new self($this->file, $this->classReflection, $traitReflection);
     }
@@ -69,11 +69,11 @@ class ScopeContext
     {
         return $this->file;
     }
-    public function getClassReflection() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getClassReflection() : ?\PHPStan\Reflection\ClassReflection
     {
         return $this->classReflection;
     }
-    public function getTraitReflection() : ?\_PhpScoper2a4e7ab1ecbc\PHPStan\Reflection\ClassReflection
+    public function getTraitReflection() : ?\PHPStan\Reflection\ClassReflection
     {
         return $this->traitReflection;
     }

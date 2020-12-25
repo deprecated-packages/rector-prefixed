@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\Rector\Class_;
+namespace Rector\CodeQuality\Rector\Class_;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer;
-use _PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\NodeFactory\MissingPropertiesFactory;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\Type;
+use Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer;
+use Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer;
+use Rector\CodeQuality\NodeFactory\MissingPropertiesFactory;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://3v4l.org/GL6II
  * @see https://3v4l.org/eTrhZ
@@ -19,7 +19,7 @@ use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\CodeQuality\Tests\Rector\Class_\CompleteDynamicPropertiesRector\CompleteDynamicPropertiesRectorTest
  */
-final class CompleteDynamicPropertiesRector extends \_PhpScoper2a4e7ab1ecbc\Rector\Core\Rector\AbstractRector
+final class CompleteDynamicPropertiesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var MissingPropertiesFactory
@@ -33,15 +33,15 @@ final class CompleteDynamicPropertiesRector extends \_PhpScoper2a4e7ab1ecbc\Rect
      * @var ClassLikeAnalyzer
      */
     private $classLikeAnalyzer;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\NodeFactory\MissingPropertiesFactory $missingPropertiesFactory, \_PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer $localPropertyAnalyzer, \_PhpScoper2a4e7ab1ecbc\Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer $classLikeAnalyzer)
+    public function __construct(\Rector\CodeQuality\NodeFactory\MissingPropertiesFactory $missingPropertiesFactory, \Rector\CodeQuality\NodeAnalyzer\LocalPropertyAnalyzer $localPropertyAnalyzer, \Rector\CodeQuality\NodeAnalyzer\ClassLikeAnalyzer $classLikeAnalyzer)
     {
         $this->missingPropertiesFactory = $missingPropertiesFactory;
         $this->localPropertyAnalyzer = $localPropertyAnalyzer;
         $this->classLikeAnalyzer = $classLikeAnalyzer;
     }
-    public function getRuleDefinition() : \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add missing dynamic properties', [new \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add missing dynamic properties', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function set()
@@ -70,12 +70,12 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class];
+        return [\PhpParser\Node\Stmt\Class_::class];
     }
     /**
      * @param Class_ $node
      */
-    public function refactor(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node) : ?\_PhpScoper2a4e7ab1ecbc\PhpParser\Node
+    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($this->shouldSkipClass($node)) {
             return null;
@@ -93,7 +93,7 @@ CODE_SAMPLE
         $node->stmts = \array_merge($newProperties, (array) $node->stmts);
         return $node;
     }
-    private function shouldSkipClass(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class) : bool
+    private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         if (!$this->isNonAnonymousClass($class)) {
             return \true;
@@ -112,7 +112,7 @@ CODE_SAMPLE
      * @param array<string, Type> $fetchedLocalPropertyNameToTypes
      * @return string[]
      */
-    private function resolvePropertiesToComplete(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_ $class, array $fetchedLocalPropertyNameToTypes) : array
+    private function resolvePropertiesToComplete(\PhpParser\Node\Stmt\Class_ $class, array $fetchedLocalPropertyNameToTypes) : array
     {
         $propertyNames = $this->classLikeAnalyzer->resolvePropertyNames($class);
         /** @var string[] $fetchedLocalPropertyNames */

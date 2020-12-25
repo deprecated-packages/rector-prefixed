@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Xml;
+namespace Rector\ChangesReporting\Xml;
 
 use DOMDocument;
 use DOMElement;
-use _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Application\ErrorAndDiffCollector;
-use _PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\Reporting\FileDiff;
+use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange;
+use Rector\Core\ValueObject\Reporting\FileDiff;
 /**
  * Inspiration in @see \Symfony\Component\Console\Descriptor\XmlDescriptor
  */
@@ -25,7 +25,7 @@ final class CheckstyleDOMElementFactory
      * @var string
      */
     private const ERROR = 'error';
-    public function create(\DOMDocument $domDocument, \_PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : \DOMElement
+    public function create(\DOMDocument $domDocument, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : \DOMElement
     {
         $domElement = $domDocument->createElement(self::CHECKSTYLE);
         foreach ($errorAndDiffCollector->getFileDiffs() as $fileDiff) {
@@ -38,7 +38,7 @@ final class CheckstyleDOMElementFactory
         }
         return $domElement;
     }
-    private function createFileDOMElement(\DOMDocument $domDocument, \_PhpScoper2a4e7ab1ecbc\Rector\Core\ValueObject\Reporting\FileDiff $fileDiff) : \DOMElement
+    private function createFileDOMElement(\DOMDocument $domDocument, \Rector\Core\ValueObject\Reporting\FileDiff $fileDiff) : \DOMElement
     {
         $domElement = $domDocument->createElement(self::FILE);
         $domElement->setAttribute('name', $this->escapeForXml($fileDiff->getRelativeFilePath()));
@@ -48,7 +48,7 @@ final class CheckstyleDOMElementFactory
         }
         return $domElement;
     }
-    private function createNonFileErrorDOMElements(\DOMDocument $domDocument, \_PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : ?\DOMElement
+    private function createNonFileErrorDOMElements(\DOMDocument $domDocument, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : ?\DOMElement
     {
         if ($errorAndDiffCollector->getErrors() === []) {
             return null;
@@ -66,7 +66,7 @@ final class CheckstyleDOMElementFactory
     {
         return \htmlspecialchars($string, \ENT_XML1 | \ENT_COMPAT);
     }
-    private function createErrorDOMElement(\_PhpScoper2a4e7ab1ecbc\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange $rectorWithFileAndLineChange, \DOMDocument $domDocument) : \DOMElement
+    private function createErrorDOMElement(\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange $rectorWithFileAndLineChange, \DOMDocument $domDocument) : \DOMElement
     {
         $domElement = $domDocument->createElement(self::ERROR);
         $domElement->setAttribute('line', $this->escapeForXml((string) $rectorWithFileAndLineChange->getLine()));

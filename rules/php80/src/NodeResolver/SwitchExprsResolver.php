@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\Php80\NodeResolver;
+namespace Rector\Php80\NodeResolver;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_;
-use _PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\CondAndExpr;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Return_;
+use PhpParser\Node\Stmt\Switch_;
+use Rector\Php80\ValueObject\CondAndExpr;
 final class SwitchExprsResolver
 {
     /**
      * @return CondAndExpr[]
      */
-    public function resolve(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Switch_ $switch) : array
+    public function resolve(\PhpParser\Node\Stmt\Switch_ $switch) : array
     {
         $condAndExpr = [];
         foreach ($switch->cases as $case) {
@@ -22,19 +22,19 @@ final class SwitchExprsResolver
                 return [];
             }
             $expr = $case->stmts[0];
-            if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+            if ($expr instanceof \PhpParser\Node\Stmt\Expression) {
                 $expr = $expr->expr;
             }
-            if ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Return_) {
+            if ($expr instanceof \PhpParser\Node\Stmt\Return_) {
                 $returnedExpr = $expr->expr;
                 if ($returnedExpr === null) {
                     return [];
                 }
-                $condAndExpr[] = new \_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\CondAndExpr($case->cond, $returnedExpr, \_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\CondAndExpr::TYPE_RETURN);
-            } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\Assign) {
-                $condAndExpr[] = new \_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\CondAndExpr($case->cond, $expr, \_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\CondAndExpr::TYPE_ASSIGN);
-            } elseif ($expr instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr) {
-                $condAndExpr[] = new \_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\CondAndExpr($case->cond, $expr, \_PhpScoper2a4e7ab1ecbc\Rector\Php80\ValueObject\CondAndExpr::TYPE_NORMAL);
+                $condAndExpr[] = new \Rector\Php80\ValueObject\CondAndExpr($case->cond, $returnedExpr, \Rector\Php80\ValueObject\CondAndExpr::TYPE_RETURN);
+            } elseif ($expr instanceof \PhpParser\Node\Expr\Assign) {
+                $condAndExpr[] = new \Rector\Php80\ValueObject\CondAndExpr($case->cond, $expr, \Rector\Php80\ValueObject\CondAndExpr::TYPE_ASSIGN);
+            } elseif ($expr instanceof \PhpParser\Node\Expr) {
+                $condAndExpr[] = new \Rector\Php80\ValueObject\CondAndExpr($case->cond, $expr, \Rector\Php80\ValueObject\CondAndExpr::TYPE_NORMAL);
             } else {
                 return [];
             }

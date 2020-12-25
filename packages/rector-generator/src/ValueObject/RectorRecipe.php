@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\ValueObject;
+namespace Rector\RectorGenerator\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings;
-use _PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\Exception\ConfigurationException;
+use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\Util\StaticRectorStrings;
+use Rector\RectorGenerator\Exception\ConfigurationException;
 final class RectorRecipe
 {
     /**
@@ -79,7 +79,7 @@ final class RectorRecipe
         $this->setNodeTypes($nodeTypes);
         $this->description = $description;
         if ($codeBefore === $codeAfter) {
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\Exception\ConfigurationException('Code before and after are identical. They have to be different');
+            throw new \Rector\RectorGenerator\Exception\ConfigurationException('Code before and after are identical. They have to be different');
         }
         $this->setCodeBefore($codeBefore);
         $this->setCodeAfter($codeAfter);
@@ -159,7 +159,7 @@ final class RectorRecipe
         if ($this->getPackage() === 'PHPUnit') {
             return 'phpunit';
         }
-        return \_PhpScoper2a4e7ab1ecbc\Rector\Core\Util\StaticRectorStrings::camelCaseToDashes($this->getPackage());
+        return \Rector\Core\Util\StaticRectorStrings::camelCaseToDashes($this->getPackage());
     }
     /**
      * @api
@@ -201,15 +201,15 @@ final class RectorRecipe
     {
         if (\is_file($package)) {
             $message = \sprintf('The "%s()" method only accepts package name, file path "%s" given', __METHOD__, $package);
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException($message);
+            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
         }
         $this->package = $package;
     }
     private function setName(string $name) : void
     {
-        if (!\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::endsWith($name, 'Rector')) {
+        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($name, 'Rector')) {
             $message = \sprintf('Rector name "%s" must end with "Rector"', $name);
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\Exception\ConfigurationException($message);
+            throw new \Rector\RectorGenerator\Exception\ConfigurationException($message);
         }
         $this->name = $name;
     }
@@ -219,15 +219,15 @@ final class RectorRecipe
     private function setNodeTypes(array $nodeTypes) : void
     {
         foreach ($nodeTypes as $nodeType) {
-            if (\is_a($nodeType, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node::class, \true)) {
+            if (\is_a($nodeType, \PhpParser\Node::class, \true)) {
                 continue;
             }
-            $message = \sprintf('Node type "%s" does not exist, implement "%s" interface or is not imported in "rector-recipe.php"', $nodeType, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node::class);
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\Core\Exception\ShouldNotHappenException($message);
+            $message = \sprintf('Node type "%s" does not exist, implement "%s" interface or is not imported in "rector-recipe.php"', $nodeType, \PhpParser\Node::class);
+            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
         }
         if (\count($nodeTypes) < 1) {
-            $message = \sprintf('"$nodeTypes" argument requires at least one item, e.g. "%s"', \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\FuncCall::class);
-            throw new \_PhpScoper2a4e7ab1ecbc\Rector\RectorGenerator\Exception\ConfigurationException($message);
+            $message = \sprintf('"$nodeTypes" argument requires at least one item, e.g. "%s"', \PhpParser\Node\Expr\FuncCall::class);
+            throw new \Rector\RectorGenerator\Exception\ConfigurationException($message);
         }
         $this->nodeTypes = $nodeTypes;
     }
@@ -244,11 +244,11 @@ final class RectorRecipe
      */
     private function resolveCategory(array $nodeTypes) : void
     {
-        $this->category = (string) \_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::after($nodeTypes[0], '\\', -1);
+        $this->category = (string) \_PhpScoper50d83356d739\Nette\Utils\Strings::after($nodeTypes[0], '\\', -1);
     }
     private function normalizeCode(string $code) : string
     {
-        if (\_PhpScoper2a4e7ab1ecbc\Nette\Utils\Strings::startsWith($code, '<?php')) {
+        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($code, '<?php')) {
             $code = \ltrim($code, '<?php');
         }
         return \trim($code);

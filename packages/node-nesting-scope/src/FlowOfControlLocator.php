@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Rector\NodeNestingScope;
+namespace Rector\NodeNestingScope;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike;
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression;
-use _PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey;
+use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt\Expression;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class FlowOfControlLocator
 {
-    public function resolveNestingHashFromFunctionLike(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node\FunctionLike $functionLike, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $checkedNode) : string
+    public function resolveNestingHashFromFunctionLike(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $checkedNode) : string
     {
         $nestingHash = \spl_object_hash($functionLike) . '__';
         $currentNode = $checkedNode;
         $previous = $currentNode;
-        while ($currentNode = $currentNode->getAttribute(\_PhpScoper2a4e7ab1ecbc\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE)) {
-            if ($currentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Expression) {
+        while ($currentNode = $currentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE)) {
+            if ($currentNode instanceof \PhpParser\Node\Stmt\Expression) {
                 continue;
             }
-            if (!$currentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node) {
+            if (!$currentNode instanceof \PhpParser\Node) {
                 continue;
             }
             if ($functionLike === $currentNode) {
@@ -32,9 +32,9 @@ final class FlowOfControlLocator
         }
         return $nestingHash;
     }
-    private function resolveBinaryOpNestingHash(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $currentNode, \_PhpScoper2a4e7ab1ecbc\PhpParser\Node $previous) : string
+    private function resolveBinaryOpNestingHash(\PhpParser\Node $currentNode, \PhpParser\Node $previous) : string
     {
-        if (!$currentNode instanceof \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Expr\BinaryOp) {
+        if (!$currentNode instanceof \PhpParser\Node\Expr\BinaryOp) {
             return '';
         }
         // left && right have differnt nesting

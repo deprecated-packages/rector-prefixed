@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics;
+namespace PHPStan\Rules\Generics;
 
-use _PhpScoper2a4e7ab1ecbc\PhpParser\Node;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ExtendsTag;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ImplementsTag;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper;
-use _PhpScoper2a4e7ab1ecbc\PHPStan\Type\Type;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\PhpDoc\Tag\ExtendsTag;
+use PHPStan\PhpDoc\Tag\ImplementsTag;
+use PHPStan\Rules\Rule;
+use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Type;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Class_>
  */
-class ClassAncestorsRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
+class ClassAncestorsRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Type\FileTypeMapper */
     private $fileTypeMapper;
     /** @var \PHPStan\Rules\Generics\GenericAncestorsCheck */
     private $genericAncestorsCheck;
-    public function __construct(\_PhpScoper2a4e7ab1ecbc\PHPStan\Type\FileTypeMapper $fileTypeMapper, \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Generics\GenericAncestorsCheck $genericAncestorsCheck)
+    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Rules\Generics\GenericAncestorsCheck $genericAncestorsCheck)
     {
         $this->fileTypeMapper = $fileTypeMapper;
         $this->genericAncestorsCheck = $genericAncestorsCheck;
     }
     public function getNodeType() : string
     {
-        return \_PhpScoper2a4e7ab1ecbc\PhpParser\Node\Stmt\Class_::class;
+        return \PhpParser\Node\Stmt\Class_::class;
     }
-    public function processNode(\_PhpScoper2a4e7ab1ecbc\PhpParser\Node $node, \_PhpScoper2a4e7ab1ecbc\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!isset($node->namespacedName)) {
             // anonymous class
@@ -43,10 +43,10 @@ class ClassAncestorsRule implements \_PhpScoper2a4e7ab1ecbc\PHPStan\Rules\Rule
             $extendsTags = $resolvedPhpDoc->getExtendsTags();
             $implementsTags = $resolvedPhpDoc->getImplementsTags();
         }
-        $extendsErrors = $this->genericAncestorsCheck->check($node->extends !== null ? [$node->extends] : [], \array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ExtendsTag $tag) : Type {
+        $extendsErrors = $this->genericAncestorsCheck->check($node->extends !== null ? [$node->extends] : [], \array_map(static function (\PHPStan\PhpDoc\Tag\ExtendsTag $tag) : Type {
             return $tag->getType();
         }, $extendsTags), \sprintf('Class %s @extends tag contains incompatible type %%s.', $className), \sprintf('Class %s has @extends tag, but does not extend any class.', $className), \sprintf('The @extends tag of class %s describes %%s but the class extends %%s.', $className), 'PHPDoc tag @extends contains generic type %s but class %s is not generic.', 'Generic type %s in PHPDoc tag @extends does not specify all template types of class %s: %s', 'Generic type %s in PHPDoc tag @extends specifies %d template types, but class %s supports only %d: %s', 'Type %s in generic type %s in PHPDoc tag @extends is not subtype of template type %s of class %s.', 'PHPDoc tag @extends has invalid type %s.', \sprintf('Class %s extends generic class %%s but does not specify its types: %%s', $className), \sprintf('in extended type %%s of class %s', $className));
-        $implementsErrors = $this->genericAncestorsCheck->check($node->implements, \array_map(static function (\_PhpScoper2a4e7ab1ecbc\PHPStan\PhpDoc\Tag\ImplementsTag $tag) : Type {
+        $implementsErrors = $this->genericAncestorsCheck->check($node->implements, \array_map(static function (\PHPStan\PhpDoc\Tag\ImplementsTag $tag) : Type {
             return $tag->getType();
         }, $implementsTags), \sprintf('Class %s @implements tag contains incompatible type %%s.', $className), \sprintf('Class %s has @implements tag, but does not implement any interface.', $className), \sprintf('The @implements tag of class %s describes %%s but the class implements: %%s', $className), 'PHPDoc tag @implements contains generic type %s but interface %s is not generic.', 'Generic type %s in PHPDoc tag @implements does not specify all template types of interface %s: %s', 'Generic type %s in PHPDoc tag @implements specifies %d template types, but interface %s supports only %d: %s', 'Type %s in generic type %s in PHPDoc tag @implements is not subtype of template type %s of interface %s.', 'PHPDoc tag @implements has invalid type %s.', \sprintf('Class %s implements generic interface %%s but does not specify its types: %%s', $className), \sprintf('in implemented type %%s of class %s', $className));
         return \array_merge($extendsErrors, $implementsErrors);

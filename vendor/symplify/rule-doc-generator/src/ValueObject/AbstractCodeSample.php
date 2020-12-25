@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\ValueObject;
+namespace Symplify\RuleDocGenerator\ValueObject;
 
-use _PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use _PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-abstract class AbstractCodeSample implements \_PhpScoper2a4e7ab1ecbc\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
+use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+abstract class AbstractCodeSample implements \Symplify\RuleDocGenerator\Contract\CodeSampleInterface
 {
     /**
      * @var string
@@ -18,11 +18,11 @@ abstract class AbstractCodeSample implements \_PhpScoper2a4e7ab1ecbc\Symplify\Ru
     public function __construct(string $badCode, string $goodCode)
     {
         if ($badCode === '') {
-            throw new \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Exception\ShouldNotHappenException('Bad sample good code cannot be empty');
+            throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException('Bad sample good code cannot be empty');
         }
         if ($goodCode === $badCode) {
             $errorMessage = \sprintf('Good and bad code cannot be identical: "%s"', $goodCode);
-            throw new \_PhpScoper2a4e7ab1ecbc\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($errorMessage);
+            throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException($errorMessage);
         }
         $this->goodCode = $goodCode;
         $this->badCode = $badCode;
