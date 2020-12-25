@@ -107,7 +107,7 @@ CODE_SAMPLE
         if ($constructorMethodReflection === null) {
             return \true;
         }
-        return $constructorMethodReflection->getNumberOfRequiredParameters() <= \count((array) $new->args);
+        return $constructorMethodReflection->getNumberOfRequiredParameters() <= \count($new->args);
     }
     private function getNewNodeClassConstructorMethodReflection(\PhpParser\Node\Expr\New_ $new) : ?\ReflectionMethod
     {

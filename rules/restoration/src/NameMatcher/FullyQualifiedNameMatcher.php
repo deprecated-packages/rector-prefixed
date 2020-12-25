@@ -39,7 +39,7 @@ final class FullyQualifiedNameMatcher
             return new \PhpParser\Node\NullableType($fullyQulifiedNullableType);
         }
         if ($name instanceof \PhpParser\Node\Name) {
-            if (\count((array) $name->parts) !== 1) {
+            if (\count($name->parts) !== 1) {
                 return null;
             }
             $resolvedName = $this->nodeNameResolver->getName($name);

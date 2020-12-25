@@ -26,6 +26,7 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\PHPStan\Reflection\CallReflectionResolver;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ClassMethodAssignManipulator
@@ -224,13 +225,10 @@ final class ClassMethodAssignManipulator
     }
     private function isExplicitlyReferenced(\PhpParser\Node $node) : bool
     {
-        if ($node instanceof \PhpParser\Node\Arg) {
-            return $node->byRef;
+        if (!\property_exists($node, 'byRef')) {
+            return \false;
         }
-        if ($node instanceof \PhpParser\Node\Expr\ClosureUse) {
-            return $node->byRef;
-        }
-        if ($node instanceof \PhpParser\Node\Param) {
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Arg::class, \PhpParser\Node\Expr\ClosureUse::class, \PhpParser\Node\Param::class])) {
             return $node->byRef;
         }
         return \false;

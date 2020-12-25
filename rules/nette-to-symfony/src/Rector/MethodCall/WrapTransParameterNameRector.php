@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\MethodCall;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
@@ -70,13 +70,13 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper50d83356d739\\Symfony\\Component\\Translation\\TranslatorInterface')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Translation\\TranslatorInterface')) {
             return null;
         }
         if (!$this->isName($node->name, 'trans')) {
             return null;
         }
-        if (\count((array) $node->args) < 2) {
+        if (\count($node->args) < 2) {
             return null;
         }
         if (!$node->args[1]->value instanceof \PhpParser\Node\Expr\Array_) {
@@ -91,7 +91,7 @@ CODE_SAMPLE
             if (!$arrayItem->key instanceof \PhpParser\Node\Scalar\String_) {
                 continue;
             }
-            if (\_PhpScoper50d83356d739\Nette\Utils\Strings::match($arrayItem->key->value, self::BETWEEN_PERCENT_CHARS_REGEX)) {
+            if (\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::match($arrayItem->key->value, self::BETWEEN_PERCENT_CHARS_REGEX)) {
                 continue;
             }
             $arrayItem->key = new \PhpParser\Node\Scalar\String_('%' . $arrayItem->key->value . '%');

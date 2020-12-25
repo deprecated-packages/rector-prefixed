@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper50d83356d739;
+namespace _PhpScoper5b8c9e9ebd21;
 
 use Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
@@ -37,7 +37,7 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services->set(\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class);
     $services->set(\Rector\Php80\Rector\Switch_\ChangeSwitchToMatchRector::class);
     // nette\utils and Strings::replace()
-    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper50d83356d739\\Nette\\Utils\\Strings', 'replace', 2, 'replacement', '')])]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentAdder('_PhpScoper5b8c9e9ebd21\\Nette\\Utils\\Strings', 'replace', 2, 'replacement', '')])]]);
     $services->set(\Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector::class);
     $services->set(\Rector\Php80\Rector\ClassMethod\SetStateToStaticRector::class);
     $services->set(\Rector\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector::class);

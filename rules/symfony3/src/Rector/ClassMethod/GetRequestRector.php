@@ -23,7 +23,7 @@ final class GetRequestRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const REQUEST_CLASS = '_PhpScoper50d83356d739\\Symfony\\Component\\HttpFoundation\\Request';
+    private const REQUEST_CLASS = '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\HttpFoundation\\Request';
     /**
      * @var string
      */
@@ -150,7 +150,7 @@ CODE_SAMPLE
         if (!$this->isName($methodCall->name, 'get')) {
             return \false;
         }
-        if (\count((array) $methodCall->args) !== 1) {
+        if (\count($methodCall->args) !== 1) {
             return \false;
         }
         if (!$methodCall->args[0]->value instanceof \PhpParser\Node\Scalar\String_) {

@@ -8,27 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Session;
+namespace _PhpScoper5b8c9e9ebd21\Symfony\Component\HttpFoundation\Session;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @internal
  */
-final class SessionBagProxy implements \_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Session\SessionBagInterface
+final class SessionBagProxy implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\HttpFoundation\Session\SessionBagInterface
 {
     private $bag;
     private $data;
     private $usageIndex;
     private $usageReporter;
-    public function __construct(\_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag, array &$data, ?int &$usageIndex, ?callable $usageReporter)
+    public function __construct(\_PhpScoper5b8c9e9ebd21\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag, array &$data, ?int &$usageIndex, ?callable $usageReporter)
     {
         $this->bag = $bag;
         $this->data =& $data;
         $this->usageIndex =& $usageIndex;
         $this->usageReporter = $usageReporter;
     }
-    public function getBag() : \_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Session\SessionBagInterface
+    public function getBag() : \_PhpScoper5b8c9e9ebd21\Symfony\Component\HttpFoundation\Session\SessionBagInterface
     {
         ++$this->usageIndex;
         if ($this->usageReporter && 0 <= $this->usageIndex) {

@@ -56,7 +56,7 @@ CODE_SAMPLE
         if (!$this->isName($node, 'dirname')) {
             return null;
         }
-        if (\count((array) $node->args) !== 1) {
+        if (\count($node->args) !== 1) {
             return null;
         }
         $firstArgValue = $node->args[0]->value;

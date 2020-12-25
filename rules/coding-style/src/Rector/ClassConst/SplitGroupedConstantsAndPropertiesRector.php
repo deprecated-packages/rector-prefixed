@@ -61,7 +61,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Stmt\ClassConst) {
-            if (\count((array) $node->consts) < 2) {
+            if (\count($node->consts) < 2) {
                 return null;
             }
             /** @var Const_[] $allConsts */
@@ -73,7 +73,7 @@ CODE_SAMPLE
             $this->addNodesAfterNode($nextClassConsts, $node);
             return $node;
         }
-        if (\count((array) $node->props) < 2) {
+        if (\count($node->props) < 2) {
             return null;
         }
         $allProperties = $node->props;

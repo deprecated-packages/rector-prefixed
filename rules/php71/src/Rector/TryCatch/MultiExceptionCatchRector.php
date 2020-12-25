@@ -52,7 +52,7 @@ CODE_SAMPLE
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::MULTI_EXCEPTION_CATCH)) {
             return null;
         }
-        if (\count((array) $node->catches) < 2) {
+        if (\count($node->catches) < 2) {
             return null;
         }
         $catchKeysByContent = $this->collectCatchKeysByContent($node);

@@ -60,10 +60,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, '_PhpScoper50d83356d739\\Nette\\DI\\CompilerExtension', 'getConfig')) {
+        if (!$this->isOnClassMethodCall($node, '_PhpScoper5b8c9e9ebd21\\Nette\\DI\\CompilerExtension', 'getConfig')) {
             return null;
         }
-        if (\count((array) $node->args) !== 1) {
+        if (\count($node->args) !== 1) {
             return null;
         }
         $getConfigMethodCall = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), 'getConfig');

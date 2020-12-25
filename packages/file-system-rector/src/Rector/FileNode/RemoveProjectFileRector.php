@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\FileSystemRector\Rector\FileNode;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
@@ -11,7 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
+use _PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert;
 /**
  * @see \Rector\FileSystemRector\Tests\Rector\FileNode\RemoveProjectFileRector\RemoveProjectFileRectorTest
  */
@@ -67,12 +67,12 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $filePathsToRemove = $configuration[self::FILE_PATHS_TO_REMOVE] ?? [];
-        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allString($filePathsToRemove);
+        \_PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert::allString($filePathsToRemove);
         $this->filePathsToRemove = $filePathsToRemove;
     }
     private function isFilePathToRemove(string $relativePathInProject, string $filePathToRemove) : bool
     {
-        if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun() && \_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($relativePathInProject, $filePathToRemove)) {
+        if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun() && \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::endsWith($relativePathInProject, $filePathToRemove)) {
             // only for tests
             return \true;
         }

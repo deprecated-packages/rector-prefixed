@@ -42,8 +42,8 @@ final class FluentChainMethodCallRootExtractorTest extends \Symplify\PackageBuil
     {
         $assignAndRootExpr = $this->parseFileAndCreateAssignAndRootExprForSure(__DIR__ . '/Fixture/return_new_double_method_call.php.inc');
         $this->assertFalse($assignAndRootExpr->isFirstCallFactory());
-        $silentVariable = $assignAndRootExpr->getSilentVariable();
         /** @var Variable $silentVariable */
+        $silentVariable = $assignAndRootExpr->getSilentVariable();
         $this->assertInstanceOf(\PhpParser\Node\Expr\Variable::class, $silentVariable);
         $this->assertIsString($silentVariable->name);
         $this->assertSame('someClassWithFluentMethods', $silentVariable->name);

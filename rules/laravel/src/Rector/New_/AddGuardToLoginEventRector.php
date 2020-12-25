@@ -22,7 +22,7 @@ final class AddGuardToLoginEventRector extends \Rector\Core\Rector\AbstractRecto
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoper50d83356d739\\Add new $guard argument to Illuminate\\Auth\\Events\\Login', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('_PhpScoper5b8c9e9ebd21\\Add new $guard argument to Illuminate\\Auth\\Events\\Login', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Auth\Events\Login;
 
 final class SomeClass
@@ -59,16 +59,16 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isName($node->class, '_PhpScoper50d83356d739\\Illuminate\\Auth\\Events\\Login')) {
+        if (!$this->isName($node->class, '_PhpScoper5b8c9e9ebd21\\Illuminate\\Auth\\Events\\Login')) {
             return null;
         }
-        if (\count((array) $node->args) === 3) {
+        if (\count($node->args) === 3) {
             return null;
         }
         $guardVariable = new \PhpParser\Node\Expr\Variable('guard');
         $assign = $this->createGuardAssign($guardVariable);
         $this->addNodeBeforeNode($assign, $node);
-        $node->args = \array_merge([new \PhpParser\Node\Arg($guardVariable)], (array) $node->args);
+        $node->args = \array_merge([new \PhpParser\Node\Arg($guardVariable)], $node->args);
         return $node;
     }
     private function createGuardAssign(\PhpParser\Node\Expr\Variable $guardVariable) : \PhpParser\Node\Expr\Assign

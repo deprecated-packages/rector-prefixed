@@ -109,7 +109,7 @@ final class ParsedClassConstFetchNodeCollector
     private function getConstantsDefinedInClass(string $className) : array
     {
         $reflectionClass = new \ReflectionClass($className);
-        $constants = (array) $reflectionClass->getConstants();
+        $constants = $reflectionClass->getConstants();
         $currentClassConstants = \array_keys($constants);
         $parentClassReflection = $reflectionClass->getParentClass();
         if (!$parentClassReflection) {

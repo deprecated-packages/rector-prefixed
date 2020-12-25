@@ -98,7 +98,7 @@ CODE_SAMPLE
         if (!$else instanceof \PhpParser\Node\Stmt\Else_) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $elseStmts = (array) $else->stmts;
+        $elseStmts = $else->stmts;
         /** @var Assign $assign */
         $assign = $this->stmtsManipulator->getUnwrappedLastStmt($elseStmts);
         $lastElseStmtKey = \array_key_last($elseStmts);

@@ -105,7 +105,7 @@ CODE_SAMPLE
      */
     public function removeStaleParams(\PhpParser\Node $node, int $rightSideRemovableParamsCount) : ?\PhpParser\Node
     {
-        $nodeItemsCount = \count((array) $node->items);
+        $nodeItemsCount = \count($node->items);
         if ($rightSideRemovableParamsCount === $nodeItemsCount) {
             // Remove the parent Assign node
             /** @var Assign */

@@ -64,7 +64,7 @@ CODE_SAMPLE
         if (!$property->type instanceof \PhpParser\Node\NullableType) {
             return \true;
         }
-        if (\count((array) $property->props) > 1) {
+        if (\count($property->props) > 1) {
             return \true;
         }
         $onlyProperty = $property->props[0];

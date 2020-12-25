@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper50d83356d739\Symfony\Polyfill\Intl\Grapheme;
+namespace _PhpScoper5b8c9e9ebd21\Symfony\Polyfill\Intl\Grapheme;
 
-\define('SYMFONY_GRAPHEME_CLUSTER_RX', \PCRE_VERSION >= '8.32' ? '\\X' : \_PhpScoper50d83356d739\Symfony\Polyfill\Intl\Grapheme\Grapheme::GRAPHEME_CLUSTER_RX);
+\define('SYMFONY_GRAPHEME_CLUSTER_RX', \PCRE_VERSION >= '8.32' ? '\\X' : \_PhpScoper5b8c9e9ebd21\Symfony\Polyfill\Intl\Grapheme\Grapheme::GRAPHEME_CLUSTER_RX);
 /**
  * Partial intl implementation in pure PHP.
  *

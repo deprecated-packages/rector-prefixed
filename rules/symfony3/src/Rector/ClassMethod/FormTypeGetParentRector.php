@@ -104,10 +104,10 @@ CODE_SAMPLE
     }
     private function isClassAndMethodMatch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if ($this->isInObjectType($classMethod, '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\AbstractType')) {
+        if ($this->isInObjectType($classMethod, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Form\\AbstractType')) {
             return $this->isName($classMethod->name, 'getParent');
         }
-        if ($this->isInObjectType($classMethod, '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\AbstractTypeExtension')) {
+        if ($this->isInObjectType($classMethod, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Form\\AbstractTypeExtension')) {
             return $this->isName($classMethod->name, 'getExtendedType');
         }
         return \false;

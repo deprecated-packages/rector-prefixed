@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\PhpConfigPrinter\CaseConverter;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -105,7 +105,7 @@ final class ImportCaseConverter implements \Symplify\PhpConfigPrinter\Contract\C
         if (!\is_string($value)) {
             return $value;
         }
-        return \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($value, self::INPUT_SUFFIX_REGEX, '.php');
+        return \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::replace($value, self::INPUT_SUFFIX_REGEX, '.php');
     }
     private function resolveExpr($value) : \PhpParser\Node\Expr
     {

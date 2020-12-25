@@ -14,6 +14,7 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNestingScope\ScopeNestingComparator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -79,13 +80,7 @@ CODE_SAMPLE
     }
     private function isCall(\PhpParser\Node\Expr $expr) : bool
     {
-        if ($expr instanceof \PhpParser\Node\Expr\FuncCall) {
-            return \true;
-        }
-        if ($expr instanceof \PhpParser\Node\Expr\StaticCall) {
-            return \true;
-        }
-        return $expr instanceof \PhpParser\Node\Expr\MethodCall;
+        return \Rector\Core\Util\StaticInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\MethodCall::class]);
     }
     private function shouldSkipForDifferentScope(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\Expression $expression) : bool
     {

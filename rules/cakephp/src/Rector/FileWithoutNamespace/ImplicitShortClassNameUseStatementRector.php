@@ -59,7 +59,6 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $names = $this->findNames($node);
-        /** @var Name[] $names */
         if ($names === []) {
             return null;
         }

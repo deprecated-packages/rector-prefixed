@@ -1,5 +1,5 @@
 <?php
 
-namespace _PhpScoper50d83356d739;
+namespace _PhpScoper5b8c9e9ebd21;
 
 echo 'hi';

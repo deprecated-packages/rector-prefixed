@@ -8,7 +8,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
 use Rector\TypeDeclaration\TypeNormalizer;
-use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
+use _PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert;
 final class ReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\AbstractPriorityAwareTypeInferer
 {
     /**
@@ -59,7 +59,7 @@ final class ReturnTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abstra
      */
     private function shouldSkipExcludedTypeInferer(\Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface $returnTypeInferer, array $excludedInferers) : bool
     {
-        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsAOf($excludedInferers, \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface::class);
+        \_PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert::allIsAOf($excludedInferers, \Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface::class);
         foreach ($excludedInferers as $excludedInferer) {
             if (\is_a($returnTypeInferer, $excludedInferer)) {
                 return \true;

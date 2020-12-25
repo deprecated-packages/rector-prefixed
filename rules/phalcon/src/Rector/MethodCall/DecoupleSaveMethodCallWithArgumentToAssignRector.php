@@ -50,7 +50,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper50d83356d739\\Phalcon\\Mvc\\Model')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper5b8c9e9ebd21\\Phalcon\\Mvc\\Model')) {
             return null;
         }
         if (!$this->isName($node->name, 'save')) {

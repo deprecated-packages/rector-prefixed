@@ -26,7 +26,7 @@ final class PreviousVariableAssignNodeFinder
     {
         $currentAssign = $assign;
         $variableName = $this->nodeNameResolver->getName($assign->var);
-        $assign = $this->betterNodeFinder->findFirstPrevious($assign, function (\PhpParser\Node $node) use($variableName, $currentAssign) : bool {
+        return $this->betterNodeFinder->findFirstPrevious($assign, function (\PhpParser\Node $node) use($variableName, $currentAssign) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
@@ -36,7 +36,5 @@ final class PreviousVariableAssignNodeFinder
             }
             return $this->nodeNameResolver->isName($node->var, $variableName);
         });
-        /** @var Assign|null $assign */
-        return $assign;
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\ClassMethod;
 
-use _PhpScoper50d83356d739\Composer\Script\Event;
+use _PhpScoper5b8c9e9ebd21\Composer\Script\Event;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -77,7 +77,7 @@ CODE_SAMPLE
         if ($classLike === null) {
             return null;
         }
-        if (!$this->isObjectType($classLike, '_PhpScoper50d83356d739\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+        if (!$this->isObjectType($classLike, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
             return null;
         }
         if (!$this->isName($node, 'getSubscribedEvents')) {
@@ -149,7 +149,7 @@ CODE_SAMPLE
         if ($classMethodNode === null) {
             return;
         }
-        if (\count((array) $classMethodNode->params) !== 1) {
+        if (\count($classMethodNode->params) !== 1) {
             return;
         }
         $classMethodNode->params[0]->type = new \PhpParser\Node\Name\FullyQualified($eventInfo->getEventClass());

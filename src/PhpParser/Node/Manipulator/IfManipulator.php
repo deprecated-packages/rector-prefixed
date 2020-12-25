@@ -59,7 +59,7 @@ final class IfManipulator
      */
     public function matchIfNotNullReturnValue(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Expr
     {
-        $stmts = (array) $if->stmts;
+        $stmts = $if->stmts;
         if (\count($stmts) !== 1) {
             return null;
         }
@@ -112,7 +112,7 @@ final class IfManipulator
      */
     public function matchIfValueReturnValue(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Expr
     {
-        $stmts = (array) $if->stmts;
+        $stmts = $if->stmts;
         if (\count($stmts) !== 1) {
             return null;
         }
@@ -197,7 +197,7 @@ final class IfManipulator
      */
     public function collectNestedIfsWithNonBreaking(\PhpParser\Node\Stmt\Foreach_ $foreach) : array
     {
-        if (\count((array) $foreach->stmts) !== 1) {
+        if (\count($foreach->stmts) !== 1) {
             return [];
         }
         $onlyForeachStmt = $foreach->stmts[0];
@@ -249,7 +249,7 @@ final class IfManipulator
     }
     public function isIfWithOnlyOneStmt(\PhpParser\Node\Stmt\If_ $if) : bool
     {
-        return \count((array) $if->stmts) === 1;
+        return \count($if->stmts) === 1;
     }
     public function isIfCondUsingAssignIdenticalVariable(\PhpParser\Node $if, \PhpParser\Node $assign) : bool
     {
@@ -259,7 +259,7 @@ final class IfManipulator
         if (!$if->cond instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return \false;
         }
-        return $this->betterStandardPrinter->areNodesEqual($this->getIfVar($if), $assign->var);
+        return $this->betterStandardPrinter->areNodesEqual($this->getIfCondVar($if), $assign->var);
     }
     public function isIfCondUsingAssignNotIdenticalVariable(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node $node) : bool
     {
@@ -269,7 +269,7 @@ final class IfManipulator
         if (!$if->cond instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return \false;
         }
-        return !$this->betterStandardPrinter->areNodesEqual($this->getIfVar($if), $node->var);
+        return !$this->betterStandardPrinter->areNodesEqual($this->getIfCondVar($if), $node->var);
     }
     private function matchComparedAndReturnedNode(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical, \PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr
     {
@@ -300,7 +300,7 @@ final class IfManipulator
     }
     private function hasOnlyStmtOfType(\PhpParser\Node\Stmt\If_ $if, string $desiredType) : bool
     {
-        $stmts = (array) $if->stmts;
+        $stmts = $if->stmts;
         if (\count($stmts) !== 1) {
             return \false;
         }
@@ -313,7 +313,7 @@ final class IfManipulator
         }
         return !(bool) $if->elseifs;
     }
-    private function getIfVar(\PhpParser\Node\Stmt\If_ $if) : \PhpParser\Node
+    private function getIfCondVar(\PhpParser\Node\Stmt\If_ $if) : \PhpParser\Node
     {
         /** @var Identical|NotIdentical $ifCond */
         $ifCond = $if->cond;

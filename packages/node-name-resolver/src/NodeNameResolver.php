@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeNameResolver;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
@@ -16,6 +16,7 @@ use PhpParser\Node\Name;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeNameResolver\Regex\RegexPatternDetector;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
@@ -79,10 +80,10 @@ final class NodeNameResolver
         }
         // is probably regex pattern
         if ($this->regexPatternDetector->isRegexPattern($name)) {
-            return (bool) \_PhpScoper50d83356d739\Nette\Utils\Strings::match($resolvedName, $name);
+            return (bool) \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::match($resolvedName, $name);
         }
         // is probably fnmatch
-        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($name, '*')) {
+        if (\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($name, '*')) {
             return \fnmatch($name, $resolvedName, \FNM_NOESCAPE);
         }
         // special case
@@ -177,13 +178,7 @@ final class NodeNameResolver
     }
     private function isCallOrIdentifier(\PhpParser\Node $node) : bool
     {
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
-            return \true;
-        }
-        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
-            return \true;
-        }
-        return $node instanceof \PhpParser\Node\Identifier;
+        return \Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Identifier::class]);
     }
     /**
      * @param MethodCall|StaticCall $node

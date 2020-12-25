@@ -24,8 +24,8 @@ final class FunctionLikeFirstLevelStatementResolver
     public function resolveFirstLevelStatement(\PhpParser\Node $node) : \PhpParser\Node
     {
         $multiplierClosure = $this->matchMultiplierClosure($node);
-        $functionLike = $multiplierClosure ?? $this->parentScopeFinder->find($node);
         /** @var ClassMethod|Closure|null $functionLike */
+        $functionLike = $multiplierClosure ?? $this->parentScopeFinder->find($node);
         if ($functionLike === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }

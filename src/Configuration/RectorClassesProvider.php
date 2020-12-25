@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
-use _PhpScoper50d83356d739\Psr\Container\ContainerInterface;
+use _PhpScoper5b8c9e9ebd21\Psr\Container\ContainerInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
-use _PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Container;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\Container;
 final class RectorClassesProvider
 {
     /**
@@ -18,7 +18,7 @@ final class RectorClassesProvider
      *
      * @param ContainerInterface&Container $container
      */
-    public function __construct(\_PhpScoper50d83356d739\Psr\Container\ContainerInterface $container)
+    public function __construct(\_PhpScoper5b8c9e9ebd21\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
     }

@@ -36,7 +36,6 @@ final class ConstructorAssignPropertyAnalyzer
         if ($constructClassMethod === null) {
             return null;
         }
-        /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($property);
         return $this->betterNodeFinder->findFirst((array) $constructClassMethod->stmts, function (\PhpParser\Node $node) use($propertyName) : ?Assign {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {

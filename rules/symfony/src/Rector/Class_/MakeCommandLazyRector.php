@@ -60,7 +60,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command')) {
+        if (!$this->isObjectType($node, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Console\\Command\\Command')) {
             return null;
         }
         $commandName = $this->resolveCommandNameAndRemove($node);
@@ -68,7 +68,7 @@ CODE_SAMPLE
             return null;
         }
         $defaultNameProperty = $this->nodeFactory->createStaticProtectedPropertyWithDefault('defaultName', $commandName);
-        $node->stmts = \array_merge([$defaultNameProperty], (array) $node->stmts);
+        $node->stmts = \array_merge([$defaultNameProperty], $node->stmts);
         return $node;
     }
     private function resolveCommandNameAndRemove(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
@@ -83,11 +83,11 @@ CODE_SAMPLE
     private function resolveCommandNameFromConstructor(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
     {
         $commandName = null;
-        $this->traverseNodesWithCallable((array) $class->stmts, function (\PhpParser\Node $node) use(&$commandName) {
+        $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use(&$commandName) {
             if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
                 return null;
             }
-            if (!$this->isObjectType($node->class, '_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command')) {
+            if (!$this->isObjectType($node->class, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Console\\Command\\Command')) {
                 return null;
             }
             $commandName = $this->matchCommandNameNodeInConstruct($node);
@@ -101,11 +101,11 @@ CODE_SAMPLE
     private function resolveCommandNameFromSetName(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
     {
         $commandName = null;
-        $this->traverseNodesWithCallable((array) $class->stmts, function (\PhpParser\Node $node) use(&$commandName) {
+        $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use(&$commandName) {
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
-            if (!$this->isObjectType($node->var, '_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Command\\Command')) {
+            if (!$this->isObjectType($node->var, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Console\\Command\\Command')) {
                 return null;
             }
             if (!$this->isName($node->name, 'setName')) {
@@ -155,7 +155,7 @@ CODE_SAMPLE
         if (!$this->isName($staticCall->name, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return null;
         }
-        if (\count((array) $staticCall->args) < 1) {
+        if (\count($staticCall->args) < 1) {
             return null;
         }
         $staticType = $this->getStaticType($staticCall->args[0]->value);

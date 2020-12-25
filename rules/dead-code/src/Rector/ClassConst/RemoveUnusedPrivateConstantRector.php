@@ -60,7 +60,7 @@ CODE_SAMPLE
         if (!$node->isPrivate()) {
             return null;
         }
-        if (\count((array) $node->consts) !== 1) {
+        if (\count($node->consts) !== 1) {
             return null;
         }
         // never used

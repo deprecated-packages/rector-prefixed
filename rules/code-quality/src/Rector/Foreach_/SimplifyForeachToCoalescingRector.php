@@ -14,6 +14,7 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -99,14 +100,11 @@ CODE_SAMPLE
             if (!$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
                 return null;
             }
-            if (\count((array) $node->stmts) !== 1) {
+            if (\count($node->stmts) !== 1) {
                 return null;
             }
             $innerNode = $node->stmts[0] instanceof \PhpParser\Node\Stmt\Expression ? $node->stmts[0]->expr : $node->stmts[0];
-            if ($innerNode instanceof \PhpParser\Node\Expr\Assign) {
-                return $innerNode;
-            }
-            if ($innerNode instanceof \PhpParser\Node\Stmt\Return_) {
+            if (\Rector\Core\Util\StaticInstanceOf::isOneOf($innerNode, [\PhpParser\Node\Expr\Assign::class, \PhpParser\Node\Stmt\Return_::class])) {
                 return $innerNode;
             }
             return null;

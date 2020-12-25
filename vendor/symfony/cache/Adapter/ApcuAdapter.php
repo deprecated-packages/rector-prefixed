@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper50d83356d739\Symfony\Component\Cache\Adapter;
+namespace _PhpScoper5b8c9e9ebd21\Symfony\Component\Cache\Adapter;
 
-use _PhpScoper50d83356d739\Symfony\Component\Cache\CacheItem;
-use _PhpScoper50d83356d739\Symfony\Component\Cache\Exception\CacheException;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Cache\CacheItem;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Cache\Exception\CacheException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ApcuAdapter extends \_PhpScoper50d83356d739\Symfony\Component\Cache\Adapter\AbstractAdapter
+class ApcuAdapter extends \_PhpScoper5b8c9e9ebd21\Symfony\Component\Cache\Adapter\AbstractAdapter
 {
     /**
      * @throws CacheException if APCu is not enabled
@@ -23,14 +23,14 @@ class ApcuAdapter extends \_PhpScoper50d83356d739\Symfony\Component\Cache\Adapte
     public function __construct(string $namespace = '', int $defaultLifetime = 0, string $version = null)
     {
         if (!static::isSupported()) {
-            throw new \_PhpScoper50d83356d739\Symfony\Component\Cache\Exception\CacheException('APCu is not enabled.');
+            throw new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Cache\Exception\CacheException('APCu is not enabled.');
         }
         if ('cli' === \PHP_SAPI) {
             \ini_set('apc.use_request_time', 0);
         }
         parent::__construct($namespace, $defaultLifetime);
         if (null !== $version) {
-            \_PhpScoper50d83356d739\Symfony\Component\Cache\CacheItem::validateKey($version);
+            \_PhpScoper5b8c9e9ebd21\Symfony\Component\Cache\CacheItem::validateKey($version);
             if (!\apcu_exists($version . '@' . $namespace)) {
                 $this->doClear($namespace);
                 \apcu_add($version . '@' . $namespace, null);

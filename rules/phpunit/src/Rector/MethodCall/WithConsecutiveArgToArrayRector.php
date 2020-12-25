@@ -13,7 +13,7 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator;
 use Rector\Core\Rector\AbstractRector;
 use ReflectionMethod;
-use _PhpScoper50d83356d739\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use _PhpScoper5b8c9e9ebd21\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -95,7 +95,7 @@ CODE_SAMPLE
             return null;
         }
         // is a mock?
-        if (!$this->isObjectType($node, '_PhpScoper50d83356d739\\PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker')) {
+        if (!$this->isObjectType($node, '_PhpScoper5b8c9e9ebd21\\PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker')) {
             return null;
         }
         $mockClass = $this->inferMockedClassName($node);

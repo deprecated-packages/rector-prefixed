@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Catch_;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Catch_;
@@ -62,7 +62,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (\count((array) $node->types) !== 1) {
+        if (\count($node->types) !== 1) {
             return null;
         }
         if ($node->var === null) {
@@ -74,7 +74,7 @@ CODE_SAMPLE
         }
         $type = $node->types[0];
         $typeShortName = $this->getShortName($type);
-        $newVariableName = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace(\lcfirst($typeShortName), self::STARTS_WITH_ABBREVIATION_REGEX, function (array $matches) : string {
+        $newVariableName = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::replace(\lcfirst($typeShortName), self::STARTS_WITH_ABBREVIATION_REGEX, function (array $matches) : string {
             $output = '';
             $output .= isset($matches[1]) ? \strtolower($matches[1]) : '';
             $output .= $matches[2] ?? '';

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\Class_;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
@@ -97,7 +97,7 @@ CODE_SAMPLE
             }
             foreach ($dataProviderTagValueNodes as $dataProviderTagValueNode) {
                 $oldMethodName = $dataProviderTagValueNode->getMethod();
-                if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($oldMethodName, 'test')) {
+                if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::startsWith($oldMethodName, 'test')) {
                     continue;
                 }
                 $newMethodName = $this->createNewMethodName($oldMethodName);
@@ -121,7 +121,7 @@ CODE_SAMPLE
     }
     private function createNewMethodName(string $oldMethodName) : string
     {
-        $newMethodName = \_PhpScoper50d83356d739\Nette\Utils\Strings::substring($oldMethodName, \strlen('test'));
+        $newMethodName = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::substring($oldMethodName, \strlen('test'));
         return \lcfirst($newMethodName);
     }
 }

@@ -8,30 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper50d83356d739\Symfony\Component\Console\Style;
+namespace _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Style;
 
-use _PhpScoper50d83356d739\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Exception\RuntimeException;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Formatter\OutputFormatter;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Helper\Helper;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Helper\ProgressBar;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Helper\SymfonyQuestionHelper;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Helper\Table;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Helper\TableCell;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Helper\TableSeparator;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Output\TrimmedBufferOutput;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Question\ChoiceQuestion;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Question\ConfirmationQuestion;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Question\Question;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Terminal;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Exception\RuntimeException;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Formatter\OutputFormatter;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Helper;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\ProgressBar;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\SymfonyQuestionHelper;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Table;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\TableCell;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\TableSeparator;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Output\TrimmedBufferOutput;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Question\ChoiceQuestion;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Question\ConfirmationQuestion;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Question\Question;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Terminal;
 /**
  * Output decorator helpers for the Symfony Style Guide.
  *
  * @author Kevin Bond <kevinbond@gmail.com>
  */
-class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Style\OutputStyle
+class SymfonyStyle extends \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Style\OutputStyle
 {
     public const MAX_LINE_LENGTH = 120;
     private $input;
@@ -39,12 +39,12 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
     private $progressBar;
     private $lineLength;
     private $bufferedOutput;
-    public function __construct(\_PhpScoper50d83356d739\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper50d83356d739\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(\_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->input = $input;
-        $this->bufferedOutput = new \_PhpScoper50d83356d739\Symfony\Component\Console\Output\TrimmedBufferOutput(\DIRECTORY_SEPARATOR === '\\' ? 4 : 2, $output->getVerbosity(), \false, clone $output->getFormatter());
+        $this->bufferedOutput = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Output\TrimmedBufferOutput(\DIRECTORY_SEPARATOR === '\\' ? 4 : 2, $output->getVerbosity(), \false, clone $output->getFormatter());
         // Windows cmd wraps lines as soon as the terminal width is reached, whether there are following chars or not.
-        $width = (new \_PhpScoper50d83356d739\Symfony\Component\Console\Terminal())->getWidth() ?: self::MAX_LINE_LENGTH;
+        $width = (new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Terminal())->getWidth() ?: self::MAX_LINE_LENGTH;
         $this->lineLength = \min($width - (int) (\DIRECTORY_SEPARATOR === '\\'), self::MAX_LINE_LENGTH);
         parent::__construct($output);
     }
@@ -66,7 +66,7 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
     public function title(string $message)
     {
         $this->autoPrependBlock();
-        $this->writeln([\sprintf('<comment>%s</>', \_PhpScoper50d83356d739\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('=', \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $message)))]);
+        $this->writeln([\sprintf('<comment>%s</>', \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('=', \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $message)))]);
         $this->newLine();
     }
     /**
@@ -75,7 +75,7 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
     public function section(string $message)
     {
         $this->autoPrependBlock();
-        $this->writeln([\sprintf('<comment>%s</>', \_PhpScoper50d83356d739\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('-', \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $message)))]);
+        $this->writeln([\sprintf('<comment>%s</>', \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('-', \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $message)))]);
         $this->newLine();
     }
     /**
@@ -159,9 +159,9 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
      */
     public function table(array $headers, array $rows)
     {
-        $style = clone \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Table::getStyleDefinition('symfony-style-guide');
+        $style = clone \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Table::getStyleDefinition('symfony-style-guide');
         $style->setCellHeaderFormat('<info>%s</info>');
-        $table = new \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Table($this);
+        $table = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Table($this);
         $table->setHeaders($headers);
         $table->setRows($rows);
         $table->setStyle($style);
@@ -173,9 +173,9 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
      */
     public function horizontalTable(array $headers, array $rows)
     {
-        $style = clone \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Table::getStyleDefinition('symfony-style-guide');
+        $style = clone \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Table::getStyleDefinition('symfony-style-guide');
         $style->setCellHeaderFormat('<info>%s</info>');
-        $table = new \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Table($this);
+        $table = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Table($this);
         $table->setHeaders($headers);
         $table->setRows($rows);
         $table->setStyle($style);
@@ -195,24 +195,24 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
      */
     public function definitionList(...$list)
     {
-        $style = clone \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Table::getStyleDefinition('symfony-style-guide');
+        $style = clone \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Table::getStyleDefinition('symfony-style-guide');
         $style->setCellHeaderFormat('<info>%s</info>');
-        $table = new \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Table($this);
+        $table = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Table($this);
         $headers = [];
         $row = [];
         foreach ($list as $value) {
-            if ($value instanceof \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\TableSeparator) {
+            if ($value instanceof \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\TableSeparator) {
                 $headers[] = $value;
                 $row[] = $value;
                 continue;
             }
             if (\is_string($value)) {
-                $headers[] = new \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\TableCell($value, ['colspan' => 2]);
+                $headers[] = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\TableCell($value, ['colspan' => 2]);
                 $row[] = null;
                 continue;
             }
             if (!\is_array($value)) {
-                throw new \_PhpScoper50d83356d739\Symfony\Component\Console\Exception\InvalidArgumentException('Value should be an array, string, or an instance of TableSeparator.');
+                throw new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Exception\InvalidArgumentException('Value should be an array, string, or an instance of TableSeparator.');
             }
             $headers[] = \key($value);
             $row[] = \current($value);
@@ -229,7 +229,7 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
      */
     public function ask(string $question, ?string $default = null, $validator = null)
     {
-        $question = new \_PhpScoper50d83356d739\Symfony\Component\Console\Question\Question($question, $default);
+        $question = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Question\Question($question, $default);
         $question->setValidator($validator);
         return $this->askQuestion($question);
     }
@@ -238,7 +238,7 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
      */
     public function askHidden(string $question, $validator = null)
     {
-        $question = new \_PhpScoper50d83356d739\Symfony\Component\Console\Question\Question($question);
+        $question = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Question\Question($question);
         $question->setHidden(\true);
         $question->setValidator($validator);
         return $this->askQuestion($question);
@@ -248,7 +248,7 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
      */
     public function confirm($question, $default = \true)
     {
-        return $this->askQuestion(new \_PhpScoper50d83356d739\Symfony\Component\Console\Question\ConfirmationQuestion($question, $default));
+        return $this->askQuestion(new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Question\ConfirmationQuestion($question, $default));
     }
     /**
      * {@inheritdoc}
@@ -259,7 +259,7 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
             $values = \array_flip($choices);
             $default = isset($values[$default]) ? $values[$default] : $default;
         }
-        return $this->askQuestion(new \_PhpScoper50d83356d739\Symfony\Component\Console\Question\ChoiceQuestion($question, $choices, $default));
+        return $this->askQuestion(new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Question\ChoiceQuestion($question, $choices, $default));
     }
     /**
      * {@inheritdoc}
@@ -303,13 +303,13 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
     /**
      * @return mixed
      */
-    public function askQuestion(\_PhpScoper50d83356d739\Symfony\Component\Console\Question\Question $question)
+    public function askQuestion(\_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Question\Question $question)
     {
         if ($this->input->isInteractive()) {
             $this->autoPrependBlock();
         }
         if (!$this->questionHelper) {
-            $this->questionHelper = new \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\SymfonyQuestionHelper();
+            $this->questionHelper = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\SymfonyQuestionHelper();
         }
         $answer = $this->questionHelper->ask($this->input, $this, $question);
         if ($this->input->isInteractive()) {
@@ -361,10 +361,10 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
     {
         return new self($this->input, $this->getErrorOutput());
     }
-    private function getProgressBar() : \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\ProgressBar
+    private function getProgressBar() : \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\ProgressBar
     {
         if (!$this->progressBar) {
-            throw new \_PhpScoper50d83356d739\Symfony\Component\Console\Exception\RuntimeException('The ProgressBar is not started.');
+            throw new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Exception\RuntimeException('The ProgressBar is not started.');
         }
         return $this->progressBar;
     }
@@ -395,7 +395,7 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
     private function createBlock(iterable $messages, string $type = null, string $style = null, string $prefix = ' ', bool $padding = \false, bool $escape = \false) : array
     {
         $indentLength = 0;
-        $prefixLength = \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $prefix);
+        $prefixLength = \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $prefix);
         $lines = [];
         if (null !== $type) {
             $type = \sprintf('[%s] ', $type);
@@ -405,7 +405,7 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
         // wrap and add newlines for each element
         foreach ($messages as $key => $message) {
             if ($escape) {
-                $message = \_PhpScoper50d83356d739\Symfony\Component\Console\Formatter\OutputFormatter::escape($message);
+                $message = \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Formatter\OutputFormatter::escape($message);
             }
             $lines = \array_merge($lines, \explode(\PHP_EOL, \wordwrap($message, $this->lineLength - $prefixLength - $indentLength, \PHP_EOL, \true)));
             if (\count($messages) > 1 && $key < \count($messages) - 1) {
@@ -423,7 +423,7 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
                 $line = $firstLineIndex === $i ? $type . $line : $lineIndentation . $line;
             }
             $line = $prefix . $line;
-            $line .= \str_repeat(' ', $this->lineLength - \_PhpScoper50d83356d739\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $line));
+            $line .= \str_repeat(' ', $this->lineLength - \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $line));
             if ($style) {
                 $line = \sprintf('<%s>%s</>', $style, $line);
             }
@@ -436,4 +436,4 @@ class SymfonyStyle extends \_PhpScoper50d83356d739\Symfony\Component\Console\Sty
  *
  * @author Kevin Bond <kevinbond@gmail.com>
  */
-\class_alias('_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Style\\SymfonyStyle', 'Symfony\\Component\\Console\\Style\\SymfonyStyle', \false);
+\class_alias('_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Console\\Style\\SymfonyStyle', 'Symfony\\Component\\Console\\Style\\SymfonyStyle', \false);

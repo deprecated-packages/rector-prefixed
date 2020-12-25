@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Core\Console\Style;
 
-use _PhpScoper50d83356d739\Symfony\Component\Console\Application;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Input\ArgvInput;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Output\ConsoleOutput;
-use _PhpScoper50d83356d739\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Application;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Input\ArgvInput;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Output\ConsoleOutput;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class SymfonyStyleFactory
@@ -21,14 +21,14 @@ final class SymfonyStyleFactory
     }
     public function create() : \Symfony\Component\Console\Style\SymfonyStyle
     {
-        $argvInput = new \_PhpScoper50d83356d739\Symfony\Component\Console\Input\ArgvInput();
-        $consoleOutput = new \_PhpScoper50d83356d739\Symfony\Component\Console\Output\ConsoleOutput();
+        $argvInput = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Input\ArgvInput();
+        $consoleOutput = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Output\ConsoleOutput();
         // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
-        $this->privatesCaller->callPrivateMethod(new \_PhpScoper50d83356d739\Symfony\Component\Console\Application(), 'configureIO', $argvInput, $consoleOutput);
+        $this->privatesCaller->callPrivateMethod(new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Application(), 'configureIO', $argvInput, $consoleOutput);
         $debugArgvInputParameterOption = $argvInput->getParameterOption('--debug');
         // --debug is called
         if ($debugArgvInputParameterOption === null) {
-            $consoleOutput->setVerbosity(\_PhpScoper50d83356d739\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
+            $consoleOutput->setVerbosity(\_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
         }
         return new \Symfony\Component\Console\Style\SymfonyStyle($argvInput, $consoleOutput);
     }

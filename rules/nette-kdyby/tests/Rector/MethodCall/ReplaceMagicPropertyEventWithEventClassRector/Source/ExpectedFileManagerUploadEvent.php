@@ -2,7 +2,7 @@
 
 namespace Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Fixture\Event;
 
-final class FileManagerUploadEvent extends \_PhpScoper50d83356d739\Symfony\Contracts\EventDispatcher\Event
+final class FileManagerUploadEvent extends \_PhpScoper5b8c9e9ebd21\Symfony\Contracts\EventDispatcher\Event
 {
     /**
      * @var \Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Source\SomeUser

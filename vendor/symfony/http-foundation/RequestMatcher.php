@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper50d83356d739\Symfony\Component\HttpFoundation;
+namespace _PhpScoper5b8c9e9ebd21\Symfony\Component\HttpFoundation;
 
 /**
  * RequestMatcher compares a pre-defined set of checks against a Request instance.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class RequestMatcher implements \_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\RequestMatcherInterface
+class RequestMatcher implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\HttpFoundation\RequestMatcherInterface
 {
     /**
      * @var string|null
@@ -134,7 +134,7 @@ class RequestMatcher implements \_PhpScoper50d83356d739\Symfony\Component\HttpFo
     /**
      * {@inheritdoc}
      */
-    public function matches(\_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\Request $request)
+    public function matches(\_PhpScoper5b8c9e9ebd21\Symfony\Component\HttpFoundation\Request $request)
     {
         if ($this->schemes && !\in_array($request->getScheme(), $this->schemes, \true)) {
             return \false;
@@ -156,7 +156,7 @@ class RequestMatcher implements \_PhpScoper50d83356d739\Symfony\Component\HttpFo
         if (null !== $this->port && 0 < $this->port && $request->getPort() !== $this->port) {
             return \false;
         }
-        if (\_PhpScoper50d83356d739\Symfony\Component\HttpFoundation\IpUtils::checkIp($request->getClientIp(), $this->ips)) {
+        if (\_PhpScoper5b8c9e9ebd21\Symfony\Component\HttpFoundation\IpUtils::checkIp($request->getClientIp(), $this->ips)) {
             return \true;
         }
         // Note to future implementors: add additional checks above the

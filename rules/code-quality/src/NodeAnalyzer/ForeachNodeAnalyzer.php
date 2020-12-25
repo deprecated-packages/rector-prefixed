@@ -27,7 +27,7 @@ final class ForeachNodeAnalyzer
      */
     public function matchAssignItemsOnlyForeachArrayVariable(\PhpParser\Node\Stmt\Foreach_ $foreach) : ?\PhpParser\Node\Expr
     {
-        if (\count((array) $foreach->stmts) !== 1) {
+        if (\count($foreach->stmts) !== 1) {
             return null;
         }
         $onlyStatement = $foreach->stmts[0];

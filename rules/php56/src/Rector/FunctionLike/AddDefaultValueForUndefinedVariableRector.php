@@ -24,6 +24,7 @@ use PhpParser\Node\Stmt\Unset_;
 use PhpParser\NodeTraverser;
 use PHPStan\Analyser\Scope;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -133,7 +134,7 @@ CODE_SAMPLE
     }
     private function collectDefinedVariablesFromForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
-        $this->traverseNodesWithCallable((array) $foreach->stmts, function (\PhpParser\Node $node) : void {
+        $this->traverseNodesWithCallable($foreach->stmts, function (\PhpParser\Node $node) : void {
             if ($node instanceof \PhpParser\Node\Expr\Assign || $node instanceof \PhpParser\Node\Expr\AssignRef) {
                 if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
                     return;
@@ -155,10 +156,7 @@ CODE_SAMPLE
         if ($parentNode instanceof \PhpParser\Node && ($parentNode instanceof \PhpParser\Node\Expr\Assign || $parentNode instanceof \PhpParser\Node\Expr\AssignRef || $this->isStaticVariable($parentNode))) {
             return \true;
         }
-        if ($parentNode instanceof \PhpParser\Node\Stmt\Unset_) {
-            return \true;
-        }
-        if ($parentNode instanceof \PhpParser\Node\Expr\Cast\Unset_) {
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($parentNode, [\PhpParser\Node\Stmt\Unset_::class, \PhpParser\Node\Expr\Cast\Unset_::class])) {
             return \true;
         }
         // list() = | [$values] = defines variables as null
@@ -192,10 +190,7 @@ CODE_SAMPLE
     {
         if ($parentNode instanceof \PhpParser\Node) {
             $parentParentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentParentNode instanceof \PhpParser\Node\Expr\List_) {
-                return \true;
-            }
-            if ($parentParentNode instanceof \PhpParser\Node\Expr\Array_) {
+            if (\Rector\Core\Util\StaticInstanceOf::isOneOf($parentParentNode, [\PhpParser\Node\Expr\List_::class, \PhpParser\Node\Expr\Array_::class])) {
                 return \true;
             }
         }

@@ -10,17 +10,13 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Exception\InvalidNodeTypeException;
 use Rector\Core\ValueObject\Visibility;
-use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
+use _PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert;
 final class VisibilityManipulator
 {
     /**
      * @var string[]
      */
     private const ALLOWED_NODE_TYPES = [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\Stmt\ClassConst::class, \PhpParser\Node\Stmt\Class_::class];
-    /**
-     * @var int[]
-     */
-    private const ALLOWED_VISIBILITIES = [\Rector\Core\ValueObject\Visibility::PUBLIC, \Rector\Core\ValueObject\Visibility::PROTECTED, \Rector\Core\ValueObject\Visibility::PRIVATE, \Rector\Core\ValueObject\Visibility::STATIC];
     /**
      * @param ClassMethod|Property|ClassConst $node
      */
@@ -89,7 +85,7 @@ final class VisibilityManipulator
      */
     public function changeNodeVisibility(\PhpParser\Node $node, int $visibility) : void
     {
-        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::oneOf($visibility, [\Rector\Core\ValueObject\Visibility::PUBLIC, \Rector\Core\ValueObject\Visibility::PROTECTED, \Rector\Core\ValueObject\Visibility::PRIVATE, \Rector\Core\ValueObject\Visibility::STATIC, \Rector\Core\ValueObject\Visibility::ABSTRACT, \Rector\Core\ValueObject\Visibility::FINAL]);
+        \_PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert::oneOf($visibility, [\Rector\Core\ValueObject\Visibility::PUBLIC, \Rector\Core\ValueObject\Visibility::PROTECTED, \Rector\Core\ValueObject\Visibility::PRIVATE, \Rector\Core\ValueObject\Visibility::STATIC, \Rector\Core\ValueObject\Visibility::ABSTRACT, \Rector\Core\ValueObject\Visibility::FINAL]);
         $this->replaceVisibilityFlag($node, $visibility);
     }
     /**

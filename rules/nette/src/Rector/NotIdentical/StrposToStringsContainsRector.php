@@ -63,7 +63,7 @@ CODE_SAMPLE
         if (isset($funcCall->args[2]) && !$this->isValue($funcCall->args[2]->value, 0)) {
             return null;
         }
-        $containsStaticCall = $this->createStaticCall('_PhpScoper50d83356d739\\Nette\\Utils\\Strings', 'contains');
+        $containsStaticCall = $this->createStaticCall('_PhpScoper5b8c9e9ebd21\\Nette\\Utils\\Strings', 'contains');
         $containsStaticCall->args[0] = $funcCall->args[0];
         $containsStaticCall->args[1] = $funcCall->args[1];
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {

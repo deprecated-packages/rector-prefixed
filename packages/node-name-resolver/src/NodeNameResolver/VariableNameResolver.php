@@ -33,6 +33,6 @@ final class VariableNameResolver implements \Rector\NodeNameResolver\Contract\No
         if ($node->name instanceof \PhpParser\Node\Expr) {
             return null;
         }
-        return (string) $node->name;
+        return $node->name;
     }
 }

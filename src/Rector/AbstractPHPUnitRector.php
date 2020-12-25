@@ -50,7 +50,7 @@ abstract class AbstractPHPUnitRector extends \Rector\Core\Rector\AbstractRector
         if ($classLike === null) {
             return \false;
         }
-        return $this->isObjectTypes($classLike, ['_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
+        return $this->isObjectTypes($classLike, ['_PhpScoper5b8c9e9ebd21\\PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
     }
     /**
      * @param StaticCall|MethodCall $node

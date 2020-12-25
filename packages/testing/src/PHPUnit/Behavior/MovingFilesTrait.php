@@ -7,7 +7,7 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\FileSystemRector\Contract\MovedFileInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
+use _PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert;
 /**
  * @property-read RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
  */
@@ -36,7 +36,7 @@ trait MovingFilesTrait
      */
     protected function assertFilesWereAdded(array $addedFileWithContents) : void
     {
-        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsAOf($addedFileWithContents, \Rector\FileSystemRector\ValueObject\AddedFileWithContent::class);
+        \_PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert::allIsAOf($addedFileWithContents, \Rector\FileSystemRector\ValueObject\AddedFileWithContent::class);
         $addedFilePathsWithContents = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
         \sort($addedFilePathsWithContents);
         \sort($addedFileWithContents);

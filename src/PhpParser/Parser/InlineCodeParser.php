@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Parser;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -15,6 +15,7 @@ use PhpParser\Node\Stmt;
 use PhpParser\Parser;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
 final class InlineCodeParser
 {
@@ -52,8 +53,8 @@ final class InlineCodeParser
     public function parse(string $content) : array
     {
         // wrap code so php-parser can interpret it
-        $content = \_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith($content, '<?php ') ? $content : '<?php ' . $content;
-        $content = \_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($content, ';') ? $content : $content . ';';
+        $content = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::startsWith($content, '<?php ') ? $content : '<?php ' . $content;
+        $content = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::endsWith($content, ';') ? $content : $content . ';';
         $nodes = (array) $this->parser->parse($content);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromString($nodes);
     }
@@ -72,20 +73,14 @@ final class InlineCodeParser
             // remove "
             $content = \trim($this->betterStandardPrinter->print($content), '""');
             // use \$ → $
-            $content = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($content, self::PRESLASHED_DOLLAR_REGEX, '$');
+            $content = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::replace($content, self::PRESLASHED_DOLLAR_REGEX, '$');
             // use \'{$...}\' → $...
-            return \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($content, self::CURLY_BRACKET_WRAPPER_REGEX, '$1');
+            return \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::replace($content, self::CURLY_BRACKET_WRAPPER_REGEX, '$1');
         }
         if ($content instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             return $this->stringify($content->left) . $this->stringify($content->right);
         }
-        if ($content instanceof \PhpParser\Node\Expr\Variable) {
-            return $this->betterStandardPrinter->print($content);
-        }
-        if ($content instanceof \PhpParser\Node\Expr\PropertyFetch) {
-            return $this->betterStandardPrinter->print($content);
-        }
-        if ($content instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($content, [\PhpParser\Node\Expr\Variable::class, \PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class])) {
             return $this->betterStandardPrinter->print($content);
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException(\get_class($content) . ' ' . __METHOD__);

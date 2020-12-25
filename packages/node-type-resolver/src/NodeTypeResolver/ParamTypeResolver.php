@@ -91,7 +91,6 @@ final class ParamTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeT
         if ($classMethod === null) {
             return new \PHPStan\Type\MixedType();
         }
-        /** @var string $paramName */
         $paramName = $this->nodeNameResolver->getName($param);
         $paramStaticType = new \PHPStan\Type\MixedType();
         // special case for param inside method/function
@@ -113,7 +112,6 @@ final class ParamTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeT
         if ($phpDocInfo === null) {
             return new \PHPStan\Type\MixedType();
         }
-        /** @var string $paramName */
         $paramName = $this->nodeNameResolver->getName($param);
         return $phpDocInfo->getParamType($paramName);
     }

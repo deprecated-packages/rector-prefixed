@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Exception\NodeChanger\NodeMissingIdentifierException;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 /**
  * This class renames node identifier, e.g. ClassMethod rename:
@@ -56,7 +57,7 @@ final class IdentifierManipulator
         if ($name === null) {
             return;
         }
-        $newName = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove), '');
+        $newName = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::replace($name, \sprintf('#%s$#', $suffixToRemove), '');
         $node->name = new \PhpParser\Node\Identifier($newName);
     }
     private function ensureNodeHasIdentifier(\PhpParser\Node $node) : void
@@ -68,12 +69,12 @@ final class IdentifierManipulator
     }
     private function resolveOldMethodName(\PhpParser\Node $node) : ?string
     {
-        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
+        if (!\property_exists($node, 'name')) {
+            return $this->nodeNameResolver->getName($node);
+        }
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\MethodCall::class])) {
             return $this->nodeNameResolver->getName($node->name);
         }
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
-            return $this->nodeNameResolver->getName($node->name);
-        }
-        return $this->nodeNameResolver->getName($node);
+        return null;
     }
 }

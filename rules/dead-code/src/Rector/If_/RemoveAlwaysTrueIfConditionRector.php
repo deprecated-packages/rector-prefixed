@@ -58,7 +58,7 @@ CODE_SAMPLE
             return null;
         }
         // just one if
-        if (\count((array) $node->elseifs) !== 0) {
+        if (\count($node->elseifs) !== 0) {
             return null;
         }
         $conditionStaticType = $this->getStaticType($node->cond);
@@ -68,7 +68,7 @@ CODE_SAMPLE
         if (!$conditionStaticType->getValue()) {
             return null;
         }
-        if (\count((array) $node->stmts) !== 1) {
+        if (\count($node->stmts) !== 1) {
             // unable to handle now
             return null;
         }

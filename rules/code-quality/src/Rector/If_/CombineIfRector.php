@@ -78,7 +78,7 @@ CODE_SAMPLE
         if ($if->else !== null) {
             return \true;
         }
-        if (\count((array) $if->stmts) !== 1) {
+        if (\count($if->stmts) !== 1) {
             return \true;
         }
         if ($if->elseifs !== []) {

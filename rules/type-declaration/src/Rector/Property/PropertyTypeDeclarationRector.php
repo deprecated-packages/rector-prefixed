@@ -68,7 +68,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (\count((array) $node->props) !== 1) {
+        if (\count($node->props) !== 1) {
             return null;
         }
         if ($node->type !== null) {

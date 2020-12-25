@@ -17,13 +17,13 @@ final class SymfonyPhpConfigClosureAnalyzer
     }
     public function isPhpConfigClosure(\PhpParser\Node\Expr\Closure $closure) : bool
     {
-        if (\count((array) $closure->params) !== 1) {
+        if (\count($closure->params) !== 1) {
             return \false;
         }
         $onlyParam = $closure->params[0];
         if ($onlyParam->type === null) {
             return \false;
         }
-        return $this->nodeNameResolver->isName($onlyParam->type, '_PhpScoper50d83356d739\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator');
+        return $this->nodeNameResolver->isName($onlyParam->type, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator');
     }
 }

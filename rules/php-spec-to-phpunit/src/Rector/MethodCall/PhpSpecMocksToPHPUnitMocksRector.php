@@ -72,7 +72,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
     {
         // remove params and turn them to instances
         $assigns = [];
-        foreach ((array) $classMethod->params as $param) {
+        foreach ($classMethod->params as $param) {
             if (!$param->type instanceof \PhpParser\Node\Name) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
@@ -187,6 +187,6 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         if ($variableName === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        return \sprintf('/** @var %s|\\%s $%s */', $paramType, '_PhpScoper50d83356d739\\PHPUnit\\Framework\\MockObject\\MockObject', $variableName);
+        return \sprintf('/** @var %s|\\%s $%s */', $paramType, '_PhpScoper5b8c9e9ebd21\\PHPUnit\\Framework\\MockObject\\MockObject', $variableName);
     }
 }

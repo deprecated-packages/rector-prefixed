@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteUtilsCodeQuality\Rector\LNumber;
 
-use _PhpScoper50d83356d739\Nette\Utils\DateTime;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\DateTime;
 use PhpParser\Node;
 use PhpParser\Node\Scalar\LNumber;
 use Rector\Core\Rector\AbstractRector;
@@ -20,7 +20,7 @@ final class ReplaceTimeNumberWithDateTimeConstantRector extends \Rector\Core\Rec
      * @noRector
      * @var array<int, string>
      */
-    private const NUMBER_TO_CONSTANT_NAME = [\_PhpScoper50d83356d739\Nette\Utils\DateTime::HOUR => 'HOUR', \_PhpScoper50d83356d739\Nette\Utils\DateTime::DAY => 'DAY', \_PhpScoper50d83356d739\Nette\Utils\DateTime::WEEK => 'WEEK', \_PhpScoper50d83356d739\Nette\Utils\DateTime::MONTH => 'MONTH', \_PhpScoper50d83356d739\Nette\Utils\DateTime::YEAR => 'YEAR'];
+    private const NUMBER_TO_CONSTANT_NAME = [\_PhpScoper5b8c9e9ebd21\Nette\Utils\DateTime::HOUR => 'HOUR', \_PhpScoper5b8c9e9ebd21\Nette\Utils\DateTime::DAY => 'DAY', \_PhpScoper5b8c9e9ebd21\Nette\Utils\DateTime::WEEK => 'WEEK', \_PhpScoper5b8c9e9ebd21\Nette\Utils\DateTime::MONTH => 'MONTH', \_PhpScoper5b8c9e9ebd21\Nette\Utils\DateTime::YEAR => 'YEAR'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace time numbers with Nette\\Utils\\DateTime constants', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -60,6 +60,6 @@ CODE_SAMPLE
         if ($constantName === null) {
             return null;
         }
-        return $this->createClassConstFetch('_PhpScoper50d83356d739\\Nette\\Utils\\DateTime', $constantName);
+        return $this->createClassConstFetch('_PhpScoper5b8c9e9ebd21\\Nette\\Utils\\DateTime', $constantName);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper50d83356d739\My;
+namespace _PhpScoper5b8c9e9ebd21\My;
 
 final class Bar
 {

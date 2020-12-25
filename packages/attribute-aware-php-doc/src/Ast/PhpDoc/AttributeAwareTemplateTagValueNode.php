@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\AttributeAwarePhpDoc\Ast\PhpDoc;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use Rector\BetterPhpDocParser\Attributes\Attribute\AttributeTrait;
@@ -23,7 +23,7 @@ final class AttributeAwareTemplateTagValueNode extends \PHPStan\PhpDocParser\Ast
     public function __construct(string $name, ?\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, string $description, string $originalContent)
     {
         parent::__construct($name, $typeNode, $description);
-        $matches = \_PhpScoper50d83356d739\Nette\Utils\Strings::match($originalContent, self::AS_OF_PREPOSITOIN_REGEX);
+        $matches = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::match($originalContent, self::AS_OF_PREPOSITOIN_REGEX);
         $this->preposition = $matches['preposition'] ?? 'of';
     }
     public function __toString() : string

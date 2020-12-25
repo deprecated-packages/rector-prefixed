@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\Generator;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use Rector\RectorGenerator\FileSystem\TemplateFileSystem;
 use Rector\RectorGenerator\TemplateFactory;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
@@ -56,7 +56,7 @@ final class FileGenerator
         $content = $this->templateFactory->create($smartFileInfo->getContents(), $templateVariables);
         // replace "Rector\Utils\" with "Utils\Rector\" for 3rd party packages
         if (!$rectorRecipe->isRectorRepository()) {
-            $content = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($content, self::RECTOR_UTILS_REGEX, '_PhpScoper50d83356d739\\Utils\\Rector');
+            $content = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::replace($content, self::RECTOR_UTILS_REGEX, '_PhpScoper5b8c9e9ebd21\\Utils\\Rector');
         }
         $this->smartFileSystem->dumpFile($targetFilePath, $content);
         return $targetFilePath;

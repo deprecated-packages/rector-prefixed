@@ -105,7 +105,7 @@ CODE_SAMPLE
         if ($if->else === null) {
             return \true;
         }
-        if (\count((array) $if->elseifs) > 1) {
+        if (\count($if->elseifs) > 1) {
             return \true;
         }
         if (!$if->cond instanceof \PhpParser\Node\Expr\Isset_) {
@@ -141,7 +141,7 @@ CODE_SAMPLE
      */
     private function hasOnlyStatementAssign(\PhpParser\Node $node) : bool
     {
-        if (\count((array) $node->stmts) !== 1) {
+        if (\count($node->stmts) !== 1) {
             return \false;
         }
         if (!$node->stmts[0] instanceof \PhpParser\Node\Stmt\Expression) {

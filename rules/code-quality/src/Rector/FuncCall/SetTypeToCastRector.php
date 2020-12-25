@@ -16,6 +16,7 @@ use PhpParser\Node\Expr\Cast\String_;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -79,10 +80,7 @@ CODE_SAMPLE
         $varNode = $node->args[0]->value;
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // result of function or probably used
-        if ($parentNode instanceof \PhpParser\Node\Expr) {
-            return null;
-        }
-        if ($parentNode instanceof \PhpParser\Node\Arg) {
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($parentNode, [\PhpParser\Node\Expr::class, \PhpParser\Node\Arg::class])) {
             return null;
         }
         if (isset(self::TYPE_TO_CAST[$typeNode])) {

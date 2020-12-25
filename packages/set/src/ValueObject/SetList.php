@@ -328,10 +328,6 @@ final class SetList
     /**
      * @var string
      */
-    public const PHPSTAN = __DIR__ . '/../../../../config/set/phpstan.php';
-    /**
-     * @var string
-     */
     public const PHPUNIT80_DMS = __DIR__ . '/../../../../config/set/phpunit80-dms.php';
     /**
      * @var string
@@ -453,10 +449,6 @@ final class SetList
      * @var string
      */
     public const SAFE_07 = __DIR__ . '/../../../../config/set/safe07.php';
-    /**
-     * @var string
-     */
-    public const SOLID = __DIR__ . '/../../../../config/set/solid.php';
     /**
      * @var string
      */

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Rector\Class_;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Class_;
@@ -113,7 +113,7 @@ CODE_SAMPLE
             if (!$varType instanceof \PHPStan\Type\ObjectType) {
                 continue;
             }
-            if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($varType->getClassName(), 'UuidInterface')) {
+            if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($varType->getClassName(), 'UuidInterface')) {
                 continue;
             }
             return $property;
@@ -126,11 +126,11 @@ CODE_SAMPLE
         if ($constructClassMethod === null) {
             return \false;
         }
-        return (bool) $this->betterNodeFinder->findFirst((array) $class->stmts, function (\PhpParser\Node $node) use($uuidPropertyName) : bool {
+        return (bool) $this->betterNodeFinder->findFirst($class->stmts, function (\PhpParser\Node $node) use($uuidPropertyName) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
-            if (!$this->isStaticCallNamed($node->expr, '_PhpScoper50d83356d739\\Ramsey\\Uuid\\Uuid', 'uuid4')) {
+            if (!$this->isStaticCallNamed($node->expr, '_PhpScoper5b8c9e9ebd21\\Ramsey\\Uuid\\Uuid', 'uuid4')) {
                 return \false;
             }
             return $this->isName($node->var, $uuidPropertyName);

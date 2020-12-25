@@ -58,7 +58,7 @@ CODE_SAMPLE
         if (!$this->isName($node, 'sprintf')) {
             return null;
         }
-        if (\count((array) $node->args) !== 2) {
+        if (\count($node->args) !== 2) {
             return null;
         }
         $maskArgument = $node->args[0]->value;

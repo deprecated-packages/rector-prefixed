@@ -54,7 +54,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (\count((array) $node->cases) > 2) {
+        if (\count($node->cases) > 2) {
             return null;
         }
         /** @var Case_ $firstCase */

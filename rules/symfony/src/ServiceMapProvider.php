@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Symfony;
 
-use _PhpScoper50d83356d739\Nette\Utils\Json;
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Json;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use Rector\Symfony\Exception\XmlContainerNotExistsException;
 use Rector\Symfony\ValueObject\ServiceDefinition;
 use Rector\Symfony\ValueObject\ServiceMap\ServiceMap;
@@ -86,7 +86,7 @@ final class ServiceMapProvider
      */
     private function convertXmlToArray(\SimpleXMLElement $simpleXMLElement) : array
     {
-        $data = \_PhpScoper50d83356d739\Nette\Utils\Json::decode(\_PhpScoper50d83356d739\Nette\Utils\Json::encode((array) $simpleXMLElement), \_PhpScoper50d83356d739\Nette\Utils\Json::FORCE_ARRAY);
+        $data = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Json::decode(\_PhpScoper5b8c9e9ebd21\Nette\Utils\Json::encode((array) $simpleXMLElement), \_PhpScoper5b8c9e9ebd21\Nette\Utils\Json::FORCE_ARRAY);
         $data = $this->unWrapAttributes($data);
         foreach ($data as $key => $value) {
             if (\is_array($value)) {
@@ -122,7 +122,7 @@ final class ServiceMapProvider
     private function createServiceFromXmlAndTagsData(\SimpleXMLElement $attrs, array $tags) : \Rector\Symfony\ValueObject\ServiceDefinition
     {
         $tags = $this->createTagsFromData($tags);
-        return new \Rector\Symfony\ValueObject\ServiceDefinition(\strpos((string) $attrs->id, '.') === 0 ? \_PhpScoper50d83356d739\Nette\Utils\Strings::substring((string) $attrs->id, 1) : (string) $attrs->id, \property_exists($attrs, 'class') && $attrs->class !== null ? (string) $attrs->class : null, !(\property_exists($attrs, 'public') && $attrs->public !== null) || (string) $attrs->public !== 'false', \property_exists($attrs, 'synthetic') && $attrs->synthetic !== null && (string) $attrs->synthetic === 'true', \property_exists($attrs, 'alias') && $attrs->alias !== null ? (string) $attrs->alias : null, $tags);
+        return new \Rector\Symfony\ValueObject\ServiceDefinition(\strpos((string) $attrs->id, '.') === 0 ? \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::substring((string) $attrs->id, 1) : (string) $attrs->id, \property_exists($attrs, 'class') && $attrs->class !== null ? (string) $attrs->class : null, !(\property_exists($attrs, 'public') && $attrs->public !== null) || (string) $attrs->public !== 'false', \property_exists($attrs, 'synthetic') && $attrs->synthetic !== null && (string) $attrs->synthetic === 'true', \property_exists($attrs, 'alias') && $attrs->alias !== null ? (string) $attrs->alias : null, $tags);
     }
     /**
      * @param ServiceDefinition[] $aliases

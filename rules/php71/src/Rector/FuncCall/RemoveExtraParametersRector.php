@@ -58,7 +58,7 @@ final class RemoveExtraParametersRector extends \Rector\Core\Rector\AbstractRect
         /** @var ParametersAcceptor $parametersAcceptor */
         $parametersAcceptor = $this->callReflectionResolver->resolveParametersAcceptor($functionLikeReflection, $node);
         $numberOfParameters = \count($parametersAcceptor->getParameters());
-        $numberOfArguments = \count((array) $node->args);
+        $numberOfArguments = \count($node->args);
         for ($i = $numberOfParameters; $i <= $numberOfArguments; ++$i) {
             unset($node->args[$i]);
         }

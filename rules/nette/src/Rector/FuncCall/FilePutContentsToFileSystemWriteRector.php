@@ -54,9 +54,9 @@ CODE_SAMPLE
         if (!$this->isName($node, 'file_put_contents')) {
             return null;
         }
-        if (\count((array) $node->args) !== 2) {
+        if (\count($node->args) !== 2) {
             return null;
         }
-        return $this->createStaticCall('_PhpScoper50d83356d739\\Nette\\Utils\\FileSystem', 'write', $node->args);
+        return $this->createStaticCall('_PhpScoper5b8c9e9ebd21\\Nette\\Utils\\FileSystem', 'write', $node->args);
     }
 }

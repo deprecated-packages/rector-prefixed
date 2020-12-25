@@ -64,7 +64,7 @@ CODE_SAMPLE
         if ($parentNode instanceof \PhpParser\Node\Expr\ArrayDimFetch && $this->areNodesEqual($parentNode->dim, $node)) {
             return $this->processPreArray($node, $parentNode);
         }
-        if ($parentNode instanceof \PhpParser\Node\Stmt\For_ && \count((array) $parentNode->loop) === 1 && $this->areNodesEqual($parentNode->loop[0], $node)) {
+        if ($parentNode instanceof \PhpParser\Node\Stmt\For_ && \count($parentNode->loop) === 1 && $this->areNodesEqual($parentNode->loop[0], $node)) {
             return $this->processPreFor($node, $parentNode);
         }
         return null;

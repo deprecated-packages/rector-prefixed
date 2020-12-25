@@ -59,10 +59,10 @@ CODE_SAMPLE
         if (!$this->isName($node->name, 'setClass')) {
             return null;
         }
-        if (\count((array) $node->args) !== 2) {
+        if (\count($node->args) !== 2) {
             return null;
         }
-        if (!$this->isObjectType($node->var, '_PhpScoper50d83356d739\\Nette\\DI\\Definitions\\ServiceDefinition')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper5b8c9e9ebd21\\Nette\\DI\\Definitions\\ServiceDefinition')) {
             return null;
         }
         $node->name = new \PhpParser\Node\Identifier('setFactory');

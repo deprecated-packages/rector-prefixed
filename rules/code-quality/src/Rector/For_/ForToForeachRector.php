@@ -23,6 +23,7 @@ use PhpParser\Node\Stmt\Unset_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -115,11 +116,11 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $this->reset();
-        $this->matchInit((array) $node->init);
-        if (!$this->isConditionMatch((array) $node->cond)) {
+        $this->matchInit($node->init);
+        if (!$this->isConditionMatch($node->cond)) {
             return null;
         }
-        if (!$this->isLoopMatch((array) $node->loop)) {
+        if (!$this->isLoopMatch($node->loop)) {
             return null;
         }
         if ($this->iteratedExpr === null) {
@@ -214,11 +215,10 @@ CODE_SAMPLE
         if ($this->keyValueName === null) {
             return \false;
         }
-        if ($loopExprs[0] instanceof \PhpParser\Node\Expr\PreInc) {
-            return $this->isName($loopExprs[0]->var, $this->keyValueName);
-        }
-        if ($loopExprs[0] instanceof \PhpParser\Node\Expr\PostInc) {
-            return $this->isName($loopExprs[0]->var, $this->keyValueName);
+        /** @var PreInc|PostInc $prePostInc */
+        $prePostInc = $loopExprs[0];
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($prePostInc, [\PhpParser\Node\Expr\PreInc::class, \PhpParser\Node\Expr\PostInc::class])) {
+            return $this->isName($prePostInc->var, $this->keyValueName);
         }
         return \false;
     }

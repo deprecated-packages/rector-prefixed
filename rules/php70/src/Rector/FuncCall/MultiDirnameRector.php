@@ -65,11 +65,11 @@ final class MultiDirnameRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->isName($funcCall, self::DIRNAME)) {
             return null;
         }
-        if (\count((array) $funcCall->args) >= 3) {
+        if (\count($funcCall->args) >= 3) {
             return null;
         }
         // dirname($path, <LEVEL>);
-        if (\count((array) $funcCall->args) === 2) {
+        if (\count($funcCall->args) === 2) {
             if (!$funcCall->args[1]->value instanceof \PhpParser\Node\Scalar\LNumber) {
                 return null;
             }

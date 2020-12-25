@@ -53,10 +53,10 @@ CODE_SAMPLE
         if (!$this->isStaticCallNamed($node, 'PHPExcel_Settings', 'setChartRenderer')) {
             return null;
         }
-        if (\count((array) $node->args) === 1) {
+        if (\count($node->args) === 1) {
             return null;
         }
-        $arg = new \PhpParser\Node\Arg($this->createClassConstantReference('_PhpScoper50d83356d739\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\JpGraph'));
+        $arg = new \PhpParser\Node\Arg($this->createClassConstantReference('_PhpScoper5b8c9e9ebd21\\PhpOffice\\PhpSpreadsheet\\Chart\\Renderer\\JpGraph'));
         $node->args = [$arg];
         return $node;
     }

@@ -119,7 +119,7 @@ CODE_SAMPLE
             return \false;
         }
         // If param not provided, do nothing
-        if (\count((array) $funcCall->args) < 2) {
+        if (\count($funcCall->args) < 2) {
             return \false;
         }
         // Process anything other than String and null (eg: variables, function calls)

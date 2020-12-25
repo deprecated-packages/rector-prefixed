@@ -92,7 +92,7 @@ final class EventAndListenerTreeProvider
             $magicProperty = $this->resolveMagicProperty($methodCall);
             $eventClassName = $this->eventClassNaming->createEventClassNameFromMethodCall($methodCall);
             $eventFileLocation = $this->eventClassNaming->resolveEventFileLocationFromMethodCall($methodCall);
-            $eventClassInNamespace = $this->eventValueObjectClassFactory->create($eventClassName, (array) $methodCall->args);
+            $eventClassInNamespace = $this->eventValueObjectClassFactory->create($eventClassName, $methodCall->args);
             $dispatchMethodCall = $this->dispatchMethodCallFactory->createFromEventClassName($eventClassName);
             $listeningClassMethodsByClass = $this->getListeningClassMethodsInEventSubscriberByClass($eventClassName);
             // getter names by variable name and type

@@ -4,14 +4,14 @@ declare (strict_types=1);
 namespace Rector\Core\DependencyInjection\CompilerPass;
 
 use Rector\Core\Contract\Rector\RectorInterface;
-use _PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use _PhpScoper50d83356d739\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Needed for @see \Rector\Core\Configuration\RectorClassesProvider
  */
-final class MakeRectorsPublicCompilerPass implements \_PhpScoper50d83356d739\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class MakeRectorsPublicCompilerPass implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    public function process(\_PhpScoper50d83356d739\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function process(\_PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
             if ($definition->getClass() === null) {

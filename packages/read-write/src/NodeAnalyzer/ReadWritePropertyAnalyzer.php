@@ -15,8 +15,8 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use Rector\Core\Exception\Node\MissingParentNodeException;
 use Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\SOLID\Guard\VariableToConstantGuard;
-use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
+use Rector\ReadWrite\Guard\VariableToConstantGuard;
+use _PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert;
 final class ReadWritePropertyAnalyzer
 {
     /**
@@ -31,7 +31,7 @@ final class ReadWritePropertyAnalyzer
      * @var ReadExprAnalyzer
      */
     private $readExprAnalyzer;
-    public function __construct(\Rector\SOLID\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \Rector\ReadWrite\NodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer)
+    public function __construct(\Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \Rector\ReadWrite\NodeAnalyzer\ReadExprAnalyzer $readExprAnalyzer)
     {
         $this->variableToConstantGuard = $variableToConstantGuard;
         $this->assignManipulator = $assignManipulator;
@@ -42,7 +42,7 @@ final class ReadWritePropertyAnalyzer
      */
     public function isRead(\PhpParser\Node $node) : bool
     {
-        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class]);
+        \_PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class]);
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent === null) {
             throw new \Rector\Core\Exception\Node\MissingParentNodeException();

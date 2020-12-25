@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Set;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\Set\ValueObject\DowngradeSetList;
@@ -65,14 +65,14 @@ final class RectorSetProvider extends \Symplify\SetConfigResolver\Provider\Abstr
     }
     private function hydrateSetsFromConstants(\ReflectionClass $setListReflectionClass) : void
     {
-        foreach ((array) $setListReflectionClass->getConstants() as $name => $setPath) {
+        foreach ($setListReflectionClass->getConstants() as $name => $setPath) {
             if (!\file_exists($setPath)) {
                 $message = \sprintf('Set path "%s" was not found', $name);
                 throw new \Rector\Core\Exception\ShouldNotHappenException($message);
             }
             $setName = \Rector\Core\Util\StaticRectorStrings::constantToDashes($name);
             // remove `-` before numbers
-            $setName = \_PhpScoper50d83356d739\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
+            $setName = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
             $this->sets[] = new \Symplify\SetConfigResolver\ValueObject\Set($setName, new \Symplify\SmartFileSystem\SmartFileInfo($setPath));
         }
     }

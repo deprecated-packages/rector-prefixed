@@ -45,7 +45,7 @@ final class StmtOrder
     public function reorderClassStmtsByOldToNewKeys(\PhpParser\Node\Stmt\ClassLike $classLike, array $oldToNewKeys) : \PhpParser\Node\Stmt\ClassLike
     {
         $reorderedStmts = [];
-        $stmtCount = \count((array) $classLike->stmts);
+        $stmtCount = \count($classLike->stmts);
         foreach ($classLike->stmts as $key => $stmt) {
             if (!\array_key_exists($key, $oldToNewKeys)) {
                 $reorderedStmts[$key] = $stmt;

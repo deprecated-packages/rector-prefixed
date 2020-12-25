@@ -241,7 +241,7 @@ CODE_SAMPLE
     private function resolveUnusedParameters(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $unusedParameters = [];
-        foreach ((array) $classMethod->params as $i => $param) {
+        foreach ($classMethod->params as $i => $param) {
             // skip property promotion
             /** @var Param $param */
             if ($param->flags !== 0) {

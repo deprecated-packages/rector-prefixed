@@ -26,6 +26,6 @@ final class CompleteImportForPartialAnnotationRectorTest extends \Rector\Testing
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector::class => [\Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper50d83356d739\\Doctrine\\ORM\\Mapping', 'ORM')]]];
+        return [\Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector::class => [\Rector\Restoration\Rector\Namespace_\CompleteImportForPartialAnnotationRector::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper5b8c9e9ebd21\\Doctrine\\ORM\\Mapping', 'ORM')]]];
     }
 }

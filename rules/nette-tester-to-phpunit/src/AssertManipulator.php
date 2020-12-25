@@ -109,7 +109,7 @@ final class AssertManipulator
             $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
             return $methodCall;
         }
-        $staticCall->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoper50d83356d739\\PHPUnit\\Framework\\Assert');
+        $staticCall->class = new \PhpParser\Node\Name\FullyQualified('_PhpScoper5b8c9e9ebd21\\PHPUnit\\Framework\\Assert');
         return $staticCall;
     }
     /**
@@ -162,7 +162,7 @@ final class AssertManipulator
         }
         /** @var Closure $closure */
         $closure = $staticCall->args[0]->value;
-        $this->nodesToAddCollector->addNodesAfterNode((array) $closure->stmts, $staticCall);
+        $this->nodesToAddCollector->addNodesAfterNode($closure->stmts, $staticCall);
         $this->nodesToRemoveCollector->addNodeToRemove($staticCall);
     }
     private function processTypeCall(\PhpParser\Node\Expr\StaticCall $staticCall) : void
@@ -184,7 +184,7 @@ final class AssertManipulator
     {
         /** @var Closure $closure */
         $closure = $staticCall->args[0]->value;
-        $this->nodesToAddCollector->addNodesAfterNode((array) $closure->stmts, $staticCall);
+        $this->nodesToAddCollector->addNodesAfterNode($closure->stmts, $staticCall);
         $this->nodesToRemoveCollector->addNodeToRemove($staticCall);
         /** @var ClassMethod|null $classMethod */
         $classMethod = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);

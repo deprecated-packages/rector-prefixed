@@ -39,7 +39,7 @@ final class DeadParamTagValueNodeAnalyzer
     }
     private function matchParamByName(string $desiredParamName, \PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Param
     {
-        foreach ((array) $classMethod->params as $param) {
+        foreach ($classMethod->params as $param) {
             $paramName = $this->nodeNameResolver->getName($param);
             if ('$' . $paramName !== $desiredParamName) {
                 continue;

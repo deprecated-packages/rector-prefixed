@@ -77,7 +77,7 @@ CODE_SAMPLE
             if (!$classStmt instanceof \PhpParser\Node\Stmt\ClassConst) {
                 continue;
             }
-            if (\count((array) $classStmt->consts) !== 1) {
+            if (\count($classStmt->consts) !== 1) {
                 continue;
             }
             $classConstConst = $classStmt->consts[0];

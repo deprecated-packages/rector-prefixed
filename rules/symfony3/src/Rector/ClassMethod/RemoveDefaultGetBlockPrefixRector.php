@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony3\Rector\ClassMethod;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -64,8 +64,8 @@ CODE_SAMPLE
         }
         $returnedValue = $this->getValue($returnedExpr);
         $classShortName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME);
-        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($classShortName, 'Type')) {
-            $classShortName = \_PhpScoper50d83356d739\Nette\Utils\Strings::before($classShortName, 'Type');
+        if (\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::endsWith($classShortName, 'Type')) {
+            $classShortName = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::before($classShortName, 'Type');
         }
         $underscoredClassShortName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($classShortName);
         if ($underscoredClassShortName !== $returnedValue) {
@@ -76,7 +76,7 @@ CODE_SAMPLE
     }
     private function isObjectMethodNameMatch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$this->isInObjectType($classMethod, '_PhpScoper50d83356d739\\Symfony\\Component\\Form\\AbstractType')) {
+        if (!$this->isInObjectType($classMethod, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Form\\AbstractType')) {
             return \false;
         }
         return $this->isName($classMethod->name, 'getBlockPrefix');

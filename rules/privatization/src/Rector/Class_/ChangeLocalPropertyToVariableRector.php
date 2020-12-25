@@ -114,7 +114,7 @@ CODE_SAMPLE
                     if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch) {
                         return \false;
                     }
-                    return (bool) $this->isName($node->name, $privatePropertyName);
+                    return $this->isName($node->name, $privatePropertyName);
                 });
                 if (!$hasProperty) {
                     continue;

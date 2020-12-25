@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\If_;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp;
@@ -112,7 +112,7 @@ CODE_SAMPLE
             return \true;
         }
         // negate + negate → skip for now
-        if ($this->isFalse($returnedExpr) && \_PhpScoper50d83356d739\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
+        if ($this->isFalse($returnedExpr) && \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
             return \true;
         }
         return !$this->isBool($nextNode->expr);
@@ -148,7 +148,7 @@ CODE_SAMPLE
         if ($if->else === null) {
             return \false;
         }
-        if (\count((array) $if->else->stmts) !== 1) {
+        if (\count($if->else->stmts) !== 1) {
             return \false;
         }
         $onlyStmt = $if->else->stmts[0];
@@ -156,7 +156,7 @@ CODE_SAMPLE
     }
     private function isIfWithSingleReturnExpr(\PhpParser\Node\Stmt\If_ $if) : bool
     {
-        if (\count((array) $if->stmts) !== 1) {
+        if (\count($if->stmts) !== 1) {
             return \false;
         }
         if ($if->elseifs !== []) {

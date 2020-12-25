@@ -24,7 +24,7 @@ final class PropertyRenameFactory
     }
     public function create(\PhpParser\Node\Stmt\Property $property, \Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface $expectedNameResolver) : ?\Rector\Naming\ValueObject\PropertyRename
     {
-        if (\count((array) $property->props) !== 1) {
+        if (\count($property->props) !== 1) {
             return null;
         }
         $expectedName = $expectedNameResolver->resolveIfNotYet($property);

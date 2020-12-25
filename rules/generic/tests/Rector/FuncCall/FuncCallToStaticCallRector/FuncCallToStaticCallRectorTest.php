@@ -26,6 +26,6 @@ final class FuncCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\Abstr
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::class => [\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::FUNC_CALLS_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\FuncCallToStaticCall('view', 'SomeStaticClass', 'render'), new \Rector\Transform\ValueObject\FuncCallToStaticCall('_PhpScoper50d83356d739\\SomeNamespaced\\view', 'AnotherStaticClass', 'render')]]];
+        return [\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::class => [\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::FUNC_CALLS_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\FuncCallToStaticCall('view', 'SomeStaticClass', 'render'), new \Rector\Transform\ValueObject\FuncCallToStaticCall('_PhpScoper5b8c9e9ebd21\\SomeNamespaced\\view', 'AnotherStaticClass', 'render')]]];
     }
 }

@@ -12,7 +12,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\MagicDisclosure\ValueObject\IssetUnsetToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
+use _PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert;
 /**
  * @see \Rector\MagicDisclosure\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector\UnsetAndIssetToMethodCallRectorTest
  */
@@ -78,7 +78,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $issetUnsetToMethodCalls = $configuration[self::ISSET_UNSET_TO_METHOD_CALL] ?? [];
-        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($issetUnsetToMethodCalls, \Rector\MagicDisclosure\ValueObject\IssetUnsetToMethodCall::class);
+        \_PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert::allIsInstanceOf($issetUnsetToMethodCalls, \Rector\MagicDisclosure\ValueObject\IssetUnsetToMethodCall::class);
         $this->issetUnsetToMethodCalls = $issetUnsetToMethodCalls;
     }
     private function processArrayDimFetchNode(\PhpParser\Node $node, \PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, \Rector\MagicDisclosure\ValueObject\IssetUnsetToMethodCall $issetUnsetToMethodCall) : ?\PhpParser\Node

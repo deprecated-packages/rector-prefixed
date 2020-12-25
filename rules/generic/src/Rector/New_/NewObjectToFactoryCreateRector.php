@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\New_;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -106,6 +106,6 @@ CODE_SAMPLE
     {
         $reflectionClass = new \ReflectionClass($factoryFullQualifiedName);
         $shortName = $reflectionClass->getShortName();
-        return \_PhpScoper50d83356d739\Nette\Utils\Strings::firstLower($shortName);
+        return \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::firstLower($shortName);
     }
 }

@@ -88,13 +88,13 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->isObjectType($methodCall, '_PhpScoper50d83356d739\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor')) {
+        if (!$this->isObjectType($methodCall, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor')) {
             return \true;
         }
         if (!$this->isNames($methodCall->name, self::METHODS_WITH_OPTION)) {
             return \true;
         }
-        if (\count((array) $methodCall->args) < 3) {
+        if (\count($methodCall->args) < 3) {
             return \true;
         }
         /** @var Array_ $contextOptions */
@@ -123,11 +123,11 @@ CODE_SAMPLE
     }
     private function prepareEnableMagicMethodsExtractionFlags(bool $enableMagicCallExtractionValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
     {
-        $classConstFetch = $this->createClassConstFetch('_PhpScoper50d83356d739\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_GET');
-        $magicSet = $this->createClassConstFetch('_PhpScoper50d83356d739\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_SET');
+        $classConstFetch = $this->createClassConstFetch('_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_GET');
+        $magicSet = $this->createClassConstFetch('_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_SET');
         if (!$enableMagicCallExtractionValue) {
             return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($classConstFetch, $magicSet);
         }
-        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($this->createClassConstFetch('_PhpScoper50d83356d739\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_CALL'), $classConstFetch), $magicSet);
+        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($this->createClassConstFetch('_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_CALL'), $classConstFetch), $magicSet);
     }
 }

@@ -32,7 +32,7 @@ final class StrictArraySearchRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->isName($node, 'array_search')) {
             return null;
         }
-        if (\count((array) $node->args) === 2) {
+        if (\count($node->args) === 2) {
             $node->args[2] = $this->createArg($this->createTrue());
         }
         return $node;

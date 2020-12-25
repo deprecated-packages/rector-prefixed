@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper50d83356d739;
+namespace _PhpScoper5b8c9e9ebd21;
 
 use Rector\CodeQuality\Rector\Return_\SimplifyUselessVariableRector;
 use Rector\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector;
@@ -10,6 +10,7 @@ use Rector\DeadCode\Rector\Assign\RemoveDoubleAssignRector;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\DeadCode\Rector\BinaryOp\RemoveDuplicatedInstanceOfRector;
 use Rector\DeadCode\Rector\BooleanAnd\RemoveAndTrueRector;
+use Rector\DeadCode\Rector\Cast\RecastingRemovalRector;
 use Rector\DeadCode\Rector\Class_\RemoveUnusedDoctrineEntityMethodAndPropertyRector;
 use Rector\DeadCode\Rector\ClassConst\RemoveUnusedClassConstantRector;
 use Rector\DeadCode\Rector\ClassConst\RemoveUnusedPrivateConstantRector;
@@ -45,6 +46,7 @@ use Rector\PHPUnit\Rector\ClassMethod\RemoveEmptyTestMethodRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
+    $services->set(\Rector\DeadCode\Rector\Cast\RecastingRemovalRector::class);
     $services->set(\Rector\DeadCode\Rector\Expression\RemoveDeadStmtRector::class);
     $services->set(\Rector\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector::class);
     $services->set(\Rector\DeadCode\Rector\Foreach_\RemoveUnusedForeachKeyRector::class);

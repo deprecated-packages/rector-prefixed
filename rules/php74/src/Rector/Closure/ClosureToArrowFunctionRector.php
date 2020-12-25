@@ -59,7 +59,7 @@ CODE_SAMPLE
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::ARROW_FUNCTION)) {
             return null;
         }
-        if (\count((array) $node->stmts) !== 1) {
+        if (\count($node->stmts) !== 1) {
             return null;
         }
         if (!$node->stmts[0] instanceof \PhpParser\Node\Stmt\Return_) {
@@ -108,7 +108,7 @@ CODE_SAMPLE
     {
         $referencedValues = [];
         /** @var ClosureUse $use */
-        foreach ((array) $closure->uses as $use) {
+        foreach ($closure->uses as $use) {
             if ($use->byRef) {
                 $referencedValues[] = $use->var;
             }

@@ -57,8 +57,8 @@ CODE_SAMPLE
         if (!$node->var instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-        $getMockBuilderMethodCall = $this->isName($node->var->name, 'disableOriginalConstructor') ? $node->var->var : $node->var;
         /** @var MethodCall|null $getMockBuilderMethodCall */
+        $getMockBuilderMethodCall = $this->isName($node->var->name, 'disableOriginalConstructor') ? $node->var->var : $node->var;
         if ($getMockBuilderMethodCall === null) {
             return null;
         }

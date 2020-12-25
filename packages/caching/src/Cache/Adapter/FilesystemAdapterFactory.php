@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Caching\Cache\Adapter;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use Rector\Core\Configuration\Option;
-use _PhpScoper50d83356d739\Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class FilesystemAdapterFactory
 {
@@ -17,11 +17,11 @@ final class FilesystemAdapterFactory
     {
         $this->parameterProvider = $parameterProvider;
     }
-    public function create() : \_PhpScoper50d83356d739\Symfony\Component\Cache\Adapter\FilesystemAdapter
+    public function create() : \_PhpScoper5b8c9e9ebd21\Symfony\Component\Cache\Adapter\FilesystemAdapter
     {
-        return new \_PhpScoper50d83356d739\Symfony\Component\Cache\Adapter\FilesystemAdapter(
+        return new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Cache\Adapter\FilesystemAdapter(
             // unique per project
-            \_PhpScoper50d83356d739\Nette\Utils\Strings::webalize(\getcwd()),
+            \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::webalize(\getcwd()),
             0,
             $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::CACHE_DIR)
         );

@@ -26,7 +26,7 @@ final class ArrayCallableMethodReferenceAnalyzer
      */
     public function match(\PhpParser\Node\Expr\Array_ $array) : ?\Rector\NodeCollector\ValueObject\ArrayCallable
     {
-        $arrayItems = (array) $array->items;
+        $arrayItems = $array->items;
         if (\count($arrayItems) !== 2) {
             return null;
         }

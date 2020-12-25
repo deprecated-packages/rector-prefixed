@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Bridge\NodeAnalyzer;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -18,10 +18,10 @@ final class ControllerMethodAnalyzer
             return \false;
         }
         $parentClassName = (string) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($parentClassName, 'Controller')) {
+        if (\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::endsWith($parentClassName, 'Controller')) {
             return \true;
         }
-        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith((string) $node->name, 'Action')) {
+        if (\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::endsWith((string) $node->name, 'Action')) {
             return \true;
         }
         return $node->isPublic();

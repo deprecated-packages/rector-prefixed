@@ -67,10 +67,10 @@ CODE_SAMPLE
         }
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $parentNode->var === $node) {
-            return new \PhpParser\Node\Expr\Array_((array) $node->items);
+            return new \PhpParser\Node\Expr\Array_($node->items);
         }
         if ($parentNode instanceof \PhpParser\Node\Stmt\Foreach_ && $parentNode->valueVar === $node) {
-            return new \PhpParser\Node\Expr\Array_((array) $node->items);
+            return new \PhpParser\Node\Expr\Array_($node->items);
         }
         return null;
     }

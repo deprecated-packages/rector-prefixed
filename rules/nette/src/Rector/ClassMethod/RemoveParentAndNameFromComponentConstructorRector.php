@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Nette\Rector\ClassMethod;
 
-use _PhpScoper50d83356d739\Nette\Application\UI\Control;
+use _PhpScoper5b8c9e9ebd21\Nette\Application\UI\Control;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\New_;
@@ -26,7 +26,7 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
     /**
      * @var string
      */
-    private const COMPONENT_CONTAINER_CLASS = '_PhpScoper50d83356d739\\Nette\\ComponentModel\\IContainer';
+    private const COMPONENT_CONTAINER_CLASS = '_PhpScoper5b8c9e9ebd21\\Nette\\ComponentModel\\IContainer';
     /**
      * @var string
      */
@@ -100,7 +100,7 @@ CODE_SAMPLE
     }
     private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
-        if (!$this->isInObjectType($classMethod, \_PhpScoper50d83356d739\Nette\Application\UI\Control::class)) {
+        if (!$this->isInObjectType($classMethod, \_PhpScoper5b8c9e9ebd21\Nette\Application\UI\Control::class)) {
             return null;
         }
         if (!$this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
@@ -129,7 +129,7 @@ CODE_SAMPLE
         }
         $hasStaticCallChanged = \false;
         /** @var Arg $staticCallArg */
-        foreach ((array) $staticCall->args as $staticCallArg) {
+        foreach ($staticCall->args as $staticCallArg) {
             if (!$staticCallArg->value instanceof \PhpParser\Node\Expr\Variable) {
                 continue;
             }

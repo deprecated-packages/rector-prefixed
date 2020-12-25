@@ -90,7 +90,7 @@ CODE_SAMPLE
         $className = $this->getName($node);
         $propertiesToComplete = $this->filterOutExistingProperties($className, $propertiesToComplete);
         $newProperties = $this->missingPropertiesFactory->create($fetchedLocalPropertyNameToTypes, $propertiesToComplete);
-        $node->stmts = \array_merge($newProperties, (array) $node->stmts);
+        $node->stmts = \array_merge($newProperties, $node->stmts);
         return $node;
     }
     private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool

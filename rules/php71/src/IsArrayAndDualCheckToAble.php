@@ -33,33 +33,31 @@ final class IsArrayAndDualCheckToAble
         if ($twoNodeMatch === null) {
             return null;
         }
-        /** @var Instanceof_ $instanceOfNode */
-        $instanceOfNode = $twoNodeMatch->getFirstExpr();
-        /** @var FuncCall $funcCallNode */
-        $funcCallNode = $twoNodeMatch->getSecondExpr();
-        $instanceOfClass = $instanceOfNode->class;
+        /** @var Instanceof_ $instanceOf */
+        $instanceOf = $twoNodeMatch->getFirstExpr();
+        /** @var FuncCall $funcCall */
+        $funcCall = $twoNodeMatch->getSecondExpr();
+        $instanceOfClass = $instanceOf->class;
         if ($instanceOfClass instanceof \PhpParser\Node\Expr) {
             return null;
         }
         if ((string) $instanceOfClass !== $type) {
             return null;
         }
-        $nodeNameResolverGetName = $this->nodeNameResolver->getName($funcCallNode);
-        /** @var FuncCall $funcCallNode */
-        if ($nodeNameResolverGetName !== 'is_array') {
+        if (!$this->nodeNameResolver->isName($funcCall, 'is_array')) {
             return null;
         }
         // both use same var
-        if (!$funcCallNode->args[0]->value instanceof \PhpParser\Node\Expr\Variable) {
+        if (!$funcCall->args[0]->value instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
         /** @var Variable $firstVarNode */
-        $firstVarNode = $funcCallNode->args[0]->value;
-        if (!$instanceOfNode->expr instanceof \PhpParser\Node\Expr\Variable) {
+        $firstVarNode = $funcCall->args[0]->value;
+        if (!$instanceOf->expr instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
         /** @var Variable $secondVarNode */
-        $secondVarNode = $instanceOfNode->expr;
+        $secondVarNode = $instanceOf->expr;
         // are they same variables
         if ($firstVarNode->name !== $secondVarNode->name) {
             return null;

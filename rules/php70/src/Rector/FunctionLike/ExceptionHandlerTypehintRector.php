@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php70\Rector\FunctionLike;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\NullableType;
@@ -53,7 +53,7 @@ CODE_SAMPLE
             return null;
         }
         // exception handle has 1 param exactly
-        if (\count((array) $node->params) !== 1) {
+        if (\count($node->params) !== 1) {
             return null;
         }
         $paramNode = $node->params[0];
@@ -66,7 +66,7 @@ CODE_SAMPLE
             return null;
         }
         // is probably handling exceptions
-        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::match((string) $node->name, self::HANDLE_INSENSITIVE_REGEX)) {
+        if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::match((string) $node->name, self::HANDLE_INSENSITIVE_REGEX)) {
             return null;
         }
         if (!$paramNode->type instanceof \PhpParser\Node\NullableType) {

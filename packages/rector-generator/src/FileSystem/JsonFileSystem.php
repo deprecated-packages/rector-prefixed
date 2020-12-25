@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\FileSystem;
 
-use _PhpScoper50d83356d739\Nette\Utils\Json;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Json;
 use Symplify\SmartFileSystem\SmartFileSystem;
 final class JsonFileSystem
 {
@@ -26,14 +26,14 @@ final class JsonFileSystem
     public function loadFileToJson(string $filePath) : array
     {
         $fileContent = $this->smartFileSystem->readFile($filePath);
-        return \_PhpScoper50d83356d739\Nette\Utils\Json::decode($fileContent, \_PhpScoper50d83356d739\Nette\Utils\Json::FORCE_ARRAY);
+        return \_PhpScoper5b8c9e9ebd21\Nette\Utils\Json::decode($fileContent, \_PhpScoper5b8c9e9ebd21\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param mixed[] $json
      */
     public function saveJsonToFile(string $filePath, array $json) : void
     {
-        $content = \_PhpScoper50d83356d739\Nette\Utils\Json::encode($json, \_PhpScoper50d83356d739\Nette\Utils\Json::PRETTY);
+        $content = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Json::encode($json, \_PhpScoper5b8c9e9ebd21\Nette\Utils\Json::PRETTY);
         $content = $this->jsonStringFormatter->inlineSections($content, ['keywords', 'bin']);
         $content = $this->jsonStringFormatter->inlineAuthors($content);
         // make sure there is newline in the end

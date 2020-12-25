@@ -40,7 +40,7 @@ final class InArrayAndArrayKeysToArrayKeyExistsRector extends \Rector\Core\Recto
         if (!$this->isName($secondArgument, 'array_keys')) {
             return null;
         }
-        if (\count((array) $secondArgument->args) > 1) {
+        if (\count($secondArgument->args) > 1) {
             return null;
         }
         $keyArg = $node->args[0];

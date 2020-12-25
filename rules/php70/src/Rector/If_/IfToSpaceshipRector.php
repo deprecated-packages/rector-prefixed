@@ -162,7 +162,7 @@ CODE_SAMPLE
     }
     private function matchOnEqual(\PhpParser\Node\Stmt\If_ $if) : void
     {
-        if (\count((array) $if->stmts) !== 1) {
+        if (\count($if->stmts) !== 1) {
             return;
         }
         $onlyIfStmt = $if->stmts[0];
@@ -175,7 +175,7 @@ CODE_SAMPLE
     }
     private function processElse(\PhpParser\Node\Stmt\Else_ $else) : void
     {
-        if (\count((array) $else->stmts) !== 1) {
+        if (\count($else->stmts) !== 1) {
             return;
         }
         if (!$else->stmts[0] instanceof \PhpParser\Node\Stmt\Return_) {

@@ -150,7 +150,7 @@ final class NameImporter
         if (!$parentNode instanceof \PhpParser\Node\Expr\ConstFetch && !$parentNode instanceof \PhpParser\Node\Expr\FuncCall) {
             return \false;
         }
-        return \count((array) $name->parts) === 1;
+        return \count($name->parts) === 1;
     }
     private function isNonExistingClassLikeAndFunctionFullyQualifiedName(\PhpParser\Node\Name $name) : bool
     {

@@ -57,10 +57,10 @@ CODE_SAMPLE
         $ifNode = $node->stmts[0];
         /** @var FuncCall $funcCallNode */
         $funcCallNode = $ifNode->cond;
-        if (\count((array) $ifNode->stmts) !== 1) {
+        if (\count($ifNode->stmts) !== 1) {
             return null;
         }
-        if (\count((array) $funcCallNode->args) !== 1) {
+        if (\count($funcCallNode->args) !== 1) {
             return null;
         }
         if (!$this->areNodesEqual($funcCallNode->args[0], $node->valueVar)) {
@@ -87,7 +87,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
-        if (\count((array) $foreach->stmts) !== 1) {
+        if (\count($foreach->stmts) !== 1) {
             return \true;
         }
         if (!$foreach->stmts[0] instanceof \PhpParser\Node\Stmt\If_) {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper50d83356d739;
+namespace _PhpScoper5b8c9e9ebd21;
 
 use Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
 use Rector\Generic\ValueObject\ArgumentDefaultValueReplacer;
@@ -13,9 +13,9 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services->set(\Rector\Symfony2\Rector\StaticCall\ParseFileRector::class);
     $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::REPLACED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // https://github.com/symfony/symfony/commit/912fc4de8fd6de1e5397be4a94d39091423e5188
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper50d83356d739\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \true, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_URL'),
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper50d83356d739\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \false, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_PATH'),
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper50d83356d739\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'relative', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::RELATIVE_PATH'),
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper50d83356d739\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'network', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::NETWORK_PATH'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \true, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_URL'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \false, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_PATH'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'relative', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::RELATIVE_PATH'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'network', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::NETWORK_PATH'),
     ])]]);
 };

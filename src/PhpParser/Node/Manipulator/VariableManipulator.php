@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Node\Manipulator;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
@@ -17,7 +17,7 @@ use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\SOLID\Guard\VariableToConstantGuard;
+use Rector\ReadWrite\Guard\VariableToConstantGuard;
 final class VariableManipulator
 {
     /**
@@ -48,7 +48,7 @@ final class VariableManipulator
      * @var VariableToConstantGuard
      */
     private $variableToConstantGuard;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator $arrayManipulator, \Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\SOLID\Guard\VariableToConstantGuard $variableToConstantGuard)
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator $arrayManipulator, \Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard)
     {
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->assignManipulator = $assignManipulator;
@@ -103,7 +103,7 @@ final class VariableManipulator
     {
         /** @var string $className */
         $className = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($className, 'Test')) {
+        if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::endsWith($className, 'Test')) {
             return \false;
         }
         return $this->nodeNameResolver->isName($variable, 'expect*');

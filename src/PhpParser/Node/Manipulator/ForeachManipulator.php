@@ -10,7 +10,7 @@ final class ForeachManipulator
 {
     public function matchOnlyStmt(\PhpParser\Node\Stmt\Foreach_ $foreach, callable $callable) : ?\PhpParser\Node
     {
-        $stmts = (array) $foreach->stmts;
+        $stmts = $foreach->stmts;
         if (\count($stmts) !== 1) {
             return null;
         }

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\NodeCollector;
 
-use _PhpScoper50d83356d739\Nette\Utils\Arrays;
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Arrays;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -195,7 +195,7 @@ final class NodeRepository
     }
     public function findClassMethod(string $className, string $methodName) : ?\PhpParser\Node\Stmt\ClassMethod
     {
-        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($methodName, '\\')) {
+        if (\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($methodName, '\\')) {
             $message = \sprintf('Class and method arguments are switched in "%s"', __METHOD__);
             throw new \Rector\Core\Exception\ShouldNotHappenException($message);
         }
@@ -222,7 +222,7 @@ final class NodeRepository
      */
     public function getMethodsCalls() : array
     {
-        $calls = \_PhpScoper50d83356d739\Nette\Utils\Arrays::flatten($this->callsByTypeAndMethod);
+        $calls = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Arrays::flatten($this->callsByTypeAndMethod);
         return \array_filter($calls, function (\PhpParser\Node $node) : bool {
             return $node instanceof \PhpParser\Node\Expr\MethodCall;
         });
@@ -244,7 +244,6 @@ final class NodeRepository
         if ($className === null) {
             return [];
         }
-        /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($property);
         return $this->parsedPropertyFetchNodeCollector->findPropertyFetchesByTypeAndName($className, $propertyName);
     }
@@ -333,7 +332,7 @@ final class NodeRepository
     {
         $classNodes = [];
         foreach ($this->parsedNodeCollector->getClasses() as $className => $classNode) {
-            if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::endsWith($className, $suffix)) {
+            if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::endsWith($className, $suffix)) {
                 continue;
             }
             $classNodes[] = $classNode;

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
 use Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
 use Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
@@ -40,7 +40,7 @@ final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \Symplify\PhpCo
             return \false;
         }
         foreach (\array_keys($data) as $key) {
-            if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::startsWith((string) $key, '$')) {
+            if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::startsWith((string) $key, '$')) {
                 return \false;
             }
         }

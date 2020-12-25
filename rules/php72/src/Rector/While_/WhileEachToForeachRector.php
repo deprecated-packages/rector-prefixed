@@ -77,7 +77,7 @@ CODE_SAMPLE
         $eachFuncCall = $assignNode->expr;
         /** @var List_ $listNode */
         $listNode = $assignNode->var;
-        $foreachedExpr = \count((array) $listNode->items) === 1 ? $this->createFuncCall('array_keys', [$eachFuncCall->args[0]]) : $eachFuncCall->args[0]->value;
+        $foreachedExpr = \count($listNode->items) === 1 ? $this->createFuncCall('array_keys', [$eachFuncCall->args[0]]) : $eachFuncCall->args[0]->value;
         /** @var ArrayItem $arrayItem */
         $arrayItem = \array_pop($listNode->items);
         $foreach = new \PhpParser\Node\Stmt\Foreach_($foreachedExpr, $arrayItem, ['stmts' => $node->stmts]);

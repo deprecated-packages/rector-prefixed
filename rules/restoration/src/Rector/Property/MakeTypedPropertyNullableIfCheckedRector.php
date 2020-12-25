@@ -82,7 +82,7 @@ CODE_SAMPLE
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
-        if (\count((array) $property->props) !== 1) {
+        if (\count($property->props) !== 1) {
             return \true;
         }
         if ($property->type === null) {
@@ -104,7 +104,7 @@ CODE_SAMPLE
     private function isIdenticalOrNotIdenticalToNull(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
     {
         $isIdenticalOrNotIdenticalToNull = \false;
-        $this->traverseNodesWithCallable((array) $class->stmts, function (\PhpParser\Node $node) use($onlyPropertyProperty, &$isIdenticalOrNotIdenticalToNull) {
+        $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use($onlyPropertyProperty, &$isIdenticalOrNotIdenticalToNull) {
             $matchedPropertyFetchName = $this->matchPropertyFetchNameComparedToNull($node);
             if ($matchedPropertyFetchName === null) {
                 return null;
@@ -119,7 +119,7 @@ CODE_SAMPLE
     private function isBooleanNot(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\PropertyProperty $onlyPropertyProperty) : bool
     {
         $isBooleanNot = \false;
-        $this->traverseNodesWithCallable((array) $class->stmts, function (\PhpParser\Node $node) use($onlyPropertyProperty, &$isBooleanNot) {
+        $this->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use($onlyPropertyProperty, &$isBooleanNot) {
             if (!$node instanceof \PhpParser\Node\Expr\BooleanNot) {
                 return null;
             }

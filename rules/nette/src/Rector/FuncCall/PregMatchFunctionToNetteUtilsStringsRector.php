@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Nette\Rector\FuncCall;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -121,7 +121,7 @@ CODE_SAMPLE
         $args[] = $funcCall->args[1];
         $args[] = $funcCall->args[0];
         $args = $this->compensateMatchAllEnforcedFlag($methodName, $funcCall, $args);
-        return $this->createStaticCall('_PhpScoper50d83356d739\\Nette\\Utils\\Strings', $methodName, $args);
+        return $this->createStaticCall('_PhpScoper5b8c9e9ebd21\\Nette\\Utils\\Strings', $methodName, $args);
     }
     /**
      * Compensate enforced flag https://github.com/nette/utils/blob/e3dd1853f56ee9a68bfbb2e011691283c2ed420d/src/Utils/Strings.php#L487
@@ -135,7 +135,7 @@ CODE_SAMPLE
         if ($methodName !== 'matchAll') {
             return $args;
         }
-        if (\count((array) $funcCall->args) !== 3) {
+        if (\count($funcCall->args) !== 3) {
             return $args;
         }
         $constFetch = new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PREG_SET_ORDER'));

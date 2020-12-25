@@ -11,6 +11,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class ClassMethodPropertyFetchManipulator
 {
@@ -46,10 +47,7 @@ final class ClassMethodPropertyFetchManipulator
             if (!$this->nodeNameResolver->isName($node->var, $propertyName)) {
                 return null;
             }
-            if ($node->expr instanceof \PhpParser\Node\Expr\MethodCall) {
-                return null;
-            }
-            if ($node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
+            if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node->expr, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class])) {
                 return null;
             }
             $assignedParamName = $this->nodeNameResolver->getName($node->expr);
@@ -60,7 +58,7 @@ final class ClassMethodPropertyFetchManipulator
             return null;
         }
         /** @var Param $param */
-        foreach ((array) $classMethod->params as $param) {
+        foreach ($classMethod->params as $param) {
             if (!$this->nodeNameResolver->isName($param, $assignedParamName)) {
                 continue;
             }

@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
@@ -145,8 +146,7 @@ final class FluentChainMethodCallNodeAnalyzer
         // node chaining is in reverse order than code
         $methods = \array_reverse($methods);
         foreach ($methods as $method) {
-            $activeMethodName = $this->nodeNameResolver->getName($node->name);
-            if ($activeMethodName !== $method) {
+            if (!$this->nodeNameResolver->isName($node->name, $method)) {
                 return \false;
             }
             $node = $node->var;
@@ -181,9 +181,6 @@ final class FluentChainMethodCallNodeAnalyzer
     }
     private function isCall(\PhpParser\Node\Expr $expr) : bool
     {
-        if ($expr instanceof \PhpParser\Node\Expr\MethodCall) {
-            return \true;
-        }
-        return $expr instanceof \PhpParser\Node\Expr\StaticCall;
+        return \Rector\Core\Util\StaticInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class]);
     }
 }

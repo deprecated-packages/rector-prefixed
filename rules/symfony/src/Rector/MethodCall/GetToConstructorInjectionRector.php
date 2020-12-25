@@ -20,7 +20,7 @@ final class GetToConstructorInjectionRector extends \Rector\Symfony\Rector\Metho
     /**
      * @var string[]
      */
-    private $getMethodAwareTypes = ['_PhpScoper50d83356d739\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', '_PhpScoper50d83356d739\\Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerTrait'];
+    private $getMethodAwareTypes = ['_PhpScoper5b8c9e9ebd21\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', '_PhpScoper5b8c9e9ebd21\\Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerTrait'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'

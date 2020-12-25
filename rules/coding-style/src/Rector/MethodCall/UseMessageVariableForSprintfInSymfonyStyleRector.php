@@ -17,7 +17,7 @@ final class UseMessageVariableForSprintfInSymfonyStyleRector extends \Rector\Cor
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Decouple $message property from sprintf() calls in $this->smyfonyStyle->method()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Decouple $message property from sprintf() calls in $this->symfonyStyle->method()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class SomeClass
@@ -54,7 +54,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoper50d83356d739\\Symfony\\Component\\Console\\Style\\SymfonyStyle')) {
+        if (!$this->isObjectType($node, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Console\\Style\\SymfonyStyle')) {
             return null;
         }
         if (!isset($node->args[0])) {

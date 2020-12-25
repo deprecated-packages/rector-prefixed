@@ -25,7 +25,7 @@ final class MockistaDetector
     }
     public function isInClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst((array) $class->stmts, function (\PhpParser\Node $node) : bool {
+        return (bool) $this->betterNodeFinder->findFirst($class->stmts, function (\PhpParser\Node $node) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
                 return \false;
             }

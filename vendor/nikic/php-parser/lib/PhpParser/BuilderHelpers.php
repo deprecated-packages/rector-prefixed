@@ -68,7 +68,7 @@ final class BuilderHelpers
         if (\is_string($name)) {
             return new \PhpParser\Node\Identifier($name);
         }
-        throw new \LogicException('_PhpScoper50d83356d739\\Expected string or instance of Node\\Identifier');
+        throw new \LogicException('_PhpScoper5b8c9e9ebd21\\Expected string or instance of Node\\Identifier');
     }
     /**
      * Normalizes strings to Identifier, also allowing expressions.
@@ -85,7 +85,7 @@ final class BuilderHelpers
         if (\is_string($name)) {
             return new \PhpParser\Node\Identifier($name);
         }
-        throw new \LogicException('_PhpScoper50d83356d739\\Expected string or instance of Node\\Identifier or Node\\Expr');
+        throw new \LogicException('_PhpScoper5b8c9e9ebd21\\Expected string or instance of Node\\Identifier or Node\\Expr');
     }
     /**
      * Normalizes a name: Converts string names to Name nodes.
@@ -137,9 +137,9 @@ final class BuilderHelpers
             if ($name instanceof \PhpParser\Node\Expr) {
                 return $name;
             }
-            throw new \LogicException('_PhpScoper50d83356d739\\Name must be a string or an instance of Node\\Name or Node\\Expr');
+            throw new \LogicException('_PhpScoper5b8c9e9ebd21\\Name must be a string or an instance of Node\\Name or Node\\Expr');
         } else {
-            throw new \LogicException('_PhpScoper50d83356d739\\Name must be a string or an instance of Node\\Name');
+            throw new \LogicException('_PhpScoper5b8c9e9ebd21\\Name must be a string or an instance of Node\\Name');
         }
     }
     /**
@@ -233,7 +233,7 @@ final class BuilderHelpers
         } elseif (\is_string($docComment)) {
             return new \PhpParser\Comment\Doc($docComment);
         } else {
-            throw new \LogicException('_PhpScoper50d83356d739\\Doc comment must be a string or an instance of PhpParser\\Comment\\Doc');
+            throw new \LogicException('_PhpScoper5b8c9e9ebd21\\Doc comment must be a string or an instance of PhpParser\\Comment\\Doc');
         }
     }
     /**

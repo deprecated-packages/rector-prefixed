@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -30,6 +30,7 @@ use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeAnalyzer\ClassNodeAnalyzer;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeCorrector\ParentClassLikeTypeCorrector;
@@ -91,7 +92,7 @@ final class NodeTypeResolver
     public function isObjectType(\PhpParser\Node $node, $requiredType) : bool
     {
         $this->ensureRequiredTypeIsStringOrObjectType($requiredType, __METHOD__);
-        if (\is_string($requiredType) && \_PhpScoper50d83356d739\Nette\Utils\Strings::contains($requiredType, '*')) {
+        if (\is_string($requiredType) && \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($requiredType, '*')) {
             return $this->isFnMatch($node, $requiredType);
         }
         $resolvedType = $this->resolve($node);
@@ -140,10 +141,7 @@ final class NodeTypeResolver
         if ($node instanceof \PhpParser\Node\Arg) {
             $node = $node->value;
         }
-        if ($node instanceof \PhpParser\Node\Param) {
-            return $this->resolve($node);
-        }
-        if ($node instanceof \PhpParser\Node\Scalar) {
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Param::class, \PhpParser\Node\Scalar::class])) {
             return $this->resolve($node);
         }
         /** @var Scope|null $nodeScope */
@@ -332,7 +330,7 @@ final class NodeTypeResolver
             $parentClass = (string) $class->extends;
             $types[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($parentClass);
         }
-        foreach ((array) $class->implements as $implement) {
+        foreach ($class->implements as $implement) {
             $parentClass = (string) $implement;
             $types[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($parentClass);
         }

@@ -116,7 +116,7 @@ CODE_SAMPLE
     private function shouldSkipArray(\PhpParser\Node\Expr\Array_ $array) : bool
     {
         // callback is exactly "[$two, 'items']"
-        if (\count((array) $array->items) !== 2) {
+        if (\count($array->items) !== 2) {
             return \true;
         }
         // can be totally empty in case of "[, $value]"

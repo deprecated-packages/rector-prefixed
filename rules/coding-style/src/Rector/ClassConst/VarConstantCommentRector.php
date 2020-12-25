@@ -53,7 +53,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (\count((array) $node->consts) > 1) {
+        if (\count($node->consts) > 1) {
             return null;
         }
         $constType = $this->getStaticType($node->consts[0]->value);

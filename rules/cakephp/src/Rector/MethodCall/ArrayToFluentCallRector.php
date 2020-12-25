@@ -15,7 +15,7 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
+use _PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert;
 /**
  * @see \Rector\CakePHP\Tests\Rector\MethodCall\ArrayToFluentCallRector\ArrayToFluentCallRectorTest
  */
@@ -95,10 +95,10 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $arraysToFluentCalls = $configuration[self::ARRAYS_TO_FLUENT_CALLS] ?? [];
-        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($arraysToFluentCalls, \Rector\CakePHP\ValueObject\ArrayToFluentCall::class);
+        \_PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert::allIsInstanceOf($arraysToFluentCalls, \Rector\CakePHP\ValueObject\ArrayToFluentCall::class);
         $this->arraysToFluentCalls = $arraysToFluentCalls;
         $factoryMethods = $configuration[self::FACTORY_METHODS] ?? [];
-        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($factoryMethods, \Rector\CakePHP\ValueObject\FactoryMethod::class);
+        \_PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert::allIsInstanceOf($factoryMethods, \Rector\CakePHP\ValueObject\FactoryMethod::class);
         $this->factoryMethods = $factoryMethods;
     }
     private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\FactoryMethod
@@ -116,7 +116,7 @@ CODE_SAMPLE
     }
     private function replaceArrayToFluentMethodCalls(\PhpParser\Node\Expr\MethodCall $methodCall, int $argumentPosition, \Rector\CakePHP\ValueObject\ArrayToFluentCall $arrayToFluentCall) : ?\PhpParser\Node\Expr\MethodCall
     {
-        if (\count((array) $methodCall->args) !== $argumentPosition) {
+        if (\count($methodCall->args) !== $argumentPosition) {
             return null;
         }
         $argumentValue = $methodCall->args[$argumentPosition - 1]->value;

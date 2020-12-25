@@ -31,7 +31,7 @@ final class NewFluentChainMethodCallNodeAnalyzer
      */
     public function matchNewInFluentSetterMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\New_
     {
-        if (\count((array) $methodCall->args) !== 1) {
+        if (\count($methodCall->args) !== 1) {
             return null;
         }
         $onlyArgValue = $methodCall->args[0]->value;

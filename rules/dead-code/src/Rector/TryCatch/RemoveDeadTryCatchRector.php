@@ -54,12 +54,12 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (\count((array) $node->catches) !== 1) {
+        if (\count($node->catches) !== 1) {
             return null;
         }
         /** @var Catch_ $onlyCatch */
         $onlyCatch = $node->catches[0];
-        if (\count((array) $onlyCatch->stmts) !== 1) {
+        if (\count($onlyCatch->stmts) !== 1) {
             return null;
         }
         if ($node->finally !== null && $node->finally->stmts !== []) {
@@ -72,7 +72,7 @@ CODE_SAMPLE
         if (!$this->areNodesEqual($onlyCatch->var, $onlyCatchStmt->expr)) {
             return null;
         }
-        $this->addNodesAfterNode((array) $node->stmts, $node);
+        $this->addNodesAfterNode($node->stmts, $node);
         $this->removeNode($node);
         return null;
     }

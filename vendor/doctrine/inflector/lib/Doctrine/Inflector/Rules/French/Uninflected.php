@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper50d83356d739\Doctrine\Inflector\Rules\French;
+namespace _PhpScoper5b8c9e9ebd21\Doctrine\Inflector\Rules\French;
 
-use _PhpScoper50d83356d739\Doctrine\Inflector\Rules\Pattern;
+use _PhpScoper5b8c9e9ebd21\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
@@ -25,6 +25,6 @@ final class Uninflected
      */
     private static function getDefault() : iterable
     {
-        (yield new \_PhpScoper50d83356d739\Doctrine\Inflector\Rules\Pattern(''));
+        (yield new \_PhpScoper5b8c9e9ebd21\Doctrine\Inflector\Rules\Pattern(''));
     }
 }

@@ -41,13 +41,13 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoper50d83356d739\\Symfony\\Component\\DependencyInjection\\ContainerBuilder')) {
+        if (!$this->isObjectType($node, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\DependencyInjection\\ContainerBuilder')) {
             return null;
         }
         if (!$this->isName($node->name, 'compile')) {
             return null;
         }
-        if (\count((array) $node->args) === 1) {
+        if (\count($node->args) === 1) {
             return null;
         }
         $node->args = $this->createArgs([$this->createTrue()]);

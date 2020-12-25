@@ -15,6 +15,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -73,21 +74,14 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
-            return $this->processArgs($node);
-        }
-        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
-            return $this->processArgs($node);
-        }
-        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
-            return $this->processArgs($node);
-        }
-        if ($node instanceof \PhpParser\Node\Expr\New_) {
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Expr\New_::class])) {
+            /** @var MethodCall|FuncCall|StaticCall|New_ $node */
             return $this->processArgs($node);
         }
         if ($node instanceof \PhpParser\Node\Expr\Closure) {
             $node = $this->processUses($node);
         }
+        /** @var ClassMethod|Function_ $node */
         return $this->processParams($node);
     }
     /**

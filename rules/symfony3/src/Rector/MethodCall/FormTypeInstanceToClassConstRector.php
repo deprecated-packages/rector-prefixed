@@ -35,7 +35,7 @@ final class FormTypeInstanceToClassConstRector extends \Rector\Symfony3\Rector\M
     /**
      * @var string[]
      */
-    private const CONTROLLER_TYPES = ['_PhpScoper50d83356d739\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', '_PhpScoper50d83356d739\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController'];
+    private const CONTROLLER_TYPES = ['_PhpScoper5b8c9e9ebd21\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', '_PhpScoper5b8c9e9ebd21\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController'];
     /**
      * @var BuilderFormNodeFactory
      */

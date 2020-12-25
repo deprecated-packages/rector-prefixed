@@ -37,7 +37,7 @@ final class PowToExpRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->isName($node, 'pow')) {
             return null;
         }
-        if (\count((array) $node->args) !== 2) {
+        if (\count($node->args) !== 2) {
             return null;
         }
         $firstArgument = $node->args[0]->value;

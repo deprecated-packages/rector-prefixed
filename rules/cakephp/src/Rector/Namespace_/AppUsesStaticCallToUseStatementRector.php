@@ -63,7 +63,7 @@ CODE_SAMPLE
         $names = $this->resolveNamesFromStaticCalls($appUsesStaticCalls);
         $uses = $this->nodeFactory->createUsesFromNames($names);
         if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
-            $node->stmts = \array_merge($uses, (array) $node->stmts);
+            $node->stmts = \array_merge($uses, $node->stmts);
             return $node;
         }
         return $this->refactorFile($node, $uses);
@@ -108,7 +108,7 @@ CODE_SAMPLE
         if ($hasDeclare !== null) {
             return $this->refactorFileWithDeclare($fileWithoutNamespace, $uses);
         }
-        $fileWithoutNamespace->stmts = \array_merge($uses, (array) $fileWithoutNamespace->stmts);
+        $fileWithoutNamespace->stmts = \array_merge($uses, $fileWithoutNamespace->stmts);
         return $fileWithoutNamespace;
     }
     private function createFullyQualifiedNameFromAppUsesStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : string

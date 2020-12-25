@@ -10,9 +10,9 @@ use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\SOLID\NodeFinder\ParentClassConstantNodeFinder;
-use Rector\SOLID\Reflection\ParentConstantReflectionResolver;
-use Rector\SOLID\ValueObject\ConstantVisibility;
+use Rector\Privatization\NodeFinder\ParentClassConstantNodeFinder;
+use Rector\Privatization\Reflection\ParentConstantReflectionResolver;
+use Rector\Privatization\ValueObject\ConstantVisibility;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -32,7 +32,7 @@ final class PrivatizeLocalClassConstantRector extends \Rector\Core\Rector\Abstra
      * @var ParentClassConstantNodeFinder
      */
     private $parentClassConstantNodeFinder;
-    public function __construct(\Rector\SOLID\NodeFinder\ParentClassConstantNodeFinder $parentClassConstantNodeFinder, \Rector\SOLID\Reflection\ParentConstantReflectionResolver $parentConstantReflectionResolver)
+    public function __construct(\Rector\Privatization\NodeFinder\ParentClassConstantNodeFinder $parentClassConstantNodeFinder, \Rector\Privatization\Reflection\ParentConstantReflectionResolver $parentConstantReflectionResolver)
     {
         $this->parentConstantReflectionResolver = $parentConstantReflectionResolver;
         $this->parentClassConstantNodeFinder = $parentClassConstantNodeFinder;
@@ -110,7 +110,7 @@ CODE_SAMPLE
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::CONSTANT_VISIBILITY)) {
             return \true;
         }
-        if (\count((array) $classConst->consts) !== 1) {
+        if (\count($classConst->consts) !== 1) {
             return \true;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
@@ -122,26 +122,26 @@ CODE_SAMPLE
         $class = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         return $class === null;
     }
-    private function findParentClassConstantAndRefactorIfPossible(string $class, string $constant) : ?\Rector\SOLID\ValueObject\ConstantVisibility
+    private function findParentClassConstantAndRefactorIfPossible(string $class, string $constant) : ?\Rector\Privatization\ValueObject\ConstantVisibility
     {
         $parentClassConst = $this->parentClassConstantNodeFinder->find($class, $constant);
         if ($parentClassConst !== null) {
             // Make sure the parent's constant has been refactored
             $this->refactor($parentClassConst);
-            return new \Rector\SOLID\ValueObject\ConstantVisibility($parentClassConst->isPublic(), $parentClassConst->isProtected(), $parentClassConst->isPrivate());
+            return new \Rector\Privatization\ValueObject\ConstantVisibility($parentClassConst->isPublic(), $parentClassConst->isProtected(), $parentClassConst->isPrivate());
             // If the constant isn't declared in the parent, it might be declared in the parent's parent
         }
         $parentClassConstantReflection = $this->parentConstantReflectionResolver->resolve($class, $constant);
         if ($parentClassConstantReflection === null) {
             return null;
         }
-        return new \Rector\SOLID\ValueObject\ConstantVisibility($parentClassConstantReflection->isPublic(), $parentClassConstantReflection->isProtected(), $parentClassConstantReflection->isPrivate());
+        return new \Rector\Privatization\ValueObject\ConstantVisibility($parentClassConstantReflection->isPublic(), $parentClassConstantReflection->isProtected(), $parentClassConstantReflection->isPrivate());
     }
     /**
      * @param string[] $directUseClasses
      * @param string[] $indirectUseClasses
      */
-    private function changeConstantVisibility(\PhpParser\Node\Stmt\ClassConst $classConst, array $directUseClasses, array $indirectUseClasses, ?\Rector\SOLID\ValueObject\ConstantVisibility $constantVisibility, string $class) : void
+    private function changeConstantVisibility(\PhpParser\Node\Stmt\ClassConst $classConst, array $directUseClasses, array $indirectUseClasses, ?\Rector\Privatization\ValueObject\ConstantVisibility $constantVisibility, string $class) : void
     {
         // 1. is actually never used
         if ($directUseClasses === []) {
@@ -164,7 +164,7 @@ CODE_SAMPLE
             $this->makePublic($classConst);
         }
     }
-    private function makePrivateOrWeaker(\PhpParser\Node\Stmt\ClassConst $classConst, ?\Rector\SOLID\ValueObject\ConstantVisibility $parentConstantVisibility) : void
+    private function makePrivateOrWeaker(\PhpParser\Node\Stmt\ClassConst $classConst, ?\Rector\Privatization\ValueObject\ConstantVisibility $parentConstantVisibility) : void
     {
         if ($parentConstantVisibility !== null && $parentConstantVisibility->isProtected()) {
             $this->makeProtected($classConst);

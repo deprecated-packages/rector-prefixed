@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Rector\ArrayDimFetch;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Isset_;
@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\Unset_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\Naming\ArrayDimFetchRenamer;
 use Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -100,7 +101,7 @@ CODE_SAMPLE
             return null;
         }
         // probably multiplier factory, nothing we can do... yet
-        if (\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($controlName, '-')) {
+        if (\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($controlName, '-')) {
             return null;
         }
         $variableName = $this->netteControlNaming->createVariableName($controlName);
@@ -118,10 +119,7 @@ CODE_SAMPLE
             return \true;
         }
         $parent = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \PhpParser\Node\Expr\Isset_) {
-            return !$arrayDimFetch->dim instanceof \PhpParser\Node\Expr\Variable;
-        }
-        if ($parent instanceof \PhpParser\Node\Stmt\Unset_) {
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($parent, [\PhpParser\Node\Expr\Isset_::class, \PhpParser\Node\Stmt\Unset_::class])) {
             return !$arrayDimFetch->dim instanceof \PhpParser\Node\Expr\Variable;
         }
         return \false;

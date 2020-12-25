@@ -31,13 +31,13 @@ final class VarDumperTestTraitMethodArgsRector extends \Rector\Core\Rector\Abstr
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper50d83356d739\\Symfony\\Component\\VarDumper\\Test\\VarDumperTestTrait')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\VarDumper\\Test\\VarDumperTestTrait')) {
             return null;
         }
         if (!$this->isNames($node->name, ['assertDumpEquals', 'assertDumpMatchesFormat'])) {
             return null;
         }
-        if (\count((array) $node->args) <= 2) {
+        if (\count($node->args) <= 2) {
             return null;
         }
         if ($node->args[2]->value instanceof \PhpParser\Node\Expr\ConstFetch) {

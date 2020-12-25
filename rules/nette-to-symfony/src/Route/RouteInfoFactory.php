@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Route;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\New_;
@@ -125,7 +125,7 @@ final class RouteInfoFactory
     private function createForString(\PhpParser\Node\Scalar\String_ $string, string $routePath) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
         $targetValue = $string->value;
-        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($targetValue, ':')) {
+        if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($targetValue, ':')) {
             return null;
         }
         [$controller, $method] = \explode(':', $targetValue);

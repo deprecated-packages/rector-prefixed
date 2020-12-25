@@ -74,7 +74,7 @@ CODE_SAMPLE
         if ($node->stmts === null) {
             return null;
         }
-        if (\count((array) $node->stmts) === 1) {
+        if (\count($node->stmts) === 1) {
             /** @var Expression $stmt */
             $stmt = $node->stmts[0];
             if ($this->isLocalMethodCallNamed($stmt->expr, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper50d83356d739;
+namespace _PhpScoper5b8c9e9ebd21;
 
 // faking cake php App class
 // see https://github.com/cakephp/cakephp/blob/2.4.1/lib/Cake/Core/App.php#L521
@@ -14,4 +14,4 @@ final class App
 }
 // faking cake php App class
 // see https://github.com/cakephp/cakephp/blob/2.4.1/lib/Cake/Core/App.php#L521
-\class_alias('_PhpScoper50d83356d739\\App', 'App', \false);
+\class_alias('_PhpScoper5b8c9e9ebd21\\App', 'App', \false);

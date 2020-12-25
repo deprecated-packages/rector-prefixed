@@ -82,7 +82,7 @@ final class ThisRenderFactory
         if ($return === null) {
             return null;
         }
-        if ($return->expr instanceof \PhpParser\Node\Expr\Array_ && \count((array) $return->expr->items)) {
+        if ($return->expr instanceof \PhpParser\Node\Expr\Array_ && \count($return->expr->items)) {
             return $return->expr;
         }
         if ($return->expr instanceof \PhpParser\Node\Expr\MethodCall) {

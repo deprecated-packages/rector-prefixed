@@ -42,9 +42,8 @@ final class PropertyNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInf
             if (!$this->propertyFetchManipulator->isVariableAssignToThisPropertyFetch($node, $paramName)) {
                 return null;
             }
-            /** @var Assign $node */
-            $staticType = $this->nodeTypeResolver->getStaticType($node->var);
             /** @var Type|null $staticType */
+            $staticType = $this->nodeTypeResolver->getStaticType($node->var);
             if ($staticType !== null) {
                 $propertyStaticTypes[] = $staticType;
             }

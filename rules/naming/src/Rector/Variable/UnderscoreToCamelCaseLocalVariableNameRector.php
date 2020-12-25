@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Rector\Variable;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -69,7 +69,7 @@ CODE_SAMPLE
         if ($nodeName === null) {
             return null;
         }
-        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::contains($nodeName, '_')) {
+        if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($nodeName, '_')) {
             return null;
         }
         if ($this->reservedKeywordAnalyzer->isNativeVariable($nodeName)) {
@@ -110,7 +110,7 @@ CODE_SAMPLE
             return \false;
         }
         /** @var Param[] $params */
-        $params = (array) $classMethodOrFunction->getParams();
+        $params = $classMethodOrFunction->getParams();
         foreach ($params as $param) {
             if ($this->areNamesEqual($param->var, $variable)) {
                 return \true;

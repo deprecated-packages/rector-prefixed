@@ -66,7 +66,7 @@ CODE_SAMPLE
             return null;
         }
         $else = $node->else;
-        if (\count((array) $else->stmts) !== 1) {
+        if (\count($else->stmts) !== 1) {
             return null;
         }
         $if = $else->stmts[0];

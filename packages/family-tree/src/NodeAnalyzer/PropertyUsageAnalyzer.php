@@ -53,7 +53,7 @@ final class PropertyUsageAnalyzer
             if ($childClass === null) {
                 continue;
             }
-            $isPropertyFetched = (bool) $this->betterNodeFinder->findFirst((array) $childClass->stmts, function (\PhpParser\Node $node) use($propertyName) : bool {
+            $isPropertyFetched = (bool) $this->betterNodeFinder->findFirst($childClass->stmts, function (\PhpParser\Node $node) use($propertyName) : bool {
                 return $this->nodeNameResolver->isLocalPropertyFetchNamed($node, $propertyName);
             });
             if ($isPropertyFetched) {

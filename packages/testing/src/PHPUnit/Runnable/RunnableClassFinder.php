@@ -53,7 +53,7 @@ final class RunnableClassFinder
             if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
                 return \false;
             }
-            foreach ((array) $node->implements as $implement) {
+            foreach ($node->implements as $implement) {
                 if ((string) $implement !== \Rector\Testing\Contract\RunnableInterface::class) {
                     continue;
                 }

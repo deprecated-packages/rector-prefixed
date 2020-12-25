@@ -58,8 +58,8 @@ final class ClassDependencyManipulator
     }
     public function addConstructorDependencyWithCustomAssign(\PhpParser\Node\Stmt\Class_ $class, string $name, ?\PHPStan\Type\Type $type, \PhpParser\Node\Expr\Assign $assign) : void
     {
-        $constructorMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         /** @var ClassMethod|null $constructorMethod */
+        $constructorMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         if ($constructorMethod !== null) {
             $this->classMethodAssignManipulator->addParameterAndAssignToMethod($constructorMethod, $name, $type, $assign);
             return;
@@ -83,7 +83,7 @@ final class ClassDependencyManipulator
                 $classMethod->stmts[] = $this->createParentClassMethodCall(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
             }
             $classMethod->stmts = \array_merge((array) $classMethod->stmts, $stmts);
-            $class->stmts = \array_merge((array) $class->stmts, [$classMethod]);
+            $class->stmts = \array_merge($class->stmts, [$classMethod]);
             return;
         }
         $stmts = $this->stmtsManipulator->filterOutExistingStmts($classMethod, $stmts);

@@ -138,7 +138,7 @@ CODE_SAMPLE
         if ($collectionObjectType === null) {
             return null;
         }
-        if (\count((array) $classMethod->params) !== 1) {
+        if (\count($classMethod->params) !== 1) {
             return null;
         }
         /** @var PhpDocInfo $phpDocInfo */

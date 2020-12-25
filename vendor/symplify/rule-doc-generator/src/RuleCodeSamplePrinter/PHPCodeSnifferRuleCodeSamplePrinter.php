@@ -20,7 +20,7 @@ final class PHPCodeSnifferRuleCodeSamplePrinter implements \Symplify\RuleDocGene
     public function isMatch(string $class) : bool
     {
         /** @noRector */
-        return \is_a($class, '_PhpScoper50d83356d739\\PHP_CodeSniffer\\Sniffs\\Sniff', \true);
+        return \is_a($class, '_PhpScoper5b8c9e9ebd21\\PHP_CodeSniffer\\Sniffs\\Sniff', \true);
     }
     /**
      * @return string[]

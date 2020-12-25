@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper50d83356d739;
+namespace _PhpScoper5b8c9e9ebd21;
 
 use Rector\PHPUnit\Rector\Foreach_\SimplifyForeachInstanceOfRector;
 use Rector\PHPUnit\Rector\MethodCall\AssertCompareToSpecificMethodRector;

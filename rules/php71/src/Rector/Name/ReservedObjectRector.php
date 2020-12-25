@@ -84,7 +84,7 @@ CODE_SAMPLE
         // process lass part
         foreach ($this->reservedKeywordsToReplacements as $reservedKeyword => $replacement) {
             if (\strtolower($name->getLast()) === \strtolower($reservedKeyword)) {
-                $name->parts[\count((array) $name->parts) - 1] = $replacement;
+                $name->parts[\count($name->parts) - 1] = $replacement;
                 // invoke override
                 $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
             }

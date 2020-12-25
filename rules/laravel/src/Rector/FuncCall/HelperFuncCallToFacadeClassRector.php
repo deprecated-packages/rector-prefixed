@@ -53,9 +53,9 @@ CODE_SAMPLE
         if (!$this->isName($node->name, 'app')) {
             return null;
         }
-        if (\count((array) $node->args) !== 1) {
+        if (\count($node->args) !== 1) {
             return null;
         }
-        return $this->createStaticCall('_PhpScoper50d83356d739\\Illuminate\\Support\\Facades\\App', 'get', (array) $node->args);
+        return $this->createStaticCall('_PhpScoper5b8c9e9ebd21\\Illuminate\\Support\\Facades\\App', 'get', $node->args);
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Php;
 
-use _PhpScoper50d83356d739\Nette\Utils\Json;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Json;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Util\PhpVersionFactory;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
@@ -34,7 +34,7 @@ final class PhpVersionProvider
         /** @var int|null $phpVersionFeatures */
         $phpVersionFeatures = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES);
         if ($phpVersionFeatures !== null) {
-            return (int) $phpVersionFeatures;
+            return $phpVersionFeatures;
         }
         // for tests
         if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
@@ -59,7 +59,7 @@ final class PhpVersionProvider
             return null;
         }
         $projectComposerContent = $this->smartFileSystem->readFile($projectComposerJson);
-        $projectComposerJson = \_PhpScoper50d83356d739\Nette\Utils\Json::decode($projectComposerContent, \_PhpScoper50d83356d739\Nette\Utils\Json::FORCE_ARRAY);
+        $projectComposerJson = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Json::decode($projectComposerContent, \_PhpScoper5b8c9e9ebd21\Nette\Utils\Json::FORCE_ARRAY);
         // Rector's composer.json
         if (isset($projectComposerJson['name']) && $projectComposerJson['name'] === 'rector/rector') {
             return null;

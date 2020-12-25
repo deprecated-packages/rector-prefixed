@@ -72,7 +72,7 @@ CODE_SAMPLE
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SETCOOKIE_ACCEPT_ARRAY_OPTIONS)) {
             return \true;
         }
-        $argsCount = \count((array) $funcCall->args);
+        $argsCount = \count($funcCall->args);
         if ($argsCount <= 2) {
             return \true;
         }

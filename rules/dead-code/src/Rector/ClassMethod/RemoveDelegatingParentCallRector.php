@@ -67,7 +67,7 @@ CODE_SAMPLE
         if ($node->stmts === null) {
             return null;
         }
-        if (\count((array) $node->stmts) !== 1) {
+        if (\count($node->stmts) !== 1) {
             return null;
         }
         $stmtsValues = \array_values($node->stmts);

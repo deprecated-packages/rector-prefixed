@@ -87,7 +87,7 @@ CODE_SAMPLE
         }
         if ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
             $node->name = new \PhpParser\Node\Name($expectedNamespace);
-            $this->makeNamesFullyQualified((array) $node->stmts);
+            $this->makeNamesFullyQualified($node->stmts);
         }
         return $node;
     }
@@ -101,9 +101,9 @@ CODE_SAMPLE
                 unset($nodes[$key]);
             }
         }
-        $namespace = new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($expectedNamespace), (array) $nodes);
+        $namespace = new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($expectedNamespace), $nodes);
         $nodesWithStrictTypesThenNamespace[] = $namespace;
-        $this->makeNamesFullyQualified((array) $nodes);
+        $this->makeNamesFullyQualified($nodes);
         // @todo update to a new class node, like FileWithNamespace
         return new \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace($nodesWithStrictTypesThenNamespace);
     }

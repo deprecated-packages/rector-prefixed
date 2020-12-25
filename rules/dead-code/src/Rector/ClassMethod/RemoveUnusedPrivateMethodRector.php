@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Trait_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -74,10 +75,7 @@ CODE_SAMPLE
             return \true;
         }
         // unreliable to detect trait, interface doesn't make sense
-        if ($classLike instanceof \PhpParser\Node\Stmt\Trait_) {
-            return \true;
-        }
-        if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
+        if (\Rector\Core\Util\StaticInstanceOf::isOneOf($classLike, [\PhpParser\Node\Stmt\Trait_::class, \PhpParser\Node\Stmt\Interface_::class])) {
             return \true;
         }
         if ($this->isAnonymousClass($classLike)) {

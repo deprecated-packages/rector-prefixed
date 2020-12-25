@@ -35,8 +35,8 @@ final class TemplateFinder
         if ($rectorRecipe->getExtraFileContent()) {
             $filePaths[] = __DIR__ . '/../../templates/rules/__package__/tests/Rector/__Category__/__Name__/Source/extra_file.php.inc';
         }
-        $filePaths = $this->addRuleAndTestCase($rectorRecipe, $filePaths);
         /** @var string[] $filePaths */
+        $filePaths = $this->addRuleAndTestCase($rectorRecipe, $filePaths);
         $filePaths[] = $this->resolveFixtureFilePath();
         $this->ensureFilePathsExists($filePaths);
         return $this->finderSanitizer->sanitize($filePaths);

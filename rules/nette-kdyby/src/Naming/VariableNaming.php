@@ -25,6 +25,7 @@ use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Exception\NotImplementedException;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
@@ -191,13 +192,10 @@ final class VariableNaming
     }
     private function isCall(?\PhpParser\Node $node) : bool
     {
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
-            return \true;
+        if ($node === null) {
+            return \false;
         }
-        if ($node instanceof \PhpParser\Node\Expr\NullsafeMethodCall) {
-            return \true;
-        }
-        return $node instanceof \PhpParser\Node\Expr\StaticCall;
+        return \Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\NullsafeMethodCall::class, \PhpParser\Node\Expr\StaticCall::class]);
     }
     private function resolveFromMethodCall(?\PhpParser\Node $node) : ?string
     {

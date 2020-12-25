@@ -63,7 +63,7 @@ CODE_SAMPLE
         if (!$this->isName($node->name, 'expects')) {
             return null;
         }
-        if (\count((array) $node->args) !== 1) {
+        if (\count($node->args) !== 1) {
             return null;
         }
         $onlyArgument = $node->args[0]->value;

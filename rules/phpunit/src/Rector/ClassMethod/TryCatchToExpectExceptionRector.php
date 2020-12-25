@@ -70,7 +70,7 @@ CODE_SAMPLE
             /** @var int $key */
             $this->removeStmt($node, $key);
         }
-        $node->stmts = \array_merge((array) $node->stmts, (array) $proccesed);
+        $node->stmts = \array_merge($node->stmts, (array) $proccesed);
         return $node;
     }
     /**
@@ -78,7 +78,7 @@ CODE_SAMPLE
      */
     private function processTryCatch(\PhpParser\Node\Stmt\TryCatch $tryCatch) : ?array
     {
-        if (\count((array) $tryCatch->catches) !== 1) {
+        if (\count($tryCatch->catches) !== 1) {
             return null;
         }
         $this->newExpressions = [];

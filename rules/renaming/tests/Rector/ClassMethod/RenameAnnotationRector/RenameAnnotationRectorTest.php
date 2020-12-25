@@ -26,6 +26,6 @@ final class RenameAnnotationRectorTest extends \Rector\Testing\PHPUnit\AbstractR
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::class => [\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::RENAMED_ANNOTATIONS_IN_TYPES => [new \Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoper50d83356d739\\PHPUnit\\Framework\\TestCase', 'scenario', 'test')]]];
+        return [\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::class => [\Rector\Renaming\Rector\ClassMethod\RenameAnnotationRector::RENAMED_ANNOTATIONS_IN_TYPES => [new \Rector\Renaming\ValueObject\RenameAnnotation('_PhpScoper5b8c9e9ebd21\\PHPUnit\\Framework\\TestCase', 'scenario', 'test')]]];
     }
 }

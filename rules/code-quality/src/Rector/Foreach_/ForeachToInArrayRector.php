@@ -112,7 +112,7 @@ CODE_SAMPLE
         if ($foreach->keyVar !== null) {
             return \true;
         }
-        if (\count((array) $foreach->stmts) > 1) {
+        if (\count($foreach->stmts) > 1) {
             return \true;
         }
         $nextNode = $foreach->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);

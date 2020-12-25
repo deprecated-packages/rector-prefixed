@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Restoration\Rector\Namespace_;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
@@ -51,7 +51,7 @@ class SomeClass
     public $id;
 }
 CODE_SAMPLE
-, [self::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper50d83356d739\\Doctrine\\ORM\\Mapping', 'ORM')]])]);
+, [self::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper5b8c9e9ebd21\\Doctrine\\ORM\\Mapping', 'ORM')]])]);
     }
     /**
      * @return string[]
@@ -66,13 +66,13 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         /** @var Class_|null $class */
-        $class = $this->betterNodeFinder->findFirstInstanceOf((array) $node->stmts, \PhpParser\Node\Stmt\Class_::class);
+        $class = $this->betterNodeFinder->findFirstInstanceOf($node->stmts, \PhpParser\Node\Stmt\Class_::class);
         if ($class === null) {
             return null;
         }
         foreach ($this->useImportsToRestore as $useImportToRestore) {
             $annotationToSeek = '#\\*\\s+\\@' . $useImportToRestore->getAlias() . '#';
-            if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::match($this->print($class), $annotationToSeek)) {
+            if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::match($this->print($class), $annotationToSeek)) {
                 continue;
             }
             $node = $this->addImportToNamespaceIfMissing($node, $useImportToRestore);
@@ -84,7 +84,7 @@ CODE_SAMPLE
      */
     public function configure(array $configuration) : void
     {
-        $default = [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper50d83356d739\\Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper50d83356d739\\Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper50d83356d739\\JMS\\Serializer\\Annotation', 'Serializer')];
+        $default = [new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper5b8c9e9ebd21\\Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\UseWithAlias('_PhpScoper5b8c9e9ebd21\\JMS\\Serializer\\Annotation', 'Serializer')];
         $this->useImportsToRestore = \array_merge($configuration[self::USE_IMPORTS_TO_RESTORE] ?? [], $default);
     }
     private function addImportToNamespaceIfMissing(\PhpParser\Node\Stmt\Namespace_ $namespace, \Rector\Restoration\ValueObject\UseWithAlias $useWithAlias) : \PhpParser\Node\Stmt\Namespace_
@@ -109,7 +109,7 @@ CODE_SAMPLE
         }
         /** @var Stmt $use */
         $use = $useBuilder->getNode();
-        $namespace->stmts = \array_merge([$use], (array) $namespace->stmts);
+        $namespace->stmts = \array_merge([$use], $namespace->stmts);
         return $namespace;
     }
 }

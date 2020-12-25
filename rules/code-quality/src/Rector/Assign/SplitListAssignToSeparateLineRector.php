@@ -72,7 +72,7 @@ CODE_SAMPLE
         if (!$assign->expr instanceof \PhpParser\Node\Expr\Array_) {
             return \true;
         }
-        if (\count((array) $assign->var->items) !== \count((array) $assign->expr->items)) {
+        if (\count($assign->var->items) !== \count($assign->expr->items)) {
             return \true;
         }
         // is value swap

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\FuncCall;
 
-use _PhpScoper50d83356d739\Nette\Utils\Strings;
+use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Greater;
@@ -72,7 +72,7 @@ CODE_SAMPLE
         if (!$this->isName($node, 'version_compare')) {
             return null;
         }
-        if (\count((array) $node->args) !== 3) {
+        if (\count($node->args) !== 3) {
             return null;
         }
         if (!$this->isPhpVersionConstant($node->args[0]->value) && !$this->isPhpVersionConstant($node->args[1]->value)) {
@@ -104,7 +104,7 @@ CODE_SAMPLE
         if (!$expr instanceof \PhpParser\Node\Scalar\String_) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        if (!\_PhpScoper50d83356d739\Nette\Utils\Strings::match($expr->value, self::SEMANTIC_VERSION_REGEX)) {
+        if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::match($expr->value, self::SEMANTIC_VERSION_REGEX)) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $versionParts = \explode('.', $expr->value);

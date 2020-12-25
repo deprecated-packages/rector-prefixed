@@ -97,7 +97,7 @@ final class SetterClassMethodAnalyzer
     }
     private function matchSetterOnlyPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\PropertyFetch
     {
-        if (\count((array) $classMethod->params) !== 1) {
+        if (\count($classMethod->params) !== 1) {
             return null;
         }
         $stmts = (array) $classMethod->stmts;

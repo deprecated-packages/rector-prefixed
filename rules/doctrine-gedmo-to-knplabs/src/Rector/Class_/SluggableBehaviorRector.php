@@ -108,14 +108,14 @@ CODE_SAMPLE
             return null;
         }
         // remove property setter/getter
-        foreach ((array) $node->getMethods() as $classMethod) {
+        foreach ($node->getMethods() as $classMethod) {
             if (!$this->isNames($classMethod, ['getSlug', 'setSlug'])) {
                 continue;
             }
             $this->removeNode($classMethod);
         }
-        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoper50d83356d739\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\SluggableTrait');
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoper50d83356d739\\Knp\\DoctrineBehaviors\\Contract\\Entity\\SluggableInterface');
+        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoper5b8c9e9ebd21\\Knp\\DoctrineBehaviors\\Model\\Sluggable\\SluggableTrait');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoper5b8c9e9ebd21\\Knp\\DoctrineBehaviors\\Contract\\Entity\\SluggableInterface');
         $this->addGetSluggableFieldsClassMethod($node, $slugFields);
         // change the node
         return $node;

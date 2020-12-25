@@ -11,7 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Renaming\ValueObject\RenameProperty;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper50d83356d739\Webmozart\Assert\Assert;
+use _PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\RenamePropertyRectorTest
  */
@@ -56,7 +56,7 @@ final class RenamePropertyRector extends \Rector\Core\Rector\AbstractRector impl
     public function configure(array $configuration) : void
     {
         $renamedProperties = $configuration[self::RENAMED_PROPERTIES] ?? [];
-        \_PhpScoper50d83356d739\Webmozart\Assert\Assert::allIsInstanceOf($renamedProperties, \Rector\Renaming\ValueObject\RenameProperty::class);
+        \_PhpScoper5b8c9e9ebd21\Webmozart\Assert\Assert::allIsInstanceOf($renamedProperties, \Rector\Renaming\ValueObject\RenameProperty::class);
         $this->renamedProperties = $renamedProperties;
     }
 }

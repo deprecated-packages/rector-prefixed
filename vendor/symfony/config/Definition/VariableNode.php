@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper50d83356d739\Symfony\Component\Config\Definition;
+namespace _PhpScoper5b8c9e9ebd21\Symfony\Component\Config\Definition;
 
-use _PhpScoper50d83356d739\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use _PhpScoper5b8c9e9ebd21\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 /**
  * This node represents a value of variable type in the config tree.
  *
@@ -19,7 +19,7 @@ use _PhpScoper50d83356d739\Symfony\Component\Config\Definition\Exception\Invalid
  *
  * @author Jeremy Mikola <jmikola@gmail.com>
  */
-class VariableNode extends \_PhpScoper50d83356d739\Symfony\Component\Config\Definition\BaseNode implements \_PhpScoper50d83356d739\Symfony\Component\Config\Definition\PrototypeNodeInterface
+class VariableNode extends \_PhpScoper5b8c9e9ebd21\Symfony\Component\Config\Definition\BaseNode implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\Config\Definition\PrototypeNodeInterface
 {
     protected $defaultValueSet = \false;
     protected $defaultValue;
@@ -74,7 +74,7 @@ class VariableNode extends \_PhpScoper50d83356d739\Symfony\Component\Config\Defi
         // deny environment variables only when using custom validators
         // this avoids ever passing an empty value to final validation closures
         if (!$this->allowEmptyValue && $this->isHandlingPlaceholder() && $this->finalValidationClosures) {
-            $e = new \_PhpScoper50d83356d739\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" cannot contain an environment variable when empty values are not allowed by definition and are validated.', $this->getPath()));
+            $e = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" cannot contain an environment variable when empty values are not allowed by definition and are validated.', $this->getPath()));
             if ($hint = $this->getInfo()) {
                 $e->addHint($hint);
             }
@@ -82,7 +82,7 @@ class VariableNode extends \_PhpScoper50d83356d739\Symfony\Component\Config\Defi
             throw $e;
         }
         if (!$this->allowEmptyValue && $this->isValueEmpty($value)) {
-            $ex = new \_PhpScoper50d83356d739\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" cannot contain an empty value, but got %s.', $this->getPath(), \json_encode($value)));
+            $ex = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" cannot contain an empty value, but got %s.', $this->getPath(), \json_encode($value)));
             if ($hint = $this->getInfo()) {
                 $ex->addHint($hint);
             }
