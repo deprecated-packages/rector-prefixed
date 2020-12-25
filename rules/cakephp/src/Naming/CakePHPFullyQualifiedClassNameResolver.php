@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CakePHP\Naming;
 
-use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
+use _PhpScoper567b66d83109\Nette\Utils\Strings;
 use Rector\CakePHP\ImplicitNameResolver;
 /**
  * @inspired https://github.com/cakephp/upgrade/blob/756410c8b7d5aff9daec3fa1fe750a3858d422ac/src/Shell/Task/AppUsesTask.php
@@ -47,8 +47,8 @@ final class CakePHPFullyQualifiedClassNameResolver
         }
         // Chop Lib out as locations moves those files to the top level.
         // But only if Lib is not the last folder.
-        if (\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::match($pseudoNamespace, self::LIB_NAMESPACE_PART_REGEX)) {
-            $pseudoNamespace = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::replace($pseudoNamespace, '#\\\\Lib#', '');
+        if (\_PhpScoper567b66d83109\Nette\Utils\Strings::match($pseudoNamespace, self::LIB_NAMESPACE_PART_REGEX)) {
+            $pseudoNamespace = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($pseudoNamespace, '#\\\\Lib#', '');
         }
         // B. is Cake native class?
         $cakePhpVersion = 'Cake\\' . $pseudoNamespace . '\\' . $shortClass;
@@ -59,13 +59,13 @@ final class CakePHPFullyQualifiedClassNameResolver
             return $cakePhpVersion;
         }
         // C. is not plugin nor lib custom App class?
-        if (\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::contains($pseudoNamespace, '\\') && !\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::match($pseudoNamespace, self::PLUGIN_OR_LIB_REGEX)) {
+        if (\_PhpScoper567b66d83109\Nette\Utils\Strings::contains($pseudoNamespace, '\\') && !\_PhpScoper567b66d83109\Nette\Utils\Strings::match($pseudoNamespace, self::PLUGIN_OR_LIB_REGEX)) {
             return 'App\\' . $pseudoNamespace . '\\' . $shortClass;
         }
         return $pseudoNamespace . '\\' . $shortClass;
     }
     private function normalizeFileSystemSlashes(string $pseudoNamespace) : string
     {
-        return \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::replace($pseudoNamespace, self::SLASH_REGEX, '\\');
+        return \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($pseudoNamespace, self::SLASH_REGEX, '\\');
     }
 }

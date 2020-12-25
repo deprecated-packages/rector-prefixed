@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\EventListener;
+namespace _PhpScoper567b66d83109\Symfony\Component\HttpKernel\EventListener;
 
-use _PhpScoperf18a0c41e2d2\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Request;
-use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\Event\RequestEvent;
-use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\KernelEvents;
-use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\UriSigner;
+use _PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use _PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Request;
+use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\RequestEvent;
+use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents;
+use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\UriSigner;
 /**
  * Handles content fragments represented by special URIs.
  *
@@ -29,14 +29,14 @@ use _PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\UriSigner;
  *
  * @final
  */
-class FragmentListener implements \_PhpScoperf18a0c41e2d2\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class FragmentListener implements \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $signer;
     private $fragmentPath;
     /**
      * @param string $fragmentPath The path that triggers this listener
      */
-    public function __construct(\_PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\UriSigner $signer, string $fragmentPath = '/_fragment')
+    public function __construct(\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\UriSigner $signer, string $fragmentPath = '/_fragment')
     {
         $this->signer = $signer;
         $this->fragmentPath = $fragmentPath;
@@ -46,7 +46,7 @@ class FragmentListener implements \_PhpScoperf18a0c41e2d2\Symfony\Component\Even
      *
      * @throws AccessDeniedHttpException if the request does not come from a trusted IP
      */
-    public function onKernelRequest(\_PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    public function onKernelRequest(\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         $request = $event->getRequest();
         if ($this->fragmentPath !== \rawurldecode($request->getPathInfo())) {
@@ -65,20 +65,20 @@ class FragmentListener implements \_PhpScoperf18a0c41e2d2\Symfony\Component\Even
         $request->attributes->set('_route_params', \array_replace($request->attributes->get('_route_params', []), $attributes));
         $request->query->remove('_path');
     }
-    protected function validateRequest(\_PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Request $request)
+    protected function validateRequest(\_PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Request $request)
     {
         // is the Request safe?
         if (!$request->isMethodSafe()) {
-            throw new \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
+            throw new \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
         }
         // is the Request signed?
         if ($this->signer->checkRequest($request)) {
             return;
         }
-        throw new \_PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
+        throw new \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
     }
     public static function getSubscribedEvents() : array
     {
-        return [\_PhpScoperf18a0c41e2d2\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 48]]];
+        return [\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 48]]];
     }
 }

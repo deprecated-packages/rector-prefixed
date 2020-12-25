@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\EasyTesting\Tests\PHPUnit\Behavior\DirectoryAssertableTrait;
 
-use _PhpScoperf18a0c41e2d2\PHPUnit\Framework\ExpectationFailedException;
-use _PhpScoperf18a0c41e2d2\PHPUnit\Framework\TestCase;
+use _PhpScoper567b66d83109\PHPUnit\Framework\ExpectationFailedException;
+use _PhpScoper567b66d83109\PHPUnit\Framework\TestCase;
 use Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
 use Throwable;
-final class DirectoryAssertableTraitTest extends \_PhpScoperf18a0c41e2d2\PHPUnit\Framework\TestCase
+final class DirectoryAssertableTraitTest extends \_PhpScoper567b66d83109\PHPUnit\Framework\TestCase
 {
     use DirectoryAssertableTrait;
     public function testSuccess() : void
@@ -21,7 +21,7 @@ final class DirectoryAssertableTraitTest extends \_PhpScoperf18a0c41e2d2\PHPUnit
             $this->assertDirectoryEquals(__DIR__ . '/Fixture/first_directory', __DIR__ . '/Fixture/third_directory');
         } catch (\Throwable $throwable) {
         } finally {
-            $this->assertInstanceOf(\_PhpScoperf18a0c41e2d2\PHPUnit\Framework\ExpectationFailedException::class, $throwable);
+            $this->assertInstanceOf(\_PhpScoper567b66d83109\PHPUnit\Framework\ExpectationFailedException::class, $throwable);
         }
     }
 }

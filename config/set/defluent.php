@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperf18a0c41e2d2;
+namespace _PhpScoper567b66d83109;
 
 use Rector\Defluent\Rector\ClassMethod\ReturnThisRemoveRector;
 use Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector;
@@ -11,10 +11,10 @@ use Rector\Defluent\Rector\MethodCall\NewFluentChainMethodCallToNonFluentRector;
 use Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
 use Rector\Defluent\Rector\Return_\ReturnFluentChainMethodCallToNormalMethodCallRector;
 use Rector\Defluent\Rector\Return_\ReturnNewFluentChainMethodCallToNonFluentRector;
-use _PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 // @see https://ocramius.github.io/blog/fluent-interfaces-are-evil/
 // @see https://www.yegor256.com/2018/03/13/fluent-interfaces.html
-return static function (\_PhpScoperf18a0c41e2d2\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     // variable/property
     $services->set(\Rector\Defluent\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector::class);

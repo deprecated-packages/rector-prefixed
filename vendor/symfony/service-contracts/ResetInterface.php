@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperf18a0c41e2d2\Symfony\Contracts\Service;
+namespace _PhpScoper567b66d83109\Symfony\Contracts\Service;
 
 /**
  * Provides a way to reset an object to its initial state.

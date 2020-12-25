@@ -74,7 +74,7 @@ CODE_SAMPLE
             $this->processAboveTestInclude($node);
             return null;
         }
-        if (!$this->isObjectType($node, '_PhpScoperf18a0c41e2d2\\Tester\\TestCase')) {
+        if (!$this->isObjectType($node, '_PhpScoper567b66d83109\\Tester\\TestCase')) {
             return null;
         }
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -100,7 +100,7 @@ CODE_SAMPLE
     }
     private function processExtends(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $class->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoperf18a0c41e2d2\\PHPUnit\\Framework\\TestCase');
+        $class->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper567b66d83109\\PHPUnit\\Framework\\TestCase');
     }
     private function processMethods(\PhpParser\Node\Stmt\Class_ $class) : void
     {

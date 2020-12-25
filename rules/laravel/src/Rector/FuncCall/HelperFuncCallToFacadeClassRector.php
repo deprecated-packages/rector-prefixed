@@ -56,6 +56,6 @@ CODE_SAMPLE
         if (\count($node->args) !== 1) {
             return null;
         }
-        return $this->createStaticCall('_PhpScoperf18a0c41e2d2\\Illuminate\\Support\\Facades\\App', 'get', $node->args);
+        return $this->createStaticCall('_PhpScoper567b66d83109\\Illuminate\\Support\\Facades\\App', 'get', $node->args);
     }
 }

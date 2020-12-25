@@ -6,7 +6,7 @@ namespace Rector\RectorGenerator\Composer;
 use Rector\RectorGenerator\FileSystem\JsonFileSystem;
 use Rector\RectorGenerator\ValueObject\Package;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
-use _PhpScoperf18a0c41e2d2\Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle;
 final class ComposerPackageAutoloadUpdater
 {
     /**
@@ -29,7 +29,7 @@ final class ComposerPackageAutoloadUpdater
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\Rector\RectorGenerator\FileSystem\JsonFileSystem $jsonFileSystem, \_PhpScoperf18a0c41e2d2\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\Rector\RectorGenerator\FileSystem\JsonFileSystem $jsonFileSystem, \_PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->jsonFileSystem = $jsonFileSystem;
         $this->symfonyStyle = $symfonyStyle;

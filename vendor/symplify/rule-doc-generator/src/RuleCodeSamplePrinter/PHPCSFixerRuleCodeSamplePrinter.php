@@ -26,7 +26,7 @@ final class PHPCSFixerRuleCodeSamplePrinter implements \Symplify\RuleDocGenerato
     public function isMatch(string $class) : bool
     {
         /** @noRector */
-        return \is_a($class, '_PhpScoperf18a0c41e2d2\\PhpCsFixer\\Fixer\\FixerInterface', \true);
+        return \is_a($class, '_PhpScoper567b66d83109\\PhpCsFixer\\Fixer\\FixerInterface', \true);
     }
     /**
      * @return mixed[]|string[]

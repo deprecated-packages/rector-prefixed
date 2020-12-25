@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PhpSpecToPHPUnit\Naming;
 
-use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
+use _PhpScoper567b66d83109\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -51,14 +51,14 @@ final class PhpSpecRenaming
         // from PhpSpec to PHPUnit method naming convention
         $classMethodName = $this->stringFormatConverter->underscoreAndHyphenToCamelCase($classMethodName);
         // add "test", so PHPUnit runs the method
-        if (!\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::startsWith($classMethodName, 'test')) {
+        if (!\_PhpScoper567b66d83109\Nette\Utils\Strings::startsWith($classMethodName, 'test')) {
             $classMethodName = 'test' . \ucfirst($classMethodName);
         }
         $classMethod->name = new \PhpParser\Node\Identifier($classMethodName);
     }
     public function renameExtends(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $class->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoperf18a0c41e2d2\\PHPUnit\\Framework\\TestCase');
+        $class->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper567b66d83109\\PHPUnit\\Framework\\TestCase');
     }
     public function renameNamespace(\PhpParser\Node\Stmt\Class_ $class) : void
     {

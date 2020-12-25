@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory\JMS;
 
-use _PhpScoperf18a0c41e2d2\JMS\DiExtraBundle\Annotation\Inject;
+use _PhpScoper567b66d83109\JMS\DiExtraBundle\Annotation\Inject;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
@@ -27,7 +27,7 @@ final class JMSInjectPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
      */
     public function getClasses() : array
     {
-        return ['_PhpScoperf18a0c41e2d2\\JMS\\DiExtraBundle\\Annotation\\Inject'];
+        return ['_PhpScoper567b66d83109\\JMS\\DiExtraBundle\\Annotation\\Inject'];
     }
     /**
      * @return JMSInjectTagValueNode|null

@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\ConstantReference;
 
 use Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Source\ApiFilter;
-use _PhpScoperf18a0c41e2d2\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper567b66d83109\Doctrine\ORM\Mapping as ORM;
 final class Book
 {
     /**

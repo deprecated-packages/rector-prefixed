@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RemovingStatic\Printer;
 
-use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
+use _PhpScoper567b66d83109\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -54,12 +54,12 @@ final class FactoryClassPrinter
         if ($classFileInfo === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $directoryPath = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::before($classFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);
+        $directoryPath = \_PhpScoper567b66d83109\Nette\Utils\Strings::before($classFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);
         $resolvedOldClass = $this->nodeNameResolver->getName($oldClass);
         if ($resolvedOldClass === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $bareClassName = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
+        $bareClassName = \_PhpScoper567b66d83109\Nette\Utils\Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
         return $directoryPath . \DIRECTORY_SEPARATOR . $bareClassName;
     }
 }

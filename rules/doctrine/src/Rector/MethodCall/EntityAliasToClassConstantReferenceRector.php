@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Rector\MethodCall;
 
-use _PhpScoperf18a0c41e2d2\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
-use _PhpScoperf18a0c41e2d2\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
-use _PhpScoperf18a0c41e2d2\Doctrine\ORM\EntityManagerInterface;
-use _PhpScoperf18a0c41e2d2\Doctrine\Persistence\ManagerRegistry;
-use _PhpScoperf18a0c41e2d2\Doctrine\Persistence\ObjectManager;
-use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
+use _PhpScoper567b66d83109\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
+use _PhpScoper567b66d83109\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
+use _PhpScoper567b66d83109\Doctrine\ORM\EntityManagerInterface;
+use _PhpScoper567b66d83109\Doctrine\Persistence\ManagerRegistry;
+use _PhpScoper567b66d83109\Doctrine\Persistence\ObjectManager;
+use _PhpScoper567b66d83109\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
@@ -29,7 +29,7 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
     /**
      * @var string[]
      */
-    private const ALLOWED_OBJECT_TYPES = [\_PhpScoperf18a0c41e2d2\Doctrine\ORM\EntityManagerInterface::class, \_PhpScoperf18a0c41e2d2\Doctrine\Persistence\ObjectManager::class, \_PhpScoperf18a0c41e2d2\Doctrine\Common\Persistence\ObjectManager::class, \_PhpScoperf18a0c41e2d2\Doctrine\Persistence\ManagerRegistry::class, \_PhpScoperf18a0c41e2d2\Doctrine\Common\Persistence\ManagerRegistry::class];
+    private const ALLOWED_OBJECT_TYPES = [\_PhpScoper567b66d83109\Doctrine\ORM\EntityManagerInterface::class, \_PhpScoper567b66d83109\Doctrine\Persistence\ObjectManager::class, \_PhpScoper567b66d83109\Doctrine\Common\Persistence\ObjectManager::class, \_PhpScoper567b66d83109\Doctrine\Persistence\ManagerRegistry::class, \_PhpScoper567b66d83109\Doctrine\Common\Persistence\ManagerRegistry::class];
     /**
      * @var string[]
      */
@@ -44,7 +44,7 @@ CODE_SAMPLE
 $entityManager = new Doctrine\ORM\EntityManager();
 $entityManager->getRepository(\App\Entity\Post::class);
 CODE_SAMPLE
-, [self::ALIASES_TO_NAMESPACES => ['App' => '_PhpScoperf18a0c41e2d2\\App\\Entity']])]);
+, [self::ALIASES_TO_NAMESPACES => ['App' => '_PhpScoper567b66d83109\\App\\Entity']])]);
     }
     /**
      * @return string[]
@@ -96,7 +96,7 @@ CODE_SAMPLE
     }
     private function isAlias(string $name) : bool
     {
-        return \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::contains($name, ':');
+        return \_PhpScoper567b66d83109\Nette\Utils\Strings::contains($name, ':');
     }
     private function hasAlias(string $name) : bool
     {

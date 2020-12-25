@@ -70,7 +70,7 @@ CODE_SAMPLE
             return null;
         }
         // skip PHPUnit calls, as they accept both self:: and $this-> formats
-        if ($this->isObjectType($node->var, '_PhpScoperf18a0c41e2d2\\PHPUnit\\Framework\\TestCase')) {
+        if ($this->isObjectType($node->var, '_PhpScoper567b66d83109\\PHPUnit\\Framework\\TestCase')) {
             return null;
         }
         /** @var class-string $className */

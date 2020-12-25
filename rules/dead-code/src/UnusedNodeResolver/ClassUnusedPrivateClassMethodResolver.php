@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DeadCode\UnusedNodeResolver;
 
-use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
+use _PhpScoper567b66d83109\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
@@ -65,7 +65,7 @@ final class ClassUnusedPrivateClassMethodResolver
                 unset($unusedMethods[$key]);
             }
             // skip magic methods
-            if (\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::startsWith($unusedMethod, '__')) {
+            if (\_PhpScoper567b66d83109\Nette\Utils\Strings::startsWith($unusedMethod, '__')) {
                 unset($unusedMethods[$key]);
             }
         }

@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoperf18a0c41e2d2\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace _PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
-use _PhpScoperf18a0c41e2d2\Symfony\Component\Cache\Marshaller\MarshallerInterface;
+use _PhpScoper567b66d83109\Symfony\Component\Cache\Marshaller\MarshallerInterface;
 /**
  * @author Ahmed TAILOULOUTE <ahmed.tailouloute@gmail.com>
  */
-class IdentityMarshaller implements \_PhpScoperf18a0c41e2d2\Symfony\Component\Cache\Marshaller\MarshallerInterface
+class IdentityMarshaller implements \_PhpScoper567b66d83109\Symfony\Component\Cache\Marshaller\MarshallerInterface
 {
     /**
      * {@inheritdoc}

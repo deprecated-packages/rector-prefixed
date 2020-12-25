@@ -34,7 +34,7 @@ final class ProcessBuilderInstanceRector extends \Rector\Core\Rector\AbstractRec
         if (!$node->class instanceof \PhpParser\Node\Name) {
             return null;
         }
-        if (!$this->isName($node->class, '_PhpScoperf18a0c41e2d2\\Symfony\\Component\\Process\\ProcessBuilder')) {
+        if (!$this->isName($node->class, '_PhpScoper567b66d83109\\Symfony\\Component\\Process\\ProcessBuilder')) {
             return null;
         }
         if (!$this->isName($node->name, 'create')) {

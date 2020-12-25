@@ -54,7 +54,7 @@ final class OnFormVariableMethodCallsCollector
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }
-            if (!$this->nodeTypeResolver->isObjectType($node->expr, '_PhpScoperf18a0c41e2d2\\Nette\\Application\\UI\\Form')) {
+            if (!$this->nodeTypeResolver->isObjectType($node->expr, '_PhpScoper567b66d83109\\Nette\\Application\\UI\\Form')) {
                 return null;
             }
             $newFormVariable = $node->var;

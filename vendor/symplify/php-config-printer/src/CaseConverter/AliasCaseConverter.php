@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\PhpConfigPrinter\CaseConverter;
 
-use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
+use _PhpScoper567b66d83109\Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\MethodCall;
@@ -70,7 +70,7 @@ final class AliasCaseConverter implements \Symplify\PhpConfigPrinter\Contract\Ca
             return new \PhpParser\Node\Stmt\Expression($methodCall);
         }
         // handles: "SomeClass $someVariable: ..."
-        $fullClassName = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::before($key, ' $');
+        $fullClassName = \_PhpScoper567b66d83109\Nette\Utils\Strings::before($key, ' $');
         if ($fullClassName !== null) {
             $methodCall = $this->createAliasNode($key, $fullClassName, $values);
             return new \PhpParser\Node\Stmt\Expression($methodCall);
@@ -107,7 +107,7 @@ final class AliasCaseConverter implements \Symplify\PhpConfigPrinter\Contract\Ca
         if (isset($values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::ALIAS])) {
             return \true;
         }
-        if (\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::match($key, self::NAMED_ALIAS_REGEX)) {
+        if (\_PhpScoper567b66d83109\Nette\Utils\Strings::match($key, self::NAMED_ALIAS_REGEX)) {
             return \true;
         }
         return \is_string($values) && $values[0] === '@';
@@ -116,8 +116,8 @@ final class AliasCaseConverter implements \Symplify\PhpConfigPrinter\Contract\Ca
     {
         $args = [];
         $classConstFetch = $this->commonNodeFactory->createClassReference($fullClassName);
-        \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::match($key, self::ARGUMENT_NAME_REGEX);
-        $argumentName = '$' . \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::after($key, '$');
+        \_PhpScoper567b66d83109\Nette\Utils\Strings::match($key, self::ARGUMENT_NAME_REGEX);
+        $argumentName = '$' . \_PhpScoper567b66d83109\Nette\Utils\Strings::after($key, '$');
         $concat = new \PhpParser\Node\Expr\BinaryOp\Concat($classConstFetch, new \PhpParser\Node\Scalar\String_(' ' . $argumentName));
         $args[] = new \PhpParser\Node\Arg($concat);
         $serviceName = \ltrim($serviceValues, '@');

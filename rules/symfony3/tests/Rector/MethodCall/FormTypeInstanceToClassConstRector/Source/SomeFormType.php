@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony3\Tests\Rector\MethodCall\FormTypeInstanceToClassConstRector\Source;
 
-use _PhpScoperf18a0c41e2d2\Symfony\Component\Form\FormTypeInterface;
-final class SomeFormType implements \_PhpScoperf18a0c41e2d2\Symfony\Component\Form\FormTypeInterface
+use _PhpScoper567b66d83109\Symfony\Component\Form\FormTypeInterface;
+final class SomeFormType implements \_PhpScoper567b66d83109\Symfony\Component\Form\FormTypeInterface
 {
 }

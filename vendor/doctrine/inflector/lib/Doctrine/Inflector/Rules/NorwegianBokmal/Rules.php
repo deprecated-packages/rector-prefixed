@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\NorwegianBokmal;
+namespace _PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal;
 
-use _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Patterns;
-use _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset;
-use _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Substitutions;
-use _PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Transformations;
+use _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Patterns;
+use _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Ruleset;
+use _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Substitutions;
+use _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformations;
 final class Rules
 {
-    public static function getSingularRuleset() : \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset
+    public static function getSingularRuleset() : \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Ruleset
     {
-        return new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset(new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Transformations(...\_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getSingular()), new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Patterns(...\_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\NorwegianBokmal\Uninflected::getSingular()), (new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Substitutions(...\_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getIrregular()))->getFlippedSubstitutions());
+        return new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Ruleset(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformations(...\_PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getSingular()), new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Patterns(...\_PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal\Uninflected::getSingular()), (new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Substitutions(...\_PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getIrregular()))->getFlippedSubstitutions());
     }
-    public static function getPluralRuleset() : \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset
+    public static function getPluralRuleset() : \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Ruleset
     {
-        return new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Ruleset(new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Transformations(...\_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getPlural()), new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Patterns(...\_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\NorwegianBokmal\Uninflected::getPlural()), new \_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\Substitutions(...\_PhpScoperf18a0c41e2d2\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getIrregular()));
+        return new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Ruleset(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformations(...\_PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getPlural()), new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Patterns(...\_PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal\Uninflected::getPlural()), new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Substitutions(...\_PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal\Inflectible::getIrregular()));
     }
 }

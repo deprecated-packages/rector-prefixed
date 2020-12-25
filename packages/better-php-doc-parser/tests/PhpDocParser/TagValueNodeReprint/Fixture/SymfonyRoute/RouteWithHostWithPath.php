@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SymfonyRoute;
 
-use _PhpScoperf18a0c41e2d2\Symfony\Component\Routing\Annotation\Route;
+use _PhpScoper567b66d83109\Symfony\Component\Routing\Annotation\Route;
 final class RouteWithHostWithPath
 {
     /**

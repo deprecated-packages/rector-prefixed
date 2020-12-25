@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperf18a0c41e2d2;
+namespace _PhpScoper567b66d83109;
 
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Bootstrap\ConfigShifter;
@@ -23,7 +23,7 @@ use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \_PhpScoperf18a0c41e2d2\AutoloadIncluder();
+$autoloadIncluder = new \_PhpScoper567b66d83109\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(\getcwd() . '/vendor/autoload.php');
@@ -120,4 +120,4 @@ final class AutoloadIncluder
         require_once $filePath;
     }
 }
-\class_alias('_PhpScoperf18a0c41e2d2\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('_PhpScoper567b66d83109\\AutoloadIncluder', 'AutoloadIncluder', \false);

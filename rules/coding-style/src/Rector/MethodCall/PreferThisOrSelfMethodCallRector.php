@@ -6,13 +6,13 @@ namespace Rector\CodingStyle\Rector\MethodCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
-use _PhpScoperf18a0c41e2d2\PHPUnit\Framework\TestCase;
+use _PhpScoper567b66d83109\PHPUnit\Framework\TestCase;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\Rector\InvalidRectorConfigurationException;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoperf18a0c41e2d2\Webmozart\Assert\Assert;
+use _PhpScoper567b66d83109\Webmozart\Assert\Assert;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\PreferThisOrSelfMethodCallRectorTest
  */
@@ -65,7 +65,7 @@ class SomeClass extends \PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-, [self::TYPE_TO_PREFERENCE => [\_PhpScoperf18a0c41e2d2\PHPUnit\Framework\TestCase::class => self::PREFER_SELF]])]);
+, [self::TYPE_TO_PREFERENCE => [\_PhpScoper567b66d83109\PHPUnit\Framework\TestCase::class => self::PREFER_SELF]])]);
     }
     /**
      * @return string[]
@@ -96,7 +96,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $typeToPreference = $configuration[self::TYPE_TO_PREFERENCE] ?? [];
-        \_PhpScoperf18a0c41e2d2\Webmozart\Assert\Assert::allString($typeToPreference);
+        \_PhpScoper567b66d83109\Webmozart\Assert\Assert::allString($typeToPreference);
         foreach ($typeToPreference as $preference) {
             $this->ensurePreferenceIsValid($preference);
         }

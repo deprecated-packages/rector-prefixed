@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\ClassMethod;
 
-use _PhpScoperf18a0c41e2d2\Nette\Utils\Strings;
+use _PhpScoper567b66d83109\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
@@ -66,10 +66,10 @@ CODE_SAMPLE
         if (\in_array($methodName, \Rector\CodingStyle\ValueObject\ObjectMagicMethods::METHOD_NAMES, \true)) {
             return null;
         }
-        if (!\_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::match($methodName, self::DOUBLE_UNDERSCORE_START_REGEX)) {
+        if (!\_PhpScoper567b66d83109\Nette\Utils\Strings::match($methodName, self::DOUBLE_UNDERSCORE_START_REGEX)) {
             return null;
         }
-        $newName = \_PhpScoperf18a0c41e2d2\Nette\Utils\Strings::substring($methodName, 2);
+        $newName = \_PhpScoper567b66d83109\Nette\Utils\Strings::substring($methodName, 2);
         if (\is_numeric($newName[0])) {
             return null;
         }

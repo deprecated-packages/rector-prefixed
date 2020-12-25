@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoperf18a0c41e2d2;
+namespace _PhpScoper567b66d83109;
 
 final class EventDispatcher
 {
 }
-\class_alias('_PhpScoperf18a0c41e2d2\\EventDispatcher', 'EventDispatcher', \false);
+\class_alias('_PhpScoper567b66d83109\\EventDispatcher', 'EventDispatcher', \false);

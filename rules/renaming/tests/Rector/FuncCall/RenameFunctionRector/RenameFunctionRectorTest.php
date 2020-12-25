@@ -25,6 +25,6 @@ final class RenameFunctionRectorTest extends \Rector\Testing\PHPUnit\AbstractRec
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::class => [\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => '_PhpScoperf18a0c41e2d2\\Laravel\\Templating\\render', 'sprintf' => '_PhpScoperf18a0c41e2d2\\Safe\\sprintf']]];
+        return [\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::class => [\Rector\Renaming\Rector\FuncCall\RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => '_PhpScoper567b66d83109\\Laravel\\Templating\\render', 'sprintf' => '_PhpScoper567b66d83109\\Safe\\sprintf']]];
     }
 }
