@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper5edc98a7cce2\Symfony\Component\Console\Helper;
+namespace _PhpScoper17db12703726\Symfony\Component\Console\Helper;
 
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Process\Exception\ProcessFailedException;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Process\Process;
+use _PhpScoper17db12703726\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use _PhpScoper17db12703726\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper17db12703726\Symfony\Component\Process\Exception\ProcessFailedException;
+use _PhpScoper17db12703726\Symfony\Component\Process\Process;
 /**
  * The ProcessHelper class provides helpers to run external processes.
  *
@@ -21,7 +21,7 @@ use _PhpScoper5edc98a7cce2\Symfony\Component\Process\Process;
  *
  * @final
  */
-class ProcessHelper extends \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Helper\Helper
+class ProcessHelper extends \_PhpScoper17db12703726\Symfony\Component\Console\Helper\Helper
 {
     /**
      * Runs an external process.
@@ -32,25 +32,25 @@ class ProcessHelper extends \_PhpScoper5edc98a7cce2\Symfony\Component\Console\He
      *
      * @return Process The process that ran
      */
-    public function run(\_PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\OutputInterface $output, $cmd, string $error = null, callable $callback = null, int $verbosity = \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE) : \_PhpScoper5edc98a7cce2\Symfony\Component\Process\Process
+    public function run(\_PhpScoper17db12703726\Symfony\Component\Console\Output\OutputInterface $output, $cmd, string $error = null, callable $callback = null, int $verbosity = \_PhpScoper17db12703726\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE) : \_PhpScoper17db12703726\Symfony\Component\Process\Process
     {
-        if (!\class_exists(\_PhpScoper5edc98a7cce2\Symfony\Component\Process\Process::class)) {
+        if (!\class_exists(\_PhpScoper17db12703726\Symfony\Component\Process\Process::class)) {
             throw new \LogicException('The ProcessHelper cannot be run as the Process component is not installed. Try running "compose require symfony/process".');
         }
-        if ($output instanceof \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if ($output instanceof \_PhpScoper17db12703726\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
         $formatter = $this->getHelperSet()->get('debug_formatter');
-        if ($cmd instanceof \_PhpScoper5edc98a7cce2\Symfony\Component\Process\Process) {
+        if ($cmd instanceof \_PhpScoper17db12703726\Symfony\Component\Process\Process) {
             $cmd = [$cmd];
         }
         if (!\is_array($cmd)) {
-            throw new \TypeError(\sprintf('The "command" argument of "%s()" must be an array or a "%s" instance, "%s" given.', __METHOD__, \_PhpScoper5edc98a7cce2\Symfony\Component\Process\Process::class, \get_debug_type($cmd)));
+            throw new \TypeError(\sprintf('The "command" argument of "%s()" must be an array or a "%s" instance, "%s" given.', __METHOD__, \_PhpScoper17db12703726\Symfony\Component\Process\Process::class, \get_debug_type($cmd)));
         }
         if (\is_string($cmd[0] ?? null)) {
-            $process = new \_PhpScoper5edc98a7cce2\Symfony\Component\Process\Process($cmd);
+            $process = new \_PhpScoper17db12703726\Symfony\Component\Process\Process($cmd);
             $cmd = [];
-        } elseif (($cmd[0] ?? null) instanceof \_PhpScoper5edc98a7cce2\Symfony\Component\Process\Process) {
+        } elseif (($cmd[0] ?? null) instanceof \_PhpScoper17db12703726\Symfony\Component\Process\Process) {
             $process = $cmd[0];
             unset($cmd[0]);
         } else {
@@ -88,25 +88,25 @@ class ProcessHelper extends \_PhpScoper5edc98a7cce2\Symfony\Component\Console\He
      *
      * @see run()
      */
-    public function mustRun(\_PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\OutputInterface $output, $cmd, string $error = null, callable $callback = null) : \_PhpScoper5edc98a7cce2\Symfony\Component\Process\Process
+    public function mustRun(\_PhpScoper17db12703726\Symfony\Component\Console\Output\OutputInterface $output, $cmd, string $error = null, callable $callback = null) : \_PhpScoper17db12703726\Symfony\Component\Process\Process
     {
         $process = $this->run($output, $cmd, $error, $callback);
         if (!$process->isSuccessful()) {
-            throw new \_PhpScoper5edc98a7cce2\Symfony\Component\Process\Exception\ProcessFailedException($process);
+            throw new \_PhpScoper17db12703726\Symfony\Component\Process\Exception\ProcessFailedException($process);
         }
         return $process;
     }
     /**
      * Wraps a Process callback to add debugging output.
      */
-    public function wrapCallback(\_PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\OutputInterface $output, \_PhpScoper5edc98a7cce2\Symfony\Component\Process\Process $process, callable $callback = null) : callable
+    public function wrapCallback(\_PhpScoper17db12703726\Symfony\Component\Console\Output\OutputInterface $output, \_PhpScoper17db12703726\Symfony\Component\Process\Process $process, callable $callback = null) : callable
     {
-        if ($output instanceof \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if ($output instanceof \_PhpScoper17db12703726\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
         $formatter = $this->getHelperSet()->get('debug_formatter');
         return function ($type, $buffer) use($output, $process, $callback, $formatter) {
-            $output->write($formatter->progress(\spl_object_hash($process), $this->escapeString($buffer), \_PhpScoper5edc98a7cce2\Symfony\Component\Process\Process::ERR === $type));
+            $output->write($formatter->progress(\spl_object_hash($process), $this->escapeString($buffer), \_PhpScoper17db12703726\Symfony\Component\Process\Process::ERR === $type));
             if (null !== $callback) {
                 $callback($type, $buffer);
             }

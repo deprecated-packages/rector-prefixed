@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\SymfonyPHPUnit\Naming;
 
-use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
+use _PhpScoper17db12703726\Nette\Utils\Strings;
 use PHPStan\Type\ObjectType;
 use Rector\Naming\Naming\PropertyNaming;
 final class ServiceNaming
@@ -18,7 +18,7 @@ final class ServiceNaming
     }
     public function resolvePropertyNameFromServiceType(string $serviceType) : string
     {
-        if (\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::contains($serviceType, '_') && !\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::contains($serviceType, '\\')) {
+        if (\_PhpScoper17db12703726\Nette\Utils\Strings::contains($serviceType, '_') && !\_PhpScoper17db12703726\Nette\Utils\Strings::contains($serviceType, '\\')) {
             return $this->propertyNaming->underscoreToName($serviceType);
         }
         return $this->propertyNaming->fqnToVariableName(new \PHPStan\Type\ObjectType($serviceType));

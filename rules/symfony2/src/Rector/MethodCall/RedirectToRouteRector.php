@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper5edc98a7cce2\Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use _PhpScoper17db12703726\Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -32,7 +32,7 @@ final class RedirectToRouteRector extends \Rector\Core\Rector\AbstractRector
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== \_PhpScoper5edc98a7cce2\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
+        if ($parentClassName !== \_PhpScoper17db12703726\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
             return null;
         }
         if (!$this->isName($node->name, 'redirect')) {

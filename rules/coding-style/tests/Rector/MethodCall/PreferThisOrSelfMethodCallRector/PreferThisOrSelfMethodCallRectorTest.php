@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 
 use Iterator;
-use _PhpScoper5edc98a7cce2\PHPUnit\Framework\TestCase;
+use _PhpScoper17db12703726\PHPUnit\Framework\TestCase;
 use Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 use Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\AbstractTestCase;
 use Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\BeLocalClass;
@@ -28,6 +28,6 @@ final class PreferThisOrSelfMethodCallRectorTest extends \Rector\Testing\PHPUnit
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::class => [\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::TYPE_TO_PREFERENCE => [\Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\AbstractTestCase::class => 'self', \Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\BeLocalClass::class => 'this', \_PhpScoper5edc98a7cce2\PHPUnit\Framework\TestCase::class => 'self']]];
+        return [\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::class => [\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::TYPE_TO_PREFERENCE => [\Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\AbstractTestCase::class => 'self', \Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\BeLocalClass::class => 'this', \_PhpScoper17db12703726\PHPUnit\Framework\TestCase::class => 'self']]];
     }
 }

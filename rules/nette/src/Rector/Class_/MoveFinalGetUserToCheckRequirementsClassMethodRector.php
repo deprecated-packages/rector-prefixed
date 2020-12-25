@@ -72,7 +72,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoper5edc98a7cce2\\Nette\\Application\\UI\\Presenter')) {
+        if (!$this->isObjectType($node, '_PhpScoper17db12703726\\Nette\\Application\\UI\\Presenter')) {
             return null;
         }
         $getUserClassMethod = $node->getMethod('getUser');

@@ -187,6 +187,6 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
         if ($variableName === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        return \sprintf('/** @var %s|\\%s $%s */', $paramType, '_PhpScoper5edc98a7cce2\\PHPUnit\\Framework\\MockObject\\MockObject', $variableName);
+        return \sprintf('/** @var %s|\\%s $%s */', $paramType, '_PhpScoper17db12703726\\PHPUnit\\Framework\\MockObject\\MockObject', $variableName);
     }
 }

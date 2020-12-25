@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper5edc98a7cce2;
+namespace _PhpScoper17db12703726;
 
 interface ClassImportingSameName
 {
 }
-\class_alias('_PhpScoper5edc98a7cce2\\ClassImportingSameName', 'ClassImportingSameName', \false);
+\class_alias('_PhpScoper17db12703726\\ClassImportingSameName', 'ClassImportingSameName', \false);

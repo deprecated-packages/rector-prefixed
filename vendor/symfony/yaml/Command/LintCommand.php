@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Command;
+namespace _PhpScoper17db12703726\Symfony\Component\Yaml\Command;
 
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Command\Command;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Exception\RuntimeException;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputArgument;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper17db12703726\Symfony\Component\Console\Command\Command;
+use _PhpScoper17db12703726\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _PhpScoper17db12703726\Symfony\Component\Console\Exception\RuntimeException;
+use _PhpScoper17db12703726\Symfony\Component\Console\Input\InputArgument;
+use _PhpScoper17db12703726\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper17db12703726\Symfony\Component\Console\Input\InputOption;
+use _PhpScoper17db12703726\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Exception\ParseException;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Parser;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Yaml;
+use _PhpScoper17db12703726\Symfony\Component\Yaml\Exception\ParseException;
+use _PhpScoper17db12703726\Symfony\Component\Yaml\Parser;
+use _PhpScoper17db12703726\Symfony\Component\Yaml\Yaml;
 /**
  * Validates YAML files syntax and outputs encountered errors.
  *
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  * @author Robin Chalas <robin.chalas@gmail.com>
  */
-class LintCommand extends \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Command\Command
+class LintCommand extends \_PhpScoper17db12703726\Symfony\Component\Console\Command\Command
 {
     protected static $defaultName = 'lint:yaml';
     private $parser;
@@ -46,7 +46,7 @@ class LintCommand extends \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Comm
      */
     protected function configure()
     {
-        $this->setDescription('Lints a file and outputs encountered errors')->addArgument('filename', \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'A file, a directory or "-" for reading from STDIN')->addOption('format', null, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The output format', 'txt')->addOption('parse-tags', null, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Parse custom tags')->setHelp(<<<EOF
+        $this->setDescription('Lints a file and outputs encountered errors')->addArgument('filename', \_PhpScoper17db12703726\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'A file, a directory or "-" for reading from STDIN')->addOption('format', null, \_PhpScoper17db12703726\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The output format', 'txt')->addOption('parse-tags', null, \_PhpScoper17db12703726\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Parse custom tags')->setHelp(<<<EOF
 The <info>%command.name%</info> command lints a YAML file and outputs to STDOUT
 the first encountered syntax error.
 
@@ -66,23 +66,23 @@ Or of a whole directory:
 EOF
 );
     }
-    protected function execute(\_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\_PhpScoper17db12703726\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper17db12703726\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $io = new \Symfony\Component\Console\Style\SymfonyStyle($input, $output);
         $filenames = (array) $input->getArgument('filename');
         $this->format = $input->getOption('format');
         $this->displayCorrectFiles = $output->isVerbose();
-        $flags = $input->getOption('parse-tags') ? \_PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Yaml::PARSE_CUSTOM_TAGS : 0;
+        $flags = $input->getOption('parse-tags') ? \_PhpScoper17db12703726\Symfony\Component\Yaml\Yaml::PARSE_CUSTOM_TAGS : 0;
         if (['-'] === $filenames) {
             return $this->display($io, [$this->validate(\file_get_contents('php://stdin'), $flags)]);
         }
         if (!$filenames) {
-            throw new \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Exception\RuntimeException('Please provide a filename or pipe file content to STDIN.');
+            throw new \_PhpScoper17db12703726\Symfony\Component\Console\Exception\RuntimeException('Please provide a filename or pipe file content to STDIN.');
         }
         $filesInfo = [];
         foreach ($filenames as $filename) {
             if (!$this->isReadable($filename)) {
-                throw new \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Exception\RuntimeException(\sprintf('File or directory "%s" is not readable.', $filename));
+                throw new \_PhpScoper17db12703726\Symfony\Component\Console\Exception\RuntimeException(\sprintf('File or directory "%s" is not readable.', $filename));
             }
             foreach ($this->getFiles($filename) as $file) {
                 $filesInfo[] = $this->validate(\file_get_contents($file), $flags, $file);
@@ -94,13 +94,13 @@ EOF
     {
         $prevErrorHandler = \set_error_handler(function ($level, $message, $file, $line) use(&$prevErrorHandler) {
             if (\E_USER_DEPRECATED === $level) {
-                throw new \_PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Exception\ParseException($message, $this->getParser()->getRealCurrentLineNb() + 1);
+                throw new \_PhpScoper17db12703726\Symfony\Component\Yaml\Exception\ParseException($message, $this->getParser()->getRealCurrentLineNb() + 1);
             }
             return $prevErrorHandler ? $prevErrorHandler($level, $message, $file, $line) : \false;
         });
         try {
-            $this->getParser()->parse($content, \_PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Yaml::PARSE_CONSTANT | $flags);
-        } catch (\_PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Exception\ParseException $e) {
+            $this->getParser()->parse($content, \_PhpScoper17db12703726\Symfony\Component\Yaml\Yaml::PARSE_CONSTANT | $flags);
+        } catch (\_PhpScoper17db12703726\Symfony\Component\Yaml\Exception\ParseException $e) {
             return ['file' => $file, 'line' => $e->getParsedLine(), 'valid' => \false, 'message' => $e->getMessage()];
         } finally {
             \restore_error_handler();
@@ -115,7 +115,7 @@ EOF
             case 'json':
                 return $this->displayJson($io, $files);
             default:
-                throw new \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The format "%s" is not supported.', $this->format));
+                throw new \_PhpScoper17db12703726\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The format "%s" is not supported.', $this->format));
         }
     }
     private function displayTxt(\Symfony\Component\Console\Style\SymfonyStyle $io, array $filesInfo) : int
@@ -170,10 +170,10 @@ EOF
             (yield $file);
         }
     }
-    private function getParser() : \_PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Parser
+    private function getParser() : \_PhpScoper17db12703726\Symfony\Component\Yaml\Parser
     {
         if (!$this->parser) {
-            $this->parser = new \_PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Parser();
+            $this->parser = new \_PhpScoper17db12703726\Symfony\Component\Yaml\Parser();
         }
         return $this->parser;
     }

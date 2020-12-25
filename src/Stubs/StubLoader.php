@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Stubs;
 
-use _PhpScoper5edc98a7cce2\Nette\Loaders\RobotLoader;
+use _PhpScoper17db12703726\Nette\Loaders\RobotLoader;
 final class StubLoader
 {
     /**
@@ -25,7 +25,7 @@ final class StubLoader
         if (!\file_exists($stubDirectory)) {
             return;
         }
-        $robotLoader = new \_PhpScoper5edc98a7cce2\Nette\Loaders\RobotLoader();
+        $robotLoader = new \_PhpScoper17db12703726\Nette\Loaders\RobotLoader();
         $robotLoader->addDirectory($stubDirectory);
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/_rector_stubs');
         $robotLoader->register();

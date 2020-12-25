@@ -13,7 +13,7 @@ final class InvalidConfigurationTest extends \Rector\Testing\PHPUnit\AbstractRec
     /**
      * @var string[][]
      */
-    private const CONFIGURATION = [['_PhpScoper5edc98a7cce2\\Nette\\Utils\\FileSystem', 'write', 'Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile']];
+    private const CONFIGURATION = [['_PhpScoper17db12703726\\Nette\\Utils\\FileSystem', 'write', 'Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile']];
     /**
      * @dataProvider provideData()
      */

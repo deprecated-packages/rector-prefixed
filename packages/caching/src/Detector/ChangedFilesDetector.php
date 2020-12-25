@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Caching\Detector;
 
-use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
+use _PhpScoper17db12703726\Nette\Utils\Strings;
 use Rector\Caching\Config\FileHashComputer;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
+use _PhpScoper17db12703726\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Inspired by https://github.com/symplify/symplify/pull/90/files#diff-72041b2e1029a08930e13d79d298ef11
@@ -25,7 +25,7 @@ final class ChangedFilesDetector
      * @var FileHashComputer
      */
     private $fileHashComputer;
-    public function __construct(\Rector\Caching\Config\FileHashComputer $fileHashComputer, \_PhpScoper5edc98a7cce2\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter)
+    public function __construct(\Rector\Caching\Config\FileHashComputer $fileHashComputer, \_PhpScoper17db12703726\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter)
     {
         $this->tagAwareAdapter = $tagAwareAdapter;
         $this->fileHashComputer = $fileHashComputer;
@@ -105,7 +105,7 @@ final class ChangedFilesDetector
     }
     private function storeConfigurationDataHash(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $configurationHash) : void
     {
-        $key = self::CONFIGURATION_HASH_KEY . '_' . \_PhpScoper5edc98a7cce2\Nette\Utils\Strings::webalize($fileInfo->getRealPath());
+        $key = self::CONFIGURATION_HASH_KEY . '_' . \_PhpScoper17db12703726\Nette\Utils\Strings::webalize($fileInfo->getRealPath());
         $this->invalidateCacheIfConfigurationChanged($key, $configurationHash);
         $this->saveItemWithValue($key, $configurationHash);
     }

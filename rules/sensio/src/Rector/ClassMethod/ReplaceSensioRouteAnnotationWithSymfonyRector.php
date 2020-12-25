@@ -97,10 +97,10 @@ CODE_SAMPLE
             return null;
         }
         foreach ($use->uses as $useUse) {
-            if (!$this->isName($useUse->name, '_PhpScoper5edc98a7cce2\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
+            if (!$this->isName($useUse->name, '_PhpScoper17db12703726\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
                 continue;
             }
-            $useUse->name = new \PhpParser\Node\Name('_PhpScoper5edc98a7cce2\\Symfony\\Component\\Routing\\Annotation\\Route');
+            $useUse->name = new \PhpParser\Node\Name('_PhpScoper17db12703726\\Symfony\\Component\\Routing\\Annotation\\Route');
         }
         return $use;
     }

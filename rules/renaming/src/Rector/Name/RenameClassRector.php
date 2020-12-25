@@ -69,7 +69,7 @@ function someFunction(SomeNewClass $someOldClass): SomeNewClass
     }
 }
 CODE_SAMPLE
-, [self::OLD_TO_NEW_CLASSES => ['_PhpScoper5edc98a7cce2\\App\\SomeOldClass' => '_PhpScoper5edc98a7cce2\\App\\SomeNewClass']])]);
+, [self::OLD_TO_NEW_CLASSES => ['_PhpScoper17db12703726\\App\\SomeOldClass' => '_PhpScoper17db12703726\\App\\SomeNewClass']])]);
     }
     /**
      * @return string[]

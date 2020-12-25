@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Naming\Guard;
 
 use DateTimeInterface;
-use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
+use _PhpScoper17db12703726\Nette\Utils\Strings;
 use PHPStan\Type\TypeWithClassName;
 use Rector\Naming\Contract\Guard\ConflictingGuardInterface;
 use Rector\Naming\Contract\RenameValueObjectInterface;
@@ -48,6 +48,6 @@ final class DateTimeAtNamingConventionGuard implements \Rector\Naming\Contract\G
         if (!\is_a($type->getClassName(), \DateTimeInterface::class, \true)) {
             return \false;
         }
-        return (bool) \_PhpScoper5edc98a7cce2\Nette\Utils\Strings::match($propertyRename->getCurrentName(), self::AT_NAMING_REGEX . '');
+        return (bool) \_PhpScoper17db12703726\Nette\Utils\Strings::match($propertyRename->getCurrentName(), self::AT_NAMING_REGEX . '');
     }
 }

@@ -32,7 +32,7 @@ use Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe;
 use Rector\PHPUnit\ValueObject\ParamAndArg;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper5edc98a7cce2\Webmozart\Assert\Assert;
+use _PhpScoper17db12703726\Webmozart\Assert\Assert;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\Class_\ArrayArgumentInTestToDataProviderRector\ArrayArgumentInTestToDataProviderRectorTest
  *
@@ -100,7 +100,7 @@ class SomeServiceTest extends TestCase
     }
 }
 CODE_SAMPLE
-, [self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS => [new \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider('_PhpScoper5edc98a7cce2\\PHPUnit\\Framework\\TestCase', 'doTestMultiple', 'doTestSingle', 'number')]])]);
+, [self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS => [new \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider('_PhpScoper17db12703726\\PHPUnit\\Framework\\TestCase', 'doTestMultiple', 'doTestSingle', 'number')]])]);
     }
     /**
      * @return string[]
@@ -137,7 +137,7 @@ CODE_SAMPLE
     public function configure(array $arrayArgumentsToDataProviders) : void
     {
         $arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders[self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS] ?? [];
-        \_PhpScoper5edc98a7cce2\Webmozart\Assert\Assert::allIsInstanceOf($arrayArgumentsToDataProviders, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider::class);
+        \_PhpScoper17db12703726\Webmozart\Assert\Assert::allIsInstanceOf($arrayArgumentsToDataProviders, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider::class);
         $this->arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders;
     }
     private function refactorMethodCallWithConfiguration(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider $arrayArgumentToDataProvider) : void

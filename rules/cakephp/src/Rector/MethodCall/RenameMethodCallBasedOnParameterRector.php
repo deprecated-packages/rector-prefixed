@@ -11,7 +11,7 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper5edc98a7cce2\Webmozart\Assert\Assert;
+use _PhpScoper17db12703726\Webmozart\Assert\Assert;
 /**
  * @see https://book.cakephp.org/4.0/en/appendices/4-0-migration-guide.html
  * @see https://github.com/cakephp/cakephp/commit/77017145961bb697b4256040b947029259f66a9b
@@ -67,7 +67,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $callsWithParamNames = $configuration[self::CALLS_WITH_PARAM_RENAMES] ?? [];
-        \_PhpScoper5edc98a7cce2\Webmozart\Assert\Assert::allIsInstanceOf($callsWithParamNames, \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter::class);
+        \_PhpScoper17db12703726\Webmozart\Assert\Assert::allIsInstanceOf($callsWithParamNames, \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter::class);
         $this->callsWithParamRenames = $callsWithParamNames;
     }
     private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter

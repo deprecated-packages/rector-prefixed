@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Rector\Class_;
 
-use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
+use _PhpScoper17db12703726\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -34,7 +34,7 @@ final class ChangeFileLoaderInExtensionAndKernelRector extends \Rector\Core\Rect
     /**
      * @var array<string, string>
      */
-    private const FILE_LOADERS_BY_TYPE = ['xml' => '_PhpScoper5edc98a7cce2\\Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => '_PhpScoper5edc98a7cce2\\Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => '_PhpScoper5edc98a7cce2\\Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
+    private const FILE_LOADERS_BY_TYPE = ['xml' => '_PhpScoper17db12703726\\Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => '_PhpScoper17db12703726\\Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => '_PhpScoper17db12703726\\Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
     /**
      * @var string
      */
@@ -116,10 +116,10 @@ CODE_SAMPLE
     }
     private function isKernelOrExtensionClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if ($this->isObjectType($class, '_PhpScoper5edc98a7cce2\\Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension')) {
+        if ($this->isObjectType($class, '_PhpScoper17db12703726\\Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension')) {
             return \true;
         }
-        return $this->isObjectType($class, '_PhpScoper5edc98a7cce2\\Symfony\\Component\\HttpKernel\\Kernel');
+        return $this->isObjectType($class, '_PhpScoper17db12703726\\Symfony\\Component\\HttpKernel\\Kernel');
     }
     private function validateConfiguration(string $from, string $to) : void
     {
@@ -140,7 +140,7 @@ CODE_SAMPLE
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
-        if (!$this->isObjectType($node->var, '_PhpScoper5edc98a7cce2\\Symfony\\Component\\Config\\Loader\\LoaderInterface')) {
+        if (!$this->isObjectType($node->var, '_PhpScoper17db12703726\\Symfony\\Component\\Config\\Loader\\LoaderInterface')) {
             return null;
         }
         if (!$this->isName($node->name, 'load')) {
@@ -157,7 +157,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
                 return null;
             }
-            $node->value = \_PhpScoper5edc98a7cce2\Nette\Utils\Strings::replace($node->value, '#\\.' . $from . '$#', '.' . $to);
+            $node->value = \_PhpScoper17db12703726\Nette\Utils\Strings::replace($node->value, '#\\.' . $from . '$#', '.' . $to);
             return $node;
         });
     }

@@ -68,7 +68,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, '_PhpScoper5edc98a7cce2\\Nette\\Localization\\ITranslator')) {
+        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, '_PhpScoper17db12703726\\Nette\\Localization\\ITranslator')) {
             return null;
         }
         if (!$this->isName($node->name, 'translate')) {

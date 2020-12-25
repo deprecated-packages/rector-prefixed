@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper5edc98a7cce2;
+namespace _PhpScoper17db12703726;
 
 use Rector\DowngradePhp70\Rector\FunctionLike\DowngradeTypeParamDeclarationRector;
 use Rector\DowngradePhp70\Rector\FunctionLike\DowngradeTypeReturnDeclarationRector;

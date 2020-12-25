@@ -26,6 +26,6 @@ final class StringToClassConstantRectorTest extends \Rector\Testing\PHPUnit\Abst
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\String_\StringToClassConstantRector::class => [\Rector\Generic\Rector\String_\StringToClassConstantRector::STRINGS_TO_CLASS_CONSTANTS => [new \Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', '_PhpScoper5edc98a7cce2\\Yet\\AnotherClass', 'CONSTANT'), new \Rector\Generic\ValueObject\StringToClassConstant('compiler.to_class', '_PhpScoper5edc98a7cce2\\Yet\\AnotherClass', 'class')]]];
+        return [\Rector\Generic\Rector\String_\StringToClassConstantRector::class => [\Rector\Generic\Rector\String_\StringToClassConstantRector::STRINGS_TO_CLASS_CONSTANTS => [new \Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', '_PhpScoper17db12703726\\Yet\\AnotherClass', 'CONSTANT'), new \Rector\Generic\ValueObject\StringToClassConstant('compiler.to_class', '_PhpScoper17db12703726\\Yet\\AnotherClass', 'class')]]];
     }
 }

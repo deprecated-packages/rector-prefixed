@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper5edc98a7cce2;
+namespace _PhpScoper17db12703726;
 
 use Rector\DowngradePhp80\Rector\Catch_\DowngradeNonCapturingCatchesRector;
 use Rector\DowngradePhp80\Rector\Class_\DowngradePropertyPromotionToConstructorPropertyAssignRector;

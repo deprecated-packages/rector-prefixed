@@ -12,7 +12,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\FuncNameToMethodCallName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper5edc98a7cce2\Webmozart\Assert\Assert;
+use _PhpScoper17db12703726\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\FuncCallToMethodCallRectorTest
  */
@@ -56,7 +56,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \Rector\Transform\ValueObject\FuncNameToMethodCallName('view', '_PhpScoper5edc98a7cce2\\Namespaced\\SomeRenderer', 'render')]])]);
+, [self::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \Rector\Transform\ValueObject\FuncNameToMethodCallName('view', '_PhpScoper17db12703726\\Namespaced\\SomeRenderer', 'render')]])]);
     }
     /**
      * @return string[]
@@ -93,7 +93,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $funcCallsToClassMethodCalls = $configuration[self::FUNC_CALL_TO_CLASS_METHOD_CALL] ?? [];
-        \_PhpScoper5edc98a7cce2\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \Rector\Transform\ValueObject\FuncNameToMethodCallName::class);
+        \_PhpScoper17db12703726\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \Rector\Transform\ValueObject\FuncNameToMethodCallName::class);
         $this->funcNameToMethodCallNames = $funcCallsToClassMethodCalls;
     }
 }

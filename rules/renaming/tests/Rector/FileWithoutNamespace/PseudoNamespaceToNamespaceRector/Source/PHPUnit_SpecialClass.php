@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper5edc98a7cce2;
+namespace _PhpScoper17db12703726;
 
 final class PHPUnit_SpecialClass
 {
 }
-\class_alias('_PhpScoper5edc98a7cce2\\PHPUnit_SpecialClass', 'PHPUnit_SpecialClass', \false);
+\class_alias('_PhpScoper17db12703726\\PHPUnit_SpecialClass', 'PHPUnit_SpecialClass', \false);

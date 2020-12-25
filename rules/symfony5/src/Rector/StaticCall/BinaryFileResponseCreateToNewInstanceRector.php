@@ -57,7 +57,7 @@ CODE_SAMPLE
         if (!$node->class instanceof \PhpParser\Node\Name) {
             return null;
         }
-        if (!$this->isName($node->class, '_PhpScoper5edc98a7cce2\\Symfony\\Component\\HttpFoundation\\BinaryFileResponse')) {
+        if (!$this->isName($node->class, '_PhpScoper17db12703726\\Symfony\\Component\\HttpFoundation\\BinaryFileResponse')) {
             return null;
         }
         if (!$this->isName($node->name, 'create')) {

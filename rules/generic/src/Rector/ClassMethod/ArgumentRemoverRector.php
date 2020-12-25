@@ -13,7 +13,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\ArgumentRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper5edc98a7cce2\Webmozart\Assert\Assert;
+use _PhpScoper17db12703726\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\ArgumentRemoverRector\ArgumentRemoverRectorTest
  */
@@ -65,7 +65,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $removedArguments = $configuration[self::REMOVED_ARGUMENTS] ?? [];
-        \_PhpScoper5edc98a7cce2\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Generic\ValueObject\ArgumentRemover::class);
+        \_PhpScoper17db12703726\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Generic\ValueObject\ArgumentRemover::class);
         $this->removedArguments = $removedArguments;
     }
     /**

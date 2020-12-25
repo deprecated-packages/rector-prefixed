@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper5edc98a7cce2\Symfony\Component\DependencyInjection\Loader;
+namespace _PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader;
 
 /**
  * DirectoryLoader is a recursive loader to go through directories.
  *
  * @author Sebastien Lavoie <seb@wemakecustom.com>
  */
-class DirectoryLoader extends \_PhpScoper5edc98a7cce2\Symfony\Component\DependencyInjection\Loader\FileLoader
+class DirectoryLoader extends \_PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\FileLoader
 {
     /**
      * {@inheritdoc}

@@ -11,7 +11,7 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\PostRunnerInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Helper\ProgressBar;
+use _PhpScoper17db12703726\Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -210,7 +210,7 @@ final class RectorApplication
     {
         $this->symfonyStyle->progressStart($fileCount * self::PROGRESS_BAR_STEP_MULTIPLIER);
         $progressBar = $this->privatesAccessor->getPrivateProperty($this->symfonyStyle, 'progressBar');
-        if (!$progressBar instanceof \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Helper\ProgressBar) {
+        if (!$progressBar instanceof \_PhpScoper17db12703726\Symfony\Component\Console\Helper\ProgressBar) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         if ($progressBar->getMaxSteps() < 40) {

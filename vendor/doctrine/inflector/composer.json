@@ -50,12 +50,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper5edc98a7cce2\\Doctrine\\Inflector\\": "lib\/Doctrine\/Inflector"
+            "_PhpScoper17db12703726\\Doctrine\\Inflector\\": "lib\/Doctrine\/Inflector"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper5edc98a7cce2\\Doctrine\\Tests\\Inflector\\": "tests\/Doctrine\/Tests\/Inflector"
+            "_PhpScoper17db12703726\\Doctrine\\Tests\\Inflector\\": "tests\/Doctrine\/Tests\/Inflector"
         }
     },
     "extra": {

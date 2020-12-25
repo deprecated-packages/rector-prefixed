@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
-use _PhpScoper5edc98a7cce2\Doctrine\Common\Collections\ArrayCollection;
+use _PhpScoper17db12703726\Doctrine\Common\Collections\ArrayCollection;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\New_;
@@ -125,7 +125,7 @@ CODE_SAMPLE
     private function createPropertyArrayCollectionAssign(string $toManyPropertyName) : \PhpParser\Node\Stmt\Expression
     {
         $propertyFetch = $this->createPropertyFetch('this', $toManyPropertyName);
-        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified(\_PhpScoper5edc98a7cce2\Doctrine\Common\Collections\ArrayCollection::class));
+        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified(\_PhpScoper17db12703726\Doctrine\Common\Collections\ArrayCollection::class));
         $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $new);
         return new \PhpParser\Node\Stmt\Expression($assign);
     }

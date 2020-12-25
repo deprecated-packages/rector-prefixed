@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper5edc98a7cce2;
+namespace _PhpScoper17db12703726;
 
 use Symfony\Component\Console\Style\SymfonyStyle;
-use _PhpScoper5edc98a7cce2\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoper17db12703726\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
@@ -19,20 +19,20 @@ use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\Finder\SmartFinder;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use Symplify\SymplifyKernel\Console\ConsoleApplicationFactory;
-use function _PhpScoper5edc98a7cce2\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use function _PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     // symfony style
     $services->set(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
-    $services->set(\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\_PhpScoper5edc98a7cce2\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
+    $services->set(\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\_PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
     // filesystem
     $services->set(\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
     $services->set(\Symplify\SmartFileSystem\SmartFileSystem::class);
     $services->set(\Symplify\SmartFileSystem\Finder\SmartFinder::class);
     $services->set(\Symplify\SmartFileSystem\FileSystemGuard::class);
     $services->set(\Symplify\SmartFileSystem\FileSystemFilter::class);
-    $services->set(\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->args([\_PhpScoper5edc98a7cce2\Symfony\Component\DependencyInjection\Loader\Configurator\service(\_PhpScoper5edc98a7cce2\Symfony\Component\DependencyInjection\ContainerInterface::class)]);
+    $services->set(\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->args([\_PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\Configurator\service(\_PhpScoper17db12703726\Symfony\Component\DependencyInjection\ContainerInterface::class)]);
     $services->set(\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
     $services->set(\Symplify\SymplifyKernel\Console\ConsoleApplicationFactory::class);
     // composer json factory
