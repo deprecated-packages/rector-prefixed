@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper267b3276efc2;
+namespace _PhpScoper5edc98a7cce2;
 
 use Rector\Doctrine\Rector\Class_\AlwaysInitializeUuidInEntityRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

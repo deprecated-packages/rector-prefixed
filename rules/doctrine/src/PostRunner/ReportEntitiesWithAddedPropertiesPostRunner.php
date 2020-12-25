@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\PostRunner;
 
-use _PhpScoper267b3276efc2\Nette\Utils\Json;
+use _PhpScoper5edc98a7cce2\Nette\Utils\Json;
 use Rector\Core\Contract\PostRunnerInterface;
 use Rector\Doctrine\Collector\UuidMigrationDataCollector;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -44,7 +44,7 @@ final class ReportEntitiesWithAddedPropertiesPostRunner implements \Rector\Core\
         if ($data === []) {
             return;
         }
-        $jsonContent = \_PhpScoper267b3276efc2\Nette\Utils\Json::encode(['new_columns_by_class' => $data], \_PhpScoper267b3276efc2\Nette\Utils\Json::PRETTY);
+        $jsonContent = \_PhpScoper5edc98a7cce2\Nette\Utils\Json::encode(['new_columns_by_class' => $data], \_PhpScoper5edc98a7cce2\Nette\Utils\Json::PRETTY);
         $filePath = \getcwd() . '/' . $fileName;
         $this->smartFileSystem->dumpFile($filePath, $jsonContent);
         $message = \sprintf('See freshly created "%s" file for changes on entities', $fileName);

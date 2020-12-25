@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\Blameable;
 
-use _PhpScoper267b3276efc2\Gedmo\Mapping\Annotation as Gedmo;
+use _PhpScoper5edc98a7cce2\Gedmo\Mapping\Annotation as Gedmo;
 final class BlameableTag
 {
     /**

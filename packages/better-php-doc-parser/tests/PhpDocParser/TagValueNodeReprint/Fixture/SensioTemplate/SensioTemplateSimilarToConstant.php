@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SensioTemplate;
 
-use _PhpScoper267b3276efc2\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use _PhpScoper5edc98a7cce2\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * @Template("SomeClass::some.template.twig")
  */

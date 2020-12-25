@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\PhpConfigPrinter\NodeFactory;
 
-use _PhpScoper267b3276efc2\Nette\Utils\Strings;
+use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
@@ -14,7 +14,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
-use _PhpScoper267b3276efc2\Symfony\Component\Yaml\Tag\TaggedValue;
+use _PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Tag\TaggedValue;
 use Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
 use Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
 use Symplify\PhpConfigPrinter\ValueObject\FunctionName;
@@ -105,7 +105,7 @@ final class ArgsNodeFactory
         if ($value instanceof \PhpParser\Node\Expr) {
             return $value;
         }
-        if ($value instanceof \_PhpScoper267b3276efc2\Symfony\Component\Yaml\Tag\TaggedValue) {
+        if ($value instanceof \_PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Tag\TaggedValue) {
             return $this->createServiceReferenceFromTaggedValue($value);
         }
         if (\is_array($value)) {
@@ -139,7 +139,7 @@ final class ArgsNodeFactory
         }
         return new \PhpParser\Node\Expr\Array_($arrayItems);
     }
-    private function createServiceReferenceFromTaggedValue(\_PhpScoper267b3276efc2\Symfony\Component\Yaml\Tag\TaggedValue $taggedValue) : \PhpParser\Node\Expr
+    private function createServiceReferenceFromTaggedValue(\_PhpScoper5edc98a7cce2\Symfony\Component\Yaml\Tag\TaggedValue $taggedValue) : \PhpParser\Node\Expr
     {
         $shouldWrapInArray = \false;
         // that's the only value
@@ -183,13 +183,13 @@ final class ArgsNodeFactory
         if (\ctype_upper($value[0]) && \class_exists($value) || \interface_exists($value)) {
             return $this->resolveClassType($skipClassesToConstantReference, $value);
         }
-        if (\_PhpScoper267b3276efc2\Nette\Utils\Strings::startsWith($value, '@=')) {
+        if (\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::startsWith($value, '@=')) {
             $value = \ltrim($value, '@=');
             $args = $this->createFromValues($value);
             return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified(\Symplify\PhpConfigPrinter\ValueObject\FunctionName::EXPR), $args);
         }
         // is service reference
-        if (\_PhpScoper267b3276efc2\Nette\Utils\Strings::startsWith($value, '@') && !$this->isFilePath($value)) {
+        if (\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::startsWith($value, '@') && !$this->isFilePath($value)) {
             $refOrServiceFunctionName = $this->getRefOrServiceFunctionName();
             return $this->resolveServiceReferenceExpr($value, $skipServiceReference, $refOrServiceFunctionName);
         }
@@ -225,7 +225,7 @@ final class ArgsNodeFactory
     }
     private function isFilePath(string $value) : bool
     {
-        return (bool) \_PhpScoper267b3276efc2\Nette\Utils\Strings::match($value, self::TWIG_HTML_XML_SUFFIX_REGEX);
+        return (bool) \_PhpScoper5edc98a7cce2\Nette\Utils\Strings::match($value, self::TWIG_HTML_XML_SUFFIX_REGEX);
     }
     private function resolveClassType(bool $skipClassesToConstantReference, string $value)
     {

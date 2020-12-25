@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Console\Command;
 
-use _PhpScoper267b3276efc2\Nette\Utils\Strings;
+use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
 use Rector\Caching\Application\CachedFileInfoFilterAndReporter;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
@@ -19,10 +19,10 @@ use Rector\Core\NonPhpFile\NonPhpFileProcessor;
 use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
 use Rector\Core\Stubs\StubLoader;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
-use _PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputArgument;
-use _PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption;
-use _PhpScoper267b3276efc2\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputArgument;
+use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption;
+use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -97,19 +97,19 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
     {
         $this->setAliases(['rectify']);
         $this->setDescription('Upgrade or refactor source code with provided rectors');
-        $this->addArgument(\Rector\Core\Configuration\Option::SOURCE, \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Files or directories to be upgraded.');
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN, 'n', \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'See diff of changes, do not save them to files.');
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE, 'a', \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'File with extra autoload');
-        $this->addOption(\Rector\Core\Configuration\Option::MATCH_GIT_DIFF, null, \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Execute only on file(s) matching the git diff.');
+        $this->addArgument(\Rector\Core\Configuration\Option::SOURCE, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Files or directories to be upgraded.');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN, 'n', \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'See diff of changes, do not save them to files.');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE, 'a', \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'File with extra autoload');
+        $this->addOption(\Rector\Core\Configuration\Option::MATCH_GIT_DIFF, null, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Execute only on file(s) matching the git diff.');
         $names = $this->outputFormatterCollector->getNames();
         $description = \sprintf('Select output format: "%s".', \implode('", "', $names));
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'o', \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, $description, \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME);
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR, null, \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide progress bar. Useful e.g. for nicer CI output.');
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, null, \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Location for file to dump result in. Useful for Docker or automated processes');
-        $this->addOption(\Rector\Core\Configuration\Option::CACHE_DEBUG, null, \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Debug changed file cache');
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE, null, \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Clear unchaged files cache');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'o', \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, $description, \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME);
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR, null, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide progress bar. Useful e.g. for nicer CI output.');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, null, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Location for file to dump result in. Useful for Docker or automated processes');
+        $this->addOption(\Rector\Core\Configuration\Option::CACHE_DEBUG, null, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Debug changed file cache');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE, null, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Clear unchaged files cache');
     }
-    protected function execute(\_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper267b3276efc2\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputInterface $input, \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->configuration->resolveFromInput($input);
         $this->configuration->validateConfigParameters();
@@ -155,7 +155,7 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
         $phpFileInfos = $this->filesFinder->findInDirectoriesAndFiles($paths, $this->configuration->getFileExtensions(), $this->configuration->mustMatchGitDiff());
         // filter out non-PHP php files, e.g. blade templates in Laravel
         $phpFileInfos = \array_filter($phpFileInfos, function (\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool {
-            return !\_PhpScoper267b3276efc2\Nette\Utils\Strings::endsWith($smartFileInfo->getPathname(), '.blade.php');
+            return !\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::endsWith($smartFileInfo->getPathname(), '.blade.php');
         });
         return $this->cachedFileInfoFilterAndReporter->filterFileInfos($phpFileInfos);
     }

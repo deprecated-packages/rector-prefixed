@@ -19,7 +19,7 @@ final class FluentMethodCallSkipper
      *
      * @var string[]
      */
-    private const ALLOWED_FLUENT_TYPES = ['_PhpScoper267b3276efc2\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\AbstractConfigurator', '_PhpScoper267b3276efc2\\Nette\\Forms\\Controls\\BaseControl', '_PhpScoper267b3276efc2\\Nette\\DI\\ContainerBuilder', '_PhpScoper267b3276efc2\\Nette\\DI\\Definitions\\Definition', '_PhpScoper267b3276efc2\\Nette\\DI\\Definitions\\ServiceDefinition', 'PHPStan\\Analyser\\Scope', 'DateTime', '_PhpScoper267b3276efc2\\Nette\\Utils\\DateTime', 'DateTimeInterface', '*Finder', '*Builder', '*Query'];
+    private const ALLOWED_FLUENT_TYPES = ['_PhpScoper5edc98a7cce2\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\AbstractConfigurator', '_PhpScoper5edc98a7cce2\\Nette\\Forms\\Controls\\BaseControl', '_PhpScoper5edc98a7cce2\\Nette\\DI\\ContainerBuilder', '_PhpScoper5edc98a7cce2\\Nette\\DI\\Definitions\\Definition', '_PhpScoper5edc98a7cce2\\Nette\\DI\\Definitions\\ServiceDefinition', 'PHPStan\\Analyser\\Scope', 'DateTime', '_PhpScoper5edc98a7cce2\\Nette\\Utils\\DateTime', 'DateTimeInterface', '*Finder', '*Builder', '*Query'];
     /**
      * @var FluentCallStaticTypeResolver
      */

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Architecture\Rector\MethodCall;
 
-use _PhpScoper267b3276efc2\Nette\Utils\Strings;
+use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -106,11 +106,11 @@ CODE_SAMPLE
             /** @var String_ $string */
             $string = $methodCallNode->args[0]->value;
             // is alias
-            if (\_PhpScoper267b3276efc2\Nette\Utils\Strings::contains($string->value, ':')) {
+            if (\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::contains($string->value, ':')) {
                 return null;
             }
         }
-        if (\_PhpScoper267b3276efc2\Nette\Utils\Strings::endsWith($className, 'Repository')) {
+        if (\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::endsWith($className, 'Repository')) {
             return null;
         }
         $repositoryFqn = $this->resolveRepositoryFqnFromGetRepositoryMethodCall($node);

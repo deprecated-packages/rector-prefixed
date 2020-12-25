@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
 
-use _PhpScoper267b3276efc2\Nette\Utils\Strings;
+use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
@@ -142,7 +142,7 @@ final class ConstructorPropertyTypeInferer extends \Rector\TypeDeclaration\TypeI
             return null;
         }
         // if the FQN has different ending than the original, it was aliased and we need to return the alias
-        if (!\_PhpScoper267b3276efc2\Nette\Utils\Strings::endsWith($fullyQualifiedName, '\\' . $originalName->toString())) {
+        if (!\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::endsWith($fullyQualifiedName, '\\' . $originalName->toString())) {
             $className = $originalName->toString();
             if (\class_exists($className)) {
                 return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className);

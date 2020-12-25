@@ -16,7 +16,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
-use _PhpScoper267b3276efc2\Symfony\Component\Form\Extension\Core\Type\TextType;
+use _PhpScoper5edc98a7cce2\Symfony\Component\Form\Extension\Core\Type\TextType;
 final class SymfonyFormAbstractTypeFactory
 {
     /**
@@ -41,12 +41,12 @@ final class SymfonyFormAbstractTypeFactory
         $formBuilderVariable = new \PhpParser\Node\Expr\Variable('formBuilder');
         // public function buildForm(\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
         $buildFormClassMethod = $this->nodeFactory->createPublicMethod('buildForm');
-        $buildFormClassMethod->params[] = new \PhpParser\Node\Param($formBuilderVariable, null, new \PhpParser\Node\Name\FullyQualified('_PhpScoper267b3276efc2\\Symfony\\Component\\Form\\FormBuilderInterface'));
+        $buildFormClassMethod->params[] = new \PhpParser\Node\Param($formBuilderVariable, null, new \PhpParser\Node\Name\FullyQualified('_PhpScoper5edc98a7cce2\\Symfony\\Component\\Form\\FormBuilderInterface'));
         $buildFormClassMethod->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('options'), null, new \PhpParser\Node\Identifier('array'));
         $symfonyMethodCalls = $this->createBuildFormMethodCalls($methodCalls, $formBuilderVariable);
         $buildFormClassMethod->stmts = $symfonyMethodCalls;
         $formTypeClass = new \PhpParser\Node\Stmt\Class_('SomeFormType');
-        $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper267b3276efc2\\Symfony\\Component\\Form\\AbstractType');
+        $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper5edc98a7cce2\\Symfony\\Component\\Form\\AbstractType');
         $formTypeClass->stmts[] = $buildFormClassMethod;
         return $formTypeClass;
     }
@@ -61,7 +61,7 @@ final class SymfonyFormAbstractTypeFactory
         foreach ($methodCalls as $methodCall) {
             if ($this->nodeNameResolver->isName($methodCall->name, 'addText')) {
                 $optionsArray = $this->createOptionsArray($methodCall);
-                $formTypeClassConstant = $this->nodeFactory->createClassConstReference(\_PhpScoper267b3276efc2\Symfony\Component\Form\Extension\Core\Type\TextType::class);
+                $formTypeClassConstant = $this->nodeFactory->createClassConstReference(\_PhpScoper5edc98a7cce2\Symfony\Component\Form\Extension\Core\Type\TextType::class);
                 $args = [$methodCall->args[0], new \PhpParser\Node\Arg($formTypeClassConstant)];
                 if ($optionsArray instanceof \PhpParser\Node\Expr\Array_) {
                     $args[] = new \PhpParser\Node\Arg($optionsArray);

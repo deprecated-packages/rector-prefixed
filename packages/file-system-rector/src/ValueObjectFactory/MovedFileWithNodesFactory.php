@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\FileSystemRector\ValueObjectFactory;
 
-use _PhpScoper267b3276efc2\Nette\Utils\Strings;
+use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -50,7 +50,7 @@ final class MovedFileWithNodesFactory
         }
         // is already in the right group
         $currentNamespaceName = (string) $currentNamespace->name;
-        if (\_PhpScoper267b3276efc2\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
+        if (\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
             return null;
         }
         $oldClassName = $currentNamespaceName . '\\' . $oldFileInfo->getBasenameWithoutSuffix();
@@ -61,7 +61,7 @@ final class MovedFileWithNodesFactory
         if ($oldClassName === $newClassName) {
             return null;
         }
-        if (\_PhpScoper267b3276efc2\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
+        if (\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
             return null;
         }
         // 1. rename namespace

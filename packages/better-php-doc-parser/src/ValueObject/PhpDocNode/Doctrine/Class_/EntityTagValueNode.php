@@ -17,7 +17,7 @@ final class EntityTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Ph
     }
     public function getShortName() : string
     {
-        return '_PhpScoper267b3276efc2\\@ORM\\Entity';
+        return '_PhpScoper5edc98a7cce2\\@ORM\\Entity';
     }
     /**
      * @return mixed[]

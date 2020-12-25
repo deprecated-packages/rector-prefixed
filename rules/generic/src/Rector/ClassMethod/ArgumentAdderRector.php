@@ -22,7 +22,7 @@ use Rector\Generic\ValueObject\ArgumentAdder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper267b3276efc2\Webmozart\Assert\Assert;
+use _PhpScoper5edc98a7cce2\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\ArgumentAdderRectorTest
  */
@@ -106,7 +106,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $addedArguments = $configuration[self::ADDED_ARGUMENTS] ?? [];
-        \_PhpScoper267b3276efc2\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Generic\ValueObject\ArgumentAdder::class);
+        \_PhpScoper5edc98a7cce2\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Generic\ValueObject\ArgumentAdder::class);
         $this->addedArguments = $addedArguments;
     }
     /**

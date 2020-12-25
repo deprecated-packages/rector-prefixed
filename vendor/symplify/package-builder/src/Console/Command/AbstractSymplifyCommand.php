@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Symplify\PackageBuilder\Console\Command;
 
-use _PhpScoper267b3276efc2\Symfony\Component\Console\Command\Command;
-use _PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption;
+use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Command\Command;
+use _PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\ValueObject\Option;
 use Symplify\SmartFileSystem\FileSystemGuard;
 use Symplify\SmartFileSystem\Finder\SmartFinder;
 use Symplify\SmartFileSystem\SmartFileSystem;
-abstract class AbstractSymplifyCommand extends \_PhpScoper267b3276efc2\Symfony\Component\Console\Command\Command
+abstract class AbstractSymplifyCommand extends \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Command\Command
 {
     /**
      * @var SymfonyStyle
@@ -31,7 +31,7 @@ abstract class AbstractSymplifyCommand extends \_PhpScoper267b3276efc2\Symfony\C
     public function __construct()
     {
         parent::__construct();
-        $this->addOption(\Symplify\PackageBuilder\ValueObject\Option::CONFIG, 'c', \_PhpScoper267b3276efc2\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file');
+        $this->addOption(\Symplify\PackageBuilder\ValueObject\Option::CONFIG, 'c', \_PhpScoper5edc98a7cce2\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file');
     }
     /**
      * @required

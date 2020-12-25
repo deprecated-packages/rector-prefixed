@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\FileWithoutNamespace;
 
-use _PhpScoper267b3276efc2\Nette\Utils\Strings;
+use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Identifier;
@@ -21,7 +21,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\PhpDocTypeRenamer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper267b3276efc2\Webmozart\Assert\Assert;
+use _PhpScoper5edc98a7cce2\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\FileWithoutNamespace\PseudoNamespaceToNamespaceRector\PseudoNamespaceToNamespaceRectorTest
  */
@@ -99,7 +99,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $namespacePrefixesWithExcludedClasses = $configuration[self::NAMESPACE_PREFIXES_WITH_EXCLUDED_CLASSES] ?? [];
-        \_PhpScoper267b3276efc2\Webmozart\Assert\Assert::allIsInstanceOf($namespacePrefixesWithExcludedClasses, \Rector\Generic\ValueObject\PseudoNamespaceToNamespace::class);
+        \_PhpScoper5edc98a7cce2\Webmozart\Assert\Assert::allIsInstanceOf($namespacePrefixesWithExcludedClasses, \Rector\Generic\ValueObject\PseudoNamespaceToNamespace::class);
         $this->pseudoNamespacesToNamespaces = $namespacePrefixesWithExcludedClasses;
     }
     /**
@@ -182,10 +182,10 @@ CODE_SAMPLE
             return null;
         }
         /** @var string $namespaceName */
-        $namespaceName = \_PhpScoper267b3276efc2\Nette\Utils\Strings::before($name, '_', -1);
+        $namespaceName = \_PhpScoper5edc98a7cce2\Nette\Utils\Strings::before($name, '_', -1);
         /** @var string $lastNewNamePart */
-        $lastNewNamePart = \_PhpScoper267b3276efc2\Nette\Utils\Strings::after($name, '_', -1);
-        $newNamespace = \_PhpScoper267b3276efc2\Nette\Utils\Strings::replace($namespaceName, self::SPLIT_BY_UNDERSCORE_REGEX, '$1$2\\\\$4');
+        $lastNewNamePart = \_PhpScoper5edc98a7cce2\Nette\Utils\Strings::after($name, '_', -1);
+        $newNamespace = \_PhpScoper5edc98a7cce2\Nette\Utils\Strings::replace($namespaceName, self::SPLIT_BY_UNDERSCORE_REGEX, '$1$2\\\\$4');
         if ($this->newNamespace !== null && $this->newNamespace !== $newNamespace) {
             throw new \Rector\Core\Exception\ShouldNotHappenException('There cannot be 2 different namespaces in one file');
         }

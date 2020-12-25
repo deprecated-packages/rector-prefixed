@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RemovingStatic;
 
-use _PhpScoper267b3276efc2\Nette\Utils\Strings;
+use _PhpScoper5edc98a7cce2\Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\New_;
@@ -74,8 +74,8 @@ final class UniqueObjectFactoryFactory
     }
     private function resolveClassShortName(string $name) : string
     {
-        if (\_PhpScoper267b3276efc2\Nette\Utils\Strings::contains($name, '\\')) {
-            return (string) \_PhpScoper267b3276efc2\Nette\Utils\Strings::after($name, '\\', -1);
+        if (\_PhpScoper5edc98a7cce2\Nette\Utils\Strings::contains($name, '\\')) {
+            return (string) \_PhpScoper5edc98a7cce2\Nette\Utils\Strings::after($name, '\\', -1);
         }
         return $name;
     }

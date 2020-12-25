@@ -69,7 +69,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::DETECTED_TRAITS => ['_PhpScoper267b3276efc2\\Knp\\DoctrineBehaviors\\Model\\Translatable\\Translation', '_PhpScoper267b3276efc2\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait']])]);
+, [self::DETECTED_TRAITS => ['_PhpScoper5edc98a7cce2\\Knp\\DoctrineBehaviors\\Model\\Translatable\\Translation', '_PhpScoper5edc98a7cce2\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait']])]);
     }
     /**
      * @return string[]

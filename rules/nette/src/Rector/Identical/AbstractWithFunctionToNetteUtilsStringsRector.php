@@ -29,7 +29,7 @@ abstract class AbstractWithFunctionToNetteUtilsStringsRector extends \Rector\Cor
         if ($contentExprAndNeedleExpr === null) {
             return null;
         }
-        $staticCall = $this->createStaticCall('_PhpScoper267b3276efc2\\Nette\\Utils\\Strings', $this->getMethodName(), [$contentExprAndNeedleExpr->getContentExpr(), $contentExprAndNeedleExpr->getNeedleExpr()]);
+        $staticCall = $this->createStaticCall('_PhpScoper5edc98a7cce2\\Nette\\Utils\\Strings', $this->getMethodName(), [$contentExprAndNeedleExpr->getContentExpr(), $contentExprAndNeedleExpr->getNeedleExpr()]);
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return new \PhpParser\Node\Expr\BooleanNot($staticCall);
         }

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper267b3276efc2;
+namespace _PhpScoper5edc98a7cce2;
 
 final class JustOneExceptionWithoutNamespace
 {
 }
-\class_alias('_PhpScoper267b3276efc2\\JustOneExceptionWithoutNamespace', 'JustOneExceptionWithoutNamespace', \false);
+\class_alias('_PhpScoper5edc98a7cce2\\JustOneExceptionWithoutNamespace', 'JustOneExceptionWithoutNamespace', \false);
 final class JustTwoExceptionWithoutNamespace
 {
 }
-\class_alias('_PhpScoper267b3276efc2\\JustTwoExceptionWithoutNamespace', 'JustTwoExceptionWithoutNamespace', \false);
+\class_alias('_PhpScoper5edc98a7cce2\\JustTwoExceptionWithoutNamespace', 'JustTwoExceptionWithoutNamespace', \false);
