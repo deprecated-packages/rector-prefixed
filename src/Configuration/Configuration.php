@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
-use _PhpScoper17db12703726\Jean85\PrettyVersions;
+use _PhpScoper8b9c402c5f32\Jean85\PrettyVersions;
 use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use _PhpScoper17db12703726\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Input\InputInterface;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class Configuration
@@ -79,7 +79,7 @@ final class Configuration
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      */
-    public function resolveFromInput(\_PhpScoper17db12703726\Symfony\Component\Console\Input\InputInterface $input) : void
+    public function resolveFromInput(\_PhpScoper8b9c402c5f32\Symfony\Component\Console\Input\InputInterface $input) : void
     {
         $this->isDryRun = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN);
         $this->shouldClearCache = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
@@ -112,7 +112,7 @@ final class Configuration
     }
     public function getPrettyVersion() : string
     {
-        $version = \_PhpScoper17db12703726\Jean85\PrettyVersions::getVersion('rector/rector');
+        $version = \_PhpScoper8b9c402c5f32\Jean85\PrettyVersions::getVersion('rector/rector');
         return $version->getPrettyVersion();
     }
     /**
@@ -215,7 +215,7 @@ final class Configuration
         }
         return $this->outputFormat === \Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME;
     }
-    private function canShowProgressBar(\_PhpScoper17db12703726\Symfony\Component\Console\Input\InputInterface $input) : bool
+    private function canShowProgressBar(\_PhpScoper8b9c402c5f32\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         $noProgressBar = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR);
         if ($noProgressBar) {

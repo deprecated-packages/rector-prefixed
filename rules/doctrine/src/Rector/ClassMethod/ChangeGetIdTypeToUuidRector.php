@@ -6,7 +6,7 @@ namespace Rector\Doctrine\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
-use _PhpScoper17db12703726\Ramsey\Uuid\UuidInterface;
+use _PhpScoper8b9c402c5f32\Ramsey\Uuid\UuidInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -70,7 +70,7 @@ CODE_SAMPLE
         if ($this->hasUuidReturnType($node)) {
             return null;
         }
-        $node->returnType = new \PhpParser\Node\Name\FullyQualified(\_PhpScoper17db12703726\Ramsey\Uuid\UuidInterface::class);
+        $node->returnType = new \PhpParser\Node\Name\FullyQualified(\_PhpScoper8b9c402c5f32\Ramsey\Uuid\UuidInterface::class);
         return $node;
     }
     private function hasUuidReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
@@ -78,6 +78,6 @@ CODE_SAMPLE
         if ($classMethod->returnType === null) {
             return \false;
         }
-        return $this->isName($classMethod->returnType, \_PhpScoper17db12703726\Ramsey\Uuid\UuidInterface::class);
+        return $this->isName($classMethod->returnType, \_PhpScoper8b9c402c5f32\Ramsey\Uuid\UuidInterface::class);
     }
 }

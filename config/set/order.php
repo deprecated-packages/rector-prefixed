@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper17db12703726;
+namespace _PhpScoper8b9c402c5f32;
 
 use Rector\Order\Rector\Class_\OrderClassConstantsByIntegerValueRector;
 use Rector\Order\Rector\Class_\OrderConstantsByVisibilityRector;
@@ -11,8 +11,8 @@ use Rector\Order\Rector\Class_\OrderPropertiesByVisibilityRector;
 use Rector\Order\Rector\Class_\OrderPropertyByComplexityRector;
 use Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector;
 use Rector\Order\Rector\ClassMethod\OrderConstructorDependenciesByTypeAlphabeticallyRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Order\Rector\Class_\OrderPrivateMethodsByUseRector::class);
     $services->set(\Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector::class);

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Rector\FileNode;
 
-use _PhpScoper17db12703726\Nette\Utils\Strings;
+use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
@@ -12,7 +12,7 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use _PhpScoper17db12703726\Webmozart\Assert\Assert;
+use _PhpScoper8b9c402c5f32\Webmozart\Assert\Assert;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
@@ -76,7 +76,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $groupNamesBySuffix = $configuration[self::GROUP_NAMES_BY_SUFFIX] ?? [];
-        \_PhpScoper17db12703726\Webmozart\Assert\Assert::allString($groupNamesBySuffix);
+        \_PhpScoper8b9c402c5f32\Webmozart\Assert\Assert::allString($groupNamesBySuffix);
         $this->groupNamesBySuffix = $groupNamesBySuffix;
     }
     /**
@@ -100,14 +100,14 @@ CODE_SAMPLE
         foreach ($groupNamesBySuffix as $groupName) {
             // has class suffix
             $suffixPattern = '\\w+' . $groupName . '(Test)?\\.php$';
-            if (!\_PhpScoper17db12703726\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), '#' . $suffixPattern . '#')) {
+            if (!\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), '#' . $suffixPattern . '#')) {
                 continue;
             }
             if ($this->isLocatedInExpectedLocation($groupName, $suffixPattern, $smartFileInfo)) {
                 continue;
             }
             // file is already in the group
-            if (\_PhpScoper17db12703726\Nette\Utils\Strings::match($smartFileInfo->getPath(), '#' . $groupName . '$#')) {
+            if (\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::match($smartFileInfo->getPath(), '#' . $groupName . '$#')) {
                 continue;
             }
             $this->moveFileToGroupName($smartFileInfo, $fileNode, $groupName);
@@ -117,7 +117,7 @@ CODE_SAMPLE
     private function isLocatedInExpectedLocation(string $groupName, string $suffixPattern, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         $expectedLocationFilePattern = $this->expectedFileLocationResolver->resolve($groupName, $suffixPattern);
-        return (bool) \_PhpScoper17db12703726\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
+        return (bool) \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::match($smartFileInfo->getRealPath(), $expectedLocationFilePattern);
     }
     private function moveFileToGroupName(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode, string $desiredGroupName) : void
     {

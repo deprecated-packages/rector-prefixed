@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper17db12703726;
+namespace _PhpScoper8b9c402c5f32;
 
 use Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard;
 use Rector\Testing\PhpConfigPrinter\YamlFileContentProvider;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
 use Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
-return static function (\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->autowire()->public()->autoconfigure();
     $services->set(\Rector\Testing\PhpConfigPrinter\SymfonyVersionFeatureGuard::class);

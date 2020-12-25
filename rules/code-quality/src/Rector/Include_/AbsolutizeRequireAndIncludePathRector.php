@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Include_;
 
-use _PhpScoper17db12703726\Nette\Utils\Strings;
+use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\Include_;
@@ -63,12 +63,12 @@ CODE_SAMPLE
         /** @var string $includeValue */
         $includeValue = $this->getValue($node->expr);
         // skip phar
-        if (\_PhpScoper17db12703726\Nette\Utils\Strings::startsWith($includeValue, 'phar://')) {
+        if (\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::startsWith($includeValue, 'phar://')) {
             return null;
         }
         // add preslash to string
         // keep dots
-        if (!\_PhpScoper17db12703726\Nette\Utils\Strings::startsWith($includeValue, '/') && !\_PhpScoper17db12703726\Nette\Utils\Strings::startsWith($includeValue, '.')) {
+        if (!\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::startsWith($includeValue, '/') && !\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::startsWith($includeValue, '.')) {
             $node->expr->value = '/' . $includeValue;
         }
         $node->expr = new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\MagicConst\Dir(), $node->expr);

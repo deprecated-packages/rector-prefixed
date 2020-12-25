@@ -63,18 +63,18 @@ CODE_SAMPLE
         if (!$new->class instanceof \PhpParser\Node\Name) {
             return \true;
         }
-        if (!$this->isName($new->class, '_PhpScoper17db12703726\\Symfony\\Component\\PropertyAccess\\PropertyAccessor')) {
+        if (!$this->isName($new->class, '_PhpScoper8b9c402c5f32\\Symfony\\Component\\PropertyAccess\\PropertyAccessor')) {
             return \true;
         }
         return !$this->isBool($new->args[0]->value);
     }
     private function prepareFlags(bool $currentValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
     {
-        $classConstFetch = $this->createClassConstFetch('_PhpScoper17db12703726\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_GET');
-        $magicSet = $this->createClassConstFetch('_PhpScoper17db12703726\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_SET');
+        $classConstFetch = $this->createClassConstFetch('_PhpScoper8b9c402c5f32\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_GET');
+        $magicSet = $this->createClassConstFetch('_PhpScoper8b9c402c5f32\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_SET');
         if (!$currentValue) {
             return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($classConstFetch, $magicSet);
         }
-        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($this->createClassConstFetch('_PhpScoper17db12703726\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_CALL'), $classConstFetch), $magicSet);
+        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($this->createClassConstFetch('_PhpScoper8b9c402c5f32\\Symfony\\Component\\PropertyAccess\\PropertyAccessor', 'MAGIC_CALL'), $classConstFetch), $magicSet);
     }
 }

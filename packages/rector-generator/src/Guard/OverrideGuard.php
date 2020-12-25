@@ -5,7 +5,7 @@ namespace Rector\RectorGenerator\Guard;
 
 use Rector\RectorGenerator\FileSystem\TemplateFileSystem;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
-use Symfony\Component\Console\Style\SymfonyStyle;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class OverrideGuard
 {
@@ -17,7 +17,7 @@ final class OverrideGuard
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\RectorGenerator\FileSystem\TemplateFileSystem $templateFileSystem)
+    public function __construct(\_PhpScoper8b9c402c5f32\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\RectorGenerator\FileSystem\TemplateFileSystem $templateFileSystem)
     {
         $this->templateFileSystem = $templateFileSystem;
         $this->symfonyStyle = $symfonyStyle;

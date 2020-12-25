@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\FuncCall;
 
-use _PhpScoper17db12703726\Nette\Utils\Strings;
+use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
@@ -27,7 +27,7 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     private $oldFunctionToNewFunction = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined function call new one.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('view("...", []);', 'Laravel\\Templating\\render("...", []);', [self::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => '_PhpScoper17db12703726\\Laravel\\Templating\\render']])]);
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined function call new one.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('view("...", []);', 'Laravel\\Templating\\render("...", []);', [self::OLD_FUNCTION_TO_NEW_FUNCTION => ['view' => '_PhpScoper8b9c402c5f32\\Laravel\\Templating\\render']])]);
     }
     /**
      * @return string[]
@@ -45,7 +45,7 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
             if (!$this->isName($node, $oldFunction)) {
                 continue;
             }
-            $node->name = \_PhpScoper17db12703726\Nette\Utils\Strings::contains($newFunction, '\\') ? new \PhpParser\Node\Name\FullyQualified($newFunction) : new \PhpParser\Node\Name($newFunction);
+            $node->name = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::contains($newFunction, '\\') ? new \PhpParser\Node\Name\FullyQualified($newFunction) : new \PhpParser\Node\Name($newFunction);
         }
         return $node;
     }

@@ -28,7 +28,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
     private $appAssignFactory;
     public function __construct(\Rector\Laravel\NodeFactory\AppAssignFactory $appAssignFactory)
     {
-        $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', '_PhpScoper17db12703726\\Illuminate\\Validation\\Factory', 'validationFactory');
+        $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', '_PhpScoper8b9c402c5f32\\Illuminate\\Validation\\Factory', 'validationFactory');
         $this->appAssignFactory = $appAssignFactory;
     }
     /**
@@ -47,7 +47,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
             return null;
         }
         $methodCall = $node->expr;
-        if (!$this->isObjectType($methodCall->var, '_PhpScoper17db12703726\\Illuminate\\Contracts\\Foundation\\Application')) {
+        if (!$this->isObjectType($methodCall->var, '_PhpScoper8b9c402c5f32\\Illuminate\\Contracts\\Foundation\\Application')) {
             return null;
         }
         if (!$methodCall->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {

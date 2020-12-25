@@ -26,6 +26,6 @@ final class RepositoryTypeFactory
         }
         /** @var string $className */
         $className = $this->nodeNameResolver->getName($entityReferenceExpr->class);
-        return new \PHPStan\Type\Generic\GenericObjectType('_PhpScoper17db12703726\\Doctrine\\ORM\\EntityRepository', [new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className)]);
+        return new \PHPStan\Type\Generic\GenericObjectType('_PhpScoper8b9c402c5f32\\Doctrine\\ORM\\EntityRepository', [new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className)]);
     }
 }

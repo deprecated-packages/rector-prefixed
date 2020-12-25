@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper17db12703726\Symfony\Component\Console\Tester;
+namespace _PhpScoper8b9c402c5f32\Symfony\Component\Console\Tester;
 
-use _PhpScoper17db12703726\Symfony\Component\Console\Input\InputInterface;
-use _PhpScoper17db12703726\Symfony\Component\Console\Output\ConsoleOutput;
-use _PhpScoper17db12703726\Symfony\Component\Console\Output\OutputInterface;
-use _PhpScoper17db12703726\Symfony\Component\Console\Output\StreamOutput;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Input\InputInterface;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\ConsoleOutput;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\OutputInterface;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\StreamOutput;
 /**
  * @author Amrouche Hamza <hamza.simperfit@gmail.com>
  */
@@ -119,7 +119,7 @@ trait TesterTrait
     {
         $this->captureStreamsIndependently = \array_key_exists('capture_stderr_separately', $options) && $options['capture_stderr_separately'];
         if (!$this->captureStreamsIndependently) {
-            $this->output = new \_PhpScoper17db12703726\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
+            $this->output = new \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
             if (isset($options['decorated'])) {
                 $this->output->setDecorated($options['decorated']);
             }
@@ -127,8 +127,8 @@ trait TesterTrait
                 $this->output->setVerbosity($options['verbosity']);
             }
         } else {
-            $this->output = new \_PhpScoper17db12703726\Symfony\Component\Console\Output\ConsoleOutput(isset($options['verbosity']) ? $options['verbosity'] : \_PhpScoper17db12703726\Symfony\Component\Console\Output\ConsoleOutput::VERBOSITY_NORMAL, isset($options['decorated']) ? $options['decorated'] : null);
-            $errorOutput = new \_PhpScoper17db12703726\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
+            $this->output = new \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\ConsoleOutput(isset($options['verbosity']) ? $options['verbosity'] : \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\ConsoleOutput::VERBOSITY_NORMAL, isset($options['decorated']) ? $options['decorated'] : null);
+            $errorOutput = new \_PhpScoper8b9c402c5f32\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
             $errorOutput->setFormatter($this->output->getFormatter());
             $errorOutput->setVerbosity($this->output->getVerbosity());
             $errorOutput->setDecorated($this->output->isDecorated());

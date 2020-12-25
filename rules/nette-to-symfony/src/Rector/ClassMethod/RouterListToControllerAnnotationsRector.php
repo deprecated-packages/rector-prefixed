@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\ClassMethod;
 
-use _PhpScoper17db12703726\Nette\Application\Routers\RouteList;
-use _PhpScoper17db12703726\Nette\Utils\Strings;
+use _PhpScoper8b9c402c5f32\Nette\Application\Routers\RouteList;
+use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
@@ -123,7 +123,7 @@ CODE_SAMPLE
             return null;
         }
         $inferedReturnType = $this->returnTypeInferer->inferFunctionLike($node);
-        $routeListObjectType = new \PHPStan\Type\ObjectType(\_PhpScoper17db12703726\Nette\Application\Routers\RouteList::class);
+        $routeListObjectType = new \PHPStan\Type\ObjectType(\_PhpScoper8b9c402c5f32\Nette\Application\Routers\RouteList::class);
         if (!$inferedReturnType->isSuperTypeOf($routeListObjectType)->yes()) {
             return null;
         }
@@ -161,7 +161,7 @@ CODE_SAMPLE
             if (!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
                 return \false;
             }
-            if ($this->isObjectType($node->expr, '_PhpScoper17db12703726\\Nette\\Application\\IRouter')) {
+            if ($this->isObjectType($node->expr, '_PhpScoper8b9c402c5f32\\Nette\\Application\\IRouter')) {
                 return \true;
             }
             if ($node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
@@ -232,7 +232,7 @@ CODE_SAMPLE
             return \false;
         }
         $staticCallReturnType = (string) $reflectionMethod->getReturnType();
-        return \is_a($staticCallReturnType, '_PhpScoper17db12703726\\Nette\\Application\\IRouter', \true);
+        return \is_a($staticCallReturnType, '_PhpScoper8b9c402c5f32\\Nette\\Application\\IRouter', \true);
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
@@ -259,10 +259,10 @@ CODE_SAMPLE
         /** @var string $presenterName */
         $presenterName = $this->getName($class);
         /** @var string $presenterPart */
-        $presenterPart = \_PhpScoper17db12703726\Nette\Utils\Strings::after($presenterName, '\\', -1);
-        $presenterPart = \_PhpScoper17db12703726\Nette\Utils\Strings::substring($presenterPart, 0, -\_PhpScoper17db12703726\Nette\Utils\Strings::length('Presenter'));
+        $presenterPart = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::after($presenterName, '\\', -1);
+        $presenterPart = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::substring($presenterPart, 0, -\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::length('Presenter'));
         $presenterPart = \Rector\Core\Util\StaticRectorStrings::camelCaseToDashes($presenterPart);
-        $match = (array) \_PhpScoper17db12703726\Nette\Utils\Strings::match($this->getName($classMethod), self::ACTION_RENDER_NAME_MATCHING_REGEX);
+        $match = (array) \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::match($this->getName($classMethod), self::ACTION_RENDER_NAME_MATCHING_REGEX);
         $actionPart = \lcfirst($match['short_action_name']);
         return $presenterPart . '/' . $actionPart;
     }

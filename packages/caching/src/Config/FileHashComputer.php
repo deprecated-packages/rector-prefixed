@@ -4,13 +4,13 @@ declare (strict_types=1);
 namespace Rector\Caching\Config;
 
 use Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper17db12703726\Symfony\Component\Config\FileLocator;
-use _PhpScoper17db12703726\Symfony\Component\Config\Loader\LoaderInterface;
-use _PhpScoper17db12703726\Symfony\Component\Config\Loader\LoaderResolver;
-use _PhpScoper17db12703726\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
-use _PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use _PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Config\FileLocator;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Config\Loader\LoaderInterface;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Config\Loader\LoaderResolver;
+use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
+use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use _PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Inspired by https://github.com/symplify/easy-coding-standard/blob/e598ab54686e416788f28fcfe007fd08e0f371d9/packages/changed-files-detector/src/FileHashComputer.php
@@ -21,7 +21,7 @@ final class FileHashComputer
     public function compute(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
     {
         $this->ensureIsYamlOrPhp($fileInfo);
-        $containerBuilder = new \_PhpScoper17db12703726\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $containerBuilder = new \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerBuilder();
         $fileLoader = $this->createFileLoader($fileInfo, $containerBuilder);
         $fileLoader->load($fileInfo->getRealPath());
         $parameterBag = $containerBuilder->getParameterBag();
@@ -38,11 +38,11 @@ final class FileHashComputer
             $fileInfo->getRelativeFilePath()
         ));
     }
-    private function createFileLoader(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \_PhpScoper17db12703726\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \_PhpScoper17db12703726\Symfony\Component\Config\Loader\LoaderInterface
+    private function createFileLoader(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \_PhpScoper8b9c402c5f32\Symfony\Component\Config\Loader\LoaderInterface
     {
-        $fileLocator = new \_PhpScoper17db12703726\Symfony\Component\Config\FileLocator([$fileInfo->getPath()]);
-        $fileLoaders = [new \_PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \_PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, $fileLocator), new \_PhpScoper17db12703726\Symfony\Component\DependencyInjection\Loader\YamlFileLoader($containerBuilder, $fileLocator)];
-        $loaderResolver = new \_PhpScoper17db12703726\Symfony\Component\Config\Loader\LoaderResolver($fileLoaders);
+        $fileLocator = new \_PhpScoper8b9c402c5f32\Symfony\Component\Config\FileLocator([$fileInfo->getPath()]);
+        $fileLoaders = [new \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, $fileLocator), new \_PhpScoper8b9c402c5f32\Symfony\Component\DependencyInjection\Loader\YamlFileLoader($containerBuilder, $fileLocator)];
+        $loaderResolver = new \_PhpScoper8b9c402c5f32\Symfony\Component\Config\Loader\LoaderResolver($fileLoaders);
         $loader = $loaderResolver->resolve($fileInfo->getRealPath());
         if (!$loader) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();

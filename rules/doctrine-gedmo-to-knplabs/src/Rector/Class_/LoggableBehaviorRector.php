@@ -92,8 +92,8 @@ CODE_SAMPLE
         $classPhpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\LoggableTagValueNode::class);
         // remove tag from properties
         $this->removeVersionedTagFromProperties($node);
-        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoper17db12703726\\Knp\\DoctrineBehaviors\\Model\\Loggable\\LoggableTrait');
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoper17db12703726\\Knp\\DoctrineBehaviors\\Contract\\Entity\\LoggableInterface');
+        $this->classInsertManipulator->addAsFirstTrait($node, '_PhpScoper8b9c402c5f32\\Knp\\DoctrineBehaviors\\Model\\Loggable\\LoggableTrait');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('_PhpScoper8b9c402c5f32\\Knp\\DoctrineBehaviors\\Contract\\Entity\\LoggableInterface');
         return $node;
     }
     private function removeVersionedTagFromProperties(\PhpParser\Node\Stmt\Class_ $class) : void

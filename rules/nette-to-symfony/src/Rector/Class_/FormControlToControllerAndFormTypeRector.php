@@ -21,7 +21,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NetteToSymfony\Collector\OnFormVariableMethodCallsCollector;
 use Rector\NetteToSymfony\NodeFactory\SymfonyControllerFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper17db12703726\Symfony\Component\Form\Extension\Core\Type\TextType;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -87,19 +87,19 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace _PhpScoper17db12703726;
+namespace _PhpScoper8b9c402c5f32;
 
-use _PhpScoper17db12703726\Symfony\Component\Form\AbstractType;
-use _PhpScoper17db12703726\Symfony\Component\Form\Extension\Core\Type\TextType;
-use _PhpScoper17db12703726\Symfony\Component\Form\FormBuilderInterface;
-class SomeFormType extends \_PhpScoper17db12703726\Symfony\Component\Form\AbstractType
+use _PhpScoper8b9c402c5f32\Symfony\Component\Form\AbstractType;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Form\Extension\Core\Type\TextType;
+use _PhpScoper8b9c402c5f32\Symfony\Component\Form\FormBuilderInterface;
+class SomeFormType extends \_PhpScoper8b9c402c5f32\Symfony\Component\Form\AbstractType
 {
-    public function buildForm(\_PhpScoper17db12703726\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
+    public function buildForm(\_PhpScoper8b9c402c5f32\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
     {
-        $formBuilder->add('name', \_PhpScoper17db12703726\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
+        $formBuilder->add('name', \_PhpScoper8b9c402c5f32\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
     }
 }
-\class_alias('_PhpScoper17db12703726\\SomeFormType', 'SomeFormType', \false);
+\class_alias('_PhpScoper8b9c402c5f32\\SomeFormType', 'SomeFormType', \false);
 CODE_SAMPLE
 )]);
     }
@@ -115,7 +115,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoper17db12703726\\Nette\\Application\\UI\\Control')) {
+        if (!$this->isObjectType($node, '_PhpScoper8b9c402c5f32\\Nette\\Application\\UI\\Control')) {
             return null;
         }
         foreach ($node->getMethods() as $classMethod) {
@@ -153,7 +153,7 @@ CODE_SAMPLE
             if ($this->isName($onFormVariableMethodCall->name, 'addText')) {
                 // text input
                 $inputName = $onFormVariableMethodCall->args[0];
-                $formTypeClassConstant = $this->createClassConstantReference(\_PhpScoper17db12703726\Symfony\Component\Form\Extension\Core\Type\TextType::class);
+                $formTypeClassConstant = $this->createClassConstantReference(\_PhpScoper8b9c402c5f32\Symfony\Component\Form\Extension\Core\Type\TextType::class);
                 $args = $this->createAddTextArgs($inputName, $formTypeClassConstant, $onFormVariableMethodCall);
                 $methodCall = new \PhpParser\Node\Expr\MethodCall($formBuilderVariable, 'add', $args);
                 $symfonyMethodCalls[] = new \PhpParser\Node\Stmt\Expression($methodCall);
@@ -165,7 +165,7 @@ CODE_SAMPLE
     private function createBuildFormClassMethod(\PhpParser\Node\Expr\Variable $formBuilderVariable) : \PhpParser\Node\Stmt\ClassMethod
     {
         $buildFormClassMethod = $this->nodeFactory->createPublicMethod('buildForm');
-        $buildFormClassMethod->params[] = new \PhpParser\Node\Param($formBuilderVariable, null, new \PhpParser\Node\Name\FullyQualified('_PhpScoper17db12703726\\Symfony\\Component\\Form\\FormBuilderInterface'));
+        $buildFormClassMethod->params[] = new \PhpParser\Node\Param($formBuilderVariable, null, new \PhpParser\Node\Name\FullyQualified('_PhpScoper8b9c402c5f32\\Symfony\\Component\\Form\\FormBuilderInterface'));
         $buildFormClassMethod->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('options'), null, new \PhpParser\Node\Identifier('array'));
         return $buildFormClassMethod;
     }
@@ -184,7 +184,7 @@ CODE_SAMPLE
     private function createFormTypeClassFromBuildFormClassMethod(\PhpParser\Node\Stmt\ClassMethod $buildFormClassMethod) : \PhpParser\Node\Stmt\Class_
     {
         $formTypeClass = new \PhpParser\Node\Stmt\Class_('SomeFormType');
-        $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper17db12703726\\Symfony\\Component\\Form\\AbstractType');
+        $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('_PhpScoper8b9c402c5f32\\Symfony\\Component\\Form\\AbstractType');
         $formTypeClass->stmts[] = $buildFormClassMethod;
         return $formTypeClass;
     }

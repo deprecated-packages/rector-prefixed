@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony2\Rector\StaticCall;
 
-use _PhpScoper17db12703726\Nette\Utils\Strings;
+use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\StaticCall;
@@ -54,7 +54,7 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->isName($node->name, 'parse')) {
             return null;
         }
-        if (!$this->isObjectType($node->class, '_PhpScoper17db12703726\\Symfony\\Component\\Yaml\\Yaml')) {
+        if (!$this->isObjectType($node->class, '_PhpScoper8b9c402c5f32\\Symfony\\Component\\Yaml\\Yaml')) {
             return null;
         }
         if (!$this->isArgumentYamlFile($node)) {
@@ -69,11 +69,11 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         $possibleFileNode = $staticCall->args[0]->value;
         $possibleFileNodeAsString = $this->print($possibleFileNode);
         // is yml/yaml file
-        if (\_PhpScoper17db12703726\Nette\Utils\Strings::match($possibleFileNodeAsString, self::YAML_SUFFIX_IN_QUOTE_REGEX)) {
+        if (\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::match($possibleFileNodeAsString, self::YAML_SUFFIX_IN_QUOTE_REGEX)) {
             return \true;
         }
         // is probably a file variable
-        if (\_PhpScoper17db12703726\Nette\Utils\Strings::match($possibleFileNodeAsString, self::FILE_SUFFIX_REGEX)) {
+        if (\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::match($possibleFileNodeAsString, self::FILE_SUFFIX_REGEX)) {
             return \true;
         }
         // try to detect current value
@@ -85,6 +85,6 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         if (!$nodeType instanceof \PHPStan\Type\Constant\ConstantStringType) {
             return \false;
         }
-        return (bool) \_PhpScoper17db12703726\Nette\Utils\Strings::match($nodeType->getValue(), self::YAML_SUFFIX_REGEX);
+        return (bool) \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::match($nodeType->getValue(), self::YAML_SUFFIX_REGEX);
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Rector\AbstractRector;
 
-use _PhpScoper17db12703726\Nette\Utils\Strings;
+use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\ChangesReporting\Rector\AbstractRector\NotifyingRemovingNodeTrait;
@@ -40,7 +40,7 @@ trait AbstractRectorTrait
         if ($name === null) {
             return \false;
         }
-        return !\_PhpScoper17db12703726\Nette\Utils\Strings::contains($name, 'AnonymousClass');
+        return !\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::contains($name, 'AnonymousClass');
     }
     protected function removeFinal(\PhpParser\Node\Stmt\Class_ $class) : void
     {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Include_;
 
-use _PhpScoper17db12703726\Nette\Utils\Strings;
+use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\Include_;
@@ -64,7 +64,7 @@ CODE_SAMPLE
     }
     private function isRefactorableStringPath(\PhpParser\Node\Scalar\String_ $string) : bool
     {
-        return !\_PhpScoper17db12703726\Nette\Utils\Strings::startsWith($string->value, 'phar://');
+        return !\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::startsWith($string->value, 'phar://');
     }
     private function prefixWithDir(\PhpParser\Node\Scalar\String_ $string) : \PhpParser\Node\Expr\BinaryOp\Concat
     {
@@ -77,14 +77,14 @@ CODE_SAMPLE
      */
     private function removeExtraDotSlash(\PhpParser\Node\Scalar\String_ $string) : void
     {
-        if (!\_PhpScoper17db12703726\Nette\Utils\Strings::startsWith($string->value, './')) {
+        if (!\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::startsWith($string->value, './')) {
             return;
         }
-        $string->value = \_PhpScoper17db12703726\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
+        $string->value = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
     }
     private function prependSlashIfMissing(\PhpParser\Node\Scalar\String_ $string) : void
     {
-        if (\_PhpScoper17db12703726\Nette\Utils\Strings::startsWith($string->value, '/')) {
+        if (\_PhpScoper8b9c402c5f32\Nette\Utils\Strings::startsWith($string->value, '/')) {
             return;
         }
         $string->value = '/' . $string->value;

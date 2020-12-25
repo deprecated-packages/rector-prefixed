@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Testing\PHPUnit;
 
-use _PhpScoper17db12703726\Nette\Utils\Random;
-use _PhpScoper17db12703726\Nette\Utils\Strings;
+use _PhpScoper8b9c402c5f32\Nette\Utils\Random;
+use _PhpScoper8b9c402c5f32\Nette\Utils\Strings;
 use PhpParser\NodeFinder;
 use Rector\Testing\Contract\RunnableInterface;
 use Rector\Testing\PHPUnit\Runnable\ClassLikeNamesSuffixer;
@@ -45,11 +45,11 @@ final class RunnableRectorFactory
     private function createTemporaryPathWithPrefix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         // warning: if this hash is too short, the file can becom "identical"; took me 1 hour to find out
-        $hash = \_PhpScoper17db12703726\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -15);
+        $hash = \_PhpScoper8b9c402c5f32\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -15);
         return \sprintf(\sys_get_temp_dir() . '/_rector_runnable_%s_%s', $hash, $smartFileInfo->getBasename('.inc'));
     }
     private function getTemporaryClassSuffix() : string
     {
-        return \_PhpScoper17db12703726\Nette\Utils\Random::generate(30);
+        return \_PhpScoper8b9c402c5f32\Nette\Utils\Random::generate(30);
     }
 }

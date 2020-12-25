@@ -8,6 +8,6 @@ final class CustomIdGeneratorTagValueNode extends \Rector\BetterPhpDocParser\Val
 {
     public function getShortName() : string
     {
-        return '_PhpScoper17db12703726\\@ORM\\CustomIdGenerator';
+        return '_PhpScoper8b9c402c5f32\\@ORM\\CustomIdGenerator';
     }
 }
