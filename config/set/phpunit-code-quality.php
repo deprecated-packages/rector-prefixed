@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper5b8c9e9ebd21;
+namespace _PhpScoper267b3276efc2;
 
 use Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;

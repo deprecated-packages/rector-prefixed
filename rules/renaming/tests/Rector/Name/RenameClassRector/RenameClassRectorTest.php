@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\Renaming\Tests\Rector\Name\RenameClassRector;
 
 use Iterator;
-use _PhpScoper5b8c9e9ebd21\Manual\Twig\TwigFilter;
-use _PhpScoper5b8c9e9ebd21\Manual_Twig_Filter;
+use _PhpScoper267b3276efc2\Manual\Twig\TwigFilter;
+use _PhpScoper267b3276efc2\Manual_Twig_Filter;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture\DuplicatedClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension;
@@ -42,21 +42,21 @@ final class RenameClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRector
     protected function getRectorsWithConfiguration() : array
     {
         return [\Rector\Renaming\Rector\Name\RenameClassRector::class => [\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
-            'FqnizeNamespaced' => '_PhpScoper5b8c9e9ebd21\\Abc\\FqnizeNamespaced',
+            'FqnizeNamespaced' => '_PhpScoper267b3276efc2\\Abc\\FqnizeNamespaced',
             \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class,
             \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClassWithTypo::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClassWithoutTypo::class,
             'DateTime' => 'DateTimeInterface',
             'Countable' => 'stdClass',
-            \_PhpScoper5b8c9e9ebd21\Manual_Twig_Filter::class => \_PhpScoper5b8c9e9ebd21\Manual\Twig\TwigFilter::class,
+            \_PhpScoper267b3276efc2\Manual_Twig_Filter::class => \_PhpScoper267b3276efc2\Manual\Twig\TwigFilter::class,
             'Twig_AbstractManualExtension' => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension::class,
-            'Twig_Extension_Sandbox' => '_PhpScoper5b8c9e9ebd21\\Twig\\Extension\\SandboxExtension',
+            'Twig_Extension_Sandbox' => '_PhpScoper267b3276efc2\\Twig\\Extension\\SandboxExtension',
             // Renaming class itself and its namespace
-            '_PhpScoper5b8c9e9ebd21\\MyNamespace\\MyClass' => '_PhpScoper5b8c9e9ebd21\\MyNewNamespace\\MyNewClass',
-            '_PhpScoper5b8c9e9ebd21\\MyNamespace\\MyTrait' => '_PhpScoper5b8c9e9ebd21\\MyNewNamespace\\MyNewTrait',
-            '_PhpScoper5b8c9e9ebd21\\MyNamespace\\MyInterface' => '_PhpScoper5b8c9e9ebd21\\MyNewNamespace\\MyNewInterface',
-            'MyOldClass' => '_PhpScoper5b8c9e9ebd21\\MyNamespace\\MyNewClass',
+            '_PhpScoper267b3276efc2\\MyNamespace\\MyClass' => '_PhpScoper267b3276efc2\\MyNewNamespace\\MyNewClass',
+            '_PhpScoper267b3276efc2\\MyNamespace\\MyTrait' => '_PhpScoper267b3276efc2\\MyNewNamespace\\MyNewTrait',
+            '_PhpScoper267b3276efc2\\MyNamespace\\MyInterface' => '_PhpScoper267b3276efc2\\MyNewNamespace\\MyNewInterface',
+            'MyOldClass' => '_PhpScoper267b3276efc2\\MyNamespace\\MyNewClass',
             'AnotherMyOldClass' => 'AnotherMyNewClass',
-            '_PhpScoper5b8c9e9ebd21\\MyNamespace\\AnotherMyClass' => 'MyNewClassWithoutNamespace',
+            '_PhpScoper267b3276efc2\\MyNamespace\\AnotherMyClass' => 'MyNewClassWithoutNamespace',
             // test duplicated class - @see https://github.com/rectorphp/rector/issues/1438
             'Rector\\Renaming\\Tests\\Rector\\Name\\RenameClassRector\\Fixture\\SingularClass' => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture\DuplicatedClass::class,
         ]]];

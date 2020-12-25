@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper5b8c9e9ebd21;
+namespace _PhpScoper267b3276efc2;
 
 use Rector\Symfony4\Rector\ClassMethod\ConsoleExecuteReturnIntRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

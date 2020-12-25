@@ -39,6 +39,6 @@ final class ManyToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     }
     public function getShortName() : string
     {
-        return '_PhpScoper5b8c9e9ebd21\\@ORM\\ManyToOne';
+        return '_PhpScoper267b3276efc2\\@ORM\\ManyToOne';
     }
 }

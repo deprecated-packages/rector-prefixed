@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Formatter;
+namespace _PhpScoper267b3276efc2\Symfony\Component\Console\Formatter;
 
-use _PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Color;
+use _PhpScoper267b3276efc2\Symfony\Component\Console\Color;
 /**
  * Formatter style class for defining styles.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class OutputFormatterStyle implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+class OutputFormatterStyle implements \_PhpScoper267b3276efc2\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
 {
     private $color;
     private $foreground;
@@ -32,21 +32,21 @@ class OutputFormatterStyle implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\
      */
     public function __construct(string $foreground = null, string $background = null, array $options = [])
     {
-        $this->color = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Color($this->foreground = $foreground ?: '', $this->background = $background ?: '', $this->options = $options);
+        $this->color = new \_PhpScoper267b3276efc2\Symfony\Component\Console\Color($this->foreground = $foreground ?: '', $this->background = $background ?: '', $this->options = $options);
     }
     /**
      * {@inheritdoc}
      */
     public function setForeground(string $color = null)
     {
-        $this->color = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Color($this->foreground = $color ?: '', $this->background, $this->options);
+        $this->color = new \_PhpScoper267b3276efc2\Symfony\Component\Console\Color($this->foreground = $color ?: '', $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
      */
     public function setBackground(string $color = null)
     {
-        $this->color = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
+        $this->color = new \_PhpScoper267b3276efc2\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
     }
     public function setHref(string $url) : void
     {
@@ -58,7 +58,7 @@ class OutputFormatterStyle implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\
     public function setOption(string $option)
     {
         $this->options[] = $option;
-        $this->color = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
+        $this->color = new \_PhpScoper267b3276efc2\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
@@ -69,14 +69,14 @@ class OutputFormatterStyle implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\
         if (\false !== $pos) {
             unset($this->options[$pos]);
         }
-        $this->color = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
+        $this->color = new \_PhpScoper267b3276efc2\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
     }
     /**
      * {@inheritdoc}
      */
     public function setOptions(array $options)
     {
-        $this->color = new \_PhpScoper5b8c9e9ebd21\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options = $options);
+        $this->color = new \_PhpScoper267b3276efc2\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options = $options);
     }
     /**
      * {@inheritdoc}

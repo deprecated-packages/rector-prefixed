@@ -52,7 +52,7 @@ final class NetteInjectDetector
         if ($className === null) {
             return \false;
         }
-        if (!\is_a($className, '_PhpScoper5b8c9e9ebd21\\Nette\\Application\\IPresenter', \true)) {
+        if (!\is_a($className, '_PhpScoper267b3276efc2\\Nette\\Application\\IPresenter', \true)) {
             return \false;
         }
         // has parent class

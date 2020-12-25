@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\DoctrineTable;
 
-use _PhpScoper5b8c9e9ebd21\Doctrine\ORM\Mapping as ORM;
+use _PhpScoper267b3276efc2\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(name="amenity_building", uniqueConstraints={@ORM\UniqueConstraint(name="building_id_amenity_id",
  *      columns={"building_id", "amenity_id"})}

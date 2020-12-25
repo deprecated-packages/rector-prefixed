@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Assign;
 
-use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
+use _PhpScoper267b3276efc2\Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
@@ -74,7 +74,7 @@ CODE_SAMPLE
         if ($docContent === '') {
             return null;
         }
-        if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($docContent, '@var')) {
+        if (!\_PhpScoper267b3276efc2\Nette\Utils\Strings::contains($docContent, '@var')) {
             return null;
         }
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
@@ -82,7 +82,7 @@ CODE_SAMPLE
         }
         $varName = '$' . $this->getName($node->var);
         $varPattern = '# ' . \preg_quote($varName, '#') . ' #';
-        if (!\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::match($docContent, $varPattern)) {
+        if (!\_PhpScoper267b3276efc2\Nette\Utils\Strings::match($docContent, $varPattern)) {
             return null;
         }
         // switch docs
@@ -124,12 +124,12 @@ CODE_SAMPLE
         $docContent = $this->getDocContent($node);
         // normalize content
         // starts with "/*", instead of "/**"
-        if (\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::startsWith($docContent, '/* ')) {
-            $docContent = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_COMMENT_START_REGEX, '/** ');
+        if (\_PhpScoper267b3276efc2\Nette\Utils\Strings::startsWith($docContent, '/* ')) {
+            $docContent = \_PhpScoper267b3276efc2\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_COMMENT_START_REGEX, '/** ');
         }
         // $value is first, instead of type is first
-        if (\_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::match($docContent, self::VAR_ANNOTATION_REGEX)) {
-            $docContent = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::replace($docContent, self::VARIABLE_NAME_AND_TYPE_MATCH_REGEX, '$3$2$1');
+        if (\_PhpScoper267b3276efc2\Nette\Utils\Strings::match($docContent, self::VAR_ANNOTATION_REGEX)) {
+            $docContent = \_PhpScoper267b3276efc2\Nette\Utils\Strings::replace($docContent, self::VARIABLE_NAME_AND_TYPE_MATCH_REGEX, '$3$2$1');
         }
         return new \PhpParser\Comment\Doc($docContent);
     }

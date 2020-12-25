@@ -8,7 +8,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
-use _PhpScoper5b8c9e9ebd21\Symfony\Component\Yaml\Tag\TaggedValue;
+use _PhpScoper267b3276efc2\Symfony\Component\Yaml\Tag\TaggedValue;
 use Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
 final class SingleServicePhpNodeFactory
 {
@@ -48,7 +48,7 @@ final class SingleServicePhpNodeFactory
                 $args[] = new \PhpParser\Node\Arg($returnCloneExpr);
             }
             $currentArray = \current($call);
-            if ($currentArray instanceof \_PhpScoper5b8c9e9ebd21\Symfony\Component\Yaml\Tag\TaggedValue) {
+            if ($currentArray instanceof \_PhpScoper267b3276efc2\Symfony\Component\Yaml\Tag\TaggedValue) {
                 $args[] = new \PhpParser\Node\Arg(\PhpParser\BuilderHelpers::normalizeValue(\true));
             }
             $methodCall = new \PhpParser\Node\Expr\MethodCall($methodCall, 'call', $args);

@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\Property\InjectAnnotationClassRector;
 
-use _PhpScoper5b8c9e9ebd21\DI\Annotation\Inject as PHPDIInject;
+use _PhpScoper267b3276efc2\DI\Annotation\Inject as PHPDIInject;
 use Iterator;
-use _PhpScoper5b8c9e9ebd21\JMS\DiExtraBundle\Annotation\Inject;
+use _PhpScoper267b3276efc2\JMS\DiExtraBundle\Annotation\Inject;
 use Rector\Core\Configuration\Option;
 use Rector\Generic\Rector\Property\InjectAnnotationClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
@@ -29,6 +29,6 @@ final class InjectAnnotationClassRectorTest extends \Rector\Testing\PHPUnit\Abst
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::class => [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::ANNOTATION_CLASSES => [\_PhpScoper5b8c9e9ebd21\JMS\DiExtraBundle\Annotation\Inject::class, \_PhpScoper5b8c9e9ebd21\DI\Annotation\Inject::class]]];
+        return [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::class => [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::ANNOTATION_CLASSES => [\_PhpScoper267b3276efc2\JMS\DiExtraBundle\Annotation\Inject::class, \_PhpScoper267b3276efc2\DI\Annotation\Inject::class]]];
     }
 }

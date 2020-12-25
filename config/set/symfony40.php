@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper5b8c9e9ebd21;
+namespace _PhpScoper267b3276efc2;
 
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Symfony4\Rector\ConstFetch\ConstraintUrlOptionRector;
@@ -19,5 +19,5 @@ return static function (\Symfony\Component\DependencyInjection\Loader\Configurat
     $services->set(\Rector\Symfony4\Rector\MethodCall\ContainerBuilderCompileEnvArgumentRector::class);
     $services->set(\Rector\Symfony4\Rector\StaticCall\ProcessBuilderInstanceRector::class);
     $services->set(\Rector\Symfony4\Rector\MethodCall\ProcessBuilderGetProcessRector::class);
-    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Validator\\Tests\\Constraints\\AbstractConstraintValidatorTest' => '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Validator\\Test\\ConstraintValidatorTestCase', '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Process\\ProcessBuilder' => '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Process\\Process']]]);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['_PhpScoper267b3276efc2\\Symfony\\Component\\Validator\\Tests\\Constraints\\AbstractConstraintValidatorTest' => '_PhpScoper267b3276efc2\\Symfony\\Component\\Validator\\Test\\ConstraintValidatorTestCase', '_PhpScoper267b3276efc2\\Symfony\\Component\\Process\\ProcessBuilder' => '_PhpScoper267b3276efc2\\Symfony\\Component\\Process\\Process']]]);
 };

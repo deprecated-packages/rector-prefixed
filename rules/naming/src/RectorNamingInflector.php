@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Naming;
 
 use Doctrine\Inflector\Inflector;
-use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
+use _PhpScoper267b3276efc2\Nette\Utils\Strings;
 final class RectorNamingInflector
 {
     /**
@@ -22,7 +22,7 @@ final class RectorNamingInflector
     }
     public function singularize(string $name) : string
     {
-        $matches = \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::match($name, self::DATA_INFO_SUFFIX_REGEX);
+        $matches = \_PhpScoper267b3276efc2\Nette\Utils\Strings::match($name, self::DATA_INFO_SUFFIX_REGEX);
         if ($matches === null) {
             return $this->inflector->singularize($name);
         }

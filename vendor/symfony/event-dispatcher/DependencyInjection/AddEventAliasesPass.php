@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper5b8c9e9ebd21\Symfony\Component\EventDispatcher\DependencyInjection;
+namespace _PhpScoper267b3276efc2\Symfony\Component\EventDispatcher\DependencyInjection;
 
-use _PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use _PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\ContainerBuilder;
+use _PhpScoper267b3276efc2\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use _PhpScoper267b3276efc2\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * This pass allows bundles to extend the list of event aliases.
  *
  * @author Alexander M. Turek <me@derrabus.de>
  */
-class AddEventAliasesPass implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class AddEventAliasesPass implements \_PhpScoper267b3276efc2\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $eventAliases;
     private $eventAliasesParameter;
@@ -26,7 +26,7 @@ class AddEventAliasesPass implements \_PhpScoper5b8c9e9ebd21\Symfony\Component\D
         $this->eventAliases = $eventAliases;
         $this->eventAliasesParameter = $eventAliasesParameter;
     }
-    public function process(\_PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\ContainerBuilder $container) : void
+    public function process(\_PhpScoper267b3276efc2\Symfony\Component\DependencyInjection\ContainerBuilder $container) : void
     {
         $eventAliases = $container->hasParameter($this->eventAliasesParameter) ? $container->getParameter($this->eventAliasesParameter) : [];
         $container->setParameter($this->eventAliasesParameter, \array_merge($eventAliases, $this->eventAliases));

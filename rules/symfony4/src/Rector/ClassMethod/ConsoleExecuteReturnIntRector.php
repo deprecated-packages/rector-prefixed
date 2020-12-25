@@ -66,7 +66,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        if (!$this->isObjectType($classLike, '_PhpScoper5b8c9e9ebd21\\Symfony\\Component\\Console\\Command\\Command')) {
+        if (!$this->isObjectType($classLike, '_PhpScoper267b3276efc2\\Symfony\\Component\\Console\\Command\\Command')) {
             return null;
         }
         $this->refactorReturnTypeDeclaration($node);

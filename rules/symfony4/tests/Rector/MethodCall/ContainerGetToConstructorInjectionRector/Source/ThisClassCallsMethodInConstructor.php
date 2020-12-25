@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Rector\Symfony4\Tests\Rector\MethodCall\ContainerGetToConstructorInjectionRector\Source;
 
-use _PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\ContainerInterface;
+use _PhpScoper267b3276efc2\Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class ThisClassCallsMethodInConstructor
 {
     public function __construct()
     {
         $this->prepareEverything();
     }
-    public function getContainer() : \_PhpScoper5b8c9e9ebd21\Symfony\Component\DependencyInjection\ContainerInterface
+    public function getContainer() : \_PhpScoper267b3276efc2\Symfony\Component\DependencyInjection\ContainerInterface
     {
     }
     private function prepareEverything()

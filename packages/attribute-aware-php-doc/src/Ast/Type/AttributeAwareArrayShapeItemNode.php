@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\AttributeAwarePhpDoc\Ast\Type;
 
-use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
+use _PhpScoper267b3276efc2\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayShapeItemNode;
@@ -26,7 +26,7 @@ final class AttributeAwareArrayShapeItemNode extends \PHPStan\PhpDocParser\Ast\T
         parent::__construct($keyName, $optional, $typeNode);
         // spaces after double colon
         $keyWithSpacePattern = $this->createKeyWithSpacePattern($keyName, $optional);
-        $this->hasSpaceAfterDoubleColon = (bool) \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::matchAll($docComment, $keyWithSpacePattern);
+        $this->hasSpaceAfterDoubleColon = (bool) \_PhpScoper267b3276efc2\Nette\Utils\Strings::matchAll($docComment, $keyWithSpacePattern);
     }
     public function __toString() : string
     {

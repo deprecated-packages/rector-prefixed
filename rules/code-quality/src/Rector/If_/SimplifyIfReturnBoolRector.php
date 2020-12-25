@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\If_;
 
-use _PhpScoper5b8c9e9ebd21\Nette\Utils\Strings;
+use _PhpScoper267b3276efc2\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp;
@@ -112,7 +112,7 @@ CODE_SAMPLE
             return \true;
         }
         // negate + negate → skip for now
-        if ($this->isFalse($returnedExpr) && \_PhpScoper5b8c9e9ebd21\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
+        if ($this->isFalse($returnedExpr) && \_PhpScoper267b3276efc2\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
             return \true;
         }
         return !$this->isBool($nextNode->expr);
