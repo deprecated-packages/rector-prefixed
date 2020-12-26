@@ -88,7 +88,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->isObjectType($methodCall, '_PhpScoper567b66d83109\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor')) {
+        if (!$this->isObjectType($methodCall, 'RectorPrefix2020DecSat\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor')) {
             return \true;
         }
         if (!$this->isNames($methodCall->name, self::METHODS_WITH_OPTION)) {
@@ -123,11 +123,11 @@ CODE_SAMPLE
     }
     private function prepareEnableMagicMethodsExtractionFlags(bool $enableMagicCallExtractionValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
     {
-        $classConstFetch = $this->createClassConstFetch('_PhpScoper567b66d83109\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_GET');
-        $magicSet = $this->createClassConstFetch('_PhpScoper567b66d83109\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_SET');
+        $classConstFetch = $this->createClassConstFetch('RectorPrefix2020DecSat\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_GET');
+        $magicSet = $this->createClassConstFetch('RectorPrefix2020DecSat\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_SET');
         if (!$enableMagicCallExtractionValue) {
             return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($classConstFetch, $magicSet);
         }
-        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($this->createClassConstFetch('_PhpScoper567b66d83109\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_CALL'), $classConstFetch), $magicSet);
+        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($this->createClassConstFetch('RectorPrefix2020DecSat\\Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_CALL'), $classConstFetch), $magicSet);
     }
 }

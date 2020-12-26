@@ -59,7 +59,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, '_PhpScoper567b66d83109\\Nette\\Utils\\Html')) {
+        if (!$this->isObjectType($node->var, 'RectorPrefix2020DecSat\\Nette\\Utils\\Html')) {
             return null;
         }
         // @todo posibly extends by more common names

@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\EventDispatcher\DependencyInjection;
+namespace RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\DependencyInjection;
 
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Reference;
-use _PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventDispatcher;
-use _PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use _PhpScoper567b66d83109\Symfony\Contracts\EventDispatcher\Event;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Reference;
+use RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventDispatcher;
+use RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use RectorPrefix2020DecSat\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Compiler pass to register tagged services for an event dispatcher.
  */
-class RegisterListenersPass implements \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class RegisterListenersPass implements \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     protected $dispatcherService;
     protected $listenerTag;
@@ -56,7 +56,7 @@ class RegisterListenersPass implements \_PhpScoper567b66d83109\Symfony\Component
         $this->noPreloadTagName = $tagName;
         return $this;
     }
-    public function process(\_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->dispatcherService) && !$container->hasAlias($this->dispatcherService)) {
             return;
@@ -91,7 +91,7 @@ class RegisterListenersPass implements \_PhpScoper567b66d83109\Symfony\Component
                 if (isset($event['dispatcher'])) {
                     $dispatcherDefinition = $container->getDefinition($event['dispatcher']);
                 }
-                $dispatcherDefinition->addMethodCall('addListener', [$event['event'], [new \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument(new \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Reference($id)), $event['method']], $priority]);
+                $dispatcherDefinition->addMethodCall('addListener', [$event['event'], [new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument(new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Reference($id)), $event['method']], $priority]);
                 if (isset($this->hotPathEvents[$event['event']])) {
                     $container->getDefinition($id)->addTag($this->hotPathTagName);
                 } elseif (isset($this->noPreloadEvents[$event['event']])) {
@@ -102,16 +102,16 @@ class RegisterListenersPass implements \_PhpScoper567b66d83109\Symfony\Component
                 $container->getDefinition($id)->addTag($this->noPreloadTagName);
             }
         }
-        $extractingDispatcher = new \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher();
+        $extractingDispatcher = new \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher();
         foreach ($container->findTaggedServiceIds($this->subscriberTag, \true) as $id => $tags) {
             $def = $container->getDefinition($id);
             // We must assume that the class value has been correctly filled, even if the service is created by a factory
             $class = $def->getClass();
             if (!($r = $container->getReflectionClass($class))) {
-                throw new \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+                throw new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
             }
-            if (!$r->isSubclassOf(\_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
-                throw new \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must implement interface "%s".', $id, \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface::class));
+            if (!$r->isSubclassOf(\RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface::class)) {
+                throw new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must implement interface "%s".', $id, \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface::class));
             }
             $class = $r->name;
             $dispatcherDefinitions = [];
@@ -125,11 +125,11 @@ class RegisterListenersPass implements \_PhpScoper567b66d83109\Symfony\Component
                 $dispatcherDefinitions = [$globalDispatcherDefinition];
             }
             $noPreload = 0;
-            \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = $aliases;
-            \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$subscriber = $class;
+            \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = $aliases;
+            \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$subscriber = $class;
             $extractingDispatcher->addSubscriber($extractingDispatcher);
             foreach ($extractingDispatcher->listeners as $args) {
-                $args[1] = [new \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument(new \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Reference($id)), $args[1]];
+                $args[1] = [new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument(new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Reference($id)), $args[1]];
                 foreach ($dispatcherDefinitions as $dispatcherDefinition) {
                     $dispatcherDefinition->addMethodCall('addListener', $args);
                 }
@@ -143,13 +143,13 @@ class RegisterListenersPass implements \_PhpScoper567b66d83109\Symfony\Component
                 $container->getDefinition($id)->addTag($this->noPreloadTagName);
             }
             $extractingDispatcher->listeners = [];
-            \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = [];
+            \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher::$aliases = [];
         }
     }
-    private function getEventFromTypeDeclaration(\_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $id, string $method) : string
+    private function getEventFromTypeDeclaration(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder $container, string $id, string $method) : string
     {
-        if (null === ($class = $container->getDefinition($id)->getClass()) || !($r = $container->getReflectionClass($class, \false)) || !$r->hasMethod($method) || 1 > ($m = $r->getMethod($method))->getNumberOfParameters() || !($type = $m->getParameters()[0]->getType()) instanceof \ReflectionNamedType || $type->isBuiltin() || \_PhpScoper567b66d83109\Symfony\Contracts\EventDispatcher\Event::class === ($name = $type->getName())) {
-            throw new \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must define the "event" attribute on "%s" tags.', $id, $this->listenerTag));
+        if (null === ($class = $container->getDefinition($id)->getClass()) || !($r = $container->getReflectionClass($class, \false)) || !$r->hasMethod($method) || 1 > ($m = $r->getMethod($method))->getNumberOfParameters() || !($type = $m->getParameters()[0]->getType()) instanceof \ReflectionNamedType || $type->isBuiltin() || \RectorPrefix2020DecSat\Symfony\Contracts\EventDispatcher\Event::class === ($name = $type->getName())) {
+            throw new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "%s" must define the "event" attribute on "%s" tags.', $id, $this->listenerTag));
         }
         return $name;
     }
@@ -157,7 +157,7 @@ class RegisterListenersPass implements \_PhpScoper567b66d83109\Symfony\Component
 /**
  * @internal
  */
-class ExtractingEventDispatcher extends \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventDispatcher implements \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ExtractingEventDispatcher extends \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventDispatcher implements \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     public $listeners = [];
     public static $aliases = [];

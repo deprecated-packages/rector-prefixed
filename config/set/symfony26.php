@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper567b66d83109;
+namespace RectorPrefix2020DecSat;
 
 use Rector\Symfony2\Rector\MethodCall\AddFlashRector;
 use Rector\Symfony2\Rector\MethodCall\RedirectToRouteRector;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Symfony2\Rector\MethodCall\RedirectToRouteRector::class);
     $services->set(\Rector\Symfony2\Rector\MethodCall\AddFlashRector::class);

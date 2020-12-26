@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\Cache;
+namespace RectorPrefix2020DecSat\Symfony\Component\Cache;
 
-use _PhpScoper567b66d83109\Doctrine\Common\Cache\CacheProvider;
-use _PhpScoper567b66d83109\Psr\Cache\CacheItemPoolInterface;
-use _PhpScoper567b66d83109\Symfony\Contracts\Service\ResetInterface;
+use RectorPrefix2020DecSat\Doctrine\Common\Cache\CacheProvider;
+use RectorPrefix2020DecSat\Psr\Cache\CacheItemPoolInterface;
+use RectorPrefix2020DecSat\Symfony\Contracts\Service\ResetInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class DoctrineProvider extends \_PhpScoper567b66d83109\Doctrine\Common\Cache\CacheProvider implements \_PhpScoper567b66d83109\Symfony\Component\Cache\PruneableInterface, \_PhpScoper567b66d83109\Symfony\Component\Cache\ResettableInterface
+class DoctrineProvider extends \RectorPrefix2020DecSat\Doctrine\Common\Cache\CacheProvider implements \RectorPrefix2020DecSat\Symfony\Component\Cache\PruneableInterface, \RectorPrefix2020DecSat\Symfony\Component\Cache\ResettableInterface
 {
     private $pool;
-    public function __construct(\_PhpScoper567b66d83109\Psr\Cache\CacheItemPoolInterface $pool)
+    public function __construct(\RectorPrefix2020DecSat\Psr\Cache\CacheItemPoolInterface $pool)
     {
         $this->pool = $pool;
     }
@@ -28,14 +28,14 @@ class DoctrineProvider extends \_PhpScoper567b66d83109\Doctrine\Common\Cache\Cac
      */
     public function prune()
     {
-        return $this->pool instanceof \_PhpScoper567b66d83109\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
+        return $this->pool instanceof \RectorPrefix2020DecSat\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
     }
     /**
      * {@inheritdoc}
      */
     public function reset()
     {
-        if ($this->pool instanceof \_PhpScoper567b66d83109\Symfony\Contracts\Service\ResetInterface) {
+        if ($this->pool instanceof \RectorPrefix2020DecSat\Symfony\Contracts\Service\ResetInterface) {
             $this->pool->reset();
         }
         $this->setNamespace($this->getNamespace());

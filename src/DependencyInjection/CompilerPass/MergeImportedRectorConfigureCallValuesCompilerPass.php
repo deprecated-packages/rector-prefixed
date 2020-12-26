@@ -4,10 +4,10 @@ declare (strict_types=1);
 namespace Rector\Core\DependencyInjection\CompilerPass;
 
 use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Definition;
-final class MergeImportedRectorConfigureCallValuesCompilerPass implements \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition;
+final class MergeImportedRectorConfigureCallValuesCompilerPass implements \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var string
@@ -21,13 +21,13 @@ final class MergeImportedRectorConfigureCallValuesCompilerPass implements \_PhpS
     {
         $this->configureCallValuesCollector = $configureCallValuesCollector;
     }
-    public function process(\_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    public function process(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         foreach ($containerBuilder->getDefinitions() as $id => $definition) {
             $this->completeCollectedArguments($id, $definition);
         }
     }
-    private function completeCollectedArguments(string $serviceClass, \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Definition $definition) : void
+    private function completeCollectedArguments(string $serviceClass, \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         $configureCallValues = $this->configureCallValuesCollector->getConfigureCallValues($serviceClass);
         if ($configureCallValues === []) {

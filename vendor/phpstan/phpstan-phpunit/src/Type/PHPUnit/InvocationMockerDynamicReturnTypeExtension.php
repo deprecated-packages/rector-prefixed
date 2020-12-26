@@ -7,12 +7,12 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
-use _PhpScoper567b66d83109\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
+use RectorPrefix2020DecSat\PHPUnit\Framework\MockObject\Builder\InvocationMocker;
 class InvocationMockerDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMethodReturnTypeExtension
 {
     public function getClass() : string
     {
-        return \_PhpScoper567b66d83109\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class;
+        return \RectorPrefix2020DecSat\PHPUnit\Framework\MockObject\Builder\InvocationMocker::class;
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {

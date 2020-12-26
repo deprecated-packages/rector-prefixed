@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 final class OriginalSpacingRestorer
@@ -33,7 +33,7 @@ final class OriginalSpacingRestorer
         }
         $newNodeOutput = '';
         // replace system whitespace by old ones, include \n*
-        $nodeOutputParts = \_PhpScoper567b66d83109\Nette\Utils\Strings::split($nodeOutput, self::WHITESPACE_SPLIT_REGEX);
+        $nodeOutputParts = \RectorPrefix2020DecSat\Nette\Utils\Strings::split($nodeOutput, self::WHITESPACE_SPLIT_REGEX);
         $oldWhitespaceCount = \count($oldWhitespaces);
         $nodeOutputPartCount = \count($nodeOutputParts);
         // new nodes were probably added, skip them
@@ -43,7 +43,7 @@ final class OriginalSpacingRestorer
         if ($oldWhitespaceCount < $nodeOutputPartCount - 1) {
             return $nodeOutput;
         }
-        $asteriskSpaceFirst = \_PhpScoper567b66d83109\Nette\Utils\Strings::contains($oldWhitespaces[0], '*');
+        $asteriskSpaceFirst = \RectorPrefix2020DecSat\Nette\Utils\Strings::contains($oldWhitespaces[0], '*');
         foreach ($nodeOutputParts as $key => $nodeOutputPart) {
             if ($asteriskSpaceFirst) {
                 $newNodeOutput .= $nodeOutputPart;
@@ -57,6 +57,6 @@ final class OriginalSpacingRestorer
             return \rtrim($newNodeOutput);
         }
         // remove first space, added by the printer above
-        return \_PhpScoper567b66d83109\Nette\Utils\Strings::substring($newNodeOutput, 1);
+        return \RectorPrefix2020DecSat\Nette\Utils\Strings::substring($newNodeOutput, 1);
     }
 }

@@ -11,7 +11,7 @@ use Rector\FileSystemRector\Contract\MovedFileInterface;
 use Rector\FileSystemRector\ValueObject\MovedFileWithContent;
 use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use _PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Adds and removes scheduled file
@@ -42,7 +42,7 @@ final class RemovedAndAddedFilesProcessor
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \_PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->configuration = $configuration;

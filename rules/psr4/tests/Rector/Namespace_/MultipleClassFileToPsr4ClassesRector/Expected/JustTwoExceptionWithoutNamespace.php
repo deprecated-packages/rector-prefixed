@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper567b66d83109;
+namespace RectorPrefix2020DecSat;
 
 final class JustTwoExceptionWithoutNamespace
 {
 }
-\class_alias('_PhpScoper567b66d83109\\JustTwoExceptionWithoutNamespace', 'JustTwoExceptionWithoutNamespace', \false);
+\class_alias('RectorPrefix2020DecSat\\JustTwoExceptionWithoutNamespace', 'JustTwoExceptionWithoutNamespace', \false);

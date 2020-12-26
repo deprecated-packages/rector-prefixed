@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\NodeResolver;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayItem;
@@ -123,7 +123,7 @@ final class ListeningMethodsCollector
         // custom method name
         $classMethodName = $this->valueResolver->getValue($arrayItem->value);
         $classMethod = $class->getMethod($classMethodName);
-        if (\_PhpScoper567b66d83109\Nette\Utils\Strings::contains($eventClass, '::')) {
+        if (\RectorPrefix2020DecSat\Nette\Utils\Strings::contains($eventClass, '::')) {
             [$dispatchingClass, $property] = \explode('::', $eventClass);
             $eventClass = $this->eventClassNaming->createEventClassNameFromClassAndProperty($dispatchingClass, $property);
         }

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Contracts\HttpClient;
+namespace RectorPrefix2020DecSat\Symfony\Contracts\HttpClient;
 
-use _PhpScoper567b66d83109\Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use _PhpScoper567b66d83109\Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
-use _PhpScoper567b66d83109\Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
-use _PhpScoper567b66d83109\Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use _PhpScoper567b66d83109\Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use _PhpScoper567b66d83109\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use RectorPrefix2020DecSat\Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use RectorPrefix2020DecSat\Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use RectorPrefix2020DecSat\Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
+use RectorPrefix2020DecSat\Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use RectorPrefix2020DecSat\Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use RectorPrefix2020DecSat\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * A (lazily retrieved) HTTP response.
  *

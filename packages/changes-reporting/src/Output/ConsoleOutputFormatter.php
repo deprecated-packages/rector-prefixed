@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\ChangesReporting\Output;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
 use Rector\Core\Configuration\Configuration;
@@ -12,7 +12,7 @@ use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use _PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\Output\OutputFormatterInterface
 {
@@ -37,7 +37,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      * @var Configuration
      */
     private $configuration;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \_PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -123,8 +123,8 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     }
     private function normalizePathsToRelativeWithLine(string $errorMessage) : string
     {
-        $errorMessage = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($errorMessage, '#' . \preg_quote(\getcwd(), '#') . '/#', '');
-        return $errorMessage = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
+        $errorMessage = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($errorMessage, '#' . \preg_quote(\getcwd(), '#') . '/#', '');
+        return $errorMessage = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
     private function reportRemovedNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void
     {
@@ -142,7 +142,7 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
                 $this->symfonyStyle->writeln($message);
                 $printedNode = $this->betterStandardPrinter->print($removedNode);
                 // color red + prefix with "-" to visually demonstrate removal
-                $printedNode = '-' . \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($printedNode, '#\\n#', "\n-");
+                $printedNode = '-' . \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($printedNode, '#\\n#', "\n-");
                 $printedNode = $this->colorTextToRed($printedNode);
                 $this->symfonyStyle->writeln($printedNode);
                 $this->symfonyStyle->newLine(1);

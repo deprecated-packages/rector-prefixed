@@ -23,7 +23,7 @@ final class GetRequestRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const REQUEST_CLASS = '_PhpScoper567b66d83109\\Symfony\\Component\\HttpFoundation\\Request';
+    private const REQUEST_CLASS = 'RectorPrefix2020DecSat\\Symfony\\Component\\HttpFoundation\\Request';
     /**
      * @var string
      */

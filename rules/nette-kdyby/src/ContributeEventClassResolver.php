@@ -22,21 +22,21 @@ final class ContributeEventClassResolver
      */
     private const CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE = [
         // application
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['_PhpScoper567b66d83109\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['_PhpScoper567b66d83109\\Nette\\Application\\Application' => 'getApplication'],
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent' => ['_PhpScoper567b66d83109\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent' => ['_PhpScoper567b66d83109\\Nette\\Application\\Application' => 'getApplication', '_PhpScoper567b66d83109\\Nette\\Application\\IPresenter' => 'getPresenter'],
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Application\\RequestEvent' => ['_PhpScoper567b66d83109\\Nette\\Application\\Application' => 'getApplication', '_PhpScoper567b66d83109\\Nette\\Application\\Request' => 'getRequest'],
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent' => ['_PhpScoper567b66d83109\\Nette\\Application\\Application' => 'getApplication', '_PhpScoper567b66d83109\\Nette\\Application\\IResponse' => 'getResponse'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['RectorPrefix2020DecSat\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['RectorPrefix2020DecSat\\Nette\\Application\\Application' => 'getApplication'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent' => ['RectorPrefix2020DecSat\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent' => ['RectorPrefix2020DecSat\\Nette\\Application\\Application' => 'getApplication', 'RectorPrefix2020DecSat\\Nette\\Application\\IPresenter' => 'getPresenter'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Application\\RequestEvent' => ['RectorPrefix2020DecSat\\Nette\\Application\\Application' => 'getApplication', 'RectorPrefix2020DecSat\\Nette\\Application\\Request' => 'getRequest'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent' => ['RectorPrefix2020DecSat\\Nette\\Application\\Application' => 'getApplication', 'RectorPrefix2020DecSat\\Nette\\Application\\IResponse' => 'getResponse'],
         // presenter
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent' => ['_PhpScoper567b66d83109\\Nette\\Application\\IPresenter' => 'getPresenter', '_PhpScoper567b66d83109\\Nette\\Application\\IResponse' => 'getResponse'],
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent' => ['_PhpScoper567b66d83109\\Nette\\Application\\UI\\Presenter' => 'getPresenter'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent' => ['RectorPrefix2020DecSat\\Nette\\Application\\IPresenter' => 'getPresenter', 'RectorPrefix2020DecSat\\Nette\\Application\\IResponse' => 'getResponse'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent' => ['RectorPrefix2020DecSat\\Nette\\Application\\UI\\Presenter' => 'getPresenter'],
         // nette/security
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent' => ['_PhpScoper567b66d83109\\Nette\\Security\\User' => 'getUser'],
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent' => ['_PhpScoper567b66d83109\\Nette\\Security\\User' => 'getUser'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent' => ['RectorPrefix2020DecSat\\Nette\\Security\\User' => 'getUser'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent' => ['RectorPrefix2020DecSat\\Nette\\Security\\User' => 'getUser'],
         // latte
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent' => ['_PhpScoper567b66d83109\\Latte\\Engine' => 'getEngine'],
-        '_PhpScoper567b66d83109\\Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent' => ['_PhpScoper567b66d83109\\Nette\\Bridges\\ApplicationLatte\\Template' => 'getTemplate'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent' => ['RectorPrefix2020DecSat\\Latte\\Engine' => 'getEngine'],
+        'RectorPrefix2020DecSat\\Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent' => ['RectorPrefix2020DecSat\\Nette\\Bridges\\ApplicationLatte\\Template' => 'getTemplate'],
     ];
     /**
      * @var NodeNameResolver

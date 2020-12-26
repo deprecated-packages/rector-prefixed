@@ -81,7 +81,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoper567b66d83109\\Illuminate\\Foundation\\Testing\\TestCase')) {
+        if (!$this->isObjectType($node, 'RectorPrefix2020DecSat\\Illuminate\\Foundation\\Testing\\TestCase')) {
             return null;
         }
         if (!$this->isTestingConsoleOutput($node)) {
@@ -98,7 +98,7 @@ CODE_SAMPLE
     private function isTestingConsoleOutput(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($class->stmts, function (\PhpParser\Node $node) : bool {
-            return $this->isStaticCallNamed($node, '_PhpScoper567b66d83109\\Illuminate\\Support\\Facades\\Artisan', 'output');
+            return $this->isStaticCallNamed($node, 'RectorPrefix2020DecSat\\Illuminate\\Support\\Facades\\Artisan', 'output');
         });
     }
     private function hasMockConsoleOutputFalse(\PhpParser\Node\Stmt\Class_ $class) : bool

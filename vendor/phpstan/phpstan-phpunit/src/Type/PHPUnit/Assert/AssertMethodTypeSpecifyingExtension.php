@@ -21,7 +21,7 @@ class AssertMethodTypeSpecifyingExtension implements \PHPStan\Type\MethodTypeSpe
     }
     public function getClass() : string
     {
-        return '_PhpScoper567b66d83109\\PHPUnit\\Framework\\TestCase';
+        return 'RectorPrefix2020DecSat\\PHPUnit\\Framework\\TestCase';
     }
     public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\MethodCall $node, \PHPStan\Analyser\TypeSpecifierContext $context) : bool
     {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\PhpConfigPrinter\Printer;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
@@ -62,11 +62,11 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
         $stmts = $this->prependStrictTypesDeclare($stmts);
         $printedContent = parent::prettyPrintFile($stmts);
         // remove trailing spaces
-        $printedContent = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($printedContent, self::START_WITH_SPACE_REGEX, "\n");
+        $printedContent = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($printedContent, self::START_WITH_SPACE_REGEX, "\n");
         // remove space before " :" in main closure
-        $printedContent = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($printedContent, self::VOID_AFTER_FUNC_REGEX, '): void');
+        $printedContent = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($printedContent, self::VOID_AFTER_FUNC_REGEX, '): void');
         // remove space between declare strict types
-        $printedContent = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($printedContent, self::DECLARE_SPACE_STRICT_REGEX, 'declare(strict');
+        $printedContent = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($printedContent, self::DECLARE_SPACE_STRICT_REGEX, 'declare(strict');
         return $printedContent . \PHP_EOL;
     }
     /**
@@ -80,7 +80,7 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
      */
     protected function pSingleQuotedString(string $string) : string
     {
-        return "'" . \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($string, self::QUOTE_SLASH_REGEX, '\\\\$0') . "'";
+        return "'" . \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($string, self::QUOTE_SLASH_REGEX, '\\\\$0') . "'";
     }
     protected function pExpr_Array(\PhpParser\Node\Expr\Array_ $array) : string
     {
@@ -94,8 +94,8 @@ final class PhpParserPhpConfigPrinter extends \PhpParser\PrettyPrinter\Standard
     }
     private function indentFluentCallToNewline(string $content) : string
     {
-        $nextCallIndentReplacement = ')' . \PHP_EOL . \_PhpScoper567b66d83109\Nette\Utils\Strings::indent('->', 8, ' ');
-        return \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($content, '#\\)->#', $nextCallIndentReplacement);
+        $nextCallIndentReplacement = ')' . \PHP_EOL . \RectorPrefix2020DecSat\Nette\Utils\Strings::indent('->', 8, ' ');
+        return \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, '#\\)->#', $nextCallIndentReplacement);
     }
     /**
      * @param Node[] $stmts

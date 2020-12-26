@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event;
+namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event;
 
-use _PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Request;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\HttpKernelInterface;
-use _PhpScoper567b66d83109\Symfony\Contracts\EventDispatcher\Event;
+use RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\HttpKernelInterface;
+use RectorPrefix2020DecSat\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Base class for events thrown in the HttpKernel component.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class KernelEvent extends \_PhpScoper567b66d83109\Symfony\Contracts\EventDispatcher\Event
+class KernelEvent extends \RectorPrefix2020DecSat\Symfony\Contracts\EventDispatcher\Event
 {
     private $kernel;
     private $request;
@@ -27,7 +27,7 @@ class KernelEvent extends \_PhpScoper567b66d83109\Symfony\Contracts\EventDispatc
      * @param int $requestType The request type the kernel is currently processing; one of
      *                         HttpKernelInterface::MASTER_REQUEST or HttpKernelInterface::SUB_REQUEST
      */
-    public function __construct(\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \_PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Request $request, ?int $requestType)
+    public function __construct(\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Request $request, ?int $requestType)
     {
         $this->kernel = $kernel;
         $this->request = $request;
@@ -68,6 +68,6 @@ class KernelEvent extends \_PhpScoper567b66d83109\Symfony\Contracts\EventDispatc
      */
     public function isMasterRequest()
     {
-        return \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $this->requestType;
+        return \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $this->requestType;
     }
 }

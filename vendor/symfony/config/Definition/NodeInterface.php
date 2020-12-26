@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\Config\Definition;
+namespace RectorPrefix2020DecSat\Symfony\Component\Config\Definition;
 
-use _PhpScoper567b66d83109\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
-use _PhpScoper567b66d83109\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use _PhpScoper567b66d83109\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use RectorPrefix2020DecSat\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
+use RectorPrefix2020DecSat\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use RectorPrefix2020DecSat\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 /**
  * Common Interface among all nodes.
  *

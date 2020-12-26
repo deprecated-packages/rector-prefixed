@@ -131,7 +131,7 @@ CODE_SAMPLE
         if ($this->isAnonymousClass($classLike)) {
             return \true;
         }
-        return $this->isObjectTypes($classLike, ['_PhpScoper567b66d83109\\PHPUnit\\Framework\\TestCase', '_PhpScoper567b66d83109\\PHP_CodeSniffer\\Sniffs\\Sniff']);
+        return $this->isObjectTypes($classLike, ['RectorPrefix2020DecSat\\PHPUnit\\Framework\\TestCase', 'RectorPrefix2020DecSat\\PHP_CodeSniffer\\Sniffs\\Sniff']);
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {

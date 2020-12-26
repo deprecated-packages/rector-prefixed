@@ -56,7 +56,7 @@ CODE_SAMPLE
             if (!$this->isName($node, $function)) {
                 continue;
             }
-            return $this->createStaticCall('_PhpScoper567b66d83109\\Nette\\Utils\\Strings', $staticMethod, $node->args);
+            return $this->createStaticCall('RectorPrefix2020DecSat\\Nette\\Utils\\Strings', $staticMethod, $node->args);
         }
         return null;
     }

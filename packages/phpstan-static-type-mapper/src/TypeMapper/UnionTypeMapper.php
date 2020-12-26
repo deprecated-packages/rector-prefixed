@@ -203,7 +203,7 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
     private function resolveCompatibleObjectCandidate(\PHPStan\Type\UnionType $unionType) : ?string
     {
         if ($this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($unionType)) {
-            return '_PhpScoper567b66d83109\\Doctrine\\Common\\Collections\\Collection';
+            return 'RectorPrefix2020DecSat\\Doctrine\\Common\\Collections\\Collection';
         }
         if (!$this->isUnionTypeWithTypeClassNameOnly($unionType)) {
             return null;

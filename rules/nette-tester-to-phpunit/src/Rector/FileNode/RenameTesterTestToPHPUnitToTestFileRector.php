@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteTesterToPHPUnit\Rector\FileNode;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
@@ -49,7 +49,7 @@ CODE_SAMPLE
     {
         $smartFileInfo = $node->getFileInfo();
         $oldRealPath = $smartFileInfo->getRealPath();
-        if (!\_PhpScoper567b66d83109\Nette\Utils\Strings::endsWith($oldRealPath, '.phpt')) {
+        if (!\RectorPrefix2020DecSat\Nette\Utils\Strings::endsWith($oldRealPath, '.phpt')) {
             return null;
         }
         $newRealPath = $this->createNewRealPath($oldRealPath);
@@ -63,10 +63,10 @@ CODE_SAMPLE
     private function createNewRealPath(string $oldRealPath) : string
     {
         // file suffix
-        $newRealPath = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($oldRealPath, self::PHPT_SUFFIX_REGEX, '.php');
+        $newRealPath = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($oldRealPath, self::PHPT_SUFFIX_REGEX, '.php');
         // Test suffix
-        if (!\_PhpScoper567b66d83109\Nette\Utils\Strings::endsWith($newRealPath, 'Test.php')) {
-            return \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($newRealPath, self::PHP_SUFFIX_REGEX, 'Test.php');
+        if (!\RectorPrefix2020DecSat\Nette\Utils\Strings::endsWith($newRealPath, 'Test.php')) {
+            return \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($newRealPath, self::PHP_SUFFIX_REGEX, 'Test.php');
         }
         return $newRealPath;
     }

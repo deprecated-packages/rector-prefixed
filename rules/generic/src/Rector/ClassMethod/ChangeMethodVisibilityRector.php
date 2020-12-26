@@ -12,7 +12,7 @@ use Rector\Generic\ValueObject\ChangeMethodVisibility;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use _PhpScoper567b66d83109\Webmozart\Assert\Assert;
+use RectorPrefix2020DecSat\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\ChangeMethodVisibilityRectorTest
  */
@@ -92,7 +92,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $methodVisibilities = $configuration[self::METHOD_VISIBILITIES] ?? [];
-        \_PhpScoper567b66d83109\Webmozart\Assert\Assert::allIsInstanceOf($methodVisibilities, \Rector\Generic\ValueObject\ChangeMethodVisibility::class);
+        \RectorPrefix2020DecSat\Webmozart\Assert\Assert::allIsInstanceOf($methodVisibilities, \Rector\Generic\ValueObject\ChangeMethodVisibility::class);
         $this->methodVisibilities = $methodVisibilities;
     }
 }

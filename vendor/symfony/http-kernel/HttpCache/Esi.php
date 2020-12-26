@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\HttpKernel\HttpCache;
+namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel\HttpCache;
 
-use _PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Request;
-use _PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Response;
 /**
  * Esi implements the ESI capabilities to Request and Response instances.
  *
@@ -23,7 +23,7 @@ use _PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Response;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Esi extends \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
+class Esi extends \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\HttpCache\AbstractSurrogate
 {
     public function getName()
     {
@@ -32,7 +32,7 @@ class Esi extends \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\HttpCache
     /**
      * {@inheritdoc}
      */
-    public function addSurrogateControl(\_PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Response $response)
+    public function addSurrogateControl(\RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Response $response)
     {
         if (\false !== \strpos($response->getContent(), '<esi:include')) {
             $response->headers->set('Surrogate-Control', 'content="ESI/1.0"');
@@ -52,7 +52,7 @@ class Esi extends \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\HttpCache
     /**
      * {@inheritdoc}
      */
-    public function process(\_PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Request $request, \_PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Response $response)
+    public function process(\RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Response $response)
     {
         $type = $response->headers->get('Content-Type');
         if (empty($type)) {

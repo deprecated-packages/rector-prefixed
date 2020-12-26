@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper567b66d83109\Nette\Utils;
+namespace RectorPrefix2020DecSat\Nette\Utils;
 
-use _PhpScoper567b66d83109\Nette;
-use _PhpScoper567b66d83109\Nette\HtmlStringable;
+use RectorPrefix2020DecSat\Nette;
+use RectorPrefix2020DecSat\Nette\HtmlStringable;
 use function is_array, is_float, is_object, is_string;
 /**
  * HTML helper.
@@ -227,7 +227,7 @@ use function is_array, is_float, is_object, is_string;
  * @method self width(?int $val)
  * @method self wrap(?string $val)
  */
-class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \_PhpScoper567b66d83109\Nette\HtmlStringable
+class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \RectorPrefix2020DecSat\Nette\HtmlStringable
 {
     use Nette\SmartObject;
     /** @var array<string, mixed>  element's attributes */
@@ -258,7 +258,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \_PhpScoper5
             $el->setText($attrs);
         }
         if (isset($parts[1])) {
-            foreach (\_PhpScoper567b66d83109\Nette\Utils\Strings::matchAll($parts[1] . ' ', '#([a-z0-9:-]+)(?:=(["\'])?(.*?)(?(2)\\2|\\s))?#i') as $m) {
+            foreach (\RectorPrefix2020DecSat\Nette\Utils\Strings::matchAll($parts[1] . ' ', '#([a-z0-9:-]+)(?:=(["\'])?(.*?)(?(2)\\2|\\s))?#i') as $m) {
                 $el->attrs[$m[1]] = $m[3] ?? \true;
             }
         }
@@ -502,7 +502,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \_PhpScoper5
      */
     public final function setText($text)
     {
-        if (!$text instanceof \_PhpScoper567b66d83109\Nette\HtmlStringable) {
+        if (!$text instanceof \RectorPrefix2020DecSat\Nette\HtmlStringable) {
             $text = \htmlspecialchars((string) $text, \ENT_NOQUOTES, 'UTF-8');
         }
         $this->children = [(string) $text];
@@ -531,7 +531,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \_PhpScoper5
      */
     public function addText($text)
     {
-        if (!$text instanceof \_PhpScoper567b66d83109\Nette\HtmlStringable) {
+        if (!$text instanceof \RectorPrefix2020DecSat\Nette\HtmlStringable) {
             $text = \htmlspecialchars((string) $text, \ENT_NOQUOTES, 'UTF-8');
         }
         return $this->insert(null, $text);
@@ -702,7 +702,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \_PhpScoper5
                 continue;
             } elseif (\is_array($value)) {
                 if (\strncmp($key, 'data-', 5) === 0) {
-                    $value = \_PhpScoper567b66d83109\Nette\Utils\Json::encode($value);
+                    $value = \RectorPrefix2020DecSat\Nette\Utils\Json::encode($value);
                 } else {
                     $tmp = null;
                     foreach ($value as $k => $v) {

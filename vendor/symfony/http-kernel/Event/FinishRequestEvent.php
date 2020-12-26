@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event;
+namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event;
 
 /**
  * Triggered whenever a request is fully processed.
  *
  * @author Benjamin Eberlei <kontakt@beberlei.de>
  */
-final class FinishRequestEvent extends \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\KernelEvent
+final class FinishRequestEvent extends \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\KernelEvent
 {
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObjectFactory;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
@@ -48,15 +48,15 @@ final class TagValueNodeConfigurationFactory
         }
         $silentKey = $this->resolveSilentKey($phpDocTagValueNode);
         $orderedVisibleItems = \Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper::resolveAnnotationItemsOrder($originalContent, $silentKey);
-        $hasNewlineAfterOpening = (bool) \_PhpScoper567b66d83109\Nette\Utils\Strings::match($originalContent, self::NEWLINE_AFTER_OPENING_REGEX);
-        $hasNewlineBeforeClosing = (bool) \_PhpScoper567b66d83109\Nette\Utils\Strings::match($originalContent, self::NEWLINE_BEFORE_CLOSING_REGEX);
-        $hasOpeningBracket = (bool) \_PhpScoper567b66d83109\Nette\Utils\Strings::match($originalContent, self::OPENING_BRACKET_REGEX);
-        $hasClosingBracket = (bool) \_PhpScoper567b66d83109\Nette\Utils\Strings::match($originalContent, self::CLOSING_BRACKET_REGEX);
+        $hasNewlineAfterOpening = (bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match($originalContent, self::NEWLINE_AFTER_OPENING_REGEX);
+        $hasNewlineBeforeClosing = (bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match($originalContent, self::NEWLINE_BEFORE_CLOSING_REGEX);
+        $hasOpeningBracket = (bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match($originalContent, self::OPENING_BRACKET_REGEX);
+        $hasClosingBracket = (bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match($originalContent, self::CLOSING_BRACKET_REGEX);
         $keysByQuotedStatus = [];
         foreach ($orderedVisibleItems as $orderedVisibleItem) {
             $keysByQuotedStatus[$orderedVisibleItem] = $this->isKeyQuoted($originalContent, $orderedVisibleItem, $silentKey);
         }
-        $isSilentKeyExplicit = \_PhpScoper567b66d83109\Nette\Utils\Strings::contains($originalContent, \sprintf('%s=', $silentKey));
+        $isSilentKeyExplicit = \RectorPrefix2020DecSat\Nette\Utils\Strings::contains($originalContent, \sprintf('%s=', $silentKey));
         $arrayEqualSign = $this->resolveArraySeparatorSign($originalContent, $phpDocTagValueNode);
         return new \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration($originalContent, $orderedVisibleItems, $hasNewlineAfterOpening, $hasNewlineBeforeClosing, $hasOpeningBracket, $hasClosingBracket, $keysByQuotedStatus, $silentKey, $isSilentKeyExplicit, $arrayEqualSign);
     }
@@ -71,16 +71,16 @@ final class TagValueNodeConfigurationFactory
     {
         $escapedKey = \preg_quote($key, '#');
         $quotedKeyPattern = $this->createQuotedKeyPattern($silentKey, $key, $escapedKey);
-        if ((bool) \_PhpScoper567b66d83109\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern)) {
+        if ((bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern)) {
             return \true;
         }
         // @see https://regex101.com/r/VgvK8C/5/
         $quotedArrayPattern = \sprintf('#%s=\\{"(.*)"\\}|\\{"(.*)"\\}#', $escapedKey);
-        return (bool) \_PhpScoper567b66d83109\Nette\Utils\Strings::match($originalContent, $quotedArrayPattern);
+        return (bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match($originalContent, $quotedArrayPattern);
     }
     private function resolveArraySeparatorSign(string $originalContent, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : string
     {
-        $hasArrayColonSeparator = (bool) \_PhpScoper567b66d83109\Nette\Utils\Strings::match($originalContent, self::ARRAY_COLON_SEPARATOR_REGEX);
+        $hasArrayColonSeparator = (bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match($originalContent, self::ARRAY_COLON_SEPARATOR_REGEX);
         if ($hasArrayColonSeparator) {
             return ':';
         }

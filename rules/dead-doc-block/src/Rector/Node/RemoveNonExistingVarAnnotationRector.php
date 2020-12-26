@@ -3,7 +3,9 @@
 declare (strict_types=1);
 namespace Rector\DeadDocBlock\Rector\Node;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use PhpParser\Comment;
+use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignRef;
@@ -84,8 +86,15 @@ CODE_SAMPLE
         }
         $nodeContentWithoutPhpDoc = $this->printWithoutComments($node);
         // it's there
-        if (\_PhpScoper567b66d83109\Nette\Utils\Strings::match($nodeContentWithoutPhpDoc, '#' . \preg_quote($variableName, '#') . '\\b#')) {
+        if (\RectorPrefix2020DecSat\Nette\Utils\Strings::match($nodeContentWithoutPhpDoc, '#' . \preg_quote($variableName, '#') . '\\b#')) {
             return null;
+        }
+        $comments = $node->getComments();
+        if (isset($comments[1]) && $comments[1] instanceof \PhpParser\Comment) {
+            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
+            $node->setDocComment(new \PhpParser\Comment\Doc($comments[1]->getText()));
+            $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, null);
+            return $node;
         }
         $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
         return $node;

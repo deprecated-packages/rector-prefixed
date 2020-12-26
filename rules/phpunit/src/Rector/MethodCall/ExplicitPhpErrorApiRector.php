@@ -20,7 +20,7 @@ final class ExplicitPhpErrorApiRector extends \Rector\Core\Rector\AbstractPHPUni
     /**
      * @var array<string, string>
      */
-    private const REPLACEMENTS = ['_PhpScoper567b66d83109\\PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', '_PhpScoper567b66d83109\\PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', '_PhpScoper567b66d83109\\PHPUnit\\Framework\\TestCase\\Error' => 'expectError', '_PhpScoper567b66d83109\\PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
+    private const REPLACEMENTS = ['RectorPrefix2020DecSat\\PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', 'RectorPrefix2020DecSat\\PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', 'RectorPrefix2020DecSat\\PHPUnit\\Framework\\TestCase\\Error' => 'expectError', 'RectorPrefix2020DecSat\\PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use explicit API for expecting PHP errors, warnings, and notices', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'

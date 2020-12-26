@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Compiler;
+namespace RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler;
 
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\ContainerBuilder;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Definition;
-use _PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Reference;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition;
+use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Reference;
 /**
  * Propagate "container.hot_path" tags to referenced services.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveHotPathPass extends \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveHotPathPass extends \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $tagName;
     private $resolvedIds = [];
@@ -30,7 +30,7 @@ class ResolveHotPathPass extends \_PhpScoper567b66d83109\Symfony\Component\Depen
     /**
      * {@inheritdoc}
      */
-    public function process(\_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         try {
             parent::process($container);
@@ -44,10 +44,10 @@ class ResolveHotPathPass extends \_PhpScoper567b66d83109\Symfony\Component\Depen
      */
     protected function processValue($value, bool $isRoot = \false)
     {
-        if ($value instanceof \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
+        if ($value instanceof \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             return $value;
         }
-        if ($value instanceof \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Definition && $isRoot) {
+        if ($value instanceof \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition && $isRoot) {
             if ($value->isDeprecated()) {
                 return $value->clearTag($this->tagName);
             }
@@ -56,7 +56,7 @@ class ResolveHotPathPass extends \_PhpScoper567b66d83109\Symfony\Component\Depen
                 return $value;
             }
         }
-        if ($value instanceof \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\Reference && \_PhpScoper567b66d83109\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior() && $this->container->hasDefinition($id = (string) $value)) {
+        if ($value instanceof \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Reference && \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior() && $this->container->hasDefinition($id = (string) $value)) {
             $definition = $this->container->getDefinition($id);
             if ($definition->isDeprecated() || $definition->hasTag($this->tagName)) {
                 return $value;

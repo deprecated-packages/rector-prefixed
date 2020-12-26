@@ -20,6 +20,6 @@ final class GetSubscribedEventsClassMethodProvider
      */
     public function provide() : array
     {
-        return $this->nodeRepository->findClassMethodByTypeAndMethod('_PhpScoper567b66d83109\\Kdyby\\Events\\Subscriber', 'getSubscribedEvents');
+        return $this->nodeRepository->findClassMethodByTypeAndMethod('RectorPrefix2020DecSat\\Kdyby\\Events\\Subscriber', 'getSubscribedEvents');
     }
 }

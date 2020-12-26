@@ -28,7 +28,7 @@ class MockObjectTypeNodeResolverExtension implements \PHPStan\PhpDoc\TypeNodeRes
         if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
             return null;
         }
-        static $mockClassNames = ['PHPUnit_Framework_MockObject_MockObject' => \true, '_PhpScoper567b66d83109\\PHPUnit\\Framework\\MockObject\\MockObject' => \true];
+        static $mockClassNames = ['PHPUnit_Framework_MockObject_MockObject' => \true, 'RectorPrefix2020DecSat\\PHPUnit\\Framework\\MockObject\\MockObject' => \true];
         $types = $this->typeNodeResolver->resolveMultiple($typeNode->types, $nameScope);
         foreach ($types as $type) {
             if (!$type instanceof \PHPStan\Type\TypeWithClassName) {

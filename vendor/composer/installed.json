@@ -38,7 +38,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\PackageVersions\\": "src\/PackageVersions"
+                    "RectorPrefix2020DecSat\\PackageVersions\\": "src\/PackageVersions"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -103,7 +103,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Composer\\XdebugHandler\\": "src"
+                    "RectorPrefix2020DecSat\\Composer\\XdebugHandler\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -178,7 +178,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
+                    "RectorPrefix2020DecSat\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -255,7 +255,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Doctrine\\Inflector\\": "lib\/Doctrine\/Inflector"
+                    "RectorPrefix2020DecSat\\Doctrine\\Inflector\\": "lib\/Doctrine\/Inflector"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -351,7 +351,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
+                    "RectorPrefix2020DecSat\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -433,7 +433,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Jean85\\": "src\/"
+                    "RectorPrefix2020DecSat\\Jean85\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1017,7 +1017,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Psr\\Cache\\": "src\/"
+                    "RectorPrefix2020DecSat\\Psr\\Cache\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1069,7 +1069,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Psr\\Container\\": "src\/"
+                    "RectorPrefix2020DecSat\\Psr\\Container\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1125,7 +1125,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Psr\\EventDispatcher\\": "src\/"
+                    "RectorPrefix2020DecSat\\Psr\\EventDispatcher\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1178,7 +1178,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Psr\\Log\\": "Psr\/Log\/"
+                    "RectorPrefix2020DecSat\\Psr\\Log\\": "Psr\/Log\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1231,7 +1231,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Psr\\SimpleCache\\": "src\/"
+                    "RectorPrefix2020DecSat\\Psr\\SimpleCache\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1379,7 +1379,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\Cache\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\Cache\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1460,7 +1460,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Contracts\\Cache\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Contracts\\Cache\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1546,7 +1546,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\Config\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\Config\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1640,7 +1640,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\Console\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\Console\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1736,7 +1736,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\DependencyInjection\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\DependencyInjection\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1878,7 +1878,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\ErrorHandler\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\ErrorHandler\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1966,7 +1966,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\EventDispatcher\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\EventDispatcher\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2043,7 +2043,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Contracts\\EventDispatcher\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Contracts\\EventDispatcher\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2113,7 +2113,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\Filesystem\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\Filesystem\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2177,7 +2177,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\Finder\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\Finder\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2254,7 +2254,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Contracts\\HttpClient\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Contracts\\HttpClient\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2335,7 +2335,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\HttpFoundation\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\HttpFoundation\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2450,7 +2450,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\HttpKernel\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\HttpKernel\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2526,7 +2526,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Polyfill\\Ctype\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Polyfill\\Ctype\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2608,7 +2608,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2692,7 +2692,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2779,7 +2779,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Polyfill\\Mbstring\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Polyfill\\Mbstring\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2859,7 +2859,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Polyfill\\Php73\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Polyfill\\Php73\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2941,7 +2941,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Polyfill\\Php80\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Polyfill\\Php80\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -3031,7 +3031,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Contracts\\Service\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Contracts\\Service\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3111,7 +3111,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\String\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\String\\": ""
                 },
                 "files": [
                     "Resources\/functions.php"
@@ -3209,7 +3209,7 @@
                     "Resources\/functions\/dump.php"
                 ],
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\VarDumper\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\VarDumper\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3281,7 +3281,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\VarExporter\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\VarExporter\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3367,7 +3367,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Symfony\\Component\\Yaml\\": ""
+                    "RectorPrefix2020DecSat\\Symfony\\Component\\Yaml\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -4264,7 +4264,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "_PhpScoper567b66d83109\\Webmozart\\Assert\\": "src\/"
+                    "RectorPrefix2020DecSat\\Webmozart\\Assert\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",

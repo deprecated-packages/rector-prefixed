@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\PhpSpecToPHPUnit\Tests\Rector\FileNode\RenameSpecFileToTestFileRector;
 
 use Iterator;
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use Rector\FileSystemRector\Contract\MovedFileInterface;
 use Rector\PhpSpecToPHPUnit\Rector\FileNode\RenameSpecFileToTestFileRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
@@ -20,7 +20,7 @@ final class RenameSpecFileToTestFileRectorTest extends \Rector\Testing\PHPUnit\A
         // test file is moved
         $movedFile = $this->matchMovedFile($this->originalTempFileInfo);
         $this->assertInstanceOf(\Rector\FileSystemRector\Contract\MovedFileInterface::class, $movedFile);
-        $this->assertTrue(\_PhpScoper567b66d83109\Nette\Utils\Strings::endsWith($movedFile->getNewPathname(), 'Test.php'));
+        $this->assertTrue(\RectorPrefix2020DecSat\Nette\Utils\Strings::endsWith($movedFile->getNewPathname(), 'Test.php'));
     }
     public function provideData() : \Iterator
     {

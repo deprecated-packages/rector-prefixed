@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper567b66d83109\\Symfony\\Component\\Finder\\": ""
+            "RectorPrefix2020DecSat\\Symfony\\Component\\Finder\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

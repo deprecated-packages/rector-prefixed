@@ -32,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper567b66d83109\\Jean85\\": "src\/"
+            "RectorPrefix2020DecSat\\Jean85\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "_PhpScoper567b66d83109\\Tests\\": "tests"
+            "RectorPrefix2020DecSat\\Tests\\": "tests"
         }
     }
 }

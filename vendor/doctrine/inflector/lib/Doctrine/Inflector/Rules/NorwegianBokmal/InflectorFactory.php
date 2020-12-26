@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal;
+namespace RectorPrefix2020DecSat\Doctrine\Inflector\Rules\NorwegianBokmal;
 
-use _PhpScoper567b66d83109\Doctrine\Inflector\GenericLanguageInflectorFactory;
-use _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Ruleset;
-final class InflectorFactory extends \_PhpScoper567b66d83109\Doctrine\Inflector\GenericLanguageInflectorFactory
+use RectorPrefix2020DecSat\Doctrine\Inflector\GenericLanguageInflectorFactory;
+use RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Ruleset;
+final class InflectorFactory extends \RectorPrefix2020DecSat\Doctrine\Inflector\GenericLanguageInflectorFactory
 {
-    protected function getSingularRuleset() : \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Ruleset
+    protected function getSingularRuleset() : \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Ruleset
     {
-        return \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal\Rules::getSingularRuleset();
+        return \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\NorwegianBokmal\Rules::getSingularRuleset();
     }
-    protected function getPluralRuleset() : \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Ruleset
+    protected function getPluralRuleset() : \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Ruleset
     {
-        return \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\NorwegianBokmal\Rules::getPluralRuleset();
+        return \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\NorwegianBokmal\Rules::getPluralRuleset();
     }
 }

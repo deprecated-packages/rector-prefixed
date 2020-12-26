@@ -6,7 +6,7 @@ namespace Rector\Core\NonPhpFile;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\PSR4\Collector\RenamedClassesCollector;
-use _PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 /**
@@ -38,7 +38,7 @@ final class NonPhpFileProcessor
      * @var NonPhpFileClassRenamer
      */
     private $nonPhpFileClassRenamer;
-    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Core\Configuration\Configuration $configuration, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \_PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer)
+    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Core\Configuration\Configuration $configuration, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer)
     {
         $this->configuration = $configuration;
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;

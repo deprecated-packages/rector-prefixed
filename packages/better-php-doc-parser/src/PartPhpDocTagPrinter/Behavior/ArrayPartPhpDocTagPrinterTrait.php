@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PartPhpDocTagPrinter\Behavior;
 
-use _PhpScoper567b66d83109\Nette\Utils\Json;
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Json;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 /**
  * @see \Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\ArrayPartPhpDocTagPrinterTest
@@ -16,20 +16,20 @@ trait ArrayPartPhpDocTagPrinterTrait
      */
     public function printArrayItem(array $item, ?string $key, \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : string
     {
-        $content = \_PhpScoper567b66d83109\Nette\Utils\Json::encode($item);
+        $content = \RectorPrefix2020DecSat\Nette\Utils\Json::encode($item);
         // separate by space only items separated by comma, not in "quotes"
-        $content = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($content, '#,#', ', ');
+        $content = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, '#,#', ', ');
         // @see https://regex101.com/r/C2fDQp/2
-        $content = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($content, '#("[^",]+)(\\s+)?,(\\s+)?([^"]+")#', '$1,$4');
+        $content = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, '#("[^",]+)(\\s+)?,(\\s+)?([^"]+")#', '$1,$4');
         // change brackets from content to annotations
-        $content = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($content, '#^\\[(.*?)\\]$#', '{$1}');
+        $content = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, '#^\\[(.*?)\\]$#', '{$1}');
         // cleanup content encoded extra slashes
-        $content = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($content, '#\\\\\\\\#', '\\');
+        $content = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, '#\\\\\\\\#', '\\');
         $content = $this->replaceColonWithEqualInSymfonyAndDoctrine($content, $tagValueNodeConfiguration);
         $keyPart = $this->createKeyPart($key, $tagValueNodeConfiguration);
         // should unquote
         if ($this->isValueWithoutQuotes($key, $tagValueNodeConfiguration)) {
-            $content = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($content, '#"#', '');
+            $content = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, '#"#', '');
         }
         if ($tagValueNodeConfiguration->getOriginalContent() !== null && $key !== null) {
             $content = $this->quoteKeys($item, $key, $content, $tagValueNodeConfiguration->getOriginalContent());
@@ -50,7 +50,7 @@ trait ArrayPartPhpDocTagPrinterTrait
      */
     private function replaceColonWithEqualInSymfonyAndDoctrine(string $content, \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : string
     {
-        return \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($content, '#(\\"|\\w)\\:(\\"|\\w)#', '$1' . $tagValueNodeConfiguration->getArrayEqualSign() . '$2');
+        return \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, '#(\\"|\\w)\\:(\\"|\\w)#', '$1' . $tagValueNodeConfiguration->getArrayEqualSign() . '$2');
     }
     private function createKeyPart(?string $key, \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : string
     {
@@ -80,11 +80,11 @@ trait ArrayPartPhpDocTagPrinterTrait
         foreach (\array_keys($item) as $itemKey) {
             // @see https://regex101.com/r/V7nq5D/1
             $quotedKeyPattern = '#' . $key . '={(.*?)?\\"' . $itemKey . '\\"(=|:)(.*?)?}#';
-            $isKeyQuoted = (bool) \_PhpScoper567b66d83109\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern);
+            $isKeyQuoted = (bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match($originalContent, $quotedKeyPattern);
             if (!$isKeyQuoted) {
                 continue;
             }
-            $json = \_PhpScoper567b66d83109\Nette\Utils\Strings::replace($json, '#([^\\"])' . $itemKey . '([^\\"])#', '$1"' . $itemKey . '"$2');
+            $json = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($json, '#([^\\"])' . $itemKey . '([^\\"])#', '$1"' . $itemKey . '"$2');
         }
         return $json;
     }

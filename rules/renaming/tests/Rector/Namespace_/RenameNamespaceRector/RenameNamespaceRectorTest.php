@@ -25,6 +25,6 @@ final class RenameNamespaceRectorTest extends \Rector\Testing\PHPUnit\AbstractRe
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::class => [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => ['OldNamespace' => 'NewNamespace', '_PhpScoper567b66d83109\\OldNamespaceWith\\OldSplitNamespace' => '_PhpScoper567b66d83109\\NewNamespaceWith\\NewSplitNamespace', '_PhpScoper567b66d83109\\Old\\Long\\AnyNamespace' => '_PhpScoper567b66d83109\\Short\\AnyNamespace', 'PHPUnit_Framework_' => 'PHPUnit\\Framework\\']]];
+        return [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::class => [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => ['OldNamespace' => 'NewNamespace', 'RectorPrefix2020DecSat\\OldNamespaceWith\\OldSplitNamespace' => 'RectorPrefix2020DecSat\\NewNamespaceWith\\NewSplitNamespace', 'RectorPrefix2020DecSat\\Old\\Long\\AnyNamespace' => 'RectorPrefix2020DecSat\\Short\\AnyNamespace', 'PHPUnit_Framework_' => 'PHPUnit\\Framework\\']]];
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\TestClassResolver;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\Class_;
 use Rector\NodeNameResolver\NodeNameResolver;
 /**
@@ -42,7 +42,7 @@ final class TestClassResolver
         \sort($classNamespaceParts);
         foreach ($phpUnitTestCaseClasses as $phpUnitTestCaseClass) {
             // 1. is short class match
-            if (!\_PhpScoper567b66d83109\Nette\Utils\Strings::endsWith($phpUnitTestCaseClass, '\\' . $testShortClassName)) {
+            if (!\RectorPrefix2020DecSat\Nette\Utils\Strings::endsWith($phpUnitTestCaseClass, '\\' . $testShortClassName)) {
                 continue;
             }
             // 2. is namespace match
@@ -70,14 +70,14 @@ final class TestClassResolver
     }
     private function resolveShortClassName(string $className) : ?string
     {
-        return \_PhpScoper567b66d83109\Nette\Utils\Strings::after($className, '\\', -1);
+        return \RectorPrefix2020DecSat\Nette\Utils\Strings::after($className, '\\', -1);
     }
     /**
      * @return string[]
      */
     private function resolveNamespaceParts(string $className) : array
     {
-        $namespacePart = (string) \_PhpScoper567b66d83109\Nette\Utils\Strings::before($className, '\\', -1);
+        $namespacePart = (string) \RectorPrefix2020DecSat\Nette\Utils\Strings::before($className, '\\', -1);
         return \explode('\\', $namespacePart);
     }
 }

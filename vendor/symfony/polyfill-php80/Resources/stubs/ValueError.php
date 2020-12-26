@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper567b66d83109;
+namespace RectorPrefix2020DecSat;
 
 class ValueError extends \Error
 {
 }
-\class_alias('_PhpScoper567b66d83109\\ValueError', 'ValueError', \false);
+\class_alias('RectorPrefix2020DecSat\\ValueError', 'ValueError', \false);

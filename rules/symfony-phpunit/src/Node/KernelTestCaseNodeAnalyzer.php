@@ -48,6 +48,6 @@ final class KernelTestCaseNodeAnalyzer
         if (!$this->nodeNameResolver->isName($node->name, 'get')) {
             return \false;
         }
-        return $this->nodeTypeResolver->isObjectType($node->var, '_PhpScoper567b66d83109\\Symfony\\Component\\DependencyInjection\\ContainerInterface');
+        return $this->nodeTypeResolver->isObjectType($node->var, 'RectorPrefix2020DecSat\\Symfony\\Component\\DependencyInjection\\ContainerInterface');
     }
 }

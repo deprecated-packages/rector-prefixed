@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\HttpKernel\EventListener;
+namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel\EventListener;
 
-use _PhpScoper567b66d83109\Psr\Container\ContainerInterface;
-use _PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use _PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Session\Session;
-use _PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Session\SessionInterface;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\RequestEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents;
+use RectorPrefix2020DecSat\Psr\Container\ContainerInterface;
+use RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Session\Session;
+use RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\RequestEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Sets the session onto the request on the "kernel.request" event and saves
  * it on the "kernel.response" event.
@@ -34,18 +34,18 @@ use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @internal
  */
-abstract class AbstractSessionListener implements \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface
+abstract class AbstractSessionListener implements \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     public const NO_AUTO_CACHE_CONTROL_HEADER = 'Symfony-Session-NoAutoCacheControl';
     protected $container;
     private $sessionUsageStack = [];
     private $debug;
-    public function __construct(\_PhpScoper567b66d83109\Psr\Container\ContainerInterface $container = null, bool $debug = \false)
+    public function __construct(\RectorPrefix2020DecSat\Psr\Container\ContainerInterface $container = null, bool $debug = \false)
     {
         $this->container = $container;
         $this->debug = $debug;
     }
-    public function onKernelRequest(\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    public function onKernelRequest(\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -59,9 +59,9 @@ abstract class AbstractSessionListener implements \_PhpScoper567b66d83109\Symfon
             });
         }
         $session = $session ?? ($this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null);
-        $this->sessionUsageStack[] = $session instanceof \_PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() : 0;
+        $this->sessionUsageStack[] = $session instanceof \RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() : 0;
     }
-    public function onKernelResponse(\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onKernelResponse(\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -101,7 +101,7 @@ abstract class AbstractSessionListener implements \_PhpScoper567b66d83109\Symfon
              */
             $session->save();
         }
-        if ($session instanceof \_PhpScoper567b66d83109\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() === \end($this->sessionUsageStack) : !$session->isStarted()) {
+        if ($session instanceof \RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() === \end($this->sessionUsageStack) : !$session->isStarted()) {
             return;
         }
         if ($autoCacheControl) {
@@ -111,13 +111,13 @@ abstract class AbstractSessionListener implements \_PhpScoper567b66d83109\Symfon
             return;
         }
         if ($this->debug) {
-            throw new \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
+            throw new \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
         }
         if ($this->container->has('logger')) {
             $this->container->get('logger')->warning('Session was used while the request was declared stateless.');
         }
     }
-    public function onFinishRequest(\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
+    public function onFinishRequest(\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
     {
         if ($event->isMasterRequest()) {
             \array_pop($this->sessionUsageStack);
@@ -148,15 +148,15 @@ abstract class AbstractSessionListener implements \_PhpScoper567b66d83109\Symfon
         if ($session->isStarted()) {
             $session->save();
         }
-        throw new \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
+        throw new \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
     }
     public static function getSubscribedEvents() : array
     {
         return [
-            \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 128],
+            \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 128],
             // low priority to come after regular response listeners, but higher than StreamedResponseListener
-            \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onKernelResponse', -1000],
-            \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => ['onFinishRequest'],
+            \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onKernelResponse', -1000],
+            \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => ['onFinishRequest'],
         ];
     }
     /**

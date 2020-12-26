@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use ReflectionClass;
@@ -41,6 +41,6 @@ final class StaticAnalyzer
     }
     private function hasStaticAnnotation(string $methodName, \ReflectionClass $reflectionClass) : bool
     {
-        return (bool) \_PhpScoper567b66d83109\Nette\Utils\Strings::match((string) $reflectionClass->getDocComment(), '#@method\\s*static\\s*(.*?)\\b' . $methodName . '\\b#');
+        return (bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match((string) $reflectionClass->getDocComment(), '#@method\\s*static\\s*(.*?)\\b' . $methodName . '\\b#');
     }
 }

@@ -68,7 +68,7 @@ CODE_SAMPLE
         if ($originalNode === null) {
             return \true;
         }
-        if (!$this->isObjectType($methodCall->var, '_PhpScoper567b66d83109\\Symfony\\Component\\Form\\Form')) {
+        if (!$this->isObjectType($methodCall->var, 'RectorPrefix2020DecSat\\Symfony\\Component\\Form\\Form')) {
             return \true;
         }
         if (!$this->isName($methodCall->name, 'isValid')) {

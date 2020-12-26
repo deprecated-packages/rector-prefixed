@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Spanish;
+namespace RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Spanish;
 
-use _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern;
-use _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Substitution;
-use _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation;
-use _PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word;
+use RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern;
+use RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Substitution;
+use RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation;
+use RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word;
 class Inflectible
 {
     /**
@@ -14,36 +14,36 @@ class Inflectible
      */
     public static function getSingular() : iterable
     {
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/ereses$/'), 'erés'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/iones$/'), 'ión'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/ces$/'), 'z'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/es$/'), ''));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/s$/'), ''));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/ereses$/'), 'erés'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/iones$/'), 'ión'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/ces$/'), 'z'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/es$/'), ''));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/s$/'), ''));
     }
     /**
      * @return Transformation[]
      */
     public static function getPlural() : iterable
     {
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/ú([sn])$/i'), '_PhpScoper567b66d83109\\u\\1es'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/ó([sn])$/i'), '_PhpScoper567b66d83109\\o\\1es'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/í([sn])$/i'), '_PhpScoper567b66d83109\\i\\1es'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/é([sn])$/i'), '_PhpScoper567b66d83109\\e\\1es'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/á([sn])$/i'), '_PhpScoper567b66d83109\\a\\1es'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/z$/i'), 'ces'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/([aeiou]s)$/i'), '\\1'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/([^aeéiou])$/i'), '\\1es'));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Transformation(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Pattern('/$/'), 's'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/ú([sn])$/i'), 'RectorPrefix2020DecSat\\u\\1es'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/ó([sn])$/i'), 'RectorPrefix2020DecSat\\o\\1es'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/í([sn])$/i'), 'RectorPrefix2020DecSat\\i\\1es'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/é([sn])$/i'), 'RectorPrefix2020DecSat\\e\\1es'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/á([sn])$/i'), 'RectorPrefix2020DecSat\\a\\1es'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/z$/i'), 'ces'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/([aeiou]s)$/i'), '\\1'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/([^aeéiou])$/i'), '\\1es'));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Transformation(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('/$/'), 's'));
     }
     /**
      * @return Substitution[]
      */
     public static function getIrregular() : iterable
     {
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Substitution(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('el'), new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('los')));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Substitution(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('papá'), new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('papás')));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Substitution(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('mamá'), new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('mamás')));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Substitution(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('sofá'), new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('sofás')));
-        (yield new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Substitution(new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('mes'), new \_PhpScoper567b66d83109\Doctrine\Inflector\Rules\Word('meses')));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('el'), new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('los')));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('papá'), new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('papás')));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('mamá'), new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('mamás')));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('sofá'), new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('sofás')));
+        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Substitution(new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('mes'), new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Word('meses')));
     }
 }

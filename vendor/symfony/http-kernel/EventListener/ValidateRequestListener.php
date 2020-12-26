@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\HttpKernel\EventListener;
+namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel\EventListener;
 
-use _PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\RequestEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents;
+use RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\RequestEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Validates Requests.
  *
@@ -20,12 +20,12 @@ use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class ValidateRequestListener implements \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ValidateRequestListener implements \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     /**
      * Performs the validation.
      */
-    public function onKernelRequest(\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    public function onKernelRequest(\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -41,6 +41,6 @@ class ValidateRequestListener implements \_PhpScoper567b66d83109\Symfony\Compone
      */
     public static function getSubscribedEvents() : array
     {
-        return [\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 256]]];
+        return [\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 256]]];
     }
 }

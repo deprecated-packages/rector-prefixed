@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "_PhpScoper567b66d83109\\Psr\\Cache\\": "src\/"
+            "RectorPrefix2020DecSat\\Psr\\Cache\\": "src\/"
         }
     },
     "extra": {

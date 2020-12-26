@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\HttpKernel\EventListener;
+namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel\EventListener;
 
-use _PhpScoper567b66d83109\Psr\Log\LoggerInterface;
-use _PhpScoper567b66d83109\Symfony\Component\Console\ConsoleEvents;
-use _PhpScoper567b66d83109\Symfony\Component\Console\Event\ConsoleEvent;
-use _PhpScoper567b66d83109\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use _PhpScoper567b66d83109\Symfony\Component\ErrorHandler\ErrorHandler;
-use _PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\KernelEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents;
+use RectorPrefix2020DecSat\Psr\Log\LoggerInterface;
+use RectorPrefix2020DecSat\Symfony\Component\Console\ConsoleEvents;
+use RectorPrefix2020DecSat\Symfony\Component\Console\Event\ConsoleEvent;
+use RectorPrefix2020DecSat\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use RectorPrefix2020DecSat\Symfony\Component\ErrorHandler\ErrorHandler;
+use RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\KernelEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Configures errors and exceptions handlers.
  *
@@ -26,7 +26,7 @@ use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class DebugHandlersListener implements \_PhpScoper567b66d83109\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class DebugHandlersListener implements \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $exceptionHandler;
     private $logger;
@@ -46,7 +46,7 @@ class DebugHandlersListener implements \_PhpScoper567b66d83109\Symfony\Component
      * @param string|FileLinkFormatter|null $fileLinkFormat   The format for links to source files
      * @param bool                          $scope            Enables/disables scoping mode
      */
-    public function __construct(callable $exceptionHandler = null, \_PhpScoper567b66d83109\Psr\Log\LoggerInterface $logger = null, $levels = \E_ALL, ?int $throwAt = \E_ALL, bool $scream = \true, $fileLinkFormat = null, bool $scope = \true, \_PhpScoper567b66d83109\Psr\Log\LoggerInterface $deprecationLogger = null)
+    public function __construct(callable $exceptionHandler = null, \RectorPrefix2020DecSat\Psr\Log\LoggerInterface $logger = null, $levels = \E_ALL, ?int $throwAt = \E_ALL, bool $scream = \true, $fileLinkFormat = null, bool $scope = \true, \RectorPrefix2020DecSat\Psr\Log\LoggerInterface $deprecationLogger = null)
     {
         $this->exceptionHandler = $exceptionHandler;
         $this->logger = $logger;
@@ -62,17 +62,17 @@ class DebugHandlersListener implements \_PhpScoper567b66d83109\Symfony\Component
      */
     public function configure(object $event = null)
     {
-        if ($event instanceof \_PhpScoper567b66d83109\Symfony\Component\Console\Event\ConsoleEvent && !\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true)) {
+        if ($event instanceof \RectorPrefix2020DecSat\Symfony\Component\Console\Event\ConsoleEvent && !\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true)) {
             return;
         }
-        if (!$event instanceof \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\KernelEvent ? !$this->firstCall : !$event->isMasterRequest()) {
+        if (!$event instanceof \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\KernelEvent ? !$this->firstCall : !$event->isMasterRequest()) {
             return;
         }
         $this->firstCall = $this->hasTerminatedWithException = \false;
         $handler = \set_exception_handler('var_dump');
         $handler = \is_array($handler) ? $handler[0] : null;
         \restore_exception_handler();
-        if ($handler instanceof \_PhpScoper567b66d83109\Symfony\Component\ErrorHandler\ErrorHandler) {
+        if ($handler instanceof \RectorPrefix2020DecSat\Symfony\Component\ErrorHandler\ErrorHandler) {
             if ($this->logger || $this->deprecationLogger) {
                 $this->setDefaultLoggers($handler);
                 if (\is_array($this->levels)) {
@@ -98,7 +98,7 @@ class DebugHandlersListener implements \_PhpScoper567b66d83109\Symfony\Component
             }
         }
         if (!$this->exceptionHandler) {
-            if ($event instanceof \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\KernelEvent) {
+            if ($event instanceof \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\KernelEvent) {
                 if (\method_exists($kernel = $event->getKernel(), 'terminateWithException')) {
                     $request = $event->getRequest();
                     $hasRun =& $this->hasTerminatedWithException;
@@ -110,9 +110,9 @@ class DebugHandlersListener implements \_PhpScoper567b66d83109\Symfony\Component
                         $kernel->terminateWithException($e, $request);
                     };
                 }
-            } elseif ($event instanceof \_PhpScoper567b66d83109\Symfony\Component\Console\Event\ConsoleEvent && ($app = $event->getCommand()->getApplication())) {
+            } elseif ($event instanceof \RectorPrefix2020DecSat\Symfony\Component\Console\Event\ConsoleEvent && ($app = $event->getCommand()->getApplication())) {
                 $output = $event->getOutput();
-                if ($output instanceof \_PhpScoper567b66d83109\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+                if ($output instanceof \RectorPrefix2020DecSat\Symfony\Component\Console\Output\ConsoleOutputInterface) {
                     $output = $output->getErrorOutput();
                 }
                 $this->exceptionHandler = static function (\Throwable $e) use($app, $output) {
@@ -121,13 +121,13 @@ class DebugHandlersListener implements \_PhpScoper567b66d83109\Symfony\Component
             }
         }
         if ($this->exceptionHandler) {
-            if ($handler instanceof \_PhpScoper567b66d83109\Symfony\Component\ErrorHandler\ErrorHandler) {
+            if ($handler instanceof \RectorPrefix2020DecSat\Symfony\Component\ErrorHandler\ErrorHandler) {
                 $handler->setExceptionHandler($this->exceptionHandler);
             }
             $this->exceptionHandler = null;
         }
     }
-    private function setDefaultLoggers(\_PhpScoper567b66d83109\Symfony\Component\ErrorHandler\ErrorHandler $handler) : void
+    private function setDefaultLoggers(\RectorPrefix2020DecSat\Symfony\Component\ErrorHandler\ErrorHandler $handler) : void
     {
         if (\is_array($this->levels)) {
             $levelsDeprecatedOnly = [];
@@ -154,9 +154,9 @@ class DebugHandlersListener implements \_PhpScoper567b66d83109\Symfony\Component
     }
     public static function getSubscribedEvents() : array
     {
-        $events = [\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['configure', 2048]];
+        $events = [\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['configure', 2048]];
         if (\defined('Symfony\\Component\\Console\\ConsoleEvents::COMMAND')) {
-            $events[\_PhpScoper567b66d83109\Symfony\Component\Console\ConsoleEvents::COMMAND] = ['configure', 2048];
+            $events[\RectorPrefix2020DecSat\Symfony\Component\Console\ConsoleEvents::COMMAND] = ['configure', 2048];
         }
         return $events;
     }

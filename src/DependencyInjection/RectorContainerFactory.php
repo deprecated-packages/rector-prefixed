@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\DependencyInjection;
 
-use _PhpScoper567b66d83109\Psr\Container\ContainerInterface;
+use RectorPrefix2020DecSat\Psr\Container\ContainerInterface;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\Stubs\StubLoader;
 use Symplify\PackageBuilder\Console\Input\StaticInputDetector;
@@ -14,7 +14,7 @@ final class RectorContainerFactory
      * @param SmartFileInfo[] $configFileInfos
      * @api
      */
-    public function createFromConfigs(array $configFileInfos) : \_PhpScoper567b66d83109\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFileInfos) : \RectorPrefix2020DecSat\Psr\Container\ContainerInterface
     {
         // to override the configs without clearing cache
         $environment = 'prod' . \random_int(1, 10000000);

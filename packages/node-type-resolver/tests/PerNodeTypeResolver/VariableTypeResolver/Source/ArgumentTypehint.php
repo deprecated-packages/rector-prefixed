@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper567b66d83109\SomeNamespace;
+namespace RectorPrefix2020DecSat\SomeNamespace;
 
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\AnotherType;
 \array_map(function (\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\AnotherType $useUse) {

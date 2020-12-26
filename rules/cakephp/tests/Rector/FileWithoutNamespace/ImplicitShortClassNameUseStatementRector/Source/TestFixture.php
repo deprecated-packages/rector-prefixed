@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper567b66d83109;
+namespace RectorPrefix2020DecSat;
 
 class TestFixture
 {
 }
-\class_alias('_PhpScoper567b66d83109\\TestFixture', 'TestFixture', \false);
+\class_alias('RectorPrefix2020DecSat\\TestFixture', 'TestFixture', \false);

@@ -48,7 +48,7 @@ class SomeClass
     use Nette\SmartObject;
 }
 CODE_SAMPLE
-, [self::PARENT_CLASS_TO_TRAITS => ['_PhpScoper567b66d83109\\Nette\\Object' => ['_PhpScoper567b66d83109\\Nette\\SmartObject']]])]);
+, [self::PARENT_CLASS_TO_TRAITS => ['RectorPrefix2020DecSat\\Nette\\Object' => ['RectorPrefix2020DecSat\\Nette\\SmartObject']]])]);
     }
     /**
      * @return string[]

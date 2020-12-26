@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper567b66d83109;
+namespace RectorPrefix2020DecSat;
 
 abstract class PHPUnit_Framework_TestCase
 {
 }
-\class_alias('_PhpScoper567b66d83109\\PHPUnit_Framework_TestCase', 'PHPUnit_Framework_TestCase', \false);
+\class_alias('RectorPrefix2020DecSat\\PHPUnit_Framework_TestCase', 'PHPUnit_Framework_TestCase', \false);

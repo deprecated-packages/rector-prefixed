@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _PhpScoper567b66d83109;
+namespace RectorPrefix2020DecSat;
 
 final class Twig_Extension_Sandbox
 {
 }
-\class_alias('_PhpScoper567b66d83109\\Twig_Extension_Sandbox', 'Twig_Extension_Sandbox', \false);
+\class_alias('RectorPrefix2020DecSat\\Twig_Extension_Sandbox', 'Twig_Extension_Sandbox', \false);

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Uuid;
 
-use _PhpScoper567b66d83109\Nette\Utils\Strings;
+use RectorPrefix2020DecSat\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
@@ -35,9 +35,9 @@ final class JoinTableNameResolver
     }
     private function resolveShortClassName(string $currentClass) : string
     {
-        if (!\_PhpScoper567b66d83109\Nette\Utils\Strings::contains($currentClass, '\\')) {
+        if (!\RectorPrefix2020DecSat\Nette\Utils\Strings::contains($currentClass, '\\')) {
             return $currentClass;
         }
-        return (string) \_PhpScoper567b66d83109\Nette\Utils\Strings::after($currentClass, '\\', -1);
+        return (string) \RectorPrefix2020DecSat\Nette\Utils\Strings::after($currentClass, '\\', -1);
     }
 }

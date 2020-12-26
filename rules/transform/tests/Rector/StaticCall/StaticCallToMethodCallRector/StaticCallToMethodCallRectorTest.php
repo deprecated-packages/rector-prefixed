@@ -26,6 +26,6 @@ final class StaticCallToMethodCallRectorTest extends \Rector\Testing\PHPUnit\Abs
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class => [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper567b66d83109\\Nette\\Utils\\FileSystem', 'write', 'Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('_PhpScoper567b66d83109\\Illuminate\\Support\\Facades\\Response', '*', '_PhpScoper567b66d83109\\Illuminate\\Contracts\\Routing\\ResponseFactory', '*')]]];
+        return [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class => [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\StaticCallToMethodCall('RectorPrefix2020DecSat\\Nette\\Utils\\FileSystem', 'write', 'Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('RectorPrefix2020DecSat\\Illuminate\\Support\\Facades\\Response', '*', 'RectorPrefix2020DecSat\\Illuminate\\Contracts\\Routing\\ResponseFactory', '*')]]];
     }
 }

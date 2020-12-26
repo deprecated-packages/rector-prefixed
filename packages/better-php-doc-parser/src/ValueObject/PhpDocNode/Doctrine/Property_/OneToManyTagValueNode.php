@@ -40,6 +40,6 @@ final class OneToManyTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     }
     public function getShortName() : string
     {
-        return '_PhpScoper567b66d83109\\@ORM\\OneToMany';
+        return 'RectorPrefix2020DecSat\\@ORM\\OneToMany';
     }
 }

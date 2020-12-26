@@ -11,8 +11,8 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\PostRunnerInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use _PhpScoper567b66d83109\Symfony\Component\Console\Helper\ProgressBar;
-use _PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix2020DecSat\Symfony\Component\Console\Helper\ProgressBar;
+use RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
@@ -81,7 +81,7 @@ final class RectorApplication
     /**
      * @param PostRunnerInterface[] $postRunners
      */
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\Application\FileProcessor $fileProcessor, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \_PhpScoper567b66d83109\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, array $postRunners)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\Application\FileProcessor $fileProcessor, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, array $postRunners)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -210,7 +210,7 @@ final class RectorApplication
     {
         $this->symfonyStyle->progressStart($fileCount * self::PROGRESS_BAR_STEP_MULTIPLIER);
         $progressBar = $this->privatesAccessor->getPrivateProperty($this->symfonyStyle, 'progressBar');
-        if (!$progressBar instanceof \_PhpScoper567b66d83109\Symfony\Component\Console\Helper\ProgressBar) {
+        if (!$progressBar instanceof \RectorPrefix2020DecSat\Symfony\Component\Console\Helper\ProgressBar) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         if ($progressBar->getMaxSteps() < 40) {

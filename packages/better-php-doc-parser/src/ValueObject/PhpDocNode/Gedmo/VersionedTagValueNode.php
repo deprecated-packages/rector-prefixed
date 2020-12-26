@@ -9,6 +9,6 @@ final class VersionedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
 {
     public function getShortName() : string
     {
-        return '_PhpScoper567b66d83109\\@Gedmo\\Versioned';
+        return 'RectorPrefix2020DecSat\\@Gedmo\\Versioned';
     }
 }

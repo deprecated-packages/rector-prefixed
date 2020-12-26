@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _PhpScoper567b66d83109\Nette\Utils;
+namespace RectorPrefix2020DecSat\Nette\Utils;
 
-use _PhpScoper567b66d83109\Nette;
+use RectorPrefix2020DecSat\Nette;
 /**
  * PHP reflection helpers.
  */
@@ -92,9 +92,9 @@ final class Reflection
                 }
                 return $types;
             }
-            throw new \_PhpScoper567b66d83109\Nette\InvalidStateException('The ' . self::toString($reflection) . ' is not expected to have a union type.');
+            throw new \RectorPrefix2020DecSat\Nette\InvalidStateException('The ' . self::toString($reflection) . ' is not expected to have a union type.');
         } else {
-            throw new \_PhpScoper567b66d83109\Nette\InvalidStateException('Unexpected type of ' . self::toString($reflection));
+            throw new \RectorPrefix2020DecSat\Nette\InvalidStateException('Unexpected type of ' . self::toString($reflection));
         }
     }
     /**
@@ -198,7 +198,7 @@ final class Reflection
         } elseif ($ref instanceof \ReflectionParameter) {
             return '$' . $ref->name . ' in ' . self::toString($ref->getDeclaringFunction());
         } else {
-            throw new \_PhpScoper567b66d83109\Nette\InvalidArgumentException();
+            throw new \RectorPrefix2020DecSat\Nette\InvalidArgumentException();
         }
     }
     /**
@@ -210,7 +210,7 @@ final class Reflection
     {
         $lower = \strtolower($name);
         if (empty($name)) {
-            throw new \_PhpScoper567b66d83109\Nette\InvalidArgumentException('Class name must not be empty.');
+            throw new \RectorPrefix2020DecSat\Nette\InvalidArgumentException('Class name must not be empty.');
         } elseif (isset(self::BUILTIN_TYPES[$lower])) {
             return $lower;
         } elseif ($lower === 'self' || $lower === 'static') {
@@ -234,7 +234,7 @@ final class Reflection
     public static function getUseStatements(\ReflectionClass $class) : array
     {
         if ($class->isAnonymous()) {
-            throw new \_PhpScoper567b66d83109\Nette\NotImplementedException('Anonymous classes are not supported.');
+            throw new \RectorPrefix2020DecSat\Nette\NotImplementedException('Anonymous classes are not supported.');
         }
         static $cache = [];
         if (!isset($cache[$name = $class->name])) {

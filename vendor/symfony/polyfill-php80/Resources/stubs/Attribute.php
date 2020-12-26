@@ -1,6 +1,6 @@
 <?php
 
-namespace _PhpScoper567b66d83109;
+namespace RectorPrefix2020DecSat;
 
 #[Attribute(\Attribute::TARGET_CLASS)]
 final class Attribute
@@ -20,4 +20,4 @@ final class Attribute
         $this->flags = $flags;
     }
 }
-\class_alias('_PhpScoper567b66d83109\\Attribute', 'Attribute', \false);
+\class_alias('RectorPrefix2020DecSat\\Attribute', 'Attribute', \false);

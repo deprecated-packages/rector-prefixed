@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _PhpScoper567b66d83109\Symfony\Component\HttpKernel;
+namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel;
 
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ControllerEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\RequestEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\TerminateEvent;
-use _PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ViewEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ControllerEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\RequestEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\TerminateEvent;
+use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ViewEvent;
 /**
  * Contains all events thrown in the HttpKernel component.
  *
@@ -105,5 +105,5 @@ final class KernelEvents
      *
      * These aliases can be consumed by RegisterListenersPass.
      */
-    public const ALIASES = [\_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class => self::CONTROLLER_ARGUMENTS, \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ControllerEvent::class => self::CONTROLLER, \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ResponseEvent::class => self::RESPONSE, \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class => self::FINISH_REQUEST, \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\RequestEvent::class => self::REQUEST, \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ViewEvent::class => self::VIEW, \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\ExceptionEvent::class => self::EXCEPTION, \_PhpScoper567b66d83109\Symfony\Component\HttpKernel\Event\TerminateEvent::class => self::TERMINATE];
+    public const ALIASES = [\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class => self::CONTROLLER_ARGUMENTS, \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ControllerEvent::class => self::CONTROLLER, \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ResponseEvent::class => self::RESPONSE, \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class => self::FINISH_REQUEST, \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\RequestEvent::class => self::REQUEST, \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ViewEvent::class => self::VIEW, \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ExceptionEvent::class => self::EXCEPTION, \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\TerminateEvent::class => self::TERMINATE];
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace _PhpScoper567b66d83109;
+namespace RectorPrefix2020DecSat;
 
 class UnhandledMatchError extends \Error
 {
 }
-\class_alias('_PhpScoper567b66d83109\\UnhandledMatchError', 'UnhandledMatchError', \false);
+\class_alias('RectorPrefix2020DecSat\\UnhandledMatchError', 'UnhandledMatchError', \false);

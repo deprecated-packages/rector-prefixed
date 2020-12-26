@@ -60,7 +60,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, '_PhpScoper567b66d83109\\Symfony\\Component\\Console\\Command\\Command')) {
+        if (!$this->isObjectType($node, 'RectorPrefix2020DecSat\\Symfony\\Component\\Console\\Command\\Command')) {
             return null;
         }
         $commandName = $this->resolveCommandNameAndRemove($node);
@@ -87,7 +87,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
                 return null;
             }
-            if (!$this->isObjectType($node->class, '_PhpScoper567b66d83109\\Symfony\\Component\\Console\\Command\\Command')) {
+            if (!$this->isObjectType($node->class, 'RectorPrefix2020DecSat\\Symfony\\Component\\Console\\Command\\Command')) {
                 return null;
             }
             $commandName = $this->matchCommandNameNodeInConstruct($node);
@@ -105,7 +105,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
-            if (!$this->isObjectType($node->var, '_PhpScoper567b66d83109\\Symfony\\Component\\Console\\Command\\Command')) {
+            if (!$this->isObjectType($node->var, 'RectorPrefix2020DecSat\\Symfony\\Component\\Console\\Command\\Command')) {
                 return null;
             }
             if (!$this->isName($node->name, 'setName')) {

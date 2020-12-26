@@ -24,6 +24,6 @@ final class SymfonyPhpConfigClosureAnalyzer
         if ($onlyParam->type === null) {
             return \false;
         }
-        return $this->nodeNameResolver->isName($onlyParam->type, '_PhpScoper567b66d83109\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator');
+        return $this->nodeNameResolver->isName($onlyParam->type, 'RectorPrefix2020DecSat\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator');
     }
 }
