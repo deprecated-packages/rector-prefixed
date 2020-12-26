@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83
+class ComposerStaticInitcd234c49832b265e1b7e3cf3acc021c8
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2783,7 +2783,7 @@ class ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83
         'Rector\\DowngradePhp80\\Rector\\Catch_\\DowngradeNonCapturingCatchesRector' => __DIR__ . '/../..' . '/rules/downgrade-php80/src/Rector/Catch_/DowngradeNonCapturingCatchesRector.php',
         'Rector\\DowngradePhp80\\Rector\\ClassConstFetch\\DowngradeClassOnObjectToGetClassRector' => __DIR__ . '/../..' . '/rules/downgrade-php80/src/Rector/ClassConstFetch/DowngradeClassOnObjectToGetClassRector.php',
         'Rector\\DowngradePhp80\\Rector\\ClassMethod\\DowngradeTrailingCommasInParamUseRector' => __DIR__ . '/../..' . '/rules/downgrade-php80/src/Rector/ClassMethod/DowngradeTrailingCommasInParamUseRector.php',
-        'Rector\\DowngradePhp80\\Rector\\Class_\\DowngradePropertyPromotionToConstructorPropertyAssignRector' => __DIR__ . '/../..' . '/rules/downgrade-php80/src/Rector/Class_/DowngradePropertyPromotionToConstructorPropertyAssignRector.php',
+        'Rector\\DowngradePhp80\\Rector\\Class_\\DowngradePropertyPromotionRector' => __DIR__ . '/../..' . '/rules/downgrade-php80/src/Rector/Class_/DowngradePropertyPromotionRector.php',
         'Rector\\DowngradePhp80\\Rector\\Expression\\DowngradeMatchToSwitchRector' => __DIR__ . '/../..' . '/rules/downgrade-php80/src/Rector/Expression/DowngradeMatchToSwitchRector.php',
         'Rector\\DowngradePhp80\\Rector\\FunctionLike\\DowngradeParamMixedTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/downgrade-php80/src/Rector/FunctionLike/DowngradeParamMixedTypeDeclarationRector.php',
         'Rector\\DowngradePhp80\\Rector\\FunctionLike\\DowngradeReturnMixedTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/downgrade-php80/src/Rector/FunctionLike/DowngradeReturnMixedTypeDeclarationRector.php',
@@ -2987,7 +2987,7 @@ class ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83
         'Rector\\NetteCodeQuality\\NodeResolver\\FormVariableInputNameTypeResolver' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/NodeResolver/FormVariableInputNameTypeResolver.php',
         'Rector\\NetteCodeQuality\\NodeResolver\\MethodNamesByInputNamesResolver' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/NodeResolver/MethodNamesByInputNamesResolver.php',
         'Rector\\NetteCodeQuality\\Rector\\ArrayDimFetch\\AbstractArrayDimFetchToAnnotatedControlVariableRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/ArrayDimFetch/AbstractArrayDimFetchToAnnotatedControlVariableRector.php',
-        'Rector\\NetteCodeQuality\\Rector\\ArrayDimFetch\\ChangeControlArrayAccessToAnnotatedControlVariableRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/ArrayDimFetch/ChangeControlArrayAccessToAnnotatedControlVariableRector.php',
+        'Rector\\NetteCodeQuality\\Rector\\ArrayDimFetch\\AnnotateMagicalControlArrayAccessRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/ArrayDimFetch/AnnotateMagicalControlArrayAccessRector.php',
         'Rector\\NetteCodeQuality\\Rector\\ArrayDimFetch\\ChangeFormArrayAccessToAnnotatedControlVariableRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/ArrayDimFetch/ChangeFormArrayAccessToAnnotatedControlVariableRector.php',
         'Rector\\NetteCodeQuality\\Rector\\Assign\\ArrayAccessGetControlToGetComponentMethodCallRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/Assign/ArrayAccessGetControlToGetComponentMethodCallRector.php',
         'Rector\\NetteCodeQuality\\Rector\\Assign\\ArrayAccessSetControlToAddComponentMethodCallRector' => __DIR__ . '/../..' . '/rules/nette-code-quality/src/Rector/Assign/ArrayAccessSetControlToAddComponentMethodCallRector.php',
@@ -3009,7 +3009,7 @@ class ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83
         'Rector\\NetteKdyby\\NodeResolver\\ListeningMethodsCollector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/NodeResolver/ListeningMethodsCollector.php',
         'Rector\\NetteKdyby\\Rector\\ClassMethod\\AbstractKdybyEventSubscriberRector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/Rector/ClassMethod/AbstractKdybyEventSubscriberRector.php',
         'Rector\\NetteKdyby\\Rector\\ClassMethod\\ChangeNetteEventNamesInGetSubscribedEventsRector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/Rector/ClassMethod/ChangeNetteEventNamesInGetSubscribedEventsRector.php',
-        'Rector\\NetteKdyby\\Rector\\ClassMethod\\ReplaceMagicEventPropertySubscriberWithEventClassSubscriberRector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/Rector/ClassMethod/ReplaceMagicEventPropertySubscriberWithEventClassSubscriberRector.php',
+        'Rector\\NetteKdyby\\Rector\\ClassMethod\\ReplaceMagicPropertyWithEventClassRector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/Rector/ClassMethod/ReplaceMagicPropertyWithEventClassRector.php',
         'Rector\\NetteKdyby\\Rector\\MethodCall\\ReplaceEventManagerWithEventSubscriberRector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/Rector/MethodCall/ReplaceEventManagerWithEventSubscriberRector.php',
         'Rector\\NetteKdyby\\Rector\\MethodCall\\ReplaceMagicPropertyEventWithEventClassRector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/Rector/MethodCall/ReplaceMagicPropertyEventWithEventClassRector.php',
         'Rector\\NetteKdyby\\ValueObject\\EventAndListenerTree' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/ValueObject/EventAndListenerTree.php',
@@ -3063,8 +3063,8 @@ class ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83
         'Rector\\Nette\\Rector\\MethodCall\\BuilderExpandToHelperExpandRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/MethodCall/BuilderExpandToHelperExpandRector.php',
         'Rector\\Nette\\Rector\\MethodCall\\ContextGetByTypeToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/MethodCall/ContextGetByTypeToConstructorInjectionRector.php',
         'Rector\\Nette\\Rector\\MethodCall\\ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/MethodCall/ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector.php',
-        'Rector\\Nette\\Rector\\MethodCall\\GetConfigWithDefaultsArgumentToArrayMergeInCompilerExtensionRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/MethodCall/GetConfigWithDefaultsArgumentToArrayMergeInCompilerExtensionRector.php',
         'Rector\\Nette\\Rector\\MethodCall\\MagicHtmlCallToAppendAttributeRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/MethodCall/MagicHtmlCallToAppendAttributeRector.php',
+        'Rector\\Nette\\Rector\\MethodCall\\MergeDefaultsInGetConfigCompilerExtensionRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/MethodCall/MergeDefaultsInGetConfigCompilerExtensionRector.php',
         'Rector\\Nette\\Rector\\MethodCall\\RequestGetCookieDefaultArgumentToCoalesceRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/MethodCall/RequestGetCookieDefaultArgumentToCoalesceRector.php',
         'Rector\\Nette\\Rector\\MethodCall\\SetClassWithArgumentToSetFactoryRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/MethodCall/SetClassWithArgumentToSetFactoryRector.php',
         'Rector\\Nette\\Rector\\NotIdentical\\StrposToStringsContainsRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/NotIdentical/StrposToStringsContainsRector.php',
@@ -3584,7 +3584,7 @@ class ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83
         'Rector\\Symfony3\\Rector\\MethodCall\\AbstractFormAddRector' => __DIR__ . '/../..' . '/rules/symfony3/src/Rector/MethodCall/AbstractFormAddRector.php',
         'Rector\\Symfony3\\Rector\\MethodCall\\CascadeValidationFormBuilderRector' => __DIR__ . '/../..' . '/rules/symfony3/src/Rector/MethodCall/CascadeValidationFormBuilderRector.php',
         'Rector\\Symfony3\\Rector\\MethodCall\\ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector' => __DIR__ . '/../..' . '/rules/symfony3/src/Rector/MethodCall/ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector.php',
-        'Rector\\Symfony3\\Rector\\MethodCall\\ChangeCollectionTypeOptionTypeFromStringToClassReferenceRector' => __DIR__ . '/../..' . '/rules/symfony3/src/Rector/MethodCall/ChangeCollectionTypeOptionTypeFromStringToClassReferenceRector.php',
+        'Rector\\Symfony3\\Rector\\MethodCall\\ChangeStringCollectionOptionToConstantRector' => __DIR__ . '/../..' . '/rules/symfony3/src/Rector/MethodCall/ChangeStringCollectionOptionToConstantRector.php',
         'Rector\\Symfony3\\Rector\\MethodCall\\FormTypeInstanceToClassConstRector' => __DIR__ . '/../..' . '/rules/symfony3/src/Rector/MethodCall/FormTypeInstanceToClassConstRector.php',
         'Rector\\Symfony3\\Rector\\MethodCall\\OptionNameRector' => __DIR__ . '/../..' . '/rules/symfony3/src/Rector/MethodCall/OptionNameRector.php',
         'Rector\\Symfony3\\Rector\\MethodCall\\ReadOnlyOptionToAttributeRector' => __DIR__ . '/../..' . '/rules/symfony3/src/Rector/MethodCall/ReadOnlyOptionToAttributeRector.php',
@@ -3620,7 +3620,7 @@ class ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83
         'Rector\\Symfony\\Exception\\XmlContainerNotExistsException' => __DIR__ . '/../..' . '/rules/symfony/src/Exception/XmlContainerNotExistsException.php',
         'Rector\\Symfony\\Rector\\BinaryOp\\ResponseStatusCodeRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/BinaryOp/ResponseStatusCodeRector.php',
         'Rector\\Symfony\\Rector\\ClassMethod\\ActionSuffixRemoverRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/ClassMethod/ActionSuffixRemoverRector.php',
-        'Rector\\Symfony\\Rector\\ClassMethod\\AutoWireWithClassNameSuffixForMethodWithRequiredAnnotationRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/ClassMethod/AutoWireWithClassNameSuffixForMethodWithRequiredAnnotationRector.php',
+        'Rector\\Symfony\\Rector\\ClassMethod\\NormalizeAutowireMethodNamingRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/ClassMethod/NormalizeAutowireMethodNamingRector.php',
         'Rector\\Symfony\\Rector\\Class_\\ChangeFileLoaderInExtensionAndKernelRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/Class_/ChangeFileLoaderInExtensionAndKernelRector.php',
         'Rector\\Symfony\\Rector\\Class_\\MakeCommandLazyRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/Class_/MakeCommandLazyRector.php',
         'Rector\\Symfony\\Rector\\MethodCall\\AbstractToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/MethodCall/AbstractToConstructorInjectionRector.php',
@@ -3968,9 +3968,9 @@ class ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit38c5b30d34fce576c6603dbd9f0b7f83::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcd234c49832b265e1b7e3cf3acc021c8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcd234c49832b265e1b7e3cf3acc021c8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcd234c49832b265e1b7e3cf3acc021c8::$classMap;
 
         }, null, ClassLoader::class);
     }

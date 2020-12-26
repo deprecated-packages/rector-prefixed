@@ -13,7 +13,7 @@ use Rector\Symfony3\Rector\ClassMethod\GetRequestRector;
 use Rector\Symfony3\Rector\ClassMethod\RemoveDefaultGetBlockPrefixRector;
 use Rector\Symfony3\Rector\MethodCall\CascadeValidationFormBuilderRector;
 use Rector\Symfony3\Rector\MethodCall\ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector;
-use Rector\Symfony3\Rector\MethodCall\ChangeCollectionTypeOptionTypeFromStringToClassReferenceRector;
+use Rector\Symfony3\Rector\MethodCall\ChangeStringCollectionOptionToConstantRector;
 use Rector\Symfony3\Rector\MethodCall\FormTypeInstanceToClassConstRector;
 use Rector\Symfony3\Rector\MethodCall\OptionNameRector;
 use Rector\Symfony3\Rector\MethodCall\ReadOnlyOptionToAttributeRector;
@@ -35,7 +35,7 @@ return static function (\RectorPrefix20201226\Symfony\Component\DependencyInject
     $services->set(\Rector\Symfony3\Rector\MethodCall\CascadeValidationFormBuilderRector::class);
     $services->set(\Rector\Symfony3\Rector\ClassMethod\RemoveDefaultGetBlockPrefixRector::class);
     # forms - collection
-    $services->set(\Rector\Symfony3\Rector\MethodCall\ChangeCollectionTypeOptionTypeFromStringToClassReferenceRector::class);
+    $services->set(\Rector\Symfony3\Rector\MethodCall\ChangeStringCollectionOptionToConstantRector::class);
     $services->set(\Rector\Symfony3\Rector\MethodCall\ChangeCollectionTypeOptionNameFromTypeToEntryTypeRector::class);
     $services->set(\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::class)->call('configure', [[\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector::CLASS_CONSTANT_RENAME => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameClassConstant('RectorPrefix20201226\\Symfony\\Component\\Form\\FormEvents', 'PRE_BIND', 'PRE_SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant('RectorPrefix20201226\\Symfony\\Component\\Form\\FormEvents', 'BIND', 'SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant('RectorPrefix20201226\\Symfony\\Component\\Form\\FormEvents', 'POST_BIND', 'POST_SUBMIT'), new \Rector\Renaming\ValueObject\RenameClassConstant('RectorPrefix20201226\\Symfony\\Component\\Form\\Extension\\Core\\DataTransformer', 'ROUND_HALFEVEN', 'ROUND_HALF_EVEN'), new \Rector\Renaming\ValueObject\RenameClassConstant('RectorPrefix20201226\\Symfony\\Component\\Form\\Extension\\Core\\DataTransformer', 'ROUND_HALFUP', 'ROUND_HALF_UP'), new \Rector\Renaming\ValueObject\RenameClassConstant('RectorPrefix20201226\\Symfony\\Component\\Form\\Extension\\Core\\DataTransformer', 'ROUND_HALFDOWN', 'ROUND_HALF_DOWN')])]]);
     $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
