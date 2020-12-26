@@ -8,28 +8,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\Cache\Messenger;
+namespace RectorPrefix20201226\Symfony\Component\Cache\Messenger;
 
-use RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ReverseContainer;
-use RectorPrefix2020DecSat\Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use RectorPrefix20201226\Symfony\Component\Cache\CacheItem;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\ReverseContainer;
+use RectorPrefix20201226\Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 /**
  * Computes cached values sent to a message bus.
  */
-class EarlyExpirationHandler implements \RectorPrefix2020DecSat\Symfony\Component\Messenger\Handler\MessageHandlerInterface
+class EarlyExpirationHandler implements \RectorPrefix20201226\Symfony\Component\Messenger\Handler\MessageHandlerInterface
 {
     private $reverseContainer;
     private $processedNonces = [];
-    public function __construct(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer)
+    public function __construct(\RectorPrefix20201226\Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer)
     {
         $this->reverseContainer = $reverseContainer;
     }
-    public function __invoke(\RectorPrefix2020DecSat\Symfony\Component\Cache\Messenger\EarlyExpirationMessage $message)
+    public function __invoke(\RectorPrefix20201226\Symfony\Component\Cache\Messenger\EarlyExpirationMessage $message)
     {
         $item = $message->getItem();
         $metadata = $item->getMetadata();
-        $expiry = $metadata[\RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] ?? 0;
-        $ctime = $metadata[\RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::METADATA_CTIME] ?? 0;
+        $expiry = $metadata[\RectorPrefix20201226\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] ?? 0;
+        $ctime = $metadata[\RectorPrefix20201226\Symfony\Component\Cache\CacheItem::METADATA_CTIME] ?? 0;
         if ($expiry && $ctime) {
             // skip duplicate or expired messages
             $processingNonce = [$expiry, $ctime];
@@ -47,12 +47,12 @@ class EarlyExpirationHandler implements \RectorPrefix2020DecSat\Symfony\Componen
             }
         }
         static $setMetadata;
-        $setMetadata = $setMetadata ?? \Closure::bind(function (\RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem $item, float $startTime) {
+        $setMetadata = $setMetadata ?? \Closure::bind(function (\RectorPrefix20201226\Symfony\Component\Cache\CacheItem $item, float $startTime) {
             if ($item->expiry > ($endTime = \microtime(\true))) {
-                $item->newMetadata[\RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] = $item->expiry;
-                $item->newMetadata[\RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::METADATA_CTIME] = (int) \ceil(1000 * ($endTime - $startTime));
+                $item->newMetadata[\RectorPrefix20201226\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] = $item->expiry;
+                $item->newMetadata[\RectorPrefix20201226\Symfony\Component\Cache\CacheItem::METADATA_CTIME] = (int) \ceil(1000 * ($endTime - $startTime));
             }
-        }, null, \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::class);
+        }, null, \RectorPrefix20201226\Symfony\Component\Cache\CacheItem::class);
         $startTime = \microtime(\true);
         $pool = $message->findPool($this->reverseContainer);
         $callback = $message->findCallback($this->reverseContainer);

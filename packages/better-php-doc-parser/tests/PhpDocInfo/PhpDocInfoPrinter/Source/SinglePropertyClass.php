@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use RectorPrefix2020DecSat\Symfony\Component\Validator\Constraints as Assert;
+use RectorPrefix20201226\Symfony\Component\Validator\Constraints as Assert;
 final class SinglePropertyClass
 {
     /**

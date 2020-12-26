@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\DependencyInjection;
+namespace RectorPrefix20201226\Symfony\Component\DependencyInjection;
 
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
 /**
  * This definition extends another definition.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ChildDefinition extends \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition
+class ChildDefinition extends \RectorPrefix20201226\Symfony\Component\DependencyInjection\Definition
 {
     private $parent;
     /**
@@ -89,7 +89,7 @@ class ChildDefinition extends \RectorPrefix2020DecSat\Symfony\Component\Dependen
         } elseif (0 === \strpos($index, '$')) {
             $this->arguments[$index] = $value;
         } else {
-            throw new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The argument must be an existing index or the name of a constructor\'s parameter.');
+            throw new \RectorPrefix20201226\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The argument must be an existing index or the name of a constructor\'s parameter.');
         }
         return $this;
     }

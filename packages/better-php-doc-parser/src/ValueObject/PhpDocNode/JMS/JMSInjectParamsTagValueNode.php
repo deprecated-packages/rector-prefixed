@@ -9,6 +9,6 @@ final class JMSInjectParamsTagValueNode extends \Rector\BetterPhpDocParser\Value
 {
     public function getShortName() : string
     {
-        return 'RectorPrefix2020DecSat\\@DI\\InjectParams';
+        return 'RectorPrefix20201226\\@DI\\InjectParams';
     }
 }

@@ -13,6 +13,6 @@ final class SoftDeleteableTagValueNode extends \Rector\BetterPhpDocParser\ValueO
     }
     public function getShortName() : string
     {
-        return 'RectorPrefix2020DecSat\\@Gedmo\\SoftDeleteable';
+        return 'RectorPrefix20201226\\@Gedmo\\SoftDeleteable';
     }
 }

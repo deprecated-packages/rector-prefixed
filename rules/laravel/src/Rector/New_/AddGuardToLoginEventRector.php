@@ -22,7 +22,7 @@ final class AddGuardToLoginEventRector extends \Rector\Core\Rector\AbstractRecto
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix2020DecSat\\Add new $guard argument to Illuminate\\Auth\\Events\\Login', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20201226\\Add new $guard argument to Illuminate\\Auth\\Events\\Login', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Auth\Events\Login;
 
 final class SomeClass
@@ -59,7 +59,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isName($node->class, 'RectorPrefix2020DecSat\\Illuminate\\Auth\\Events\\Login')) {
+        if (!$this->isName($node->class, 'RectorPrefix20201226\\Illuminate\\Auth\\Events\\Login')) {
             return null;
         }
         if (\count($node->args) === 3) {

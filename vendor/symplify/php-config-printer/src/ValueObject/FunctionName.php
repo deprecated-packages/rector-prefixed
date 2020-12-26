@@ -8,17 +8,17 @@ final class FunctionName
     /**
      * @var string
      */
-    public const INLINE_SERVICE = 'RectorPrefix2020DecSat\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\inline_service';
+    public const INLINE_SERVICE = 'RectorPrefix20201226\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\inline_service';
     /**
      * @var string
      */
-    public const SERVICE = 'RectorPrefix2020DecSat\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\service';
+    public const SERVICE = 'RectorPrefix20201226\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\service';
     /**
      * @var string
      */
-    public const REF = 'RectorPrefix2020DecSat\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ref';
+    public const REF = 'RectorPrefix20201226\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ref';
     /**
      * @var string
      */
-    public const EXPR = 'RectorPrefix2020DecSat\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\expr';
+    public const EXPR = 'RectorPrefix20201226\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\expr';
 }

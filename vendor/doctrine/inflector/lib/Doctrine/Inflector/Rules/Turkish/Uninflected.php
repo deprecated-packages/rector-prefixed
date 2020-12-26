@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Turkish;
+namespace RectorPrefix20201226\Doctrine\Inflector\Rules\Turkish;
 
-use RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern;
+use RectorPrefix20201226\Doctrine\Inflector\Rules\Pattern;
 final class Uninflected
 {
     /**
@@ -25,8 +25,8 @@ final class Uninflected
      */
     private static function getDefault() : iterable
     {
-        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('lunes'));
-        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('rompecabezas'));
-        (yield new \RectorPrefix2020DecSat\Doctrine\Inflector\Rules\Pattern('crisis'));
+        (yield new \RectorPrefix20201226\Doctrine\Inflector\Rules\Pattern('lunes'));
+        (yield new \RectorPrefix20201226\Doctrine\Inflector\Rules\Pattern('rompecabezas'));
+        (yield new \RectorPrefix20201226\Doctrine\Inflector\Rules\Pattern('crisis'));
     }
 }

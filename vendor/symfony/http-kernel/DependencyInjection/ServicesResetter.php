@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel\DependencyInjection;
+namespace RectorPrefix20201226\Symfony\Component\HttpKernel\DependencyInjection;
 
-use RectorPrefix2020DecSat\Symfony\Contracts\Service\ResetInterface;
+use RectorPrefix20201226\Symfony\Contracts\Service\ResetInterface;
 /**
  * Resets provided services.
  *
@@ -19,7 +19,7 @@ use RectorPrefix2020DecSat\Symfony\Contracts\Service\ResetInterface;
  *
  * @internal
  */
-class ServicesResetter implements \RectorPrefix2020DecSat\Symfony\Contracts\Service\ResetInterface
+class ServicesResetter implements \RectorPrefix20201226\Symfony\Contracts\Service\ResetInterface
 {
     private $resettableServices;
     private $resetMethods;

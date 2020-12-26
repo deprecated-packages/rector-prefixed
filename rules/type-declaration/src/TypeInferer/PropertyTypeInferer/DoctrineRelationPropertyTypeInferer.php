@@ -22,7 +22,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
     /**
      * @var string
      */
-    private const COLLECTION_TYPE = 'RectorPrefix2020DecSat\\Doctrine\\Common\\Collections\\Collection';
+    private const COLLECTION_TYPE = 'RectorPrefix20201226\\Doctrine\\Common\\Collections\\Collection';
     /**
      * @var TypeFactory
      */

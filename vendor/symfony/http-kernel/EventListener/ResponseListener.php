@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel\EventListener;
+namespace RectorPrefix20201226\Symfony\Component\HttpKernel\EventListener;
 
-use RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents;
+use RectorPrefix20201226\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * ResponseListener fixes the Response headers based on the Request.
  *
@@ -20,7 +20,7 @@ use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class ResponseListener implements \RectorPrefix2020DecSat\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ResponseListener implements \RectorPrefix20201226\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $charset;
     public function __construct(string $charset)
@@ -30,7 +30,7 @@ class ResponseListener implements \RectorPrefix2020DecSat\Symfony\Component\Even
     /**
      * Filters the Response.
      */
-    public function onKernelResponse(\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onKernelResponse(\RectorPrefix20201226\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -43,6 +43,6 @@ class ResponseListener implements \RectorPrefix2020DecSat\Symfony\Component\Even
     }
     public static function getSubscribedEvents() : array
     {
-        return [\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
+        return [\RectorPrefix20201226\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
     }
 }

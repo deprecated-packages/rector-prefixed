@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 final class ChangeMe_AnotherNamespace
 {
 }
-\class_alias('RectorPrefix2020DecSat\\ChangeMe_AnotherNamespace', 'ChangeMe_AnotherNamespace', \false);
+\class_alias('RectorPrefix20201226\\ChangeMe_AnotherNamespace', 'ChangeMe_AnotherNamespace', \false);

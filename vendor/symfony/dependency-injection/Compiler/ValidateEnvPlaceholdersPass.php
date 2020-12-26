@@ -8,38 +8,38 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler;
+namespace RectorPrefix20201226\Symfony\Component\DependencyInjection\Compiler;
 
-use RectorPrefix2020DecSat\Symfony\Component\Config\Definition\BaseNode;
-use RectorPrefix2020DecSat\Symfony\Component\Config\Definition\ConfigurationInterface;
-use RectorPrefix2020DecSat\Symfony\Component\Config\Definition\Processor;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use RectorPrefix20201226\Symfony\Component\Config\Definition\BaseNode;
+use RectorPrefix20201226\Symfony\Component\Config\Definition\ConfigurationInterface;
+use RectorPrefix20201226\Symfony\Component\Config\Definition\Processor;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 /**
  * Validates environment variable placeholders used in extension configuration with dummy values.
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-class ValidateEnvPlaceholdersPass implements \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class ValidateEnvPlaceholdersPass implements \RectorPrefix20201226\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private static $typeFixtures = ['array' => [], 'bool' => \false, 'float' => 0.0, 'int' => 0, 'string' => ''];
     private $extensionConfig = [];
     /**
      * {@inheritdoc}
      */
-    public function process(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->extensionConfig = [];
-        if (!\class_exists(\RectorPrefix2020DecSat\Symfony\Component\Config\Definition\BaseNode::class) || !($extensions = $container->getExtensions())) {
+        if (!\class_exists(\RectorPrefix20201226\Symfony\Component\Config\Definition\BaseNode::class) || !($extensions = $container->getExtensions())) {
             return;
         }
         $resolvingBag = $container->getParameterBag();
-        if (!$resolvingBag instanceof \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
+        if (!$resolvingBag instanceof \RectorPrefix20201226\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
             return;
         }
-        $defaultBag = new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($resolvingBag->all());
+        $defaultBag = new \RectorPrefix20201226\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($resolvingBag->all());
         $envTypes = $resolvingBag->getProvidedTypes();
         try {
             foreach ($resolvingBag->getEnvPlaceholders() + $resolvingBag->getUnusedEnvPlaceholders() as $env => $placeholders) {
@@ -55,17 +55,17 @@ class ValidateEnvPlaceholdersPass implements \RectorPrefix2020DecSat\Symfony\Com
                     }
                 }
                 foreach ($placeholders as $placeholder) {
-                    \RectorPrefix2020DecSat\Symfony\Component\Config\Definition\BaseNode::setPlaceholder($placeholder, $values);
+                    \RectorPrefix20201226\Symfony\Component\Config\Definition\BaseNode::setPlaceholder($placeholder, $values);
                 }
             }
-            $processor = new \RectorPrefix2020DecSat\Symfony\Component\Config\Definition\Processor();
+            $processor = new \RectorPrefix20201226\Symfony\Component\Config\Definition\Processor();
             foreach ($extensions as $name => $extension) {
-                if (!($extension instanceof \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface || $extension instanceof \RectorPrefix2020DecSat\Symfony\Component\Config\Definition\ConfigurationInterface) || !($config = \array_filter($container->getExtensionConfig($name)))) {
+                if (!($extension instanceof \RectorPrefix20201226\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface || $extension instanceof \RectorPrefix20201226\Symfony\Component\Config\Definition\ConfigurationInterface) || !($config = \array_filter($container->getExtensionConfig($name)))) {
                     // this extension has no semantic configuration or was not called
                     continue;
                 }
                 $config = $resolvingBag->resolveValue($config);
-                if ($extension instanceof \RectorPrefix2020DecSat\Symfony\Component\Config\Definition\ConfigurationInterface) {
+                if ($extension instanceof \RectorPrefix20201226\Symfony\Component\Config\Definition\ConfigurationInterface) {
                     $configuration = $extension;
                 } elseif (null === ($configuration = $extension->getConfiguration($config, $container))) {
                     continue;
@@ -73,7 +73,7 @@ class ValidateEnvPlaceholdersPass implements \RectorPrefix2020DecSat\Symfony\Com
                 $this->extensionConfig[$name] = $processor->processConfiguration($configuration, $config);
             }
         } finally {
-            \RectorPrefix2020DecSat\Symfony\Component\Config\Definition\BaseNode::resetPlaceholders();
+            \RectorPrefix20201226\Symfony\Component\Config\Definition\BaseNode::resetPlaceholders();
         }
         $resolvingBag->clearUnusedEnvPlaceholders();
     }

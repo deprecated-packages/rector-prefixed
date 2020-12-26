@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20201226\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix2020DecSat\Psr\Cache\CacheItemInterface;
-use RectorPrefix2020DecSat\Psr\Log\LoggerAwareInterface;
-use RectorPrefix2020DecSat\Psr\Log\LoggerAwareTrait;
-use RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem;
-use RectorPrefix2020DecSat\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use RectorPrefix2020DecSat\Symfony\Component\Cache\ResettableInterface;
-use RectorPrefix2020DecSat\Symfony\Contracts\Cache\CacheInterface;
+use RectorPrefix20201226\Psr\Cache\CacheItemInterface;
+use RectorPrefix20201226\Psr\Log\LoggerAwareInterface;
+use RectorPrefix20201226\Psr\Log\LoggerAwareTrait;
+use RectorPrefix20201226\Symfony\Component\Cache\CacheItem;
+use RectorPrefix20201226\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use RectorPrefix20201226\Symfony\Component\Cache\ResettableInterface;
+use RectorPrefix20201226\Symfony\Contracts\Cache\CacheInterface;
 /**
  * An in-memory cache storage.
  *
@@ -24,7 +24,7 @@ use RectorPrefix2020DecSat\Symfony\Contracts\Cache\CacheInterface;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ArrayAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix2020DecSat\Symfony\Contracts\Cache\CacheInterface, \RectorPrefix2020DecSat\Psr\Log\LoggerAwareInterface, \RectorPrefix2020DecSat\Symfony\Component\Cache\ResettableInterface
+class ArrayAdapter implements \RectorPrefix20201226\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20201226\Symfony\Contracts\Cache\CacheInterface, \RectorPrefix20201226\Psr\Log\LoggerAwareInterface, \RectorPrefix20201226\Symfony\Component\Cache\ResettableInterface
 {
     use LoggerAwareTrait;
     private $storeSerialized;
@@ -40,22 +40,22 @@ class ArrayAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
     public function __construct(int $defaultLifetime = 0, bool $storeSerialized = \true, float $maxLifetime = 0, int $maxItems = 0)
     {
         if (0 > $maxLifetime) {
-            throw new \RectorPrefix2020DecSat\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument $maxLifetime must be positive, %F passed.', $maxLifetime));
+            throw new \RectorPrefix20201226\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument $maxLifetime must be positive, %F passed.', $maxLifetime));
         }
         if (0 > $maxItems) {
-            throw new \RectorPrefix2020DecSat\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument $maxItems must be a positive integer, %d passed.', $maxItems));
+            throw new \RectorPrefix20201226\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument $maxItems must be a positive integer, %d passed.', $maxItems));
         }
         $this->defaultLifetime = $defaultLifetime;
         $this->storeSerialized = $storeSerialized;
         $this->maxLifetime = $maxLifetime;
         $this->maxItems = $maxItems;
         $this->createCacheItem = \Closure::bind(static function ($key, $value, $isHit) {
-            $item = new \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem();
+            $item = new \RectorPrefix20201226\Symfony\Component\Cache\CacheItem();
             $item->key = $key;
             $item->value = $value;
             $item->isHit = $isHit;
             return $item;
-        }, null, \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::class);
+        }, null, \RectorPrefix20201226\Symfony\Component\Cache\CacheItem::class);
     }
     /**
      * {@inheritdoc}
@@ -94,7 +94,7 @@ class ArrayAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
             }
             return \true;
         }
-        \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::validateKey($key);
+        \RectorPrefix20201226\Symfony\Component\Cache\CacheItem::validateKey($key);
         return isset($this->expiries[$key]) && !$this->deleteItem($key);
     }
     /**
@@ -121,7 +121,7 @@ class ArrayAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
     {
         foreach ($keys as $key) {
             if (!\is_string($key) || !isset($this->expiries[$key])) {
-                \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::validateKey($key);
+                \RectorPrefix20201226\Symfony\Component\Cache\CacheItem::validateKey($key);
             }
         }
         return $this->generateItems($keys, \microtime(\true), $this->createCacheItem);
@@ -134,7 +134,7 @@ class ArrayAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
     public function deleteItem($key)
     {
         if (!\is_string($key) || !isset($this->expiries[$key])) {
-            \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::validateKey($key);
+            \RectorPrefix20201226\Symfony\Component\Cache\CacheItem::validateKey($key);
         }
         unset($this->values[$key], $this->expiries[$key]);
         return \true;
@@ -156,9 +156,9 @@ class ArrayAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
      *
      * @return bool
      */
-    public function save(\RectorPrefix2020DecSat\Psr\Cache\CacheItemInterface $item)
+    public function save(\RectorPrefix20201226\Psr\Cache\CacheItemInterface $item)
     {
-        if (!$item instanceof \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem) {
+        if (!$item instanceof \RectorPrefix20201226\Symfony\Component\Cache\CacheItem) {
             return \false;
         }
         $item = (array) $item;
@@ -201,7 +201,7 @@ class ArrayAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
      *
      * @return bool
      */
-    public function saveDeferred(\RectorPrefix2020DecSat\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred(\RectorPrefix20201226\Psr\Cache\CacheItemInterface $item)
     {
         return $this->save($item);
     }
@@ -304,7 +304,7 @@ class ArrayAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
             } catch (\Exception $e) {
                 $type = \get_debug_type($value);
                 $message = \sprintf('Failed to save key "{key}" of type %s: %s', $type, $e->getMessage());
-                \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::log($this->logger, $message, ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+                \RectorPrefix20201226\Symfony\Component\Cache\CacheItem::log($this->logger, $message, ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
                 return;
             }
             // Keep value serialized if it contains any objects or any internal references
@@ -323,7 +323,7 @@ class ArrayAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
             try {
                 $value = \unserialize($value);
             } catch (\Exception $e) {
-                \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to unserialize key "{key}": ' . $e->getMessage(), ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+                \RectorPrefix20201226\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to unserialize key "{key}": ' . $e->getMessage(), ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
                 $value = \false;
             }
             if (\false === $value) {

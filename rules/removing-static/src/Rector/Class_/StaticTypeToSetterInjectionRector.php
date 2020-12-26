@@ -51,21 +51,21 @@ final class StaticTypeToSetterInjectionRector extends \Rector\Core\Rector\Abstra
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes types to setter injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 final class CheckoutEntityFactory
 {
     public function run()
     {
-        return \RectorPrefix2020DecSat\SomeStaticClass::go();
+        return \RectorPrefix20201226\SomeStaticClass::go();
     }
 }
-\class_alias('RectorPrefix2020DecSat\\CheckoutEntityFactory', 'CheckoutEntityFactory', \false);
+\class_alias('RectorPrefix20201226\\CheckoutEntityFactory', 'CheckoutEntityFactory', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 final class CheckoutEntityFactory
 {
@@ -73,7 +73,7 @@ final class CheckoutEntityFactory
      * @var SomeStaticClass
      */
     private $someStaticClass;
-    public function setSomeStaticClass(\RectorPrefix2020DecSat\SomeStaticClass $someStaticClass)
+    public function setSomeStaticClass(\RectorPrefix20201226\SomeStaticClass $someStaticClass)
     {
         $this->someStaticClass = $someStaticClass;
     }
@@ -82,7 +82,7 @@ final class CheckoutEntityFactory
         return $this->someStaticClass->go();
     }
 }
-\class_alias('RectorPrefix2020DecSat\\CheckoutEntityFactory', 'CheckoutEntityFactory', \false);
+\class_alias('RectorPrefix20201226\\CheckoutEntityFactory', 'CheckoutEntityFactory', \false);
 CODE_SAMPLE
 , [self::STATIC_TYPES => ['SomeStaticClass']])]);
     }

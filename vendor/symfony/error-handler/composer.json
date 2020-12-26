@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix2020DecSat\\Symfony\\Component\\ErrorHandler\\": ""
+            "RectorPrefix20201226\\Symfony\\Component\\ErrorHandler\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

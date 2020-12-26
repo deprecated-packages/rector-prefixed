@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\Composer;
 
-use RectorPrefix2020DecSat\Nette\Utils\Arrays;
-use RectorPrefix2020DecSat\Nette\Utils\Json;
+use RectorPrefix20201226\Nette\Utils\Arrays;
+use RectorPrefix20201226\Nette\Utils\Json;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\SmartFileSystem\SmartFileSystem;
 final class ComposerAutoloadedDirectoryProvider
@@ -43,7 +43,7 @@ final class ComposerAutoloadedDirectoryProvider
             $sectionDirectories = $this->collectDirectoriesFromAutoload($composerJson[$autoloadSection]);
             $autoloadDirectories[] = $sectionDirectories;
         }
-        return \RectorPrefix2020DecSat\Nette\Utils\Arrays::flatten($autoloadDirectories);
+        return \RectorPrefix20201226\Nette\Utils\Arrays::flatten($autoloadDirectories);
     }
     /**
      * @return mixed[]
@@ -54,7 +54,7 @@ final class ComposerAutoloadedDirectoryProvider
             return [];
         }
         $composerFileContent = $this->smartFileSystem->readFile($this->composerFilePath);
-        return \RectorPrefix2020DecSat\Nette\Utils\Json::decode($composerFileContent, \RectorPrefix2020DecSat\Nette\Utils\Json::FORCE_ARRAY);
+        return \RectorPrefix20201226\Nette\Utils\Json::decode($composerFileContent, \RectorPrefix20201226\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param string[] $composerJsonAutoload

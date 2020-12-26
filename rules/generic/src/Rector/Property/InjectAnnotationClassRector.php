@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\Property;
 
-use RectorPrefix2020DecSat\DI\Annotation\Inject as PHPDIInject;
-use RectorPrefix2020DecSat\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\DI\Annotation\Inject as PHPDIInject;
+use RectorPrefix20201226\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
@@ -40,7 +40,7 @@ final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var array<string, string>
      */
-    private const ANNOTATION_TO_TAG_CLASS = [\RectorPrefix2020DecSat\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \RectorPrefix2020DecSat\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
+    private const ANNOTATION_TO_TAG_CLASS = [\RectorPrefix20201226\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \RectorPrefix20201226\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
     /**
      * @var string
      * @see https://regex101.com/r/pjusUN/1
@@ -92,7 +92,7 @@ class SomeController
     }
 }
 CODE_SAMPLE
-, [self::ANNOTATION_CLASSES => [\RectorPrefix2020DecSat\DI\Annotation\Inject::class, \RectorPrefix2020DecSat\JMS\DiExtraBundle\Annotation\Inject::class]])]);
+, [self::ANNOTATION_CLASSES => [\RectorPrefix20201226\DI\Annotation\Inject::class, \RectorPrefix20201226\JMS\DiExtraBundle\Annotation\Inject::class]])]);
     }
     /**
      * @return string[]
@@ -145,7 +145,7 @@ CODE_SAMPLE
         if ($serviceName === null) {
             return \false;
         }
-        return (bool) \RectorPrefix2020DecSat\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
+        return (bool) \RectorPrefix20201226\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
     }
     private function resolveType(\PhpParser\Node\Stmt\Property $property, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\PhpConfigPrinter\CaseConverter;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
@@ -73,6 +73,6 @@ final class ConfiguredServiceCaseConverter implements \Symplify\PhpConfigPrinter
         if (isset($values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::ALIAS])) {
             return \true;
         }
-        return \is_string($values) && \RectorPrefix2020DecSat\Nette\Utils\Strings::startsWith($values, '@');
+        return \is_string($values) && \RectorPrefix20201226\Nette\Utils\Strings::startsWith($values, '@');
     }
 }

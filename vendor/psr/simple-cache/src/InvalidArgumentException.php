@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix2020DecSat\Psr\SimpleCache;
+namespace RectorPrefix20201226\Psr\SimpleCache;
 
 /**
  * Exception interface for invalid cache arguments.
@@ -8,6 +8,6 @@ namespace RectorPrefix2020DecSat\Psr\SimpleCache;
  * When an invalid argument is passed it must throw an exception which implements
  * this interface
  */
-interface InvalidArgumentException extends \RectorPrefix2020DecSat\Psr\SimpleCache\CacheException
+interface InvalidArgumentException extends \RectorPrefix20201226\Psr\SimpleCache\CacheException
 {
 }

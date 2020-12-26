@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace Symplify\SmartFileSystem\Tests\Finder\SmartFinder;
 
 use Iterator;
-use RectorPrefix2020DecSat\PHPUnit\Framework\TestCase;
+use RectorPrefix20201226\PHPUnit\Framework\TestCase;
 use Symplify\SmartFileSystem\FileSystemFilter;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\Finder\SmartFinder;
-final class SmartFinderTest extends \RectorPrefix2020DecSat\PHPUnit\Framework\TestCase
+final class SmartFinderTest extends \RectorPrefix20201226\PHPUnit\Framework\TestCase
 {
     /**
      * @var SmartFinder

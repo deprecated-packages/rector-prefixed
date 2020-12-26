@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler;
+namespace RectorPrefix20201226\Symfony\Component\DependencyInjection\Compiler;
 
-trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s" class is deprecated.', \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler\ResolvePrivatesPass::class);
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder;
+trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s" class is deprecated.', \RectorPrefix20201226\Symfony\Component\DependencyInjection\Compiler\ResolvePrivatesPass::class);
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @deprecated since Symfony 5.2
  */
-class ResolvePrivatesPass implements \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class ResolvePrivatesPass implements \RectorPrefix20201226\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function process(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->getDefinitions() as $id => $definition) {
             if ($definition->isPrivate()) {

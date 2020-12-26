@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 final class Manual_Twig_Filter
 {
 }
-\class_alias('RectorPrefix2020DecSat\\Manual_Twig_Filter', 'Manual_Twig_Filter', \false);
+\class_alias('RectorPrefix20201226\\Manual_Twig_Filter', 'Manual_Twig_Filter', \false);

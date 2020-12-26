@@ -104,10 +104,10 @@ CODE_SAMPLE
     }
     private function isClassAndMethodMatch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if ($this->isInObjectType($classMethod, 'RectorPrefix2020DecSat\\Symfony\\Component\\Form\\AbstractType')) {
+        if ($this->isInObjectType($classMethod, 'RectorPrefix20201226\\Symfony\\Component\\Form\\AbstractType')) {
             return $this->isName($classMethod->name, 'getParent');
         }
-        if ($this->isInObjectType($classMethod, 'RectorPrefix2020DecSat\\Symfony\\Component\\Form\\AbstractTypeExtension')) {
+        if ($this->isInObjectType($classMethod, 'RectorPrefix20201226\\Symfony\\Component\\Form\\AbstractTypeExtension')) {
             return $this->isName($classMethod->name, 'getExtendedType');
         }
         return \false;

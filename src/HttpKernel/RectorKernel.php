@@ -8,15 +8,15 @@ use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
 use Rector\Core\DependencyInjection\CompilerPass\MakeRectorsPublicCompilerPass;
 use Rector\Core\DependencyInjection\CompilerPass\MergeImportedRectorConfigureCallValuesCompilerPass;
 use Rector\Core\DependencyInjection\Loader\ConfigurableCallValuesCollectingPhpFileLoader;
-use RectorPrefix2020DecSat\Symfony\Component\Config\Loader\DelegatingLoader;
-use RectorPrefix2020DecSat\Symfony\Component\Config\Loader\GlobFileLoader;
-use RectorPrefix2020DecSat\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix2020DecSat\Symfony\Component\Config\Loader\LoaderResolver;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerInterface;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Config\FileLocator;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Kernel;
+use RectorPrefix20201226\Symfony\Component\Config\Loader\DelegatingLoader;
+use RectorPrefix20201226\Symfony\Component\Config\Loader\GlobFileLoader;
+use RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderResolver;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerInterface;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Config\FileLocator;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Kernel;
 use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle;
 use Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
@@ -25,7 +25,7 @@ use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesC
 use Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
 use Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle;
 use Symplify\Skipper\Bundle\SkipperBundle;
-final class RectorKernel extends \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Kernel implements \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
+final class RectorKernel extends \RectorPrefix20201226\Symfony\Component\HttpKernel\Kernel implements \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
 {
     /**
      * @var string[]
@@ -50,7 +50,7 @@ final class RectorKernel extends \RectorPrefix2020DecSat\Symfony\Component\HttpK
         // manually configured, so it can be replaced in phar
         return \sys_get_temp_dir() . '/_rector_log';
     }
-    public function registerContainerConfiguration(\RectorPrefix2020DecSat\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         foreach ($this->configs as $config) {
@@ -71,7 +71,7 @@ final class RectorKernel extends \RectorPrefix2020DecSat\Symfony\Component\HttpK
     {
         return [new \Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle(), new \Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle(), new \Symplify\Skipper\Bundle\SkipperBundle(), new \Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle()];
     }
-    protected function build(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    protected function build(\RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $containerBuilder->addCompilerPass(new \Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
         // autowire Rectors by default (mainly for 3rd party code)
@@ -84,10 +84,10 @@ final class RectorKernel extends \RectorPrefix2020DecSat\Symfony\Component\HttpK
      * This allows to use "%vendor%" variables in imports
      * @param ContainerInterface|ContainerBuilder $container
      */
-    protected function getContainerLoader(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerInterface $container) : \RectorPrefix2020DecSat\Symfony\Component\Config\Loader\DelegatingLoader
+    protected function getContainerLoader(\RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerInterface $container) : \RectorPrefix20201226\Symfony\Component\Config\Loader\DelegatingLoader
     {
-        $fileLocator = new \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Config\FileLocator($this);
-        $loaderResolver = new \RectorPrefix2020DecSat\Symfony\Component\Config\Loader\LoaderResolver([new \RectorPrefix2020DecSat\Symfony\Component\Config\Loader\GlobFileLoader($fileLocator), new \Rector\Core\DependencyInjection\Loader\ConfigurableCallValuesCollectingPhpFileLoader($container, $fileLocator, $this->configureCallValuesCollector)]);
-        return new \RectorPrefix2020DecSat\Symfony\Component\Config\Loader\DelegatingLoader($loaderResolver);
+        $fileLocator = new \RectorPrefix20201226\Symfony\Component\HttpKernel\Config\FileLocator($this);
+        $loaderResolver = new \RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderResolver([new \RectorPrefix20201226\Symfony\Component\Config\Loader\GlobFileLoader($fileLocator), new \Rector\Core\DependencyInjection\Loader\ConfigurableCallValuesCollectingPhpFileLoader($container, $fileLocator, $this->configureCallValuesCollector)]);
+        return new \RectorPrefix20201226\Symfony\Component\Config\Loader\DelegatingLoader($loaderResolver);
     }
 }

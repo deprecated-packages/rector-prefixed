@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DeadDocBlock\Rector\Node;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use PhpParser\Comment;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
@@ -86,7 +86,7 @@ CODE_SAMPLE
         }
         $nodeContentWithoutPhpDoc = $this->printWithoutComments($node);
         // it's there
-        if (\RectorPrefix2020DecSat\Nette\Utils\Strings::match($nodeContentWithoutPhpDoc, '#' . \preg_quote($variableName, '#') . '\\b#')) {
+        if (\RectorPrefix20201226\Nette\Utils\Strings::match($nodeContentWithoutPhpDoc, '#' . \preg_quote($variableName, '#') . '\\b#')) {
             return null;
         }
         $comments = $node->getComments();

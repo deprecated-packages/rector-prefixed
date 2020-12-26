@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 class AppController
 {
 }
-\class_alias('RectorPrefix2020DecSat\\AppController', 'AppController', \false);
+\class_alias('RectorPrefix20201226\\AppController', 'AppController', \false);

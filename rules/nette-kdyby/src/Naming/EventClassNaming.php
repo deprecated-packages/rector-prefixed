@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Naming;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -73,7 +73,7 @@ final class EventClassNaming
     }
     private function prependShortClassEventWithNamespace(string $shortEventClassName, string $orinalClassName) : string
     {
-        $namespaceAbove = \RectorPrefix2020DecSat\Nette\Utils\Strings::before($orinalClassName, '\\', -1);
+        $namespaceAbove = \RectorPrefix20201226\Nette\Utils\Strings::before($orinalClassName, '\\', -1);
         return $namespaceAbove . '\\Event\\' . $shortEventClassName;
     }
     /**
@@ -85,7 +85,7 @@ final class EventClassNaming
     {
         $shortClassName = $this->classNaming->getShortName($class);
         // "onMagic" => "Magic"
-        $shortPropertyName = \RectorPrefix2020DecSat\Nette\Utils\Strings::substring($property, \strlen('on'));
+        $shortPropertyName = \RectorPrefix20201226\Nette\Utils\Strings::substring($property, \strlen('on'));
         return $shortClassName . $shortPropertyName . self::EVENT;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 // faking cake php App class
 // see https://github.com/cakephp/cakephp/blob/2.4.1/lib/Cake/Core/App.php#L521
@@ -14,4 +14,4 @@ final class App
 }
 // faking cake php App class
 // see https://github.com/cakephp/cakephp/blob/2.4.1/lib/Cake/Core/App.php#L521
-\class_alias('RectorPrefix2020DecSat\\App', 'App', \false);
+\class_alias('RectorPrefix20201226\\App', 'App', \false);

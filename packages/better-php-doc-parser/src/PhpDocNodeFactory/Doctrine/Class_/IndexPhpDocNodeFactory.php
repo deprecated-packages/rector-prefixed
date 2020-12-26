@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\IndexTagValueNode;
 final class IndexPhpDocNodeFactory
@@ -30,7 +30,7 @@ final class IndexPhpDocNodeFactory
         if ($indexes === null) {
             return [];
         }
-        $indexContents = \RectorPrefix2020DecSat\Nette\Utils\Strings::matchAll($annotationContent, self::INDEX_REGEX);
+        $indexContents = \RectorPrefix20201226\Nette\Utils\Strings::matchAll($annotationContent, self::INDEX_REGEX);
         $indexTagValueNodes = [];
         foreach ($indexes as $key => $index) {
             $currentContent = $indexContents[$key];

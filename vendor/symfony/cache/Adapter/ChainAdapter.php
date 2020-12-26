@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20201226\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix2020DecSat\Psr\Cache\CacheItemInterface;
-use RectorPrefix2020DecSat\Psr\Cache\CacheItemPoolInterface;
-use RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem;
-use RectorPrefix2020DecSat\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use RectorPrefix2020DecSat\Symfony\Component\Cache\PruneableInterface;
-use RectorPrefix2020DecSat\Symfony\Component\Cache\ResettableInterface;
-use RectorPrefix2020DecSat\Symfony\Component\Cache\Traits\ContractsTrait;
-use RectorPrefix2020DecSat\Symfony\Contracts\Cache\CacheInterface;
-use RectorPrefix2020DecSat\Symfony\Contracts\Service\ResetInterface;
+use RectorPrefix20201226\Psr\Cache\CacheItemInterface;
+use RectorPrefix20201226\Psr\Cache\CacheItemPoolInterface;
+use RectorPrefix20201226\Symfony\Component\Cache\CacheItem;
+use RectorPrefix20201226\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use RectorPrefix20201226\Symfony\Component\Cache\PruneableInterface;
+use RectorPrefix20201226\Symfony\Component\Cache\ResettableInterface;
+use RectorPrefix20201226\Symfony\Component\Cache\Traits\ContractsTrait;
+use RectorPrefix20201226\Symfony\Contracts\Cache\CacheInterface;
+use RectorPrefix20201226\Symfony\Contracts\Service\ResetInterface;
 /**
  * Chains several adapters together.
  *
@@ -27,7 +27,7 @@ use RectorPrefix2020DecSat\Symfony\Contracts\Service\ResetInterface;
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class ChainAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix2020DecSat\Symfony\Contracts\Cache\CacheInterface, \RectorPrefix2020DecSat\Symfony\Component\Cache\PruneableInterface, \RectorPrefix2020DecSat\Symfony\Component\Cache\ResettableInterface
+class ChainAdapter implements \RectorPrefix20201226\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20201226\Symfony\Contracts\Cache\CacheInterface, \RectorPrefix20201226\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20201226\Symfony\Component\Cache\ResettableInterface
 {
     use ContractsTrait;
     private $adapters = [];
@@ -40,37 +40,37 @@ class ChainAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
     public function __construct(array $adapters, int $defaultLifetime = 0)
     {
         if (!$adapters) {
-            throw new \RectorPrefix2020DecSat\Symfony\Component\Cache\Exception\InvalidArgumentException('At least one adapter must be specified.');
+            throw new \RectorPrefix20201226\Symfony\Component\Cache\Exception\InvalidArgumentException('At least one adapter must be specified.');
         }
         foreach ($adapters as $adapter) {
-            if (!$adapter instanceof \RectorPrefix2020DecSat\Psr\Cache\CacheItemPoolInterface) {
-                throw new \RectorPrefix2020DecSat\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('The class "%s" does not implement the "%s" interface.', \get_debug_type($adapter), \RectorPrefix2020DecSat\Psr\Cache\CacheItemPoolInterface::class));
+            if (!$adapter instanceof \RectorPrefix20201226\Psr\Cache\CacheItemPoolInterface) {
+                throw new \RectorPrefix20201226\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('The class "%s" does not implement the "%s" interface.', \get_debug_type($adapter), \RectorPrefix20201226\Psr\Cache\CacheItemPoolInterface::class));
             }
-            if (\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) && $adapter instanceof \RectorPrefix2020DecSat\Symfony\Component\Cache\Adapter\ApcuAdapter && !\filter_var(\ini_get('apc.enable_cli'), \FILTER_VALIDATE_BOOLEAN)) {
+            if (\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) && $adapter instanceof \RectorPrefix20201226\Symfony\Component\Cache\Adapter\ApcuAdapter && !\filter_var(\ini_get('apc.enable_cli'), \FILTER_VALIDATE_BOOLEAN)) {
                 continue;
                 // skip putting APCu in the chain when the backend is disabled
             }
-            if ($adapter instanceof \RectorPrefix2020DecSat\Symfony\Component\Cache\Adapter\AdapterInterface) {
+            if ($adapter instanceof \RectorPrefix20201226\Symfony\Component\Cache\Adapter\AdapterInterface) {
                 $this->adapters[] = $adapter;
             } else {
-                $this->adapters[] = new \RectorPrefix2020DecSat\Symfony\Component\Cache\Adapter\ProxyAdapter($adapter);
+                $this->adapters[] = new \RectorPrefix20201226\Symfony\Component\Cache\Adapter\ProxyAdapter($adapter);
             }
         }
         $this->adapterCount = \count($this->adapters);
         $this->syncItem = \Closure::bind(static function ($sourceItem, $item, $sourceMetadata = null) use($defaultLifetime) {
             $sourceItem->isTaggable = \false;
             $sourceMetadata = $sourceMetadata ?? $sourceItem->metadata;
-            unset($sourceMetadata[\RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::METADATA_TAGS]);
+            unset($sourceMetadata[\RectorPrefix20201226\Symfony\Component\Cache\CacheItem::METADATA_TAGS]);
             $item->value = $sourceItem->value;
             $item->isHit = $sourceItem->isHit;
             $item->metadata = $item->newMetadata = $sourceItem->metadata = $sourceMetadata;
-            if (isset($item->metadata[\RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY])) {
-                $item->expiresAt(\DateTime::createFromFormat('U.u', \sprintf('%.6F', $item->metadata[\RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY])));
+            if (isset($item->metadata[\RectorPrefix20201226\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY])) {
+                $item->expiresAt(\DateTime::createFromFormat('U.u', \sprintf('%.6F', $item->metadata[\RectorPrefix20201226\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY])));
             } elseif (0 < $defaultLifetime) {
                 $item->expiresAfter($defaultLifetime);
             }
             return $item;
-        }, null, \RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem::class);
+        }, null, \RectorPrefix20201226\Symfony\Component\Cache\CacheItem::class);
     }
     /**
      * {@inheritdoc}
@@ -79,13 +79,13 @@ class ChainAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
     {
         $lastItem = null;
         $i = 0;
-        $wrap = function (\RectorPrefix2020DecSat\Symfony\Component\Cache\CacheItem $item = null) use($key, $callback, $beta, &$wrap, &$i, &$lastItem, &$metadata) {
+        $wrap = function (\RectorPrefix20201226\Symfony\Component\Cache\CacheItem $item = null) use($key, $callback, $beta, &$wrap, &$i, &$lastItem, &$metadata) {
             $adapter = $this->adapters[$i];
             if (isset($this->adapters[++$i])) {
                 $callback = $wrap;
                 $beta = \INF === $beta ? \INF : 0;
             }
-            if ($adapter instanceof \RectorPrefix2020DecSat\Symfony\Contracts\Cache\CacheInterface) {
+            if ($adapter instanceof \RectorPrefix20201226\Symfony\Contracts\Cache\CacheInterface) {
                 $value = $adapter->get($key, $callback, $beta, $metadata);
             } else {
                 $value = $this->doGet($adapter, $key, $callback, $beta, $metadata);
@@ -173,7 +173,7 @@ class ChainAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
         $cleared = \true;
         $i = $this->adapterCount;
         while ($i--) {
-            if ($this->adapters[$i] instanceof \RectorPrefix2020DecSat\Symfony\Component\Cache\Adapter\AdapterInterface) {
+            if ($this->adapters[$i] instanceof \RectorPrefix20201226\Symfony\Component\Cache\Adapter\AdapterInterface) {
                 $cleared = $this->adapters[$i]->clear($prefix) && $cleared;
             } else {
                 $cleared = $this->adapters[$i]->clear() && $cleared;
@@ -214,7 +214,7 @@ class ChainAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
      *
      * @return bool
      */
-    public function save(\RectorPrefix2020DecSat\Psr\Cache\CacheItemInterface $item)
+    public function save(\RectorPrefix20201226\Psr\Cache\CacheItemInterface $item)
     {
         $saved = \true;
         $i = $this->adapterCount;
@@ -228,7 +228,7 @@ class ChainAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
      *
      * @return bool
      */
-    public function saveDeferred(\RectorPrefix2020DecSat\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred(\RectorPrefix20201226\Psr\Cache\CacheItemInterface $item)
     {
         $saved = \true;
         $i = $this->adapterCount;
@@ -258,7 +258,7 @@ class ChainAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
     {
         $pruned = \true;
         foreach ($this->adapters as $adapter) {
-            if ($adapter instanceof \RectorPrefix2020DecSat\Symfony\Component\Cache\PruneableInterface) {
+            if ($adapter instanceof \RectorPrefix20201226\Symfony\Component\Cache\PruneableInterface) {
                 $pruned = $adapter->prune() && $pruned;
             }
         }
@@ -270,7 +270,7 @@ class ChainAdapter implements \RectorPrefix2020DecSat\Symfony\Component\Cache\Ad
     public function reset()
     {
         foreach ($this->adapters as $adapter) {
-            if ($adapter instanceof \RectorPrefix2020DecSat\Symfony\Contracts\Service\ResetInterface) {
+            if ($adapter instanceof \RectorPrefix20201226\Symfony\Contracts\Service\ResetInterface) {
                 $adapter->reset();
             }
         }

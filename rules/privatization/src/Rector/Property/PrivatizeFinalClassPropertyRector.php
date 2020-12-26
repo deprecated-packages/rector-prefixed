@@ -85,14 +85,16 @@ CODE_SAMPLE
         return \false;
     }
     /**
-     * @return class-string[]
+     * @return string[]
      */
     private function getParentClasses(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         /** @var string $className */
         $className = $this->getName($class);
-        /** @var class-string[] $parents */
-        $parents = (array) \class_parents($className);
-        return $parents;
+        $classParents = \class_parents($className);
+        if ($classParents === \false) {
+            return [];
+        }
+        return $classParents;
     }
 }

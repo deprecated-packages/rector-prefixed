@@ -4,14 +4,14 @@ declare (strict_types=1);
 namespace Symplify\SetConfigResolver\Tests\ConfigResolver;
 
 use Iterator;
-use RectorPrefix2020DecSat\PHPUnit\Framework\TestCase;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Input\ArrayInput;
+use RectorPrefix20201226\PHPUnit\Framework\TestCase;
+use RectorPrefix20201226\Symfony\Component\Console\Input\ArrayInput;
 use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 use Symplify\SetConfigResolver\SetAwareConfigResolver;
 use Symplify\SetConfigResolver\Tests\ConfigResolver\Source\DummySetProvider;
 use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use Symplify\SmartFileSystem\SmartFileInfo;
-final class SetAwareConfigResolverTest extends \RectorPrefix2020DecSat\PHPUnit\Framework\TestCase
+final class SetAwareConfigResolverTest extends \RectorPrefix20201226\PHPUnit\Framework\TestCase
 {
     /**
      * @var SetAwareConfigResolver
@@ -27,7 +27,7 @@ final class SetAwareConfigResolverTest extends \RectorPrefix2020DecSat\PHPUnit\F
      */
     public function testDetectFromInputAndProvideWithAbsolutePath(array $options, ?string $expectedConfig) : void
     {
-        $resolvedConfigFileInfo = $this->setAwareConfigResolver->resolveFromInput(new \RectorPrefix2020DecSat\Symfony\Component\Console\Input\ArrayInput($options));
+        $resolvedConfigFileInfo = $this->setAwareConfigResolver->resolveFromInput(new \RectorPrefix20201226\Symfony\Component\Console\Input\ArrayInput($options));
         if ($expectedConfig === null) {
             $this->assertNull($resolvedConfigFileInfo);
         } else {
@@ -60,7 +60,7 @@ final class SetAwareConfigResolverTest extends \RectorPrefix2020DecSat\PHPUnit\F
     public function testMissingFileInInput() : void
     {
         $this->expectException(\Symplify\SmartFileSystem\Exception\FileNotFoundException::class);
-        $arrayInput = new \RectorPrefix2020DecSat\Symfony\Component\Console\Input\ArrayInput(['--config' => 'someFile.yml']);
+        $arrayInput = new \RectorPrefix20201226\Symfony\Component\Console\Input\ArrayInput(['--config' => 'someFile.yml']);
         $this->setAwareConfigResolver->resolveFromInput($arrayInput);
     }
 }

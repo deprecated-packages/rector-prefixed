@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\SetConfigResolver\Config;
 
-use RectorPrefix2020DecSat\Symfony\Component\Config\FileLocator;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use RectorPrefix2020DecSat\Symfony\Component\Yaml\Yaml;
+use RectorPrefix20201226\Symfony\Component\Config\FileLocator;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use RectorPrefix20201226\Symfony\Component\Yaml\Yaml;
 use Symplify\SetConfigResolver\SetResolver;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class SetsParameterResolver
@@ -53,7 +53,7 @@ final class SetsParameterResolver
      */
     private function resolveSetsParameterFromYamlFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
-        $configContent = \RectorPrefix2020DecSat\Symfony\Component\Yaml\Yaml::parse($configFileInfo->getContents());
+        $configContent = \RectorPrefix20201226\Symfony\Component\Yaml\Yaml::parse($configFileInfo->getContents());
         return (array) ($configContent['parameters'][self::SETS] ?? []);
     }
     /**
@@ -62,8 +62,8 @@ final class SetsParameterResolver
     private function resolveSetsParameterFromPhpFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         // php file loader
-        $containerBuilder = new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerBuilder();
-        $phpFileLoader = new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix2020DecSat\Symfony\Component\Config\FileLocator());
+        $containerBuilder = new \RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $phpFileLoader = new \RectorPrefix20201226\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20201226\Symfony\Component\Config\FileLocator());
         $phpFileLoader->load($configFileInfo->getRealPath());
         if (!$containerBuilder->hasParameter(self::SETS)) {
             return [];

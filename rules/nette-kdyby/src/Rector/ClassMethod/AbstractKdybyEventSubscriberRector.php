@@ -14,7 +14,7 @@ abstract class AbstractKdybyEventSubscriberRector extends \Rector\Core\Rector\Ab
         if ($classLike === null) {
             return \true;
         }
-        if (!$this->isObjectType($classLike, 'RectorPrefix2020DecSat\\Kdyby\\Events\\Subscriber')) {
+        if (!$this->isObjectType($classLike, 'RectorPrefix20201226\\Kdyby\\Events\\Subscriber')) {
             return \true;
         }
         return !$this->isName($classMethod, 'getSubscribedEvents');

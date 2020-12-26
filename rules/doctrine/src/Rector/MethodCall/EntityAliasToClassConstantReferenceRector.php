@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Rector\MethodCall;
 
-use RectorPrefix2020DecSat\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
-use RectorPrefix2020DecSat\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
-use RectorPrefix2020DecSat\Doctrine\ORM\EntityManagerInterface;
-use RectorPrefix2020DecSat\Doctrine\Persistence\ManagerRegistry;
-use RectorPrefix2020DecSat\Doctrine\Persistence\ObjectManager;
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
+use RectorPrefix20201226\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
+use RectorPrefix20201226\Doctrine\ORM\EntityManagerInterface;
+use RectorPrefix20201226\Doctrine\Persistence\ManagerRegistry;
+use RectorPrefix20201226\Doctrine\Persistence\ObjectManager;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
@@ -29,7 +29,7 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
     /**
      * @var string[]
      */
-    private const ALLOWED_OBJECT_TYPES = [\RectorPrefix2020DecSat\Doctrine\ORM\EntityManagerInterface::class, \RectorPrefix2020DecSat\Doctrine\Persistence\ObjectManager::class, \RectorPrefix2020DecSat\Doctrine\Common\Persistence\ObjectManager::class, \RectorPrefix2020DecSat\Doctrine\Persistence\ManagerRegistry::class, \RectorPrefix2020DecSat\Doctrine\Common\Persistence\ManagerRegistry::class];
+    private const ALLOWED_OBJECT_TYPES = [\RectorPrefix20201226\Doctrine\ORM\EntityManagerInterface::class, \RectorPrefix20201226\Doctrine\Persistence\ObjectManager::class, \RectorPrefix20201226\Doctrine\Common\Persistence\ObjectManager::class, \RectorPrefix20201226\Doctrine\Persistence\ManagerRegistry::class, \RectorPrefix20201226\Doctrine\Common\Persistence\ManagerRegistry::class];
     /**
      * @var string[]
      */
@@ -44,7 +44,7 @@ CODE_SAMPLE
 $entityManager = new Doctrine\ORM\EntityManager();
 $entityManager->getRepository(\App\Entity\Post::class);
 CODE_SAMPLE
-, [self::ALIASES_TO_NAMESPACES => ['App' => 'RectorPrefix2020DecSat\\App\\Entity']])]);
+, [self::ALIASES_TO_NAMESPACES => ['App' => 'RectorPrefix20201226\\App\\Entity']])]);
     }
     /**
      * @return string[]
@@ -96,7 +96,7 @@ CODE_SAMPLE
     }
     private function isAlias(string $name) : bool
     {
-        return \RectorPrefix2020DecSat\Nette\Utils\Strings::contains($name, ':');
+        return \RectorPrefix20201226\Nette\Utils\Strings::contains($name, ':');
     }
     private function hasAlias(string $name) : bool
     {

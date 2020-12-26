@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\FuncCall;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\FuncCall;
@@ -39,7 +39,7 @@ final class ConsistentPregDelimiterRector extends \Rector\Core\Rector\AbstractRe
      * All with pattern as 2st argument
      * @var array<string, array<string, int>>
      */
-    private const STATIC_METHODS_WITH_REGEX_PATTERN = ['RectorPrefix2020DecSat\\Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
+    private const STATIC_METHODS_WITH_REGEX_PATTERN = ['RectorPrefix20201226\\Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
     /**
      * @var string
      */
@@ -120,7 +120,7 @@ CODE_SAMPLE
         /** @var String_ $string */
         $string = $arg->value;
         $value = $string->value;
-        $string->value = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
+        $string->value = \RectorPrefix20201226\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
             $innerPattern = $match['content'];
             // change delimiter
             if (\strlen($innerPattern) > 2 && $innerPattern[0] === $innerPattern[\strlen($innerPattern) - 1]) {

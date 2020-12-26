@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 interface ClassImportingSameName
 {
 }
-\class_alias('RectorPrefix2020DecSat\\ClassImportingSameName', 'ClassImportingSameName', \false);
+\class_alias('RectorPrefix20201226\\ClassImportingSameName', 'ClassImportingSameName', \false);

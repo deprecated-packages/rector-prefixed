@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Php;
 
-use RectorPrefix2020DecSat\Nette\Utils\Json;
+use RectorPrefix20201226\Nette\Utils\Json;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Util\PhpVersionFactory;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
@@ -59,7 +59,7 @@ final class PhpVersionProvider
             return null;
         }
         $projectComposerContent = $this->smartFileSystem->readFile($projectComposerJson);
-        $projectComposerJson = \RectorPrefix2020DecSat\Nette\Utils\Json::decode($projectComposerContent, \RectorPrefix2020DecSat\Nette\Utils\Json::FORCE_ARRAY);
+        $projectComposerJson = \RectorPrefix20201226\Nette\Utils\Json::decode($projectComposerContent, \RectorPrefix20201226\Nette\Utils\Json::FORCE_ARRAY);
         // Rector's composer.json
         if (isset($projectComposerJson['name']) && $projectComposerJson['name'] === 'rector/rector') {
             return null;

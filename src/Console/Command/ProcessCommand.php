@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Console\Command;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use Rector\Caching\Application\CachedFileInfoFilterAndReporter;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
@@ -19,11 +19,11 @@ use Rector\Core\NonPhpFile\NonPhpFileProcessor;
 use Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser;
 use Rector\Core\Stubs\StubLoader;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputArgument;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputOption;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Output\OutputInterface;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20201226\Symfony\Component\Console\Input\InputArgument;
+use RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201226\Symfony\Component\Console\Input\InputOption;
+use RectorPrefix20201226\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20201226\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileInfo;
 final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
@@ -76,7 +76,7 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
      * @var CachedFileInfoFilterAndReporter
      */
     private $cachedFileInfoFilterAndReporter;
-    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $phpFilesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \Rector\Core\Guard\RectorGuard $rectorGuard, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \Rector\Core\Stubs\StubLoader $stubLoader, \RectorPrefix2020DecSat\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Caching\Application\CachedFileInfoFilterAndReporter $cachedFileInfoFilterAndReporter)
+    public function __construct(\Rector\Core\Autoloading\AdditionalAutoloader $additionalAutoloader, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\FileSystem\FilesFinder $phpFilesFinder, \Rector\Core\NonPhpFile\NonPhpFileProcessor $nonPhpFileProcessor, \Rector\Core\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Rector\Core\Application\RectorApplication $rectorApplication, \Rector\Core\Guard\RectorGuard $rectorGuard, \Rector\Core\PhpParser\NodeTraverser\RectorNodeTraverser $rectorNodeTraverser, \Rector\Core\Stubs\StubLoader $stubLoader, \RectorPrefix20201226\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Caching\Application\CachedFileInfoFilterAndReporter $cachedFileInfoFilterAndReporter)
     {
         $this->filesFinder = $phpFilesFinder;
         $this->additionalAutoloader = $additionalAutoloader;
@@ -97,19 +97,19 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
     {
         $this->setAliases(['rectify']);
         $this->setDescription('Upgrade or refactor source code with provided rectors');
-        $this->addArgument(\Rector\Core\Configuration\Option::SOURCE, \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Files or directories to be upgraded.');
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN, 'n', \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'See diff of changes, do not save them to files.');
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE, 'a', \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'File with extra autoload');
-        $this->addOption(\Rector\Core\Configuration\Option::MATCH_GIT_DIFF, null, \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Execute only on file(s) matching the git diff.');
+        $this->addArgument(\Rector\Core\Configuration\Option::SOURCE, \RectorPrefix20201226\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \RectorPrefix20201226\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Files or directories to be upgraded.');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN, 'n', \RectorPrefix20201226\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'See diff of changes, do not save them to files.');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE, 'a', \RectorPrefix20201226\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'File with extra autoload');
+        $this->addOption(\Rector\Core\Configuration\Option::MATCH_GIT_DIFF, null, \RectorPrefix20201226\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Execute only on file(s) matching the git diff.');
         $names = $this->outputFormatterCollector->getNames();
         $description = \sprintf('Select output format: "%s".', \implode('", "', $names));
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'o', \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, $description, \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME);
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR, null, \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide progress bar. Useful e.g. for nicer CI output.');
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, null, \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Location for file to dump result in. Useful for Docker or automated processes');
-        $this->addOption(\Rector\Core\Configuration\Option::CACHE_DEBUG, null, \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Debug changed file cache');
-        $this->addOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE, null, \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Clear unchaged files cache');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'o', \RectorPrefix20201226\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, $description, \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME);
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR, null, \RectorPrefix20201226\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Hide progress bar. Useful e.g. for nicer CI output.');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, null, \RectorPrefix20201226\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Location for file to dump result in. Useful for Docker or automated processes');
+        $this->addOption(\Rector\Core\Configuration\Option::CACHE_DEBUG, null, \RectorPrefix20201226\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Debug changed file cache');
+        $this->addOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE, null, \RectorPrefix20201226\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Clear unchaged files cache');
     }
-    protected function execute(\RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix2020DecSat\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201226\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->configuration->resolveFromInput($input);
         $this->configuration->validateConfigParameters();
@@ -155,7 +155,7 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
         $phpFileInfos = $this->filesFinder->findInDirectoriesAndFiles($paths, $this->configuration->getFileExtensions(), $this->configuration->mustMatchGitDiff());
         // filter out non-PHP php files, e.g. blade templates in Laravel
         $phpFileInfos = \array_filter($phpFileInfos, function (\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool {
-            return !\RectorPrefix2020DecSat\Nette\Utils\Strings::endsWith($smartFileInfo->getPathname(), '.blade.php');
+            return !\RectorPrefix20201226\Nette\Utils\Strings::endsWith($smartFileInfo->getPathname(), '.blade.php');
         });
         return $this->cachedFileInfoFilterAndReporter->filterFileInfos($phpFileInfos);
     }

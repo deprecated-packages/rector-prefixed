@@ -60,13 +60,13 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, 'RectorPrefix2020DecSat\\Nette\\DI\\ContainerBuilder', 'expand')) {
+        if (!$this->isOnClassMethodCall($node, 'RectorPrefix20201226\\Nette\\DI\\ContainerBuilder', 'expand')) {
             return null;
         }
         $args = $node->args;
         $getContainerBuilderMethodCall = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), 'getContainerBuilder');
         $parametersPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch($getContainerBuilderMethodCall, 'parameters');
         $args[] = new \PhpParser\Node\Arg($parametersPropertyFetch);
-        return new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name\FullyQualified('RectorPrefix2020DecSat\\Nette\\DI\\Helpers'), 'expand', $args);
+        return new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201226\\Nette\\DI\\Helpers'), 'expand', $args);
     }
 }

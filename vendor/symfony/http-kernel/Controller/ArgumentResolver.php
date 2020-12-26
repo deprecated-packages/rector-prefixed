@@ -8,37 +8,37 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller;
+namespace RectorPrefix20201226\Symfony\Component\HttpKernel\Controller;
 
-use RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface;
+use RectorPrefix20201226\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface;
 /**
  * Responsible for resolving the arguments passed to an action.
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
-final class ArgumentResolver implements \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface
+final class ArgumentResolver implements \RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface
 {
     private $argumentMetadataFactory;
     /**
      * @var iterable|ArgumentValueResolverInterface[]
      */
     private $argumentValueResolvers;
-    public function __construct(\RectorPrefix2020DecSat\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, iterable $argumentValueResolvers = [])
+    public function __construct(\RectorPrefix20201226\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory = null, iterable $argumentValueResolvers = [])
     {
-        $this->argumentMetadataFactory = $argumentMetadataFactory ?: new \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory();
+        $this->argumentMetadataFactory = $argumentMetadataFactory ?: new \RectorPrefix20201226\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory();
         $this->argumentValueResolvers = $argumentValueResolvers ?: self::getDefaultArgumentValueResolvers();
     }
     /**
      * {@inheritdoc}
      */
-    public function getArguments(\RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Request $request, callable $controller) : array
+    public function getArguments(\RectorPrefix20201226\Symfony\Component\HttpFoundation\Request $request, callable $controller) : array
     {
         $arguments = [];
         foreach ($this->argumentMetadataFactory->createArgumentMetadata($controller) as $metadata) {
@@ -70,6 +70,6 @@ final class ArgumentResolver implements \RectorPrefix2020DecSat\Symfony\Componen
     }
     public static function getDefaultArgumentValueResolvers() : iterable
     {
-        return [new \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver(), new \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver(), new \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver(), new \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver(), new \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver()];
+        return [new \RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver(), new \RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver(), new \RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver(), new \RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver(), new \RectorPrefix20201226\Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver()];
     }
 }

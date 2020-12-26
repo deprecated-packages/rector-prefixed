@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Set;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\Set\ValueObject\DowngradeSetList;
@@ -72,7 +72,7 @@ final class RectorSetProvider extends \Symplify\SetConfigResolver\Provider\Abstr
             }
             $setName = \Rector\Core\Util\StaticRectorStrings::constantToDashes($name);
             // remove `-` before numbers
-            $setName = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
+            $setName = \RectorPrefix20201226\Nette\Utils\Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');
             $this->sets[] = new \Symplify\SetConfigResolver\ValueObject\Set($setName, new \Symplify\SmartFileSystem\SmartFileInfo($setPath));
         }
     }

@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\SmartFileSystem\Tests\SmartFileInfo;
 
-use RectorPrefix2020DecSat\PHPUnit\Framework\TestCase;
+use RectorPrefix20201226\PHPUnit\Framework\TestCase;
 use Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
 use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use Symplify\SmartFileSystem\SmartFileInfo;
-final class SmartFileInfoTest extends \RectorPrefix2020DecSat\PHPUnit\Framework\TestCase
+final class SmartFileInfoTest extends \RectorPrefix20201226\PHPUnit\Framework\TestCase
 {
     public function testInvalidPath() : void
     {

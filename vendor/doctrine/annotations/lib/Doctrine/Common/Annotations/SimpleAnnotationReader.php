@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix2020DecSat\Doctrine\Common\Annotations;
+namespace RectorPrefix20201226\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use ReflectionMethod;
@@ -13,7 +13,7 @@ use ReflectionProperty;
  *
  * @deprecated Deprecated in favour of using AnnotationReader
  */
-class SimpleAnnotationReader implements \RectorPrefix2020DecSat\Doctrine\Common\Annotations\Reader
+class SimpleAnnotationReader implements \RectorPrefix20201226\Doctrine\Common\Annotations\Reader
 {
     /** @var DocParser */
     private $parser;
@@ -22,7 +22,7 @@ class SimpleAnnotationReader implements \RectorPrefix2020DecSat\Doctrine\Common\
      */
     public function __construct()
     {
-        $this->parser = new \RectorPrefix2020DecSat\Doctrine\Common\Annotations\DocParser();
+        $this->parser = new \RectorPrefix20201226\Doctrine\Common\Annotations\DocParser();
         $this->parser->setIgnoreNotImportedAnnotations(\true);
     }
     /**

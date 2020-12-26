@@ -48,7 +48,7 @@ class SomeClass
     use Nette\SmartObject;
 }
 CODE_SAMPLE
-, [self::PARENT_CLASS_TO_TRAITS => ['RectorPrefix2020DecSat\\Nette\\Object' => ['RectorPrefix2020DecSat\\Nette\\SmartObject']]])]);
+, [self::PARENT_CLASS_TO_TRAITS => ['RectorPrefix20201226\\Nette\\Object' => ['RectorPrefix20201226\\Nette\\SmartObject']]])]);
     }
     /**
      * @return string[]

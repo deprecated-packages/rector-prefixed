@@ -57,6 +57,6 @@ CODE_SAMPLE
         if (\count($node->args) !== 2) {
             return null;
         }
-        return $this->createStaticCall('RectorPrefix2020DecSat\\Nette\\Utils\\FileSystem', 'write', $node->args);
+        return $this->createStaticCall('RectorPrefix20201226\\Nette\\Utils\\FileSystem', 'write', $node->args);
     }
 }

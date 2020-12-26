@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Symplify\SmartFileSystem\Tests\Normalizer;
 
 use Iterator;
-use RectorPrefix2020DecSat\PHPUnit\Framework\TestCase;
+use RectorPrefix20201226\PHPUnit\Framework\TestCase;
 use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
-final class PathNormalizerTest extends \RectorPrefix2020DecSat\PHPUnit\Framework\TestCase
+final class PathNormalizerTest extends \RectorPrefix20201226\PHPUnit\Framework\TestCase
 {
     /**
      * @var PathNormalizer
@@ -28,6 +28,6 @@ final class PathNormalizerTest extends \RectorPrefix2020DecSat\PHPUnit\Framework
     {
         // based on Linux
         (yield ['/any/path', '/any/path']);
-        (yield ['RectorPrefix2020DecSat\\any\\path', '/any/path']);
+        (yield ['RectorPrefix20201226\\any\\path', '/any/path']);
     }
 }

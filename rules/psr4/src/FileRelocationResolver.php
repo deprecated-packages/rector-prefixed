@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PSR4;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Namespace_;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -103,7 +103,7 @@ final class FileRelocationResolver
     private function replaceRelativeFilePathsWithBeforeAfter(\Symplify\SmartFileSystem\SmartFileInfo $oldSmartFileInfo, array $beforeToAfterPart) : string
     {
         // A. first "dir has changed" dummy detection
-        $relativeFilePathParts = \RectorPrefix2020DecSat\Nette\Utils\Strings::split($oldSmartFileInfo->getRelativeFilePath(), '#' . \DIRECTORY_SEPARATOR . '#');
+        $relativeFilePathParts = \RectorPrefix20201226\Nette\Utils\Strings::split($oldSmartFileInfo->getRelativeFilePath(), '#' . \DIRECTORY_SEPARATOR . '#');
         foreach ($relativeFilePathParts as $key => $relativeFilePathPart) {
             if (!isset($beforeToAfterPart[$relativeFilePathPart])) {
                 continue;

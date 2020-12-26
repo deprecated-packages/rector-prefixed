@@ -113,7 +113,7 @@ CODE_SAMPLE
         $this->replaceEntityRegistryVariableWithEntityManagerProperty($node);
         $this->removeAssignGetRepositoryCalls($node);
         // add entity manager via constructor
-        $this->addConstructorDependencyWithProperty($node, $constructorClassMethod, self::ENTITY_MANAGER, new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType('RectorPrefix2020DecSat\\Doctrine\\ORM\\EntityManagerInterface'));
+        $this->addConstructorDependencyWithProperty($node, $constructorClassMethod, self::ENTITY_MANAGER, new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType('RectorPrefix20201226\\Doctrine\\ORM\\EntityManagerInterface'));
         return $node;
     }
     /**
@@ -126,7 +126,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
-            if (!$this->isObjectType($node->var, 'RectorPrefix2020DecSat\\Doctrine\\Common\\Persistence\\ManagerRegistry')) {
+            if (!$this->isObjectType($node->var, 'RectorPrefix20201226\\Doctrine\\Common\\Persistence\\ManagerRegistry')) {
                 return null;
             }
             $name = $this->getName($node->name);
@@ -143,7 +143,7 @@ CODE_SAMPLE
             if ($param->type === null) {
                 continue;
             }
-            if (!$this->isName($param->type, 'RectorPrefix2020DecSat\\Doctrine\\Common\\Persistence\\ManagerRegistry')) {
+            if (!$this->isName($param->type, 'RectorPrefix20201226\\Doctrine\\Common\\Persistence\\ManagerRegistry')) {
                 continue;
             }
             $classMethod->params[] = $this->createEntityManagerParam();
@@ -158,7 +158,7 @@ CODE_SAMPLE
             if ($param->type === null) {
                 continue;
             }
-            if (!$this->isName($param->type, 'RectorPrefix2020DecSat\\Doctrine\\Common\\Persistence\\ManagerRegistry')) {
+            if (!$this->isName($param->type, 'RectorPrefix20201226\\Doctrine\\Common\\Persistence\\ManagerRegistry')) {
                 continue;
             }
             unset($classMethod->params[$key]);
@@ -178,7 +178,7 @@ CODE_SAMPLE
             if (!$class instanceof \PhpParser\Node\Expr\Variable) {
                 return null;
             }
-            if (!$this->isObjectType($class, 'RectorPrefix2020DecSat\\Doctrine\\Common\\Persistence\\ObjectManager')) {
+            if (!$this->isObjectType($class, 'RectorPrefix20201226\\Doctrine\\Common\\Persistence\\ObjectManager')) {
                 return null;
             }
             return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), self::ENTITY_MANAGER);
@@ -204,7 +204,7 @@ CODE_SAMPLE
     }
     private function createEntityManagerParam() : \PhpParser\Node\Param
     {
-        return new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable(self::ENTITY_MANAGER), null, new \PhpParser\Node\Name\FullyQualified('RectorPrefix2020DecSat\\Doctrine\\ORM\\EntityManagerInterface'));
+        return new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable(self::ENTITY_MANAGER), null, new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201226\\Doctrine\\ORM\\EntityManagerInterface'));
     }
     private function removeRegistryDependencyAssign(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $registryParam) : void
     {
@@ -231,7 +231,7 @@ CODE_SAMPLE
         if (!$assign->expr instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
         }
-        if (!$this->isObjectType($assign->expr->var, 'RectorPrefix2020DecSat\\Doctrine\\Common\\Persistence\\ManagerRegistry')) {
+        if (!$this->isObjectType($assign->expr->var, 'RectorPrefix20201226\\Doctrine\\Common\\Persistence\\ManagerRegistry')) {
             return \false;
         }
         return $this->isName($assign->expr->name, self::GET_MANAGER);

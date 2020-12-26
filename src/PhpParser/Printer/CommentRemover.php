@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpParser\Printer;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 /**
  * @see \Rector\Core\Tests\PhpParser\Printer\CommentRemover\CommentRemoverTest
  */
@@ -27,12 +27,12 @@ final class CommentRemover
     public function remove(string $content) : string
     {
         // remove /** ... */
-        $content = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, self::START_COMMENT_REGEX, '');
+        $content = \RectorPrefix20201226\Nette\Utils\Strings::replace($content, self::START_COMMENT_REGEX, '');
         // remove /* ... */
-        $content = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, self::START_COMMENT_REGEX, '');
+        $content = \RectorPrefix20201226\Nette\Utils\Strings::replace($content, self::START_COMMENT_REGEX, '');
         // remove # ...
-        $content = \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, self::START_GRID_COMMENT_REGEX, '');
+        $content = \RectorPrefix20201226\Nette\Utils\Strings::replace($content, self::START_GRID_COMMENT_REGEX, '');
         // remove // ...
-        return \RectorPrefix2020DecSat\Nette\Utils\Strings::replace($content, self::START_DOUBLE_SLASH_COMMENT_REGEX, '');
+        return \RectorPrefix20201226\Nette\Utils\Strings::replace($content, self::START_DOUBLE_SLASH_COMMENT_REGEX, '');
     }
 }

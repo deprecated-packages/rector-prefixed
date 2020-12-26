@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\ClassNameImport;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -120,7 +120,7 @@ final class ShortNameResolver
                 return;
             }
             // already short
-            if (\RectorPrefix2020DecSat\Nette\Utils\Strings::contains($originalName->toString(), '\\')) {
+            if (\RectorPrefix20201226\Nette\Utils\Strings::contains($originalName->toString(), '\\')) {
                 return;
             }
             $shortNames[$originalName->toString()] = $node->toString();
@@ -158,7 +158,7 @@ final class ShortNameResolver
         }
         $tagName = \ltrim($phpDocChildNode->name, '@');
         // is annotation class - big letter?
-        if (\RectorPrefix2020DecSat\Nette\Utils\Strings::match($tagName, self::BIG_LETTER_START_REGEX)) {
+        if (\RectorPrefix20201226\Nette\Utils\Strings::match($tagName, self::BIG_LETTER_START_REGEX)) {
             return $tagName;
         }
         if (!$this->isValueNodeWithType($phpDocChildNode->value)) {
@@ -168,7 +168,7 @@ final class ShortNameResolver
         if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return null;
         }
-        if (\RectorPrefix2020DecSat\Nette\Utils\Strings::contains($typeNode->name, '\\')) {
+        if (\RectorPrefix20201226\Nette\Utils\Strings::contains($typeNode->name, '\\')) {
             return null;
         }
         return $typeNode->name;

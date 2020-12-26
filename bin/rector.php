@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Bootstrap\ConfigShifter;
@@ -23,7 +23,7 @@ use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \RectorPrefix2020DecSat\AutoloadIncluder();
+$autoloadIncluder = new \RectorPrefix20201226\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(\getcwd() . '/vendor/autoload.php');
@@ -120,4 +120,4 @@ final class AutoloadIncluder
         require_once $filePath;
     }
 }
-\class_alias('RectorPrefix2020DecSat\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('RectorPrefix20201226\\AutoloadIncluder', 'AutoloadIncluder', \false);

@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\Renaming\Tests\Rector\Name\RenameClassRector;
 
 use Iterator;
-use RectorPrefix2020DecSat\Manual\Twig\TwigFilter;
-use RectorPrefix2020DecSat\Manual_Twig_Filter;
+use RectorPrefix20201226\Manual\Twig\TwigFilter;
+use RectorPrefix20201226\Manual_Twig_Filter;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture\DuplicatedClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension;
@@ -42,21 +42,21 @@ final class RenameClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRector
     protected function getRectorsWithConfiguration() : array
     {
         return [\Rector\Renaming\Rector\Name\RenameClassRector::class => [\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
-            'FqnizeNamespaced' => 'RectorPrefix2020DecSat\\Abc\\FqnizeNamespaced',
+            'FqnizeNamespaced' => 'RectorPrefix20201226\\Abc\\FqnizeNamespaced',
             \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class,
             \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClassWithTypo::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClassWithoutTypo::class,
             'DateTime' => 'DateTimeInterface',
             'Countable' => 'stdClass',
-            \RectorPrefix2020DecSat\Manual_Twig_Filter::class => \RectorPrefix2020DecSat\Manual\Twig\TwigFilter::class,
+            \RectorPrefix20201226\Manual_Twig_Filter::class => \RectorPrefix20201226\Manual\Twig\TwigFilter::class,
             'Twig_AbstractManualExtension' => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension::class,
-            'Twig_Extension_Sandbox' => 'RectorPrefix2020DecSat\\Twig\\Extension\\SandboxExtension',
+            'Twig_Extension_Sandbox' => 'RectorPrefix20201226\\Twig\\Extension\\SandboxExtension',
             // Renaming class itself and its namespace
-            'RectorPrefix2020DecSat\\MyNamespace\\MyClass' => 'RectorPrefix2020DecSat\\MyNewNamespace\\MyNewClass',
-            'RectorPrefix2020DecSat\\MyNamespace\\MyTrait' => 'RectorPrefix2020DecSat\\MyNewNamespace\\MyNewTrait',
-            'RectorPrefix2020DecSat\\MyNamespace\\MyInterface' => 'RectorPrefix2020DecSat\\MyNewNamespace\\MyNewInterface',
-            'MyOldClass' => 'RectorPrefix2020DecSat\\MyNamespace\\MyNewClass',
+            'RectorPrefix20201226\\MyNamespace\\MyClass' => 'RectorPrefix20201226\\MyNewNamespace\\MyNewClass',
+            'RectorPrefix20201226\\MyNamespace\\MyTrait' => 'RectorPrefix20201226\\MyNewNamespace\\MyNewTrait',
+            'RectorPrefix20201226\\MyNamespace\\MyInterface' => 'RectorPrefix20201226\\MyNewNamespace\\MyNewInterface',
+            'MyOldClass' => 'RectorPrefix20201226\\MyNamespace\\MyNewClass',
             'AnotherMyOldClass' => 'AnotherMyNewClass',
-            'RectorPrefix2020DecSat\\MyNamespace\\AnotherMyClass' => 'MyNewClassWithoutNamespace',
+            'RectorPrefix20201226\\MyNamespace\\AnotherMyClass' => 'MyNewClassWithoutNamespace',
             // test duplicated class - @see https://github.com/rectorphp/rector/issues/1438
             'Rector\\Renaming\\Tests\\Rector\\Name\\RenameClassRector\\Fixture\\SingularClass' => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture\DuplicatedClass::class,
         ]]];

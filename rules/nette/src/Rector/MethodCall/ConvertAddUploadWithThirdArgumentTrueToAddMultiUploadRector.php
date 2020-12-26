@@ -38,7 +38,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, 'RectorPrefix2020DecSat\\Nette\\Forms\\Form')) {
+        if (!$this->isObjectType($node->var, 'RectorPrefix20201226\\Nette\\Forms\\Form')) {
             return null;
         }
         if (!$this->isName($node->name, 'addUpload')) {

@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Symplify\SymplifyKernel\Console;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Application;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Command\Command;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Descriptor\TextDescriptor;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Exception\RuntimeException;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201226\Symfony\Component\Console\Application;
+use RectorPrefix20201226\Symfony\Component\Console\Command\Command;
+use RectorPrefix20201226\Symfony\Component\Console\Descriptor\TextDescriptor;
+use RectorPrefix20201226\Symfony\Component\Console\Exception\RuntimeException;
+use RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201226\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\ShellCode;
-abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix2020DecSat\Symfony\Component\Console\Application
+abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix20201226\Symfony\Component\Console\Application
 {
     /**
      * @var string
@@ -43,18 +43,18 @@ abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix2020DecSa
         }
         parent::addCommands($commands);
     }
-    protected function doRunCommand(\RectorPrefix2020DecSat\Symfony\Component\Console\Command\Command $command, \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix2020DecSat\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function doRunCommand(\RectorPrefix20201226\Symfony\Component\Console\Command\Command $command, \RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201226\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         return $this->doRunCommandAndShowHelpOnArgumentError($command, $input, $output);
     }
-    protected function doRunCommandAndShowHelpOnArgumentError(\RectorPrefix2020DecSat\Symfony\Component\Console\Command\Command $command, \RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix2020DecSat\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function doRunCommandAndShowHelpOnArgumentError(\RectorPrefix20201226\Symfony\Component\Console\Command\Command $command, \RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201226\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         try {
             return parent::doRunCommand($command, $input, $output);
-        } catch (\RectorPrefix2020DecSat\Symfony\Component\Console\Exception\RuntimeException $runtimeException) {
-            if (\RectorPrefix2020DecSat\Nette\Utils\Strings::contains($runtimeException->getMessage(), 'Provide required arguments')) {
+        } catch (\RectorPrefix20201226\Symfony\Component\Console\Exception\RuntimeException $runtimeException) {
+            if (\RectorPrefix20201226\Nette\Utils\Strings::contains($runtimeException->getMessage(), 'Provide required arguments')) {
                 $this->cleanExtraCommandArgument($command);
-                $textDescriptor = new \RectorPrefix2020DecSat\Symfony\Component\Console\Descriptor\TextDescriptor();
+                $textDescriptor = new \RectorPrefix20201226\Symfony\Component\Console\Descriptor\TextDescriptor();
                 $textDescriptor->describe($output, $command);
                 return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
             }
@@ -65,7 +65,7 @@ abstract class AbstractSymplifyConsoleApplication extends \RectorPrefix2020DecSa
      * Sometimes there is "command" argument,
      * not really needed on fail of missing argument
      */
-    private function cleanExtraCommandArgument(\RectorPrefix2020DecSat\Symfony\Component\Console\Command\Command $command) : void
+    private function cleanExtraCommandArgument(\RectorPrefix20201226\Symfony\Component\Console\Command\Command $command) : void
     {
         $inputDefinition = $command->getDefinition();
         $arguments = $inputDefinition->getArguments();

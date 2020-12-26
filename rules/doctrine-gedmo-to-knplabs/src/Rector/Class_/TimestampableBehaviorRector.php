@@ -59,11 +59,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->classManipulator->hasTrait($node, 'RectorPrefix2020DecSat\\Gedmo\\Timestampable\\Traits\\TimestampableEntity')) {
+        if (!$this->classManipulator->hasTrait($node, 'RectorPrefix20201226\\Gedmo\\Timestampable\\Traits\\TimestampableEntity')) {
             return null;
         }
-        $this->classManipulator->replaceTrait($node, 'RectorPrefix2020DecSat\\Gedmo\\Timestampable\\Traits\\TimestampableEntity', 'RectorPrefix2020DecSat\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampableTrait');
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix2020DecSat\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TimestampableInterface');
+        $this->classManipulator->replaceTrait($node, 'RectorPrefix20201226\\Gedmo\\Timestampable\\Traits\\TimestampableEntity', 'RectorPrefix20201226\\Knp\\DoctrineBehaviors\\Model\\Timestampable\\TimestampableTrait');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201226\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TimestampableInterface');
         return $node;
     }
 }

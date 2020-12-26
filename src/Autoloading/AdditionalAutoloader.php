@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Core\Autoloading;
 
-use RectorPrefix2020DecSat\Nette\Loaders\RobotLoader;
+use RectorPrefix20201226\Nette\Loaders\RobotLoader;
 use Rector\Core\Configuration\Option;
 use Rector\Core\FileSystem\FileGuard;
-use RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 use Symplify\SmartFileSystem\FileSystemFilter;
@@ -41,7 +41,7 @@ final class AdditionalAutoloader
     /**
      * @param string[] $source
      */
-    public function autoloadWithInputAndSource(\RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputInterface $input, array $source) : void
+    public function autoloadWithInputAndSource(\RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface $input, array $source) : void
     {
         $autoloadDirectories = $this->fileSystemFilter->filterDirectories($this->autoloadPaths);
         $autoloadFiles = $this->fileSystemFilter->filterFiles($this->autoloadPaths);
@@ -57,7 +57,7 @@ final class AdditionalAutoloader
             }
         }
     }
-    private function autoloadFileFromInput(\RectorPrefix2020DecSat\Symfony\Component\Console\Input\InputInterface $input) : void
+    private function autoloadFileFromInput(\RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface $input) : void
     {
         if (!$input->hasOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE)) {
             return;
@@ -77,7 +77,7 @@ final class AdditionalAutoloader
         if ($directories === []) {
             return;
         }
-        $robotLoader = new \RectorPrefix2020DecSat\Nette\Loaders\RobotLoader();
+        $robotLoader = new \RectorPrefix20201226\Nette\Loaders\RobotLoader();
         $robotLoader->ignoreDirs[] = '*Fixtures';
         $excludePaths = $this->skippedPathsResolver->resolve();
         foreach ($excludePaths as $excludePath) {

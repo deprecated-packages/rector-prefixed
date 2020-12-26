@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\HttpKernel;
+namespace RectorPrefix20201226\Symfony\Component\HttpKernel;
 
-use RectorPrefix2020DecSat\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\ContainerInterface;
-use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerInterface;
+use RectorPrefix20201226\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 /**
  * The Kernel is the heart of the Symfony system.
  *
@@ -24,7 +24,7 @@ use RectorPrefix2020DecSat\Symfony\Component\HttpKernel\Bundle\BundleInterface;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-interface KernelInterface extends \RectorPrefix2020DecSat\Symfony\Component\HttpKernel\HttpKernelInterface
+interface KernelInterface extends \RectorPrefix20201226\Symfony\Component\HttpKernel\HttpKernelInterface
 {
     /**
      * Returns an array of bundles to register.
@@ -35,7 +35,7 @@ interface KernelInterface extends \RectorPrefix2020DecSat\Symfony\Component\Http
     /**
      * Loads the container configuration.
      */
-    public function registerContainerConfiguration(\RectorPrefix2020DecSat\Symfony\Component\Config\Loader\LoaderInterface $loader);
+    public function registerContainerConfiguration(\RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderInterface $loader);
     /**
      * Boots the current kernel.
      */

@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
-use RectorPrefix2020DecSat\Ramsey\Uuid\UuidInterface;
+use RectorPrefix20201226\Ramsey\Uuid\UuidInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -70,7 +70,7 @@ CODE_SAMPLE
         if (!$hasEntityGetIdMethodCall) {
             return null;
         }
-        $node->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix2020DecSat\Ramsey\Uuid\UuidInterface::class);
+        $node->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201226\Ramsey\Uuid\UuidInterface::class);
         return $node;
     }
     private function hasEntityGetIdMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

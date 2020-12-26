@@ -21,7 +21,7 @@ final class ColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Ph
     }
     public function getShortName() : string
     {
-        return 'RectorPrefix2020DecSat\\@ORM\\Column';
+        return 'RectorPrefix20201226\\@ORM\\Column';
     }
     /**
      * @return array<string, mixed>

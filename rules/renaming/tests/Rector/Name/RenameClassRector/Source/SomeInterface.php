@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 interface SomeInterface
 {
 }
-\class_alias('RectorPrefix2020DecSat\\SomeInterface', 'SomeInterface', \false);
+\class_alias('RectorPrefix20201226\\SomeInterface', 'SomeInterface', \false);

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace RectorPrefix20201226\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition;
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\Definition;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class PrototypeConfigurator extends \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class PrototypeConfigurator extends \RectorPrefix20201226\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
     public const FACTORY = 'load';
     use Traits\AbstractTrait;
@@ -37,9 +37,9 @@ class PrototypeConfigurator extends \RectorPrefix2020DecSat\Symfony\Component\De
     private $resource;
     private $excludes;
     private $allowParent;
-    public function __construct(\RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition $defaults, string $namespace, string $resource, bool $allowParent)
+    public function __construct(\RectorPrefix20201226\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \RectorPrefix20201226\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \RectorPrefix20201226\Symfony\Component\DependencyInjection\Definition $defaults, string $namespace, string $resource, bool $allowParent)
     {
-        $definition = new \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition();
+        $definition = new \RectorPrefix20201226\Symfony\Component\DependencyInjection\Definition();
         if (!$defaults->isPublic() || !$defaults->isPrivate()) {
             $definition->setPublic($defaults->isPublic());
         }

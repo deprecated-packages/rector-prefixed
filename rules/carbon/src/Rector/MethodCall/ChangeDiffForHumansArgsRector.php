@@ -17,7 +17,7 @@ final class ChangeDiffForHumansArgsRector extends \Rector\Core\Rector\AbstractRe
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix2020DecSat\\Change methods arguments of diffForHumans() on Carbon\\Carbon', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20201226\\Change methods arguments of diffForHumans() on Carbon\\Carbon', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Carbon\Carbon;
 
 final class SomeClass
@@ -57,7 +57,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isOnClassMethodCall($node, 'RectorPrefix2020DecSat\\Carbon\\Carbon', 'diffForHumans')) {
+        if (!$this->isOnClassMethodCall($node, 'RectorPrefix20201226\\Carbon\\Carbon', 'diffForHumans')) {
             return null;
         }
         if (!isset($node->args[1])) {
@@ -65,11 +65,11 @@ CODE_SAMPLE
         }
         $secondArgValue = $node->args[1]->value;
         if ($this->isTrue($secondArgValue)) {
-            $node->args[1]->value = $this->createClassConstFetch('RectorPrefix2020DecSat\\Carbon\\CarbonInterface', 'DIFF_ABSOLUTE');
+            $node->args[1]->value = $this->createClassConstFetch('RectorPrefix20201226\\Carbon\\CarbonInterface', 'DIFF_ABSOLUTE');
             return $node;
         }
         if ($this->isFalse($secondArgValue)) {
-            $node->args[1]->value = $this->createClassConstFetch('RectorPrefix2020DecSat\\Carbon\\CarbonInterface', 'DIFF_RELATIVE_AUTO');
+            $node->args[1]->value = $this->createClassConstFetch('RectorPrefix20201226\\Carbon\\CarbonInterface', 'DIFF_RELATIVE_AUTO');
             return $node;
         }
         return null;

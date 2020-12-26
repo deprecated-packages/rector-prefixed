@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\Class_;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
+use RectorPrefix20201226\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -20,8 +20,8 @@ use Rector\Nette\NodeFactory\ActionRenderFactory;
 use Rector\Nette\TemplatePropertyAssignCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix2020DecSat\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix20201226\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use RectorPrefix20201226\Symfony\Component\HttpFoundation\Response;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -92,7 +92,7 @@ CODE_SAMPLE
         $shortClassName = $this->removeSuffix($shortClassName, 'Control');
         $shortClassName .= 'Controller';
         $node->name = new \PhpParser\Node\Identifier($shortClassName);
-        $node->extends = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix2020DecSat\Symfony\Bundle\FrameworkBundle\Controller\AbstractController::class);
+        $node->extends = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201226\Symfony\Bundle\FrameworkBundle\Controller\AbstractController::class);
         $classMethod = $node->getMethod('render');
         if ($classMethod !== null) {
             $this->processRenderMethod($classMethod);
@@ -108,14 +108,14 @@ CODE_SAMPLE
         if ($this->isName($class, '*Presenter')) {
             return \true;
         }
-        return !$this->isObjectType($class, 'RectorPrefix2020DecSat\\Nette\\Application\\UI\\Control');
+        return !$this->isObjectType($class, 'RectorPrefix20201226\\Nette\\Application\\UI\\Control');
     }
     private function removeSuffix(string $content, string $suffix) : string
     {
-        if (!\RectorPrefix2020DecSat\Nette\Utils\Strings::endsWith($content, $suffix)) {
+        if (!\RectorPrefix20201226\Nette\Utils\Strings::endsWith($content, $suffix)) {
             return $content;
         }
-        return \RectorPrefix2020DecSat\Nette\Utils\Strings::substring($content, 0, -\RectorPrefix2020DecSat\Nette\Utils\Strings::length($suffix));
+        return \RectorPrefix20201226\Nette\Utils\Strings::substring($content, 0, -\RectorPrefix20201226\Nette\Utils\Strings::length($suffix));
     }
     private function processRenderMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
@@ -127,7 +127,7 @@ CODE_SAMPLE
         $return = new \PhpParser\Node\Stmt\Return_($methodCall);
         $classMethod->stmts[] = $return;
         if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
-            $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix2020DecSat\Symfony\Component\HttpFoundation\Response::class);
+            $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201226\Symfony\Component\HttpFoundation\Response::class);
         }
         $this->removeNodes($magicTemplatePropertyCalls->getNodesToRemove());
     }
@@ -151,7 +151,7 @@ CODE_SAMPLE
             if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            $this->addConstructorDependencyToClass($classLike, new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType('RectorPrefix2020DecSat\\Nette\\Http\\Session'), 'session');
+            $this->addConstructorDependencyToClass($classLike, new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType('RectorPrefix20201226\\Nette\\Http\\Session'), 'session');
             return $node;
         });
     }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Nette\Rector\ClassMethod;
 
-use RectorPrefix2020DecSat\Nette\Application\UI\Control;
+use RectorPrefix20201226\Nette\Application\UI\Control;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\New_;
@@ -26,7 +26,7 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
     /**
      * @var string
      */
-    private const COMPONENT_CONTAINER_CLASS = 'RectorPrefix2020DecSat\\Nette\\ComponentModel\\IContainer';
+    private const COMPONENT_CONTAINER_CLASS = 'RectorPrefix20201226\\Nette\\ComponentModel\\IContainer';
     /**
      * @var string
      */
@@ -100,7 +100,7 @@ CODE_SAMPLE
     }
     private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
-        if (!$this->isInObjectType($classMethod, \RectorPrefix2020DecSat\Nette\Application\UI\Control::class)) {
+        if (!$this->isInObjectType($classMethod, \RectorPrefix20201226\Nette\Application\UI\Control::class)) {
             return null;
         }
         if (!$this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {

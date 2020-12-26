@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\DependencyInjection\Collector;
 
-use RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition;
+use RectorPrefix20201226\Symfony\Component\DependencyInjection\Definition;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
 final class ConfigureCallValuesCollector
 {
@@ -26,7 +26,7 @@ final class ConfigureCallValuesCollector
     {
         return $this->configureCallValuesByRectorClass[$rectorClass] ?? [];
     }
-    public function collectFromServiceAndClassName(string $className, \RectorPrefix2020DecSat\Symfony\Component\DependencyInjection\Definition $definition) : void
+    public function collectFromServiceAndClassName(string $className, \RectorPrefix20201226\Symfony\Component\DependencyInjection\Definition $definition) : void
     {
         foreach ($definition->getMethodCalls() as $methodCall) {
             if ($methodCall[0] !== 'configure') {

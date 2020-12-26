@@ -119,7 +119,7 @@ CODE_SAMPLE
         if ($classLike === null) {
             return \false;
         }
-        return $this->isObjectType($classLike, 'RectorPrefix2020DecSat\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase');
+        return $this->isObjectType($classLike, 'RectorPrefix20201226\\Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase');
     }
     private function processAssertResponseStatusCodeSame(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {

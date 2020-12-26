@@ -8,6 +8,6 @@ final class CustomIdGeneratorTagValueNode extends \Rector\BetterPhpDocParser\Val
 {
     public function getShortName() : string
     {
-        return 'RectorPrefix2020DecSat\\@ORM\\CustomIdGenerator';
+        return 'RectorPrefix20201226\\@ORM\\CustomIdGenerator';
     }
 }

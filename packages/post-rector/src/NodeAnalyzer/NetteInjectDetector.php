@@ -52,7 +52,7 @@ final class NetteInjectDetector
         if ($className === null) {
             return \false;
         }
-        if (!\is_a($className, 'RectorPrefix2020DecSat\\Nette\\Application\\IPresenter', \true)) {
+        if (!\is_a($className, 'RectorPrefix20201226\\Nette\\Application\\IPresenter', \true)) {
             return \false;
         }
         // has parent class

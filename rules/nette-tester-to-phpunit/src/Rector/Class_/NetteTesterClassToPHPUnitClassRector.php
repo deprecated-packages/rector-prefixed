@@ -74,7 +74,7 @@ CODE_SAMPLE
             $this->processAboveTestInclude($node);
             return null;
         }
-        if (!$this->isObjectType($node, 'RectorPrefix2020DecSat\\Tester\\TestCase')) {
+        if (!$this->isObjectType($node, 'RectorPrefix20201226\\Tester\\TestCase')) {
             return null;
         }
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
@@ -100,7 +100,7 @@ CODE_SAMPLE
     }
     private function processExtends(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $class->extends = new \PhpParser\Node\Name\FullyQualified('RectorPrefix2020DecSat\\PHPUnit\\Framework\\TestCase');
+        $class->extends = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201226\\PHPUnit\\Framework\\TestCase');
     }
     private function processMethods(\PhpParser\Node\Stmt\Class_ $class) : void
     {

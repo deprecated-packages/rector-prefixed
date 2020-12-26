@@ -56,6 +56,6 @@ CODE_SAMPLE
         if (\count($node->args) !== 1) {
             return null;
         }
-        return $this->createStaticCall('RectorPrefix2020DecSat\\Illuminate\\Support\\Facades\\App', 'get', $node->args);
+        return $this->createStaticCall('RectorPrefix20201226\\Illuminate\\Support\\Facades\\App', 'get', $node->args);
     }
 }

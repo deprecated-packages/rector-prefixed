@@ -28,10 +28,10 @@ final class NetteControlFactoryInterfaceAnalyzer
                 return \false;
             }
             $className = $this->resolveClassName($returnType);
-            if (\is_a($className, 'RectorPrefix2020DecSat\\Nette\\Application\\UI\\Control', \true)) {
+            if (\is_a($className, 'RectorPrefix20201226\\Nette\\Application\\UI\\Control', \true)) {
                 return \true;
             }
-            if (\is_a($className, 'RectorPrefix2020DecSat\\Nette\\Application\\UI\\Form', \true)) {
+            if (\is_a($className, 'RectorPrefix20201226\\Nette\\Application\\UI\\Form', \true)) {
                 return \true;
             }
         }

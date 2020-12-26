@@ -66,7 +66,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        if (!$this->isObjectType($classLike, 'RectorPrefix2020DecSat\\Symfony\\Component\\Console\\Command\\Command')) {
+        if (!$this->isObjectType($classLike, 'RectorPrefix20201226\\Symfony\\Component\\Console\\Command\\Command')) {
             return null;
         }
         $this->refactorReturnTypeDeclaration($node);

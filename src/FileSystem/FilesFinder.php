@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Core\FileSystem;
 
-use RectorPrefix2020DecSat\Nette\Utils\Strings;
-use RectorPrefix2020DecSat\Symfony\Component\Finder\Finder;
-use RectorPrefix2020DecSat\Symfony\Component\Finder\SplFileInfo;
+use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201226\Symfony\Component\Finder\Finder;
+use RectorPrefix20201226\Symfony\Component\Finder\SplFileInfo;
 use Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 use Symplify\SmartFileSystem\FileSystemFilter;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
@@ -94,7 +94,7 @@ final class FilesFinder
             return [];
         }
         $suffixesPattern = $this->normalizeSuffixesToPattern($suffixes);
-        $finder = \RectorPrefix2020DecSat\Symfony\Component\Finder\Finder::create()->followLinks()->files()->in($absoluteDirectories)->name($suffixesPattern)->sortByName();
+        $finder = \RectorPrefix20201226\Symfony\Component\Finder\Finder::create()->followLinks()->files()->in($absoluteDirectories)->name($suffixesPattern)->sortByName();
         $this->addFilterWithExcludedPaths($finder);
         return $this->finderSanitizer->sanitize($finder);
     }
@@ -115,13 +115,13 @@ final class FilesFinder
         $suffixesPattern = \implode('|', $suffixes);
         return '#\\.(' . $suffixesPattern . ')$#';
     }
-    private function addFilterWithExcludedPaths(\RectorPrefix2020DecSat\Symfony\Component\Finder\Finder $finder) : void
+    private function addFilterWithExcludedPaths(\RectorPrefix20201226\Symfony\Component\Finder\Finder $finder) : void
     {
         $excludePaths = $this->skippedPathsResolver->resolve();
         if ($excludePaths === []) {
             return;
         }
-        $finder->filter(function (\RectorPrefix2020DecSat\Symfony\Component\Finder\SplFileInfo $splFileInfo) use($excludePaths) : bool {
+        $finder->filter(function (\RectorPrefix20201226\Symfony\Component\Finder\SplFileInfo $splFileInfo) use($excludePaths) : bool {
             /** @var string|false $realPath */
             $realPath = $splFileInfo->getRealPath();
             if (!$realPath) {
@@ -134,7 +134,7 @@ final class FilesFinder
             foreach ($excludePaths as $excludePath) {
                 // make the path work accross different OSes
                 $excludePath = \str_replace('\\', '/', $excludePath);
-                if (\RectorPrefix2020DecSat\Nette\Utils\Strings::match($realPath, '#' . \preg_quote($excludePath, '#') . '#')) {
+                if (\RectorPrefix20201226\Nette\Utils\Strings::match($realPath, '#' . \preg_quote($excludePath, '#') . '#')) {
                     return \false;
                 }
                 $excludePath = $this->normalizeForFnmatch($excludePath);
@@ -152,11 +152,11 @@ final class FilesFinder
     private function normalizeForFnmatch(string $path) : string
     {
         // ends with *
-        if (\RectorPrefix2020DecSat\Nette\Utils\Strings::match($path, self::ENDS_WITH_ASTERISK_REGEX)) {
+        if (\RectorPrefix20201226\Nette\Utils\Strings::match($path, self::ENDS_WITH_ASTERISK_REGEX)) {
             return '*' . $path;
         }
         // starts with *
-        if (\RectorPrefix2020DecSat\Nette\Utils\Strings::match($path, self::STARTS_WITH_ASTERISK_REGEX)) {
+        if (\RectorPrefix20201226\Nette\Utils\Strings::match($path, self::STARTS_WITH_ASTERISK_REGEX)) {
             return $path . '*';
         }
         return $path;

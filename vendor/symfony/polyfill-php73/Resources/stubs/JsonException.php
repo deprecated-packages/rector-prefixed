@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix2020DecSat;
+namespace RectorPrefix20201226;
 
 /*
  * This file is part of the Symfony package.
@@ -21,4 +21,4 @@ class JsonException extends \Exception
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\class_alias('RectorPrefix2020DecSat\\JsonException', 'JsonException', \false);
+\class_alias('RectorPrefix20201226\\JsonException', 'JsonException', \false);

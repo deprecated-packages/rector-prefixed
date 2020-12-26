@@ -97,10 +97,10 @@ CODE_SAMPLE
             return null;
         }
         foreach ($use->uses as $useUse) {
-            if (!$this->isName($useUse->name, 'RectorPrefix2020DecSat\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
+            if (!$this->isName($useUse->name, 'RectorPrefix20201226\\Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
                 continue;
             }
-            $useUse->name = new \PhpParser\Node\Name('RectorPrefix2020DecSat\\Symfony\\Component\\Routing\\Annotation\\Route');
+            $useUse->name = new \PhpParser\Node\Name('RectorPrefix20201226\\Symfony\\Component\\Routing\\Annotation\\Route');
         }
         return $use;
     }

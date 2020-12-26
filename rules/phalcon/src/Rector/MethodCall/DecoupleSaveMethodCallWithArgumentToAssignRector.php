@@ -50,7 +50,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, 'RectorPrefix2020DecSat\\Phalcon\\Mvc\\Model')) {
+        if (!$this->isObjectType($node->var, 'RectorPrefix20201226\\Phalcon\\Mvc\\Model')) {
             return null;
         }
         if (!$this->isName($node->name, 'save')) {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\ClassMethod;
 
-use RectorPrefix2020DecSat\Composer\Script\Event;
+use RectorPrefix20201226\Composer\Script\Event;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -77,7 +77,7 @@ CODE_SAMPLE
         if ($classLike === null) {
             return null;
         }
-        if (!$this->isObjectType($classLike, 'RectorPrefix2020DecSat\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+        if (!$this->isObjectType($classLike, 'RectorPrefix20201226\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
             return null;
         }
         if (!$this->isName($node, 'getSubscribedEvents')) {
