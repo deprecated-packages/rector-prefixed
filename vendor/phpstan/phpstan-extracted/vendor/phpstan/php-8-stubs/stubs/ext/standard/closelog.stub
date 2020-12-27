@@ -1,5 +1,0 @@
-<?php 
-
-function closelog() : bool
-{
-}
