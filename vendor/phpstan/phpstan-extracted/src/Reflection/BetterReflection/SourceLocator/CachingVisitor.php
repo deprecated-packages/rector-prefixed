@@ -6,8 +6,8 @@ namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeVisitorAbstract;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\ConstantNodeChecker;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker;
 class CachingVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /** @var string */
@@ -45,8 +45,8 @@ class CachingVisitor extends \PhpParser\NodeVisitorAbstract
         }
         if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             try {
-                \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
-            } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
+                \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
+            } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
                 return null;
             }
             /** @var \PhpParser\Node\Scalar\String_ $nameNode */

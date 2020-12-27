@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Core\Application;
 
-use PHPStan\AnalysedCodeException;
-use PHPStan\Analyser\NodeScopeResolver;
+use RectorPrefix20201227\PHPStan\AnalysedCodeException;
+use RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
@@ -81,7 +81,7 @@ final class RectorApplication
     /**
      * @param PostRunnerInterface[] $postRunners
      */
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\Application\FileProcessor $fileProcessor, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20201227\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, array $postRunners)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\Core\Application\FileProcessor $fileProcessor, \RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor $removedAndAddedFilesProcessor, \RectorPrefix20201227\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, array $postRunners)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -183,7 +183,7 @@ final class RectorApplication
                 return;
             }
             $callback($smartFileInfo);
-        } catch (\PHPStan\AnalysedCodeException $analysedCodeException) {
+        } catch (\RectorPrefix20201227\PHPStan\AnalysedCodeException $analysedCodeException) {
             $this->notParsedFiles[] = $smartFileInfo;
             $this->errorAndDiffCollector->addAutoloadError($analysedCodeException, $smartFileInfo);
         } catch (\Throwable $throwable) {

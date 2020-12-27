@@ -11,7 +11,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use PHPStan\PhpDocParser\Lexer\Lexer;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
 use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
@@ -194,7 +194,7 @@ final class PhpDocInfoPrinter
             $positionJumpSet[$startAndEnd->getStart()] = $startAndEnd->getEnd();
         }
         // include also space before, in case of inlined docs
-        if (isset($this->tokens[$from - 1]) && $this->tokens[$from - 1][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
+        if (isset($this->tokens[$from - 1]) && $this->tokens[$from - 1][1] === \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
             --$from;
         }
         // skip extra empty lines above if this is the last one
@@ -254,7 +254,7 @@ final class PhpDocInfoPrinter
             $removedPhpDocNodeInfo = $removedNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::START_END);
             // change start position to start of the line, so the whole line is removed
             $seekPosition = $removedPhpDocNodeInfo->getStart();
-            while ($this->tokens[$seekPosition][1] !== \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
+            while ($this->tokens[$seekPosition][1] !== \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
                 --$seekPosition;
             }
             $this->removedNodePositions[] = new \Rector\BetterPhpDocParser\ValueObject\StartAndEnd($seekPosition - 1, $removedPhpDocNodeInfo->getEnd());

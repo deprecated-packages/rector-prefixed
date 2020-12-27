@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\Defluent\ConflictGuard;
 
 use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -24,7 +24,7 @@ final class ParentClassMethodTypeOverrideGuard
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->nodeRepository = $nodeRepository;
@@ -42,7 +42,7 @@ final class ParentClassMethodTypeOverrideGuard
         // if null, we're unable to override → skip it
         return $parentClassMethod !== null;
     }
-    private function getParentClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Reflection\MethodReflection
+    private function getParentClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($classMethod);

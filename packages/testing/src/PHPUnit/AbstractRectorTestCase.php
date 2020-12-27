@@ -5,7 +5,7 @@ namespace Rector\Testing\PHPUnit;
 
 use Iterator;
 use RectorPrefix20201227\Nette\Utils\Strings;
-use PHPStan\Analyser\NodeScopeResolver;
+use RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver;
 use RectorPrefix20201227\PHPUnit\Framework\ExpectationFailedException;
 use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
@@ -138,7 +138,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20201227\Symplify\Pac
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
         // needed for PHPStan, because the analyzed file is just create in /temp
-        $this->nodeScopeResolver = static::$container->get(\PHPStan\Analyser\NodeScopeResolver::class);
+        $this->nodeScopeResolver = static::$container->get(\RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver::class);
         $this->configurePhpVersionFeatures();
         // so the files are removed and added
         $configuration = static::$container->get(\Rector\Core\Configuration\Configuration::class);

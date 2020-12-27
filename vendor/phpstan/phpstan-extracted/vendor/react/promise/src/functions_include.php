@@ -1,7 +1,7 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector;
+namespace _HumbugBox221ad6f1b81f;
 
-if (!\function_exists('_HumbugBox221ad6f1b81f__UniqueRector\\React\\Promise\\resolve')) {
+if (!\function_exists('_HumbugBox221ad6f1b81f\\React\\Promise\\resolve')) {
     require __DIR__ . '/functions.php';
 }

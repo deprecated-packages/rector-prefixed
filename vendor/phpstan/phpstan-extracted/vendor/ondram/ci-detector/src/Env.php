@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector;
+namespace _HumbugBox221ad6f1b81f\OndraM\CiDetector;
 
 /**
  * Encapsulate access to the environment variables

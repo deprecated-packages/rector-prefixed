@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Psr\Log;
+namespace _HumbugBox221ad6f1b81f\Psr\Log;
 
 /**
  * Basic Implementation of LoggerAwareInterface.
@@ -18,7 +18,7 @@ trait LoggerAwareTrait
      *
      * @param LoggerInterface $logger
      */
-    public function setLogger(\_HumbugBox221ad6f1b81f__UniqueRector\Psr\Log\LoggerInterface $logger)
+    public function setLogger(\_HumbugBox221ad6f1b81f\Psr\Log\LoggerInterface $logger)
     {
         $this->logger = $logger;
     }

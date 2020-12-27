@@ -1,13 +1,13 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Middleware;
+namespace _HumbugBox221ad6f1b81f\React\Http\Middleware;
 
 use OverflowException;
-use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\ServerRequestInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\IniUtil;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Stream;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\BufferStream;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _HumbugBox221ad6f1b81f\React\Http\Io\IniUtil;
+use _HumbugBox221ad6f1b81f\React\Promise\Stream;
+use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f\RingCentral\Psr7\BufferStream;
 final class RequestBodyBufferMiddleware
 {
     private $sizeLimit;
@@ -23,17 +23,17 @@ final class RequestBodyBufferMiddleware
         if ($sizeLimit === null) {
             $sizeLimit = \ini_get('post_max_size');
         }
-        $this->sizeLimit = \_HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\IniUtil::iniSizeToBytes($sizeLimit);
+        $this->sizeLimit = \_HumbugBox221ad6f1b81f\React\Http\Io\IniUtil::iniSizeToBytes($sizeLimit);
     }
-    public function __invoke(\_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\ServerRequestInterface $request, $stack)
+    public function __invoke(\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $stack)
     {
         $body = $request->getBody();
         $size = $body->getSize();
         // happy path: skip if body is known to be empty (or is already buffered)
-        if ($size === 0 || !$body instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface) {
+        if ($size === 0 || !$body instanceof \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
             // replace with empty body if body is streaming (or buffered size exceeds limit)
-            if ($body instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface || $size > $this->sizeLimit) {
-                $request = $request->withBody(new \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\BufferStream(0));
+            if ($body instanceof \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface || $size > $this->sizeLimit) {
+                $request = $request->withBody(new \_HumbugBox221ad6f1b81f\RingCentral\Psr7\BufferStream(0));
             }
             return $stack($request);
         }
@@ -42,8 +42,8 @@ final class RequestBodyBufferMiddleware
         if ($size > $this->sizeLimit) {
             $sizeLimit = 0;
         }
-        return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Stream\buffer($body, $sizeLimit)->then(function ($buffer) use($request, $stack) {
-            $stream = new \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\BufferStream(\strlen($buffer));
+        return \_HumbugBox221ad6f1b81f\React\Promise\Stream\buffer($body, $sizeLimit)->then(function ($buffer) use($request, $stack) {
+            $stream = new \_HumbugBox221ad6f1b81f\RingCentral\Psr7\BufferStream(\strlen($buffer));
             $stream->write($buffer);
             $request = $request->withBody($stream);
             return $stack($request);
@@ -52,7 +52,7 @@ final class RequestBodyBufferMiddleware
             // but ignore the contents and wait for the close event
             // before passing the request on to the next middleware.
             if ($error instanceof \OverflowException) {
-                return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Stream\first($body, 'close')->then(function () use($stack, $request) {
+                return \_HumbugBox221ad6f1b81f\React\Promise\Stream\first($body, 'close')->then(function () use($stack, $request) {
                     return $stack($request);
                 });
             }

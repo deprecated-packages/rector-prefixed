@@ -13,7 +13,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\If_;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\TypeWithClassName;
 use RectorPrefix20201227\Ramsey\Uuid\UuidInterface;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
@@ -122,7 +122,7 @@ final class BreakingVariableRenameGuard
     private function isVariableAlreadyDefined(\PhpParser\Node\Expr\Variable $variable, string $currentVariableName) : bool
     {
         $scope = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
             return \false;
         }
         $trinaryLogic = $scope->hasVariableType($currentVariableName);

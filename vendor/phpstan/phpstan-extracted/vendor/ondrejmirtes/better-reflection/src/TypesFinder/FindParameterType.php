@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder;
 
 use LogicException;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Param;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlockFactory;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Param;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlockFactory;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
 use PhpParser\Node\Expr\Error;
 use PhpParser\Node\Param as ParamNode;
 use PhpParser\Node\Stmt\Namespace_;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
 use function explode;
 class FindParameterType
 {
@@ -23,16 +23,16 @@ class FindParameterType
     private $makeContext;
     public function __construct()
     {
-        $this->resolveTypes = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder\ResolveTypes();
-        $this->docBlockFactory = \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlockFactory::createInstance();
-        $this->makeContext = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
+        $this->resolveTypes = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\ResolveTypes();
+        $this->docBlockFactory = \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlockFactory::createInstance();
+        $this->makeContext = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
     }
     /**
      * Given a function and parameter, attempt to find the type of the parameter.
      *
      * @return Type[]
      */
-    public function __invoke(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, ?\PhpParser\Node\Stmt\Namespace_ $namespace, \PhpParser\Node\Param $node) : array
+    public function __invoke(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, ?\PhpParser\Node\Stmt\Namespace_ $namespace, \PhpParser\Node\Param $node) : array
     {
         $docComment = $function->getDocComment();
         if ($docComment === '') {

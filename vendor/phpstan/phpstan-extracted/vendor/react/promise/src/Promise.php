@@ -1,8 +1,8 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Promise;
+namespace _HumbugBox221ad6f1b81f\React\Promise;
 
-class Promise implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\ExtendedPromiseInterface, \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface
+class Promise implements \_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface, \_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
 {
     private $canceller;
     private $result;
@@ -47,7 +47,7 @@ class Promise implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Ext
         if (null !== $this->result) {
             return $this->result->done($onFulfilled, $onRejected, $onProgress);
         }
-        $this->handlers[] = static function (\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\ExtendedPromiseInterface $promise) use($onFulfilled, $onRejected) {
+        $this->handlers[] = static function (\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface $promise) use($onFulfilled, $onRejected) {
             $promise->done($onFulfilled, $onRejected);
         };
         if ($onProgress) {
@@ -58,7 +58,7 @@ class Promise implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Ext
     {
         return $this->then(null, static function ($reason) use($onRejected) {
             if (!_checkTypehint($onRejected, $reason)) {
-                return new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\RejectedPromise($reason);
+                return new \_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($reason);
             }
             return $onRejected($reason);
         });
@@ -71,7 +71,7 @@ class Promise implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Ext
             });
         }, static function ($reason) use($onFulfilledOrRejected) {
             return resolve($onFulfilledOrRejected())->then(function () use($reason) {
-                return new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\RejectedPromise($reason);
+                return new \_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($reason);
             });
         });
     }
@@ -104,7 +104,7 @@ class Promise implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Ext
             } else {
                 $progressHandler = $notify;
             }
-            $this->handlers[] = static function (\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\ExtendedPromiseInterface $promise) use($onFulfilled, $onRejected, $resolve, $reject, $progressHandler) {
+            $this->handlers[] = static function (\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface $promise) use($onFulfilled, $onRejected, $resolve, $reject, $progressHandler) {
                 $promise->then($onFulfilled, $onRejected)->done($resolve, $reject, $progressHandler);
             };
             $this->progressHandlers[] = $progressHandler;
@@ -117,11 +117,11 @@ class Promise implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Ext
         }
         $this->settle(reject($reason));
     }
-    private function settle(\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\ExtendedPromiseInterface $promise)
+    private function settle(\_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface $promise)
     {
         $promise = $this->unwrap($promise);
         if ($promise === $this) {
-            $promise = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\RejectedPromise(new \LogicException('Cannot resolve a promise with itself.'));
+            $promise = new \_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise(new \LogicException('Cannot resolve a promise with itself.'));
         }
         $handlers = $this->handlers;
         $this->progressHandlers = $this->handlers = [];
@@ -141,7 +141,7 @@ class Promise implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Ext
     }
     private function extract($promise)
     {
-        if ($promise instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\LazyPromise) {
+        if ($promise instanceof \_HumbugBox221ad6f1b81f\React\Promise\LazyPromise) {
             $promise = $promise->promise();
         }
         return $promise;

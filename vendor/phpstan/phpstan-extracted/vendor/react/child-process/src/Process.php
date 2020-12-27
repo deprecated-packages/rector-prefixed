@@ -1,13 +1,13 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\ChildProcess;
+namespace _HumbugBox221ad6f1b81f\React\ChildProcess;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableResourceStream;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableResourceStream;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f\React\Stream\ReadableResourceStream;
+use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream;
+use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * Process component.
  *
@@ -52,7 +52,7 @@ use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
  *     Accordingly, if either of these pipes is in a paused state (`pause()` method
  *     or internally due to a `pipe()` call), this detection may not trigger.
  */
-class Process extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter
+class Process extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter
 {
     /**
      * @var WritableStreamInterface|null|ReadableStreamInterface
@@ -142,7 +142,7 @@ class Process extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitt
      * @param float         $interval    Interval to periodically monitor process state (seconds)
      * @throws \RuntimeException If the process is already running or fails to start
      */
-    public function start(\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, $interval = 0.1)
+    public function start(\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, $interval = 0.1)
     {
         if ($this->isRunning()) {
             throw new \RuntimeException('Process is already running');
@@ -204,9 +204,9 @@ class Process extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitt
         }
         foreach ($pipes as $n => $fd) {
             if (\strpos($this->fds[$n][1], 'w') === \false) {
-                $stream = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableResourceStream($fd, $loop);
+                $stream = new \_HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream($fd, $loop);
             } else {
-                $stream = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableResourceStream($fd, $loop);
+                $stream = new \_HumbugBox221ad6f1b81f\React\Stream\ReadableResourceStream($fd, $loop);
                 $stream->on('close', $streamCloseHandler);
                 $closeCount++;
             }

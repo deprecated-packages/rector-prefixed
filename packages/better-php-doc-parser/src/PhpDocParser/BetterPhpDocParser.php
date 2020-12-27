@@ -8,11 +8,11 @@ use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use PHPStan\PhpDocParser\Lexer\Lexer;
-use PHPStan\PhpDocParser\Parser\ConstExprParser;
-use PHPStan\PhpDocParser\Parser\PhpDocParser;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
-use PHPStan\PhpDocParser\Parser\TypeParser;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\ConstExprParser;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\PhpDocParser;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TypeParser;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\RequiredTagValueNode;
 use Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
@@ -32,7 +32,7 @@ use RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 /**
  * @see \Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
  */
-final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
+final class BetterPhpDocParser extends \RectorPrefix20201227\PHPStan\PhpDocParser\Parser\PhpDocParser
 {
     /**
      * @var string
@@ -86,7 +86,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
     /**
      * @param PhpDocNodeFactoryInterface[] $phpDocNodeFactories
      */
-    public function __construct(\PHPStan\PhpDocParser\Parser\TypeParser $typeParser, \PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver $multilineSpaceFormatPreserver, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher, \PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\PhpDocNodeFactory\ParamPhpDocNodeFactory $paramPhpDocNodeFactory, \Rector\BetterPhpDocParser\PhpDocNodeFactory\PHPUnitDataProviderDocNodeFactory $phpUnitDataProviderDocNodeFactory, array $phpDocNodeFactories = [])
+    public function __construct(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TypeParser $typeParser, \RectorPrefix20201227\PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver $multilineSpaceFormatPreserver, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher, \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\PhpDocNodeFactory\ParamPhpDocNodeFactory $paramPhpDocNodeFactory, \Rector\BetterPhpDocParser\PhpDocNodeFactory\PHPUnitDataProviderDocNodeFactory $phpUnitDataProviderDocNodeFactory, array $phpDocNodeFactories = [])
     {
         parent::__construct($typeParser, $constExprParser);
         $this->privatesCaller = new \RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesCaller();
@@ -104,37 +104,37 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
     public function parseString(string $docBlock) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
         $tokens = $this->lexer->tokenize($docBlock);
-        $tokenIterator = new \PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
+        $tokenIterator = new \RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
         return parent::parse($tokenIterator);
     }
     /**
      * @return AttributeAwarePhpDocNode|PhpDocNode
      */
-    public function parse(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
+    public function parse(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
         $originalTokenIterator = clone $tokenIterator;
-        $tokenIterator->consumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PHPDOC);
-        $tokenIterator->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
+        $tokenIterator->consumeTokenType(\RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PHPDOC);
+        $tokenIterator->tryConsumeTokenType(\RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL);
         $children = [];
-        if (!$tokenIterator->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC)) {
+        if (!$tokenIterator->isCurrentTokenType(\RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC)) {
             $children[] = $this->parseChildAndStoreItsPositions($tokenIterator);
-            while ($tokenIterator->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) && !$tokenIterator->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC)) {
+            while ($tokenIterator->tryConsumeTokenType(\RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) && !$tokenIterator->isCurrentTokenType(\RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC)) {
                 $children[] = $this->parseChildAndStoreItsPositions($tokenIterator);
             }
         }
         // might be in the middle of annotations
-        $tokenIterator->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC);
+        $tokenIterator->tryConsumeTokenType(\RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC);
         $phpDocNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode(\array_values($children));
         $docContent = $this->annotationContentResolver->resolveFromTokenIterator($originalTokenIterator);
         return $this->attributeAwareNodeFactory->createFromNode($phpDocNode, $docContent);
     }
-    public function parseTag(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
+    public function parseTag(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
     {
         $tag = $this->resolveTag($tokenIterator);
         $phpDocTagValueNode = $this->parseTagValue($tokenIterator, $tag);
         return new \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode($tag, $phpDocTagValueNode);
     }
-    public function parseTagValue(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $tag) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    public function parseTagValue(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $tag) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
         // needed for reference support in params, see https://github.com/rectorphp/rector/issues/1734
         $tagValueNode = null;
@@ -180,7 +180,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
             }
         }
     }
-    private function parseChildAndStoreItsPositions(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \PHPStan\PhpDocParser\Ast\Node
+    private function parseChildAndStoreItsPositions(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \PHPStan\PhpDocParser\Ast\Node
     {
         $originalTokenIterator = clone $tokenIterator;
         $docContent = $this->annotationContentResolver->resolveFromTokenIterator($originalTokenIterator);
@@ -204,7 +204,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         }
         return $attributeAwareNode;
     }
-    private function resolveTag(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
+    private function resolveTag(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
     {
         $tag = $tokenIterator->currentTokenValue();
         $tokenIterator->next();
@@ -214,7 +214,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         }
         // is not e.g "@var "
         // join tags like "@ORM\Column" etc.
-        if ($tokenIterator->currentTokenType() !== \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER) {
+        if ($tokenIterator->currentTokenType() !== \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_IDENTIFIER) {
             return $tag;
         }
         $oldTag = $tag;
@@ -248,29 +248,29 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
-    private function getTokenIteratorIndex(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : int
+    private function getTokenIteratorIndex(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : int
     {
         return (int) $this->privatesAccessor->getPrivateProperty($tokenIterator, 'index');
     }
-    private function resolveTokenEnd(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : int
+    private function resolveTokenEnd(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : int
     {
         $tokenEnd = $this->getTokenIteratorIndex($tokenIterator);
         return $this->adjustTokenEndToFitClassAnnotation($tokenIterator, $tokenEnd);
     }
-    private function getOriginalContentFromTokenIterator(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
+    private function getOriginalContentFromTokenIterator(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
     {
         $originalTokens = $this->privatesAccessor->getPrivateProperty($tokenIterator, 'tokens');
         $originalContent = '';
         foreach ($originalTokens as $originalToken) {
             // skip opening
-            if ($originalToken[1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PHPDOC) {
+            if ($originalToken[1] === \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_PHPDOC) {
                 continue;
             }
             // skip closing
-            if ($originalToken[1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC) {
+            if ($originalToken[1] === \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_CLOSE_PHPDOC) {
                 continue;
             }
-            if ($originalToken[1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
+            if ($originalToken[1] === \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
                 $originalToken[0] = \PHP_EOL;
             }
             $originalContent .= $originalToken[0];
@@ -282,7 +282,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
      *
      * Need to find end of this bracket first, because the parseChild() skips class annotatinos
      */
-    private function adjustTokenEndToFitClassAnnotation(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, int $tokenEnd) : int
+    private function adjustTokenEndToFitClassAnnotation(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, int $tokenEnd) : int
     {
         $tokens = $this->privatesAccessor->getPrivateProperty($tokenIterator, 'tokens');
         if ($tokens[$tokenEnd][0] !== '(') {

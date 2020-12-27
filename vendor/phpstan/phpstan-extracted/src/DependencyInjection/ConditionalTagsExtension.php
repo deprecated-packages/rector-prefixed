@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect;
+use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f\Nette\Schema\Expect;
 use PHPStan\Analyser\TypeSpecifierFactory;
 use PHPStan\Broker\BrokerFactory;
 use PHPStan\PhpDoc\TypeNodeResolverExtension;
 use PHPStan\Rules\RegistryFactory;
-class ConditionalTagsExtension extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\CompilerExtension
+class ConditionalTagsExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    public function getConfigSchema() : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        $bool = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::bool();
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::arrayOf(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::structure([\PHPStan\Broker\BrokerFactory::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::METHODS_CLASS_REFLECTION_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::OPERATOR_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \PHPStan\Rules\RegistryFactory::RULE_TAG => $bool, \PHPStan\PhpDoc\TypeNodeResolverExtension::EXTENSION_TAG => $bool, \PHPStan\Analyser\TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \PHPStan\Analyser\TypeSpecifierFactory::METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \PHPStan\Analyser\TypeSpecifierFactory::STATIC_METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool])->min(1));
+        $bool = \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool();
+        return \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf(\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure([\PHPStan\Broker\BrokerFactory::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::METHODS_CLASS_REFLECTION_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::OPERATOR_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \PHPStan\Rules\RegistryFactory::RULE_TAG => $bool, \PHPStan\PhpDoc\TypeNodeResolverExtension::EXTENSION_TAG => $bool, \PHPStan\Analyser\TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \PHPStan\Analyser\TypeSpecifierFactory::METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \PHPStan\Analyser\TypeSpecifierFactory::STATIC_METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool])->min(1));
     }
     public function beforeCompile() : void
     {

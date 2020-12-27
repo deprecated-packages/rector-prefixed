@@ -5,7 +5,7 @@ namespace Rector\NodeTypeResolver\NodeTypeResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
 use Rector\NodeNameResolver\NodeNameResolver;

@@ -33,7 +33,7 @@ final class PHPStanRuleCodeSamplePrinter implements \RectorPrefix20201227\Sympli
     public function isMatch(string $class) : bool
     {
         /** @noRector */
-        return \is_a($class, 'PHPStan\\Rules\\Rule', \true);
+        return \is_a($class, 'RectorPrefix20201227\\PHPStan\\Rules\\Rule', \true);
     }
     /**
      * @return string[]

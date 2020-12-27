@@ -5,8 +5,8 @@ namespace Rector\BetterPhpDocParser\Contract;
 
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator;
 interface PhpDocNodeFactoryInterface
 {
-    public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
+    public function createFromNodeAndTokens(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 }

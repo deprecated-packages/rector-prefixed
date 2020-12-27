@@ -9,8 +9,8 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
@@ -122,7 +122,7 @@ CODE_SAMPLE
         /** @var string $methodName */
         $methodName = $this->getName($classMethod->name);
         // Either Ancestor classes or implemented interfaces
-        $parentClassNames = \array_merge($classReflection->getParentClassesNames(), \array_map(function (\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
+        $parentClassNames = \array_merge($classReflection->getParentClassesNames(), \array_map(function (\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
             return $interfaceReflection->getName();
         }, $classReflection->getInterfaces()));
         foreach ($parentClassNames as $parentClassName) {

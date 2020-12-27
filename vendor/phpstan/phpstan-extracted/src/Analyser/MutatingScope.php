@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Analyser;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
+use _HumbugBox221ad6f1b81f\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -1832,7 +1832,7 @@ class MutatingScope implements \PHPStan\Analyser\Scope
             }
             $variableTypes[$variableName] = \PHPStan\Analyser\VariableTypeHolder::createYes($variableType);
             foreach ($this->moreSpecificTypes as $exprString => $moreSpecificType) {
-                $matches = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::matchAll((string) $exprString, '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
+                $matches = \_HumbugBox221ad6f1b81f\Nette\Utils\Strings::matchAll((string) $exprString, '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
                 if ($matches === []) {
                     continue;
                 }
@@ -2025,7 +2025,7 @@ class MutatingScope implements \PHPStan\Analyser\Scope
         $variableString = $this->printer->prettyPrintExpr(new \PhpParser\Node\Expr\Variable($variableName));
         $moreSpecificTypeHolders = $this->moreSpecificTypes;
         foreach (\array_keys($moreSpecificTypeHolders) as $key) {
-            $matches = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::matchAll((string) $key, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
+            $matches = \_HumbugBox221ad6f1b81f\Nette\Utils\Strings::matchAll((string) $key, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
             if ($matches === []) {
                 continue;
             }
@@ -2139,18 +2139,18 @@ class MutatingScope implements \PHPStan\Analyser\Scope
         $nativeExpressionTypes = $this->nativeExpressionTypes;
         foreach (\array_keys($moreSpecificTypeHolders) as $exprString) {
             $exprString = (string) $exprString;
-            if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::startsWith($exprString, $exprStringToInvalidate)) {
+            if (\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::startsWith($exprString, $exprStringToInvalidate)) {
                 if ($exprString === $exprStringToInvalidate && $requireMoreCharacters) {
                     continue;
                 }
                 $nextLetter = \substr($exprString, \strlen($exprStringToInvalidate), 1);
-                if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($nextLetter, '#[a-zA-Z_0-9\\x7f-\\xff]#') === null) {
+                if (\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($nextLetter, '#[a-zA-Z_0-9\\x7f-\\xff]#') === null) {
                     unset($moreSpecificTypeHolders[$exprString]);
                     unset($nativeExpressionTypes[$exprString]);
                     continue;
                 }
             }
-            $matches = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::matchAll($exprString, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
+            $matches = \_HumbugBox221ad6f1b81f\Nette\Utils\Strings::matchAll($exprString, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
             if ($matches === []) {
                 continue;
             }
@@ -2229,7 +2229,7 @@ class MutatingScope implements \PHPStan\Analyser\Scope
                 $scope = $scope->removeTypeFromExpression($expr, $type);
             }
             if (!$expr instanceof \PhpParser\Node\Expr\Variable || !\is_string($expr->name) || $specifiedTypes->shouldOverwrite()) {
-                $match = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match((string) $typeSpecification['exprString'], '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
+                $match = \_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match((string) $typeSpecification['exprString'], '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
                 if ($match !== null) {
                     $skipVariables[$match[1]] = \true;
                 }

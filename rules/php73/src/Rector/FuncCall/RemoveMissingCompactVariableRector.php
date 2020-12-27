@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -60,7 +60,7 @@ CODE_SAMPLE
             return null;
         }
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
             return null;
         }
         $this->unsetUnusedArrayElements($node, $scope);
@@ -71,7 +71,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function unsetUnusedArrayElements(\PhpParser\Node\Expr\FuncCall $funcCall, \PHPStan\Analyser\Scope $scope) : void
+    private function unsetUnusedArrayElements(\PhpParser\Node\Expr\FuncCall $funcCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : void
     {
         foreach ($funcCall->args as $positoin => $arg) {
             if (!$arg->value instanceof \PhpParser\Node\Expr\Array_) {
@@ -93,7 +93,7 @@ CODE_SAMPLE
             }
         }
     }
-    private function unsetUnusedArguments(\PhpParser\Node\Expr\FuncCall $funcCall, \PHPStan\Analyser\Scope $scope) : void
+    private function unsetUnusedArguments(\PhpParser\Node\Expr\FuncCall $funcCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : void
     {
         foreach ($funcCall->args as $key => $arg) {
             if ($arg->value instanceof \PhpParser\Node\Expr\Array_) {

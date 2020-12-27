@@ -10,8 +10,8 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Rules\FunctionReturnTypeCheck;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Return_>
  */
@@ -21,7 +21,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
     private $returnTypeCheck;
     /** @var FunctionReflector */
     private $functionReflector;
-    public function __construct(\PHPStan\Rules\FunctionReturnTypeCheck $returnTypeCheck, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
+    public function __construct(\PHPStan\Rules\FunctionReturnTypeCheck $returnTypeCheck, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
     {
         $this->returnTypeCheck = $returnTypeCheck;
         $this->functionReflector = $functionReflector;
@@ -48,7 +48,7 @@ class ReturnTypeRule implements \PHPStan\Rules\Rule
         } else {
             try {
                 $reflection = $this->functionReflector->reflect($function->getName());
-            } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 // pass
             }
         }

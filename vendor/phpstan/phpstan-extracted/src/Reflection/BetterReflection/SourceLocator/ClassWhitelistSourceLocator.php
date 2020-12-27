@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-class ClassWhitelistSourceLocator implements \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+use _HumbugBox221ad6f1b81f\Nette\Utils\Strings;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+class ClassWhitelistSourceLocator implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var SourceLocator */
     private $sourceLocator;
@@ -19,16 +19,16 @@ class ClassWhitelistSourceLocator implements \_HumbugBox221ad6f1b81f__UniqueRect
      * @param SourceLocator $sourceLocator
      * @param string[] $patterns
      */
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, array $patterns)
+    public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, array $patterns)
     {
         $this->sourceLocator = $sourceLocator;
         $this->patterns = $patterns;
     }
-    public function locateIdentifier(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         if ($identifier->isClass()) {
             foreach ($this->patterns as $pattern) {
-                if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($identifier->getName(), $pattern) !== null) {
+                if (\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($identifier->getName(), $pattern) !== null) {
                     return $this->sourceLocator->locateIdentifier($reflector, $identifier);
                 }
             }
@@ -36,7 +36,7 @@ class ClassWhitelistSourceLocator implements \_HumbugBox221ad6f1b81f__UniqueRect
         }
         return $this->sourceLocator->locateIdentifier($reflector, $identifier);
     }
-    public function locateIdentifiersByType(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return $this->sourceLocator->locateIdentifiersByType($reflector, $identifierType);
     }

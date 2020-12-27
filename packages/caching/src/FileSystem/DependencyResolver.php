@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\Caching\FileSystem;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Dependency\DependencyResolver as PHPStanDependencyResolver;
-use PHPStan\File\FileHelper;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Dependency\DependencyResolver as PHPStanDependencyResolver;
+use RectorPrefix20201227\PHPStan\File\FileHelper;
 use Rector\Core\Configuration\Configuration;
 final class DependencyResolver
 {
@@ -22,7 +22,7 @@ final class DependencyResolver
      * @var PHPStanDependencyResolver
      */
     private $phpStanDependencyResolver;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \PHPStan\File\FileHelper $fileHelper)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20201227\PHPStan\Dependency\DependencyResolver $phpStanDependencyResolver, \RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper)
     {
         $this->fileHelper = $fileHelper;
         $this->configuration = $configuration;
@@ -31,7 +31,7 @@ final class DependencyResolver
     /**
      * @return string[]
      */
-    public function resolveDependencies(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function resolveDependencies(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $fileInfos = $this->configuration->getFileInfos();
         $analysedFileAbsolutesPaths = [];

@@ -7,8 +7,8 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\DeadCode\Comparator\Parameter\ParameterDefaultsComparator;
@@ -116,7 +116,7 @@ final class CurrentAndParentClassMethodComparator
     {
         // @todo use phpstan reflecoitn
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $parentMethodReflection = $this->methodReflectionProvider->provideByClassAndMethodName($parentClassName, $methodName, $scope);
@@ -135,7 +135,7 @@ final class CurrentAndParentClassMethodComparator
         }
         return \false;
     }
-    private function areParameterDefaultsDifferent(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Reflection\MethodReflection $methodReflection) : bool
+    private function areParameterDefaultsDifferent(\PhpParser\Node\Stmt\ClassMethod $classMethod, \RectorPrefix20201227\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {
         $parameterReflections = $this->methodReflectionProvider->getParameterReflectionsFromMethodReflection($methodReflection);
         foreach ($parameterReflections as $key => $parameterReflection) {

@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace PHPStan\Type\PHPUnit;
 
 use PhpParser\Node\Expr\MethodCall;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectType;
@@ -19,11 +19,11 @@ class MockObjectDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMetho
     {
         return \RectorPrefix20201227\PHPUnit\Framework\MockObject\MockObject::class;
     }
-    public function isMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
+    public function isMethodSupported(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {
         return $methodReflection->getName() === 'expects';
     }
-    public function getTypeFromMethodCall(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\MethodCall $methodCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    public function getTypeFromMethodCall(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\MethodCall $methodCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $type = $scope->getType($methodCall->var);
         if (!$type instanceof \PHPStan\Type\IntersectionType) {

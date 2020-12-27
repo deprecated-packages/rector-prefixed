@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\StaticTypeMapper\PhpDocParser;
 
 use PhpParser\Node;
-use PHPStan\Analyser\NameScope;
+use RectorPrefix20201227\PHPStan\Analyser\NameScope;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ClassStringType;
@@ -42,7 +42,7 @@ final class IdentifierTypeMapper implements \Rector\StaticTypeMapper\Contract\Ph
     /**
      * @param AttributeAwareIdentifierTypeNode&IdentifierTypeNode $typeNode
      */
-    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $type = $this->scalarStringToTypeMapper->mapScalarStringToType($typeNode->name);
         if (!$type instanceof \PHPStan\Type\MixedType) {

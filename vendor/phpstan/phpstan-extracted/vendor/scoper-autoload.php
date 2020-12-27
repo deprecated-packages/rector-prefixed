@@ -72,8 +72,8 @@ if (!class_exists('Twig_Extension_Sandbox', false) && !interface_exists('Twig_Ex
 if (!class_exists('EventDispatcher', false) && !interface_exists('EventDispatcher', false) && !trait_exists('EventDispatcher', false)) {
     spl_autoload_call('RectorPrefix20201227\EventDispatcher');
 }
-if (!class_exists('ComposerAutoloaderInit5c2400a4b1d54b0281f87c6f00a5b1fb__unique_rector', false) && !interface_exists('ComposerAutoloaderInit5c2400a4b1d54b0281f87c6f00a5b1fb__unique_rector', false) && !trait_exists('ComposerAutoloaderInit5c2400a4b1d54b0281f87c6f00a5b1fb__unique_rector', false)) {
-    spl_autoload_call('RectorPrefix20201227\ComposerAutoloaderInit5c2400a4b1d54b0281f87c6f00a5b1fb__unique_rector');
+if (!class_exists('ComposerAutoloaderInitfd9674ecb08bc52fd1f9df3168ff90d3__unique_rector', false) && !interface_exists('ComposerAutoloaderInitfd9674ecb08bc52fd1f9df3168ff90d3__unique_rector', false) && !trait_exists('ComposerAutoloaderInitfd9674ecb08bc52fd1f9df3168ff90d3__unique_rector', false)) {
+    spl_autoload_call('RectorPrefix20201227\ComposerAutoloaderInitfd9674ecb08bc52fd1f9df3168ff90d3__unique_rector');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
     spl_autoload_call('RectorPrefix20201227\Doctrine\Inflector\Inflector');
@@ -105,9 +105,9 @@ if (!class_exists('ValueError', false) && !interface_exists('ValueError', false)
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire5c2400a4b1d54b0281f87c6f00a5b1fb__unique_rector')) {
-    function composerRequire5c2400a4b1d54b0281f87c6f00a5b1fb__unique_rector() {
-        return \RectorPrefix20201227\composerRequire5c2400a4b1d54b0281f87c6f00a5b1fb__unique_rector(...func_get_args());
+if (!function_exists('composerRequirefd9674ecb08bc52fd1f9df3168ff90d3__unique_rector')) {
+    function composerRequirefd9674ecb08bc52fd1f9df3168ff90d3__unique_rector() {
+        return \RectorPrefix20201227\composerRequirefd9674ecb08bc52fd1f9df3168ff90d3__unique_rector(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {

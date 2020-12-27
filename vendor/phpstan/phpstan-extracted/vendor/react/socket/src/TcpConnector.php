@@ -1,16 +1,16 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Socket;
+namespace _HumbugBox221ad6f1b81f\React\Socket;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise;
+use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f\React\Promise;
 use InvalidArgumentException;
 use RuntimeException;
-final class TcpConnector implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectorInterface
+final class TcpConnector implements \_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface
 {
     private $loop;
     private $context;
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct(\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->loop = $loop;
         $this->context = $context;
@@ -22,11 +22,11 @@ final class TcpConnector implements \_HumbugBox221ad6f1b81f__UniqueRector\React\
         }
         $parts = \parse_url($uri);
         if (!$parts || !isset($parts['scheme'], $parts['host'], $parts['port']) || $parts['scheme'] !== 'tcp') {
-            return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
+            return \_HumbugBox221ad6f1b81f\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $uri . '" is invalid'));
         }
         $ip = \trim($parts['host'], '[]');
         if (\false === \filter_var($ip, \FILTER_VALIDATE_IP)) {
-            return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $ip . '" does not contain a valid host IP'));
+            return \_HumbugBox221ad6f1b81f\React\Promise\reject(new \InvalidArgumentException('Given URI "' . $ip . '" does not contain a valid host IP'));
         }
         // use context given in constructor
         $context = array('socket' => $this->context);
@@ -56,11 +56,11 @@ final class TcpConnector implements \_HumbugBox221ad6f1b81f__UniqueRector\React\
         $remote = 'tcp://' . $parts['host'] . ':' . $parts['port'];
         $stream = @\stream_socket_client($remote, $errno, $errstr, 0, \STREAM_CLIENT_CONNECT | \STREAM_CLIENT_ASYNC_CONNECT, \stream_context_create($context));
         if (\false === $stream) {
-            return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\reject(new \RuntimeException(\sprintf("Connection to %s failed: %s", $uri, $errstr), $errno));
+            return \_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException(\sprintf("Connection to %s failed: %s", $uri, $errstr), $errno));
         }
         // wait for connection
         $loop = $this->loop;
-        return new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Promise(function ($resolve, $reject) use($loop, $stream, $uri) {
+        return new \_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use($loop, $stream, $uri) {
             $loop->addWriteStream($stream, function ($stream) use($loop, $resolve, $reject, $uri) {
                 $loop->removeWriteStream($stream);
                 // The following hack looks like the only way to
@@ -69,7 +69,7 @@ final class TcpConnector implements \_HumbugBox221ad6f1b81f__UniqueRector\React\
                     \fclose($stream);
                     $reject(new \RuntimeException('Connection to ' . $uri . ' failed: Connection refused'));
                 } else {
-                    $resolve(new \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\Connection($stream, $loop));
+                    $resolve(new \_HumbugBox221ad6f1b81f\React\Socket\Connection($stream, $loop));
                 }
             });
         }, function () use($loop, $stream, $uri) {

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\Composer\Psr;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\Composer\Psr;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
 use function array_filter;
 use function array_keys;
 use function array_map;
@@ -17,7 +17,7 @@ use function strlen;
 use function strpos;
 use function substr;
 use const ARRAY_FILTER_USE_KEY;
-final class Psr4Mapping implements \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping
+final class Psr4Mapping implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping
 {
     /** @var array<string, array<int, string>> */
     private $mappings = [];
@@ -36,7 +36,7 @@ final class Psr4Mapping implements \_HumbugBox221ad6f1b81f__UniqueRector\Roave\B
         return $instance;
     }
     /** {@inheritDoc} */
-    public function resolvePossibleFilePaths(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier $identifier) : array
+    public function resolvePossibleFilePaths(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : array
     {
         if (!$identifier->isClass()) {
             return [];

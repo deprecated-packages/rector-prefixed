@@ -8,10 +8,10 @@ use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Name;
-use PHPStan\Analyser\Scope;
-use PHPStan\Analyser\SpecifiedTypes;
-use PHPStan\Analyser\TypeSpecifier;
-use PHPStan\Analyser\TypeSpecifierContext;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes;
+use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier;
+use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Type\Constant\ConstantStringType;
 class AssertTypeSpecifyingExtensionHelper
 {
@@ -54,13 +54,13 @@ class AssertTypeSpecifyingExtensionHelper
      * @param \PhpParser\Node\Arg[] $args $args
      * @return SpecifiedTypes
      */
-    public static function specifyTypes(\PHPStan\Analyser\TypeSpecifier $typeSpecifier, \PHPStan\Analyser\Scope $scope, string $name, array $args) : \PHPStan\Analyser\SpecifiedTypes
+    public static function specifyTypes(\RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier $typeSpecifier, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope, string $name, array $args) : \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes
     {
         $expression = self::createExpression($scope, $name, $args);
         if ($expression === null) {
-            return new \PHPStan\Analyser\SpecifiedTypes([], []);
+            return new \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes([], []);
         }
-        return $typeSpecifier->specifyTypesInCondition($scope, $expression, \PHPStan\Analyser\TypeSpecifierContext::createTruthy());
+        return $typeSpecifier->specifyTypesInCondition($scope, $expression, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createTruthy());
     }
     /**
      * @param Scope $scope
@@ -68,7 +68,7 @@ class AssertTypeSpecifyingExtensionHelper
      * @param \PhpParser\Node\Arg[] $args
      * @return \PhpParser\Node\Expr|null
      */
-    private static function createExpression(\PHPStan\Analyser\Scope $scope, string $name, array $args) : ?\PhpParser\Node\Expr
+    private static function createExpression(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, string $name, array $args) : ?\PhpParser\Node\Expr
     {
         $trimmedName = self::trimName($name);
         $resolvers = self::getExpressionResolvers();
@@ -88,43 +88,43 @@ class AssertTypeSpecifyingExtensionHelper
     private static function getExpressionResolvers() : array
     {
         if (self::$resolvers === null) {
-            self::$resolvers = ['InstanceOf' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $class, \PhpParser\Node\Arg $object) : ?Instanceof_ {
+            self::$resolvers = ['InstanceOf' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $class, \PhpParser\Node\Arg $object) : ?Instanceof_ {
                 $classType = $scope->getType($class->value);
                 if (!$classType instanceof \PHPStan\Type\Constant\ConstantStringType) {
                     return null;
                 }
                 return new \PhpParser\Node\Expr\Instanceof_($object->value, new \PhpParser\Node\Name($classType->getValue()));
-            }, 'Same' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $expected, \PhpParser\Node\Arg $actual) : Identical {
+            }, 'Same' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $expected, \PhpParser\Node\Arg $actual) : Identical {
                 return new \PhpParser\Node\Expr\BinaryOp\Identical($expected->value, $actual->value);
-            }, 'True' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : Identical {
+            }, 'True' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : Identical {
                 return new \PhpParser\Node\Expr\BinaryOp\Identical($actual->value, new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('true')));
-            }, 'False' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : Identical {
+            }, 'False' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : Identical {
                 return new \PhpParser\Node\Expr\BinaryOp\Identical($actual->value, new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('false')));
-            }, 'Null' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : Identical {
+            }, 'Null' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : Identical {
                 return new \PhpParser\Node\Expr\BinaryOp\Identical($actual->value, new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null')));
-            }, 'IsArray' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsArray' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_array'), [$actual]);
-            }, 'IsBool' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsBool' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_bool'), [$actual]);
-            }, 'IsCallable' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsCallable' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_callable'), [$actual]);
-            }, 'IsFloat' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsFloat' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_float'), [$actual]);
-            }, 'IsInt' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsInt' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_int'), [$actual]);
-            }, 'IsIterable' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsIterable' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_iterable'), [$actual]);
-            }, 'IsNumeric' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsNumeric' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_numeric'), [$actual]);
-            }, 'IsObject' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsObject' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_object'), [$actual]);
-            }, 'IsResource' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsResource' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_resource'), [$actual]);
-            }, 'IsString' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsString' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_string'), [$actual]);
-            }, 'IsScalar' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
+            }, 'IsScalar' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $actual) : FuncCall {
                 return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_scalar'), [$actual]);
-            }, 'InternalType' => function (\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $type, \PhpParser\Node\Arg $value) : ?FuncCall {
+            }, 'InternalType' => function (\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Arg $type, \PhpParser\Node\Arg $value) : ?FuncCall {
                 $typeType = $scope->getType($type->value);
                 if (!$typeType instanceof \PHPStan\Type\Constant\ConstantStringType) {
                     return null;

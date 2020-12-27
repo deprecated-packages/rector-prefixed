@@ -5,7 +5,7 @@ namespace Rector\DeadCode\Comparator\Parameter;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Param;
-use PHPStan\Reflection\ParameterReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParameterReflection;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
@@ -25,7 +25,7 @@ final class ParameterDefaultsComparator
     {
         $this->valueResolver = $valueResolver;
     }
-    public function areDefaultValuesDifferent(\PHPStan\Reflection\ParameterReflection $parameterReflection, \PhpParser\Node\Param $param) : bool
+    public function areDefaultValuesDifferent(\RectorPrefix20201227\PHPStan\Reflection\ParameterReflection $parameterReflection, \PhpParser\Node\Param $param) : bool
     {
         if ($parameterReflection->getDefaultValue() === null && $param->default === null) {
             return \false;
@@ -39,7 +39,7 @@ final class ParameterDefaultsComparator
         $secondParameterValue = $this->valueResolver->getValue($paramDefault);
         return $firstParameterValue !== $secondParameterValue;
     }
-    private function isMutuallyExclusiveNull(\PHPStan\Reflection\ParameterReflection $parameterReflection, \PhpParser\Node\Param $param) : bool
+    private function isMutuallyExclusiveNull(\RectorPrefix20201227\PHPStan\Reflection\ParameterReflection $parameterReflection, \PhpParser\Node\Param $param) : bool
     {
         if ($parameterReflection->getDefaultValue() === null && $param->default !== null) {
             return \true;
@@ -52,7 +52,7 @@ final class ParameterDefaultsComparator
     /**
      * @return bool|float|int|string|mixed[]|null
      */
-    private function resolveParameterReflectionDefaultValue(\PHPStan\Reflection\ParameterReflection $parameterReflection)
+    private function resolveParameterReflectionDefaultValue(\RectorPrefix20201227\PHPStan\Reflection\ParameterReflection $parameterReflection)
     {
         $defaultValue = $parameterReflection->getDefaultValue();
         if (!$defaultValue instanceof \PHPStan\Type\ConstantType) {

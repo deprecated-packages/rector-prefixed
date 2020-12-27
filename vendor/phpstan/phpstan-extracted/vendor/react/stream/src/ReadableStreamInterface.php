@@ -1,8 +1,8 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Stream;
+namespace _HumbugBox221ad6f1b81f\React\Stream;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitterInterface;
+use _HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface;
 /**
  * The `ReadableStreamInterface` is responsible for providing an interface for
  * read-only streams and the readable side of duplex streams.
@@ -161,7 +161,7 @@ use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitterInterface;
  *
  * @see EventEmitterInterface
  */
-interface ReadableStreamInterface extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitterInterface
+interface ReadableStreamInterface extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface
 {
     /**
      * Checks whether this stream is in a readable state (not closed already).
@@ -318,7 +318,7 @@ interface ReadableStreamInterface extends \_HumbugBox221ad6f1b81f__UniqueRector\
      * @param array $options
      * @return WritableStreamInterface $dest stream as-is
      */
-    public function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array());
+    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array());
     /**
      * Closes the stream (forcefully).
      *

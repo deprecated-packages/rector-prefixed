@@ -236,7 +236,7 @@ class Consistency
         return \sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x', \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xfff) | 0x4000, \mt_rand(0, 0x3fff) | 0x8000, \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff));
     }
 }
-namespace _HumbugBox221ad6f1b81f__UniqueRector;
+namespace _HumbugBox221ad6f1b81f;
 
 if (70000 > \PHP_VERSION_ID && \false === \interface_exists('Throwable', \false)) {
     /**

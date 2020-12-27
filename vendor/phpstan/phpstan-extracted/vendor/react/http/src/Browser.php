@@ -1,17 +1,17 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http;
+namespace _HumbugBox221ad6f1b81f\React\Http;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\ResponseInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Request;
-use _HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Uri;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\ReadableBodyStream;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\Sender;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\Transaction;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectorInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\ResponseInterface;
+use _HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
+use _HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri;
+use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f\React\Http\Io\ReadableBodyStream;
+use _HumbugBox221ad6f1b81f\React\Http\Io\Sender;
+use _HumbugBox221ad6f1b81f\React\Http\Io\Transaction;
+use _HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
+use _HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface;
+use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
 use InvalidArgumentException;
 /**
  * @final This class is final and shouldn't be extended as it is likely to be marked final in a future relase.
@@ -55,9 +55,9 @@ class Browser
      * @param ConnectorInterface|null $connector [optional] Connector to use.
      *     Should be `null` in order to use default Connector.
      */
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectorInterface $connector = null)
+    public function __construct(\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, \_HumbugBox221ad6f1b81f\React\Socket\ConnectorInterface $connector = null)
     {
-        $this->transaction = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\Transaction(\_HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\Sender::createFromLoop($loop, $connector), $loop);
+        $this->transaction = new \_HumbugBox221ad6f1b81f\React\Http\Io\Transaction(\_HumbugBox221ad6f1b81f\React\Http\Io\Sender::createFromLoop($loop, $connector), $loop);
     }
     /**
      * Sends an HTTP GET request
@@ -557,7 +557,7 @@ class Browser
             $browser->baseUrl = null;
             return $browser;
         }
-        $browser->baseUrl = new \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Uri($baseUrl);
+        $browser->baseUrl = new \_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri($baseUrl);
         if (!\in_array($browser->baseUrl->getScheme(), array('http', 'https')) || $browser->baseUrl->getHost() === '') {
             throw new \InvalidArgumentException('Base URL must be absolute');
         }
@@ -690,11 +690,11 @@ class Browser
     {
         if ($this->baseUrl !== null) {
             // ensure we're actually below the base URL
-            $url = \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Uri::resolve($this->baseUrl, $url);
+            $url = \_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri::resolve($this->baseUrl, $url);
         }
-        if ($body instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface) {
-            $body = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\ReadableBodyStream($body);
+        if ($body instanceof \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
+            $body = new \_HumbugBox221ad6f1b81f\React\Http\Io\ReadableBodyStream($body);
         }
-        return $this->transaction->send(new \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Request($method, $url, $headers, $body, $this->protocolVersion));
+        return $this->transaction->send(new \_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request($method, $url, $headers, $body, $this->protocolVersion));
     }
 }

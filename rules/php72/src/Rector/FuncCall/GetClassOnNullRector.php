@@ -12,7 +12,7 @@ use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Trait_;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\NullType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -67,7 +67,7 @@ CODE_SAMPLE
         // only relevant inside the class
         /** @var Scope|null $nodeScope */
         $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($nodeScope instanceof \PHPStan\Analyser\Scope && !$nodeScope->isInClass()) {
+        if ($nodeScope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope && !$nodeScope->isInClass()) {
             return null;
         }
         // possibly already changed

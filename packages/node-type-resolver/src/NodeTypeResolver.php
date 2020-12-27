@@ -13,7 +13,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -310,7 +310,7 @@ final class NodeTypeResolver
     {
         /** @var Scope|null $scope */
         $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope instanceof \PHPStan\Analyser\Scope) {
+        if ($scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
             $arrayType = $scope->getType($expr);
             if ($arrayType !== null) {
                 return $this->removeNonEmptyArrayFromIntersectionWithArrayType($arrayType);

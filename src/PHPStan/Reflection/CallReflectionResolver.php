@@ -9,13 +9,13 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
-use PHPStan\Analyser\Scope;
-use PHPStan\Broker\FunctionNotFoundException;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ParametersAcceptor;
-use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Broker\FunctionNotFoundException;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverRegistry;
@@ -41,14 +41,14 @@ final class CallReflectionResolver
      * @var TypeToCallReflectionResolverRegistry
      */
     private $typeToCallReflectionResolverRegistry;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverRegistry $typeToCallReflectionResolverRegistry)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverRegistry $typeToCallReflectionResolverRegistry)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->typeToCallReflectionResolverRegistry = $typeToCallReflectionResolverRegistry;
     }
-    public function resolveConstructor(\PhpParser\Node\Expr\New_ $new) : ?\PHPStan\Reflection\MethodReflection
+    public function resolveConstructor(\PhpParser\Node\Expr\New_ $new) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         /** @var Scope|null $scope */
         $scope = $new->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -79,7 +79,7 @@ final class CallReflectionResolver
      * @param FunctionReflection|MethodReflection|null $reflection
      * @param FuncCall|MethodCall|StaticCall|New_ $node
      */
-    public function resolveParametersAcceptor($reflection, \PhpParser\Node $node) : ?\PHPStan\Reflection\ParametersAcceptor
+    public function resolveParametersAcceptor($reflection, \PhpParser\Node $node) : ?\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
     {
         if ($reflection === null) {
             return null;
@@ -90,16 +90,16 @@ final class CallReflectionResolver
             return null;
         }
         if ($nbVariants === 1) {
-            return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($variants);
+            return \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($variants);
         }
         /** @var Scope|null $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope === null) {
             return null;
         }
-        return \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $node->args, $variants);
+        return \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $node->args, $variants);
     }
-    private function matchConstructorMethodInUnionType(\PHPStan\Type\UnionType $unionType, \PHPStan\Analyser\Scope $scope) : ?\PHPStan\Reflection\MethodReflection
+    private function matchConstructorMethodInUnionType(\PHPStan\Type\UnionType $unionType, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         foreach ($unionType->getTypes() as $unionedType) {
             if (!$unionedType instanceof \PHPStan\Type\TypeWithClassName) {
@@ -122,7 +122,7 @@ final class CallReflectionResolver
         if ($funcCall->name instanceof \PhpParser\Node\Name) {
             try {
                 return $this->reflectionProvider->getFunction($funcCall->name, $scope);
-            } catch (\PHPStan\Broker\FunctionNotFoundException $functionNotFoundException) {
+            } catch (\RectorPrefix20201227\PHPStan\Broker\FunctionNotFoundException $functionNotFoundException) {
                 return null;
             }
         }
@@ -134,7 +134,7 @@ final class CallReflectionResolver
     /**
      * @param MethodCall|StaticCall $node
      */
-    private function resolveMethodCall(\PhpParser\Node $node) : ?\PHPStan\Reflection\MethodReflection
+    private function resolveMethodCall(\PhpParser\Node $node) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         /** @var Scope|null $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);

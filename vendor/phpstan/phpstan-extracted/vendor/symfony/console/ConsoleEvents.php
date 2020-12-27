@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console;
+namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console;
 
 /**
  * Contains all events dispatched by an Application.

@@ -1,14 +1,14 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Stream;
+namespace _HumbugBox221ad6f1b81f\React\Stream;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
-final class CompositeStream extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\DuplexStreamInterface
+use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+final class CompositeStream extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Stream\DuplexStreamInterface
 {
     private $readable;
     private $writable;
     private $closed = \false;
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $readable, \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $writable)
+    public function __construct(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $readable, \_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $writable)
     {
         $this->readable = $readable;
         $this->writable = $writable;
@@ -16,8 +16,8 @@ final class CompositeStream extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenem
             $this->close();
             return;
         }
-        \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
-        \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
+        \_HumbugBox221ad6f1b81f\React\Stream\Util::forwardEvents($this->readable, $this, array('data', 'end', 'error'));
+        \_HumbugBox221ad6f1b81f\React\Stream\Util::forwardEvents($this->writable, $this, array('drain', 'error', 'pipe'));
         $this->readable->on('close', array($this, 'close'));
         $this->writable->on('close', array($this, 'close'));
     }
@@ -36,9 +36,9 @@ final class CompositeStream extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenem
         }
         $this->readable->resume();
     }
-    public function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::pipe($this, $dest, $options);
+        return \_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function isWritable()
     {

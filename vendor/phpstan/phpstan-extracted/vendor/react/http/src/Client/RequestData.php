@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Client;
+namespace _HumbugBox221ad6f1b81f\React\Http\Client;
 
 /**
  * @internal

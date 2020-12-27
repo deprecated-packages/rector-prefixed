@@ -15,7 +15,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\If_;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\ArrayType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -98,7 +98,7 @@ CODE_SAMPLE
     {
         /** @var Scope|null $scope */
         $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
             return \false;
         }
         return $scope->getType($expr) instanceof \PHPStan\Type\ArrayType;

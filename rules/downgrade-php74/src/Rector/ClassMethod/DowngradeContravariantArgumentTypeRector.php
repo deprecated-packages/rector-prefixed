@@ -8,8 +8,8 @@ use PhpParser\Node\FunctionLike;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\UnionType;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
 use Rector\DowngradePhp70\Rector\FunctionLike\AbstractDowngradeParamDeclarationRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
@@ -108,7 +108,7 @@ CODE_SAMPLE
         /** @var string $methodName */
         $methodName = $this->getName($functionLike);
         // Either Ancestor classes or implemented interfaces
-        $parentClassNames = \array_merge($classReflection->getParentClassesNames(), \array_map(function (\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
+        $parentClassNames = \array_merge($classReflection->getParentClassesNames(), \array_map(function (\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
             return $interfaceReflection->getName();
         }, $classReflection->getInterfaces()));
         foreach ($parentClassNames as $parentClassName) {

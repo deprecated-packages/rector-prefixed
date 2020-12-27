@@ -10,18 +10,18 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Fqsen;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\FqsenResolver;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}uses tag in a Docblock.
  */
-final class Uses extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Uses extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'uses';
     /** @var Fqsen */
@@ -32,7 +32,7 @@ final class Uses extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Ref
      * @param Fqsen       $refers
      * @param Description $description
      */
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Fqsen $refers, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen $refers, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
         $this->refers = $refers;
         $this->description = $description;
@@ -40,10 +40,10 @@ final class Uses extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Ref
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\FqsenResolver $resolver = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::string($body);
-        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::allNotNull([$resolver, $descriptionFactory]);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($body);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::allNotNull([$resolver, $descriptionFactory]);
         $parts = \preg_split('/\\s+/Su', $body, 2);
         return new static($resolver->resolve($parts[0], $context), $descriptionFactory->create(isset($parts[1]) ? $parts[1] : '', $context));
     }

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\PHPUnit;
+namespace RectorPrefix20201227\PHPStan\Rules\PHPUnit;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
 class AssertRuleHelper
 {
-    public static function isMethodOrStaticCallOnAssert(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : bool
+    public static function isMethodOrStaticCallOnAssert(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : bool
     {
         $testCaseType = new \PHPStan\Type\ObjectType('RectorPrefix20201227\\PHPUnit\\Framework\\Assert');
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {

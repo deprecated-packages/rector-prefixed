@@ -22,7 +22,7 @@ use PhpParser\Node\Stmt\Static_;
 use PhpParser\Node\Stmt\StaticVar;
 use PhpParser\Node\Stmt\Unset_;
 use PhpParser\NodeTraverser;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;

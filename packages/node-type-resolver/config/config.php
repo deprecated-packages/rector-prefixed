@@ -4,10 +4,10 @@ declare (strict_types=1);
 namespace RectorPrefix20201227;
 
 use PhpParser\NodeVisitor\NodeConnectingVisitor;
-use PHPStan\Analyser\NodeScopeResolver;
-use PHPStan\Analyser\ScopeFactory;
-use PHPStan\PhpDoc\TypeNodeResolver;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver;
+use RectorPrefix20201227\PHPStan\Analyser\ScopeFactory;
+use RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Configuration\Option;
 use Rector\Core\FileSystem\FilesFinder;
 use Rector\Core\Php\TypeAnalyzer;
@@ -26,9 +26,9 @@ return static function (\RectorPrefix20201227\Symfony\Component\DependencyInject
     $services->set(\Rector\Core\FileSystem\FilesFinder::class);
     $services->set(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);
     $services->set(\Rector\Core\PhpParser\Node\BetterNodeFinder::class);
-    $services->set(\PHPStan\Reflection\ReflectionProvider::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createReflectionProvider']);
-    $services->set(\PHPStan\Analyser\NodeScopeResolver::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createNodeScopeResolver']);
-    $services->set(\PHPStan\Analyser\ScopeFactory::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createScopeFactory']);
-    $services->set(\PHPStan\PhpDoc\TypeNodeResolver::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createTypeNodeResolver']);
+    $services->set(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createReflectionProvider']);
+    $services->set(\RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createNodeScopeResolver']);
+    $services->set(\RectorPrefix20201227\PHPStan\Analyser\ScopeFactory::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createScopeFactory']);
+    $services->set(\RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createTypeNodeResolver']);
     $services->set(\PhpParser\NodeVisitor\NodeConnectingVisitor::class);
 };

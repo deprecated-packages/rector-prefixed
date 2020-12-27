@@ -852,7 +852,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "PHPStan\\PhpDocParser\\": [
+                    "RectorPrefix20201227\\PHPStan\\PhpDocParser\\": [
                         "src\/"
                     ]
                 }
@@ -975,7 +975,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "PHPStan\\": "src\/"
+                    "RectorPrefix20201227\\PHPStan\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",

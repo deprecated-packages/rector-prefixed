@@ -6,7 +6,7 @@ namespace Rector\BetterPhpDocParser\Printer;
 use RectorPrefix20201227\Nette\Utils\Arrays;
 use RectorPrefix20201227\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\Node;
-use PHPStan\PhpDocParser\Lexer\Lexer;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
@@ -33,10 +33,10 @@ final class WhitespaceDetector
         for ($i = $start; $i < $startAndEnd->getEnd(); ++$i) {
             /** @var string $tokenValue */
             $tokenValue = $tokens[$i][0];
-            if ($tokens[$i][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
+            if ($tokens[$i][1] === \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_HORIZONTAL_WS) {
                 // give back "\s+\*" as well
                 // do not overlap to previous node
-                if (($node instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface || $node instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface) && $i - 1 > $start && isset($tokens[$i - 1]) && $tokens[$i - 1][1] === \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
+                if (($node instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface || $node instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface) && $i - 1 > $start && isset($tokens[$i - 1]) && $tokens[$i - 1][1] === \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_PHPDOC_EOL) {
                     $previousTokenValue = $tokens[$i - 1][0];
                     if (\RectorPrefix20201227\Nette\Utils\Strings::match($previousTokenValue, self::SPACE_BEFORE_ASTERISK_REGEX)) {
                         $tokenValue = $previousTokenValue . $tokenValue;
@@ -60,6 +60,6 @@ final class WhitespaceDetector
      */
     private function isQuotedStringWithSpaces(array $tokens, int $i) : bool
     {
-        return \in_array($tokens[$i][1], [\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_SINGLE_QUOTED_STRING, \PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_DOUBLE_QUOTED_STRING], \true);
+        return \in_array($tokens[$i][1], [\RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_SINGLE_QUOTED_STRING, \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_DOUBLE_QUOTED_STRING], \true);
     }
 }

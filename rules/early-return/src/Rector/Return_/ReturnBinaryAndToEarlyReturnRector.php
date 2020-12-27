@@ -12,7 +12,7 @@ use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Cast\Bool_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\BooleanType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -98,7 +98,7 @@ CODE_SAMPLE
             return $expr;
         }
         $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+        if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
             return new \PhpParser\Node\Expr\Cast\Bool_($expr);
         }
         $type = $scope->getType($expr);

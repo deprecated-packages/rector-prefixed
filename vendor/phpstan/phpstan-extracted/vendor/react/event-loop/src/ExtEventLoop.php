@@ -1,12 +1,12 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop;
+namespace _HumbugBox221ad6f1b81f\React\EventLoop;
 
 use BadMethodCallException;
 use Event;
 use EventBase;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\Tick\FutureTickQueue;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\Timer\Timer;
+use _HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue;
+use _HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer;
 use SplObjectStorage;
 /**
  * An `ext-event` based event loop.
@@ -18,7 +18,7 @@ use SplObjectStorage;
  *
  * @link https://pecl.php.net/package/event
  */
-final class ExtEventLoop implements \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface
+final class ExtEventLoop implements \_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface
 {
     private $eventBase;
     private $futureTickQueue;
@@ -47,9 +47,9 @@ final class ExtEventLoop implements \_HumbugBox221ad6f1b81f__UniqueRector\React\
             $config->requireFeatures(\EventConfig::FEATURE_FDS);
         }
         $this->eventBase = new \EventBase($config);
-        $this->futureTickQueue = new \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\Tick\FutureTickQueue();
+        $this->futureTickQueue = new \_HumbugBox221ad6f1b81f\React\EventLoop\Tick\FutureTickQueue();
         $this->timerEvents = new \SplObjectStorage();
-        $this->signals = new \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\SignalsHandler();
+        $this->signals = new \_HumbugBox221ad6f1b81f\React\EventLoop\SignalsHandler();
         $this->createTimerCallback();
         $this->createStreamCallback();
     }
@@ -112,17 +112,17 @@ final class ExtEventLoop implements \_HumbugBox221ad6f1b81f__UniqueRector\React\
     }
     public function addTimer($interval, $callback)
     {
-        $timer = new \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\Timer\Timer($interval, $callback, \false);
+        $timer = new \_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \false);
         $this->scheduleTimer($timer);
         return $timer;
     }
     public function addPeriodicTimer($interval, $callback)
     {
-        $timer = new \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\Timer\Timer($interval, $callback, \true);
+        $timer = new \_HumbugBox221ad6f1b81f\React\EventLoop\Timer\Timer($interval, $callback, \true);
         $this->scheduleTimer($timer);
         return $timer;
     }
-    public function cancelTimer(\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\TimerInterface $timer)
+    public function cancelTimer(\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
     {
         if ($this->timerEvents->contains($timer)) {
             $this->timerEvents[$timer]->free();
@@ -172,7 +172,7 @@ final class ExtEventLoop implements \_HumbugBox221ad6f1b81f__UniqueRector\React\
      *
      * @param TimerInterface $timer
      */
-    private function scheduleTimer(\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\TimerInterface $timer)
+    private function scheduleTimer(\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface $timer)
     {
         $flags = \Event::TIMEOUT;
         if ($timer->isPeriodic()) {

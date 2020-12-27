@@ -10,16 +10,16 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}version tag in a Docblock.
  */
-final class Version extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Version extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     protected $name = 'version';
     /**
@@ -39,18 +39,18 @@ final class Version extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\
     )';
     /** @var string The version vector. */
     private $version = '';
-    public function __construct($version = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($version = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::nullOrStringNotEmpty($version);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::nullOrStringNotEmpty($version);
         $this->version = $version;
         $this->description = $description;
     }
     /**
      * @return static
      */
-    public static function create($body, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::nullOrString($body);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::nullOrString($body);
         if (empty($body)) {
             return new static();
         }

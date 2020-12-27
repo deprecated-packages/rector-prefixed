@@ -5,9 +5,9 @@ namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
 use PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-use PHPStan\PhpDocParser\Parser\ParserException;
-use PHPStan\PhpDocParser\Parser\PhpDocParser;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\ParserException;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\PhpDocParser;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode;
 use RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class PHPUnitDataProviderDocNodeFactory
@@ -24,27 +24,27 @@ final class PHPUnitDataProviderDocNodeFactory
     {
         $this->privatesCaller = $privatesCaller;
     }
-    public function createFromTokens(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+    public function createFromTokens(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
         try {
             $tokenIterator->pushSavePoint();
             $attributeAwareDataProviderTagValueNode = $this->parseDataProviderTagValue($tokenIterator);
             $tokenIterator->dropSavePoint();
             return $attributeAwareDataProviderTagValueNode;
-        } catch (\PHPStan\PhpDocParser\Parser\ParserException $parserException) {
+        } catch (\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\ParserException $parserException) {
             $tokenIterator->rollback();
             $description = $this->privatesCaller->callPrivateMethod($this->phpDocParser, 'parseOptionalDescription', $tokenIterator);
             return new \PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode($description, $parserException);
         }
     }
-    public function setPhpDocParser(\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser) : void
+    public function setPhpDocParser(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser) : void
     {
         $this->phpDocParser = $phpDocParser;
     }
     /**
      * Override of parent private method to allow reference: https://github.com/rectorphp/rector/pull/1735
      */
-    private function parseDataProviderTagValue(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode
+    private function parseDataProviderTagValue(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode
     {
         $method = $this->privatesCaller->callPrivateMethod($this->phpDocParser, 'parseOptionalDescription', $tokenIterator);
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode($method);

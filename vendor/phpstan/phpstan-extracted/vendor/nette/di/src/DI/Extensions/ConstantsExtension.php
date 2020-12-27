@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Extensions;
+namespace _HumbugBox221ad6f1b81f\Nette\DI\Extensions;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
+use _HumbugBox221ad6f1b81f\Nette;
 /**
  * Constant definitions.
  */
-final class ConstantsExtension extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\CompilerExtension
+final class ConstantsExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
     public function loadConfiguration()
     {

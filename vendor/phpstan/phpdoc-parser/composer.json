@@ -27,14 +27,14 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPStan\\PhpDocParser\\": [
+            "RectorPrefix20201227\\PHPStan\\PhpDocParser\\": [
                 "src\/"
             ]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PHPStan\\PhpDocParser\\": [
+            "RectorPrefix20201227\\PHPStan\\PhpDocParser\\": [
                 "tests\/PHPStan"
             ]
         }

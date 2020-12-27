@@ -5,36 +5,36 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config;
+namespace _HumbugBox221ad6f1b81f\Nette\DI\Config;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Context;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema;
+use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f\Nette\DI\Definitions;
+use _HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement;
+use _HumbugBox221ad6f1b81f\Nette\Schema\Context;
+use _HumbugBox221ad6f1b81f\Nette\Schema\Expect;
+use _HumbugBox221ad6f1b81f\Nette\Schema\Schema;
 /**
  * Service configuration schema.
  */
-class DefinitionSchema implements \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+class DefinitionSchema implements \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
 {
     use Nette\SmartObject;
     /** @var Nette\DI\ContainerBuilder */
     private $builder;
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\ContainerBuilder $builder)
+    public function __construct(\_HumbugBox221ad6f1b81f\Nette\DI\ContainerBuilder $builder)
     {
         $this->builder = $builder;
     }
-    public function complete($def, \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Context $context)
+    public function complete($def, \_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($def === [\false]) {
             return (object) $def;
         }
-        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config\Helpers::takeParent($def)) {
+        if (\_HumbugBox221ad6f1b81f\Nette\DI\Config\Helpers::takeParent($def)) {
             $def['reset']['all'] = \true;
         }
         foreach (['arguments', 'setup', 'tags'] as $k) {
-            if (isset($def[$k]) && \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config\Helpers::takeParent($def[$k])) {
+            if (isset($def[$k]) && \_HumbugBox221ad6f1b81f\Nette\DI\Config\Helpers::takeParent($def[$k])) {
                 $def['reset'][$k] = \true;
             }
         }
@@ -51,18 +51,18 @@ class DefinitionSchema implements \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Sc
         if (!empty($def['alteration'])) {
             unset($def['alteration']);
         }
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Helpers::merge($def, $base);
+        return \_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($def, $base);
     }
     /**
      * Normalizes configuration of service definitions.
      */
-    public function normalize($def, \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Context $context)
+    public function normalize($def, \_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
         if ($def === null || $def === \false) {
             return (array) $def;
         } elseif (\is_string($def) && \interface_exists($def)) {
             return ['implement' => $def];
-        } elseif ($def instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement && \is_string($def->getEntity()) && \interface_exists($def->getEntity())) {
+        } elseif ($def instanceof \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement && \is_string($def->getEntity()) && \interface_exists($def->getEntity())) {
             $res = ['implement' => $def->getEntity()];
             if (\array_keys($def->arguments) === ['tagged']) {
                 $res += $def->arguments;
@@ -76,7 +76,7 @@ class DefinitionSchema implements \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Sc
             return ['factory' => $def];
         } elseif (\is_array($def)) {
             if (isset($def['class']) && !isset($def['type'])) {
-                if ($def['class'] instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement) {
+                if ($def['class'] instanceof \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
                     $key = \end($context->path);
                     \trigger_error("Service '{$key}': option 'class' should be changed to 'factory'.", \E_USER_DEPRECATED);
                     $def['factory'] = $def['class'];
@@ -89,7 +89,7 @@ class DefinitionSchema implements \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Sc
             foreach (['class' => 'type', 'dynamic' => 'imported'] as $alias => $original) {
                 if (\array_key_exists($alias, $def)) {
                     if (\array_key_exists($original, $def)) {
-                        throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\InvalidConfigurationException("Options '{$alias}' and '{$original}' are aliases, use only '{$original}'.");
+                        throw new \_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException("Options '{$alias}' and '{$original}' are aliases, use only '{$original}'.");
                     }
                     $def[$original] = $def[$alias];
                     unset($def[$alias]);
@@ -97,10 +97,10 @@ class DefinitionSchema implements \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Sc
             }
             return $def;
         } else {
-            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\InvalidConfigurationException('Unexpected format of service definition');
+            throw new \_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException('Unexpected format of service definition');
         }
     }
-    public function completeDefault(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Context $context)
+    public function completeDefault(\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context)
     {
     }
     private function sniffType($key, array $def) : string
@@ -112,13 +112,13 @@ class DefinitionSchema implements \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Sc
             }
         }
         if (isset($def['implement'], $def['references']) || isset($def['implement'], $def['tagged'])) {
-            return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\LocatorDefinition::class;
+            return \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\LocatorDefinition::class;
         } elseif (isset($def['implement'])) {
-            return \method_exists($def['implement'], 'create') ? \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\FactoryDefinition::class : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\AccessorDefinition::class;
+            return \method_exists($def['implement'], 'create') ? \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition::class : \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\AccessorDefinition::class;
         } elseif (isset($def['imported'])) {
-            return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\ImportedDefinition::class;
+            return \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ImportedDefinition::class;
         } else {
-            return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\ServiceDefinition::class;
+            return \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition::class;
         }
     }
     private function expandParameters(array $config) : array
@@ -130,32 +130,32 @@ class DefinitionSchema implements \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Sc
                 $params[\end($v)] = $this->builder::literal('$' . \end($v));
             }
         }
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::expand($config, $params);
+        return \_HumbugBox221ad6f1b81f\Nette\DI\Helpers::expand($config, $params);
     }
-    private static function getSchema(string $type) : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    private static function getSchema(string $type) : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
         static $cache;
-        $cache = $cache ?: [\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\ServiceDefinition::class => self::getServiceSchema(), \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\AccessorDefinition::class => self::getAccessorSchema(), \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\FactoryDefinition::class => self::getFactorySchema(), \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\LocatorDefinition::class => self::getLocatorSchema(), \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\ImportedDefinition::class => self::getImportedSchema()];
+        $cache = $cache ?: [\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ServiceDefinition::class => self::getServiceSchema(), \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\AccessorDefinition::class => self::getAccessorSchema(), \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\FactoryDefinition::class => self::getFactorySchema(), \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\LocatorDefinition::class => self::getLocatorSchema(), \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\ImportedDefinition::class => self::getImportedSchema()];
         return $cache[$type];
     }
-    private static function getServiceSchema() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    private static function getServiceSchema() : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::structure(['type' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type('string'), 'factory' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type('callable|_HumbugBox221ad6f1b81f__UniqueRector\\Nette\\DI\\Definitions\\Statement'), 'arguments' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array(), 'setup' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::listOf('callable|_HumbugBox221ad6f1b81f__UniqueRector\\Nette\\DI\\Definitions\\Statement|array:1'), 'inject' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::bool(), 'autowired' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array(), 'reset' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array(), 'alteration' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::bool()]);
+        return \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('string'), 'factory' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement'), 'arguments' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'setup' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement|array:1'), 'inject' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool(), 'autowired' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'reset' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'alteration' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool()]);
     }
-    private static function getAccessorSchema() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    private static function getAccessorSchema() : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::structure(['type' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::string(), 'implement' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::string(), 'factory' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type('callable|_HumbugBox221ad6f1b81f__UniqueRector\\Nette\\DI\\Definitions\\Statement'), 'autowired' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array()]);
+        return \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'implement' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'factory' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement'), 'autowired' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
     }
-    private static function getFactorySchema() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    private static function getFactorySchema() : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::structure(['type' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::string(), 'factory' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type('callable|_HumbugBox221ad6f1b81f__UniqueRector\\Nette\\DI\\Definitions\\Statement'), 'implement' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::string(), 'arguments' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array(), 'setup' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::listOf('callable|_HumbugBox221ad6f1b81f__UniqueRector\\Nette\\DI\\Definitions\\Statement|array:1'), 'parameters' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array(), 'references' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array(), 'tagged' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::string(), 'inject' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::bool(), 'autowired' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array(), 'reset' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array()]);
+        return \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'factory' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement'), 'implement' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'arguments' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'setup' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('callable|_HumbugBox221ad6f1b81f\\Nette\\DI\\Definitions\\Statement|array:1'), 'parameters' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'references' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'tagged' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'inject' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool(), 'autowired' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'reset' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
     }
-    private static function getLocatorSchema() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    private static function getLocatorSchema() : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::structure(['implement' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::string(), 'references' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array(), 'tagged' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::string(), 'autowired' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array()]);
+        return \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['implement' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'references' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array(), 'tagged' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'autowired' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
     }
-    private static function getImportedSchema() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    private static function getImportedSchema() : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::structure(['type' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::string(), 'imported' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::bool(), 'autowired' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array()]);
+        return \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::structure(['type' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::string(), 'imported' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::bool(), 'autowired' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type('bool|string|array'), 'tags' => \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array()]);
     }
 }

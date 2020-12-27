@@ -1,17 +1,17 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Timer;
+namespace _HumbugBox221ad6f1b81f\React\Promise\Timer;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Promise;
-function timeout(\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface $promise, $time, \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop)
+use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
+use _HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
+use _HumbugBox221ad6f1b81f\React\Promise\Promise;
+function timeout(\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise, $time, \_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
 {
     // cancelling this promise will only try to cancel the input promise,
     // thus leaving responsibility to the input promise.
     $canceller = null;
-    if ($promise instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface || !\interface_exists('_HumbugBox221ad6f1b81f__UniqueRector\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+    if ($promise instanceof \_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface || !\interface_exists('_HumbugBox221ad6f1b81f\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
         // pass promise by reference to clean reference after cancellation handler
         // has been invoked once in order to avoid garbage references in call stack.
         $canceller = function () use(&$promise) {
@@ -19,7 +19,7 @@ function timeout(\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInte
             $promise = null;
         };
     }
-    return new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Promise(function ($resolve, $reject) use($loop, $time, $promise) {
+    return new \_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use($loop, $time, $promise) {
         $timer = null;
         $promise = $promise->then(function ($v) use(&$timer, $loop, $resolve) {
             if ($timer) {
@@ -40,19 +40,19 @@ function timeout(\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInte
         }
         // start timeout timer which will cancel the input promise
         $timer = $loop->addTimer($time, function () use($time, &$promise, $reject) {
-            $reject(new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Timer\TimeoutException($time, 'Timed out after ' . $time . ' seconds'));
+            $reject(new \_HumbugBox221ad6f1b81f\React\Promise\Timer\TimeoutException($time, 'Timed out after ' . $time . ' seconds'));
             // try to invoke cancellation handler of input promise and then clean
             // reference in order to avoid garbage references in call stack.
-            if ($promise instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface || !\interface_exists('_HumbugBox221ad6f1b81f__UniqueRector\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
+            if ($promise instanceof \_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface || !\interface_exists('_HumbugBox221ad6f1b81f\\React\\Promise\\CancellablePromiseInterface') && \method_exists($promise, 'cancel')) {
                 $promise->cancel();
             }
             $promise = null;
         });
     }, $canceller);
 }
-function resolve($time, \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop)
+function resolve($time, \_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
 {
-    return new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Promise(function ($resolve) use($loop, $time, &$timer) {
+    return new \_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve) use($loop, $time, &$timer) {
         // resolve the promise when the timer fires in $time seconds
         $timer = $loop->addTimer($time, function () use($time, $resolve) {
             $resolve($time);
@@ -65,9 +65,9 @@ function resolve($time, \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\Lo
         throw new \RuntimeException('Timer cancelled');
     });
 }
-function reject($time, \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop)
+function reject($time, \_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
 {
     return resolve($time, $loop)->then(function ($time) {
-        throw new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Timer\TimeoutException($time, 'Timer expired after ' . $time . ' seconds');
+        throw new \_HumbugBox221ad6f1b81f\React\Promise\Timer\TimeoutException($time, 'Timer expired after ' . $time . ' seconds');
     });
 }

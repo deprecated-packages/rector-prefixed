@@ -10,13 +10,13 @@
  *  @license   http://www.opensource.org/licenses/mit-license.php MIT
  *  @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Reference;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Fqsen as RealFqsen;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen as RealFqsen;
 /**
  * Fqsen reference used by {@see phpDocumentor\Reflection\DocBlock\Tags\See}
  */
-final class Fqsen implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
+final class Fqsen implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference
 {
     /**
      * @var RealFqsen
@@ -25,7 +25,7 @@ final class Fqsen implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor
     /**
      * Fqsen constructor.
      */
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Fqsen $fqsen)
+    public function __construct(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Fqsen $fqsen)
     {
         $this->fqsen = $fqsen;
     }

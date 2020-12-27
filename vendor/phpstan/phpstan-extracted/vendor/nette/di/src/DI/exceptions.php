@@ -5,19 +5,19 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI;
+namespace _HumbugBox221ad6f1b81f\Nette\DI;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
+use _HumbugBox221ad6f1b81f\Nette;
 /**
  * Service not found exception.
  */
-class MissingServiceException extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidStateException
+class MissingServiceException extends \_HumbugBox221ad6f1b81f\Nette\InvalidStateException
 {
 }
 /**
  * Service creation exception.
  */
-class ServiceCreationException extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidStateException
+class ServiceCreationException extends \_HumbugBox221ad6f1b81f\Nette\InvalidStateException
 {
     public function setMessage(string $message) : self
     {
@@ -28,12 +28,12 @@ class ServiceCreationException extends \_HumbugBox221ad6f1b81f__UniqueRector\Net
 /**
  * Not allowed when container is resolving.
  */
-class NotAllowedDuringResolvingException extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidStateException
+class NotAllowedDuringResolvingException extends \_HumbugBox221ad6f1b81f\Nette\InvalidStateException
 {
 }
 /**
  * Error in configuration.
  */
-class InvalidConfigurationException extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidStateException
+class InvalidConfigurationException extends \_HumbugBox221ad6f1b81f\Nette\InvalidStateException
 {
 }

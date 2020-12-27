@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Command\ErrorFormatter;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon;
+use _HumbugBox221ad6f1b81f\Nette\DI\Helpers;
+use _HumbugBox221ad6f1b81f\Nette\Neon\Neon;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\Output;
 use PHPStan\File\RelativePathHelper;
@@ -20,7 +20,7 @@ class BaselineNeonErrorFormatter implements \PHPStan\Command\ErrorFormatter\Erro
     public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
     {
         if (!$analysisResult->hasErrors()) {
-            $output->writeRaw(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::BLOCK));
+            $output->writeRaw(\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \_HumbugBox221ad6f1b81f\Nette\Neon\Neon::BLOCK));
             return 0;
         }
         $fileErrors = [];
@@ -41,10 +41,10 @@ class BaselineNeonErrorFormatter implements \PHPStan\Command\ErrorFormatter\Erro
                 $fileErrorsCounts[$errorMessage]++;
             }
             foreach ($fileErrorsCounts as $message => $count) {
-                $errorsToOutput[] = ['message' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
+                $errorsToOutput[] = ['message' => \_HumbugBox221ad6f1b81f\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \_HumbugBox221ad6f1b81f\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
             }
         }
-        $output->writeRaw(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::BLOCK));
+        $output->writeRaw(\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \_HumbugBox221ad6f1b81f\Nette\Neon\Neon::BLOCK));
         return 1;
     }
 }

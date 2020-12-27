@@ -16,9 +16,9 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Return_;
-use PHPStan\Analyser\MutatingScope;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ParameterReflection;
+use RectorPrefix20201227\PHPStan\Analyser\MutatingScope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ParameterReflection;
 use PHPStan\Type\MixedType;
 use Rector\Core\PHPStan\Reflection\CallReflectionResolver;
 use Rector\Core\Rector\AbstractRector;
@@ -78,7 +78,7 @@ final class NonVariableToVariableOnFunctionCallRector extends \Rector\Core\Recto
             return null;
         }
         $currentScope = $scopeNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$currentScope instanceof \PHPStan\Analyser\MutatingScope) {
+        if (!$currentScope instanceof \RectorPrefix20201227\PHPStan\Analyser\MutatingScope) {
             return null;
         }
         foreach ($arguments as $key => $argument) {
@@ -122,7 +122,7 @@ final class NonVariableToVariableOnFunctionCallRector extends \Rector\Core\Recto
         }
         return $arguments;
     }
-    private function getReplacementsFor(\PhpParser\Node\Expr $expr, \PHPStan\Analyser\MutatingScope $mutatingScope, \PhpParser\Node $scopeNode) : \Rector\Php70\ValueObject\VariableAssignPair
+    private function getReplacementsFor(\PhpParser\Node\Expr $expr, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $mutatingScope, \PhpParser\Node $scopeNode) : \Rector\Php70\ValueObject\VariableAssignPair
     {
         /** @var Assign|AssignOp|AssignRef $expr */
         if ($this->isAssign($expr) && $this->isVariableLikeNode($expr->var)) {

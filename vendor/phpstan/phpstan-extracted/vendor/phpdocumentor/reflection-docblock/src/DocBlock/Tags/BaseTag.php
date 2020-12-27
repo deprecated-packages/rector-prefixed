@@ -11,14 +11,14 @@ declare (strict_types=1);
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
 /**
  * Parses a tag definition for a DocBlock.
  */
-abstract class BaseTag implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tag
+abstract class BaseTag implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag
 {
     /** @var string Name of the tag */
     protected $name = '';
@@ -37,10 +37,10 @@ abstract class BaseTag implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocum
     {
         return $this->description;
     }
-    public function render(\_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null)
+    public function render(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null)
     {
         if ($formatter === null) {
-            $formatter = new \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
+            $formatter = new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter\PassthroughFormatter();
         }
         return $formatter->format($this);
     }

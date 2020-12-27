@@ -31,9 +31,9 @@ jobs:
                     cd standalone
                     # run
                     composer require rector/rector-prefixed:dev-master --dev --ansi
-                    composer require phpstan/phpstan --dev
+                    composer require phpstan/phpstan --dev --ansi
 
             -
                 run: |
                     cd standalone
-                    vendor/bin/rector process -h
+                    vendor/bin/rector process -h --ansi

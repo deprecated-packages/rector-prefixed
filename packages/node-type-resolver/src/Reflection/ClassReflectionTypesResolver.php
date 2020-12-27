@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\Reflection;
 
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 final class ClassReflectionTypesResolver
 {
     /**
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -20,7 +20,7 @@ final class ClassReflectionTypesResolver
      *
      * @return string[]
      */
-    public function resolve(\PHPStan\Reflection\ClassReflection $classReflection) : array
+    public function resolve(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection) : array
     {
         // current class
         $types = [$classReflection->getName()];

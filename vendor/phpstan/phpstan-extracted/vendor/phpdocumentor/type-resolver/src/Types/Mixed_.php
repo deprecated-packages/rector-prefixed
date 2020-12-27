@@ -9,15 +9,15 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
 /**
  * Value Object representing an unknown, or mixed, type.
  *
  * @psalm-immutable
  */
-final class Mixed_ implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type
+final class Mixed_ implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
 {
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use function array_key_exists;
 use function strtolower;
-class ReflectionNamedType extends \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionType
+class ReflectionNamedType extends \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType
 {
     private const BUILT_IN_TYPES = ['int' => null, 'float' => null, 'string' => null, 'bool' => null, 'callable' => null, 'self' => null, 'parent' => null, 'array' => null, 'iterable' => null, 'object' => null, 'void' => null, 'mixed' => null, 'static' => null];
     /** @var string */

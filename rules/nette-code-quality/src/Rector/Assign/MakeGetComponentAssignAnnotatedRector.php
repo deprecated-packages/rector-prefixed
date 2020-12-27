@@ -10,8 +10,8 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ParametersAcceptorSelector;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
@@ -182,7 +182,7 @@ CODE_SAMPLE
         }
         return $this->resolveTypeFromShortControlNameAndVariable($arrayDimFetch->dim, $scope, $arrayDimFetch->var);
     }
-    private function resolveTypeFromShortControlNameAndVariable(\PhpParser\Node\Scalar\String_ $shortControlString, \PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\Type
+    private function resolveTypeFromShortControlNameAndVariable(\PhpParser\Node\Scalar\String_ $shortControlString, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\Type
     {
         $componentName = $this->getValue($shortControlString);
         $methodName = \sprintf('createComponent%s', \ucfirst($componentName));
@@ -195,6 +195,6 @@ CODE_SAMPLE
         }
         // has method
         $method = $calledOnType->getMethod($methodName, $scope);
-        return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants())->getReturnType();
+        return \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants())->getReturnType();
     }
 }

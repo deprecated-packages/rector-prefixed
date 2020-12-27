@@ -1,8 +1,8 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7;
+namespace _HumbugBox221ad6f1b81f\RingCentral\Psr7;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
 /**
  * Uses PHP's zlib.inflate filter to inflate deflate or gzipped content.
  *
@@ -14,14 +14,14 @@ use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface;
  * @link http://tools.ietf.org/html/rfc1952
  * @link http://php.net/manual/en/filters.compression.php
  */
-class InflateStream extends \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\StreamDecoratorTrait implements \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface
+class InflateStream extends \_HumbugBox221ad6f1b81f\RingCentral\Psr7\StreamDecoratorTrait implements \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
 {
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface $stream)
+    public function __construct(\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $stream)
     {
         // Skip the first 10 bytes
-        $stream = new \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\LimitStream($stream, -1, 10);
-        $resource = \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\StreamWrapper::getResource($stream);
+        $stream = new \_HumbugBox221ad6f1b81f\RingCentral\Psr7\LimitStream($stream, -1, 10);
+        $resource = \_HumbugBox221ad6f1b81f\RingCentral\Psr7\StreamWrapper::getResource($stream);
         \stream_filter_append($resource, 'zlib.inflate', \STREAM_FILTER_READ);
-        parent::__construct(new \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Stream($resource));
+        parent::__construct(new \_HumbugBox221ad6f1b81f\RingCentral\Psr7\Stream($resource));
     }
 }

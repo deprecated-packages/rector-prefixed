@@ -5,7 +5,7 @@ namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
 use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node;
-use PHPStan\PhpDocParser\Parser\TokenIterator;
+use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
 use Rector\BetterPhpDocParser\AnnotationReader\NodeAnnotationReader;
@@ -57,7 +57,7 @@ abstract class AbstractPhpDocNodeFactory
         $this->annotationItemsResolver = $annotationItemsResolver;
         $this->objectTypeSpecifier = $objectTypeSpecifier;
     }
-    protected function resolveContentFromTokenIterator(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
+    protected function resolveContentFromTokenIterator(\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : string
     {
         return $this->annotationContentResolver->resolveFromTokenIterator($tokenIterator);
     }

@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantArrayTypeAndMethod;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -23,7 +23,7 @@ final class ConstantArrayTypeToCallReflectionResolver implements \Rector\Core\Co
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -34,7 +34,7 @@ final class ConstantArrayTypeToCallReflectionResolver implements \Rector\Core\Co
     /**
      * @param ConstantArrayType $type
      */
-    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : ?\PHPStan\Reflection\MethodReflection
+    public function resolve(\PHPStan\Type\Type $type, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         $constantArrayTypeAndMethod = $this->findTypeAndMethodName($type);
         if ($constantArrayTypeAndMethod === null) {

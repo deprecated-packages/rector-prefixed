@@ -9,8 +9,8 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
-use PHPStan\Reflection\ParametersAcceptor;
-use PHPStan\Reflection\Type\UnionTypeMethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
+use RectorPrefix20201227\PHPStan\Reflection\Type\UnionTypeMethodReflection;
 use Rector\Core\PHPStan\Reflection\CallReflectionResolver;
 use Rector\Core\Rector\AbstractRector;
 use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -52,7 +52,7 @@ final class RemoveExtraParametersRector extends \Rector\Core\Rector\AbstractRect
         }
         // unreliable count of arguments
         $functionLikeReflection = $this->callReflectionResolver->resolveCall($node);
-        if ($functionLikeReflection instanceof \PHPStan\Reflection\Type\UnionTypeMethodReflection) {
+        if ($functionLikeReflection instanceof \RectorPrefix20201227\PHPStan\Reflection\Type\UnionTypeMethodReflection) {
             return null;
         }
         /** @var ParametersAcceptor $parametersAcceptor */
