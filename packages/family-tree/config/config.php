@@ -7,5 +7,5 @@ use RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurat
 return static function (\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->autowire()->autoconfigure()->public();
-    $services->load('Rector\\FamilyTree\\', __DIR__ . '/../src');
+    $services->load('RectorPrefix20201227\Rector\\FamilyTree\\', __DIR__ . '/../src');
 };

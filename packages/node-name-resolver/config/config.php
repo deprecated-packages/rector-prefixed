@@ -7,5 +7,5 @@ use RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurat
 return static function (\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('Rector\\NodeNameResolver\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Contract']);
+    $services->load('RectorPrefix20201227\Rector\\NodeNameResolver\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Contract']);
 };

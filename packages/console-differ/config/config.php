@@ -16,7 +16,7 @@ use RectorPrefix20201227\Symplify\ConsoleColorDiff\Console\Output\ConsoleDiffer;
 return static function (\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('Rector\\ConsoleDiffer\\', __DIR__ . '/../src');
+    $services->load('RectorPrefix20201227\Rector\\ConsoleDiffer\\', __DIR__ . '/../src');
     $services->set(\Rector\ConsoleDiffer\DifferAndFormatter::class)->arg('$differ', \RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref('differ'));
     $services->set(\Rector\ConsoleDiffer\MarkdownDifferAndFormatter::class)->arg('$markdownDiffer', \RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref('markdownDiffer'));
     $services->set('diffOutputBuilder', \RectorPrefix20201227\SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder::class)->arg('$options', ['fromFile' => 'Original', 'toFile' => 'New']);

@@ -7,5 +7,5 @@ use RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurat
 return static function (\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->autowire()->public()->autoconfigure();
-    $services->load('Rector\\DeadDocBlock\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector']);
+    $services->load('RectorPrefix20201227\Rector\\DeadDocBlock\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector']);
 };

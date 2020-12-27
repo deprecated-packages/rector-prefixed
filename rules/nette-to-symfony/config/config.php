@@ -9,5 +9,5 @@ return static function (\RectorPrefix20201227\Symfony\Component\DependencyInject
     $parameters->set('project_directory', null);
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('Rector\\NetteToSymfony\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/ValueObject']);
+    $services->load('RectorPrefix20201227\Rector\\NetteToSymfony\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/ValueObject']);
 };

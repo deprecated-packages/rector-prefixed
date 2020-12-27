@@ -22,7 +22,7 @@ return static function (\RectorPrefix20201227\Symfony\Component\DependencyInject
     $parameters->set(\Rector\Core\Configuration\Option::CACHE_DIR, \sys_get_temp_dir() . '/_rector_cached_files');
     $services = $containerConfigurator->services();
     $services->defaults()->autowire()->public()->autoconfigure();
-    $services->load('Rector\\Caching\\', __DIR__ . '/../src');
+    $services->load('RectorPrefix20201227\Rector\\Caching\\', __DIR__ . '/../src');
     $services->set(\PHPStan\Dependency\DependencyResolver::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createDependencyResolver']);
     $services->set(\PHPStan\File\FileHelper::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createFileHelper']);
     $services->set(\RectorPrefix20201227\Symfony\Component\Cache\Psr16Cache::class);

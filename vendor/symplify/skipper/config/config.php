@@ -13,7 +13,7 @@ return static function (\RectorPrefix20201227\Symfony\Component\DependencyInject
     $parameters->set(\RectorPrefix20201227\Symplify\Skipper\ValueObject\Option::ONLY, []);
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('Symplify\\Skipper\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
+    $services->load('RectorPrefix20201227\Symplify\\Skipper\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
     $services->set(\RectorPrefix20201227\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker::class);
     $services->set(\RectorPrefix20201227\Symplify\SmartFileSystem\Normalizer\PathNormalizer::class);
 };
