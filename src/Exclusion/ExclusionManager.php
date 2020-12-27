@@ -6,6 +6,10 @@ namespace Rector\Core\Exclusion;
 use PhpParser\Node;
 use Rector\Core\Contract\Exclusion\ExclusionCheckInterface;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
+/**
+ * @todo move to symplify/skipper if grown enough
+ * @see \Rector\Core\Tests\Exclusion\ExclusionManagerTest
+ */
 final class ExclusionManager
 {
     /**
