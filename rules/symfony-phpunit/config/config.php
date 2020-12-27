@@ -7,5 +7,5 @@ use RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurat
 return static function (\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('RectorPrefix20201227\Rector\\SymfonyPHPUnit\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector']);
+    $services->load('Rector\\SymfonyPHPUnit\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector']);
 };

@@ -9,5 +9,5 @@ return static function (\RectorPrefix20201227\Symfony\Component\DependencyInject
     $parameters->set('symfony_container_xml_path', '');
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('RectorPrefix20201227\Rector\\Symfony3\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Exception', __DIR__ . '/../src/ValueObject']);
+    $services->load('Rector\\Symfony3\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Exception', __DIR__ . '/../src/ValueObject']);
 };
