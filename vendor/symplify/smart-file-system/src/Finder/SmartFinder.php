@@ -25,6 +25,20 @@ final class SmartFinder
         $this->fileSystemFilter = $fileSystemFilter;
     }
     /**
+     * @return SmartFileInfo[]
+     */
+    public function findPaths(array $directoriesOrFiles, string $path) : array
+    {
+        $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
+        $fileInfos = [];
+        if (\count($directories) > 0) {
+            $finder = new \RectorPrefix20201227\Symfony\Component\Finder\Finder();
+            $finder->name('*')->in($directories)->path($path)->files()->sortByName();
+            $fileInfos = $this->finderSanitizer->sanitize($finder);
+        }
+        return $fileInfos;
+    }
+    /**
      * @param string[] $excludedDirectories
      * @return SmartFileInfo[]
      */

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Command\ErrorFormatter;
 
-use _HumbugBox221ad6f1b81f\Nette\Utils\Json;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json;
 use PHPStan\Command\AnalysisResult;
 use PHPStan\Command\Output;
 use PHPStan\File\RelativePathHelper;
@@ -31,7 +31,7 @@ class GitlabErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorForma
         foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
             $errorsArray[] = ['description' => $notFileSpecificError, 'fingerprint' => \hash('sha256', $notFileSpecificError), 'location' => ['path' => '', 'lines' => ['begin' => 0]]];
         }
-        $json = \_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($errorsArray, \_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY);
+        $json = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::encode($errorsArray, \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::PRETTY);
         $output->writeRaw($json);
         return $analysisResult->hasErrors() ? 1 : 0;
     }

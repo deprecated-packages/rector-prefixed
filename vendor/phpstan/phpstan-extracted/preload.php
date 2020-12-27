@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f;
+namespace _HumbugBox221ad6f1b81f__UniqueRector;
 
 require_once __DIR__ . '/src/Reflection/InaccessibleMethod.php';
 require_once __DIR__ . '/src/Reflection/ResolvedFunctionVariant.php';

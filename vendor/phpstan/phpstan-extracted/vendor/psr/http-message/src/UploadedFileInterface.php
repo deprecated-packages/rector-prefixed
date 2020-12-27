@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\Psr\Http\Message;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message;
 
 /**
  * Value object representing a file uploaded through an HTTP request.

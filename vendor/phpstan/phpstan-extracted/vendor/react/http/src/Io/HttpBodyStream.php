@@ -1,12 +1,12 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\Util;
-use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Bridge between StreamInterface from PSR-7 and ReadableStreamInterface from ReactPHP
  *
@@ -23,7 +23,7 @@ use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
  * @see ReadableStreamInterface
  * @internal
  */
-class HttpBodyStream extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface, \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class HttpBodyStream extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface, \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface
 {
     public $input;
     private $closed = \false;
@@ -32,7 +32,7 @@ class HttpBodyStream extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter impl
      * @param ReadableStreamInterface $input Stream data from $stream as a body of a PSR-7 object4
      * @param int|null $size size of the data body
      */
-    public function __construct(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input, $size)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $input, $size)
     {
         $this->input = $input;
         $this->size = $size;
@@ -53,9 +53,9 @@ class HttpBodyStream extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter impl
     {
         $this->input->resume();
     }
-    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

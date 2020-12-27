@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located;
 
-class InternalLocatedSource extends \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+class InternalLocatedSource extends \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource
 {
     /** @var string */
     private $extensionName;

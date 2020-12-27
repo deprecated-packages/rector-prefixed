@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Formatter;
 
 /**
  * Formatter interface for console output that supports word wrapping.
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-interface WrappableOutputFormatterInterface extends \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatterInterface
+interface WrappableOutputFormatterInterface extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Formatter\OutputFormatterInterface
 {
     /**
      * Formats a message according to the given styles, wrapping at `$width` (0 means no wrapping).

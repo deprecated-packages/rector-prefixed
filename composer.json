@@ -5,9 +5,9 @@
     "require": {
         "php": "^7.3|^8.0"
     },
-    "conflicting": [
-        "rector/rector"
-    ],
+    "conflict": {
+        "rector/rector": "*"
+    },
     "bin": [
         "bin/rector"
     ],

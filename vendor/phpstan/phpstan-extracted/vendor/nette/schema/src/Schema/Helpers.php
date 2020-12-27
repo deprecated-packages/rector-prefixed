@@ -5,10 +5,10 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Nette\Schema;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema;
 
-use _HumbugBox221ad6f1b81f\Nette;
-use _HumbugBox221ad6f1b81f\Nette\Utils\Reflection;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Reflection;
 /**
  * @internal
  */
@@ -45,12 +45,12 @@ final class Helpers
     }
     public static function getPropertyType(\ReflectionProperty $prop) : ?string
     {
-        if ($type = \_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyType($prop)) {
+        if ($type = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Reflection::getPropertyType($prop)) {
             return ($prop->getType()->allowsNull() ? '?' : '') . $type;
         } elseif ($type = \preg_replace('#\\s.*#', '', (string) self::parseAnnotation($prop, 'var'))) {
-            $class = \_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::getPropertyDeclaringClass($prop);
+            $class = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Reflection::getPropertyDeclaringClass($prop);
             return \preg_replace_callback('#[\\w\\\\]+#', function ($m) use($class) {
-                return \_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::expandClassName($m[0], $class);
+                return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Reflection::expandClassName($m[0], $class);
             }, $type);
         }
         return null;
@@ -61,8 +61,8 @@ final class Helpers
      */
     public static function parseAnnotation(\Reflector $ref, string $name) : ?string
     {
-        if (!\_HumbugBox221ad6f1b81f\Nette\Utils\Reflection::areCommentsAvailable()) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidStateException('You have to enable phpDoc comments in opcode cache.');
+        if (!\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Reflection::areCommentsAvailable()) {
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidStateException('You have to enable phpDoc comments in opcode cache.');
         }
         $re = '#[\\s*]@' . \preg_quote($name, '#') . '(?=\\s|$)(?:[ \\t]+([^@\\s]\\S*))?#';
         if ($ref->getDocComment() && \preg_match($re, \trim($ref->getDocComment(), '/*'), $m)) {

@@ -8,7 +8,7 @@ use PHPStan\Analyser\IgnoredErrorHelper;
 use PHPStan\Analyser\ResultCache\ResultCacheManagerFactory;
 use PHPStan\Internal\BytesHelper;
 use PHPStan\PhpDoc\StubValidator;
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
 class AnalyseApplication
 {
     /** @var AnalyserRunner */
@@ -43,7 +43,7 @@ class AnalyseApplication
      * @param mixed[]|null $projectConfigArray
      * @return AnalysisResult
      */
-    public function analyse(array $files, bool $onlyFiles, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, ?string $projectConfigFile, ?array $projectConfigArray, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Command\AnalysisResult
+    public function analyse(array $files, bool $onlyFiles, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, ?string $projectConfigFile, ?array $projectConfigArray, \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Command\AnalysisResult
     {
         $this->updateMemoryLimitFile();
         $projectStubFiles = [];
@@ -104,7 +104,7 @@ class AnalyseApplication
      * @param string[] $files
      * @param string[] $allAnalysedFiles
      */
-    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, ?string $projectConfigFile, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
+    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, ?string $projectConfigFile, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
     {
         $filesCount = \count($files);
         $allAnalysedFilesCount = \count($allAnalysedFiles);

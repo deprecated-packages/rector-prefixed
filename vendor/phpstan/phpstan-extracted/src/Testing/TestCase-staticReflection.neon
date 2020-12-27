@@ -49,7 +49,7 @@ services:
 		autowired: false
 
 	testCaseSourceLocator:
-		class: _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+		class: _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 		factory: @PHPStan\Testing\TestCaseSourceLocatorFactory::create()
 		autowired: false
 

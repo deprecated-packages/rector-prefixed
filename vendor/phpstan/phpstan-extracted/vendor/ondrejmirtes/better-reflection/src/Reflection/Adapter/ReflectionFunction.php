@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter;
 
 use Exception;
 use ReflectionException as CoreReflectionException;
 use ReflectionFunction as CoreReflectionFunction;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunction;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunction;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\FileHelper;
 use Throwable;
 use function func_get_args;
 class ReflectionFunction extends \ReflectionFunction
 {
     /** @var BetterReflectionFunction */
     private $betterReflectionFunction;
-    public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction $betterReflectionFunction)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction $betterReflectionFunction)
     {
         $this->betterReflectionFunction = $betterReflectionFunction;
     }
@@ -75,14 +75,14 @@ class ReflectionFunction extends \ReflectionFunction
      */
     public function getClosureThis()
     {
-        throw new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
      */
     public function getClosureScopeClass()
     {
-        throw new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -103,7 +103,7 @@ class ReflectionFunction extends \ReflectionFunction
      */
     public function getExtension()
     {
-        throw new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}
@@ -118,7 +118,7 @@ class ReflectionFunction extends \ReflectionFunction
     public function getFileName()
     {
         $fileName = $this->betterReflectionFunction->getFileName();
-        return $fileName !== null ? \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
+        return $fileName !== null ? \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\FileHelper::normalizeSystemPath($fileName) : \false;
     }
     /**
      * {@inheritDoc}
@@ -156,7 +156,7 @@ class ReflectionFunction extends \ReflectionFunction
         $parameters = $this->betterReflectionFunction->getParameters();
         $wrappedParameters = [];
         foreach ($parameters as $key => $parameter) {
-            $wrappedParameters[$key] = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionParameter($parameter);
+            $wrappedParameters[$key] = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionParameter($parameter);
         }
         return $wrappedParameters;
     }
@@ -165,7 +165,7 @@ class ReflectionFunction extends \ReflectionFunction
      */
     public function getReturnType()
     {
-        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionFunction->getReturnType());
+        return \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionType::fromReturnTypeOrNull($this->betterReflectionFunction->getReturnType());
     }
     /**
      * {@inheritDoc}
@@ -186,7 +186,7 @@ class ReflectionFunction extends \ReflectionFunction
      */
     public function getStaticVariables()
     {
-        throw new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
+        throw new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented');
     }
     /**
      * {@inheritDoc}

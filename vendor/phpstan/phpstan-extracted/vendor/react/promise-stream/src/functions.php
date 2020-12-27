@@ -1,12 +1,12 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Promise\Stream;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Stream;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface;
-use _HumbugBox221ad6f1b81f\React\Promise;
-use _HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitterInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
 /**
  * Creates a `Promise` which resolves with the stream data buffer.
  *
@@ -46,14 +46,14 @@ use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
  * @param ?int                            $maxLength Maximum number of bytes to buffer or null for unlimited.
  * @return PromiseInterface<string,Exception>
  */
-function buffer(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $stream, $maxLength = null)
+function buffer(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $stream, $maxLength = null)
 {
     // stream already ended => resolve with empty buffer
     if (!$stream->isReadable()) {
-        return \_HumbugBox221ad6f1b81f\React\Promise\resolve('');
+        return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\resolve('');
     }
     $buffer = '';
-    $promise = new \_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use($stream, $maxLength, &$buffer, &$bufferer) {
+    $promise = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Promise(function ($resolve, $reject) use($stream, $maxLength, &$buffer, &$bufferer) {
         $bufferer = function ($data) use(&$buffer, $reject, $maxLength) {
             $buffer .= $data;
             if ($maxLength !== null && isset($buffer[$maxLength])) {
@@ -107,21 +107,21 @@ function buffer(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $st
  * @param string                                          $event
  * @return PromiseInterface<mixed,Exception>
  */
-function first(\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface $stream, $event = 'data')
+function first(\_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitterInterface $stream, $event = 'data')
 {
-    if ($stream instanceof \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
+    if ($stream instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface) {
         // readable or duplex stream not readable => already closed
         // a half-open duplex stream is considered closed if its readable side is closed
         if (!$stream->isReadable()) {
-            return \_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('Stream already closed'));
+            return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\reject(new \RuntimeException('Stream already closed'));
         }
-    } elseif ($stream instanceof \_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface) {
+    } elseif ($stream instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface) {
         // writable-only stream (not duplex) not writable => already closed
         if (!$stream->isWritable()) {
-            return \_HumbugBox221ad6f1b81f\React\Promise\reject(new \RuntimeException('Stream already closed'));
+            return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\reject(new \RuntimeException('Stream already closed'));
         }
     }
-    return new \_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use($stream, $event, &$listener) {
+    return new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Promise(function ($resolve, $reject) use($stream, $event, &$listener) {
         $listener = function ($data = null) use($stream, $event, &$listener, $resolve) {
             $stream->removeListener($event, $listener);
             $resolve($data);
@@ -170,19 +170,19 @@ function first(\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface $stream, 
  * @param string                                          $event
  * @return PromiseInterface<array,Exception>
  */
-function all(\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface $stream, $event = 'data')
+function all(\_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitterInterface $stream, $event = 'data')
 {
     // stream already ended => resolve with empty buffer
-    if ($stream instanceof \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
+    if ($stream instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface) {
         // readable or duplex stream not readable => already closed
         // a half-open duplex stream is considered closed if its readable side is closed
         if (!$stream->isReadable()) {
-            return \_HumbugBox221ad6f1b81f\React\Promise\resolve(array());
+            return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\resolve(array());
         }
-    } elseif ($stream instanceof \_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface) {
+    } elseif ($stream instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface) {
         // writable-only stream (not duplex) not writable => already closed
         if (!$stream->isWritable()) {
-            return \_HumbugBox221ad6f1b81f\React\Promise\resolve(array());
+            return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\resolve(array());
         }
     }
     $buffer = array();
@@ -190,7 +190,7 @@ function all(\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface $stream, $e
         $buffer[] = $data;
     };
     $stream->on($event, $bufferer);
-    $promise = new \_HumbugBox221ad6f1b81f\React\Promise\Promise(function ($resolve, $reject) use($stream, &$buffer) {
+    $promise = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Promise(function ($resolve, $reject) use($stream, &$buffer) {
         $stream->on('error', function ($error) use($reject) {
             $reject(new \RuntimeException('An error occured on the underlying stream while buffering', 0, $error));
         });
@@ -266,9 +266,9 @@ function all(\_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface $stream, $e
  * @param PromiseInterface<ReadableStreamInterface,Exception> $promise
  * @return ReadableStreamInterface
  */
-function unwrapReadable(\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise)
+function unwrapReadable(\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface $promise)
 {
-    return new \_HumbugBox221ad6f1b81f\React\Promise\Stream\UnwrapReadableStream($promise);
+    return new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Stream\UnwrapReadableStream($promise);
 }
 /**
  * Unwraps a `Promise` which resolves with a `WritableStreamInterface`.
@@ -329,7 +329,7 @@ function unwrapReadable(\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $
  * @param PromiseInterface<WritableStreamInterface,Exception> $promise
  * @return WritableStreamInterface
  */
-function unwrapWritable(\_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface $promise)
+function unwrapWritable(\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface $promise)
 {
-    return new \_HumbugBox221ad6f1b81f\React\Promise\Stream\UnwrapWritableStream($promise);
+    return new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Stream\UnwrapWritableStream($promise);
 }

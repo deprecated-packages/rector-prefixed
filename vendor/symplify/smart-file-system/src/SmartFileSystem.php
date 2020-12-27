@@ -39,6 +39,18 @@ final class SmartFileSystem extends \RectorPrefix20201227\Symfony\Component\File
         return \html_entity_decode(\strip_tags($html), \ENT_QUOTES | \ENT_HTML5, 'UTF-8');
     }
     /**
+     * @param SmartFileInfo[] $fileInfos
+     * @return string[]
+     */
+    public function resolveFilePathsFromFileInfos(array $fileInfos) : array
+    {
+        $filePaths = [];
+        foreach ($fileInfos as $fileInfo) {
+            $filePaths[] = $fileInfo->getRelativeFilePathFromCwd();
+        }
+        return $filePaths;
+    }
+    /**
      * Returns the last PHP error as plain string.
      * @source https://github.com/nette/utils/blob/ab8eea12b8aacc7ea5bdafa49b711c2988447994/src/Utils/Helpers.php#L31-L40
      */

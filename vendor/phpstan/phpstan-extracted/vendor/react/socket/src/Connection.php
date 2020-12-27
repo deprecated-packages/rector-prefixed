@@ -1,13 +1,13 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Socket;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Socket;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\DuplexResourceStream;
-use _HumbugBox221ad6f1b81f\React\Stream\Util;
-use _HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream;
-use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\DuplexResourceStream;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableResourceStream;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
 /**
  * The actual connection implementation for ConnectionInterface
  *
@@ -16,7 +16,7 @@ use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
  * @see ConnectionInterface
  * @internal
  */
-class Connection extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface
+class Connection extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectionInterface
 {
     /**
      * Internal flag whether this is a Unix domain socket (UDS) connection
@@ -36,7 +36,7 @@ class Connection extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implemen
     /** @internal */
     public $stream;
     private $input;
-    public function __construct($resource, \_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop)
+    public function __construct($resource, \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop)
     {
         // PHP < 7.3.3 (and PHP < 7.2.15) suffers from a bug where feof() might
         // block with 100% CPU usage on fragmented TLS records.
@@ -57,9 +57,9 @@ class Connection extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implemen
         // This applies to all streams because TLS may be enabled later on.
         // See https://github.com/reactphp/socket/issues/105
         $limitWriteChunks = \PHP_VERSION_ID < 70018 || \PHP_VERSION_ID >= 70100 && \PHP_VERSION_ID < 70104;
-        $this->input = new \_HumbugBox221ad6f1b81f\React\Stream\DuplexResourceStream($resource, $loop, $clearCompleteBuffer ? -1 : null, new \_HumbugBox221ad6f1b81f\React\Stream\WritableResourceStream($resource, $loop, null, $limitWriteChunks ? 8192 : null));
+        $this->input = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\DuplexResourceStream($resource, $loop, $clearCompleteBuffer ? -1 : null, new \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableResourceStream($resource, $loop, null, $limitWriteChunks ? 8192 : null));
         $this->stream = $resource;
-        \_HumbugBox221ad6f1b81f\React\Stream\Util::forwardEvents($this->input, $this, array('data', 'end', 'error', 'close', 'pipe', 'drain'));
+        \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::forwardEvents($this->input, $this, array('data', 'end', 'error', 'close', 'pipe', 'drain'));
         $this->input->on('close', array($this, 'close'));
     }
     public function isReadable()
@@ -78,7 +78,7 @@ class Connection extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implemen
     {
         $this->input->resume();
     }
-    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
         return $this->input->pipe($dest, $options);
     }

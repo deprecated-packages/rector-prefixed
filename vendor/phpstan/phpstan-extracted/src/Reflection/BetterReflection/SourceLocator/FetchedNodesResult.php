@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 class FetchedNodesResult
 {
     /** @var array<string, array<FetchedNode<\PhpParser\Node\Stmt\ClassLike>>> */
@@ -20,7 +20,7 @@ class FetchedNodesResult
      * @param array<int, FetchedNode<\PhpParser\Node\Stmt\Const_|\PhpParser\Node\Expr\FuncCall>> $constantNodes
      * @param \Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource
      */
-    public function __construct(array $classNodes, array $functionNodes, array $constantNodes, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource)
+    public function __construct(array $classNodes, array $functionNodes, array $constantNodes, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource)
     {
         $this->classNodes = $classNodes;
         $this->functionNodes = $functionNodes;
@@ -48,7 +48,7 @@ class FetchedNodesResult
     {
         return $this->constantNodes;
     }
-    public function getLocatedSource() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    public function getLocatedSource() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
         return $this->locatedSource;
     }

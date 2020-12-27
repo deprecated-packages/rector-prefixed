@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Event;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Event;
 
 /**
  * Allows to do things before the command is executed, like skipping the command or changing the input.
@@ -17,7 +17,7 @@ namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Event;
  *
  * @final since Symfony 4.4
  */
-class ConsoleCommandEvent extends \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Event\ConsoleEvent
+class ConsoleCommandEvent extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Event\ConsoleEvent
 {
     /**
      * The return code for skipped commands, this will also be passed into the terminate event.

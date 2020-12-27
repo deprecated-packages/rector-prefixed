@@ -13,7 +13,7 @@ use function RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\C
 return static function (\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('RectorPrefix20201227\Symplify\\MarkdownDiff\\', __DIR__ . '/../src');
+    $services->load('RectorPrefix20201227\Symplify\\MarkdownDiff\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
     $services->set(\RectorPrefix20201227\SebastianBergmann\Diff\Differ::class);
     // markdown
     $services->set('markdownDiffOutputBuilder', \RectorPrefix20201227\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20201227\Symplify\MarkdownDiff\Diff\Output\CompleteUnifiedDiffOutputBuilderFactory::class), 'create']);

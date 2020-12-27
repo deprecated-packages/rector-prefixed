@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\Ci;
 
-use _HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
-use _HumbugBox221ad6f1b81f\OndraM\CiDetector\Env;
-use _HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic;
-class Travis extends \_HumbugBox221ad6f1b81f\OndraM\CiDetector\Ci\AbstractCi
+use _HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\CiDetector;
+use _HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\Env;
+use _HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\TrinaryLogic;
+class Travis extends \_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\Ci\AbstractCi
 {
     public const TRAVIS_BASE_URL = 'https://travis-ci.org';
-    public static function isDetected(\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Env $env) : bool
+    public static function isDetected(\_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\Env $env) : bool
     {
         return $env->get('TRAVIS') !== \false;
     }
     public function getCiName() : string
     {
-        return \_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_TRAVIS;
+        return \_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\CiDetector::CI_TRAVIS;
     }
-    public function isPullRequest() : \_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic
+    public function isPullRequest() : \_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\TrinaryLogic
     {
-        return \_HumbugBox221ad6f1b81f\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('TRAVIS_PULL_REQUEST') !== 'false');
+        return \_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\TrinaryLogic::createFromBoolean($this->env->getString('TRAVIS_PULL_REQUEST') !== 'false');
     }
     public function getBuildNumber() : string
     {

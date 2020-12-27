@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input;
 
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\RuntimeException;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Exception\RuntimeException;
 /**
  * InputInterface is the interface implemented by all input classes.
  *
@@ -59,7 +59,7 @@ interface InputInterface
      *
      * @throws RuntimeException
      */
-    public function bind(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition $definition);
+    public function bind(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputDefinition $definition);
     /**
      * Validates the input.
      *

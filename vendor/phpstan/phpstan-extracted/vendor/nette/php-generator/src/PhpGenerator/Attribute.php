@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Nette\PhpGenerator;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator;
 
-use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
 /**
  * PHP Attribute.
  */
@@ -20,8 +20,8 @@ final class Attribute
     private $args;
     public function __construct(string $name, array $args)
     {
-        if (!\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Helpers::isNamespaceIdentifier($name)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Value '{$name}' is not valid attribute name.");
+        if (!\_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Helpers::isNamespaceIdentifier($name)) {
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException("Value '{$name}' is not valid attribute name.");
         }
         $this->name = $name;
         $this->args = $args;

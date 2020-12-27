@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector;
 
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 /**
  * This interface is used to ensure a reflector implements these basic methods.
  */
@@ -15,5 +15,5 @@ interface Reflector
      *
      * @throws IdentifierNotFound
      */
-    public function reflect(string $identifierName) : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+    public function reflect(string $identifierName) : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
 }

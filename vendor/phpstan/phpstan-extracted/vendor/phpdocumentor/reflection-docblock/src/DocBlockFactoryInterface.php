@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection;
 
 interface DocBlockFactoryInterface
 {
@@ -19,5 +19,5 @@ interface DocBlockFactoryInterface
      *
      * @return DocBlock
      */
-    public function create($docblock, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Location $location = null);
+    public function create($docblock, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context $context = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Location $location = null);
 }

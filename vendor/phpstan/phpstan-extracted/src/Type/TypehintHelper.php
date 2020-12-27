@@ -73,16 +73,16 @@ class TypehintHelper
             throw new \PHPStan\ShouldNotHappenException(\sprintf('Unexpected type: %s', \get_class($reflectionType)));
         }
         $reflectionTypeString = $reflectionType->getName();
-        if (\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\object')) {
+        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\object')) {
             $reflectionTypeString = 'object';
         }
-        if (\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\mixed')) {
+        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\mixed')) {
             $reflectionTypeString = 'mixed';
         }
-        if (\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\false')) {
+        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\false')) {
             $reflectionTypeString = 'false';
         }
-        if (\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\null')) {
+        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\null')) {
             $reflectionTypeString = 'null';
         }
         $type = self::getTypeObjectFromTypehint($reflectionTypeString, $selfClass);

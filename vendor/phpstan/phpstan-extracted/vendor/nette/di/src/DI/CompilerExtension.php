@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Nette\DI;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI;
 
-use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
 /**
  * Configurator compiling extension.
  */
@@ -23,9 +23,9 @@ abstract class CompilerExtension
     /** @var Nette\PhpGenerator\Closure */
     protected $initialization;
     /** @return static */
-    public function setCompiler(\_HumbugBox221ad6f1b81f\Nette\DI\Compiler $compiler, string $name)
+    public function setCompiler(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Compiler $compiler, string $name)
     {
-        $this->initialization = new \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Closure();
+        $this->initialization = new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Closure();
         $this->compiler = $compiler;
         $this->name = $name;
         return $this;
@@ -37,7 +37,7 @@ abstract class CompilerExtension
     public function setConfig($config)
     {
         if (!\is_array($config) && !\is_object($config)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException();
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException();
         }
         $this->config = $config;
         return $this;
@@ -53,9 +53,9 @@ abstract class CompilerExtension
     /**
      * Returns configuration schema.
      */
-    public function getConfigSchema() : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    public function getConfigSchema() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
     {
-        return \is_object($this->config) ? \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::from($this->config) : \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::array();
+        return \is_object($this->config) ? \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::from($this->config) : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::array();
     }
     /**
      * Checks whether $config contains only $expected items and returns combined array.
@@ -69,13 +69,13 @@ abstract class CompilerExtension
         }
         if ($extra = \array_diff_key((array) $config, $expected)) {
             $name = $name ? \str_replace('.', ' › ', $name) : $this->name;
-            $hint = \_HumbugBox221ad6f1b81f\Nette\Utils\Helpers::getSuggestion(\array_keys($expected), \key($extra));
+            $hint = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Helpers::getSuggestion(\array_keys($expected), \key($extra));
             $extra = $hint ? \key($extra) : \implode("', '{$name} › ", \array_keys($extra));
-            throw new \_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException("Unknown configuration option '{$name} › {$extra}'" . ($hint ? ", did you mean '{$name} › {$hint}'?" : '.'));
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\InvalidConfigurationException("Unknown configuration option '{$name} › {$extra}'" . ($hint ? ", did you mean '{$name} › {$hint}'?" : '.'));
         }
-        return \_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($config, $expected);
+        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Helpers::merge($config, $expected);
     }
-    public function getContainerBuilder() : \_HumbugBox221ad6f1b81f\Nette\DI\ContainerBuilder
+    public function getContainerBuilder() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\ContainerBuilder
     {
         return $this->compiler->getContainerBuilder();
     }
@@ -98,15 +98,15 @@ abstract class CompilerExtension
         $res = [];
         foreach ($configList as $key => $config) {
             $key = \is_string($key) ? $this->name . '.' . $key : $key;
-            $res[$key] = \_HumbugBox221ad6f1b81f\Nette\DI\Helpers::prefixServiceName($config, $this->name);
+            $res[$key] = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::prefixServiceName($config, $this->name);
         }
         $this->compiler->loadDefinitionsFromConfig($res);
     }
-    protected function createLoader() : \_HumbugBox221ad6f1b81f\Nette\DI\Config\Loader
+    protected function createLoader() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config\Loader
     {
-        return new \_HumbugBox221ad6f1b81f\Nette\DI\Config\Loader();
+        return new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config\Loader();
     }
-    public function getInitialization() : \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Closure
+    public function getInitialization() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Closure
     {
         return $this->initialization;
     }
@@ -135,7 +135,7 @@ abstract class CompilerExtension
      * Adjusts DI container compiled to PHP class. Intended to be overridden by descendant.
      * @return void
      */
-    public function afterCompile(\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType $class)
+    public function afterCompile(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\ClassType $class)
     {
     }
 }

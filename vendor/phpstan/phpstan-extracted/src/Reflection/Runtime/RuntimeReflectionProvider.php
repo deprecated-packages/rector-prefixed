@@ -20,7 +20,7 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 use ReflectionClass;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
 class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
 {
     /** @var ReflectionProvider\ReflectionProviderProvider */
@@ -49,7 +49,7 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
     private $hasClassCache = [];
     /** @var \PHPStan\Reflection\ClassReflection[] */
     private static $anonymousClasses = [];
-    public function __construct(\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber)
     {
         $this->reflectionProviderProvider = $reflectionProviderProvider;
         $this->classReflectionExtensionRegistryProvider = $classReflectionExtensionRegistryProvider;

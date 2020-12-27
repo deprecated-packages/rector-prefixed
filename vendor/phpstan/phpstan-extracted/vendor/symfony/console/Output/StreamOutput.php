@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Output;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output;
 
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException;
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Exception\InvalidArgumentException;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * StreamOutput writes the output to a given stream.
  *
@@ -25,7 +25,7 @@ use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatterIn
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class StreamOutput extends \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\Output
+class StreamOutput extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\Output
 {
     private $stream;
     /**
@@ -36,10 +36,10 @@ class StreamOutput extends \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Out
      *
      * @throws InvalidArgumentException When first argument is not a real stream
      */
-    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    public function __construct($stream, int $verbosity = self::VERBOSITY_NORMAL, bool $decorated = null, \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         if (!\is_resource($stream) || 'stream' !== \get_resource_type($stream)) {
-            throw new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
         }
         $this->stream = $stream;
         if (null === $decorated) {

@@ -93,8 +93,8 @@ final class ComposerJsonFactory
         if (isset($jsonArray[\RectorPrefix20201227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE])) {
             $composerJson->setPreferStable($jsonArray[\RectorPrefix20201227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::PREFER_STABLE]);
         }
-        if (isset($jsonArray[\RectorPrefix20201227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICTING])) {
-            $composerJson->setConflicting($jsonArray[\RectorPrefix20201227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICTING]);
+        if (isset($jsonArray[\RectorPrefix20201227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICT])) {
+            $composerJson->setConflicts($jsonArray[\RectorPrefix20201227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICT]);
         }
         if (isset($jsonArray[\RectorPrefix20201227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES])) {
             $composerJson->setRepositories($jsonArray[\RectorPrefix20201227\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES]);

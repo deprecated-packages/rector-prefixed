@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder;
 
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Return_;
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlockFactory;
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlockFactory;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type;
 use PhpParser\Node\Stmt\Namespace_;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
 use function explode;
 class FindReturnType
 {
@@ -20,16 +20,16 @@ class FindReturnType
     private $makeContext;
     public function __construct()
     {
-        $this->resolveTypes = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\ResolveTypes();
-        $this->docBlockFactory = \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlockFactory::createInstance();
-        $this->makeContext = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
+        $this->resolveTypes = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder\ResolveTypes();
+        $this->docBlockFactory = \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlockFactory::createInstance();
+        $this->makeContext = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext();
     }
     /**
      * Given a function, attempt to find the return type.
      *
      * @return Type[]
      */
-    public function __invoke(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, ?\PhpParser\Node\Stmt\Namespace_ $namespace) : array
+    public function __invoke(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract $function, ?\PhpParser\Node\Stmt\Namespace_ $namespace) : array
     {
         $docComment = $function->getDocComment();
         if ($docComment === '') {

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\Composer\Psr;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\Composer\Psr;
 
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier;
 use function array_map;
 use function array_merge;
 use function array_unique;
@@ -11,7 +11,7 @@ use function array_values;
 use function rtrim;
 use function str_replace;
 use function strpos;
-final class Psr0Mapping implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping
+final class Psr0Mapping implements \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping
 {
     /** @var array<string, array<int, string>> */
     private $mappings = [];
@@ -30,7 +30,7 @@ final class Psr0Mapping implements \_HumbugBox221ad6f1b81f\Roave\BetterReflectio
         return $instance;
     }
     /** {@inheritDoc} */
-    public function resolvePossibleFilePaths(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : array
+    public function resolvePossibleFilePaths(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier $identifier) : array
     {
         if (!$identifier->isClass()) {
             return [];

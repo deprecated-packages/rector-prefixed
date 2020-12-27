@@ -12,7 +12,7 @@ use function RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\C
 return static function (\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('RectorPrefix20201227\Symplify\\ConsoleColorDiff\\', __DIR__ . '/../src');
+    $services->load('RectorPrefix20201227\Symplify\\ConsoleColorDiff\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
     $services->set(\RectorPrefix20201227\SebastianBergmann\Diff\Differ::class);
     $services->set(\RectorPrefix20201227\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
     $services->set(\RectorPrefix20201227\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20201227\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber;
 
 use LogicException;
 use PhpParser\Builder;
@@ -36,7 +36,7 @@ use ReflectionMethod as CoreReflectionMethod;
 use ReflectionNamedType as CoreReflectionNamedType;
 use ReflectionParameter;
 use ReflectionProperty as CoreReflectionProperty;
-use _HumbugBox221ad6f1b81f\ReflectionUnionType as CoreReflectionUnionType;
+use _HumbugBox221ad6f1b81f__UniqueRector\ReflectionUnionType as CoreReflectionUnionType;
 use Reflector as CoreReflector;
 use function array_diff;
 use function array_key_exists;
@@ -55,7 +55,7 @@ use function trait_exists;
  *
  * @internal
  */
-final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
 {
     private const BUILDER_OPTIONS = ['shortArraySyntax' => \true];
     /** @var BuilderFactory */
@@ -71,7 +71,7 @@ final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\Bet
     {
         return \class_exists($className, \false) || \interface_exists($className, \false) || \trait_exists($className, \false);
     }
-    public function generateClassStub(string $className) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateClassStub(string $className) : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         if (!$this->hasClass($className)) {
             return null;
@@ -97,7 +97,7 @@ final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\Bet
         }
         return $this->createStubData($this->generateStubInNamespace($classNode->getNode(), $classReflection->getNamespaceName()), $extensionName);
     }
-    public function generateFunctionStub(string $functionName) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateFunctionStub(string $functionName) : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         if (!\function_exists($functionName)) {
             return null;
@@ -107,7 +107,7 @@ final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\Bet
         $this->addDocComment($functionNode, $functionReflection);
         $this->addParameters($functionNode, $functionReflection);
         $returnType = $functionReflection->getReturnType();
-        \assert($returnType instanceof \ReflectionNamedType || $returnType instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType || $returnType === null);
+        \assert($returnType instanceof \ReflectionNamedType || $returnType instanceof \_HumbugBox221ad6f1b81f__UniqueRector\ReflectionUnionType || $returnType === null);
         if ($returnType !== null) {
             $functionNode->setReturnType($this->formatType($returnType));
         }
@@ -117,7 +117,7 @@ final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\Bet
         }
         return $this->createStubData($this->generateStubInNamespace($functionNode->getNode(), $functionReflection->getNamespaceName()), $extensionName);
     }
-    public function generateConstantStub(string $constantName) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    public function generateConstantStub(string $constantName) : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
         // Not supported because of resource as value
         if (\in_array($constantName, ['STDIN', 'STDOUT', 'STDERR'], \true)) {
@@ -234,7 +234,7 @@ final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\Bet
             }
             if (\method_exists($propertyReflection, 'getType')) {
                 $propertyType = $propertyReflection->getType();
-                \assert($propertyType instanceof \ReflectionNamedType || $propertyType instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType || $propertyType === null);
+                \assert($propertyType instanceof \ReflectionNamedType || $propertyType instanceof \_HumbugBox221ad6f1b81f__UniqueRector\ReflectionUnionType || $propertyType === null);
                 if ($propertyType !== null) {
                     $propertyNode->setType($this->formatType($propertyType));
                 }
@@ -304,7 +304,7 @@ final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\Bet
             $this->addDocComment($methodNode, $methodReflection);
             $this->addParameters($methodNode, $methodReflection);
             $returnType = $methodReflection->getReturnType();
-            \assert($returnType instanceof \ReflectionNamedType || $returnType instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType || $returnType === null);
+            \assert($returnType instanceof \ReflectionNamedType || $returnType instanceof \_HumbugBox221ad6f1b81f__UniqueRector\ReflectionUnionType || $returnType === null);
             if ($methodReflection->getReturnType() !== null) {
                 $methodNode->setReturnType($this->formatType($returnType));
             }
@@ -375,7 +375,7 @@ final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\Bet
             $parameterNode->makeByRef();
         }
         $parameterType = $parameterReflection->getType();
-        \assert($parameterType instanceof \ReflectionNamedType || $parameterType instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType || $parameterType === null);
+        \assert($parameterType instanceof \ReflectionNamedType || $parameterType instanceof \_HumbugBox221ad6f1b81f__UniqueRector\ReflectionUnionType || $parameterType === null);
         if ($parameterReflection->getType() !== null) {
             $parameterNode->setType($this->formatType($parameterType));
         }
@@ -398,7 +398,7 @@ final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\Bet
      */
     private function formatType($type) : \PhpParser\NodeAbstract
     {
-        if ($type instanceof \_HumbugBox221ad6f1b81f\ReflectionUnionType) {
+        if ($type instanceof \_HumbugBox221ad6f1b81f__UniqueRector\ReflectionUnionType) {
             $innerTypes = [];
             $addNull = $type->allowsNull();
             $hasNull = \false;
@@ -433,8 +433,8 @@ final class ReflectionSourceStubber implements \_HumbugBox221ad6f1b81f\Roave\Bet
     {
         return "<?php\n\n" . $this->prettyPrinter->prettyPrint([$node]) . ($node instanceof \PhpParser\Node\Expr\FuncCall ? ';' : '') . "\n";
     }
-    private function createStubData(string $stub, ?string $extensionName) : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
+    private function createStubData(string $stub, ?string $extensionName) : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\StubData
     {
-        return new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $extensionName);
+        return new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\StubData($stub, $extensionName);
     }
 }

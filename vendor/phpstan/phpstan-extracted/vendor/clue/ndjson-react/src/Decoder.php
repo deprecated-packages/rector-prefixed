@@ -1,15 +1,15 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\Clue\React\NDJson;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\Util;
-use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
 /**
  * The Decoder / Parser reads from a plain stream and emits data objects for each JSON element
  */
-class Decoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class Decoder extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $assoc;
@@ -27,7 +27,7 @@ class Decoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements 
      * @param int $maxlength
      * @throws \BadMethodCallException
      */
-    public function __construct(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $input, $assoc = \false, $depth = 512, $options = 0, $maxlength = 65536)
     {
         // @codeCoverageIgnoreStart
         if ($options !== 0 && \PHP_VERSION < 5.4) {
@@ -74,9 +74,9 @@ class Decoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements 
     {
         $this->input->resume();
     }
-    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     /** @internal */

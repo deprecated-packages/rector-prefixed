@@ -10,13 +10,13 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock;
 
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 interface Tag
 {
     public function getName();
     public static function create($body);
-    public function render(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null);
+    public function render(\_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter $formatter = null);
     public function __toString();
 }

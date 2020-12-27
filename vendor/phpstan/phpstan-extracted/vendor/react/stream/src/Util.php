@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Stream;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Stream;
 
 final class Util
 {
@@ -13,7 +13,7 @@ final class Util
      * @return WritableStreamInterface $dest stream as-is
      * @see ReadableStreamInterface::pipe() for more details
      */
-    public static function pipe(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $source, \_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public static function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $source, \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
         // source not readable => NO-OP
         if (!$source->isReadable()) {

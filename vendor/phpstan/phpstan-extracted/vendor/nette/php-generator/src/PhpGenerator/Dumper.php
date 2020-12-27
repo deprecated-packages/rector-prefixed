@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Nette\PhpGenerator;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator;
 
-use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
 /**
  * PHP code generator utils.
  */
@@ -27,8 +27,8 @@ final class Dumper
     }
     private function dumpVar(&$var, array $parents = [], int $level = 0, int $column = 0) : string
     {
-        if ($var instanceof \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Literal) {
-            return \ltrim(\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::indent(\trim((string) $var), $level), "\t");
+        if ($var instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Literal) {
+            return \ltrim(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::indent(\trim((string) $var), $level), "\t");
         } elseif ($var === null) {
             return 'null';
         } elseif (\is_string($var)) {
@@ -38,7 +38,7 @@ final class Dumper
         } elseif (\is_object($var)) {
             return $this->dumpObject($var, $parents, $level);
         } elseif (\is_resource($var)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Cannot dump resource.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException('Cannot dump resource.');
         } else {
             return \var_export($var, \true);
         }
@@ -67,7 +67,7 @@ final class Dumper
         if (empty($var)) {
             return '[]';
         } elseif ($level > $this->maxDepth || \in_array($var, $parents ?? [], \true)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
         }
         $space = \str_repeat("\t", $level);
         $outInline = '';
@@ -92,18 +92,18 @@ final class Dumper
         if ($var instanceof \Serializable) {
             return 'unserialize(' . $this->dumpString(\serialize($var)) . ')';
         } elseif ($var instanceof \Closure) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Cannot dump closure.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException('Cannot dump closure.');
         }
         $class = \get_class($var);
         if ((new \ReflectionObject($var))->isAnonymous()) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Cannot dump anonymous class.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException('Cannot dump anonymous class.');
         } elseif (\in_array($class, [\DateTime::class, \DateTimeImmutable::class], \true)) {
             return $this->format("new \\{$class}(?, new \\DateTimeZone(?))", $var->format('Y-m-d H:i:s.u'), $var->getTimeZone()->getName());
         }
         $arr = (array) $var;
         $space = \str_repeat("\t", $level);
         if ($level > $this->maxDepth || \in_array($var, $parents ?? [], \true)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException('Nesting level too deep or recursive dependency.');
         }
         $out = "\n";
         $parents[] = $var;
@@ -134,26 +134,26 @@ final class Dumper
             } elseif ($token === '\\?') {
                 $res .= '?';
             } elseif (!$args) {
-                throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Insufficient number of arguments.');
+                throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException('Insufficient number of arguments.');
             } elseif ($token === '?') {
                 $res .= $this->dump(\array_shift($args), \strlen($res) - \strrpos($res, "\n"));
             } elseif ($token === '...?' || $token === '?*') {
                 $arg = \array_shift($args);
                 if (!\is_array($arg)) {
-                    throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Argument must be an array.');
+                    throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException('Argument must be an array.');
                 }
                 $res .= $this->dumpArguments($arg, \strlen($res) - \strrpos($res, "\n"));
             } else {
                 // $  ->  ::
                 $arg = \array_shift($args);
-                if ($arg instanceof \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Literal || !\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Helpers::isIdentifier($arg)) {
+                if ($arg instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Literal || !\_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Helpers::isIdentifier($arg)) {
                     $arg = '{' . $this->dumpVar($arg) . '}';
                 }
                 $res .= \substr($token, 0, -1) . $arg;
             }
         }
         if ($args) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Insufficient number of placeholders.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException('Insufficient number of placeholders.');
         }
         return $res;
     }

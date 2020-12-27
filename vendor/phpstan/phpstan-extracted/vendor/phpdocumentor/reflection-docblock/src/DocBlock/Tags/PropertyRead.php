@@ -10,18 +10,18 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver;
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\TypeResolver;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}property-read tag in a Docblock.
  */
-class PropertyRead extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\TagWithType implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+class PropertyRead extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\TagWithType implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string */
     protected $variableName = '';
@@ -30,9 +30,9 @@ class PropertyRead extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocB
      * @param Type $type
      * @param Description $description
      */
-    public function __construct($variableName, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $type = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($variableName, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type $type = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::string($variableName);
+        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::string($variableName);
         $this->name = 'property-read';
         $this->variableName = $variableName;
         $this->type = $type;
@@ -41,10 +41,10 @@ class PropertyRead extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocB
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\TypeResolver $typeResolver = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($body);
-        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
+        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::stringNotEmpty($body);
+        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::allNotNull([$typeResolver, $descriptionFactory]);
         list($firstPart, $body) = self::extractTypeFromBody($body);
         $type = null;
         $parts = \preg_split('/(\\s+)/Su', $body, 2, \PREG_SPLIT_DELIM_CAPTURE);

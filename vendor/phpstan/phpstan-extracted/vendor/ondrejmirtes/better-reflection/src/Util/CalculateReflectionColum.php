@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util;
 
 use PhpParser\Node;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\InvalidNodePosition;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\NoNodePosition;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Exception\InvalidNodePosition;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Exception\NoNodePosition;
 use function strlen;
 use function strrpos;
 /**
@@ -20,7 +20,7 @@ final class CalculateReflectionColum
     public static function getStartColumn(string $source, \PhpParser\Node $node) : int
     {
         if (!$node->hasAttribute('startFilePos')) {
-            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\NoNodePosition::fromNode($node);
+            throw \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Exception\NoNodePosition::fromNode($node);
         }
         return self::calculateColumn($source, $node->getStartFilePos());
     }
@@ -31,7 +31,7 @@ final class CalculateReflectionColum
     public static function getEndColumn(string $source, \PhpParser\Node $node) : int
     {
         if (!$node->hasAttribute('endFilePos')) {
-            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\NoNodePosition::fromNode($node);
+            throw \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Exception\NoNodePosition::fromNode($node);
         }
         return self::calculateColumn($source, $node->getEndFilePos());
     }
@@ -42,7 +42,7 @@ final class CalculateReflectionColum
     {
         $sourceLength = \strlen($source);
         if ($position > $sourceLength) {
-            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Exception\InvalidNodePosition::fromPosition($position);
+            throw \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Exception\InvalidNodePosition::fromPosition($position);
         }
         $lineStartPosition = \strrpos($source, "\n", $position - $sourceLength);
         if ($lineStartPosition === \false) {
