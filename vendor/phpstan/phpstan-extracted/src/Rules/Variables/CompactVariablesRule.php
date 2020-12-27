@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Variables;
+namespace RectorPrefix20201227\PHPStan\Rules\Variables;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantStringType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\FuncCall>
  */
-final class CompactVariablesRule implements \PHPStan\Rules\Rule
+final class CompactVariablesRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkMaybeUndefinedVariables;
@@ -23,7 +23,7 @@ final class CompactVariablesRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if ($node->name instanceof \PhpParser\Node\Expr) {
             return [];
@@ -42,9 +42,9 @@ final class CompactVariablesRule implements \PHPStan\Rules\Rule
             $variableName = $argumentType->getValue();
             $scopeHasVariable = $scope->hasVariableType($variableName);
             if ($scopeHasVariable->no()) {
-                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function compact() contains undefined variable $%s.', $variableName))->line($argument->getLine())->build();
+                $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function compact() contains undefined variable $%s.', $variableName))->line($argument->getLine())->build();
             } elseif ($this->checkMaybeUndefinedVariables && $scopeHasVariable->maybe()) {
-                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function compact() contains possibly undefined variable $%s.', $variableName))->line($argument->getLine())->build();
+                $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function compact() contains possibly undefined variable $%s.', $variableName))->line($argument->getLine())->build();
             }
         }
         return $messages;

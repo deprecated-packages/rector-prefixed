@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Dependency\ExportedNode;
+namespace RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use PHPStan\Dependency\ExportedNode;
-class ExportedFunctionNode implements \PHPStan\Dependency\ExportedNode, \JsonSerializable
+use RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
+class ExportedFunctionNode implements \RectorPrefix20201227\PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $name;
@@ -24,7 +24,7 @@ class ExportedFunctionNode implements \PHPStan\Dependency\ExportedNode, \JsonSer
      * @param string|null $returnType
      * @param ExportedParameterNode[] $parameters
      */
-    public function __construct(string $name, ?\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, bool $byRef, ?string $returnType, array $parameters)
+    public function __construct(string $name, ?\RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, bool $byRef, ?string $returnType, array $parameters)
     {
         $this->name = $name;
         $this->phpDoc = $phpDoc;
@@ -32,7 +32,7 @@ class ExportedFunctionNode implements \PHPStan\Dependency\ExportedNode, \JsonSer
         $this->returnType = $returnType;
         $this->parameters = $parameters;
     }
-    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\RectorPrefix20201227\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -63,7 +63,7 @@ class ExportedFunctionNode implements \PHPStan\Dependency\ExportedNode, \JsonSer
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
     {
         return new self($properties['name'], $properties['phpDoc'], $properties['byRef'], $properties['returnType'], $properties['parameters']);
     }
@@ -78,13 +78,13 @@ class ExportedFunctionNode implements \PHPStan\Dependency\ExportedNode, \JsonSer
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
     {
-        return new self($data['name'], $data['phpDoc'] !== null ? \PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['byRef'], $data['returnType'], \array_map(static function (array $parameterData) : ExportedParameterNode {
-            if ($parameterData['type'] !== \PHPStan\Dependency\ExportedNode\ExportedParameterNode::class) {
-                throw new \PHPStan\ShouldNotHappenException();
+        return new self($data['name'], $data['phpDoc'] !== null ? \RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['byRef'], $data['returnType'], \array_map(static function (array $parameterData) : ExportedParameterNode {
+            if ($parameterData['type'] !== \RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedParameterNode::class) {
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
-            return \PHPStan\Dependency\ExportedNode\ExportedParameterNode::decode($parameterData['data']);
+            return \RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedParameterNode::decode($parameterData['data']);
         }, $data['parameters']));
     }
 }

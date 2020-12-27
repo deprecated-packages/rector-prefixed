@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Properties;
+namespace RectorPrefix20201227\PHPStan\Rules\Properties;
 
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Identifier;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Rules\RuleLevelHelper;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Rules\RuleError;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
@@ -18,7 +18,7 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\PropertyFetch>
  */
-class AccessPropertiesRule implements \PHPStan\Rules\Rule
+class AccessPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -26,7 +26,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
     private $ruleLevelHelper;
     /** @var bool */
     private $reportMagicProperties;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, bool $reportMagicProperties)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, bool $reportMagicProperties)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->ruleLevelHelper = $ruleLevelHelper;
@@ -36,7 +36,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\PropertyFetch::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if ($node->name instanceof \PhpParser\Node\Identifier) {
             $names = [$node->name->name];
@@ -57,7 +57,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
      * @param string $name
      * @return RuleError[]
      */
-    private function processSingleProperty(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr\PropertyFetch $node, string $name) : array
+    private function processSingleProperty(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr\PropertyFetch $node, string $name) : array
     {
         $typeResult = $this->ruleLevelHelper->findTypeToCheck($scope, $node->var, \sprintf('Access to property $%s on an unknown class %%s.', $name), static function (\PHPStan\Type\Type $type) use($name) : bool {
             return $type->canAccessProperties()->yes() && $type->hasProperty($name)->yes();
@@ -70,7 +70,7 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
             return [];
         }
         if (!$type->canAccessProperties()->yes()) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access property $%s on %s.', $name, $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access property $%s on %s.', $name, $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
         }
         if (!$type->hasProperty($name)->yes()) {
             if ($scope->isSpecified($node)) {
@@ -94,16 +94,16 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
                 $parentClassReflection = $propertyClassReflection->getParentClass();
                 while ($parentClassReflection !== \false) {
                     if ($parentClassReflection->hasProperty($name)) {
-                        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to private property $%s of parent class %s.', $name, $parentClassReflection->getDisplayName()))->build()];
+                        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to private property $%s of parent class %s.', $name, $parentClassReflection->getDisplayName()))->build()];
                     }
                     $parentClassReflection = $parentClassReflection->getParentClass();
                 }
             }
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to an undefined property %s::$%s.', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $name))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to an undefined property %s::$%s.', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $name))->build()];
         }
         $propertyReflection = $type->getProperty($name, $scope);
         if (!$scope->canAccessProperty($propertyReflection)) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to %s property %s::$%s.', $propertyReflection->isPrivate() ? 'private' : 'protected', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $name))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to %s property %s::$%s.', $propertyReflection->isPrivate() ? 'private' : 'protected', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $name))->build()];
         }
         return [];
     }

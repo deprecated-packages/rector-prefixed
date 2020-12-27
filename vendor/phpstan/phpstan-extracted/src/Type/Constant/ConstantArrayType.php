@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Constant;
 
-use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\InaccessibleMethod;
-use PHPStan\Reflection\TrivialParametersAcceptor;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Broker\Broker;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\Reflection\InaccessibleMethod;
+use RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -102,7 +102,7 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
             }
             $array = $builder->getArray();
             if (!$array instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             $arrays[] = $array;
         }
@@ -156,15 +156,15 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
     {
         return \in_array($i, $this->optionalKeys, \true);
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\MixedType && !$type instanceof \PHPStan\Type\Generic\TemplateMixedType) {
             return $type->isAcceptedBy($this, $strictTypes);
         }
         if ($type instanceof self && \count($this->keyTypes) === 0) {
-            return \PHPStan\TrinaryLogic::createFromBoolean(\count($type->keyTypes) === 0);
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean(\count($type->keyTypes) === 0);
         }
-        $result = \PHPStan\TrinaryLogic::createYes();
+        $result = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         foreach ($this->keyTypes as $i => $keyType) {
             $valueType = $this->valueTypes[$i];
             $hasOffset = $type->hasOffsetValueType($keyType);
@@ -175,7 +175,7 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
                 return $hasOffset;
             }
             if ($hasOffset->maybe() && $this->isOptionalKey($i)) {
-                $hasOffset = \PHPStan\TrinaryLogic::createYes();
+                $hasOffset = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             }
             $result = $result->and($hasOffset);
             $otherValueType = $type->getOffsetValueType($keyType);
@@ -187,34 +187,34 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
         }
         return $result->and($type->isArray());
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
             if (\count($this->keyTypes) === 0) {
                 if (\count($type->keyTypes) > 0) {
                     if (\count($type->optionalKeys) > 0) {
-                        return \PHPStan\TrinaryLogic::createMaybe();
+                        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
                     }
-                    return \PHPStan\TrinaryLogic::createNo();
+                    return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
                 }
-                return \PHPStan\TrinaryLogic::createYes();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             }
             $results = [];
             foreach ($this->keyTypes as $i => $keyType) {
                 $hasOffset = $type->hasOffsetValueType($keyType);
                 if ($hasOffset->no()) {
                     if (!$this->isOptionalKey($i)) {
-                        return \PHPStan\TrinaryLogic::createNo();
+                        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
                     }
-                    $results[] = \PHPStan\TrinaryLogic::createMaybe();
+                    $results[] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
                     continue;
                 }
                 $results[] = $this->valueTypes[$i]->isSuperTypeOf($type->getOffsetValueType($keyType));
             }
-            return \PHPStan\TrinaryLogic::createYes()->and(...$results);
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes()->and(...$results);
         }
         if ($type instanceof \PHPStan\Type\ArrayType) {
-            $result = \PHPStan\TrinaryLogic::createMaybe();
+            $result = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
             if (\count($this->keyTypes) === 0) {
                 return $result;
             }
@@ -223,7 +223,7 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {
@@ -247,11 +247,11 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
         }
         return \true;
     }
-    public function isCallable() : \PHPStan\TrinaryLogic
+    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $typeAndMethod = $this->findTypeAndMethodName();
         if ($typeAndMethod === null) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         return $typeAndMethod->getCertainty();
     }
@@ -259,18 +259,18 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
         $typeAndMethodName = $this->findTypeAndMethodName();
         if ($typeAndMethodName === null) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         if ($typeAndMethodName->isUnknown() || !$typeAndMethodName->getCertainty()->yes()) {
-            return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
+            return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
         }
         $method = $typeAndMethodName->getType()->getMethod($typeAndMethodName->getMethod(), $scope);
         if (!$scope->canCallMethod($method)) {
-            return [new \PHPStan\Reflection\InaccessibleMethod($method)];
+            return [new \RectorPrefix20201227\PHPStan\Reflection\InaccessibleMethod($method)];
         }
         return $method->getVariants();
     }
@@ -290,7 +290,7 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
             return \PHPStan\Type\Constant\ConstantArrayTypeAndMethod::createUnknown();
         }
         if ($classOrObject instanceof \PHPStan\Type\Constant\ConstantStringType) {
-            $broker = \PHPStan\Broker\Broker::getInstance();
+            $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
             if (!$broker->hasClass($classOrObject->getValue())) {
                 return \PHPStan\Type\Constant\ConstantArrayTypeAndMethod::createUnknown();
             }
@@ -305,13 +305,13 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
         $has = $type->hasMethod($method->getValue());
         if (!$has->no()) {
             if ($this->isOptionalKey(0) || $this->isOptionalKey(1)) {
-                $has = $has->and(\PHPStan\TrinaryLogic::createMaybe());
+                $has = $has->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
             }
             return \PHPStan\Type\Constant\ConstantArrayTypeAndMethod::createConcrete($type, $method->getValue(), $has);
         }
         return null;
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $offsetType = \PHPStan\Type\ArrayType::castToArrayKeyType($offsetType);
         if ($offsetType instanceof \PHPStan\Type\UnionType) {
@@ -319,24 +319,24 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
             foreach ($offsetType->getTypes() as $innerType) {
                 $results[] = $this->hasOffsetValueType($innerType);
             }
-            return \PHPStan\TrinaryLogic::extremeIdentity(...$results);
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity(...$results);
         }
-        $result = \PHPStan\TrinaryLogic::createNo();
+        $result = \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         foreach ($this->keyTypes as $i => $keyType) {
             if ($keyType instanceof \PHPStan\Type\Constant\ConstantIntegerType && $offsetType instanceof \PHPStan\Type\StringType && !$offsetType instanceof \PHPStan\Type\Constant\ConstantStringType) {
-                return \PHPStan\TrinaryLogic::createMaybe();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
             }
             $has = $keyType->isSuperTypeOf($offsetType);
             if ($has->yes()) {
                 if ($this->isOptionalKey($i)) {
-                    return \PHPStan\TrinaryLogic::createMaybe();
+                    return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
                 }
-                return \PHPStan\TrinaryLogic::createYes();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             }
             if (!$has->maybe()) {
                 continue;
             }
-            $result = \PHPStan\TrinaryLogic::createMaybe();
+            $result = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         return $result;
     }
@@ -398,20 +398,20 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
         }
         return \PHPStan\Type\TypeUtils::generalizeType(\PHPStan\Type\TypeCombinator::union(...$arrays));
     }
-    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $keysCount = \count($this->keyTypes);
         if ($keysCount === 0) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         $optionalKeysCount = \count($this->optionalKeys);
         if ($optionalKeysCount === 0) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($optionalKeysCount < $keysCount) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
     public function removeLast() : self
     {
@@ -627,7 +627,7 @@ class ConstantArrayType extends \PHPStan\Type\ArrayType implements \PHPStan\Type
                 $stillOriginal = \false;
             }
             if (!$transformedKeyType instanceof \PHPStan\Type\Constant\ConstantIntegerType && !$transformedKeyType instanceof \PHPStan\Type\Constant\ConstantStringType) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             $keyTypes[] = $transformedKeyType;
         }

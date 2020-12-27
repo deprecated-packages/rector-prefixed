@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Traits;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 trait UndecidedComparisonCompoundTypeTrait
 {
     use UndecidedComparisonTypeTrait;
-    public function isGreaterThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \PHPStan\TrinaryLogic
+    public function isGreaterThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
 }

@@ -3,17 +3,17 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\ConstantReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ObjectTypeMethodReflection;
-use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
-use PHPStan\Reflection\PropertyReflection;
-use PHPStan\Reflection\TrivialParametersAcceptor;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Broker\Broker;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ConstantReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ObjectTypeMethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
+use RectorPrefix20201227\PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
+use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
+use RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -35,7 +35,7 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
     private $genericObjectType = null;
     /** @var array<string, \PHPStan\TrinaryLogic> */
     private $superTypes = [];
-    public function __construct(string $className, ?\PHPStan\Type\Type $subtractedType = null, ?\PHPStan\Reflection\ClassReflection $classReflection = null)
+    public function __construct(string $className, ?\PHPStan\Type\Type $subtractedType = null, ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection = null)
     {
         if ($subtractedType instanceof \PHPStan\Type\NeverType) {
             $subtractedType = null;
@@ -44,7 +44,7 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         $this->subtractedType = $subtractedType;
         $this->classReflection = $classReflection;
     }
-    private static function createFromReflection(\PHPStan\Reflection\ClassReflection $reflection) : self
+    private static function createFromReflection(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $reflection) : self
     {
         if (!$reflection->isGeneric()) {
             return new \PHPStan\Type\ObjectType($reflection->getName());
@@ -55,25 +55,25 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
     {
         return $this->className;
     }
-    public function hasProperty(string $propertyName) : \PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if ($classReflection->hasProperty($propertyName)) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($classReflection->isFinal()) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
-            throw new \PHPStan\Broker\ClassNotFoundException($this->className);
+            throw new \RectorPrefix20201227\PHPStan\Broker\ClassNotFoundException($this->className);
         }
         if ($classReflection->isGeneric() && static::class === self::class) {
             return $this->getGenericObjectType()->getProperty($propertyName, $scope);
@@ -87,7 +87,7 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
     {
         return [$this->className];
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\StaticType) {
             return $this->checkSubclassAcceptability($type->getBaseClass());
@@ -99,14 +99,14 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
             return $this->isInstanceOf(\Closure::class);
         }
         if ($type instanceof \PHPStan\Type\ObjectWithoutClassType) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         return $this->checkSubclassAcceptability($type->getClassName());
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $description = $type->describe(\PHPStan\Type\VerbosityLevel::cache());
         if (isset($this->superTypes[$description])) {
@@ -119,53 +119,53 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
             if ($type->getSubtractedType() !== null) {
                 $isSuperType = $type->getSubtractedType()->isSuperTypeOf($this);
                 if ($isSuperType->yes()) {
-                    return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createNo();
+                    return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
                 }
             }
-            return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createMaybe();
+            return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
-            return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createNo();
+            return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         if ($this->subtractedType !== null) {
             $isSuperType = $this->subtractedType->isSuperTypeOf($type);
             if ($isSuperType->yes()) {
-                return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createNo();
+                return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
             }
         }
         if ($type instanceof \PHPStan\Type\SubtractableType && $type->getSubtractedType() !== null) {
             $isSuperType = $type->getSubtractedType()->isSuperTypeOf($this);
             if ($isSuperType->yes()) {
-                return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createNo();
+                return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
             }
         }
         $thisClassName = $this->className;
         $thatClassName = $type->getClassName();
         if ($thatClassName === $thisClassName) {
-            return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createYes();
+            return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
-        $broker = \PHPStan\Broker\Broker::getInstance();
+        $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
         if ($this->getClassReflection() === null || !$broker->hasClass($thatClassName)) {
-            return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createMaybe();
+            return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         $thisClassReflection = $this->getClassReflection();
         $thatClassReflection = $broker->getClass($thatClassName);
         if ($thisClassReflection->getName() === $thatClassReflection->getName()) {
-            return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createYes();
+            return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($thatClassReflection->isSubclassOf($thisClassName)) {
-            return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createYes();
+            return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($thisClassReflection->isSubclassOf($thatClassName)) {
-            return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createMaybe();
+            return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if ($thisClassReflection->isInterface() && !$thatClassReflection->getNativeReflection()->isFinal()) {
-            return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createMaybe();
+            return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if ($thatClassReflection->isInterface() && !$thisClassReflection->getNativeReflection()->isFinal()) {
-            return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createMaybe();
+            return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
-        return $this->superTypes[$description] = \PHPStan\TrinaryLogic::createNo();
+        return $this->superTypes[$description] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {
@@ -186,30 +186,30 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         }
         return $this->subtractedType->equals($type->subtractedType);
     }
-    protected function checkSubclassAcceptability(string $thatClass) : \PHPStan\TrinaryLogic
+    protected function checkSubclassAcceptability(string $thatClass) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($this->className === $thatClass) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
-        $broker = \PHPStan\Broker\Broker::getInstance();
+        $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
         if ($this->getClassReflection() === null || !$broker->hasClass($thatClass)) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         $thisReflection = $this->getClassReflection();
         $thatReflection = $broker->getClass($thatClass);
         if ($thisReflection->getName() === $thatReflection->getName()) {
             // class alias
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($thisReflection->isInterface() && $thatReflection->isInterface()) {
-            return \PHPStan\TrinaryLogic::createFromBoolean($thatReflection->implementsInterface($this->className));
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($thatReflection->implementsInterface($this->className));
         }
-        return \PHPStan\TrinaryLogic::createFromBoolean($thatReflection->isSubclassOf($this->className));
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($thatReflection->isSubclassOf($this->className));
     }
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
         $preciseNameCallback = function () : string {
-            $broker = \PHPStan\Broker\Broker::getInstance();
+            $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
             if (!$broker->hasClass($this->className)) {
                 return $this->className;
             }
@@ -254,7 +254,7 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
             return new \PHPStan\Type\ErrorType();
         }
         if ($classReflection->hasNativeMethod('__toString')) {
-            return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__toString')->getVariants())->getReturnType();
+            return \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('__toString')->getVariants())->getReturnType();
         }
         return new \PHPStan\Type\ErrorType();
     }
@@ -264,8 +264,8 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         if ($classReflection === null) {
             return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         }
-        $broker = \PHPStan\Broker\Broker::getInstance();
-        if (!$classReflection->getNativeReflection()->isUserDefined() || \PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate($broker, $broker->getUniversalObjectCratesClasses(), $classReflection)) {
+        $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
+        if (!$classReflection->getNativeReflection()->isUserDefined() || \RectorPrefix20201227\PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate($broker, $broker->getUniversalObjectCratesClasses(), $classReflection)) {
             return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         }
         $arrayKeys = [];
@@ -297,80 +297,80 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         }
         return new \PHPStan\Type\Constant\ConstantBooleanType(\true);
     }
-    public function canAccessProperties() : \PHPStan\TrinaryLogic
+    public function canAccessProperties() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function canCallMethods() : \PHPStan\TrinaryLogic
+    public function canCallMethods() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if (\strtolower($this->className) === 'stdclass') {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if ($classReflection->hasMethod($methodName)) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($classReflection->isFinal()) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
-            throw new \PHPStan\Broker\ClassNotFoundException($this->className);
+            throw new \RectorPrefix20201227\PHPStan\Broker\ClassNotFoundException($this->className);
         }
         if ($classReflection->isGeneric() && static::class === self::class) {
             return $this->getGenericObjectType()->getMethod($methodName, $scope);
         }
-        return new \PHPStan\Reflection\ObjectTypeMethodReflection($this, $classReflection->getMethod($methodName, $scope));
+        return new \RectorPrefix20201227\PHPStan\Reflection\ObjectTypeMethodReflection($this, $classReflection->getMethod($methodName, $scope));
     }
     private function getGenericObjectType() : \PHPStan\Type\Generic\GenericObjectType
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection === null || !$classReflection->isGeneric()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         if ($this->genericObjectType === null) {
             $this->genericObjectType = new \PHPStan\Type\Generic\GenericObjectType($this->className, \array_values($classReflection->getTemplateTypeMap()->resolveToBounds()->getTypes()), $this->subtractedType);
         }
         return $this->genericObjectType;
     }
-    public function canAccessConstants() : \PHPStan\TrinaryLogic
+    public function canAccessConstants() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasConstant(string $constantName) : \PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $class = $this->getClassReflection();
         if ($class === null) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        return \PHPStan\TrinaryLogic::createFromBoolean($class->hasConstant($constantName));
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($class->hasConstant($constantName));
     }
-    public function getConstant(string $constantName) : \PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \RectorPrefix20201227\PHPStan\Reflection\ConstantReflection
     {
         $class = $this->getClassReflection();
         if ($class === null) {
-            throw new \PHPStan\Broker\ClassNotFoundException($this->className);
+            throw new \RectorPrefix20201227\PHPStan\Broker\ClassNotFoundException($this->className);
         }
         return $class->getConstant($constantName);
     }
-    public function isIterable() : \PHPStan\TrinaryLogic
+    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->isInstanceOf(\Traversable::class);
     }
-    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return $this->isInstanceOf(\Traversable::class)->and(\PHPStan\TrinaryLogic::createMaybe());
+        return $this->isInstanceOf(\Traversable::class)->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
     }
     public function getIterableKeyType() : \PHPStan\Type\Type
     {
@@ -379,11 +379,11 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
             return new \PHPStan\Type\ErrorType();
         }
         if ($this->isInstanceOf(\Iterator::class)->yes()) {
-            return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('key')->getVariants())->getReturnType();
+            return \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('key')->getVariants())->getReturnType();
         }
         if ($this->isInstanceOf(\IteratorAggregate::class)->yes()) {
             return \PHPStan\Type\RecursionGuard::run($this, static function () use($classReflection) : Type {
-                return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('getIterator')->getVariants())->getReturnType()->getIterableKeyType();
+                return \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('getIterator')->getVariants())->getReturnType()->getIterableKeyType();
             });
         }
         if ($this->isInstanceOf(\Traversable::class)->yes()) {
@@ -402,11 +402,11 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
             return new \PHPStan\Type\ErrorType();
         }
         if ($this->isInstanceOf(\Iterator::class)->yes()) {
-            return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('current')->getVariants())->getReturnType();
+            return \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('current')->getVariants())->getReturnType();
         }
         if ($this->isInstanceOf(\IteratorAggregate::class)->yes()) {
             return \PHPStan\Type\RecursionGuard::run($this, static function () use($classReflection) : Type {
-                return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('getIterator')->getVariants())->getReturnType()->getIterableValueType();
+                return \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('getIterator')->getVariants())->getReturnType()->getIterableValueType();
             });
         }
         if ($this->isInstanceOf(\Traversable::class)->yes()) {
@@ -418,61 +418,61 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         }
         return new \PHPStan\Type\ErrorType();
     }
-    public function isArray() : \PHPStan\TrinaryLogic
+    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function isNumericString() : \PHPStan\TrinaryLogic
+    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    private function isExtraOffsetAccessibleClass() : \PHPStan\TrinaryLogic
+    private function isExtraOffsetAccessibleClass() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         foreach (self::EXTRA_OFFSET_CLASSES as $extraOffsetClass) {
             if ($classReflection->getName() === $extraOffsetClass) {
-                return \PHPStan\TrinaryLogic::createYes();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             }
             if ($classReflection->isSubclassOf($extraOffsetClass)) {
-                return \PHPStan\TrinaryLogic::createYes();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             }
         }
         if ($classReflection->isInterface()) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if ($classReflection->isFinal()) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->isInstanceOf(\ArrayAccess::class)->or($this->isExtraOffsetAccessibleClass());
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
             $acceptedOffsetType = \PHPStan\Type\RecursionGuard::run($this, function () use($classReflection) : Type {
-                $parameters = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetSet')->getVariants())->getParameters();
+                $parameters = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetSet')->getVariants())->getParameters();
                 if (\count($parameters) < 2) {
-                    throw new \PHPStan\ShouldNotHappenException(\sprintf('Method %s::%s() has less than 2 parameters.', $this->className, 'offsetSet'));
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException(\sprintf('Method %s::%s() has less than 2 parameters.', $this->className, 'offsetSet'));
                 }
                 $offsetParameter = $parameters[0];
                 return $offsetParameter->getType();
             });
             if ($acceptedOffsetType->isSuperTypeOf($offsetType)->no()) {
-                return \PHPStan\TrinaryLogic::createNo();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
             }
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
-        return $this->isExtraOffsetAccessibleClass()->and(\PHPStan\TrinaryLogic::createMaybe());
+        return $this->isExtraOffsetAccessibleClass()->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
     }
     public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type
     {
@@ -485,7 +485,7 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         }
         if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
             return \PHPStan\Type\RecursionGuard::run($this, static function () use($classReflection) : Type {
-                return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
+                return \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
             });
         }
         return new \PHPStan\Type\ErrorType();
@@ -502,9 +502,9 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
             }
             $acceptedValueType = new \PHPStan\Type\NeverType();
             $acceptedOffsetType = \PHPStan\Type\RecursionGuard::run($this, function () use($classReflection, &$acceptedValueType) : Type {
-                $parameters = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetSet')->getVariants())->getParameters();
+                $parameters = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetSet')->getVariants())->getParameters();
                 if (\count($parameters) < 2) {
-                    throw new \PHPStan\ShouldNotHappenException(\sprintf('Method %s::%s() has less than 2 parameters.', $this->className, 'offsetSet'));
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException(\sprintf('Method %s::%s() has less than 2 parameters.', $this->className, 'offsetSet'));
                 }
                 $offsetParameter = $parameters[0];
                 $acceptedValueType = $parameters[1]->getType();
@@ -520,29 +520,29 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         // in the future we may return intersection of $this and OffsetAccessibleType()
         return $this;
     }
-    public function isCallable() : \PHPStan\TrinaryLogic
+    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $parametersAcceptors = $this->findCallableParametersAcceptors();
         if ($parametersAcceptors === null) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        if (\count($parametersAcceptors) === 1 && $parametersAcceptors[0] instanceof \PHPStan\Reflection\TrivialParametersAcceptor) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+        if (\count($parametersAcceptors) === 1 && $parametersAcceptors[0] instanceof \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor) {
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
         if ($this->className === \Closure::class) {
-            return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
+            return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
         }
         $parametersAcceptors = $this->findCallableParametersAcceptors();
         if ($parametersAcceptors === null) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         return $parametersAcceptors;
     }
@@ -553,19 +553,19 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
-            return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
+            return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
         }
         if ($classReflection->hasNativeMethod('__invoke')) {
             return $classReflection->getNativeMethod('__invoke')->getVariants();
         }
         if (!$classReflection->getNativeReflection()->isFinal()) {
-            return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
+            return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
         }
         return null;
     }
-    public function isCloneable() : \PHPStan\TrinaryLogic
+    public function isCloneable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
     /**
      * @param mixed[] $properties
@@ -575,19 +575,19 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
     {
         return new self($properties['className'], $properties['subtractedType'] ?? null);
     }
-    public function isInstanceOf(string $className) : \PHPStan\TrinaryLogic
+    public function isInstanceOf(string $className) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if ($classReflection->isSubclassOf($className) || $classReflection->getName() === $className) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($classReflection->isInterface()) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function subtract(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
     {
@@ -616,12 +616,12 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         }
         return $this;
     }
-    public function getClassReflection() : ?\PHPStan\Reflection\ClassReflection
+    public function getClassReflection() : ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         if ($this->classReflection !== null) {
             return $this->classReflection;
         }
-        $broker = \PHPStan\Broker\Broker::getInstance();
+        $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
         if (!$broker->hasClass($this->className)) {
             return null;
         }
@@ -637,7 +637,7 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
      */
     public function getAncestorWithClassName(string $className) : ?\PHPStan\Type\ObjectType
     {
-        $broker = \PHPStan\Broker\Broker::getInstance();
+        $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
         if (!$broker->hasClass($className)) {
             return null;
         }
@@ -683,7 +683,7 @@ class ObjectType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Type\Subtr
         if ($thisReflection === null) {
             return [];
         }
-        return \array_map(static function (\PHPStan\Reflection\ClassReflection $interfaceReflection) : self {
+        return \array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $interfaceReflection) : self {
             return self::createFromReflection($interfaceReflection);
         }, $thisReflection->getInterfaces());
     }

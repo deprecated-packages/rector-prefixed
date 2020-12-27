@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Arrays;
+namespace RectorPrefix20201227\PHPStan\Rules\Arrays;
 
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\LiteralArrayNode;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\LiteralArrayNode;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ConstantScalarType;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\LiteralArrayNode>
  */
-class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
+class DuplicateKeysInLiteralArraysRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PhpParser\PrettyPrinter\Standard */
     private $printer;
@@ -20,9 +20,9 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
     }
     public function getNodeType() : string
     {
-        return \PHPStan\Node\LiteralArrayNode::class;
+        return \RectorPrefix20201227\PHPStan\Node\LiteralArrayNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $values = [];
         $duplicateKeys = [];
@@ -56,7 +56,7 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
         }
         $messages = [];
         foreach (\array_keys($duplicateKeys) as $value) {
-            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Array has %d %s with value %s (%s).', \count($printedValues[$value]), \count($printedValues[$value]) === 1 ? 'duplicate key' : 'duplicate keys', \var_export($value, \true), \implode(', ', $printedValues[$value])))->line($valueLines[$value])->build();
+            $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Array has %d %s with value %s (%s).', \count($printedValues[$value]), \count($printedValues[$value]) === 1 ? 'duplicate key' : 'duplicate keys', \var_export($value, \true), \implode(', ', $printedValues[$value])))->line($valueLines[$value])->build();
         }
         return $messages;
     }

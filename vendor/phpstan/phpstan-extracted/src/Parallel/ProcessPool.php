@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Parallel;
+namespace RectorPrefix20201227\PHPStan\Parallel;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Socket\TcpServer;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\TcpServer;
 use function array_key_exists;
 class ProcessPool
 {
@@ -11,18 +11,18 @@ class ProcessPool
     private $server;
     /** @var array<string, Process> */
     private $processes = [];
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\TcpServer $server)
+    public function __construct(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\TcpServer $server)
     {
         $this->server = $server;
     }
-    public function getProcess(string $identifier) : \PHPStan\Parallel\Process
+    public function getProcess(string $identifier) : \RectorPrefix20201227\PHPStan\Parallel\Process
     {
         if (!\array_key_exists($identifier, $this->processes)) {
-            throw new \PHPStan\ShouldNotHappenException(\sprintf('Process %s not found.', $identifier));
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException(\sprintf('Process %s not found.', $identifier));
         }
         return $this->processes[$identifier];
     }
-    public function attachProcess(string $identifier, \PHPStan\Parallel\Process $process) : void
+    public function attachProcess(string $identifier, \RectorPrefix20201227\PHPStan\Parallel\Process $process) : void
     {
         $this->processes[$identifier] = $process;
     }

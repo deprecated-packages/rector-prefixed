@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\File;
+namespace RectorPrefix20201227\PHPStan\File;
 
 class PathNotFoundException extends \Exception
 {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Node;
+namespace RectorPrefix20201227\PHPStan\Node;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
@@ -11,7 +11,7 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\UnionType;
 use PhpParser\NodeAbstract;
-class ClassPropertyNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
+class ClassPropertyNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
 {
     /** @var string */
     private $name;

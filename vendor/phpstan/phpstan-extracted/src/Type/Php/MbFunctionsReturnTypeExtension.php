@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\ParametersAcceptorSelector;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -28,14 +28,14 @@ class MbFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRet
             foreach (\mb_list_encodings() as $encoding) {
                 $aliases = \mb_encoding_aliases($encoding);
                 if ($aliases === \false) {
-                    throw new \PHPStan\ShouldNotHappenException();
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
                 $supportedEncodings = \array_merge($supportedEncodings, $aliases, [$encoding]);
             }
         }
         $this->supportedEncodings = \array_map('strtoupper', $supportedEncodings);
     }
-    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return \array_key_exists($functionReflection->getName(), $this->encodingPositionMap);
     }
@@ -43,9 +43,9 @@ class MbFunctionsReturnTypeExtension implements \PHPStan\Type\DynamicFunctionRet
     {
         return \in_array(\strtoupper($encoding), $this->supportedEncodings, \true);
     }
-    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
-        $returnType = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        $returnType = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         $positionEncodingParam = $this->encodingPositionMap[$functionReflection->getName()];
         if (\count($functionCall->args) < $positionEncodingParam) {
             return \PHPStan\Type\TypeCombinator::remove($returnType, new \PHPStan\Type\BooleanType());

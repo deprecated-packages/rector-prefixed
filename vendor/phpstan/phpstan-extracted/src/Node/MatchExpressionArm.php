@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Node;
+namespace RectorPrefix20201227\PHPStan\Node;
 
 class MatchExpressionArm
 {

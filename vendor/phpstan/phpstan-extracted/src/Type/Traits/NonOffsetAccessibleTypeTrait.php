@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Traits;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 trait NonOffsetAccessibleTypeTrait
 {
-    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type
     {

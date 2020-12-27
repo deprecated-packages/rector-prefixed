@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection;
+namespace RectorPrefix20201227\PHPStan\Reflection;
 
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
-class FunctionVariant implements \PHPStan\Reflection\ParametersAcceptor
+class FunctionVariant implements \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
 {
     /** @var TemplateTypeMap */
     private $templateTypeMap;

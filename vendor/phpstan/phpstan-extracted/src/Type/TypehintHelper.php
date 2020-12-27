@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use PHPStan\Broker\Broker;
+use RectorPrefix20201227\PHPStan\Broker\Broker;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use ReflectionNamedType;
@@ -39,7 +39,7 @@ class TypehintHelper
             case 'self':
                 return $selfClass !== null ? new \PHPStan\Type\ObjectType($selfClass) : new \PHPStan\Type\ErrorType();
             case 'parent':
-                $broker = \PHPStan\Broker\Broker::getInstance();
+                $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
                 if ($selfClass !== null && $broker->hasClass($selfClass)) {
                     $classReflection = $broker->getClass($selfClass);
                     if ($classReflection->getParentClass() !== \false) {
@@ -70,19 +70,19 @@ class TypehintHelper
             return self::decideType($type, $phpDocType);
         }
         if (!$reflectionType instanceof \ReflectionNamedType) {
-            throw new \PHPStan\ShouldNotHappenException(\sprintf('Unexpected type: %s', \get_class($reflectionType)));
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException(\sprintf('Unexpected type: %s', \get_class($reflectionType)));
         }
         $reflectionTypeString = $reflectionType->getName();
-        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\object')) {
+        if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\object')) {
             $reflectionTypeString = 'object';
         }
-        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\mixed')) {
+        if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\mixed')) {
             $reflectionTypeString = 'mixed';
         }
-        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\false')) {
+        if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\false')) {
             $reflectionTypeString = 'false';
         }
-        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\null')) {
+        if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith(\strtolower($reflectionTypeString), '\\null')) {
             $reflectionTypeString = 'null';
         }
         $type = self::getTypeObjectFromTypehint($reflectionTypeString, $selfClass);

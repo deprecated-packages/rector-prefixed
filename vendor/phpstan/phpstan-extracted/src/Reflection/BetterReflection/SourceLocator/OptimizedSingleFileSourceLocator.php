@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator;
 
 use PhpParser\Node\Expr\FuncCall;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionConstant;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-class OptimizedSingleFileSourceLocator implements \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionConstant;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+class OptimizedSingleFileSourceLocator implements \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var \PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher */
     private $fileNodesFetcher;
@@ -21,17 +21,17 @@ class OptimizedSingleFileSourceLocator implements \_HumbugBox221ad6f1b81f__Uniqu
     private $fileName;
     /** @var \PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNodesResult|null */
     private $fetchedNodesResult = null;
-    public function __construct(\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, string $fileName)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher $fileNodesFetcher, string $fileName)
     {
         $this->fileNodesFetcher = $fileNodesFetcher;
         $this->fileName = $fileName;
     }
-    public function locateIdentifier(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection
     {
         if ($this->fetchedNodesResult === null) {
             $this->fetchedNodesResult = $this->fileNodesFetcher->fetchNodes($this->fileName);
         }
-        $nodeToReflection = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+        $nodeToReflection = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
         if ($identifier->isClass()) {
             $classNodes = $this->fetchedNodesResult->getClassNodes();
             $className = \strtolower($identifier->getName());
@@ -40,8 +40,8 @@ class OptimizedSingleFileSourceLocator implements \_HumbugBox221ad6f1b81f__Uniqu
             }
             foreach ($classNodes[$className] as $classNode) {
                 $classReflection = $nodeToReflection->__invoke($reflector, $classNode->getNode(), $this->fetchedNodesResult->getLocatedSource(), $classNode->getNamespace());
-                if (!$classReflection instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass) {
-                    throw new \PHPStan\ShouldNotHappenException();
+                if (!$classReflection instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass) {
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
                 return $classReflection;
             }
@@ -53,8 +53,8 @@ class OptimizedSingleFileSourceLocator implements \_HumbugBox221ad6f1b81f__Uniqu
                 return null;
             }
             $functionReflection = $nodeToReflection->__invoke($reflector, $functionNodes[$functionName]->getNode(), $this->fetchedNodesResult->getLocatedSource(), $functionNodes[$functionName]->getNamespace());
-            if (!$functionReflection instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction) {
-                throw new \PHPStan\ShouldNotHappenException();
+            if (!$functionReflection instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction) {
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             return $functionReflection;
         }
@@ -66,8 +66,8 @@ class OptimizedSingleFileSourceLocator implements \_HumbugBox221ad6f1b81f__Uniqu
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionConstant) {
-                        throw new \PHPStan\ShouldNotHappenException();
+                    if (!$constantReflection instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
                         continue;
@@ -79,8 +79,8 @@ class OptimizedSingleFileSourceLocator implements \_HumbugBox221ad6f1b81f__Uniqu
                     if ($constantReflection === null) {
                         continue;
                     }
-                    if (!$constantReflection instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionConstant) {
-                        throw new \PHPStan\ShouldNotHappenException();
+                    if (!$constantReflection instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionConstant) {
+                        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                     }
                     if ($constantReflection->getName() !== $identifier->getName()) {
                         continue;
@@ -90,9 +90,9 @@ class OptimizedSingleFileSourceLocator implements \_HumbugBox221ad6f1b81f__Uniqu
             }
             return null;
         }
-        throw new \PHPStan\ShouldNotHappenException();
+        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
     }
-    public function locateIdentifiersByType(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
     }

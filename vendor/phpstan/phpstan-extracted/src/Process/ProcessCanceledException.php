@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Process;
+namespace RectorPrefix20201227\PHPStan\Process;
 
 class ProcessCanceledException extends \Exception
 {

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection;
+namespace RectorPrefix20201227\PHPStan\Reflection;
 
-use PHPStan\Reflection\Php\DummyParameter;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeTraverser;
-class ObjectTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
+class ObjectTypeMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
 {
     /** @var \PHPStan\Type\ObjectType */
     private $objectType;
@@ -17,12 +17,12 @@ class ObjectTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
     private $reflection;
     /** @var \PHPStan\Reflection\ParametersAcceptor[]|null */
     private $variants = null;
-    public function __construct(\PHPStan\Type\ObjectType $objectType, \PHPStan\Reflection\MethodReflection $reflection)
+    public function __construct(\PHPStan\Type\ObjectType $objectType, \RectorPrefix20201227\PHPStan\Reflection\MethodReflection $reflection)
     {
         $this->objectType = $objectType;
         $this->reflection = $reflection;
     }
-    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->reflection->getDeclaringClass();
     }
@@ -46,7 +46,7 @@ class ObjectTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
     {
         return $this->reflection->getName();
     }
-    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection
     {
         return $this->reflection->getPrototype();
     }
@@ -65,19 +65,19 @@ class ObjectTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
         $this->variants = $variants;
         return $this->variants;
     }
-    private function processVariant(\PHPStan\Reflection\ParametersAcceptor $acceptor) : \PHPStan\Reflection\ParametersAcceptor
+    private function processVariant(\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $acceptor) : \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
     {
-        return new \PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), \array_map(function (\PHPStan\Reflection\ParameterReflection $parameter) : ParameterReflection {
+        return new \RectorPrefix20201227\PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), \array_map(function (\RectorPrefix20201227\PHPStan\Reflection\ParameterReflection $parameter) : ParameterReflection {
             $type = \PHPStan\Type\TypeTraverser::map($parameter->getType(), function (\PHPStan\Type\Type $type, callable $traverse) : Type {
                 if ($type instanceof \PHPStan\Type\StaticType) {
                     return $traverse($this->objectType);
                 }
                 return $traverse($type);
             });
-            return new \PHPStan\Reflection\Php\DummyParameter($parameter->getName(), $type, $parameter->isOptional(), $parameter->passedByReference(), $parameter->isVariadic(), $parameter->getDefaultValue());
+            return new \RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter($parameter->getName(), $type, $parameter->isOptional(), $parameter->passedByReference(), $parameter->isVariadic(), $parameter->getDefaultValue());
         }, $acceptor->getParameters()), $acceptor->isVariadic(), $acceptor->getReturnType());
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
@@ -85,11 +85,11 @@ class ObjectTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
     {
         return $this->reflection->getDeprecatedDescription();
     }
-    public function isFinal() : \PHPStan\TrinaryLogic
+    public function isFinal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->reflection->isFinal();
     }
-    public function isInternal() : \PHPStan\TrinaryLogic
+    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->reflection->isInternal();
     }
@@ -97,7 +97,7 @@ class ObjectTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
     {
         return $this->reflection->getThrowType();
     }
-    public function hasSideEffects() : \PHPStan\TrinaryLogic
+    public function hasSideEffects() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->reflection->hasSideEffects();
     }

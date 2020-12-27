@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\DependencyInjection\Type;
+namespace RectorPrefix20201227\PHPStan\DependencyInjection\Type;
 
-use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Broker\Broker;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\DynamicFunctionReturnTypeExtension;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\DynamicReturnTypeExtensionRegistry;
@@ -12,7 +12,7 @@ use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 /**
  * @internal
  */
-class DirectDynamicReturnTypeExtensionRegistryProvider implements \PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider
+class DirectDynamicReturnTypeExtensionRegistryProvider implements \RectorPrefix20201227\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider
 {
     /** @var \PHPStan\Type\DynamicMethodReturnTypeExtension[] */
     private $dynamicMethodReturnTypeExtensions;
@@ -35,11 +35,11 @@ class DirectDynamicReturnTypeExtensionRegistryProvider implements \PHPStan\Depen
         $this->dynamicStaticMethodReturnTypeExtensions = $dynamicStaticMethodReturnTypeExtensions;
         $this->dynamicFunctionReturnTypeExtensions = $dynamicFunctionReturnTypeExtensions;
     }
-    public function setBroker(\PHPStan\Broker\Broker $broker) : void
+    public function setBroker(\RectorPrefix20201227\PHPStan\Broker\Broker $broker) : void
     {
         $this->broker = $broker;
     }
-    public function setReflectionProvider(\PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
+    public function setReflectionProvider(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
     {
         $this->reflectionProvider = $reflectionProvider;
     }

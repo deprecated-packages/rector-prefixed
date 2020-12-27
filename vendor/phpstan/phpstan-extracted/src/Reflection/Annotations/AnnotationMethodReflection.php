@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Annotations;
+namespace RectorPrefix20201227\PHPStan\Reflection\Annotations;
 
-use PHPStan\Reflection\ClassMemberReflection;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\FunctionVariant;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionVariant;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
-class AnnotationMethodReflection implements \PHPStan\Reflection\MethodReflection
+class AnnotationMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
 {
     /** @var string */
     private $name;
@@ -34,7 +34,7 @@ class AnnotationMethodReflection implements \PHPStan\Reflection\MethodReflection
      * @param bool $isStatic
      * @param bool $isVariadic
      */
-    public function __construct(string $name, \PHPStan\Reflection\ClassReflection $declaringClass, \PHPStan\Type\Type $returnType, array $parameters, bool $isStatic, bool $isVariadic)
+    public function __construct(string $name, \RectorPrefix20201227\PHPStan\Reflection\ClassReflection $declaringClass, \PHPStan\Type\Type $returnType, array $parameters, bool $isStatic, bool $isVariadic)
     {
         $this->name = $name;
         $this->declaringClass = $declaringClass;
@@ -43,11 +43,11 @@ class AnnotationMethodReflection implements \PHPStan\Reflection\MethodReflection
         $this->isStatic = $isStatic;
         $this->isVariadic = $isVariadic;
     }
-    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
-    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection
     {
         return $this;
     }
@@ -73,33 +73,33 @@ class AnnotationMethodReflection implements \PHPStan\Reflection\MethodReflection
     public function getVariants() : array
     {
         if ($this->variants === null) {
-            $this->variants = [new \PHPStan\Reflection\FunctionVariant(\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $this->parameters, $this->isVariadic, $this->returnType)];
+            $this->variants = [new \RectorPrefix20201227\PHPStan\Reflection\FunctionVariant(\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $this->parameters, $this->isVariadic, $this->returnType)];
         }
         return $this->variants;
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isFinal() : \PHPStan\TrinaryLogic
+    public function isFinal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function isInternal() : \PHPStan\TrinaryLogic
+    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function getThrowType() : ?\PHPStan\Type\Type
     {
         return null;
     }
-    public function hasSideEffects() : \PHPStan\TrinaryLogic
+    public function hasSideEffects() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

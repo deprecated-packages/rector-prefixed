@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Command\ErrorFormatter;
+namespace RectorPrefix20201227\PHPStan\Command\ErrorFormatter;
 
-use PHPStan\Command\AnalysisResult;
-use PHPStan\Command\Output;
+use RectorPrefix20201227\PHPStan\Command\AnalysisResult;
+use RectorPrefix20201227\PHPStan\Command\Output;
 interface ErrorFormatter
 {
     /**
@@ -14,5 +14,5 @@ interface ErrorFormatter
      * @param \PHPStan\Command\Output $output
      * @return int Error code.
      */
-    public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int;
+    public function formatErrors(\RectorPrefix20201227\PHPStan\Command\AnalysisResult $analysisResult, \RectorPrefix20201227\PHPStan\Command\Output $output) : int;
 }

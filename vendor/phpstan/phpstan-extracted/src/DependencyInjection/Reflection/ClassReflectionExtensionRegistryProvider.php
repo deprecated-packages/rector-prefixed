@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\DependencyInjection\Reflection;
+namespace RectorPrefix20201227\PHPStan\DependencyInjection\Reflection;
 
-use PHPStan\Reflection\ClassReflectionExtensionRegistry;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflectionExtensionRegistry;
 interface ClassReflectionExtensionRegistryProvider
 {
-    public function getRegistry() : \PHPStan\Reflection\ClassReflectionExtensionRegistry;
+    public function getRegistry() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflectionExtensionRegistry;
 }

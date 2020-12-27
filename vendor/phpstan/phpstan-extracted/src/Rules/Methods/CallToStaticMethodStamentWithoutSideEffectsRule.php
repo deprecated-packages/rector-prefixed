@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Methods;
+namespace RectorPrefix20201227\PHPStan\Rules\Methods;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Rules\RuleLevelHelper;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Expression>
  */
-class CallToStaticMethodStamentWithoutSideEffectsRule implements \PHPStan\Rules\Rule
+class CallToStaticMethodStamentWithoutSideEffectsRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
         $this->reflectionProvider = $reflectionProvider;
@@ -30,7 +30,7 @@ class CallToStaticMethodStamentWithoutSideEffectsRule implements \PHPStan\Rules\
     {
         return \PhpParser\Node\Stmt\Expression::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
             return [];
@@ -66,7 +66,7 @@ class CallToStaticMethodStamentWithoutSideEffectsRule implements \PHPStan\Rules\
             return [];
         }
         if ($method->hasSideEffects()->no()) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to %s %s::%s() on a separate line has no effect.', $method->isStatic() ? 'static method' : 'method', $method->getDeclaringClass()->getDisplayName(), $method->getName()))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to %s %s::%s() on a separate line has no effect.', $method->isStatic() ? 'static method' : 'method', $method->getDeclaringClass()->getDisplayName(), $method->getName()))->build()];
         }
         return [];
     }

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Comparison;
+namespace RectorPrefix20201227\PHPStan\Rules\Comparison;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
-use PHPStan\Analyser\Scope;
-use PHPStan\Analyser\TypeSpecifier;
-use PHPStan\Analyser\TypeSpecifierContext;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier;
+use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -37,14 +37,14 @@ class ImpossibleCheckTypeHelper
      * @param string[] $universalObjectCratesClasses
      * @param bool $treatPhpDocTypesAsCertain
      */
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Analyser\TypeSpecifier $typeSpecifier, array $universalObjectCratesClasses, bool $treatPhpDocTypesAsCertain)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier $typeSpecifier, array $universalObjectCratesClasses, bool $treatPhpDocTypesAsCertain)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->typeSpecifier = $typeSpecifier;
         $this->universalObjectCratesClasses = $universalObjectCratesClasses;
         $this->treatPhpDocTypesAsCertain = $treatPhpDocTypesAsCertain;
     }
-    public function findSpecifiedType(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $node) : ?bool
+    public function findSpecifiedType(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $node) : ?bool
     {
         if ($node instanceof \PhpParser\Node\Expr\FuncCall && \count($node->args) > 0) {
             if ($node->name instanceof \PhpParser\Node\Name) {
@@ -119,7 +119,7 @@ class ImpossibleCheckTypeHelper
                 }
             }
         }
-        $specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($scope, $node, \PHPStan\Analyser\TypeSpecifierContext::createTruthy());
+        $specifiedTypes = $this->typeSpecifier->specifyTypesInCondition($scope, $node, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createTruthy());
         $sureTypes = $specifiedTypes->getSureTypes();
         $sureNotTypes = $specifiedTypes->getSureNotTypes();
         $isSpecified = static function (\PhpParser\Node\Expr $expr) use($scope, $node) : bool {
@@ -193,7 +193,7 @@ class ImpossibleCheckTypeHelper
      * @param \PhpParser\Node\Arg[] $args
      * @return string
      */
-    public function getArgumentsDescription(\PHPStan\Analyser\Scope $scope, array $args) : string
+    public function getArgumentsDescription(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, array $args) : string
     {
         if (\count($args) === 0) {
             return '';

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Classes;
+namespace RectorPrefix20201227\PHPStan\Rules\Classes;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
@@ -15,7 +15,7 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\Instanceof_>
  */
-class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
+class ImpossibleInstanceOfRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkAlwaysTrueInstanceof;
@@ -30,7 +30,7 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\Instanceof_::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $instanceofType = $scope->getType($node);
         $expressionType = $scope->getType($node->expr);
@@ -41,13 +41,13 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
             $classType = $scope->getType($node->class);
             $allowed = \PHPStan\Type\TypeCombinator::union(new \PHPStan\Type\StringType(), new \PHPStan\Type\ObjectWithoutClassType());
             if (!$allowed->accepts($classType, \true)->yes()) {
-                return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s results in an error.', $expressionType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+                return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s results in an error.', $expressionType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
             }
         }
         if (!$instanceofType instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
             return [];
         }
-        $addTip = function (\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
+        $addTip = function (\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
             if (!$this->treatPhpDocTypesAsCertain) {
                 return $ruleErrorBuilder;
             }
@@ -58,9 +58,9 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
             return $ruleErrorBuilder->tip('Because the type is coming from a PHPDoc, you can turn off this check by setting <fg=cyan>treatPhpDocTypesAsCertain: false</> in your <fg=cyan>%configurationFile%</>.');
         };
         if (!$instanceofType->getValue()) {
-            return [$addTip(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s will always evaluate to false.', $expressionType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()))))->build()];
+            return [$addTip(\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s will always evaluate to false.', $expressionType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()))))->build()];
         } elseif ($this->checkAlwaysTrueInstanceof) {
-            return [$addTip(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s will always evaluate to true.', $expressionType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()))))->build()];
+            return [$addTip(\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instanceof between %s and %s will always evaluate to true.', $expressionType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()))))->build()];
         }
         return [];
     }

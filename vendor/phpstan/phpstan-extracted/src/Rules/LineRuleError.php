@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules;
+namespace RectorPrefix20201227\PHPStan\Rules;
 
-interface LineRuleError extends \PHPStan\Rules\RuleError
+interface LineRuleError extends \RectorPrefix20201227\PHPStan\Rules\RuleError
 {
     public function getLine() : int;
 }

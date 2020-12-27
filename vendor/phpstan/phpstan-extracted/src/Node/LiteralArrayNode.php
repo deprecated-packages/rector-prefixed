@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Node;
+namespace RectorPrefix20201227\PHPStan\Node;
 
 use PhpParser\Node\Expr\Array_;
 use PhpParser\NodeAbstract;
-class LiteralArrayNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
+class LiteralArrayNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
 {
     /** @var LiteralArrayItem[] */
     private $itemNodes;

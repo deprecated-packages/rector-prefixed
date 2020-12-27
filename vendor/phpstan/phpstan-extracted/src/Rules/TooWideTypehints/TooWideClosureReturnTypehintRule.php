@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\TooWideTypehints;
+namespace RectorPrefix20201227\PHPStan\Rules\TooWideTypehints;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\ClosureReturnStatementsNode;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\ClosureReturnStatementsNode;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\NullType;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
@@ -15,13 +15,13 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\ClosureReturnStatementsNode>
  */
-class TooWideClosureReturnTypehintRule implements \PHPStan\Rules\Rule
+class TooWideClosureReturnTypehintRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \PHPStan\Node\ClosureReturnStatementsNode::class;
+        return \RectorPrefix20201227\PHPStan\Node\ClosureReturnStatementsNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $closureReturnType = $scope->getAnonymousFunctionReturnType();
         if ($closureReturnType === null || !$closureReturnType instanceof \PHPStan\Type\UnionType) {
@@ -59,7 +59,7 @@ class TooWideClosureReturnTypehintRule implements \PHPStan\Rules\Rule
             if (!$type->isSuperTypeOf($returnType)->no()) {
                 continue;
             }
-            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Anonymous function never returns %s so it can be removed from the return typehint.', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+            $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Anonymous function never returns %s so it can be removed from the return typehint.', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
         }
         return $messages;
     }

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Php;
+namespace RectorPrefix20201227\PHPStan\Reflection\Php;
 
-use PHPStan\Reflection\ParameterReflection;
-use PHPStan\Reflection\PassedByReference;
+use RectorPrefix20201227\PHPStan\Reflection\ParameterReflection;
+use RectorPrefix20201227\PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
-class DummyParameter implements \PHPStan\Reflection\ParameterReflection
+class DummyParameter implements \RectorPrefix20201227\PHPStan\Reflection\ParameterReflection
 {
     /** @var string */
     private $name;
@@ -20,12 +20,12 @@ class DummyParameter implements \PHPStan\Reflection\ParameterReflection
     private $variadic;
     /** @var ?\PHPStan\Type\Type */
     private $defaultValue;
-    public function __construct(string $name, \PHPStan\Type\Type $type, bool $optional, ?\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\PHPStan\Type\Type $defaultValue)
+    public function __construct(string $name, \PHPStan\Type\Type $type, bool $optional, ?\RectorPrefix20201227\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\PHPStan\Type\Type $defaultValue)
     {
         $this->name = $name;
         $this->type = $type;
         $this->optional = $optional;
-        $this->passedByReference = $passedByReference ?? \PHPStan\Reflection\PassedByReference::createNo();
+        $this->passedByReference = $passedByReference ?? \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createNo();
         $this->variadic = $variadic;
         $this->defaultValue = $defaultValue;
     }
@@ -41,7 +41,7 @@ class DummyParameter implements \PHPStan\Reflection\ParameterReflection
     {
         return $this->type;
     }
-    public function passedByReference() : \PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \RectorPrefix20201227\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }

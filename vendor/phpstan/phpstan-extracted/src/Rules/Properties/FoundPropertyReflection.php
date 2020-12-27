@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Properties;
+namespace RectorPrefix20201227\PHPStan\Rules\Properties;
 
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\Php\PhpPropertyReflection;
-use PHPStan\Reflection\PropertyReflection;
-use PHPStan\Reflection\ResolvedPropertyReflection;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Php\PhpPropertyReflection;
+use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ResolvedPropertyReflection;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
-class FoundPropertyReflection implements \PHPStan\Reflection\PropertyReflection
+class FoundPropertyReflection implements \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
 {
     /** @var PropertyReflection */
     private $originalPropertyReflection;
@@ -22,7 +22,7 @@ class FoundPropertyReflection implements \PHPStan\Reflection\PropertyReflection
     private $readableType;
     /** @var Type */
     private $writableType;
-    public function __construct(\PHPStan\Reflection\PropertyReflection $originalPropertyReflection, \PHPStan\Analyser\Scope $scope, string $propertyName, \PHPStan\Type\Type $readableType, \PHPStan\Type\Type $writableType)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\PropertyReflection $originalPropertyReflection, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope, string $propertyName, \PHPStan\Type\Type $readableType, \PHPStan\Type\Type $writableType)
     {
         $this->originalPropertyReflection = $originalPropertyReflection;
         $this->scope = $scope;
@@ -30,11 +30,11 @@ class FoundPropertyReflection implements \PHPStan\Reflection\PropertyReflection
         $this->readableType = $readableType;
         $this->writableType = $writableType;
     }
-    public function getScope() : \PHPStan\Analyser\Scope
+    public function getScope() : \RectorPrefix20201227\PHPStan\Analyser\Scope
     {
         return $this->scope;
     }
-    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->originalPropertyReflection->getDeclaringClass();
     }
@@ -78,7 +78,7 @@ class FoundPropertyReflection implements \PHPStan\Reflection\PropertyReflection
     {
         return $this->originalPropertyReflection->isWritable();
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->originalPropertyReflection->isDeprecated();
     }
@@ -86,25 +86,25 @@ class FoundPropertyReflection implements \PHPStan\Reflection\PropertyReflection
     {
         return $this->originalPropertyReflection->getDeprecatedDescription();
     }
-    public function isInternal() : \PHPStan\TrinaryLogic
+    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->originalPropertyReflection->isInternal();
     }
     public function isNative() : bool
     {
         $reflection = $this->originalPropertyReflection;
-        if ($reflection instanceof \PHPStan\Reflection\ResolvedPropertyReflection) {
+        if ($reflection instanceof \RectorPrefix20201227\PHPStan\Reflection\ResolvedPropertyReflection) {
             $reflection = $reflection->getOriginalReflection();
         }
-        return $reflection instanceof \PHPStan\Reflection\Php\PhpPropertyReflection;
+        return $reflection instanceof \RectorPrefix20201227\PHPStan\Reflection\Php\PhpPropertyReflection;
     }
     public function getNativeType() : ?\PHPStan\Type\Type
     {
         $reflection = $this->originalPropertyReflection;
-        if ($reflection instanceof \PHPStan\Reflection\ResolvedPropertyReflection) {
+        if ($reflection instanceof \RectorPrefix20201227\PHPStan\Reflection\ResolvedPropertyReflection) {
             $reflection = $reflection->getOriginalReflection();
         }
-        if (!$reflection instanceof \PHPStan\Reflection\Php\PhpPropertyReflection) {
+        if (!$reflection instanceof \RectorPrefix20201227\PHPStan\Reflection\Php\PhpPropertyReflection) {
             return null;
         }
         return $reflection->getNativeType();

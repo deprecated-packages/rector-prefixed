@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Traits;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 trait MaybeIterableTypeTrait
 {
-    public function isIterable() : \PHPStan\TrinaryLogic
+    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getIterableKeyType() : \PHPStan\Type\Type
     {

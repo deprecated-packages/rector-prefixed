@@ -95,7 +95,7 @@ class TemplateTypeVariance
         if ($this->contravariant()) {
             return $b->isSuperTypeOf($a)->yes();
         }
-        throw new \PHPStan\ShouldNotHappenException();
+        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
     }
     public function equals(self $other) : bool
     {
@@ -117,7 +117,7 @@ class TemplateTypeVariance
             case self::STATIC:
                 return 'static';
         }
-        throw new \PHPStan\ShouldNotHappenException();
+        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
     }
     /**
      * @param array{value: int} $properties

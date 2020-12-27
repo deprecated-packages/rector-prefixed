@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Dependency\ExportedNode;
+namespace RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use PHPStan\Dependency\ExportedNode;
-class ExportedPropertyNode implements \JsonSerializable, \PHPStan\Dependency\ExportedNode
+use RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
+class ExportedPropertyNode implements \JsonSerializable, \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
 {
     /** @var string */
     private $name;
@@ -19,7 +19,7 @@ class ExportedPropertyNode implements \JsonSerializable, \PHPStan\Dependency\Exp
     private $private;
     /** @var bool */
     private $static;
-    public function __construct(string $name, ?\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, ?string $type, bool $public, bool $private, bool $static)
+    public function __construct(string $name, ?\RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, ?string $type, bool $public, bool $private, bool $static)
     {
         $this->name = $name;
         $this->phpDoc = $phpDoc;
@@ -28,7 +28,7 @@ class ExportedPropertyNode implements \JsonSerializable, \PHPStan\Dependency\Exp
         $this->private = $private;
         $this->static = $static;
     }
-    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\RectorPrefix20201227\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -50,7 +50,7 @@ class ExportedPropertyNode implements \JsonSerializable, \PHPStan\Dependency\Exp
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
     {
         return new self($properties['name'], $properties['phpDoc'], $properties['type'], $properties['public'], $properties['private'], $properties['static']);
     }
@@ -58,9 +58,9 @@ class ExportedPropertyNode implements \JsonSerializable, \PHPStan\Dependency\Exp
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
     {
-        return new self($data['name'], $data['phpDoc'] !== null ? \PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['type'], $data['public'], $data['private'], $data['static']);
+        return new self($data['name'], $data['phpDoc'] !== null ? \RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['type'], $data['public'], $data['private'], $data['static']);
     }
     /**
      * @return mixed

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Dependency;
+namespace RectorPrefix20201227\PHPStan\Dependency;
 
 use PhpParser\NodeTraverser;
-use PHPStan\Parser\Parser;
+use RectorPrefix20201227\PHPStan\Parser\Parser;
 class ExportedNodeFetcher
 {
     /** @var Parser */
     private $parser;
     /** @var ExportedNodeVisitor */
     private $visitor;
-    public function __construct(\PHPStan\Parser\Parser $parser, \PHPStan\Dependency\ExportedNodeVisitor $visitor)
+    public function __construct(\RectorPrefix20201227\PHPStan\Parser\Parser $parser, \RectorPrefix20201227\PHPStan\Dependency\ExportedNodeVisitor $visitor)
     {
         $this->parser = $parser;
         $this->visitor = $visitor;
@@ -27,7 +27,7 @@ class ExportedNodeFetcher
         try {
             /** @var \PhpParser\Node[] $ast */
             $ast = $this->parser->parseFile($fileName);
-        } catch (\PHPStan\Parser\ParserErrorsException $e) {
+        } catch (\RectorPrefix20201227\PHPStan\Parser\ParserErrorsException $e) {
             return [];
         }
         $this->visitor->reset($fileName);

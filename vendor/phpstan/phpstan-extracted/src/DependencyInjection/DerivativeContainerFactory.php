@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\DependencyInjection;
+namespace RectorPrefix20201227\PHPStan\DependencyInjection;
 
 class DerivativeContainerFactory
 {
@@ -45,9 +45,9 @@ class DerivativeContainerFactory
      * @param string[] $additionalConfigFiles
      * @return \PHPStan\DependencyInjection\Container
      */
-    public function create(array $additionalConfigFiles) : \PHPStan\DependencyInjection\Container
+    public function create(array $additionalConfigFiles) : \RectorPrefix20201227\PHPStan\DependencyInjection\Container
     {
-        $containerFactory = new \PHPStan\DependencyInjection\ContainerFactory($this->currentWorkingDirectory);
+        $containerFactory = new \RectorPrefix20201227\PHPStan\DependencyInjection\ContainerFactory($this->currentWorkingDirectory);
         return $containerFactory->create($this->tempDirectory, \array_merge($this->additionalConfigFiles, $additionalConfigFiles), $this->analysedPaths, $this->composerAutoloaderProjectPaths, $this->analysedPathsFromConfig, $this->usedLevel, $this->generateBaselineFile);
     }
 }

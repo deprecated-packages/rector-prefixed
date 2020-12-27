@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Debug;
+namespace RectorPrefix20201227\PHPStan\Rules\Debug;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements Rule<Node\Expr\FuncCall>
  */
-class DumpTypeRule implements \PHPStan\Rules\Rule
+class DumpTypeRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var ReflectionProvider */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -24,7 +24,7 @@ class DumpTypeRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->name instanceof \PhpParser\Node\Name) {
             return [];
@@ -37,8 +37,8 @@ class DumpTypeRule implements \PHPStan\Rules\Rule
             return [];
         }
         if (\count($node->args) === 0) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Missing argument for %s() function call.', $functionName))->nonIgnorable()->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Missing argument for %s() function call.', $functionName))->nonIgnorable()->build()];
         }
-        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Dumped type: %s', $scope->getType($node->args[0]->value)->describe(\PHPStan\Type\VerbosityLevel::precise())))->nonIgnorable()->build()];
+        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Dumped type: %s', $scope->getType($node->args[0]->value)->describe(\PHPStan\Type\VerbosityLevel::precise())))->nonIgnorable()->build()];
     }
 }

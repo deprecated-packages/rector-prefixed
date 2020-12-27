@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Generics;
+namespace RectorPrefix20201227\PHPStan\Rules\Generics;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeScope;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Function_>
  */
-class FunctionTemplateTypeRule implements \PHPStan\Rules\Rule
+class FunctionTemplateTypeRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Type\FileTypeMapper */
     private $fileTypeMapper;
     /** @var \PHPStan\Rules\Generics\TemplateTypeCheck */
     private $templateTypeCheck;
-    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Rules\Generics\TemplateTypeCheck $templateTypeCheck)
+    public function __construct(\PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Rules\Generics\TemplateTypeCheck $templateTypeCheck)
     {
         $this->fileTypeMapper = $fileTypeMapper;
         $this->templateTypeCheck = $templateTypeCheck;
@@ -26,14 +26,14 @@ class FunctionTemplateTypeRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Stmt\Function_::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $docComment = $node->getDocComment();
         if ($docComment === null) {
             return [];
         }
         if (!isset($node->namespacedName)) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         $functionName = (string) $node->namespacedName;
         $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($scope->getFile(), null, null, $functionName, $docComment->getText());

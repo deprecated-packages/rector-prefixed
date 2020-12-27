@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection;
+namespace RectorPrefix20201227\PHPStan\Reflection;
 
-use PHPStan\Reflection\Php\PhpPropertyReflection;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\Php\PhpPropertyReflection;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
-class ResolvedPropertyReflection implements \PHPStan\Reflection\PropertyReflection
+class ResolvedPropertyReflection implements \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
 {
     /** @var PropertyReflection */
     private $reflection;
@@ -18,22 +18,22 @@ class ResolvedPropertyReflection implements \PHPStan\Reflection\PropertyReflecti
     private $readableType = null;
     /** @var Type|null */
     private $writableType = null;
-    public function __construct(\PHPStan\Reflection\PropertyReflection $reflection, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\PropertyReflection $reflection, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap)
     {
         $this->reflection = $reflection;
         $this->templateTypeMap = $templateTypeMap;
     }
-    public function getOriginalReflection() : \PHPStan\Reflection\PropertyReflection
+    public function getOriginalReflection() : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
     {
         return $this->reflection;
     }
-    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->reflection->getDeclaringClass();
     }
-    public function getDeclaringTrait() : ?\PHPStan\Reflection\ClassReflection
+    public function getDeclaringTrait() : ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
-        if ($this->reflection instanceof \PHPStan\Reflection\Php\PhpPropertyReflection) {
+        if ($this->reflection instanceof \RectorPrefix20201227\PHPStan\Reflection\Php\PhpPropertyReflection) {
             return $this->reflection->getDeclaringTrait();
         }
         return null;
@@ -86,7 +86,7 @@ class ResolvedPropertyReflection implements \PHPStan\Reflection\PropertyReflecti
     {
         return $this->reflection->getDocComment();
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
@@ -94,7 +94,7 @@ class ResolvedPropertyReflection implements \PHPStan\Reflection\PropertyReflecti
     {
         return $this->reflection->getDeprecatedDescription();
     }
-    public function isInternal() : \PHPStan\TrinaryLogic
+    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->reflection->isInternal();
     }

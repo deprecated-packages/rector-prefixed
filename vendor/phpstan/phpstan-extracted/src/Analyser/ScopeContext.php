@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Analyser;
+namespace RectorPrefix20201227\PHPStan\Analyser;
 
-use PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
 class ScopeContext
 {
     /** @var string */
@@ -12,7 +12,7 @@ class ScopeContext
     private $classReflection;
     /** @var ClassReflection|null */
     private $traitReflection;
-    private function __construct(string $file, ?\PHPStan\Reflection\ClassReflection $classReflection, ?\PHPStan\Reflection\ClassReflection $traitReflection)
+    private function __construct(string $file, ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $traitReflection)
     {
         $this->file = $file;
         $this->classReflection = $classReflection;
@@ -26,23 +26,23 @@ class ScopeContext
     {
         return new self($this->file, null, null);
     }
-    public function enterClass(\PHPStan\Reflection\ClassReflection $classReflection) : self
+    public function enterClass(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection) : self
     {
         if ($this->classReflection !== null && !$classReflection->isAnonymous()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         if ($classReflection->isTrait()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         return new self($this->file, $classReflection, null);
     }
-    public function enterTrait(\PHPStan\Reflection\ClassReflection $traitReflection) : self
+    public function enterTrait(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $traitReflection) : self
     {
         if ($this->classReflection === null) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         if (!$traitReflection->isTrait()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         return new self($this->file, $this->classReflection, $traitReflection);
     }
@@ -69,11 +69,11 @@ class ScopeContext
     {
         return $this->file;
     }
-    public function getClassReflection() : ?\PHPStan\Reflection\ClassReflection
+    public function getClassReflection() : ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->classReflection;
     }
-    public function getTraitReflection() : ?\PHPStan\Reflection\ClassReflection
+    public function getTraitReflection() : ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->traitReflection;
     }

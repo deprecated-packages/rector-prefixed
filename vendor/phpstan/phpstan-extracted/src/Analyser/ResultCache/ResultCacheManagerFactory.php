@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Analyser\ResultCache;
+namespace RectorPrefix20201227\PHPStan\Analyser\ResultCache;
 
 interface ResultCacheManagerFactory
 {
@@ -9,5 +9,5 @@ interface ResultCacheManagerFactory
      * @param array<string, string> $fileReplacements
      * @return ResultCacheManager
      */
-    public function create(array $fileReplacements) : \PHPStan\Analyser\ResultCache\ResultCacheManager;
+    public function create(array $fileReplacements) : \RectorPrefix20201227\PHPStan\Analyser\ResultCache\ResultCacheManager;
 }

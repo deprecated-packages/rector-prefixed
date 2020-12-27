@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Php;
+namespace RectorPrefix20201227\PHPStan\Reflection\Php;
 
-use PHPStan\TrinaryLogic;
-class FakeBuiltinMethodReflection implements \PHPStan\Reflection\Php\BuiltinMethodReflection
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
+class FakeBuiltinMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\Php\BuiltinMethodReflection
 {
     /** @var string */
     private $methodName;
@@ -64,13 +64,13 @@ class FakeBuiltinMethodReflection implements \PHPStan\Reflection\Php\BuiltinMeth
     {
         return \true;
     }
-    public function getPrototype() : \PHPStan\Reflection\Php\BuiltinMethodReflection
+    public function getPrototype() : \RectorPrefix20201227\PHPStan\Reflection\Php\BuiltinMethodReflection
     {
         throw new \ReflectionException();
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function isVariadic() : bool
     {

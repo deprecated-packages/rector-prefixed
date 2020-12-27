@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules;
+namespace RectorPrefix20201227\PHPStan\Rules;
 
-interface FileRuleError extends \PHPStan\Rules\RuleError
+interface FileRuleError extends \RectorPrefix20201227\PHPStan\Rules\RuleError
 {
     public function getFile() : string;
 }

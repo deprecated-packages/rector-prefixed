@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\PhpDoc;
+namespace RectorPrefix20201227\PHPStan\PhpDoc;
 
 interface TypeNodeResolverExtensionRegistryProvider
 {
-    public function getRegistry() : \PHPStan\PhpDoc\TypeNodeResolverExtensionRegistry;
+    public function getRegistry() : \RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolverExtensionRegistry;
 }

@@ -5,9 +5,9 @@ namespace PHPStan\Type\Php;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -31,7 +31,7 @@ class FilterVarDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
     private $flagsString;
     /** @var array<int, Type>|null */
     private $filterTypeMap = null;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->flagsString = new \PHPStan\Type\Constant\ConstantStringType('flags');
@@ -62,15 +62,15 @@ class FilterVarDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
         $constant = $this->reflectionProvider->getConstant(new \PhpParser\Node\Name($constantName), null);
         $valueType = $constant->getValueType();
         if (!$valueType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
-            throw new \PHPStan\ShouldNotHappenException(\sprintf('Constant %s does not have integer type.', $constantName));
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException(\sprintf('Constant %s does not have integer type.', $constantName));
         }
         return $valueType->getValue();
     }
-    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return \strtolower($functionReflection->getName()) === 'filter_var';
     }
-    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $mixedType = new \PHPStan\Type\MixedType();
         $filterArg = $functionCall->args[1] ?? null;
@@ -110,7 +110,7 @@ class FilterVarDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
         }
         return null;
     }
-    private function getOtherType(?\PhpParser\Node\Arg $flagsArg, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    private function getOtherType(?\PhpParser\Node\Arg $flagsArg, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $falseType = new \PHPStan\Type\Constant\ConstantBooleanType(\false);
         if ($flagsArg === null) {
@@ -125,7 +125,7 @@ class FilterVarDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
         }
         return $falseType;
     }
-    private function getDefault(\PhpParser\Node\Arg $expression, \PHPStan\Analyser\Scope $scope) : ?\PHPStan\Type\Type
+    private function getDefault(\PhpParser\Node\Arg $expression, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?\PHPStan\Type\Type
     {
         $exprType = $scope->getType($expression->value);
         if (!$exprType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
@@ -141,7 +141,7 @@ class FilterVarDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
         }
         return null;
     }
-    private function hasFlag(int $flag, ?\PhpParser\Node\Arg $expression, \PHPStan\Analyser\Scope $scope) : bool
+    private function hasFlag(int $flag, ?\PhpParser\Node\Arg $expression, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : bool
     {
         if ($expression === null) {
             return \false;

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Exceptions;
+namespace RectorPrefix20201227\PHPStan\Rules\Exceptions;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -14,13 +14,13 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\TryCatch>
  */
-class DeadCatchRule implements \PHPStan\Rules\Rule
+class DeadCatchRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\Node\Stmt\TryCatch::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $catchTypes = \array_map(static function (\PhpParser\Node\Stmt\Catch_ $catch) : Type {
             return \PHPStan\Type\TypeCombinator::union(...\array_map(static function (\PhpParser\Node\Name $className) : ObjectType {
@@ -36,7 +36,7 @@ class DeadCatchRule implements \PHPStan\Rules\Rule
                 if (!$firstType->isSuperTypeOf($secondType)->yes()) {
                     continue;
                 }
-                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Dead catch - %s is already caught by %s above.', $secondType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $firstType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->line($node->catches[$j]->getLine())->identifier('deadCode.unreachableCatch')->metadata(['tryLine' => $node->getLine(), 'firstCatchOrder' => $i, 'deadCatchOrder' => $j])->build();
+                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Dead catch - %s is already caught by %s above.', $secondType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $firstType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->line($node->catches[$j]->getLine())->identifier('deadCode.unreachableCatch')->metadata(['tryLine' => $node->getLine(), 'firstCatchOrder' => $i, 'deadCatchOrder' => $j])->build();
             }
         }
         return $errors;

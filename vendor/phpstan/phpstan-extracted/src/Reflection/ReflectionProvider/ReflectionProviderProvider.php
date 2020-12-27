@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\ReflectionProvider;
+namespace RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 interface ReflectionProviderProvider
 {
-    public function getReflectionProvider() : \PHPStan\Reflection\ReflectionProvider;
+    public function getReflectionProvider() : \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 }

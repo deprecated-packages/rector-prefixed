@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Cache;
+namespace RectorPrefix20201227\PHPStan\Cache;
 
 interface CacheStorage
 {

@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Arrays;
+namespace RectorPrefix20201227\PHPStan\Rules\Arrays;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\LiteralArrayNode;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\LiteralArrayNode;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\LiteralArrayNode>
  */
-class EmptyArrayItemRule implements \PHPStan\Rules\Rule
+class EmptyArrayItemRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \PHPStan\Node\LiteralArrayNode::class;
+        return \RectorPrefix20201227\PHPStan\Node\LiteralArrayNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         foreach ($node->getItemNodes() as $itemNode) {
             $item = $itemNode->getArrayItem();
             if ($item !== null) {
                 continue;
             }
-            return [\PHPStan\Rules\RuleErrorBuilder::message('Literal array contains empty item.')->nonIgnorable()->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Literal array contains empty item.')->nonIgnorable()->build()];
         }
         return [];
     }

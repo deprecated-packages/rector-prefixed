@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Annotations;
+namespace RectorPrefix20201227\PHPStan\Reflection\Annotations;
 
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\MethodsClassReflectionExtension;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Type\Generic\TemplateTypeHelper;
-class AnnotationsMethodsClassReflectionExtension implements \PHPStan\Reflection\MethodsClassReflectionExtension
+class AnnotationsMethodsClassReflectionExtension implements \RectorPrefix20201227\PHPStan\Reflection\MethodsClassReflectionExtension
 {
     /** @var MethodReflection[][] */
     private $methods = [];
-    public function hasMethod(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
+    public function hasMethod(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
     {
         if (!isset($this->methods[$classReflection->getCacheKey()])) {
             $this->methods[$classReflection->getCacheKey()] = $this->createMethods($classReflection, $classReflection);
         }
         return isset($this->methods[$classReflection->getCacheKey()][$methodName]);
     }
-    public function getMethod(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \PHPStan\Reflection\MethodReflection
+    public function getMethod(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         return $this->methods[$classReflection->getCacheKey()][$methodName];
     }
@@ -27,7 +27,7 @@ class AnnotationsMethodsClassReflectionExtension implements \PHPStan\Reflection\
      * @param ClassReflection $declaringClass
      * @return MethodReflection[]
      */
-    private function createMethods(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Reflection\ClassReflection $declaringClass) : array
+    private function createMethods(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, \RectorPrefix20201227\PHPStan\Reflection\ClassReflection $declaringClass) : array
     {
         $methods = [];
         foreach ($classReflection->getTraits() as $traitClass) {
@@ -50,9 +50,9 @@ class AnnotationsMethodsClassReflectionExtension implements \PHPStan\Reflection\
         foreach ($methodTags as $methodName => $methodTag) {
             $parameters = [];
             foreach ($methodTag->getParameters() as $parameterName => $parameterTag) {
-                $parameters[] = new \PHPStan\Reflection\Annotations\AnnotationsMethodParameterReflection($parameterName, $parameterTag->getType(), $parameterTag->passedByReference(), $parameterTag->isOptional(), $parameterTag->isVariadic(), $parameterTag->getDefaultValue());
+                $parameters[] = new \RectorPrefix20201227\PHPStan\Reflection\Annotations\AnnotationsMethodParameterReflection($parameterName, $parameterTag->getType(), $parameterTag->passedByReference(), $parameterTag->isOptional(), $parameterTag->isVariadic(), $parameterTag->getDefaultValue());
             }
-            $methods[$methodName] = new \PHPStan\Reflection\Annotations\AnnotationMethodReflection($methodName, $declaringClass, \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($methodTag->getReturnType(), $classReflection->getActiveTemplateTypeMap()), $parameters, $methodTag->isStatic(), $this->detectMethodVariadic($parameters));
+            $methods[$methodName] = new \RectorPrefix20201227\PHPStan\Reflection\Annotations\AnnotationMethodReflection($methodName, $declaringClass, \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($methodTag->getReturnType(), $classReflection->getActiveTemplateTypeMap()), $parameters, $methodTag->isStatic(), $this->detectMethodVariadic($parameters));
         }
         return $methods;
     }

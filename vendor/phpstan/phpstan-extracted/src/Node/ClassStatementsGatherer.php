@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Node;
+namespace RectorPrefix20201227\PHPStan\Node;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -11,11 +11,11 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Identifier;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\Constant\ClassConstantFetch;
-use PHPStan\Node\Property\PropertyRead;
-use PHPStan\Node\Property\PropertyWrite;
-use PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\Constant\ClassConstantFetch;
+use RectorPrefix20201227\PHPStan\Node\Property\PropertyRead;
+use RectorPrefix20201227\PHPStan\Node\Property\PropertyWrite;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
 class ClassStatementsGatherer
 {
     /** @var ClassReflection */
@@ -38,7 +38,7 @@ class ClassStatementsGatherer
      * @param ClassReflection $classReflection
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
      */
-    public function __construct(\PHPStan\Reflection\ClassReflection $classReflection, callable $nodeCallback)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, callable $nodeCallback)
     {
         $this->classReflection = $classReflection;
         $this->nodeCallback = $nodeCallback;
@@ -85,24 +85,24 @@ class ClassStatementsGatherer
     {
         return $this->constantFetches;
     }
-    public function __invoke(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : void
+    public function __invoke(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : void
     {
         $nodeCallback = $this->nodeCallback;
         $nodeCallback($node, $scope);
         $this->gatherNodes($node, $scope);
     }
-    private function gatherNodes(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : void
+    private function gatherNodes(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : void
     {
         if (!$scope->isInClass()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         if ($scope->getClassReflection()->getName() !== $this->classReflection->getName()) {
             return;
         }
-        if ($node instanceof \PHPStan\Node\ClassPropertyNode && !$scope->isInTrait()) {
+        if ($node instanceof \RectorPrefix20201227\PHPStan\Node\ClassPropertyNode && !$scope->isInTrait()) {
             $this->properties[] = $node;
             if ($node->isPromoted()) {
-                $this->propertyUsages[] = new \PHPStan\Node\Property\PropertyWrite(new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), new \PhpParser\Node\Identifier($node->getName())), $scope);
+                $this->propertyUsages[] = new \RectorPrefix20201227\PHPStan\Node\Property\PropertyWrite(new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), new \PhpParser\Node\Identifier($node->getName())), $scope);
             }
             return;
         }
@@ -115,15 +115,15 @@ class ClassStatementsGatherer
             return;
         }
         if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
-            $this->methodCalls[] = new \PHPStan\Node\Method\MethodCall($node, $scope);
+            $this->methodCalls[] = new \RectorPrefix20201227\PHPStan\Node\Method\MethodCall($node, $scope);
             return;
         }
         if ($node instanceof \PhpParser\Node\Expr\Array_ && \count($node->items) === 2) {
-            $this->methodCalls[] = new \PHPStan\Node\Method\MethodCall($node, $scope);
+            $this->methodCalls[] = new \RectorPrefix20201227\PHPStan\Node\Method\MethodCall($node, $scope);
             return;
         }
         if ($node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
-            $this->constantFetches[] = new \PHPStan\Node\Constant\ClassConstantFetch($node, $scope);
+            $this->constantFetches[] = new \RectorPrefix20201227\PHPStan\Node\Constant\ClassConstantFetch($node, $scope);
             return;
         }
         if (!$node instanceof \PhpParser\Node\Expr) {
@@ -144,9 +144,9 @@ class ClassStatementsGatherer
             return;
         }
         if ($inAssign) {
-            $this->propertyUsages[] = new \PHPStan\Node\Property\PropertyWrite($node, $scope);
+            $this->propertyUsages[] = new \RectorPrefix20201227\PHPStan\Node\Property\PropertyWrite($node, $scope);
         } else {
-            $this->propertyUsages[] = new \PHPStan\Node\Property\PropertyRead($node, $scope);
+            $this->propertyUsages[] = new \RectorPrefix20201227\PHPStan\Node\Property\PropertyRead($node, $scope);
         }
     }
 }

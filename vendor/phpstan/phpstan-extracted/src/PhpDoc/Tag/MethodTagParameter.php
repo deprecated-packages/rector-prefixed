@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\PhpDoc\Tag;
+namespace RectorPrefix20201227\PHPStan\PhpDoc\Tag;
 
-use PHPStan\Reflection\PassedByReference;
+use RectorPrefix20201227\PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 class MethodTagParameter
 {
@@ -17,7 +17,7 @@ class MethodTagParameter
     private $isVariadic;
     /** @var \PHPStan\Type\Type|null */
     private $defaultValue;
-    public function __construct(\PHPStan\Type\Type $type, \PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\PHPStan\Type\Type $defaultValue)
+    public function __construct(\PHPStan\Type\Type $type, \RectorPrefix20201227\PHPStan\Reflection\PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?\PHPStan\Type\Type $defaultValue)
     {
         $this->type = $type;
         $this->passedByReference = $passedByReference;
@@ -29,7 +29,7 @@ class MethodTagParameter
     {
         return $this->type;
     }
-    public function passedByReference() : \PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \RectorPrefix20201227\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }

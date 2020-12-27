@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\PhpDoc\Tag;
+namespace RectorPrefix20201227\PHPStan\PhpDoc\Tag;
 
 use PHPStan\Type\Type;
-class VarTag implements \PHPStan\PhpDoc\Tag\TypedTag
+class VarTag implements \RectorPrefix20201227\PHPStan\PhpDoc\Tag\TypedTag
 {
     /** @var \PHPStan\Type\Type */
     private $type;
@@ -20,7 +20,7 @@ class VarTag implements \PHPStan\PhpDoc\Tag\TypedTag
      * @param Type $type
      * @return self
      */
-    public function withType(\PHPStan\Type\Type $type) : \PHPStan\PhpDoc\Tag\TypedTag
+    public function withType(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\PhpDoc\Tag\TypedTag
     {
         return new self($type);
     }

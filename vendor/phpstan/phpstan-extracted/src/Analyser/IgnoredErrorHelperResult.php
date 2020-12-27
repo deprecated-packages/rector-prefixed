@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Analyser;
+namespace RectorPrefix20201227\PHPStan\Analyser;
 
-use PHPStan\File\FileHelper;
+use RectorPrefix20201227\PHPStan\File\FileHelper;
 class IgnoredErrorHelperResult
 {
     /** @var FileHelper */
@@ -29,7 +29,7 @@ class IgnoredErrorHelperResult
      * @param (string|mixed[])[] $ignoreErrors
      * @param bool $reportUnmatchedIgnoredErrors
      */
-    public function __construct(\PHPStan\File\FileHelper $fileHelper, array $errors, array $warnings, array $otherIgnoreErrors, array $ignoreErrorsByFile, array $ignoreErrors, bool $reportUnmatchedIgnoredErrors)
+    public function __construct(\RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, array $errors, array $warnings, array $otherIgnoreErrors, array $ignoreErrorsByFile, array $ignoreErrors, bool $reportUnmatchedIgnoredErrors)
     {
         $this->fileHelper = $fileHelper;
         $this->errors = $errors;
@@ -62,16 +62,16 @@ class IgnoredErrorHelperResult
     {
         $unmatchedIgnoredErrors = $this->ignoreErrors;
         $addErrors = [];
-        $processIgnoreError = function (\PHPStan\Analyser\Error $error, int $i, $ignore) use(&$unmatchedIgnoredErrors, &$addErrors) : bool {
+        $processIgnoreError = function (\RectorPrefix20201227\PHPStan\Analyser\Error $error, int $i, $ignore) use(&$unmatchedIgnoredErrors, &$addErrors) : bool {
             $shouldBeIgnored = \false;
             if (\is_string($ignore)) {
-                $shouldBeIgnored = \PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore, null);
+                $shouldBeIgnored = \RectorPrefix20201227\PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore, null);
                 if ($shouldBeIgnored) {
                     unset($unmatchedIgnoredErrors[$i]);
                 }
             } else {
                 if (isset($ignore['path'])) {
-                    $shouldBeIgnored = \PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignore['path']);
+                    $shouldBeIgnored = \RectorPrefix20201227\PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignore['path']);
                     if ($shouldBeIgnored) {
                         if (isset($ignore['count'])) {
                             $realCount = $unmatchedIgnoredErrors[$i]['realCount'] ?? 0;
@@ -90,13 +90,13 @@ class IgnoredErrorHelperResult
                     }
                 } elseif (isset($ignore['paths'])) {
                     foreach ($ignore['paths'] as $j => $ignorePath) {
-                        $shouldBeIgnored = \PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignorePath);
+                        $shouldBeIgnored = \RectorPrefix20201227\PHPStan\Analyser\IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignorePath);
                         if (!$shouldBeIgnored) {
                             continue;
                         }
                         if (isset($unmatchedIgnoredErrors[$i])) {
                             if (!\is_array($unmatchedIgnoredErrors[$i])) {
-                                throw new \PHPStan\ShouldNotHappenException();
+                                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                             }
                             unset($unmatchedIgnoredErrors[$i]['paths'][$j]);
                             if (isset($unmatchedIgnoredErrors[$i]['paths']) && \count($unmatchedIgnoredErrors[$i]['paths']) === 0) {
@@ -106,7 +106,7 @@ class IgnoredErrorHelperResult
                         break;
                     }
                 } else {
-                    throw new \PHPStan\ShouldNotHappenException();
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
             }
             if ($shouldBeIgnored) {
@@ -118,7 +118,7 @@ class IgnoredErrorHelperResult
             }
             return \true;
         };
-        $errors = \array_values(\array_filter($errors, function (\PHPStan\Analyser\Error $error) use($processIgnoreError) : bool {
+        $errors = \array_values(\array_filter($errors, function (\RectorPrefix20201227\PHPStan\Analyser\Error $error) use($processIgnoreError) : bool {
             $filePath = $this->fileHelper->normalizePath($error->getFilePath());
             if (isset($this->ignoreErrorsByFile[$filePath])) {
                 foreach ($this->ignoreErrorsByFile[$filePath] as $ignoreError) {
@@ -161,7 +161,7 @@ class IgnoredErrorHelperResult
             if ($unmatchedIgnoredError['realCount'] <= $unmatchedIgnoredError['count']) {
                 continue;
             }
-            $addErrors[] = new \PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s is expected to occur %d %s, but occurred %d %s.', \PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError), $unmatchedIgnoredError['count'], $unmatchedIgnoredError['count'] === 1 ? 'time' : 'times', $unmatchedIgnoredError['realCount'], $unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'), $unmatchedIgnoredError['file'], $unmatchedIgnoredError['line'], \false);
+            $addErrors[] = new \RectorPrefix20201227\PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s is expected to occur %d %s, but occurred %d %s.', \RectorPrefix20201227\PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError), $unmatchedIgnoredError['count'], $unmatchedIgnoredError['count'] === 1 ? 'time' : 'times', $unmatchedIgnoredError['realCount'], $unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'), $unmatchedIgnoredError['file'], $unmatchedIgnoredError['line'], \false);
         }
         $errors = \array_merge($errors, $addErrors);
         $analysedFilesKeys = \array_fill_keys($analysedFiles, \true);
@@ -169,15 +169,15 @@ class IgnoredErrorHelperResult
             foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
                 if (isset($unmatchedIgnoredError['count']) && isset($unmatchedIgnoredError['realCount']) && (isset($unmatchedIgnoredError['realPath']) || !$onlyFiles)) {
                     if ($unmatchedIgnoredError['realCount'] < $unmatchedIgnoredError['count']) {
-                        $errors[] = new \PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s is expected to occur %d %s, but occurred only %d %s.', \PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError), $unmatchedIgnoredError['count'], $unmatchedIgnoredError['count'] === 1 ? 'time' : 'times', $unmatchedIgnoredError['realCount'], $unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'), $unmatchedIgnoredError['file'], $unmatchedIgnoredError['line'], \false);
+                        $errors[] = new \RectorPrefix20201227\PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s is expected to occur %d %s, but occurred only %d %s.', \RectorPrefix20201227\PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError), $unmatchedIgnoredError['count'], $unmatchedIgnoredError['count'] === 1 ? 'time' : 'times', $unmatchedIgnoredError['realCount'], $unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'), $unmatchedIgnoredError['file'], $unmatchedIgnoredError['line'], \false);
                     }
                 } elseif (isset($unmatchedIgnoredError['realPath'])) {
                     if (!\array_key_exists($unmatchedIgnoredError['realPath'], $analysedFilesKeys)) {
                         continue;
                     }
-                    $errors[] = new \PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s was not matched in reported errors.', \PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError)), $unmatchedIgnoredError['realPath'], null, \false);
+                    $errors[] = new \RectorPrefix20201227\PHPStan\Analyser\Error(\sprintf('Ignored error pattern %s was not matched in reported errors.', \RectorPrefix20201227\PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError)), $unmatchedIgnoredError['realPath'], null, \false);
                 } elseif (!$onlyFiles) {
-                    $errors[] = \sprintf('Ignored error pattern %s was not matched in reported errors.', \PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError));
+                    $errors[] = \sprintf('Ignored error pattern %s was not matched in reported errors.', \RectorPrefix20201227\PHPStan\Analyser\IgnoredError::stringifyPattern($unmatchedIgnoredError));
                 }
             }
         }

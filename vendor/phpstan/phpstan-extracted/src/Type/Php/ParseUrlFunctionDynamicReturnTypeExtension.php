@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\ParametersAcceptorSelector;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -26,13 +26,13 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
     private $componentTypesPairedStrings = null;
     /** @var Type|null */
     private $allComponentsTogetherType = null;
-    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'parse_url';
     }
-    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
-        $defaultReturnType = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        $defaultReturnType = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         if (\count($functionCall->args) < 1) {
             return $defaultReturnType;
         }
@@ -45,7 +45,7 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
             }
             $componentType = $componentType->toInteger();
             if (!$componentType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
         } else {
             $componentType = new \PHPStan\Type\Constant\ConstantIntegerType(-1);
@@ -53,7 +53,7 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
         if ($urlType instanceof \PHPStan\Type\Constant\ConstantStringType) {
             try {
                 $result = @\parse_url($urlType->getValue(), $componentType->getValue());
-            } catch (\_HumbugBox221ad6f1b81f__UniqueRector\ValueError $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\ValueError $e) {
                 return new \PHPStan\Type\Constant\ConstantBooleanType(\false);
             }
             return $scope->getTypeFromValue($result);
@@ -69,7 +69,7 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
             $returnTypes = [new \PHPStan\Type\Constant\ConstantBooleanType(\false)];
             $builder = \PHPStan\Type\Constant\ConstantArrayTypeBuilder::createEmpty();
             if ($this->componentTypesPairedStrings === null) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             foreach ($this->componentTypesPairedStrings as $componentName => $componentValueType) {
                 $builder->setOffsetValueType(new \PHPStan\Type\Constant\ConstantStringType($componentName), $componentValueType, \true);

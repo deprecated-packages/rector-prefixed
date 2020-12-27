@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\DeadCode;
+namespace RectorPrefix20201227\PHPStan\Rules\DeadCode;
 
 use PhpParser\Node;
 use PhpParser\PrettyPrinter\Standard;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Expression>
  */
-class NoopRule implements \PHPStan\Rules\Rule
+class NoopRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var Standard */
     private $printer;
@@ -23,7 +23,7 @@ class NoopRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Stmt\Expression::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $originalExpr = $node->expr;
         $expr = $originalExpr;
@@ -33,6 +33,6 @@ class NoopRule implements \PHPStan\Rules\Rule
         if (!$expr instanceof \PhpParser\Node\Expr\Variable && !$expr instanceof \PhpParser\Node\Expr\PropertyFetch && !$expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch && !$expr instanceof \PhpParser\Node\Expr\NullsafePropertyFetch && !$expr instanceof \PhpParser\Node\Expr\ArrayDimFetch && !$expr instanceof \PhpParser\Node\Scalar && !$expr instanceof \PhpParser\Node\Expr\Isset_ && !$expr instanceof \PhpParser\Node\Expr\Empty_ && !$expr instanceof \PhpParser\Node\Expr\ConstFetch && !$expr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return [];
         }
-        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Expression "%s" on a separate line does not do anything.', $this->printer->prettyPrintExpr($originalExpr)))->line($expr->getLine())->identifier('deadCode.noopExpression')->metadata(['depth' => $node->getAttribute('statementDepth'), 'order' => $node->getAttribute('statementOrder')])->build()];
+        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Expression "%s" on a separate line does not do anything.', $this->printer->prettyPrintExpr($originalExpr)))->line($expr->getLine())->identifier('deadCode.noopExpression')->metadata(['depth' => $node->getAttribute('statementDepth'), 'order' => $node->getAttribute('statementOrder')])->build()];
     }
 }

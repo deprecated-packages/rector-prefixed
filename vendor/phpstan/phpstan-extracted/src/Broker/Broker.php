@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Broker;
+namespace RectorPrefix20201227\PHPStan\Broker;
 
-use PHPStan\Analyser\Scope;
-use PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider;
-use PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\GlobalConstantReflection;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider;
+use RectorPrefix20201227\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use RectorPrefix20201227\PHPStan\Reflection\GlobalConstantReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\OperatorTypeSpecifyingExtension;
 use PHPStan\Type\Type;
-class Broker implements \PHPStan\Reflection\ReflectionProvider
+class Broker implements \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider
 {
     /** @var ReflectionProvider */
     private $reflectionProvider;
@@ -30,21 +30,21 @@ class Broker implements \PHPStan\Reflection\ReflectionProvider
      * @param \PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider $operatorTypeSpecifyingExtensionRegistryProvider
      * @param string[] $universalObjectCratesClasses
      */
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider $dynamicReturnTypeExtensionRegistryProvider, \PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider $operatorTypeSpecifyingExtensionRegistryProvider, array $universalObjectCratesClasses)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider $dynamicReturnTypeExtensionRegistryProvider, \RectorPrefix20201227\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider $operatorTypeSpecifyingExtensionRegistryProvider, array $universalObjectCratesClasses)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->dynamicReturnTypeExtensionRegistryProvider = $dynamicReturnTypeExtensionRegistryProvider;
         $this->operatorTypeSpecifyingExtensionRegistryProvider = $operatorTypeSpecifyingExtensionRegistryProvider;
         $this->universalObjectCratesClasses = $universalObjectCratesClasses;
     }
-    public static function registerInstance(\PHPStan\Broker\Broker $reflectionProvider) : void
+    public static function registerInstance(\RectorPrefix20201227\PHPStan\Broker\Broker $reflectionProvider) : void
     {
         self::$instance = $reflectionProvider;
     }
-    public static function getInstance() : \PHPStan\Broker\Broker
+    public static function getInstance() : \RectorPrefix20201227\PHPStan\Broker\Broker
     {
         if (self::$instance === null) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         return self::$instance;
     }
@@ -52,7 +52,7 @@ class Broker implements \PHPStan\Reflection\ReflectionProvider
     {
         return $this->reflectionProvider->hasClass($className);
     }
-    public function getClass(string $className) : \PHPStan\Reflection\ClassReflection
+    public function getClass(string $className) : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->reflectionProvider->getClass($className);
     }
@@ -64,31 +64,31 @@ class Broker implements \PHPStan\Reflection\ReflectionProvider
     {
         return $this->reflectionProvider->supportsAnonymousClasses();
     }
-    public function getAnonymousClassReflection(\PhpParser\Node\Stmt\Class_ $classNode, \PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\ClassReflection
+    public function getAnonymousClassReflection(\PhpParser\Node\Stmt\Class_ $classNode, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->reflectionProvider->getAnonymousClassReflection($classNode, $scope);
     }
-    public function hasFunction(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : bool
+    public function hasFunction(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : bool
     {
         return $this->reflectionProvider->hasFunction($nameNode, $scope);
     }
-    public function getFunction(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\FunctionReflection
+    public function getFunction(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Reflection\FunctionReflection
     {
         return $this->reflectionProvider->getFunction($nameNode, $scope);
     }
-    public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : ?string
+    public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?string
     {
         return $this->reflectionProvider->resolveFunctionName($nameNode, $scope);
     }
-    public function hasConstant(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : bool
+    public function hasConstant(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : bool
     {
         return $this->reflectionProvider->hasConstant($nameNode, $scope);
     }
-    public function getConstant(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\GlobalConstantReflection
+    public function getConstant(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Reflection\GlobalConstantReflection
     {
         return $this->reflectionProvider->getConstant($nameNode, $scope);
     }
-    public function resolveConstantName(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : ?string
+    public function resolveConstantName(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?string
     {
         return $this->reflectionProvider->resolveConstantName($nameNode, $scope);
     }
@@ -133,7 +133,7 @@ class Broker implements \PHPStan\Reflection\ReflectionProvider
      * @internal
      * @return DynamicReturnTypeExtensionRegistryProvider
      */
-    public function getDynamicReturnTypeExtensionRegistryProvider() : \PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider
+    public function getDynamicReturnTypeExtensionRegistryProvider() : \RectorPrefix20201227\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider
     {
         return $this->dynamicReturnTypeExtensionRegistryProvider;
     }
@@ -141,7 +141,7 @@ class Broker implements \PHPStan\Reflection\ReflectionProvider
      * @internal
      * @return \PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
      */
-    public function getOperatorTypeSpecifyingExtensionRegistryProvider() : \PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
+    public function getOperatorTypeSpecifyingExtensionRegistryProvider() : \RectorPrefix20201227\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
     {
         return $this->operatorTypeSpecifyingExtensionRegistryProvider;
     }

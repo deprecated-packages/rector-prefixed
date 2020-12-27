@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Analyser;
+namespace RectorPrefix20201227\PHPStan\Analyser;
 
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
@@ -47,43 +47,43 @@ use PhpParser\Node\Stmt\Throw_;
 use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\Unset_;
 use PhpParser\Node\Stmt\While_;
-use PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider;
-use PHPStan\File\FileHelper;
-use PHPStan\File\FileReader;
-use PHPStan\Node\ClassConstantsNode;
-use PHPStan\Node\ClassMethodsNode;
-use PHPStan\Node\ClassPropertiesNode;
-use PHPStan\Node\ClassPropertyNode;
-use PHPStan\Node\ClassStatementsGatherer;
-use PHPStan\Node\ClosureReturnStatementsNode;
-use PHPStan\Node\ExecutionEndNode;
-use PHPStan\Node\FunctionReturnStatementsNode;
-use PHPStan\Node\InArrowFunctionNode;
-use PHPStan\Node\InClassMethodNode;
-use PHPStan\Node\InClassNode;
-use PHPStan\Node\InClosureNode;
-use PHPStan\Node\InFunctionNode;
-use PHPStan\Node\LiteralArrayItem;
-use PHPStan\Node\LiteralArrayNode;
-use PHPStan\Node\MatchExpressionArm;
-use PHPStan\Node\MatchExpressionArmCondition;
-use PHPStan\Node\MatchExpressionNode;
-use PHPStan\Node\MethodReturnStatementsNode;
-use PHPStan\Node\ReturnStatement;
-use PHPStan\Node\UnreachableStatementNode;
-use PHPStan\Parser\Parser;
-use PHPStan\Php\PhpVersion;
-use PHPStan\PhpDoc\PhpDocInheritanceResolver;
-use PHPStan\PhpDoc\ResolvedPhpDocBlock;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\ParametersAcceptor;
-use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Reflection\PassedByReference;
-use PHPStan\Reflection\Php\DummyParameter;
-use PHPStan\Reflection\Php\PhpMethodReflection;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider;
+use RectorPrefix20201227\PHPStan\File\FileHelper;
+use RectorPrefix20201227\PHPStan\File\FileReader;
+use RectorPrefix20201227\PHPStan\Node\ClassConstantsNode;
+use RectorPrefix20201227\PHPStan\Node\ClassMethodsNode;
+use RectorPrefix20201227\PHPStan\Node\ClassPropertiesNode;
+use RectorPrefix20201227\PHPStan\Node\ClassPropertyNode;
+use RectorPrefix20201227\PHPStan\Node\ClassStatementsGatherer;
+use RectorPrefix20201227\PHPStan\Node\ClosureReturnStatementsNode;
+use RectorPrefix20201227\PHPStan\Node\ExecutionEndNode;
+use RectorPrefix20201227\PHPStan\Node\FunctionReturnStatementsNode;
+use RectorPrefix20201227\PHPStan\Node\InArrowFunctionNode;
+use RectorPrefix20201227\PHPStan\Node\InClassMethodNode;
+use RectorPrefix20201227\PHPStan\Node\InClassNode;
+use RectorPrefix20201227\PHPStan\Node\InClosureNode;
+use RectorPrefix20201227\PHPStan\Node\InFunctionNode;
+use RectorPrefix20201227\PHPStan\Node\LiteralArrayItem;
+use RectorPrefix20201227\PHPStan\Node\LiteralArrayNode;
+use RectorPrefix20201227\PHPStan\Node\MatchExpressionArm;
+use RectorPrefix20201227\PHPStan\Node\MatchExpressionArmCondition;
+use RectorPrefix20201227\PHPStan\Node\MatchExpressionNode;
+use RectorPrefix20201227\PHPStan\Node\MethodReturnStatementsNode;
+use RectorPrefix20201227\PHPStan\Node\ReturnStatement;
+use RectorPrefix20201227\PHPStan\Node\UnreachableStatementNode;
+use RectorPrefix20201227\PHPStan\Parser\Parser;
+use RectorPrefix20201227\PHPStan\Php\PhpVersion;
+use RectorPrefix20201227\PHPStan\PhpDoc\PhpDocInheritanceResolver;
+use RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
+use RectorPrefix20201227\PHPStan\Reflection\PassedByReference;
+use RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter;
+use RectorPrefix20201227\PHPStan\Reflection\Php\PhpMethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -112,10 +112,10 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeTraverser;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 class NodeScopeResolver
 {
     private const LOOP_SCOPE_ITERATIONS = 3;
@@ -164,7 +164,7 @@ class NodeScopeResolver
      * @param string[][] $earlyTerminatingMethodCalls className(string) => methods(string[])
      * @param array<int, string> $earlyTerminatingFunctionCalls
      */
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \PHPStan\Parser\Parser $parser, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\PhpDoc\PhpDocInheritanceResolver $phpDocInheritanceResolver, \PHPStan\File\FileHelper $fileHelper, \PHPStan\Analyser\TypeSpecifier $typeSpecifier, bool $polluteScopeWithLoopInitialAssignments, bool $polluteCatchScopeWithTryAssignments, bool $polluteScopeWithAlwaysIterableForeach, array $earlyTerminatingMethodCalls, array $earlyTerminatingFunctionCalls)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \RectorPrefix20201227\PHPStan\Parser\Parser $parser, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocInheritanceResolver $phpDocInheritanceResolver, \RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier $typeSpecifier, bool $polluteScopeWithLoopInitialAssignments, bool $polluteCatchScopeWithTryAssignments, bool $polluteScopeWithAlwaysIterableForeach, array $earlyTerminatingMethodCalls, array $earlyTerminatingFunctionCalls)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->classReflector = $classReflector;
@@ -193,7 +193,7 @@ class NodeScopeResolver
      * @param \PHPStan\Analyser\MutatingScope $scope
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
      */
-    public function processNodes(array $nodes, \PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : void
+    public function processNodes(array $nodes, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : void
     {
         $nodesCount = \count($nodes);
         foreach ($nodes as $i => $node) {
@@ -210,7 +210,7 @@ class NodeScopeResolver
                 if (!$nextStmt instanceof \PhpParser\Node\Stmt) {
                     continue;
                 }
-                $nodeCallback(new \PHPStan\Node\UnreachableStatementNode($nextStmt), $scope);
+                $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\UnreachableStatementNode($nextStmt), $scope);
             }
             break;
         }
@@ -222,7 +222,7 @@ class NodeScopeResolver
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
      * @return StatementResult
      */
-    public function processStmtNodes(\PhpParser\Node $parentNode, array $stmts, \PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : \PHPStan\Analyser\StatementResult
+    public function processStmtNodes(\PhpParser\Node $parentNode, array $stmts, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : \RectorPrefix20201227\PHPStan\Analyser\StatementResult
     {
         $exitPoints = [];
         $alreadyTerminated = \false;
@@ -237,7 +237,7 @@ class NodeScopeResolver
             if ($shouldCheckLastStatement && $isLast) {
                 /** @var Node\Stmt\Function_|Node\Stmt\ClassMethod|Expr\Closure $parentNode */
                 $parentNode = $parentNode;
-                $nodeCallback(new \PHPStan\Node\ExecutionEndNode($stmt, new \PHPStan\Analyser\StatementResult($scope, $hasYield, $statementResult->isAlwaysTerminating(), $statementResult->getExitPoints()), $parentNode->returnType !== null), $scope);
+                $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\ExecutionEndNode($stmt, new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($scope, $hasYield, $statementResult->isAlwaysTerminating(), $statementResult->getExitPoints()), $parentNode->returnType !== null), $scope);
             }
             $exitPoints = \array_merge($exitPoints, $statementResult->getExitPoints());
             if (!$statementResult->isAlwaysTerminating()) {
@@ -246,15 +246,15 @@ class NodeScopeResolver
             $alreadyTerminated = \true;
             if ($i < $stmtCount - 1) {
                 $nextStmt = $stmts[$i + 1];
-                $nodeCallback(new \PHPStan\Node\UnreachableStatementNode($nextStmt), $scope);
+                $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\UnreachableStatementNode($nextStmt), $scope);
             }
             break;
         }
-        $statementResult = new \PHPStan\Analyser\StatementResult($scope, $hasYield, $alreadyTerminated, $exitPoints);
+        $statementResult = new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($scope, $hasYield, $alreadyTerminated, $exitPoints);
         if ($stmtCount === 0 && $shouldCheckLastStatement) {
             /** @var Node\Stmt\Function_|Node\Stmt\ClassMethod|Expr\Closure $parentNode */
             $parentNode = $parentNode;
-            $nodeCallback(new \PHPStan\Node\ExecutionEndNode($parentNode, $statementResult, $parentNode->returnType !== null), $scope);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\ExecutionEndNode($parentNode, $statementResult, $parentNode->returnType !== null), $scope);
         }
         return $statementResult;
     }
@@ -264,7 +264,7 @@ class NodeScopeResolver
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
      * @return StatementResult
      */
-    private function processStmtNode(\PhpParser\Node\Stmt $stmt, \PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : \PHPStan\Analyser\StatementResult
+    private function processStmtNode(\PhpParser\Node\Stmt $stmt, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : \RectorPrefix20201227\PHPStan\Analyser\StatementResult
     {
         if ($stmt instanceof \PhpParser\Node\Stmt\Echo_ || $stmt instanceof \PhpParser\Node\Stmt\Expression && !$stmt->expr instanceof \PhpParser\Node\Expr\Assign && !$stmt->expr instanceof \PhpParser\Node\Expr\AssignRef || $stmt instanceof \PhpParser\Node\Stmt\If_ || $stmt instanceof \PhpParser\Node\Stmt\While_ || $stmt instanceof \PhpParser\Node\Stmt\Switch_) {
             $scope = $this->processStmtVarAnnotation($scope, $stmt, null);
@@ -273,14 +273,14 @@ class NodeScopeResolver
         }
         if ($stmt instanceof \PhpParser\Node\Stmt\ClassMethod) {
             if (!$scope->isInClass()) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             if ($scope->isInTrait() && $scope->getClassReflection()->hasNativeMethod($stmt->name->toString())) {
                 $methodReflection = $scope->getClassReflection()->getNativeMethod($stmt->name->toString());
-                if ($methodReflection instanceof \PHPStan\Reflection\Php\PhpMethodReflection) {
+                if ($methodReflection instanceof \RectorPrefix20201227\PHPStan\Reflection\Php\PhpMethodReflection) {
                     $declaringTrait = $methodReflection->getDeclaringTrait();
                     if ($declaringTrait === null || $declaringTrait->getName() !== $scope->getTraitReflection()->getName()) {
-                        return new \PHPStan\Analyser\StatementResult($scope, \false, \false, []);
+                        return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($scope, \false, \false, []);
                     }
                 }
             }
@@ -313,16 +313,16 @@ class NodeScopeResolver
                 $nodeCallback($stmt->returnType, $scope);
             }
             $functionScope = $scope->enterFunction($stmt, $templateTypeMap, $phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal);
-            $nodeCallback(new \PHPStan\Node\InFunctionNode($stmt), $functionScope);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\InFunctionNode($stmt), $functionScope);
             $gatheredReturnStatements = [];
-            $statementResult = $this->processStmtNodes($stmt, $stmt->stmts, $functionScope, static function (\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) use($nodeCallback, &$gatheredReturnStatements) : void {
+            $statementResult = $this->processStmtNodes($stmt, $stmt->stmts, $functionScope, static function (\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) use($nodeCallback, &$gatheredReturnStatements) : void {
                 $nodeCallback($node, $scope);
                 if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                     return;
                 }
-                $gatheredReturnStatements[] = new \PHPStan\Node\ReturnStatement($scope, $node);
+                $gatheredReturnStatements[] = new \RectorPrefix20201227\PHPStan\Node\ReturnStatement($scope, $node);
             });
-            $nodeCallback(new \PHPStan\Node\FunctionReturnStatementsNode($stmt, $gatheredReturnStatements, $statementResult), $functionScope);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\FunctionReturnStatementsNode($stmt, $gatheredReturnStatements, $statementResult), $functionScope);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $hasYield = \false;
             foreach ($stmt->attrGroups as $attrGroup) {
@@ -341,7 +341,7 @@ class NodeScopeResolver
             }
             if ($phpDocReturnType !== null) {
                 if (!$scope->isInClass()) {
-                    throw new \PHPStan\ShouldNotHappenException();
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
                 $classReflection = $scope->getClassReflection();
                 $phpDocReturnType = \PHPStan\Type\TypeTraverser::map($phpDocReturnType, static function (\PHPStan\Type\Type $type, callable $traverse) use($classReflection) : Type {
@@ -358,62 +358,62 @@ class NodeScopeResolver
                         continue;
                     }
                     if (!$param->var instanceof \PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
-                        throw new \PHPStan\ShouldNotHappenException();
+                        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                     }
                     $phpDoc = null;
                     if ($param->getDocComment() !== null) {
                         $phpDoc = $param->getDocComment()->getText();
                     }
-                    $nodeCallback(new \PHPStan\Node\ClassPropertyNode($param->var->name, $param->flags, $param->type, $param->default, $phpDoc, \true, $param), $methodScope);
+                    $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\ClassPropertyNode($param->var->name, $param->flags, $param->type, $param->default, $phpDoc, \true, $param), $methodScope);
                 }
             }
             if ($stmt->getAttribute('virtual', \false) === \false) {
-                $nodeCallback(new \PHPStan\Node\InClassMethodNode($stmt), $methodScope);
+                $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\InClassMethodNode($stmt), $methodScope);
             }
             if ($stmt->stmts !== null) {
                 $gatheredReturnStatements = [];
-                $statementResult = $this->processStmtNodes($stmt, $stmt->stmts, $methodScope, static function (\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) use($nodeCallback, &$gatheredReturnStatements) : void {
+                $statementResult = $this->processStmtNodes($stmt, $stmt->stmts, $methodScope, static function (\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) use($nodeCallback, &$gatheredReturnStatements) : void {
                     $nodeCallback($node, $scope);
                     if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                         return;
                     }
-                    $gatheredReturnStatements[] = new \PHPStan\Node\ReturnStatement($scope, $node);
+                    $gatheredReturnStatements[] = new \RectorPrefix20201227\PHPStan\Node\ReturnStatement($scope, $node);
                 });
-                $nodeCallback(new \PHPStan\Node\MethodReturnStatementsNode($stmt, $gatheredReturnStatements, $statementResult), $methodScope);
+                $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\MethodReturnStatementsNode($stmt, $gatheredReturnStatements, $statementResult), $methodScope);
             }
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Echo_) {
             $hasYield = \false;
             foreach ($stmt->exprs as $echoExpr) {
-                $result = $this->processExprNode($echoExpr, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+                $result = $this->processExprNode($echoExpr, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
                 $scope = $result->getScope();
                 $hasYield = $hasYield || $result->hasYield();
             }
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Return_) {
             if ($stmt->expr !== null) {
-                $result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+                $result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
                 $scope = $result->getScope();
                 $hasYield = $result->hasYield();
             } else {
                 $hasYield = \false;
             }
-            return new \PHPStan\Analyser\StatementResult($scope, $hasYield, \true, [new \PHPStan\Analyser\StatementExitPoint($stmt, $scope)]);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($scope, $hasYield, \true, [new \RectorPrefix20201227\PHPStan\Analyser\StatementExitPoint($stmt, $scope)]);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Continue_ || $stmt instanceof \PhpParser\Node\Stmt\Break_) {
             if ($stmt->num !== null) {
-                $result = $this->processExprNode($stmt->num, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+                $result = $this->processExprNode($stmt->num, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
                 $scope = $result->getScope();
                 $hasYield = $result->hasYield();
             } else {
                 $hasYield = \false;
             }
-            return new \PHPStan\Analyser\StatementResult($scope, $hasYield, \true, [new \PHPStan\Analyser\StatementExitPoint($stmt, $scope)]);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($scope, $hasYield, \true, [new \RectorPrefix20201227\PHPStan\Analyser\StatementExitPoint($stmt, $scope)]);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Expression) {
             $earlyTerminationExpr = $this->findEarlyTerminatingExpr($stmt->expr, $scope);
-            $result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createTopLevel());
+            $result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createTopLevel());
             $scope = $result->getScope();
-            $scope = $scope->filterBySpecifiedTypes($this->typeSpecifier->specifyTypesInCondition($scope, $stmt->expr, \PHPStan\Analyser\TypeSpecifierContext::createNull()));
+            $scope = $scope->filterBySpecifiedTypes($this->typeSpecifier->specifyTypesInCondition($scope, $stmt->expr, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createNull()));
             $hasYield = $result->hasYield();
             if ($earlyTerminationExpr !== null) {
-                return new \PHPStan\Analyser\StatementResult($scope, $hasYield, \true, [new \PHPStan\Analyser\StatementExitPoint($stmt, $scope)]);
+                return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($scope, $hasYield, \true, [new \RectorPrefix20201227\PHPStan\Analyser\StatementExitPoint($stmt, $scope)]);
             }
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Namespace_) {
             if ($stmt->name !== null) {
@@ -422,22 +422,22 @@ class NodeScopeResolver
             $scope = $this->processStmtNodes($stmt, $stmt->stmts, $scope, $nodeCallback)->getScope();
             $hasYield = \false;
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Trait_) {
-            return new \PHPStan\Analyser\StatementResult($scope, \false, \false, []);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($scope, \false, \false, []);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\ClassLike) {
             $hasYield = \false;
             if (isset($stmt->namespacedName)) {
-                $nodeToReflection = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
-                $betterReflectionClass = $nodeToReflection->__invoke($this->classReflector, $stmt, new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource(\PHPStan\File\FileReader::read($scope->getFile()), $scope->getFile()), $scope->getNamespace() !== null ? new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($scope->getNamespace())) : null, null);
-                if (!$betterReflectionClass instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass) {
-                    throw new \PHPStan\ShouldNotHappenException();
+                $nodeToReflection = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+                $betterReflectionClass = $nodeToReflection->__invoke($this->classReflector, $stmt, new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource(\RectorPrefix20201227\PHPStan\File\FileReader::read($scope->getFile()), $scope->getFile()), $scope->getNamespace() !== null ? new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($scope->getNamespace())) : null, null);
+                if (!$betterReflectionClass instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass) {
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
-                $classReflection = new \PHPStan\Reflection\ClassReflection($this->reflectionProvider, $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $betterReflectionClass->getName(), new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($betterReflectionClass), null, null, null, \sprintf('%s:%d', $scope->getFile(), $stmt->getStartLine()));
+                $classReflection = new \RectorPrefix20201227\PHPStan\Reflection\ClassReflection($this->reflectionProvider, $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $betterReflectionClass->getName(), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($betterReflectionClass), null, null, null, \sprintf('%s:%d', $scope->getFile(), $stmt->getStartLine()));
                 $this->reflectionProvider->hasClass($classReflection->getName());
                 $classScope = $scope->enterClass($classReflection);
-                $nodeCallback(new \PHPStan\Node\InClassNode($stmt, $classReflection), $classScope);
+                $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\InClassNode($stmt, $classReflection), $classScope);
             } elseif ($stmt instanceof \PhpParser\Node\Stmt\Class_) {
                 if ($stmt->name === null) {
-                    throw new \PHPStan\ShouldNotHappenException();
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
                 if ($stmt->getAttribute('anonymousClass', \false) === \false) {
                     $classReflection = $this->reflectionProvider->getClass($stmt->name->toString());
@@ -445,9 +445,9 @@ class NodeScopeResolver
                     $classReflection = $this->reflectionProvider->getAnonymousClassReflection($stmt, $scope);
                 }
                 $classScope = $scope->enterClass($classReflection);
-                $nodeCallback(new \PHPStan\Node\InClassNode($stmt, $classReflection), $classScope);
+                $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\InClassNode($stmt, $classReflection), $classScope);
             } else {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             foreach ($stmt->attrGroups as $attrGroup) {
                 foreach ($attrGroup->attrs as $attr) {
@@ -456,11 +456,11 @@ class NodeScopeResolver
                     }
                 }
             }
-            $classStatementsGatherer = new \PHPStan\Node\ClassStatementsGatherer($classReflection, $nodeCallback);
+            $classStatementsGatherer = new \RectorPrefix20201227\PHPStan\Node\ClassStatementsGatherer($classReflection, $nodeCallback);
             $this->processStmtNodes($stmt, $stmt->stmts, $classScope, $classStatementsGatherer);
-            $nodeCallback(new \PHPStan\Node\ClassPropertiesNode($stmt, $classStatementsGatherer->getProperties(), $classStatementsGatherer->getPropertyUsages(), $classStatementsGatherer->getMethodCalls()), $classScope);
-            $nodeCallback(new \PHPStan\Node\ClassMethodsNode($stmt, $classStatementsGatherer->getMethods(), $classStatementsGatherer->getMethodCalls()), $classScope);
-            $nodeCallback(new \PHPStan\Node\ClassConstantsNode($stmt, $classStatementsGatherer->getConstants(), $classStatementsGatherer->getConstantFetches()), $classScope);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\ClassPropertiesNode($stmt, $classStatementsGatherer->getProperties(), $classStatementsGatherer->getPropertyUsages(), $classStatementsGatherer->getMethodCalls()), $classScope);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\ClassMethodsNode($stmt, $classStatementsGatherer->getMethods(), $classStatementsGatherer->getMethodCalls()), $classScope);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\ClassConstantsNode($stmt, $classStatementsGatherer->getConstants(), $classStatementsGatherer->getConstantFetches()), $classScope);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Property) {
             $hasYield = \false;
             foreach ($stmt->attrGroups as $attrGroup) {
@@ -473,7 +473,7 @@ class NodeScopeResolver
             foreach ($stmt->props as $prop) {
                 $this->processStmtNode($prop, $scope, $nodeCallback);
                 $docComment = $stmt->getDocComment();
-                $nodeCallback(new \PHPStan\Node\ClassPropertyNode($prop->name->toString(), $stmt->flags, $stmt->type, $prop->default, $docComment !== null ? $docComment->getText() : null, \false, $prop), $scope);
+                $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\ClassPropertyNode($prop->name->toString(), $stmt->flags, $stmt->type, $prop->default, $docComment !== null ? $docComment->getText() : null, \false, $prop), $scope);
             }
             if ($stmt->type !== null) {
                 $nodeCallback($stmt->type, $scope);
@@ -481,15 +481,15 @@ class NodeScopeResolver
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\PropertyProperty) {
             $hasYield = \false;
             if ($stmt->default !== null) {
-                $this->processExprNode($stmt->default, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+                $this->processExprNode($stmt->default, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
             }
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Throw_) {
-            $result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
-            return new \PHPStan\Analyser\StatementResult($result->getScope(), $result->hasYield(), \true, [new \PHPStan\Analyser\StatementExitPoint($stmt, $scope)]);
+            $result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($result->getScope(), $result->hasYield(), \true, [new \RectorPrefix20201227\PHPStan\Analyser\StatementExitPoint($stmt, $scope)]);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\If_) {
             $conditionType = $scope->getType($stmt->cond)->toBoolean();
             $ifAlwaysTrue = $conditionType instanceof \PHPStan\Type\Constant\ConstantBooleanType && $conditionType->getValue();
-            $condResult = $this->processExprNode($stmt->cond, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+            $condResult = $this->processExprNode($stmt->cond, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
             $exitPoints = [];
             $finalScope = null;
             $alwaysTerminating = \true;
@@ -508,7 +508,7 @@ class NodeScopeResolver
             foreach ($stmt->elseifs as $elseif) {
                 $nodeCallback($elseif, $scope);
                 $elseIfConditionType = $condScope->getType($elseif->cond)->toBoolean();
-                $condResult = $this->processExprNode($elseif->cond, $condScope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+                $condResult = $this->processExprNode($elseif->cond, $condScope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
                 $condScope = $condResult->getScope();
                 $branchScopeStatementResult = $this->processStmtNodes($elseif, $elseif->stmts, $condResult->getTruthyScope(), $nodeCallback);
                 if (!$ifAlwaysTrue && (!$lastElseIfConditionIsTrue && (!$elseIfConditionType instanceof \PHPStan\Type\Constant\ConstantBooleanType || $elseIfConditionType->getValue()))) {
@@ -543,12 +543,12 @@ class NodeScopeResolver
             if ($finalScope === null) {
                 $finalScope = $scope;
             }
-            return new \PHPStan\Analyser\StatementResult($finalScope, $hasYield, $alwaysTerminating, $exitPoints);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($finalScope, $hasYield, $alwaysTerminating, $exitPoints);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\TraitUse) {
             $hasYield = \false;
             $this->processTraitUse($stmt, $scope, $nodeCallback);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Foreach_) {
-            $condResult = $this->processExprNode($stmt->expr, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+            $condResult = $this->processExprNode($stmt->expr, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
             $scope = $condResult->getScope();
             $bodyScope = $this->enterForeach($scope, $stmt);
             $hasYield = \false;
@@ -596,17 +596,17 @@ class NodeScopeResolver
                 $finalScope = $scope->processAlwaysIterableForeachScopeWithoutPollute($finalScope);
                 // get types from finalScope, but don't create new variables
             }
-            return new \PHPStan\Analyser\StatementResult($finalScope, $finalScopeResult->hasYield() || $condResult->hasYield(), $isIterableAtLeastOnce->yes() && $finalScopeResult->isAlwaysTerminating(), []);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($finalScope, $finalScopeResult->hasYield() || $condResult->hasYield(), $isIterableAtLeastOnce->yes() && $finalScopeResult->isAlwaysTerminating(), []);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\While_) {
             $condResult = $this->processExprNode($stmt->cond, $scope, static function () : void {
-            }, \PHPStan\Analyser\ExpressionContext::createDeep());
+            }, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
             $bodyScope = $condResult->getTruthyScope();
             $count = 0;
             do {
                 $prevScope = $bodyScope;
                 $bodyScope = $bodyScope->mergeWith($scope);
                 $bodyScope = $this->processExprNode($stmt->cond, $bodyScope, static function () : void {
-                }, \PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
+                }, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
                 $bodyScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, static function () : void {
                 })->filterOutLoopExitPoints();
                 $alwaysTerminating = $bodyScopeResult->isAlwaysTerminating();
@@ -624,7 +624,7 @@ class NodeScopeResolver
             } while (!$alwaysTerminating && $count < self::LOOP_SCOPE_ITERATIONS);
             $bodyScope = $bodyScope->mergeWith($scope);
             $bodyScopeMaybeRan = $bodyScope;
-            $bodyScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
+            $bodyScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
             $finalScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
             $finalScope = $finalScopeResult->getScope();
             foreach ($finalScopeResult->getExitPointsByType(\PhpParser\Node\Stmt\Continue_::class) as $continueExitPoint) {
@@ -652,7 +652,7 @@ class NodeScopeResolver
                 }
                 $finalScope = $finalScope->mergeWith($condScope);
             }
-            return new \PHPStan\Analyser\StatementResult($finalScope, $finalScopeResult->hasYield() || $condResult->hasYield(), $isAlwaysTerminating, []);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($finalScope, $finalScopeResult->hasYield() || $condResult->hasYield(), $isAlwaysTerminating, []);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Do_) {
             $finalScope = null;
             $bodyScope = $scope;
@@ -672,7 +672,7 @@ class NodeScopeResolver
                     $finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
                 }
                 $bodyScope = $this->processExprNode($stmt->cond, $bodyScope, static function () : void {
-                }, \PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
+                }, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
                 if ($bodyScope->equals($prevScope)) {
                     break;
                 }
@@ -699,24 +699,24 @@ class NodeScopeResolver
                 $finalScope = $scope;
             }
             if (!$alwaysTerminating) {
-                $condResult = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+                $condResult = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
                 $hasYield = $condResult->hasYield();
                 $finalScope = $condResult->getFalseyScope();
             }
             foreach ($bodyScopeResult->getExitPointsByType(\PhpParser\Node\Stmt\Break_::class) as $breakExitPoint) {
                 $finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
             }
-            return new \PHPStan\Analyser\StatementResult($finalScope, $bodyScopeResult->hasYield() || $hasYield, $alwaysTerminating, []);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($finalScope, $bodyScopeResult->hasYield() || $hasYield, $alwaysTerminating, []);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\For_) {
             $initScope = $scope;
             $hasYield = \false;
             foreach ($stmt->init as $initExpr) {
-                $initScope = $this->processExprNode($initExpr, $initScope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createTopLevel())->getScope();
+                $initScope = $this->processExprNode($initExpr, $initScope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createTopLevel())->getScope();
             }
             $bodyScope = $initScope;
             foreach ($stmt->cond as $condExpr) {
                 $bodyScope = $this->processExprNode($condExpr, $bodyScope, static function () : void {
-                }, \PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
+                }, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
             }
             $count = 0;
             do {
@@ -724,7 +724,7 @@ class NodeScopeResolver
                 $bodyScope = $bodyScope->mergeWith($initScope);
                 foreach ($stmt->cond as $condExpr) {
                     $bodyScope = $this->processExprNode($condExpr, $bodyScope, static function () : void {
-                    }, \PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
+                    }, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
                 }
                 $bodyScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, static function () : void {
                 })->filterOutLoopExitPoints();
@@ -735,7 +735,7 @@ class NodeScopeResolver
                 }
                 foreach ($stmt->loop as $loopExpr) {
                     $exprResult = $this->processExprNode($loopExpr, $bodyScope, static function () : void {
-                    }, \PHPStan\Analyser\ExpressionContext::createTopLevel());
+                    }, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createTopLevel());
                     $bodyScope = $exprResult->getScope();
                     $hasYield = $hasYield || $exprResult->hasYield();
                 }
@@ -749,7 +749,7 @@ class NodeScopeResolver
             } while (!$alwaysTerminating && $count < self::LOOP_SCOPE_ITERATIONS);
             $bodyScope = $bodyScope->mergeWith($initScope);
             foreach ($stmt->cond as $condExpr) {
-                $bodyScope = $this->processExprNode($condExpr, $bodyScope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
+                $bodyScope = $this->processExprNode($condExpr, $bodyScope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep())->getTruthyScope();
             }
             $finalScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
             $finalScope = $finalScopeResult->getScope();
@@ -757,7 +757,7 @@ class NodeScopeResolver
                 $finalScope = $continueExitPoint->getScope()->mergeWith($finalScope);
             }
             foreach ($stmt->loop as $loopExpr) {
-                $finalScope = $this->processExprNode($loopExpr, $finalScope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createTopLevel())->getScope();
+                $finalScope = $this->processExprNode($loopExpr, $finalScope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createTopLevel())->getScope();
             }
             foreach ($finalScopeResult->getExitPointsByType(\PhpParser\Node\Stmt\Break_::class) as $breakExitPoint) {
                 $finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
@@ -766,9 +766,9 @@ class NodeScopeResolver
                 $scope = $initScope;
             }
             $finalScope = $finalScope->mergeWith($scope);
-            return new \PHPStan\Analyser\StatementResult($finalScope, $finalScopeResult->hasYield() || $hasYield, \false, []);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($finalScope, $finalScopeResult->hasYield() || $hasYield, \false, []);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Switch_) {
-            $condResult = $this->processExprNode($stmt->cond, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+            $condResult = $this->processExprNode($stmt->cond, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
             $scope = $condResult->getScope();
             $scopeForBranches = $scope;
             $finalScope = null;
@@ -779,7 +779,7 @@ class NodeScopeResolver
             foreach ($stmt->cases as $caseNode) {
                 if ($caseNode->cond !== null) {
                     $condExpr = new \PhpParser\Node\Expr\BinaryOp\Equal($stmt->cond, $caseNode->cond);
-                    $scopeForBranches = $this->processExprNode($caseNode->cond, $scopeForBranches, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep())->getScope();
+                    $scopeForBranches = $this->processExprNode($caseNode->cond, $scopeForBranches, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep())->getScope();
                     $branchScope = $scopeForBranches->filterByTruthyValue($condExpr);
                 } else {
                     $hasDefaultCase = \true;
@@ -820,7 +820,7 @@ class NodeScopeResolver
             if (!$hasDefaultCase || $finalScope === null) {
                 $finalScope = $scope->mergeWith($finalScope);
             }
-            return new \PHPStan\Analyser\StatementResult($finalScope, $hasYield, $alwaysTerminating, []);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($finalScope, $hasYield, $alwaysTerminating, []);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\TryCatch) {
             $branchScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $scope, $nodeCallback);
             $branchScope = $branchScopeResult->getScope();
@@ -875,12 +875,12 @@ class NodeScopeResolver
                 $finalScope = $finallyResult->isAlwaysTerminating() ? $finalScope : $finalScope->processFinallyScope($finallyScope, $originalFinallyScope);
                 $exitPoints = \array_merge($exitPoints, $finallyResult->getExitPoints());
             }
-            return new \PHPStan\Analyser\StatementResult($finalScope, $hasYield, $alwaysTerminating, $exitPoints);
+            return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($finalScope, $hasYield, $alwaysTerminating, $exitPoints);
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Unset_) {
             $hasYield = \false;
             foreach ($stmt->vars as $var) {
                 $scope = $this->lookForEnterVariableAssign($scope, $var);
-                $scope = $this->processExprNode($var, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep())->getScope();
+                $scope = $this->processExprNode($var, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep())->getScope();
                 $scope = $this->lookForExitVariableAssign($scope, $var);
                 $scope = $scope->unsetExpression($var);
             }
@@ -893,10 +893,10 @@ class NodeScopeResolver
             $hasYield = \false;
             foreach ($stmt->vars as $var) {
                 if (!$var instanceof \PhpParser\Node\Expr\Variable) {
-                    throw new \PHPStan\ShouldNotHappenException();
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
                 $scope = $this->lookForEnterVariableAssign($scope, $var);
-                $this->processExprNode($var, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+                $this->processExprNode($var, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
                 $scope = $this->lookForExitVariableAssign($scope, $var);
                 if (!\is_string($var->name)) {
                     continue;
@@ -916,13 +916,13 @@ class NodeScopeResolver
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\StaticVar) {
             $hasYield = \false;
             if (!\is_string($stmt->var->name)) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             if ($stmt->default !== null) {
-                $this->processExprNode($stmt->default, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+                $this->processExprNode($stmt->default, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
             }
             $scope = $scope->enterExpressionAssign($stmt->var);
-            $this->processExprNode($stmt->var, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+            $this->processExprNode($stmt->var, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
             $scope = $scope->exitExpressionAssign($stmt->var);
             $scope = $scope->assignVariable($stmt->var->name, new \PHPStan\Type\MixedType());
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\Const_ || $stmt instanceof \PhpParser\Node\Stmt\ClassConst) {
@@ -938,7 +938,7 @@ class NodeScopeResolver
             }
             foreach ($stmt->consts as $const) {
                 $nodeCallback($const, $scope);
-                $this->processExprNode($const->value, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+                $this->processExprNode($const->value, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
                 if ($scope->getNamespace() !== null) {
                     $constName = [$scope->getNamespace(), $const->name->toString()];
                 } else {
@@ -952,7 +952,7 @@ class NodeScopeResolver
         } else {
             $hasYield = \false;
         }
-        return new \PHPStan\Analyser\StatementResult($scope, $hasYield, \false, []);
+        return new \RectorPrefix20201227\PHPStan\Analyser\StatementResult($scope, $hasYield, \false, []);
     }
     /**
      * @param Node\Stmt\Catch_ $catchNode
@@ -960,35 +960,35 @@ class NodeScopeResolver
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
      * @return StatementResult
      */
-    private function processCatchNode(\PhpParser\Node\Stmt\Catch_ $catchNode, \PHPStan\Analyser\MutatingScope $catchScope, callable $nodeCallback) : \PHPStan\Analyser\StatementResult
+    private function processCatchNode(\PhpParser\Node\Stmt\Catch_ $catchNode, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $catchScope, callable $nodeCallback) : \RectorPrefix20201227\PHPStan\Analyser\StatementResult
     {
         $variableName = null;
         if ($catchNode->var !== null) {
             if (!\is_string($catchNode->var->name)) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             $variableName = $catchNode->var->name;
         }
         $catchScope = $catchScope->enterCatch($catchNode->types, $variableName);
         return $this->processStmtNodes($catchNode, $catchNode->stmts, $catchScope, $nodeCallback);
     }
-    private function lookForEnterVariableAssign(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Analyser\MutatingScope
+    private function lookForEnterVariableAssign(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr) : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
     {
         if (!$expr instanceof \PhpParser\Node\Expr\ArrayDimFetch || $expr->dim !== null) {
             $scope = $scope->enterExpressionAssign($expr);
         }
         if (!$expr instanceof \PhpParser\Node\Expr\Variable) {
-            return $this->lookForVariableAssignCallback($scope, $expr, static function (\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr) : MutatingScope {
+            return $this->lookForVariableAssignCallback($scope, $expr, static function (\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr) : MutatingScope {
                 return $scope->enterExpressionAssign($expr);
             });
         }
         return $scope;
     }
-    private function lookForExitVariableAssign(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Analyser\MutatingScope
+    private function lookForExitVariableAssign(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr) : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
     {
         $scope = $scope->exitExpressionAssign($expr);
         if (!$expr instanceof \PhpParser\Node\Expr\Variable) {
-            return $this->lookForVariableAssignCallback($scope, $expr, static function (\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr) : MutatingScope {
+            return $this->lookForVariableAssignCallback($scope, $expr, static function (\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr) : MutatingScope {
                 return $scope->exitExpressionAssign($expr);
             });
         }
@@ -1000,7 +1000,7 @@ class NodeScopeResolver
      * @param \Closure(MutatingScope $scope, Expr $expr): MutatingScope $callback
      * @return MutatingScope
      */
-    private function lookForVariableAssignCallback(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr, \Closure $callback) : \PHPStan\Analyser\MutatingScope
+    private function lookForVariableAssignCallback(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr, \Closure $callback) : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
     {
         if ($expr instanceof \PhpParser\Node\Expr\Variable) {
             $scope = $callback($scope, $expr);
@@ -1025,18 +1025,18 @@ class NodeScopeResolver
         }
         return $scope;
     }
-    private function ensureShallowNonNullability(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $exprToSpecify) : \PHPStan\Analyser\EnsuredNonNullabilityResult
+    private function ensureShallowNonNullability(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $exprToSpecify) : \RectorPrefix20201227\PHPStan\Analyser\EnsuredNonNullabilityResult
     {
         $exprType = $scope->getType($exprToSpecify);
         $exprTypeWithoutNull = \PHPStan\Type\TypeCombinator::removeNull($exprType);
         if (!$exprType->equals($exprTypeWithoutNull)) {
             $nativeType = $scope->getNativeType($exprToSpecify);
             $scope = $scope->specifyExpressionType($exprToSpecify, $exprTypeWithoutNull, \PHPStan\Type\TypeCombinator::removeNull($nativeType));
-            return new \PHPStan\Analyser\EnsuredNonNullabilityResult($scope, [new \PHPStan\Analyser\EnsuredNonNullabilityResultExpression($exprToSpecify, $exprType, $nativeType)]);
+            return new \RectorPrefix20201227\PHPStan\Analyser\EnsuredNonNullabilityResult($scope, [new \RectorPrefix20201227\PHPStan\Analyser\EnsuredNonNullabilityResultExpression($exprToSpecify, $exprType, $nativeType)]);
         }
-        return new \PHPStan\Analyser\EnsuredNonNullabilityResult($scope, []);
+        return new \RectorPrefix20201227\PHPStan\Analyser\EnsuredNonNullabilityResult($scope, []);
     }
-    private function ensureNonNullability(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr, bool $findMethods) : \PHPStan\Analyser\EnsuredNonNullabilityResult
+    private function ensureNonNullability(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr, bool $findMethods) : \RectorPrefix20201227\PHPStan\Analyser\EnsuredNonNullabilityResult
     {
         $exprToSpecify = $expr;
         $specifiedExpressions = [];
@@ -1058,21 +1058,21 @@ class NodeScopeResolver
                 break;
             }
         }
-        return new \PHPStan\Analyser\EnsuredNonNullabilityResult($scope, $specifiedExpressions);
+        return new \RectorPrefix20201227\PHPStan\Analyser\EnsuredNonNullabilityResult($scope, $specifiedExpressions);
     }
     /**
      * @param MutatingScope $scope
      * @param EnsuredNonNullabilityResultExpression[] $specifiedExpressions
      * @return MutatingScope
      */
-    private function revertNonNullability(\PHPStan\Analyser\MutatingScope $scope, array $specifiedExpressions) : \PHPStan\Analyser\MutatingScope
+    private function revertNonNullability(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, array $specifiedExpressions) : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
     {
         foreach ($specifiedExpressions as $specifiedExpressionResult) {
             $scope = $scope->specifyExpressionType($specifiedExpressionResult->getExpression(), $specifiedExpressionResult->getOriginalType(), $specifiedExpressionResult->getOriginalNativeType());
         }
         return $scope;
     }
-    private function findEarlyTerminatingExpr(\PhpParser\Node\Expr $expr, \PHPStan\Analyser\Scope $scope) : ?\PhpParser\Node\Expr
+    private function findEarlyTerminatingExpr(\PhpParser\Node\Expr $expr, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?\PhpParser\Node\Expr
     {
         if (($expr instanceof \PhpParser\Node\Expr\MethodCall || $expr instanceof \PhpParser\Node\Expr\StaticCall) && $expr->name instanceof \PhpParser\Node\Identifier) {
             if (\count($this->earlyTerminatingMethodCalls) > 0) {
@@ -1120,7 +1120,7 @@ class NodeScopeResolver
      * @param \PHPStan\Analyser\ExpressionContext $context
      * @return \PHPStan\Analyser\ExpressionResult
      */
-    private function processExprNode(\PhpParser\Node\Expr $expr, \PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback, \PHPStan\Analyser\ExpressionContext $context) : \PHPStan\Analyser\ExpressionResult
+    private function processExprNode(\PhpParser\Node\Expr $expr, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext $context) : \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult
     {
         $this->callNodeCallbackWithExpression($nodeCallback, $expr, $scope, $context);
         if ($expr instanceof \PhpParser\Node\Expr\Variable) {
@@ -1130,7 +1130,7 @@ class NodeScopeResolver
             }
         } elseif ($expr instanceof \PhpParser\Node\Expr\Assign || $expr instanceof \PhpParser\Node\Expr\AssignRef) {
             if (!$expr->var instanceof \PhpParser\Node\Expr\Array_ && !$expr->var instanceof \PhpParser\Node\Expr\List_) {
-                $result = $this->processAssignVar($scope, $expr->var, $expr->expr, $nodeCallback, $context, function (\PHPStan\Analyser\MutatingScope $scope) use($expr, $nodeCallback, $context) : ExpressionResult {
+                $result = $this->processAssignVar($scope, $expr->var, $expr->expr, $nodeCallback, $context, function (\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope) use($expr, $nodeCallback, $context) : ExpressionResult {
                     if ($expr instanceof \PhpParser\Node\Expr\AssignRef) {
                         $scope = $scope->enterExpressionAssign($expr->expr);
                     }
@@ -1143,7 +1143,7 @@ class NodeScopeResolver
                     if ($expr instanceof \PhpParser\Node\Expr\AssignRef) {
                         $scope = $scope->exitExpressionAssign($expr->expr);
                     }
-                    return new \PHPStan\Analyser\ExpressionResult($scope, $hasYield);
+                    return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope, $hasYield);
                 }, \true);
                 $scope = $result->getScope();
                 $hasYield = $result->hasYield();
@@ -1192,7 +1192,7 @@ class NodeScopeResolver
                 }
             }
         } elseif ($expr instanceof \PhpParser\Node\Expr\AssignOp) {
-            $result = $this->processAssignVar($scope, $expr->var, $expr, $nodeCallback, $context, function (\PHPStan\Analyser\MutatingScope $scope) use($expr, $nodeCallback, $context) : ExpressionResult {
+            $result = $this->processAssignVar($scope, $expr->var, $expr, $nodeCallback, $context, function (\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope) use($expr, $nodeCallback, $context) : ExpressionResult {
                 return $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
             }, $expr instanceof \PhpParser\Node\Expr\AssignOp\Coalesce);
             $scope = $result->getScope();
@@ -1204,7 +1204,7 @@ class NodeScopeResolver
                 $scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $context->enterDeep())->getScope();
             } elseif ($this->reflectionProvider->hasFunction($expr->name, $scope)) {
                 $functionReflection = $this->reflectionProvider->getFunction($expr->name, $scope);
-                $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $expr->args, $functionReflection->getVariants());
+                $parametersAcceptor = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $expr->args, $functionReflection->getVariants());
             }
             $result = $this->processArgs($functionReflection, $parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
             $scope = $result->getScope();
@@ -1306,7 +1306,7 @@ class NodeScopeResolver
                 $methodName = $expr->name->name;
                 if ($calledOnType->hasMethod($methodName)->yes()) {
                     $methodReflection = $calledOnType->getMethod($methodName, $scope);
-                    $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $expr->args, $methodReflection->getVariants());
+                    $parametersAcceptor = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $expr->args, $methodReflection->getVariants());
                 }
             }
             $result = $this->processArgs($methodReflection, $parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
@@ -1319,7 +1319,7 @@ class NodeScopeResolver
             $nonNullabilityResult = $this->ensureShallowNonNullability($scope, $expr->var);
             $exprResult = $this->processExprNode(new \PhpParser\Node\Expr\MethodCall($expr->var, $expr->name, $expr->args, $expr->getAttributes()), $nonNullabilityResult->getScope(), $nodeCallback, $context);
             $scope = $this->revertNonNullability($exprResult->getScope(), $nonNullabilityResult->getSpecifiedExpressions());
-            return new \PHPStan\Analyser\ExpressionResult($scope, $exprResult->hasYield());
+            return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope, $exprResult->hasYield());
         } elseif ($expr instanceof \PhpParser\Node\Expr\StaticCall) {
             if ($expr->class instanceof \PhpParser\Node\Expr) {
                 $scope = $this->processExprNode($expr->class, $scope, $nodeCallback, $context->enterDeep())->getScope();
@@ -1342,7 +1342,7 @@ class NodeScopeResolver
                     }
                     if ($classReflection->hasMethod($methodName)) {
                         $methodReflection = $classReflection->getMethod($methodName, $scope);
-                        $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $expr->args, $methodReflection->getVariants());
+                        $parametersAcceptor = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $expr->args, $methodReflection->getVariants());
                         if ($classReflection->getName() === 'Closure' && \strtolower($methodName) === 'bind') {
                             $thisType = null;
                             if (isset($expr->args[1])) {
@@ -1387,7 +1387,7 @@ class NodeScopeResolver
             $nonNullabilityResult = $this->ensureShallowNonNullability($scope, $expr->var);
             $exprResult = $this->processExprNode(new \PhpParser\Node\Expr\PropertyFetch($expr->var, $expr->name, $expr->getAttributes()), $nonNullabilityResult->getScope(), $nodeCallback, $context);
             $scope = $this->revertNonNullability($exprResult->getScope(), $nonNullabilityResult->getSpecifiedExpressions());
-            return new \PHPStan\Analyser\ExpressionResult($scope, $exprResult->hasYield(), static function () use($scope, $expr) : MutatingScope {
+            return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope, $exprResult->hasYield(), static function () use($scope, $expr) : MutatingScope {
                 return $scope->filterByTruthyValue($expr);
             }, static function () use($scope, $expr) : MutatingScope {
                 return $scope->filterByFalseyValue($expr);
@@ -1417,7 +1417,7 @@ class NodeScopeResolver
                 $nodeCallback($expr->returnType, $scope);
             }
             $arrowFunctionScope = $scope->enterArrowFunction($expr);
-            $nodeCallback(new \PHPStan\Node\InArrowFunctionNode($expr), $arrowFunctionScope);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\InArrowFunctionNode($expr), $arrowFunctionScope);
             $this->processExprNode($expr->expr, $arrowFunctionScope, $nodeCallback, $context);
             $hasYield = \false;
         } elseif ($expr instanceof \PhpParser\Node\Expr\ErrorSuppress) {
@@ -1452,7 +1452,7 @@ class NodeScopeResolver
             $itemNodes = [];
             $hasYield = \false;
             foreach ($expr->items as $arrayItem) {
-                $itemNodes[] = new \PHPStan\Node\LiteralArrayItem($scope, $arrayItem);
+                $itemNodes[] = new \RectorPrefix20201227\PHPStan\Node\LiteralArrayItem($scope, $arrayItem);
                 if ($arrayItem === null) {
                     continue;
                 }
@@ -1460,7 +1460,7 @@ class NodeScopeResolver
                 $hasYield = $hasYield || $result->hasYield();
                 $scope = $result->getScope();
             }
-            $nodeCallback(new \PHPStan\Node\LiteralArrayNode($expr, $itemNodes), $scope);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\LiteralArrayNode($expr, $itemNodes), $scope);
         } elseif ($expr instanceof \PhpParser\Node\Expr\ArrayItem) {
             $hasYield = \false;
             if ($expr->key !== null) {
@@ -1475,7 +1475,7 @@ class NodeScopeResolver
             $leftResult = $this->processExprNode($expr->left, $scope, $nodeCallback, $context->enterDeep());
             $rightResult = $this->processExprNode($expr->right, $leftResult->getTruthyScope(), $nodeCallback, $context);
             $leftMergedWithRightScope = $leftResult->getScope()->mergeWith($rightResult->getScope());
-            return new \PHPStan\Analyser\ExpressionResult($leftMergedWithRightScope, $leftResult->hasYield() || $rightResult->hasYield(), static function () use($expr, $rightResult) : MutatingScope {
+            return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($leftMergedWithRightScope, $leftResult->hasYield() || $rightResult->hasYield(), static function () use($expr, $rightResult) : MutatingScope {
                 return $rightResult->getScope()->filterByTruthyValue($expr);
             }, static function () use($leftMergedWithRightScope, $expr) : MutatingScope {
                 return $leftMergedWithRightScope->filterByFalseyValue($expr);
@@ -1484,7 +1484,7 @@ class NodeScopeResolver
             $leftResult = $this->processExprNode($expr->left, $scope, $nodeCallback, $context->enterDeep());
             $rightResult = $this->processExprNode($expr->right, $leftResult->getFalseyScope(), $nodeCallback, $context);
             $leftMergedWithRightScope = $leftResult->getScope()->mergeWith($rightResult->getScope());
-            return new \PHPStan\Analyser\ExpressionResult($leftMergedWithRightScope, $leftResult->hasYield() || $rightResult->hasYield(), static function () use($leftMergedWithRightScope, $expr) : MutatingScope {
+            return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($leftMergedWithRightScope, $leftResult->hasYield() || $rightResult->hasYield(), static function () use($leftMergedWithRightScope, $expr) : MutatingScope {
                 return $leftMergedWithRightScope->filterByTruthyValue($expr);
             }, static function () use($expr, $rightResult) : MutatingScope {
                 return $rightResult->getScope()->filterByFalseyValue($expr);
@@ -1566,7 +1566,7 @@ class NodeScopeResolver
             }
         } elseif ($expr instanceof \PhpParser\Node\Expr\List_) {
             // only in assign and foreach, processed elsewhere
-            return new \PHPStan\Analyser\ExpressionResult($scope, \false);
+            return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope, \false);
         } elseif ($expr instanceof \PhpParser\Node\Expr\New_) {
             $parametersAcceptor = null;
             $constructorReflection = null;
@@ -1585,7 +1585,7 @@ class NodeScopeResolver
                     $classReflection = $this->reflectionProvider->getClass($className);
                     if ($classReflection->hasConstructor()) {
                         $constructorReflection = $classReflection->getConstructor();
-                        $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $expr->args, $constructorReflection->getVariants());
+                        $parametersAcceptor = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $expr->args, $constructorReflection->getVariants());
                     }
                 }
             }
@@ -1605,8 +1605,8 @@ class NodeScopeResolver
                 }
                 if (!$scope->getType($expr->var)->equals($scope->getType($newExpr))) {
                     $scope = $this->processAssignVar($scope, $expr->var, $newExpr, static function () : void {
-                    }, $context, static function (\PHPStan\Analyser\MutatingScope $scope) : ExpressionResult {
-                        return new \PHPStan\Analyser\ExpressionResult($scope, \false);
+                    }, $context, static function (\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope) : ExpressionResult {
+                        return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope, \false);
                     }, \false)->getScope();
                 } else {
                     $scope = $scope->invalidateExpression($expr->var);
@@ -1623,7 +1623,7 @@ class NodeScopeResolver
                 $ifFalseScope = $this->processExprNode($expr->else, $ifFalseScope, $nodeCallback, $context)->getScope();
             }
             $finalScope = $ifTrueScope->mergeWith($ifFalseScope);
-            return new \PHPStan\Analyser\ExpressionResult($finalScope, $ternaryCondResult->hasYield(), static function () use($finalScope, $expr) : MutatingScope {
+            return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($finalScope, $ternaryCondResult->hasYield(), static function () use($finalScope, $expr) : MutatingScope {
                 return $finalScope->filterByTruthyValue($expr);
             }, static function () use($finalScope, $expr) : MutatingScope {
                 return $finalScope->filterByFalseyValue($expr);
@@ -1649,17 +1649,17 @@ class NodeScopeResolver
                     $matchScope = $armResult->getScope();
                     $hasYield = $hasYield || $armResult->hasYield();
                     $scope = $scope->mergeWith($matchScope);
-                    $armNodes[] = new \PHPStan\Node\MatchExpressionArm([], $arm->getLine());
+                    $armNodes[] = new \RectorPrefix20201227\PHPStan\Node\MatchExpressionArm([], $arm->getLine());
                     continue;
                 }
                 if (\count($arm->conds) === 0) {
-                    throw new \PHPStan\ShouldNotHappenException();
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
                 $filteringExpr = null;
                 $armCondScope = $matchScope;
                 $condNodes = [];
                 foreach ($arm->conds as $armCond) {
-                    $condNodes[] = new \PHPStan\Node\MatchExpressionArmCondition($armCond, $armCondScope, $armCond->getLine());
+                    $condNodes[] = new \RectorPrefix20201227\PHPStan\Node\MatchExpressionArmCondition($armCond, $armCondScope, $armCond->getLine());
                     $armCondResult = $this->processExprNode($armCond, $armCondScope, $nodeCallback, $deepContext);
                     $hasYield = $hasYield || $armCondResult->hasYield();
                     $armCondExpr = new \PhpParser\Node\Expr\BinaryOp\Identical($expr->cond, $armCond);
@@ -1670,18 +1670,18 @@ class NodeScopeResolver
                     }
                     $filteringExpr = new \PhpParser\Node\Expr\BinaryOp\BooleanOr($filteringExpr, $armCondExpr);
                 }
-                $armNodes[] = new \PHPStan\Node\MatchExpressionArm($condNodes, $arm->getLine());
+                $armNodes[] = new \RectorPrefix20201227\PHPStan\Node\MatchExpressionArm($condNodes, $arm->getLine());
                 $armResult = $this->processExprNode($arm->body, $matchScope->filterByTruthyValue($filteringExpr), $nodeCallback, $deepContext);
                 $armScope = $armResult->getScope();
                 $scope = $scope->mergeWith($armScope);
                 $hasYield = $hasYield || $armResult->hasYield();
                 $matchScope = $matchScope->filterByFalseyValue($filteringExpr);
             }
-            $nodeCallback(new \PHPStan\Node\MatchExpressionNode($expr->cond, $armNodes, $expr, $matchScope), $scope);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\MatchExpressionNode($expr->cond, $armNodes, $expr, $matchScope), $scope);
         } else {
             $hasYield = \false;
         }
-        return new \PHPStan\Analyser\ExpressionResult($scope, $hasYield, static function () use($scope, $expr) : MutatingScope {
+        return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope, $hasYield, static function () use($scope, $expr) : MutatingScope {
             return $scope->filterByTruthyValue($expr);
         }, static function () use($scope, $expr) : MutatingScope {
             return $scope->filterByFalseyValue($expr);
@@ -1693,7 +1693,7 @@ class NodeScopeResolver
      * @param MutatingScope $scope
      * @param ExpressionContext $context
      */
-    private function callNodeCallbackWithExpression(callable $nodeCallback, \PhpParser\Node\Expr $expr, \PHPStan\Analyser\MutatingScope $scope, \PHPStan\Analyser\ExpressionContext $context) : void
+    private function callNodeCallbackWithExpression(callable $nodeCallback, \PhpParser\Node\Expr $expr, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext $context) : void
     {
         if ($context->isDeep()) {
             $scope = $scope->exitFirstLevelStatements();
@@ -1708,7 +1708,7 @@ class NodeScopeResolver
      * @param Type|null $passedToType
      * @return \PHPStan\Analyser\ExpressionResult
      */
-    private function processClosureNode(\PhpParser\Node\Expr\Closure $expr, \PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback, \PHPStan\Analyser\ExpressionContext $context, ?\PHPStan\Type\Type $passedToType) : \PHPStan\Analyser\ExpressionResult
+    private function processClosureNode(\PhpParser\Node\Expr\Closure $expr, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext $context, ?\PHPStan\Type\Type $passedToType) : \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult
     {
         foreach ($expr->params as $param) {
             $this->processParamNode($param, $scope, $nodeCallback);
@@ -1755,19 +1755,19 @@ class NodeScopeResolver
         }
         $closureScope = $scope->enterAnonymousFunction($expr, $callableParameters);
         $closureScope = $closureScope->processClosureScope($scope, null, $byRefUses);
-        $nodeCallback(new \PHPStan\Node\InClosureNode($expr), $closureScope);
+        $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\InClosureNode($expr), $closureScope);
         $gatheredReturnStatements = [];
-        $closureStmtsCallback = static function (\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) use($nodeCallback, &$gatheredReturnStatements) : void {
+        $closureStmtsCallback = static function (\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) use($nodeCallback, &$gatheredReturnStatements) : void {
             $nodeCallback($node, $scope);
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                 return;
             }
-            $gatheredReturnStatements[] = new \PHPStan\Node\ReturnStatement($scope, $node);
+            $gatheredReturnStatements[] = new \RectorPrefix20201227\PHPStan\Node\ReturnStatement($scope, $node);
         };
         if (\count($byRefUses) === 0) {
             $statementResult = $this->processStmtNodes($expr, $expr->stmts, $closureScope, $closureStmtsCallback);
-            $nodeCallback(new \PHPStan\Node\ClosureReturnStatementsNode($expr, $gatheredReturnStatements, $statementResult), $closureScope);
-            return new \PHPStan\Analyser\ExpressionResult($scope, \false);
+            $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\ClosureReturnStatementsNode($expr, $gatheredReturnStatements, $statementResult), $closureScope);
+            return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope, \false);
         }
         $count = 0;
         do {
@@ -1786,10 +1786,10 @@ class NodeScopeResolver
             $count++;
         } while ($count < self::LOOP_SCOPE_ITERATIONS);
         $statementResult = $this->processStmtNodes($expr, $expr->stmts, $closureScope, $closureStmtsCallback);
-        $nodeCallback(new \PHPStan\Node\ClosureReturnStatementsNode($expr, $gatheredReturnStatements, $statementResult), $closureScope);
-        return new \PHPStan\Analyser\ExpressionResult($scope->processClosureScope($closureScope, null, $byRefUses), \false);
+        $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\ClosureReturnStatementsNode($expr, $gatheredReturnStatements, $statementResult), $closureScope);
+        return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope->processClosureScope($closureScope, null, $byRefUses), \false);
     }
-    private function lookForArrayDestructuringArray(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr, \PHPStan\Type\Type $valueType) : \PHPStan\Analyser\MutatingScope
+    private function lookForArrayDestructuringArray(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $expr, \PHPStan\Type\Type $valueType) : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
     {
         if ($expr instanceof \PhpParser\Node\Expr\Array_ || $expr instanceof \PhpParser\Node\Expr\List_) {
             foreach ($expr->items as $key => $item) {
@@ -1808,7 +1808,7 @@ class NodeScopeResolver
         }
         return $scope;
     }
-    private function specifyItemFromArrayDestructuring(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr\ArrayItem $arrayItem, \PHPStan\Type\Type $valueType, \PHPStan\Type\Type $keyType) : \PHPStan\Analyser\MutatingScope
+    private function specifyItemFromArrayDestructuring(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr\ArrayItem $arrayItem, \PHPStan\Type\Type $valueType, \PHPStan\Type\Type $keyType) : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
     {
         $type = $valueType->getOffsetValueType($keyType);
         $itemNode = $arrayItem->value;
@@ -1831,7 +1831,7 @@ class NodeScopeResolver
      * @param \PHPStan\Analyser\MutatingScope $scope
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
      */
-    private function processParamNode(\PhpParser\Node\Param $param, \PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : void
+    private function processParamNode(\PhpParser\Node\Param $param, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : void
     {
         foreach ($param->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attr) {
@@ -1847,7 +1847,7 @@ class NodeScopeResolver
         if ($param->default === null) {
             return;
         }
-        $this->processExprNode($param->default, $scope, $nodeCallback, \PHPStan\Analyser\ExpressionContext::createDeep());
+        $this->processExprNode($param->default, $scope, $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext::createDeep());
     }
     /**
      * @param \PHPStan\Reflection\MethodReflection|\PHPStan\Reflection\FunctionReflection|null $calleeReflection
@@ -1859,7 +1859,7 @@ class NodeScopeResolver
      * @param \PHPStan\Analyser\MutatingScope|null $closureBindScope
      * @return \PHPStan\Analyser\ExpressionResult
      */
-    private function processArgs($calleeReflection, ?\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, array $args, \PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback, \PHPStan\Analyser\ExpressionContext $context, ?\PHPStan\Analyser\MutatingScope $closureBindScope = null) : \PHPStan\Analyser\ExpressionResult
+    private function processArgs($calleeReflection, ?\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, array $args, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext $context, ?\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $closureBindScope = null) : \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult
     {
         if ($parametersAcceptor !== null) {
             $parameters = $parametersAcceptor->getParameters();
@@ -1886,22 +1886,22 @@ class NodeScopeResolver
                         $scope = $scope->assignVariable($argValue->name, new \PHPStan\Type\MixedType());
                     }
                 }
-                if ($calleeReflection instanceof \PHPStan\Reflection\FunctionReflection) {
+                if ($calleeReflection instanceof \RectorPrefix20201227\PHPStan\Reflection\FunctionReflection) {
                     if ($i === 0 && $calleeReflection->getName() === 'array_map' && isset($args[1])) {
-                        $parameterType = new \PHPStan\Type\CallableType([new \PHPStan\Reflection\Php\DummyParameter('item', $scope->getType($args[1]->value)->getIterableValueType(), \false, \PHPStan\Reflection\PassedByReference::createNo(), \false, null)], new \PHPStan\Type\MixedType(), \false);
+                        $parameterType = new \PHPStan\Type\CallableType([new \RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter('item', $scope->getType($args[1]->value)->getIterableValueType(), \false, \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createNo(), \false, null)], new \PHPStan\Type\MixedType(), \false);
                     }
                     if ($i === 1 && $calleeReflection->getName() === 'array_filter' && isset($args[0])) {
                         if (isset($args[2])) {
                             $mode = $scope->getType($args[2]->value);
                             if ($mode instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
                                 if ($mode->getValue() === \ARRAY_FILTER_USE_KEY) {
-                                    $arrayFilterParameters = [new \PHPStan\Reflection\Php\DummyParameter('key', $scope->getType($args[0]->value)->getIterableKeyType(), \false, \PHPStan\Reflection\PassedByReference::createNo(), \false, null)];
+                                    $arrayFilterParameters = [new \RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter('key', $scope->getType($args[0]->value)->getIterableKeyType(), \false, \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createNo(), \false, null)];
                                 } elseif ($mode->getValue() === \ARRAY_FILTER_USE_BOTH) {
-                                    $arrayFilterParameters = [new \PHPStan\Reflection\Php\DummyParameter('item', $scope->getType($args[0]->value)->getIterableValueType(), \false, \PHPStan\Reflection\PassedByReference::createNo(), \false, null), new \PHPStan\Reflection\Php\DummyParameter('key', $scope->getType($args[0]->value)->getIterableKeyType(), \false, \PHPStan\Reflection\PassedByReference::createNo(), \false, null)];
+                                    $arrayFilterParameters = [new \RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter('item', $scope->getType($args[0]->value)->getIterableValueType(), \false, \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createNo(), \false, null), new \RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter('key', $scope->getType($args[0]->value)->getIterableKeyType(), \false, \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createNo(), \false, null)];
                                 }
                             }
                         }
-                        $parameterType = new \PHPStan\Type\CallableType($arrayFilterParameters ?? [new \PHPStan\Reflection\Php\DummyParameter('item', $scope->getType($args[0]->value)->getIterableValueType(), \false, \PHPStan\Reflection\PassedByReference::createNo(), \false, null)], new \PHPStan\Type\MixedType(), \false);
+                        $parameterType = new \PHPStan\Type\CallableType($arrayFilterParameters ?? [new \RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter('item', $scope->getType($args[0]->value)->getIterableValueType(), \false, \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createNo(), \false, null)], new \PHPStan\Type\MixedType(), \false);
                     }
                 }
             }
@@ -1926,7 +1926,7 @@ class NodeScopeResolver
         if ($calleeReflection !== null) {
             $scope = $scope->popInFunctionCall();
         }
-        return new \PHPStan\Analyser\ExpressionResult($scope, $hasYield);
+        return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope, $hasYield);
     }
     /**
      * @param \PHPStan\Analyser\MutatingScope $scope
@@ -1938,7 +1938,7 @@ class NodeScopeResolver
      * @param bool $enterExpressionAssign
      * @return ExpressionResult
      */
-    private function processAssignVar(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $var, \PhpParser\Node\Expr $assignedExpr, callable $nodeCallback, \PHPStan\Analyser\ExpressionContext $context, \Closure $processExprCallback, bool $enterExpressionAssign) : \PHPStan\Analyser\ExpressionResult
+    private function processAssignVar(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Expr $var, \PhpParser\Node\Expr $assignedExpr, callable $nodeCallback, \RectorPrefix20201227\PHPStan\Analyser\ExpressionContext $context, \Closure $processExprCallback, bool $enterExpressionAssign) : \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult
     {
         $nodeCallback($var, $enterExpressionAssign ? $scope->enterExpressionAssign($var) : $scope);
         $hasYield = \false;
@@ -2065,9 +2065,9 @@ class NodeScopeResolver
                 $scope = $scope->assignExpression($var, $scope->getType($assignedExpr));
             }
         }
-        return new \PHPStan\Analyser\ExpressionResult($scope, $hasYield);
+        return new \RectorPrefix20201227\PHPStan\Analyser\ExpressionResult($scope, $hasYield);
     }
-    private function processStmtVarAnnotation(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Stmt $stmt, ?\PhpParser\Node\Expr $defaultExpr) : \PHPStan\Analyser\MutatingScope
+    private function processStmtVarAnnotation(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Stmt $stmt, ?\PhpParser\Node\Expr $defaultExpr) : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
     {
         $function = $scope->getFunction();
         $variableLessTags = [];
@@ -2086,7 +2086,7 @@ class NodeScopeResolver
                     continue;
                 }
                 if ($scope->getFunction() === null && !$scope->isInAnonymousFunction()) {
-                    $certainty = \PHPStan\TrinaryLogic::createYes();
+                    $certainty = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
                 }
                 $scope = $scope->assignVariable($name, $varTag->getType(), $certainty);
             }
@@ -2096,7 +2096,7 @@ class NodeScopeResolver
         }
         return $scope;
     }
-    private function processVarAnnotation(\PHPStan\Analyser\MutatingScope $scope, string $variableName, string $comment, bool $strict, bool &$changed = \false) : \PHPStan\Analyser\MutatingScope
+    private function processVarAnnotation(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, string $variableName, string $comment, bool $strict, bool &$changed = \false) : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
     {
         $function = $scope->getFunction();
         $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($scope->getFile(), $scope->isInClass() ? $scope->getClassReflection()->getName() : null, $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null, $function !== null ? $function->getName() : null, $comment);
@@ -2113,7 +2113,7 @@ class NodeScopeResolver
         }
         return $scope;
     }
-    private function enterForeach(\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Stmt\Foreach_ $stmt) : \PHPStan\Analyser\MutatingScope
+    private function enterForeach(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, \PhpParser\Node\Stmt\Foreach_ $stmt) : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
     {
         $comment = \PHPStan\Type\CommentHelper::getDocComment($stmt);
         $iterateeType = $scope->getType($stmt->expr);
@@ -2133,7 +2133,7 @@ class NodeScopeResolver
             $conditionalHolders = [];
             foreach ($iterateeType->getKeyTypes() as $i => $keyType) {
                 $valueType = $iterateeType->getValueTypes()[$i];
-                $conditionalHolders[] = new \PHPStan\Analyser\ConditionalExpressionHolder(['$' . $stmt->keyVar->name => $keyType], new \PHPStan\Analyser\VariableTypeHolder($valueType, \PHPStan\TrinaryLogic::createYes()));
+                $conditionalHolders[] = new \RectorPrefix20201227\PHPStan\Analyser\ConditionalExpressionHolder(['$' . $stmt->keyVar->name => $keyType], new \RectorPrefix20201227\PHPStan\Analyser\VariableTypeHolder($valueType, \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes()));
             }
             $scope = $scope->addConditionalExpressions('$' . $stmt->valueVar->name, $conditionalHolders);
         }
@@ -2161,7 +2161,7 @@ class NodeScopeResolver
      * @param MutatingScope $classScope
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
      */
-    private function processTraitUse(\PhpParser\Node\Stmt\TraitUse $node, \PHPStan\Analyser\MutatingScope $classScope, callable $nodeCallback) : void
+    private function processTraitUse(\PhpParser\Node\Stmt\TraitUse $node, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $classScope, callable $nodeCallback) : void
     {
         foreach ($node->traits as $trait) {
             $traitName = (string) $trait;
@@ -2188,7 +2188,7 @@ class NodeScopeResolver
      * @param \PHPStan\Analyser\MutatingScope $scope
      * @param callable(\PhpParser\Node $node, Scope $scope): void $nodeCallback
      */
-    private function processNodesForTraitUse($node, \PHPStan\Reflection\ClassReflection $traitReflection, \PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : void
+    private function processNodesForTraitUse($node, \RectorPrefix20201227\PHPStan\Reflection\ClassReflection $traitReflection, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, callable $nodeCallback) : void
     {
         if ($node instanceof \PhpParser\Node) {
             if ($node instanceof \PhpParser\Node\Stmt\Trait_ && $traitReflection->getName() === (string) $node->namespacedName && $traitReflection->getNativeReflection()->getStartLine() === $node->getStartLine()) {
@@ -2216,7 +2216,7 @@ class NodeScopeResolver
      * @param Node\FunctionLike $functionLike
      * @return array{TemplateTypeMap, Type[], ?Type, ?Type, ?string, bool, bool, bool}
      */
-    public function getPhpDocs(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\FunctionLike $functionLike) : array
+    public function getPhpDocs(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\FunctionLike $functionLike) : array
     {
         $templateTypeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         $phpDocParameterTypes = [];
@@ -2234,12 +2234,12 @@ class NodeScopeResolver
         $functionName = null;
         if ($functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
             if (!$scope->isInClass()) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             $functionName = $functionLike->name->name;
             $positionalParameterNames = \array_map(static function (\PhpParser\Node\Param $param) : string {
                 if (!$param->var instanceof \PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
-                    throw new \PHPStan\ShouldNotHappenException();
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
                 return $param->var->name;
             }, $functionLike->getParams());
@@ -2253,7 +2253,7 @@ class NodeScopeResolver
                         continue;
                     }
                     if (!$param->var instanceof \PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
-                        throw new \PHPStan\ShouldNotHappenException();
+                        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                     }
                     $paramPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($file, $class, $trait, '__construct', $param->getDocComment()->getText());
                     $varTags = $paramPhpDoc->getVarTags();
@@ -2291,7 +2291,7 @@ class NodeScopeResolver
         }
         return [$templateTypeMap, $phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal];
     }
-    private function getPhpDocReturnType(\PHPStan\PhpDoc\ResolvedPhpDocBlock $resolvedPhpDoc, \PHPStan\Type\Type $nativeReturnType) : ?\PHPStan\Type\Type
+    private function getPhpDocReturnType(\RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock $resolvedPhpDoc, \PHPStan\Type\Type $nativeReturnType) : ?\PHPStan\Type\Type
     {
         $returnTag = $resolvedPhpDoc->getReturnTag();
         if ($returnTag === null) {

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Missing;
+namespace RectorPrefix20201227\PHPStan\Rules\Missing;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\ClosureReturnStatementsNode;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\ClosureReturnStatementsNode;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -21,7 +21,7 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\ClosureReturnStatementsNode>
  */
-class MissingClosureNativeReturnTypehintRule implements \PHPStan\Rules\Rule
+class MissingClosureNativeReturnTypehintRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkObjectTypehint;
@@ -31,9 +31,9 @@ class MissingClosureNativeReturnTypehintRule implements \PHPStan\Rules\Rule
     }
     public function getNodeType() : string
     {
-        return \PHPStan\Node\ClosureReturnStatementsNode::class;
+        return \RectorPrefix20201227\PHPStan\Node\ClosureReturnStatementsNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $closure = $node->getClosureExpr();
         if ($closure->returnType !== null) {
@@ -42,11 +42,11 @@ class MissingClosureNativeReturnTypehintRule implements \PHPStan\Rules\Rule
         $messagePattern = 'Anonymous function should have native return typehint "%s".';
         $statementResult = $node->getStatementResult();
         if ($statementResult->hasYield()) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'Generator'))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'Generator'))->build()];
         }
         $returnStatements = $node->getReturnStatements();
         if (\count($returnStatements) === 0) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'void'))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'void'))->build()];
         }
         $returnTypes = [];
         $voidReturnNodes = [];
@@ -61,11 +61,11 @@ class MissingClosureNativeReturnTypehintRule implements \PHPStan\Rules\Rule
             $returnTypes[] = $returnStatement->getScope()->getType($returnNode->expr);
         }
         if (\count($returnTypes) === 0) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'void'))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, 'void'))->build()];
         }
         $messages = [];
         foreach ($voidReturnNodes as $voidReturnStatement) {
-            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message('Mixing returning values with empty return statements - return null should be used here.')->line($voidReturnStatement->getLine())->build();
+            $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Mixing returning values with empty return statements - return null should be used here.')->line($voidReturnStatement->getLine())->build();
         }
         $returnType = \PHPStan\Type\TypeCombinator::union(...$returnTypes);
         if ($returnType instanceof \PHPStan\Type\MixedType || $returnType instanceof \PHPStan\Type\NeverType || $returnType instanceof \PHPStan\Type\IntersectionType || $returnType instanceof \PHPStan\Type\NullType) {
@@ -79,7 +79,7 @@ class MissingClosureNativeReturnTypehintRule implements \PHPStan\Rules\Rule
             return $messages;
         }
         if (!$statementResult->isAlwaysTerminating()) {
-            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message('Anonymous function sometimes return something but return statement at the end is missing.')->build();
+            $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Anonymous function sometimes return something but return statement at the end is missing.')->build();
             return $messages;
         }
         $returnType = \PHPStan\Type\TypeUtils::generalizeType($returnType);
@@ -93,7 +93,7 @@ class MissingClosureNativeReturnTypehintRule implements \PHPStan\Rules\Rule
         if (!$this->checkObjectTypehint && $returnType instanceof \PHPStan\Type\ObjectWithoutClassType) {
             return $messages;
         }
-        $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, $description))->build();
+        $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($messagePattern, $description))->build();
         return $messages;
     }
 }

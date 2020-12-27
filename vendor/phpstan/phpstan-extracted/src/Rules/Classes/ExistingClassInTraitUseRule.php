@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Classes;
+namespace RectorPrefix20201227\PHPStan\Rules\Classes;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\ClassCaseSensitivityCheck;
-use PHPStan\Rules\ClassNameNodePair;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck;
+use RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\TraitUse>
  */
-class ExistingClassInTraitUseRule implements \PHPStan\Rules\Rule
+class ExistingClassInTraitUseRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
     private $classCaseSensitivityCheck;
     /** @var ReflectionProvider */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
         $this->reflectionProvider = $reflectionProvider;
@@ -27,19 +27,19 @@ class ExistingClassInTraitUseRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Stmt\TraitUse::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $messages = $this->classCaseSensitivityCheck->checkClassNames(\array_map(static function (\PhpParser\Node\Name $traitName) : ClassNameNodePair {
-            return new \PHPStan\Rules\ClassNameNodePair((string) $traitName, $traitName);
+            return new \RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair((string) $traitName, $traitName);
         }, $node->traits));
         if (!$scope->isInClass()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
         if ($classReflection->isInterface()) {
             if (!$scope->isInTrait()) {
                 foreach ($node->traits as $trait) {
-                    $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Interface %s uses trait %s.', $classReflection->getName(), (string) $trait))->nonIgnorable()->build();
+                    $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Interface %s uses trait %s.', $classReflection->getName(), (string) $trait))->nonIgnorable()->build();
                 }
             }
         } else {
@@ -55,13 +55,13 @@ class ExistingClassInTraitUseRule implements \PHPStan\Rules\Rule
             foreach ($node->traits as $trait) {
                 $traitName = (string) $trait;
                 if (!$this->reflectionProvider->hasClass($traitName)) {
-                    $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s uses unknown trait %s.', $currentName, $traitName))->nonIgnorable()->discoveringSymbolsTip()->build();
+                    $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s uses unknown trait %s.', $currentName, $traitName))->nonIgnorable()->discoveringSymbolsTip()->build();
                 } else {
                     $reflection = $this->reflectionProvider->getClass($traitName);
                     if ($reflection->isClass()) {
-                        $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s uses class %s.', $currentName, $traitName))->nonIgnorable()->build();
+                        $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s uses class %s.', $currentName, $traitName))->nonIgnorable()->build();
                     } elseif ($reflection->isInterface()) {
-                        $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s uses interface %s.', $currentName, $traitName))->nonIgnorable()->build();
+                        $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s uses interface %s.', $currentName, $traitName))->nonIgnorable()->build();
                     }
                 }
             }

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Functions;
+namespace RectorPrefix20201227\PHPStan\Rules\Functions;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\TypeUtils;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\FuncCall>
  */
-class PrintfParametersRule implements \PHPStan\Rules\Rule
+class PrintfParametersRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->name instanceof \PhpParser\Node\Name) {
             return [];
@@ -56,7 +56,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
         }
         $argsCount -= $formatArgumentPosition;
         if ($argsCount !== $placeHoldersCount + 1) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf(\sprintf('%s, %s.', $placeHoldersCount === 1 ? 'Call to %s contains %d placeholder' : 'Call to %s contains %d placeholders', $argsCount - 1 === 1 ? '%d value given' : '%d values given'), $name, $placeHoldersCount, $argsCount - 1))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf(\sprintf('%s, %s.', $placeHoldersCount === 1 ? 'Call to %s contains %d placeholder' : 'Call to %s contains %d placeholders', $argsCount - 1 === 1 ? '%d value given' : '%d values given'), $name, $placeHoldersCount, $argsCount - 1))->build()];
         }
         return [];
     }
@@ -64,7 +64,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
     {
         $specifiers = \in_array($functionName, ['sprintf', 'printf'], \true) ? '[bcdeEfFgGosuxX]' : '(?:[cdDeEfinosuxX]|\\[[^\\]]+\\])';
         $pattern = '~(?<before>%*)%(?:(?<position>\\d+)\\$)?[-+]?(?:[ 0]|(?:\'[^%]))?-?\\d*(?:\\.\\d*)?' . $specifiers . '~';
-        $matches = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::matchAll($format, $pattern, \PREG_SET_ORDER);
+        $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::matchAll($format, $pattern, \PREG_SET_ORDER);
         if (\count($matches) === 0) {
             return 0;
         }

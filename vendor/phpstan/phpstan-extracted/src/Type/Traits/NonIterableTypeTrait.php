@@ -3,18 +3,18 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Traits;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 trait NonIterableTypeTrait
 {
-    public function isIterable() : \PHPStan\TrinaryLogic
+    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function getIterableKeyType() : \PHPStan\Type\Type
     {

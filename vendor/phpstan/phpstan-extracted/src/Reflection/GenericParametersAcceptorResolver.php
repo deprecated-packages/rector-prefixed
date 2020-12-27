@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection;
+namespace RectorPrefix20201227\PHPStan\Reflection;
 
-use PHPStan\Reflection\Generic\ResolvedFunctionVariant;
+use RectorPrefix20201227\PHPStan\Reflection\Generic\ResolvedFunctionVariant;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
@@ -14,7 +14,7 @@ class GenericParametersAcceptorResolver
      *
      * @param \PHPStan\Type\Type[] $argTypes Unpacked arguments
      */
-    public static function resolve(array $argTypes, \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : \PHPStan\Reflection\ParametersAcceptor
+    public static function resolve(array $argTypes, \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
     {
         $typeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         foreach ($parametersAcceptor->getParameters() as $i => $param) {
@@ -28,7 +28,7 @@ class GenericParametersAcceptorResolver
             $paramType = $param->getType();
             $typeMap = $typeMap->union($paramType->inferTemplateTypes($argType));
         }
-        return new \PHPStan\Reflection\Generic\ResolvedFunctionVariant($parametersAcceptor, new \PHPStan\Type\Generic\TemplateTypeMap(\array_merge($parametersAcceptor->getTemplateTypeMap()->map(static function (string $name, \PHPStan\Type\Type $type) : Type {
+        return new \RectorPrefix20201227\PHPStan\Reflection\Generic\ResolvedFunctionVariant($parametersAcceptor, new \PHPStan\Type\Generic\TemplateTypeMap(\array_merge($parametersAcceptor->getTemplateTypeMap()->map(static function (string $name, \PHPStan\Type\Type $type) : Type {
             return new \PHPStan\Type\ErrorType();
         })->getTypes(), $typeMap->getTypes())));
     }

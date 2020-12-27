@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Generic;
 
-use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\PropertyReflection;
-use PHPStan\Reflection\ResolvedMethodReflection;
-use PHPStan\Reflection\ResolvedPropertyReflection;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Broker\Broker;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ResolvedMethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ResolvedPropertyReflection;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
@@ -28,7 +28,7 @@ final class GenericObjectType extends \PHPStan\Type\ObjectType
     /**
      * @param array<int, Type> $types
      */
-    public function __construct(string $mainType, array $types, ?\PHPStan\Type\Type $subtractedType = null, ?\PHPStan\Reflection\ClassReflection $classReflection = null)
+    public function __construct(string $mainType, array $types, ?\PHPStan\Type\Type $subtractedType = null, ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection = null)
     {
         parent::__construct($mainType, $subtractedType, $classReflection);
         $this->types = $types;
@@ -77,18 +77,18 @@ final class GenericObjectType extends \PHPStan\Type\ObjectType
     {
         return $this->types;
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isAcceptedBy($this, $strictTypes);
         }
         return $this->isSuperTypeOfInternal($type, \true);
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->isSuperTypeOfInternal($type, \false);
     }
-    private function isSuperTypeOfInternal(\PHPStan\Type\Type $type, bool $acceptsContext) : \PHPStan\TrinaryLogic
+    private function isSuperTypeOfInternal(\PHPStan\Type\Type $type, bool $acceptsContext) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
@@ -108,10 +108,10 @@ final class GenericObjectType extends \PHPStan\Type\ObjectType
             if ($acceptsContext) {
                 return $nakedSuperTypeOf;
             }
-            return $nakedSuperTypeOf->and(\PHPStan\TrinaryLogic::createMaybe());
+            return $nakedSuperTypeOf->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
         }
         if (\count($this->types) !== \count($ancestor->types)) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         $classReflection = $this->getClassReflection();
         if ($classReflection === null) {
@@ -129,34 +129,34 @@ final class GenericObjectType extends \PHPStan\Type\ObjectType
                 continue;
             }
             if (!$templateType instanceof \PHPStan\Type\Generic\TemplateType) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             if (!$templateType->isValidVariance($this->types[$i], $ancestor->types[$i])) {
-                return \PHPStan\TrinaryLogic::createNo();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
             }
         }
         return $nakedSuperTypeOf;
     }
-    public function getClassReflection() : ?\PHPStan\Reflection\ClassReflection
+    public function getClassReflection() : ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         if ($this->classReflection !== null) {
             return $this->classReflection;
         }
-        $broker = \PHPStan\Broker\Broker::getInstance();
+        $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
         if (!$broker->hasClass($this->getClassName())) {
             return null;
         }
         return $this->classReflection = $broker->getClass($this->getClassName())->withTypes($this->types);
     }
-    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
     {
         $reflection = parent::getProperty($propertyName, $scope);
-        return new \PHPStan\Reflection\ResolvedPropertyReflection($reflection, $this->getClassReflection()->getActiveTemplateTypeMap());
+        return new \RectorPrefix20201227\PHPStan\Reflection\ResolvedPropertyReflection($reflection, $this->getClassReflection()->getActiveTemplateTypeMap());
     }
-    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         $reflection = parent::getMethod($methodName, $scope);
-        return new \PHPStan\Reflection\ResolvedMethodReflection($reflection, $this->getClassReflection()->getActiveTemplateTypeMap());
+        return new \RectorPrefix20201227\PHPStan\Reflection\ResolvedMethodReflection($reflection, $this->getClassReflection()->getActiveTemplateTypeMap());
     }
     public function inferTemplateTypes(\PHPStan\Type\Type $receivedType) : \PHPStan\Type\Generic\TemplateTypeMap
     {

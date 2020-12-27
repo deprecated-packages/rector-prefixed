@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Node;
+namespace RectorPrefix20201227\PHPStan\Node;
 
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -10,15 +10,15 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\NodeAbstract;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\Method\MethodCall;
-use PHPStan\Node\Property\PropertyRead;
-use PHPStan\Node\Property\PropertyWrite;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Rules\Properties\ReadWritePropertiesExtension;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\Method\MethodCall;
+use RectorPrefix20201227\PHPStan\Node\Property\PropertyRead;
+use RectorPrefix20201227\PHPStan\Node\Property\PropertyWrite;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Rules\Properties\ReadWritePropertiesExtension;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
-class ClassPropertiesNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
+class ClassPropertiesNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */
     private $class;
@@ -76,13 +76,13 @@ class ClassPropertiesNode extends \PhpParser\NodeAbstract implements \PHPStan\No
      * @param ReadWritePropertiesExtension[] $extensions
      * @return array{array<string, ClassPropertyNode>, array<array{string, int}>}
      */
-    public function getUninitializedProperties(\PHPStan\Analyser\Scope $scope, array $constructors, array $extensions) : array
+    public function getUninitializedProperties(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, array $constructors, array $extensions) : array
     {
         if (!$this->getClass() instanceof \PhpParser\Node\Stmt\Class_) {
             return [[], []];
         }
         if (!$scope->isInClass()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
         $properties = [];
@@ -127,7 +127,7 @@ class ClassPropertiesNode extends \PhpParser\NodeAbstract implements \PHPStan\No
                 continue;
             }
             $function = $usageScope->getFunction();
-            if (!$function instanceof \PHPStan\Reflection\MethodReflection) {
+            if (!$function instanceof \RectorPrefix20201227\PHPStan\Reflection\MethodReflection) {
                 continue;
             }
             if ($function->getDeclaringClass()->getName() !== $classReflection->getName()) {
@@ -150,7 +150,7 @@ class ClassPropertiesNode extends \PhpParser\NodeAbstract implements \PHPStan\No
             if ($fetchedOnType instanceof \PHPStan\Type\MixedType) {
                 continue;
             }
-            if ($usage instanceof \PHPStan\Node\Property\PropertyWrite) {
+            if ($usage instanceof \RectorPrefix20201227\PHPStan\Node\Property\PropertyWrite) {
                 unset($properties[$propertyName]);
             } elseif (\array_key_exists($propertyName, $properties)) {
                 $prematureAccess[] = [$propertyName, $fetch->getLine()];
@@ -195,7 +195,7 @@ class ClassPropertiesNode extends \PhpParser\NodeAbstract implements \PHPStan\No
                 continue;
             }
             $inMethod = $callScope->getFunction();
-            if (!$inMethod instanceof \PHPStan\Reflection\MethodReflection) {
+            if (!$inMethod instanceof \RectorPrefix20201227\PHPStan\Reflection\MethodReflection) {
                 continue;
             }
             if (!\in_array($inMethod->getName(), $methods, \true)) {

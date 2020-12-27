@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\TrivialParametersAcceptor;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
@@ -51,13 +51,13 @@ class ArrayType implements \PHPStan\Type\Type
     {
         return \array_merge($this->keyType->getReferencedClasses(), $this->getItemType()->getReferencedClasses());
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
         if ($type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-            $result = \PHPStan\TrinaryLogic::createYes();
+            $result = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             $thisKeyType = $this->keyType;
             $itemType = $this->getItemType();
             foreach ($type->getKeyTypes() as $i => $keyType) {
@@ -69,9 +69,9 @@ class ArrayType implements \PHPStan\Type\Type
         if ($type instanceof \PHPStan\Type\ArrayType) {
             return $this->getItemType()->accepts($type->getItemType(), $strictTypes)->and($this->keyType->accepts($type->keyType, $strictTypes));
         }
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
             return $this->getItemType()->isSuperTypeOf($type->getItemType())->and($this->keyType->isSuperTypeOf($type->keyType));
@@ -79,7 +79,7 @@ class ArrayType implements \PHPStan\Type\Type
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {
@@ -120,13 +120,13 @@ class ArrayType implements \PHPStan\Type\Type
     {
         return new self(new \PHPStan\Type\IntegerType(), $this->itemType);
     }
-    public function isIterable() : \PHPStan\TrinaryLogic
+    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getIterableKeyType() : \PHPStan\Type\Type
     {
@@ -140,25 +140,25 @@ class ArrayType implements \PHPStan\Type\Type
     {
         return $this->getItemType();
     }
-    public function isArray() : \PHPStan\TrinaryLogic
+    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function isNumericString() : \PHPStan\TrinaryLogic
+    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $offsetType = self::castToArrayKeyType($offsetType);
         if ($this->getKeyType()->isSuperTypeOf($offsetType)->no()) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
     public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type
     {
@@ -179,20 +179,20 @@ class ArrayType implements \PHPStan\Type\Type
         }
         return \PHPStan\Type\TypeCombinator::intersect(new self(\PHPStan\Type\TypeCombinator::union($this->keyType, self::castToArrayKeyType($offsetType)), $unionValues ? \PHPStan\Type\TypeCombinator::union($this->itemType, $valueType) : $valueType), new \PHPStan\Type\Accessory\NonEmptyArrayType());
     }
-    public function isCallable() : \PHPStan\TrinaryLogic
+    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe()->and((new \PHPStan\Type\StringType())->isSuperTypeOf($this->itemType));
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe()->and((new \PHPStan\Type\StringType())->isSuperTypeOf($this->itemType));
     }
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
         if ($this->isCallable()->no()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
-        return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
     }
     public function toNumber() : \PHPStan\Type\Type
     {

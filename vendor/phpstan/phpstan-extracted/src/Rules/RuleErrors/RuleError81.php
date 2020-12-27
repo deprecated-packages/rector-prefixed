@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\RuleErrors;
+namespace RectorPrefix20201227\PHPStan\Rules\RuleErrors;
 
 /**
  * @internal Use PHPStan\Rules\RuleErrorBuilder instead.
  */
-class RuleError81 implements \PHPStan\Rules\RuleError, \PHPStan\Rules\IdentifierRuleError, \PHPStan\Rules\NonIgnorableRuleError
+class RuleError81 implements \RectorPrefix20201227\PHPStan\Rules\RuleError, \RectorPrefix20201227\PHPStan\Rules\IdentifierRuleError, \RectorPrefix20201227\PHPStan\Rules\NonIgnorableRuleError
 {
     /** @var string */
     public $message;

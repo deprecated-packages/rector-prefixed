@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Mixin;
+namespace RectorPrefix20201227\PHPStan\Reflection\Mixin;
 
-use PHPStan\Analyser\OutOfClassScope;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\MethodsClassReflectionExtension;
+use RectorPrefix20201227\PHPStan\Analyser\OutOfClassScope;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Type\TypeUtils;
-class MixinMethodsClassReflectionExtension implements \PHPStan\Reflection\MethodsClassReflectionExtension
+class MixinMethodsClassReflectionExtension implements \RectorPrefix20201227\PHPStan\Reflection\MethodsClassReflectionExtension
 {
     /** @var string[] */
     private $mixinExcludeClasses;
@@ -19,19 +19,19 @@ class MixinMethodsClassReflectionExtension implements \PHPStan\Reflection\Method
     {
         $this->mixinExcludeClasses = $mixinExcludeClasses;
     }
-    public function hasMethod(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
+    public function hasMethod(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : bool
     {
         return $this->findMethod($classReflection, $methodName) !== null;
     }
-    public function getMethod(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \PHPStan\Reflection\MethodReflection
+    public function getMethod(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         $method = $this->findMethod($classReflection, $methodName);
         if ($method === null) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         return $method;
     }
-    private function findMethod(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : ?\PHPStan\Reflection\MethodReflection
+    private function findMethod(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $methodName) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         $mixinTypes = $classReflection->getResolvedMixinTypes();
         foreach ($mixinTypes as $type) {
@@ -41,12 +41,12 @@ class MixinMethodsClassReflectionExtension implements \PHPStan\Reflection\Method
             if (!$type->hasMethod($methodName)->yes()) {
                 continue;
             }
-            $method = $type->getMethod($methodName, new \PHPStan\Analyser\OutOfClassScope());
+            $method = $type->getMethod($methodName, new \RectorPrefix20201227\PHPStan\Analyser\OutOfClassScope());
             $static = $method->isStatic();
             if (!$static && $classReflection->hasNativeMethod('__callStatic') && !$classReflection->hasNativeMethod('__call')) {
                 $static = \true;
             }
-            return new \PHPStan\Reflection\Mixin\MixinMethodReflection($method, $static);
+            return new \RectorPrefix20201227\PHPStan\Reflection\Mixin\MixinMethodReflection($method, $static);
         }
         foreach ($classReflection->getParents() as $parentClass) {
             $method = $this->findMethod($parentClass, $methodName);

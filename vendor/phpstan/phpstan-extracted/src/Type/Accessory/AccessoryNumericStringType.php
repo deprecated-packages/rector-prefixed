@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Accessory;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\CompoundTypeHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -33,28 +33,28 @@ class AccessoryNumericStringType implements \PHPStan\Type\CompoundType, \PHPStan
     {
         return [];
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
         return $type->isNumericString();
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($this->equals($type)) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         return $type->isNumericString();
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($otherType instanceof \PHPStan\Type\UnionType || $otherType instanceof \PHPStan\Type\IntersectionType) {
             return $otherType->isSuperTypeOf($this);
         }
-        return $otherType->isNumericString()->and($otherType instanceof self ? \PHPStan\TrinaryLogic::createYes() : \PHPStan\TrinaryLogic::createMaybe());
+        return $otherType->isNumericString()->and($otherType instanceof self ? \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes() : \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
@@ -66,13 +66,13 @@ class AccessoryNumericStringType implements \PHPStan\Type\CompoundType, \PHPStan
     {
         return 'numeric';
     }
-    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return (new \PHPStan\Type\IntegerType())->isSuperTypeOf($offsetType)->and(\PHPStan\TrinaryLogic::createMaybe());
+        return (new \PHPStan\Type\IntegerType())->isSuperTypeOf($offsetType)->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
     }
     public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type
     {
@@ -85,9 +85,9 @@ class AccessoryNumericStringType implements \PHPStan\Type\CompoundType, \PHPStan
     {
         return $this;
     }
-    public function isArray() : \PHPStan\TrinaryLogic
+    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function toNumber() : \PHPStan\Type\Type
     {
@@ -109,9 +109,9 @@ class AccessoryNumericStringType implements \PHPStan\Type\CompoundType, \PHPStan
     {
         return new \PHPStan\Type\Constant\ConstantArrayType([new \PHPStan\Type\Constant\ConstantIntegerType(0)], [$this], 1);
     }
-    public function isNumericString() : \PHPStan\TrinaryLogic
+    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
     public function traverse(callable $cb) : \PHPStan\Type\Type
     {

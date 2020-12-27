@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Variables;
+namespace RectorPrefix20201227\PHPStan\Rules\Variables;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\IssetCheck;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\IssetCheck;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr>
  */
-class NullCoalesceRule implements \PHPStan\Rules\Rule
+class NullCoalesceRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var IssetCheck */
     private $issetCheck;
-    public function __construct(\PHPStan\Rules\IssetCheck $issetCheck)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\IssetCheck $issetCheck)
     {
         $this->issetCheck = $issetCheck;
     }
@@ -21,7 +21,7 @@ class NullCoalesceRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Coalesce) {
             $error = $this->issetCheck->check($node->left, $scope, 'on left side of ??');

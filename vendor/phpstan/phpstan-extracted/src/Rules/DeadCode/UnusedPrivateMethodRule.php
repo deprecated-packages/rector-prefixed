@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\DeadCode;
+namespace RectorPrefix20201227\PHPStan\Rules\DeadCode;
 
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\ClassMethodsNode;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\ClassMethodsNode;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\MixedType;
@@ -18,19 +18,19 @@ use PHPStan\Type\TypeUtils;
 /**
  * @implements Rule<ClassMethodsNode>
  */
-class UnusedPrivateMethodRule implements \PHPStan\Rules\Rule
+class UnusedPrivateMethodRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \PHPStan\Node\ClassMethodsNode::class;
+        return \RectorPrefix20201227\PHPStan\Node\ClassMethodsNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->getClass() instanceof \PhpParser\Node\Stmt\Class_) {
             return [];
         }
         if (!$scope->isInClass()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
         $constructor = null;
@@ -87,7 +87,7 @@ class UnusedPrivateMethodRule implements \PHPStan\Rules\Rule
                 continue;
             }
             $inMethod = $callScope->getFunction();
-            if (!$inMethod instanceof \PHPStan\Reflection\MethodReflection) {
+            if (!$inMethod instanceof \RectorPrefix20201227\PHPStan\Reflection\MethodReflection) {
                 continue;
             }
             foreach ($methodNames as $methodName) {
@@ -124,7 +124,7 @@ class UnusedPrivateMethodRule implements \PHPStan\Rules\Rule
                     continue;
                 }
                 $inMethod = $arrayScope->getFunction();
-                if (!$inMethod instanceof \PHPStan\Reflection\MethodReflection) {
+                if (!$inMethod instanceof \RectorPrefix20201227\PHPStan\Reflection\MethodReflection) {
                     continue;
                 }
                 if ($inMethod->getName() === $typeAndMethod->getMethod()) {
@@ -139,7 +139,7 @@ class UnusedPrivateMethodRule implements \PHPStan\Rules\Rule
             if ($methodNode->isStatic()) {
                 $methodType = 'Static method';
             }
-            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s %s::%s() is unused.', $methodType, $classReflection->getDisplayName(), $methodName))->line($methodNode->getLine())->identifier('deadCode.unusedMethod')->metadata(['classOrder' => $node->getClass()->getAttribute('statementOrder'), 'classDepth' => $node->getClass()->getAttribute('statementDepth'), 'classStartLine' => $node->getClass()->getStartLine(), 'methodName' => $methodName])->build();
+            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s %s::%s() is unused.', $methodType, $classReflection->getDisplayName(), $methodName))->line($methodNode->getLine())->identifier('deadCode.unusedMethod')->metadata(['classOrder' => $node->getClass()->getAttribute('statementOrder'), 'classDepth' => $node->getClass()->getAttribute('statementDepth'), 'classStartLine' => $node->getClass()->getStartLine(), 'methodName' => $methodName])->build();
         }
         return $errors;
     }

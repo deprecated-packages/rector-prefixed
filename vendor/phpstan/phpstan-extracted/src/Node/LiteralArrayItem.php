@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Node;
+namespace RectorPrefix20201227\PHPStan\Node;
 
 use PhpParser\Node\Expr\ArrayItem;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 class LiteralArrayItem
 {
     /** @var Scope */
     private $scope;
     /** @var ArrayItem|null */
     private $arrayItem;
-    public function __construct(\PHPStan\Analyser\Scope $scope, ?\PhpParser\Node\Expr\ArrayItem $arrayItem)
+    public function __construct(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, ?\PhpParser\Node\Expr\ArrayItem $arrayItem)
     {
         $this->scope = $scope;
         $this->arrayItem = $arrayItem;
     }
-    public function getScope() : \PHPStan\Analyser\Scope
+    public function getScope() : \RectorPrefix20201227\PHPStan\Analyser\Scope
     {
         return $this->scope;
     }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\File;
+namespace RectorPrefix20201227\PHPStan\File;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
 class FileHelper
 {
     /** @var string */
@@ -27,14 +27,14 @@ class FileHelper
                 return $path;
             }
         }
-        if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::startsWith($path, 'phar://')) {
+        if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::startsWith($path, 'phar://')) {
             return $path;
         }
         return \rtrim($this->getWorkingDirectory(), '/\\') . \DIRECTORY_SEPARATOR . \ltrim($path, '/\\');
     }
     public function normalizePath(string $originalPath, string $directorySeparator = \DIRECTORY_SEPARATOR) : string
     {
-        $matches = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($originalPath, '~^([a-z]+)\\:\\/\\/(.+)~');
+        $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($originalPath, '~^([a-z]+)\\:\\/\\/(.+)~');
         if ($matches !== null) {
             [, $scheme, $path] = $matches;
         } else {
@@ -42,7 +42,7 @@ class FileHelper
             $path = $originalPath;
         }
         $path = \str_replace('\\', '/', $path);
-        $path = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::replace($path, '~/{2,}~', '/');
+        $path = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::replace($path, '~/{2,}~', '/');
         $pathRoot = \strpos($path, '/') === 0 ? $directorySeparator : '';
         $pathParts = \explode('/', \trim($path, '/'));
         $normalizedPathParts = [];

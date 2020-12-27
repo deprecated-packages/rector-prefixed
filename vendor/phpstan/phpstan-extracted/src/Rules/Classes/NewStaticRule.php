@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Classes;
+namespace RectorPrefix20201227\PHPStan\Rules\Classes;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\Php\PhpMethodReflection;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\Php\PhpMethodReflection;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\New_>
  */
-class NewStaticRule implements \PHPStan\Rules\Rule
+class NewStaticRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\Node\Expr\New_::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->class instanceof \PhpParser\Node\Name) {
             return [];
@@ -32,7 +32,7 @@ class NewStaticRule implements \PHPStan\Rules\Rule
         if ($classReflection->isFinal()) {
             return [];
         }
-        $messages = [\PHPStan\Rules\RuleErrorBuilder::message('Unsafe usage of new static().')->tip('Consider making the class or the constructor final.')->build()];
+        $messages = [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Unsafe usage of new static().')->tip('Consider making the class or the constructor final.')->build()];
         if (!$classReflection->hasConstructor()) {
             return $messages;
         }
@@ -40,7 +40,7 @@ class NewStaticRule implements \PHPStan\Rules\Rule
         if ($constructor->getPrototype()->getDeclaringClass()->isInterface()) {
             return [];
         }
-        if ($constructor instanceof \PHPStan\Reflection\Php\PhpMethodReflection) {
+        if ($constructor instanceof \RectorPrefix20201227\PHPStan\Reflection\Php\PhpMethodReflection) {
             if ($constructor->isFinal()->yes()) {
                 return [];
             }

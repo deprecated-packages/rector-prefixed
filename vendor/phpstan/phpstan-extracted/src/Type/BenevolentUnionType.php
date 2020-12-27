@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 class BenevolentUnionType extends \PHPStan\Type\UnionType
 {
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string
@@ -25,13 +25,13 @@ class BenevolentUnionType extends \PHPStan\Type\UnionType
         }
         return \PHPStan\Type\TypeCombinator::union(...$resultTypes);
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $results = [];
         foreach ($this->getTypes() as $innerType) {
             $results[] = $acceptingType->accepts($innerType, $strictTypes);
         }
-        return \PHPStan\TrinaryLogic::createNo()->or(...$results);
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo()->or(...$results);
     }
     public function traverse(callable $cb) : \PHPStan\Type\Type
     {

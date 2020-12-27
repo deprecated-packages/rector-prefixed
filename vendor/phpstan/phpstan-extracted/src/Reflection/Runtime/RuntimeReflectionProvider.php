@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Runtime;
+namespace RectorPrefix20201227\PHPStan\Reflection\Runtime;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider;
-use PHPStan\Php\PhpVersion;
-use PHPStan\PhpDoc\StubPhpDocProvider;
-use PHPStan\PhpDoc\Tag\ParamTag;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\Constant\RuntimeConstantReflection;
-use PHPStan\Reflection\FunctionReflectionFactory;
-use PHPStan\Reflection\GlobalConstantReflection;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider;
+use RectorPrefix20201227\PHPStan\Php\PhpVersion;
+use RectorPrefix20201227\PHPStan\PhpDoc\StubPhpDocProvider;
+use RectorPrefix20201227\PHPStan\PhpDoc\Tag\ParamTag;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Constant\RuntimeConstantReflection;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionReflectionFactory;
+use RectorPrefix20201227\PHPStan\Reflection\GlobalConstantReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider;
 use PHPStan\Type\ConstantTypeHelper;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 use ReflectionClass;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
-class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+class RuntimeReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider
 {
     /** @var ReflectionProvider\ReflectionProviderProvider */
     private $reflectionProviderProvider;
@@ -49,7 +49,7 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
     private $hasClassCache = [];
     /** @var \PHPStan\Reflection\ClassReflection[] */
     private static $anonymousClasses = [];
-    public function __construct(\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \RectorPrefix20201227\PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion, \RectorPrefix20201227\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \RectorPrefix20201227\PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber)
     {
         $this->reflectionProviderProvider = $reflectionProviderProvider;
         $this->classReflectionExtensionRegistryProvider = $classReflectionExtensionRegistryProvider;
@@ -60,12 +60,12 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
         $this->stubPhpDocProvider = $stubPhpDocProvider;
         $this->phpStormStubsSourceStubber = $phpStormStubsSourceStubber;
     }
-    public function getClass(string $className) : \PHPStan\Reflection\ClassReflection
+    public function getClass(string $className) : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         /** @var class-string $className */
         $className = $className;
         if (!$this->hasClass($className)) {
-            throw new \PHPStan\Broker\ClassNotFoundException($className);
+            throw new \RectorPrefix20201227\PHPStan\Broker\ClassNotFoundException($className);
         }
         if (isset(self::$anonymousClasses[$className])) {
             return self::$anonymousClasses[$className];
@@ -88,7 +88,7 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
     public function getClassName(string $className) : string
     {
         if (!$this->hasClass($className)) {
-            throw new \PHPStan\Broker\ClassNotFoundException($className);
+            throw new \RectorPrefix20201227\PHPStan\Broker\ClassNotFoundException($className);
         }
         /** @var class-string $className */
         $className = $className;
@@ -103,20 +103,20 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
     {
         return \false;
     }
-    public function getAnonymousClassReflection(\PhpParser\Node\Stmt\Class_ $classNode, \PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\ClassReflection
+    public function getAnonymousClassReflection(\PhpParser\Node\Stmt\Class_ $classNode, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
-        throw new \PHPStan\ShouldNotHappenException();
+        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
     }
     /**
      * @param \ReflectionClass<object> $reflectionClass
      * @param string $displayName
      * @param string|null $anonymousFilename
      */
-    private function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, ?string $anonymousFilename) : \PHPStan\Reflection\ClassReflection
+    private function getClassFromReflection(\ReflectionClass $reflectionClass, string $displayName, ?string $anonymousFilename) : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         $className = $reflectionClass->getName();
         if (!isset($this->classReflections[$className])) {
-            $classReflection = new \PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $displayName, $reflectionClass, $anonymousFilename, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
+            $classReflection = new \RectorPrefix20201227\PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $displayName, $reflectionClass, $anonymousFilename, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
             $this->classReflections[$className] = $classReflection;
         }
         return $this->classReflections[$className];
@@ -130,24 +130,24 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
         \spl_autoload_register($autoloader = function (string $autoloadedClassName) use($className) : void {
             $autoloadedClassName = \trim($autoloadedClassName, '\\');
             if ($autoloadedClassName !== $className && !$this->isExistsCheckCall()) {
-                throw new \PHPStan\Broker\ClassAutoloadingException($autoloadedClassName);
+                throw new \RectorPrefix20201227\PHPStan\Broker\ClassAutoloadingException($autoloadedClassName);
             }
         });
         try {
             return $this->hasClassCache[$className] = \class_exists($className) || \interface_exists($className) || \trait_exists($className);
-        } catch (\PHPStan\Broker\ClassAutoloadingException $e) {
+        } catch (\RectorPrefix20201227\PHPStan\Broker\ClassAutoloadingException $e) {
             throw $e;
         } catch (\Throwable $t) {
-            throw new \PHPStan\Broker\ClassAutoloadingException($className, $t);
+            throw new \RectorPrefix20201227\PHPStan\Broker\ClassAutoloadingException($className, $t);
         } finally {
             \spl_autoload_unregister($autoloader);
         }
     }
-    public function getFunction(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\FunctionReflection
+    public function getFunction(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Reflection\FunctionReflection
     {
         $functionName = $this->resolveFunctionName($nameNode, $scope);
         if ($functionName === null) {
-            throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
+            throw new \RectorPrefix20201227\PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
         }
         $lowerCasedFunctionName = \strtolower($functionName);
         if (isset($this->functionReflections[$lowerCasedFunctionName])) {
@@ -161,11 +161,11 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
         $this->functionReflections[$lowerCasedFunctionName] = $this->getCustomFunction($nameNode, $scope);
         return $this->functionReflections[$lowerCasedFunctionName];
     }
-    public function hasFunction(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : bool
+    public function hasFunction(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : bool
     {
         return $this->resolveFunctionName($nameNode, $scope) !== null;
     }
-    private function hasCustomFunction(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : bool
+    private function hasCustomFunction(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : bool
     {
         $functionName = $this->resolveFunctionName($nameNode, $scope);
         if ($functionName === null) {
@@ -173,15 +173,15 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
         }
         return $this->nativeFunctionReflectionProvider->findFunctionReflection($functionName) === null;
     }
-    private function getCustomFunction(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\Php\PhpFunctionReflection
+    private function getCustomFunction(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Reflection\Php\PhpFunctionReflection
     {
         if (!$this->hasCustomFunction($nameNode, $scope)) {
-            throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
+            throw new \RectorPrefix20201227\PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
         }
         /** @var string $functionName */
         $functionName = $this->resolveFunctionName($nameNode, $scope);
         if (!\function_exists($functionName)) {
-            throw new \PHPStan\Broker\FunctionNotFoundException($functionName);
+            throw new \RectorPrefix20201227\PHPStan\Broker\FunctionNotFoundException($functionName);
         }
         $lowerCasedFunctionName = \strtolower($functionName);
         if (isset($this->customFunctionReflections[$lowerCasedFunctionName])) {
@@ -212,13 +212,13 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
             $isInternal = $resolvedPhpDoc->isInternal();
             $isFinal = $resolvedPhpDoc->isFinal();
         }
-        $functionReflection = $this->functionReflectionFactory->create($reflectionFunction, $templateTypeMap, \array_map(static function (\PHPStan\PhpDoc\Tag\ParamTag $paramTag) : Type {
+        $functionReflection = $this->functionReflectionFactory->create($reflectionFunction, $templateTypeMap, \array_map(static function (\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ParamTag $paramTag) : Type {
             return $paramTag->getType();
         }, $phpDocParameterTags), $phpDocReturnTag !== null ? $phpDocReturnTag->getType() : null, $phpDocThrowsTag !== null ? $phpDocThrowsTag->getType() : null, $deprecatedTag !== null ? $deprecatedTag->getMessage() : null, $isDeprecated, $isInternal, $isFinal, $reflectionFunction->getFileName());
         $this->customFunctionReflections[$lowerCasedFunctionName] = $functionReflection;
         return $functionReflection;
     }
-    public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : ?string
+    public function resolveFunctionName(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?string
     {
         return $this->resolveName($nameNode, function (string $name) : bool {
             $exists = \function_exists($name);
@@ -231,19 +231,19 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
             return \false;
         }, $scope);
     }
-    public function hasConstant(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : bool
+    public function hasConstant(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : bool
     {
         return $this->resolveConstantName($nameNode, $scope) !== null;
     }
-    public function getConstant(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\GlobalConstantReflection
+    public function getConstant(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Reflection\GlobalConstantReflection
     {
         $constantName = $this->resolveConstantName($nameNode, $scope);
         if ($constantName === null) {
-            throw new \PHPStan\Broker\ConstantNotFoundException((string) $nameNode);
+            throw new \RectorPrefix20201227\PHPStan\Broker\ConstantNotFoundException((string) $nameNode);
         }
-        return new \PHPStan\Reflection\Constant\RuntimeConstantReflection($constantName, \PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\constant($constantName)), null);
+        return new \RectorPrefix20201227\PHPStan\Reflection\Constant\RuntimeConstantReflection($constantName, \PHPStan\Type\ConstantTypeHelper::getTypeFromValue(\constant($constantName)), null);
     }
-    public function resolveConstantName(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : ?string
+    public function resolveConstantName(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?string
     {
         return $this->resolveName($nameNode, static function (string $name) : bool {
             return \defined($name);
@@ -255,7 +255,7 @@ class RuntimeReflectionProvider implements \PHPStan\Reflection\ReflectionProvide
      * @param Scope|null $scope
      * @return string|null
      */
-    private function resolveName(\PhpParser\Node\Name $nameNode, \Closure $existsCallback, ?\PHPStan\Analyser\Scope $scope) : ?string
+    private function resolveName(\PhpParser\Node\Name $nameNode, \Closure $existsCallback, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?string
     {
         $name = (string) $nameNode;
         if ($scope !== null && $scope->getNamespace() !== null && !$nameNode->isFullyQualified()) {

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Php;
+namespace RectorPrefix20201227\PHPStan\Reflection\Php;
 
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
-class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflection
+class UniversalObjectCrateProperty implements \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -14,13 +14,13 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
     private $readableType;
     /** @var \PHPStan\Type\Type */
     private $writableType;
-    public function __construct(\PHPStan\Reflection\ClassReflection $declaringClass, \PHPStan\Type\Type $readableType, \PHPStan\Type\Type $writableType)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $declaringClass, \PHPStan\Type\Type $readableType, \PHPStan\Type\Type $writableType)
     {
         $this->declaringClass = $declaringClass;
         $this->readableType = $readableType;
         $this->writableType = $writableType;
     }
-    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
@@ -56,17 +56,17 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
     {
         return \true;
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \PHPStan\TrinaryLogic
+    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function getDocComment() : ?string
     {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\DependencyInjection\Type;
+namespace RectorPrefix20201227\PHPStan\DependencyInjection\Type;
 
 use PHPStan\Type\DynamicReturnTypeExtensionRegistry;
 interface DynamicReturnTypeExtensionRegistryProvider

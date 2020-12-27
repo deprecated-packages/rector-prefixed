@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Analyser;
+namespace RectorPrefix20201227\PHPStan\Analyser;
 
 class TypeSpecifierContext
 {
@@ -47,7 +47,7 @@ class TypeSpecifierContext
     public function negate() : self
     {
         if ($this->value === null) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         return self::create(~$this->value);
     }

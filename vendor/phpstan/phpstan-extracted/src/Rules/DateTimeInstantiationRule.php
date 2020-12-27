@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules;
+namespace RectorPrefix20201227\PHPStan\Rules;
 
 use DateTime;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\Constant\ConstantStringType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\New_>
  */
-class DateTimeInstantiationRule implements \PHPStan\Rules\Rule
+class DateTimeInstantiationRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
@@ -20,7 +20,7 @@ class DateTimeInstantiationRule implements \PHPStan\Rules\Rule
     /**
      * @param New_ $node
      */
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->class instanceof \PhpParser\Node\Name || \count($node->args) === 0 || !\in_array(\strtolower((string) $node->class), ['datetime', 'datetimeimmutable'], \true)) {
             return [];
@@ -39,7 +39,7 @@ class DateTimeInstantiationRule implements \PHPStan\Rules\Rule
         $lastErrors = \DateTime::getLastErrors();
         if ($lastErrors !== \false) {
             foreach ($lastErrors['errors'] as $error) {
-                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instantiating %s with %s produces an error: %s', (string) $node->class, $dateString, $error))->build();
+                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Instantiating %s with %s produces an error: %s', (string) $node->class, $dateString, $error))->build();
             }
         }
         return $errors;

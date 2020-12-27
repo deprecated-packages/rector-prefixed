@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Arrays;
+namespace RectorPrefix20201227\PHPStan\Rules\Arrays;
 
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Generic;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\CompoundTypeHelper;
 use PHPStan\Type\Type;
@@ -12,7 +12,7 @@ use PHPStan\Type\Type;
  */
 class TemplateTypeParameterStrategy implements \PHPStan\Type\Generic\TemplateTypeStrategy
 {
-    public function accepts(\PHPStan\Type\Generic\TemplateType $left, \PHPStan\Type\Type $right, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Generic\TemplateType $left, \PHPStan\Type\Type $right, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($right instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($right, $left, $strictTypes);

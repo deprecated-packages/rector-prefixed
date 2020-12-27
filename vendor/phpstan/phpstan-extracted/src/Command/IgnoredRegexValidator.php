@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Command;
+namespace RectorPrefix20201227\PHPStan\Command;
 
-use Hoa\Compiler\Llk\Parser;
-use Hoa\Compiler\Llk\TreeNode;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
-use PHPStan\PhpDoc\TypeStringResolver;
+use RectorPrefix20201227\Hoa\Compiler\Llk\Parser;
+use RectorPrefix20201227\Hoa\Compiler\Llk\TreeNode;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
+use RectorPrefix20201227\PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\VerbosityLevel;
 use function substr;
@@ -16,33 +16,33 @@ class IgnoredRegexValidator
     private $parser;
     /** @var \PHPStan\PhpDoc\TypeStringResolver */
     private $typeStringResolver;
-    public function __construct(\Hoa\Compiler\Llk\Parser $parser, \PHPStan\PhpDoc\TypeStringResolver $typeStringResolver)
+    public function __construct(\RectorPrefix20201227\Hoa\Compiler\Llk\Parser $parser, \RectorPrefix20201227\PHPStan\PhpDoc\TypeStringResolver $typeStringResolver)
     {
         $this->parser = $parser;
         $this->typeStringResolver = $typeStringResolver;
     }
-    public function validate(string $regex) : \PHPStan\Command\IgnoredRegexValidatorResult
+    public function validate(string $regex) : \RectorPrefix20201227\PHPStan\Command\IgnoredRegexValidatorResult
     {
         $regex = $this->removeDelimiters($regex);
         try {
             /** @var TreeNode $ast */
             $ast = $this->parser->parse($regex);
-        } catch (\Hoa\Exception\Exception $e) {
+        } catch (\RectorPrefix20201227\Hoa\Exception\Exception $e) {
             if (\strpos($e->getMessage(), 'Unexpected token "|" (alternation) at line 1') === 0) {
-                return new \PHPStan\Command\IgnoredRegexValidatorResult([], \false, \true, '||', '\\|\\|');
+                return new \RectorPrefix20201227\PHPStan\Command\IgnoredRegexValidatorResult([], \false, \true, '||', '\\|\\|');
             }
             if (\strpos($regex, '()') !== \false && \strpos($e->getMessage(), 'Unexpected token ")" (_capturing) at line 1') === 0) {
-                return new \PHPStan\Command\IgnoredRegexValidatorResult([], \false, \true, '()', '\\(\\)');
+                return new \RectorPrefix20201227\PHPStan\Command\IgnoredRegexValidatorResult([], \false, \true, '()', '\\(\\)');
             }
-            return new \PHPStan\Command\IgnoredRegexValidatorResult([], \false, \false);
+            return new \RectorPrefix20201227\PHPStan\Command\IgnoredRegexValidatorResult([], \false, \false);
         }
-        return new \PHPStan\Command\IgnoredRegexValidatorResult($this->getIgnoredTypes($ast), $this->hasAnchorsInTheMiddle($ast), \false);
+        return new \RectorPrefix20201227\PHPStan\Command\IgnoredRegexValidatorResult($this->getIgnoredTypes($ast), $this->hasAnchorsInTheMiddle($ast), \false);
     }
     /**
      * @param TreeNode $ast
      * @return array<string, string>
      */
-    private function getIgnoredTypes(\Hoa\Compiler\Llk\TreeNode $ast) : array
+    private function getIgnoredTypes(\RectorPrefix20201227\Hoa\Compiler\Llk\TreeNode $ast) : array
     {
         /** @var TreeNode|null $alternation */
         $alternation = $ast->getChild(0);
@@ -58,13 +58,13 @@ class IgnoredRegexValidator
             if ($text === null) {
                 continue;
             }
-            $matches = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
+            $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
             if ($matches === null) {
                 continue;
             }
             try {
                 $type = $this->typeStringResolver->resolve($matches[1], null);
-            } catch (\PHPStan\PhpDocParser\Parser\ParserException $e) {
+            } catch (\RectorPrefix20201227\PHPStan\PhpDocParser\Parser\ParserException $e) {
                 continue;
             }
             if ($type->describe(\PHPStan\Type\VerbosityLevel::typeOnly()) !== $matches[1]) {
@@ -82,11 +82,11 @@ class IgnoredRegexValidator
         $delimiter = \substr($regex, 0, 1);
         $endDelimiterPosition = \strrpos($regex, $delimiter);
         if ($endDelimiterPosition === \false) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         return \substr($regex, 1, $endDelimiterPosition - 1);
     }
-    private function getText(\Hoa\Compiler\Llk\TreeNode $treeNode) : ?string
+    private function getText(\RectorPrefix20201227\Hoa\Compiler\Llk\TreeNode $treeNode) : ?string
     {
         if ($treeNode->getId() === 'token') {
             return $treeNode->getValueValue();
@@ -107,7 +107,7 @@ class IgnoredRegexValidator
         }
         return null;
     }
-    private function hasAnchorsInTheMiddle(\Hoa\Compiler\Llk\TreeNode $ast) : bool
+    private function hasAnchorsInTheMiddle(\RectorPrefix20201227\Hoa\Compiler\Llk\TreeNode $ast) : bool
     {
         if ($ast->getId() === 'token') {
             $valueArray = $ast->getValue();

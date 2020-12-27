@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Dependency\ExportedNode;
+namespace RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use PHPStan\Dependency\ExportedNode;
-class ExportedMethodNode implements \PHPStan\Dependency\ExportedNode, \JsonSerializable
+use RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
+class ExportedMethodNode implements \RectorPrefix20201227\PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $name;
@@ -39,7 +39,7 @@ class ExportedMethodNode implements \PHPStan\Dependency\ExportedNode, \JsonSeria
      * @param string|null $returnType
      * @param ExportedParameterNode[] $parameters
      */
-    public function __construct(string $name, ?\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, bool $byRef, bool $public, bool $private, bool $abstract, bool $final, bool $static, ?string $returnType, array $parameters)
+    public function __construct(string $name, ?\RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode $phpDoc, bool $byRef, bool $public, bool $private, bool $abstract, bool $final, bool $static, ?string $returnType, array $parameters)
     {
         $this->name = $name;
         $this->phpDoc = $phpDoc;
@@ -52,7 +52,7 @@ class ExportedMethodNode implements \PHPStan\Dependency\ExportedNode, \JsonSeria
         $this->returnType = $returnType;
         $this->parameters = $parameters;
     }
-    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\RectorPrefix20201227\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -83,7 +83,7 @@ class ExportedMethodNode implements \PHPStan\Dependency\ExportedNode, \JsonSeria
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
     {
         return new self($properties['name'], $properties['phpDoc'], $properties['byRef'], $properties['public'], $properties['private'], $properties['abstract'], $properties['final'], $properties['static'], $properties['returnType'], $properties['parameters']);
     }
@@ -98,13 +98,13 @@ class ExportedMethodNode implements \PHPStan\Dependency\ExportedNode, \JsonSeria
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
     {
-        return new self($data['name'], $data['phpDoc'] !== null ? \PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['byRef'], $data['public'], $data['private'], $data['abstract'], $data['final'], $data['static'], $data['returnType'], \array_map(static function (array $parameterData) : ExportedParameterNode {
-            if ($parameterData['type'] !== \PHPStan\Dependency\ExportedNode\ExportedParameterNode::class) {
-                throw new \PHPStan\ShouldNotHappenException();
+        return new self($data['name'], $data['phpDoc'] !== null ? \RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedPhpDocNode::decode($data['phpDoc']['data']) : null, $data['byRef'], $data['public'], $data['private'], $data['abstract'], $data['final'], $data['static'], $data['returnType'], \array_map(static function (array $parameterData) : ExportedParameterNode {
+            if ($parameterData['type'] !== \RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedParameterNode::class) {
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
-            return \PHPStan\Dependency\ExportedNode\ExportedParameterNode::decode($parameterData['data']);
+            return \RectorPrefix20201227\PHPStan\Dependency\ExportedNode\ExportedParameterNode::decode($parameterData['data']);
         }, $data['parameters']));
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Command;
+namespace RectorPrefix20201227\PHPStan\Command;
 
-use PHPStan\Analyser\AnalyserResult;
-use PHPStan\Analyser\IgnoredErrorHelper;
-use PHPStan\Analyser\ResultCache\ResultCacheManagerFactory;
-use PHPStan\Internal\BytesHelper;
-use PHPStan\PhpDoc\StubValidator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201227\PHPStan\Analyser\AnalyserResult;
+use RectorPrefix20201227\PHPStan\Analyser\IgnoredErrorHelper;
+use RectorPrefix20201227\PHPStan\Analyser\ResultCache\ResultCacheManagerFactory;
+use RectorPrefix20201227\PHPStan\Internal\BytesHelper;
+use RectorPrefix20201227\PHPStan\PhpDoc\StubValidator;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
 class AnalyseApplication
 {
     /** @var AnalyserRunner */
@@ -23,7 +23,7 @@ class AnalyseApplication
     private $memoryLimitFile;
     /** @var int */
     private $internalErrorsCountLimit;
-    public function __construct(\PHPStan\Command\AnalyserRunner $analyserRunner, \PHPStan\PhpDoc\StubValidator $stubValidator, \PHPStan\Analyser\ResultCache\ResultCacheManagerFactory $resultCacheManagerFactory, \PHPStan\Analyser\IgnoredErrorHelper $ignoredErrorHelper, string $memoryLimitFile, int $internalErrorsCountLimit)
+    public function __construct(\RectorPrefix20201227\PHPStan\Command\AnalyserRunner $analyserRunner, \RectorPrefix20201227\PHPStan\PhpDoc\StubValidator $stubValidator, \RectorPrefix20201227\PHPStan\Analyser\ResultCache\ResultCacheManagerFactory $resultCacheManagerFactory, \RectorPrefix20201227\PHPStan\Analyser\IgnoredErrorHelper $ignoredErrorHelper, string $memoryLimitFile, int $internalErrorsCountLimit)
     {
         $this->analyserRunner = $analyserRunner;
         $this->stubValidator = $stubValidator;
@@ -43,7 +43,7 @@ class AnalyseApplication
      * @param mixed[]|null $projectConfigArray
      * @return AnalysisResult
      */
-    public function analyse(array $files, bool $onlyFiles, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, ?string $projectConfigFile, ?array $projectConfigArray, \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Command\AnalysisResult
+    public function analyse(array $files, bool $onlyFiles, \RectorPrefix20201227\PHPStan\Command\Output $stdOutput, \RectorPrefix20201227\PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, ?string $projectConfigFile, ?array $projectConfigArray, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Command\AnalysisResult
     {
         $this->updateMemoryLimitFile();
         $projectStubFiles = [];
@@ -98,13 +98,13 @@ class AnalyseApplication
             }
             $fileSpecificErrors[] = $error;
         }
-        return new \PHPStan\Command\AnalysisResult($fileSpecificErrors, $notFileSpecificErrors, $internalErrors, $warnings, $defaultLevelUsed, $projectConfigFile, $savedResultCache);
+        return new \RectorPrefix20201227\PHPStan\Command\AnalysisResult($fileSpecificErrors, $notFileSpecificErrors, $internalErrors, $warnings, $defaultLevelUsed, $projectConfigFile, $savedResultCache);
     }
     /**
      * @param string[] $files
      * @param string[] $allAnalysedFiles
      */
-    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, ?string $projectConfigFile, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
+    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, ?string $projectConfigFile, \RectorPrefix20201227\PHPStan\Command\Output $stdOutput, \RectorPrefix20201227\PHPStan\Command\Output $errorOutput, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult
     {
         $filesCount = \count($files);
         $allAnalysedFilesCount = \count($allAnalysedFiles);
@@ -112,7 +112,7 @@ class AnalyseApplication
             $errorOutput->getStyle()->progressStart($allAnalysedFilesCount);
             $errorOutput->getStyle()->progressAdvance($allAnalysedFilesCount);
             $errorOutput->getStyle()->progressFinish();
-            return new \PHPStan\Analyser\AnalyserResult([], [], [], [], \false);
+            return new \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult([], [], [], [], \false);
         }
         if (!$debug) {
             $progressStarted = \false;
@@ -140,7 +140,7 @@ class AnalyseApplication
                 $previousMemory = \memory_get_peak_usage(\true);
                 $postFileCallback = static function () use($stdOutput, &$previousMemory) : void {
                     $currentTotalMemory = \memory_get_peak_usage(\true);
-                    $stdOutput->writeLineFormatted(\sprintf('--- consumed %s, total %s', \PHPStan\Internal\BytesHelper::bytes($currentTotalMemory - $previousMemory), \PHPStan\Internal\BytesHelper::bytes($currentTotalMemory)));
+                    $stdOutput->writeLineFormatted(\sprintf('--- consumed %s, total %s', \RectorPrefix20201227\PHPStan\Internal\BytesHelper::bytes($currentTotalMemory - $previousMemory), \RectorPrefix20201227\PHPStan\Internal\BytesHelper::bytes($currentTotalMemory)));
                     $previousMemory = $currentTotalMemory;
                 };
             }

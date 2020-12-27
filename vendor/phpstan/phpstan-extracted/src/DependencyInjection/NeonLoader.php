@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\DependencyInjection;
+namespace RectorPrefix20201227\PHPStan\DependencyInjection;
 
-use PHPStan\File\FileHelper;
-class NeonLoader extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config\Loader
+use RectorPrefix20201227\PHPStan\File\FileHelper;
+class NeonLoader extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config\Loader
 {
     /** @var FileHelper */
     private $fileHelper;
     /** @var string|null */
     private $generateBaselineFile;
-    public function __construct(\PHPStan\File\FileHelper $fileHelper, ?string $generateBaselineFile)
+    public function __construct(\RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, ?string $generateBaselineFile)
     {
         $this->fileHelper = $fileHelper;
         $this->generateBaselineFile = $generateBaselineFile;

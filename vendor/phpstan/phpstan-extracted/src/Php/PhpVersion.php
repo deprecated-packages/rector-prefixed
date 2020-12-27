@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Php;
+namespace RectorPrefix20201227\PHPStan\Php;
 
 class PhpVersion
 {

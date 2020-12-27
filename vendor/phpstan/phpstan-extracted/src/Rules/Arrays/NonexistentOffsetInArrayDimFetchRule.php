@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Arrays;
+namespace RectorPrefix20201227\PHPStan\Rules\Arrays;
 
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Rules\RuleLevelHelper;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
@@ -14,13 +14,13 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\ArrayDimFetch>
  */
-class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
+class NonexistentOffsetInArrayDimFetchRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var RuleLevelHelper */
     private $ruleLevelHelper;
     /** @var bool */
     private $reportMaybes;
-    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, bool $reportMaybes)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, bool $reportMaybes)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
         $this->reportMaybes = $reportMaybes;
@@ -29,7 +29,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\ArrayDimFetch::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if ($node->dim !== null) {
             $dimType = $scope->getType($node->dim);
@@ -52,9 +52,9 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
         if (!$isOffsetAccessible->yes()) {
             if ($isOffsetAccessible->no() || $this->reportMaybes) {
                 if ($dimType !== null) {
-                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access offset %s on %s.', $dimType->describe(\PHPStan\Type\VerbosityLevel::value()), $isOffsetAccessibleType->describe(\PHPStan\Type\VerbosityLevel::value())))->build()];
+                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access offset %s on %s.', $dimType->describe(\PHPStan\Type\VerbosityLevel::value()), $isOffsetAccessibleType->describe(\PHPStan\Type\VerbosityLevel::value())))->build()];
                 }
-                return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access an offset on %s.', $isOffsetAccessibleType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+                return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access an offset on %s.', $isOffsetAccessibleType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
             }
             return [];
         }
@@ -99,7 +99,7 @@ class NonexistentOffsetInArrayDimFetchRule implements \PHPStan\Rules\Rule
             }
         }
         if ($report) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Offset %s does not exist on %s.', $dimType->describe(\PHPStan\Type\VerbosityLevel::value()), $type->describe(\PHPStan\Type\VerbosityLevel::value())))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Offset %s does not exist on %s.', $dimType->describe(\PHPStan\Type\VerbosityLevel::value()), $type->describe(\PHPStan\Type\VerbosityLevel::value())))->build()];
         }
         return [];
     }

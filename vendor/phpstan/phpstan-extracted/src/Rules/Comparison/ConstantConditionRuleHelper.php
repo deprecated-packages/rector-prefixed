@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Comparison;
+namespace RectorPrefix20201227\PHPStan\Rules\Comparison;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\BooleanType;
 class ConstantConditionRuleHelper
 {
@@ -14,7 +14,7 @@ class ConstantConditionRuleHelper
     private $impossibleCheckTypeHelper;
     /** @var bool */
     private $treatPhpDocTypesAsCertain;
-    public function __construct(\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $treatPhpDocTypesAsCertain)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $treatPhpDocTypesAsCertain)
     {
         $this->impossibleCheckTypeHelper = $impossibleCheckTypeHelper;
         $this->treatPhpDocTypesAsCertain = $treatPhpDocTypesAsCertain;
@@ -23,7 +23,7 @@ class ConstantConditionRuleHelper
     {
         return $expr instanceof \PhpParser\Node\Expr\BooleanNot || $expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr || $expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd || $expr instanceof \PhpParser\Node\Expr\Ternary || $expr instanceof \PhpParser\Node\Expr\Isset_;
     }
-    public function shouldSkip(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : bool
+    public function shouldSkip(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : bool
     {
         if ($expr instanceof \PhpParser\Node\Expr\Instanceof_ || $expr instanceof \PhpParser\Node\Expr\BinaryOp\Identical || $expr instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical || $expr instanceof \PhpParser\Node\Expr\BooleanNot || $expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr || $expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd || $expr instanceof \PhpParser\Node\Expr\Ternary || $expr instanceof \PhpParser\Node\Expr\Isset_ || $expr instanceof \PhpParser\Node\Expr\BinaryOp\Greater || $expr instanceof \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual || $expr instanceof \PhpParser\Node\Expr\BinaryOp\Smaller || $expr instanceof \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual) {
             // already checked by different rules
@@ -37,7 +37,7 @@ class ConstantConditionRuleHelper
         }
         return \false;
     }
-    public function getBooleanType(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\BooleanType
+    public function getBooleanType(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\BooleanType
     {
         if ($this->shouldSkip($scope, $expr)) {
             return new \PHPStan\Type\BooleanType();
@@ -47,7 +47,7 @@ class ConstantConditionRuleHelper
         }
         return $scope->getNativeType($expr)->toBoolean();
     }
-    public function getNativeBooleanType(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\BooleanType
+    public function getNativeBooleanType(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\BooleanType
     {
         if ($this->shouldSkip($scope, $expr)) {
             return new \PHPStan\Type\BooleanType();

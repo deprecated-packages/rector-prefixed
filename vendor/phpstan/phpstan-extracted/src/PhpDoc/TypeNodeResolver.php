@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\PhpDoc;
+namespace RectorPrefix20201227\PHPStan\PhpDoc;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
-use PHPStan\Analyser\NameScope;
-use PHPStan\DependencyInjection\Container;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
+use RectorPrefix20201227\PHPStan\Analyser\NameScope;
+use RectorPrefix20201227\PHPStan\DependencyInjection\Container;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode;
@@ -26,9 +26,9 @@ use PHPStan\PhpDocParser\Ast\Type\NullableTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\ThisTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
-use PHPStan\Reflection\Native\NativeParameterReflection;
-use PHPStan\Reflection\PassedByReference;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection;
+use RectorPrefix20201227\PHPStan\Reflection\PassedByReference;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Accessory\AccessoryNumericStringType;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
@@ -71,12 +71,12 @@ class TypeNodeResolver
     private $extensionRegistryProvider;
     /** @var Container */
     private $container;
-    public function __construct(\PHPStan\PhpDoc\TypeNodeResolverExtensionRegistryProvider $extensionRegistryProvider, \PHPStan\DependencyInjection\Container $container)
+    public function __construct(\RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolverExtensionRegistryProvider $extensionRegistryProvider, \RectorPrefix20201227\PHPStan\DependencyInjection\Container $container)
     {
         $this->extensionRegistryProvider = $extensionRegistryProvider;
         $this->container = $container;
     }
-    public function resolve(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    public function resolve(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         foreach ($this->extensionRegistryProvider->getRegistry()->getExtensions() as $extension) {
             $type = $extension->resolve($typeNode, $nameScope);
@@ -107,7 +107,7 @@ class TypeNodeResolver
         }
         return new \PHPStan\Type\ErrorType();
     }
-    private function resolveIdentifierTypeNode(\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveIdentifierTypeNode(\PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         switch (\strtolower($typeNode->name)) {
             case 'int':
@@ -198,7 +198,7 @@ class TypeNodeResolver
         }
         return new \PHPStan\Type\ObjectType($stringName);
     }
-    private function resolveThisTypeNode(\PHPStan\PhpDocParser\Ast\Type\ThisTypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveThisTypeNode(\PHPStan\PhpDocParser\Ast\Type\ThisTypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $className = $nameScope->getClassName();
         if ($className !== null) {
@@ -208,11 +208,11 @@ class TypeNodeResolver
         }
         return new \PHPStan\Type\ErrorType();
     }
-    private function resolveNullableTypeNode(\PHPStan\PhpDocParser\Ast\Type\NullableTypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveNullableTypeNode(\PHPStan\PhpDocParser\Ast\Type\NullableTypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         return \PHPStan\Type\TypeCombinator::addNull($this->resolve($typeNode->type, $nameScope));
     }
-    private function resolveUnionTypeNode(\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveUnionTypeNode(\PHPStan\PhpDocParser\Ast\Type\UnionTypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $iterableTypeNodes = [];
         $otherTypeNodes = [];
@@ -249,17 +249,17 @@ class TypeNodeResolver
         }
         return \PHPStan\Type\TypeCombinator::union(...$otherTypeTypes);
     }
-    private function resolveIntersectionTypeNode(\PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveIntersectionTypeNode(\PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $types = $this->resolveMultiple($typeNode->types, $nameScope);
         return \PHPStan\Type\TypeCombinator::intersect(...$types);
     }
-    private function resolveArrayTypeNode(\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveArrayTypeNode(\PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $itemType = $this->resolve($typeNode->type, $nameScope);
         return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $itemType);
     }
-    private function resolveGenericTypeNode(\PHPStan\PhpDocParser\Ast\Type\GenericTypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveGenericTypeNode(\PHPStan\PhpDocParser\Ast\Type\GenericTypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $mainTypeName = \strtolower($typeNode->type->name);
         $genericTypes = $this->resolveMultiple($typeNode->genericTypes, $nameScope);
@@ -353,7 +353,7 @@ class TypeNodeResolver
         }
         return new \PHPStan\Type\ErrorType();
     }
-    private function resolveCallableTypeNode(\PHPStan\PhpDocParser\Ast\Type\CallableTypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveCallableTypeNode(\PHPStan\PhpDocParser\Ast\Type\CallableTypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $mainType = $this->resolve($typeNode->identifier, $nameScope);
         $isVariadic = \false;
@@ -363,7 +363,7 @@ class TypeNodeResolver
             if (\strpos($parameterName, '$') === 0) {
                 $parameterName = \substr($parameterName, 1);
             }
-            return new \PHPStan\Reflection\Native\NativeParameterReflection($parameterName, $parameterNode->isOptional || $parameterNode->isVariadic, $this->resolve($parameterNode->type, $nameScope), $parameterNode->isReference ? \PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \PHPStan\Reflection\PassedByReference::createNo(), $parameterNode->isVariadic, null);
+            return new \RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection($parameterName, $parameterNode->isOptional || $parameterNode->isVariadic, $this->resolve($parameterNode->type, $nameScope), $parameterNode->isReference ? \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createNo(), $parameterNode->isVariadic, null);
         }, $typeNode->parameters);
         $returnType = $this->resolve($typeNode->returnType, $nameScope);
         if ($mainType instanceof \PHPStan\Type\CallableType) {
@@ -373,7 +373,7 @@ class TypeNodeResolver
         }
         return new \PHPStan\Type\ErrorType();
     }
-    private function resolveArrayShapeNode(\PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveArrayShapeNode(\PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $builder = \PHPStan\Type\Constant\ConstantArrayTypeBuilder::createEmpty();
         foreach ($typeNode->items as $itemNode) {
@@ -385,26 +385,26 @@ class TypeNodeResolver
             } elseif ($itemNode->keyName instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprStringNode) {
                 $offsetType = new \PHPStan\Type\Constant\ConstantStringType($itemNode->keyName->value);
             } elseif ($itemNode->keyName !== null) {
-                throw new \PHPStan\ShouldNotHappenException('Unsupported key node type: ' . \get_class($itemNode->keyName));
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException('Unsupported key node type: ' . \get_class($itemNode->keyName));
             }
             $builder->setOffsetValueType($offsetType, $this->resolve($itemNode->valueType, $nameScope), $itemNode->optional);
         }
         return $builder->getArray();
     }
-    private function resolveConstTypeNode(\PHPStan\PhpDocParser\Ast\Type\ConstTypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    private function resolveConstTypeNode(\PHPStan\PhpDocParser\Ast\Type\ConstTypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $constExpr = $typeNode->constExpr;
         if ($constExpr instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             // we prefer array shapes
         }
         if ($constExpr instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFalseNode || $constExpr instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode || $constExpr instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             // we prefer IdentifierTypeNode
         }
         if ($constExpr instanceof \PHPStan\PhpDocParser\Ast\ConstExpr\ConstFetchNode) {
             if ($constExpr->className === '') {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 // global constant should get parsed as class name in IdentifierTypeNode
             }
             if ($nameScope->getClassName() !== null) {
@@ -431,11 +431,11 @@ class TypeNodeResolver
             }
             $classReflection = $this->getReflectionProvider()->getClass($className);
             $constantName = $constExpr->name;
-            if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith($constantName, '*')) {
-                $constantNameStartsWith = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::substring($constantName, 0, \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::length($constantName) - 1);
+            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith($constantName, '*')) {
+                $constantNameStartsWith = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::substring($constantName, 0, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::length($constantName) - 1);
                 $constantTypes = [];
                 foreach ($classReflection->getNativeReflection()->getConstants() as $classConstantName => $constantValue) {
-                    if (!\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
+                    if (!\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
                         continue;
                     }
                     $constantTypes[] = \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($constantValue);
@@ -466,7 +466,7 @@ class TypeNodeResolver
      * @param NameScope $nameScope
      * @return Type[]
      */
-    public function resolveMultiple(array $typeNodes, \PHPStan\Analyser\NameScope $nameScope) : array
+    public function resolveMultiple(array $typeNodes, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : array
     {
         $types = [];
         foreach ($typeNodes as $typeNode) {
@@ -474,8 +474,8 @@ class TypeNodeResolver
         }
         return $types;
     }
-    private function getReflectionProvider() : \PHPStan\Reflection\ReflectionProvider
+    private function getReflectionProvider() : \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider
     {
-        return $this->container->getByType(\PHPStan\Reflection\ReflectionProvider::class);
+        return $this->container->getByType(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider::class);
     }
 }

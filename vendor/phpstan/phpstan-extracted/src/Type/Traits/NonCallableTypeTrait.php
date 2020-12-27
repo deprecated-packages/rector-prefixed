@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Traits;
 
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 trait NonCallableTypeTrait
 {
-    public function isCallable() : \PHPStan\TrinaryLogic
+    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
-        throw new \PHPStan\ShouldNotHappenException();
+        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
     }
 }

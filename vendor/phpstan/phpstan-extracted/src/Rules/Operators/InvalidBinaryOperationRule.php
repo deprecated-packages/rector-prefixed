@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Operators;
+namespace RectorPrefix20201227\PHPStan\Rules\Operators;
 
 use PhpParser\Node;
-use PHPStan\Analyser\MutatingScope;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Rules\RuleLevelHelper;
+use RectorPrefix20201227\PHPStan\Analyser\MutatingScope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr>
  */
-class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
+class InvalidBinaryOperationRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PhpParser\PrettyPrinter\Standard */
     private $printer;
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\PhpParser\PrettyPrinter\Standard $printer, \PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\PhpParser\PrettyPrinter\Standard $printer, \RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->printer = $printer;
         $this->ruleLevelHelper = $ruleLevelHelper;
@@ -29,7 +29,7 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\BinaryOp && !$node instanceof \PhpParser\Node\Expr\AssignOp) {
             return [];
@@ -69,14 +69,14 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
             if ($rightType instanceof \PHPStan\Type\ErrorType) {
                 return [];
             }
-            if (!$scope instanceof \PHPStan\Analyser\MutatingScope) {
-                throw new \PHPStan\ShouldNotHappenException();
+            if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\MutatingScope) {
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             $scope = $scope->assignVariable($leftName, $leftType)->assignVariable($rightName, $rightType);
             if (!$scope->getType($newNode) instanceof \PHPStan\Type\ErrorType) {
                 return [];
             }
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Binary operation "%s" between %s and %s results in an error.', \substr(\substr($this->printer->prettyPrintExpr($newNode), \strlen($leftName) + 2), 0, -(\strlen($rightName) + 2)), $scope->getType($left)->describe(\PHPStan\Type\VerbosityLevel::value()), $scope->getType($right)->describe(\PHPStan\Type\VerbosityLevel::value())))->line($left->getLine())->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Binary operation "%s" between %s and %s results in an error.', \substr(\substr($this->printer->prettyPrintExpr($newNode), \strlen($leftName) + 2), 0, -(\strlen($rightName) + 2)), $scope->getType($left)->describe(\PHPStan\Type\VerbosityLevel::value()), $scope->getType($right)->describe(\PHPStan\Type\VerbosityLevel::value())))->line($left->getLine())->build()];
         }
         return [];
     }

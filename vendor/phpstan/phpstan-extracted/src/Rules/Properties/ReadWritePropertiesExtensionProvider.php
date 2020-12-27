@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Properties;
+namespace RectorPrefix20201227\PHPStan\Rules\Properties;
 
 interface ReadWritePropertiesExtensionProvider
 {

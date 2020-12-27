@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Classes;
+namespace RectorPrefix20201227\PHPStan\Rules\Classes;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Instanceof_;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\ClassCaseSensitivityCheck;
-use PHPStan\Rules\ClassNameNodePair;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck;
+use RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\Instanceof_>
  */
-class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
+class ExistingClassInInstanceOfRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -21,7 +21,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
     private $classCaseSensitivityCheck;
     /** @var bool */
     private $checkClassCaseSensitivity;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, bool $checkClassCaseSensitivity)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, bool $checkClassCaseSensitivity)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
@@ -31,7 +31,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\Instanceof_::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $class = $node->class;
         if (!$class instanceof \PhpParser\Node\Name) {
@@ -41,7 +41,7 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
         $lowercaseName = \strtolower($name);
         if (\in_array($lowercaseName, ['self', 'static', 'parent'], \true)) {
             if (!$scope->isInClass()) {
-                return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using %s outside of class scope.', $lowercaseName))->line($class->getLine())->build()];
+                return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using %s outside of class scope.', $lowercaseName))->line($class->getLine())->build()];
             }
             return [];
         }
@@ -49,9 +49,9 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
             if ($scope->isInClassExists($name)) {
                 return [];
             }
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Class %s not found.', $name))->line($class->getLine())->discoveringSymbolsTip()->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Class %s not found.', $name))->line($class->getLine())->discoveringSymbolsTip()->build()];
         } elseif ($this->checkClassCaseSensitivity) {
-            return $this->classCaseSensitivityCheck->checkClassNames([new \PHPStan\Rules\ClassNameNodePair($name, $class)]);
+            return $this->classCaseSensitivityCheck->checkClassNames([new \RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair($name, $class)]);
         }
         return [];
     }

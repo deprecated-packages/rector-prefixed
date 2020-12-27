@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Command\ErrorFormatter;
+namespace RectorPrefix20201227\PHPStan\Command\ErrorFormatter;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon;
-use PHPStan\Command\AnalysisResult;
-use PHPStan\Command\Output;
-use PHPStan\File\RelativePathHelper;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon;
+use RectorPrefix20201227\PHPStan\Command\AnalysisResult;
+use RectorPrefix20201227\PHPStan\Command\Output;
+use RectorPrefix20201227\PHPStan\File\RelativePathHelper;
 use function preg_quote;
-class BaselineNeonErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
+class BaselineNeonErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var \PHPStan\File\RelativePathHelper */
     private $relativePathHelper;
-    public function __construct(\PHPStan\File\RelativePathHelper $relativePathHelper)
+    public function __construct(\RectorPrefix20201227\PHPStan\File\RelativePathHelper $relativePathHelper)
     {
         $this->relativePathHelper = $relativePathHelper;
     }
-    public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
+    public function formatErrors(\RectorPrefix20201227\PHPStan\Command\AnalysisResult $analysisResult, \RectorPrefix20201227\PHPStan\Command\Output $output) : int
     {
         if (!$analysisResult->hasErrors()) {
-            $output->writeRaw(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::BLOCK));
+            $output->writeRaw(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::BLOCK));
             return 0;
         }
         $fileErrors = [];
@@ -41,10 +41,10 @@ class BaselineNeonErrorFormatter implements \PHPStan\Command\ErrorFormatter\Erro
                 $fileErrorsCounts[$errorMessage]++;
             }
             foreach ($fileErrorsCounts as $message => $count) {
-                $errorsToOutput[] = ['message' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
+                $errorsToOutput[] = ['message' => \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
             }
         }
-        $output->writeRaw(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::BLOCK));
+        $output->writeRaw(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::BLOCK));
         return 1;
     }
 }

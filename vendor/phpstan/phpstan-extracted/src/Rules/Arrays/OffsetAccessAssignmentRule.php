@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Arrays;
+namespace RectorPrefix20201227\PHPStan\Rules\Arrays;
 
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Rules\RuleLevelHelper;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -13,11 +13,11 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\ArrayDimFetch>
  */
-class OffsetAccessAssignmentRule implements \PHPStan\Rules\Rule
+class OffsetAccessAssignmentRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
     }
@@ -25,7 +25,7 @@ class OffsetAccessAssignmentRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\ArrayDimFetch::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$scope->isInExpressionAssign($node)) {
             return [];
@@ -59,8 +59,8 @@ class OffsetAccessAssignmentRule implements \PHPStan\Rules\Rule
             return [];
         }
         if ($dimType === null) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot assign new offset to %s.', $varType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot assign new offset to %s.', $varType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
         }
-        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot assign offset %s to %s.', $dimType->describe(\PHPStan\Type\VerbosityLevel::value()), $varType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot assign offset %s to %s.', $dimType->describe(\PHPStan\Type\VerbosityLevel::value()), $varType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
     }
 }

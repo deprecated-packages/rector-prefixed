@@ -3,54 +3,54 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Traits;
 
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\ConstantReflection;
-use PHPStan\Reflection\Dummy\DummyConstantReflection;
-use PHPStan\Reflection\Dummy\DummyMethodReflection;
-use PHPStan\Reflection\Dummy\DummyPropertyReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\PropertyReflection;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\Reflection\ConstantReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyConstantReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyMethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyPropertyReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 trait MaybeObjectTypeTrait
 {
-    public function canAccessProperties() : \PHPStan\TrinaryLogic
+    public function canAccessProperties() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function hasProperty(string $propertyName) : \PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
     {
-        return new \PHPStan\Reflection\Dummy\DummyPropertyReflection();
+        return new \RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyPropertyReflection();
     }
-    public function canCallMethods() : \PHPStan\TrinaryLogic
+    public function canCallMethods() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
-        return new \PHPStan\Reflection\Dummy\DummyMethodReflection($methodName);
+        return new \RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyMethodReflection($methodName);
     }
-    public function canAccessConstants() : \PHPStan\TrinaryLogic
+    public function canAccessConstants() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function hasConstant(string $constantName) : \PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getConstant(string $constantName) : \PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \RectorPrefix20201227\PHPStan\Reflection\ConstantReflection
     {
-        return new \PHPStan\Reflection\Dummy\DummyConstantReflection($constantName);
+        return new \RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyConstantReflection($constantName);
     }
-    public function isCloneable() : \PHPStan\TrinaryLogic
+    public function isCloneable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
 }

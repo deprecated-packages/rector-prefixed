@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Node;
+namespace RectorPrefix20201227\PHPStan\Node;
 
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\NodeAbstract;
-use PHPStan\Analyser\StatementResult;
-class FunctionReturnStatementsNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\ReturnStatementsNode
+use RectorPrefix20201227\PHPStan\Analyser\StatementResult;
+class FunctionReturnStatementsNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\ReturnStatementsNode
 {
     /** @var Function_ */
     private $function;
@@ -19,7 +19,7 @@ class FunctionReturnStatementsNode extends \PhpParser\NodeAbstract implements \P
      * @param \PHPStan\Node\ReturnStatement[] $returnStatements
      * @param \PHPStan\Analyser\StatementResult $statementResult
      */
-    public function __construct(\PhpParser\Node\Stmt\Function_ $function, array $returnStatements, \PHPStan\Analyser\StatementResult $statementResult)
+    public function __construct(\PhpParser\Node\Stmt\Function_ $function, array $returnStatements, \RectorPrefix20201227\PHPStan\Analyser\StatementResult $statementResult)
     {
         parent::__construct($function->getAttributes());
         $this->function = $function;
@@ -33,7 +33,7 @@ class FunctionReturnStatementsNode extends \PhpParser\NodeAbstract implements \P
     {
         return $this->returnStatements;
     }
-    public function getStatementResult() : \PHPStan\Analyser\StatementResult
+    public function getStatementResult() : \RectorPrefix20201227\PHPStan\Analyser\StatementResult
     {
         return $this->statementResult;
     }

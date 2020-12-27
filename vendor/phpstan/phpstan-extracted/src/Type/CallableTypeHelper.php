@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use PHPStan\Reflection\ParametersAcceptor;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 class CallableTypeHelper
 {
-    public static function isParametersAcceptorSuperTypeOf(\PHPStan\Reflection\ParametersAcceptor $ours, \PHPStan\Reflection\ParametersAcceptor $theirs, bool $treatMixedAsAny) : \PHPStan\TrinaryLogic
+    public static function isParametersAcceptorSuperTypeOf(\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $ours, \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $theirs, bool $treatMixedAsAny) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $theirParameters = $theirs->getParameters();
         $ourParameters = $ours->getParameters();
@@ -17,7 +17,7 @@ class CallableTypeHelper
                 if ($theirParameter->isOptional()) {
                     continue;
                 }
-                return \PHPStan\TrinaryLogic::createNo();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
             }
             $ourParameter = $ourParameters[$i];
             $ourParameterType = $ourParameter->getType();

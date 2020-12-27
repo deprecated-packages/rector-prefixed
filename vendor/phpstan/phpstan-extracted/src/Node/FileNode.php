@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Node;
+namespace RectorPrefix20201227\PHPStan\Node;
 
 use PhpParser\NodeAbstract;
-class FileNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
+class FileNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
 {
     /** @var \PhpParser\Node[] */
     private $nodes;

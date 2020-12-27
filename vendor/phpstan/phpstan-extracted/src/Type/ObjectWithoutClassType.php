@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\ObjectTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
@@ -28,37 +28,37 @@ class ObjectWithoutClassType implements \PHPStan\Type\SubtractableType
     {
         return [];
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
-        return \PHPStan\TrinaryLogic::createFromBoolean($type instanceof self || $type instanceof \PHPStan\Type\TypeWithClassName);
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($type instanceof self || $type instanceof \PHPStan\Type\TypeWithClassName);
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
         if ($type instanceof self) {
             if ($this->subtractedType === null) {
-                return \PHPStan\TrinaryLogic::createYes();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             }
             if ($type->subtractedType !== null) {
                 $isSuperType = $type->subtractedType->isSuperTypeOf($this->subtractedType);
                 if ($isSuperType->yes()) {
-                    return \PHPStan\TrinaryLogic::createYes();
+                    return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
                 }
             }
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if ($type instanceof \PHPStan\Type\TypeWithClassName) {
             if ($this->subtractedType === null) {
-                return \PHPStan\TrinaryLogic::createYes();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             }
             return $this->subtractedType->isSuperTypeOf($type)->negate();
         }
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {

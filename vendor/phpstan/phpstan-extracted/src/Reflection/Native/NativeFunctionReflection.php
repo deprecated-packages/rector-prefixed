@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Native;
+namespace RectorPrefix20201227\PHPStan\Reflection\Native;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
-class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
+class NativeFunctionReflection implements \RectorPrefix20201227\PHPStan\Reflection\FunctionReflection
 {
     /** @var string */
     private $name;
@@ -21,7 +21,7 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
      * @param \PHPStan\Type\Type|null $throwType
      * @param \PHPStan\TrinaryLogic $hasSideEffects
      */
-    public function __construct(string $name, array $variants, ?\PHPStan\Type\Type $throwType, \PHPStan\TrinaryLogic $hasSideEffects)
+    public function __construct(string $name, array $variants, ?\PHPStan\Type\Type $throwType, \RectorPrefix20201227\PHPStan\TrinaryLogic $hasSideEffects)
     {
         $this->name = $name;
         $this->variants = $variants;
@@ -47,19 +47,19 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
     {
         return null;
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function isInternal() : \PHPStan\TrinaryLogic
+    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function isFinal() : \PHPStan\TrinaryLogic
+    public function isFinal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function hasSideEffects() : \PHPStan\TrinaryLogic
+    public function hasSideEffects() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->hasSideEffects;
     }

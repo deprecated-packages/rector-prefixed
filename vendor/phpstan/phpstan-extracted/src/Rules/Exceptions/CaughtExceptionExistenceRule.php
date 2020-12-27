@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Exceptions;
+namespace RectorPrefix20201227\PHPStan\Rules\Exceptions;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Catch_;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\ClassCaseSensitivityCheck;
-use PHPStan\Rules\ClassNameNodePair;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck;
+use RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Catch_>
  */
-class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
+class CaughtExceptionExistenceRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -21,7 +21,7 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
     private $classCaseSensitivityCheck;
     /** @var bool */
     private $checkClassCaseSensitivity;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, bool $checkClassCaseSensitivity)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, bool $checkClassCaseSensitivity)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
@@ -31,7 +31,7 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Stmt\Catch_::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $errors = [];
         foreach ($node->types as $class) {
@@ -40,17 +40,17 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
                 if ($scope->isInClassExists($className)) {
                     continue;
                 }
-                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Caught class %s not found.', $className))->line($class->getLine())->discoveringSymbolsTip()->build();
+                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Caught class %s not found.', $className))->line($class->getLine())->discoveringSymbolsTip()->build();
                 continue;
             }
             $classReflection = $this->reflectionProvider->getClass($className);
             if (!$classReflection->isInterface() && !$classReflection->implementsInterface(\Throwable::class)) {
-                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName()))->line($class->getLine())->build();
+                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName()))->line($class->getLine())->build();
             }
             if (!$this->checkClassCaseSensitivity) {
                 continue;
             }
-            $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames([new \PHPStan\Rules\ClassNameNodePair($className, $class)]));
+            $errors = \array_merge($errors, $this->classCaseSensitivityCheck->checkClassNames([new \RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair($className, $class)]));
         }
         return $errors;
     }

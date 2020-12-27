@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection;
+namespace RectorPrefix20201227\PHPStan\Reflection;
 
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\Native\NativeParameterReflection;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\TypeCombinator;
@@ -16,10 +16,10 @@ class ParametersAcceptorSelector
      * @param T[] $parametersAcceptors
      * @return T
      */
-    public static function selectSingle(array $parametersAcceptors) : \PHPStan\Reflection\ParametersAcceptor
+    public static function selectSingle(array $parametersAcceptors) : \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
     {
         if (\count($parametersAcceptors) !== 1) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         return $parametersAcceptors[0];
     }
@@ -29,7 +29,7 @@ class ParametersAcceptorSelector
      * @param ParametersAcceptor[] $parametersAcceptors
      * @return ParametersAcceptor
      */
-    public static function selectFromArgs(\PHPStan\Analyser\Scope $scope, array $args, array $parametersAcceptors) : \PHPStan\Reflection\ParametersAcceptor
+    public static function selectFromArgs(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, array $args, array $parametersAcceptors) : \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
     {
         $types = [];
         $unpack = \false;
@@ -50,13 +50,13 @@ class ParametersAcceptorSelector
      * @param bool $unpack
      * @return ParametersAcceptor
      */
-    public static function selectFromTypes(array $types, array $parametersAcceptors, bool $unpack) : \PHPStan\Reflection\ParametersAcceptor
+    public static function selectFromTypes(array $types, array $parametersAcceptors, bool $unpack) : \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
     {
         if (\count($parametersAcceptors) === 1) {
-            return \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $parametersAcceptors[0]);
+            return \RectorPrefix20201227\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $parametersAcceptors[0]);
         }
         if (\count($parametersAcceptors) === 0) {
-            throw new \PHPStan\ShouldNotHappenException('getVariants() must return at least one variant.');
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException('getVariants() must return at least one variant.');
         }
         $typesCount = \count($types);
         $acceptableAcceptors = [];
@@ -82,16 +82,16 @@ class ParametersAcceptorSelector
             $acceptableAcceptors[] = $parametersAcceptor;
         }
         if (\count($acceptableAcceptors) === 0) {
-            return \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($parametersAcceptors));
+            return \RectorPrefix20201227\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($parametersAcceptors));
         }
         if (\count($acceptableAcceptors) === 1) {
-            return \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptors[0]);
+            return \RectorPrefix20201227\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptors[0]);
         }
         $winningAcceptors = [];
         $winningCertainty = null;
         foreach ($acceptableAcceptors as $acceptableAcceptor) {
-            $isSuperType = \PHPStan\TrinaryLogic::createYes();
-            $acceptableAcceptor = \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptor);
+            $isSuperType = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            $acceptableAcceptor = \RectorPrefix20201227\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptor);
             foreach ($acceptableAcceptor->getParameters() as $i => $parameter) {
                 if (!isset($types[$i])) {
                     if (!$unpack || \count($types) <= 0) {
@@ -102,7 +102,7 @@ class ParametersAcceptorSelector
                     $type = $types[$i];
                 }
                 if ($parameter->getType() instanceof \PHPStan\Type\MixedType) {
-                    $isSuperType = $isSuperType->and(\PHPStan\TrinaryLogic::createMaybe());
+                    $isSuperType = $isSuperType->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
                 } else {
                     $isSuperType = $isSuperType->and($parameter->getType()->isSuperTypeOf($type));
                 }
@@ -124,7 +124,7 @@ class ParametersAcceptorSelector
             }
         }
         if (\count($winningAcceptors) === 0) {
-            return \PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($acceptableAcceptors));
+            return \RectorPrefix20201227\PHPStan\Reflection\GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($acceptableAcceptors));
         }
         return self::combineAcceptors($winningAcceptors);
     }
@@ -132,10 +132,10 @@ class ParametersAcceptorSelector
      * @param ParametersAcceptor[] $acceptors
      * @return ParametersAcceptor
      */
-    public static function combineAcceptors(array $acceptors) : \PHPStan\Reflection\ParametersAcceptor
+    public static function combineAcceptors(array $acceptors) : \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
     {
         if (\count($acceptors) === 0) {
-            throw new \PHPStan\ShouldNotHappenException('getVariants() must return at least one variant.');
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException('getVariants() must return at least one variant.');
         }
         if (\count($acceptors) === 1) {
             return $acceptors[0];
@@ -166,7 +166,7 @@ class ParametersAcceptorSelector
             $isVariadic = $isVariadic || $acceptor->isVariadic();
             foreach ($acceptor->getParameters() as $i => $parameter) {
                 if (!isset($parameters[$i])) {
-                    $parameters[$i] = new \PHPStan\Reflection\Native\NativeParameterReflection($parameter->getName(), $i + 1 > $minimumNumberOfParameters, $parameter->getType(), $parameter->passedByReference(), $parameter->isVariadic(), $parameter->getDefaultValue());
+                    $parameters[$i] = new \RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection($parameter->getName(), $i + 1 > $minimumNumberOfParameters, $parameter->getType(), $parameter->passedByReference(), $parameter->isVariadic(), $parameter->getDefaultValue());
                     continue;
                 }
                 $isVariadic = $parameters[$i]->isVariadic() || $parameter->isVariadic();
@@ -177,13 +177,13 @@ class ParametersAcceptorSelector
                 } else {
                     $defaultValue = null;
                 }
-                $parameters[$i] = new \PHPStan\Reflection\Native\NativeParameterReflection($parameters[$i]->getName() !== $parameter->getName() ? \sprintf('%s|%s', $parameters[$i]->getName(), $parameter->getName()) : $parameter->getName(), $i + 1 > $minimumNumberOfParameters, \PHPStan\Type\TypeCombinator::union($parameters[$i]->getType(), $parameter->getType()), $parameters[$i]->passedByReference()->combine($parameter->passedByReference()), $isVariadic, $defaultValue);
+                $parameters[$i] = new \RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection($parameters[$i]->getName() !== $parameter->getName() ? \sprintf('%s|%s', $parameters[$i]->getName(), $parameter->getName()) : $parameter->getName(), $i + 1 > $minimumNumberOfParameters, \PHPStan\Type\TypeCombinator::union($parameters[$i]->getType(), $parameter->getType()), $parameters[$i]->passedByReference()->combine($parameter->passedByReference()), $isVariadic, $defaultValue);
                 if ($isVariadic) {
                     $parameters = \array_slice($parameters, 0, $i + 1);
                     break;
                 }
             }
         }
-        return new \PHPStan\Reflection\FunctionVariant(\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $parameters, $isVariadic, $returnType);
+        return new \RectorPrefix20201227\PHPStan\Reflection\FunctionVariant(\PHPStan\Type\Generic\TemplateTypeMap::createEmpty(), null, $parameters, $isVariadic, $returnType);
     }
 }

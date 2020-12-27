@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Type;
+namespace RectorPrefix20201227\PHPStan\Reflection\Type;
 
-use PHPStan\Reflection\ClassMemberReflection;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\FunctionVariant;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ParametersAcceptor;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionVariant;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
-class UnionTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
+class UnionTypeMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
 {
     /** @var string */
     private $methodName;
@@ -26,7 +26,7 @@ class UnionTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
         $this->methodName = $methodName;
         $this->methods = $methods;
     }
-    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->methods[0]->getDeclaringClass();
     }
@@ -61,25 +61,25 @@ class UnionTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
     {
         return $this->methodName;
     }
-    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection
     {
         return $this;
     }
     public function getVariants() : array
     {
         $variants = $this->methods[0]->getVariants();
-        $returnType = \PHPStan\Type\TypeCombinator::union(...\array_map(static function (\PHPStan\Reflection\MethodReflection $method) : Type {
-            return \PHPStan\Type\TypeCombinator::union(...\array_map(static function (\PHPStan\Reflection\ParametersAcceptor $acceptor) : Type {
+        $returnType = \PHPStan\Type\TypeCombinator::union(...\array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $method) : Type {
+            return \PHPStan\Type\TypeCombinator::union(...\array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $acceptor) : Type {
                 return $acceptor->getReturnType();
             }, $method->getVariants()));
         }, $this->methods));
-        return \array_map(static function (\PHPStan\Reflection\ParametersAcceptor $acceptor) use($returnType) : ParametersAcceptor {
-            return new \PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), $acceptor->getParameters(), $acceptor->isVariadic(), $returnType);
+        return \array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $acceptor) use($returnType) : ParametersAcceptor {
+            return new \RectorPrefix20201227\PHPStan\Reflection\FunctionVariant($acceptor->getTemplateTypeMap(), $acceptor->getResolvedTemplateTypeMap(), $acceptor->getParameters(), $acceptor->isVariadic(), $returnType);
         }, $variants);
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->isDeprecated();
         }, $this->methods));
     }
@@ -101,15 +101,15 @@ class UnionTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
         }
         return \implode(' ', $descriptions);
     }
-    public function isFinal() : \PHPStan\TrinaryLogic
+    public function isFinal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->isFinal();
         }, $this->methods));
     }
-    public function isInternal() : \PHPStan\TrinaryLogic
+    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->isInternal();
         }, $this->methods));
     }
@@ -128,9 +128,9 @@ class UnionTypeMethodReflection implements \PHPStan\Reflection\MethodReflection
         }
         return \PHPStan\Type\TypeCombinator::union(...$types);
     }
-    public function hasSideEffects() : \PHPStan\TrinaryLogic
+    public function hasSideEffects() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity(...\array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $method) : TrinaryLogic {
             return $method->hasSideEffects();
         }, $this->methods));
     }

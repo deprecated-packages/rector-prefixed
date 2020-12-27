@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\StaticCall;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
@@ -16,11 +16,11 @@ class ClosureFromCallableDynamicReturnTypeExtension implements \PHPStan\Type\Dyn
     {
         return \Closure::class;
     }
-    public function isStaticMethodSupported(\PHPStan\Reflection\MethodReflection $methodReflection) : bool
+    public function isStaticMethodSupported(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $methodReflection) : bool
     {
         return $methodReflection->getName() === 'fromCallable';
     }
-    public function getTypeFromStaticMethodCall(\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\StaticCall $methodCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    public function getTypeFromStaticMethodCall(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $methodReflection, \PhpParser\Node\Expr\StaticCall $methodCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $callableType = $scope->getType($methodCall->args[0]->value);
         if ($callableType->isCallable()->no()) {

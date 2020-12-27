@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Dependency;
+namespace RectorPrefix20201227\PHPStan\Dependency;
 
 use IteratorAggregate;
-use PHPStan\File\FileHelper;
-use PHPStan\Reflection\ReflectionWithFilename;
+use RectorPrefix20201227\PHPStan\File\FileHelper;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionWithFilename;
 /**
  * @implements \IteratorAggregate<int, ReflectionWithFilename>
  */
@@ -21,7 +21,7 @@ class NodeDependencies implements \IteratorAggregate
      * @param FileHelper $fileHelper
      * @param ReflectionWithFilename[] $reflections
      */
-    public function __construct(\PHPStan\File\FileHelper $fileHelper, array $reflections, ?\PHPStan\Dependency\ExportedNode $exportedNode)
+    public function __construct(\RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, array $reflections, ?\RectorPrefix20201227\PHPStan\Dependency\ExportedNode $exportedNode)
     {
         $this->fileHelper = $fileHelper;
         $this->reflections = $reflections;
@@ -55,7 +55,7 @@ class NodeDependencies implements \IteratorAggregate
         }
         return \array_values($dependencies);
     }
-    public function getExportedNode() : ?\PHPStan\Dependency\ExportedNode
+    public function getExportedNode() : ?\RectorPrefix20201227\PHPStan\Dependency\ExportedNode
     {
         return $this->exportedNode;
     }

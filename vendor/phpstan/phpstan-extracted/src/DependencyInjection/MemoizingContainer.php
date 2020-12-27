@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\DependencyInjection;
+namespace RectorPrefix20201227\PHPStan\DependencyInjection;
 
-class MemoizingContainer implements \PHPStan\DependencyInjection\Container
+class MemoizingContainer implements \RectorPrefix20201227\PHPStan\DependencyInjection\Container
 {
     /** @var Container */
     private $originalContainer;
     /** @var array<string, mixed> */
     private $servicesByType = [];
-    public function __construct(\PHPStan\DependencyInjection\Container $originalContainer)
+    public function __construct(\RectorPrefix20201227\PHPStan\DependencyInjection\Container $originalContainer)
     {
         $this->originalContainer = $originalContainer;
     }

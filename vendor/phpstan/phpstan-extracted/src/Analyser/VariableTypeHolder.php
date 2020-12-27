@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Analyser;
+namespace RectorPrefix20201227\PHPStan\Analyser;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 class VariableTypeHolder
@@ -12,18 +12,18 @@ class VariableTypeHolder
     private $type;
     /** @var \PHPStan\TrinaryLogic */
     private $certainty;
-    public function __construct(\PHPStan\Type\Type $type, \PHPStan\TrinaryLogic $certainty)
+    public function __construct(\PHPStan\Type\Type $type, \RectorPrefix20201227\PHPStan\TrinaryLogic $certainty)
     {
         $this->type = $type;
         $this->certainty = $certainty;
     }
     public static function createYes(\PHPStan\Type\Type $type) : self
     {
-        return new self($type, \PHPStan\TrinaryLogic::createYes());
+        return new self($type, \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes());
     }
     public static function createMaybe(\PHPStan\Type\Type $type) : self
     {
-        return new self($type, \PHPStan\TrinaryLogic::createMaybe());
+        return new self($type, \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
     }
     public function equals(self $other) : bool
     {
@@ -45,7 +45,7 @@ class VariableTypeHolder
     {
         return $this->type;
     }
-    public function getCertainty() : \PHPStan\TrinaryLogic
+    public function getCertainty() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->certainty;
     }

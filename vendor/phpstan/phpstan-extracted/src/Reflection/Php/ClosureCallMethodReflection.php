@@ -1,30 +1,30 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Php;
+namespace RectorPrefix20201227\PHPStan\Reflection\Php;
 
-use PHPStan\Reflection\ClassMemberReflection;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\FunctionVariant;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\Native\NativeParameterReflection;
-use PHPStan\Reflection\PassedByReference;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionVariant;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection;
+use RectorPrefix20201227\PHPStan\Reflection\PassedByReference;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\Type;
-final class ClosureCallMethodReflection implements \PHPStan\Reflection\MethodReflection
+final class ClosureCallMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
 {
     /** @var MethodReflection */
     private $nativeMethodReflection;
     /** @var ClosureType */
     private $closureType;
-    public function __construct(\PHPStan\Reflection\MethodReflection $nativeMethodReflection, \PHPStan\Type\ClosureType $closureType)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $nativeMethodReflection, \PHPStan\Type\ClosureType $closureType)
     {
         $this->nativeMethodReflection = $nativeMethodReflection;
         $this->closureType = $closureType;
     }
-    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->nativeMethodReflection->getDeclaringClass();
     }
@@ -48,7 +48,7 @@ final class ClosureCallMethodReflection implements \PHPStan\Reflection\MethodRef
     {
         return $this->nativeMethodReflection->getName();
     }
-    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection
     {
         return $this->nativeMethodReflection->getPrototype();
     }
@@ -58,11 +58,11 @@ final class ClosureCallMethodReflection implements \PHPStan\Reflection\MethodRef
     public function getVariants() : array
     {
         $parameters = $this->closureType->getParameters();
-        $newThis = new \PHPStan\Reflection\Native\NativeParameterReflection('newThis', \false, new \PHPStan\Type\ObjectWithoutClassType(), \PHPStan\Reflection\PassedByReference::createNo(), \false, null);
+        $newThis = new \RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection('newThis', \false, new \PHPStan\Type\ObjectWithoutClassType(), \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createNo(), \false, null);
         \array_unshift($parameters, $newThis);
-        return [new \PHPStan\Reflection\FunctionVariant($this->closureType->getTemplateTypeMap(), $this->closureType->getResolvedTemplateTypeMap(), $parameters, $this->closureType->isVariadic(), $this->closureType->getReturnType())];
+        return [new \RectorPrefix20201227\PHPStan\Reflection\FunctionVariant($this->closureType->getTemplateTypeMap(), $this->closureType->getResolvedTemplateTypeMap(), $parameters, $this->closureType->isVariadic(), $this->closureType->getReturnType())];
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->nativeMethodReflection->isDeprecated();
     }
@@ -70,11 +70,11 @@ final class ClosureCallMethodReflection implements \PHPStan\Reflection\MethodRef
     {
         return $this->nativeMethodReflection->getDeprecatedDescription();
     }
-    public function isFinal() : \PHPStan\TrinaryLogic
+    public function isFinal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->nativeMethodReflection->isFinal();
     }
-    public function isInternal() : \PHPStan\TrinaryLogic
+    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->nativeMethodReflection->isInternal();
     }
@@ -82,7 +82,7 @@ final class ClosureCallMethodReflection implements \PHPStan\Reflection\MethodRef
     {
         return $this->nativeMethodReflection->getThrowType();
     }
-    public function hasSideEffects() : \PHPStan\TrinaryLogic
+    public function hasSideEffects() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->nativeMethodReflection->hasSideEffects();
     }

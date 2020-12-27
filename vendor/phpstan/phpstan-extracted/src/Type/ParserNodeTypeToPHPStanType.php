@@ -23,7 +23,7 @@ class ParserNodeTypeToPHPStanType
             if ($className !== null && \in_array($lowercasedClassName, ['self', 'static'], \true)) {
                 $typeClassName = $className;
             } elseif ($lowercasedClassName === 'parent') {
-                throw new \PHPStan\ShouldNotHappenException('parent type is not supported here');
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException('parent type is not supported here');
             }
             if ($lowercasedClassName === 'static') {
                 return new \PHPStan\Type\StaticType($typeClassName);

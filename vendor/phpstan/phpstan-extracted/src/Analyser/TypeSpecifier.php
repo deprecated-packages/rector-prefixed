@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Analyser;
+namespace RectorPrefix20201227\PHPStan\Analyser;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
@@ -19,7 +19,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
-use PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Accessory\HasOffsetType;
 use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
@@ -71,12 +71,12 @@ class TypeSpecifier
      * @param \PHPStan\Type\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
      * @param \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
      */
-    public function __construct(\PhpParser\PrettyPrinter\Standard $printer, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $functionTypeSpecifyingExtensions, array $methodTypeSpecifyingExtensions, array $staticMethodTypeSpecifyingExtensions)
+    public function __construct(\PhpParser\PrettyPrinter\Standard $printer, \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, array $functionTypeSpecifyingExtensions, array $methodTypeSpecifyingExtensions, array $staticMethodTypeSpecifyingExtensions)
     {
         $this->printer = $printer;
         $this->reflectionProvider = $reflectionProvider;
         foreach (\array_merge($functionTypeSpecifyingExtensions, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions) as $extension) {
-            if (!$extension instanceof \PHPStan\Analyser\TypeSpecifierAwareExtension) {
+            if (!$extension instanceof \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierAwareExtension) {
                 continue;
             }
             $extension->setTypeSpecifier($this);
@@ -85,7 +85,7 @@ class TypeSpecifier
         $this->methodTypeSpecifyingExtensions = $methodTypeSpecifyingExtensions;
         $this->staticMethodTypeSpecifyingExtensions = $staticMethodTypeSpecifyingExtensions;
     }
-    public function specifyTypesInCondition(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr, \PHPStan\Analyser\TypeSpecifierContext $context, bool $defaultHandleFunctions = \false) : \PHPStan\Analyser\SpecifiedTypes
+    public function specifyTypesInCondition(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext $context, bool $defaultHandleFunctions = \false) : \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes
     {
         if ($expr instanceof \PhpParser\Node\Expr\Instanceof_) {
             $exprNode = $expr->expr;
@@ -147,11 +147,11 @@ class TypeSpecifier
                 $constantType = $expressions[1];
                 if ($constantType->getValue() === \false) {
                     $types = $this->create($exprNode, $constantType, $context);
-                    return $types->unionWith($this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \PHPStan\Analyser\TypeSpecifierContext::createFalse() : \PHPStan\Analyser\TypeSpecifierContext::createFalse()->negate()));
+                    return $types->unionWith($this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalse() : \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalse()->negate()));
                 }
                 if ($constantType->getValue() === \true) {
                     $types = $this->create($exprNode, $constantType, $context);
-                    return $types->unionWith($this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \PHPStan\Analyser\TypeSpecifierContext::createTrue() : \PHPStan\Analyser\TypeSpecifierContext::createTrue()->negate()));
+                    return $types->unionWith($this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createTrue() : \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createTrue()->negate()));
                 }
                 if ($constantType->getValue() === null) {
                     return $this->create($exprNode, $constantType, $context);
@@ -211,10 +211,10 @@ class TypeSpecifier
                 /** @var \PHPStan\Type\ConstantScalarType $constantType */
                 $constantType = $expressions[1];
                 if ($constantType->getValue() === \false || $constantType->getValue() === null) {
-                    return $this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \PHPStan\Analyser\TypeSpecifierContext::createFalsey() : \PHPStan\Analyser\TypeSpecifierContext::createFalsey()->negate());
+                    return $this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalsey() : \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalsey()->negate());
                 }
                 if ($constantType->getValue() === \true) {
-                    return $this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \PHPStan\Analyser\TypeSpecifierContext::createTruthy() : \PHPStan\Analyser\TypeSpecifierContext::createTruthy()->negate());
+                    return $this->specifyTypesInCondition($scope, $exprNode, $context->true() ? \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createTruthy() : \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createTruthy()->negate());
                 }
             }
             $leftType = $scope->getType($expr->left);
@@ -243,7 +243,7 @@ class TypeSpecifier
                 $inverseOperator = $expr instanceof \PhpParser\Node\Expr\BinaryOp\Smaller ? new \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual($expr->right, $expr->left) : new \PhpParser\Node\Expr\BinaryOp\Smaller($expr->right, $expr->left);
                 return $this->specifyTypesInCondition($scope, new \PhpParser\Node\Expr\BooleanNot($inverseOperator), $context);
             }
-            $result = new \PHPStan\Analyser\SpecifiedTypes();
+            $result = new \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes();
             if (!$context->null() && $expr->right instanceof \PhpParser\Node\Expr\FuncCall && \count($expr->right->args) === 1 && $expr->right->name instanceof \PhpParser\Node\Name && \strtolower((string) $expr->right->name) === 'count' && $leftType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
                 if ($context->truthy() || $leftType->getValue() + $offset === 1) {
                     $argType = $scope->getType($expr->right->args[0]->value);
@@ -341,8 +341,8 @@ class TypeSpecifier
         } elseif ($expr instanceof \PhpParser\Node\Expr\BooleanNot && !$context->null()) {
             return $this->specifyTypesInCondition($scope, $expr->expr, $context->negate());
         } elseif ($expr instanceof \PhpParser\Node\Expr\Assign) {
-            if (!$scope instanceof \PHPStan\Analyser\MutatingScope) {
-                throw new \PHPStan\ShouldNotHappenException();
+            if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\MutatingScope) {
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             if ($context->null()) {
                 return $this->specifyTypesInCondition($scope->exitFirstLevelStatements(), $expr->expr, $context);
@@ -369,28 +369,28 @@ class TypeSpecifier
                 $vars = \array_merge($vars, \array_reverse($tmpVars));
             }
             if (\count($vars) === 0) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             $types = null;
             foreach ($vars as $var) {
                 if ($var instanceof \PhpParser\Node\Expr\Variable && \is_string($var->name)) {
                     if ($scope->hasVariableType($var->name)->no()) {
-                        return new \PHPStan\Analyser\SpecifiedTypes([], []);
+                        return new \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes([], []);
                     }
                 }
                 if ($expr instanceof \PhpParser\Node\Expr\Isset_) {
                     if ($var instanceof \PhpParser\Node\Expr\ArrayDimFetch && $var->dim !== null && !$scope->getType($var->var) instanceof \PHPStan\Type\MixedType) {
-                        $type = $this->create($var->var, new \PHPStan\Type\Accessory\HasOffsetType($scope->getType($var->dim)), $context)->unionWith($this->create($var, new \PHPStan\Type\NullType(), \PHPStan\Analyser\TypeSpecifierContext::createFalse()));
+                        $type = $this->create($var->var, new \PHPStan\Type\Accessory\HasOffsetType($scope->getType($var->dim)), $context)->unionWith($this->create($var, new \PHPStan\Type\NullType(), \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalse()));
                     } else {
-                        $type = $this->create($var, new \PHPStan\Type\NullType(), \PHPStan\Analyser\TypeSpecifierContext::createFalse());
+                        $type = $this->create($var, new \PHPStan\Type\NullType(), \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalse());
                     }
                 } else {
-                    $type = $this->create($var, new \PHPStan\Type\UnionType([new \PHPStan\Type\NullType(), new \PHPStan\Type\Constant\ConstantBooleanType(\false)]), \PHPStan\Analyser\TypeSpecifierContext::createFalse());
+                    $type = $this->create($var, new \PHPStan\Type\UnionType([new \PHPStan\Type\NullType(), new \PHPStan\Type\Constant\ConstantBooleanType(\false)]), \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalse());
                 }
                 if ($var instanceof \PhpParser\Node\Expr\PropertyFetch && $var->name instanceof \PhpParser\Node\Identifier) {
-                    $type = $type->unionWith($this->create($var->var, new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectWithoutClassType(), new \PHPStan\Type\Accessory\HasPropertyType($var->name->toString())]), \PHPStan\Analyser\TypeSpecifierContext::createTruthy()));
+                    $type = $type->unionWith($this->create($var->var, new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectWithoutClassType(), new \PHPStan\Type\Accessory\HasPropertyType($var->name->toString())]), \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createTruthy()));
                 } elseif ($var instanceof \PhpParser\Node\Expr\StaticPropertyFetch && $var->class instanceof \PhpParser\Node\Expr && $var->name instanceof \PhpParser\Node\VarLikeIdentifier) {
-                    $type = $type->unionWith($this->create($var->class, new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectWithoutClassType(), new \PHPStan\Type\Accessory\HasPropertyType($var->name->toString())]), \PHPStan\Analyser\TypeSpecifierContext::createTruthy()));
+                    $type = $type->unionWith($this->create($var->class, new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectWithoutClassType(), new \PHPStan\Type\Accessory\HasPropertyType($var->name->toString())]), \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createTruthy()));
                 }
                 if ($types === null) {
                     $types = $type;
@@ -413,25 +413,25 @@ class TypeSpecifier
         } elseif (!$context->null()) {
             return $this->handleDefaultTruthyOrFalseyContext($context, $expr);
         }
-        return new \PHPStan\Analyser\SpecifiedTypes();
+        return new \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes();
     }
-    private function handleDefaultTruthyOrFalseyContext(\PHPStan\Analyser\TypeSpecifierContext $context, \PhpParser\Node\Expr $expr) : \PHPStan\Analyser\SpecifiedTypes
+    private function handleDefaultTruthyOrFalseyContext(\RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext $context, \PhpParser\Node\Expr $expr) : \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes
     {
         if (!$context->truthy()) {
             $type = \PHPStan\Type\StaticTypeFactory::truthy();
-            return $this->create($expr, $type, \PHPStan\Analyser\TypeSpecifierContext::createFalse());
+            return $this->create($expr, $type, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalse());
         } elseif (!$context->falsey()) {
             $type = \PHPStan\Type\StaticTypeFactory::falsey();
-            return $this->create($expr, $type, \PHPStan\Analyser\TypeSpecifierContext::createFalse());
+            return $this->create($expr, $type, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalse());
         }
-        return new \PHPStan\Analyser\SpecifiedTypes();
+        return new \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes();
     }
     /**
      * @param \PHPStan\Analyser\Scope $scope
      * @param \PhpParser\Node\Expr\BinaryOp $binaryOperation
      * @return (Expr|\PHPStan\Type\ConstantScalarType)[]|null
      */
-    private function findTypeExpressionsFromBinaryOperation(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr\BinaryOp $binaryOperation) : ?array
+    private function findTypeExpressionsFromBinaryOperation(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr\BinaryOp $binaryOperation) : ?array
     {
         $leftType = $scope->getType($binaryOperation->left);
         $rightType = $scope->getType($binaryOperation->right);
@@ -442,10 +442,10 @@ class TypeSpecifier
         }
         return null;
     }
-    public function create(\PhpParser\Node\Expr $expr, \PHPStan\Type\Type $type, \PHPStan\Analyser\TypeSpecifierContext $context, bool $overwrite = \false) : \PHPStan\Analyser\SpecifiedTypes
+    public function create(\PhpParser\Node\Expr $expr, \PHPStan\Type\Type $type, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext $context, bool $overwrite = \false) : \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes
     {
         if ($expr instanceof \PhpParser\Node\Expr\New_ || $expr instanceof \PhpParser\Node\Expr\Instanceof_) {
-            return new \PHPStan\Analyser\SpecifiedTypes();
+            return new \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes();
         }
         $sureTypes = [];
         $sureNotTypes = [];
@@ -455,19 +455,19 @@ class TypeSpecifier
         } elseif ($context->true()) {
             $sureTypes[$exprString] = [$expr, $type];
         }
-        $types = new \PHPStan\Analyser\SpecifiedTypes($sureTypes, $sureNotTypes, $overwrite);
+        $types = new \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes($sureTypes, $sureNotTypes, $overwrite);
         if ($expr instanceof \PhpParser\Node\Expr\NullsafePropertyFetch && !$context->null()) {
             $propertyFetchTypes = $this->create(new \PhpParser\Node\Expr\PropertyFetch($expr->var, $expr->name), $type, $context);
             if ($context->true() && !\PHPStan\Type\TypeCombinator::containsNull($type)) {
-                $propertyFetchTypes = $propertyFetchTypes->unionWith($this->create($expr->var, new \PHPStan\Type\NullType(), \PHPStan\Analyser\TypeSpecifierContext::createFalse()));
+                $propertyFetchTypes = $propertyFetchTypes->unionWith($this->create($expr->var, new \PHPStan\Type\NullType(), \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalse()));
             } elseif ($context->false() && \PHPStan\Type\TypeCombinator::containsNull($type)) {
-                $propertyFetchTypes = $propertyFetchTypes->unionWith($this->create($expr->var, new \PHPStan\Type\NullType(), \PHPStan\Analyser\TypeSpecifierContext::createFalse()));
+                $propertyFetchTypes = $propertyFetchTypes->unionWith($this->create($expr->var, new \PHPStan\Type\NullType(), \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext::createFalse()));
             }
             return $types->unionWith($propertyFetchTypes);
         }
         return $types;
     }
-    private function createRangeTypes(\PhpParser\Node\Expr $expr, \PHPStan\Type\Type $type, \PHPStan\Analyser\TypeSpecifierContext $context) : \PHPStan\Analyser\SpecifiedTypes
+    private function createRangeTypes(\PhpParser\Node\Expr $expr, \PHPStan\Type\Type $type, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext $context) : \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes
     {
         $sureNotTypes = [];
         if ($type instanceof \PHPStan\Type\IntegerRangeType || $type instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
@@ -479,7 +479,7 @@ class TypeSpecifier
                 $sureNotTypes[$exprString] = [$expr, $inverted];
             }
         }
-        return new \PHPStan\Analyser\SpecifiedTypes([], $sureNotTypes);
+        return new \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes([], $sureNotTypes);
     }
     /**
      * @return \PHPStan\Type\FunctionTypeSpecifyingExtension[]

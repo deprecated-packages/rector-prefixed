@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection;
+namespace RectorPrefix20201227\PHPStan\Reflection;
 
-interface ConstantReflection extends \PHPStan\Reflection\ClassMemberReflection, \PHPStan\Reflection\GlobalConstantReflection
+interface ConstantReflection extends \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection, \RectorPrefix20201227\PHPStan\Reflection\GlobalConstantReflection
 {
     /**
      * @return mixed

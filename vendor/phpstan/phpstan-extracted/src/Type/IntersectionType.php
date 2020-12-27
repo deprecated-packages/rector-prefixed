@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\ConstantReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\PropertyReflection;
-use PHPStan\Reflection\TrivialParametersAcceptor;
-use PHPStan\Reflection\Type\IntersectionTypeMethodReflection;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\Reflection\ConstantReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
+use RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor;
+use RectorPrefix20201227\PHPStan\Reflection\Type\IntersectionTypeMethodReflection;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\AccessoryNumericStringType;
 use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
@@ -40,27 +40,27 @@ class IntersectionType implements \PHPStan\Type\CompoundType
     {
         return \PHPStan\Type\UnionTypeHelper::getReferencedClasses($this->types);
     }
-    public function accepts(\PHPStan\Type\Type $otherType, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $otherType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         foreach ($this->types as $type) {
             if (!$type->accepts($otherType, $strictTypes)->yes()) {
-                return \PHPStan\TrinaryLogic::createNo();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
             }
         }
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($otherType instanceof \PHPStan\Type\IntersectionType && $this->equals($otherType)) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         $results = [];
         foreach ($this->getTypes() as $innerType) {
             $results[] = $innerType->isSuperTypeOf($otherType);
         }
-        return \PHPStan\TrinaryLogic::createYes()->and(...$results);
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes()->and(...$results);
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($otherType instanceof self || $otherType instanceof \PHPStan\Type\UnionType) {
             return $otherType->isSuperTypeOf($this);
@@ -69,9 +69,9 @@ class IntersectionType implements \PHPStan\Type\CompoundType
         foreach ($this->getTypes() as $innerType) {
             $results[] = $otherType->isSuperTypeOf($innerType);
         }
-        return \PHPStan\TrinaryLogic::maxMin(...$results);
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::maxMin(...$results);
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($acceptingType instanceof self || $acceptingType instanceof \PHPStan\Type\UnionType) {
             return $acceptingType->isSuperTypeOf($this);
@@ -80,7 +80,7 @@ class IntersectionType implements \PHPStan\Type\CompoundType
         foreach ($this->getTypes() as $innerType) {
             $results[] = $acceptingType->accepts($innerType, $strictTypes);
         }
-        return \PHPStan\TrinaryLogic::maxMin(...$results);
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::maxMin(...$results);
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {
@@ -125,40 +125,40 @@ class IntersectionType implements \PHPStan\Type\CompoundType
             return \implode('&', $typeNames);
         });
     }
-    public function canAccessProperties() : \PHPStan\TrinaryLogic
+    public function canAccessProperties() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->canAccessProperties();
         });
     }
-    public function hasProperty(string $propertyName) : \PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) use($propertyName) : TrinaryLogic {
             return $type->hasProperty($propertyName);
         });
     }
-    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
     {
         foreach ($this->types as $type) {
             if ($type->hasProperty($propertyName)->yes()) {
                 return $type->getProperty($propertyName, $scope);
             }
         }
-        throw new \PHPStan\ShouldNotHappenException();
+        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
     }
-    public function canCallMethods() : \PHPStan\TrinaryLogic
+    public function canCallMethods() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->canCallMethods();
         });
     }
-    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) use($methodName) : TrinaryLogic {
             return $type->hasMethod($methodName);
         });
     }
-    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
         $methods = [];
         foreach ($this->types as $type) {
@@ -169,41 +169,41 @@ class IntersectionType implements \PHPStan\Type\CompoundType
         }
         $methodsCount = \count($methods);
         if ($methodsCount === 0) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         if ($methodsCount === 1) {
             return $methods[0];
         }
-        return new \PHPStan\Reflection\Type\IntersectionTypeMethodReflection($methodName, $methods);
+        return new \RectorPrefix20201227\PHPStan\Reflection\Type\IntersectionTypeMethodReflection($methodName, $methods);
     }
-    public function canAccessConstants() : \PHPStan\TrinaryLogic
+    public function canAccessConstants() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->canAccessConstants();
         });
     }
-    public function hasConstant(string $constantName) : \PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) use($constantName) : TrinaryLogic {
             return $type->hasConstant($constantName);
         });
     }
-    public function getConstant(string $constantName) : \PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \RectorPrefix20201227\PHPStan\Reflection\ConstantReflection
     {
         foreach ($this->types as $type) {
             if ($type->hasConstant($constantName)->yes()) {
                 return $type->getConstant($constantName);
             }
         }
-        throw new \PHPStan\ShouldNotHappenException();
+        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
     }
-    public function isIterable() : \PHPStan\TrinaryLogic
+    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isIterable();
         });
     }
-    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isIterableAtLeastOnce();
@@ -221,25 +221,25 @@ class IntersectionType implements \PHPStan\Type\CompoundType
             return $type->getIterableValueType();
         });
     }
-    public function isArray() : \PHPStan\TrinaryLogic
+    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isArray();
         });
     }
-    public function isNumericString() : \PHPStan\TrinaryLogic
+    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isNumericString();
         });
     }
-    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isOffsetAccessible();
         });
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) use($offsetType) : TrinaryLogic {
             return $type->hasOffsetValueType($offsetType);
@@ -257,7 +257,7 @@ class IntersectionType implements \PHPStan\Type\CompoundType
             return $type->setOffsetValueType($offsetType, $valueType);
         });
     }
-    public function isCallable() : \PHPStan\TrinaryLogic
+    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isCallable();
@@ -267,26 +267,26 @@ class IntersectionType implements \PHPStan\Type\CompoundType
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
         if ($this->isCallable()->no()) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
-        return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
     }
-    public function isCloneable() : \PHPStan\TrinaryLogic
+    public function isCloneable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isCloneable();
         });
     }
-    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \PHPStan\TrinaryLogic
+    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) use($otherType, $orEqual) : TrinaryLogic {
             return $type->isSmallerThan($otherType, $orEqual);
         });
     }
-    public function isGreaterThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \PHPStan\TrinaryLogic
+    public function isGreaterThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         return $this->intersectResults(static function (\PHPStan\Type\Type $type) use($otherType, $orEqual) : TrinaryLogic {
             return $otherType->isSmallerThan($type, $orEqual);
@@ -391,10 +391,10 @@ class IntersectionType implements \PHPStan\Type\CompoundType
      * @param callable(Type $type): TrinaryLogic $getResult
      * @return TrinaryLogic
      */
-    private function intersectResults(callable $getResult) : \PHPStan\TrinaryLogic
+    private function intersectResults(callable $getResult) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $operands = \array_map($getResult, $this->types);
-        return \PHPStan\TrinaryLogic::maxMin(...$operands);
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::maxMin(...$operands);
     }
     /**
      * @param callable(Type $type): Type $getType

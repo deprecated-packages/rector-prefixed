@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection;
+namespace RectorPrefix20201227\PHPStan\Reflection;
 
-use PHPStan\Reflection\Php\PhpFunctionReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Php\PhpFunctionReflection;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 interface FunctionReflectionFactory
@@ -21,5 +21,5 @@ interface FunctionReflectionFactory
      * @param string|false $filename
      * @return PhpFunctionReflection
      */
-    public function create(\ReflectionFunction $reflection, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $phpDocParameterTypes, ?\PHPStan\Type\Type $phpDocReturnType, ?\PHPStan\Type\Type $phpDocThrowType, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, bool $isFinal, $filename) : \PHPStan\Reflection\Php\PhpFunctionReflection;
+    public function create(\ReflectionFunction $reflection, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $phpDocParameterTypes, ?\PHPStan\Type\Type $phpDocReturnType, ?\PHPStan\Type\Type $phpDocThrowType, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, bool $isFinal, $filename) : \RectorPrefix20201227\PHPStan\Reflection\Php\PhpFunctionReflection;
 }

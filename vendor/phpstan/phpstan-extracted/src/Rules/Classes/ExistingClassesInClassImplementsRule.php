@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Classes;
+namespace RectorPrefix20201227\PHPStan\Rules\Classes;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\ClassCaseSensitivityCheck;
-use PHPStan\Rules\ClassNameNodePair;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck;
+use RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Class_>
  */
-class ExistingClassesInClassImplementsRule implements \PHPStan\Rules\Rule
+class ExistingClassesInClassImplementsRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
     private $classCaseSensitivityCheck;
     /** @var ReflectionProvider */
     private $reflectionProvider;
-    public function __construct(\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
         $this->reflectionProvider = $reflectionProvider;
@@ -27,10 +27,10 @@ class ExistingClassesInClassImplementsRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Stmt\Class_::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $messages = $this->classCaseSensitivityCheck->checkClassNames(\array_map(static function (\PhpParser\Node\Name $interfaceName) : ClassNameNodePair {
-            return new \PHPStan\Rules\ClassNameNodePair((string) $interfaceName, $interfaceName);
+            return new \RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair((string) $interfaceName, $interfaceName);
         }, $node->implements));
         $currentClassName = null;
         if (isset($node->namespacedName)) {
@@ -40,14 +40,14 @@ class ExistingClassesInClassImplementsRule implements \PHPStan\Rules\Rule
             $implementedClassName = (string) $implements;
             if (!$this->reflectionProvider->hasClass($implementedClassName)) {
                 if (!$scope->isInClassExists($implementedClassName)) {
-                    $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s implements unknown interface %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $implementedClassName))->nonIgnorable()->discoveringSymbolsTip()->build();
+                    $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s implements unknown interface %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $implementedClassName))->nonIgnorable()->discoveringSymbolsTip()->build();
                 }
             } else {
                 $reflection = $this->reflectionProvider->getClass($implementedClassName);
                 if ($reflection->isClass()) {
-                    $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s implements class %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $implementedClassName))->nonIgnorable()->build();
+                    $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s implements class %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $implementedClassName))->nonIgnorable()->build();
                 } elseif ($reflection->isTrait()) {
-                    $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s implements trait %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $implementedClassName))->nonIgnorable()->build();
+                    $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s implements trait %s.', $currentClassName !== null ? \sprintf('Class %s', $currentClassName) : 'Anonymous class', $implementedClassName))->nonIgnorable()->build();
                 }
             }
         }

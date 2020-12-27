@@ -5,18 +5,18 @@ namespace PHPStan\Type;
 
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
-use PHPStan\Analyser\NameScope;
-use PHPStan\Broker\AnonymousClassNameHelper;
-use PHPStan\Cache\Cache;
-use PHPStan\Parser\Parser;
-use PHPStan\PhpDoc\NameScopedPhpDocString;
-use PHPStan\PhpDoc\PhpDocNodeResolver;
-use PHPStan\PhpDoc\PhpDocStringResolver;
-use PHPStan\PhpDoc\ResolvedPhpDocBlock;
-use PHPStan\PhpDoc\Tag\TemplateTag;
+use RectorPrefix20201227\PHPStan\Analyser\NameScope;
+use RectorPrefix20201227\PHPStan\Broker\AnonymousClassNameHelper;
+use RectorPrefix20201227\PHPStan\Cache\Cache;
+use RectorPrefix20201227\PHPStan\Parser\Parser;
+use RectorPrefix20201227\PHPStan\PhpDoc\NameScopedPhpDocString;
+use RectorPrefix20201227\PHPStan\PhpDoc\PhpDocNodeResolver;
+use RectorPrefix20201227\PHPStan\PhpDoc\PhpDocStringResolver;
+use RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock;
+use RectorPrefix20201227\PHPStan\PhpDoc\Tag\TemplateTag;
 use PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeFactory;
 use PHPStan\Type\Generic\TemplateTypeMap;
@@ -47,7 +47,7 @@ class FileTypeMapper
     private $resolvedPhpDocBlockCache = [];
     /** @var array<string, bool> */
     private $alreadyProcessedDependentFiles = [];
-    public function __construct(\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \PHPStan\Parser\Parser $phpParser, \PHPStan\PhpDoc\PhpDocStringResolver $phpDocStringResolver, \PHPStan\PhpDoc\PhpDocNodeResolver $phpDocNodeResolver, \PHPStan\Cache\Cache $cache, \PHPStan\Broker\AnonymousClassNameHelper $anonymousClassNameHelper)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \RectorPrefix20201227\PHPStan\Parser\Parser $phpParser, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocStringResolver $phpDocStringResolver, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocNodeResolver $phpDocNodeResolver, \RectorPrefix20201227\PHPStan\Cache\Cache $cache, \RectorPrefix20201227\PHPStan\Broker\AnonymousClassNameHelper $anonymousClassNameHelper)
     {
         $this->reflectionProviderProvider = $reflectionProviderProvider;
         $this->phpParser = $phpParser;
@@ -56,10 +56,10 @@ class FileTypeMapper
         $this->cache = $cache;
         $this->anonymousClassNameHelper = $anonymousClassNameHelper;
     }
-    public function getResolvedPhpDoc(string $fileName, ?string $className, ?string $traitName, ?string $functionName, string $docComment) : \PHPStan\PhpDoc\ResolvedPhpDocBlock
+    public function getResolvedPhpDoc(string $fileName, ?string $className, ?string $traitName, ?string $functionName, string $docComment) : \RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if ($className === null && $traitName !== null) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         $phpDocKey = $this->getPhpDocKey($className, $traitName, $functionName, $docComment);
         if (isset($this->resolvedPhpDocBlockCache[$phpDocKey])) {
@@ -74,21 +74,21 @@ class FileTypeMapper
         }
         if (!isset($this->inProcess[$fileName][$phpDocKey])) {
             // wrong $fileName due to traits
-            return \PHPStan\PhpDoc\ResolvedPhpDocBlock::createEmpty();
+            return \RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock::createEmpty();
         }
         if ($this->inProcess[$fileName][$phpDocKey] === \false) {
             // PHPDoc has cyclic dependency
-            return \PHPStan\PhpDoc\ResolvedPhpDocBlock::createEmpty();
+            return \RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock::createEmpty();
         }
         if (\is_callable($this->inProcess[$fileName][$phpDocKey])) {
             $resolveCallback = $this->inProcess[$fileName][$phpDocKey];
             $this->inProcess[$fileName][$phpDocKey] = \false;
             $this->inProcess[$fileName][$phpDocKey] = $resolveCallback();
         }
-        \assert($this->inProcess[$fileName][$phpDocKey] instanceof \PHPStan\PhpDoc\NameScopedPhpDocString);
+        \assert($this->inProcess[$fileName][$phpDocKey] instanceof \RectorPrefix20201227\PHPStan\PhpDoc\NameScopedPhpDocString);
         return $this->createResolvedPhpDocBlock($phpDocKey, $this->inProcess[$fileName][$phpDocKey], $fileName);
     }
-    private function createResolvedPhpDocBlock(string $phpDocKey, \PHPStan\PhpDoc\NameScopedPhpDocString $nameScopedPhpDocString, string $fileName) : \PHPStan\PhpDoc\ResolvedPhpDocBlock
+    private function createResolvedPhpDocBlock(string $phpDocKey, \RectorPrefix20201227\PHPStan\PhpDoc\NameScopedPhpDocString $nameScopedPhpDocString, string $fileName) : \RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         $phpDocString = $nameScopedPhpDocString->getPhpDocString();
         $phpDocNode = $this->resolvePhpDocStringToDocNode($phpDocString);
@@ -96,21 +96,21 @@ class FileTypeMapper
         $templateTags = $this->phpDocNodeResolver->resolveTemplateTags($phpDocNode, $nameScope);
         $templateTypeScope = $nameScope->getTemplateTypeScope();
         if ($templateTypeScope !== null) {
-            $templateTypeMap = new \PHPStan\Type\Generic\TemplateTypeMap(\array_map(static function (\PHPStan\PhpDoc\Tag\TemplateTag $tag) use($templateTypeScope) : Type {
+            $templateTypeMap = new \PHPStan\Type\Generic\TemplateTypeMap(\array_map(static function (\RectorPrefix20201227\PHPStan\PhpDoc\Tag\TemplateTag $tag) use($templateTypeScope) : Type {
                 return \PHPStan\Type\Generic\TemplateTypeFactory::fromTemplateTag($templateTypeScope, $tag);
             }, $templateTags));
             $nameScope = $nameScope->withTemplateTypeMap(new \PHPStan\Type\Generic\TemplateTypeMap(\array_merge($nameScope->getTemplateTypeMap()->getTypes(), $templateTypeMap->getTypes())));
         } else {
             $templateTypeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         }
-        $this->resolvedPhpDocBlockCache[$phpDocKey] = \PHPStan\PhpDoc\ResolvedPhpDocBlock::create($phpDocNode, $phpDocString, $fileName, $nameScope, $templateTypeMap, $templateTags, $this->phpDocNodeResolver);
+        $this->resolvedPhpDocBlockCache[$phpDocKey] = \RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock::create($phpDocNode, $phpDocString, $fileName, $nameScope, $templateTypeMap, $templateTags, $this->phpDocNodeResolver);
         return $this->resolvedPhpDocBlockCache[$phpDocKey];
     }
     private function resolvePhpDocStringToDocNode(string $phpDocString) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     {
         $phpDocParserVersion = 'Version unknown';
         try {
-            $phpDocParserVersion = \_HumbugBox221ad6f1b81f__UniqueRector\Jean85\PrettyVersions::getVersion('phpstan/phpdoc-parser')->getPrettyVersion();
+            $phpDocParserVersion = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Jean85\PrettyVersions::getVersion('phpstan/phpdoc-parser')->getPrettyVersion();
         } catch (\OutOfBoundsException $e) {
             // skip
         }
@@ -121,9 +121,9 @@ class FileTypeMapper
             if ($unserializeResult === \false) {
                 $error = \error_get_last();
                 if ($error !== null) {
-                    throw new \PHPStan\ShouldNotHappenException(\sprintf('unserialize() error: %s', $error['message']));
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException(\sprintf('unserialize() error: %s', $error['message']));
                 }
-                throw new \PHPStan\ShouldNotHappenException('Unknown unserialize() error');
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException('Unknown unserialize() error');
             }
             return $unserializeResult;
         }
@@ -217,7 +217,7 @@ class FileTypeMapper
                 } else {
                     if ($node->name === null) {
                         if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
-                            throw new \PHPStan\ShouldNotHappenException();
+                            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                         }
                         $className = $this->anonymousClassNameHelper->getAnonymousClassName($node, $fileName);
                     } elseif ((bool) $node->getAttribute('anonymousClass', \false)) {
@@ -262,7 +262,7 @@ class FileTypeMapper
                     }
                     $className = $classStack[\count($classStack) - 1] ?? null;
                     if ($className === null) {
-                        throw new \PHPStan\ShouldNotHappenException();
+                        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                     }
                     $traitPhpDocMap = $this->createFilePhpDocMap($traitReflection->getFileName(), $traitName, $className, $traitMethodAliases[$traitName] ?? []);
                     $phpDocMap = \array_merge($phpDocMap, $traitPhpDocMap);
@@ -310,7 +310,7 @@ class FileTypeMapper
                 $typeMapCb = $typeMapStack[\count($typeMapStack) - 1] ?? null;
                 $phpDocKey = $this->getPhpDocKey($className, $lookForTrait, $functionName, $phpDocString);
                 $phpDocMap[$phpDocKey] = static function () use($phpDocString, $namespace, $uses, $className, $functionName, $typeMapCb, $resolvableTemplateTypes) : NameScopedPhpDocString {
-                    $nameScope = new \PHPStan\Analyser\NameScope($namespace, $uses, $className, $functionName, ($typeMapCb !== null ? $typeMapCb() : \PHPStan\Type\Generic\TemplateTypeMap::createEmpty())->map(static function (string $name, \PHPStan\Type\Type $type) use($className, $resolvableTemplateTypes) : Type {
+                    $nameScope = new \RectorPrefix20201227\PHPStan\Analyser\NameScope($namespace, $uses, $className, $functionName, ($typeMapCb !== null ? $typeMapCb() : \PHPStan\Type\Generic\TemplateTypeMap::createEmpty())->map(static function (string $name, \PHPStan\Type\Type $type) use($className, $resolvableTemplateTypes) : Type {
                         return \PHPStan\Type\TypeTraverser::map($type, static function (\PHPStan\Type\Type $type, callable $traverse) use($className, $resolvableTemplateTypes) : Type {
                             if (!$type instanceof \PHPStan\Type\Generic\TemplateType) {
                                 return $traverse($type);
@@ -325,7 +325,7 @@ class FileTypeMapper
                             return $traverse($type);
                         });
                     }));
-                    return new \PHPStan\PhpDoc\NameScopedPhpDocString($phpDocString, $nameScope);
+                    return new \RectorPrefix20201227\PHPStan\PhpDoc\NameScopedPhpDocString($phpDocString, $nameScope);
                 };
                 if (!$node instanceof \PhpParser\Node\Stmt\ClassLike && !$node instanceof \PhpParser\Node\FunctionLike) {
                     continue;
@@ -344,7 +344,7 @@ class FileTypeMapper
         }, static function (\PhpParser\Node $node, $callbackResult) use($lookForTrait, &$namespace, &$functionName, &$classStack, &$uses, &$typeMapStack) : void {
             if ($node instanceof \PhpParser\Node\Stmt\ClassLike && $lookForTrait === null) {
                 if (\count($classStack) === 0) {
-                    throw new \PHPStan\ShouldNotHappenException();
+                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
                 \array_pop($classStack);
             } elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
@@ -357,12 +357,12 @@ class FileTypeMapper
                 return;
             }
             if (\count($typeMapStack) === 0) {
-                throw new \PHPStan\ShouldNotHappenException();
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
             }
             \array_pop($typeMapStack);
         });
         if (\count($typeMapStack) > 0) {
-            throw new \PHPStan\ShouldNotHappenException();
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         return $phpDocMap;
     }
@@ -391,7 +391,7 @@ class FileTypeMapper
     }
     private function getPhpDocKey(?string $class, ?string $trait, ?string $function, string $docComment) : string
     {
-        $docComment = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::replace($docComment, '#\\s+#', ' ');
+        $docComment = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::replace($docComment, '#\\s+#', ' ');
         return \md5(\sprintf('%s-%s-%s-%s', $class, $trait, $function, $docComment));
     }
     /**

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Analyser;
+namespace RectorPrefix20201227\PHPStan\Analyser;
 
 use PHPStan\Type\TypeCombinator;
 class SpecifiedTypes
@@ -41,7 +41,7 @@ class SpecifiedTypes
     {
         return $this->overwrite;
     }
-    public function intersectWith(\PHPStan\Analyser\SpecifiedTypes $other) : self
+    public function intersectWith(\RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes $other) : self
     {
         $sureTypeUnion = [];
         $sureNotTypeUnion = [];
@@ -59,7 +59,7 @@ class SpecifiedTypes
         }
         return new self($sureTypeUnion, $sureNotTypeUnion);
     }
-    public function unionWith(\PHPStan\Analyser\SpecifiedTypes $other) : self
+    public function unionWith(\RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes $other) : self
     {
         $sureTypeUnion = $this->sureTypes + $other->sureTypes;
         $sureNotTypeUnion = $this->sureNotTypes + $other->sureNotTypes;

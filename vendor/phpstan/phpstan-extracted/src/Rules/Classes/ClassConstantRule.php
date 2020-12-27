@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Classes;
+namespace RectorPrefix20201227\PHPStan\Rules\Classes;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PHPStan\Analyser\Scope;
-use PHPStan\Php\PhpVersion;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\ClassCaseSensitivityCheck;
-use PHPStan\Rules\ClassNameNodePair;
-use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Rules\RuleLevelHelper;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Php\PhpVersion;
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck;
+use RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
@@ -22,7 +22,7 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\ClassConstFetch>
  */
-class ClassConstantRule implements \PHPStan\Rules\Rule
+class ClassConstantRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -32,7 +32,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
     private $classCaseSensitivityCheck;
     /** @var PhpVersion */
     private $phpVersion;
-    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \PHPStan\Php\PhpVersion $phpVersion)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->ruleLevelHelper = $ruleLevelHelper;
@@ -43,7 +43,7 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\ClassConstFetch::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->name instanceof \PhpParser\Node\Identifier) {
             return [];
@@ -56,16 +56,16 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
             $lowercasedClassName = \strtolower($className);
             if (\in_array($lowercasedClassName, ['self', 'static'], \true)) {
                 if (!$scope->isInClass()) {
-                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using %s outside of class scope.', $className))->build()];
+                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using %s outside of class scope.', $className))->build()];
                 }
                 $className = $scope->getClassReflection()->getName();
             } elseif ($lowercasedClassName === 'parent') {
                 if (!$scope->isInClass()) {
-                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using %s outside of class scope.', $className))->build()];
+                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using %s outside of class scope.', $className))->build()];
                 }
                 $currentClassReflection = $scope->getClassReflection();
                 if ($currentClassReflection->getParentClass() === \false) {
-                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to parent::%s but %s does not extend any class.', $constantName, $currentClassReflection->getDisplayName()))->build()];
+                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to parent::%s but %s does not extend any class.', $constantName, $currentClassReflection->getDisplayName()))->build()];
                 }
                 $className = $currentClassReflection->getParentClass()->getName();
             } else {
@@ -74,11 +74,11 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
                         return [];
                     }
                     if (\strtolower($constantName) === 'class') {
-                        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Class %s not found.', $className))->discoveringSymbolsTip()->build()];
+                        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Class %s not found.', $className))->discoveringSymbolsTip()->build()];
                     }
-                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to constant %s on an unknown class %s.', $constantName, $className))->discoveringSymbolsTip()->build()];
+                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to constant %s on an unknown class %s.', $constantName, $className))->discoveringSymbolsTip()->build()];
                 } else {
-                    $messages = $this->classCaseSensitivityCheck->checkClassNames([new \PHPStan\Rules\ClassNameNodePair($className, $class)]);
+                    $messages = $this->classCaseSensitivityCheck->checkClassNames([new \RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair($className, $class)]);
                 }
                 $className = $this->reflectionProvider->getClass($className)->getName();
             }
@@ -100,10 +100,10 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
             }
             if (\strtolower($constantName) === 'class') {
                 if (!$this->phpVersion->supportsClassConstantOnExpression()) {
-                    return [\PHPStan\Rules\RuleErrorBuilder::message('Accessing ::class constant on an expression is supported only on PHP 8.0 and later.')->nonIgnorable()->build()];
+                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Accessing ::class constant on an expression is supported only on PHP 8.0 and later.')->nonIgnorable()->build()];
                 }
                 if ((new \PHPStan\Type\StringType())->isSuperTypeOf($classType)->yes()) {
-                    return [\PHPStan\Rules\RuleErrorBuilder::message('Accessing ::class constant on a dynamic string is not supported in PHP.')->nonIgnorable()->build()];
+                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Accessing ::class constant on a dynamic string is not supported in PHP.')->nonIgnorable()->build()];
                 }
             }
         }
@@ -116,17 +116,17 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
         }
         $classType = \PHPStan\Type\TypeCombinator::remove($classType, new \PHPStan\Type\StringType());
         if (!$classType->canAccessConstants()->yes()) {
-            return \array_merge($messages, [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()]);
+            return \array_merge($messages, [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access constant %s on %s.', $constantName, $typeForDescribe->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()]);
         }
         if (\strtolower($constantName) === 'class') {
             return $messages;
         }
         if (!$classType->hasConstant($constantName)->yes()) {
-            return \array_merge($messages, [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to undefined constant %s::%s.', $typeForDescribe->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $constantName))->build()]);
+            return \array_merge($messages, [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to undefined constant %s::%s.', $typeForDescribe->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $constantName))->build()]);
         }
         $constantReflection = $classType->getConstant($constantName);
         if (!$scope->canAccessConstant($constantReflection)) {
-            return \array_merge($messages, [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to %s constant %s of class %s.', $constantReflection->isPrivate() ? 'private' : 'protected', $constantName, $constantReflection->getDeclaringClass()->getDisplayName()))->build()]);
+            return \array_merge($messages, [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to %s constant %s of class %s.', $constantReflection->isPrivate() ? 'private' : 'protected', $constantName, $constantReflection->getDeclaringClass()->getDisplayName()))->build()]);
         }
         return $messages;
     }

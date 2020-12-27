@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\ConstantReflection;
-use PHPStan\Reflection\Dummy\DummyConstantReflection;
-use PHPStan\Reflection\Dummy\DummyMethodReflection;
-use PHPStan\Reflection\Dummy\DummyPropertyReflection;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\PropertyReflection;
-use PHPStan\Reflection\TrivialParametersAcceptor;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\Reflection\ConstantReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyConstantReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyMethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyPropertyReflection;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
+use RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Generic\TemplateMixedType;
 use PHPStan\Type\Generic\TemplateType;
@@ -44,50 +44,50 @@ class MixedType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Subtractabl
     {
         return [];
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function isSuperTypeOfMixed(\PHPStan\Type\MixedType $type) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOfMixed(\PHPStan\Type\MixedType $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($this->subtractedType === null) {
             if ($this->isExplicitMixed) {
                 if ($type->isExplicitMixed) {
-                    return \PHPStan\TrinaryLogic::createYes();
+                    return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
                 }
-                return \PHPStan\TrinaryLogic::createMaybe();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
             }
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($type->subtractedType === null) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         $isSuperType = $type->subtractedType->isSuperTypeOf($this->subtractedType);
         if ($isSuperType->yes()) {
             if ($this->isExplicitMixed) {
                 if ($type->isExplicitMixed) {
-                    return \PHPStan\TrinaryLogic::createYes();
+                    return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
                 }
-                return \PHPStan\TrinaryLogic::createMaybe();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
             }
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($this->subtractedType === null || $type instanceof \PHPStan\Type\NeverType) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($type instanceof self) {
             if ($type->subtractedType === null) {
-                return \PHPStan\TrinaryLogic::createMaybe();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
             }
             $isSuperType = $type->subtractedType->isSuperTypeOf($this->subtractedType);
             if ($isSuperType->yes()) {
-                return \PHPStan\TrinaryLogic::createYes();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             }
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         return $this->subtractedType->isSuperTypeOf($type)->negate();
     }
@@ -95,20 +95,20 @@ class MixedType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Subtractabl
     {
         return new \PHPStan\Type\MixedType();
     }
-    public function isCallable() : \PHPStan\TrinaryLogic
+    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($this->subtractedType !== null && $this->subtractedType->isCallable()->yes()) {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
-        return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {
@@ -126,66 +126,66 @@ class MixedType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Subtractabl
         }
         return $this->subtractedType->equals($type->subtractedType);
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($otherType instanceof self && !$otherType instanceof \PHPStan\Type\Generic\TemplateMixedType) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         if ($this->subtractedType !== null) {
             $isSuperType = $this->subtractedType->isSuperTypeOf($otherType);
             if ($isSuperType->yes()) {
-                return \PHPStan\TrinaryLogic::createNo();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
             }
         }
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         $isSuperType = $this->isSuperTypeOf($acceptingType);
         if ($isSuperType->no()) {
             return $isSuperType;
         }
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function canAccessProperties() : \PHPStan\TrinaryLogic
+    public function canAccessProperties() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasProperty(string $propertyName) : \PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
     {
-        return new \PHPStan\Reflection\Dummy\DummyPropertyReflection();
+        return new \RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyPropertyReflection();
     }
-    public function canCallMethods() : \PHPStan\TrinaryLogic
+    public function canCallMethods() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
     {
-        return new \PHPStan\Reflection\Dummy\DummyMethodReflection($methodName);
+        return new \RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyMethodReflection($methodName);
     }
-    public function canAccessConstants() : \PHPStan\TrinaryLogic
+    public function canAccessConstants() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function hasConstant(string $constantName) : \PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
-    public function getConstant(string $constantName) : \PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \RectorPrefix20201227\PHPStan\Reflection\ConstantReflection
     {
-        return new \PHPStan\Reflection\Dummy\DummyConstantReflection($constantName);
+        return new \RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyConstantReflection($constantName);
     }
-    public function isCloneable() : \PHPStan\TrinaryLogic
+    public function isCloneable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createYes();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
     }
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
@@ -269,13 +269,13 @@ class MixedType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Subtractabl
     {
         return $this;
     }
-    public function isArray() : \PHPStan\TrinaryLogic
+    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isNumericString() : \PHPStan\TrinaryLogic
+    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createMaybe();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
     }
     /**
      * @param mixed[] $properties

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\DependencyInjection;
+namespace RectorPrefix20201227\PHPStan\DependencyInjection;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect;
-use PHPStan\Analyser\TypeSpecifierFactory;
-use PHPStan\Broker\BrokerFactory;
-use PHPStan\PhpDoc\TypeNodeResolverExtension;
-use PHPStan\Rules\RegistryFactory;
-class ConditionalTagsExtension extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\CompilerExtension
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect;
+use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierFactory;
+use RectorPrefix20201227\PHPStan\Broker\BrokerFactory;
+use RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolverExtension;
+use RectorPrefix20201227\PHPStan\Rules\RegistryFactory;
+class ConditionalTagsExtension extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    public function getConfigSchema() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
     {
-        $bool = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::bool();
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::arrayOf(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::structure([\PHPStan\Broker\BrokerFactory::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::METHODS_CLASS_REFLECTION_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG => $bool, \PHPStan\Broker\BrokerFactory::OPERATOR_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \PHPStan\Rules\RegistryFactory::RULE_TAG => $bool, \PHPStan\PhpDoc\TypeNodeResolverExtension::EXTENSION_TAG => $bool, \PHPStan\Analyser\TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \PHPStan\Analyser\TypeSpecifierFactory::METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \PHPStan\Analyser\TypeSpecifierFactory::STATIC_METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool])->min(1));
+        $bool = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::bool();
+        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::arrayOf(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::structure([\RectorPrefix20201227\PHPStan\Broker\BrokerFactory::PROPERTIES_CLASS_REFLECTION_EXTENSION_TAG => $bool, \RectorPrefix20201227\PHPStan\Broker\BrokerFactory::METHODS_CLASS_REFLECTION_EXTENSION_TAG => $bool, \RectorPrefix20201227\PHPStan\Broker\BrokerFactory::DYNAMIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool, \RectorPrefix20201227\PHPStan\Broker\BrokerFactory::DYNAMIC_STATIC_METHOD_RETURN_TYPE_EXTENSION_TAG => $bool, \RectorPrefix20201227\PHPStan\Broker\BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG => $bool, \RectorPrefix20201227\PHPStan\Broker\BrokerFactory::OPERATOR_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \RectorPrefix20201227\PHPStan\Rules\RegistryFactory::RULE_TAG => $bool, \RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolverExtension::EXTENSION_TAG => $bool, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierFactory::METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierFactory::STATIC_METHOD_TYPE_SPECIFYING_EXTENSION_TAG => $bool])->min(1));
     }
     public function beforeCompile() : void
     {
@@ -24,7 +24,7 @@ class ConditionalTagsExtension extends \_HumbugBox221ad6f1b81f__UniqueRector\Net
         foreach ($config as $type => $tags) {
             $services = $builder->findByType($type);
             if (\count($services) === 0) {
-                throw new \PHPStan\ShouldNotHappenException(\sprintf('No services of type "%s" found.', $type));
+                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException(\sprintf('No services of type "%s" found.', $type));
             }
             foreach ($services as $service) {
                 foreach ($tags as $tag => $parameter) {

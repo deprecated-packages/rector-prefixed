@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Node;
+namespace RectorPrefix20201227\PHPStan\Node;
 
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeAbstract;
-use PHPStan\Node\Method\MethodCall;
-class ClassMethodsNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
+use RectorPrefix20201227\PHPStan\Node\Method\MethodCall;
+class ClassMethodsNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */
     private $class;

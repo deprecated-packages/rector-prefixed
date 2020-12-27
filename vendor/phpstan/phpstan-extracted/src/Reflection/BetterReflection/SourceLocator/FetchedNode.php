@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator;
 
 /**
  * @template-covariant T of \PhpParser\Node

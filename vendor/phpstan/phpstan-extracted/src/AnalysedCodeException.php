@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan;
+namespace RectorPrefix20201227\PHPStan;
 
 abstract class AnalysedCodeException extends \Exception
 {

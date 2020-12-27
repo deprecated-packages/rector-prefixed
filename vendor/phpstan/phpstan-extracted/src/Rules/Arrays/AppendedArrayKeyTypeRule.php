@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Arrays;
+namespace RectorPrefix20201227\PHPStan\Rules\Arrays;
 
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Properties\PropertyReflectionFinder;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\Properties\PropertyReflectionFinder;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\UnionType;
@@ -15,13 +15,13 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\Assign>
  */
-class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
+class AppendedArrayKeyTypeRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var PropertyReflectionFinder */
     private $propertyReflectionFinder;
     /** @var bool */
     private $checkUnionTypes;
-    public function __construct(\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder, bool $checkUnionTypes)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder, bool $checkUnionTypes)
     {
         $this->propertyReflectionFinder = $propertyReflectionFinder;
         $this->checkUnionTypes = $checkUnionTypes;
@@ -30,7 +30,7 @@ class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\Assign::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return [];
@@ -48,7 +48,7 @@ class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
         }
         if ($node->var->dim !== null) {
             $dimensionType = $scope->getType($node->var->dim);
-            $isValidKey = \PHPStan\Rules\Arrays\AllowedArrayKeysTypes::getType()->isSuperTypeOf($dimensionType);
+            $isValidKey = \RectorPrefix20201227\PHPStan\Rules\Arrays\AllowedArrayKeysTypes::getType()->isSuperTypeOf($dimensionType);
             if (!$isValidKey->yes()) {
                 // already handled by InvalidKeyInArrayDimFetchRule
                 return [];
@@ -61,7 +61,7 @@ class AppendedArrayKeyTypeRule implements \PHPStan\Rules\Rule
             $keyType = new \PHPStan\Type\IntegerType();
         }
         if (!$arrayType->getIterableKeyType()->isSuperTypeOf($keyType)->yes()) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Array (%s) does not accept key %s.', $arrayType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $keyType->describe(\PHPStan\Type\VerbosityLevel::value())))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Array (%s) does not accept key %s.', $arrayType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $keyType->describe(\PHPStan\Type\VerbosityLevel::value())))->build()];
         }
         return [];
     }

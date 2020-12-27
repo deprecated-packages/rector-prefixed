@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Functions;
+namespace RectorPrefix20201227\PHPStan\Rules\Functions;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\InFunctionNode;
-use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
-use PHPStan\Rules\FunctionDefinitionCheck;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\InFunctionNode;
+use RectorPrefix20201227\PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
+use RectorPrefix20201227\PHPStan\Rules\FunctionDefinitionCheck;
 /**
  * @implements \PHPStan\Rules\Rule<InFunctionNode>
  */
-class ExistingClassesInTypehintsRule implements \PHPStan\Rules\Rule
+class ExistingClassesInTypehintsRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\FunctionDefinitionCheck */
     private $check;
-    public function __construct(\PHPStan\Rules\FunctionDefinitionCheck $check)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\FunctionDefinitionCheck $check)
     {
         $this->check = $check;
     }
     public function getNodeType() : string
     {
-        return \PHPStan\Node\InFunctionNode::class;
+        return \RectorPrefix20201227\PHPStan\Node\InFunctionNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
-        if (!$scope->getFunction() instanceof \PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection) {
+        if (!$scope->getFunction() instanceof \RectorPrefix20201227\PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection) {
             return [];
         }
         $functionName = $scope->getFunction()->getName();

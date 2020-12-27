@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Properties;
+namespace RectorPrefix20201227\PHPStan\Rules\Properties;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\Assign>
  */
-class AccessStaticPropertiesInAssignRule implements \PHPStan\Rules\Rule
+class AccessStaticPropertiesInAssignRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\Properties\AccessStaticPropertiesRule */
     private $accessStaticPropertiesRule;
-    public function __construct(\PHPStan\Rules\Properties\AccessStaticPropertiesRule $accessStaticPropertiesRule)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Properties\AccessStaticPropertiesRule $accessStaticPropertiesRule)
     {
         $this->accessStaticPropertiesRule = $accessStaticPropertiesRule;
     }
@@ -21,7 +21,7 @@ class AccessStaticPropertiesInAssignRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\Assign::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
             return [];

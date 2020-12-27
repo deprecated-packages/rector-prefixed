@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\TooWideTypehints;
+namespace RectorPrefix20201227\PHPStan\Rules\TooWideTypehints;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\InArrowFunctionNode;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\InArrowFunctionNode;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\NullType;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements Rule<InArrowFunctionNode>
  */
-class TooWideArrowFunctionReturnTypehintRule implements \PHPStan\Rules\Rule
+class TooWideArrowFunctionReturnTypehintRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \PHPStan\Node\InArrowFunctionNode::class;
+        return \RectorPrefix20201227\PHPStan\Node\InArrowFunctionNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $functionReturnType = $scope->getAnonymousFunctionReturnType();
         if ($functionReturnType === null || !$functionReturnType instanceof \PHPStan\Type\UnionType) {
@@ -43,7 +43,7 @@ class TooWideArrowFunctionReturnTypehintRule implements \PHPStan\Rules\Rule
             if (!$type->isSuperTypeOf($returnType)->no()) {
                 continue;
             }
-            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Anonymous function never returns %s so it can be removed from the return typehint.', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+            $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Anonymous function never returns %s so it can be removed from the return typehint.', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
         }
         return $messages;
     }

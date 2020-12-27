@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection;
+namespace RectorPrefix20201227\PHPStan\Reflection;
 
-use PHPStan\Broker\Broker;
+use RectorPrefix20201227\PHPStan\Broker\Broker;
 interface BrokerAwareExtension
 {
-    public function setBroker(\PHPStan\Broker\Broker $broker) : void;
+    public function setBroker(\RectorPrefix20201227\PHPStan\Broker\Broker $broker) : void;
 }

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Functions;
+namespace RectorPrefix20201227\PHPStan\Rules\Functions;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\AttributesCheck;
-use PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\AttributesCheck;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
 /**
  * @implements Rule<Node\Stmt\Function_>
  */
-class FunctionAttributesRule implements \PHPStan\Rules\Rule
+class FunctionAttributesRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var AttributesCheck */
     private $attributesCheck;
-    public function __construct(\PHPStan\Rules\AttributesCheck $attributesCheck)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\AttributesCheck $attributesCheck)
     {
         $this->attributesCheck = $attributesCheck;
     }
@@ -22,7 +22,7 @@ class FunctionAttributesRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Stmt\Function_::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         return $this->attributesCheck->check($scope, $node->attrGroups, \Attribute::TARGET_FUNCTION, 'function');
     }

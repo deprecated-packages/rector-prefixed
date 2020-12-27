@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Properties;
+namespace RectorPrefix20201227\PHPStan\Rules\Properties;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\NullType;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements Rule<Node\Expr\NullsafePropertyFetch>
  */
-class NullsafePropertyFetchRule implements \PHPStan\Rules\Rule
+class NullsafePropertyFetchRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\Node\Expr\NullsafePropertyFetch::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $nullType = new \PHPStan\Type\NullType();
         $calledOnType = $scope->getType($node->var);
@@ -28,6 +28,6 @@ class NullsafePropertyFetchRule implements \PHPStan\Rules\Rule
         if (!$calledOnType->isSuperTypeOf($nullType)->no()) {
             return [];
         }
-        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using nullsafe property access on non-nullable type %s. Use -> instead.', $calledOnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Using nullsafe property access on non-nullable type %s. Use -> instead.', $calledOnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules;
+namespace RectorPrefix20201227\PHPStan\Rules;
 
 use PhpParser\Node\Expr;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\GenericTypeVariableResolver;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
@@ -15,7 +15,7 @@ class FunctionReturnTypeCheck
 {
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
     }
@@ -29,10 +29,10 @@ class FunctionReturnTypeCheck
      * @param bool $isGenerator
      * @return RuleError[]
      */
-    public function checkReturnType(\PHPStan\Analyser\Scope $scope, \PHPStan\Type\Type $returnType, ?\PhpParser\Node\Expr $returnValue, string $emptyReturnStatementMessage, string $voidMessage, string $typeMismatchMessage, string $neverMessage, bool $isGenerator) : array
+    public function checkReturnType(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PHPStan\Type\Type $returnType, ?\PhpParser\Node\Expr $returnValue, string $emptyReturnStatementMessage, string $voidMessage, string $typeMismatchMessage, string $neverMessage, bool $isGenerator) : array
     {
         if ($returnType instanceof \PHPStan\Type\NeverType && $returnType->isExplicit()) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message($neverMessage)->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message($neverMessage)->build()];
         }
         if ($isGenerator) {
             if (!$returnType instanceof \PHPStan\Type\TypeWithClassName) {
@@ -49,14 +49,14 @@ class FunctionReturnTypeCheck
             if (!$isVoidSuperType->no()) {
                 return [];
             }
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($emptyReturnStatementMessage, $returnType->describe($verbosityLevel)))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($emptyReturnStatementMessage, $returnType->describe($verbosityLevel)))->build()];
         }
         $returnValueType = $scope->getType($returnValue);
         if ($isVoidSuperType->yes()) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($voidMessage, $returnValueType->describe($verbosityLevel)))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($voidMessage, $returnValueType->describe($verbosityLevel)))->build()];
         }
         if (!$this->ruleLevelHelper->accepts($returnType, $returnValueType, $scope->isDeclareStrictTypes())) {
-            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($typeMismatchMessage, $returnType->describe($verbosityLevel), $returnValueType->describe($verbosityLevel)))->build()];
+            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($typeMismatchMessage, $returnType->describe($verbosityLevel), $returnValueType->describe($verbosityLevel)))->build()];
         }
         return [];
     }

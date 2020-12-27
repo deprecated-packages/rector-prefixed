@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\ReflectionProvider;
+namespace RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 
-use PHPStan\Reflection\ReflectionProvider;
-class SetterReflectionProviderProvider implements \PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider
+use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+class SetterReflectionProviderProvider implements \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider
 {
     /** @var ReflectionProvider */
     private $reflectionProvider;
-    public function setReflectionProvider(\PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
+    public function setReflectionProvider(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider) : void
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function getReflectionProvider() : \PHPStan\Reflection\ReflectionProvider
+    public function getReflectionProvider() : \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider
     {
         return $this->reflectionProvider;
     }

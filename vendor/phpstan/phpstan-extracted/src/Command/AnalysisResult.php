@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Command;
+namespace RectorPrefix20201227\PHPStan\Command;
 
-use PHPStan\Analyser\Error;
+use RectorPrefix20201227\PHPStan\Analyser\Error;
 class AnalysisResult
 {
     /** @var \PHPStan\Analyser\Error[] sorted by their file name, line number and message */
@@ -31,7 +31,7 @@ class AnalysisResult
      */
     public function __construct(array $fileSpecificErrors, array $notFileSpecificErrors, array $internalErrors, array $warnings, bool $defaultLevelUsed, ?string $projectConfigFile, bool $savedResultCache)
     {
-        \usort($fileSpecificErrors, static function (\PHPStan\Analyser\Error $a, \PHPStan\Analyser\Error $b) : int {
+        \usort($fileSpecificErrors, static function (\RectorPrefix20201227\PHPStan\Analyser\Error $a, \RectorPrefix20201227\PHPStan\Analyser\Error $b) : int {
             return [$a->getFile(), $a->getLine(), $a->getMessage()] <=> [$b->getFile(), $b->getLine(), $b->getMessage()];
         });
         $this->fileSpecificErrors = $fileSpecificErrors;

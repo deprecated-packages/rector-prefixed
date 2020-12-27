@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Functions;
+namespace RectorPrefix20201227\PHPStan\Rules\Functions;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Rules\NullsafeCheck;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Rules\NullsafeCheck;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements Rule<Node\Expr\ArrowFunction>
  */
-class ArrowFunctionReturnNullsafeByRefRule implements \PHPStan\Rules\Rule
+class ArrowFunctionReturnNullsafeByRefRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var NullsafeCheck */
     private $nullsafeCheck;
-    public function __construct(\PHPStan\Rules\NullsafeCheck $nullsafeCheck)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\NullsafeCheck $nullsafeCheck)
     {
         $this->nullsafeCheck = $nullsafeCheck;
     }
@@ -23,7 +23,7 @@ class ArrowFunctionReturnNullsafeByRefRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\ArrowFunction::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->byRef) {
             return [];
@@ -31,6 +31,6 @@ class ArrowFunctionReturnNullsafeByRefRule implements \PHPStan\Rules\Rule
         if (!$this->nullsafeCheck->containsNullSafe($node->expr)) {
             return [];
         }
-        return [\PHPStan\Rules\RuleErrorBuilder::message('Nullsafe cannot be returned by reference.')->nonIgnorable()->build()];
+        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Nullsafe cannot be returned by reference.')->nonIgnorable()->build()];
     }
 }

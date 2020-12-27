@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Php;
+namespace RectorPrefix20201227\PHPStan\Reflection\Php;
 
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\PropertyReflection;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
-class PhpPropertyReflection implements \PHPStan\Reflection\PropertyReflection
+class PhpPropertyReflection implements \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -33,7 +33,7 @@ class PhpPropertyReflection implements \PHPStan\Reflection\PropertyReflection
     private $isInternal;
     /** @var string|null */
     private $stubPhpDocString;
-    public function __construct(\PHPStan\Reflection\ClassReflection $declaringClass, ?\PHPStan\Reflection\ClassReflection $declaringTrait, ?\ReflectionType $nativeType, ?\PHPStan\Type\Type $phpDocType, \ReflectionProperty $reflection, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, ?string $stubPhpDocString)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $declaringClass, ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $declaringTrait, ?\ReflectionType $nativeType, ?\PHPStan\Type\Type $phpDocType, \ReflectionProperty $reflection, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, ?string $stubPhpDocString)
     {
         $this->declaringClass = $declaringClass;
         $this->declaringTrait = $declaringTrait;
@@ -45,11 +45,11 @@ class PhpPropertyReflection implements \PHPStan\Reflection\PropertyReflection
         $this->isInternal = $isInternal;
         $this->stubPhpDocString = $stubPhpDocString;
     }
-    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
-    public function getDeclaringTrait() : ?\PHPStan\Reflection\ClassReflection
+    public function getDeclaringTrait() : ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection
     {
         return $this->declaringTrait;
     }
@@ -131,12 +131,12 @@ class PhpPropertyReflection implements \PHPStan\Reflection\PropertyReflection
         }
         return null;
     }
-    public function isDeprecated() : \PHPStan\TrinaryLogic
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated);
     }
-    public function isInternal() : \PHPStan\TrinaryLogic
+    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
     }
 }

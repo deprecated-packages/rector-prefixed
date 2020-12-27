@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Comparison;
+namespace RectorPrefix20201227\PHPStan\Rules\Comparison;
 
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\BinaryOp\BooleanOr>
  */
-class BooleanOrConstantConditionRule implements \PHPStan\Rules\Rule
+class BooleanOrConstantConditionRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var ConstantConditionRuleHelper */
     private $helper;
     /** @var bool */
     private $treatPhpDocTypesAsCertain;
-    public function __construct(\PHPStan\Rules\Comparison\ConstantConditionRuleHelper $helper, bool $treatPhpDocTypesAsCertain)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Comparison\ConstantConditionRuleHelper $helper, bool $treatPhpDocTypesAsCertain)
     {
         $this->helper = $helper;
         $this->treatPhpDocTypesAsCertain = $treatPhpDocTypesAsCertain;
@@ -23,13 +23,13 @@ class BooleanOrConstantConditionRule implements \PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\BinaryOp\BooleanOr::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $messages = [];
         $leftType = $this->helper->getBooleanType($scope, $node->left);
         $tipText = 'Because the type is coming from a PHPDoc, you can turn off this check by setting <fg=cyan>treatPhpDocTypesAsCertain: false</> in your <fg=cyan>%configurationFile%</>.';
         if ($leftType instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
-            $addTipLeft = function (\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node, $tipText) : RuleErrorBuilder {
+            $addTipLeft = function (\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node, $tipText) : RuleErrorBuilder {
                 if (!$this->treatPhpDocTypesAsCertain) {
                     return $ruleErrorBuilder;
                 }
@@ -39,11 +39,11 @@ class BooleanOrConstantConditionRule implements \PHPStan\Rules\Rule
                 }
                 return $ruleErrorBuilder->tip($tipText);
             };
-            $messages[] = $addTipLeft(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Left side of || is always %s.', $leftType->getValue() ? 'true' : 'false')))->line($node->left->getLine())->build();
+            $messages[] = $addTipLeft(\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Left side of || is always %s.', $leftType->getValue() ? 'true' : 'false')))->line($node->left->getLine())->build();
         }
         $rightType = $this->helper->getBooleanType($scope->filterByFalseyValue($node->left), $node->right);
         if ($rightType instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
-            $addTipRight = function (\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node, $tipText) : RuleErrorBuilder {
+            $addTipRight = function (\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node, $tipText) : RuleErrorBuilder {
                 if (!$this->treatPhpDocTypesAsCertain) {
                     return $ruleErrorBuilder;
                 }
@@ -53,12 +53,12 @@ class BooleanOrConstantConditionRule implements \PHPStan\Rules\Rule
                 }
                 return $ruleErrorBuilder->tip($tipText);
             };
-            $messages[] = $addTipRight(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Right side of || is always %s.', $rightType->getValue() ? 'true' : 'false')))->line($node->right->getLine())->build();
+            $messages[] = $addTipRight(\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Right side of || is always %s.', $rightType->getValue() ? 'true' : 'false')))->line($node->right->getLine())->build();
         }
         if (\count($messages) === 0) {
             $nodeType = $scope->getType($node);
             if ($nodeType instanceof \PHPStan\Type\Constant\ConstantBooleanType) {
-                $addTip = function (\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node, $tipText) : RuleErrorBuilder {
+                $addTip = function (\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node, $tipText) : RuleErrorBuilder {
                     if (!$this->treatPhpDocTypesAsCertain) {
                         return $ruleErrorBuilder;
                     }
@@ -68,7 +68,7 @@ class BooleanOrConstantConditionRule implements \PHPStan\Rules\Rule
                     }
                     return $ruleErrorBuilder->tip($tipText);
                 };
-                $messages[] = $addTip(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Result of || is always %s.', $nodeType->getValue() ? 'true' : 'false')))->build();
+                $messages[] = $addTip(\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Result of || is always %s.', $nodeType->getValue() ? 'true' : 'false')))->build();
             }
         }
         return $messages;

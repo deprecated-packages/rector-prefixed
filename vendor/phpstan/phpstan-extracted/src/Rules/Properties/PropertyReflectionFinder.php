@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\Properties;
+namespace RectorPrefix20201227\PHPStan\Rules\Properties;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\VarLikeIdentifier;
-use PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticType;
@@ -21,7 +21,7 @@ class PropertyReflectionFinder
      * @param \PHPStan\Analyser\Scope $scope
      * @return FoundPropertyReflection[]
      */
-    public function findPropertyReflectionsFromNode($propertyFetch, \PHPStan\Analyser\Scope $scope) : array
+    public function findPropertyReflectionsFromNode($propertyFetch, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         if ($propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
             if ($propertyFetch->name instanceof \PhpParser\Node\Identifier) {
@@ -71,7 +71,7 @@ class PropertyReflectionFinder
      * @param \PHPStan\Analyser\Scope $scope
      * @return FoundPropertyReflection|null
      */
-    public function findPropertyReflectionFromNode($propertyFetch, \PHPStan\Analyser\Scope $scope) : ?\PHPStan\Rules\Properties\FoundPropertyReflection
+    public function findPropertyReflectionFromNode($propertyFetch, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?\RectorPrefix20201227\PHPStan\Rules\Properties\FoundPropertyReflection
     {
         if ($propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
             if (!$propertyFetch->name instanceof \PhpParser\Node\Identifier) {
@@ -92,7 +92,7 @@ class PropertyReflectionFinder
         $fetchedOnThis = $propertyHolderType instanceof \PHPStan\Type\ThisType && $scope->isInClass();
         return $this->findPropertyReflection($propertyHolderType, $propertyFetch->name->name, $scope, $fetchedOnThis);
     }
-    private function findPropertyReflection(\PHPStan\Type\Type $propertyHolderType, string $propertyName, \PHPStan\Analyser\Scope $scope, bool $fetchedOnThis) : ?\PHPStan\Rules\Properties\FoundPropertyReflection
+    private function findPropertyReflection(\PHPStan\Type\Type $propertyHolderType, string $propertyName, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope, bool $fetchedOnThis) : ?\RectorPrefix20201227\PHPStan\Rules\Properties\FoundPropertyReflection
     {
         $transformedPropertyHolderType = \PHPStan\Type\TypeTraverser::map($propertyHolderType, static function (\PHPStan\Type\Type $type, callable $traverse) use($scope, $fetchedOnThis) : Type {
             if ($type instanceof \PHPStan\Type\StaticType) {
@@ -111,9 +111,9 @@ class PropertyReflectionFinder
         $originalProperty = $transformedPropertyHolderType->getProperty($propertyName, $scope);
         $readableType = $this->transformPropertyType($originalProperty->getReadableType(), $transformedPropertyHolderType, $scope, $fetchedOnThis);
         $writableType = $this->transformPropertyType($originalProperty->getWritableType(), $transformedPropertyHolderType, $scope, $fetchedOnThis);
-        return new \PHPStan\Rules\Properties\FoundPropertyReflection($originalProperty, $scope, $propertyName, $readableType, $writableType);
+        return new \RectorPrefix20201227\PHPStan\Rules\Properties\FoundPropertyReflection($originalProperty, $scope, $propertyName, $readableType, $writableType);
     }
-    private function transformPropertyType(\PHPStan\Type\Type $propertyType, \PHPStan\Type\Type $transformedPropertyHolderType, \PHPStan\Analyser\Scope $scope, bool $fetchedOnThis) : \PHPStan\Type\Type
+    private function transformPropertyType(\PHPStan\Type\Type $propertyType, \PHPStan\Type\Type $transformedPropertyHolderType, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope, bool $fetchedOnThis) : \PHPStan\Type\Type
     {
         return \PHPStan\Type\TypeTraverser::map($propertyType, static function (\PHPStan\Type\Type $propertyType, callable $traverse) use($transformedPropertyHolderType, $scope, $fetchedOnThis) : Type {
             if ($propertyType instanceof \PHPStan\Type\StaticType) {

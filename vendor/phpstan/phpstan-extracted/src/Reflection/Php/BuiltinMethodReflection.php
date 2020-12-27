@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Php;
+namespace RectorPrefix20201227\PHPStan\Reflection\Php;
 
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 interface BuiltinMethodReflection
 {
     public function getName() : string;
@@ -26,7 +26,7 @@ interface BuiltinMethodReflection
     public function isPrivate() : bool;
     public function isPublic() : bool;
     public function getPrototype() : self;
-    public function isDeprecated() : \PHPStan\TrinaryLogic;
+    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
     public function isVariadic() : bool;
     public function getReturnType() : ?\ReflectionType;
     /**

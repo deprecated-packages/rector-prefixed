@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\DependencyInjection\Type;
+namespace RectorPrefix20201227\PHPStan\DependencyInjection\Type;
 
-use PHPStan\Broker\Broker;
+use RectorPrefix20201227\PHPStan\Broker\Broker;
 use PHPStan\Type\OperatorTypeSpecifyingExtension;
 use PHPStan\Type\OperatorTypeSpecifyingExtensionRegistry;
-class DirectOperatorTypeSpecifyingExtensionRegistryProvider implements \PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
+class DirectOperatorTypeSpecifyingExtensionRegistryProvider implements \RectorPrefix20201227\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
 {
     /** @var OperatorTypeSpecifyingExtension[] */
     private $extensions;
@@ -19,7 +19,7 @@ class DirectOperatorTypeSpecifyingExtensionRegistryProvider implements \PHPStan\
     {
         $this->extensions = $extensions;
     }
-    public function setBroker(\PHPStan\Broker\Broker $broker) : void
+    public function setBroker(\RectorPrefix20201227\PHPStan\Broker\Broker $broker) : void
     {
         $this->broker = $broker;
     }

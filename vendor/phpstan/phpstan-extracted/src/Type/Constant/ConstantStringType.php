@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace PHPStan\Type\Constant;
 
 use PhpParser\Node\Name;
-use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ClassMemberAccessAnswerer;
-use PHPStan\Reflection\InaccessibleMethod;
-use PHPStan\Reflection\TrivialParametersAcceptor;
-use PHPStan\TrinaryLogic;
+use RectorPrefix20201227\PHPStan\Broker\Broker;
+use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
+use RectorPrefix20201227\PHPStan\Reflection\InaccessibleMethod;
+use RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor;
+use RectorPrefix20201227\PHPStan\TrinaryLogic;
 use PHPStan\Type\ClassStringType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantScalarType;
@@ -53,8 +53,8 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
                 return \var_export($this->value, \true);
             }
             try {
-                $truncatedValue = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT);
-            } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\RegexpException $e) {
+                $truncatedValue = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::truncate($this->value, self::DESCRIBE_LIMIT);
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\RegexpException $e) {
                 $truncatedValue = \substr($this->value, 0, self::DESCRIBE_LIMIT) . "…";
             }
             return \var_export($truncatedValue, \true);
@@ -62,12 +62,12 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
             return \var_export($this->value, \true);
         });
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\Generic\GenericClassStringType) {
             $genericType = $type->getGenericType();
             if ($genericType instanceof \PHPStan\Type\MixedType) {
-                return \PHPStan\TrinaryLogic::createMaybe();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
             }
             if ($genericType instanceof \PHPStan\Type\StaticType) {
                 $genericType = $genericType->getStaticObjectType();
@@ -84,83 +84,83 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
             }
             // Explicitly handle the uncertainty for Yes & Maybe.
             if ($isSuperType->yes()) {
-                return \PHPStan\TrinaryLogic::createMaybe();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
             }
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         if ($type instanceof \PHPStan\Type\ClassStringType) {
-            $broker = \PHPStan\Broker\Broker::getInstance();
-            return $broker->hasClass($this->getValue()) ? \PHPStan\TrinaryLogic::createMaybe() : \PHPStan\TrinaryLogic::createNo();
+            $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
+            return $broker->hasClass($this->getValue()) ? \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe() : \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         if ($type instanceof self) {
-            return $this->value === $type->value ? \PHPStan\TrinaryLogic::createYes() : \PHPStan\TrinaryLogic::createNo();
+            return $this->value === $type->value ? \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes() : \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
         if ($type instanceof parent) {
-            return \PHPStan\TrinaryLogic::createMaybe();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
-    public function isCallable() : \PHPStan\TrinaryLogic
+    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($this->value === '') {
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        $broker = \PHPStan\Broker\Broker::getInstance();
+        $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
         // 'my_function'
         if ($broker->hasFunction(new \PhpParser\Node\Name($this->value), null)) {
-            return \PHPStan\TrinaryLogic::createYes();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
         }
         // 'MyClass::myStaticFunction'
-        $matches = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
+        $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
         if ($matches !== null) {
             if (!$broker->hasClass($matches[1])) {
-                return \PHPStan\TrinaryLogic::createMaybe();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
             }
             $classRef = $broker->getClass($matches[1]);
             if ($classRef->hasMethod($matches[2])) {
-                return \PHPStan\TrinaryLogic::createYes();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
             }
             if (!$classRef->getNativeReflection()->isFinal()) {
-                return \PHPStan\TrinaryLogic::createMaybe();
+                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
             }
-            return \PHPStan\TrinaryLogic::createNo();
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
         }
-        return \PHPStan\TrinaryLogic::createNo();
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
     }
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
-        $broker = \PHPStan\Broker\Broker::getInstance();
+        $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
         // 'my_function'
         $functionName = new \PhpParser\Node\Name($this->value);
         if ($broker->hasFunction($functionName, null)) {
             return $broker->getFunction($functionName, null)->getVariants();
         }
         // 'MyClass::myStaticFunction'
-        $matches = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
+        $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($this->value, '#^([a-zA-Z_\\x7f-\\xff\\\\][a-zA-Z0-9_\\x7f-\\xff\\\\]*)::([a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*)\\z#');
         if ($matches !== null) {
             if (!$broker->hasClass($matches[1])) {
-                return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
+                return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
             }
             $classReflection = $broker->getClass($matches[1]);
             if ($classReflection->hasMethod($matches[2])) {
                 $method = $classReflection->getMethod($matches[2], $scope);
                 if (!$scope->canCallMethod($method)) {
-                    return [new \PHPStan\Reflection\InaccessibleMethod($method)];
+                    return [new \RectorPrefix20201227\PHPStan\Reflection\InaccessibleMethod($method)];
                 }
                 return $method->getVariants();
             }
             if (!$classReflection->getNativeReflection()->isFinal()) {
-                return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
+                return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
             }
         }
-        throw new \PHPStan\ShouldNotHappenException();
+        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
     }
     public function toNumber() : \PHPStan\Type\Type
     {
@@ -191,14 +191,14 @@ class ConstantStringType extends \PHPStan\Type\StringType implements \PHPStan\Ty
         }
         return $type->toFloat();
     }
-    public function isNumericString() : \PHPStan\TrinaryLogic
+    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
-        return \PHPStan\TrinaryLogic::createFromBoolean(\is_numeric($this->getValue()));
+        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean(\is_numeric($this->getValue()));
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
     {
         if ($offsetType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
-            return \PHPStan\TrinaryLogic::createFromBoolean($offsetType->getValue() < \strlen($this->value));
+            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($offsetType->getValue() < \strlen($this->value));
         }
         return parent::hasOffsetValueType($offsetType);
     }

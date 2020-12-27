@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules;
+namespace RectorPrefix20201227\PHPStan\Rules;
 
 class RuleErrorBuilder
 {
@@ -26,7 +26,7 @@ class RuleErrorBuilder
      */
     public static function getRuleErrorTypes() : array
     {
-        return [self::TYPE_MESSAGE => [\PHPStan\Rules\RuleError::class, 'message', 'string', 'string'], self::TYPE_LINE => [\PHPStan\Rules\LineRuleError::class, 'line', 'int', 'int'], self::TYPE_FILE => [\PHPStan\Rules\FileRuleError::class, 'file', 'string', 'string'], self::TYPE_TIP => [\PHPStan\Rules\TipRuleError::class, 'tip', 'string', 'string'], self::TYPE_IDENTIFIER => [\PHPStan\Rules\IdentifierRuleError::class, 'identifier', 'string', 'string'], self::TYPE_METADATA => [\PHPStan\Rules\MetadataRuleError::class, 'metadata', 'array', 'mixed[]'], self::TYPE_NON_IGNORABLE => [\PHPStan\Rules\NonIgnorableRuleError::class, null, null, null]];
+        return [self::TYPE_MESSAGE => [\RectorPrefix20201227\PHPStan\Rules\RuleError::class, 'message', 'string', 'string'], self::TYPE_LINE => [\RectorPrefix20201227\PHPStan\Rules\LineRuleError::class, 'line', 'int', 'int'], self::TYPE_FILE => [\RectorPrefix20201227\PHPStan\Rules\FileRuleError::class, 'file', 'string', 'string'], self::TYPE_TIP => [\RectorPrefix20201227\PHPStan\Rules\TipRuleError::class, 'tip', 'string', 'string'], self::TYPE_IDENTIFIER => [\RectorPrefix20201227\PHPStan\Rules\IdentifierRuleError::class, 'identifier', 'string', 'string'], self::TYPE_METADATA => [\RectorPrefix20201227\PHPStan\Rules\MetadataRuleError::class, 'metadata', 'array', 'mixed[]'], self::TYPE_NON_IGNORABLE => [\RectorPrefix20201227\PHPStan\Rules\NonIgnorableRuleError::class, null, null, null]];
     }
     public static function message(string $message) : self
     {
@@ -74,12 +74,12 @@ class RuleErrorBuilder
         $this->type |= self::TYPE_NON_IGNORABLE;
         return $this;
     }
-    public function build() : \PHPStan\Rules\RuleError
+    public function build() : \RectorPrefix20201227\PHPStan\Rules\RuleError
     {
         /** @var class-string<RuleError> $className */
         $className = \sprintf('PHPStan\\Rules\\RuleErrors\\RuleError%d', $this->type);
         if (!\class_exists($className)) {
-            throw new \PHPStan\ShouldNotHappenException(\sprintf('Class %s does not exist.', $className));
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException(\sprintf('Class %s does not exist.', $className));
         }
         $ruleError = new $className();
         foreach ($this->properties as $propertyName => $value) {

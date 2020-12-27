@@ -1,8 +1,8 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules;
+namespace RectorPrefix20201227\PHPStan\Rules;
 
-interface NonIgnorableRuleError extends \PHPStan\Rules\RuleError
+interface NonIgnorableRuleError extends \RectorPrefix20201227\PHPStan\Rules\RuleError
 {
 }

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Reflection\Php;
+namespace RectorPrefix20201227\PHPStan\Reflection\Php;
 
-use PHPStan\Reflection\PassedByReference;
+use RectorPrefix20201227\PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
-class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\ParameterReflectionWithPhpDocs
+class PhpParameterFromParserNodeReflection implements \RectorPrefix20201227\PHPStan\Reflection\ParameterReflectionWithPhpDocs
 {
     /** @var string */
     private $name;
@@ -26,7 +26,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
     private $variadic;
     /** @var \PHPStan\Type\Type|null */
     private $type = null;
-    public function __construct(string $name, bool $optional, \PHPStan\Type\Type $realType, ?\PHPStan\Type\Type $phpDocType, \PHPStan\Reflection\PassedByReference $passedByReference, ?\PHPStan\Type\Type $defaultValue, bool $variadic)
+    public function __construct(string $name, bool $optional, \PHPStan\Type\Type $realType, ?\PHPStan\Type\Type $phpDocType, \RectorPrefix20201227\PHPStan\Reflection\PassedByReference $passedByReference, ?\PHPStan\Type\Type $defaultValue, bool $variadic)
     {
         $this->name = $name;
         $this->optional = $optional;
@@ -65,7 +65,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
     {
         return $this->realType;
     }
-    public function passedByReference() : \PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \RectorPrefix20201227\PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\DependencyInjection\Nette;
+namespace RectorPrefix20201227\PHPStan\DependencyInjection\Nette;
 
-use PHPStan\DependencyInjection\Container;
+use RectorPrefix20201227\PHPStan\DependencyInjection\Container;
 /**
  * @internal
  */
-class NetteContainer implements \PHPStan\DependencyInjection\Container
+class NetteContainer implements \RectorPrefix20201227\PHPStan\DependencyInjection\Container
 {
     /** @var \Nette\DI\Container */
     private $container;
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Container $container)
+    public function __construct(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Container $container)
     {
         $this->container = $container;
     }
@@ -69,7 +69,7 @@ class NetteContainer implements \PHPStan\DependencyInjection\Container
     public function getParameter(string $parameterName)
     {
         if (!$this->hasParameter($parameterName)) {
-            throw new \PHPStan\DependencyInjection\ParameterNotFoundException($parameterName);
+            throw new \RectorPrefix20201227\PHPStan\DependencyInjection\ParameterNotFoundException($parameterName);
         }
         return $this->container->parameters[$parameterName];
     }

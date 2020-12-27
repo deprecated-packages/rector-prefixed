@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\TooWideTypehints;
+namespace RectorPrefix20201227\PHPStan\Rules\TooWideTypehints;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\MethodReturnStatementsNode;
-use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\MethodReturnStatementsNode;
+use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\TypeCombinator;
@@ -18,7 +18,7 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\MethodReturnStatementsNode>
  */
-class TooWideMethodReturnTypehintRule implements \PHPStan\Rules\Rule
+class TooWideMethodReturnTypehintRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkProtectedAndPublicMethods;
@@ -28,13 +28,13 @@ class TooWideMethodReturnTypehintRule implements \PHPStan\Rules\Rule
     }
     public function getNodeType() : string
     {
-        return \PHPStan\Node\MethodReturnStatementsNode::class;
+        return \RectorPrefix20201227\PHPStan\Node\MethodReturnStatementsNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $method = $scope->getFunction();
-        if (!$method instanceof \PHPStan\Reflection\MethodReflection) {
-            throw new \PHPStan\ShouldNotHappenException();
+        if (!$method instanceof \RectorPrefix20201227\PHPStan\Reflection\MethodReflection) {
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
         $isFirstDeclaration = $method->getPrototype()->getDeclaringClass() === $method->getDeclaringClass();
         if (!$method->isPrivate()) {
@@ -45,7 +45,7 @@ class TooWideMethodReturnTypehintRule implements \PHPStan\Rules\Rule
                 return [];
             }
         }
-        $methodReturnType = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants())->getReturnType();
+        $methodReturnType = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants())->getReturnType();
         if (!$methodReturnType instanceof \PHPStan\Type\UnionType) {
             return [];
         }
@@ -77,7 +77,7 @@ class TooWideMethodReturnTypehintRule implements \PHPStan\Rules\Rule
             if (!$type->isSuperTypeOf($returnType)->no()) {
                 continue;
             }
-            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Method %s::%s() never returns %s so it can be removed from the return typehint.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+            $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Method %s::%s() never returns %s so it can be removed from the return typehint.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
         }
         return $messages;
     }

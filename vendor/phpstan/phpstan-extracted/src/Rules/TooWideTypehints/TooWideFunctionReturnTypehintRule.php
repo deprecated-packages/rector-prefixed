@@ -1,34 +1,34 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Rules\TooWideTypehints;
+namespace RectorPrefix20201227\PHPStan\Rules\TooWideTypehints;
 
 use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\FunctionReturnStatementsNode;
-use PHPStan\Reflection\FunctionReflection;
-use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
+use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use RectorPrefix20201227\PHPStan\Node\FunctionReturnStatementsNode;
+use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
+use RectorPrefix20201227\PHPStan\Rules\Rule;
+use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\FunctionReturnStatementsNode>
  */
-class TooWideFunctionReturnTypehintRule implements \PHPStan\Rules\Rule
+class TooWideFunctionReturnTypehintRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \PHPStan\Node\FunctionReturnStatementsNode::class;
+        return \RectorPrefix20201227\PHPStan\Node\FunctionReturnStatementsNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
     {
         $function = $scope->getFunction();
-        if (!$function instanceof \PHPStan\Reflection\FunctionReflection) {
-            throw new \PHPStan\ShouldNotHappenException();
+        if (!$function instanceof \RectorPrefix20201227\PHPStan\Reflection\FunctionReflection) {
+            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
-        $functionReturnType = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($function->getVariants())->getReturnType();
+        $functionReturnType = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($function->getVariants())->getReturnType();
         if (!$functionReturnType instanceof \PHPStan\Type\UnionType) {
             return [];
         }
@@ -57,7 +57,7 @@ class TooWideFunctionReturnTypehintRule implements \PHPStan\Rules\Rule
             if (!$type->isSuperTypeOf($returnType)->no()) {
                 continue;
             }
-            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Function %s() never returns %s so it can be removed from the return typehint.', $function->getName(), $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
+            $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Function %s() never returns %s so it can be removed from the return typehint.', $function->getName(), $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build();
         }
         return $messages;
     }

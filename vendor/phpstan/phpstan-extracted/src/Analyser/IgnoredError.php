@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\Analyser;
+namespace RectorPrefix20201227\PHPStan\Analyser;
 
-use PHPStan\File\FileExcluder;
-use PHPStan\File\FileHelper;
+use RectorPrefix20201227\PHPStan\File\FileExcluder;
+use RectorPrefix20201227\PHPStan\File\FileHelper;
 class IgnoredError
 {
     /**
@@ -36,15 +36,15 @@ class IgnoredError
      * @param string|null $path
      * @return bool To ignore or not to ignore?
      */
-    public static function shouldIgnore(\PHPStan\File\FileHelper $fileHelper, \PHPStan\Analyser\Error $error, string $ignoredErrorPattern, ?string $path) : bool
+    public static function shouldIgnore(\RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, \RectorPrefix20201227\PHPStan\Analyser\Error $error, string $ignoredErrorPattern, ?string $path) : bool
     {
         // normalize newlines to allow working with ignore-patterns independent of used OS newline-format
         $errorMessage = $error->getMessage();
         $errorMessage = \str_replace(['\\r\\n', '\\r'], '\\n', $errorMessage);
-        $ignoredErrorPattern = \str_replace([\preg_quote('\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
+        $ignoredErrorPattern = \str_replace([\preg_quote('RectorPrefix20201227\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
         if ($path !== null) {
-            $fileExcluder = new \PHPStan\File\FileExcluder($fileHelper, [$path], []);
-            if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
+            $fileExcluder = new \RectorPrefix20201227\PHPStan\File\FileExcluder($fileHelper, [$path], []);
+            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
                 return \false;
             }
             $isExcluded = $fileExcluder->isExcludedFromAnalysing($error->getFilePath());
@@ -53,6 +53,6 @@ class IgnoredError
             }
             return $isExcluded;
         }
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
+        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
     }
 }

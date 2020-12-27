@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace PHPStan\PhpDoc\Tag;
+namespace RectorPrefix20201227\PHPStan\PhpDoc\Tag;
 
 use PHPStan\Type\Type;
 class ThrowsTag
