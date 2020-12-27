@@ -1,17 +1,11 @@
 {
     "name": "rector/rector-prefixed",
-    "description": "Prefixed scoped version of \"rector/rector\" package",
+    "description": "Prefixed scoped version of rector/rector package",
     "license": "MIT",
-    "require": {
-        "php": "^7.3|^8.0"
-    },
-    "conflict": {
-        "rector/rector": "*"
-    },
     "bin": [
         "bin/rector"
     ],
-    "replace": {
-        "rector/rector": "self.version"
+    "require": {
+        "php": "^7.3|^8.0"
     }
 }
