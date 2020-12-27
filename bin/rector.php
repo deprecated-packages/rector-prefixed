@@ -29,7 +29,6 @@ $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-auto
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(\getcwd() . '/vendor/autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
-//$autoloadIncluder->autoloadPhpStanExtracted();
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 try {
@@ -87,13 +86,6 @@ final class AutoloadIncluder
     {
         $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../../autoload.php');
     }
-    //    /**
-    //     * This autoloads extracted PHPStan autoload
-    //     */
-    //    public function autoloadPhpStanExtracted(): void
-    //    {
-    //        $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/phpstan/phpstan-extracted/vendor/autoload.php');
-    //    }
     public function autoloadFromCommandLine() : void
     {
         $cliArgs = $_SERVER['argv'];
