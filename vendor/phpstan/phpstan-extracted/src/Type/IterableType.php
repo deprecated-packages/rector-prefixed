@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Generic\TemplateMixedType;
 use PHPStan\Type\Generic\TemplateType;
@@ -45,10 +45,10 @@ class IterableType implements \PHPStan\Type\CompoundType
     {
         return \array_merge($this->keyType->getReferencedClasses(), $this->getItemType()->getReferencedClasses());
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\Constant\ConstantArrayType && $type->isEmpty()) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type->isIterable()->yes()) {
             return $this->getIterableValueType()->accepts($type->getIterableValueType(), $strictTypes)->and($this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes));
@@ -56,17 +56,17 @@ class IterableType implements \PHPStan\Type\CompoundType
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         return $type->isIterable()->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()))->and($this->getIterableKeyType()->isSuperTypeOf($type->getIterableKeyType()));
     }
-    public function isSuperTypeOfMixed(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOfMixed(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         return $type->isIterable()->and($this->isNestedTypeSuperTypeOf($this->getIterableValueType(), $type->getIterableValueType()))->and($this->isNestedTypeSuperTypeOf($this->getIterableKeyType(), $type->getIterableKeyType()));
     }
-    private function isNestedTypeSuperTypeOf(\PHPStan\Type\Type $a, \PHPStan\Type\Type $b) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    private function isNestedTypeSuperTypeOf(\PHPStan\Type\Type $a, \PHPStan\Type\Type $b) : \PHPStan\TrinaryLogic
     {
         if (!$a instanceof \PHPStan\Type\MixedType || !$b instanceof \PHPStan\Type\MixedType) {
             return $a->isSuperTypeOf($b);
@@ -76,28 +76,28 @@ class IterableType implements \PHPStan\Type\CompoundType
         }
         if ($a->isExplicitMixed()) {
             if ($b->isExplicitMixed()) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+                return \PHPStan\TrinaryLogic::createYes();
             }
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
     {
         if ($otherType instanceof \PHPStan\Type\IntersectionType || $otherType instanceof \PHPStan\Type\UnionType) {
             return $otherType->isSuperTypeOf(new \PHPStan\Type\UnionType([new \PHPStan\Type\ArrayType($this->keyType, $this->itemType), new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectType(\Traversable::class), $this])]));
         }
         if ($otherType instanceof self) {
-            $limit = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            $limit = \PHPStan\TrinaryLogic::createYes();
         } else {
-            $limit = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            $limit = \PHPStan\TrinaryLogic::createMaybe();
         }
         if ($otherType instanceof \PHPStan\Type\Constant\ConstantArrayType && $otherType->isEmpty()) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
         return $limit->and($otherType->isIterable(), $otherType->getIterableValueType()->isSuperTypeOf($this->itemType), $otherType->getIterableKeyType()->isSuperTypeOf($this->keyType));
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
@@ -120,12 +120,12 @@ class IterableType implements \PHPStan\Type\CompoundType
         }
         return \sprintf('iterable<%s, %s>', $this->keyType->describe($level), $this->itemType->describe($level));
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
     {
         if ($this->getIterableKeyType()->isSuperTypeOf($offsetType)->no()) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+            return \PHPStan\TrinaryLogic::createNo();
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function toNumber() : \PHPStan\Type\Type
     {
@@ -147,13 +147,13 @@ class IterableType implements \PHPStan\Type\CompoundType
     {
         return new \PHPStan\Type\ArrayType($this->keyType, $this->getItemType());
     }
-    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterable() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getIterableKeyType() : \PHPStan\Type\Type
     {
@@ -163,13 +163,13 @@ class IterableType implements \PHPStan\Type\CompoundType
     {
         return $this->getItemType();
     }
-    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function inferTemplateTypes(\PHPStan\Type\Type $receivedType) : \PHPStan\Type\Generic\TemplateTypeMap
     {

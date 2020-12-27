@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Node\Property;
+namespace PHPStan\Node\Property;
 
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 class PropertyRead
 {
     /** @var PropertyFetch|StaticPropertyFetch */
@@ -18,7 +18,7 @@ class PropertyRead
      * @param PropertyFetch|StaticPropertyFetch $fetch
      * @param Scope $scope
      */
-    public function __construct($fetch, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope)
+    public function __construct($fetch, \PHPStan\Analyser\Scope $scope)
     {
         $this->fetch = $fetch;
         $this->scope = $scope;
@@ -30,7 +30,7 @@ class PropertyRead
     {
         return $this->fetch;
     }
-    public function getScope() : \RectorPrefix20201227\PHPStan\Analyser\Scope
+    public function getScope() : \PHPStan\Analyser\Scope
     {
         return $this->scope;
     }

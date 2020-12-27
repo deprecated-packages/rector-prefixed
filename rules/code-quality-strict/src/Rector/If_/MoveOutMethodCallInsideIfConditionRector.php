@@ -10,7 +10,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\If_;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\ThisType;
 use Rector\CodeQuality\Naming\MethodCallToVariableNameResolver;
@@ -74,7 +74,7 @@ CODE_SAMPLE
     private function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         $methodCallVar = $methodCall->var;
-        $scope = $methodCallVar->getAttribute(\RectorPrefix20201227\PHPStan\Analyser\Scope::class);
+        $scope = $methodCallVar->getAttribute(\PHPStan\Analyser\Scope::class);
         if ($scope === null) {
             return \true;
         }
@@ -84,7 +84,7 @@ CODE_SAMPLE
             return \true;
         }
         // Is Boolean return → skip
-        $scope = $methodCall->getAttribute(\RectorPrefix20201227\PHPStan\Analyser\Scope::class);
+        $scope = $methodCall->getAttribute(\PHPStan\Analyser\Scope::class);
         if ($scope === null) {
             return \true;
         }

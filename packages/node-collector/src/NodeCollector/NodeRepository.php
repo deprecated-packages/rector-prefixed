@@ -21,7 +21,7 @@ use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Trait_;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -227,7 +227,7 @@ final class NodeRepository
             return $node instanceof \PhpParser\Node\Expr\MethodCall;
         });
     }
-    public function findClassMethodByMethodReflection(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $methodReflection) : ?\PhpParser\Node\Stmt\ClassMethod
+    public function findClassMethodByMethodReflection(\PHPStan\Reflection\MethodReflection $methodReflection) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $methodName = $methodReflection->getName();
         $classReflection = $methodReflection->getDeclaringClass();

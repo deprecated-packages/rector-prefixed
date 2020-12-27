@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\Generic;
+namespace PHPStan\Reflection\Generic;
 
-use RectorPrefix20201227\PHPStan\Reflection\ParameterReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
-use RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter;
+use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
-class ResolvedFunctionVariant implements \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
+class ResolvedFunctionVariant implements \PHPStan\Reflection\ParametersAcceptor
 {
     /** @var ParametersAcceptor */
     private $parametersAcceptor;
@@ -19,7 +19,7 @@ class ResolvedFunctionVariant implements \RectorPrefix20201227\PHPStan\Reflectio
     private $parameters = null;
     /** @var Type|null */
     private $returnType = null;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, \PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap)
+    public function __construct(\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor, \PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap)
     {
         $this->parametersAcceptor = $parametersAcceptor;
         $this->resolvedTemplateTypeMap = $resolvedTemplateTypeMap;
@@ -36,8 +36,8 @@ class ResolvedFunctionVariant implements \RectorPrefix20201227\PHPStan\Reflectio
     {
         $parameters = $this->parameters;
         if ($parameters === null) {
-            $parameters = \array_map(function (\RectorPrefix20201227\PHPStan\Reflection\ParameterReflection $param) : ParameterReflection {
-                return new \RectorPrefix20201227\PHPStan\Reflection\Php\DummyParameter($param->getName(), \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($param->getType(), $this->resolvedTemplateTypeMap), $param->isOptional(), $param->passedByReference(), $param->isVariadic(), $param->getDefaultValue());
+            $parameters = \array_map(function (\PHPStan\Reflection\ParameterReflection $param) : ParameterReflection {
+                return new \PHPStan\Reflection\Php\DummyParameter($param->getName(), \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($param->getType(), $this->resolvedTemplateTypeMap), $param->isOptional(), $param->passedByReference(), $param->isVariadic(), $param->getDefaultValue());
             }, $this->parametersAcceptor->getParameters());
             $this->parameters = $parameters;
         }

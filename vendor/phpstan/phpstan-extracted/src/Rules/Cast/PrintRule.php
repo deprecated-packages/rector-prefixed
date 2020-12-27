@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Cast;
+namespace PHPStan\Rules\Cast;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\Print_>
  */
-class PrintRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class PrintRule implements \PHPStan\Rules\Rule
 {
     /** @var RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
     }
@@ -26,13 +26,13 @@ class PrintRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\Print_::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $typeResult = $this->ruleLevelHelper->findTypeToCheck($scope, $node->expr, '', static function (\PHPStan\Type\Type $type) : bool {
             return !$type->toString() instanceof \PHPStan\Type\ErrorType;
         });
         if (!$typeResult->getType() instanceof \PHPStan\Type\ErrorType && $typeResult->getType()->toString() instanceof \PHPStan\Type\ErrorType) {
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Parameter %s of print cannot be converted to string.', $typeResult->getType()->describe(\PHPStan\Type\VerbosityLevel::value())))->line($node->expr->getLine())->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Parameter %s of print cannot be converted to string.', $typeResult->getType()->describe(\PHPStan\Type\VerbosityLevel::value())))->line($node->expr->getLine())->build()];
         }
         return [];
     }

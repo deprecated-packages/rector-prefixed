@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Comparison;
+namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\MethodCall>
  */
-class ImpossibleCheckTypeMethodCallRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class ImpossibleCheckTypeMethodCallRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper */
     private $impossibleCheckTypeHelper;
@@ -19,7 +19,7 @@ class ImpossibleCheckTypeMethodCallRule implements \RectorPrefix20201227\PHPStan
     private $checkAlwaysTrueCheckTypeFunctionCall;
     /** @var bool */
     private $treatPhpDocTypesAsCertain;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $checkAlwaysTrueCheckTypeFunctionCall, bool $treatPhpDocTypesAsCertain)
+    public function __construct(\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $checkAlwaysTrueCheckTypeFunctionCall, bool $treatPhpDocTypesAsCertain)
     {
         $this->impossibleCheckTypeHelper = $impossibleCheckTypeHelper;
         $this->checkAlwaysTrueCheckTypeFunctionCall = $checkAlwaysTrueCheckTypeFunctionCall;
@@ -29,7 +29,7 @@ class ImpossibleCheckTypeMethodCallRule implements \RectorPrefix20201227\PHPStan
     {
         return \PhpParser\Node\Expr\MethodCall::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->name instanceof \PhpParser\Node\Identifier) {
             return [];
@@ -38,7 +38,7 @@ class ImpossibleCheckTypeMethodCallRule implements \RectorPrefix20201227\PHPStan
         if ($isAlways === null) {
             return [];
         }
-        $addTip = function (\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
+        $addTip = function (\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
             if (!$this->treatPhpDocTypesAsCertain) {
                 return $ruleErrorBuilder;
             }
@@ -50,18 +50,18 @@ class ImpossibleCheckTypeMethodCallRule implements \RectorPrefix20201227\PHPStan
         };
         if (!$isAlways) {
             $method = $this->getMethod($node->var, $node->name->name, $scope);
-            return [$addTip(\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to method %s::%s()%s will always evaluate to false.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
+            return [$addTip(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to method %s::%s()%s will always evaluate to false.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
         } elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
             $method = $this->getMethod($node->var, $node->name->name, $scope);
-            return [$addTip(\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to method %s::%s()%s will always evaluate to true.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
+            return [$addTip(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to method %s::%s()%s will always evaluate to true.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
         }
         return [];
     }
-    private function getMethod(\PhpParser\Node\Expr $var, string $methodName, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    private function getMethod(\PhpParser\Node\Expr $var, string $methodName, \PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\MethodReflection
     {
         $calledOnType = $scope->getType($var);
         if (!$calledOnType->hasMethod($methodName)->yes()) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $calledOnType->getMethod($methodName, $scope);
     }

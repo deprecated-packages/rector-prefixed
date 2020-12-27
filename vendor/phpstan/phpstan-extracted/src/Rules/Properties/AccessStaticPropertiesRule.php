@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Properties;
+namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Name;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
-use RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck;
-use RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair;
-use RectorPrefix20201227\PHPStan\Rules\RuleError;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
@@ -24,7 +24,7 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\StaticPropertyFetch>
  */
-class AccessStaticPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -32,7 +32,7 @@ class AccessStaticPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\
     private $ruleLevelHelper;
     /** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
     private $classCaseSensitivityCheck;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->ruleLevelHelper = $ruleLevelHelper;
@@ -42,7 +42,7 @@ class AccessStaticPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\
     {
         return \PhpParser\Node\Expr\StaticPropertyFetch::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if ($node->name instanceof \PhpParser\Node\VarLikeIdentifier) {
             $names = [$node->name->name];
@@ -63,7 +63,7 @@ class AccessStaticPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\
      * @param string $name
      * @return RuleError[]
      */
-    private function processSingleProperty(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr\StaticPropertyFetch $node, string $name) : array
+    private function processSingleProperty(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr\StaticPropertyFetch $node, string $name) : array
     {
         $messages = [];
         if ($node->class instanceof \PhpParser\Node\Name) {
@@ -71,18 +71,18 @@ class AccessStaticPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\
             $lowercasedClass = \strtolower($class);
             if (\in_array($lowercasedClass, ['self', 'static'], \true)) {
                 if (!$scope->isInClass()) {
-                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Accessing %s::$%s outside of class scope.', $class, $name))->build()];
+                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Accessing %s::$%s outside of class scope.', $class, $name))->build()];
                 }
                 $className = $scope->getClassReflection()->getName();
             } elseif ($lowercasedClass === 'parent') {
                 if (!$scope->isInClass()) {
-                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Accessing %s::$%s outside of class scope.', $class, $name))->build()];
+                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Accessing %s::$%s outside of class scope.', $class, $name))->build()];
                 }
                 if ($scope->getClassReflection()->getParentClass() === \false) {
-                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s::%s() accesses parent::$%s but %s does not extend any class.', $scope->getClassReflection()->getDisplayName(), $scope->getFunctionName(), $name, $scope->getClassReflection()->getDisplayName()))->build()];
+                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s::%s() accesses parent::$%s but %s does not extend any class.', $scope->getClassReflection()->getDisplayName(), $scope->getFunctionName(), $name, $scope->getClassReflection()->getDisplayName()))->build()];
                 }
                 if ($scope->getFunctionName() === null) {
-                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                    throw new \PHPStan\ShouldNotHappenException();
                 }
                 $currentMethodReflection = $scope->getClassReflection()->getNativeMethod($scope->getFunctionName());
                 if (!$currentMethodReflection->isStatic()) {
@@ -95,14 +95,14 @@ class AccessStaticPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\
                     if ($scope->isInClassExists($class)) {
                         return [];
                     }
-                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to static property $%s on an unknown class %s.', $name, $class))->discoveringSymbolsTip()->build()];
+                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to static property $%s on an unknown class %s.', $name, $class))->discoveringSymbolsTip()->build()];
                 } else {
-                    $messages = $this->classCaseSensitivityCheck->checkClassNames([new \RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair($class, $node->class)]);
+                    $messages = $this->classCaseSensitivityCheck->checkClassNames([new \PHPStan\Rules\ClassNameNodePair($class, $node->class)]);
                 }
                 $classReflection = $this->reflectionProvider->getClass($class);
                 $className = $this->reflectionProvider->getClass($class)->getName();
                 if ($classReflection->isTrait()) {
-                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to static property $%s on trait %s.', $name, $className))->build()];
+                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to static property $%s on trait %s.', $name, $className))->build()];
                 }
             }
             $classType = new \PHPStan\Type\ObjectType($className);
@@ -124,13 +124,13 @@ class AccessStaticPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\
             return [];
         }
         if (!$classType->canAccessProperties()->yes()) {
-            return \array_merge($messages, [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()]);
+            return \array_merge($messages, [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot access static property $%s on %s.', $name, $typeForDescribe->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()]);
         }
         if (!$classType->hasProperty($name)->yes()) {
             if ($scope->isSpecified($node)) {
                 return $messages;
             }
-            return \array_merge($messages, [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to an undefined static property %s::$%s.', $typeForDescribe->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $name))->build()]);
+            return \array_merge($messages, [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to an undefined static property %s::$%s.', $typeForDescribe->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $name))->build()]);
         }
         $property = $classType->getProperty($name, $scope);
         if (!$property->isStatic()) {
@@ -140,10 +140,10 @@ class AccessStaticPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\
                     return [];
                 }
             }
-            return \array_merge($messages, [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Static access to instance property %s::$%s.', $property->getDeclaringClass()->getDisplayName(), $name))->build()]);
+            return \array_merge($messages, [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Static access to instance property %s::$%s.', $property->getDeclaringClass()->getDisplayName(), $name))->build()]);
         }
         if (!$scope->canAccessProperty($property)) {
-            return \array_merge($messages, [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to %s property $%s of class %s.', $property->isPrivate() ? 'private' : 'protected', $name, $property->getDeclaringClass()->getDisplayName()))->build()]);
+            return \array_merge($messages, [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to %s property $%s of class %s.', $property->isPrivate() ? 'private' : 'protected', $name, $property->getDeclaringClass()->getDisplayName()))->build()]);
         }
         return $messages;
     }

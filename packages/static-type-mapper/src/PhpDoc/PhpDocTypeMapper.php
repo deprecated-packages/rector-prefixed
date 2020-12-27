@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\StaticTypeMapper\PhpDoc;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\NameScope;
-use RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver;
+use PHPStan\Analyser\NameScope;
+use PHPStan\PhpDoc\TypeNodeResolver;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\Type;
 use Rector\StaticTypeMapper\Contract\PhpDocParser\PhpDocTypeMapperInterface;
@@ -25,12 +25,12 @@ final class PhpDocTypeMapper
     /**
      * @param PhpDocTypeMapperInterface[] $phpDocTypeMappers
      */
-    public function __construct(array $phpDocTypeMappers, \RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver)
+    public function __construct(array $phpDocTypeMappers, \PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver)
     {
         $this->phpDocTypeMappers = $phpDocTypeMappers;
         $this->typeNodeResolver = $typeNodeResolver;
     }
-    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         foreach ($this->phpDocTypeMappers as $phpDocTypeMapper) {
             if (!\is_a($typeNode, $phpDocTypeMapper->getNodeType())) {

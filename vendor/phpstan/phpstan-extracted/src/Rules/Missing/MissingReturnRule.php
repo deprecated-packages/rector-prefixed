@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Missing;
+namespace PHPStan\Rules\Missing;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\ExecutionEndNode;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\ExecutionEndNode;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Generic\TemplateMixedType;
 use PHPStan\Type\GenericTypeVariableResolver;
 use PHPStan\Type\MixedType;
@@ -20,7 +20,7 @@ use PHPStan\Type\VoidType;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\ExecutionEndNode>
  */
-class MissingReturnRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class MissingReturnRule implements \PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkExplicitMixedMissingReturn;
@@ -33,9 +33,9 @@ class MissingReturnRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
     }
     public function getNodeType() : string
     {
-        return \RectorPrefix20201227\PHPStan\Node\ExecutionEndNode::class;
+        return \PHPStan\Node\ExecutionEndNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $statementResult = $node->getStatementResult();
         if ($statementResult->isAlwaysTerminating()) {
@@ -47,14 +47,14 @@ class MissingReturnRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
             $returnType = $anonymousFunctionReturnType;
             $description = 'Anonymous function';
         } elseif ($scopeFunction !== null) {
-            $returnType = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($scopeFunction->getVariants())->getReturnType();
-            if ($scopeFunction instanceof \RectorPrefix20201227\PHPStan\Reflection\MethodReflection) {
+            $returnType = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($scopeFunction->getVariants())->getReturnType();
+            if ($scopeFunction instanceof \PHPStan\Reflection\MethodReflection) {
                 $description = \sprintf('Method %s::%s()', $scopeFunction->getDeclaringClass()->getDisplayName(), $scopeFunction->getName());
             } else {
                 $description = \sprintf('Function %s()', $scopeFunction->getName());
             }
         } else {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $isVoidSuperType = $returnType->isSuperTypeOf(new \PHPStan\Type\VoidType());
         if ($isVoidSuperType->yes() && !$returnType instanceof \PHPStan\Type\MixedType) {
@@ -69,7 +69,7 @@ class MissingReturnRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
                         return [];
                     }
                     if (!$returnType instanceof \PHPStan\Type\MixedType) {
-                        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s should return %s but return statement is missing.', $description, $returnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->line($node->getNode()->getStartLine())->build()];
+                        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s should return %s but return statement is missing.', $description, $returnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->line($node->getNode()->getStartLine())->build()];
                     }
                 }
             }
@@ -79,11 +79,11 @@ class MissingReturnRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
             return [];
         }
         if ($returnType instanceof \PHPStan\Type\NeverType && $returnType->isExplicit()) {
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s should always throw an exception or terminate script execution but doesn\'t do that.', $description))->line($node->getNode()->getStartLine())->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s should always throw an exception or terminate script execution but doesn\'t do that.', $description))->line($node->getNode()->getStartLine())->build()];
         }
         if ($returnType instanceof \PHPStan\Type\MixedType && !$returnType instanceof \PHPStan\Type\Generic\TemplateMixedType && (!$returnType->isExplicitMixed() || !$this->checkExplicitMixedMissingReturn)) {
             return [];
         }
-        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s should return %s but return statement is missing.', $description, $returnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->line($node->getNode()->getStartLine())->build()];
+        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s should return %s but return statement is missing.', $description, $returnType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->line($node->getNode()->getStartLine())->build()];
     }
 }

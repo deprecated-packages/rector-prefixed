@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Parser;
+namespace PHPStan\Parser;
 
 use PhpParser\Lexer;
-use RectorPrefix20201227\PHPStan\Php\PhpVersion;
+use PHPStan\Php\PhpVersion;
 class LexerFactory
 {
     /** @var PhpVersion */
     private $phpVersion;
-    public function __construct(\RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion)
+    public function __construct(\PHPStan\Php\PhpVersion $phpVersion)
     {
         $this->phpVersion = $phpVersion;
     }

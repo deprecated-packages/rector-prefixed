@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\TrinaryLogic;
 trait JustNullableTypeTrait
 {
     /**
@@ -13,25 +13,25 @@ trait JustNullableTypeTrait
     {
         return [];
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof static) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {
@@ -41,12 +41,12 @@ trait JustNullableTypeTrait
     {
         return $this;
     }
-    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
 }

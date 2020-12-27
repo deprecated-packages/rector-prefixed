@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\SignatureMap;
+namespace PHPStan\Reflection\SignatureMap;
 
-use RectorPrefix20201227\PHPStan\Reflection\PassedByReference;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
 class ParameterSignature
 {
@@ -19,7 +19,7 @@ class ParameterSignature
     private $passedByReference;
     /** @var bool */
     private $variadic;
-    public function __construct(string $name, bool $optional, \PHPStan\Type\Type $type, \PHPStan\Type\Type $nativeType, \RectorPrefix20201227\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic)
+    public function __construct(string $name, bool $optional, \PHPStan\Type\Type $type, \PHPStan\Type\Type $nativeType, \PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic)
     {
         $this->name = $name;
         $this->optional = $optional;
@@ -44,7 +44,7 @@ class ParameterSignature
     {
         return $this->nativeType;
     }
-    public function passedByReference() : \RectorPrefix20201227\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }

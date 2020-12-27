@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Command\ErrorFormatter;
+namespace PHPStan\Command\ErrorFormatter;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
-use RectorPrefix20201227\PHPStan\Command\AnalysisResult;
-use RectorPrefix20201227\PHPStan\Command\Output;
-class JsonErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\ErrorFormatter\ErrorFormatter
+use _HumbugBox221ad6f1b81f\Nette\Utils\Json;
+use PHPStan\Command\AnalysisResult;
+use PHPStan\Command\Output;
+class JsonErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var bool */
     private $pretty;
@@ -14,7 +14,7 @@ class JsonErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\ErrorF
     {
         $this->pretty = $pretty;
     }
-    public function formatErrors(\RectorPrefix20201227\PHPStan\Command\AnalysisResult $analysisResult, \RectorPrefix20201227\PHPStan\Command\Output $output) : int
+    public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
     {
         $errorsArray = ['totals' => ['errors' => \count($analysisResult->getNotFileSpecificErrors()), 'file_errors' => \count($analysisResult->getFileSpecificErrors())], 'files' => [], 'errors' => []];
         foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
@@ -28,7 +28,7 @@ class JsonErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\ErrorF
         foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
             $errorsArray['errors'][] = $notFileSpecificError;
         }
-        $json = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($errorsArray, $this->pretty ? \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY : 0);
+        $json = \_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($errorsArray, $this->pretty ? \_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY : 0);
         $output->writeRaw($json);
         return $analysisResult->hasErrors() ? 1 : 0;
     }

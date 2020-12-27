@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\PhpDoc;
+namespace PHPStan\Rules\PhpDoc;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\FileTypeMapper;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node>
  */
-class WrongVariableNameInVarTagRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class WrongVariableNameInVarTagRule implements \PHPStan\Rules\Rule
 {
     /** @var FileTypeMapper */
     private $fileTypeMapper;
@@ -24,7 +24,7 @@ class WrongVariableNameInVarTagRule implements \RectorPrefix20201227\PHPStan\Rul
     {
         return \PhpParser\Node::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node instanceof \PhpParser\Node\Stmt\Foreach_ && !$node instanceof \PhpParser\Node\Expr\Assign && !$node instanceof \PhpParser\Node\Expr\AssignRef && !$node instanceof \PhpParser\Node\Stmt\Static_ && !$node instanceof \PhpParser\Node\Stmt\Echo_ && !$node instanceof \PhpParser\Node\Stmt\Return_ && !$node instanceof \PhpParser\Node\Stmt\Expression && !$node instanceof \PhpParser\Node\Stmt\Throw_ && !$node instanceof \PhpParser\Node\Stmt\If_ && !$node instanceof \PhpParser\Node\Stmt\While_ && !$node instanceof \PhpParser\Node\Stmt\Switch_ && !$node instanceof \PhpParser\Node\Stmt\Nop) {
             return [];
@@ -62,7 +62,7 @@ class WrongVariableNameInVarTagRule implements \RectorPrefix20201227\PHPStan\Rul
      * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
      * @return \PHPStan\Rules\RuleError[]
      */
-    private function processAssign(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $var, array $varTags) : array
+    private function processAssign(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $var, array $varTags) : array
     {
         if ($var instanceof \PhpParser\Node\Expr\Variable && \is_string($var->name)) {
             if (\count($varTags) === 1) {
@@ -74,11 +74,11 @@ class WrongVariableNameInVarTagRule implements \RectorPrefix20201227\PHPStan\Rul
                     if (!$scope->hasVariableType($key)->no()) {
                         return [];
                     }
-                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match assigned variable $%s.', $key, $var->name))->build()];
+                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match assigned variable $%s.', $key, $var->name))->build()];
                 }
                 return [];
             }
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Multiple PHPDoc @var tags above single variable assignment are not supported.')->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message('Multiple PHPDoc @var tags above single variable assignment are not supported.')->build()];
         }
         return [];
     }
@@ -103,13 +103,13 @@ class WrongVariableNameInVarTagRule implements \RectorPrefix20201227\PHPStan\Rul
         $errors = [];
         foreach (\array_keys($varTags) as $name) {
             if (\is_int($name)) {
-                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var above foreach loop does not specify variable name.')->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var above foreach loop does not specify variable name.')->build();
                 continue;
             }
             if (isset($variableNames[$name])) {
                 continue;
             }
-            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match any variable in the foreach loop: %s', $name, \implode(', ', \array_map(static function (string $name) : string {
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match any variable in the foreach loop: %s', $name, \implode(', ', \array_map(static function (string $name) : string {
                 return \sprintf('$%s', $name);
             }, \array_keys($variableNames)))))->build();
         }
@@ -158,13 +158,13 @@ class WrongVariableNameInVarTagRule implements \RectorPrefix20201227\PHPStan\Rul
                 if (\count($vars) === 1) {
                     continue;
                 }
-                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var above multiple static variables does not specify variable name.')->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var above multiple static variables does not specify variable name.')->build();
                 continue;
             }
             if (isset($variableNames[$name])) {
                 continue;
             }
-            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match any static variable: %s', $name, \implode(', ', \array_map(static function (string $name) : string {
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not match any static variable: %s', $name, \implode(', ', \array_map(static function (string $name) : string {
                 return \sprintf('$%s', $name);
             }, \array_keys($variableNames)))))->build();
         }
@@ -176,7 +176,7 @@ class WrongVariableNameInVarTagRule implements \RectorPrefix20201227\PHPStan\Rul
      * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
      * @return \PHPStan\Rules\RuleError[]
      */
-    private function processExpression(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr, array $varTags) : array
+    private function processExpression(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr, array $varTags) : array
     {
         if ($expr instanceof \PhpParser\Node\Expr\Assign || $expr instanceof \PhpParser\Node\Expr\AssignRef) {
             return [];
@@ -189,7 +189,7 @@ class WrongVariableNameInVarTagRule implements \RectorPrefix20201227\PHPStan\Rul
      * @param Expr|null $defaultExpr
      * @return \PHPStan\Rules\RuleError[]
      */
-    private function processStmt(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, array $varTags, ?\PhpParser\Node\Expr $defaultExpr) : array
+    private function processStmt(\PHPStan\Analyser\Scope $scope, array $varTags, ?\PhpParser\Node\Expr $defaultExpr) : array
     {
         $errors = [];
         $variableLessVarTags = [];
@@ -201,11 +201,11 @@ class WrongVariableNameInVarTagRule implements \RectorPrefix20201227\PHPStan\Rul
             if (!$scope->hasVariableType($name)->no()) {
                 continue;
             }
-            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not exist.', $name))->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s in PHPDoc tag @var does not exist.', $name))->build();
         }
         if (\count($variableLessVarTags) !== 1 || $defaultExpr === null) {
             if (\count($variableLessVarTags) > 0) {
-                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var does not specify variable name.')->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('PHPDoc tag @var does not specify variable name.')->build();
             }
         }
         return $errors;

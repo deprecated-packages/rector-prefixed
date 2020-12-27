@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Command\ErrorFormatter;
+namespace PHPStan\Command\ErrorFormatter;
 
-use RectorPrefix20201227\PHPStan\Command\AnalysisResult;
-use RectorPrefix20201227\PHPStan\Command\Output;
-use RectorPrefix20201227\PHPStan\File\RelativePathHelper;
+use PHPStan\Command\AnalysisResult;
+use PHPStan\Command\Output;
+use PHPStan\File\RelativePathHelper;
 /**
  * Allow errors to be reported in pull-requests diff when run in a GitHub Action
  * @see https://help.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-error-message
  */
-class GithubErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\ErrorFormatter\ErrorFormatter
+class GithubErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var RelativePathHelper */
     private $relativePathHelper;
     /** @var TableErrorFormatter */
     private $tableErrorformatter;
-    public function __construct(\RectorPrefix20201227\PHPStan\File\RelativePathHelper $relativePathHelper, \RectorPrefix20201227\PHPStan\Command\ErrorFormatter\TableErrorFormatter $tableErrorformatter)
+    public function __construct(\PHPStan\File\RelativePathHelper $relativePathHelper, \PHPStan\Command\ErrorFormatter\TableErrorFormatter $tableErrorformatter)
     {
         $this->relativePathHelper = $relativePathHelper;
         $this->tableErrorformatter = $tableErrorformatter;
     }
-    public function formatErrors(\RectorPrefix20201227\PHPStan\Command\AnalysisResult $analysisResult, \RectorPrefix20201227\PHPStan\Command\Output $output) : int
+    public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
     {
         $this->tableErrorformatter->formatErrors($analysisResult, $output);
         foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {

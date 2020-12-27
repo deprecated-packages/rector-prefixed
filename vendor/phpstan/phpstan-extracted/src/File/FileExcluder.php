@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\File;
+namespace PHPStan\File;
 
 class FileExcluder
 {
@@ -16,7 +16,7 @@ class FileExcluder
      * @param string[] $analyseExcludes
      * @param string[] $stubFiles
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, array $analyseExcludes, array $stubFiles)
+    public function __construct(\PHPStan\File\FileHelper $fileHelper, array $analyseExcludes, array $stubFiles)
     {
         $this->analyseExcludes = \array_map(function (string $exclude) use($fileHelper) : string {
             $len = \strlen($exclude);

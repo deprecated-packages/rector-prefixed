@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-class TrivialParametersAcceptor implements \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
+class TrivialParametersAcceptor implements \PHPStan\Reflection\ParametersAcceptor
 {
     public function getTemplateTypeMap() : \PHPStan\Type\Generic\TemplateTypeMap
     {

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\PhpDoc;
+namespace PHPStan\Rules\PhpDoc;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\VerbosityLevel;
@@ -13,7 +13,7 @@ use PHPStan\Type\VoidType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\FunctionLike>
  */
-class InvalidThrowsPhpDocValueRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class InvalidThrowsPhpDocValueRule implements \PHPStan\Rules\Rule
 {
     /** @var FileTypeMapper */
     private $fileTypeMapper;
@@ -25,7 +25,7 @@ class InvalidThrowsPhpDocValueRule implements \RectorPrefix20201227\PHPStan\Rule
     {
         return \PhpParser\Node\FunctionLike::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $docComment = $node->getDocComment();
         if ($docComment === null) {
@@ -49,6 +49,6 @@ class InvalidThrowsPhpDocValueRule implements \RectorPrefix20201227\PHPStan\Rule
         if ($isThrowsSuperType->yes()) {
             return [];
         }
-        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @throws with type %s is not subtype of Throwable', $phpDocThrowsType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('PHPDoc tag @throws with type %s is not subtype of Throwable', $phpDocThrowsType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
     }
 }

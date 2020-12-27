@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules;
+namespace PHPStan\Rules;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Constant\ConstantStringType;
 class UnusedFunctionParametersCheck
 {
     /** @var ReflectionProvider */
     private $reflectionProvider;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -24,7 +24,7 @@ class UnusedFunctionParametersCheck
      * @param mixed[] $additionalMetadata
      * @return RuleError[]
      */
-    public function getUnusedParameters(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, array $parameterNames, array $statements, string $unusedParameterMessage, string $identifier, array $additionalMetadata) : array
+    public function getUnusedParameters(\PHPStan\Analyser\Scope $scope, array $parameterNames, array $statements, string $unusedParameterMessage, string $identifier, array $additionalMetadata) : array
     {
         $unusedParameters = \array_fill_keys($parameterNames, \true);
         foreach ($this->getUsedVariables($scope, $statements) as $variableName) {
@@ -35,7 +35,7 @@ class UnusedFunctionParametersCheck
         }
         $errors = [];
         foreach (\array_keys($unusedParameters) as $name) {
-            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($unusedParameterMessage, $name))->identifier($identifier)->metadata($additionalMetadata + ['variableName' => $name])->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($unusedParameterMessage, $name))->identifier($identifier)->metadata($additionalMetadata + ['variableName' => $name])->build();
         }
         return $errors;
     }
@@ -44,7 +44,7 @@ class UnusedFunctionParametersCheck
      * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
      * @return string[]
      */
-    private function getUsedVariables(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, $node) : array
+    private function getUsedVariables(\PHPStan\Analyser\Scope $scope, $node) : array
     {
         $variableNames = [];
         if ($node instanceof \PhpParser\Node) {

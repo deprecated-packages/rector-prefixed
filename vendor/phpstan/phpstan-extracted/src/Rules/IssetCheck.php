@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules;
+namespace PHPStan\Rules;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\Properties\PropertyDescriptor;
-use RectorPrefix20201227\PHPStan\Rules\Properties\PropertyReflectionFinder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Properties\PropertyDescriptor;
+use PHPStan\Rules\Properties\PropertyReflectionFinder;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
@@ -18,12 +18,12 @@ class IssetCheck
     private $propertyDescriptor;
     /** @var \PHPStan\Rules\Properties\PropertyReflectionFinder */
     private $propertyReflectionFinder;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \RectorPrefix20201227\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder)
+    public function __construct(\PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder)
     {
         $this->propertyDescriptor = $propertyDescriptor;
         $this->propertyReflectionFinder = $propertyReflectionFinder;
     }
-    public function check(\PhpParser\Node\Expr $expr, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope, string $operatorDescription, ?\RectorPrefix20201227\PHPStan\Rules\RuleError $error = null) : ?\RectorPrefix20201227\PHPStan\Rules\RuleError
+    public function check(\PhpParser\Node\Expr $expr, \PHPStan\Analyser\Scope $scope, string $operatorDescription, ?\PHPStan\Rules\RuleError $error = null) : ?\PHPStan\Rules\RuleError
     {
         if ($expr instanceof \PhpParser\Node\Expr\Variable && \is_string($expr->name)) {
             $hasVariable = $scope->hasVariableType($expr->name);
@@ -39,7 +39,7 @@ class IssetCheck
                 return $error;
             }
             if ($hasOffsetValue->no()) {
-                return $error ?? \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Offset %s on %s %s does not exist.', $dimType->describe(\PHPStan\Type\VerbosityLevel::value()), $type->describe(\PHPStan\Type\VerbosityLevel::value()), $operatorDescription))->build();
+                return $error ?? \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Offset %s on %s %s does not exist.', $dimType->describe(\PHPStan\Type\VerbosityLevel::value()), $type->describe(\PHPStan\Type\VerbosityLevel::value()), $operatorDescription))->build();
             }
             if ($hasOffsetValue->maybe()) {
                 return null;
@@ -83,14 +83,14 @@ class IssetCheck
         }
         return $error ?? $this->generateError($scope->getType($expr), \sprintf('Expression %s', $operatorDescription));
     }
-    private function generateError(\PHPStan\Type\Type $type, string $message) : ?\RectorPrefix20201227\PHPStan\Rules\RuleError
+    private function generateError(\PHPStan\Type\Type $type, string $message) : ?\PHPStan\Rules\RuleError
     {
         $nullType = new \PHPStan\Type\NullType();
         if ($type->equals($nullType)) {
-            return \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is always null.', $message))->build();
+            return \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is always null.', $message))->build();
         }
         if ($type->isSuperTypeOf($nullType)->no()) {
-            return \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is not nullable.', $message))->build();
+            return \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is not nullable.', $message))->build();
         }
         return null;
     }

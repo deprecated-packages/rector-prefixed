@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
-class MethodPrototypeReflection implements \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection
+class MethodPrototypeReflection implements \PHPStan\Reflection\ClassMemberReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -31,7 +31,7 @@ class MethodPrototypeReflection implements \RectorPrefix20201227\PHPStan\Reflect
      * @param bool $isFinal
      * @param ParametersAcceptor[] $variants
      */
-    public function __construct(string $name, \RectorPrefix20201227\PHPStan\Reflection\ClassReflection $declaringClass, bool $isStatic, bool $isPrivate, bool $isPublic, bool $isAbstract, bool $isFinal, array $variants)
+    public function __construct(string $name, \PHPStan\Reflection\ClassReflection $declaringClass, bool $isStatic, bool $isPrivate, bool $isPublic, bool $isAbstract, bool $isFinal, array $variants)
     {
         $this->name = $name;
         $this->declaringClass = $declaringClass;
@@ -46,7 +46,7 @@ class MethodPrototypeReflection implements \RectorPrefix20201227\PHPStan\Reflect
     {
         return $this->name;
     }
-    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }

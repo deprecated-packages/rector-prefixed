@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Command;
+namespace PHPStan\Command;
 
-use RectorPrefix20201227\PHPStan\DependencyInjection\Container;
-use RectorPrefix20201227\PHPStan\Internal\BytesHelper;
+use PHPStan\DependencyInjection\Container;
+use PHPStan\Internal\BytesHelper;
 use function memory_get_peak_usage;
 class InceptionResult
 {
@@ -37,7 +37,7 @@ class InceptionResult
      * @param mixed[] $projectConfigArray
      * @param string|null $generateBaselineFile
      */
-    public function __construct(callable $filesCallback, \RectorPrefix20201227\PHPStan\Command\Output $stdOutput, \RectorPrefix20201227\PHPStan\Command\Output $errorOutput, \RectorPrefix20201227\PHPStan\DependencyInjection\Container $container, bool $isDefaultLevelUsed, string $memoryLimitFile, ?string $projectConfigFile, ?array $projectConfigArray, ?string $generateBaselineFile)
+    public function __construct(callable $filesCallback, \PHPStan\Command\Output $stdOutput, \PHPStan\Command\Output $errorOutput, \PHPStan\DependencyInjection\Container $container, bool $isDefaultLevelUsed, string $memoryLimitFile, ?string $projectConfigFile, ?array $projectConfigArray, ?string $generateBaselineFile)
     {
         $this->filesCallback = $filesCallback;
         $this->stdOutput = $stdOutput;
@@ -57,15 +57,15 @@ class InceptionResult
         $callback = $this->filesCallback;
         return $callback();
     }
-    public function getStdOutput() : \RectorPrefix20201227\PHPStan\Command\Output
+    public function getStdOutput() : \PHPStan\Command\Output
     {
         return $this->stdOutput;
     }
-    public function getErrorOutput() : \RectorPrefix20201227\PHPStan\Command\Output
+    public function getErrorOutput() : \PHPStan\Command\Output
     {
         return $this->errorOutput;
     }
-    public function getContainer() : \RectorPrefix20201227\PHPStan\DependencyInjection\Container
+    public function getContainer() : \PHPStan\DependencyInjection\Container
     {
         return $this->container;
     }
@@ -91,7 +91,7 @@ class InceptionResult
     public function handleReturn(int $exitCode) : int
     {
         if ($this->getErrorOutput()->isVerbose()) {
-            $this->getErrorOutput()->writeLineFormatted(\sprintf('Used memory: %s', \RectorPrefix20201227\PHPStan\Internal\BytesHelper::bytes(\memory_get_peak_usage(\true))));
+            $this->getErrorOutput()->writeLineFormatted(\sprintf('Used memory: %s', \PHPStan\Internal\BytesHelper::bytes(\memory_get_peak_usage(\true))));
         }
         @\unlink($this->memoryLimitFile);
         return $exitCode;

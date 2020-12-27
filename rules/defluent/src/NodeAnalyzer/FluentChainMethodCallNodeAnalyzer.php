@@ -27,7 +27,7 @@ final class FluentChainMethodCallNodeAnalyzer
      *
      * @var string[]
      */
-    private const KNOWN_FACTORY_FLUENT_TYPES = ['RectorPrefix20201227\\PHPStan\\Analyser\\MutatingScope'];
+    private const KNOWN_FACTORY_FLUENT_TYPES = ['PHPStan\\Analyser\\MutatingScope'];
     /**
      * @var NodeTypeResolver
      */

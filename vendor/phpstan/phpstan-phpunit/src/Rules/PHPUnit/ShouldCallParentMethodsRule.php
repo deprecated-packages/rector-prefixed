@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\PHPUnit;
+namespace PHPStan\Rules\PHPUnit;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\InClassMethodNode;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\InClassMethodNode;
+use PHPStan\Rules\RuleErrorBuilder;
 use RectorPrefix20201227\PHPUnit\Framework\TestCase;
 /**
  * @implements \PHPStan\Rules\Rule<InClassMethodNode>
  */
-class ShouldCallParentMethodsRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class ShouldCallParentMethodsRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \RectorPrefix20201227\PHPStan\Node\InClassMethodNode::class;
+        return \PHPStan\Node\InClassMethodNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $methodName = $node->getOriginalNode()->name->name;
         if (!\in_array(\strtolower($methodName), ['setup', 'teardown'], \true)) {
@@ -42,7 +42,7 @@ class ShouldCallParentMethodsRule implements \RectorPrefix20201227\PHPStan\Rules
         }
         $hasParentCall = $this->hasParentClassCall($node->getOriginalNode()->getStmts(), \strtolower($methodName));
         if (!$hasParentCall) {
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Missing call to parent::%s() method.', $methodName))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Missing call to parent::%s() method.', $methodName))->build()];
         }
         return [];
     }

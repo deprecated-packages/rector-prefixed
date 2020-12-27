@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Generic;
 
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectType;
@@ -60,37 +60,37 @@ final class TemplateObjectType extends \PHPStan\Type\ObjectType implements \PHPS
     {
         return $this->bound;
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         return $this->strategy->accepts($this, $type, $strictTypes);
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return $this->getBound()->isSuperTypeOf($type)->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
+        return $this->getBound()->isSuperTypeOf($type)->and(\PHPStan\TrinaryLogic::createMaybe());
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\UnionType || $type instanceof \PHPStan\Type\IntersectionType) {
             return $type->isSuperTypeOf($this);
         }
         if ($type instanceof \PHPStan\Type\ObjectWithoutClassType) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if (!$type instanceof \PHPStan\Type\Generic\TemplateType) {
             return $type->isSuperTypeOf($this->getBound());
         }
         if ($this->equals($type)) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type->getBound()->isSuperTypeOf($this->getBound())->no() && $this->getBound()->isSuperTypeOf($type->getBound())->no()) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+            return \PHPStan\TrinaryLogic::createNo();
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }

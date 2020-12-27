@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Methods;
+namespace PHPStan\Rules\Methods;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\InClassNode;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\InClassNode;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 /**
  * @implements Rule<InClassNode>
  */
-class MissingMethodImplementationRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class MissingMethodImplementationRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
-        return \RectorPrefix20201227\PHPStan\Node\InClassNode::class;
+        return \PHPStan\Node\InClassNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $classReflection = $node->getClassReflection();
         if ($classReflection->isInterface()) {
@@ -30,7 +30,7 @@ class MissingMethodImplementationRule implements \RectorPrefix20201227\PHPStan\R
         $messages = [];
         try {
             $nativeMethods = $classReflection->getNativeMethods();
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+        } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
             return [];
         }
         foreach ($nativeMethods as $method) {
@@ -41,7 +41,7 @@ class MissingMethodImplementationRule implements \RectorPrefix20201227\PHPStan\R
                 continue;
             }
             $declaringClass = $method->getDeclaringClass();
-            $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Non-abstract class %s contains abstract method %s() from %s %s.', $classReflection->getDisplayName(), $method->getName(), $declaringClass->isInterface() ? 'interface' : 'class', $declaringClass->getDisplayName()))->nonIgnorable()->build();
+            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Non-abstract class %s contains abstract method %s() from %s %s.', $classReflection->getDisplayName(), $method->getName(), $declaringClass->isInterface() ? 'interface' : 'class', $declaringClass->getDisplayName()))->nonIgnorable()->build();
         }
         return $messages;
     }

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
 use PHPStan\Type\Type;
-interface ParametersAcceptorWithPhpDocs extends \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
+interface ParametersAcceptorWithPhpDocs extends \PHPStan\Reflection\ParametersAcceptor
 {
     /**
      * @return array<int, \PHPStan\Reflection\ParameterReflectionWithPhpDocs>

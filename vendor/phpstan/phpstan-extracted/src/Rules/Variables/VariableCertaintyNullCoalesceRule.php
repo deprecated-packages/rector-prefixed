@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Variables;
+namespace PHPStan\Rules\Variables;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\NullType;
 /**
  * @implements \PHPStan\Rules\Rule<Node\Expr>
  */
-class VariableCertaintyNullCoalesceRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class VariableCertaintyNullCoalesceRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\Node\Expr::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if ($node instanceof \PhpParser\Node\Expr\AssignOp\Coalesce) {
             $var = $node->var;
@@ -41,13 +41,13 @@ class VariableCertaintyNullCoalesceRule implements \RectorPrefix20201227\PHPStan
         }
         $certainty = $scope->hasVariableType($var->name);
         if ($certainty->no()) {
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s on left side of %s is never defined.', $var->name, $description))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s on left side of %s is never defined.', $var->name, $description))->build()];
         } elseif ($certainty->yes() && !$isSubNode) {
             $variableType = $scope->getVariableType($var->name);
             if ($variableType->isSuperTypeOf(new \PHPStan\Type\NullType())->no()) {
-                return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s on left side of %s always exists and is not nullable.', $var->name, $description))->build()];
+                return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s on left side of %s always exists and is not nullable.', $var->name, $description))->build()];
             } elseif ((new \PHPStan\Type\NullType())->isSuperTypeOf($variableType)->yes()) {
-                return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s on left side of %s is always null.', $var->name, $description))->build()];
+                return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Variable $%s on left side of %s is always null.', $var->name, $description))->build()];
             }
         }
         return [];

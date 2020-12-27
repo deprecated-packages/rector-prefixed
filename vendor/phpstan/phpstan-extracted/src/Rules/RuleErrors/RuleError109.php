@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\RuleErrors;
+namespace PHPStan\Rules\RuleErrors;
 
 /**
  * @internal Use PHPStan\Rules\RuleErrorBuilder instead.
  */
-class RuleError109 implements \RectorPrefix20201227\PHPStan\Rules\RuleError, \RectorPrefix20201227\PHPStan\Rules\FileRuleError, \RectorPrefix20201227\PHPStan\Rules\TipRuleError, \RectorPrefix20201227\PHPStan\Rules\MetadataRuleError, \RectorPrefix20201227\PHPStan\Rules\NonIgnorableRuleError
+class RuleError109 implements \PHPStan\Rules\RuleError, \PHPStan\Rules\FileRuleError, \PHPStan\Rules\TipRuleError, \PHPStan\Rules\MetadataRuleError, \PHPStan\Rules\NonIgnorableRuleError
 {
     /** @var string */
     public $message;

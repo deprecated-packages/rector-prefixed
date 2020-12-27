@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Command;
+namespace PHPStan\Command;
 
-use RectorPrefix20201227\PHPStan\Analyser\Analyser;
-use RectorPrefix20201227\PHPStan\Analyser\AnalyserResult;
-use RectorPrefix20201227\PHPStan\Parallel\ParallelAnalyser;
-use RectorPrefix20201227\PHPStan\Parallel\Scheduler;
-use RectorPrefix20201227\PHPStan\Process\CpuCoreCounter;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use PHPStan\Analyser\Analyser;
+use PHPStan\Analyser\AnalyserResult;
+use PHPStan\Parallel\ParallelAnalyser;
+use PHPStan\Parallel\Scheduler;
+use PHPStan\Process\CpuCoreCounter;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
 class AnalyserRunner
 {
     /** @var Scheduler */
@@ -19,7 +19,7 @@ class AnalyserRunner
     private $parallelAnalyser;
     /** @var CpuCoreCounter */
     private $cpuCoreCounter;
-    public function __construct(\RectorPrefix20201227\PHPStan\Parallel\Scheduler $scheduler, \RectorPrefix20201227\PHPStan\Analyser\Analyser $analyser, \RectorPrefix20201227\PHPStan\Parallel\ParallelAnalyser $parallelAnalyser, \RectorPrefix20201227\PHPStan\Process\CpuCoreCounter $cpuCoreCounter)
+    public function __construct(\PHPStan\Parallel\Scheduler $scheduler, \PHPStan\Analyser\Analyser $analyser, \PHPStan\Parallel\ParallelAnalyser $parallelAnalyser, \PHPStan\Process\CpuCoreCounter $cpuCoreCounter)
     {
         $this->scheduler = $scheduler;
         $this->analyser = $analyser;
@@ -40,11 +40,11 @@ class AnalyserRunner
      * @return AnalyserResult
      * @throws \Throwable
      */
-    public function runAnalyser(array $files, array $allAnalysedFiles, ?\Closure $preFileCallback, ?\Closure $postFileCallback, bool $debug, bool $allowParallel, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult
+    public function runAnalyser(array $files, array $allAnalysedFiles, ?\Closure $preFileCallback, ?\Closure $postFileCallback, bool $debug, bool $allowParallel, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \PHPStan\Analyser\AnalyserResult
     {
         $filesCount = \count($files);
         if ($filesCount === 0) {
-            return new \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult([], [], [], [], \false);
+            return new \PHPStan\Analyser\AnalyserResult([], [], [], [], \false);
         }
         $schedule = $this->scheduler->scheduleWork($this->cpuCoreCounter->getNumberOfCpuCores(), $files);
         $mainScript = null;

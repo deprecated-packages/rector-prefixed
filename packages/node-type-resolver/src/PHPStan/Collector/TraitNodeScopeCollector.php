@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PHPStan\Collector;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\VirtualNode;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\VirtualNode;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 final class TraitNodeScopeCollector
 {
@@ -21,9 +21,9 @@ final class TraitNodeScopeCollector
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
-    public function addForTraitAndNode(string $traitName, \PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : void
+    public function addForTraitAndNode(string $traitName, \PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : void
     {
-        if ($node instanceof \RectorPrefix20201227\PHPStan\Node\VirtualNode) {
+        if ($node instanceof \PHPStan\Node\VirtualNode) {
             return;
         }
         $traitNodeHash = $this->createHash($traitName, $node);
@@ -33,7 +33,7 @@ final class TraitNodeScopeCollector
         }
         $this->scopeByTraitNodeHash[$traitNodeHash] = $scope;
     }
-    public function getScopeForTraitAndNode(string $traitName, \PhpParser\Node $node) : ?\RectorPrefix20201227\PHPStan\Analyser\Scope
+    public function getScopeForTraitAndNode(string $traitName, \PhpParser\Node $node) : ?\PHPStan\Analyser\Scope
     {
         $traitNodeHash = $this->createHash($traitName, $node);
         return $this->scopeByTraitNodeHash[$traitNodeHash] ?? null;

@@ -5,7 +5,7 @@ namespace Rector\TypeDeclaration\Rector\Closure;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Closure;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;

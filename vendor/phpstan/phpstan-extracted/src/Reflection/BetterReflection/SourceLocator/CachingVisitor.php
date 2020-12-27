@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator;
+namespace PHPStan\Reflection\BetterReflection\SourceLocator;
 
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeVisitorAbstract;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker;
 class CachingVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /** @var string */
@@ -31,22 +31,22 @@ class CachingVisitor extends \PhpParser\NodeVisitorAbstract
                 if ($this->currentNamespaceNode !== null && $this->currentNamespaceNode->name !== null) {
                     $fullClassName = $this->currentNamespaceNode->name . '\\' . $fullClassName;
                 }
-                $this->classNodes[\strtolower($fullClassName)][] = new \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
+                $this->classNodes[\strtolower($fullClassName)][] = new \PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
             }
             return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
         if ($node instanceof \PhpParser\Node\Stmt\Function_) {
-            $this->functionNodes[\strtolower($node->namespacedName->toString())] = new \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
+            $this->functionNodes[\strtolower($node->namespacedName->toString())] = new \PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
             return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
         if ($node instanceof \PhpParser\Node\Stmt\Const_) {
-            $this->constantNodes[] = new \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
+            $this->constantNodes[] = new \PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
             return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }
         if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             try {
-                \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
+                \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
+            } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
                 return null;
             }
             /** @var \PhpParser\Node\Scalar\String_ $nameNode */
@@ -56,7 +56,7 @@ class CachingVisitor extends \PhpParser\NodeVisitorAbstract
                 $constantValue = \constant($constantName);
                 $node->args[1]->value = \PhpParser\BuilderHelpers::normalizeValue($constantValue);
             }
-            $constantNode = new \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
+            $constantNode = new \PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode($node, $this->currentNamespaceNode, $this->fileName);
             $this->constantNodes[] = $constantNode;
             return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
         }

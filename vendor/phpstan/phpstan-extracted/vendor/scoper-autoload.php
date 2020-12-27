@@ -72,17 +72,11 @@ if (!class_exists('Twig_Extension_Sandbox', false) && !interface_exists('Twig_Ex
 if (!class_exists('EventDispatcher', false) && !interface_exists('EventDispatcher', false) && !trait_exists('EventDispatcher', false)) {
     spl_autoload_call('RectorPrefix20201227\EventDispatcher');
 }
-if (!class_exists('ComposerAutoloaderInitd09c6ae1595ada79d137697f01664a26__unique_rector', false) && !interface_exists('ComposerAutoloaderInitd09c6ae1595ada79d137697f01664a26__unique_rector', false) && !trait_exists('ComposerAutoloaderInitd09c6ae1595ada79d137697f01664a26__unique_rector', false)) {
-    spl_autoload_call('RectorPrefix20201227\ComposerAutoloaderInitd09c6ae1595ada79d137697f01664a26__unique_rector');
+if (!class_exists('ComposerAutoloaderInitb1130ab599ab8cd339654771d05a1b66__unique_rector', false) && !interface_exists('ComposerAutoloaderInitb1130ab599ab8cd339654771d05a1b66__unique_rector', false) && !trait_exists('ComposerAutoloaderInitb1130ab599ab8cd339654771d05a1b66__unique_rector', false)) {
+    spl_autoload_call('RectorPrefix20201227\ComposerAutoloaderInitb1130ab599ab8cd339654771d05a1b66__unique_rector');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
     spl_autoload_call('RectorPrefix20201227\Doctrine\Inflector\Inflector');
-}
-if (!class_exists('Attribute', false) && !interface_exists('Attribute', false) && !trait_exists('Attribute', false)) {
-    spl_autoload_call('RectorPrefix20201227\Attribute');
-}
-if (!class_exists('ReflectionUnionType', false) && !interface_exists('ReflectionUnionType', false) && !trait_exists('ReflectionUnionType', false)) {
-    spl_autoload_call('RectorPrefix20201227\ReflectionUnionType');
 }
 if (!class_exists('Symfony\Component\Console\Style\SymfonyStyle', false) && !interface_exists('Symfony\Component\Console\Style\SymfonyStyle', false) && !trait_exists('Symfony\Component\Console\Style\SymfonyStyle', false)) {
     spl_autoload_call('RectorPrefix20201227\Symfony\Component\Console\Style\SymfonyStyle');
@@ -96,6 +90,9 @@ if (!class_exists('Normalizer', false) && !interface_exists('Normalizer', false)
 if (!class_exists('JsonException', false) && !interface_exists('JsonException', false) && !trait_exists('JsonException', false)) {
     spl_autoload_call('RectorPrefix20201227\JsonException');
 }
+if (!class_exists('Attribute', false) && !interface_exists('Attribute', false) && !trait_exists('Attribute', false)) {
+    spl_autoload_call('RectorPrefix20201227\Attribute');
+}
 if (!class_exists('Stringable', false) && !interface_exists('Stringable', false) && !trait_exists('Stringable', false)) {
     spl_autoload_call('RectorPrefix20201227\Stringable');
 }
@@ -108,9 +105,9 @@ if (!class_exists('ValueError', false) && !interface_exists('ValueError', false)
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequired09c6ae1595ada79d137697f01664a26__unique_rector')) {
-    function composerRequired09c6ae1595ada79d137697f01664a26__unique_rector() {
-        return \RectorPrefix20201227\composerRequired09c6ae1595ada79d137697f01664a26__unique_rector(...func_get_args());
+if (!function_exists('composerRequireb1130ab599ab8cd339654771d05a1b66__unique_rector')) {
+    function composerRequireb1130ab599ab8cd339654771d05a1b66__unique_rector() {
+        return \RectorPrefix20201227\composerRequireb1130ab599ab8cd339654771d05a1b66__unique_rector(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {

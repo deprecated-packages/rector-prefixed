@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules;
+namespace PHPStan\Rules;
 
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
@@ -23,7 +23,7 @@ class MissingTypehintCheck
     private $checkMissingIterableValueType;
     /** @var bool */
     private $checkGenericClassInNonGenericObjectType;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkMissingIterableValueType, bool $checkGenericClassInNonGenericObjectType)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkMissingIterableValueType, bool $checkGenericClassInNonGenericObjectType)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->checkMissingIterableValueType = $checkMissingIterableValueType;
@@ -95,7 +95,7 @@ class MissingTypehintCheck
                 }
                 $resolvedType = \PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($type);
                 if (!$resolvedType instanceof \PHPStan\Type\ObjectType) {
-                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                    throw new \PHPStan\ShouldNotHappenException();
                 }
                 $objectTypes[] = [\sprintf('%s %s', $classReflection->isInterface() ? 'interface' : 'class', $classReflection->getDisplayName(\false)), \array_keys($classReflection->getTemplateTypeMap()->getTypes())];
                 return $type;

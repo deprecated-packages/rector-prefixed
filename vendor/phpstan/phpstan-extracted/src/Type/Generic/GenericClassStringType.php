@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Generic;
 
-use RectorPrefix20201227\PHPStan\Broker\Broker;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Broker\Broker;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\ClassStringType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -38,15 +38,15 @@ class GenericClassStringType extends \PHPStan\Type\ClassStringType
     {
         return \sprintf('%s<%s>', parent::describe($level), $this->type->describe($level));
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isAcceptedBy($this, $strictTypes);
         }
         if ($type instanceof \PHPStan\Type\Constant\ConstantStringType) {
-            $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
+            $broker = \PHPStan\Broker\Broker::getInstance();
             if (!$broker->hasClass($type->getValue())) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+                return \PHPStan\TrinaryLogic::createNo();
             }
             $objectType = new \PHPStan\Type\ObjectType($type->getValue());
         } elseif ($type instanceof self) {
@@ -54,13 +54,13 @@ class GenericClassStringType extends \PHPStan\Type\ClassStringType
         } elseif ($type instanceof \PHPStan\Type\ClassStringType) {
             $objectType = new \PHPStan\Type\ObjectWithoutClassType();
         } elseif ($type instanceof \PHPStan\Type\StringType) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         } else {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+            return \PHPStan\TrinaryLogic::createNo();
         }
         return $this->type->accepts($objectType, $strictTypes);
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
@@ -68,7 +68,7 @@ class GenericClassStringType extends \PHPStan\Type\ClassStringType
         if ($type instanceof \PHPStan\Type\Constant\ConstantStringType) {
             $genericType = $this->type;
             if ($genericType instanceof \PHPStan\Type\MixedType) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+                return \PHPStan\TrinaryLogic::createYes();
             }
             if ($genericType instanceof \PHPStan\Type\StaticType) {
                 $genericType = $genericType->getStaticObjectType();
@@ -85,15 +85,15 @@ class GenericClassStringType extends \PHPStan\Type\ClassStringType
             }
             // Explicitly handle the uncertainty for Maybe.
             if ($isSuperType->maybe()) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+                return \PHPStan\TrinaryLogic::createNo();
             }
             return $isSuperType;
         } elseif ($type instanceof self) {
             return $this->type->isSuperTypeOf($type->type);
         } elseif ($type instanceof \PHPStan\Type\StringType) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function traverse(callable $cb) : \PHPStan\Type\Type
     {

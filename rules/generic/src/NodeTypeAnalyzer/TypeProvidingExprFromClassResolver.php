@@ -11,11 +11,11 @@ use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
-use RectorPrefix20201227\PHPStan\Reflection\Php\PhpPropertyReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\Php\PhpPropertyReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
@@ -42,7 +42,7 @@ final class TypeProvidingExprFromClassResolver
      * @var PropertyNaming
      */
     private $propertyNaming;
-    public function __construct(\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming)
+    public function __construct(\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming)
     {
         $this->typeUnwrapper = $typeUnwrapper;
         $this->reflectionProvider = $reflectionProvider;
@@ -67,7 +67,7 @@ final class TypeProvidingExprFromClassResolver
         }
         // B. match existing property
         $scope = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return null;
         }
         $propertyFetch = $this->resolvePropertyFetchProvidingType($classReflection, $scope, $type);
@@ -77,10 +77,10 @@ final class TypeProvidingExprFromClassResolver
         // C. param in constructor?
         return $this->resolveConstructorParamProvidingType($functionLike, $type);
     }
-    private function resolveMethodCallProvidingType(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $type) : ?\PhpParser\Node\Expr\MethodCall
+    private function resolveMethodCallProvidingType(\PHPStan\Reflection\ClassReflection $classReflection, string $type) : ?\PhpParser\Node\Expr\MethodCall
     {
         foreach ($classReflection->getNativeMethods() as $methodReflection) {
-            $functionVariant = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
+            $functionVariant = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
             $returnType = $functionVariant->getReturnType();
             if (!$this->isMatchingType($returnType, $type)) {
                 continue;
@@ -90,7 +90,7 @@ final class TypeProvidingExprFromClassResolver
         }
         return null;
     }
-    private function resolvePropertyFetchProvidingType(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope, string $type) : ?\PhpParser\Node\Expr\PropertyFetch
+    private function resolvePropertyFetchProvidingType(\PHPStan\Reflection\ClassReflection $classReflection, \PHPStan\Analyser\Scope $scope, string $type) : ?\PhpParser\Node\Expr\PropertyFetch
     {
         $nativeReflection = $classReflection->getNativeReflection();
         foreach ($nativeReflection->getProperties() as $reflectionProperty) {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Accessory;
 
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\CompoundTypeHelper;
 use PHPStan\Type\ErrorType;
@@ -27,31 +27,31 @@ class NonEmptyArrayType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Acc
     {
         return [];
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
         return $type->isArray()->and($type->isIterableAtLeastOnce());
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($this->equals($type)) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
         return $type->isArray()->and($type->isIterableAtLeastOnce());
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
     {
         if ($otherType instanceof \PHPStan\Type\UnionType || $otherType instanceof \PHPStan\Type\IntersectionType) {
             return $otherType->isSuperTypeOf($this);
         }
-        return $otherType->isArray()->and($otherType->isIterableAtLeastOnce())->and($otherType instanceof self ? \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes() : \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
+        return $otherType->isArray()->and($otherType->isIterableAtLeastOnce())->and($otherType instanceof self ? \PHPStan\TrinaryLogic::createYes() : \PHPStan\TrinaryLogic::createMaybe());
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
@@ -63,13 +63,13 @@ class NonEmptyArrayType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Acc
     {
         return 'nonEmpty';
     }
-    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type
     {
@@ -79,13 +79,13 @@ class NonEmptyArrayType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Acc
     {
         return $this;
     }
-    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterable() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
     public function getIterableKeyType() : \PHPStan\Type\Type
     {
@@ -95,13 +95,13 @@ class NonEmptyArrayType implements \PHPStan\Type\CompoundType, \PHPStan\Type\Acc
     {
         return new \PHPStan\Type\MixedType();
     }
-    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function toNumber() : \PHPStan\Type\Type
     {

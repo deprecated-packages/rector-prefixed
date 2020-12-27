@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\Constant;
+namespace PHPStan\Reflection\Constant;
 
-use RectorPrefix20201227\PHPStan\Reflection\GlobalConstantReflection;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Reflection\GlobalConstantReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
-class RuntimeConstantReflection implements \RectorPrefix20201227\PHPStan\Reflection\GlobalConstantReflection
+class RuntimeConstantReflection implements \PHPStan\Reflection\GlobalConstantReflection
 {
     /** @var string */
     private $name;
@@ -32,16 +32,16 @@ class RuntimeConstantReflection implements \RectorPrefix20201227\PHPStan\Reflect
     {
         return $this->fileName;
     }
-    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
 }

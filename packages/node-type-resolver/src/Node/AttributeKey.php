@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Namespace_;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class AttributeKey
@@ -24,7 +24,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const SCOPE = \RectorPrefix20201227\PHPStan\Analyser\Scope::class;
+    public const SCOPE = \PHPStan\Analyser\Scope::class;
     /**
      * @var string
      */

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
+namespace PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
-class ExportedPhpDocNode implements \RectorPrefix20201227\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use PHPStan\Dependency\ExportedNode;
+class ExportedPhpDocNode implements \PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $phpDocString;
@@ -24,7 +24,7 @@ class ExportedPhpDocNode implements \RectorPrefix20201227\PHPStan\Dependency\Exp
         $this->namespace = $namespace;
         $this->uses = $uses;
     }
-    public function equals(\RectorPrefix20201227\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -42,7 +42,7 @@ class ExportedPhpDocNode implements \RectorPrefix20201227\PHPStan\Dependency\Exp
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
     {
         return new self($properties['phpDocString'], $properties['namespace'], $properties['uses']);
     }
@@ -50,7 +50,7 @@ class ExportedPhpDocNode implements \RectorPrefix20201227\PHPStan\Dependency\Exp
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
     {
         return new self($data['phpDocString'], $data['namespace'], $data['uses']);
     }

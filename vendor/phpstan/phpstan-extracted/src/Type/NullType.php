@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -37,42 +37,42 @@ class NullType implements \PHPStan\Type\ConstantScalarType
     {
         return $this;
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {
         return $type instanceof self;
     }
-    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \PHPStan\TrinaryLogic
     {
         if ($otherType instanceof \PHPStan\Type\ConstantScalarType) {
             if ($orEqual) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean(null <= $otherType->getValue());
+                return \PHPStan\TrinaryLogic::createFromBoolean(null <= $otherType->getValue());
             }
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean(null < $otherType->getValue());
+            return \PHPStan\TrinaryLogic::createFromBoolean(null < $otherType->getValue());
         }
         if ($otherType instanceof \PHPStan\Type\CompoundType) {
             return $otherType->isGreaterThan($this, $orEqual);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
@@ -98,13 +98,13 @@ class NullType implements \PHPStan\Type\ConstantScalarType
     {
         return new \PHPStan\Type\Constant\ConstantArrayType([], []);
     }
-    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type
     {
@@ -119,13 +119,13 @@ class NullType implements \PHPStan\Type\ConstantScalarType
     {
         return $this;
     }
-    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     /**
      * @param mixed[] $properties

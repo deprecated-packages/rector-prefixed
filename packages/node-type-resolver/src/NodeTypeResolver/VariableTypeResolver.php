@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Trait_;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
@@ -92,7 +92,7 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
         // this → object type is easier to work with and consistent with the rest of the code
         return $nodeScope->getVariableType($variableName);
     }
-    private function resolveNodeScope(\PhpParser\Node\Expr\Variable $variable) : ?\RectorPrefix20201227\PHPStan\Analyser\Scope
+    private function resolveNodeScope(\PhpParser\Node\Expr\Variable $variable) : ?\PHPStan\Analyser\Scope
     {
         /** @var Scope|null $nodeScope */
         $nodeScope = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
@@ -111,7 +111,7 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
         }
         return $this->resolveFromParentNodes($variable);
     }
-    private function resolveFromParentNodes(\PhpParser\Node\Expr\Variable $variable) : ?\RectorPrefix20201227\PHPStan\Analyser\Scope
+    private function resolveFromParentNodes(\PhpParser\Node\Expr\Variable $variable) : ?\PHPStan\Analyser\Scope
     {
         foreach (self::PARENT_NODE_ATTRIBUTES as $parentNodeAttribute) {
             $parentNode = $variable->getAttribute($parentNodeAttribute);

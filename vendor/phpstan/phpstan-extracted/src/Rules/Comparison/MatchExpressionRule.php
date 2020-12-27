@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Comparison;
+namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\MatchExpressionNode;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\MatchExpressionNode;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\UnionType;
@@ -15,7 +15,7 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements Rule<MatchExpressionNode>
  */
-class MatchExpressionRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class MatchExpressionRule implements \PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkAlwaysTrueStrictComparison;
@@ -25,9 +25,9 @@ class MatchExpressionRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
     }
     public function getNodeType() : string
     {
-        return \RectorPrefix20201227\PHPStan\Node\MatchExpressionNode::class;
+        return \PHPStan\Node\MatchExpressionNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $matchCondition = $node->getCondition();
         $nextArmIsDead = \false;
@@ -36,7 +36,7 @@ class MatchExpressionRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
         $hasDefault = \false;
         foreach ($node->getArms() as $i => $arm) {
             if ($nextArmIsDead) {
-                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Match arm is unreachable because previous comparison is always true.')->line($arm->getLine())->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message('Match arm is unreachable because previous comparison is always true.')->line($arm->getLine())->build();
                 continue;
             }
             $armConditions = $arm->getConditions();
@@ -52,11 +52,11 @@ class MatchExpressionRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
                 }
                 $armLine = $armCondition->getLine();
                 if (!$armConditionResult->getValue()) {
-                    $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Match arm comparison between %s and %s is always false.', $armConditionScope->getType($matchCondition)->describe(\PHPStan\Type\VerbosityLevel::value()), $armConditionScope->getType($armCondition->getCondition())->describe(\PHPStan\Type\VerbosityLevel::value())))->line($armLine)->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Match arm comparison between %s and %s is always false.', $armConditionScope->getType($matchCondition)->describe(\PHPStan\Type\VerbosityLevel::value()), $armConditionScope->getType($armCondition->getCondition())->describe(\PHPStan\Type\VerbosityLevel::value())))->line($armLine)->build();
                 } else {
                     $nextArmIsDead = \true;
                     if ($this->checkAlwaysTrueStrictComparison && ($i !== $armsCount - 1 || $i === 0)) {
-                        $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Match arm comparison between %s and %s is always true.', $armConditionScope->getType($matchCondition)->describe(\PHPStan\Type\VerbosityLevel::value()), $armConditionScope->getType($armCondition->getCondition())->describe(\PHPStan\Type\VerbosityLevel::value())))->line($armLine)->build();
+                        $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Match arm comparison between %s and %s is always true.', $armConditionScope->getType($matchCondition)->describe(\PHPStan\Type\VerbosityLevel::value()), $armConditionScope->getType($armCondition->getCondition())->describe(\PHPStan\Type\VerbosityLevel::value())))->line($armLine)->build();
                     }
                 }
             }
@@ -64,7 +64,7 @@ class MatchExpressionRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
         if (!$hasDefault && !$nextArmIsDead) {
             $remainingType = $node->getEndScope()->getType($matchCondition);
             if (!$remainingType instanceof \PHPStan\Type\NeverType) {
-                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Match expression does not handle remaining %s: %s', $remainingType instanceof \PHPStan\Type\UnionType ? 'values' : 'value', $remainingType->describe(\PHPStan\Type\VerbosityLevel::value())))->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Match expression does not handle remaining %s: %s', $remainingType instanceof \PHPStan\Type\UnionType ? 'values' : 'value', $remainingType->describe(\PHPStan\Type\VerbosityLevel::value())))->build();
             }
         }
         return $errors;

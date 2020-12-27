@@ -3,23 +3,23 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\Analyser\OutOfClassScope;
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use RectorPrefix20201227\PHPStan\Reflection\ConstantReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParameterReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
-use RectorPrefix20201227\PHPStan\Reflection\Php\ClosureCallMethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Analyser\OutOfClassScope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\Php\ClosureCallMethodReflection;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
-class ClosureType implements \PHPStan\Type\TypeWithClassName, \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
+class ClosureType implements \PHPStan\Type\TypeWithClassName, \PHPStan\Reflection\ParametersAcceptor
 {
     use NonGenericTypeTrait;
     use UndecidedComparisonTypeTrait;
@@ -62,7 +62,7 @@ class ClosureType implements \PHPStan\Type\TypeWithClassName, \RectorPrefix20201
         }
         return \array_merge($classes, $this->returnType->getReferencedClasses());
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
@@ -72,17 +72,17 @@ class ClosureType implements \PHPStan\Type\TypeWithClassName, \RectorPrefix20201
         }
         return $this->isSuperTypeOfInternal($type, \true);
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         return $this->isSuperTypeOfInternal($type, \false);
     }
-    private function isSuperTypeOfInternal(\PHPStan\Type\Type $type, bool $treatMixedAsAny) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    private function isSuperTypeOfInternal(\PHPStan\Type\Type $type, bool $treatMixedAsAny) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
             return \PHPStan\Type\CallableTypeHelper::isParametersAcceptorSuperTypeOf($this, $type, $treatMixedAsAny);
         }
         if ($type instanceof \PHPStan\Type\TypeWithClassName && $type->getClassName() === \Closure::class) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
         return $this->objectType->isSuperTypeOf($type);
     }
@@ -95,56 +95,56 @@ class ClosureType implements \PHPStan\Type\TypeWithClassName, \RectorPrefix20201
     }
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string
     {
-        return \sprintf('Closure(%s): %s', \implode(', ', \array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\ParameterReflection $parameter) use($level) : string {
+        return \sprintf('Closure(%s): %s', \implode(', ', \array_map(static function (\PHPStan\Reflection\ParameterReflection $parameter) use($level) : string {
             return \sprintf('%s%s', $parameter->isVariadic() ? '...' : '', $parameter->getType()->describe($level));
         }, $this->parameters)), $this->returnType->describe($level));
     }
-    public function canAccessProperties() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function canAccessProperties() : \PHPStan\TrinaryLogic
     {
         return $this->objectType->canAccessProperties();
     }
-    public function hasProperty(string $propertyName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \PHPStan\TrinaryLogic
     {
         return $this->objectType->hasProperty($propertyName);
     }
-    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
     {
         return $this->objectType->getProperty($propertyName, $scope);
     }
-    public function canCallMethods() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function canCallMethods() : \PHPStan\TrinaryLogic
     {
         return $this->objectType->canCallMethods();
     }
-    public function hasMethod(string $methodName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic
     {
         return $this->objectType->hasMethod($methodName);
     }
-    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
     {
         if ($methodName === 'call') {
-            return new \RectorPrefix20201227\PHPStan\Reflection\Php\ClosureCallMethodReflection($this->objectType->getMethod($methodName, $scope), $this);
+            return new \PHPStan\Reflection\Php\ClosureCallMethodReflection($this->objectType->getMethod($methodName, $scope), $this);
         }
         return $this->objectType->getMethod($methodName, $scope);
     }
-    public function canAccessConstants() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function canAccessConstants() : \PHPStan\TrinaryLogic
     {
         return $this->objectType->canAccessConstants();
     }
-    public function hasConstant(string $constantName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \PHPStan\TrinaryLogic
     {
         return $this->objectType->hasConstant($constantName);
     }
-    public function getConstant(string $constantName) : \RectorPrefix20201227\PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \PHPStan\Reflection\ConstantReflection
     {
         return $this->objectType->getConstant($constantName);
     }
-    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterable() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function getIterableKeyType() : \PHPStan\Type\Type
     {
@@ -154,13 +154,13 @@ class ClosureType implements \PHPStan\Type\TypeWithClassName, \RectorPrefix20201
     {
         return new \PHPStan\Type\ErrorType();
     }
-    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type
     {
@@ -170,21 +170,21 @@ class ClosureType implements \PHPStan\Type\TypeWithClassName, \RectorPrefix20201
     {
         return new \PHPStan\Type\ErrorType();
     }
-    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isCallable() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
         return [$this];
     }
-    public function isCloneable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isCloneable() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
     public function toBoolean() : \PHPStan\Type\BooleanType
     {
@@ -241,14 +241,14 @@ class ClosureType implements \PHPStan\Type\TypeWithClassName, \RectorPrefix20201
         if ($receivedType->isCallable()->no()) {
             return \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         }
-        $parametersAcceptors = $receivedType->getCallableParametersAcceptors(new \RectorPrefix20201227\PHPStan\Analyser\OutOfClassScope());
+        $parametersAcceptors = $receivedType->getCallableParametersAcceptors(new \PHPStan\Analyser\OutOfClassScope());
         $typeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         foreach ($parametersAcceptors as $parametersAcceptor) {
             $typeMap = $typeMap->union($this->inferTemplateTypesOnParametersAcceptor($receivedType, $parametersAcceptor));
         }
         return $typeMap;
     }
-    private function inferTemplateTypesOnParametersAcceptor(\PHPStan\Type\Type $receivedType, \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : \PHPStan\Type\Generic\TemplateTypeMap
+    private function inferTemplateTypesOnParametersAcceptor(\PHPStan\Type\Type $receivedType, \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : \PHPStan\Type\Generic\TemplateTypeMap
     {
         $typeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         $args = $parametersAcceptor->getParameters();
@@ -262,18 +262,18 @@ class ClosureType implements \PHPStan\Type\TypeWithClassName, \RectorPrefix20201
     }
     public function traverse(callable $cb) : \PHPStan\Type\Type
     {
-        return new self(\array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\ParameterReflection $param) use($cb) : NativeParameterReflection {
+        return new self(\array_map(static function (\PHPStan\Reflection\ParameterReflection $param) use($cb) : NativeParameterReflection {
             $defaultValue = $param->getDefaultValue();
-            return new \RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection($param->getName(), $param->isOptional(), $cb($param->getType()), $param->passedByReference(), $param->isVariadic(), $defaultValue !== null ? $cb($defaultValue) : null);
+            return new \PHPStan\Reflection\Native\NativeParameterReflection($param->getName(), $param->isOptional(), $cb($param->getType()), $param->passedByReference(), $param->isVariadic(), $defaultValue !== null ? $cb($defaultValue) : null);
         }, $this->getParameters()), $cb($this->getReturnType()), $this->isVariadic());
     }
-    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     /**
      * @param mixed[] $properties

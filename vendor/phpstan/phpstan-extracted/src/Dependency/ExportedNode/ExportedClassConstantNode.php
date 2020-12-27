@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
+namespace PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
-class ExportedClassConstantNode implements \RectorPrefix20201227\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use PHPStan\Dependency\ExportedNode;
+class ExportedClassConstantNode implements \PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $name;
@@ -22,7 +22,7 @@ class ExportedClassConstantNode implements \RectorPrefix20201227\PHPStan\Depende
         $this->public = $public;
         $this->private = $private;
     }
-    public function equals(\RectorPrefix20201227\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -33,7 +33,7 @@ class ExportedClassConstantNode implements \RectorPrefix20201227\PHPStan\Depende
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
     {
         return new self($properties['name'], $properties['value'], $properties['public'], $properties['private']);
     }
@@ -41,7 +41,7 @@ class ExportedClassConstantNode implements \RectorPrefix20201227\PHPStan\Depende
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
     {
         return new self($data['name'], $data['value'], $data['public'], $data['private']);
     }

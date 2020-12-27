@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Accessory;
 
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyMethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\Dummy\DummyMethodReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\TrivialParametersAcceptor;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
@@ -34,27 +34,27 @@ class HasMethodType implements \PHPStan\Type\Accessory\AccessoryType, \PHPStan\T
     {
         return \strtolower($this->methodName);
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($this->equals($type));
+        return \PHPStan\TrinaryLogic::createFromBoolean($this->equals($type));
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         return $type->hasMethod($this->methodName);
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
     {
         if ($otherType instanceof \PHPStan\Type\UnionType || $otherType instanceof \PHPStan\Type\IntersectionType) {
             return $otherType->isSuperTypeOf($this);
         }
         if ($otherType instanceof self) {
-            $limit = \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            $limit = \PHPStan\TrinaryLogic::createYes();
         } else {
-            $limit = \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            $limit = \PHPStan\TrinaryLogic::createMaybe();
         }
         return $limit->and($otherType->hasMethod($this->methodName));
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
@@ -66,27 +66,27 @@ class HasMethodType implements \PHPStan\Type\Accessory\AccessoryType, \PHPStan\T
     {
         return \sprintf('hasMethod(%s)', $this->methodName);
     }
-    public function hasMethod(string $methodName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic
     {
         if ($this->getCanonicalMethodName() === \strtolower($methodName)) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
     {
-        return new \RectorPrefix20201227\PHPStan\Reflection\Dummy\DummyMethodReflection($this->methodName);
+        return new \PHPStan\Reflection\Dummy\DummyMethodReflection($this->methodName);
     }
-    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isCallable() : \PHPStan\TrinaryLogic
     {
         if ($this->getCanonicalMethodName() === '__invoke') {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
-        return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
     }
     public function traverse(callable $cb) : \PHPStan\Type\Type
     {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Error;
 
-use RectorPrefix20201227\PHPStan\AnalysedCodeException;
+use PHPStan\AnalysedCodeException;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Throwable;
 final class ExceptionCorrector
@@ -23,7 +23,7 @@ final class ExceptionCorrector
         }
         return $class;
     }
-    public function getAutoloadExceptionMessageAndAddLocation(\RectorPrefix20201227\PHPStan\AnalysedCodeException $analysedCodeException) : string
+    public function getAutoloadExceptionMessageAndAddLocation(\PHPStan\AnalysedCodeException $analysedCodeException) : string
     {
         return \sprintf('Analyze error: "%s". Include your files in "$parameters->set(Option::AUTOLOAD_PATHS, [...]);" in "rector.php" config.%sSee https://github.com/rectorphp/rector#configuration', $analysedCodeException->getMessage(), \PHP_EOL);
     }

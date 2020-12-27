@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Node;
+namespace PHPStan\Node;
 
 use PhpParser\Node\Expr;
 use PhpParser\NodeAbstract;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-class MatchExpressionNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
+use PHPStan\Analyser\Scope;
+class MatchExpressionNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var Expr */
     private $condition;
@@ -18,7 +18,7 @@ class MatchExpressionNode extends \PhpParser\NodeAbstract implements \RectorPref
      * @param Expr $condition
      * @param MatchExpressionArm[] $arms
      */
-    public function __construct(\PhpParser\Node\Expr $condition, array $arms, \PhpParser\Node\Expr\Match_ $originalNode, \RectorPrefix20201227\PHPStan\Analyser\Scope $endScope)
+    public function __construct(\PhpParser\Node\Expr $condition, array $arms, \PhpParser\Node\Expr\Match_ $originalNode, \PHPStan\Analyser\Scope $endScope)
     {
         parent::__construct($originalNode->getAttributes());
         $this->condition = $condition;
@@ -36,7 +36,7 @@ class MatchExpressionNode extends \PhpParser\NodeAbstract implements \RectorPref
     {
         return $this->arms;
     }
-    public function getEndScope() : \RectorPrefix20201227\PHPStan\Analyser\Scope
+    public function getEndScope() : \PHPStan\Analyser\Scope
     {
         return $this->endScope;
     }

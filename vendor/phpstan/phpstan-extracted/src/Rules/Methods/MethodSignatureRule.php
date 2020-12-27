@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Methods;
+namespace PHPStan\Rules\Methods;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\InClassMethodNode;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
-use RectorPrefix20201227\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\InClassMethodNode;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -21,7 +21,7 @@ use PHPStan\Type\VoidType;
 /**
  * @implements \PHPStan\Rules\Rule<InClassMethodNode>
  */
-class MethodSignatureRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class MethodSignatureRule implements \PHPStan\Rules\Rule
 {
     /** @var bool */
     private $reportMaybes;
@@ -34,12 +34,12 @@ class MethodSignatureRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
     }
     public function getNodeType() : string
     {
-        return \RectorPrefix20201227\PHPStan\Node\InClassMethodNode::class;
+        return \PHPStan\Node\InClassMethodNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $method = $scope->getFunction();
-        if (!$method instanceof \RectorPrefix20201227\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection) {
+        if (!$method instanceof \PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection) {
             return [];
         }
         $methodName = $method->getName();
@@ -52,7 +52,7 @@ class MethodSignatureRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
         if ($method->isPrivate()) {
             return [];
         }
-        $parameters = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants());
+        $parameters = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($method->getVariants());
         $errors = [];
         foreach ($this->collectParentMethods($methodName, $method->getDeclaringClass()) as $parentMethod) {
             $parentVariants = $parentMethod->getVariants();
@@ -60,12 +60,12 @@ class MethodSignatureRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
                 continue;
             }
             $parentParameters = $parentVariants[0];
-            if (!$parentParameters instanceof \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
+            if (!$parentParameters instanceof \PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
                 continue;
             }
             [$returnTypeCompatibility, $returnType, $parentReturnType] = $this->checkReturnTypeCompatibility($parameters, $parentParameters);
             if ($returnTypeCompatibility->no() || !$returnTypeCompatibility->yes() && $this->reportMaybes) {
-                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Return type (%s) of method %s::%s() should be %s with return type (%s) of method %s::%s()', $returnType->describe(\PHPStan\Type\VerbosityLevel::value()), $method->getDeclaringClass()->getDisplayName(), $method->getName(), $returnTypeCompatibility->no() ? 'compatible' : 'covariant', $parentReturnType->describe(\PHPStan\Type\VerbosityLevel::value()), $parentMethod->getDeclaringClass()->getDisplayName(), $parentMethod->getName()))->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Return type (%s) of method %s::%s() should be %s with return type (%s) of method %s::%s()', $returnType->describe(\PHPStan\Type\VerbosityLevel::value()), $method->getDeclaringClass()->getDisplayName(), $method->getName(), $returnTypeCompatibility->no() ? 'compatible' : 'covariant', $parentReturnType->describe(\PHPStan\Type\VerbosityLevel::value()), $parentMethod->getDeclaringClass()->getDisplayName(), $parentMethod->getName()))->build();
             }
             $parameterResults = $this->checkParameterTypeCompatibility($parameters->getParameters(), $parentParameters->getParameters());
             foreach ($parameterResults as $parameterIndex => [$parameterResult, $parameterType, $parentParameterType]) {
@@ -77,7 +77,7 @@ class MethodSignatureRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
                 }
                 $parameter = $parameters->getParameters()[$parameterIndex];
                 $parentParameter = $parentParameters->getParameters()[$parameterIndex];
-                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Parameter #%d $%s (%s) of method %s::%s() should be %s with parameter $%s (%s) of method %s::%s()', $parameterIndex + 1, $parameter->getName(), $parameterType->describe(\PHPStan\Type\VerbosityLevel::value()), $method->getDeclaringClass()->getDisplayName(), $method->getName(), $parameterResult->no() ? 'compatible' : 'contravariant', $parentParameter->getName(), $parentParameterType->describe(\PHPStan\Type\VerbosityLevel::value()), $parentMethod->getDeclaringClass()->getDisplayName(), $parentMethod->getName()))->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Parameter #%d $%s (%s) of method %s::%s() should be %s with parameter $%s (%s) of method %s::%s()', $parameterIndex + 1, $parameter->getName(), $parameterType->describe(\PHPStan\Type\VerbosityLevel::value()), $method->getDeclaringClass()->getDisplayName(), $method->getName(), $parameterResult->no() ? 'compatible' : 'contravariant', $parentParameter->getName(), $parentParameterType->describe(\PHPStan\Type\VerbosityLevel::value()), $parentMethod->getDeclaringClass()->getDisplayName(), $parentMethod->getName()))->build();
             }
         }
         return $errors;
@@ -87,7 +87,7 @@ class MethodSignatureRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
      * @param \PHPStan\Reflection\ClassReflection $class
      * @return \PHPStan\Reflection\MethodReflection[]
      */
-    private function collectParentMethods(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassReflection $class) : array
+    private function collectParentMethods(string $methodName, \PHPStan\Reflection\ClassReflection $class) : array
     {
         $parentMethods = [];
         $parentClass = $class->getParentClass();
@@ -110,17 +110,17 @@ class MethodSignatureRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
      * @param ParametersAcceptorWithPhpDocs $parentVariant
      * @return array{TrinaryLogic, Type, Type}
      */
-    private function checkReturnTypeCompatibility(\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs $currentVariant, \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parentVariant) : array
+    private function checkReturnTypeCompatibility(\PHPStan\Reflection\ParametersAcceptorWithPhpDocs $currentVariant, \PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parentVariant) : array
     {
         $returnType = \PHPStan\Type\TypehintHelper::decideType($currentVariant->getNativeReturnType(), \PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($currentVariant->getPhpDocReturnType()));
         $parentReturnType = \PHPStan\Type\TypehintHelper::decideType($parentVariant->getNativeReturnType(), \PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($parentVariant->getPhpDocReturnType()));
         // Allow adding `void` return type hints when the parent defines no return type
         if ($returnType instanceof \PHPStan\Type\VoidType && $parentReturnType instanceof \PHPStan\Type\MixedType) {
-            return [\RectorPrefix20201227\PHPStan\TrinaryLogic::createYes(), $returnType, $parentReturnType];
+            return [\PHPStan\TrinaryLogic::createYes(), $returnType, $parentReturnType];
         }
         // We can return anything
         if ($parentReturnType instanceof \PHPStan\Type\VoidType) {
-            return [\RectorPrefix20201227\PHPStan\TrinaryLogic::createYes(), $returnType, $parentReturnType];
+            return [\PHPStan\TrinaryLogic::createYes(), $returnType, $parentReturnType];
         }
         return [$parentReturnType->isSuperTypeOf($returnType), \PHPStan\Type\TypehintHelper::decideType($currentVariant->getNativeReturnType(), $currentVariant->getPhpDocReturnType()), $parentReturnType];
     }

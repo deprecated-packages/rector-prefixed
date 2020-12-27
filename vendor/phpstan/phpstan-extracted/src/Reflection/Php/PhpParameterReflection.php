@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\Php;
+namespace PHPStan\Reflection\Php;
 
-use RectorPrefix20201227\PHPStan\Reflection\ParameterReflectionWithPhpDocs;
-use RectorPrefix20201227\PHPStan\Reflection\PassedByReference;
+use PHPStan\Reflection\ParameterReflectionWithPhpDocs;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ConstantTypeHelper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
-class PhpParameterReflection implements \RectorPrefix20201227\PHPStan\Reflection\ParameterReflectionWithPhpDocs
+class PhpParameterReflection implements \PHPStan\Reflection\ParameterReflectionWithPhpDocs
 {
     /** @var \ReflectionParameter */
     private $reflection;
@@ -52,9 +52,9 @@ class PhpParameterReflection implements \RectorPrefix20201227\PHPStan\Reflection
         }
         return $this->type;
     }
-    public function passedByReference() : \RectorPrefix20201227\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \PHPStan\Reflection\PassedByReference
     {
-        return $this->reflection->isPassedByReference() ? \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \RectorPrefix20201227\PHPStan\Reflection\PassedByReference::createNo();
+        return $this->reflection->isPassedByReference() ? \PHPStan\Reflection\PassedByReference::createCreatesNewVariable() : \PHPStan\Reflection\PassedByReference::createNo();
     }
     public function isVariadic() : bool
     {

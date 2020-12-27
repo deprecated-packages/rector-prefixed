@@ -6,7 +6,7 @@ namespace Rector\DeadCode\Rector\Assign;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\NodeFinder\NextVariableUsageNodeFinder;
 use Rector\DeadCode\NodeFinder\PreviousVariableAssignNodeFinder;
@@ -122,7 +122,7 @@ CODE_SAMPLE
     {
         /** @var Scope|null $scope */
         $scope = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return \false;
         }
         /** @var string $variableName */

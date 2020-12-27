@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Dependency;
+namespace PHPStan\Dependency;
 
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
@@ -19,7 +19,7 @@ class ExportedNodeVisitor extends \PhpParser\NodeVisitorAbstract
      *
      * @param ExportedNodeResolver $exportedNodeResolver
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Dependency\ExportedNodeResolver $exportedNodeResolver)
+    public function __construct(\PHPStan\Dependency\ExportedNodeResolver $exportedNodeResolver)
     {
         $this->exportedNodeResolver = $exportedNodeResolver;
     }
@@ -38,7 +38,7 @@ class ExportedNodeVisitor extends \PhpParser\NodeVisitorAbstract
     public function enterNode(\PhpParser\Node $node) : ?int
     {
         if ($this->fileName === null) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $exportedNode = $this->exportedNodeResolver->resolve($this->fileName, $node);
         if ($exportedNode !== null) {

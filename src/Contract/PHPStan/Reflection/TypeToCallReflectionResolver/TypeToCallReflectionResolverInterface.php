@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver;
 
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Type;
 interface TypeToCallReflectionResolverInterface
 {
@@ -13,5 +13,5 @@ interface TypeToCallReflectionResolverInterface
     /**
      * @return FunctionReflection|MethodReflection|null
      */
-    public function resolve(\PHPStan\Type\Type $type, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer);
+    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer);
 }

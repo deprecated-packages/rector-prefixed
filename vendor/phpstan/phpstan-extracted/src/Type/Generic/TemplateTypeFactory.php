@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Generic;
 
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\TemplateTag;
+use PHPStan\PhpDoc\Tag\TemplateTag;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
@@ -28,7 +28,7 @@ final class TemplateTypeFactory
         }
         return new \PHPStan\Type\Generic\TemplateMixedType($scope, $strategy, $variance, $name);
     }
-    public static function fromTemplateTag(\PHPStan\Type\Generic\TemplateTypeScope $scope, \RectorPrefix20201227\PHPStan\PhpDoc\Tag\TemplateTag $tag) : \PHPStan\Type\Type
+    public static function fromTemplateTag(\PHPStan\Type\Generic\TemplateTypeScope $scope, \PHPStan\PhpDoc\Tag\TemplateTag $tag) : \PHPStan\Type\Type
     {
         return self::create($scope, $tag->getName(), $tag->getBound(), $tag->getVariance());
     }

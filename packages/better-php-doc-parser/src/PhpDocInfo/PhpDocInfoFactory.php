@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocInfo;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer;
-use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\PhpDocParser;
-use RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator;
+use PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\Parser\PhpDocParser;
+use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
 use Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
 use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
@@ -49,7 +49,7 @@ final class PhpDocInfoFactory
      * @var PhpDocRemover
      */
     private $phpDocRemover;
-    public function __construct(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20201227\PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover $phpDocRemover, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover $phpDocRemover, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->betterPhpDocParser = $betterPhpDocParser;
         $this->lexer = $lexer;
@@ -100,7 +100,7 @@ final class PhpDocInfoFactory
      */
     private function parseTokensToPhpDocNode(array $tokens) : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode
     {
-        $tokenIterator = new \RectorPrefix20201227\PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
+        $tokenIterator = new \PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
         return $this->betterPhpDocParser->parse($tokenIterator);
     }
     /**

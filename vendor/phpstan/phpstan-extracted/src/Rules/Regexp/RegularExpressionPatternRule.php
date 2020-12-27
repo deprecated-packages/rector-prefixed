@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Regexp;
+namespace PHPStan\Rules\Regexp;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\TypeUtils;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\FuncCall>
  */
-class RegularExpressionPatternRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class RegularExpressionPatternRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $patterns = $this->extractPatterns($node, $scope);
         $errors = [];
@@ -27,7 +27,7 @@ class RegularExpressionPatternRule implements \RectorPrefix20201227\PHPStan\Rule
             if ($errorMessage === null) {
                 continue;
             }
-            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Regex pattern is invalid: %s', $errorMessage))->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Regex pattern is invalid: %s', $errorMessage))->build();
         }
         return $errors;
     }
@@ -36,13 +36,13 @@ class RegularExpressionPatternRule implements \RectorPrefix20201227\PHPStan\Rule
      * @param Scope $scope
      * @return string[]
      */
-    private function extractPatterns(\PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    private function extractPatterns(\PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$functionCall->name instanceof \PhpParser\Node\Name) {
             return [];
         }
         $functionName = \strtolower((string) $functionCall->name);
-        if (!\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::startsWith($functionName, 'preg_')) {
+        if (!\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::startsWith($functionName, 'preg_')) {
             return [];
         }
         if (!isset($functionCall->args[0])) {
@@ -81,8 +81,8 @@ class RegularExpressionPatternRule implements \RectorPrefix20201227\PHPStan\Rule
     private function validatePattern(string $pattern) : ?string
     {
         try {
-            \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match('', $pattern);
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\RegexpException $e) {
+            \_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match('', $pattern);
+        } catch (\_HumbugBox221ad6f1b81f\Nette\Utils\RegexpException $e) {
             return $e->getMessage();
         }
         return null;

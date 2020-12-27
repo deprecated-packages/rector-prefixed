@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\ChangesReporting\Application;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\AnalysedCodeException;
+use PHPStan\AnalysedCodeException;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\ConsoleDiffer\DifferAndFormatter;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
@@ -113,7 +113,7 @@ final class ErrorAndDiffCollector
     {
         return \count($this->fileDiffs);
     }
-    public function addAutoloadError(\RectorPrefix20201227\PHPStan\AnalysedCodeException $analysedCodeException, \RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function addAutoloadError(\PHPStan\AnalysedCodeException $analysedCodeException, \RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $message = $this->exceptionCorrector->getAutoloadExceptionMessageAndAddLocation($analysedCodeException);
         $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($fileInfo, $message);

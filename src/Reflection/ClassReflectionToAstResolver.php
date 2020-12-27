@@ -6,7 +6,7 @@ namespace Rector\Core\Reflection;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Parser;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileSystem;
@@ -39,7 +39,7 @@ final class ClassReflectionToAstResolver
         $className = $objectType->getClassName();
         return $this->getClass($classReflection, $className);
     }
-    public function getClass(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $className) : ?\PhpParser\Node\Stmt\Class_
+    public function getClass(\PHPStan\Reflection\ClassReflection $classReflection, string $className) : ?\PhpParser\Node\Stmt\Class_
     {
         if ($classReflection->isBuiltin()) {
             return null;

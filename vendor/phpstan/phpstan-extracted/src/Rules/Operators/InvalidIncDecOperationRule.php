@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Operators;
+namespace PHPStan\Rules\Operators;
 
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr>
  */
-class InvalidIncDecOperationRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 {
     /** @var bool */
     private $checkThisOnly;
@@ -21,14 +21,14 @@ class InvalidIncDecOperationRule implements \RectorPrefix20201227\PHPStan\Rules\
     {
         return \PhpParser\Node\Expr::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\PreInc && !$node instanceof \PhpParser\Node\Expr\PostInc && !$node instanceof \PhpParser\Node\Expr\PreDec && !$node instanceof \PhpParser\Node\Expr\PostDec) {
             return [];
         }
         $operatorString = $node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PostInc ? '++' : '--';
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable && !$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch && !$node->var instanceof \PhpParser\Node\Expr\PropertyFetch && !$node->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot use %s on a non-variable.', $operatorString))->line($node->var->getLine())->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot use %s on a non-variable.', $operatorString))->line($node->var->getLine())->build()];
         }
         if (!$this->checkThisOnly) {
             $varType = $scope->getType($node->var);
@@ -38,7 +38,7 @@ class InvalidIncDecOperationRule implements \RectorPrefix20201227\PHPStan\Rules\
             if (!$varType->toNumber() instanceof \PHPStan\Type\ErrorType) {
                 return [];
             }
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot use %s on %s.', $operatorString, $varType->describe(\PHPStan\Type\VerbosityLevel::value())))->line($node->var->getLine())->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot use %s on %s.', $operatorString, $varType->describe(\PHPStan\Type\VerbosityLevel::value())))->line($node->var->getLine())->build()];
         }
         return [];
     }

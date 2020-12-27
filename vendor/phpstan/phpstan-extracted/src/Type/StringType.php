@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\Broker\Broker;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Broker\Broker;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
@@ -26,13 +26,13 @@ class StringType implements \PHPStan\Type\Type
     {
         return 'string';
     }
-    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
     {
-        return (new \PHPStan\Type\IntegerType())->isSuperTypeOf($offsetType)->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
+        return (new \PHPStan\Type\IntegerType())->isSuperTypeOf($offsetType)->and(\PHPStan\TrinaryLogic::createMaybe());
     }
     public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type
     {
@@ -55,23 +55,23 @@ class StringType implements \PHPStan\Type\Type
         }
         return new \PHPStan\Type\ErrorType();
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
         if ($type instanceof \PHPStan\Type\TypeWithClassName && !$strictTypes) {
-            $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
+            $broker = \PHPStan\Broker\Broker::getInstance();
             if (!$broker->hasClass($type->getClassName())) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+                return \PHPStan\TrinaryLogic::createNo();
             }
             $typeClass = $broker->getClass($type->getClassName());
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($typeClass->hasNativeMethod('__toString'));
+            return \PHPStan\TrinaryLogic::createFromBoolean($typeClass->hasNativeMethod('__toString'));
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function toNumber() : \PHPStan\Type\Type
     {
@@ -93,9 +93,9 @@ class StringType implements \PHPStan\Type\Type
     {
         return new \PHPStan\Type\Constant\ConstantArrayType([new \PHPStan\Type\Constant\ConstantIntegerType(0)], [$this], 1);
     }
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     /**
      * @param mixed[] $properties

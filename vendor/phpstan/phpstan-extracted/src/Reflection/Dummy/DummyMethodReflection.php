@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\Dummy;
+namespace PHPStan\Reflection\Dummy;
 
-use RectorPrefix20201227\PHPStan\Broker\Broker;
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberReflection;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\TrivialParametersAcceptor;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
-class DummyMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+class DummyMethodReflection implements \PHPStan\Reflection\MethodReflection
 {
     /** @var string */
     private $name;
@@ -18,9 +18,9 @@ class DummyMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\
     {
         $this->name = $name;
     }
-    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
-        $broker = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance();
+        $broker = \PHPStan\Broker\Broker::getInstance();
         return $broker->getClass(\stdClass::class);
     }
     public function isStatic() : bool
@@ -39,7 +39,7 @@ class DummyMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\
     {
         return $this->name;
     }
-    public function getPrototype() : \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
     {
         return $this;
     }
@@ -48,31 +48,31 @@ class DummyMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\
      */
     public function getVariants() : array
     {
-        return [new \RectorPrefix20201227\PHPStan\Reflection\TrivialParametersAcceptor()];
+        return [new \PHPStan\Reflection\TrivialParametersAcceptor()];
     }
-    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDeprecatedDescription() : ?string
     {
         return null;
     }
-    public function isFinal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isFinal() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getThrowType() : ?\PHPStan\Type\Type
     {
         return null;
     }
-    public function hasSideEffects() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function getDocComment() : ?string
     {

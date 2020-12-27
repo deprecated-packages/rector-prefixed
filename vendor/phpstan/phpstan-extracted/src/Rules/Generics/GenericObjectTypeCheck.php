@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Generics;
+namespace PHPStan\Rules\Generics;
 
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
@@ -30,7 +30,7 @@ class GenericObjectTypeCheck
                 continue;
             }
             if (!$classReflection->isGeneric()) {
-                $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($classNotGenericMessage, $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName()))->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($classNotGenericMessage, $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName()))->build();
                 continue;
             }
             $templateTypes = \array_values($classReflection->getTemplateTypeMap()->getTypes());
@@ -38,9 +38,9 @@ class GenericObjectTypeCheck
             $templateTypesCount = \count($templateTypes);
             $genericTypeTypesCount = \count($genericTypeTypes);
             if ($templateTypesCount > $genericTypeTypesCount) {
-                $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($notEnoughTypesMessage, $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName(\false), \implode(', ', \array_keys($classReflection->getTemplateTypeMap()->getTypes()))))->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($notEnoughTypesMessage, $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName(\false), \implode(', ', \array_keys($classReflection->getTemplateTypeMap()->getTypes()))))->build();
             } elseif ($templateTypesCount < $genericTypeTypesCount) {
-                $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($extraTypesMessage, $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $genericTypeTypesCount, $classReflection->getDisplayName(\false), $templateTypesCount, \implode(', ', \array_keys($classReflection->getTemplateTypeMap()->getTypes()))))->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($extraTypesMessage, $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $genericTypeTypesCount, $classReflection->getDisplayName(\false), $templateTypesCount, \implode(', ', \array_keys($classReflection->getTemplateTypeMap()->getTypes()))))->build();
             }
             foreach ($templateTypes as $i => $templateType) {
                 if (!isset($genericTypeTypes[$i])) {
@@ -54,7 +54,7 @@ class GenericObjectTypeCheck
                 if ($boundType->isSuperTypeOf($genericTypeType)->yes()) {
                     continue;
                 }
-                $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($typeIsNotSubtypeMessage, $genericTypeType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $templateType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName(\false)))->build();
+                $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($typeIsNotSubtypeMessage, $genericTypeType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $genericType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $templateType->describe(\PHPStan\Type\VerbosityLevel::typeOnly()), $classReflection->getDisplayName(\false)))->build();
             }
         }
         return $messages;
@@ -70,7 +70,7 @@ class GenericObjectTypeCheck
             if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
                 $resolvedType = \PHPStan\Type\Generic\TemplateTypeHelper::resolveToBounds($type);
                 if (!$resolvedType instanceof \PHPStan\Type\Generic\GenericObjectType) {
-                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                    throw new \PHPStan\ShouldNotHappenException();
                 }
                 $genericObjectTypes[] = $resolvedType;
                 $traverse($type);

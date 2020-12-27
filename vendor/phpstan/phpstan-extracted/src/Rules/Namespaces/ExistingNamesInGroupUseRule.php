@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Namespaces;
+namespace PHPStan\Rules\Namespaces;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Use_;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
-use RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck;
-use RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair;
-use RectorPrefix20201227\PHPStan\Rules\RuleError;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\GroupUse>
  */
-class ExistingNamesInGroupUseRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -22,7 +22,7 @@ class ExistingNamesInGroupUseRule implements \RectorPrefix20201227\PHPStan\Rules
     private $classCaseSensitivityCheck;
     /** @var bool */
     private $checkFunctionNameCase;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, bool $checkFunctionNameCase)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\ClassCaseSensitivityCheck $classCaseSensitivityCheck, bool $checkFunctionNameCase)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
@@ -32,7 +32,7 @@ class ExistingNamesInGroupUseRule implements \RectorPrefix20201227\PHPStan\Rules
     {
         return \PhpParser\Node\Stmt\GroupUse::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $errors = [];
         foreach ($node->uses as $use) {
@@ -46,7 +46,7 @@ class ExistingNamesInGroupUseRule implements \RectorPrefix20201227\PHPStan\Rules
             } elseif ($use->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
                 $error = $this->checkClass($name);
             } else {
-                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                throw new \PHPStan\ShouldNotHappenException();
             }
             if ($error === null) {
                 continue;
@@ -55,36 +55,36 @@ class ExistingNamesInGroupUseRule implements \RectorPrefix20201227\PHPStan\Rules
         }
         return $errors;
     }
-    private function checkConstant(\PhpParser\Node\Name $name) : ?\RectorPrefix20201227\PHPStan\Rules\RuleError
+    private function checkConstant(\PhpParser\Node\Name $name) : ?\PHPStan\Rules\RuleError
     {
         if (!$this->reflectionProvider->hasConstant($name, null)) {
-            return \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Used constant %s not found.', (string) $name))->discoveringSymbolsTip()->line($name->getLine())->build();
+            return \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Used constant %s not found.', (string) $name))->discoveringSymbolsTip()->line($name->getLine())->build();
         }
         return null;
     }
-    private function checkFunction(\PhpParser\Node\Name $name) : ?\RectorPrefix20201227\PHPStan\Rules\RuleError
+    private function checkFunction(\PhpParser\Node\Name $name) : ?\PHPStan\Rules\RuleError
     {
         if (!$this->reflectionProvider->hasFunction($name, null)) {
-            return \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Used function %s not found.', (string) $name))->discoveringSymbolsTip()->line($name->getLine())->build();
+            return \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Used function %s not found.', (string) $name))->discoveringSymbolsTip()->line($name->getLine())->build();
         }
         if ($this->checkFunctionNameCase) {
             $functionReflection = $this->reflectionProvider->getFunction($name, null);
             $realName = $functionReflection->getName();
             $usedName = (string) $name;
             if (\strtolower($realName) === \strtolower($usedName) && $realName !== $usedName) {
-                return \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Function %s used with incorrect case: %s.', $realName, $usedName))->line($name->getLine())->build();
+                return \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Function %s used with incorrect case: %s.', $realName, $usedName))->line($name->getLine())->build();
             }
         }
         return null;
     }
-    private function checkClass(\PhpParser\Node\Name $name) : ?\RectorPrefix20201227\PHPStan\Rules\RuleError
+    private function checkClass(\PhpParser\Node\Name $name) : ?\PHPStan\Rules\RuleError
     {
-        $errors = $this->classCaseSensitivityCheck->checkClassNames([new \RectorPrefix20201227\PHPStan\Rules\ClassNameNodePair((string) $name, $name)]);
+        $errors = $this->classCaseSensitivityCheck->checkClassNames([new \PHPStan\Rules\ClassNameNodePair((string) $name, $name)]);
         if (\count($errors) === 0) {
             return null;
         } elseif (\count($errors) === 1) {
             return $errors[0];
         }
-        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+        throw new \PHPStan\ShouldNotHappenException();
     }
 }

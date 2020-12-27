@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -28,20 +28,20 @@ final class StrSplitFunctionReturnTypeExtension implements \PHPStan\Type\Dynamic
             foreach (\mb_list_encodings() as $encoding) {
                 $aliases = \mb_encoding_aliases($encoding);
                 if ($aliases === \false) {
-                    throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                    throw new \PHPStan\ShouldNotHappenException();
                 }
                 $supportedEncodings = \array_merge($supportedEncodings, $aliases, [$encoding]);
             }
         }
         $this->supportedEncodings = \array_map('strtoupper', $supportedEncodings);
     }
-    public function isFunctionSupported(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return \in_array($functionReflection->getName(), ['str_split', 'mb_str_split'], \true);
     }
-    public function getTypeFromFunctionCall(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
-        $defaultReturnType = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        $defaultReturnType = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         if (\count($functionCall->args) < 1) {
             return $defaultReturnType;
         }
@@ -83,7 +83,7 @@ final class StrSplitFunctionReturnTypeExtension implements \PHPStan\Type\Dynamic
         $stringValue = $stringType->getValue();
         $items = isset($encoding) ? \mb_str_split($stringValue, $splitLength, $encoding) : \str_split($stringValue, $splitLength);
         if (!\is_array($items)) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return self::createConstantArrayFrom($items, $scope);
     }
@@ -96,7 +96,7 @@ final class StrSplitFunctionReturnTypeExtension implements \PHPStan\Type\Dynamic
      * @param \PHPStan\Analyser\Scope $scope
      * @return \PHPStan\Type\Constant\ConstantArrayType
      */
-    private static function createConstantArrayFrom(array $constantArray, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Constant\ConstantArrayType
+    private static function createConstantArrayFrom(array $constantArray, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Constant\ConstantArrayType
     {
         $keyTypes = [];
         $valueTypes = [];
@@ -105,7 +105,7 @@ final class StrSplitFunctionReturnTypeExtension implements \PHPStan\Type\Dynamic
         foreach ($constantArray as $key => $value) {
             $keyType = $scope->getTypeFromValue($key);
             if (!$keyType instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
-                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                throw new \PHPStan\ShouldNotHappenException();
             }
             $keyTypes[] = $keyType;
             $valueTypes[] = $scope->getTypeFromValue($value);

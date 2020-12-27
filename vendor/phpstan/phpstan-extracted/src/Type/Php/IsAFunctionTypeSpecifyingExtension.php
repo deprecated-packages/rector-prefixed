@@ -6,12 +6,12 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes;
-use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier;
-use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierAwareExtension;
-use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext;
-use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use PHPStan\Analyser\Scope;
+use PHPStan\Analyser\SpecifiedTypes;
+use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\Analyser\TypeSpecifierAwareExtension;
+use PHPStan\Analyser\TypeSpecifierContext;
+use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ClassStringType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -20,18 +20,18 @@ use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StaticType;
-class IsAFunctionTypeSpecifyingExtension implements \PHPStan\Type\FunctionTypeSpecifyingExtension, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierAwareExtension
+class IsAFunctionTypeSpecifyingExtension implements \PHPStan\Type\FunctionTypeSpecifyingExtension, \PHPStan\Analyser\TypeSpecifierAwareExtension
 {
     /** @var \PHPStan\Analyser\TypeSpecifier */
     private $typeSpecifier;
-    public function isFunctionSupported(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $node, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext $context) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $node, \PHPStan\Analyser\TypeSpecifierContext $context) : bool
     {
         return \strtolower($functionReflection->getName()) === 'is_a' && isset($node->args[0]) && isset($node->args[1]) && !$context->null();
     }
-    public function specifyTypes(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifierContext $context) : \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes
+    public function specifyTypes(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $node, \PHPStan\Analyser\Scope $scope, \PHPStan\Analyser\TypeSpecifierContext $context) : \PHPStan\Analyser\SpecifiedTypes
     {
         if ($context->null()) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $classNameArgExpr = $node->args[1]->value;
         $classNameArgExprType = $scope->getType($classNameArgExpr);
@@ -53,7 +53,7 @@ class IsAFunctionTypeSpecifyingExtension implements \PHPStan\Type\FunctionTypeSp
             $objectType = new \PHPStan\Type\ObjectWithoutClassType();
             $types = $this->typeSpecifier->create($node->args[0]->value, $objectType, $context);
         } else {
-            $types = new \RectorPrefix20201227\PHPStan\Analyser\SpecifiedTypes();
+            $types = new \PHPStan\Analyser\SpecifiedTypes();
         }
         if (isset($node->args[2]) && $context->true()) {
             if (!$scope->getType($node->args[2]->value)->isSuperTypeOf(new \PHPStan\Type\Constant\ConstantBooleanType(\true))->no()) {
@@ -62,7 +62,7 @@ class IsAFunctionTypeSpecifyingExtension implements \PHPStan\Type\FunctionTypeSp
         }
         return $types;
     }
-    public function setTypeSpecifier(\RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void
+    public function setTypeSpecifier(\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void
     {
         $this->typeSpecifier = $typeSpecifier;
     }

@@ -12,7 +12,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\ObjectType;
@@ -191,7 +191,7 @@ CODE_SAMPLE
     {
         return new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\Array_($items));
     }
-    private function createArgFromSpreadArrayItem(\RectorPrefix20201227\PHPStan\Analyser\Scope $nodeScope, \PhpParser\Node\Expr\ArrayItem $arrayItem) : \PhpParser\Node\Arg
+    private function createArgFromSpreadArrayItem(\PHPStan\Analyser\Scope $nodeScope, \PhpParser\Node\Expr\ArrayItem $arrayItem) : \PhpParser\Node\Arg
     {
         // By now every item is a variable
         /** @var Variable $variable */

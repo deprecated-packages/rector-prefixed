@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Properties;
+namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\ClassPropertiesNode;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\ClassPropertiesNode;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements Rule<ClassPropertiesNode>
  */
-class UninitializedPropertyRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class UninitializedPropertyRule implements \PHPStan\Rules\Rule
 {
     /** @var ReadWritePropertiesExtensionProvider */
     private $extensionProvider;
@@ -23,28 +23,28 @@ class UninitializedPropertyRule implements \RectorPrefix20201227\PHPStan\Rules\R
     /**
      * @param string[] $additionalConstructors
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider $extensionProvider, array $additionalConstructors)
+    public function __construct(\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider $extensionProvider, array $additionalConstructors)
     {
         $this->extensionProvider = $extensionProvider;
         $this->additionalConstructors = $additionalConstructors;
     }
     public function getNodeType() : string
     {
-        return \RectorPrefix20201227\PHPStan\Node\ClassPropertiesNode::class;
+        return \PHPStan\Node\ClassPropertiesNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$scope->isInClass()) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
         [$properties, $prematureAccess] = $node->getUninitializedProperties($scope, $this->getConstructors($classReflection), $this->extensionProvider->getExtensions());
         $errors = [];
         foreach ($properties as $propertyName => $propertyNode) {
-            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Class %s has an uninitialized property $%s. Give it default value or assign it in the constructor.', $classReflection->getDisplayName(), $propertyName))->line($propertyNode->getLine())->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Class %s has an uninitialized property $%s. Give it default value or assign it in the constructor.', $classReflection->getDisplayName(), $propertyName))->line($propertyNode->getLine())->build();
         }
         foreach ($prematureAccess as [$propertyName, $line]) {
-            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to an uninitialized property %s::$%s.', $classReflection->getDisplayName(), $propertyName))->line($line)->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Access to an uninitialized property %s::$%s.', $classReflection->getDisplayName(), $propertyName))->line($line)->build();
         }
         return $errors;
     }
@@ -52,7 +52,7 @@ class UninitializedPropertyRule implements \RectorPrefix20201227\PHPStan\Rules\R
      * @param ClassReflection $classReflection
      * @return string[]
      */
-    private function getConstructors(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection) : array
+    private function getConstructors(\PHPStan\Reflection\ClassReflection $classReflection) : array
     {
         if (\array_key_exists($classReflection->getName(), $this->additionalConstructorsCache)) {
             return $this->additionalConstructorsCache[$classReflection->getName()];

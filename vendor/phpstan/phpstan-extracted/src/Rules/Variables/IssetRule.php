@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Variables;
+namespace PHPStan\Rules\Variables;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\IssetCheck;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\IssetCheck;
 /**
  * @implements \PHPStan\Rules\Rule<Node\Expr\Isset_>
  */
-class IssetRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class IssetRule implements \PHPStan\Rules\Rule
 {
     /** @var IssetCheck */
     private $issetCheck;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\IssetCheck $issetCheck)
+    public function __construct(\PHPStan\Rules\IssetCheck $issetCheck)
     {
         $this->issetCheck = $issetCheck;
     }
@@ -21,7 +21,7 @@ class IssetRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\Isset_::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $messages = [];
         foreach ($node->vars as $var) {

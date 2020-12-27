@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Node;
+namespace PHPStan\Node;
 
 use PhpParser\Node\Stmt;
-class UnreachableStatementNode extends \PhpParser\Node\Stmt implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
+class UnreachableStatementNode extends \PhpParser\Node\Stmt implements \PHPStan\Node\VirtualNode
 {
     /** @var Stmt */
     private $originalStatement;

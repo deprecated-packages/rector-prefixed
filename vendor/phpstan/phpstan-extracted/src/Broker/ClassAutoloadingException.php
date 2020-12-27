@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Broker;
+namespace PHPStan\Broker;
 
-class ClassAutoloadingException extends \RectorPrefix20201227\PHPStan\AnalysedCodeException
+class ClassAutoloadingException extends \PHPStan\AnalysedCodeException
 {
     /** @var string */
     private $className;

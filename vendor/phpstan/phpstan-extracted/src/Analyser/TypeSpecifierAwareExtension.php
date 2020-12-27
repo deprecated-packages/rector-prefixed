@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
 interface TypeSpecifierAwareExtension
 {
-    public function setTypeSpecifier(\RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void;
+    public function setTypeSpecifier(\PHPStan\Analyser\TypeSpecifier $typeSpecifier) : void;
 }

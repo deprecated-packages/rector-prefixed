@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Functions;
+namespace PHPStan\Rules\Functions;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ThisType;
 /**
  * @implements Rule<Node\Expr\Closure>
  */
-class ClosureUsesThisRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class ClosureUsesThisRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\Node\Expr\Closure::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if ($node->static) {
             return [];
@@ -31,7 +31,7 @@ class ClosureUsesThisRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
             if (!$varType instanceof \PHPStan\Type\ThisType) {
                 continue;
             }
-            $messages[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Anonymous function uses $this assigned to variable $%s. Use $this directly in the function body.', $closureUse->var->name))->line($closureUse->getLine())->build();
+            $messages[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Anonymous function uses $this assigned to variable $%s. Use $this directly in the function body.', $closureUse->var->name))->line($closureUse->getLine())->build();
         }
         return $messages;
     }

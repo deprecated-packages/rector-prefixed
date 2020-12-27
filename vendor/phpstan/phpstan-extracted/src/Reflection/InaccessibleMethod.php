@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-class InaccessibleMethod implements \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
+class InaccessibleMethod implements \PHPStan\Reflection\ParametersAcceptor
 {
     /** @var MethodReflection */
     private $methodReflection;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $methodReflection)
+    public function __construct(\PHPStan\Reflection\MethodReflection $methodReflection)
     {
         $this->methodReflection = $methodReflection;
     }
-    public function getMethod() : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function getMethod() : \PHPStan\Reflection\MethodReflection
     {
         return $this->methodReflection;
     }

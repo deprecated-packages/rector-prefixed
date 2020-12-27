@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\PhpDoc;
+namespace PHPStan\PhpDoc;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Trait_;
-use RectorPrefix20201227\PHPStan\Parser\Parser;
+use PHPStan\Parser\Parser;
 use PHPStan\Type\FileTypeMapper;
 use function array_key_exists;
 class StubPhpDocProvider
@@ -45,13 +45,13 @@ class StubPhpDocProvider
      * @param \PHPStan\Parser\Parser $parser
      * @param string[] $stubFiles
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Parser\Parser $parser, \PHPStan\Type\FileTypeMapper $fileTypeMapper, array $stubFiles)
+    public function __construct(\PHPStan\Parser\Parser $parser, \PHPStan\Type\FileTypeMapper $fileTypeMapper, array $stubFiles)
     {
         $this->parser = $parser;
         $this->fileTypeMapper = $fileTypeMapper;
         $this->stubFiles = $stubFiles;
     }
-    public function findClassPhpDoc(string $className) : ?\RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    public function findClassPhpDoc(string $className) : ?\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if (!$this->isKnownClass($className)) {
             return null;
@@ -66,7 +66,7 @@ class StubPhpDocProvider
         }
         return null;
     }
-    public function findPropertyPhpDoc(string $className, string $propertyName) : ?\RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    public function findPropertyPhpDoc(string $className, string $propertyName) : ?\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if (!$this->isKnownClass($className)) {
             return null;
@@ -87,7 +87,7 @@ class StubPhpDocProvider
      * @param array<int, string> $positionalParameterNames
      * @return \PHPStan\PhpDoc\ResolvedPhpDocBlock|null
      */
-    public function findMethodPhpDoc(string $className, string $methodName, array $positionalParameterNames) : ?\RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    public function findMethodPhpDoc(string $className, string $methodName, array $positionalParameterNames) : ?\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if (!$this->isKnownClass($className)) {
             return null;
@@ -99,7 +99,7 @@ class StubPhpDocProvider
             [$file, $docComment] = $this->knownMethodsDocComments[$className][$methodName];
             $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($file, $className, null, $methodName, $docComment);
             if (!isset($this->knownMethodsParameterNames[$className][$methodName])) {
-                throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                throw new \PHPStan\ShouldNotHappenException();
             }
             $methodParameterNames = $this->knownMethodsParameterNames[$className][$methodName];
             $parameterNameMapping = [];
@@ -113,7 +113,7 @@ class StubPhpDocProvider
         }
         return null;
     }
-    public function findFunctionPhpDoc(string $functionName) : ?\RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    public function findFunctionPhpDoc(string $functionName) : ?\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if (!$this->isKnownFunction($functionName)) {
             return null;
@@ -147,7 +147,7 @@ class StubPhpDocProvider
     private function initializeKnownElements() : void
     {
         if ($this->initializing) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         if ($this->initialized) {
             return;
@@ -216,7 +216,7 @@ class StubPhpDocProvider
                 $this->knownMethodsDocComments[$className][$methodName] = [$stubFile, $docComment->getText()];
                 $this->knownMethodsParameterNames[$className][$methodName] = \array_map(static function (\PhpParser\Node\Param $param) : string {
                     if (!$param->var instanceof \PhpParser\Node\Expr\Variable || !\is_string($param->var->name)) {
-                        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                        throw new \PHPStan\ShouldNotHappenException();
                     }
                     return $param->var->name;
                 }, $stmt->getParams());

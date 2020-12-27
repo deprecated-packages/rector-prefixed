@@ -1,32 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Functions;
+namespace PHPStan\Rules\Functions;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\InArrowFunctionNode;
-use RectorPrefix20201227\PHPStan\Rules\FunctionReturnTypeCheck;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\InArrowFunctionNode;
+use PHPStan\Rules\FunctionReturnTypeCheck;
 use PHPStan\Type\ObjectType;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\InArrowFunctionNode>
  */
-class ArrowFunctionReturnTypeRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class ArrowFunctionReturnTypeRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\FunctionReturnTypeCheck */
     private $returnTypeCheck;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\FunctionReturnTypeCheck $returnTypeCheck)
+    public function __construct(\PHPStan\Rules\FunctionReturnTypeCheck $returnTypeCheck)
     {
         $this->returnTypeCheck = $returnTypeCheck;
     }
     public function getNodeType() : string
     {
-        return \RectorPrefix20201227\PHPStan\Node\InArrowFunctionNode::class;
+        return \PHPStan\Node\InArrowFunctionNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$scope->isInAnonymousFunction()) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         /** @var \PHPStan\Type\Type $returnType */
         $returnType = $scope->getAnonymousFunctionReturnType();

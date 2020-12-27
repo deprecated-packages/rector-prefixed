@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules;
+namespace PHPStan\Rules;
 
-interface IdentifierRuleError extends \RectorPrefix20201227\PHPStan\Rules\RuleError
+interface IdentifierRuleError extends \PHPStan\Rules\RuleError
 {
     public function getIdentifier() : string;
 }

@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\Mixin;
+namespace PHPStan\Reflection\Mixin;
 
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Reflection\ClassMemberReflection;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
-class MixinMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+class MixinMethodReflection implements \PHPStan\Reflection\MethodReflection
 {
     /** @var MethodReflection */
     private $reflection;
     /** @var bool */
     private $static;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $reflection, bool $static)
+    public function __construct(\PHPStan\Reflection\MethodReflection $reflection, bool $static)
     {
         $this->reflection = $reflection;
         $this->static = $static;
     }
-    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
         return $this->reflection->getDeclaringClass();
     }
@@ -43,7 +43,7 @@ class MixinMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\
     {
         return $this->reflection->getName();
     }
-    public function getPrototype() : \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
     {
         return $this->reflection->getPrototype();
     }
@@ -51,7 +51,7 @@ class MixinMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\
     {
         return $this->reflection->getVariants();
     }
-    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
@@ -59,11 +59,11 @@ class MixinMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\
     {
         return $this->reflection->getDeprecatedDescription();
     }
-    public function isFinal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isFinal() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isFinal();
     }
-    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isInternal();
     }
@@ -71,7 +71,7 @@ class MixinMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\
     {
         return $this->reflection->getThrowType();
     }
-    public function hasSideEffects() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->hasSideEffects();
     }

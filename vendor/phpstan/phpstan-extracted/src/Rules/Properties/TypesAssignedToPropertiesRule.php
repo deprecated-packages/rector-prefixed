@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Properties;
+namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\RuleError;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr>
  */
-class TypesAssignedToPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
@@ -20,7 +20,7 @@ class TypesAssignedToPropertiesRule implements \RectorPrefix20201227\PHPStan\Rul
     private $propertyDescriptor;
     /** @var \PHPStan\Rules\Properties\PropertyReflectionFinder */
     private $propertyReflectionFinder;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \RectorPrefix20201227\PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \RectorPrefix20201227\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder)
+    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, \PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
         $this->propertyDescriptor = $propertyDescriptor;
@@ -30,7 +30,7 @@ class TypesAssignedToPropertiesRule implements \RectorPrefix20201227\PHPStan\Rul
     {
         return \PhpParser\Node\Expr::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\Assign && !$node instanceof \PhpParser\Node\Expr\AssignOp && !$node instanceof \PhpParser\Node\Expr\AssignRef) {
             return [];
@@ -52,7 +52,7 @@ class TypesAssignedToPropertiesRule implements \RectorPrefix20201227\PHPStan\Rul
      * @param Node\Expr $node
      * @return RuleError[]
      */
-    private function processSingleProperty(\RectorPrefix20201227\PHPStan\Rules\Properties\FoundPropertyReflection $propertyReflection, \PhpParser\Node\Expr $node) : array
+    private function processSingleProperty(\PHPStan\Rules\Properties\FoundPropertyReflection $propertyReflection, \PhpParser\Node\Expr $node) : array
     {
         $propertyType = $propertyReflection->getWritableType();
         $scope = $propertyReflection->getScope();
@@ -64,7 +64,7 @@ class TypesAssignedToPropertiesRule implements \RectorPrefix20201227\PHPStan\Rul
         if (!$this->ruleLevelHelper->accepts($propertyType, $assignedValueType, $scope->isDeclareStrictTypes())) {
             $propertyDescription = $this->propertyDescriptor->describePropertyByName($propertyReflection, $propertyReflection->getName());
             $verbosityLevel = \PHPStan\Type\VerbosityLevel::getRecommendedLevelByType($propertyType);
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s (%s) does not accept %s.', $propertyDescription, $propertyType->describe($verbosityLevel), $assignedValueType->describe($verbosityLevel)))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s (%s) does not accept %s.', $propertyDescription, $propertyType->describe($verbosityLevel), $assignedValueType->describe($verbosityLevel)))->build()];
         }
         return [];
     }

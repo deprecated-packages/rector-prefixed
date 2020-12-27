@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Node;
+namespace PHPStan\Node;
 
-class InClassMethodNode extends \PhpParser\Node\Stmt implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
+class InClassMethodNode extends \PhpParser\Node\Stmt implements \PHPStan\Node\VirtualNode
 {
     /** @var \PhpParser\Node\Stmt\ClassMethod */
     private $originalNode;

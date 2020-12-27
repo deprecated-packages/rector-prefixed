@@ -7,12 +7,12 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\Native\NativeMethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParameterReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\Native\NativeMethodReflection;
+use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -35,7 +35,7 @@ final class MethodReflectionProvider
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->reflectionProvider = $reflectionProvider;
@@ -44,9 +44,9 @@ final class MethodReflectionProvider
     /**
      * @return Type[]
      */
-    public function provideParameterTypesFromMethodReflection(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $methodReflection) : array
+    public function provideParameterTypesFromMethodReflection(\PHPStan\Reflection\MethodReflection $methodReflection) : array
     {
-        if ($methodReflection instanceof \RectorPrefix20201227\PHPStan\Reflection\Native\NativeMethodReflection) {
+        if ($methodReflection instanceof \PHPStan\Reflection\Native\NativeMethodReflection) {
             // method "getParameters()" does not exist there
             return [];
         }
@@ -57,7 +57,7 @@ final class MethodReflectionProvider
         }
         return $parameterTypes;
     }
-    public function provideByClassAndMethodName(string $class, string $method, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function provideByClassAndMethodName(string $class, string $method, \PHPStan\Analyser\Scope $scope) : ?\PHPStan\Reflection\MethodReflection
     {
         $classReflection = $this->reflectionProvider->getClass($class);
         if (!$classReflection->hasMethod($method)) {
@@ -76,13 +76,13 @@ final class MethodReflectionProvider
         }
         return $this->provideParameterTypesFromMethodReflection($methodReflection);
     }
-    public function provideByNew(\PhpParser\Node\Expr\New_ $new) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function provideByNew(\PhpParser\Node\Expr\New_ $new) : ?\PHPStan\Reflection\MethodReflection
     {
         $objectType = $this->nodeTypeResolver->resolve($new->class);
         $classes = \PHPStan\Type\TypeUtils::getDirectClassNames($objectType);
         return $this->provideByClassNamesAndMethodName($classes, \Rector\Core\ValueObject\MethodName::CONSTRUCT, $new);
     }
-    public function provideByStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function provideByStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PHPStan\Reflection\MethodReflection
     {
         $objectType = $this->nodeTypeResolver->resolve($staticCall->class);
         $classes = \PHPStan\Type\TypeUtils::getDirectClassNames($objectType);
@@ -103,7 +103,7 @@ final class MethodReflectionProvider
         }
         return $this->provideParameterTypesFromMethodReflection($methodReflection);
     }
-    public function provideByClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function provideByClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Reflection\MethodReflection
     {
         $class = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if (!\is_string($class)) {
@@ -114,7 +114,7 @@ final class MethodReflectionProvider
             return null;
         }
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return null;
         }
         return $this->provideByClassAndMethodName($class, $method, $scope);
@@ -122,9 +122,9 @@ final class MethodReflectionProvider
     /**
      * @return ParameterReflection[]
      */
-    public function getParameterReflectionsFromMethodReflection(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $methodReflection) : array
+    public function getParameterReflectionsFromMethodReflection(\PHPStan\Reflection\MethodReflection $methodReflection) : array
     {
-        $methodReflectionVariant = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
+        $methodReflectionVariant = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($methodReflection->getVariants());
         return $methodReflectionVariant->getParameters();
     }
     /**
@@ -149,16 +149,16 @@ final class MethodReflectionProvider
     /**
      * @param string[] $classes
      */
-    private function provideByClassNamesAndMethodName(array $classes, string $methodName, \PhpParser\Node $node) : ?\RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    private function provideByClassNamesAndMethodName(array $classes, string $methodName, \PhpParser\Node $node) : ?\PHPStan\Reflection\MethodReflection
     {
         /** @var Scope|null $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\Scope) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         foreach ($classes as $class) {
             $methodReflection = $this->provideByClassAndMethodName($class, $methodName, $scope);
-            if ($methodReflection instanceof \RectorPrefix20201227\PHPStan\Reflection\MethodReflection) {
+            if ($methodReflection instanceof \PHPStan\Reflection\MethodReflection) {
                 return $methodReflection;
             }
         }

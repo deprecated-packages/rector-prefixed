@@ -1,33 +1,33 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Arrays;
+namespace PHPStan\Rules\Arrays;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\LiteralArrayNode;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\LiteralArrayNode;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PHPStan\Node\LiteralArrayNode>
  */
-class UnpackIterableInArrayRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class UnpackIterableInArrayRule implements \PHPStan\Rules\Rule
 {
     /** @var RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
     }
     public function getNodeType() : string
     {
-        return \RectorPrefix20201227\PHPStan\Node\LiteralArrayNode::class;
+        return \PHPStan\Node\LiteralArrayNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $errors = [];
         foreach ($node->getItemNodes() as $itemNode) {
@@ -48,7 +48,7 @@ class UnpackIterableInArrayRule implements \RectorPrefix20201227\PHPStan\Rules\R
             if ($type->isIterable()->yes()) {
                 continue;
             }
-            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Only iterables can be unpacked, %s given.', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->line($item->getLine())->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Only iterables can be unpacked, %s given.', $type->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->line($item->getLine())->build();
         }
         return $errors;
     }

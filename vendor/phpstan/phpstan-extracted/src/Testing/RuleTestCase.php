@@ -1,31 +1,31 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Testing;
+namespace PHPStan\Testing;
 
-use RectorPrefix20201227\PHPStan\Analyser\Analyser;
-use RectorPrefix20201227\PHPStan\Analyser\Error;
-use RectorPrefix20201227\PHPStan\Analyser\FileAnalyser;
-use RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver;
-use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier;
-use RectorPrefix20201227\PHPStan\Broker\AnonymousClassNameHelper;
-use RectorPrefix20201227\PHPStan\Cache\Cache;
-use RectorPrefix20201227\PHPStan\Dependency\DependencyResolver;
-use RectorPrefix20201227\PHPStan\Dependency\ExportedNodeResolver;
-use RectorPrefix20201227\PHPStan\File\FileHelper;
-use RectorPrefix20201227\PHPStan\File\SimpleRelativePathHelper;
-use RectorPrefix20201227\PHPStan\Php\PhpVersion;
-use RectorPrefix20201227\PHPStan\PhpDoc\PhpDocInheritanceResolver;
-use RectorPrefix20201227\PHPStan\PhpDoc\PhpDocNodeResolver;
-use RectorPrefix20201227\PHPStan\PhpDoc\PhpDocStringResolver;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\DirectReflectionProviderProvider;
-use RectorPrefix20201227\PHPStan\Rules\Registry;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
+use PHPStan\Analyser\Analyser;
+use PHPStan\Analyser\Error;
+use PHPStan\Analyser\FileAnalyser;
+use PHPStan\Analyser\NodeScopeResolver;
+use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\Broker\AnonymousClassNameHelper;
+use PHPStan\Cache\Cache;
+use PHPStan\Dependency\DependencyResolver;
+use PHPStan\Dependency\ExportedNodeResolver;
+use PHPStan\File\FileHelper;
+use PHPStan\File\SimpleRelativePathHelper;
+use PHPStan\Php\PhpVersion;
+use PHPStan\PhpDoc\PhpDocInheritanceResolver;
+use PHPStan\PhpDoc\PhpDocNodeResolver;
+use PHPStan\PhpDoc\PhpDocStringResolver;
+use PHPStan\Reflection\ReflectionProvider\DirectReflectionProviderProvider;
+use PHPStan\Rules\Registry;
+use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 /**
  * @template TRule of \PHPStan\Rules\Rule
  */
-abstract class RuleTestCase extends \RectorPrefix20201227\PHPStan\Testing\TestCase
+abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 {
     /** @var \PHPStan\Analyser\Analyser|null */
     private $analyser = null;
@@ -33,29 +33,29 @@ abstract class RuleTestCase extends \RectorPrefix20201227\PHPStan\Testing\TestCa
      * @return \PHPStan\Rules\Rule
      * @phpstan-return TRule
      */
-    protected abstract function getRule() : \RectorPrefix20201227\PHPStan\Rules\Rule;
-    protected function getTypeSpecifier() : \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier
+    protected abstract function getRule() : \PHPStan\Rules\Rule;
+    protected function getTypeSpecifier() : \PHPStan\Analyser\TypeSpecifier
     {
         return $this->createTypeSpecifier(new \PhpParser\PrettyPrinter\Standard(), $this->createReflectionProvider(), $this->getMethodTypeSpecifyingExtensions(), $this->getStaticMethodTypeSpecifyingExtensions());
     }
-    private function getAnalyser() : \RectorPrefix20201227\PHPStan\Analyser\Analyser
+    private function getAnalyser() : \PHPStan\Analyser\Analyser
     {
         if ($this->analyser === null) {
-            $registry = new \RectorPrefix20201227\PHPStan\Rules\Registry([$this->getRule()]);
+            $registry = new \PHPStan\Rules\Registry([$this->getRule()]);
             $broker = $this->createBroker();
             $printer = new \PhpParser\PrettyPrinter\Standard();
             $typeSpecifier = $this->createTypeSpecifier($printer, $broker, $this->getMethodTypeSpecifyingExtensions(), $this->getStaticMethodTypeSpecifyingExtensions());
             $currentWorkingDirectory = $this->getCurrentWorkingDirectory();
-            $fileHelper = new \RectorPrefix20201227\PHPStan\File\FileHelper($currentWorkingDirectory);
+            $fileHelper = new \PHPStan\File\FileHelper($currentWorkingDirectory);
             $currentWorkingDirectory = $fileHelper->normalizePath($currentWorkingDirectory, '/');
-            $fileHelper = new \RectorPrefix20201227\PHPStan\File\FileHelper($currentWorkingDirectory);
-            $relativePathHelper = new \RectorPrefix20201227\PHPStan\File\SimpleRelativePathHelper($currentWorkingDirectory);
-            $anonymousClassNameHelper = new \RectorPrefix20201227\PHPStan\Broker\AnonymousClassNameHelper($fileHelper, $relativePathHelper);
-            $fileTypeMapper = new \PHPStan\Type\FileTypeMapper(new \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\DirectReflectionProviderProvider($broker), $this->getParser(), self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\PhpDoc\PhpDocStringResolver::class), self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\PhpDoc\PhpDocNodeResolver::class), $this->createMock(\RectorPrefix20201227\PHPStan\Cache\Cache::class), $anonymousClassNameHelper);
-            $phpDocInheritanceResolver = new \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocInheritanceResolver($fileTypeMapper);
-            $nodeScopeResolver = new \RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver($broker, self::getReflectors()[0], $this->getClassReflectionExtensionRegistryProvider(), $this->getParser(), $fileTypeMapper, self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\Php\PhpVersion::class), $phpDocInheritanceResolver, $fileHelper, $typeSpecifier, $this->shouldPolluteScopeWithLoopInitialAssignments(), $this->shouldPolluteCatchScopeWithTryAssignments(), $this->shouldPolluteScopeWithAlwaysIterableForeach(), [], []);
-            $fileAnalyser = new \RectorPrefix20201227\PHPStan\Analyser\FileAnalyser($this->createScopeFactory($broker, $typeSpecifier), $nodeScopeResolver, $this->getParser(), new \RectorPrefix20201227\PHPStan\Dependency\DependencyResolver($fileHelper, $broker, new \RectorPrefix20201227\PHPStan\Dependency\ExportedNodeResolver($fileTypeMapper, $printer)), \true);
-            $this->analyser = new \RectorPrefix20201227\PHPStan\Analyser\Analyser($fileAnalyser, $registry, $nodeScopeResolver, 50);
+            $fileHelper = new \PHPStan\File\FileHelper($currentWorkingDirectory);
+            $relativePathHelper = new \PHPStan\File\SimpleRelativePathHelper($currentWorkingDirectory);
+            $anonymousClassNameHelper = new \PHPStan\Broker\AnonymousClassNameHelper($fileHelper, $relativePathHelper);
+            $fileTypeMapper = new \PHPStan\Type\FileTypeMapper(new \PHPStan\Reflection\ReflectionProvider\DirectReflectionProviderProvider($broker), $this->getParser(), self::getContainer()->getByType(\PHPStan\PhpDoc\PhpDocStringResolver::class), self::getContainer()->getByType(\PHPStan\PhpDoc\PhpDocNodeResolver::class), $this->createMock(\PHPStan\Cache\Cache::class), $anonymousClassNameHelper);
+            $phpDocInheritanceResolver = new \PHPStan\PhpDoc\PhpDocInheritanceResolver($fileTypeMapper);
+            $nodeScopeResolver = new \PHPStan\Analyser\NodeScopeResolver($broker, self::getReflectors()[0], $this->getClassReflectionExtensionRegistryProvider(), $this->getParser(), $fileTypeMapper, self::getContainer()->getByType(\PHPStan\Php\PhpVersion::class), $phpDocInheritanceResolver, $fileHelper, $typeSpecifier, $this->shouldPolluteScopeWithLoopInitialAssignments(), $this->shouldPolluteCatchScopeWithTryAssignments(), $this->shouldPolluteScopeWithAlwaysIterableForeach(), [], []);
+            $fileAnalyser = new \PHPStan\Analyser\FileAnalyser($this->createScopeFactory($broker, $typeSpecifier), $nodeScopeResolver, $this->getParser(), new \PHPStan\Dependency\DependencyResolver($fileHelper, $broker, new \PHPStan\Dependency\ExportedNodeResolver($fileTypeMapper, $printer)), \true);
+            $this->analyser = new \PHPStan\Analyser\Analyser($fileAnalyser, $registry, $nodeScopeResolver, 50);
         }
         return $this->analyser;
     }
@@ -101,7 +101,7 @@ abstract class RuleTestCase extends \RectorPrefix20201227\PHPStan\Testing\TestCa
             }
             return $strictlyTypedSprintf($error[1], $error[0], $error[2] ?? null);
         }, $expectedErrors);
-        $actualErrors = \array_map(static function (\RectorPrefix20201227\PHPStan\Analyser\Error $error) use($strictlyTypedSprintf) : string {
+        $actualErrors = \array_map(static function (\PHPStan\Analyser\Error $error) use($strictlyTypedSprintf) : string {
             $line = $error->getLine();
             if ($line === null) {
                 return $strictlyTypedSprintf(-1, $error->getMessage(), $error->getTip());

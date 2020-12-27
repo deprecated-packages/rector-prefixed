@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Arrays;
+namespace PHPStan\Rules\Arrays;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignOp;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -16,11 +16,11 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<Expr>
  */
-class OffsetAccessValueAssignmentRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class OffsetAccessValueAssignmentRule implements \PHPStan\Rules\Rule
 {
     /** @var RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->ruleLevelHelper = $ruleLevelHelper;
     }
@@ -28,7 +28,7 @@ class OffsetAccessValueAssignmentRule implements \RectorPrefix20201227\PHPStan\R
     {
         return \PhpParser\Node\Expr::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\Assign && !$node instanceof \PhpParser\Node\Expr\AssignOp && !$node instanceof \PhpParser\Node\Expr\AssignRef) {
             return [];
@@ -59,6 +59,6 @@ class OffsetAccessValueAssignmentRule implements \RectorPrefix20201227\PHPStan\R
         if (!$resultType instanceof \PHPStan\Type\ErrorType) {
             return [];
         }
-        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s does not accept %s.', $originalArrayType->describe(\PHPStan\Type\VerbosityLevel::value()), $assignedValueType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
+        return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s does not accept %s.', $originalArrayType->describe(\PHPStan\Type\VerbosityLevel::value()), $assignedValueType->describe(\PHPStan\Type\VerbosityLevel::typeOnly())))->build()];
     }
 }

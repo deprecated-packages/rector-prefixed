@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\Broker\Broker;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 class ThisType extends \PHPStan\Type\StaticType
@@ -19,7 +19,7 @@ class ThisType extends \PHPStan\Type\StaticType
     public function __construct($classReflection)
     {
         if (\is_string($classReflection)) {
-            $classReflection = \RectorPrefix20201227\PHPStan\Broker\Broker::getInstance()->getClass($classReflection);
+            $classReflection = \PHPStan\Broker\Broker::getInstance()->getClass($classReflection);
         }
         parent::__construct($classReflection->getName());
         $this->classReflection = $classReflection;
@@ -37,7 +37,7 @@ class ThisType extends \PHPStan\Type\StaticType
         }
         return $this->staticObjectType;
     }
-    public function changeBaseClass(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection) : \PHPStan\Type\StaticType
+    public function changeBaseClass(\PHPStan\Reflection\ClassReflection $classReflection) : \PHPStan\Type\StaticType
     {
         return new self($classReflection);
     }

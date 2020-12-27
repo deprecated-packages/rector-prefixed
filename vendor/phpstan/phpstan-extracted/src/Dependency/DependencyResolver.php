@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Dependency;
+namespace PHPStan\Dependency;
 
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Foreach_;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\File\FileHelper;
-use RectorPrefix20201227\PHPStan\Node\InClassMethodNode;
-use RectorPrefix20201227\PHPStan\Node\InFunctionNode;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionWithFilename;
+use PHPStan\Analyser\Scope;
+use PHPStan\File\FileHelper;
+use PHPStan\Node\InClassMethodNode;
+use PHPStan\Node\InFunctionNode;
+use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Reflection\ReflectionWithFilename;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\Constant\ConstantStringType;
 class DependencyResolver
@@ -26,13 +26,13 @@ class DependencyResolver
     private $reflectionProvider;
     /** @var ExportedNodeResolver */
     private $exportedNodeResolver;
-    public function __construct(\RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\Dependency\ExportedNodeResolver $exportedNodeResolver)
+    public function __construct(\PHPStan\File\FileHelper $fileHelper, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Dependency\ExportedNodeResolver $exportedNodeResolver)
     {
         $this->fileHelper = $fileHelper;
         $this->reflectionProvider = $reflectionProvider;
         $this->exportedNodeResolver = $exportedNodeResolver;
     }
-    public function resolveDependencies(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Dependency\NodeDependencies
+    public function resolveDependencies(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : \PHPStan\Dependency\NodeDependencies
     {
         $dependenciesReflections = [];
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
@@ -46,19 +46,19 @@ class DependencyResolver
             foreach ($node->extends as $className) {
                 $this->addClassToDependencies($className->toString(), $dependenciesReflections);
             }
-        } elseif ($node instanceof \RectorPrefix20201227\PHPStan\Node\InClassMethodNode) {
+        } elseif ($node instanceof \PHPStan\Node\InClassMethodNode) {
             $nativeMethod = $scope->getFunction();
             if ($nativeMethod !== null) {
-                $parametersAcceptor = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($nativeMethod->getVariants());
-                if ($parametersAcceptor instanceof \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
+                $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($nativeMethod->getVariants());
+                if ($parametersAcceptor instanceof \PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
                     $this->extractFromParametersAcceptor($parametersAcceptor, $dependenciesReflections);
                 }
             }
-        } elseif ($node instanceof \RectorPrefix20201227\PHPStan\Node\InFunctionNode) {
+        } elseif ($node instanceof \PHPStan\Node\InFunctionNode) {
             $functionReflection = $scope->getFunction();
             if ($functionReflection !== null) {
-                $parametersAcceptor = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants());
-                if ($parametersAcceptor instanceof \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
+                $parametersAcceptor = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants());
+                if ($parametersAcceptor instanceof \PHPStan\Reflection\ParametersAcceptorWithPhpDocs) {
                     $this->extractFromParametersAcceptor($parametersAcceptor, $dependenciesReflections);
                 }
             }
@@ -80,7 +80,7 @@ class DependencyResolver
             if ($functionName instanceof \PhpParser\Node\Name) {
                 try {
                     $dependenciesReflections[] = $this->getFunctionReflection($functionName, $scope);
-                } catch (\RectorPrefix20201227\PHPStan\Broker\FunctionNotFoundException $e) {
+                } catch (\PHPStan\Broker\FunctionNotFoundException $e) {
                     // pass
                 }
             } else {
@@ -161,9 +161,9 @@ class DependencyResolver
                 }
             }
         }
-        return new \RectorPrefix20201227\PHPStan\Dependency\NodeDependencies($this->fileHelper, $dependenciesReflections, $this->exportedNodeResolver->resolve($scope->getFile(), $node));
+        return new \PHPStan\Dependency\NodeDependencies($this->fileHelper, $dependenciesReflections, $this->exportedNodeResolver->resolve($scope->getFile(), $node));
     }
-    private function considerArrayForCallableTest(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr\Array_ $arrayNode) : bool
+    private function considerArrayForCallableTest(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr\Array_ $arrayNode) : bool
     {
         if (!isset($arrayNode->items[0])) {
             return \false;
@@ -182,7 +182,7 @@ class DependencyResolver
     {
         try {
             $classReflection = $this->reflectionProvider->getClass($className);
-        } catch (\RectorPrefix20201227\PHPStan\Broker\ClassNotFoundException $e) {
+        } catch (\PHPStan\Broker\ClassNotFoundException $e) {
             return;
         }
         do {
@@ -196,11 +196,11 @@ class DependencyResolver
             $classReflection = $classReflection->getParentClass();
         } while ($classReflection !== \false);
     }
-    private function getFunctionReflection(\PhpParser\Node\Name $nameNode, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \RectorPrefix20201227\PHPStan\Reflection\ReflectionWithFilename
+    private function getFunctionReflection(\PhpParser\Node\Name $nameNode, ?\PHPStan\Analyser\Scope $scope) : \PHPStan\Reflection\ReflectionWithFilename
     {
         $reflection = $this->reflectionProvider->getFunction($nameNode, $scope);
-        if (!$reflection instanceof \RectorPrefix20201227\PHPStan\Reflection\ReflectionWithFilename) {
-            throw new \RectorPrefix20201227\PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
+        if (!$reflection instanceof \PHPStan\Reflection\ReflectionWithFilename) {
+            throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
         }
         return $reflection;
     }
@@ -208,7 +208,7 @@ class DependencyResolver
      * @param ParametersAcceptorWithPhpDocs $parametersAcceptor
      * @param ReflectionWithFilename[] $dependenciesReflections
      */
-    private function extractFromParametersAcceptor(\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parametersAcceptor, array &$dependenciesReflections) : void
+    private function extractFromParametersAcceptor(\PHPStan\Reflection\ParametersAcceptorWithPhpDocs $parametersAcceptor, array &$dependenciesReflections) : void
     {
         foreach ($parametersAcceptor->getParameters() as $parameter) {
             $referencedClasses = \array_merge($parameter->getNativeType()->getReferencedClasses(), $parameter->getPhpDocType()->getReferencedClasses());

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\PHPUnit;
+namespace PHPStan\Rules\PHPUnit;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntersectionType;
@@ -14,13 +14,13 @@ use RectorPrefix20201227\PHPUnit\Framework\MockObject\MockObject;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\MethodCall>
  */
-class MockMethodCallRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class MockMethodCallRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\Node\Expr\MethodCall::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         /** @var Node\Expr\MethodCall $node */
         $node = $node;

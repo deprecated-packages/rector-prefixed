@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Generic;
 
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
@@ -59,22 +59,22 @@ final class TemplateMixedType extends \PHPStan\Type\MixedType implements \PHPSta
         }
         return $this->bound;
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         return $this->strategy->accepts($this, $type, $strictTypes);
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return $this->getBound()->isSuperTypeOf($type)->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
+        return $this->getBound()->isSuperTypeOf($type)->and(\PHPStan\TrinaryLogic::createMaybe());
     }
-    public function isSuperTypeOfMixed(\PHPStan\Type\MixedType $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOfMixed(\PHPStan\Type\MixedType $type) : \PHPStan\TrinaryLogic
     {
         return $this->isSuperTypeOf($type);
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\UnionType || $type instanceof \PHPStan\Type\IntersectionType) {
             return $type->isSuperTypeOf($this);
@@ -83,9 +83,9 @@ final class TemplateMixedType extends \PHPStan\Type\MixedType implements \PHPSta
             return $type->isSuperTypeOf($this->getBound());
         }
         if ($this->equals($type)) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
-        return $type->getBound()->isSuperTypeOf($this->getBound())->and(\RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
+        return $type->getBound()->isSuperTypeOf($this->getBound())->and(\PHPStan\TrinaryLogic::createMaybe());
     }
     public function inferTemplateTypes(\PHPStan\Type\Type $receivedType) : \PHPStan\Type\Generic\TemplateTypeMap
     {

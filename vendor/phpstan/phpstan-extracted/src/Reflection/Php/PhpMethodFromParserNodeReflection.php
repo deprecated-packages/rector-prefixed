@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\Php;
+namespace PHPStan\Reflection\Php;
 
 use PhpParser\Node\Stmt\ClassMethod;
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ClassMemberReflection;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\Generic\TemplateTypeMap;
@@ -16,7 +16,7 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VoidType;
-class PhpMethodFromParserNodeReflection extends \RectorPrefix20201227\PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection implements \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+class PhpMethodFromParserNodeReflection extends \PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\MethodReflection
 {
     /** @var \PHPStan\Reflection\ClassReflection */
     private $declaringClass;
@@ -35,7 +35,7 @@ class PhpMethodFromParserNodeReflection extends \RectorPrefix20201227\PHPStan\Re
      * @param bool $isInternal
      * @param bool $isFinal
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $declaringClass, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $realParameterTypes, array $phpDocParameterTypes, array $realParameterDefaultValues, \PHPStan\Type\Type $realReturnType, ?\PHPStan\Type\Type $phpDocReturnType, ?\PHPStan\Type\Type $throwType, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, bool $isFinal)
+    public function __construct(\PHPStan\Reflection\ClassReflection $declaringClass, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $realParameterTypes, array $phpDocParameterTypes, array $realParameterDefaultValues, \PHPStan\Type\Type $realReturnType, ?\PHPStan\Type\Type $phpDocReturnType, ?\PHPStan\Type\Type $throwType, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, bool $isFinal)
     {
         $name = \strtolower($classMethod->name->name);
         if ($name === '__construct' || $name === '__destruct' || $name === '__unset' || $name === '__wakeup' || $name === '__clone') {
@@ -56,15 +56,15 @@ class PhpMethodFromParserNodeReflection extends \RectorPrefix20201227\PHPStan\Re
         parent::__construct($classMethod, $templateTypeMap, $realParameterTypes, $phpDocParameterTypes, $realParameterDefaultValues, $realReturnType, $phpDocReturnType, $throwType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal || $classMethod->isFinal());
         $this->declaringClass = $declaringClass;
     }
-    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
         return $this->declaringClass;
     }
-    public function getPrototype() : \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
     {
         try {
             return $this->declaringClass->getNativeMethod($this->getClassMethod()->name->name)->getPrototype();
-        } catch (\RectorPrefix20201227\PHPStan\Reflection\MissingMethodFromReflectionException $e) {
+        } catch (\PHPStan\Reflection\MissingMethodFromReflectionException $e) {
             return $this;
         }
     }

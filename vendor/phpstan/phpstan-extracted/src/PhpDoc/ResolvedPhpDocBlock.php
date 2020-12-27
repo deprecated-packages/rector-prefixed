@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\PhpDoc;
+namespace PHPStan\PhpDoc;
 
-use RectorPrefix20201227\PHPStan\Analyser\NameScope;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\MixinTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\ParamTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\ReturnTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\ThrowsTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\TypedTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\VarTag;
+use PHPStan\Analyser\NameScope;
+use PHPStan\PhpDoc\Tag\MixinTag;
+use PHPStan\PhpDoc\Tag\ParamTag;
+use PHPStan\PhpDoc\Tag\ReturnTag;
+use PHPStan\PhpDoc\Tag\ThrowsTag;
+use PHPStan\PhpDoc\Tag\TypedTag;
+use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
@@ -70,7 +70,7 @@ class ResolvedPhpDocBlock
      * @param \PHPStan\PhpDoc\PhpDocNodeResolver $phpDocNodeResolver
      * @return self
      */
-    public static function create(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, string $phpDocString, string $filename, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $templateTags, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocNodeResolver $phpDocNodeResolver) : self
+    public static function create(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, string $phpDocString, string $filename, \PHPStan\Analyser\NameScope $nameScope, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $templateTags, \PHPStan\PhpDoc\PhpDocNodeResolver $phpDocNodeResolver) : self
     {
         // new property also needs to be added to createEmpty() and merge()
         $self = new self();
@@ -185,11 +185,11 @@ class ResolvedPhpDocBlock
     {
         return $this->filename;
     }
-    private function getNameScope() : \RectorPrefix20201227\PHPStan\Analyser\NameScope
+    private function getNameScope() : \PHPStan\Analyser\NameScope
     {
         return $this->nameScope;
     }
-    public function getNullableNameScope() : ?\RectorPrefix20201227\PHPStan\Analyser\NameScope
+    public function getNullableNameScope() : ?\PHPStan\Analyser\NameScope
     {
         return $this->nameScope;
     }
@@ -270,14 +270,14 @@ class ResolvedPhpDocBlock
         }
         return $this->paramTags;
     }
-    public function getReturnTag() : ?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ReturnTag
+    public function getReturnTag() : ?\PHPStan\PhpDoc\Tag\ReturnTag
     {
         if ($this->returnTag === \false) {
             $this->returnTag = $this->phpDocNodeResolver->resolveReturnTag($this->phpDocNode, $this->getNameScope());
         }
         return $this->returnTag;
     }
-    public function getThrowsTag() : ?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ThrowsTag
+    public function getThrowsTag() : ?\PHPStan\PhpDoc\Tag\ThrowsTag
     {
         if ($this->throwsTag === \false) {
             $this->throwsTag = $this->phpDocNodeResolver->resolveThrowsTags($this->phpDocNode, $this->getNameScope());
@@ -294,7 +294,7 @@ class ResolvedPhpDocBlock
         }
         return $this->mixinTags;
     }
-    public function getDeprecatedTag() : ?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\DeprecatedTag
+    public function getDeprecatedTag() : ?\PHPStan\PhpDoc\Tag\DeprecatedTag
     {
         if ($this->deprecatedTag === \false) {
             $this->deprecatedTag = $this->phpDocNodeResolver->resolveDeprecatedTag($this->phpDocNode, $this->getNameScope());
@@ -352,7 +352,7 @@ class ResolvedPhpDocBlock
      * @param PhpDocBlock $phpDocBlock
      * @return array<string|int, VarTag>|null
      */
-    private static function mergeOneParentVarTags(self $parent, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocBlock $phpDocBlock) : ?array
+    private static function mergeOneParentVarTags(self $parent, \PHPStan\PhpDoc\PhpDocBlock $phpDocBlock) : ?array
     {
         foreach ($parent->getVarTags() as $key => $parentVarTag) {
             return [$key => self::resolveTemplateTypeInTag($parentVarTag, $phpDocBlock)];
@@ -378,7 +378,7 @@ class ResolvedPhpDocBlock
      * @param PhpDocBlock $phpDocBlock
      * @return array<string, ParamTag>
      */
-    private static function mergeOneParentParamTags(array $paramTags, self $parent, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocBlock $phpDocBlock) : array
+    private static function mergeOneParentParamTags(array $paramTags, self $parent, \PHPStan\PhpDoc\PhpDocBlock $phpDocBlock) : array
     {
         $parentParamTags = $phpDocBlock->transformArrayKeysWithParameterNameMapping($parent->getParamTags());
         foreach ($parentParamTags as $name => $parentParamTag) {
@@ -395,7 +395,7 @@ class ResolvedPhpDocBlock
      * @param array<int, PhpDocBlock> $parentPhpDocBlocks
      * @return ReturnTag|Null
      */
-    private static function mergeReturnTags(?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ReturnTag $returnTag, array $parents, array $parentPhpDocBlocks) : ?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ReturnTag
+    private static function mergeReturnTags(?\PHPStan\PhpDoc\Tag\ReturnTag $returnTag, array $parents, array $parentPhpDocBlocks) : ?\PHPStan\PhpDoc\Tag\ReturnTag
     {
         if ($returnTag !== null) {
             return $returnTag;
@@ -409,7 +409,7 @@ class ResolvedPhpDocBlock
         }
         return null;
     }
-    private static function mergeOneParentReturnTag(?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ReturnTag $returnTag, self $parent, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocBlock $phpDocBlock) : ?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ReturnTag
+    private static function mergeOneParentReturnTag(?\PHPStan\PhpDoc\Tag\ReturnTag $returnTag, self $parent, \PHPStan\PhpDoc\PhpDocBlock $phpDocBlock) : ?\PHPStan\PhpDoc\Tag\ReturnTag
     {
         $parentReturnTag = $parent->getReturnTag();
         if ($parentReturnTag === null) {
@@ -426,7 +426,7 @@ class ResolvedPhpDocBlock
     /**
      * @param array<int, self> $parents
      */
-    private static function mergeThrowsTags(?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ThrowsTag $throwsTag, array $parents) : ?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ThrowsTag
+    private static function mergeThrowsTags(?\PHPStan\PhpDoc\Tag\ThrowsTag $throwsTag, array $parents) : ?\PHPStan\PhpDoc\Tag\ThrowsTag
     {
         if ($throwsTag !== null) {
             return $throwsTag;
@@ -446,7 +446,7 @@ class ResolvedPhpDocBlock
      * @param PhpDocBlock $phpDocBlock
      * @return T
      */
-    private static function resolveTemplateTypeInTag(\RectorPrefix20201227\PHPStan\PhpDoc\Tag\TypedTag $tag, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocBlock $phpDocBlock) : \RectorPrefix20201227\PHPStan\PhpDoc\Tag\TypedTag
+    private static function resolveTemplateTypeInTag(\PHPStan\PhpDoc\Tag\TypedTag $tag, \PHPStan\PhpDoc\PhpDocBlock $phpDocBlock) : \PHPStan\PhpDoc\Tag\TypedTag
     {
         $type = \PHPStan\Type\Generic\TemplateTypeHelper::resolveTemplateTypes($tag->getType(), $phpDocBlock->getClassReflection()->getActiveTemplateTypeMap());
         return $tag->withType($type);

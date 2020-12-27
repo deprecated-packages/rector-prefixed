@@ -6,7 +6,7 @@ namespace Rector\StaticTypeMapper\Naming;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
-use RectorPrefix20201227\PHPStan\Analyser\NameScope;
+use PHPStan\Analyser\NameScope;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 /**
@@ -14,14 +14,14 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
  */
 final class NameScopeFactory
 {
-    public function createNameScopeFromNode(\PhpParser\Node $node) : \RectorPrefix20201227\PHPStan\Analyser\NameScope
+    public function createNameScopeFromNode(\PhpParser\Node $node) : \PHPStan\Analyser\NameScope
     {
         $namespace = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
         /** @var Use_[] $useNodes */
         $useNodes = (array) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);
         $uses = $this->resolveUseNamesByAlias($useNodes);
         $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        return new \RectorPrefix20201227\PHPStan\Analyser\NameScope($namespace, $uses, $className);
+        return new \PHPStan\Analyser\NameScope($namespace, $uses, $className);
     }
     /**
      * @param Use_[] $useNodes

@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\Mixin;
+namespace PHPStan\Reflection\Mixin;
 
-use RectorPrefix20201227\PHPStan\Analyser\OutOfClassScope;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Reflection\PropertiesClassReflectionExtension;
-use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
+use PHPStan\Analyser\OutOfClassScope;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\PropertiesClassReflectionExtension;
+use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Type\TypeUtils;
-class MixinPropertiesClassReflectionExtension implements \RectorPrefix20201227\PHPStan\Reflection\PropertiesClassReflectionExtension
+class MixinPropertiesClassReflectionExtension implements \PHPStan\Reflection\PropertiesClassReflectionExtension
 {
     /** @var string[] */
     private $mixinExcludeClasses;
@@ -19,19 +19,19 @@ class MixinPropertiesClassReflectionExtension implements \RectorPrefix20201227\P
     {
         $this->mixinExcludeClasses = $mixinExcludeClasses;
     }
-    public function hasProperty(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
+    public function hasProperty(\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : bool
     {
         return $this->findProperty($classReflection, $propertyName) !== null;
     }
-    public function getProperty(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
+    public function getProperty(\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : \PHPStan\Reflection\PropertyReflection
     {
         $property = $this->findProperty($classReflection, $propertyName);
         if ($property === null) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $property;
     }
-    private function findProperty(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : ?\RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
+    private function findProperty(\PHPStan\Reflection\ClassReflection $classReflection, string $propertyName) : ?\PHPStan\Reflection\PropertyReflection
     {
         $mixinTypes = $classReflection->getResolvedMixinTypes();
         foreach ($mixinTypes as $type) {
@@ -41,7 +41,7 @@ class MixinPropertiesClassReflectionExtension implements \RectorPrefix20201227\P
             if (!$type->hasProperty($propertyName)->yes()) {
                 continue;
             }
-            return $type->getProperty($propertyName, new \RectorPrefix20201227\PHPStan\Analyser\OutOfClassScope());
+            return $type->getProperty($propertyName, new \PHPStan\Analyser\OutOfClassScope());
         }
         foreach ($classReflection->getParents() as $parentClass) {
             $property = $this->findProperty($parentClass, $propertyName);

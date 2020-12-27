@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use RectorPrefix20201227\PHPStan\Reflection\ConstantReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
-use RectorPrefix20201227\PHPStan\Reflection\Type\UnionTypeMethodReflection;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\Type\UnionTypeMethodReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeVariance;
@@ -22,7 +22,7 @@ class UnionType implements \PHPStan\Type\CompoundType
     public function __construct(array $types)
     {
         $throwException = static function () use($types) : void {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException(\sprintf('Cannot create %s with: %s', self::class, \implode(', ', \array_map(static function (\PHPStan\Type\Type $type) : string {
+            throw new \PHPStan\ShouldNotHappenException(\sprintf('Cannot create %s with: %s', self::class, \implode(', ', \array_map(static function (\PHPStan\Type\Type $type) : string {
                 return $type->describe(\PHPStan\Type\VerbosityLevel::value());
             }, $types))));
         };
@@ -51,7 +51,7 @@ class UnionType implements \PHPStan\Type\CompoundType
     {
         return \PHPStan\Type\UnionTypeHelper::getReferencedClasses($this->getTypes());
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType && !$type instanceof \PHPStan\Type\CallableType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
@@ -60,9 +60,9 @@ class UnionType implements \PHPStan\Type\CompoundType
         foreach ($this->getTypes() as $innerType) {
             $results[] = $innerType->accepts($type, $strictTypes);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo()->or(...$results);
+        return \PHPStan\TrinaryLogic::createNo()->or(...$results);
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
     {
         if ($otherType instanceof self || $otherType instanceof \PHPStan\Type\IterableType) {
             return $otherType->isSubTypeOf($this);
@@ -71,23 +71,23 @@ class UnionType implements \PHPStan\Type\CompoundType
         foreach ($this->getTypes() as $innerType) {
             $results[] = $innerType->isSuperTypeOf($otherType);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo()->or(...$results);
+        return \PHPStan\TrinaryLogic::createNo()->or(...$results);
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
     {
         $results = [];
         foreach ($this->getTypes() as $innerType) {
             $results[] = $otherType->isSuperTypeOf($innerType);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity(...$results);
+        return \PHPStan\TrinaryLogic::extremeIdentity(...$results);
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         $results = [];
         foreach ($this->getTypes() as $innerType) {
             $results[] = $acceptingType->accepts($innerType, $strictTypes);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity(...$results);
+        return \PHPStan\TrinaryLogic::extremeIdentity(...$results);
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {
@@ -144,17 +144,17 @@ class UnionType implements \PHPStan\Type\CompoundType
      * @param callable(Type $type): TrinaryLogic $hasCallback
      * @return TrinaryLogic
      */
-    private function hasInternal(callable $canCallback, callable $hasCallback) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    private function hasInternal(callable $canCallback, callable $hasCallback) : \PHPStan\TrinaryLogic
     {
         $results = [];
         foreach ($this->types as $type) {
             if ($canCallback($type)->no()) {
-                $results[] = \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+                $results[] = \PHPStan\TrinaryLogic::createNo();
                 continue;
             }
             $results[] = $hasCallback($type);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity(...$results);
+        return \PHPStan\TrinaryLogic::extremeIdentity(...$results);
     }
     /**
      * @param callable(Type $type): TrinaryLogic $hasCallback
@@ -180,23 +180,23 @@ class UnionType implements \PHPStan\Type\CompoundType
             $object = $get;
         }
         if ($object === null) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $object;
     }
-    public function canAccessProperties() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function canAccessProperties() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->canAccessProperties();
         });
     }
-    public function hasProperty(string $propertyName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) use($propertyName) : TrinaryLogic {
             return $type->hasProperty($propertyName);
         });
     }
-    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
     {
         return $this->getInternal(static function (\PHPStan\Type\Type $type) use($propertyName) : TrinaryLogic {
             return $type->hasProperty($propertyName);
@@ -204,19 +204,19 @@ class UnionType implements \PHPStan\Type\CompoundType
             return $type->getProperty($propertyName, $scope);
         });
     }
-    public function canCallMethods() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function canCallMethods() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->canCallMethods();
         });
     }
-    public function hasMethod(string $methodName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) use($methodName) : TrinaryLogic {
             return $type->hasMethod($methodName);
         });
     }
-    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
     {
         $methods = [];
         foreach ($this->types as $type) {
@@ -227,20 +227,20 @@ class UnionType implements \PHPStan\Type\CompoundType
         }
         $methodsCount = \count($methods);
         if ($methodsCount === 0) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         if ($methodsCount === 1) {
             return $methods[0];
         }
-        return new \RectorPrefix20201227\PHPStan\Reflection\Type\UnionTypeMethodReflection($methodName, $methods);
+        return new \PHPStan\Reflection\Type\UnionTypeMethodReflection($methodName, $methods);
     }
-    public function canAccessConstants() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function canAccessConstants() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->canAccessConstants();
         });
     }
-    public function hasConstant(string $constantName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \PHPStan\TrinaryLogic
     {
         return $this->hasInternal(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->canAccessConstants();
@@ -248,7 +248,7 @@ class UnionType implements \PHPStan\Type\CompoundType
             return $type->hasConstant($constantName);
         });
     }
-    public function getConstant(string $constantName) : \RectorPrefix20201227\PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \PHPStan\Reflection\ConstantReflection
     {
         return $this->getInternal(static function (\PHPStan\Type\Type $type) use($constantName) : TrinaryLogic {
             return $type->hasConstant($constantName);
@@ -256,13 +256,13 @@ class UnionType implements \PHPStan\Type\CompoundType
             return $type->getConstant($constantName);
         });
     }
-    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterable() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isIterable();
         });
     }
-    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isIterableAtLeastOnce();
@@ -280,25 +280,25 @@ class UnionType implements \PHPStan\Type\CompoundType
             return $type->getIterableValueType();
         });
     }
-    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isArray();
         });
     }
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isNumericString();
         });
     }
-    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isOffsetAccessible();
         });
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) use($offsetType) : TrinaryLogic {
             return $type->hasOffsetValueType($offsetType);
@@ -325,7 +325,7 @@ class UnionType implements \PHPStan\Type\CompoundType
             return $type->setOffsetValueType($offsetType, $valueType);
         });
     }
-    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isCallable() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isCallable();
@@ -335,7 +335,7 @@ class UnionType implements \PHPStan\Type\CompoundType
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
         foreach ($this->types as $type) {
             if ($type->isCallable()->no()) {
@@ -343,21 +343,21 @@ class UnionType implements \PHPStan\Type\CompoundType
             }
             return $type->getCallableParametersAcceptors($scope);
         }
-        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+        throw new \PHPStan\ShouldNotHappenException();
     }
-    public function isCloneable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isCloneable() : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) : TrinaryLogic {
             return $type->isCloneable();
         });
     }
-    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) use($otherType, $orEqual) : TrinaryLogic {
             return $type->isSmallerThan($otherType, $orEqual);
         });
     }
-    public function isGreaterThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isGreaterThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \PHPStan\TrinaryLogic
     {
         return $this->unionResults(static function (\PHPStan\Type\Type $type) use($otherType, $orEqual) : TrinaryLogic {
             return $otherType->isSmallerThan($type, $orEqual);
@@ -460,9 +460,9 @@ class UnionType implements \PHPStan\Type\CompoundType
      * @param callable(Type $type): TrinaryLogic $getResult
      * @return TrinaryLogic
      */
-    private function unionResults(callable $getResult) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    private function unionResults(callable $getResult) : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity(...\array_map($getResult, $this->types));
+        return \PHPStan\TrinaryLogic::extremeIdentity(...\array_map($getResult, $this->types));
     }
     /**
      * @param callable(Type $type): Type $getType

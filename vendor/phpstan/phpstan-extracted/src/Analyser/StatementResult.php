@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
 use PhpParser\Node\Stmt;
 class StatementResult
@@ -20,14 +20,14 @@ class StatementResult
      * @param bool $isAlwaysTerminating
      * @param StatementExitPoint[] $exitPoints
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope, bool $hasYield, bool $isAlwaysTerminating, array $exitPoints)
+    public function __construct(\PHPStan\Analyser\MutatingScope $scope, bool $hasYield, bool $isAlwaysTerminating, array $exitPoints)
     {
         $this->scope = $scope;
         $this->hasYield = $hasYield;
         $this->isAlwaysTerminating = $isAlwaysTerminating;
         $this->exitPoints = $exitPoints;
     }
-    public function getScope() : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
+    public function getScope() : \PHPStan\Analyser\MutatingScope
     {
         return $this->scope;
     }

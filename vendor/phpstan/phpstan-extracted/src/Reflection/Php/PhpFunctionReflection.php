@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\Php;
+namespace PHPStan\Reflection\Php;
 
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Namespace_;
-use RectorPrefix20201227\PHPStan\Cache\Cache;
-use RectorPrefix20201227\PHPStan\Parser\FunctionCallStatementFinder;
-use RectorPrefix20201227\PHPStan\Parser\Parser;
-use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
-use RectorPrefix20201227\PHPStan\Reflection\FunctionVariantWithPhpDocs;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionWithFilename;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Cache\Cache;
+use PHPStan\Parser\FunctionCallStatementFinder;
+use PHPStan\Parser\Parser;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\FunctionVariantWithPhpDocs;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use PHPStan\Reflection\ReflectionWithFilename;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
-class PhpFunctionReflection implements \RectorPrefix20201227\PHPStan\Reflection\FunctionReflection, \RectorPrefix20201227\PHPStan\Reflection\ReflectionWithFilename
+class PhpFunctionReflection implements \PHPStan\Reflection\FunctionReflection, \PHPStan\Reflection\ReflectionWithFilename
 {
     /** @var \ReflectionFunction */
     private $reflection;
@@ -66,7 +66,7 @@ class PhpFunctionReflection implements \RectorPrefix20201227\PHPStan\Reflection\
      * @param bool $isFinal
      * @param string|false $filename
      */
-    public function __construct(\ReflectionFunction $reflection, \RectorPrefix20201227\PHPStan\Parser\Parser $parser, \RectorPrefix20201227\PHPStan\Parser\FunctionCallStatementFinder $functionCallStatementFinder, \RectorPrefix20201227\PHPStan\Cache\Cache $cache, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $phpDocParameterTypes, ?\PHPStan\Type\Type $phpDocReturnType, ?\PHPStan\Type\Type $phpDocThrowType, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, bool $isFinal, $filename)
+    public function __construct(\ReflectionFunction $reflection, \PHPStan\Parser\Parser $parser, \PHPStan\Parser\FunctionCallStatementFinder $functionCallStatementFinder, \PHPStan\Cache\Cache $cache, \PHPStan\Type\Generic\TemplateTypeMap $templateTypeMap, array $phpDocParameterTypes, ?\PHPStan\Type\Type $phpDocReturnType, ?\PHPStan\Type\Type $phpDocThrowType, ?string $deprecatedDescription, bool $isDeprecated, bool $isInternal, bool $isFinal, $filename)
     {
         $this->reflection = $reflection;
         $this->parser = $parser;
@@ -105,7 +105,7 @@ class PhpFunctionReflection implements \RectorPrefix20201227\PHPStan\Reflection\
     public function getVariants() : array
     {
         if ($this->variants === null) {
-            $this->variants = [new \RectorPrefix20201227\PHPStan\Reflection\FunctionVariantWithPhpDocs($this->templateTypeMap, null, $this->getParameters(), $this->isVariadic(), $this->getReturnType(), $this->getPhpDocReturnType(), $this->getNativeReturnType())];
+            $this->variants = [new \PHPStan\Reflection\FunctionVariantWithPhpDocs($this->templateTypeMap, null, $this->getParameters(), $this->isVariadic(), $this->getReturnType(), $this->getPhpDocReturnType(), $this->getNativeReturnType())];
         }
         return $this->variants;
     }
@@ -115,7 +115,7 @@ class PhpFunctionReflection implements \RectorPrefix20201227\PHPStan\Reflection\
     private function getParameters() : array
     {
         return \array_map(function (\ReflectionParameter $reflection) : PhpParameterReflection {
-            return new \RectorPrefix20201227\PHPStan\Reflection\Php\PhpParameterReflection($reflection, $this->phpDocParameterTypes[$reflection->getName()] ?? null, null);
+            return new \PHPStan\Reflection\Php\PhpParameterReflection($reflection, $this->phpDocParameterTypes[$reflection->getName()] ?? null, null);
         }, $this->reflection->getParameters());
     }
     private function isVariadic() : bool
@@ -153,7 +153,7 @@ class PhpFunctionReflection implements \RectorPrefix20201227\PHPStan\Reflection\
             if ($node instanceof \PhpParser\Node\Stmt\Function_) {
                 $functionName = (string) $node->namespacedName;
                 if ($functionName === $this->reflection->getName()) {
-                    return $this->functionCallStatementFinder->findFunctionCallInStatements(\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
+                    return $this->functionCallStatementFinder->findFunctionCallInStatements(\PHPStan\Reflection\ParametersAcceptor::VARIADIC_FUNCTIONS, $node->getStmts()) !== null;
                 }
                 continue;
             }
@@ -196,28 +196,28 @@ class PhpFunctionReflection implements \RectorPrefix20201227\PHPStan\Reflection\
         }
         return null;
     }
-    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated || $this->reflection->isDeprecated());
+        return \PHPStan\TrinaryLogic::createFromBoolean($this->isDeprecated || $this->reflection->isDeprecated());
     }
-    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
+        return \PHPStan\TrinaryLogic::createFromBoolean($this->isInternal);
     }
-    public function isFinal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isFinal() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createFromBoolean($this->isFinal);
+        return \PHPStan\TrinaryLogic::createFromBoolean($this->isFinal);
     }
     public function getThrowType() : ?\PHPStan\Type\Type
     {
         return $this->phpDocThrowType;
     }
-    public function hasSideEffects() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \PHPStan\TrinaryLogic
     {
         if ($this->getReturnType() instanceof \PHPStan\Type\VoidType) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
     public function isBuiltin() : bool
     {

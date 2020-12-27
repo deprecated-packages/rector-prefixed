@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\File;
+namespace PHPStan\File;
 
 use function array_key_exists;
 class FileMonitor
@@ -12,7 +12,7 @@ class FileMonitor
     private $fileHashes;
     /** @var array<string>|null */
     private $paths;
-    public function __construct(\RectorPrefix20201227\PHPStan\File\FileFinder $fileFinder)
+    public function __construct(\PHPStan\File\FileFinder $fileFinder)
     {
         $this->fileFinder = $fileFinder;
     }
@@ -29,10 +29,10 @@ class FileMonitor
         $this->fileHashes = $fileHashes;
         $this->paths = $paths;
     }
-    public function getChanges() : \RectorPrefix20201227\PHPStan\File\FileMonitorResult
+    public function getChanges() : \PHPStan\File\FileMonitorResult
     {
         if ($this->fileHashes === null || $this->paths === null) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $finderResult = $this->fileFinder->findFiles($this->paths);
         $oldFileHashes = $this->fileHashes;
@@ -59,10 +59,10 @@ class FileMonitor
         foreach (\array_keys($oldFileHashes) as $file) {
             $deletedFiles[] = $file;
         }
-        return new \RectorPrefix20201227\PHPStan\File\FileMonitorResult($newFiles, $changedFiles, $deletedFiles, \count($fileHashes));
+        return new \PHPStan\File\FileMonitorResult($newFiles, $changedFiles, $deletedFiles, \count($fileHashes));
     }
     private function getFileHash(string $filePath) : string
     {
-        return \sha1(\RectorPrefix20201227\PHPStan\File\FileReader::read($filePath));
+        return \sha1(\PHPStan\File\FileReader::read($filePath));
     }
 }

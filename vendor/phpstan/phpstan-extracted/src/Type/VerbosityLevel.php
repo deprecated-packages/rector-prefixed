@@ -94,6 +94,6 @@ class VerbosityLevel
             }
             return $valueCallback();
         }
-        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+        throw new \PHPStan\ShouldNotHappenException();
     }
 }

@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Methods;
+namespace PHPStan\Rules\Methods;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Expression>
  */
-class CallToConstructorStatementWithoutSideEffectsRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class CallToConstructorStatementWithoutSideEffectsRule implements \PHPStan\Rules\Rule
 {
     /** @var ReflectionProvider */
     private $reflectionProvider;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -23,7 +23,7 @@ class CallToConstructorStatementWithoutSideEffectsRule implements \RectorPrefix2
     {
         return \PhpParser\Node\Stmt\Expression::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->expr instanceof \PhpParser\Node\Expr\New_) {
             return [];
@@ -42,7 +42,7 @@ class CallToConstructorStatementWithoutSideEffectsRule implements \RectorPrefix2
         }
         $constructor = $classReflection->getConstructor();
         if ($constructor->hasSideEffects()->no()) {
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to %s::%s() on a separate line has no effect.', $classReflection->getDisplayName(), $constructor->getName()))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to %s::%s() on a separate line has no effect.', $classReflection->getDisplayName(), $constructor->getName()))->build()];
         }
         return [];
     }

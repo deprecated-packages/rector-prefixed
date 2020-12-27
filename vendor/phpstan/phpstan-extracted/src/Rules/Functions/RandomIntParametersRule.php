@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Functions;
+namespace PHPStan\Rules\Functions;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntegerType;
@@ -15,13 +15,13 @@ use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\FuncCall>
  */
-class RandomIntParametersRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class RandomIntParametersRule implements \PHPStan\Rules\Rule
 {
     /** @var ReflectionProvider */
     private $reflectionProvider;
     /** @var bool */
     private $reportMaybes;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $reportMaybes)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $reportMaybes)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->reportMaybes = $reportMaybes;
@@ -30,7 +30,7 @@ class RandomIntParametersRule implements \RectorPrefix20201227\PHPStan\Rules\Rul
     {
         return \PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->name instanceof \PhpParser\Node\Name) {
             return [];
@@ -55,7 +55,7 @@ class RandomIntParametersRule implements \RectorPrefix20201227\PHPStan\Rules\Rul
                 // True if sometimes the parameters conflict.
                 $isMaybe = !$maxType->isSuperTypeOf($minType)->no();
                 if (!$isMaybe || $this->reportMaybes) {
-                    return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($message, $minType->describe(\PHPStan\Type\VerbosityLevel::value()), $maxType->describe(\PHPStan\Type\VerbosityLevel::value())))->build()];
+                    return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($message, $minType->describe(\PHPStan\Type\VerbosityLevel::value()), $maxType->describe(\PHPStan\Type\VerbosityLevel::value())))->build()];
                 }
             }
         }

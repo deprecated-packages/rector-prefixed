@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Command\ErrorFormatter;
+namespace PHPStan\Command\ErrorFormatter;
 
-use RectorPrefix20201227\PHPStan\Command\AnalysisResult;
-use RectorPrefix20201227\PHPStan\Command\Output;
-use RectorPrefix20201227\PHPStan\File\RelativePathHelper;
+use PHPStan\Command\AnalysisResult;
+use PHPStan\Command\Output;
+use PHPStan\File\RelativePathHelper;
 use function sprintf;
-class JunitErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\ErrorFormatter\ErrorFormatter
+class JunitErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var \PHPStan\File\RelativePathHelper */
     private $relativePathHelper;
-    public function __construct(\RectorPrefix20201227\PHPStan\File\RelativePathHelper $relativePathHelper)
+    public function __construct(\PHPStan\File\RelativePathHelper $relativePathHelper)
     {
         $this->relativePathHelper = $relativePathHelper;
     }
-    public function formatErrors(\RectorPrefix20201227\PHPStan\Command\AnalysisResult $analysisResult, \RectorPrefix20201227\PHPStan\Command\Output $output) : int
+    public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
     {
         $result = '<?xml version="1.0" encoding="UTF-8"?>';
         $result .= \sprintf('<testsuite failures="%d" name="phpstan" tests="%d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/junit-team/junit5/r5.5.1/platform-tests/src/test/resources/jenkins-junit.xsd">', $analysisResult->getTotalErrorsCount(), $analysisResult->getTotalErrorsCount());

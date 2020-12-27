@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\File;
+namespace PHPStan\File;
 
 class FileWriter
 {
@@ -10,7 +10,7 @@ class FileWriter
         $success = @\file_put_contents($fileName, $contents);
         if ($success === \false) {
             $error = \error_get_last();
-            throw new \RectorPrefix20201227\PHPStan\File\CouldNotWriteFileException($fileName, $error !== null ? $error['message'] : 'unknown cause');
+            throw new \PHPStan\File\CouldNotWriteFileException($fileName, $error !== null ? $error['message'] : 'unknown cause');
         }
     }
 }

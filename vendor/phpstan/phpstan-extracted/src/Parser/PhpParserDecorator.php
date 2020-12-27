@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Parser;
+namespace PHPStan\Parser;
 
 use PhpParser\ErrorHandler;
 class PhpParserDecorator implements \PhpParser\Parser
 {
     /** @var \PHPStan\Parser\Parser */
     private $wrappedParser;
-    public function __construct(\RectorPrefix20201227\PHPStan\Parser\Parser $wrappedParser)
+    public function __construct(\PHPStan\Parser\Parser $wrappedParser)
     {
         $this->wrappedParser = $wrappedParser;
     }
@@ -21,7 +21,7 @@ class PhpParserDecorator implements \PhpParser\Parser
     {
         try {
             return $this->wrappedParser->parseString($code);
-        } catch (\RectorPrefix20201227\PHPStan\Parser\ParserErrorsException $e) {
+        } catch (\PHPStan\Parser\ParserErrorsException $e) {
             $message = $e->getMessage();
             if ($e->getParsedFile() !== null) {
                 $message .= \sprintf(' in file %s', $e->getParsedFile());

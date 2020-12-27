@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Node;
+namespace PHPStan\Node;
 
 use PhpParser\Node;
 use PhpParser\NodeAbstract;
-use RectorPrefix20201227\PHPStan\Analyser\StatementResult;
-class ExecutionEndNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
+use PHPStan\Analyser\StatementResult;
+class ExecutionEndNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var Node */
     private $node;
@@ -14,7 +14,7 @@ class ExecutionEndNode extends \PhpParser\NodeAbstract implements \RectorPrefix2
     private $statementResult;
     /** @var bool */
     private $hasNativeReturnTypehint;
-    public function __construct(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\StatementResult $statementResult, bool $hasNativeReturnTypehint)
+    public function __construct(\PhpParser\Node $node, \PHPStan\Analyser\StatementResult $statementResult, bool $hasNativeReturnTypehint)
     {
         parent::__construct($node->getAttributes());
         $this->node = $node;
@@ -25,7 +25,7 @@ class ExecutionEndNode extends \PhpParser\NodeAbstract implements \RectorPrefix2
     {
         return $this->node;
     }
-    public function getStatementResult() : \RectorPrefix20201227\PHPStan\Analyser\StatementResult
+    public function getStatementResult() : \PHPStan\Analyser\StatementResult
     {
         return $this->statementResult;
     }

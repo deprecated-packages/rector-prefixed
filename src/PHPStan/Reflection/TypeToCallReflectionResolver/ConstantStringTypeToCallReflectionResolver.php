@@ -5,10 +5,10 @@ namespace Rector\Core\PHPStan\Reflection\TypeToCallReflectionResolver;
 
 use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node\Name;
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Type;
 use Rector\Core\Contract\PHPStan\Reflection\TypeToCallReflectionResolver\TypeToCallReflectionResolverInterface;
@@ -29,7 +29,7 @@ final class ConstantStringTypeToCallReflectionResolver implements \Rector\Core\C
      * @var ReflectionProvider
      */
     private $reflectionProvider;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
@@ -41,7 +41,7 @@ final class ConstantStringTypeToCallReflectionResolver implements \Rector\Core\C
      * @param ConstantStringType $type
      * @return FunctionReflection|MethodReflection|null
      */
-    public function resolve(\PHPStan\Type\Type $type, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
+    public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer)
     {
         $value = $type->getValue();
         // 'my_function'

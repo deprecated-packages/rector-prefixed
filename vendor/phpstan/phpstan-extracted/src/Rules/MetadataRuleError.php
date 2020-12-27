@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules;
+namespace PHPStan\Rules;
 
-interface MetadataRuleError extends \RectorPrefix20201227\PHPStan\Rules\RuleError
+interface MetadataRuleError extends \PHPStan\Rules\RuleError
 {
     /**
      * @return mixed[]

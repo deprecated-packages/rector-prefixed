@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 class IntegerRangeType extends \PHPStan\Type\IntegerType implements \PHPStan\Type\CompoundType
@@ -70,57 +70,57 @@ class IntegerRangeType extends \PHPStan\Type\IntegerType implements \PHPStan\Typ
         }
         return \sprintf('int<%d, %d>', $this->min, $this->max);
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
             if ($this->min > $type->max || $this->max < $type->min) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+                return \PHPStan\TrinaryLogic::createNo();
             }
             if ($this->min <= $type->min && $this->max >= $type->max) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+                return \PHPStan\TrinaryLogic::createYes();
             }
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
         if ($type instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
             if ($this->min <= $type->getValue() && $type->getValue() <= $this->max) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+                return \PHPStan\TrinaryLogic::createYes();
             }
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+            return \PHPStan\TrinaryLogic::createNo();
         }
         if ($type instanceof parent) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
             if ($this->min > $type->max || $this->max < $type->min) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+                return \PHPStan\TrinaryLogic::createNo();
             }
             if ($this->min <= $type->min && $this->max >= $type->max) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+                return \PHPStan\TrinaryLogic::createYes();
             }
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
         if ($type instanceof \PHPStan\Type\Constant\ConstantIntegerType) {
             if ($this->min <= $type->getValue() && $type->getValue() <= $this->max) {
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+                return \PHPStan\TrinaryLogic::createYes();
             }
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+            return \PHPStan\TrinaryLogic::createNo();
         }
         if ($type instanceof parent) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
     {
         if ($otherType instanceof parent) {
             return $otherType->isSuperTypeOf($this);
@@ -128,9 +128,9 @@ class IntegerRangeType extends \PHPStan\Type\IntegerType implements \PHPStan\Typ
         if ($otherType instanceof \PHPStan\Type\UnionType || $otherType instanceof \PHPStan\Type\IntersectionType) {
             return $otherType->isSuperTypeOf($this);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
@@ -142,13 +142,13 @@ class IntegerRangeType extends \PHPStan\Type\IntegerType implements \PHPStan\Typ
     {
         return new parent();
     }
-    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity((new \PHPStan\Type\Constant\ConstantIntegerType($this->min))->isSmallerThan($otherType, $orEqual), (new \PHPStan\Type\Constant\ConstantIntegerType($this->max))->isSmallerThan($otherType, $orEqual));
+        return \PHPStan\TrinaryLogic::extremeIdentity((new \PHPStan\Type\Constant\ConstantIntegerType($this->min))->isSmallerThan($otherType, $orEqual), (new \PHPStan\Type\Constant\ConstantIntegerType($this->max))->isSmallerThan($otherType, $orEqual));
     }
-    public function isGreaterThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isGreaterThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::extremeIdentity($otherType->isSmallerThan(new \PHPStan\Type\Constant\ConstantIntegerType($this->min), $orEqual), $otherType->isSmallerThan(new \PHPStan\Type\Constant\ConstantIntegerType($this->max), $orEqual));
+        return \PHPStan\TrinaryLogic::extremeIdentity($otherType->isSmallerThan(new \PHPStan\Type\Constant\ConstantIntegerType($this->min), $orEqual), $otherType->isSmallerThan(new \PHPStan\Type\Constant\ConstantIntegerType($this->max), $orEqual));
     }
     public function toNumber() : \PHPStan\Type\Type
     {

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Broker;
+namespace PHPStan\Broker;
 
-class ConstantNotFoundException extends \RectorPrefix20201227\PHPStan\AnalysedCodeException
+class ConstantNotFoundException extends \PHPStan\AnalysedCodeException
 {
     /** @var string */
     private $constantName;

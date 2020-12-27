@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Properties;
+namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleLevelHelper;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr>
  */
-class ReadingWriteOnlyPropertiesRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class ReadingWriteOnlyPropertiesRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\Properties\PropertyDescriptor */
     private $propertyDescriptor;
@@ -20,7 +20,7 @@ class ReadingWriteOnlyPropertiesRule implements \RectorPrefix20201227\PHPStan\Ru
     private $ruleLevelHelper;
     /** @var bool */
     private $checkThisOnly;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \RectorPrefix20201227\PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder, \RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, bool $checkThisOnly)
+    public function __construct(\PHPStan\Rules\Properties\PropertyDescriptor $propertyDescriptor, \PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder, \PHPStan\Rules\RuleLevelHelper $ruleLevelHelper, bool $checkThisOnly)
     {
         $this->propertyDescriptor = $propertyDescriptor;
         $this->propertyReflectionFinder = $propertyReflectionFinder;
@@ -31,7 +31,7 @@ class ReadingWriteOnlyPropertiesRule implements \RectorPrefix20201227\PHPStan\Ru
     {
         return \PhpParser\Node\Expr::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch && !$node instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
             return [];
@@ -51,7 +51,7 @@ class ReadingWriteOnlyPropertiesRule implements \RectorPrefix20201227\PHPStan\Ru
         }
         if (!$propertyReflection->isReadable()) {
             $propertyDescription = $this->propertyDescriptor->describeProperty($propertyReflection, $node);
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is not readable.', $propertyDescription))->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is not readable.', $propertyDescription))->build()];
         }
         return [];
     }

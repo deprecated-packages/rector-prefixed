@@ -7,9 +7,9 @@ use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Return_;
-use RectorPrefix20201227\PHPStan\Analyser\MutatingScope;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use PHPStan\Analyser\MutatingScope;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -23,11 +23,11 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
 class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'array_filter';
     }
-    public function getTypeFromFunctionCall(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $arrayArg = $functionCall->args[0]->value ?? null;
         $callbackArg = $functionCall->args[1]->value ?? null;
@@ -46,11 +46,11 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
                 $statement = $callbackArg->stmts[0];
                 if ($statement instanceof \PhpParser\Node\Stmt\Return_ && $statement->expr !== null && \count($callbackArg->params) > 0) {
                     if (!$callbackArg->params[0]->var instanceof \PhpParser\Node\Expr\Variable || !\is_string($callbackArg->params[0]->var->name)) {
-                        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                        throw new \PHPStan\ShouldNotHappenException();
                     }
                     $itemVariableName = $callbackArg->params[0]->var->name;
-                    if (!$scope instanceof \RectorPrefix20201227\PHPStan\Analyser\MutatingScope) {
-                        throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+                    if (!$scope instanceof \PHPStan\Analyser\MutatingScope) {
+                        throw new \PHPStan\ShouldNotHappenException();
                     }
                     $scope = $scope->assignVariable($itemVariableName, $itemType);
                     $scope = $scope->filterByTruthyValue($statement->expr);

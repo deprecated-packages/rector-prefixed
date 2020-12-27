@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
+namespace PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
-class ExportedTraitUseAdaptation implements \RectorPrefix20201227\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use PHPStan\Dependency\ExportedNode;
+class ExportedTraitUseAdaptation implements \PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string|null */
     private $traitName;
@@ -46,7 +46,7 @@ class ExportedTraitUseAdaptation implements \RectorPrefix20201227\PHPStan\Depend
     {
         return new self($traitName, $method, null, null, $insteadOfs);
     }
-    public function equals(\RectorPrefix20201227\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
     {
         if (!$node instanceof self) {
             return \false;
@@ -57,7 +57,7 @@ class ExportedTraitUseAdaptation implements \RectorPrefix20201227\PHPStan\Depend
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
     {
         return new self($properties['traitName'], $properties['method'], $properties['newModifier'], $properties['newName'], $properties['insteadOfs']);
     }
@@ -65,7 +65,7 @@ class ExportedTraitUseAdaptation implements \RectorPrefix20201227\PHPStan\Depend
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
     {
         return new self($data['traitName'], $data['method'], $data['newModifier'], $data['newName'], $data['insteadOfs']);
     }

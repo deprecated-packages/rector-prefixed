@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\File;
+namespace PHPStan\File;
 
 class FileMonitorResult
 {

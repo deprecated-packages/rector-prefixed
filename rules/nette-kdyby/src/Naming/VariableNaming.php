@@ -18,7 +18,7 @@ use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Scalar\String_;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use Rector\CodingStyle\Naming\ClassNaming;
@@ -75,7 +75,7 @@ final class VariableNaming
         }
         return \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($variableName);
     }
-    public function resolveFromNodeWithScopeCountAndFallbackName(\PhpParser\Node\Expr $expr, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope, string $fallbackName) : string
+    public function resolveFromNodeWithScopeCountAndFallbackName(\PhpParser\Node\Expr $expr, \PHPStan\Analyser\Scope $scope, string $fallbackName) : string
     {
         $name = $this->resolveFromNode($expr);
         if ($name === null) {
@@ -83,7 +83,7 @@ final class VariableNaming
         }
         return \lcfirst($this->createCountedValueName($name, $scope));
     }
-    public function createCountedValueName(string $valueName, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : string
+    public function createCountedValueName(string $valueName, ?\PHPStan\Analyser\Scope $scope) : string
     {
         if ($scope === null) {
             return $valueName;
@@ -101,7 +101,7 @@ final class VariableNaming
         }
         return $valueName;
     }
-    public function resolveFromFuncCallFirstArgumentWithSuffix(\PhpParser\Node\Expr\FuncCall $funcCall, string $suffix, string $fallbackName, ?\RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : string
+    public function resolveFromFuncCallFirstArgumentWithSuffix(\PhpParser\Node\Expr\FuncCall $funcCall, string $suffix, string $fallbackName, ?\PHPStan\Analyser\Scope $scope) : string
     {
         $bareName = $this->resolveBareFuncCallArgumentName($funcCall, $fallbackName, $suffix);
         return $this->createCountedValueName($bareName, $scope);

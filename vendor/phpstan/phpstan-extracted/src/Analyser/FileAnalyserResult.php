@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
-use RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
+use PHPStan\Dependency\ExportedNode;
 class FileAnalyserResult
 {
     /** @var Error[] */

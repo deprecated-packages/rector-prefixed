@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
-class FunctionVariantWithPhpDocs extends \RectorPrefix20201227\PHPStan\Reflection\FunctionVariant implements \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorWithPhpDocs
+class FunctionVariantWithPhpDocs extends \PHPStan\Reflection\FunctionVariant implements \PHPStan\Reflection\ParametersAcceptorWithPhpDocs
 {
     /** @var Type */
     private $phpDocReturnType;

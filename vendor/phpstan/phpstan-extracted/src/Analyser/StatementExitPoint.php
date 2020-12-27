@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
 use PhpParser\Node\Stmt;
 class StatementExitPoint
@@ -10,7 +10,7 @@ class StatementExitPoint
     private $statement;
     /** @var MutatingScope */
     private $scope;
-    public function __construct(\PhpParser\Node\Stmt $statement, \RectorPrefix20201227\PHPStan\Analyser\MutatingScope $scope)
+    public function __construct(\PhpParser\Node\Stmt $statement, \PHPStan\Analyser\MutatingScope $scope)
     {
         $this->statement = $statement;
         $this->scope = $scope;
@@ -19,7 +19,7 @@ class StatementExitPoint
     {
         return $this->statement;
     }
-    public function getScope() : \RectorPrefix20201227\PHPStan\Analyser\MutatingScope
+    public function getScope() : \PHPStan\Analyser\MutatingScope
     {
         return $this->scope;
     }

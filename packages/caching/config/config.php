@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227;
 
-use RectorPrefix20201227\PHPStan\Dependency\DependencyResolver;
-use RectorPrefix20201227\PHPStan\File\FileHelper;
+use PHPStan\Dependency\DependencyResolver;
+use PHPStan\File\FileHelper;
 use RectorPrefix20201227\Psr\Cache\CacheItemPoolInterface;
 use RectorPrefix20201227\Psr\SimpleCache\CacheInterface;
 use Rector\Caching\Cache\Adapter\FilesystemAdapterFactory;
@@ -23,8 +23,8 @@ return static function (\RectorPrefix20201227\Symfony\Component\DependencyInject
     $services = $containerConfigurator->services();
     $services->defaults()->autowire()->public()->autoconfigure();
     $services->load('Rector\\Caching\\', __DIR__ . '/../src');
-    $services->set(\RectorPrefix20201227\PHPStan\Dependency\DependencyResolver::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createDependencyResolver']);
-    $services->set(\RectorPrefix20201227\PHPStan\File\FileHelper::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createFileHelper']);
+    $services->set(\PHPStan\Dependency\DependencyResolver::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createDependencyResolver']);
+    $services->set(\PHPStan\File\FileHelper::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\NodeTypeResolver\DependencyInjection\PHPStanServicesFactory::class), 'createFileHelper']);
     $services->set(\RectorPrefix20201227\Symfony\Component\Cache\Psr16Cache::class);
     $services->alias(\RectorPrefix20201227\Psr\SimpleCache\CacheInterface::class, \RectorPrefix20201227\Symfony\Component\Cache\Psr16Cache::class);
     $services->set(\RectorPrefix20201227\Symfony\Component\Cache\Adapter\FilesystemAdapter::class)->factory([\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\Caching\Cache\Adapter\FilesystemAdapterFactory::class), 'create']);

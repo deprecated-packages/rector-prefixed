@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
+namespace PHPStan\Dependency\ExportedNode;
 
 use JsonSerializable;
-use RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
-class ExportedTraitNode implements \RectorPrefix20201227\PHPStan\Dependency\ExportedNode, \JsonSerializable
+use PHPStan\Dependency\ExportedNode;
+class ExportedTraitNode implements \PHPStan\Dependency\ExportedNode, \JsonSerializable
 {
     /** @var string */
     private $traitName;
@@ -13,7 +13,7 @@ class ExportedTraitNode implements \RectorPrefix20201227\PHPStan\Dependency\Expo
     {
         $this->traitName = $traitName;
     }
-    public function equals(\RectorPrefix20201227\PHPStan\Dependency\ExportedNode $node) : bool
+    public function equals(\PHPStan\Dependency\ExportedNode $node) : bool
     {
         return \false;
     }
@@ -21,7 +21,7 @@ class ExportedTraitNode implements \RectorPrefix20201227\PHPStan\Dependency\Expo
      * @param mixed[] $properties
      * @return self
      */
-    public static function __set_state(array $properties) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
+    public static function __set_state(array $properties) : \PHPStan\Dependency\ExportedNode
     {
         return new self($properties['traitName']);
     }
@@ -29,7 +29,7 @@ class ExportedTraitNode implements \RectorPrefix20201227\PHPStan\Dependency\Expo
      * @param mixed[] $data
      * @return self
      */
-    public static function decode(array $data) : \RectorPrefix20201227\PHPStan\Dependency\ExportedNode
+    public static function decode(array $data) : \PHPStan\Dependency\ExportedNode
     {
         return new self($data['traitName']);
     }

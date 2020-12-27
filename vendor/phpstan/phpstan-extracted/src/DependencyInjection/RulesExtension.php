@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\DependencyInjection;
+namespace PHPStan\DependencyInjection;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
-use RectorPrefix20201227\PHPStan\Rules\RegistryFactory;
-class RulesExtension extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
+use _HumbugBox221ad6f1b81f\Nette\Schema\Expect;
+use PHPStan\Rules\RegistryFactory;
+class RulesExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
+    public function getConfigSchema() : \_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string');
+        return \_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string');
     }
     public function loadConfiguration() : void
     {
@@ -17,7 +17,7 @@ class RulesExtension extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\
         $config = $this->config;
         $builder = $this->getContainerBuilder();
         foreach ($config as $key => $rule) {
-            $builder->addDefinition($this->prefix((string) $key))->setFactory($rule)->setAutowired(\false)->addTag(\RectorPrefix20201227\PHPStan\Rules\RegistryFactory::RULE_TAG);
+            $builder->addDefinition($this->prefix((string) $key))->setFactory($rule)->setAutowired(\false)->addTag(\PHPStan\Rules\RegistryFactory::RULE_TAG);
         }
     }
 }

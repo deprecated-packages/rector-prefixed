@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\_HumbugBox221ad6f1b81f;
 
-use RectorPrefix20201227\PHPStan\Command\AnalyseCommand;
-use RectorPrefix20201227\PHPStan\Command\ClearResultCacheCommand;
-use RectorPrefix20201227\PHPStan\Command\FixerWorkerCommand;
-use RectorPrefix20201227\PHPStan\Command\DumpDependenciesCommand;
-use RectorPrefix20201227\PHPStan\Command\WorkerCommand;
+use PHPStan\Command\AnalyseCommand;
+use PHPStan\Command\ClearResultCacheCommand;
+use PHPStan\Command\FixerWorkerCommand;
+use PHPStan\Command\DumpDependenciesCommand;
+use PHPStan\Command\WorkerCommand;
 use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar;
 (function () {
     \error_reporting(\E_ALL);
@@ -68,10 +68,10 @@ use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper
     $application = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Application('PHPStan - PHP Static Analysis Tool', $version);
     \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar::setFormatDefinition('file_download', ' [%bar%] %percent:3s%% %fileSize%');
     $reversedComposerAutoloaderProjectPaths = \array_reverse($composerAutoloaderProjectPaths);
-    $application->add(new \RectorPrefix20201227\PHPStan\Command\AnalyseCommand($reversedComposerAutoloaderProjectPaths));
-    $application->add(new \RectorPrefix20201227\PHPStan\Command\DumpDependenciesCommand($reversedComposerAutoloaderProjectPaths));
-    $application->add(new \RectorPrefix20201227\PHPStan\Command\WorkerCommand($reversedComposerAutoloaderProjectPaths));
-    $application->add(new \RectorPrefix20201227\PHPStan\Command\ClearResultCacheCommand($reversedComposerAutoloaderProjectPaths));
-    $application->add(new \RectorPrefix20201227\PHPStan\Command\FixerWorkerCommand($reversedComposerAutoloaderProjectPaths));
+    $application->add(new \PHPStan\Command\AnalyseCommand($reversedComposerAutoloaderProjectPaths));
+    $application->add(new \PHPStan\Command\DumpDependenciesCommand($reversedComposerAutoloaderProjectPaths));
+    $application->add(new \PHPStan\Command\WorkerCommand($reversedComposerAutoloaderProjectPaths));
+    $application->add(new \PHPStan\Command\ClearResultCacheCommand($reversedComposerAutoloaderProjectPaths));
+    $application->add(new \PHPStan\Command\FixerWorkerCommand($reversedComposerAutoloaderProjectPaths));
     $application->run();
 })();

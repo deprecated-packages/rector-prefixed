@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Cache;
+namespace PHPStan\Cache;
 
 class Cache
 {
     /** @var \PHPStan\Cache\CacheStorage */
     private $storage;
-    public function __construct(\RectorPrefix20201227\PHPStan\Cache\CacheStorage $storage)
+    public function __construct(\PHPStan\Cache\CacheStorage $storage)
     {
         $this->storage = $storage;
     }

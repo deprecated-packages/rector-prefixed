@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\PHPUnit;
+namespace PHPStan\Rules\PHPUnit;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\NullType;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\NodeAbstract>
  */
-class AssertSameNullExpectedRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class AssertSameNullExpectedRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\NodeAbstract::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
-        if (!\RectorPrefix20201227\PHPStan\Rules\PHPUnit\AssertRuleHelper::isMethodOrStaticCallOnAssert($node, $scope)) {
+        if (!\PHPStan\Rules\PHPUnit\AssertRuleHelper::isMethodOrStaticCallOnAssert($node, $scope)) {
             return [];
         }
         /** @var \PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall $node */

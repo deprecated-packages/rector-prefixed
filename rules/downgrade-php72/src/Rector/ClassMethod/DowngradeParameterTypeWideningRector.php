@@ -11,8 +11,8 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Interface_;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Rector\AbstractRector;
@@ -152,7 +152,7 @@ CODE_SAMPLE
      * Obtain the list of the ancestors classes with a different signature
      * @return Class_[]
      */
-    private function getClassesWithDifferentSignature(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, string $paramName) : array
+    private function getClassesWithDifferentSignature(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, string $paramName) : array
     {
         // 1. All ancestor classes with different signature
         $refactorableAncestorClassNames = \array_filter($classReflection->getParentClassesNames(), function (string $ancestorClassName) use($methodName, $paramName) : bool {
@@ -166,9 +166,9 @@ CODE_SAMPLE
      * Obtain the list of the implemented interfaces with a different signature
      * @return Interface_[]
      */
-    private function getInterfacesWithDifferentSignature(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, string $paramName) : array
+    private function getInterfacesWithDifferentSignature(\PHPStan\Reflection\ClassReflection $classReflection, string $methodName, string $paramName) : array
     {
-        $interfaceClassNames = \array_map(function (\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
+        $interfaceClassNames = \array_map(function (\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
             return $interfaceReflection->getName();
         }, $classReflection->getInterfaces());
         $refactorableInterfaceClassNames = \array_filter($interfaceClassNames, function (string $interfaceClassName) use($methodName, $paramName) : bool {

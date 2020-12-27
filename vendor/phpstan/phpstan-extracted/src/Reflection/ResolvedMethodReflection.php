@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
-use RectorPrefix20201227\PHPStan\Reflection\Php\PhpMethodReflection;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Reflection\Php\PhpMethodReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
-class ResolvedMethodReflection implements \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+class ResolvedMethodReflection implements \PHPStan\Reflection\MethodReflection
 {
     /** @var MethodReflection */
     private $reflection;
@@ -15,7 +15,7 @@ class ResolvedMethodReflection implements \RectorPrefix20201227\PHPStan\Reflecti
     private $resolvedTemplateTypeMap;
     /** @var \PHPStan\Reflection\ParametersAcceptor[]|null */
     private $variants = null;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\MethodReflection $reflection, \PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap)
+    public function __construct(\PHPStan\Reflection\MethodReflection $reflection, \PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap)
     {
         $this->reflection = $reflection;
         $this->resolvedTemplateTypeMap = $resolvedTemplateTypeMap;
@@ -24,7 +24,7 @@ class ResolvedMethodReflection implements \RectorPrefix20201227\PHPStan\Reflecti
     {
         return $this->reflection->getName();
     }
-    public function getPrototype() : \RectorPrefix20201227\PHPStan\Reflection\ClassMemberReflection
+    public function getPrototype() : \PHPStan\Reflection\ClassMemberReflection
     {
         return $this->reflection->getPrototype();
     }
@@ -39,18 +39,18 @@ class ResolvedMethodReflection implements \RectorPrefix20201227\PHPStan\Reflecti
         }
         $variants = [];
         foreach ($this->reflection->getVariants() as $variant) {
-            $variants[] = new \RectorPrefix20201227\PHPStan\Reflection\ResolvedFunctionVariant($variant, $this->resolvedTemplateTypeMap);
+            $variants[] = new \PHPStan\Reflection\ResolvedFunctionVariant($variant, $this->resolvedTemplateTypeMap);
         }
         $this->variants = $variants;
         return $variants;
     }
-    public function getDeclaringClass() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
+    public function getDeclaringClass() : \PHPStan\Reflection\ClassReflection
     {
         return $this->reflection->getDeclaringClass();
     }
-    public function getDeclaringTrait() : ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection
+    public function getDeclaringTrait() : ?\PHPStan\Reflection\ClassReflection
     {
-        if ($this->reflection instanceof \RectorPrefix20201227\PHPStan\Reflection\Php\PhpMethodReflection) {
+        if ($this->reflection instanceof \PHPStan\Reflection\Php\PhpMethodReflection) {
             return $this->reflection->getDeclaringTrait();
         }
         return null;
@@ -71,7 +71,7 @@ class ResolvedMethodReflection implements \RectorPrefix20201227\PHPStan\Reflecti
     {
         return $this->reflection->getDocComment();
     }
-    public function isDeprecated() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isDeprecated() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isDeprecated();
     }
@@ -79,11 +79,11 @@ class ResolvedMethodReflection implements \RectorPrefix20201227\PHPStan\Reflecti
     {
         return $this->reflection->getDeprecatedDescription();
     }
-    public function isFinal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isFinal() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isFinal();
     }
-    public function isInternal() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isInternal() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->isInternal();
     }
@@ -91,7 +91,7 @@ class ResolvedMethodReflection implements \RectorPrefix20201227\PHPStan\Reflecti
     {
         return $this->reflection->getThrowType();
     }
-    public function hasSideEffects() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasSideEffects() : \PHPStan\TrinaryLogic
     {
         return $this->reflection->hasSideEffects();
     }

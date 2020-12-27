@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\Native;
+namespace PHPStan\Reflection\Native;
 
-use RectorPrefix20201227\PHPStan\Reflection\ParameterReflectionWithPhpDocs;
-use RectorPrefix20201227\PHPStan\Reflection\PassedByReference;
+use PHPStan\Reflection\ParameterReflectionWithPhpDocs;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\Type;
-class NativeParameterWithPhpDocsReflection implements \RectorPrefix20201227\PHPStan\Reflection\ParameterReflectionWithPhpDocs
+class NativeParameterWithPhpDocsReflection implements \PHPStan\Reflection\ParameterReflectionWithPhpDocs
 {
     /** @var string */
     private $name;
@@ -24,7 +24,7 @@ class NativeParameterWithPhpDocsReflection implements \RectorPrefix20201227\PHPS
     private $variadic;
     /** @var \PHPStan\Type\Type|null */
     private $defaultValue;
-    public function __construct(string $name, bool $optional, \PHPStan\Type\Type $type, \PHPStan\Type\Type $phpDocType, \PHPStan\Type\Type $nativeType, \RectorPrefix20201227\PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\PHPStan\Type\Type $defaultValue)
+    public function __construct(string $name, bool $optional, \PHPStan\Type\Type $type, \PHPStan\Type\Type $phpDocType, \PHPStan\Type\Type $nativeType, \PHPStan\Reflection\PassedByReference $passedByReference, bool $variadic, ?\PHPStan\Type\Type $defaultValue)
     {
         $this->name = $name;
         $this->optional = $optional;
@@ -55,7 +55,7 @@ class NativeParameterWithPhpDocsReflection implements \RectorPrefix20201227\PHPS
     {
         return $this->nativeType;
     }
-    public function passedByReference() : \RectorPrefix20201227\PHPStan\Reflection\PassedByReference
+    public function passedByReference() : \PHPStan\Reflection\PassedByReference
     {
         return $this->passedByReference;
     }

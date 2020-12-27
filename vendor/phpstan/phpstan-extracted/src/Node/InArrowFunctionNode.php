@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Node;
+namespace PHPStan\Node;
 
 use PhpParser\Node\Expr\ArrowFunction;
 use PhpParser\NodeAbstract;
-class InArrowFunctionNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
+class InArrowFunctionNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var \PhpParser\Node\Expr\ArrowFunction */
     private $originalNode;

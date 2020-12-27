@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ConstantReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonTypeTrait;
 class StaticType implements \PHPStan\Type\TypeWithClassName
@@ -49,31 +49,31 @@ class StaticType implements \PHPStan\Type\TypeWithClassName
     {
         return $this->baseClass;
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
         if (!$type instanceof static) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+            return \PHPStan\TrinaryLogic::createNo();
         }
         return $this->getStaticObjectType()->accepts($type->getStaticObjectType(), $strictTypes);
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
             return $this->getStaticObjectType()->isSuperTypeOf($type);
         }
         if ($type instanceof \PHPStan\Type\ObjectWithoutClassType) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
         if ($type instanceof \PHPStan\Type\ObjectType) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe()->and($this->getStaticObjectType()->isSuperTypeOf($type));
+            return \PHPStan\TrinaryLogic::createMaybe()->and($this->getStaticObjectType()->isSuperTypeOf($type));
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function equals(\PHPStan\Type\Type $type) : bool
     {
@@ -88,51 +88,51 @@ class StaticType implements \PHPStan\Type\TypeWithClassName
     {
         return \sprintf('static(%s)', $this->getClassName());
     }
-    public function canAccessProperties() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function canAccessProperties() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->canAccessProperties();
     }
-    public function hasProperty(string $propertyName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasProperty(string $propertyName) : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->hasProperty($propertyName);
     }
-    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
     {
         return $this->getStaticObjectType()->getProperty($propertyName, $scope);
     }
-    public function canCallMethods() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function canCallMethods() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->canCallMethods();
     }
-    public function hasMethod(string $methodName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->hasMethod($methodName);
     }
-    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
     {
         return $this->getStaticObjectType()->getMethod($methodName, $scope);
     }
-    public function canAccessConstants() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function canAccessConstants() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->canAccessConstants();
     }
-    public function hasConstant(string $constantName) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasConstant(string $constantName) : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->hasConstant($constantName);
     }
-    public function getConstant(string $constantName) : \RectorPrefix20201227\PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $constantName) : \PHPStan\Reflection\ConstantReflection
     {
         return $this->getStaticObjectType()->getConstant($constantName);
     }
-    public function changeBaseClass(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection) : self
+    public function changeBaseClass(\PHPStan\Reflection\ClassReflection $classReflection) : self
     {
         return new self($classReflection->getName());
     }
-    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterable() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isIterable();
     }
-    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isIterableAtLeastOnce();
     }
@@ -144,11 +144,11 @@ class StaticType implements \PHPStan\Type\TypeWithClassName
     {
         return $this->getStaticObjectType()->getIterableValueType();
     }
-    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isOffsetAccessible() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isOffsetAccessible();
     }
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->hasOffsetValueType($offsetType);
     }
@@ -160,15 +160,15 @@ class StaticType implements \PHPStan\Type\TypeWithClassName
     {
         return $this->getStaticObjectType()->setOffsetValueType($offsetType, $valueType);
     }
-    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isCallable() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isCallable();
     }
-    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isArray();
     }
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
         return $this->getStaticObjectType()->isNumericString();
     }
@@ -176,13 +176,13 @@ class StaticType implements \PHPStan\Type\TypeWithClassName
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
         return $this->getStaticObjectType()->getCallableParametersAcceptors($scope);
     }
-    public function isCloneable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isCloneable() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
     public function toNumber() : \PHPStan\Type\Type
     {

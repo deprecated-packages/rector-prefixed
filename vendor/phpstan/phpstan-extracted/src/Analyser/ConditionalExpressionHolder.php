@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
@@ -15,10 +15,10 @@ class ConditionalExpressionHolder
      * @param array<string, Type> $conditionExpressionTypes
      * @param VariableTypeHolder $typeHolder
      */
-    public function __construct(array $conditionExpressionTypes, \RectorPrefix20201227\PHPStan\Analyser\VariableTypeHolder $typeHolder)
+    public function __construct(array $conditionExpressionTypes, \PHPStan\Analyser\VariableTypeHolder $typeHolder)
     {
         if (\count($conditionExpressionTypes) === 0) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $this->conditionExpressionTypes = $conditionExpressionTypes;
         $this->typeHolder = $typeHolder;
@@ -30,7 +30,7 @@ class ConditionalExpressionHolder
     {
         return $this->conditionExpressionTypes;
     }
-    public function getTypeHolder() : \RectorPrefix20201227\PHPStan\Analyser\VariableTypeHolder
+    public function getTypeHolder() : \PHPStan\Analyser\VariableTypeHolder
     {
         return $this->typeHolder;
     }

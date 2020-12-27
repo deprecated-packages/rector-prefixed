@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Php;
+namespace PHPStan\Php;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
-use RectorPrefix20201227\PHPStan\File\FileReader;
+use _HumbugBox221ad6f1b81f\Nette\Utils\Json;
+use PHPStan\File\FileReader;
 class PhpVersionFactoryFactory
 {
     /** @var int|null */
@@ -23,24 +23,24 @@ class PhpVersionFactoryFactory
         $this->readComposerPhpVersion = $readComposerPhpVersion;
         $this->composerAutoloaderProjectPaths = $composerAutoloaderProjectPaths;
     }
-    public function create() : \RectorPrefix20201227\PHPStan\Php\PhpVersionFactory
+    public function create() : \PHPStan\Php\PhpVersionFactory
     {
         $composerPhpVersion = null;
         if ($this->readComposerPhpVersion && \count($this->composerAutoloaderProjectPaths) > 0) {
             $composerJsonPath = \end($this->composerAutoloaderProjectPaths) . '/composer.json';
             if (\is_file($composerJsonPath)) {
                 try {
-                    $composerJsonContents = \RectorPrefix20201227\PHPStan\File\FileReader::read($composerJsonPath);
-                    $composer = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($composerJsonContents, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
+                    $composerJsonContents = \PHPStan\File\FileReader::read($composerJsonPath);
+                    $composer = \_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($composerJsonContents, \_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
                     $platformVersion = $composer['config']['platform']['php'] ?? null;
                     if (\is_string($platformVersion)) {
                         $composerPhpVersion = $platformVersion;
                     }
-                } catch (\RectorPrefix20201227\PHPStan\File\CouldNotReadFileException|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException $e) {
+                } catch (\PHPStan\File\CouldNotReadFileException|\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException $e) {
                     // pass
                 }
             }
         }
-        return new \RectorPrefix20201227\PHPStan\Php\PhpVersionFactory($this->versionId, $composerPhpVersion);
+        return new \PHPStan\Php\PhpVersionFactory($this->versionId, $composerPhpVersion);
     }
 }

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Node;
+namespace PHPStan\Node;
 
 use PhpParser\Node\Stmt\ClassLike;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-class InClassNode extends \PhpParser\Node\Stmt implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
+use PHPStan\Reflection\ClassReflection;
+class InClassNode extends \PhpParser\Node\Stmt implements \PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */
     private $originalNode;
     /** @var ClassReflection */
     private $classReflection;
-    public function __construct(\PhpParser\Node\Stmt\ClassLike $originalNode, \RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection)
+    public function __construct(\PhpParser\Node\Stmt\ClassLike $originalNode, \PHPStan\Reflection\ClassReflection $classReflection)
     {
         parent::__construct($originalNode->getAttributes());
         $this->originalNode = $originalNode;
@@ -21,7 +21,7 @@ class InClassNode extends \PhpParser\Node\Stmt implements \RectorPrefix20201227\
     {
         return $this->originalNode;
     }
-    public function getClassReflection() : \RectorPrefix20201227\PHPStan\Reflection\ClassReflection
+    public function getClassReflection() : \PHPStan\Reflection\ClassReflection
     {
         return $this->classReflection;
     }

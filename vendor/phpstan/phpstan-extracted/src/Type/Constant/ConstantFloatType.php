@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Type\Constant;
 
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\FloatType;
@@ -36,24 +36,24 @@ class ConstantFloatType extends \PHPStan\Type\FloatType implements \PHPStan\Type
             return $formatted;
         });
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof self) {
             if (!$this->equals($type)) {
                 if ($this->describe(\PHPStan\Type\VerbosityLevel::value()) === $type->describe(\PHPStan\Type\VerbosityLevel::value())) {
-                    return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+                    return \PHPStan\TrinaryLogic::createMaybe();
                 }
-                return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+                return \PHPStan\TrinaryLogic::createNo();
             }
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+            return \PHPStan\TrinaryLogic::createYes();
         }
         if ($type instanceof parent) {
-            return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+            return \PHPStan\TrinaryLogic::createMaybe();
         }
         if ($type instanceof \PHPStan\Type\CompoundType) {
             return $type->isSubTypeOf($this);
         }
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     public function toString() : \PHPStan\Type\Type
     {

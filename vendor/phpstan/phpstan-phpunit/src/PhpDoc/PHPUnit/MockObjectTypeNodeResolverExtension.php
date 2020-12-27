@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\PhpDoc\PHPUnit;
+namespace PHPStan\PhpDoc\PHPUnit;
 
-use RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver;
-use RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolverAwareExtension;
-use RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolverExtension;
+use PHPStan\PhpDoc\TypeNodeResolver;
+use PHPStan\PhpDoc\TypeNodeResolverAwareExtension;
+use PHPStan\PhpDoc\TypeNodeResolverExtension;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
-class MockObjectTypeNodeResolverExtension implements \RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolverExtension, \RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolverAwareExtension
+class MockObjectTypeNodeResolverExtension implements \PHPStan\PhpDoc\TypeNodeResolverExtension, \PHPStan\PhpDoc\TypeNodeResolverAwareExtension
 {
     /** @var TypeNodeResolver */
     private $typeNodeResolver;
-    public function setTypeNodeResolver(\RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver) : void
+    public function setTypeNodeResolver(\PHPStan\PhpDoc\TypeNodeResolver $typeNodeResolver) : void
     {
         $this->typeNodeResolver = $typeNodeResolver;
     }
@@ -23,7 +23,7 @@ class MockObjectTypeNodeResolverExtension implements \RectorPrefix20201227\PHPSt
     {
         return 'phpunit-v1';
     }
-    public function resolve(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : ?\PHPStan\Type\Type
+    public function resolve(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PHPStan\Analyser\NameScope $nameScope) : ?\PHPStan\Type\Type
     {
         if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\UnionTypeNode) {
             return null;

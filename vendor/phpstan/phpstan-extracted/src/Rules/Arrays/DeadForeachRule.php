@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Arrays;
+namespace PHPStan\Rules\Arrays;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Foreach_>
  */
-class DeadForeachRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class DeadForeachRule implements \PHPStan\Rules\Rule
 {
     public function getNodeType() : string
     {
         return \PhpParser\Node\Stmt\Foreach_::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $iterableType = $scope->getType($node->expr);
         if ($iterableType->isIterable()->no()) {
@@ -25,6 +25,6 @@ class DeadForeachRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
         if (!$iterableType->isIterableAtLeastOnce()->no()) {
             return [];
         }
-        return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message('Empty array passed to foreach.')->build()];
+        return [\PHPStan\Rules\RuleErrorBuilder::message('Empty array passed to foreach.')->build()];
     }
 }

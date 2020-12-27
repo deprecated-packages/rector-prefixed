@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Node;
+namespace PHPStan\Node;
 
 use PhpParser\Node\Expr\Closure;
 use PhpParser\NodeAbstract;
-use RectorPrefix20201227\PHPStan\Analyser\StatementResult;
-class ClosureReturnStatementsNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\ReturnStatementsNode
+use PHPStan\Analyser\StatementResult;
+class ClosureReturnStatementsNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\ReturnStatementsNode
 {
     /** @var \PhpParser\Node\Expr\Closure */
     private $closureExpr;
@@ -19,7 +19,7 @@ class ClosureReturnStatementsNode extends \PhpParser\NodeAbstract implements \Re
      * @param \PHPStan\Node\ReturnStatement[] $returnStatements
      * @param \PHPStan\Analyser\StatementResult $statementResult
      */
-    public function __construct(\PhpParser\Node\Expr\Closure $closureExpr, array $returnStatements, \RectorPrefix20201227\PHPStan\Analyser\StatementResult $statementResult)
+    public function __construct(\PhpParser\Node\Expr\Closure $closureExpr, array $returnStatements, \PHPStan\Analyser\StatementResult $statementResult)
     {
         parent::__construct($closureExpr->getAttributes());
         $this->closureExpr = $closureExpr;
@@ -37,7 +37,7 @@ class ClosureReturnStatementsNode extends \PhpParser\NodeAbstract implements \Re
     {
         return $this->returnStatements;
     }
-    public function getStatementResult() : \RectorPrefix20201227\PHPStan\Analyser\StatementResult
+    public function getStatementResult() : \PHPStan\Analyser\StatementResult
     {
         return $this->statementResult;
     }

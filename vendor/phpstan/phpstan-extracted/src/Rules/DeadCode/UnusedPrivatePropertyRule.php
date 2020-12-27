@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\DeadCode;
+namespace PHPStan\Rules\DeadCode;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Node\ClassPropertiesNode;
-use RectorPrefix20201227\PHPStan\Node\Property\PropertyRead;
-use RectorPrefix20201227\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider;
-use RectorPrefix20201227\PHPStan\Rules\Rule;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\ClassPropertiesNode;
+use PHPStan\Node\Property\PropertyRead;
+use PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
@@ -17,7 +17,7 @@ use PHPStan\Type\TypeUtils;
 /**
  * @implements Rule<ClassPropertiesNode>
  */
-class UnusedPrivatePropertyRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class UnusedPrivatePropertyRule implements \PHPStan\Rules\Rule
 {
     /** @var ReadWritePropertiesExtensionProvider */
     private $extensionProvider;
@@ -32,7 +32,7 @@ class UnusedPrivatePropertyRule implements \RectorPrefix20201227\PHPStan\Rules\R
      * @param string[] $alwaysWrittenTags
      * @param string[] $alwaysReadTags
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider $extensionProvider, array $alwaysWrittenTags, array $alwaysReadTags, bool $checkUninitializedProperties)
+    public function __construct(\PHPStan\Rules\Properties\ReadWritePropertiesExtensionProvider $extensionProvider, array $alwaysWrittenTags, array $alwaysReadTags, bool $checkUninitializedProperties)
     {
         $this->extensionProvider = $extensionProvider;
         $this->alwaysWrittenTags = $alwaysWrittenTags;
@@ -41,15 +41,15 @@ class UnusedPrivatePropertyRule implements \RectorPrefix20201227\PHPStan\Rules\R
     }
     public function getNodeType() : string
     {
-        return \RectorPrefix20201227\PHPStan\Node\ClassPropertiesNode::class;
+        return \PHPStan\Node\ClassPropertiesNode::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->getClass() instanceof \PhpParser\Node\Stmt\Class_) {
             return [];
         }
         if (!$scope->isInClass()) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         $classReflection = $scope->getClassReflection();
         $classType = new \PHPStan\Type\ObjectType($classReflection->getName());
@@ -132,7 +132,7 @@ class UnusedPrivatePropertyRule implements \RectorPrefix20201227\PHPStan\Rules\R
                 if (!\array_key_exists($propertyName, $properties)) {
                     continue;
                 }
-                if ($usage instanceof \RectorPrefix20201227\PHPStan\Node\Property\PropertyRead) {
+                if ($usage instanceof \PHPStan\Node\Property\PropertyRead) {
                     $properties[$propertyName]['read'] = \true;
                 } else {
                     $properties[$propertyName]['written'] = \true;
@@ -155,12 +155,12 @@ class UnusedPrivatePropertyRule implements \RectorPrefix20201227\PHPStan\Rules\R
             }
             if (!$data['read']) {
                 if (!$data['written']) {
-                    $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is unused.', $propertyName))->line($propertyNode->getStartLine())->identifier('deadCode.unusedProperty')->metadata(['classOrder' => $node->getClass()->getAttribute('statementOrder'), 'classDepth' => $node->getClass()->getAttribute('statementDepth'), 'classStartLine' => $node->getClass()->getStartLine(), 'propertyName' => $name])->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is unused.', $propertyName))->line($propertyNode->getStartLine())->identifier('deadCode.unusedProperty')->metadata(['classOrder' => $node->getClass()->getAttribute('statementOrder'), 'classDepth' => $node->getClass()->getAttribute('statementDepth'), 'classStartLine' => $node->getClass()->getStartLine(), 'propertyName' => $name])->build();
                 } else {
-                    $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is never read, only written.', $propertyName))->line($propertyNode->getStartLine())->build();
+                    $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is never read, only written.', $propertyName))->line($propertyNode->getStartLine())->build();
                 }
             } elseif (!$data['written'] && (!\array_key_exists($name, $uninitializedProperties) || !$this->checkUninitializedProperties)) {
-                $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is never written, only read.', $propertyName))->line($propertyNode->getStartLine())->build();
+                $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf('%s is never written, only read.', $propertyName))->line($propertyNode->getStartLine())->build();
             }
         }
         return $errors;

@@ -5,8 +5,8 @@ namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\UnaryMinus;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\Accessory\AccessoryNumericStringType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ConstantScalarType;
@@ -21,11 +21,11 @@ use function in_array;
 use function is_numeric;
 class BcMathStringOrNullReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
 {
-    public function isFunctionSupported(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return \in_array($functionReflection->getName(), ['bcdiv', 'bcmod', 'bcpowmod', 'bcsqrt'], \true);
     }
-    public function getTypeFromFunctionCall(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         if ($functionReflection->getName() === 'bcsqrt') {
             return $this->getTypeForBcSqrt($functionCall, $scope);
@@ -68,7 +68,7 @@ class BcMathStringOrNullReturnTypeExtension implements \PHPStan\Type\DynamicFunc
      * @param Scope $scope
      * @return Type
      */
-    private function getTypeForBcSqrt(\PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    private function getTypeForBcSqrt(\PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $stringAndNumericStringType = \PHPStan\Type\TypeCombinator::intersect(new \PHPStan\Type\StringType(), new \PHPStan\Type\Accessory\AccessoryNumericStringType());
         $defaultReturnType = new \PHPStan\Type\UnionType([$stringAndNumericStringType, new \PHPStan\Type\NullType()]);
@@ -106,7 +106,7 @@ class BcMathStringOrNullReturnTypeExtension implements \PHPStan\Type\DynamicFunc
      * @param Scope $scope
      * @return Type
      */
-    private function getTypeForBcPowMod(\PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    private function getTypeForBcPowMod(\PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
         $stringAndNumericStringType = \PHPStan\Type\TypeCombinator::intersect(new \PHPStan\Type\StringType(), new \PHPStan\Type\Accessory\AccessoryNumericStringType());
         if (isset($functionCall->args[1]) === \false) {

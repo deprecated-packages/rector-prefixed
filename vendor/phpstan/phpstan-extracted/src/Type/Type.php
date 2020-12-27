@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use RectorPrefix20201227\PHPStan\Reflection\ConstantReflection;
-use RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-use RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeReference;
 use PHPStan\Type\Generic\TemplateTypeVariance;
@@ -17,43 +17,43 @@ interface Type
      * @return string[]
      */
     public function getReferencedClasses() : array;
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic;
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic;
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic;
     public function equals(\PHPStan\Type\Type $type) : bool;
     public function describe(\PHPStan\Type\VerbosityLevel $level) : string;
-    public function canAccessProperties() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function hasProperty(string $propertyName) : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection;
-    public function canCallMethods() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function hasMethod(string $methodName) : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection;
-    public function canAccessConstants() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function hasConstant(string $constantName) : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function getConstant(string $constantName) : \RectorPrefix20201227\PHPStan\Reflection\ConstantReflection;
-    public function isIterable() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function isIterableAtLeastOnce() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
+    public function canAccessProperties() : \PHPStan\TrinaryLogic;
+    public function hasProperty(string $propertyName) : \PHPStan\TrinaryLogic;
+    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection;
+    public function canCallMethods() : \PHPStan\TrinaryLogic;
+    public function hasMethod(string $methodName) : \PHPStan\TrinaryLogic;
+    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection;
+    public function canAccessConstants() : \PHPStan\TrinaryLogic;
+    public function hasConstant(string $constantName) : \PHPStan\TrinaryLogic;
+    public function getConstant(string $constantName) : \PHPStan\Reflection\ConstantReflection;
+    public function isIterable() : \PHPStan\TrinaryLogic;
+    public function isIterableAtLeastOnce() : \PHPStan\TrinaryLogic;
     public function getIterableKeyType() : \PHPStan\Type\Type;
     public function getIterableValueType() : \PHPStan\Type\Type;
-    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function isOffsetAccessible() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \RectorPrefix20201227\PHPStan\TrinaryLogic;
+    public function isArray() : \PHPStan\TrinaryLogic;
+    public function isOffsetAccessible() : \PHPStan\TrinaryLogic;
+    public function hasOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\TrinaryLogic;
     public function getOffsetValueType(\PHPStan\Type\Type $offsetType) : \PHPStan\Type\Type;
     public function setOffsetValueType(?\PHPStan\Type\Type $offsetType, \PHPStan\Type\Type $valueType) : \PHPStan\Type\Type;
-    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
+    public function isCallable() : \PHPStan\TrinaryLogic;
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array;
-    public function isCloneable() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
+    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array;
+    public function isCloneable() : \PHPStan\TrinaryLogic;
     public function toBoolean() : \PHPStan\Type\BooleanType;
     public function toNumber() : \PHPStan\Type\Type;
     public function toInteger() : \PHPStan\Type\Type;
     public function toFloat() : \PHPStan\Type\Type;
     public function toString() : \PHPStan\Type\Type;
     public function toArray() : \PHPStan\Type\Type;
-    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \RectorPrefix20201227\PHPStan\TrinaryLogic;
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic;
+    public function isSmallerThan(\PHPStan\Type\Type $otherType, bool $orEqual = \false) : \PHPStan\TrinaryLogic;
+    public function isNumericString() : \PHPStan\TrinaryLogic;
     /**
      * Infers template types
      *

@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Analyser;
+namespace PHPStan\Analyser;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
-interface Scope extends \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer
+interface Scope extends \PHPStan\Reflection\ClassMemberAccessAnswerer
 {
     public function getFile() : string;
     public function getFileDescription() : string;
     public function isDeclareStrictTypes() : bool;
     public function isInTrait() : bool;
-    public function getTraitReflection() : ?\RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
+    public function getTraitReflection() : ?\PHPStan\Reflection\ClassReflection;
     /**
      * @return \PHPStan\Reflection\FunctionReflection|\PHPStan\Reflection\MethodReflection|null
      */
@@ -25,7 +25,7 @@ interface Scope extends \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAcce
     public function getFunctionName() : ?string;
     public function getNamespace() : ?string;
     public function getParentScope() : ?self;
-    public function hasVariableType(string $variableName) : \RectorPrefix20201227\PHPStan\TrinaryLogic;
+    public function hasVariableType(string $variableName) : \PHPStan\TrinaryLogic;
     public function getVariableType(string $variableName) : \PHPStan\Type\Type;
     /**
      * @return array<int, string>
@@ -33,7 +33,7 @@ interface Scope extends \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAcce
     public function getDefinedVariables() : array;
     public function hasConstant(\PhpParser\Node\Name $name) : bool;
     public function isInAnonymousFunction() : bool;
-    public function getAnonymousFunctionReflection() : ?\RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
+    public function getAnonymousFunctionReflection() : ?\PHPStan\Reflection\ParametersAcceptor;
     public function getAnonymousFunctionReturnType() : ?\PHPStan\Type\Type;
     public function getType(\PhpParser\Node\Expr $node) : \PHPStan\Type\Type;
     /**

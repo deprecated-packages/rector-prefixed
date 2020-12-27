@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Cast;
+namespace PHPStan\Rules\Cast;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\Cast>
  */
-class InvalidCastRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class InvalidCastRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
     /** @var \PHPStan\Rules\RuleLevelHelper */
     private $ruleLevelHelper;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Rules\RuleLevelHelper $ruleLevelHelper)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->ruleLevelHelper = $ruleLevelHelper;
@@ -29,7 +29,7 @@ class InvalidCastRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
     {
         return \PhpParser\Node\Expr\Cast::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         $castTypeCallback = static function (\PHPStan\Type\Type $type) use($node) : ?Type {
             if ($node instanceof \PhpParser\Node\Expr\Cast\Int_) {
@@ -64,7 +64,7 @@ class InvalidCastRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
             } else {
                 $shortName = \substr($shortName, 0, -1);
             }
-            return [\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot cast %s to %s.', $scope->getType($node->expr)->describe(\PHPStan\Type\VerbosityLevel::value()), $shortName))->line($node->getLine())->build()];
+            return [\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Cannot cast %s to %s.', $scope->getType($node->expr)->describe(\PHPStan\Type\VerbosityLevel::value()), $shortName))->line($node->getLine())->build()];
         }
         return [];
     }

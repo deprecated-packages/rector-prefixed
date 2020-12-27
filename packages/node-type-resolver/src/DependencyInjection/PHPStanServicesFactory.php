@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\DependencyInjection;
 
-use RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver;
-use RectorPrefix20201227\PHPStan\Analyser\ScopeFactory;
-use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier;
-use RectorPrefix20201227\PHPStan\Dependency\DependencyResolver;
-use RectorPrefix20201227\PHPStan\DependencyInjection\Container;
-use RectorPrefix20201227\PHPStan\DependencyInjection\ContainerFactory;
-use RectorPrefix20201227\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
-use RectorPrefix20201227\PHPStan\File\FileHelper;
-use RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Analyser\NodeScopeResolver;
+use PHPStan\Analyser\ScopeFactory;
+use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\Dependency\DependencyResolver;
+use PHPStan\DependencyInjection\Container;
+use PHPStan\DependencyInjection\ContainerFactory;
+use PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
+use PHPStan\File\FileHelper;
+use PHPStan\PhpDoc\TypeNodeResolver;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Configuration\Option;
 use RectorPrefix20201227\Symplify\PackageBuilder\Parameter\ParameterProvider;
 /**
@@ -27,7 +27,7 @@ final class PHPStanServicesFactory
     private $container;
     public function __construct(\RectorPrefix20201227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
-        $containerFactory = new \RectorPrefix20201227\PHPStan\DependencyInjection\ContainerFactory(\getcwd());
+        $containerFactory = new \PHPStan\DependencyInjection\ContainerFactory(\getcwd());
         $additionalConfigFiles = [];
         $additionalConfigFiles[] = $parameterProvider->provideStringParameter(\Rector\Core\Configuration\Option::PHPSTAN_FOR_RECTOR_PATH);
         $additionalConfigFiles[] = \getcwd() . '/vendor/phpstan/phpstan-phpunit/extension.neon';
@@ -41,57 +41,57 @@ final class PHPStanServicesFactory
     /**
      * @api
      */
-    public function createReflectionProvider() : \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider
+    public function createReflectionProvider() : \PHPStan\Reflection\ReflectionProvider
     {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider::class);
+        return $this->container->getByType(\PHPStan\Reflection\ReflectionProvider::class);
     }
     /**
      * @api
      */
-    public function createNodeScopeResolver() : \RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver
+    public function createNodeScopeResolver() : \PHPStan\Analyser\NodeScopeResolver
     {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver::class);
+        return $this->container->getByType(\PHPStan\Analyser\NodeScopeResolver::class);
     }
     /**
      * @api
      */
-    public function createTypeSpecifier() : \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier
+    public function createTypeSpecifier() : \PHPStan\Analyser\TypeSpecifier
     {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier::class);
+        return $this->container->getByType(\PHPStan\Analyser\TypeSpecifier::class);
     }
     /**
      * @api
      */
-    public function createScopeFactory() : \RectorPrefix20201227\PHPStan\Analyser\ScopeFactory
+    public function createScopeFactory() : \PHPStan\Analyser\ScopeFactory
     {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\Analyser\ScopeFactory::class);
+        return $this->container->getByType(\PHPStan\Analyser\ScopeFactory::class);
     }
     /**
      * @api
      */
-    public function createDependencyResolver() : \RectorPrefix20201227\PHPStan\Dependency\DependencyResolver
+    public function createDependencyResolver() : \PHPStan\Dependency\DependencyResolver
     {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\Dependency\DependencyResolver::class);
+        return $this->container->getByType(\PHPStan\Dependency\DependencyResolver::class);
     }
     /**
      * @api
      */
-    public function createFileHelper() : \RectorPrefix20201227\PHPStan\File\FileHelper
+    public function createFileHelper() : \PHPStan\File\FileHelper
     {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\File\FileHelper::class);
+        return $this->container->getByType(\PHPStan\File\FileHelper::class);
     }
     /**
      * @api
      */
-    public function createOperatorTypeSpecifyingExtensionRegistryProvider() : \RectorPrefix20201227\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
+    public function createOperatorTypeSpecifyingExtensionRegistryProvider() : \PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider
     {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider::class);
+        return $this->container->getByType(\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider::class);
     }
     /**
      * @api
      */
-    public function createTypeNodeResolver() : \RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver
+    public function createTypeNodeResolver() : \PHPStan\PhpDoc\TypeNodeResolver
     {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver::class);
+        return $this->container->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class);
     }
 }

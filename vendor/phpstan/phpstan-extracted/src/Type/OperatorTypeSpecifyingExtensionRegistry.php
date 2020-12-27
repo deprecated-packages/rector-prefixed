@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\Broker\Broker;
-use RectorPrefix20201227\PHPStan\Reflection\BrokerAwareExtension;
+use PHPStan\Broker\Broker;
+use PHPStan\Reflection\BrokerAwareExtension;
 class OperatorTypeSpecifyingExtensionRegistry
 {
     /** @var OperatorTypeSpecifyingExtension[] */
@@ -12,10 +12,10 @@ class OperatorTypeSpecifyingExtensionRegistry
     /**
      * @param \PHPStan\Type\OperatorTypeSpecifyingExtension[] $extensions
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Broker\Broker $broker, array $extensions)
+    public function __construct(\PHPStan\Broker\Broker $broker, array $extensions)
     {
         foreach ($extensions as $extension) {
-            if (!$extension instanceof \RectorPrefix20201227\PHPStan\Reflection\BrokerAwareExtension) {
+            if (!$extension instanceof \PHPStan\Reflection\BrokerAwareExtension) {
                 continue;
             }
             $extension->setBroker($broker);

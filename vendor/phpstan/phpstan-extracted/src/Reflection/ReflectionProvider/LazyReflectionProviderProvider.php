@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+namespace PHPStan\Reflection\ReflectionProvider;
 
-use RectorPrefix20201227\PHPStan\DependencyInjection\Container;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
-class LazyReflectionProviderProvider implements \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider
+use PHPStan\DependencyInjection\Container;
+use PHPStan\Reflection\ReflectionProvider;
+class LazyReflectionProviderProvider implements \PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider
 {
     /** @var Container */
     private $container;
-    public function __construct(\RectorPrefix20201227\PHPStan\DependencyInjection\Container $container)
+    public function __construct(\PHPStan\DependencyInjection\Container $container)
     {
         $this->container = $container;
     }
-    public function getReflectionProvider() : \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider
+    public function getReflectionProvider() : \PHPStan\Reflection\ReflectionProvider
     {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider::class);
+        return $this->container->getByType(\PHPStan\Reflection\ReflectionProvider::class);
     }
 }

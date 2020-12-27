@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Command\ErrorFormatter;
+namespace PHPStan\Command\ErrorFormatter;
 
-use RectorPrefix20201227\PHPStan\Command\AnalyseCommand;
-use RectorPrefix20201227\PHPStan\Command\AnalysisResult;
-use RectorPrefix20201227\PHPStan\Command\Output;
-use RectorPrefix20201227\PHPStan\File\RelativePathHelper;
-class TableErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\ErrorFormatter\ErrorFormatter
+use PHPStan\Command\AnalyseCommand;
+use PHPStan\Command\AnalysisResult;
+use PHPStan\Command\Output;
+use PHPStan\File\RelativePathHelper;
+class TableErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 {
     /** @var RelativePathHelper */
     private $relativePathHelper;
     /** @var bool */
     private $showTipsOfTheDay;
-    public function __construct(\RectorPrefix20201227\PHPStan\File\RelativePathHelper $relativePathHelper, bool $showTipsOfTheDay)
+    public function __construct(\PHPStan\File\RelativePathHelper $relativePathHelper, bool $showTipsOfTheDay)
     {
         $this->relativePathHelper = $relativePathHelper;
         $this->showTipsOfTheDay = $showTipsOfTheDay;
     }
-    public function formatErrors(\RectorPrefix20201227\PHPStan\Command\AnalysisResult $analysisResult, \RectorPrefix20201227\PHPStan\Command\Output $output) : int
+    public function formatErrors(\PHPStan\Command\AnalysisResult $analysisResult, \PHPStan\Command\Output $output) : int
     {
         $projectConfigFile = 'phpstan.neon';
         if ($analysisResult->getProjectConfigFile() !== null) {
@@ -30,7 +30,7 @@ class TableErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\Error
             if ($this->showTipsOfTheDay) {
                 if ($analysisResult->isDefaultLevelUsed()) {
                     $output->writeLineFormatted('💡 Tip of the Day:');
-                    $output->writeLineFormatted(\sprintf("PHPStan is performing only the most basic checks.\nYou can pass a higher rule level through the <fg=cyan>--%s</> option\n(the default and current level is %d) to analyse code more thoroughly.", \RectorPrefix20201227\PHPStan\Command\AnalyseCommand::OPTION_LEVEL, \RectorPrefix20201227\PHPStan\Command\AnalyseCommand::DEFAULT_LEVEL));
+                    $output->writeLineFormatted(\sprintf("PHPStan is performing only the most basic checks.\nYou can pass a higher rule level through the <fg=cyan>--%s</> option\n(the default and current level is %d) to analyse code more thoroughly.", \PHPStan\Command\AnalyseCommand::OPTION_LEVEL, \PHPStan\Command\AnalyseCommand::DEFAULT_LEVEL));
                     $output->writeLineFormatted('');
                 }
             }

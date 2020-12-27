@@ -4,10 +4,10 @@ declare (strict_types=1);
 namespace PHPStan\Type\Php;
 
 use PhpParser\Node\Expr\FuncCall;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
-use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ClassStringType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -18,17 +18,17 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->reflectionProvider = $reflectionProvider;
     }
-    public function isFunctionSupported(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
+    public function isFunctionSupported(\PHPStan\Reflection\FunctionReflection $functionReflection) : bool
     {
         return $functionReflection->getName() === 'get_parent_class';
     }
-    public function getTypeFromFunctionCall(\RectorPrefix20201227\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
+    public function getTypeFromFunctionCall(\PHPStan\Reflection\FunctionReflection $functionReflection, \PhpParser\Node\Expr\FuncCall $functionCall, \PHPStan\Analyser\Scope $scope) : \PHPStan\Type\Type
     {
-        $defaultReturnType = \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+        $defaultReturnType = \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
         if (\count($functionCall->args) === 0) {
             if ($scope->isInTrait()) {
                 return $defaultReturnType;
@@ -63,7 +63,7 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
         }
         return $this->findParentClassType($this->reflectionProvider->getClass($className));
     }
-    private function findParentClassType(\RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection) : \PHPStan\Type\Type
+    private function findParentClassType(\PHPStan\Reflection\ClassReflection $classReflection) : \PHPStan\Type\Type
     {
         $parentClass = $classReflection->getParentClass();
         if ($parentClass === \false) {

@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace PHPStan\Type;
 
-use RectorPrefix20201227\PHPStan\Analyser\OutOfClassScope;
-use RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer;
-use RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParameterReflection;
-use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor;
-use RectorPrefix20201227\PHPStan\TrinaryLogic;
+use PHPStan\Analyser\OutOfClassScope;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\ParameterReflection;
+use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeVariance;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
@@ -16,7 +16,7 @@ use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 use PHPStan\Type\Traits\UndecidedComparisonCompoundTypeTrait;
-class CallableType implements \PHPStan\Type\CompoundType, \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor
+class CallableType implements \PHPStan\Type\CompoundType, \PHPStan\Reflection\ParametersAcceptor
 {
     use MaybeIterableTypeTrait;
     use MaybeObjectTypeTrait;
@@ -50,18 +50,18 @@ class CallableType implements \PHPStan\Type\CompoundType, \RectorPrefix20201227\
     {
         return [];
     }
-    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function accepts(\PHPStan\Type\Type $type, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         if ($type instanceof \PHPStan\Type\CompoundType && !$type instanceof self) {
             return \PHPStan\Type\CompoundTypeHelper::accepts($type, $this, $strictTypes);
         }
         return $this->isSuperTypeOfInternal($type, \true);
     }
-    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSuperTypeOf(\PHPStan\Type\Type $type) : \PHPStan\TrinaryLogic
     {
         return $this->isSuperTypeOfInternal($type, \false);
     }
-    private function isSuperTypeOfInternal(\PHPStan\Type\Type $type, bool $treatMixedAsAny) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    private function isSuperTypeOfInternal(\PHPStan\Type\Type $type, bool $treatMixedAsAny) : \PHPStan\TrinaryLogic
     {
         $isCallable = $type->isCallable();
         if ($isCallable->no() || $this->isCommonCallable) {
@@ -69,7 +69,7 @@ class CallableType implements \PHPStan\Type\CompoundType, \RectorPrefix20201227\
         }
         static $scope;
         if ($scope === null) {
-            $scope = new \RectorPrefix20201227\PHPStan\Analyser\OutOfClassScope();
+            $scope = new \PHPStan\Analyser\OutOfClassScope();
         }
         $variantsResult = null;
         foreach ($type->getCallableParametersAcceptors($scope) as $variant) {
@@ -81,18 +81,18 @@ class CallableType implements \PHPStan\Type\CompoundType, \RectorPrefix20201227\
             }
         }
         if ($variantsResult === null) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $isCallable->and($variantsResult);
     }
-    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isSubTypeOf(\PHPStan\Type\Type $otherType) : \PHPStan\TrinaryLogic
     {
         if ($otherType instanceof \PHPStan\Type\IntersectionType || $otherType instanceof \PHPStan\Type\UnionType) {
             return $otherType->isSuperTypeOf($this);
         }
-        return $otherType->isCallable()->and($otherType instanceof self ? \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes() : \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe());
+        return $otherType->isCallable()->and($otherType instanceof self ? \PHPStan\TrinaryLogic::createYes() : \PHPStan\TrinaryLogic::createMaybe());
     }
-    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isAcceptedBy(\PHPStan\Type\Type $acceptingType, bool $strictTypes) : \PHPStan\TrinaryLogic
     {
         return $this->isSubTypeOf($acceptingType);
     }
@@ -105,20 +105,20 @@ class CallableType implements \PHPStan\Type\CompoundType, \RectorPrefix20201227\
         return $level->handle(static function () : string {
             return 'callable';
         }, function () use($level) : string {
-            return \sprintf('callable(%s): %s', \implode(', ', \array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection $param) use($level) : string {
+            return \sprintf('callable(%s): %s', \implode(', ', \array_map(static function (\PHPStan\Reflection\Native\NativeParameterReflection $param) use($level) : string {
                 return \sprintf('%s%s', $param->isVariadic() ? '...' : '', $param->getType()->describe($level));
             }, $this->getParameters())), $this->returnType->describe($level));
         });
     }
-    public function isCallable() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isCallable() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createYes();
+        return \PHPStan\TrinaryLogic::createYes();
     }
     /**
      * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
      * @return \PHPStan\Reflection\ParametersAcceptor[]
      */
-    public function getCallableParametersAcceptors(\RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
+    public function getCallableParametersAcceptors(\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : array
     {
         return [$this];
     }
@@ -173,14 +173,14 @@ class CallableType implements \PHPStan\Type\CompoundType, \RectorPrefix20201227\
         if ($receivedType->isCallable()->no()) {
             return \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         }
-        $parametersAcceptors = $receivedType->getCallableParametersAcceptors(new \RectorPrefix20201227\PHPStan\Analyser\OutOfClassScope());
+        $parametersAcceptors = $receivedType->getCallableParametersAcceptors(new \PHPStan\Analyser\OutOfClassScope());
         $typeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         foreach ($parametersAcceptors as $parametersAcceptor) {
             $typeMap = $typeMap->union($this->inferTemplateTypesOnParametersAcceptor($receivedType, $parametersAcceptor));
         }
         return $typeMap;
     }
-    private function inferTemplateTypesOnParametersAcceptor(\PHPStan\Type\Type $receivedType, \RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : \PHPStan\Type\Generic\TemplateTypeMap
+    private function inferTemplateTypesOnParametersAcceptor(\PHPStan\Type\Type $receivedType, \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor) : \PHPStan\Type\Generic\TemplateTypeMap
     {
         $typeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         $args = $parametersAcceptor->getParameters();
@@ -208,19 +208,19 @@ class CallableType implements \PHPStan\Type\CompoundType, \RectorPrefix20201227\
         if ($this->isCommonCallable) {
             return $this;
         }
-        $parameters = \array_map(static function (\RectorPrefix20201227\PHPStan\Reflection\ParameterReflection $param) use($cb) : NativeParameterReflection {
+        $parameters = \array_map(static function (\PHPStan\Reflection\ParameterReflection $param) use($cb) : NativeParameterReflection {
             $defaultValue = $param->getDefaultValue();
-            return new \RectorPrefix20201227\PHPStan\Reflection\Native\NativeParameterReflection($param->getName(), $param->isOptional(), $cb($param->getType()), $param->passedByReference(), $param->isVariadic(), $defaultValue !== null ? $cb($defaultValue) : null);
+            return new \PHPStan\Reflection\Native\NativeParameterReflection($param->getName(), $param->isOptional(), $cb($param->getType()), $param->passedByReference(), $param->isVariadic(), $defaultValue !== null ? $cb($defaultValue) : null);
         }, $this->getParameters());
         return new self($parameters, $cb($this->getReturnType()), $this->isVariadic());
     }
-    public function isArray() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isArray() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createMaybe();
+        return \PHPStan\TrinaryLogic::createMaybe();
     }
-    public function isNumericString() : \RectorPrefix20201227\PHPStan\TrinaryLogic
+    public function isNumericString() : \PHPStan\TrinaryLogic
     {
-        return \RectorPrefix20201227\PHPStan\TrinaryLogic::createNo();
+        return \PHPStan\TrinaryLogic::createNo();
     }
     /**
      * @param mixed[] $properties

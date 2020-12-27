@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection\BetterReflection\Reflector;
+namespace PHPStan\Reflection\BetterReflection\Reflector;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
-final class MemoizingClassReflector extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
+final class MemoizingClassReflector extends \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector
 {
     /** @var array<string, \Roave\BetterReflection\Reflection\ReflectionClass|\Throwable> */
     private $reflections = [];
@@ -16,7 +16,7 @@ final class MemoizingClassReflector extends \RectorPrefix20201227\_HumbugBox221a
      *
      * @throws \Roave\BetterReflection\Reflector\Exception\IdentifierNotFound
      */
-    public function reflect(string $className) : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $className) : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         $lowerClassName = \strtolower($className);
         if (isset($this->reflections[$lowerClassName])) {

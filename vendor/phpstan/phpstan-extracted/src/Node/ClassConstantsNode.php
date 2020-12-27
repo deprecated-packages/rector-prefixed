@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Node;
+namespace PHPStan\Node;
 
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\NodeAbstract;
-use RectorPrefix20201227\PHPStan\Node\Constant\ClassConstantFetch;
-class ClassConstantsNode extends \PhpParser\NodeAbstract implements \RectorPrefix20201227\PHPStan\Node\VirtualNode
+use PHPStan\Node\Constant\ClassConstantFetch;
+class ClassConstantsNode extends \PhpParser\NodeAbstract implements \PHPStan\Node\VirtualNode
 {
     /** @var ClassLike */
     private $class;

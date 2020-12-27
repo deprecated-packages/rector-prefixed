@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules\Comparison;
+namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\FuncCall>
  */
-class ImpossibleCheckTypeFunctionCallRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
+class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 {
     /** @var \PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper */
     private $impossibleCheckTypeHelper;
@@ -17,7 +17,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \RectorPrefix20201227\PHPSt
     private $checkAlwaysTrueCheckTypeFunctionCall;
     /** @var bool */
     private $treatPhpDocTypesAsCertain;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $checkAlwaysTrueCheckTypeFunctionCall, bool $treatPhpDocTypesAsCertain)
+    public function __construct(\PHPStan\Rules\Comparison\ImpossibleCheckTypeHelper $impossibleCheckTypeHelper, bool $checkAlwaysTrueCheckTypeFunctionCall, bool $treatPhpDocTypesAsCertain)
     {
         $this->impossibleCheckTypeHelper = $impossibleCheckTypeHelper;
         $this->checkAlwaysTrueCheckTypeFunctionCall = $checkAlwaysTrueCheckTypeFunctionCall;
@@ -27,7 +27,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \RectorPrefix20201227\PHPSt
     {
         return \PhpParser\Node\Expr\FuncCall::class;
     }
-    public function processNode(\PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\Scope $scope) : array
+    public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope) : array
     {
         if (!$node->name instanceof \PhpParser\Node\Name) {
             return [];
@@ -40,7 +40,7 @@ class ImpossibleCheckTypeFunctionCallRule implements \RectorPrefix20201227\PHPSt
         if ($isAlways === null) {
             return [];
         }
-        $addTip = function (\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
+        $addTip = function (\PHPStan\Rules\RuleErrorBuilder $ruleErrorBuilder) use($scope, $node) : RuleErrorBuilder {
             if (!$this->treatPhpDocTypesAsCertain) {
                 return $ruleErrorBuilder;
             }
@@ -51,9 +51,9 @@ class ImpossibleCheckTypeFunctionCallRule implements \RectorPrefix20201227\PHPSt
             return $ruleErrorBuilder->tip('Because the type is coming from a PHPDoc, you can turn off this check by setting <fg=cyan>treatPhpDocTypesAsCertain: false</> in your <fg=cyan>%configurationFile%</>.');
         };
         if (!$isAlways) {
-            return [$addTip(\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s()%s will always evaluate to false.', $functionName, $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
+            return [$addTip(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s()%s will always evaluate to false.', $functionName, $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
         } elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
-            return [$addTip(\RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s()%s will always evaluate to true.', $functionName, $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
+            return [$addTip(\PHPStan\Rules\RuleErrorBuilder::message(\sprintf('Call to function %s()%s will always evaluate to true.', $functionName, $this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args))))->build()];
         }
         return [];
     }

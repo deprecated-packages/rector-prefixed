@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\StaticTypeMapper\PhpDocParser;
 
 use PhpParser\Node;
-use RectorPrefix20201227\PHPStan\Analyser\NameScope;
+use PHPStan\Analyser\NameScope;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use PHPStan\Type\Type;
@@ -39,7 +39,7 @@ final class UnionTypeMapper implements \Rector\StaticTypeMapper\Contract\PhpDocP
     /**
      * @param UnionTypeNode $typeNode
      */
-    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \RectorPrefix20201227\PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
+    public function mapToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node, \PHPStan\Analyser\NameScope $nameScope) : \PHPStan\Type\Type
     {
         $unionedTypes = [];
         foreach ($typeNode->types as $unionedTypeNode) {

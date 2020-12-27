@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Rules;
+namespace PHPStan\Rules;
 
 use PhpParser\Node\Expr;
-use RectorPrefix20201227\PHPStan\Analyser\Scope;
-use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ErrorType;
@@ -32,7 +32,7 @@ class RuleLevelHelper
     private $checkUnionTypes;
     /** @var bool */
     private $checkExplicitMixed;
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkNullables, bool $checkThisOnly, bool $checkUnionTypes, bool $checkExplicitMixed = \false)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, bool $checkNullables, bool $checkThisOnly, bool $checkUnionTypes, bool $checkExplicitMixed = \false)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->checkNullables = $checkNullables;
@@ -73,10 +73,10 @@ class RuleLevelHelper
      * @param callable(Type $type): bool $unionTypeCriteriaCallback
      * @return FoundTypeResult
      */
-    public function findTypeToCheck(\RectorPrefix20201227\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $var, string $unknownClassErrorPattern, callable $unionTypeCriteriaCallback) : \RectorPrefix20201227\PHPStan\Rules\FoundTypeResult
+    public function findTypeToCheck(\PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $var, string $unknownClassErrorPattern, callable $unionTypeCriteriaCallback) : \PHPStan\Rules\FoundTypeResult
     {
         if ($this->checkThisOnly && !$this->isThis($var)) {
-            return new \RectorPrefix20201227\PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\ErrorType(), [], []);
+            return new \PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\ErrorType(), [], []);
         }
         $type = $scope->getType($var);
         if (!$this->checkNullables && !$type instanceof \PHPStan\Type\NullType) {
@@ -86,10 +86,10 @@ class RuleLevelHelper
             $type = $scope->getType($this->getNullsafeShortcircuitedExpr($var));
         }
         if ($this->checkExplicitMixed && $type instanceof \PHPStan\Type\MixedType && !$type instanceof \PHPStan\Type\Generic\TemplateMixedType && $type->isExplicitMixed()) {
-            return new \RectorPrefix20201227\PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\StrictMixedType(), [], []);
+            return new \PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\StrictMixedType(), [], []);
         }
         if ($type instanceof \PHPStan\Type\MixedType || $type instanceof \PHPStan\Type\NeverType) {
-            return new \RectorPrefix20201227\PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\ErrorType(), [], []);
+            return new \PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\ErrorType(), [], []);
         }
         if ($type instanceof \PHPStan\Type\StaticType) {
             $type = $type->getStaticObjectType();
@@ -108,14 +108,14 @@ class RuleLevelHelper
                 $hasClassExistsClass = \true;
                 continue;
             }
-            $errors[] = \RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder::message(\sprintf($unknownClassErrorPattern, $referencedClass))->line($var->getLine())->discoveringSymbolsTip()->build();
+            $errors[] = \PHPStan\Rules\RuleErrorBuilder::message(\sprintf($unknownClassErrorPattern, $referencedClass))->line($var->getLine())->discoveringSymbolsTip()->build();
         }
         if (\count($errors) > 0 || $hasClassExistsClass) {
-            return new \RectorPrefix20201227\PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\ErrorType(), [], $errors);
+            return new \PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\ErrorType(), [], $errors);
         }
         if (!$this->checkUnionTypes) {
             if ($type instanceof \PHPStan\Type\ObjectWithoutClassType) {
-                return new \RectorPrefix20201227\PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\ErrorType(), [], []);
+                return new \PHPStan\Rules\FoundTypeResult(new \PHPStan\Type\ErrorType(), [], []);
             }
             if ($type instanceof \PHPStan\Type\UnionType) {
                 $newTypes = [];
@@ -126,11 +126,11 @@ class RuleLevelHelper
                     $newTypes[] = $innerType;
                 }
                 if (\count($newTypes) > 0) {
-                    return new \RectorPrefix20201227\PHPStan\Rules\FoundTypeResult(\PHPStan\Type\TypeCombinator::union(...$newTypes), $directClassNames, []);
+                    return new \PHPStan\Rules\FoundTypeResult(\PHPStan\Type\TypeCombinator::union(...$newTypes), $directClassNames, []);
                 }
             }
         }
-        return new \RectorPrefix20201227\PHPStan\Rules\FoundTypeResult($type, $directClassNames, []);
+        return new \PHPStan\Rules\FoundTypeResult($type, $directClassNames, []);
     }
     private function getNullsafeShortcircuitedExpr(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
     {

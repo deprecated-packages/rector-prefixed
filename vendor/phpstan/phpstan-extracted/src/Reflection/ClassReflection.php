@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PHPStan\Reflection;
+namespace PHPStan\Reflection;
 
 use Attribute;
-use RectorPrefix20201227\PHPStan\Php\PhpVersion;
-use RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\ExtendsTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\ImplementsTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\MethodTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\MixinTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\PropertyTag;
-use RectorPrefix20201227\PHPStan\PhpDoc\Tag\TemplateTag;
-use RectorPrefix20201227\PHPStan\Reflection\Php\PhpClassReflectionExtension;
-use RectorPrefix20201227\PHPStan\Reflection\Php\PhpPropertyReflection;
+use PHPStan\Php\PhpVersion;
+use PHPStan\PhpDoc\ResolvedPhpDocBlock;
+use PHPStan\PhpDoc\Tag\ExtendsTag;
+use PHPStan\PhpDoc\Tag\ImplementsTag;
+use PHPStan\PhpDoc\Tag\MethodTag;
+use PHPStan\PhpDoc\Tag\MixinTag;
+use PHPStan\PhpDoc\Tag\PropertyTag;
+use PHPStan\PhpDoc\Tag\TemplateTag;
+use PHPStan\Reflection\Php\PhpClassReflectionExtension;
+use PHPStan\Reflection\Php\PhpPropertyReflection;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\GenericObjectType;
@@ -24,8 +24,8 @@ use PHPStan\Type\Generic\TemplateTypeScope;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 use ReflectionMethod;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
-class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\ReflectionWithFilename
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+class ClassReflection implements \PHPStan\Reflection\ReflectionWithFilename
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
     private $reflectionProvider;
@@ -88,7 +88,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
      * @param ResolvedPhpDocBlock|null $stubPhpDocBlock
      * @param string|null $extraCacheKey
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion, array $propertiesClassReflectionExtensions, array $methodsClassReflectionExtensions, string $displayName, \ReflectionClass $reflection, ?string $anonymousFilename, ?\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, ?\RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock $stubPhpDocBlock, ?string $extraCacheKey = null)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, array $propertiesClassReflectionExtensions, array $methodsClassReflectionExtensions, string $displayName, \ReflectionClass $reflection, ?string $anonymousFilename, ?\PHPStan\Type\Generic\TemplateTypeMap $resolvedTemplateTypeMap, ?\PHPStan\PhpDoc\ResolvedPhpDocBlock $stubPhpDocBlock, ?string $extraCacheKey = null)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->fileTypeMapper = $fileTypeMapper;
@@ -279,7 +279,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
         }
         return \false;
     }
-    public function getMethod(string $methodName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function getMethod(string $methodName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\MethodReflection
     {
         $key = $methodName;
         if ($scope->isInClass()) {
@@ -298,7 +298,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
             }
         }
         if (!isset($this->methods[$key])) {
-            throw new \RectorPrefix20201227\PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
+            throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
         }
         return $this->methods[$key];
     }
@@ -306,10 +306,10 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
     {
         return $this->getPhpExtension()->hasNativeMethod($this, $methodName);
     }
-    public function getNativeMethod(string $methodName) : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function getNativeMethod(string $methodName) : \PHPStan\Reflection\MethodReflection
     {
         if (!$this->hasNativeMethod($methodName)) {
-            throw new \RectorPrefix20201227\PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
+            throw new \PHPStan\Reflection\MissingMethodFromReflectionException($this->getName(), $methodName);
         }
         return $this->getPhpExtension()->getNativeMethod($this, $methodName);
     }
@@ -328,11 +328,11 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
     {
         return $this->findConstructor() !== null;
     }
-    public function getConstructor() : \RectorPrefix20201227\PHPStan\Reflection\MethodReflection
+    public function getConstructor() : \PHPStan\Reflection\MethodReflection
     {
         $constructor = $this->findConstructor();
         if ($constructor === null) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $this->getNativeMethod($constructor->getName());
     }
@@ -350,15 +350,15 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
         }
         return $constructor;
     }
-    private function getPhpExtension() : \RectorPrefix20201227\PHPStan\Reflection\Php\PhpClassReflectionExtension
+    private function getPhpExtension() : \PHPStan\Reflection\Php\PhpClassReflectionExtension
     {
         $extension = $this->methodsClassReflectionExtensions[0];
-        if (!$extension instanceof \RectorPrefix20201227\PHPStan\Reflection\Php\PhpClassReflectionExtension) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+        if (!$extension instanceof \PHPStan\Reflection\Php\PhpClassReflectionExtension) {
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $extension;
     }
-    public function getProperty(string $propertyName, \RectorPrefix20201227\PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \RectorPrefix20201227\PHPStan\Reflection\PropertyReflection
+    public function getProperty(string $propertyName, \PHPStan\Reflection\ClassMemberAccessAnswerer $scope) : \PHPStan\Reflection\PropertyReflection
     {
         $key = $propertyName;
         if ($scope->isInClass()) {
@@ -377,7 +377,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
             }
         }
         if (!isset($this->properties[$key])) {
-            throw new \RectorPrefix20201227\PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
+            throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
         }
         return $this->properties[$key];
     }
@@ -385,10 +385,10 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
     {
         return $this->getPhpExtension()->hasProperty($this, $propertyName);
     }
-    public function getNativeProperty(string $propertyName) : \RectorPrefix20201227\PHPStan\Reflection\Php\PhpPropertyReflection
+    public function getNativeProperty(string $propertyName) : \PHPStan\Reflection\Php\PhpPropertyReflection
     {
         if (!$this->hasNativeProperty($propertyName)) {
-            throw new \RectorPrefix20201227\PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
+            throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName);
         }
         return $this->getPhpExtension()->getNativeProperty($this, $propertyName);
     }
@@ -535,12 +535,12 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
         }
         return $this->reflectionProvider->hasClass($reflectionConstant->getDeclaringClass()->getName());
     }
-    public function getConstant(string $name) : \RectorPrefix20201227\PHPStan\Reflection\ConstantReflection
+    public function getConstant(string $name) : \PHPStan\Reflection\ConstantReflection
     {
         if (!isset($this->constants[$name])) {
             $reflectionConstant = $this->getNativeReflection()->getReflectionConstant($name);
             if ($reflectionConstant === \false) {
-                throw new \RectorPrefix20201227\PHPStan\Reflection\MissingConstantFromReflectionException($this->getName(), $name);
+                throw new \PHPStan\Reflection\MissingConstantFromReflectionException($this->getName(), $name);
             }
             $deprecatedDescription = null;
             $isDeprecated = \false;
@@ -554,7 +554,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
                 $isDeprecated = $resolvedPhpDoc->isDeprecated();
                 $isInternal = $resolvedPhpDoc->isInternal();
             }
-            $this->constants[$name] = new \RectorPrefix20201227\PHPStan\Reflection\ClassConstantReflection($this->reflectionProvider->getClass($reflectionConstant->getDeclaringClass()->getName()), $reflectionConstant, $deprecatedDescription, $isDeprecated, $isInternal);
+            $this->constants[$name] = new \PHPStan\Reflection\ClassConstantReflection($this->reflectionProvider->getClass($reflectionConstant->getDeclaringClass()->getName()), $reflectionConstant, $deprecatedDescription, $isDeprecated, $isInternal);
         }
         return $this->constants[$name];
     }
@@ -626,7 +626,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
         if ($this->isInterface() || $this->isTrait()) {
             return null;
         }
-        if ($this->reflection instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass) {
+        if ($this->reflection instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass) {
             foreach ($this->reflection->getBetterReflection()->getAttributes() as $attribute) {
                 if ($attribute->getName() === \Attribute::class) {
                     /** @var \Attribute */
@@ -649,7 +649,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
     {
         $attribute = $this->findAttributeClass();
         if ($attribute === null) {
-            throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
+            throw new \PHPStan\ShouldNotHappenException();
         }
         return $attribute->flags;
     }
@@ -663,7 +663,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
             $this->templateTypeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
             return $this->templateTypeMap;
         }
-        $templateTypeMap = new \PHPStan\Type\Generic\TemplateTypeMap(\array_map(function (\RectorPrefix20201227\PHPStan\PhpDoc\Tag\TemplateTag $tag) : Type {
+        $templateTypeMap = new \PHPStan\Type\Generic\TemplateTypeMap(\array_map(function (\PHPStan\PhpDoc\Tag\TemplateTag $tag) : Type {
             return \PHPStan\Type\Generic\TemplateTypeFactory::fromTemplateTag(\PHPStan\Type\Generic\TemplateTypeScope::createWithClass($this->getName()), $tag);
         }, $this->getTemplateTags()));
         $this->templateTypeMap = $templateTypeMap;
@@ -718,7 +718,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
     {
         return new self($this->reflectionProvider, $this->fileTypeMapper, $this->phpVersion, $this->propertiesClassReflectionExtensions, $this->methodsClassReflectionExtensions, $this->displayName, $this->reflection, $this->anonymousFilename, $this->typeMapFromList($types), $this->stubPhpDocBlock);
     }
-    private function getResolvedPhpDoc() : ?\RectorPrefix20201227\PHPStan\PhpDoc\ResolvedPhpDocBlock
+    private function getResolvedPhpDoc() : ?\PHPStan\PhpDoc\ResolvedPhpDocBlock
     {
         if ($this->stubPhpDocBlock !== null) {
             return $this->stubPhpDocBlock;
@@ -733,7 +733,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
         }
         return $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, null, $docComment);
     }
-    private function getFirstExtendsTag() : ?\RectorPrefix20201227\PHPStan\PhpDoc\Tag\ExtendsTag
+    private function getFirstExtendsTag() : ?\PHPStan\PhpDoc\Tag\ExtendsTag
     {
         foreach ($this->getExtendsTags() as $tag) {
             return $tag;
@@ -775,7 +775,7 @@ class ClassReflection implements \RectorPrefix20201227\PHPStan\Reflection\Reflec
         $ancestors = $this->ancestors;
         if ($ancestors === null) {
             $ancestors = [$this->getName() => $this];
-            $addToAncestors = static function (string $name, \RectorPrefix20201227\PHPStan\Reflection\ClassReflection $classReflection) use(&$ancestors) : void {
+            $addToAncestors = static function (string $name, \PHPStan\Reflection\ClassReflection $classReflection) use(&$ancestors) : void {
                 if (\array_key_exists($name, $ancestors)) {
                     return;
                 }
