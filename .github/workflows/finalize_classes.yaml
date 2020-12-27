@@ -25,7 +25,7 @@ jobs:
                     mkdir standalone
                     cd standalone
                     # wait for deploy to packagist
-                    sleep 60
+                    sleep 45
 
             -   run: |
                     cd standalone

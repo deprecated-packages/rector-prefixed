@@ -6,6 +6,6 @@
 
 require_once __DIR__ . '/composer/autoload_real.php';
 
-$loader = ComposerAutoloaderInita14ef6cce15a9f98d26a58ac81d1847b__unique_rector::getLoader();
+$loader = ComposerAutoloaderInita14ef6cce15a9f98d26a58ac81d1847b::getLoader();
 
 return $loader;

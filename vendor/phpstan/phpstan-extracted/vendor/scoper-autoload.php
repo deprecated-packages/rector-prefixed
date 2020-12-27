@@ -72,8 +72,8 @@ if (!class_exists('Twig_Extension_Sandbox', false) && !interface_exists('Twig_Ex
 if (!class_exists('EventDispatcher', false) && !interface_exists('EventDispatcher', false) && !trait_exists('EventDispatcher', false)) {
     spl_autoload_call('RectorPrefix20201227\EventDispatcher');
 }
-if (!class_exists('ComposerAutoloaderInit5f4701bc9c48e543943c6ec2e2b324b5__unique_rector', false) && !interface_exists('ComposerAutoloaderInit5f4701bc9c48e543943c6ec2e2b324b5__unique_rector', false) && !trait_exists('ComposerAutoloaderInit5f4701bc9c48e543943c6ec2e2b324b5__unique_rector', false)) {
-    spl_autoload_call('RectorPrefix20201227\ComposerAutoloaderInit5f4701bc9c48e543943c6ec2e2b324b5__unique_rector');
+if (!class_exists('ComposerAutoloaderInit0ddaf81b2c6f7c8feec66e7bc9c6eaad', false) && !interface_exists('ComposerAutoloaderInit0ddaf81b2c6f7c8feec66e7bc9c6eaad', false) && !trait_exists('ComposerAutoloaderInit0ddaf81b2c6f7c8feec66e7bc9c6eaad', false)) {
+    spl_autoload_call('RectorPrefix20201227\ComposerAutoloaderInit0ddaf81b2c6f7c8feec66e7bc9c6eaad');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
     spl_autoload_call('RectorPrefix20201227\Doctrine\Inflector\Inflector');
@@ -105,9 +105,9 @@ if (!class_exists('ValueError', false) && !interface_exists('ValueError', false)
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire5f4701bc9c48e543943c6ec2e2b324b5__unique_rector')) {
-    function composerRequire5f4701bc9c48e543943c6ec2e2b324b5__unique_rector() {
-        return \RectorPrefix20201227\composerRequire5f4701bc9c48e543943c6ec2e2b324b5__unique_rector(...func_get_args());
+if (!function_exists('composerRequire0ddaf81b2c6f7c8feec66e7bc9c6eaad')) {
+    function composerRequire0ddaf81b2c6f7c8feec66e7bc9c6eaad() {
+        return \RectorPrefix20201227\composerRequire0ddaf81b2c6f7c8feec66e7bc9c6eaad(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {
