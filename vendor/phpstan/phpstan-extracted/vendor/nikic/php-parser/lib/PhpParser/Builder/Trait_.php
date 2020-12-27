@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PhpParser\Builder;
 
-use _HumbugBox221ad6f1b81f\PhpParser;
+use _HumbugBox221ad6f1b81f__UniqueRector\PhpParser;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Stmt;
 class Trait_ extends \PhpParser\Builder\Declaration

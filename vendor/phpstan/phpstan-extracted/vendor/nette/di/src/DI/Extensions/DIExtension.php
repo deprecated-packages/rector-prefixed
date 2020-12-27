@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Nette\DI\Extensions;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Extensions;
 
-use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
 /**
  * DI extension.
  */
-final class DIExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
+final class DIExtension extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\CompilerExtension
 {
     /** @var array */
     public $exportedTags = [];
@@ -45,7 +45,7 @@ final class DIExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtensi
             /** @var string[]|bool|null */
             public $types = \true;
         };
-        $this->config->debugger = \interface_exists(\_HumbugBox221ad6f1b81f\Tracy\IBarPanel::class);
+        $this->config->debugger = \interface_exists(\_HumbugBox221ad6f1b81f__UniqueRector\Tracy\IBarPanel::class);
     }
     public function loadConfiguration()
     {
@@ -58,7 +58,7 @@ final class DIExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtensi
             $this->getContainerBuilder()->parameters = [];
         }
     }
-    public function afterCompile(\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType $class)
+    public function afterCompile(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\ClassType $class)
     {
         if ($this->config->parentClass) {
             $class->setExtends($this->config->parentClass);
@@ -70,7 +70,7 @@ final class DIExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtensi
         }
         $this->initializeTaggedServices();
     }
-    private function restrictTags(\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType $class) : void
+    private function restrictTags(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\ClassType $class) : void
     {
         $option = $this->config->export->tags;
         if ($option === \true) {
@@ -80,7 +80,7 @@ final class DIExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtensi
             $prop->value = \array_intersect_key($prop->value, $this->exportedTags + \array_flip((array) $option));
         }
     }
-    private function restrictTypes(\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\ClassType $class) : void
+    private function restrictTypes(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\ClassType $class) : void
     {
         $option = $this->config->export->types;
         if ($option === \true) {
@@ -98,7 +98,7 @@ final class DIExtension extends \_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtensi
     }
     private function enableTracyIntegration() : void
     {
-        \_HumbugBox221ad6f1b81f\Nette\Bridges\DITracy\ContainerPanel::$compilationTime = $this->time;
-        $this->initialization->addBody($this->getContainerBuilder()->formatPhp('?;', [new \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement('@Tracy\\Bar::addPanel', [new \_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement(\_HumbugBox221ad6f1b81f\Nette\Bridges\DITracy\ContainerPanel::class)])]));
+        \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Bridges\DITracy\ContainerPanel::$compilationTime = $this->time;
+        $this->initialization->addBody($this->getContainerBuilder()->formatPhp('?;', [new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement('@Tracy\\Bar::addPanel', [new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Bridges\DITracy\ContainerPanel::class)])]));
     }
 }

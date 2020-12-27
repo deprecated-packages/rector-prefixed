@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Output;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output;
 
 /**
  * ConsoleOutputInterface is the interface implemented by ConsoleOutput class.
@@ -18,7 +18,7 @@ namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Output;
  *
  * @method ConsoleSectionOutput section() Creates a new output section
  */
-interface ConsoleOutputInterface extends \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface
+interface ConsoleOutputInterface extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface
 {
     /**
      * Gets the OutputInterface for errors.
@@ -26,5 +26,5 @@ interface ConsoleOutputInterface extends \_HumbugBox221ad6f1b81f\Symfony\Compone
      * @return OutputInterface
      */
     public function getErrorOutput();
-    public function setErrorOutput(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $error);
+    public function setErrorOutput(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface $error);
 }

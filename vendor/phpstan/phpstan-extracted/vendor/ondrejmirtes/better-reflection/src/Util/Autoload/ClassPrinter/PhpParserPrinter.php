@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Autoload\ClassPrinter;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Autoload\ClassPrinter;
 
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\PrettyPrinter\Standard as CodePrinter;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass;
-final class PhpParserPrinter implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass;
+final class PhpParserPrinter implements \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface
 {
-    public function __invoke(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass $classInfo) : string
+    public function __invoke(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass $classInfo) : string
     {
         $nodes = [];
         if ($classInfo->inNamespace()) {

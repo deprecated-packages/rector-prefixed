@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\Psr\Log;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Psr\Log;
 
 /**
  * Describes a logger-aware instance.
@@ -14,5 +14,5 @@ interface LoggerAwareInterface
      *
      * @return void
      */
-    public function setLogger(\_HumbugBox221ad6f1b81f\Psr\Log\LoggerInterface $logger);
+    public function setLogger(\_HumbugBox221ad6f1b81f__UniqueRector\Psr\Log\LoggerInterface $logger);
 }

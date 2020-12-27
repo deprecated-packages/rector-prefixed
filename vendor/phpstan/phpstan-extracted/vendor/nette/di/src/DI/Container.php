@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Nette\DI;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI;
 
-use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
 /**
  * The dependency injection container default implementation.
  */
@@ -50,15 +50,15 @@ class Container
     {
         $name = $this->aliases[$name] ?? $name;
         if (isset($this->instances[$name])) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidStateException("Service '{$name}' already exists.");
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidStateException("Service '{$name}' already exists.");
         } elseif (!\is_object($service)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException(\sprintf("Service '%s' must be a object, %s given.", $name, \gettype($service)));
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException(\sprintf("Service '%s' must be a object, %s given.", $name, \gettype($service)));
         }
         $type = $service instanceof \Closure ? ($tmp = (new \ReflectionFunction($service))->getReturnType()) ? $tmp->getName() : '' : \get_class($service);
         if (!isset($this->methods[self::getMethodName($name)])) {
             $this->types[$name] = $type;
         } elseif (($expectedType = $this->getServiceType($name)) && !\is_a($type, $expectedType, \true)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Service '{$name}' must be instance of {$expectedType}, " . ($type ? "{$type} given." : 'add typehint to closure.'));
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException("Service '{$name}' must be instance of {$expectedType}, " . ($type ? "{$type} given." : 'add typehint to closure.'));
         }
         if ($service instanceof \Closure) {
             $this->methods[self::getMethodName($name)] = $service;
@@ -115,7 +115,7 @@ class Container
             $type = (new \ReflectionMethod($this, $method))->getReturnType();
             return $type ? $type->getName() : '';
         } else {
-            throw new \_HumbugBox221ad6f1b81f\Nette\DI\MissingServiceException("Service '{$name}' not found.");
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\MissingServiceException("Service '{$name}' not found.");
         }
     }
     /**
@@ -132,7 +132,7 @@ class Container
     public function isCreated(string $name) : bool
     {
         if (!$this->hasService($name)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\DI\MissingServiceException("Service '{$name}' not found.");
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\MissingServiceException("Service '{$name}' not found.");
         }
         $name = $this->aliases[$name] ?? $name;
         return isset($this->instances[$name]);
@@ -148,9 +148,9 @@ class Container
         $method = self::getMethodName($name);
         $cb = $this->methods[$method] ?? null;
         if (isset($this->creating[$name])) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidStateException(\sprintf('Circular reference detected for services: %s.', \implode(', ', \array_keys($this->creating))));
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidStateException(\sprintf('Circular reference detected for services: %s.', \implode(', ', \array_keys($this->creating))));
         } elseif ($cb === null) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\DI\MissingServiceException("Service '{$name}' not found.");
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\MissingServiceException("Service '{$name}' not found.");
         }
         try {
             $this->creating[$name] = \true;
@@ -159,7 +159,7 @@ class Container
             unset($this->creating[$name]);
         }
         if (!\is_object($service)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\UnexpectedValueException("Unable to create service '{$name}', value returned by " . ($cb instanceof \Closure ? 'closure' : "method {$method}()") . ' is not object.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\UnexpectedValueException("Unable to create service '{$name}', value returned by " . ($cb instanceof \Closure ? 'closure' : "method {$method}()") . ' is not object.');
         }
         return $service;
     }
@@ -171,24 +171,24 @@ class Container
      */
     public function getByType(string $type, bool $throw = \true)
     {
-        $type = \_HumbugBox221ad6f1b81f\Nette\DI\Helpers::normalizeClass($type);
+        $type = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::normalizeClass($type);
         if (!empty($this->wiring[$type][0])) {
             if (\count($names = $this->wiring[$type][0]) === 1) {
                 return $this->getService($names[0]);
             }
             \natsort($names);
-            throw new \_HumbugBox221ad6f1b81f\Nette\DI\MissingServiceException("Multiple services of type {$type} found: " . \implode(', ', $names) . '.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\MissingServiceException("Multiple services of type {$type} found: " . \implode(', ', $names) . '.');
         } elseif ($throw) {
             if (!\class_exists($type) && !\interface_exists($type)) {
-                throw new \_HumbugBox221ad6f1b81f\Nette\DI\MissingServiceException("Service of type '{$type}' not found. Check class name because it cannot be found.");
+                throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\MissingServiceException("Service of type '{$type}' not found. Check class name because it cannot be found.");
             }
             foreach ($this->methods as $method => $foo) {
                 $methodType = (new \ReflectionMethod(\get_class($this), $method))->getReturnType()->getName();
                 if (\is_a($methodType, $type, \true)) {
-                    throw new \_HumbugBox221ad6f1b81f\Nette\DI\MissingServiceException("Service of type {$type} is not autowired or is missing in di › export › types.");
+                    throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\MissingServiceException("Service of type {$type} is not autowired or is missing in di › export › types.");
                 }
             }
-            throw new \_HumbugBox221ad6f1b81f\Nette\DI\MissingServiceException("Service of type {$type} not found. Did you add it to configuration file?");
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\MissingServiceException("Service of type {$type} not found. Did you add it to configuration file?");
         }
         return null;
     }
@@ -199,7 +199,7 @@ class Container
      */
     public function findAutowired(string $type) : array
     {
-        $type = \_HumbugBox221ad6f1b81f\Nette\DI\Helpers::normalizeClass($type);
+        $type = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::normalizeClass($type);
         return \array_merge($this->wiring[$type][0] ?? [], $this->wiring[$type][1] ?? []);
     }
     /**
@@ -208,7 +208,7 @@ class Container
      */
     public function findByType(string $type) : array
     {
-        $type = \_HumbugBox221ad6f1b81f\Nette\DI\Helpers::normalizeClass($type);
+        $type = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::normalizeClass($type);
         return empty($this->wiring[$type]) ? [] : \array_merge(...\array_values($this->wiring[$type]));
     }
     /**
@@ -229,11 +229,11 @@ class Container
     {
         $rc = new \ReflectionClass($class);
         if (!$rc->isInstantiable()) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Class {$class} is not instantiable.");
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\ServiceCreationException("Class {$class} is not instantiable.");
         } elseif ($constructor = $rc->getConstructor()) {
             return $rc->newInstanceArgs($this->autowireArguments($constructor, $args));
         } elseif ($args) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\DI\ServiceCreationException("Unable to pass arguments, class {$class} has no constructor.");
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\ServiceCreationException("Unable to pass arguments, class {$class} has no constructor.");
         }
         return new $class();
     }
@@ -243,7 +243,7 @@ class Container
      */
     public function callInjects($service) : void
     {
-        \_HumbugBox221ad6f1b81f\Nette\DI\Extensions\InjectExtension::callInjects($this, $service);
+        \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Extensions\InjectExtension::callInjects($this, $service);
     }
     /**
      * Calls method using autowiring.
@@ -251,18 +251,18 @@ class Container
      */
     public function callMethod(callable $function, array $args = [])
     {
-        return $function(...$this->autowireArguments(\_HumbugBox221ad6f1b81f\Nette\Utils\Callback::toReflection($function), $args));
+        return $function(...$this->autowireArguments(\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Callback::toReflection($function), $args));
     }
     private function autowireArguments(\ReflectionFunctionAbstract $function, array $args = []) : array
     {
-        return \_HumbugBox221ad6f1b81f\Nette\DI\Resolver::autowireArguments($function, $args, function (string $type, bool $single) {
+        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Resolver::autowireArguments($function, $args, function (string $type, bool $single) {
             return $single ? $this->getByType($type) : \array_map([$this, 'getService'], $this->findAutowired($type));
         });
     }
     public static function getMethodName(string $name) : string
     {
         if ($name === '') {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException('Service name must be a non-empty string.');
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException('Service name must be a non-empty string.');
         }
         return 'createService' . \str_replace('.', '__', \ucfirst($name));
     }

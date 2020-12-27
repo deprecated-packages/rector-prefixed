@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type;
 
 use InvalidArgumentException;
 use ReflectionClass;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Locator;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\EvaledLocatedSource;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Locator;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\EvaledLocatedSource;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
 use function class_exists;
 use function file_exists;
 use function interface_exists;
 use function trait_exists;
-final class EvaledCodeSourceLocator extends \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator
+final class EvaledCodeSourceLocator extends \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AbstractSourceLocator
 {
     /** @var SourceStubber */
     private $stubber;
-    public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $stubber)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $stubber)
     {
         parent::__construct($astLocator);
         $this->stubber = $stubber;
@@ -30,7 +30,7 @@ final class EvaledCodeSourceLocator extends \_HumbugBox221ad6f1b81f\Roave\Better
      * @throws InvalidArgumentException
      * @throws InvalidFileLocation
      */
-    protected function createLocatedSource(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    protected function createLocatedSource(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
         $classReflection = $this->getInternalReflectionClass($identifier);
         if ($classReflection === null) {
@@ -40,9 +40,9 @@ final class EvaledCodeSourceLocator extends \_HumbugBox221ad6f1b81f\Roave\Better
         if ($stubData === null) {
             return null;
         }
-        return new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\EvaledLocatedSource($stubData->getStub());
+        return new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\EvaledLocatedSource($stubData->getStub());
     }
-    private function getInternalReflectionClass(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\ReflectionClass
+    private function getInternalReflectionClass(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\ReflectionClass
     {
         if (!$identifier->isClass()) {
             return null;

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\CommandLoader;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\CommandLoader;
 
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command;
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\CommandNotFoundException;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Command\Command;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * @author Robin Chalas <robin.chalas@gmail.com>
  */

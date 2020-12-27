@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Exception;
 
 /**
  * Represents failure to read input from stdin.
  *
  * @author Gabriel Ostrolucký <gabriel.ostrolucky@gmail.com>
  */
-class MissingInputException extends \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\RuntimeException implements \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Exception\ExceptionInterface
+class MissingInputException extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Exception\RuntimeException implements \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Exception\ExceptionInterface
 {
 }

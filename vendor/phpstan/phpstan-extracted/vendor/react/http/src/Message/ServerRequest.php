@@ -1,13 +1,13 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Http\Message;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Message;
 
-use _HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
-use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
-use _HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface;
-use _HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream;
-use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
+use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\ServerRequestInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\UriInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\HttpBodyStream;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Request;
 /**
  * Respresents an incoming server request message.
  *
@@ -28,7 +28,7 @@ use _HumbugBox221ad6f1b81f\RingCentral\Psr7\Request;
  *
  * @see ServerRequestInterface
  */
-final class ServerRequest extends \_HumbugBox221ad6f1b81f\RingCentral\Psr7\Request implements \_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface
+final class ServerRequest extends \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Request implements \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\ServerRequestInterface
 {
     private $attributes = array();
     private $serverParams;
@@ -48,10 +48,10 @@ final class ServerRequest extends \_HumbugBox221ad6f1b81f\RingCentral\Psr7\Reque
     public function __construct($method, $url, array $headers = array(), $body = '', $version = '1.1', $serverParams = array())
     {
         $stream = null;
-        if ($body instanceof \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface && !$body instanceof \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
+        if ($body instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface && !$body instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface) {
             $stream = $body;
             $body = null;
-        } elseif (!\is_string($body) && !$body instanceof \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface) {
+        } elseif (!\is_string($body) && !$body instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface) {
             throw new \InvalidArgumentException('Invalid server request body given');
         }
         $this->serverParams = $serverParams;
@@ -61,7 +61,7 @@ final class ServerRequest extends \_HumbugBox221ad6f1b81f\RingCentral\Psr7\Reque
             if (\strtolower($this->getHeaderLine('Transfer-Encoding')) === 'chunked') {
                 $size = null;
             }
-            $this->stream = new \_HumbugBox221ad6f1b81f\React\Http\Io\HttpBodyStream($stream, $size);
+            $this->stream = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io\HttpBodyStream($stream, $size);
         }
         $query = $this->getUri()->getQuery();
         if ($query !== '') {

@@ -36,4 +36,5 @@ jobs:
             -
                 run: |
                     cd standalone
-                    vendor/bin/rector process -h --ansi
+                    vendor/bin/rector -h --ansi
+                    vendor/bin/phpstan -h --ansi

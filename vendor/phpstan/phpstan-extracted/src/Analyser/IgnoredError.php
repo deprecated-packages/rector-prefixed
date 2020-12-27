@@ -44,7 +44,7 @@ class IgnoredError
         $ignoredErrorPattern = \str_replace([\preg_quote('\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
         if ($path !== null) {
             $fileExcluder = new \PHPStan\File\FileExcluder($fileHelper, [$path], []);
-            if (\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
+            if (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
                 return \false;
             }
             $isExcluded = $fileExcluder->isExcludedFromAnalysing($error->getFilePath());
@@ -53,6 +53,6 @@ class IgnoredError
             }
             return $isExcluded;
         }
-        return \_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
+        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
     }
 }

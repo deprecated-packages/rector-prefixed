@@ -1,13 +1,13 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\Clue\React\NDJson;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
 /**
  * The Encoder / Serializer can be used to write any value, encode it as a JSON text and forward it to an output stream
  */
-class Encoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface
+class Encoder extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface
 {
     private $output;
     private $options;
@@ -20,7 +20,7 @@ class Encoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements 
      * @throws \InvalidArgumentException
      * @throws \BadMethodCallException
      */
-    public function __construct(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $output, $options = 0, $depth = 512)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $output, $options = 0, $depth = 512)
     {
         // @codeCoverageIgnoreStart
         if (\defined('JSON_PRETTY_PRINT') && $options & \JSON_PRETTY_PRINT) {

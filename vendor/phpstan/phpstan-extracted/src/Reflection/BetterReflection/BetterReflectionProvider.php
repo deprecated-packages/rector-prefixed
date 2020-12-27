@@ -24,17 +24,17 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
 {
     /** @var ReflectionProvider\ReflectionProviderProvider */
@@ -71,7 +71,7 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
     private $classReflections = [];
     /** @var \PHPStan\Reflection\ClassReflection[] */
     private static $anonymousClasses = [];
-    public function __construct(\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\File\RelativePathHelper $relativePathHelper, \PHPStan\Broker\AnonymousClassNameHelper $anonymousClassNameHelper, \PhpParser\PrettyPrinter\Standard $printer, \PHPStan\File\FileHelper $fileHelper, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector)
+    public function __construct(\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \PHPStan\Php\PhpVersion $phpVersion, \PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\File\RelativePathHelper $relativePathHelper, \PHPStan\Broker\AnonymousClassNameHelper $anonymousClassNameHelper, \PhpParser\PrettyPrinter\Standard $printer, \PHPStan\File\FileHelper $fileHelper, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector)
     {
         $this->reflectionProviderProvider = $reflectionProviderProvider;
         $this->classReflectionExtensionRegistryProvider = $classReflectionExtensionRegistryProvider;
@@ -96,9 +96,9 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
         try {
             $this->classReflector->reflect($className);
             return \true;
-        } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+        } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
             return \false;
-        } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
+        } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
             return \false;
         }
     }
@@ -109,14 +109,14 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
         }
         try {
             $reflectionClass = $this->classReflector->reflect($className);
-        } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+        } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
             throw new \PHPStan\Broker\ClassNotFoundException($className);
         }
         $reflectionClassName = \strtolower($reflectionClass->getName());
         if (\array_key_exists($reflectionClassName, $this->classReflections)) {
             return $this->classReflections[$reflectionClassName];
         }
-        $classReflection = new \PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $reflectionClass->getName(), new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), null, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
+        $classReflection = new \PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $reflectionClass->getName(), new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), null, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
         $this->classReflections[$reflectionClassName] = $classReflection;
         return $classReflection;
     }
@@ -155,8 +155,8 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
         if (isset(self::$anonymousClasses[$className])) {
             return self::$anonymousClasses[$className];
         }
-        $reflectionClass = \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromNode($this->classReflector, $classNode, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource($this->printer->prettyPrint([$classNode]), $scopeFile), null);
-        self::$anonymousClasses[$className] = new \PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), \sprintf('class@anonymous/%s:%s', $filename, $classNode->getLine()), new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), $scopeFile, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
+        $reflectionClass = \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass::createFromNode($this->classReflector, $classNode, new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource($this->printer->prettyPrint([$classNode]), $scopeFile), null);
+        self::$anonymousClasses[$className] = new \PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), \sprintf('class@anonymous/%s:%s', $filename, $classNode->getLine()), new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), $scopeFile, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
         $this->classReflections[$className] = self::$anonymousClasses[$className];
         return self::$anonymousClasses[$className];
     }
@@ -184,7 +184,7 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
     }
     private function getCustomFunction(string $functionName) : \PHPStan\Reflection\Php\PhpFunctionReflection
     {
-        $reflectionFunction = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction($this->functionReflector->reflect($functionName));
+        $reflectionFunction = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction($this->functionReflector->reflect($functionName));
         $templateTypeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         $phpDocParameterTags = [];
         $phpDocReturnTag = null;
@@ -219,9 +219,9 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
             try {
                 $this->functionReflector->reflect($name);
                 return \true;
-            } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 // pass
-            } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
+            } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
                 // pass
             }
             return \false;
@@ -242,7 +242,7 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
             $constantValue = $constantReflection->getValue();
             $constantValueType = \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($constantValue);
             $fileName = $constantReflection->getFileName();
-        } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
+        } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
             $constantValueType = new \PHPStan\Type\MixedType();
             $fileName = null;
         }
@@ -254,9 +254,9 @@ class BetterReflectionProvider implements \PHPStan\Reflection\ReflectionProvider
             try {
                 $this->constantReflector->reflect($name);
                 return \true;
-            } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 // pass
-            } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
+            } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
                 // pass
             }
             return \false;

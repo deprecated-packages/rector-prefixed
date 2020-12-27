@@ -1,22 +1,22 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\Util;
-use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
 /**
  * @internal
  */
-class ReadableBodyStream extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface, \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
+class ReadableBodyStream extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface, \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface
 {
     private $input;
     private $position = 0;
     private $size;
     private $closed = \false;
-    public function __construct(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input, $size = null)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $input, $size = null)
     {
         $this->input = $input;
         $this->size = $size;
@@ -57,9 +57,9 @@ class ReadableBodyStream extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter 
     {
         $this->input->resume();
     }
-    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function eof()

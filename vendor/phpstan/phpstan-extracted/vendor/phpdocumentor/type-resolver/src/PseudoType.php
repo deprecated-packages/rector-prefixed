@@ -9,9 +9,9 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection;
 
-interface PseudoType extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+interface PseudoType extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type
 {
-    public function underlyingType() : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
+    public function underlyingType() : \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type;
 }

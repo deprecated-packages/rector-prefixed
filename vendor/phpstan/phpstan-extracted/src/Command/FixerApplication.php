@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace PHPStan\Command;
 
-use _HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder;
-use _HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder;
-use _HumbugBox221ad6f1b81f\Composer\CaBundle\CaBundle;
-use _HumbugBox221ad6f1b81f\Nette\Utils\Json;
+use _HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Decoder;
+use _HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Encoder;
+use _HumbugBox221ad6f1b81f__UniqueRector\Composer\CaBundle\CaBundle;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json;
 use Phar;
 use PHPStan\Analyser\AnalyserResult;
 use PHPStan\Analyser\IgnoredErrorHelper;
@@ -22,24 +22,24 @@ use PHPStan\Process\ProcessHelper;
 use PHPStan\Process\ProcessPromise;
 use PHPStan\Process\Runnable\RunnableQueue;
 use PHPStan\Process\Runnable\RunnableQueueLogger;
-use _HumbugBox221ad6f1b81f\Psr\Http\Message\ResponseInterface;
-use _HumbugBox221ad6f1b81f\React\ChildProcess\Process;
-use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop;
-use _HumbugBox221ad6f1b81f\React\Http\Browser;
-use _HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
-use _HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface;
-use _HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
-use _HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface;
-use _HumbugBox221ad6f1b81f\React\Socket\Connector;
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar;
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
-use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\ResponseInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\ChildProcess\Process;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\StreamSelectLoop;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Browser;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\ExtendedPromiseInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectionInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Socket\Connector;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Helper\ProgressBar;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface;
 use const PHP_BINARY;
-use function _HumbugBox221ad6f1b81f\Clue\React\Block\await;
+use function _HumbugBox221ad6f1b81f__UniqueRector\Clue\React\Block\await;
 use function escapeshellarg;
 use function file_exists;
-use function _HumbugBox221ad6f1b81f\React\Promise\resolve;
+use function _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\resolve;
 class FixerApplication
 {
     /** @var FileMonitor */
@@ -90,10 +90,10 @@ class FixerApplication
      * @param string[] $notFileSpecificErrors
      * @return int
      */
-    public function run(?string $projectConfigFile, \PHPStan\Command\InceptionResult $inceptionResult, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output, array $fileSpecificErrors, array $notFileSpecificErrors, int $filesCount, string $mainScript) : int
+    public function run(?string $projectConfigFile, \PHPStan\Command\InceptionResult $inceptionResult, \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input, \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface $output, array $fileSpecificErrors, array $notFileSpecificErrors, int $filesCount, string $mainScript) : int
     {
-        $loop = new \_HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop();
-        $server = new \_HumbugBox221ad6f1b81f\React\Socket\TcpServer('127.0.0.1:0', $loop);
+        $loop = new \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\StreamSelectLoop();
+        $server = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\TcpServer('127.0.0.1:0', $loop);
         /** @var string $serverAddress */
         $serverAddress = $server->getAddress();
         /** @var int $serverPort */
@@ -104,9 +104,9 @@ class FixerApplication
             {
             }
         }, \min($this->cpuCoreCounter->getNumberOfCpuCores(), $this->maximumNumberOfProcesses));
-        $server->on('connection', function (\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection) use($loop, $projectConfigFile, $input, $output, $fileSpecificErrors, $notFileSpecificErrors, $mainScript, $filesCount, $reanalyseProcessQueue, $inceptionResult) : void {
-            $decoder = new \_HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, 128 * 1024 * 1024);
-            $encoder = new \_HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
+        $server->on('connection', function (\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectionInterface $connection) use($loop, $projectConfigFile, $input, $output, $fileSpecificErrors, $notFileSpecificErrors, $mainScript, $filesCount, $reanalyseProcessQueue, $inceptionResult) : void {
+            $decoder = new \_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, 128 * 1024 * 1024);
+            $encoder = new \_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
             $encoder->write(['action' => 'initialData', 'data' => ['fileSpecificErrors' => $fileSpecificErrors, 'notFileSpecificErrors' => $notFileSpecificErrors, 'currentWorkingDirectory' => $this->currentWorkingDirectory, 'analysedPaths' => $this->analysedPaths, 'projectConfigFile' => $projectConfigFile, 'filesCount' => $filesCount, 'phpstanVersion' => $this->getPhpstanVersion()]]);
             $decoder->on('data', function (array $data) use($loop, $encoder, $projectConfigFile, $input, $output, $mainScript, $reanalyseProcessQueue, $inceptionResult) : void {
                 if ($data['action'] === 'webPort') {
@@ -122,7 +122,7 @@ class FixerApplication
                 }
                 $id = $data['id'];
                 $this->reanalyseWithTmpFile($loop, $inceptionResult, $mainScript, $reanalyseProcessQueue, $projectConfigFile, $data['data']['tmpFile'], $data['data']['insteadOfFile'], $data['data']['fixerSuggestionId'], $input)->done(static function (string $output) use($encoder, $id) : void {
-                    $encoder->write(['id' => $id, 'response' => \_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($output, \_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY)]);
+                    $encoder->write(['id' => $id, 'response' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::decode($output, \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::FORCE_ARRAY)]);
                 }, static function (\Throwable $e) use($encoder, $id, $output) : void {
                     if ($e instanceof \PHPStan\Process\ProcessCrashedException) {
                         $output->writeln('<error>Worker process exited: ' . $e->getMessage() . '</error>');
@@ -178,7 +178,7 @@ class FixerApplication
         $loop->run();
         return 0;
     }
-    private function getFixerProcess(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output, int $serverPort) : \_HumbugBox221ad6f1b81f\React\ChildProcess\Process
+    private function getFixerProcess(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface $output, int $serverPort) : \_HumbugBox221ad6f1b81f__UniqueRector\React\ChildProcess\Process
     {
         if (!@\mkdir($this->fixerTmpDir, 0777) && !\is_dir($this->fixerTmpDir)) {
             $output->writeln(\sprintf('Cannot create a temp directory %s', $this->fixerTmpDir));
@@ -242,14 +242,14 @@ class FixerApplication
                 $output->writeln('');
             }
         }
-        return new \_HumbugBox221ad6f1b81f\React\ChildProcess\Process(\sprintf('%s -d memory_limit=%s %s --port %d', \PHP_BINARY, \escapeshellarg(\ini_get('memory_limit')), \escapeshellarg($pharPath), $serverPort), null, $env, []);
+        return new \_HumbugBox221ad6f1b81f__UniqueRector\React\ChildProcess\Process(\sprintf('%s -d memory_limit=%s %s --port %d', \PHP_BINARY, \escapeshellarg(\ini_get('memory_limit')), \escapeshellarg($pharPath), $serverPort), null, $env, []);
     }
-    private function downloadPhar(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output, string $pharPath, string $infoPath) : void
+    private function downloadPhar(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface $output, string $pharPath, string $infoPath) : void
     {
         $currentVersion = null;
         if (\file_exists($pharPath) && \file_exists($infoPath)) {
             /** @var array{version: string, date: string} $currentInfo */
-            $currentInfo = \_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode(\PHPStan\File\FileReader::read($infoPath), \_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
+            $currentInfo = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::decode(\PHPStan\File\FileReader::read($infoPath), \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::FORCE_ARRAY);
             $currentVersion = $currentInfo['version'];
             $currentDate = \DateTime::createFromFormat(\DateTime::ATOM, $currentInfo['date']);
             if ($currentDate === \false) {
@@ -260,10 +260,10 @@ class FixerApplication
             }
             $output->writeln('<fg=green>Checking if there\'s a new PHPStan Pro release...</>');
         }
-        $loop = new \_HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop();
-        $client = new \_HumbugBox221ad6f1b81f\React\Http\Browser($loop, new \_HumbugBox221ad6f1b81f\React\Socket\Connector($loop, ['timeout' => 5, 'tls' => ['cafile' => \_HumbugBox221ad6f1b81f\Composer\CaBundle\CaBundle::getBundledCaBundlePath()], 'dns' => '1.1.1.1']));
+        $loop = new \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\StreamSelectLoop();
+        $client = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Http\Browser($loop, new \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\Connector($loop, ['timeout' => 5, 'tls' => ['cafile' => \_HumbugBox221ad6f1b81f__UniqueRector\Composer\CaBundle\CaBundle::getBundledCaBundlePath()], 'dns' => '1.1.1.1']));
         /** @var array{url: string, version: string} $latestInfo */
-        $latestInfo = \_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode((string) \_HumbugBox221ad6f1b81f\Clue\React\Block\await($client->get('https://fixer-download-api.phpstan.com/latest'), $loop, 5.0)->getBody(), \_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
+        $latestInfo = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::decode((string) \_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\Block\await($client->get('https://fixer-download-api.phpstan.com/latest'), $loop, 5.0)->getBody(), \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::FORCE_ARRAY);
         if ($currentVersion !== null && $latestInfo['version'] === $currentVersion) {
             $this->writeInfoFile($infoPath, $latestInfo['version']);
             $output->writeln('<fg=green>You\'re running the latest PHPStan Pro!</>');
@@ -274,10 +274,10 @@ class FixerApplication
         if ($pharPathResource === \false) {
             throw new \PHPStan\ShouldNotHappenException(\sprintf('Could not open file %s for writing.', $pharPath));
         }
-        $progressBar = new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Helper\ProgressBar($output);
-        $client->requestStreaming('GET', $latestInfo['url'])->done(static function (\_HumbugBox221ad6f1b81f\Psr\Http\Message\ResponseInterface $response) use($progressBar, $pharPathResource) : void {
+        $progressBar = new \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Helper\ProgressBar($output);
+        $client->requestStreaming('GET', $latestInfo['url'])->done(static function (\_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\ResponseInterface $response) use($progressBar, $pharPathResource) : void {
             $body = $response->getBody();
-            if (!$body instanceof \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface) {
+            if (!$body instanceof \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface) {
                 throw new \PHPStan\ShouldNotHappenException();
             }
             $totalSize = (int) $response->getHeaderLine('Content-Length');
@@ -302,13 +302,13 @@ class FixerApplication
     }
     private function writeInfoFile(string $infoPath, string $version) : void
     {
-        \PHPStan\File\FileWriter::write($infoPath, \_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode(['version' => $version, 'date' => (new \DateTimeImmutable('', new \DateTimeZone('UTC')))->format(\DateTime::ATOM)]));
+        \PHPStan\File\FileWriter::write($infoPath, \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::encode(['version' => $version, 'date' => (new \DateTimeImmutable('', new \DateTimeZone('UTC')))->format(\DateTime::ATOM)]));
     }
     /**
      * @param LoopInterface $loop
      * @param callable(FileMonitorResult): void $hasChangesCallback
      */
-    private function monitorFileChanges(\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, callable $hasChangesCallback) : void
+    private function monitorFileChanges(\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, callable $hasChangesCallback) : void
     {
         $callback = function () use(&$callback, $loop, $hasChangesCallback) : void {
             $changes = $this->fileMonitor->getChanges();
@@ -319,7 +319,7 @@ class FixerApplication
         };
         $loop->addTimer(1.0, $callback);
     }
-    private function reanalyseWithTmpFile(\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, \PHPStan\Command\InceptionResult $inceptionResult, string $mainScript, \PHPStan\Process\Runnable\RunnableQueue $runnableQueue, ?string $projectConfigFile, string $tmpFile, string $insteadOfFile, string $fixerSuggestionId, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface
+    private function reanalyseWithTmpFile(\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, \PHPStan\Command\InceptionResult $inceptionResult, string $mainScript, \PHPStan\Process\Runnable\RunnableQueue $runnableQueue, ?string $projectConfigFile, string $tmpFile, string $insteadOfFile, string $fixerSuggestionId, \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface
     {
         $resultCacheManager = $this->resultCacheManagerFactory->create([$insteadOfFile => $tmpFile]);
         [$inceptionFiles] = $inceptionResult->getFiles();
@@ -328,7 +328,7 @@ class FixerApplication
         $process = new \PHPStan\Process\ProcessPromise($loop, $fixerSuggestionId, \PHPStan\Process\ProcessHelper::getWorkerCommand($mainScript, 'fixer:worker', $projectConfigFile, ['--tmp-file', \escapeshellarg($tmpFile), '--instead-of', \escapeshellarg($insteadOfFile), '--save-result-cache', \escapeshellarg($fixerSuggestionId), '--allow-parallel'], $input));
         return $runnableQueue->queue($process, $schedule->getNumberOfProcesses());
     }
-    private function reanalyseAfterFileChanges(\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, \PHPStan\Command\InceptionResult $inceptionResult, string $mainScript, ?string $projectConfigFile, ?string $fixerSuggestionId, \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface
+    private function reanalyseAfterFileChanges(\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, \PHPStan\Command\InceptionResult $inceptionResult, string $mainScript, ?string $projectConfigFile, ?string $fixerSuggestionId, \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface
     {
         $ignoredErrorHelperResult = $this->ignoredErrorHelper->initialize();
         if (\count($ignoredErrorHelperResult->getErrors()) > 0) {
@@ -350,7 +350,7 @@ class FixerApplication
                 }
                 $finalFileSpecificErrors[] = $intermediateError;
             }
-            return \_HumbugBox221ad6f1b81f\React\Promise\resolve(['fileSpecificErrors' => $finalFileSpecificErrors, 'notFileSpecificErrors' => $finalNotFileSpecificErrors]);
+            return \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\resolve(['fileSpecificErrors' => $finalFileSpecificErrors, 'notFileSpecificErrors' => $finalNotFileSpecificErrors]);
         }
         $options = ['--save-result-cache', '--allow-parallel'];
         if ($fixerSuggestionId !== null) {
@@ -360,13 +360,13 @@ class FixerApplication
         $process = new \PHPStan\Process\ProcessPromise($loop, 'changedFileAnalysis', \PHPStan\Process\ProcessHelper::getWorkerCommand($mainScript, 'fixer:worker', $projectConfigFile, $options, $input));
         $this->processInProgress = $process->run();
         return $this->processInProgress->then(static function (string $output) : array {
-            return \_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($output, \_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
+            return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::decode($output, \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::FORCE_ARRAY);
         });
     }
     private function getPhpstanVersion() : string
     {
         try {
-            return \_HumbugBox221ad6f1b81f\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+            return \_HumbugBox221ad6f1b81f__UniqueRector\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
         } catch (\OutOfBoundsException $e) {
             return 'Version unknown';
         }

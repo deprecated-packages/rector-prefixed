@@ -1,11 +1,11 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\Util;
-use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Encodes given payload stream with "Transfer-Encoding: chunked" and emits encoded data
  *
@@ -13,11 +13,11 @@ use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
  *
  * @internal
  */
-class ChunkedEncoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class ChunkedEncoder extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
-    public function __construct(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -37,9 +37,9 @@ class ChunkedEncoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter impl
     {
         $this->input->resume();
     }
-    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        return \_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        return \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::pipe($this, $dest, $options);
     }
     public function close()
     {

@@ -10,15 +10,15 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag;
-use _HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tag;
+use _HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}example tag in a Docblock.
  */
-final class Example extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Example extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /**
      * @var string Path to a file to use as an example. May also be an absolute URI.
@@ -39,9 +39,9 @@ final class Example extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Doc
     private $lineCount;
     public function __construct($filePath, $isURI, $startingLine, $lineCount, $description)
     {
-        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::notEmpty($filePath);
-        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::integer($startingLine);
-        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::greaterThanEq($startingLine, 0);
+        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::notEmpty($filePath);
+        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::integer($startingLine);
+        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::greaterThanEq($startingLine, 0);
         $this->filePath = $filePath;
         $this->startingLine = $startingLine;
         $this->lineCount = $lineCount;

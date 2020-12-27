@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Dns\Config;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Config;
 
 use RuntimeException;
 /**
@@ -34,7 +34,7 @@ class HostsFile
         }
         // Windows actually stores the path in the registry under
         // \HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\DataBasePath
-        $path = '_HumbugBox221ad6f1b81f\\%SystemRoot%\\system32\\drivers\\etc\\hosts';
+        $path = '_HumbugBox221ad6f1b81f__UniqueRector\\%SystemRoot%\\system32\\drivers\\etc\\hosts';
         $base = \getenv('SystemRoot');
         if ($base === \false) {
             $base = 'C:\\Windows';

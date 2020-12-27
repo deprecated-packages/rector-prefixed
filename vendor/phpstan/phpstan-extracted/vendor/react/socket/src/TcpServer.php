@@ -1,9 +1,9 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Socket;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Socket;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
 /**
@@ -30,7 +30,7 @@ use RuntimeException;
  * @see ServerInterface
  * @see ConnectionInterface
  */
-final class TcpServer extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Socket\ServerInterface
+final class TcpServer extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ServerInterface
 {
     private $master;
     private $loop;
@@ -119,7 +119,7 @@ final class TcpServer extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter imp
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($uri, \_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct($uri, \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         $this->loop = $loop;
         // a single port has been given => assume localhost
@@ -203,6 +203,6 @@ final class TcpServer extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter imp
     /** @internal */
     public function handleConnection($socket)
     {
-        $this->emit('connection', array(new \_HumbugBox221ad6f1b81f\React\Socket\Connection($socket, $this->loop)));
+        $this->emit('connection', array(new \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\Connection($socket, $this->loop)));
     }
 }

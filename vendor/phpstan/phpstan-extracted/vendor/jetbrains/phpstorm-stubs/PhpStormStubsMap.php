@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\JetBrains\PHPStormStub;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\JetBrains\PHPStormStub;
 
 /**
  * This is a generated file, do not modify it directly!

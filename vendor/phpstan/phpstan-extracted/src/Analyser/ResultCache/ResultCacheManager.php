@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace PHPStan\Analyser\ResultCache;
 
-use _HumbugBox221ad6f1b81f\Nette\Neon\Neon;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon;
 use PHPStan\Analyser\AnalyserResult;
 use PHPStan\Analyser\Error;
 use PHPStan\Command\Output;
@@ -432,7 +432,7 @@ php;
             unset($projectConfigArray['parameters']['reportUnmatchedIgnoredErrors']);
             unset($projectConfigArray['parameters']['memoryLimitFile']);
             unset($projectConfigArray['parametersSchema']);
-            $projectConfigArray = \_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode($projectConfigArray);
+            $projectConfigArray = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::encode($projectConfigArray);
         }
         return ['cacheVersion' => self::CACHE_VERSION, 'phpstanVersion' => $this->getPhpStanVersion(), 'phpVersion' => \PHP_VERSION_ID, 'projectConfig' => $projectConfigArray, 'analysedPaths' => $this->analysedPaths, 'composerLocks' => $this->getComposerLocks(), 'cliAutoloadFile' => $this->cliAutoloadFile, 'phpExtensions' => $extensions, 'stubFiles' => $this->getStubFiles(), 'level' => $this->usedLevel];
     }
@@ -453,7 +453,7 @@ php;
     private function getPhpStanVersion() : string
     {
         try {
-            return \_HumbugBox221ad6f1b81f\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+            return \_HumbugBox221ad6f1b81f__UniqueRector\Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
         } catch (\OutOfBoundsException $e) {
             return 'Version unknown';
         }

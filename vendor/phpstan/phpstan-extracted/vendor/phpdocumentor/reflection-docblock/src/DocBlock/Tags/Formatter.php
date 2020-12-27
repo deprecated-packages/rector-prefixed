@@ -10,9 +10,9 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tag;
 interface Formatter
 {
     /**
@@ -22,5 +22,5 @@ interface Formatter
      *
      * @return string
      */
-    public function format(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag $tag);
+    public function format(\_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tag $tag);
 }

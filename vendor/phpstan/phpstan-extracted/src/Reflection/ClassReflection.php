@@ -24,7 +24,7 @@ use PHPStan\Type\Generic\TemplateTypeScope;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 use ReflectionMethod;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
 class ClassReflection implements \PHPStan\Reflection\ReflectionWithFilename
 {
     /** @var \PHPStan\Reflection\ReflectionProvider */
@@ -626,7 +626,7 @@ class ClassReflection implements \PHPStan\Reflection\ReflectionWithFilename
         if ($this->isInterface() || $this->isTrait()) {
             return null;
         }
-        if ($this->reflection instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass) {
+        if ($this->reflection instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass) {
             foreach ($this->reflection->getBetterReflection()->getAttributes() as $attribute) {
                 if ($attribute->getName() === \Attribute::class) {
                     /** @var \Attribute */

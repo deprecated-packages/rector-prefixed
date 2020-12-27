@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Nette\DI\Config;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config;
 
-use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
 /**
  * Configuration helpers.
  * @deprecated
@@ -22,7 +22,7 @@ final class Helpers
      */
     public static function merge($left, $right)
     {
-        return \_HumbugBox221ad6f1b81f\Nette\Schema\Helpers::merge($left, $right);
+        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Helpers::merge($left, $right);
     }
     /**
      * Return true if array prevents merging and removes this information.

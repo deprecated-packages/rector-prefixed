@@ -5,8 +5,8 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Nette\PhpGenerator;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator;
 
-class PhpLiteral extends \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Literal
+class PhpLiteral extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Literal
 {
 }

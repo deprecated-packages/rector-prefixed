@@ -1,18 +1,18 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\RingCentral\Psr7;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7;
 
-use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator trait
  * @property StreamInterface stream
  */
-abstract class StreamDecoratorTrait implements \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
+abstract class StreamDecoratorTrait implements \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface
 {
     /**
      * @param StreamInterface $stream Stream to decorate
      */
-    public function __construct(\_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface $stream = null)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface $stream = null)
     {
         if ($stream) {
             $this->stream = $stream;

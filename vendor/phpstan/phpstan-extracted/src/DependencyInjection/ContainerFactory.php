@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace PHPStan\DependencyInjection;
 
-use _HumbugBox221ad6f1b81f\Nette\DI\Extensions\PhpExtension;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Extensions\PhpExtension;
 use Phar;
 use PHPStan\Broker\Broker;
 use PHPStan\Command\CommandHelper;
 use PHPStan\File\FileHelper;
 use PHPStan\Php\PhpVersion;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\BetterReflection;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
 use function sys_get_temp_dir;
 class ContainerFactory
 {
@@ -52,7 +52,7 @@ class ContainerFactory
     public function create(string $tempDirectory, array $additionalConfigFiles, array $analysedPaths, array $composerAutoloaderProjectPaths = [], array $analysedPathsFromConfig = [], string $usedLevel = \PHPStan\Command\CommandHelper::DEFAULT_LEVEL, ?string $generateBaselineFile = null, ?string $cliAutoloadFile = null, ?string $singleReflectionFile = null) : \PHPStan\DependencyInjection\Container
     {
         $configurator = new \PHPStan\DependencyInjection\Configurator(new \PHPStan\DependencyInjection\LoaderFactory($this->fileHelper, $this->rootDirectory, $this->currentWorkingDirectory, $generateBaselineFile));
-        $configurator->defaultExtensions = ['php' => \_HumbugBox221ad6f1b81f\Nette\DI\Extensions\PhpExtension::class, 'extensions' => \_HumbugBox221ad6f1b81f\Nette\DI\Extensions\ExtensionsExtension::class];
+        $configurator->defaultExtensions = ['php' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Extensions\PhpExtension::class, 'extensions' => \_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Extensions\ExtensionsExtension::class];
         $configurator->setDebugMode(\true);
         $configurator->setTempDirectory($tempDirectory);
         $configurator->addParameters(['rootDir' => $this->rootDirectory, 'currentWorkingDirectory' => $this->currentWorkingDirectory, 'cliArgumentsVariablesRegistered' => \ini_get('register_argc_argv') === '1', 'tmpDir' => $tempDirectory, 'additionalConfigFiles' => $additionalConfigFiles, 'analysedPaths' => $analysedPaths, 'composerAutoloaderProjectPaths' => $composerAutoloaderProjectPaths, 'analysedPathsFromConfig' => $analysedPathsFromConfig, 'generateBaselineFile' => $generateBaselineFile, 'usedLevel' => $usedLevel, 'cliAutoloadFile' => $cliAutoloadFile, 'fixerTmpDir' => \sys_get_temp_dir() . '/phpstan-fixer']);
@@ -62,8 +62,8 @@ class ContainerFactory
             $configurator->addConfig($additionalConfigFile);
         }
         $container = $configurator->createContainer();
-        \_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::$phpVersion = $container->getByType(\PHPStan\Php\PhpVersion::class)->getVersionId();
-        \_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection::populate(
+        \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\BetterReflection::$phpVersion = $container->getByType(\PHPStan\Php\PhpVersion::class)->getVersionId();
+        \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\BetterReflection::populate(
             $container->getService('betterReflectionSourceLocator'),
             // @phpstan-ignore-line
             $container->getService('betterReflectionClassReflector'),
@@ -74,7 +74,7 @@ class ContainerFactory
             // @phpstan-ignore-line
             $container->getService('phpParserDecorator'),
             // @phpstan-ignore-line
-            $container->getByType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class)
+            $container->getByType(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class)
         );
         /** @var Broker $broker */
         $broker = $container->getByType(\PHPStan\Broker\Broker::class);

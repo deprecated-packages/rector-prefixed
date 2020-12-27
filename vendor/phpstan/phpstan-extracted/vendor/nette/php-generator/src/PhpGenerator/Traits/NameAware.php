@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Nette\PhpGenerator\Traits;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Traits;
 
-use _HumbugBox221ad6f1b81f\Nette;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
 /**
  * @internal
  */
@@ -17,8 +17,8 @@ trait NameAware
     private $name;
     public function __construct(string $name)
     {
-        if (!\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
-            throw new \_HumbugBox221ad6f1b81f\Nette\InvalidArgumentException("Value '{$name}' is not valid name.");
+        if (!\_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Helpers::isIdentifier($name)) {
+            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidArgumentException("Value '{$name}' is not valid name.");
         }
         $this->name = $name;
     }

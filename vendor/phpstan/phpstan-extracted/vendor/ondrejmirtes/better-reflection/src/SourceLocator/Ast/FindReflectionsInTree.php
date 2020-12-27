@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast;
 
 use Closure;
 use PhpParser\Node;
@@ -10,15 +10,15 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\NodeVisitorAbstract;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\ConstantNodeChecker;
 use function assert;
 use function count;
 /**
@@ -35,7 +35,7 @@ final class FindReflectionsInTree
     /**
      * @param Closure(): FunctionReflector $functionReflectorGetter
      */
-    public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy $astConversionStrategy, \Closure $functionReflectorGetter)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy $astConversionStrategy, \Closure $functionReflectorGetter)
     {
         $this->astConversionStrategy = $astConversionStrategy;
         $this->functionReflectorGetter = $functionReflectorGetter;
@@ -47,7 +47,7 @@ final class FindReflectionsInTree
      *
      * @return Reflection[]
      */
-    public function __invoke(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, array $ast, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource) : array
+    public function __invoke(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, array $ast, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType $identifierType, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource) : array
     {
         $nodeVisitor = new class($reflector, $identifierType, $locatedSource, $this->astConversionStrategy, $this->functionReflectorGetter->__invoke()) extends \PhpParser\NodeVisitorAbstract
         {
@@ -65,7 +65,7 @@ final class FindReflectionsInTree
             private $currentNamespace;
             /** @var FunctionReflector */
             private $functionReflector;
-            public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy $astConversionStrategy, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
+            public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType $identifierType, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\AstConversionStrategy $astConversionStrategy, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
             {
                 $this->reflector = $reflector;
                 $this->identifierType = $identifierType;
@@ -105,8 +105,8 @@ final class FindReflectionsInTree
                 }
                 if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
                     try {
-                        \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
-                    } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
+                        \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\ConstantNodeChecker::assertValidDefineFunctionCall($node);
+                    } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\InvalidConstantNode $e) {
                         return null;
                     }
                     if ($node->name->hasAttribute('namespacedName')) {
@@ -116,7 +116,7 @@ final class FindReflectionsInTree
                             try {
                                 $this->functionReflector->reflect($namespacedName->toString());
                                 return null;
-                            } catch (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+                            } catch (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                                 // Global define()
                             }
                         }

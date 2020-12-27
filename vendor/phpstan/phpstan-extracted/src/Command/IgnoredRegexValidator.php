@@ -5,7 +5,7 @@ namespace PHPStan\Command;
 
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
-use _HumbugBox221ad6f1b81f\Nette\Utils\Strings;
+use _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
 use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\VerbosityLevel;
@@ -58,7 +58,7 @@ class IgnoredRegexValidator
             if ($text === null) {
                 continue;
             }
-            $matches = \_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
+            $matches = \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
             if ($matches === null) {
                 continue;
             }

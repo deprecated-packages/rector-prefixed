@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Exception;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Exception;
 
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 use RuntimeException;
 use Throwable;
 use function sprintf;
 use function substr;
 class ParseToAstFailure extends \RuntimeException
 {
-    public static function fromLocatedSource(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \Throwable $previous) : self
+    public static function fromLocatedSource(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, \Throwable $previous) : self
     {
         $additionalInformation = '';
         if ($locatedSource->getFileName() !== null) {

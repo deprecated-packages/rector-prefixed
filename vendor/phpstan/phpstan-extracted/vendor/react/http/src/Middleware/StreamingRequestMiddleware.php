@@ -1,8 +1,8 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Http\Middleware;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Middleware;
 
-use _HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\ServerRequestInterface;
 /**
  * Process incoming requests with a streaming request body (without buffering).
  *
@@ -61,7 +61,7 @@ use _HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface;
  */
 final class StreamingRequestMiddleware
 {
-    public function __invoke(\_HumbugBox221ad6f1b81f\Psr\Http\Message\ServerRequestInterface $request, $next)
+    public function __invoke(\_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\ServerRequestInterface $request, $next)
     {
         return $next($request);
     }

@@ -4,11 +4,11 @@ declare (strict_types=1);
 namespace PHPStan\Process;
 
 use PHPStan\Process\Runnable\Runnable;
-use _HumbugBox221ad6f1b81f\React\ChildProcess\Process;
-use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
-use _HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
-use _HumbugBox221ad6f1b81f\React\Promise\Deferred;
-use _HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\ChildProcess\Process;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Deferred;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\ExtendedPromiseInterface;
 class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
 {
     /** @var LoopInterface */
@@ -23,12 +23,12 @@ class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
     private $process = null;
     /** @var bool */
     private $canceled = \false;
-    public function __construct(\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, string $name, string $command)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, string $name, string $command)
     {
         $this->loop = $loop;
         $this->name = $name;
         $this->command = $command;
-        $this->deferred = new \_HumbugBox221ad6f1b81f\React\Promise\Deferred();
+        $this->deferred = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Deferred();
     }
     public function getName() : string
     {
@@ -37,7 +37,7 @@ class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
     /**
      * @return ExtendedPromiseInterface&CancellablePromiseInterface
      */
-    public function run() : \_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
+    public function run() : \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface
     {
         $tmpStdOutResource = \tmpfile();
         if ($tmpStdOutResource === \false) {
@@ -47,7 +47,7 @@ class ProcessPromise implements \PHPStan\Process\Runnable\Runnable
         if ($tmpStdErrResource === \false) {
             throw new \PHPStan\ShouldNotHappenException('Failed creating temp file for stderr.');
         }
-        $this->process = new \_HumbugBox221ad6f1b81f\React\ChildProcess\Process($this->command, null, null, [1 => $tmpStdOutResource, 2 => $tmpStdErrResource]);
+        $this->process = new \_HumbugBox221ad6f1b81f__UniqueRector\React\ChildProcess\Process($this->command, null, null, [1 => $tmpStdOutResource, 2 => $tmpStdErrResource]);
         $this->process->start($this->loop);
         $this->process->on('exit', function ($exitCode) use($tmpStdOutResource, $tmpStdErrResource) : void {
             if ($this->canceled) {

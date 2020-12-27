@@ -1,14 +1,14 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Socket;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Socket;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
 use Exception;
-final class Server extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Socket\ServerInterface
+final class Server extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ServerInterface
 {
     private $server;
-    public function __construct($uri, \_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, array $context = array())
+    public function __construct($uri, \_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, array $context = array())
     {
         // sanitize TCP context options if not properly wrapped
         if ($context && (!isset($context['tcp']) && !isset($context['tls']) && !isset($context['unix']))) {
@@ -22,16 +22,16 @@ final class Server extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implem
             $scheme = \substr($uri, 0, $pos);
         }
         if ($scheme === 'unix') {
-            $server = new \_HumbugBox221ad6f1b81f\React\Socket\UnixServer($uri, $loop, $context['unix']);
+            $server = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\UnixServer($uri, $loop, $context['unix']);
         } else {
-            $server = new \_HumbugBox221ad6f1b81f\React\Socket\TcpServer(\str_replace('tls://', '', $uri), $loop, $context['tcp']);
+            $server = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\TcpServer(\str_replace('tls://', '', $uri), $loop, $context['tcp']);
             if ($scheme === 'tls') {
-                $server = new \_HumbugBox221ad6f1b81f\React\Socket\SecureServer($server, $loop, $context['tls']);
+                $server = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\SecureServer($server, $loop, $context['tls']);
             }
         }
         $this->server = $server;
         $that = $this;
-        $server->on('connection', function (\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $conn) use($that) {
+        $server->on('connection', function (\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectionInterface $conn) use($that) {
             $that->emit('connection', array($conn));
         });
         $server->on('error', function (\Exception $error) use($that) {

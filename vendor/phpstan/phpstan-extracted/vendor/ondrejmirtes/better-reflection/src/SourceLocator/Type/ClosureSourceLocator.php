@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type;
 
 use Closure;
 use PhpParser\Node;
@@ -10,18 +10,18 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
 use ReflectionFunction as CoreFunctionReflection;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Exception\EvaledClosureCannotBeLocated;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\FileChecker;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Exception\EvaledClosureCannotBeLocated;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\FileChecker;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\FileHelper;
 use function array_filter;
 use function array_values;
 use function assert;
@@ -31,7 +31,7 @@ use function strpos;
 /**
  * @internal
  */
-final class ClosureSourceLocator implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+final class ClosureSourceLocator implements \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var CoreFunctionReflection */
     private $coreFunctionReflection;
@@ -47,7 +47,7 @@ final class ClosureSourceLocator implements \_HumbugBox221ad6f1b81f\Roave\Better
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifier(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection
     {
         return $this->getReflectionFunction($reflector, $identifier->getType());
     }
@@ -56,21 +56,21 @@ final class ClosureSourceLocator implements \_HumbugBox221ad6f1b81f\Roave\Better
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifiersByType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return \array_filter([$this->getReflectionFunction($reflector, $identifierType)]);
     }
-    private function getReflectionFunction(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction
+    private function getReflectionFunction(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction
     {
         if (!$identifierType->isFunction()) {
             return null;
         }
         $fileName = $this->coreFunctionReflection->getFileName();
         if (\strpos($fileName, 'eval()\'d code') !== \false) {
-            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Exception\EvaledClosureCannotBeLocated::create();
+            throw \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Exception\EvaledClosureCannotBeLocated::create();
         }
-        \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($fileName);
-        $fileName = \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($fileName);
+        \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($fileName);
+        $fileName = \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($fileName);
         $nodeVisitor = new class($fileName, $this->coreFunctionReflection->getStartLine()) extends \PhpParser\NodeVisitorAbstract
         {
             /** @var string */
@@ -127,7 +127,7 @@ final class ClosureSourceLocator implements \_HumbugBox221ad6f1b81f\Roave\Better
                     return null;
                 }
                 if (isset($closureNodesDataOnSameLine[1])) {
-                    throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine::create($this->fileName, $this->startLine);
+                    throw \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine::create($this->fileName, $this->startLine);
                 }
                 return $closureNodesDataOnSameLine[0];
             }
@@ -140,8 +140,8 @@ final class ClosureSourceLocator implements \_HumbugBox221ad6f1b81f\Roave\Better
         $closureNodes = $nodeVisitor->getClosureNodes();
         \assert(\is_array($closureNodes));
         \assert($closureNodes[1] instanceof \PhpParser\Node\Stmt\Namespace_ || $closureNodes[1] === null);
-        $reflectionFunction = (new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection())->__invoke($reflector, $closureNodes[0], new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource($fileContents, $fileName), $closureNodes[1]);
-        \assert($reflectionFunction instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction || $reflectionFunction === null);
+        $reflectionFunction = (new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection())->__invoke($reflector, $closureNodes[0], new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource($fileContents, $fileName), $closureNodes[1]);
+        \assert($reflectionFunction instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction || $reflectionFunction === null);
         return $reflectionFunction;
     }
 }

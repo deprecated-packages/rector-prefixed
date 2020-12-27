@@ -1,14 +1,14 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\RingCentral\Psr7;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7;
 
-use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface;
 /**
  * PHP stream implementation.
  *
  * @var $stream
  */
-class Stream implements \_HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface
+class Stream implements \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface
 {
     private $stream;
     private $size;

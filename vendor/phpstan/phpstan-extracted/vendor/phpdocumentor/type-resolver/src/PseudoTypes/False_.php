@@ -9,26 +9,26 @@ declare (strict_types=1);
  *
  * @link https://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoTypes;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\PseudoTypes;
 
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType;
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
-use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\PseudoType;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Boolean;
 use function class_alias;
 /**
  * Value Object representing the PseudoType 'False', which is a Boolean type.
  *
  * @psalm-immutable
  */
-final class False_ extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\PseudoType
+final class False_ extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Boolean implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\PseudoType
 {
-    public function underlyingType() : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
+    public function underlyingType() : \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type
     {
-        return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Boolean();
+        return new \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Boolean();
     }
     public function __toString() : string
     {
         return 'false';
     }
 }
-\class_alias('_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\PseudoTypes\\False_', '_HumbugBox221ad6f1b81f\\phpDocumentor\\Reflection\\Types\\False_', \false);
+\class_alias('_HumbugBox221ad6f1b81f__UniqueRector\\phpDocumentor\\Reflection\\PseudoTypes\\False_', '_HumbugBox221ad6f1b81f__UniqueRector\\phpDocumentor\\Reflection\\Types\\False_', \false);

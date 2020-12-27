@@ -1,11 +1,11 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f\React\Http\Io;
+namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io;
 
-use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f\React\Stream\Util;
-use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util;
+use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
 use Exception;
 /**
  * [Internal] Decodes "Transfer-Encoding: chunked" from given stream and returns only payload data.
@@ -14,7 +14,7 @@ use Exception;
  *
  * @internal
  */
-class ChunkedDecoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
+class ChunkedDecoder extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface
 {
     const CRLF = "\r\n";
     const MAX_CHUNK_HEADER_SIZE = 1024;
@@ -24,7 +24,7 @@ class ChunkedDecoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter impl
     private $chunkSize = 0;
     private $transferredSize = 0;
     private $headerCompleted = \false;
-    public function __construct(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -44,9 +44,9 @@ class ChunkedDecoder extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter impl
     {
         $this->input->resume();
     }
-    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
+        \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()
