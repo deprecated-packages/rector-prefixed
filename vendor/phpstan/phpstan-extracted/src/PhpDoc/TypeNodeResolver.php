@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\PhpDoc;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings;
 use RectorPrefix20201227\PHPStan\Analyser\NameScope;
 use RectorPrefix20201227\PHPStan\DependencyInjection\Container;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprArrayNode;
@@ -431,11 +431,11 @@ class TypeNodeResolver
             }
             $classReflection = $this->getReflectionProvider()->getClass($className);
             $constantName = $constExpr->name;
-            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith($constantName, '*')) {
-                $constantNameStartsWith = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::substring($constantName, 0, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::length($constantName) - 1);
+            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::endsWith($constantName, '*')) {
+                $constantNameStartsWith = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::substring($constantName, 0, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::length($constantName) - 1);
                 $constantTypes = [];
                 foreach ($classReflection->getNativeReflection()->getConstants() as $classConstantName => $constantValue) {
-                    if (!\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
+                    if (!\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::startsWith($classConstantName, $constantNameStartsWith)) {
                         continue;
                     }
                     $constantTypes[] = \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($constantValue);

@@ -1,8 +1,8 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Model;
+namespace _HumbugBox221ad6f1b81f\React\Dns\Model;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Query\Query;
+use _HumbugBox221ad6f1b81f\React\Dns\Query\Query;
 /**
  * This class represents an outgoing query message or an incoming response message
  *
@@ -69,9 +69,9 @@ final class Message
      * @param Query $query
      * @return self
      */
-    public static function createRequestForQuery(\_HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Query\Query $query)
+    public static function createRequestForQuery(\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query)
     {
-        $request = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Model\Message();
+        $request = new \_HumbugBox221ad6f1b81f\React\Dns\Model\Message();
         $request->id = self::generateId();
         $request->rd = \true;
         $request->questions[] = $query;
@@ -84,9 +84,9 @@ final class Message
      * @param Record[] $answers
      * @return self
      */
-    public static function createResponseWithAnswersForQuery(\_HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Query\Query $query, array $answers)
+    public static function createResponseWithAnswersForQuery(\_HumbugBox221ad6f1b81f\React\Dns\Query\Query $query, array $answers)
     {
-        $response = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Model\Message();
+        $response = new \_HumbugBox221ad6f1b81f\React\Dns\Model\Message();
         $response->id = self::generateId();
         $response->qr = \true;
         $response->rd = \true;
@@ -163,7 +163,7 @@ final class Message
      * @var int response code (4 bit), see self::RCODE_* constants
      * @see self::RCODE_OK
      */
-    public $rcode = \_HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Model\Message::RCODE_OK;
+    public $rcode = \_HumbugBox221ad6f1b81f\React\Dns\Model\Message::RCODE_OK;
     /**
      * An array of Query objects
      *

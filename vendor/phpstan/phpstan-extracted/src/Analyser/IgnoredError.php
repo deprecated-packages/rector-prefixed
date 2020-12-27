@@ -44,7 +44,7 @@ class IgnoredError
         $ignoredErrorPattern = \str_replace([\preg_quote('RectorPrefix20201227\\r\\n'), \preg_quote('\\r')], \preg_quote('\\n'), $ignoredErrorPattern);
         if ($path !== null) {
             $fileExcluder = new \RectorPrefix20201227\PHPStan\File\FileExcluder($fileHelper, [$path], []);
-            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
+            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) === null) {
                 return \false;
             }
             $isExcluded = $fileExcluder->isExcludedFromAnalysing($error->getFilePath());
@@ -53,6 +53,6 @@ class IgnoredError
             }
             return $isExcluded;
         }
-        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
+        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($errorMessage, $ignoredErrorPattern) !== null;
     }
 }

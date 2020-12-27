@@ -11,7 +11,7 @@ class NetteContainer implements \RectorPrefix20201227\PHPStan\DependencyInjectio
 {
     /** @var \Nette\DI\Container */
     private $container;
-    public function __construct(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Container $container)
+    public function __construct(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Container $container)
     {
         $this->container = $container;
     }

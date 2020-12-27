@@ -43,9 +43,9 @@ abstract class LevelsTestCase extends \RectorPrefix20201227\PHPUnit\Framework\Te
             \exec(\sprintf('%s %s analyse --no-progress --error-format=prettyJson --level=%d %s %s %s', \escapeshellarg(\PHP_BINARY), $command, $level, $configPath !== null ? '--configuration ' . \escapeshellarg($configPath) : '', $this->shouldAutoloadAnalysedFile() ? \sprintf('--autoload-file %s', \escapeshellarg($file)) : '', \escapeshellarg($file)), $outputLines);
             $output = \implode("\n", $outputLines);
             try {
-                $actualJson = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::decode($output, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::FORCE_ARRAY);
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\JsonException $e) {
-                throw new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
+                $actualJson = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($output, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException $e) {
+                throw new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException(\sprintf('Cannot decode: %s', $output));
             }
             if (\count($actualJson['files']) > 0) {
                 $normalizedFilePath = $fileHelper->normalizePath($file);
@@ -122,7 +122,7 @@ abstract class LevelsTestCase extends \RectorPrefix20201227\PHPUnit\Framework\Te
                 return $e;
             }
         }
-        $actualOutput = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::encode($expectedMessages, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::PRETTY);
+        $actualOutput = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($expectedMessages, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY);
         try {
             $this->assertJsonStringEqualsJsonFile($expectedJsonFile, $actualOutput);
         } catch (\RectorPrefix20201227\PHPUnit\Framework\AssertionFailedError $e) {

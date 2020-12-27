@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located;
 
 use InvalidArgumentException;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\FileChecker;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\FileHelper;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\FileChecker;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper;
 /**
  * Value object containing source code that has been located.
  *
@@ -25,8 +25,8 @@ class LocatedSource
     public function __construct(string $source, ?string $filename)
     {
         if ($filename !== null) {
-            \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($filename);
-            $filename = \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($filename);
+            \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\FileChecker::assertReadableFile($filename);
+            $filename = \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FileHelper::normalizeWindowsPath($filename);
         }
         $this->source = $source;
         $this->filename = $filename;

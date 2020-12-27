@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\DependencyInjection;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
 use RectorPrefix20201227\PHPStan\Rules\RegistryFactory;
-class RulesExtension extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\CompilerExtension
+class RulesExtension extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    public function getConfigSchema() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::listOf('string');
+        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::listOf('string');
     }
     public function loadConfiguration() : void
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Model;
+namespace _HumbugBox221ad6f1b81f\React\Dns\Model;
 
 /**
  * This class represents a single resulting record in a response message

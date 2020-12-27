@@ -10,16 +10,16 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context as TypeContext;
-use _HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context as TypeContext;
+use _HumbugBox221ad6f1b81f\Webmozart\Assert\Assert;
 /**
  * Reflection class for a {@}source tag in a Docblock.
  */
-final class Source extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
+final class Source extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\BaseTag implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod
 {
     /** @var string */
     protected $name = 'source';
@@ -27,10 +27,10 @@ final class Source extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\R
     private $startingLine = 1;
     /** @var int|null The number of lines, relative to the starting line. NULL means "to the end". */
     private $lineCount = null;
-    public function __construct($startingLine, $lineCount = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Description $description = null)
+    public function __construct($startingLine, $lineCount = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Description $description = null)
     {
-        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::integerish($startingLine);
-        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::nullOrIntegerish($lineCount);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::integerish($startingLine);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::nullOrIntegerish($lineCount);
         $this->startingLine = (int) $startingLine;
         $this->lineCount = $lineCount !== null ? (int) $lineCount : null;
         $this->description = $description;
@@ -38,10 +38,10 @@ final class Source extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\R
     /**
      * {@inheritdoc}
      */
-    public static function create($body, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context $context = null)
+    public static function create($body, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\DescriptionFactory $descriptionFactory = null, \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context $context = null)
     {
-        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::stringNotEmpty($body);
-        \_HumbugBox221ad6f1b81f__UniqueRector\Webmozart\Assert\Assert::notNull($descriptionFactory);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::stringNotEmpty($body);
+        \_HumbugBox221ad6f1b81f\Webmozart\Assert\Assert::notNull($descriptionFactory);
         $startingLine = 1;
         $lineCount = null;
         $description = null;

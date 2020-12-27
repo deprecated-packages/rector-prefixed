@@ -61,16 +61,16 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Php\SimpleXMLElementClassPropertyReflectionExtension;
 use PHPStan\Type\Type;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Locator;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Locator;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 abstract class TestCase extends \RectorPrefix20201227\PHPUnit\Framework\TestCase
 {
     /** @var bool */
@@ -144,10 +144,10 @@ abstract class TestCase extends \RectorPrefix20201227\PHPUnit\Framework\TestCase
         $setterReflectionProviderProvider->setReflectionProvider($reflectionProvider);
         return $reflectionProvider;
     }
-    private static function getPhpStormStubsSourceStubber() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
+    private static function getPhpStormStubsSourceStubber() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
     {
         if (self::$phpStormStubsSourceStubber === null) {
-            self::$phpStormStubsSourceStubber = self::getContainer()->getByType(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class);
+            self::$phpStormStubsSourceStubber = self::getContainer()->getByType(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class);
         }
         return self::$phpStormStubsSourceStubber;
     }
@@ -165,7 +165,7 @@ abstract class TestCase extends \RectorPrefix20201227\PHPUnit\Framework\TestCase
         $fileTypeMapper = new \PHPStan\Type\FileTypeMapper($setterReflectionProviderProvider, $parser, $phpDocStringResolver, $phpDocNodeResolver, $cache, $anonymousClassNameHelper);
         $classReflectionExtensionRegistryProvider = $this->getClassReflectionExtensionRegistryProvider();
         $functionReflectionFactory = $this->getFunctionReflectionFactory($functionCallStatementFinder, $cache);
-        $reflectionProvider = new \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ClassBlacklistReflectionProvider(new \RectorPrefix20201227\PHPStan\Reflection\Runtime\RuntimeReflectionProvider($setterReflectionProviderProvider, $classReflectionExtensionRegistryProvider, $functionReflectionFactory, $fileTypeMapper, self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\Php\PhpVersion::class), self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider::class), self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\PhpDoc\StubPhpDocProvider::class), self::getContainer()->getByType(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class)), self::getPhpStormStubsSourceStubber(), ['#^PhpParser\\\\#', '#^PHPStan\\\\#', '#^Hoa\\\\#'], null);
+        $reflectionProvider = new \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ClassBlacklistReflectionProvider(new \RectorPrefix20201227\PHPStan\Reflection\Runtime\RuntimeReflectionProvider($setterReflectionProviderProvider, $classReflectionExtensionRegistryProvider, $functionReflectionFactory, $fileTypeMapper, self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\Php\PhpVersion::class), self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider::class), self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\PhpDoc\StubPhpDocProvider::class), self::getContainer()->getByType(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber::class)), self::getPhpStormStubsSourceStubber(), ['#^PhpParser\\\\#', '#^PHPStan\\\\#', '#^Hoa\\\\#'], null);
         $this->setUpReflectionProvider($actualReflectionProvider, $setterReflectionProviderProvider, $classReflectionExtensionRegistryProvider, $functionCallStatementFinder, $parser, $cache, $fileTypeMapper);
         return $reflectionProvider;
     }
@@ -272,15 +272,15 @@ abstract class TestCase extends \RectorPrefix20201227\PHPUnit\Framework\TestCase
         $phpParser = new \RectorPrefix20201227\PHPStan\Parser\PhpParserDecorator(self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\Parser\CachedParser::class));
         /** @var FunctionReflector $functionReflector */
         $functionReflector = null;
-        $astLocator = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Locator($phpParser, static function () use(&$functionReflector) : FunctionReflector {
+        $astLocator = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Locator($phpParser, static function () use(&$functionReflector) : FunctionReflector {
             return $functionReflector;
         });
-        $reflectionSourceStubber = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber();
-        $locators[] = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, self::getPhpStormStubsSourceStubber());
+        $reflectionSourceStubber = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber();
+        $locators[] = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, self::getPhpStormStubsSourceStubber());
         $locators[] = new \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator\AutoloadSourceLocator(self::getContainer()->getByType(\RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher::class));
-        $locators[] = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $reflectionSourceStubber);
-        $locators[] = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $reflectionSourceStubber);
-        $sourceLocator = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators));
+        $locators[] = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $reflectionSourceStubber);
+        $locators[] = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $reflectionSourceStubber);
+        $sourceLocator = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators));
         $classReflector = new \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\Reflector\MemoizingClassReflector($sourceLocator);
         $functionReflector = new \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\Reflector\MemoizingFunctionReflector($sourceLocator, $classReflector);
         $constantReflector = new \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\Reflector\MemoizingConstantReflector($sourceLocator, $classReflector);

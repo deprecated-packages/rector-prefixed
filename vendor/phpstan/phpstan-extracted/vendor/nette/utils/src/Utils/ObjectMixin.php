@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils;
+namespace _HumbugBox221ad6f1b81f\Nette\Utils;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
+use _HumbugBox221ad6f1b81f\Nette;
 /**
  * Nette\Object behaviour mixin.
  * @deprecated
@@ -19,7 +19,7 @@ final class ObjectMixin
     public static function getSuggestion(array $possibilities, string $value) : ?string
     {
         \trigger_error(__METHOD__ . '() has been renamed to Nette\\Utils\\ObjectHelpers::getSuggestion()', \E_USER_DEPRECATED);
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\ObjectHelpers::getSuggestion($possibilities, $value);
+        return \_HumbugBox221ad6f1b81f\Nette\Utils\ObjectHelpers::getSuggestion($possibilities, $value);
     }
     public static function setExtensionMethod() : void
     {

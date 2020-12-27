@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util;
 
 use InvalidArgumentException;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionConstant;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionMethod;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Locator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionMethod;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Locator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_merge;
 use function method_exists;
 final class FindReflectionOnLine
@@ -25,7 +25,7 @@ final class FindReflectionOnLine
     private $sourceLocator;
     /** @var Locator */
     private $astLocator;
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator)
+    public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Locator $astLocator)
     {
         $this->sourceLocator = $sourceLocator;
         $this->astLocator = $astLocator;
@@ -45,7 +45,7 @@ final class FindReflectionOnLine
     {
         $reflections = $this->computeReflections($filename);
         foreach ($reflections as $reflection) {
-            if ($reflection instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass && $this->containsLine($reflection, $lineNumber)) {
+            if ($reflection instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass && $this->containsLine($reflection, $lineNumber)) {
                 foreach ($reflection->getMethods() as $method) {
                     if ($this->containsLine($method, $lineNumber)) {
                         return $method;
@@ -53,10 +53,10 @@ final class FindReflectionOnLine
                 }
                 return $reflection;
             }
-            if ($reflection instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunction && $this->containsLine($reflection, $lineNumber)) {
+            if ($reflection instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunction && $this->containsLine($reflection, $lineNumber)) {
                 return $reflection;
             }
-            if ($reflection instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionConstant && $this->containsLine($reflection, $lineNumber)) {
+            if ($reflection instanceof \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionConstant && $this->containsLine($reflection, $lineNumber)) {
                 return $reflection;
             }
         }
@@ -72,9 +72,9 @@ final class FindReflectionOnLine
      */
     private function computeReflections(string $filename) : array
     {
-        $singleFileSourceLocator = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator($filename, $this->astLocator);
-        $reflector = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector(new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator([$singleFileSourceLocator, $this->sourceLocator]));
-        return \array_merge($singleFileSourceLocator->locateIdentifiersByType($reflector, new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS)), $singleFileSourceLocator->locateIdentifiersByType($reflector, new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_FUNCTION)), $singleFileSourceLocator->locateIdentifiersByType($reflector, new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CONSTANT)));
+        $singleFileSourceLocator = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator($filename, $this->astLocator);
+        $reflector = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector(new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator([$singleFileSourceLocator, $this->sourceLocator]));
+        return \array_merge($singleFileSourceLocator->locateIdentifiersByType($reflector, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CLASS)), $singleFileSourceLocator->locateIdentifiersByType($reflector, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_FUNCTION)), $singleFileSourceLocator->locateIdentifiersByType($reflector, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_CONSTANT)));
     }
     /**
      * Check to see if the line is within the boundaries of the reflection specified.

@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Parallel;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\TimerInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\EventLoop\TimerInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 class Process
 {
     /** @var string */
@@ -29,7 +29,7 @@ class Process
     private $onError;
     /** @var TimerInterface|null */
     private $timer = null;
-    public function __construct(string $command, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\LoopInterface $loop, float $timeoutSeconds)
+    public function __construct(string $command, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\EventLoop\LoopInterface $loop, float $timeoutSeconds)
     {
         $this->command = $command;
         $this->loop = $loop;
@@ -52,7 +52,7 @@ class Process
         }
         $this->stdOut = $tmpStdOut;
         $this->stdErr = $tmpStdErr;
-        $this->process = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\ChildProcess\Process($this->command, null, null, [1 => $this->stdOut, 2 => $this->stdErr]);
+        $this->process = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\ChildProcess\Process($this->command, null, null, [1 => $this->stdOut, 2 => $this->stdErr]);
         $this->process->start($this->loop);
         $this->onData = $onData;
         $this->onError = $onError;
@@ -105,7 +105,7 @@ class Process
         }
         $this->in->end();
     }
-    public function bindConnection(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $out, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $in) : void
+    public function bindConnection(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $out, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $in) : void
     {
         $out->on('data', function (array $json) : void {
             if ($json['action'] !== 'result') {

@@ -1,49 +1,49 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
 use Closure;
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike as FunctionNode;
 use PhpParser\Node\Stmt\Namespace_ as NamespaceNode;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\BetterReflection;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\FunctionDoesNotExist;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\FunctionDoesNotExist;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
 use function function_exists;
-class ReflectionFunction extends \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract implements \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection
+class ReflectionFunction extends \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionFunctionAbstract implements \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
 {
     /**
      * @throws IdentifierNotFound
      */
     public static function createFromName(string $functionName) : self
     {
-        return (new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\BetterReflection())->functionReflector()->reflect($functionName);
+        return (new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->functionReflector()->reflect($functionName);
     }
     /**
      * @throws IdentifierNotFound
      */
     public static function createFromClosure(\Closure $closure) : self
     {
-        $configuration = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\BetterReflection();
-        return (new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector(new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator($closure, $configuration->phpParser()), $configuration->classReflector()))->reflect(self::CLOSURE_NAME);
+        $configuration = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection();
+        return (new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector(new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator($closure, $configuration->phpParser()), $configuration->classReflector()))->reflect(self::CLOSURE_NAME);
     }
     public function __toString() : string
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast::toString($this);
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast::toString($this);
     }
     /**
      * @internal
      *
      * @param Node\Stmt\ClassMethod|Node\Stmt\Function_|Node\Expr\Closure $node Node has to be processed by the PhpParser\NodeVisitor\NameResolver
      */
-    public static function createFromNode(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\FunctionLike $node, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $namespaceNode = null) : self
+    public static function createFromNode(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\FunctionLike $node, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $namespaceNode = null) : self
     {
         $function = new self();
         $function->populateFunctionAbstract($reflector, $node, $locatedSource, $namespaceNode);
@@ -111,7 +111,7 @@ class ReflectionFunction extends \_HumbugBox221ad6f1b81f__UniqueRector\Roave\Bet
     private function assertIsNoClosure() : void
     {
         if ($this->isClosure()) {
-            throw new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented for closures');
+            throw new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented('Not implemented for closures');
         }
     }
     /**
@@ -122,7 +122,7 @@ class ReflectionFunction extends \_HumbugBox221ad6f1b81f__UniqueRector\Roave\Bet
     private function assertFunctionExist(string $functionName) : void
     {
         if (!\function_exists($functionName)) {
-            throw \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\FunctionDoesNotExist::fromName($functionName);
+            throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\FunctionDoesNotExist::fromName($functionName);
         }
     }
 }

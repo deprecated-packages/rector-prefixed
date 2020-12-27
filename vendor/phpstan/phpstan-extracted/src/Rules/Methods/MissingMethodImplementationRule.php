@@ -8,7 +8,7 @@ use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use RectorPrefix20201227\PHPStan\Node\InClassNode;
 use RectorPrefix20201227\PHPStan\Rules\Rule;
 use RectorPrefix20201227\PHPStan\Rules\RuleErrorBuilder;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 /**
  * @implements Rule<InClassNode>
  */
@@ -30,7 +30,7 @@ class MissingMethodImplementationRule implements \RectorPrefix20201227\PHPStan\R
         $messages = [];
         try {
             $nativeMethods = $classReflection->getNativeMethods();
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
             return [];
         }
         foreach ($nativeMethods as $method) {

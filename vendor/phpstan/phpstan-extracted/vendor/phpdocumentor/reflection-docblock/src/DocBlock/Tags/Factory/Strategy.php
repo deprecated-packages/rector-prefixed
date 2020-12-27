@@ -10,7 +10,7 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Factory;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Factory;
 
 interface Strategy
 {

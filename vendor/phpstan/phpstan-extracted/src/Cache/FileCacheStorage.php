@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Cache;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Random;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Random;
 use RectorPrefix20201227\PHPStan\File\FileWriter;
 class FileCacheStorage implements \RectorPrefix20201227\PHPStan\Cache\CacheStorage
 {
@@ -62,7 +62,7 @@ class FileCacheStorage implements \RectorPrefix20201227\PHPStan\Cache\CacheStora
         $this->makeDir($this->directory);
         $this->makeDir($firstDirectory);
         $this->makeDir($secondDirectory);
-        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Random::generate());
+        $tmpPath = \sprintf('%s/%s.tmp', $this->directory, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Random::generate());
         $errorBefore = \error_get_last();
         $exported = @\var_export(new \RectorPrefix20201227\PHPStan\Cache\CacheItem($variableKey, $data), \true);
         $errorAfter = \error_get_last();

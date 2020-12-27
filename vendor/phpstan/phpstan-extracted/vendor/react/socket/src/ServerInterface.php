@@ -1,8 +1,8 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Socket;
+namespace _HumbugBox221ad6f1b81f\React\Socket;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitterInterface;
+use _HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface;
 /**
  * The `ServerInterface` is responsible for providing an interface for accepting
  * incoming streaming connections, such as a normal TCP/IP connection.
@@ -45,7 +45,7 @@ use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitterInterface;
  *
  * @see ConnectionInterface
  */
-interface ServerInterface extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitterInterface
+interface ServerInterface extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitterInterface
 {
     /**
      * Returns the full address (URI) this server is currently listening on

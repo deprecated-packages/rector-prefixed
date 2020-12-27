@@ -9,7 +9,7 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
 
 /**
  * Represents an array type as described in the PSR-5, the PHPDoc Standard.
@@ -22,6 +22,6 @@ namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types;
  *
  * @psalm-immutable
  */
-final class Array_ extends \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\AbstractList
+final class Array_ extends \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\AbstractList
 {
 }

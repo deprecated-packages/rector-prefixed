@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Reflection\BetterReflection\Reflector;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector;
-final class MemoizingConstantReflector extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector;
+final class MemoizingConstantReflector extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector
 {
     /** @var array<string, \Roave\BetterReflection\Reflection\ReflectionConstant|\Throwable> */
     private $reflections = [];
@@ -16,7 +16,7 @@ final class MemoizingConstantReflector extends \RectorPrefix20201227\_HumbugBox2
      *
      * @throws \Roave\BetterReflection\Reflector\Exception\IdentifierNotFound
      */
-    public function reflect(string $constantName) : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection
+    public function reflect(string $constantName) : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         if (isset($this->reflections[$constantName])) {
             if ($this->reflections[$constantName] instanceof \Throwable) {

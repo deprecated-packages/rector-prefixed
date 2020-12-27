@@ -5,9 +5,9 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator;
+namespace _HumbugBox221ad6f1b81f\Nette\PhpGenerator;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
+use _HumbugBox221ad6f1b81f\Nette;
 /**
  * Closure.
  *
@@ -22,12 +22,12 @@ final class Closure
     private $uses = [];
     public static function from(\Closure $closure) : self
     {
-        return (new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($closure));
+        return (new \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Factory())->fromFunctionReflection(new \ReflectionFunction($closure));
     }
     public function __toString() : string
     {
         try {
-            return (new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Printer())->printClosure($this);
+            return (new \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Printer())->printClosure($this);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
@@ -42,7 +42,7 @@ final class Closure
      */
     public function setUses(array $uses) : self
     {
-        (function (\_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Parameter ...$uses) {
+        (function (\_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Parameter ...$uses) {
         })(...$uses);
         $this->uses = $uses;
         return $this;
@@ -51,8 +51,8 @@ final class Closure
     {
         return $this->uses;
     }
-    public function addUse(string $name) : \_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Parameter
+    public function addUse(string $name) : \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Parameter
     {
-        return $this->uses[] = new \_HumbugBox221ad6f1b81f__UniqueRector\Nette\PhpGenerator\Parameter($name);
+        return $this->uses[] = new \_HumbugBox221ad6f1b81f\Nette\PhpGenerator\Parameter($name);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
 /**
  * This interface is used internally by the Generic reflector in order to

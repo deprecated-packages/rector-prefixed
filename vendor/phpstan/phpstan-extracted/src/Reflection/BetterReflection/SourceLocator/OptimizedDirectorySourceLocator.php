@@ -4,14 +4,14 @@ declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator;
 
 use RectorPrefix20201227\PHPStan\File\FileFinder;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_key_exists;
-class OptimizedDirectorySourceLocator implements \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+class OptimizedDirectorySourceLocator implements \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
 {
     /** @var \PHPStan\Reflection\BetterReflection\SourceLocator\FileNodesFetcher */
     private $fileNodesFetcher;
@@ -35,7 +35,7 @@ class OptimizedDirectorySourceLocator implements \RectorPrefix20201227\_HumbugBo
         $this->fileFinder = $fileFinder;
         $this->directory = $directory;
     }
-    public function locateIdentifier(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection
+    public function locateIdentifier(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier $identifier) : ?\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
         if ($identifier->isClass()) {
             $className = \strtolower($identifier->getName());
@@ -86,9 +86,9 @@ class OptimizedDirectorySourceLocator implements \RectorPrefix20201227\_HumbugBo
      * @param FetchedNode<\PhpParser\Node\Stmt\ClassLike>|FetchedNode<\PhpParser\Node\Stmt\Function_> $fetchedNode
      * @return Reflection
      */
-    private function nodeToReflection(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode $fetchedNode) : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Reflection
+    private function nodeToReflection(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator\FetchedNode $fetchedNode) : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Reflection
     {
-        $nodeToReflection = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+        $nodeToReflection = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
         $reflection = $nodeToReflection->__invoke($reflector, $fetchedNode->getNode(), $this->locatedSourcesByFile[$fetchedNode->getFileName()], $fetchedNode->getNamespace());
         if ($reflection === null) {
             throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
@@ -214,7 +214,7 @@ class OptimizedDirectorySourceLocator implements \RectorPrefix20201227\_HumbugBo
         }
         return ['classes' => $classes, 'functions' => $functions];
     }
-    public function locateIdentifiersByType(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
+    public function locateIdentifiersByType(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType $identifierType) : array
     {
         return [];
     }

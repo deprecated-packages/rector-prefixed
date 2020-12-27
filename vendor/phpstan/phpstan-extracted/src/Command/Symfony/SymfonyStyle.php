@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Command\Symfony;
 
 use RectorPrefix20201227\PHPStan\Command\OutputStyle;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Style\StyleInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\StyleInterface;
 /**
  * @internal
  */
@@ -12,11 +12,11 @@ class SymfonyStyle implements \RectorPrefix20201227\PHPStan\Command\OutputStyle
 {
     /** @var \Symfony\Component\Console\Style\StyleInterface */
     private $symfonyStyle;
-    public function __construct(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Style\StyleInterface $symfonyStyle)
+    public function __construct(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\StyleInterface $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
     }
-    public function getSymfonyStyle() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Style\StyleInterface
+    public function getSymfonyStyle() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Style\StyleInterface
     {
         return $this->symfonyStyle;
     }

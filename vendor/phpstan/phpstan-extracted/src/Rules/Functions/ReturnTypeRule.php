@@ -10,8 +10,8 @@ use RectorPrefix20201227\PHPStan\Reflection\ParametersAcceptorSelector;
 use RectorPrefix20201227\PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use RectorPrefix20201227\PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use RectorPrefix20201227\PHPStan\Rules\FunctionReturnTypeCheck;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
 /**
  * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\Return_>
  */
@@ -21,7 +21,7 @@ class ReturnTypeRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
     private $returnTypeCheck;
     /** @var FunctionReflector */
     private $functionReflector;
-    public function __construct(\RectorPrefix20201227\PHPStan\Rules\FunctionReturnTypeCheck $returnTypeCheck, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
+    public function __construct(\RectorPrefix20201227\PHPStan\Rules\FunctionReturnTypeCheck $returnTypeCheck, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector)
     {
         $this->returnTypeCheck = $returnTypeCheck;
         $this->functionReflector = $functionReflector;
@@ -48,7 +48,7 @@ class ReturnTypeRule implements \RectorPrefix20201227\PHPStan\Rules\Rule
         } else {
             try {
                 $reflection = $this->functionReflector->reflect($function->getName());
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 // pass
             }
         }

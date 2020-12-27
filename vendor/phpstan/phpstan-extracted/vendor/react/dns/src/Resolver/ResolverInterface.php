@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Dns\Resolver;
+namespace _HumbugBox221ad6f1b81f\React\Dns\Resolver;
 
 interface ResolverInterface
 {

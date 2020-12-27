@@ -15,10 +15,10 @@ use RectorPrefix20201227\PHPStan\Rules\MetadataRuleError;
 use RectorPrefix20201227\PHPStan\Rules\NonIgnorableRuleError;
 use RectorPrefix20201227\PHPStan\Rules\Registry;
 use RectorPrefix20201227\PHPStan\Rules\TipRuleError;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use function array_fill_keys;
 use function array_key_exists;
 use function array_unique;
@@ -75,10 +75,10 @@ class FileAnalyser
                             $uniquedAnalysedCodeExceptionMessages[$e->getMessage()] = \true;
                             $fileErrors[] = new \RectorPrefix20201227\PHPStan\Analyser\Error($e->getMessage(), $file, $node->getLine(), $e, null, null, $e->getTip());
                             continue;
-                        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+                        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                             $fileErrors[] = new \RectorPrefix20201227\PHPStan\Analyser\Error(\sprintf('Reflection error: %s not found.', $e->getIdentifier()->getName()), $file, $node->getLine(), $e, null, null, 'Learn more at https://phpstan.org/user-guide/discovering-symbols');
                             continue;
-                        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
+                        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
                             $fileErrors[] = new \RectorPrefix20201227\PHPStan\Analyser\Error(\sprintf('Reflection error: %s', $e->getMessage()), $file, $node->getLine(), $e);
                             continue;
                         }
@@ -139,9 +139,9 @@ class FileAnalyser
                         }
                     } catch (\RectorPrefix20201227\PHPStan\AnalysedCodeException $e) {
                         // pass
-                    } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+                    } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                         // pass
-                    } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
+                    } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
                         // pass
                     }
                 };
@@ -178,9 +178,9 @@ class FileAnalyser
                 }
             } catch (\RectorPrefix20201227\PHPStan\AnalysedCodeException $e) {
                 $fileErrors[] = new \RectorPrefix20201227\PHPStan\Analyser\Error($e->getMessage(), $file, null, $e, null, null, $e->getTip());
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 $fileErrors[] = new \RectorPrefix20201227\PHPStan\Analyser\Error(\sprintf('Reflection error: %s not found.', $e->getIdentifier()->getName()), $file, null, $e, null, null, 'Learn more at https://phpstan.org/user-guide/discovering-symbols');
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
                 $fileErrors[] = new \RectorPrefix20201227\PHPStan\Analyser\Error(\sprintf('Reflection error: %s', $e->getMessage()), $file, null, $e);
             }
         } elseif (\is_dir($file)) {

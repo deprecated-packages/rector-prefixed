@@ -112,10 +112,10 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeTraverser;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 class NodeScopeResolver
 {
     private const LOOP_SCOPE_ITERATIONS = 3;
@@ -164,7 +164,7 @@ class NodeScopeResolver
      * @param string[][] $earlyTerminatingMethodCalls className(string) => methods(string[])
      * @param array<int, string> $earlyTerminatingFunctionCalls
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \RectorPrefix20201227\PHPStan\Parser\Parser $parser, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocInheritanceResolver $phpDocInheritanceResolver, \RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier $typeSpecifier, bool $polluteScopeWithLoopInitialAssignments, bool $polluteCatchScopeWithTryAssignments, bool $polluteScopeWithAlwaysIterableForeach, array $earlyTerminatingMethodCalls, array $earlyTerminatingFunctionCalls)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \RectorPrefix20201227\PHPStan\Parser\Parser $parser, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion, \RectorPrefix20201227\PHPStan\PhpDoc\PhpDocInheritanceResolver $phpDocInheritanceResolver, \RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, \RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier $typeSpecifier, bool $polluteScopeWithLoopInitialAssignments, bool $polluteCatchScopeWithTryAssignments, bool $polluteScopeWithAlwaysIterableForeach, array $earlyTerminatingMethodCalls, array $earlyTerminatingFunctionCalls)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->classReflector = $classReflector;
@@ -426,12 +426,12 @@ class NodeScopeResolver
         } elseif ($stmt instanceof \PhpParser\Node\Stmt\ClassLike) {
             $hasYield = \false;
             if (isset($stmt->namespacedName)) {
-                $nodeToReflection = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
-                $betterReflectionClass = $nodeToReflection->__invoke($this->classReflector, $stmt, new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource(\RectorPrefix20201227\PHPStan\File\FileReader::read($scope->getFile()), $scope->getFile()), $scope->getNamespace() !== null ? new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($scope->getNamespace())) : null, null);
-                if (!$betterReflectionClass instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass) {
+                $nodeToReflection = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Strategy\NodeToReflection();
+                $betterReflectionClass = $nodeToReflection->__invoke($this->classReflector, $stmt, new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource(\RectorPrefix20201227\PHPStan\File\FileReader::read($scope->getFile()), $scope->getFile()), $scope->getNamespace() !== null ? new \PhpParser\Node\Stmt\Namespace_(new \PhpParser\Node\Name($scope->getNamespace())) : null, null);
+                if (!$betterReflectionClass instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass) {
                     throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
                 }
-                $classReflection = new \RectorPrefix20201227\PHPStan\Reflection\ClassReflection($this->reflectionProvider, $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $betterReflectionClass->getName(), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($betterReflectionClass), null, null, null, \sprintf('%s:%d', $scope->getFile(), $stmt->getStartLine()));
+                $classReflection = new \RectorPrefix20201227\PHPStan\Reflection\ClassReflection($this->reflectionProvider, $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $betterReflectionClass->getName(), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($betterReflectionClass), null, null, null, \sprintf('%s:%d', $scope->getFile(), $stmt->getStartLine()));
                 $this->reflectionProvider->hasClass($classReflection->getName());
                 $classScope = $scope->enterClass($classReflection);
                 $nodeCallback(new \RectorPrefix20201227\PHPStan\Node\InClassNode($stmt, $classReflection), $classScope);

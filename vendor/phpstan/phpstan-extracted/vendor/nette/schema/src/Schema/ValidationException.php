@@ -5,13 +5,13 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema;
+namespace _HumbugBox221ad6f1b81f\Nette\Schema;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Nette;
+use _HumbugBox221ad6f1b81f\Nette;
 /**
  * Validation error.
  */
-class ValidationException extends \_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidStateException
+class ValidationException extends \_HumbugBox221ad6f1b81f\Nette\InvalidStateException
 {
     /** @var array */
     private $messages;

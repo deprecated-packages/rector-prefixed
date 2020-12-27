@@ -1,11 +1,11 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Promise;
+namespace _HumbugBox221ad6f1b81f\React\Promise;
 
 /**
  * @deprecated 2.8.0 LazyPromise is deprecated and should not be used anymore.
  */
-class LazyPromise implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\ExtendedPromiseInterface, \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface
+class LazyPromise implements \_HumbugBox221ad6f1b81f\React\Promise\ExtendedPromiseInterface, \_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
 {
     private $factory;
     private $promise;
@@ -47,9 +47,9 @@ class LazyPromise implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise
             try {
                 $this->promise = resolve(\call_user_func($this->factory));
             } catch (\Throwable $exception) {
-                $this->promise = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\RejectedPromise($exception);
+                $this->promise = new \_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
             } catch (\Exception $exception) {
-                $this->promise = new \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\RejectedPromise($exception);
+                $this->promise = new \_HumbugBox221ad6f1b81f\React\Promise\RejectedPromise($exception);
             }
         }
         return $this->promise;

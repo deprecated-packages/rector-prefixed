@@ -10,11 +10,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tag;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
-class PassthroughFormatter implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+class PassthroughFormatter implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter
 {
     /**
      * Formats the given tag to return a simple plain text version.
@@ -23,7 +23,7 @@ class PassthroughFormatter implements \_HumbugBox221ad6f1b81f__UniqueRector\phpD
      *
      * @return string
      */
-    public function format(\_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tag $tag)
+    public function format(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag $tag)
     {
         return \trim('@' . $tag->getName() . ' ' . (string) $tag);
     }

@@ -1,15 +1,15 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7;
+namespace _HumbugBox221ad6f1b81f\RingCentral\Psr7;
 
 use InvalidArgumentException;
-use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\RequestInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\StreamInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\UriInterface;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\RequestInterface;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\StreamInterface;
+use _HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface;
 /**
  * PSR-7 request implementation.
  */
-class Request extends \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\MessageTrait implements \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\RequestInterface
+class Request extends \_HumbugBox221ad6f1b81f\RingCentral\Psr7\MessageTrait implements \_HumbugBox221ad6f1b81f\Psr\Http\Message\RequestInterface
 {
     /** @var string */
     private $method;
@@ -29,9 +29,9 @@ class Request extends \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Mes
     public function __construct($method, $uri, array $headers = array(), $body = null, $protocolVersion = '1.1')
     {
         if (\is_string($uri)) {
-            $uri = new \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Uri($uri);
-        } elseif (!$uri instanceof \_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\UriInterface) {
-            throw new \InvalidArgumentException('_HumbugBox221ad6f1b81f__UniqueRector\\URI must be a string or Psr\\Http\\Message\\UriInterface');
+            $uri = new \_HumbugBox221ad6f1b81f\RingCentral\Psr7\Uri($uri);
+        } elseif (!$uri instanceof \_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface) {
+            throw new \InvalidArgumentException('_HumbugBox221ad6f1b81f\\URI must be a string or Psr\\Http\\Message\\UriInterface');
         }
         $this->method = \strtoupper($method);
         $this->uri = $uri;
@@ -82,7 +82,7 @@ class Request extends \_HumbugBox221ad6f1b81f__UniqueRector\RingCentral\Psr7\Mes
     {
         return $this->uri;
     }
-    public function withUri(\_HumbugBox221ad6f1b81f__UniqueRector\Psr\Http\Message\UriInterface $uri, $preserveHost = \false)
+    public function withUri(\_HumbugBox221ad6f1b81f\Psr\Http\Message\UriInterface $uri, $preserveHost = \false)
     {
         if ($uri === $this->uri) {
             return $this;

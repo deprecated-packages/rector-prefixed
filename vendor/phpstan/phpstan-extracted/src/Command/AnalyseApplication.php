@@ -8,7 +8,7 @@ use RectorPrefix20201227\PHPStan\Analyser\IgnoredErrorHelper;
 use RectorPrefix20201227\PHPStan\Analyser\ResultCache\ResultCacheManagerFactory;
 use RectorPrefix20201227\PHPStan\Internal\BytesHelper;
 use RectorPrefix20201227\PHPStan\PhpDoc\StubValidator;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
 class AnalyseApplication
 {
     /** @var AnalyserRunner */
@@ -43,7 +43,7 @@ class AnalyseApplication
      * @param mixed[]|null $projectConfigArray
      * @return AnalysisResult
      */
-    public function analyse(array $files, bool $onlyFiles, \RectorPrefix20201227\PHPStan\Command\Output $stdOutput, \RectorPrefix20201227\PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, ?string $projectConfigFile, ?array $projectConfigArray, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Command\AnalysisResult
+    public function analyse(array $files, bool $onlyFiles, \RectorPrefix20201227\PHPStan\Command\Output $stdOutput, \RectorPrefix20201227\PHPStan\Command\Output $errorOutput, bool $defaultLevelUsed, bool $debug, ?string $projectConfigFile, ?array $projectConfigArray, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Command\AnalysisResult
     {
         $this->updateMemoryLimitFile();
         $projectStubFiles = [];
@@ -104,7 +104,7 @@ class AnalyseApplication
      * @param string[] $files
      * @param string[] $allAnalysedFiles
      */
-    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, ?string $projectConfigFile, \RectorPrefix20201227\PHPStan\Command\Output $stdOutput, \RectorPrefix20201227\PHPStan\Command\Output $errorOutput, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult
+    private function runAnalyser(array $files, array $allAnalysedFiles, bool $debug, ?string $projectConfigFile, \RectorPrefix20201227\PHPStan\Command\Output $stdOutput, \RectorPrefix20201227\PHPStan\Command\Output $errorOutput, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult
     {
         $filesCount = \count($files);
         $allAnalysedFilesCount = \count($allAnalysedFiles);

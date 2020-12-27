@@ -53,7 +53,7 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements \PHPStan\Type\
         if ($urlType instanceof \PHPStan\Type\Constant\ConstantStringType) {
             try {
                 $result = @\parse_url($urlType->getValue(), $componentType->getValue());
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\ValueError $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\ValueError $e) {
                 return new \PHPStan\Type\Constant\ConstantBooleanType(\false);
             }
             return $scope->getTypeFromValue($result);

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection;
 
 use Closure;
 use LogicException;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Yield_ as YieldNode;
@@ -15,20 +15,20 @@ use PhpParser\NodeTraverser;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 use PhpParser\PrettyPrinterAbstract;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\BetterReflection;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\Uncloneable;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder\FindReturnType;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\CalculateReflectionColum;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\GetLastDocComment;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Visitor\ReturnNodeVisitor;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\FindReturnType;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\GetLastDocComment;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Visitor\ReturnNodeVisitor;
 use function array_filter;
 use function assert;
 use function count;
@@ -63,7 +63,7 @@ abstract class ReflectionFunctionAbstract
      *
      * @throws InvalidAbstractFunctionNodeType
      */
-    protected function populateFunctionAbstract(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\FunctionLike $node, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $declaringNamespace = null) : void
+    protected function populateFunctionAbstract(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Reflector $reflector, \PhpParser\Node\FunctionLike $node, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource $locatedSource, ?\PhpParser\Node\Stmt\Namespace_ $declaringNamespace = null) : void
     {
         $this->reflector = $reflector;
         $this->node = $node;
@@ -163,7 +163,7 @@ abstract class ReflectionFunctionAbstract
      */
     public function getNumberOfRequiredParameters() : int
     {
-        return \count(\array_filter($this->getParameters(), static function (\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionParameter $p) : bool {
+        return \count(\array_filter($this->getParameters(), static function (\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter $p) : bool {
             return !$p->isOptional();
         }));
     }
@@ -179,7 +179,7 @@ abstract class ReflectionFunctionAbstract
         /** @var list<Node\Param> $nodeParams */
         $nodeParams = $this->getNode()->params;
         foreach ($nodeParams as $paramIndex => $paramNode) {
-            $parameters[] = \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionParameter::createFromNode($this->reflector, $paramNode, $this->declaringNamespace, $this, $paramIndex);
+            $parameters[] = \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter::createFromNode($this->reflector, $paramNode, $this->declaringNamespace, $this, $paramIndex);
         }
         return $parameters;
     }
@@ -187,7 +187,7 @@ abstract class ReflectionFunctionAbstract
      * Get a single parameter by name. Returns null if parameter not found for
      * the function.
      */
-    public function getParameter(string $parameterName) : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionParameter
+    public function getParameter(string $parameterName) : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionParameter
     {
         foreach ($this->getParameters() as $parameter) {
             if ($parameter->getName() === $parameterName) {
@@ -198,7 +198,7 @@ abstract class ReflectionFunctionAbstract
     }
     public function getDocComment() : string
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->getNode());
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\GetLastDocComment::forNode($this->getNode());
     }
     public function setDocCommentFromString(string $string) : void
     {
@@ -208,7 +208,7 @@ abstract class ReflectionFunctionAbstract
     {
         return $this->locatedSource->getFileName();
     }
-    public function getLocatedSource() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource
+    public function getLocatedSource() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource
     {
         return $this->locatedSource;
     }
@@ -316,11 +316,11 @@ abstract class ReflectionFunctionAbstract
     }
     public function getStartColumn() : int
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->locatedSource->getSource(), $this->getNode());
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getStartColumn($this->locatedSource->getSource(), $this->getNode());
     }
     public function getEndColumn() : int
     {
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->locatedSource->getSource(), $this->getNode());
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\CalculateReflectionColum::getEndColumn($this->locatedSource->getSource(), $this->getNode());
     }
     /**
      * Is this function declared as a reference.
@@ -339,18 +339,18 @@ abstract class ReflectionFunctionAbstract
      */
     public function getDocBlockReturnTypes() : array
     {
-        return (new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder\FindReturnType())->__invoke($this, $this->declaringNamespace);
+        return (new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\FindReturnType())->__invoke($this, $this->declaringNamespace);
     }
     /**
      * Get the return type declaration (only for PHP 7+ code)
      */
-    public function getReturnType() : ?\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionType
+    public function getReturnType() : ?\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType
     {
         $returnType = $this->getNode()->getReturnType();
         if ($returnType === null) {
             return null;
         }
-        return \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($returnType);
+        return \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionType::createFromTypeAndReflector($returnType);
     }
     /**
      * Do we have a return type declaration (only for PHP 7+ code)
@@ -378,7 +378,7 @@ abstract class ReflectionFunctionAbstract
      */
     public function __clone()
     {
-        throw \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\Uncloneable::fromClass(self::class);
+        throw \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\Uncloneable::fromClass(self::class);
     }
     /**
      * Retrieves the body of this function as AST nodes
@@ -427,7 +427,7 @@ abstract class ReflectionFunctionAbstract
      */
     public function setBodyFromClosure(\Closure $newBody) : void
     {
-        $closureReflection = (new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator($newBody, $this->loadStaticParser()))->locateIdentifier($this->reflector, new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Identifier(self::CLOSURE_NAME, new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_FUNCTION)));
+        $closureReflection = (new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator($newBody, $this->loadStaticParser()))->locateIdentifier($this->reflector, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Identifier(self::CLOSURE_NAME, new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\IdentifierType::IDENTIFIER_FUNCTION)));
         \assert($closureReflection instanceof self);
         $functionNode = $closureReflection->getNode();
         $this->getNode()->stmts = $functionNode->getStmts();
@@ -495,7 +495,7 @@ abstract class ReflectionFunctionAbstract
      */
     public function getReturnStatementsAst() : array
     {
-        $visitor = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Visitor\ReturnNodeVisitor();
+        $visitor = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Visitor\ReturnNodeVisitor();
         $traverser = new \PhpParser\NodeTraverser();
         $traverser->addVisitor($visitor);
         $traverser->traverse($this->getNode()->getStmts());
@@ -503,6 +503,6 @@ abstract class ReflectionFunctionAbstract
     }
     private function loadStaticParser() : \PhpParser\Parser
     {
-        return self::$parser ?? (self::$parser = (new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\BetterReflection())->phpParser());
+        return self::$parser ?? (self::$parser = (new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\BetterReflection())->phpParser());
     }
 }

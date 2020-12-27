@@ -8,7 +8,7 @@ use RectorPrefix20201227\PHPStan\Analyser\AnalyserResult;
 use RectorPrefix20201227\PHPStan\Parallel\ParallelAnalyser;
 use RectorPrefix20201227\PHPStan\Parallel\Scheduler;
 use RectorPrefix20201227\PHPStan\Process\CpuCoreCounter;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
 class AnalyserRunner
 {
     /** @var Scheduler */
@@ -40,7 +40,7 @@ class AnalyserRunner
      * @return AnalyserResult
      * @throws \Throwable
      */
-    public function runAnalyser(array $files, array $allAnalysedFiles, ?\Closure $preFileCallback, ?\Closure $postFileCallback, bool $debug, bool $allowParallel, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult
+    public function runAnalyser(array $files, array $allAnalysedFiles, ?\Closure $preFileCallback, ?\Closure $postFileCallback, bool $debug, bool $allowParallel, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult
     {
         $filesCount = \count($files);
         if ($filesCount === 0) {

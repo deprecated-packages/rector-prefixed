@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Reflection\BetterReflection\SourceLocator;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
 use RectorPrefix20201227\PHPStan\File\FileReader;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr0Mapping;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr0Mapping;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 class ComposerJsonAndInstalledJsonSourceLocatorMaker
 {
     /** @var \PHPStan\Reflection\BetterReflection\SourceLocator\OptimizedDirectorySourceLocatorRepository */
@@ -23,7 +23,7 @@ class ComposerJsonAndInstalledJsonSourceLocatorMaker
         $this->optimizedSingleFileSourceLocatorRepository = $optimizedSingleFileSourceLocatorRepository;
         $this->optimizedPsrAutoloaderLocatorFactory = $optimizedPsrAutoloaderLocatorFactory;
     }
-    public function create(string $projectInstallationPath) : ?\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+    public function create(string $projectInstallationPath) : ?\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
     {
         $composerJsonPath = $projectInstallationPath . '/composer.json';
         if (!\is_file($composerJsonPath)) {
@@ -36,14 +36,14 @@ class ComposerJsonAndInstalledJsonSourceLocatorMaker
         $installedJsonDirectoryPath = \dirname($installedJsonPath);
         try {
             $composerJsonContents = \RectorPrefix20201227\PHPStan\File\FileReader::read($composerJsonPath);
-            $composer = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::decode($composerJsonContents, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::FORCE_ARRAY);
-        } catch (\RectorPrefix20201227\PHPStan\File\CouldNotReadFileException|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\JsonException $e) {
+            $composer = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($composerJsonContents, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
+        } catch (\RectorPrefix20201227\PHPStan\File\CouldNotReadFileException|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException $e) {
             return null;
         }
         try {
             $installedJsonContents = \RectorPrefix20201227\PHPStan\File\FileReader::read($installedJsonPath);
-            $installedJson = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::decode($installedJsonContents, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::FORCE_ARRAY);
-        } catch (\RectorPrefix20201227\PHPStan\File\CouldNotReadFileException|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\JsonException $e) {
+            $installedJson = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::decode($installedJsonContents, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::FORCE_ARRAY);
+        } catch (\RectorPrefix20201227\PHPStan\File\CouldNotReadFileException|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\JsonException $e) {
             return null;
         }
         $installed = $installedJson['packages'] ?? $installedJson;
@@ -56,10 +56,10 @@ class ComposerJsonAndInstalledJsonSourceLocatorMaker
             return $this->prefixPaths($this->packageToFilePaths($package), $this->packagePrefixPath($projectInstallationPath, $installedJsonDirectoryPath, $package));
         }, $installed));
         $locators = [];
-        $locators[] = $this->optimizedPsrAutoloaderLocatorFactory->create(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping::fromArrayMappings(\array_merge_recursive($this->prefixWithInstallationPath($this->packageToPsr4AutoloadNamespaces($composer), $projectInstallationPath), ...\array_map(function (array $package) use($projectInstallationPath, $installedJsonDirectoryPath) : array {
+        $locators[] = $this->optimizedPsrAutoloaderLocatorFactory->create(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping::fromArrayMappings(\array_merge_recursive($this->prefixWithInstallationPath($this->packageToPsr4AutoloadNamespaces($composer), $projectInstallationPath), ...\array_map(function (array $package) use($projectInstallationPath, $installedJsonDirectoryPath) : array {
             return $this->prefixWithPackagePath($this->packageToPsr4AutoloadNamespaces($package), $projectInstallationPath, $installedJsonDirectoryPath, $package);
         }, $installed))));
-        $locators[] = $this->optimizedPsrAutoloaderLocatorFactory->create(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr0Mapping::fromArrayMappings(\array_merge_recursive($this->prefixWithInstallationPath($this->packageToPsr0AutoloadNamespaces($composer), $projectInstallationPath), ...\array_map(function (array $package) use($projectInstallationPath, $installedJsonDirectoryPath) : array {
+        $locators[] = $this->optimizedPsrAutoloaderLocatorFactory->create(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr0Mapping::fromArrayMappings(\array_merge_recursive($this->prefixWithInstallationPath($this->packageToPsr0AutoloadNamespaces($composer), $projectInstallationPath), ...\array_map(function (array $package) use($projectInstallationPath, $installedJsonDirectoryPath) : array {
             return $this->prefixWithPackagePath($this->packageToPsr0AutoloadNamespaces($package), $projectInstallationPath, $installedJsonDirectoryPath, $package);
         }, $installed))));
         foreach ($classMapDirectories as $classMapDirectory) {
@@ -74,7 +74,7 @@ class ComposerJsonAndInstalledJsonSourceLocatorMaker
             }
             $locators[] = $this->optimizedSingleFileSourceLocatorRepository->getOrCreate($file);
         }
-        return new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators);
+        return new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator($locators);
     }
     /**
      * @param mixed[] $package

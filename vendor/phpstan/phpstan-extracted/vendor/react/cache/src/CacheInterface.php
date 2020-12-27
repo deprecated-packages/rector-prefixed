@@ -1,8 +1,8 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Cache;
+namespace _HumbugBox221ad6f1b81f\React\Cache;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface;
+use _HumbugBox221ad6f1b81f\React\Promise\PromiseInterface;
 interface CacheInterface
 {
     /**

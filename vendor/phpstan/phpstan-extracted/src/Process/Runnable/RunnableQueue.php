@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Process\Runnable;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Deferred;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Promise\Deferred;
 use SplObjectStorage;
 class RunnableQueue
 {
@@ -42,12 +42,12 @@ class RunnableQueue
         }
         return $allSize;
     }
-    public function queue(\RectorPrefix20201227\PHPStan\Process\Runnable\Runnable $runnable, int $size) : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\CancellablePromiseInterface
+    public function queue(\RectorPrefix20201227\PHPStan\Process\Runnable\Runnable $runnable, int $size) : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Promise\CancellablePromiseInterface
     {
         if ($size > $this->maxSize) {
             throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException('Runnable size exceeds queue maxSize.');
         }
-        $deferred = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\Deferred(static function () use($runnable) : void {
+        $deferred = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Promise\Deferred(static function () use($runnable) : void {
             $runnable->cancel();
         });
         $this->queue[] = [$runnable, $size, $deferred];

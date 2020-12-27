@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Command;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\CiDetector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector;
 use RectorPrefix20201227\PHPStan\Analyser\ResultCache\ResultCacheClearer;
 use RectorPrefix20201227\PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter;
 use RectorPrefix20201227\PHPStan\Command\ErrorFormatter\ErrorFormatter;
@@ -12,14 +12,14 @@ use RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyOutput;
 use RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyStyle;
 use RectorPrefix20201227\PHPStan\File\FileWriter;
 use RectorPrefix20201227\PHPStan\File\ParentDirectoryRelativePathHelper;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\StringInput;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\StreamOutput;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\StringInput;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\StreamOutput;
 use function stream_get_contents;
-class AnalyseCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Command\Command
+class AnalyseCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command
 {
     private const NAME = 'analyse';
     public const OPTION_LEVEL = 'level';
@@ -36,7 +36,7 @@ class AnalyseCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Uniqu
     }
     protected function configure() : void
     {
-        $this->setName(self::NAME)->setDescription('Analyses source code')->setDefinition([new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument('paths', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('paths-file', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('configuration', 'c', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption(self::OPTION_LEVEL, 'l', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption(\RectorPrefix20201227\PHPStan\Command\ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Do not show progress bar, only results'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('debug', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('error-format', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', null), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('generate-baseline', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, 'Path to a file where the baseline should be saved', \false), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('memory-limit', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('xdebug', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('fix', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('watch', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('pro', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro')]);
+        $this->setName(self::NAME)->setDescription('Analyses source code')->setDefinition([new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument('paths', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('paths-file', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('configuration', 'c', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption(self::OPTION_LEVEL, 'l', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption(\RectorPrefix20201227\PHPStan\Command\ErrorsConsoleStyle::OPTION_NO_PROGRESS, null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Do not show progress bar, only results'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('debug', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Show debug information - which file is analysed, do not catch internal errors'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('error-format', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', null), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('generate-baseline', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, 'Path to a file where the baseline should be saved', \false), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('memory-limit', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('xdebug', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('fix', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('watch', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('pro', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Launch PHPStan Pro')]);
     }
     /**
      * @return string[]
@@ -45,7 +45,7 @@ class AnalyseCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Uniqu
     {
         return ['analyze'];
     }
-    protected function initialize(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface $output) : void
+    protected function initialize(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         if ((bool) $input->getOption('debug')) {
             $application = $this->getApplication();
@@ -56,7 +56,7 @@ class AnalyseCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Uniqu
             return;
         }
     }
-    protected function execute(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $paths = $input->getArgument('paths');
         $memoryLimit = $input->getOption('memory-limit');
@@ -97,15 +97,15 @@ class AnalyseCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Uniqu
         }
         if ($errorFormat === null) {
             $errorFormat = 'table';
-            $ciDetector = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\CiDetector();
+            $ciDetector = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector();
             try {
                 $ci = $ciDetector->detect();
-                if ($ci->getCiName() === \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS) {
+                if ($ci->getCiName() === \RectorPrefix20201227\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_GITHUB_ACTIONS) {
                     $errorFormat = 'github';
-                } elseif ($ci->getCiName() === \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\CiDetector::CI_TEAMCITY) {
+                } elseif ($ci->getCiName() === \RectorPrefix20201227\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector::CI_TEAMCITY) {
                     $errorFormat = 'teamcity';
                 }
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\Exception\CiNotDetectedException $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\OndraM\CiDetector\Exception\CiNotDetectedException $e) {
                 // pass
             }
         }
@@ -166,7 +166,7 @@ class AnalyseCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Uniqu
             $baselineFileDirectory = \dirname($generateBaselineFile);
             $baselineErrorFormatter = new \RectorPrefix20201227\PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter(new \RectorPrefix20201227\PHPStan\File\ParentDirectoryRelativePathHelper($baselineFileDirectory));
             $streamOutput = $this->createStreamOutput();
-            $errorConsoleStyle = new \RectorPrefix20201227\PHPStan\Command\ErrorsConsoleStyle(new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\StringInput(''), $streamOutput);
+            $errorConsoleStyle = new \RectorPrefix20201227\PHPStan\Command\ErrorsConsoleStyle(new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\StringInput(''), $streamOutput);
             $baselineOutput = new \RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyOutput($streamOutput, new \RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyStyle($errorConsoleStyle));
             $baselineErrorFormatter->formatErrors($analysisResult, $baselineOutput);
             $stream = $streamOutput->getStream();
@@ -212,7 +212,7 @@ class AnalyseCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Uniqu
             return $inceptionResult->handleReturn(0);
         }
         if ($fix) {
-            $ciDetector = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\OndraM\CiDetector\CiDetector();
+            $ciDetector = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\OndraM\CiDetector\CiDetector();
             if ($ciDetector->isCiDetected()) {
                 $inceptionResult->getStdOutput()->writeLineFormatted('PHPStan Pro can\'t run in CI environment yet. Stay tuned!');
                 return $inceptionResult->handleReturn(1);
@@ -267,12 +267,12 @@ class AnalyseCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Uniqu
         $errorFormatter = $container->getService($errorFormatterServiceName);
         return $inceptionResult->handleReturn($errorFormatter->formatErrors($analysisResult, $inceptionResult->getStdOutput()));
     }
-    private function createStreamOutput() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\StreamOutput
+    private function createStreamOutput() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\StreamOutput
     {
         $resource = \fopen('php://memory', 'w', \false);
         if ($resource === \false) {
             throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
         }
-        return new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\StreamOutput($resource);
+        return new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\StreamOutput($resource);
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Analyser;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
 use RectorPrefix20201227\PHPStan\Command\IgnoredRegexValidator;
 use RectorPrefix20201227\PHPStan\File\FileHelper;
 class IgnoredErrorHelper
@@ -39,12 +39,12 @@ class IgnoredErrorHelper
             try {
                 if (\is_array($ignoreError)) {
                     if (!isset($ignoreError['message'])) {
-                        $errors[] = \sprintf('Ignored error %s is missing a message.', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::encode($ignoreError));
+                        $errors[] = \sprintf('Ignored error %s is missing a message.', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($ignoreError));
                         continue;
                     }
                     if (!isset($ignoreError['path'])) {
                         if (!isset($ignoreError['paths'])) {
-                            $errors[] = \sprintf('Ignored error %s is missing a path.', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::encode($ignoreError));
+                            $errors[] = \sprintf('Ignored error %s is missing a path.', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($ignoreError));
                         }
                         $otherIgnoreErrors[] = ['index' => $i, 'ignoreError' => $ignoreError];
                     } elseif (\is_file($ignoreError['path'])) {
@@ -57,7 +57,7 @@ class IgnoredErrorHelper
                         $otherIgnoreErrors[] = ['index' => $i, 'ignoreError' => $ignoreError];
                     }
                     $ignoreMessage = $ignoreError['message'];
-                    \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match('', $ignoreMessage);
+                    \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match('', $ignoreMessage);
                     if (isset($ignoreError['count'])) {
                         continue;
                         // ignoreError coming from baseline will be correct
@@ -76,7 +76,7 @@ class IgnoredErrorHelper
                 } else {
                     $otherIgnoreErrors[] = ['index' => $i, 'ignoreError' => $ignoreError];
                     $ignoreMessage = $ignoreError;
-                    \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match('', $ignoreMessage);
+                    \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match('', $ignoreMessage);
                     $validationResult = $this->ignoredRegexValidator->validate($ignoreMessage);
                     $ignoredTypes = $validationResult->getIgnoredTypes();
                     if (\count($ignoredTypes) > 0) {
@@ -89,7 +89,7 @@ class IgnoredErrorHelper
                         $errors[] = \sprintf("Ignored error %s has an unescaped '%s' which leads to ignoring all errors. Use '%s' instead.", $ignoreMessage, $validationResult->getWrongSequence(), $validationResult->getEscapedWrongSequence());
                     }
                 }
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\RegexpException $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\RegexpException $e) {
                 $errors[] = $e->getMessage();
             }
         }

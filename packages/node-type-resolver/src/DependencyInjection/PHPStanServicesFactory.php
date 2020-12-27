@@ -9,7 +9,6 @@ use RectorPrefix20201227\PHPStan\Analyser\TypeSpecifier;
 use RectorPrefix20201227\PHPStan\Dependency\DependencyResolver;
 use RectorPrefix20201227\PHPStan\DependencyInjection\Container;
 use RectorPrefix20201227\PHPStan\DependencyInjection\ContainerFactory;
-use RectorPrefix20201227\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider;
 use RectorPrefix20201227\PHPStan\DependencyInjection\Type\OperatorTypeSpecifyingExtensionRegistryProvider;
 use RectorPrefix20201227\PHPStan\File\FileHelper;
 use RectorPrefix20201227\PHPStan\PhpDoc\TypeNodeResolver;
@@ -66,13 +65,6 @@ final class PHPStanServicesFactory
     public function createScopeFactory() : \RectorPrefix20201227\PHPStan\Analyser\ScopeFactory
     {
         return $this->container->getByType(\RectorPrefix20201227\PHPStan\Analyser\ScopeFactory::class);
-    }
-    /**
-     * @api
-     */
-    public function createDynamicReturnTypeExtensionRegistryProvider() : \RectorPrefix20201227\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider
-    {
-        return $this->container->getByType(\RectorPrefix20201227\PHPStan\DependencyInjection\Type\DynamicReturnTypeExtensionRegistryProvider::class);
     }
     /**
      * @api

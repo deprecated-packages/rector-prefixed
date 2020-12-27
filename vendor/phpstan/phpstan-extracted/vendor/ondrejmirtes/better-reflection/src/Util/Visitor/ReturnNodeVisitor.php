@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\Visitor;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\Visitor;
 
 use PhpParser\Node;
 use PhpParser\NodeTraverser;

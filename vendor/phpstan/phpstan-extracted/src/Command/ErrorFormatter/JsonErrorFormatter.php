@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Command\ErrorFormatter;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
 use RectorPrefix20201227\PHPStan\Command\AnalysisResult;
 use RectorPrefix20201227\PHPStan\Command\Output;
 class JsonErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\ErrorFormatter\ErrorFormatter
@@ -28,7 +28,7 @@ class JsonErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\ErrorF
         foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
             $errorsArray['errors'][] = $notFileSpecificError;
         }
-        $json = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::encode($errorsArray, $this->pretty ? \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::PRETTY : 0);
+        $json = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($errorsArray, $this->pretty ? \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY : 0);
         $output->writeRaw($json);
         return $analysisResult->hasErrors() ? 1 : 0;
     }

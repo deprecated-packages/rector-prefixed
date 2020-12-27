@@ -42,7 +42,7 @@ class RegularExpressionPatternRule implements \RectorPrefix20201227\PHPStan\Rule
             return [];
         }
         $functionName = \strtolower((string) $functionCall->name);
-        if (!\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::startsWith($functionName, 'preg_')) {
+        if (!\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::startsWith($functionName, 'preg_')) {
             return [];
         }
         if (!isset($functionCall->args[0])) {
@@ -81,8 +81,8 @@ class RegularExpressionPatternRule implements \RectorPrefix20201227\PHPStan\Rule
     private function validatePattern(string $pattern) : ?string
     {
         try {
-            \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match('', $pattern);
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\RegexpException $e) {
+            \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match('', $pattern);
+        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\RegexpException $e) {
             return $e->getMessage();
         }
         return null;

@@ -3,23 +3,23 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Command;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Decoder;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Encoder;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder;
 use RectorPrefix20201227\PHPStan\Analyser\FileAnalyser;
 use RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver;
 use RectorPrefix20201227\PHPStan\DependencyInjection\Container;
 use RectorPrefix20201227\PHPStan\Rules\Registry;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\StreamSelectLoop;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectionInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\TcpConnector;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Command\Command;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface;
-class WorkerCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Command\Command
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Socket\TcpConnector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
+class WorkerCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command
 {
     private const NAME = 'worker';
     /** @var string[] */
@@ -36,9 +36,9 @@ class WorkerCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Unique
     }
     protected function configure() : void
     {
-        $this->setName(self::NAME)->setDescription('(Internal) Support for parallel analysis.')->setDefinition([new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument('paths', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('paths-file', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('configuration', 'c', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption(\RectorPrefix20201227\PHPStan\Command\AnalyseCommand::OPTION_LEVEL, 'l', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('memory-limit', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('xdebug', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('port', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('identifier', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('tmp-file', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption('instead-of', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED)]);
+        $this->setName(self::NAME)->setDescription('(Internal) Support for parallel analysis.')->setDefinition([new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument('paths', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Paths with source code to run analysis on'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('paths-file', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to a file with a list of paths to run analysis on'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('configuration', 'c', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to project configuration file'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption(\RectorPrefix20201227\PHPStan\Command\AnalyseCommand::OPTION_LEVEL, 'l', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Level of rule options - the higher the stricter'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('autoload-file', 'a', \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('memory-limit', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Memory limit for analysis'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('xdebug', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('port', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('identifier', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('tmp-file', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption('instead-of', null, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED)]);
     }
-    protected function execute(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $paths = $input->getArgument('paths');
         $memoryLimit = $input->getOption('memory-limit');
@@ -65,7 +65,7 @@ class WorkerCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Unique
         } catch (\RectorPrefix20201227\PHPStan\Command\InceptionNotSuccessfulException $e) {
             return 1;
         }
-        $loop = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\StreamSelectLoop();
+        $loop = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop();
         $container = $inceptionResult->getContainer();
         try {
             [$analysedFiles] = $inceptionResult->getFiles();
@@ -78,10 +78,10 @@ class WorkerCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Unique
         $nodeScopeResolver = $container->getByType(\RectorPrefix20201227\PHPStan\Analyser\NodeScopeResolver::class);
         $nodeScopeResolver->setAnalysedFiles($analysedFiles);
         $analysedFiles = \array_fill_keys($analysedFiles, \true);
-        $tcpConector = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\TcpConnector($loop);
-        $tcpConector->connect(\sprintf('127.0.0.1:%d', $port))->done(function (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectionInterface $connection) use($container, $identifier, $output, $analysedFiles, $tmpFile, $insteadOfFile) : void {
-            $out = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
-            $in = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $container->getParameter('parallel')['buffer']);
+        $tcpConector = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Socket\TcpConnector($loop);
+        $tcpConector->connect(\sprintf('127.0.0.1:%d', $port))->done(function (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection) use($container, $identifier, $output, $analysedFiles, $tmpFile, $insteadOfFile) : void {
+            $out = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
+            $in = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $container->getParameter('parallel')['buffer']);
             $out->write(['action' => 'hello', 'identifier' => $identifier]);
             $this->runWorker($container, $out, $in, $output, $analysedFiles, $tmpFile, $insteadOfFile);
         });
@@ -100,7 +100,7 @@ class WorkerCommand extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__Unique
      * @param string|null $tmpFile
      * @param string|null $insteadOfFile
      */
-    private function runWorker(\RectorPrefix20201227\PHPStan\DependencyInjection\Container $container, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $out, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $in, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface $output, array $analysedFiles, ?string $tmpFile, ?string $insteadOfFile) : void
+    private function runWorker(\RectorPrefix20201227\PHPStan\DependencyInjection\Container $container, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $out, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $in, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output, array $analysedFiles, ?string $tmpFile, ?string $insteadOfFile) : void
     {
         $handleError = function (\Throwable $error) use($out, $output) : void {
             $this->errorCount++;

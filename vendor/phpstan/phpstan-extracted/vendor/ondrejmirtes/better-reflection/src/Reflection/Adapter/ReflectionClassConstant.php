@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter;
 
 use ReflectionClassConstant as CoreReflectionClassConstant;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
 class ReflectionClassConstant extends \ReflectionClassConstant
 {
     /** @var BetterReflectionClassConstant */
     private $betterClassConstant;
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClassConstant $betterClassConstant)
+    public function __construct(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClassConstant $betterClassConstant)
     {
         $this->betterClassConstant = $betterClassConstant;
     }
@@ -61,9 +61,9 @@ class ReflectionClassConstant extends \ReflectionClassConstant
     /**
      * Get the declaring class
      */
-    public function getDeclaringClass() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass
+    public function getDeclaringClass() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass
     {
-        return new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterClassConstant->getDeclaringClass());
+        return new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($this->betterClassConstant->getDeclaringClass());
     }
     /**
      * Returns the doc comment for this constant

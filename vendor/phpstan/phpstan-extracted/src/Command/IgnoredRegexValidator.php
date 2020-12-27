@@ -5,7 +5,7 @@ namespace RectorPrefix20201227\PHPStan\Command;
 
 use RectorPrefix20201227\Hoa\Compiler\Llk\Parser;
 use RectorPrefix20201227\Hoa\Compiler\Llk\TreeNode;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings;
 use RectorPrefix20201227\PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\VerbosityLevel;
@@ -58,7 +58,7 @@ class IgnoredRegexValidator
             if ($text === null) {
                 continue;
             }
-            $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
+            $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($text, '#^([a-zA-Z0-9]+)[,]?\\s*#');
             if ($matches === null) {
                 continue;
             }

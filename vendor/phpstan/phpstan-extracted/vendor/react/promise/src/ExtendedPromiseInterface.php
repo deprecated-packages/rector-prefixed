@@ -1,8 +1,8 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Promise;
+namespace _HumbugBox221ad6f1b81f\React\Promise;
 
-interface ExtendedPromiseInterface extends \_HumbugBox221ad6f1b81f__UniqueRector\React\Promise\PromiseInterface
+interface ExtendedPromiseInterface extends \_HumbugBox221ad6f1b81f\React\Promise\PromiseInterface
 {
     /**
      * Consumes the promise's ultimate value if the promise fulfills, or handles the

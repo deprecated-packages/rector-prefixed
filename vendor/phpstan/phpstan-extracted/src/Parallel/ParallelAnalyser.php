@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Parallel;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Decoder;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Encoder;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Random;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Random;
 use RectorPrefix20201227\PHPStan\Analyser\AnalyserResult;
 use RectorPrefix20201227\PHPStan\Analyser\Error;
 use RectorPrefix20201227\PHPStan\Dependency\ExportedNode;
 use RectorPrefix20201227\PHPStan\Process\ProcessHelper;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\StreamSelectLoop;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectionInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
 use function parse_url;
 class ParallelAnalyser
 {
@@ -39,18 +39,18 @@ class ParallelAnalyser
      * @param string|null $insteadOfFile
      * @return AnalyserResult
      */
-    public function analyse(\RectorPrefix20201227\PHPStan\Parallel\Schedule $schedule, string $mainScript, ?\Closure $postFileCallback, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult
+    public function analyse(\RectorPrefix20201227\PHPStan\Parallel\Schedule $schedule, string $mainScript, ?\Closure $postFileCallback, ?string $projectConfigFile, ?string $tmpFile, ?string $insteadOfFile, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input) : \RectorPrefix20201227\PHPStan\Analyser\AnalyserResult
     {
         $jobs = \array_reverse($schedule->getJobs());
-        $loop = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop\StreamSelectLoop();
+        $loop = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\EventLoop\StreamSelectLoop();
         $numberOfProcesses = $schedule->getNumberOfProcesses();
         $errors = [];
         $internalErrors = [];
-        $server = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\TcpServer('127.0.0.1:0', $loop);
+        $server = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Socket\TcpServer('127.0.0.1:0', $loop);
         $this->processPool = new \RectorPrefix20201227\PHPStan\Parallel\ProcessPool($server);
-        $server->on('connection', function (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
-            $decoder = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $this->decoderBufferSize);
-            $encoder = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
+        $server->on('connection', function (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\React\Socket\ConnectionInterface $connection) use(&$jobs) : void {
+            $decoder = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Decoder($connection, \true, 512, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0, $this->decoderBufferSize);
+            $encoder = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Clue\React\NDJson\Encoder($connection, \defined('JSON_INVALID_UTF8_IGNORE') ? \JSON_INVALID_UTF8_IGNORE : 0);
             $decoder->on('data', function (array $data) use(&$jobs, $decoder, $encoder) : void {
                 if ($data['action'] !== 'hello') {
                     return;
@@ -84,7 +84,7 @@ class ParallelAnalyser
             if (\count($jobs) === 0) {
                 break;
             }
-            $processIdentifier = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Random::generate();
+            $processIdentifier = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Random::generate();
             $commandOptions = ['--port', (string) $serverPort, '--identifier', $processIdentifier];
             if ($tmpFile !== null && $insteadOfFile !== null) {
                 $commandOptions[] = '--tmp-file';

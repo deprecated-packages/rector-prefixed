@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Descriptor;
+namespace _HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Application;
-use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Command\Command;
-use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument;
-use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputDefinition;
-use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Application;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition;
+use _HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption;
 /**
  * XML descriptor.
  *
@@ -22,9 +22,9 @@ use _HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOp
  *
  * @internal
  */
-class XmlDescriptor extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Descriptor\Descriptor
+class XmlDescriptor extends \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor\Descriptor
 {
-    public function getInputDefinitionDocument(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputDefinition $definition) : \DOMDocument
+    public function getInputDefinitionDocument(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition $definition) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($definitionXML = $dom->createElement('definition'));
@@ -38,7 +38,7 @@ class XmlDescriptor extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Compon
         }
         return $dom;
     }
-    public function getCommandDocument(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Command\Command $command) : \DOMDocument
+    public function getCommandDocument(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command $command) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($commandXML = $dom->createElement('command'));
@@ -59,7 +59,7 @@ class XmlDescriptor extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Compon
         $this->appendDocument($commandXML, $definitionXML->getElementsByTagName('definition')->item(0));
         return $dom;
     }
-    public function getApplicationDocument(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Application $application, string $namespace = null) : \DOMDocument
+    public function getApplicationDocument(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Application $application, string $namespace = null) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($rootXml = $dom->createElement('symfony'));
@@ -70,7 +70,7 @@ class XmlDescriptor extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Compon
             }
         }
         $rootXml->appendChild($commandsXML = $dom->createElement('commands'));
-        $description = new \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
+        $description = new \_HumbugBox221ad6f1b81f\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
         if ($namespace) {
             $commandsXML->setAttribute('namespace', $namespace);
         }
@@ -93,35 +93,35 @@ class XmlDescriptor extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Compon
     /**
      * {@inheritdoc}
      */
-    protected function describeInputArgument(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
+    protected function describeInputArgument(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
     {
         $this->writeDocument($this->getInputArgumentDocument($argument));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeInputOption(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption $option, array $options = [])
+    protected function describeInputOption(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption $option, array $options = [])
     {
         $this->writeDocument($this->getInputOptionDocument($option));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeInputDefinition(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
+    protected function describeInputDefinition(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
     {
         $this->writeDocument($this->getInputDefinitionDocument($definition));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeCommand(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Command\Command $command, array $options = [])
+    protected function describeCommand(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Command\Command $command, array $options = [])
     {
         $this->writeDocument($this->getCommandDocument($command));
     }
     /**
      * {@inheritdoc}
      */
-    protected function describeApplication(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Application $application, array $options = [])
+    protected function describeApplication(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Application $application, array $options = [])
     {
         $this->writeDocument($this->getApplicationDocument($application, isset($options['namespace']) ? $options['namespace'] : null));
     }
@@ -142,7 +142,7 @@ class XmlDescriptor extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Compon
         $dom->formatOutput = \true;
         $this->write($dom->saveXML());
     }
-    private function getInputArgumentDocument(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
+    private function getInputArgumentDocument(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputArgument $argument) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('argument'));
@@ -159,7 +159,7 @@ class XmlDescriptor extends \_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Compon
         }
         return $dom;
     }
-    private function getInputOptionDocument(\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
+    private function getInputOptionDocument(\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputOption $option) : \DOMDocument
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('option'));

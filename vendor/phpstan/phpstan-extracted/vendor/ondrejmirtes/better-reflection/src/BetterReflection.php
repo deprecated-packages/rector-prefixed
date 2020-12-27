@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection;
 
 use PhpParser\Lexer\Emulative;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Locator as AstLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-use _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\FindReflectionOnLine;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Locator as AstLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use _HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FindReflectionOnLine;
 use const PHP_VERSION_ID;
 final class BetterReflection
 {
@@ -55,7 +55,7 @@ final class BetterReflection
     private $astLocator;
     /** @var FindReflectionOnLine|null */
     private $findReflectionOnLine;
-    public static function populate(\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector, \PhpParser\Parser $phpParser, \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $sourceStubber) : void
+    public static function populate(\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator $sourceLocator, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector, \PhpParser\Parser $phpParser, \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber $sourceStubber) : void
     {
         self::$sharedSourceLocator = $sourceLocator;
         self::$sharedClassReflector = $classReflector;
@@ -73,40 +73,40 @@ final class BetterReflection
         $this->phpParser = self::$sharedPhpParser;
         $this->sourceStubber = self::$sharedSourceStubber;
     }
-    public function sourceLocator() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\SourceLocator
+    public function sourceLocator() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\SourceLocator
     {
         $astLocator = $this->astLocator();
         $sourceStubber = $this->sourceStubber();
-        return $this->sourceLocator ?? ($this->sourceLocator = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator([new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $sourceStubber), new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $sourceStubber), new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator($astLocator, $this->phpParser())])));
+        return $this->sourceLocator ?? ($this->sourceLocator = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\MemoizingSourceLocator(new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator([new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator($astLocator, $sourceStubber), new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\EvaledCodeSourceLocator($astLocator, $sourceStubber), new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator($astLocator, $this->phpParser())])));
     }
-    public function classReflector() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector
+    public function classReflector() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector
     {
-        return $this->classReflector ?? ($this->classReflector = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector($this->sourceLocator()));
+        return $this->classReflector ?? ($this->classReflector = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector($this->sourceLocator()));
     }
-    public function functionReflector() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector
+    public function functionReflector() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector
     {
-        return $this->functionReflector ?? ($this->functionReflector = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector($this->sourceLocator(), $this->classReflector()));
+        return $this->functionReflector ?? ($this->functionReflector = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector($this->sourceLocator(), $this->classReflector()));
     }
-    public function constantReflector() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector
+    public function constantReflector() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector
     {
-        return $this->constantReflector ?? ($this->constantReflector = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector($this->sourceLocator(), $this->classReflector()));
+        return $this->constantReflector ?? ($this->constantReflector = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector($this->sourceLocator(), $this->classReflector()));
     }
     public function phpParser() : \PhpParser\Parser
     {
-        return $this->phpParser ?? ($this->phpParser = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser((new \PhpParser\ParserFactory())->create(\PhpParser\ParserFactory::PREFER_PHP7, new \PhpParser\Lexer\Emulative(['usedAttributes' => ['comments', 'startLine', 'endLine', 'startFilePos', 'endFilePos']]))));
+        return $this->phpParser ?? ($this->phpParser = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser((new \PhpParser\ParserFactory())->create(\PhpParser\ParserFactory::PREFER_PHP7, new \PhpParser\Lexer\Emulative(['usedAttributes' => ['comments', 'startLine', 'endLine', 'startFilePos', 'endFilePos']]))));
     }
-    public function astLocator() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Locator
+    public function astLocator() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Locator
     {
-        return $this->astLocator ?? ($this->astLocator = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Ast\Locator($this->phpParser(), function () : FunctionReflector {
+        return $this->astLocator ?? ($this->astLocator = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Ast\Locator($this->phpParser(), function () : FunctionReflector {
             return $this->functionReflector();
         }));
     }
-    public function findReflectionsOnLine() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\FindReflectionOnLine
+    public function findReflectionsOnLine() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FindReflectionOnLine
     {
-        return $this->findReflectionOnLine ?? ($this->findReflectionOnLine = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Util\FindReflectionOnLine($this->sourceLocator(), $this->astLocator()));
+        return $this->findReflectionOnLine ?? ($this->findReflectionOnLine = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\Util\FindReflectionOnLine($this->sourceLocator(), $this->astLocator()));
     }
-    public function sourceStubber() : \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+    public function sourceStubber() : \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
     {
-        return $this->sourceStubber ?? ($this->sourceStubber = new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber(new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber($this->phpParser(), self::$phpVersion), new \_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber()));
+        return $this->sourceStubber ?? ($this->sourceStubber = new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber(new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber($this->phpParser(), self::$phpVersion), new \_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber()));
     }
 }

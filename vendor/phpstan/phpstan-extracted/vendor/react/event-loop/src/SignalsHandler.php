@@ -1,6 +1,6 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\EventLoop;
+namespace _HumbugBox221ad6f1b81f\React\EventLoop;
 
 /**
  * @internal

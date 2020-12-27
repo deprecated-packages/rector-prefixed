@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings;
 use RectorPrefix20201227\PHPStan\Analyser\Scope;
 use RectorPrefix20201227\PHPStan\Reflection\ClassReflection;
 use RectorPrefix20201227\PHPStan\Reflection\FunctionReflection;
 use RectorPrefix20201227\PHPStan\Reflection\GlobalConstantReflection;
 use RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider;
 use RectorPrefix20201227\PHPStan\Reflection\ReflectionWithFilename;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
 class ClassBlacklistReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider
 {
     /** @var ReflectionProvider */
@@ -25,7 +25,7 @@ class ClassBlacklistReflectionProvider implements \RectorPrefix20201227\PHPStan\
      * @param \PHPStan\Reflection\ReflectionProvider $reflectionProvider
      * @param string[] $patterns
      */
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber, array $patterns, ?string $singleReflectionFile)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider $reflectionProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber, array $patterns, ?string $singleReflectionFile)
     {
         $this->reflectionProvider = $reflectionProvider;
         $this->phpStormStubsSourceStubber = $phpStormStubsSourceStubber;
@@ -75,7 +75,7 @@ class ClassBlacklistReflectionProvider implements \RectorPrefix20201227\PHPStan\
             }
         }
         foreach ($this->patterns as $pattern) {
-            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($className, $pattern) !== null) {
+            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($className, $pattern) !== null) {
                 return \true;
             }
         }

@@ -1,11 +1,11 @@
 <?php
 
-namespace _HumbugBox221ad6f1b81f__UniqueRector\React\Http\Io;
+namespace _HumbugBox221ad6f1b81f\React\Http\Io;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util;
-use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
+use _HumbugBox221ad6f1b81f\Evenement\EventEmitter;
+use _HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface;
+use _HumbugBox221ad6f1b81f\React\Stream\Util;
+use _HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface;
 /**
  * [Internal] Protects a given stream from actually closing and only discards its incoming data instead.
  *
@@ -14,7 +14,7 @@ use _HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface;
  *
  * @internal
  * */
-class CloseProtectionStream extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface
+class CloseProtectionStream extends \_HumbugBox221ad6f1b81f\Evenement\EventEmitter implements \_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface
 {
     private $input;
     private $closed = \false;
@@ -22,7 +22,7 @@ class CloseProtectionStream extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenem
     /**
      * @param ReadableStreamInterface $input stream that will be discarded instead of closing it on an 'close' event.
      */
-    public function __construct(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\ReadableStreamInterface $input)
+    public function __construct(\_HumbugBox221ad6f1b81f\React\Stream\ReadableStreamInterface $input)
     {
         $this->input = $input;
         $this->input->on('data', array($this, 'handleData'));
@@ -50,9 +50,9 @@ class CloseProtectionStream extends \_HumbugBox221ad6f1b81f__UniqueRector\Evenem
         $this->paused = \false;
         $this->input->resume();
     }
-    public function pipe(\_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\WritableStreamInterface $dest, array $options = array())
+    public function pipe(\_HumbugBox221ad6f1b81f\React\Stream\WritableStreamInterface $dest, array $options = array())
     {
-        \_HumbugBox221ad6f1b81f__UniqueRector\React\Stream\Util::pipe($this, $dest, $options);
+        \_HumbugBox221ad6f1b81f\React\Stream\Util::pipe($this, $dest, $options);
         return $dest;
     }
     public function close()

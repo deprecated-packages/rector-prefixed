@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Command\ErrorFormatter;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Helpers;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Neon\Neon;
 use RectorPrefix20201227\PHPStan\Command\AnalysisResult;
 use RectorPrefix20201227\PHPStan\Command\Output;
 use RectorPrefix20201227\PHPStan\File\RelativePathHelper;
@@ -20,7 +20,7 @@ class BaselineNeonErrorFormatter implements \RectorPrefix20201227\PHPStan\Comman
     public function formatErrors(\RectorPrefix20201227\PHPStan\Command\AnalysisResult $analysisResult, \RectorPrefix20201227\PHPStan\Command\Output $output) : int
     {
         if (!$analysisResult->hasErrors()) {
-            $output->writeRaw(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::BLOCK));
+            $output->writeRaw(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => []]], \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::BLOCK));
             return 0;
         }
         $fileErrors = [];
@@ -41,10 +41,10 @@ class BaselineNeonErrorFormatter implements \RectorPrefix20201227\PHPStan\Comman
                 $fileErrorsCounts[$errorMessage]++;
             }
             foreach ($fileErrorsCounts as $message => $count) {
-                $errorsToOutput[] = ['message' => \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
+                $errorsToOutput[] = ['message' => \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::escape('#^' . \preg_quote($message, '#') . '$#'), 'count' => $count, 'path' => \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::escape($this->relativePathHelper->getRelativePath($file))];
             }
         }
-        $output->writeRaw(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Neon\Neon::BLOCK));
+        $output->writeRaw(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::encode(['parameters' => ['ignoreErrors' => $errorsToOutput]], \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Neon\Neon::BLOCK));
         return 1;
     }
 }

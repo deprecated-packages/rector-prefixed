@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Command;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Composer\XdebugHandler\XdebugHandler;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config\Adapters\PhpAdapter;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Context as SchemaContext;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Processor;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Validators;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\XdebugHandler;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Config\Adapters\PhpAdapter;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Helpers;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Context as SchemaContext;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Processor;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Validators;
 use RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyOutput;
 use RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyStyle;
 use RectorPrefix20201227\PHPStan\DependencyInjection\Container;
@@ -19,9 +19,9 @@ use RectorPrefix20201227\PHPStan\DependencyInjection\NeonAdapter;
 use RectorPrefix20201227\PHPStan\File\FileFinder;
 use RectorPrefix20201227\PHPStan\File\FileHelper;
 use RectorPrefix20201227\PHPStan\File\FileReader;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface;
 class CommandHelper
 {
     public const DEFAULT_LEVEL = '0';
@@ -29,21 +29,21 @@ class CommandHelper
      * @param string[] $paths
      * @param string[] $composerAutoloaderProjectPaths
      */
-    public static function begin(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\OutputInterface $output, array $paths, ?string $pathsFile, ?string $memoryLimit, ?string $autoloadFile, array $composerAutoloaderProjectPaths, ?string $projectConfigFile, ?string $generateBaselineFile, ?string $level, bool $allowXdebug, bool $manageMemoryLimitFile = \true, bool $debugEnabled = \false, ?string $singleReflectionFile = null) : \RectorPrefix20201227\PHPStan\Command\InceptionResult
+    public static function begin(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\OutputInterface $output, array $paths, ?string $pathsFile, ?string $memoryLimit, ?string $autoloadFile, array $composerAutoloaderProjectPaths, ?string $projectConfigFile, ?string $generateBaselineFile, ?string $level, bool $allowXdebug, bool $manageMemoryLimitFile = \true, bool $debugEnabled = \false, ?string $singleReflectionFile = null) : \RectorPrefix20201227\PHPStan\Command\InceptionResult
     {
         if (!$allowXdebug) {
-            $xdebug = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Composer\XdebugHandler\XdebugHandler('phpstan', '--ansi');
+            $xdebug = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Composer\XdebugHandler\XdebugHandler('phpstan', '--ansi');
             $xdebug->check();
             unset($xdebug);
         }
         $stdOutput = new \RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyOutput($output, new \RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyStyle(new \RectorPrefix20201227\PHPStan\Command\ErrorsConsoleStyle($input, $output)));
         /** @var \PHPStan\Command\Output $errorOutput */
         $errorOutput = (static function () use($input, $output) : Output {
-            $symfonyErrorOutput = $output instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : $output;
+            $symfonyErrorOutput = $output instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : $output;
             return new \RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyOutput($symfonyErrorOutput, new \RectorPrefix20201227\PHPStan\Command\Symfony\SymfonyStyle(new \RectorPrefix20201227\PHPStan\Command\ErrorsConsoleStyle($input, $symfonyErrorOutput)));
         })();
         if ($memoryLimit !== null) {
-            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($memoryLimit, '#^-?\\d+[kMG]?$#i') === null) {
+            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($memoryLimit, '#^-?\\d+[kMG]?$#i') === null) {
                 $errorOutput->writeLineFormatted(\sprintf('Invalid memory limit format "%s".', $memoryLimit));
                 throw new \RectorPrefix20201227\PHPStan\Command\InceptionNotSuccessfulException();
             }
@@ -122,19 +122,19 @@ class CommandHelper
             $loader = (new \RectorPrefix20201227\PHPStan\DependencyInjection\LoaderFactory($currentWorkingDirectoryFileHelper, $containerFactory->getRootDirectory(), $containerFactory->getCurrentWorkingDirectory(), $generateBaselineFile))->createLoader();
             try {
                 $projectConfig = $loader->load($projectConfigFile, null);
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\InvalidStateException|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\FileNotFoundException $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\InvalidStateException|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\FileNotFoundException $e) {
                 $errorOutput->writeLineFormatted($e->getMessage());
                 throw new \RectorPrefix20201227\PHPStan\Command\InceptionNotSuccessfulException();
             }
             $defaultParameters = ['rootDir' => $containerFactory->getRootDirectory(), 'currentWorkingDirectory' => $containerFactory->getCurrentWorkingDirectory()];
             if (isset($projectConfig['parameters']['tmpDir'])) {
-                $tmpDir = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::expand($projectConfig['parameters']['tmpDir'], $defaultParameters);
+                $tmpDir = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::expand($projectConfig['parameters']['tmpDir'], $defaultParameters);
             }
             if ($level === null && isset($projectConfig['parameters']['level'])) {
                 $level = (string) $projectConfig['parameters']['level'];
             }
             if (\count($paths) === 0 && isset($projectConfig['parameters']['paths'])) {
-                $analysedPathsFromConfig = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::expand($projectConfig['parameters']['paths'], $defaultParameters);
+                $analysedPathsFromConfig = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::expand($projectConfig['parameters']['paths'], $defaultParameters);
                 $paths = $analysedPathsFromConfig;
             }
         }
@@ -191,7 +191,7 @@ class CommandHelper
         }
         try {
             $container = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths, $composerAutoloaderProjectPaths, $analysedPathsFromConfig, $level ?? self::DEFAULT_LEVEL, $generateBaselineFile, $autoloadFile, $singleReflectionFile);
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\InvalidConfigurationException|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\AssertionException $e) {
+        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\InvalidConfigurationException|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\AssertionException $e) {
             $errorOutput->writeLineFormatted('<error>Invalid configuration:</error>');
             $errorOutput->writeLineFormatted($e->getMessage());
             throw new \RectorPrefix20201227\PHPStan\Command\InceptionNotSuccessfulException();
@@ -227,13 +227,13 @@ class CommandHelper
             $defaultLevelUsed = \false;
         }
         $schema = $container->getParameter('__parametersSchema');
-        $processor = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Processor();
-        $processor->onNewContext[] = static function (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Context $context) : void {
+        $processor = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Processor();
+        $processor->onNewContext[] = static function (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Context $context) : void {
             $context->path = ['parameters'];
         };
         try {
             $processor->process($schema, $container->getParameters());
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\ValidationException $e) {
+        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\ValidationException $e) {
             foreach ($e->getMessages() as $message) {
                 $errorOutput->writeLineFormatted('<error>Invalid configuration:</error>');
                 $errorOutput->writeLineFormatted($message);
@@ -368,7 +368,7 @@ class CommandHelper
     private static function detectDuplicateIncludedFiles(\RectorPrefix20201227\PHPStan\Command\Output $output, \RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, array $configFiles, array $loaderParameters) : void
     {
         $neonAdapter = new \RectorPrefix20201227\PHPStan\DependencyInjection\NeonAdapter();
-        $phpAdapter = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config\Adapters\PhpAdapter();
+        $phpAdapter = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Config\Adapters\PhpAdapter();
         $allConfigFiles = [];
         foreach ($configFiles as $configFile) {
             $allConfigFiles = \array_merge($allConfigFiles, self::getConfigFiles($fileHelper, $neonAdapter, $phpAdapter, $configFile, $loaderParameters, null));
@@ -400,7 +400,7 @@ class CommandHelper
      * @param string|null $generateBaselineFile
      * @return string[]
      */
-    private static function getConfigFiles(\RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, \RectorPrefix20201227\PHPStan\DependencyInjection\NeonAdapter $neonAdapter, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Config\Adapters\PhpAdapter $phpAdapter, string $configFile, array $loaderParameters, ?string $generateBaselineFile) : array
+    private static function getConfigFiles(\RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, \RectorPrefix20201227\PHPStan\DependencyInjection\NeonAdapter $neonAdapter, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Config\Adapters\PhpAdapter $phpAdapter, string $configFile, array $loaderParameters, ?string $generateBaselineFile) : array
     {
         if ($generateBaselineFile === $fileHelper->normalizePath($configFile)) {
             return [];
@@ -408,15 +408,15 @@ class CommandHelper
         if (!\is_file($configFile) || !\is_readable($configFile)) {
             return [];
         }
-        if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::endsWith($configFile, '.php')) {
+        if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::endsWith($configFile, '.php')) {
             $data = $phpAdapter->load($configFile);
         } else {
             $data = $neonAdapter->load($configFile);
         }
         $allConfigFiles = [$configFile];
         if (isset($data['includes'])) {
-            \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Validators::assert($data['includes'], 'list', \sprintf("section 'includes' in file '%s'", $configFile));
-            $includes = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Helpers::expand($data['includes'], $loaderParameters);
+            \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Validators::assert($data['includes'], 'list', \sprintf("section 'includes' in file '%s'", $configFile));
+            $includes = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Helpers::expand($data['includes'], $loaderParameters);
             foreach ($includes as $include) {
                 $include = self::expandIncludedFile($include, $configFile);
                 $allConfigFiles = \array_merge($allConfigFiles, self::getConfigFiles($fileHelper, $neonAdapter, $phpAdapter, $include, $loaderParameters, $generateBaselineFile));
@@ -426,6 +426,6 @@ class CommandHelper
     }
     private static function expandIncludedFile(string $includedFile, string $mainFile) : string
     {
-        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($includedFile, '#([a-z]+:)?[/\\\\]#Ai') !== null ? $includedFile : \dirname($mainFile) . '/' . $includedFile;
+        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($includedFile, '#([a-z]+:)?[/\\\\]#Ai') !== null ? $includedFile : \dirname($mainFile) . '/' . $includedFile;
     }
 }

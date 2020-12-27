@@ -20,7 +20,7 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 use ReflectionClass;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
 class RuntimeReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider
 {
     /** @var ReflectionProvider\ReflectionProviderProvider */
@@ -49,7 +49,7 @@ class RuntimeReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflect
     private $hasClassCache = [];
     /** @var \PHPStan\Reflection\ClassReflection[] */
     private static $anonymousClasses = [];
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \RectorPrefix20201227\PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion, \RectorPrefix20201227\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \RectorPrefix20201227\PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \RectorPrefix20201227\PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion, \RectorPrefix20201227\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \RectorPrefix20201227\PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber $phpStormStubsSourceStubber)
     {
         $this->reflectionProviderProvider = $reflectionProviderProvider;
         $this->classReflectionExtensionRegistryProvider = $classReflectionExtensionRegistryProvider;

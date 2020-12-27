@@ -24,17 +24,17 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource;
 class BetterReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider
 {
     /** @var ReflectionProvider\ReflectionProviderProvider */
@@ -71,7 +71,7 @@ class BetterReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflecti
     private $classReflections = [];
     /** @var \PHPStan\Reflection\ClassReflection[] */
     private static $anonymousClasses = [];
-    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion, \RectorPrefix20201227\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \RectorPrefix20201227\PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \RectorPrefix20201227\PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \RectorPrefix20201227\PHPStan\File\RelativePathHelper $relativePathHelper, \RectorPrefix20201227\PHPStan\Broker\AnonymousClassNameHelper $anonymousClassNameHelper, \PhpParser\PrettyPrinter\Standard $printer, \RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector)
+    public function __construct(\RectorPrefix20201227\PHPStan\Reflection\ReflectionProvider\ReflectionProviderProvider $reflectionProviderProvider, \RectorPrefix20201227\PHPStan\DependencyInjection\Reflection\ClassReflectionExtensionRegistryProvider $classReflectionExtensionRegistryProvider, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ClassReflector $classReflector, \PHPStan\Type\FileTypeMapper $fileTypeMapper, \RectorPrefix20201227\PHPStan\Php\PhpVersion $phpVersion, \RectorPrefix20201227\PHPStan\Reflection\SignatureMap\NativeFunctionReflectionProvider $nativeFunctionReflectionProvider, \RectorPrefix20201227\PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider, \RectorPrefix20201227\PHPStan\Reflection\FunctionReflectionFactory $functionReflectionFactory, \RectorPrefix20201227\PHPStan\File\RelativePathHelper $relativePathHelper, \RectorPrefix20201227\PHPStan\Broker\AnonymousClassNameHelper $anonymousClassNameHelper, \PhpParser\PrettyPrinter\Standard $printer, \RectorPrefix20201227\PHPStan\File\FileHelper $fileHelper, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\FunctionReflector $functionReflector, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\ConstantReflector $constantReflector)
     {
         $this->reflectionProviderProvider = $reflectionProviderProvider;
         $this->classReflectionExtensionRegistryProvider = $classReflectionExtensionRegistryProvider;
@@ -96,9 +96,9 @@ class BetterReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflecti
         try {
             $this->classReflector->reflect($className);
             return \true;
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
             return \false;
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
+        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
             return \false;
         }
     }
@@ -109,14 +109,14 @@ class BetterReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflecti
         }
         try {
             $reflectionClass = $this->classReflector->reflect($className);
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
             throw new \RectorPrefix20201227\PHPStan\Broker\ClassNotFoundException($className);
         }
         $reflectionClassName = \strtolower($reflectionClass->getName());
         if (\array_key_exists($reflectionClassName, $this->classReflections)) {
             return $this->classReflections[$reflectionClassName];
         }
-        $classReflection = new \RectorPrefix20201227\PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $reflectionClass->getName(), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), null, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
+        $classReflection = new \RectorPrefix20201227\PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), $reflectionClass->getName(), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), null, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
         $this->classReflections[$reflectionClassName] = $classReflection;
         return $classReflection;
     }
@@ -155,8 +155,8 @@ class BetterReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflecti
         if (isset(self::$anonymousClasses[$className])) {
             return self::$anonymousClasses[$className];
         }
-        $reflectionClass = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\ReflectionClass::createFromNode($this->classReflector, $classNode, new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\SourceLocator\Located\LocatedSource($this->printer->prettyPrint([$classNode]), $scopeFile), null);
-        self::$anonymousClasses[$className] = new \RectorPrefix20201227\PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), \sprintf('class@anonymous/%s:%s', $filename, $classNode->getLine()), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), $scopeFile, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
+        $reflectionClass = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\ReflectionClass::createFromNode($this->classReflector, $classNode, new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\SourceLocator\Located\LocatedSource($this->printer->prettyPrint([$classNode]), $scopeFile), null);
+        self::$anonymousClasses[$className] = new \RectorPrefix20201227\PHPStan\Reflection\ClassReflection($this->reflectionProviderProvider->getReflectionProvider(), $this->fileTypeMapper, $this->phpVersion, $this->classReflectionExtensionRegistryProvider->getRegistry()->getPropertiesClassReflectionExtensions(), $this->classReflectionExtensionRegistryProvider->getRegistry()->getMethodsClassReflectionExtensions(), \sprintf('class@anonymous/%s:%s', $filename, $classNode->getLine()), new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionClass($reflectionClass), $scopeFile, null, $this->stubPhpDocProvider->findClassPhpDoc($className));
         $this->classReflections[$className] = self::$anonymousClasses[$className];
         return self::$anonymousClasses[$className];
     }
@@ -184,7 +184,7 @@ class BetterReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflecti
     }
     private function getCustomFunction(string $functionName) : \RectorPrefix20201227\PHPStan\Reflection\Php\PhpFunctionReflection
     {
-        $reflectionFunction = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction($this->functionReflector->reflect($functionName));
+        $reflectionFunction = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Adapter\ReflectionFunction($this->functionReflector->reflect($functionName));
         $templateTypeMap = \PHPStan\Type\Generic\TemplateTypeMap::createEmpty();
         $phpDocParameterTags = [];
         $phpDocReturnTag = null;
@@ -219,9 +219,9 @@ class BetterReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflecti
             try {
                 $this->functionReflector->reflect($name);
                 return \true;
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 // pass
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName $e) {
                 // pass
             }
             return \false;
@@ -242,7 +242,7 @@ class BetterReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflecti
             $constantValue = $constantReflection->getValue();
             $constantValueType = \PHPStan\Type\ConstantTypeHelper::getTypeFromValue($constantValue);
             $fileName = $constantReflection->getFileName();
-        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
+        } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
             $constantValueType = new \PHPStan\Type\MixedType();
             $fileName = null;
         }
@@ -254,9 +254,9 @@ class BetterReflectionProvider implements \RectorPrefix20201227\PHPStan\Reflecti
             try {
                 $this->constantReflector->reflect($name);
                 return \true;
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflector\Exception\IdentifierNotFound $e) {
                 // pass
-            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
+            } catch (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAClassReflection|\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection $e) {
                 // pass
             }
             return \false;

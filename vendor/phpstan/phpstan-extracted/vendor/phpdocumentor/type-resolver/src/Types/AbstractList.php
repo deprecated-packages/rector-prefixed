@@ -9,15 +9,15 @@ declare (strict_types=1);
  *
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type;
 /**
  * Represents a list of values. This is an abstract class for Array_ and Collection.
  *
  * @psalm-immutable
  */
-abstract class AbstractList implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type
+abstract class AbstractList implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
 {
     /** @var Type */
     protected $valueType;
@@ -28,26 +28,26 @@ abstract class AbstractList implements \_HumbugBox221ad6f1b81f__UniqueRector\php
     /**
      * Initializes this representation of an array with the given Type.
      */
-    public function __construct(?\_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type $valueType = null, ?\_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type $keyType = null)
+    public function __construct(?\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $valueType = null, ?\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type $keyType = null)
     {
         if ($valueType === null) {
-            $valueType = new \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Mixed_();
+            $valueType = new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Mixed_();
         }
         $this->valueType = $valueType;
-        $this->defaultKeyType = new \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Compound([new \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\String_(), new \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Integer()]);
+        $this->defaultKeyType = new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound([new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\String_(), new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Integer()]);
         $this->keyType = $keyType;
     }
     /**
      * Returns the type for the keys of this array.
      */
-    public function getKeyType() : \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type
+    public function getKeyType() : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         return $this->keyType ?? $this->defaultKeyType;
     }
     /**
      * Returns the value for the keys of this array.
      */
-    public function getValueType() : \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Type
+    public function getValueType() : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Type
     {
         return $this->valueType;
     }
@@ -59,10 +59,10 @@ abstract class AbstractList implements \_HumbugBox221ad6f1b81f__UniqueRector\php
         if ($this->keyType) {
             return 'array<' . $this->keyType . ',' . $this->valueType . '>';
         }
-        if ($this->valueType instanceof \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Mixed_) {
+        if ($this->valueType instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Mixed_) {
             return 'array';
         }
-        if ($this->valueType instanceof \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Compound) {
+        if ($this->valueType instanceof \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Compound) {
             return '(' . $this->valueType . ')[]';
         }
         return $this->valueType . '[]';

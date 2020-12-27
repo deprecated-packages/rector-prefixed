@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Command\ErrorFormatter;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json;
 use RectorPrefix20201227\PHPStan\Command\AnalysisResult;
 use RectorPrefix20201227\PHPStan\Command\Output;
 use RectorPrefix20201227\PHPStan\File\RelativePathHelper;
@@ -31,7 +31,7 @@ class GitlabErrorFormatter implements \RectorPrefix20201227\PHPStan\Command\Erro
         foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
             $errorsArray[] = ['description' => $notFileSpecificError, 'fingerprint' => \hash('sha256', $notFileSpecificError), 'location' => ['path' => '', 'lines' => ['begin' => 0]]];
         }
-        $json = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::encode($errorsArray, \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Json::PRETTY);
+        $json = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::encode($errorsArray, \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Json::PRETTY);
         $output->writeRaw($json);
         return $analysisResult->hasErrors() ? 1 : 0;
     }

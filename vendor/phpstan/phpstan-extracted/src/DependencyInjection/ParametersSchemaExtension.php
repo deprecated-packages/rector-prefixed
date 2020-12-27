@@ -3,28 +3,28 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\DependencyInjection;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect;
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema;
-class ParametersSchemaExtension extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\CompilerExtension
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Expect;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Schema;
+class ParametersSchemaExtension extends \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\CompilerExtension
 {
-    public function getConfigSchema() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    public function getConfigSchema() : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
-        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::arrayOf(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::type(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement::class))->min(1);
+        return \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::arrayOf(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::type(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement::class))->min(1);
     }
     public function loadConfiguration() : void
     {
         /** @var mixed[] $config */
         $config = $this->config;
-        $config['__parametersSchema'] = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement(\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema::class);
+        $config['__parametersSchema'] = new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement(\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Schema::class);
         $builder = $this->getContainerBuilder();
-        $builder->parameters['__parametersSchema'] = $this->processArgument(new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement('schema', [new \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement('structure', [$config])]));
+        $builder->parameters['__parametersSchema'] = $this->processArgument(new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement('schema', [new \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement('structure', [$config])]));
     }
     /**
      * @param Statement[] $statements
      * @return \Nette\Schema\Schema
      */
-    private function processSchema(array $statements) : \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Schema
+    private function processSchema(array $statements) : \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Schema
     {
         if (\count($statements) === 0) {
             throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException();
@@ -36,7 +36,7 @@ class ParametersSchemaExtension extends \RectorPrefix20201227\_HumbugBox221ad6f1
             }, $statement->arguments);
             if ($parameterSchema === null) {
                 /** @var \Nette\Schema\Elements\Type|\Nette\Schema\Elements\AnyOf|\Nette\Schema\Elements\Structure $parameterSchema */
-                $parameterSchema = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Schema\Expect::{$statement->getEntity()}(...$processedArguments);
+                $parameterSchema = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Schema\Expect::{$statement->getEntity()}(...$processedArguments);
             } else {
                 $parameterSchema->{$statement->getEntity()}(...$processedArguments);
             }
@@ -50,11 +50,11 @@ class ParametersSchemaExtension extends \RectorPrefix20201227\_HumbugBox221ad6f1
      */
     private function processArgument($argument)
     {
-        if ($argument instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement) {
+        if ($argument instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
             if ($argument->entity === 'schema') {
                 $arguments = [];
                 foreach ($argument->arguments as $schemaArgument) {
-                    if (!$schemaArgument instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\DI\Definitions\Statement) {
+                    if (!$schemaArgument instanceof \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\DI\Definitions\Statement) {
                         throw new \RectorPrefix20201227\PHPStan\ShouldNotHappenException('schema() should contain another statement().');
                     }
                     $arguments[] = $schemaArgument;

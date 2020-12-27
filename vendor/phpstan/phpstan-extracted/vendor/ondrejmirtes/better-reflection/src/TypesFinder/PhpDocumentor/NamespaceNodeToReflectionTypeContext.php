@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace _HumbugBox221ad6f1b81f__UniqueRector\Roave\BetterReflection\TypesFinder\PhpDocumentor;
+namespace _HumbugBox221ad6f1b81f\Roave\BetterReflection\TypesFinder\PhpDocumentor;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\GroupUse;
 use PhpParser\Node\Stmt\Namespace_;
@@ -15,12 +15,12 @@ use function array_merge;
 use function in_array;
 class NamespaceNodeToReflectionTypeContext
 {
-    public function __invoke(?\PhpParser\Node\Stmt\Namespace_ $namespace) : \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context
+    public function __invoke(?\PhpParser\Node\Stmt\Namespace_ $namespace) : \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context
     {
         if (!$namespace) {
-            return new \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context('');
+            return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context('');
         }
-        return new \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\Types\Context($namespace->name ? $namespace->name->toString() : '', $this->aliasesToFullyQualifiedNames($namespace));
+        return new \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\Types\Context($namespace->name ? $namespace->name->toString() : '', $this->aliasesToFullyQualifiedNames($namespace));
     }
     /**
      * @return string[] indexed by alias

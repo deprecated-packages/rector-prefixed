@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20201227\PHPStan\Analyser;
 
-use RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings;
+use RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -1832,7 +1832,7 @@ class MutatingScope implements \RectorPrefix20201227\PHPStan\Analyser\Scope
             }
             $variableTypes[$variableName] = \RectorPrefix20201227\PHPStan\Analyser\VariableTypeHolder::createYes($variableType);
             foreach ($this->moreSpecificTypes as $exprString => $moreSpecificType) {
-                $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::matchAll((string) $exprString, '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
+                $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::matchAll((string) $exprString, '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
                 if ($matches === []) {
                     continue;
                 }
@@ -2025,7 +2025,7 @@ class MutatingScope implements \RectorPrefix20201227\PHPStan\Analyser\Scope
         $variableString = $this->printer->prettyPrintExpr(new \PhpParser\Node\Expr\Variable($variableName));
         $moreSpecificTypeHolders = $this->moreSpecificTypes;
         foreach (\array_keys($moreSpecificTypeHolders) as $key) {
-            $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::matchAll((string) $key, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
+            $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::matchAll((string) $key, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
             if ($matches === []) {
                 continue;
             }
@@ -2139,18 +2139,18 @@ class MutatingScope implements \RectorPrefix20201227\PHPStan\Analyser\Scope
         $nativeExpressionTypes = $this->nativeExpressionTypes;
         foreach (\array_keys($moreSpecificTypeHolders) as $exprString) {
             $exprString = (string) $exprString;
-            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::startsWith($exprString, $exprStringToInvalidate)) {
+            if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::startsWith($exprString, $exprStringToInvalidate)) {
                 if ($exprString === $exprStringToInvalidate && $requireMoreCharacters) {
                     continue;
                 }
                 $nextLetter = \substr($exprString, \strlen($exprStringToInvalidate), 1);
-                if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match($nextLetter, '#[a-zA-Z_0-9\\x7f-\\xff]#') === null) {
+                if (\RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match($nextLetter, '#[a-zA-Z_0-9\\x7f-\\xff]#') === null) {
                     unset($moreSpecificTypeHolders[$exprString]);
                     unset($nativeExpressionTypes[$exprString]);
                     continue;
                 }
             }
-            $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::matchAll($exprString, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
+            $matches = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::matchAll($exprString, '#\\$[a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*#');
             if ($matches === []) {
                 continue;
             }
@@ -2229,7 +2229,7 @@ class MutatingScope implements \RectorPrefix20201227\PHPStan\Analyser\Scope
                 $scope = $scope->removeTypeFromExpression($expr, $type);
             }
             if (!$expr instanceof \PhpParser\Node\Expr\Variable || !\is_string($expr->name) || $specifiedTypes->shouldOverwrite()) {
-                $match = \RectorPrefix20201227\_HumbugBox221ad6f1b81f__UniqueRector\Nette\Utils\Strings::match((string) $typeSpecification['exprString'], '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
+                $match = \RectorPrefix20201227\_HumbugBox221ad6f1b81f\Nette\Utils\Strings::match((string) $typeSpecification['exprString'], '#^\\$([a-zA-Z_\\x7f-\\xff][a-zA-Z_0-9\\x7f-\\xff]*)#');
                 if ($match !== null) {
                     $skipVariables[$match[1]] = \true;
                 }

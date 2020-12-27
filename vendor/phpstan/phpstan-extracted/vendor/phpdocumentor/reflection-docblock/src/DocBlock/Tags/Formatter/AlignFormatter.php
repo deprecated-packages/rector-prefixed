@@ -11,11 +11,11 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
  * @link      http://phpdoc.org
  */
-namespace _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+namespace _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tag;
-use _HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
-class AlignFormatter implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tags\Formatter
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag;
+use _HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter;
+class AlignFormatter implements \_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tags\Formatter
 {
     /** @var int The maximum tag name length. */
     protected $maxLen = 0;
@@ -37,7 +37,7 @@ class AlignFormatter implements \_HumbugBox221ad6f1b81f__UniqueRector\phpDocumen
      *
      * @return string
      */
-    public function format(\_HumbugBox221ad6f1b81f__UniqueRector\phpDocumentor\Reflection\DocBlock\Tag $tag)
+    public function format(\_HumbugBox221ad6f1b81f\phpDocumentor\Reflection\DocBlock\Tag $tag)
     {
         return '@' . $tag->getName() . \str_repeat(' ', $this->maxLen - \strlen($tag->getName()) + 1) . (string) $tag;
     }
