@@ -28,8 +28,8 @@ use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPUnit\NodeFactory\SetUpClassMethodFactory;
 use Rector\RemovingStatic\ValueObject\PHPUnitClass;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\RemovingStatic\Tests\Rector\Class_\PHPUnitStaticToKernelTestCaseGetRector\PHPUnitStaticToKernelTestCaseGetRectorTest
  */
@@ -66,22 +66,22 @@ final class PHPUnitStaticToKernelTestCaseGetRector extends \Rector\Core\Rector\A
         $this->classInsertManipulator = $classInsertManipulator;
         $this->setUpClassMethodFactory = $setUpClassMethodFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert static calls in PHPUnit test cases, to get() from the container of KernelTestCase', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert static calls in PHPUnit test cases, to get() from the container of KernelTestCase', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20201226;
+namespace RectorPrefix20201227;
 
-use RectorPrefix20201226\PHPUnit\Framework\TestCase;
-final class SomeTestCase extends \RectorPrefix20201226\PHPUnit\Framework\TestCase
+use RectorPrefix20201227\PHPUnit\Framework\TestCase;
+final class SomeTestCase extends \RectorPrefix20201227\PHPUnit\Framework\TestCase
 {
     public function test()
     {
-        $product = \RectorPrefix20201226\EntityFactory::create('product');
+        $product = \RectorPrefix20201227\EntityFactory::create('product');
     }
 }
-\class_alias('RectorPrefix20201226\\SomeTestCase', 'SomeTestCase', \false);
+\class_alias('RectorPrefix20201227\\SomeTestCase', 'SomeTestCase', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -189,8 +189,8 @@ CODE_SAMPLE
             }
         }
         // update parent clsas if not already
-        if (!$this->isObjectType($class, 'RectorPrefix20201226\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
-            $class->extends = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201226\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase');
+        if (!$this->isObjectType($class, 'RectorPrefix20201227\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
+            $class->extends = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201227\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase');
         }
         return $class;
     }

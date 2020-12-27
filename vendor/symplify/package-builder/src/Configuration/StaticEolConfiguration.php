@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PackageBuilder\Configuration;
+namespace RectorPrefix20201227\Symplify\PackageBuilder\Configuration;
 
 final class StaticEolConfiguration
 {

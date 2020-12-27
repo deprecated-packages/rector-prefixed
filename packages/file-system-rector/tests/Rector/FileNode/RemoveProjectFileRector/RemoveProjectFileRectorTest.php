@@ -6,13 +6,13 @@ namespace Rector\FileSystemRector\Tests\Rector\FileNode\RemoveProjectFileRector;
 use Iterator;
 use Rector\FileSystemRector\Rector\FileNode\RemoveProjectFileRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveProjectFileRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         $this->doTestFileInfo($fixtureFileInfo);
         $this->assertFileWasRemoved($this->originalTempFileInfo);

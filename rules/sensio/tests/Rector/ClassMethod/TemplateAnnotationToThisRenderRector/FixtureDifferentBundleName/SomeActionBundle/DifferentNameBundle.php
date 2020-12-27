@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Sensio\Tests\Rector\ClassMethod\TemplateAnnotationToThisRenderRector\FixtureDifferentBundleName\SomeActionBundle;
 
-use RectorPrefix20201226\Symfony\Component\HttpKernel\Bundle\Bundle;
-final class DifferentNameBundle extends \RectorPrefix20201226\Symfony\Component\HttpKernel\Bundle\Bundle
+use RectorPrefix20201227\Symfony\Component\HttpKernel\Bundle\Bundle;
+final class DifferentNameBundle extends \RectorPrefix20201227\Symfony\Component\HttpKernel\Bundle\Bundle
 {
 }

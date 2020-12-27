@@ -6,13 +6,13 @@ namespace Rector\Php70\Tests\Rector\FuncCall\EregToPregMatchRector;
 use Iterator;
 use Rector\Php70\Rector\FuncCall\EregToPregMatchRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class EregToPregMatchRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

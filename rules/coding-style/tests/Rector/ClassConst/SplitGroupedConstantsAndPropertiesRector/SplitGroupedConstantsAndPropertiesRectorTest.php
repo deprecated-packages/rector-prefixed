@@ -6,13 +6,13 @@ namespace Rector\CodingStyle\Tests\Rector\ClassConst\SplitGroupedConstantsAndPro
 use Iterator;
 use Rector\CodingStyle\Rector\ClassConst\SplitGroupedConstantsAndPropertiesRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class SplitGroupedConstantsAndPropertiesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

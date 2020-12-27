@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Rector\NetteTesterToPHPUnit\Rector\FileNode;
 
-use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\MovedFileWithContent;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\NetteTesterToPHPUnit\Tests\Rector\FileNode\RenameTesterTestToPHPUnitToTestFileRector\RenameTesterTestToPHPUnitToTestFileRectorTest
  */
@@ -25,9 +25,9 @@ final class RenameTesterTestToPHPUnitToTestFileRector extends \Rector\Core\Recto
      * @see https://regex101.com/r/cOMZIj/1
      */
     private const PHPT_SUFFIX_REGEX = '#\\.phpt$#';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename "*.phpt" file to "*Test.php" file', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename "*.phpt" file to "*Test.php" file', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 // tests/SomeTestCase.phpt
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
@@ -49,7 +49,7 @@ CODE_SAMPLE
     {
         $smartFileInfo = $node->getFileInfo();
         $oldRealPath = $smartFileInfo->getRealPath();
-        if (!\RectorPrefix20201226\Nette\Utils\Strings::endsWith($oldRealPath, '.phpt')) {
+        if (!\RectorPrefix20201227\Nette\Utils\Strings::endsWith($oldRealPath, '.phpt')) {
             return null;
         }
         $newRealPath = $this->createNewRealPath($oldRealPath);
@@ -63,10 +63,10 @@ CODE_SAMPLE
     private function createNewRealPath(string $oldRealPath) : string
     {
         // file suffix
-        $newRealPath = \RectorPrefix20201226\Nette\Utils\Strings::replace($oldRealPath, self::PHPT_SUFFIX_REGEX, '.php');
+        $newRealPath = \RectorPrefix20201227\Nette\Utils\Strings::replace($oldRealPath, self::PHPT_SUFFIX_REGEX, '.php');
         // Test suffix
-        if (!\RectorPrefix20201226\Nette\Utils\Strings::endsWith($newRealPath, 'Test.php')) {
-            return \RectorPrefix20201226\Nette\Utils\Strings::replace($newRealPath, self::PHP_SUFFIX_REGEX, 'Test.php');
+        if (!\RectorPrefix20201227\Nette\Utils\Strings::endsWith($newRealPath, 'Test.php')) {
+            return \RectorPrefix20201227\Nette\Utils\Strings::replace($newRealPath, self::PHP_SUFFIX_REGEX, 'Test.php');
         }
         return $newRealPath;
     }

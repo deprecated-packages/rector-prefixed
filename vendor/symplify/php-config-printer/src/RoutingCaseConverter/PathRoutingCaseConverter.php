@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PhpConfigPrinter\RoutingCaseConverter;
+namespace RectorPrefix20201227\Symplify\PhpConfigPrinter\RoutingCaseConverter;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
-use Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
-use Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use Symplify\PhpConfigPrinter\ValueObject\VariableName;
-final class PathRoutingCaseConverter implements \Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\VariableName;
+final class PathRoutingCaseConverter implements \RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface
 {
     /**
      * @var string[]
@@ -28,7 +28,7 @@ final class PathRoutingCaseConverter implements \Symplify\PhpConfigPrinter\Contr
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    public function __construct(\RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }
@@ -38,7 +38,7 @@ final class PathRoutingCaseConverter implements \Symplify\PhpConfigPrinter\Contr
     }
     public function convertToMethodCall(string $key, $values) : \PhpParser\Node\Stmt\Expression
     {
-        $variable = new \PhpParser\Node\Expr\Variable(\Symplify\PhpConfigPrinter\ValueObject\VariableName::ROUTING_CONFIGURATOR);
+        $variable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\VariableName::ROUTING_CONFIGURATOR);
         // @todo args
         $args = $this->createAddArgs($key, $values);
         $methodCall = new \PhpParser\Node\Expr\MethodCall($variable, 'add', $args);

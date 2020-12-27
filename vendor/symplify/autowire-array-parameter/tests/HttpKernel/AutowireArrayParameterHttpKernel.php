@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\AutowireArrayParameter\Tests\HttpKernel;
+namespace RectorPrefix20201227\Symplify\AutowireArrayParameter\Tests\HttpKernel;
 
-use RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20201226\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use RectorPrefix20201226\Symfony\Component\HttpKernel\Kernel;
-use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-final class AutowireArrayParameterHttpKernel extends \RectorPrefix20201226\Symfony\Component\HttpKernel\Kernel
+use RectorPrefix20201227\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20201227\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20201227\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use RectorPrefix20201227\Symfony\Component\HttpKernel\Kernel;
+use RectorPrefix20201227\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+final class AutowireArrayParameterHttpKernel extends \RectorPrefix20201227\Symfony\Component\HttpKernel\Kernel
 {
-    public function registerContainerConfiguration(\RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20201227\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../config/autowire_array_parameter.php');
     }
@@ -29,8 +29,8 @@ final class AutowireArrayParameterHttpKernel extends \RectorPrefix20201226\Symfo
     {
         return [];
     }
-    protected function build(\RectorPrefix20201226\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    protected function build(\RectorPrefix20201227\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
-        $containerBuilder->addCompilerPass(new \Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
+        $containerBuilder->addCompilerPass(new \RectorPrefix20201227\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
 }

@@ -17,8 +17,8 @@ use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class StaticTypeMapperTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20201227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class StaticTypeMapperTest extends \RectorPrefix20201227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var StaticTypeMapper

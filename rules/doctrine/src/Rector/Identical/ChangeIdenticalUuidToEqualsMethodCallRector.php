@@ -7,13 +7,13 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PHPStan\Type\ObjectType;
-use RectorPrefix20201226\Ramsey\Uuid\Uuid;
-use RectorPrefix20201226\Ramsey\Uuid\UuidInterface;
+use RectorPrefix20201227\Ramsey\Uuid\Uuid;
+use RectorPrefix20201227\Ramsey\Uuid\UuidInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
 use Rector\Php71\ValueObject\TwoNodeMatch;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Doctrine\Tests\Rector\Identical\ChangeIdenticalUuidToEqualsMethodCallRector\ChangeIdenticalUuidToEqualsMethodCallRectorTest
  */
@@ -27,9 +27,9 @@ final class ChangeIdenticalUuidToEqualsMethodCallRector extends \Rector\Core\Rec
     {
         $this->doctrineEntityManipulator = $doctrineEntityManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $uuid === 1 to $uuid->equals(\\Ramsey\\Uuid\\Uuid::fromString(1))', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $uuid === 1 to $uuid->equals(\\Ramsey\\Uuid\\Uuid::fromString(1))', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function match($checkedId): int
@@ -71,7 +71,7 @@ CODE_SAMPLE
         }
         $entityMethodCall = $twoNodeMatch->getFirstExpr();
         $comparedVariable = $twoNodeMatch->getSecondExpr();
-        $staticCall = $this->createStaticCall(\RectorPrefix20201226\Ramsey\Uuid\Uuid::class, 'fromString', [$comparedVariable]);
+        $staticCall = $this->createStaticCall(\RectorPrefix20201227\Ramsey\Uuid\Uuid::class, 'fromString', [$comparedVariable]);
         return $this->createMethodCall($entityMethodCall, 'equals', [$staticCall]);
     }
     private function matchEntityCallAndComparedVariable(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\Rector\Php71\ValueObject\TwoNodeMatch
@@ -96,6 +96,6 @@ CODE_SAMPLE
         if (!$comparedValueObjectType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
-        return $comparedValueObjectType->getClassName() === \RectorPrefix20201226\Ramsey\Uuid\UuidInterface::class;
+        return $comparedValueObjectType->getClassName() === \RectorPrefix20201227\Ramsey\Uuid\UuidInterface::class;
     }
 }

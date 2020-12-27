@@ -14,8 +14,8 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\VariableRenamer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Php80\NodeResolver\PromotedPropertyResolver;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://wiki.php.net/rfc/constructor_promotion
  * @see https://github.com/php/php-src/pull/5291
@@ -37,9 +37,9 @@ final class ClassPropertyAssignToConstructorPromotionRector extends \Rector\Core
         $this->promotedPropertyResolver = $promotedPropertyResolver;
         $this->variableRenamer = $variableRenamer;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change simple property init and assign to constructor promotion', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change simple property init and assign to constructor promotion', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public float $someVariable;
@@ -89,7 +89,8 @@ CODE_SAMPLE
             /** @var string $oldName */
             $oldName = $this->getName($param->var);
             // property name has higher priority
-            $param->var->name = $property->props[0]->name;
+            $propertyName = $this->getName($property);
+            $param->var->name = $propertyName;
             $param->flags = $property->flags;
             // rename also following calls
             $propertyName = $this->getName($property->props[0]);

@@ -1,24 +1,24 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
+namespace RectorPrefix20201227\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
 
-use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
 final class BadGoodCodeSamplePrinter
 {
     /**
      * @var MarkdownCodeWrapper
      */
     private $markdownCodeWrapper;
-    public function __construct(\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper)
+    public function __construct(\RectorPrefix20201227\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper)
     {
         $this->markdownCodeWrapper = $markdownCodeWrapper;
     }
     /**
      * @return string[]
      */
-    public function print(\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample) : array
+    public function print(\RectorPrefix20201227\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample) : array
     {
         $lines = [];
         $lines[] = $this->markdownCodeWrapper->printPhpCode($codeSample->getBadCode());

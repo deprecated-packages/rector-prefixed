@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PhpConfigPrinter\CaseConverter;
+namespace RectorPrefix20201227\Symplify\PhpConfigPrinter\CaseConverter;
 
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
-use Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use Symplify\PhpConfigPrinter\ValueObject\MethodName;
-use Symplify\PhpConfigPrinter\ValueObject\VariableName;
-use Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\MethodName;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\VariableName;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 /**
  * Handles this part:
  *
  * framework: <---
  *     key: value
  */
-final class ExtensionConverter implements \Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
+final class ExtensionConverter implements \RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
      * @var ArgsNodeFactory
@@ -31,7 +31,7 @@ final class ExtensionConverter implements \Symplify\PhpConfigPrinter\Contract\Ca
      * @var YamlKey
      */
     private $yamlKey;
-    public function __construct(\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \Symplify\PhpConfigPrinter\ValueObject\YamlKey $yamlKey)
+    public function __construct(\RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\YamlKey $yamlKey)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->yamlKey = $yamlKey;
@@ -39,8 +39,8 @@ final class ExtensionConverter implements \Symplify\PhpConfigPrinter\Contract\Ca
     public function convertToMethodCall($key, $values) : \PhpParser\Node\Stmt\Expression
     {
         $args = $this->argsNodeFactory->createFromValues([$this->rootKey, [$key => $values]]);
-        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
-        $methodCall = new \PhpParser\Node\Expr\MethodCall($containerConfiguratorVariable, \Symplify\PhpConfigPrinter\ValueObject\MethodName::EXTENSION, $args);
+        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
+        $methodCall = new \PhpParser\Node\Expr\MethodCall($containerConfiguratorVariable, \RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\MethodName::EXTENSION, $args);
         return new \PhpParser\Node\Stmt\Expression($methodCall);
     }
     public function match(string $rootKey, $key, $values) : bool

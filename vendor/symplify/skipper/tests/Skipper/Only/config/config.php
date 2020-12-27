@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201226;
+namespace RectorPrefix20201227;
 
-use RectorPrefix20201226\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass;
-use Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely;
-use Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo;
-use Symplify\Skipper\ValueObject\Option;
-return static function (\RectorPrefix20201226\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20201227\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass;
+use RectorPrefix20201227\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely;
+use RectorPrefix20201227\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo;
+use RectorPrefix20201227\Symplify\Skipper\ValueObject\Option;
+return static function (\RectorPrefix20201227\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\Symplify\Skipper\ValueObject\Option::ONLY, [
-        \Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class => ['SomeFileToOnlyInclude.php'],
+    $parameters->set(\RectorPrefix20201227\Symplify\Skipper\ValueObject\Option::ONLY, [
+        \RectorPrefix20201227\Symplify\Skipper\Tests\Skipper\Only\Source\IncludeThisClass::class => ['SomeFileToOnlyInclude.php'],
         // these 2 lines should be identical
-        \Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely::class => null,
-        \Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo::class,
+        \RectorPrefix20201227\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletely::class => null,
+        \RectorPrefix20201227\Symplify\Skipper\Tests\Skipper\Only\Source\SkipCompletelyToo::class,
     ]);
 };

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Assign;
 
-use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
@@ -12,8 +12,8 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/shopsys/shopsys/pull/524
  * @see \Rector\CodingStyle\Tests\Rector\Assign\PHPStormVarAnnotationRector\PHPStormVarAnnotationRectorTest
@@ -35,9 +35,9 @@ final class PHPStormVarAnnotationRector extends \Rector\Core\Rector\AbstractRect
      * @see https://regex101.com/r/yz2AZ7/1
      */
     private const VARIABLE_NAME_AND_TYPE_MATCH_REGEX = '#(?<variableName>\\$\\w+)(?<space>\\s+)(?<type>[\\\\\\w]+)#';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change various @var annotation formats to one PHPStorm understands', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change various @var annotation formats to one PHPStorm understands', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 $config = 5;
 /** @var \Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterConfig $config */
 CODE_SAMPLE
@@ -74,7 +74,7 @@ CODE_SAMPLE
         if ($docContent === '') {
             return null;
         }
-        if (!\RectorPrefix20201226\Nette\Utils\Strings::contains($docContent, '@var')) {
+        if (!\RectorPrefix20201227\Nette\Utils\Strings::contains($docContent, '@var')) {
             return null;
         }
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
@@ -82,7 +82,7 @@ CODE_SAMPLE
         }
         $varName = '$' . $this->getName($node->var);
         $varPattern = '# ' . \preg_quote($varName, '#') . ' #';
-        if (!\RectorPrefix20201226\Nette\Utils\Strings::match($docContent, $varPattern)) {
+        if (!\RectorPrefix20201227\Nette\Utils\Strings::match($docContent, $varPattern)) {
             return null;
         }
         // switch docs
@@ -124,12 +124,12 @@ CODE_SAMPLE
         $docContent = $this->getDocContent($node);
         // normalize content
         // starts with "/*", instead of "/**"
-        if (\RectorPrefix20201226\Nette\Utils\Strings::startsWith($docContent, '/* ')) {
-            $docContent = \RectorPrefix20201226\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_COMMENT_START_REGEX, '/** ');
+        if (\RectorPrefix20201227\Nette\Utils\Strings::startsWith($docContent, '/* ')) {
+            $docContent = \RectorPrefix20201227\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_COMMENT_START_REGEX, '/** ');
         }
         // $value is first, instead of type is first
-        if (\RectorPrefix20201226\Nette\Utils\Strings::match($docContent, self::VAR_ANNOTATION_REGEX)) {
-            $docContent = \RectorPrefix20201226\Nette\Utils\Strings::replace($docContent, self::VARIABLE_NAME_AND_TYPE_MATCH_REGEX, '$3$2$1');
+        if (\RectorPrefix20201227\Nette\Utils\Strings::match($docContent, self::VAR_ANNOTATION_REGEX)) {
+            $docContent = \RectorPrefix20201227\Nette\Utils\Strings::replace($docContent, self::VARIABLE_NAME_AND_TYPE_MATCH_REGEX, '$3$2$1');
         }
         return new \PhpParser\Comment\Doc($docContent);
     }

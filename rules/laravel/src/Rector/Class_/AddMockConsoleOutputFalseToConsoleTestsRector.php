@@ -11,8 +11,8 @@ use PhpParser\Node\Stmt\Class_;
 use Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeManipulator\SetUpClassMethodNodeManipulator;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/laravel/framework/issues/26450#issuecomment-449401202
  * @see https://github.com/laravel/framework/commit/055fe52dbb7169dc51bd5d5deeb05e8da9be0470#diff-76a649cb397ea47f5613459c335f88c1b68e5f93e51d46e9fb5308ec55ded221
@@ -34,9 +34,9 @@ final class AddMockConsoleOutputFalseToConsoleTestsRector extends \Rector\Core\R
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
         $this->setUpClassMethodNodeManipulator = $setUpClassMethodNodeManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add "$this->mockConsoleOutput = false"; to console tests that work with output content', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add "$this->mockConsoleOutput = false"; to console tests that work with output content', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\TestCase;
 
@@ -81,7 +81,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, 'RectorPrefix20201226\\Illuminate\\Foundation\\Testing\\TestCase')) {
+        if (!$this->isObjectType($node, 'RectorPrefix20201227\\Illuminate\\Foundation\\Testing\\TestCase')) {
             return null;
         }
         if (!$this->isTestingConsoleOutput($node)) {
@@ -98,7 +98,7 @@ CODE_SAMPLE
     private function isTestingConsoleOutput(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($class->stmts, function (\PhpParser\Node $node) : bool {
-            return $this->isStaticCallNamed($node, 'RectorPrefix20201226\\Illuminate\\Support\\Facades\\Artisan', 'output');
+            return $this->isStaticCallNamed($node, 'RectorPrefix20201227\\Illuminate\\Support\\Facades\\Artisan', 'output');
         });
     }
     private function hasMockConsoleOutputFalse(\PhpParser\Node\Stmt\Class_ $class) : bool

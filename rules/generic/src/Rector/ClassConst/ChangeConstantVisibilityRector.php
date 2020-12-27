@@ -9,9 +9,9 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\Visibility;
 use Rector\Generic\ValueObject\ClassConstantVisibilityChange;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20201226\Webmozart\Assert\Assert;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\ChangeConstantVisibilityRectorTest
  */
@@ -25,9 +25,9 @@ final class ChangeConstantVisibilityRector extends \Rector\Core\Rector\AbstractR
      * @var ClassConstantVisibilityChange[]
      */
     private $classConstantVisibilityChanges = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change visibility of constant from parent class.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change visibility of constant from parent class.', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class FrameworkClass
 {
     protected const SOME_CONSTANT = 1;
@@ -78,7 +78,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $classConstantVisibilityChanges = $configuration[self::CLASS_CONSTANT_VISIBILITY_CHANGES] ?? [];
-        \RectorPrefix20201226\Webmozart\Assert\Assert::allIsInstanceOf($classConstantVisibilityChanges, \Rector\Generic\ValueObject\ClassConstantVisibilityChange::class);
+        \RectorPrefix20201227\Webmozart\Assert\Assert::allIsInstanceOf($classConstantVisibilityChanges, \Rector\Generic\ValueObject\ClassConstantVisibilityChange::class);
         $this->classConstantVisibilityChanges = $classConstantVisibilityChanges;
     }
 }

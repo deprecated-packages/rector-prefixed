@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PhpConfigPrinter\Provider;
+namespace RectorPrefix20201227\Symplify\PhpConfigPrinter\Provider;
 
 final class CurrentFilePathProvider
 {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\ClassConstFetch;
 
-use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Identifier;
@@ -11,9 +11,9 @@ use PhpParser\Node\Name\FullyQualified;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Renaming\ValueObject\RenameClassConstant;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20201226\Webmozart\Assert\Assert;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\RenameClassConstantRectorTest
  */
@@ -27,10 +27,10 @@ final class RenameClassConstantRector extends \Rector\Core\Rector\AbstractRector
      * @var RenameClassConstant[]
      */
     private $classConstantRenames = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         $configuration = [self::CLASS_CONSTANT_RENAME => [new \Rector\Renaming\ValueObject\RenameClassConstant('SomeClass', 'OLD_CONSTANT', 'NEW_CONSTANT'), new \Rector\Renaming\ValueObject\RenameClassConstant('SomeClass', 'OTHER_OLD_CONSTANT', 'DifferentClass::NEW_CONSTANT')]];
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined class constants in their calls.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined class constants in their calls.', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $value = SomeClass::OLD_CONSTANT;
 $value = SomeClass::OTHER_OLD_CONSTANT;
 CODE_SAMPLE
@@ -59,7 +59,7 @@ CODE_SAMPLE
             if (!$this->isName($node->name, $classConstantRename->getOldConstant())) {
                 continue;
             }
-            if (\RectorPrefix20201226\Nette\Utils\Strings::contains($classConstantRename->getNewConstant(), '::')) {
+            if (\RectorPrefix20201227\Nette\Utils\Strings::contains($classConstantRename->getNewConstant(), '::')) {
                 return $this->createClassConstantFetchNodeFromDoubleColonFormat($classConstantRename->getNewConstant());
             }
             $node->name = new \PhpParser\Node\Identifier($classConstantRename->getNewConstant());
@@ -73,7 +73,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $classConstantRenames = $configuration[self::CLASS_CONSTANT_RENAME] ?? [];
-        \RectorPrefix20201226\Webmozart\Assert\Assert::allIsInstanceOf($classConstantRenames, \Rector\Renaming\ValueObject\RenameClassConstant::class);
+        \RectorPrefix20201227\Webmozart\Assert\Assert::allIsInstanceOf($classConstantRenames, \Rector\Renaming\ValueObject\RenameClassConstant::class);
         $this->classConstantRenames = $classConstantRenames;
     }
     private function createClassConstantFetchNodeFromDoubleColonFormat(string $constant) : \PhpParser\Node\Expr\ClassConstFetch

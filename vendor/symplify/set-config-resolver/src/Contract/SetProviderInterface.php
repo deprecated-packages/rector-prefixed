@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SetConfigResolver\Contract;
+namespace RectorPrefix20201227\Symplify\SetConfigResolver\Contract;
 
-use Symplify\SetConfigResolver\ValueObject\Set;
+use RectorPrefix20201227\Symplify\SetConfigResolver\ValueObject\Set;
 interface SetProviderInterface
 {
     /**
@@ -14,5 +14,5 @@ interface SetProviderInterface
      * @return string[]
      */
     public function provideSetNames() : array;
-    public function provideByName(string $setName) : ?\Symplify\SetConfigResolver\ValueObject\Set;
+    public function provideByName(string $setName) : ?\RectorPrefix20201227\Symplify\SetConfigResolver\ValueObject\Set;
 }

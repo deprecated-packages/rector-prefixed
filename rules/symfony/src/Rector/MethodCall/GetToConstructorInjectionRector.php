@@ -6,8 +6,8 @@ namespace Rector\Symfony\Rector\MethodCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Symfony\Tests\Rector\MethodCall\GetToConstructorInjectionRector\GetToConstructorInjectionRectorTest
  */
@@ -20,10 +20,10 @@ final class GetToConstructorInjectionRector extends \Rector\Symfony\Rector\Metho
     /**
      * @var string[]
      */
-    private $getMethodAwareTypes = ['RectorPrefix20201226\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', 'RectorPrefix20201226\\Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerTrait'];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    private $getMethodAwareTypes = ['RectorPrefix20201227\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', 'RectorPrefix20201227\\Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerTrait'];
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$this->get()` to constructor injection in Command and Controller in Symfony', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 class MyCommand extends ContainerAwareCommand
 {
     public function someMethod()

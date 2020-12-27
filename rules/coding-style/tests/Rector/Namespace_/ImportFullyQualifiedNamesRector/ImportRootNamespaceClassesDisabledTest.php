@@ -7,7 +7,7 @@ use Iterator;
 use Rector\Core\Configuration\Option;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PostRector\Rector\NameImportingPostRector
  */
@@ -16,7 +16,7 @@ final class ImportRootNamespaceClassesDisabledTest extends \Rector\Testing\PHPUn
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
         $this->setParameter(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES, \false);

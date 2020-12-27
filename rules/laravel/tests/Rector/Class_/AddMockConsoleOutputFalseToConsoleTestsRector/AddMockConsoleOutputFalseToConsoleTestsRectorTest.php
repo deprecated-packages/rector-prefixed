@@ -6,13 +6,13 @@ namespace Rector\Laravel\Tests\Rector\Class_\AddMockConsoleOutputFalseToConsoleT
 use Iterator;
 use Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class AddMockConsoleOutputFalseToConsoleTestsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

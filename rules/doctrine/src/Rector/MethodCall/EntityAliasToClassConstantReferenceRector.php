@@ -3,19 +3,19 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Rector\MethodCall;
 
-use RectorPrefix20201226\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
-use RectorPrefix20201226\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
-use RectorPrefix20201226\Doctrine\ORM\EntityManagerInterface;
-use RectorPrefix20201226\Doctrine\Persistence\ManagerRegistry;
-use RectorPrefix20201226\Doctrine\Persistence\ObjectManager;
-use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201227\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
+use RectorPrefix20201227\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
+use RectorPrefix20201227\Doctrine\ORM\EntityManagerInterface;
+use RectorPrefix20201227\Doctrine\Persistence\ManagerRegistry;
+use RectorPrefix20201227\Doctrine\Persistence\ObjectManager;
+use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Doctrine\Tests\Rector\MethodCall\EntityAliasToClassConstantReferenceRector\EntityAliasToClassConstantReferenceRectorTest
  */
@@ -29,14 +29,14 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
     /**
      * @var string[]
      */
-    private const ALLOWED_OBJECT_TYPES = [\RectorPrefix20201226\Doctrine\ORM\EntityManagerInterface::class, \RectorPrefix20201226\Doctrine\Persistence\ObjectManager::class, \RectorPrefix20201226\Doctrine\Common\Persistence\ObjectManager::class, \RectorPrefix20201226\Doctrine\Persistence\ManagerRegistry::class, \RectorPrefix20201226\Doctrine\Common\Persistence\ManagerRegistry::class];
+    private const ALLOWED_OBJECT_TYPES = [\RectorPrefix20201227\Doctrine\ORM\EntityManagerInterface::class, \RectorPrefix20201227\Doctrine\Persistence\ObjectManager::class, \RectorPrefix20201227\Doctrine\Common\Persistence\ObjectManager::class, \RectorPrefix20201227\Doctrine\Persistence\ManagerRegistry::class, \RectorPrefix20201227\Doctrine\Common\Persistence\ManagerRegistry::class];
     /**
      * @var string[]
      */
     private $aliasesToNamespaces = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces doctrine alias with class.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces doctrine alias with class.', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $entityManager = new Doctrine\ORM\EntityManager();
 $entityManager->getRepository("AppBundle:Post");
 CODE_SAMPLE
@@ -44,7 +44,7 @@ CODE_SAMPLE
 $entityManager = new Doctrine\ORM\EntityManager();
 $entityManager->getRepository(\App\Entity\Post::class);
 CODE_SAMPLE
-, [self::ALIASES_TO_NAMESPACES => ['App' => 'RectorPrefix20201226\\App\\Entity']])]);
+, [self::ALIASES_TO_NAMESPACES => ['App' => 'RectorPrefix20201227\\App\\Entity']])]);
     }
     /**
      * @return string[]
@@ -96,7 +96,7 @@ CODE_SAMPLE
     }
     private function isAlias(string $name) : bool
     {
-        return \RectorPrefix20201226\Nette\Utils\Strings::contains($name, ':');
+        return \RectorPrefix20201227\Nette\Utils\Strings::contains($name, ':');
     }
     private function hasAlias(string $name) : bool
     {

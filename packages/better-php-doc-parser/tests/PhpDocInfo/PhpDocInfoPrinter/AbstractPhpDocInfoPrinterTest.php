@@ -11,10 +11,10 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\HttpKernel\RectorKernel;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use Symplify\SmartFileSystem\SmartFileSystem;
-abstract class AbstractPhpDocInfoPrinterTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20201227\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use RectorPrefix20201227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileSystem;
+abstract class AbstractPhpDocInfoPrinterTest extends \RectorPrefix20201227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PhpDocInfoPrinter
@@ -33,7 +33,7 @@ abstract class AbstractPhpDocInfoPrinterTest extends \Symplify\PackageBuilder\Te
         $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
         $this->phpDocInfoFactory = $this->getService(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory::class);
         $this->phpDocInfoPrinter = $this->getService(\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter::class);
-        $this->smartFileSystem = $this->getService(\Symplify\SmartFileSystem\SmartFileSystem::class);
+        $this->smartFileSystem = $this->getService(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileSystem::class);
     }
     protected function createPhpDocInfoFromDocCommentAndNode(string $docComment, \PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
@@ -46,6 +46,6 @@ abstract class AbstractPhpDocInfoPrinterTest extends \Symplify\PackageBuilder\Te
     }
     protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php') : \Iterator
     {
-        return \Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
+        return \RectorPrefix20201227\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
     }
 }

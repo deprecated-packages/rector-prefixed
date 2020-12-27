@@ -19,8 +19,8 @@ use Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -36,9 +36,9 @@ final class MakeGetComponentAssignAnnotatedRector extends \Rector\Core\Rector\Ab
     {
         $this->varAnnotationManipulator = $varAnnotationManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add doc type for magic $control->getComponent(...) assign', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add doc type for magic $control->getComponent(...) assign', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 final class SomeClass
@@ -124,7 +124,7 @@ CODE_SAMPLE
     }
     private function isGetComponentMethodCallOrArrayDimFetchOnControl(\PhpParser\Node\Expr $expr) : bool
     {
-        if ($this->isOnClassMethodCall($expr, 'RectorPrefix20201226\\Nette\\Application\\UI\\Control', 'getComponent')) {
+        if ($this->isOnClassMethodCall($expr, 'RectorPrefix20201227\\Nette\\Application\\UI\\Control', 'getComponent')) {
             return \true;
         }
         return $this->isArrayDimFetchStringOnControlVariable($expr);
@@ -155,7 +155,7 @@ CODE_SAMPLE
         if (!$varStaticType instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
-        return \is_a($varStaticType->getClassName(), 'RectorPrefix20201226\\Nette\\Application\\UI\\Control', \true);
+        return \is_a($varStaticType->getClassName(), 'RectorPrefix20201227\\Nette\\Application\\UI\\Control', \true);
     }
     private function resolveCreateComponentMethodCallReturnType(\PhpParser\Node\Expr\MethodCall $methodCall) : \PHPStan\Type\Type
     {

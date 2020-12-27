@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SymplifyKernel\Console;
+namespace RectorPrefix20201227\Symplify\SymplifyKernel\Console;
 
-use RectorPrefix20201226\Jean85\PrettyVersions;
-use RectorPrefix20201226\Symfony\Component\Console\Command\Command;
-use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\SmartFileSystem;
-use Symplify\SymplifyKernel\Strings\StringsConverter;
+use RectorPrefix20201227\Jean85\PrettyVersions;
+use RectorPrefix20201227\Symfony\Component\Console\Command\Command;
+use RectorPrefix20201227\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use RectorPrefix20201227\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20201227\Symplify\SymplifyKernel\Strings\StringsConverter;
 use Throwable;
 final class ConsoleApplicationFactory
 {
@@ -35,21 +35,21 @@ final class ConsoleApplicationFactory
     /**
      * @param Command[] $commands
      */
-    public function __construct(array $commands, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(array $commands, \RectorPrefix20201227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20201227\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->commands = $commands;
-        $this->stringsConverter = new \Symplify\SymplifyKernel\Strings\StringsConverter();
+        $this->stringsConverter = new \RectorPrefix20201227\Symplify\SymplifyKernel\Strings\StringsConverter();
         $this->parameterProvider = $parameterProvider;
         $this->composerJsonFactory = $composerJsonFactory;
         $this->smartFileSystem = $smartFileSystem;
     }
-    public function create() : \Symplify\SymplifyKernel\Console\AutowiredConsoleApplication
+    public function create() : \RectorPrefix20201227\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication
     {
-        $autowiredConsoleApplication = new \Symplify\SymplifyKernel\Console\AutowiredConsoleApplication($this->commands);
+        $autowiredConsoleApplication = new \RectorPrefix20201227\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication($this->commands);
         $this->decorateApplicationWithNameAndVersion($autowiredConsoleApplication);
         return $autowiredConsoleApplication;
     }
-    private function decorateApplicationWithNameAndVersion(\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication $autowiredConsoleApplication) : void
+    private function decorateApplicationWithNameAndVersion(\RectorPrefix20201227\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication $autowiredConsoleApplication) : void
     {
         $projectDir = $this->parameterProvider->provideStringParameter('kernel.project_dir');
         $packageComposerJsonFilePath = $projectDir . \DIRECTORY_SEPARATOR . 'composer.json';
@@ -75,7 +75,7 @@ final class ConsoleApplicationFactory
     private function resolveVersionFromPackageName(string $packageName) : string
     {
         try {
-            $version = \RectorPrefix20201226\Jean85\PrettyVersions::getVersion($packageName);
+            $version = \RectorPrefix20201227\Jean85\PrettyVersions::getVersion($packageName);
             return $version->getPrettyVersion();
         } catch (\Throwable $throwable) {
             return 'Unknown';

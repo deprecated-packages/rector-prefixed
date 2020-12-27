@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\AutowireArrayParameter\Tests\Source\Contract;
+namespace RectorPrefix20201227\Symplify\AutowireArrayParameter\Tests\Source\Contract;
 
 interface CollectedInterface
 {

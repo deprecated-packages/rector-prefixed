@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace RectorPrefix20201227\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
 use PhpParser\Node\Expr\MethodCall;
-use Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
-final class DeprecatedServiceOptionKeyYamlToPhpFactory implements \Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+final class DeprecatedServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    public function __construct(\RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }
@@ -30,6 +30,6 @@ final class DeprecatedServiceOptionKeyYamlToPhpFactory implements \Symplify\PhpC
     }
     public function isMatch($key, $values) : bool
     {
-        return $key === \Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::DEPRECATED;
+        return $key === \RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::DEPRECATED;
     }
 }

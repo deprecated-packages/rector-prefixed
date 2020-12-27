@@ -17,8 +17,8 @@ use Rector\RemovingStatic\StaticTypesInClassResolver;
 use Rector\RemovingStatic\UniqueObjectFactoryFactory;
 use Rector\RemovingStatic\UniqueObjectOrServiceDetector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\PassFactoryToEntityRectorTest
  */
@@ -61,29 +61,29 @@ final class PassFactoryToUniqueObjectRector extends \Rector\Core\Rector\Abstract
         $this->factoryClassPrinter = $factoryClassPrinter;
         $this->staticTypesInClassResolver = $staticTypesInClassResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X/Static::call() to factories in entities, pass them via constructor to each other', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X/Static::call() to factories in entities, pass them via constructor to each other', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20201226;
+namespace RectorPrefix20201227;
 
 class SomeClass
 {
     public function run()
     {
-        return new \RectorPrefix20201226\AnotherClass();
+        return new \RectorPrefix20201227\AnotherClass();
     }
 }
-\class_alias('RectorPrefix20201226\\SomeClass', 'SomeClass', \false);
+\class_alias('RectorPrefix20201227\\SomeClass', 'SomeClass', \false);
 class AnotherClass
 {
     public function someFun()
     {
-        return \RectorPrefix20201226\StaticClass::staticMethod();
+        return \RectorPrefix20201227\StaticClass::staticMethod();
     }
 }
-\class_alias('RectorPrefix20201226\\AnotherClass', 'AnotherClass', \false);
+\class_alias('RectorPrefix20201227\\AnotherClass', 'AnotherClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass

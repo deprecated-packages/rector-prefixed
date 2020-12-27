@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SetConfigResolver;
+namespace RectorPrefix20201227\Symplify\SetConfigResolver;
 
-use RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface;
-use Symplify\SetConfigResolver\Console\Option\OptionName;
-use Symplify\SetConfigResolver\Console\OptionValueResolver;
-use Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201227\Symplify\SetConfigResolver\Console\Option\OptionName;
+use RectorPrefix20201227\Symplify\SetConfigResolver\Console\OptionValueResolver;
+use RectorPrefix20201227\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractConfigResolver
 {
     /**
@@ -20,15 +20,15 @@ abstract class AbstractConfigResolver
     private $optionValueResolver;
     public function __construct()
     {
-        $this->optionValueResolver = new \Symplify\SetConfigResolver\Console\OptionValueResolver();
+        $this->optionValueResolver = new \RectorPrefix20201227\Symplify\SetConfigResolver\Console\OptionValueResolver();
     }
-    public function resolveFromInput(\RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface $input) : ?\Symplify\SmartFileSystem\SmartFileInfo
+    public function resolveFromInput(\RectorPrefix20201227\Symfony\Component\Console\Input\InputInterface $input) : ?\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $configValue = $this->optionValueResolver->getOptionValue($input, \Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
+        $configValue = $this->optionValueResolver->getOptionValue($input, \RectorPrefix20201227\Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
         if ($configValue !== null) {
             if (!\file_exists($configValue)) {
                 $message = \sprintf('File "%s" was not found', $configValue);
-                throw new \Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
+                throw new \RectorPrefix20201227\Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
             }
             return $this->createFileInfo($configValue);
         }
@@ -37,7 +37,7 @@ abstract class AbstractConfigResolver
     /**
      * @param string[] $fallbackFiles
      */
-    public function resolveFromInputWithFallback(\RectorPrefix20201226\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles) : ?\Symplify\SmartFileSystem\SmartFileInfo
+    public function resolveFromInputWithFallback(\RectorPrefix20201227\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles) : ?\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo
     {
         $configFileInfo = $this->resolveFromInput($input);
         if ($configFileInfo !== null) {
@@ -45,14 +45,14 @@ abstract class AbstractConfigResolver
         }
         return $this->createFallbackFileInfoIfFound($fallbackFiles);
     }
-    public function getFirstResolvedConfigFileInfo() : ?\Symplify\SmartFileSystem\SmartFileInfo
+    public function getFirstResolvedConfigFileInfo() : ?\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->firstResolvedConfigFileInfo;
     }
     /**
      * @param string[] $fallbackFiles
      */
-    private function createFallbackFileInfoIfFound(array $fallbackFiles) : ?\Symplify\SmartFileSystem\SmartFileInfo
+    private function createFallbackFileInfoIfFound(array $fallbackFiles) : ?\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($fallbackFiles as $fallbackFile) {
             $rootFallbackFile = \getcwd() . \DIRECTORY_SEPARATOR . $fallbackFile;
@@ -62,9 +62,9 @@ abstract class AbstractConfigResolver
         }
         return null;
     }
-    private function createFileInfo(string $configValue) : \Symplify\SmartFileSystem\SmartFileInfo
+    private function createFileInfo(string $configValue) : \RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $configFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($configValue);
+        $configFileInfo = new \RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo($configValue);
         $this->firstResolvedConfigFileInfo = $configFileInfo;
         return $configFileInfo;
     }

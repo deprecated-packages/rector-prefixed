@@ -12,8 +12,8 @@ use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
 use Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory;
 use Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 /**
  * Same as original + also allows "&" reference: https://github.com/rectorphp/rector/pull/1735
  */
@@ -39,7 +39,7 @@ final class ParamPhpDocNodeFactory
      * @var AnnotationContentResolver
      */
     private $annotationContentResolver;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)
     {
         $this->privatesAccessor = $privatesAccessor;
         $this->privatesCaller = $privatesCaller;

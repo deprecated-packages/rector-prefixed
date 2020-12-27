@@ -11,8 +11,8 @@ use PhpParser\Node\Expr\Variable;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Laravel\NodeFactory\AppAssignFactory;
 use Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Laravel\Tests\Rector\Assign\CallOnAppArrayAccessToStandaloneAssignRector\CallOnAppArrayAccessToStandaloneAssignRectorTest
  */
@@ -28,7 +28,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
     private $appAssignFactory;
     public function __construct(\Rector\Laravel\NodeFactory\AppAssignFactory $appAssignFactory)
     {
-        $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', 'RectorPrefix20201226\\Illuminate\\Validation\\Factory', 'validationFactory');
+        $this->serviceNameTypeAndVariableNames[] = new \Rector\Laravel\ValueObject\ServiceNameTypeAndVariableName('validator', 'RectorPrefix20201227\\Illuminate\\Validation\\Factory', 'validationFactory');
         $this->appAssignFactory = $appAssignFactory;
     }
     /**
@@ -47,7 +47,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
             return null;
         }
         $methodCall = $node->expr;
-        if (!$this->isObjectType($methodCall->var, 'RectorPrefix20201226\\Illuminate\\Contracts\\Foundation\\Application')) {
+        if (!$this->isObjectType($methodCall->var, 'RectorPrefix20201227\\Illuminate\\Contracts\\Foundation\\Application')) {
             return null;
         }
         if (!$methodCall->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
@@ -68,9 +68,9 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
         }
         return null;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace magical call on $this->app["something"] to standalone type assign variable', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace magical call on $this->app["something"] to standalone type assign variable', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**

@@ -11,20 +11,20 @@ final class NetteEventToContributeEventClass
      */
     public const PROPERTY_TO_EVENT_CLASS = [
         // application
-        'Nette\\Application\\Application::onShutdown' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent',
-        'Nette\\Application\\Application::onStartup' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Application\\StartupEvent',
-        'Nette\\Application\\Application::onError' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent',
-        'Nette\\Application\\Application::onPresenter' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent',
-        'Nette\\Application\\Application::onRequest' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Application\\RequestEvent',
-        'Nette\\Application\\Application::onResponse' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent',
+        'Nette\\Application\\Application::onShutdown' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent',
+        'Nette\\Application\\Application::onStartup' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Application\\StartupEvent',
+        'Nette\\Application\\Application::onError' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent',
+        'Nette\\Application\\Application::onPresenter' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent',
+        'Nette\\Application\\Application::onRequest' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Application\\RequestEvent',
+        'Nette\\Application\\Application::onResponse' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent',
         // presenter
-        'Nette\\Application\\UI\\Presenter::onStartup' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent',
-        'Nette\\Application\\UI\\Presenter::onShutdown' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent',
+        'Nette\\Application\\UI\\Presenter::onStartup' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent',
+        'Nette\\Application\\UI\\Presenter::onShutdown' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent',
         // nette/security
-        'Nette\\Security\\User::onLoggedIn' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent',
-        'Nette\\Security\\User::onLoggedOut' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent',
+        'Nette\\Security\\User::onLoggedIn' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent',
+        'Nette\\Security\\User::onLoggedOut' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent',
         // latte
-        'Latte\\Engine::onCompile' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent',
-        'Nette\\Bridges\\ApplicationLatte\\TemplateFactory::onCreate' => 'RectorPrefix20201226\\Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent',
+        'Latte\\Engine::onCompile' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent',
+        'Nette\\Bridges\\ApplicationLatte\\TemplateFactory::onCreate' => 'RectorPrefix20201227\\Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent',
     ];
 }

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\ClassMethod;
 
-use RectorPrefix20201226\Nette\Application\Routers\RouteList;
-use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201227\Nette\Application\Routers\RouteList;
+use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
@@ -21,8 +21,8 @@ use Rector\NetteToSymfony\ValueObject\RouteInfo;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 use ReflectionMethod;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://doc.nette.org/en/2.4/routing
  * @see https://symfony.com/doc/current/routing.html
@@ -54,9 +54,9 @@ final class RouterListToControllerAnnotationsRector extends \Rector\Core\Rector\
         $this->returnTypeInferer = $returnTypeInferer;
         $this->explicitRouteAnnotationDecorator = $explicitRouteAnnotationDecorator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change new Route() from RouteFactory to @Route annotation above controller method', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change new Route() from RouteFactory to @Route annotation above controller method', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class RouterFactory
 {
     public function create(): RouteList
@@ -123,7 +123,7 @@ CODE_SAMPLE
             return null;
         }
         $inferedReturnType = $this->returnTypeInferer->inferFunctionLike($node);
-        $routeListObjectType = new \PHPStan\Type\ObjectType(\RectorPrefix20201226\Nette\Application\Routers\RouteList::class);
+        $routeListObjectType = new \PHPStan\Type\ObjectType(\RectorPrefix20201227\Nette\Application\Routers\RouteList::class);
         if (!$inferedReturnType->isSuperTypeOf($routeListObjectType)->yes()) {
             return null;
         }
@@ -161,7 +161,7 @@ CODE_SAMPLE
             if (!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
                 return \false;
             }
-            if ($this->isObjectType($node->expr, 'RectorPrefix20201226\\Nette\\Application\\IRouter')) {
+            if ($this->isObjectType($node->expr, 'RectorPrefix20201227\\Nette\\Application\\IRouter')) {
                 return \true;
             }
             if ($node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
@@ -232,7 +232,7 @@ CODE_SAMPLE
             return \false;
         }
         $staticCallReturnType = (string) $reflectionMethod->getReturnType();
-        return \is_a($staticCallReturnType, 'RectorPrefix20201226\\Nette\\Application\\IRouter', \true);
+        return \is_a($staticCallReturnType, 'RectorPrefix20201227\\Nette\\Application\\IRouter', \true);
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
@@ -259,10 +259,10 @@ CODE_SAMPLE
         /** @var string $presenterName */
         $presenterName = $this->getName($class);
         /** @var string $presenterPart */
-        $presenterPart = \RectorPrefix20201226\Nette\Utils\Strings::after($presenterName, '\\', -1);
-        $presenterPart = \RectorPrefix20201226\Nette\Utils\Strings::substring($presenterPart, 0, -\RectorPrefix20201226\Nette\Utils\Strings::length('Presenter'));
+        $presenterPart = \RectorPrefix20201227\Nette\Utils\Strings::after($presenterName, '\\', -1);
+        $presenterPart = \RectorPrefix20201227\Nette\Utils\Strings::substring($presenterPart, 0, -\RectorPrefix20201227\Nette\Utils\Strings::length('Presenter'));
         $presenterPart = \Rector\Core\Util\StaticRectorStrings::camelCaseToDashes($presenterPart);
-        $match = (array) \RectorPrefix20201226\Nette\Utils\Strings::match($this->getName($classMethod), self::ACTION_RENDER_NAME_MATCHING_REGEX);
+        $match = (array) \RectorPrefix20201227\Nette\Utils\Strings::match($this->getName($classMethod), self::ACTION_RENDER_NAME_MATCHING_REGEX);
         $actionPart = \lcfirst($match['short_action_name']);
         return $presenterPart . '/' . $actionPart;
     }

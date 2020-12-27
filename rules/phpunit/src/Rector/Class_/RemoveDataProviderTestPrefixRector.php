@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\Class_;
 
-use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
@@ -11,8 +11,8 @@ use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://stackoverflow.com/a/46693675/1348344
  *
@@ -24,9 +24,9 @@ final class RemoveDataProviderTestPrefixRector extends \Rector\Core\Rector\Abstr
      * @var string[]
      */
     private $providerMethodNamesToNewNames = [];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Data provider methods cannot start with "test" prefix', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Data provider methods cannot start with "test" prefix', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass extends PHPUnit\Framework\TestCase
 {
     /**
@@ -97,7 +97,7 @@ CODE_SAMPLE
             }
             foreach ($dataProviderTagValueNodes as $dataProviderTagValueNode) {
                 $oldMethodName = $dataProviderTagValueNode->getMethod();
-                if (!\RectorPrefix20201226\Nette\Utils\Strings::startsWith($oldMethodName, 'test')) {
+                if (!\RectorPrefix20201227\Nette\Utils\Strings::startsWith($oldMethodName, 'test')) {
                     continue;
                 }
                 $newMethodName = $this->createNewMethodName($oldMethodName);
@@ -121,7 +121,7 @@ CODE_SAMPLE
     }
     private function createNewMethodName(string $oldMethodName) : string
     {
-        $newMethodName = \RectorPrefix20201226\Nette\Utils\Strings::substring($oldMethodName, \strlen('test'));
+        $newMethodName = \RectorPrefix20201227\Nette\Utils\Strings::substring($oldMethodName, \strlen('test'));
         return \lcfirst($newMethodName);
     }
 }

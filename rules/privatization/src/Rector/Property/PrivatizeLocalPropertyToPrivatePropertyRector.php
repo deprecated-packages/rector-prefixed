@@ -12,8 +12,8 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PhpAttribute\ValueObject\TagName;
 use Rector\VendorLocker\NodeVendorLocker\PropertyVisibilityVendorLockResolver;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Privatization\Tests\Rector\Property\PrivatizeLocalPropertyToPrivatePropertyRector\PrivatizeLocalPropertyToPrivatePropertyRectorTest
  */
@@ -37,9 +37,9 @@ final class PrivatizeLocalPropertyToPrivatePropertyRector extends \Rector\Core\R
     {
         $this->propertyVisibilityVendorLockResolver = $propertyVisibilityVendorLockResolver;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Privatize local-only property to private property', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Privatize local-only property to private property', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public $value;
@@ -131,7 +131,7 @@ CODE_SAMPLE
         if ($this->isAnonymousClass($classLike)) {
             return \true;
         }
-        return $this->isObjectTypes($classLike, ['RectorPrefix20201226\\PHPUnit\\Framework\\TestCase', 'RectorPrefix20201226\\PHP_CodeSniffer\\Sniffs\\Sniff']);
+        return $this->isObjectTypes($classLike, ['RectorPrefix20201227\\PHPUnit\\Framework\\TestCase', 'RectorPrefix20201227\\PHP_CodeSniffer\\Sniffs\\Sniff']);
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {

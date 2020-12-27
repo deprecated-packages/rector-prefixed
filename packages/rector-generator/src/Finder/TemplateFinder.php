@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\RectorGenerator\Finder;
 
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
-use Symplify\SmartFileSystem\FileSystemGuard;
-use Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\FileSystemGuard;
+use RectorPrefix20201227\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class TemplateFinder
 {
     /**
@@ -21,7 +21,7 @@ final class TemplateFinder
      * @var FileSystemGuard
      */
     private $fileSystemGuard;
-    public function __construct(\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
+    public function __construct(\RectorPrefix20201227\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \RectorPrefix20201227\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
     {
         $this->finderSanitizer = $finderSanitizer;
         $this->fileSystemGuard = $fileSystemGuard;

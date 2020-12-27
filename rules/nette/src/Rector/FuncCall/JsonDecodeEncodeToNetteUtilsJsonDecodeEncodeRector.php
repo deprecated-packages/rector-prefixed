@@ -8,8 +8,8 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
@@ -17,9 +17,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class JsonDecodeEncodeToNetteUtilsJsonDecodeEncodeRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes json_encode()/json_decode() to safer and more verbose Nette\\Utils\\Json::encode()/decode() calls', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes json_encode()/json_decode() to safer and more verbose Nette\\Utils\\Json::encode()/decode() calls', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function decodeJson(string $jsonString)
@@ -85,11 +85,11 @@ CODE_SAMPLE
         if (isset($args[1])) {
             $secondArgumentValue = $args[1]->value;
             if ($this->isName($secondArgumentValue, 'JSON_PRETTY_PRINT')) {
-                $classConstFetch = $this->createClassConstFetch('RectorPrefix20201226\\Nette\\Utils\\Json', 'PRETTY');
+                $classConstFetch = $this->createClassConstFetch('RectorPrefix20201227\\Nette\\Utils\\Json', 'PRETTY');
                 $args[1] = new \PhpParser\Node\Arg($classConstFetch);
             }
         }
-        return $this->createStaticCall('RectorPrefix20201226\\Nette\\Utils\\Json', 'encode', $args);
+        return $this->createStaticCall('RectorPrefix20201227\\Nette\\Utils\\Json', 'encode', $args);
     }
     private function refactorJsonDecode(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\StaticCall
     {
@@ -99,10 +99,10 @@ CODE_SAMPLE
             if ($this->isFalse($secondArgumentValue)) {
                 unset($args[1]);
             } elseif ($this->isTrue($secondArgumentValue)) {
-                $classConstFetch = $this->createClassConstFetch('RectorPrefix20201226\\Nette\\Utils\\Json', 'FORCE_ARRAY');
+                $classConstFetch = $this->createClassConstFetch('RectorPrefix20201227\\Nette\\Utils\\Json', 'FORCE_ARRAY');
                 $args[1] = new \PhpParser\Node\Arg($classConstFetch);
             }
         }
-        return $this->createStaticCall('RectorPrefix20201226\\Nette\\Utils\\Json', 'decode', $args);
+        return $this->createStaticCall('RectorPrefix20201227\\Nette\\Utils\\Json', 'decode', $args);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator\ValueObject;
+namespace RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject;
 
 final class Section
 {

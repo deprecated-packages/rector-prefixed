@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator\Printer;
+namespace RectorPrefix20201227\Symplify\RuleDocGenerator\Printer;
 
 final class MarkdownCodeWrapper
 {

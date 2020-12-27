@@ -9,13 +9,13 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameNonPhpTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfoWithoutAutoload($fileInfo);
     }
@@ -31,9 +31,9 @@ final class RenameNonPhpTest extends \Rector\Testing\PHPUnit\AbstractRectorTestC
         return [\Rector\Renaming\Rector\Name\RenameClassRector::class => [\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
             \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class,
             // Laravel
-            'Session' => 'RectorPrefix20201226\\Illuminate\\Support\\Facades\\Session',
-            'Form' => 'RectorPrefix20201226\\Collective\\Html\\FormFacade',
-            'Html' => 'RectorPrefix20201226\\Collective\\Html\\HtmlFacade',
+            'Session' => 'RectorPrefix20201227\\Illuminate\\Support\\Facades\\Session',
+            'Form' => 'RectorPrefix20201227\\Collective\\Html\\FormFacade',
+            'Html' => 'RectorPrefix20201227\\Collective\\Html\\HtmlFacade',
         ]]];
     }
 }

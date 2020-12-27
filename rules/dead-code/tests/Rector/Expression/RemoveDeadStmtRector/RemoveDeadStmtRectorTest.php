@@ -6,13 +6,13 @@ namespace Rector\DeadCode\Tests\Rector\Expression\RemoveDeadStmtRector;
 use Iterator;
 use Rector\DeadCode\Rector\Expression\RemoveDeadStmtRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveDeadStmtRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -23,7 +23,7 @@ final class RemoveDeadStmtRectorTest extends \Rector\Testing\PHPUnit\AbstractRec
     /**
      * @dataProvider provideDataForTestKeepComments()
      */
-    public function testKeepComments(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function testKeepComments(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

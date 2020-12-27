@@ -15,8 +15,8 @@ use Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator;
 use Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory;
 use Rector\SymfonyPHPUnit\Rector\Class_\SelfContainerGetMethodCallFromTestToSetUpMethodRector;
 use Rector\SymfonyPHPUnit\SelfContainerMethodCallCollector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Inspiration
  * @see SelfContainerGetMethodCallFromTestToSetUpMethodRector
@@ -56,9 +56,9 @@ final class SelfContainerGetMethodCallFromTestToInjectPropertyRector extends \Re
         $this->classManipulator = $classManipulator;
         $this->formerVariablesByMethodCollector = $formerVariablesByMethodCollector;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $container->get() calls in PHPUnit to @inject properties autowired by jakzal/phpunit-injector', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $container->get() calls in PHPUnit to @inject properties autowired by jakzal/phpunit-injector', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use PHPUnit\Framework\TestCase;
 class SomeClassTest extends TestCase {
     public function test()

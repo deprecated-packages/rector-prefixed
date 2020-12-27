@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\RuleDocGenerator\Category;
+namespace RectorPrefix20201227\Symplify\RuleDocGenerator\Category;
 
-use Symplify\RuleDocGenerator\Contract\Category\CategoryInfererInterface;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\Contract\Category\CategoryInfererInterface;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class CategoryResolver
 {
     /**
@@ -22,7 +22,7 @@ final class CategoryResolver
     {
         $this->categoryInferers = $categoryInferers;
     }
-    public function resolve(\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : string
+    public function resolve(\RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : string
     {
         foreach ($this->categoryInferers as $categoryInferer) {
             $category = $categoryInferer->infer($ruleDefinition);

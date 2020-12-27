@@ -16,9 +16,9 @@ use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
 use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://github.com/Atlantic18/DoctrineExtensions/blob/v2.4.x/doc/translatable.md
  * @see https://github.com/KnpLabs/DoctrineBehaviors/blob/4e0677379dd4adf84178f662d08454a9627781a8/docs/translatable.md
@@ -42,9 +42,9 @@ final class TranslationBehaviorRector extends \Rector\Core\Rector\AbstractRector
         $this->classManipulator = $classManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Translation from gedmo/doctrine-extensions to knplabs/doctrine-behaviors', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Translation from gedmo/doctrine-extensions to knplabs/doctrine-behaviors', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
@@ -142,14 +142,14 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->classManipulator->hasInterface($node, 'RectorPrefix20201226\\Gedmo\\Translatable\\Translatable')) {
+        if (!$this->classManipulator->hasInterface($node, 'RectorPrefix20201227\\Gedmo\\Translatable\\Translatable')) {
             return null;
         }
-        $this->classManipulator->removeInterface($node, 'RectorPrefix20201226\\Gedmo\\Translatable\\Translatable');
+        $this->classManipulator->removeInterface($node, 'RectorPrefix20201227\\Gedmo\\Translatable\\Translatable');
         // 1. replace trait
-        $this->classInsertManipulator->addAsFirstTrait($node, 'RectorPrefix20201226\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableTrait');
+        $this->classInsertManipulator->addAsFirstTrait($node, 'RectorPrefix20201227\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslatableTrait');
         // 2. add interface
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201226\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslatableInterface');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201227\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslatableInterface');
         $removedPropertyNameToPhpDocInfo = $this->collectAndRemoveTranslatableProperties($node);
         $removePropertyNames = \array_keys($removedPropertyNameToPhpDocInfo);
         $this->removeSetAndGetMethods($node, $removePropertyNames);
@@ -220,8 +220,8 @@ CODE_SAMPLE
         }
         $namespace = new \PhpParser\Node\Stmt\Namespace_($namespace->name);
         $class = new \PhpParser\Node\Stmt\Class_($classShortName);
-        $class->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201226\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface');
-        $this->classInsertManipulator->addAsFirstTrait($class, 'RectorPrefix20201226\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait');
+        $class->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201227\\Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface');
+        $this->classInsertManipulator->addAsFirstTrait($class, 'RectorPrefix20201227\\Knp\\DoctrineBehaviors\\Model\\Translatable\\TranslationTrait');
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
         $phpDocInfo->addTagValueNodeWithShortName(new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode([]));
         foreach ($translatedPropertyToPhpDocInfos as $translatedPropertyName => $translatedPhpDocInfo) {

@@ -21,10 +21,10 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NetteToSymfony\Collector\OnFormVariableMethodCallsCollector;
 use Rector\NetteToSymfony\NodeFactory\SymfonyControllerFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20201226\Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symfony\Component\Form\Extension\Core\Type\TextType;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://symfony.com/doc/current/forms.html#creating-form-classes
  *
@@ -45,9 +45,9 @@ final class FormControlToControllerAndFormTypeRector extends \Rector\Core\Rector
         $this->onFormVariableMethodCallsCollector = $onFormVariableMethodCallsCollector;
         $this->symfonyControllerFactory = $symfonyControllerFactory;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Form that extends Control to Controller and decoupled FormType', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change Form that extends Control to Controller and decoupled FormType', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Control;
 
@@ -87,19 +87,19 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20201226;
+namespace RectorPrefix20201227;
 
-use RectorPrefix20201226\Symfony\Component\Form\AbstractType;
-use RectorPrefix20201226\Symfony\Component\Form\Extension\Core\Type\TextType;
-use RectorPrefix20201226\Symfony\Component\Form\FormBuilderInterface;
-class SomeFormType extends \RectorPrefix20201226\Symfony\Component\Form\AbstractType
+use RectorPrefix20201227\Symfony\Component\Form\AbstractType;
+use RectorPrefix20201227\Symfony\Component\Form\Extension\Core\Type\TextType;
+use RectorPrefix20201227\Symfony\Component\Form\FormBuilderInterface;
+class SomeFormType extends \RectorPrefix20201227\Symfony\Component\Form\AbstractType
 {
-    public function buildForm(\RectorPrefix20201226\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
+    public function buildForm(\RectorPrefix20201227\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
     {
-        $formBuilder->add('name', \RectorPrefix20201226\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
+        $formBuilder->add('name', \RectorPrefix20201227\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
     }
 }
-\class_alias('RectorPrefix20201226\\SomeFormType', 'SomeFormType', \false);
+\class_alias('RectorPrefix20201227\\SomeFormType', 'SomeFormType', \false);
 CODE_SAMPLE
 )]);
     }
@@ -115,7 +115,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, 'RectorPrefix20201226\\Nette\\Application\\UI\\Control')) {
+        if (!$this->isObjectType($node, 'RectorPrefix20201227\\Nette\\Application\\UI\\Control')) {
             return null;
         }
         foreach ($node->getMethods() as $classMethod) {
@@ -153,7 +153,7 @@ CODE_SAMPLE
             if ($this->isName($onFormVariableMethodCall->name, 'addText')) {
                 // text input
                 $inputName = $onFormVariableMethodCall->args[0];
-                $formTypeClassConstant = $this->createClassConstantReference(\RectorPrefix20201226\Symfony\Component\Form\Extension\Core\Type\TextType::class);
+                $formTypeClassConstant = $this->createClassConstantReference(\RectorPrefix20201227\Symfony\Component\Form\Extension\Core\Type\TextType::class);
                 $args = $this->createAddTextArgs($inputName, $formTypeClassConstant, $onFormVariableMethodCall);
                 $methodCall = new \PhpParser\Node\Expr\MethodCall($formBuilderVariable, 'add', $args);
                 $symfonyMethodCalls[] = new \PhpParser\Node\Stmt\Expression($methodCall);
@@ -165,7 +165,7 @@ CODE_SAMPLE
     private function createBuildFormClassMethod(\PhpParser\Node\Expr\Variable $formBuilderVariable) : \PhpParser\Node\Stmt\ClassMethod
     {
         $buildFormClassMethod = $this->nodeFactory->createPublicMethod('buildForm');
-        $buildFormClassMethod->params[] = new \PhpParser\Node\Param($formBuilderVariable, null, new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201226\\Symfony\\Component\\Form\\FormBuilderInterface'));
+        $buildFormClassMethod->params[] = new \PhpParser\Node\Param($formBuilderVariable, null, new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201227\\Symfony\\Component\\Form\\FormBuilderInterface'));
         $buildFormClassMethod->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('options'), null, new \PhpParser\Node\Identifier('array'));
         return $buildFormClassMethod;
     }
@@ -184,7 +184,7 @@ CODE_SAMPLE
     private function createFormTypeClassFromBuildFormClassMethod(\PhpParser\Node\Stmt\ClassMethod $buildFormClassMethod) : \PhpParser\Node\Stmt\Class_
     {
         $formTypeClass = new \PhpParser\Node\Stmt\Class_('SomeFormType');
-        $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201226\\Symfony\\Component\\Form\\AbstractType');
+        $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201227\\Symfony\\Component\\Form\\AbstractType');
         $formTypeClass->stmts[] = $buildFormClassMethod;
         return $formTypeClass;
     }

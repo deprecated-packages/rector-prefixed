@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\Skipper\Tests\FileSystem;
+namespace RectorPrefix20201227\Symplify\Skipper\Tests\FileSystem;
 
 use Iterator;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use Symplify\Skipper\FileSystem\PathNormalizer;
-use Symplify\Skipper\HttpKernel\SkipperKernel;
-final class PathNormalizerTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20201227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20201227\Symplify\Skipper\FileSystem\PathNormalizer;
+use RectorPrefix20201227\Symplify\Skipper\HttpKernel\SkipperKernel;
+final class PathNormalizerTest extends \RectorPrefix20201227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PathNormalizer
@@ -15,8 +15,8 @@ final class PathNormalizerTest extends \Symplify\PackageBuilder\Testing\Abstract
     private $pathNormalizer;
     protected function setUp() : void
     {
-        $this->bootKernel(\Symplify\Skipper\HttpKernel\SkipperKernel::class);
-        $this->pathNormalizer = $this->getService(\Symplify\Skipper\FileSystem\PathNormalizer::class);
+        $this->bootKernel(\RectorPrefix20201227\Symplify\Skipper\HttpKernel\SkipperKernel::class);
+        $this->pathNormalizer = $this->getService(\RectorPrefix20201227\Symplify\Skipper\FileSystem\PathNormalizer::class);
     }
     /**
      * @dataProvider providePaths

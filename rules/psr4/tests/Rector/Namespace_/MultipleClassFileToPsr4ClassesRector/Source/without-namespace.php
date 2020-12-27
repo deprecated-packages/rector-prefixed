@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201226;
+namespace RectorPrefix20201227;
 
 final class JustOneExceptionWithoutNamespace
 {
 }
-\class_alias('RectorPrefix20201226\\JustOneExceptionWithoutNamespace', 'JustOneExceptionWithoutNamespace', \false);
+\class_alias('RectorPrefix20201227\\JustOneExceptionWithoutNamespace', 'JustOneExceptionWithoutNamespace', \false);
 final class JustTwoExceptionWithoutNamespace
 {
 }
-\class_alias('RectorPrefix20201226\\JustTwoExceptionWithoutNamespace', 'JustTwoExceptionWithoutNamespace', \false);
+\class_alias('RectorPrefix20201227\\JustTwoExceptionWithoutNamespace', 'JustTwoExceptionWithoutNamespace', \false);

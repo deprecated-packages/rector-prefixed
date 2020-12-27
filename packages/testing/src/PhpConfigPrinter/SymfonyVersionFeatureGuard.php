@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Testing\PhpConfigPrinter;
 
-use Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
-final class SymfonyVersionFeatureGuard implements \Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
+final class SymfonyVersionFeatureGuard implements \RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface
 {
     public function isAtLeastSymfonyVersion(float $symfonyVersion) : bool
     {

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Rector\Class_;
 
-use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -14,8 +14,8 @@ use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Symfony\Exception\InvalidConfigurationException;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Symfony\Tests\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector\ChangeFileLoaderInExtensionAndKernelRectorTest
  *
@@ -34,7 +34,7 @@ final class ChangeFileLoaderInExtensionAndKernelRector extends \Rector\Core\Rect
     /**
      * @var array<string, string>
      */
-    private const FILE_LOADERS_BY_TYPE = ['xml' => 'RectorPrefix20201226\\Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'RectorPrefix20201226\\Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'RectorPrefix20201226\\Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
+    private const FILE_LOADERS_BY_TYPE = ['xml' => 'RectorPrefix20201227\\Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'RectorPrefix20201227\\Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'RectorPrefix20201227\\Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
     /**
      * @var string
      */
@@ -43,9 +43,9 @@ final class ChangeFileLoaderInExtensionAndKernelRector extends \Rector\Core\Rect
      * @var string
      */
     private $to;
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change XML loader to YAML in Bundle Extension', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change XML loader to YAML in Bundle Extension', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -116,10 +116,10 @@ CODE_SAMPLE
     }
     private function isKernelOrExtensionClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if ($this->isObjectType($class, 'RectorPrefix20201226\\Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension')) {
+        if ($this->isObjectType($class, 'RectorPrefix20201227\\Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension')) {
             return \true;
         }
-        return $this->isObjectType($class, 'RectorPrefix20201226\\Symfony\\Component\\HttpKernel\\Kernel');
+        return $this->isObjectType($class, 'RectorPrefix20201227\\Symfony\\Component\\HttpKernel\\Kernel');
     }
     private function validateConfiguration(string $from, string $to) : void
     {
@@ -140,7 +140,7 @@ CODE_SAMPLE
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
-        if (!$this->isObjectType($node->var, 'RectorPrefix20201226\\Symfony\\Component\\Config\\Loader\\LoaderInterface')) {
+        if (!$this->isObjectType($node->var, 'RectorPrefix20201227\\Symfony\\Component\\Config\\Loader\\LoaderInterface')) {
             return null;
         }
         if (!$this->isName($node->name, 'load')) {
@@ -157,7 +157,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
                 return null;
             }
-            $node->value = \RectorPrefix20201226\Nette\Utils\Strings::replace($node->value, '#\\.' . $from . '$#', '.' . $to);
+            $node->value = \RectorPrefix20201227\Nette\Utils\Strings::replace($node->value, '#\\.' . $from . '$#', '.' . $to);
             return $node;
         });
     }

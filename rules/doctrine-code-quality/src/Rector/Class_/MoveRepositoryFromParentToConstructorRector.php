@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
-use RectorPrefix20201226\Doctrine\ORM\EntityManager;
-use RectorPrefix20201226\Doctrine\ORM\EntityRepository;
-use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201227\Doctrine\ORM\EntityManager;
+use RectorPrefix20201227\Doctrine\ORM\EntityRepository;
+use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
@@ -17,8 +17,8 @@ use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\DoctrineRepositoryAsServiceTest
  */
@@ -42,9 +42,9 @@ final class MoveRepositoryFromParentToConstructorRector extends \Rector\Core\Rec
         $this->classDependencyManipulator = $classDependencyManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns parent EntityRepository class to constructor dependency', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns parent EntityRepository class to constructor dependency', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -89,7 +89,7 @@ CODE_SAMPLE
             return null;
         }
         $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== \RectorPrefix20201226\Doctrine\ORM\EntityRepository::class) {
+        if ($parentClassName !== \RectorPrefix20201227\Doctrine\ORM\EntityRepository::class) {
             return null;
         }
         /** @var string|null $className */
@@ -97,15 +97,15 @@ CODE_SAMPLE
         if ($className === null) {
             return null;
         }
-        if (!\RectorPrefix20201226\Nette\Utils\Strings::endsWith($className, 'Repository')) {
+        if (!\RectorPrefix20201227\Nette\Utils\Strings::endsWith($className, 'Repository')) {
             return null;
         }
         // remove parent class
         $node->extends = null;
         // add $repository property
-        $this->classInsertManipulator->addPropertyToClass($node, 'repository', new \PHPStan\Type\ObjectType(\RectorPrefix20201226\Doctrine\ORM\EntityRepository::class));
+        $this->classInsertManipulator->addPropertyToClass($node, 'repository', new \PHPStan\Type\ObjectType(\RectorPrefix20201227\Doctrine\ORM\EntityRepository::class));
         // add $entityManager and assign to constuctor
-        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \PHPStan\Type\ObjectType(\RectorPrefix20201226\Doctrine\ORM\EntityManager::class), $this->createRepositoryAssign($node));
+        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \PHPStan\Type\ObjectType(\RectorPrefix20201227\Doctrine\ORM\EntityManager::class), $this->createRepositoryAssign($node));
         return $node;
     }
     /**

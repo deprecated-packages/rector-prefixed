@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SimplePhpDocParser;
+namespace RectorPrefix20201227\Symplify\SimplePhpDocParser;
 
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
-use Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
+use RectorPrefix20201227\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
 /**
  * @see \Symplify\SimplePhpDocParser\Tests\SimplePhpDocParser\SimplePhpDocParserTest
  */
@@ -25,11 +25,11 @@ final class SimplePhpDocParser
         $this->phpDocParser = $phpDocParser;
         $this->lexer = $lexer;
     }
-    public function parseDocBlock(string $docBlock) : \Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode
+    public function parseDocBlock(string $docBlock) : \RectorPrefix20201227\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode
     {
         $tokens = $this->lexer->tokenize($docBlock);
         $tokenIterator = new \PHPStan\PhpDocParser\Parser\TokenIterator($tokens);
         $phpDocNode = $this->phpDocParser->parse($tokenIterator);
-        return new \Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode($phpDocNode->children);
+        return new \RectorPrefix20201227\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode($phpDocNode->children);
     }
 }

@@ -3,19 +3,19 @@
 declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\Property\InjectAnnotationClassRector;
 
-use RectorPrefix20201226\DI\Annotation\Inject as PHPDIInject;
+use RectorPrefix20201227\DI\Annotation\Inject as PHPDIInject;
 use Iterator;
-use RectorPrefix20201226\JMS\DiExtraBundle\Annotation\Inject;
+use RectorPrefix20201227\JMS\DiExtraBundle\Annotation\Inject;
 use Rector\Core\Configuration\Option;
 use Rector\Generic\Rector\Property\InjectAnnotationClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class InjectAnnotationClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->setParameter(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/../../../../../symfony/tests/Rector/MethodCall/GetToConstructorInjectionRector/xml/services.xml');
         $this->doTestFileInfo($fileInfo);
@@ -29,6 +29,6 @@ final class InjectAnnotationClassRectorTest extends \Rector\Testing\PHPUnit\Abst
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::class => [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::ANNOTATION_CLASSES => [\RectorPrefix20201226\JMS\DiExtraBundle\Annotation\Inject::class, \RectorPrefix20201226\DI\Annotation\Inject::class]]];
+        return [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::class => [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::ANNOTATION_CLASSES => [\RectorPrefix20201227\JMS\DiExtraBundle\Annotation\Inject::class, \RectorPrefix20201227\DI\Annotation\Inject::class]]];
     }
 }

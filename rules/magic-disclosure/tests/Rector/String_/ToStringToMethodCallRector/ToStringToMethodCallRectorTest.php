@@ -6,14 +6,14 @@ namespace Rector\MagicDisclosure\Tests\Rector\String_\ToStringToMethodCallRector
 use Iterator;
 use Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20201226\Symfony\Component\Config\ConfigCache;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symfony\Component\Config\ConfigCache;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class ToStringToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class ToStringToMethodCallRectorTest extends \Rector\Testing\PHPUnit\Abstr
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector::class => [\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector::METHOD_NAMES_BY_TYPE => [\RectorPrefix20201226\Symfony\Component\Config\ConfigCache::class => 'getPath']]];
+        return [\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector::class => [\Rector\MagicDisclosure\Rector\String_\ToStringToMethodCallRector::METHOD_NAMES_BY_TYPE => [\RectorPrefix20201227\Symfony\Component\Config\ConfigCache::class => 'getPath']]];
     }
 }

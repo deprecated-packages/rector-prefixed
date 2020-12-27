@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PhpConfigPrinter\CaseConverter;
+namespace RectorPrefix20201227\Symplify\PhpConfigPrinter\CaseConverter;
 
 use PhpParser\Node\Stmt\Expression;
-use Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use Symplify\PhpConfigPrinter\NodeFactory\Service\ServicesPhpNodeFactory;
-use Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\Service\ServicesPhpNodeFactory;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 /**
  * Handles this part:
  *
@@ -14,13 +14,13 @@ use Symplify\PhpConfigPrinter\ValueObject\YamlKey;
  *     App\\: <--
  *          source: '../src'
  */
-final class ResourceCaseConverter implements \Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
+final class ResourceCaseConverter implements \RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
      * @var ServicesPhpNodeFactory
      */
     private $servicesPhpNodeFactory;
-    public function __construct(\Symplify\PhpConfigPrinter\NodeFactory\Service\ServicesPhpNodeFactory $servicesPhpNodeFactory)
+    public function __construct(\RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\Service\ServicesPhpNodeFactory $servicesPhpNodeFactory)
     {
         $this->servicesPhpNodeFactory = $servicesPhpNodeFactory;
     }
@@ -35,6 +35,6 @@ final class ResourceCaseConverter implements \Symplify\PhpConfigPrinter\Contract
     }
     public function match(string $rootKey, $key, $values) : bool
     {
-        return isset($values[\Symplify\PhpConfigPrinter\ValueObject\YamlKey::RESOURCE]);
+        return isset($values[\RectorPrefix20201227\Symplify\PhpConfigPrinter\ValueObject\YamlKey::RESOURCE]);
     }
 }

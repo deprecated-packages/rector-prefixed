@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony2\Rector\StaticCall;
 
-use RectorPrefix20201226\Nette\Utils\Strings;
+use RectorPrefix20201227\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\StaticCall;
@@ -11,8 +11,8 @@ use PHPStan\Type\Constant\ConstantStringType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Symfony2\Tests\Rector\StaticCall\ParseFileRector\ParseFileRectorTest
  */
@@ -33,9 +33,9 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
      * @see https://regex101.com/r/JmNhZj/1
      */
     private const YAML_SUFFIX_REGEX = '#\\.(yml|yaml)$#';
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('session > use_strict_mode is true by default and can be removed', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('session > use_strict_mode: true', 'session:')]);
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('session > use_strict_mode is true by default and can be removed', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('session > use_strict_mode: true', 'session:')]);
     }
     /**
      * @return string[]
@@ -54,7 +54,7 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->isName($node->name, 'parse')) {
             return null;
         }
-        if (!$this->isObjectType($node->class, 'RectorPrefix20201226\\Symfony\\Component\\Yaml\\Yaml')) {
+        if (!$this->isObjectType($node->class, 'RectorPrefix20201227\\Symfony\\Component\\Yaml\\Yaml')) {
             return null;
         }
         if (!$this->isArgumentYamlFile($node)) {
@@ -69,11 +69,11 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         $possibleFileNode = $staticCall->args[0]->value;
         $possibleFileNodeAsString = $this->print($possibleFileNode);
         // is yml/yaml file
-        if (\RectorPrefix20201226\Nette\Utils\Strings::match($possibleFileNodeAsString, self::YAML_SUFFIX_IN_QUOTE_REGEX)) {
+        if (\RectorPrefix20201227\Nette\Utils\Strings::match($possibleFileNodeAsString, self::YAML_SUFFIX_IN_QUOTE_REGEX)) {
             return \true;
         }
         // is probably a file variable
-        if (\RectorPrefix20201226\Nette\Utils\Strings::match($possibleFileNodeAsString, self::FILE_SUFFIX_REGEX)) {
+        if (\RectorPrefix20201227\Nette\Utils\Strings::match($possibleFileNodeAsString, self::FILE_SUFFIX_REGEX)) {
             return \true;
         }
         // try to detect current value
@@ -85,6 +85,6 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         if (!$nodeType instanceof \PHPStan\Type\Constant\ConstantStringType) {
             return \false;
         }
-        return (bool) \RectorPrefix20201226\Nette\Utils\Strings::match($nodeType->getValue(), self::YAML_SUFFIX_REGEX);
+        return (bool) \RectorPrefix20201227\Nette\Utils\Strings::match($nodeType->getValue(), self::YAML_SUFFIX_REGEX);
     }
 }

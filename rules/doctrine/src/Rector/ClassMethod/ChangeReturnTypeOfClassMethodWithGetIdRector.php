@@ -7,11 +7,11 @@ use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
-use RectorPrefix20201226\Ramsey\Uuid\UuidInterface;
+use RectorPrefix20201227\Ramsey\Uuid\UuidInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\Doctrine\Tests\Rector\ClassMethod\ChangeReturnTypeOfClassMethodWithGetIdRector\ChangeReturnTypeOfClassMethodWithGetIdRectorTest
  */
@@ -25,9 +25,9 @@ final class ChangeReturnTypeOfClassMethodWithGetIdRector extends \Rector\Core\Re
     {
         $this->doctrineEntityManipulator = $doctrineEntityManipulator;
     }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change getUuid() method call to getId()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change getUuid() method call to getId()', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function getBuildingId(): int
@@ -70,7 +70,7 @@ CODE_SAMPLE
         if (!$hasEntityGetIdMethodCall) {
             return null;
         }
-        $node->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201226\Ramsey\Uuid\UuidInterface::class);
+        $node->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201227\Ramsey\Uuid\UuidInterface::class);
         return $node;
     }
     private function hasEntityGetIdMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

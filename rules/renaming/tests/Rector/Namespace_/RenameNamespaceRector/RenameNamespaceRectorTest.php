@@ -6,13 +6,13 @@ namespace Rector\Renaming\Tests\Rector\Namespace_\RenameNamespaceRector;
 use Iterator;
 use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameNamespaceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -25,6 +25,6 @@ final class RenameNamespaceRectorTest extends \Rector\Testing\PHPUnit\AbstractRe
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::class => [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => ['OldNamespace' => 'NewNamespace', 'RectorPrefix20201226\\OldNamespaceWith\\OldSplitNamespace' => 'RectorPrefix20201226\\NewNamespaceWith\\NewSplitNamespace', 'RectorPrefix20201226\\Old\\Long\\AnyNamespace' => 'RectorPrefix20201226\\Short\\AnyNamespace', 'PHPUnit_Framework_' => 'PHPUnit\\Framework\\']]];
+        return [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::class => [\Rector\Renaming\Rector\Namespace_\RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => ['OldNamespace' => 'NewNamespace', 'RectorPrefix20201227\\OldNamespaceWith\\OldSplitNamespace' => 'RectorPrefix20201227\\NewNamespaceWith\\NewSplitNamespace', 'RectorPrefix20201227\\Old\\Long\\AnyNamespace' => 'RectorPrefix20201227\\Short\\AnyNamespace', 'PHPUnit_Framework_' => 'PHPUnit\\Framework\\']]];
     }
 }

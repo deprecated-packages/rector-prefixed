@@ -7,8 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractPHPUnitRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/sebastianbergmann/phpunit/blob/master/ChangeLog-9.0.md
  * @see https://github.com/sebastianbergmann/phpunit/commit/1ba2e3e1bb091acda3139f8a9259fa8161f3242d
@@ -20,10 +20,10 @@ final class ExplicitPhpErrorApiRector extends \Rector\Core\Rector\AbstractPHPUni
     /**
      * @var array<string, string>
      */
-    private const REPLACEMENTS = ['RectorPrefix20201226\\PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', 'RectorPrefix20201226\\PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', 'RectorPrefix20201226\\PHPUnit\\Framework\\TestCase\\Error' => 'expectError', 'RectorPrefix20201226\\PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    private const REPLACEMENTS = ['RectorPrefix20201227\\PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', 'RectorPrefix20201227\\PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', 'RectorPrefix20201227\\PHPUnit\\Framework\\TestCase\\Error' => 'expectError', 'RectorPrefix20201227\\PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use explicit API for expecting PHP errors, warnings, and notices', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use explicit API for expecting PHP errors, warnings, and notices', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeTest extends \PHPUnit\Framework\TestCase
 {
     public function test()

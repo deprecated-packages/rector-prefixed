@@ -6,13 +6,13 @@ namespace Rector\DoctrineGedmoToKnplabs\Tests\Rector\Class_\TimestampableBehavio
 use Iterator;
 use Rector\DoctrineGedmoToKnplabs\Rector\Class_\TimestampableBehaviorRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class TimestampableBehaviorRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

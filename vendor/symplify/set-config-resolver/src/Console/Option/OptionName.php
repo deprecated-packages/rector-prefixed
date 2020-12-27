@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\SetConfigResolver\Console\Option;
+namespace RectorPrefix20201227\Symplify\SetConfigResolver\Console\Option;
 
 final class OptionName
 {

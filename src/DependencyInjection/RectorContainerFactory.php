@@ -3,22 +3,22 @@
 declare (strict_types=1);
 namespace Rector\Core\DependencyInjection;
 
-use RectorPrefix20201226\Psr\Container\ContainerInterface;
+use RectorPrefix20201227\Psr\Container\ContainerInterface;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\Stubs\StubLoader;
-use Symplify\PackageBuilder\Console\Input\StaticInputDetector;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201227\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
+use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorContainerFactory
 {
     /**
      * @param SmartFileInfo[] $configFileInfos
      * @api
      */
-    public function createFromConfigs(array $configFileInfos) : \RectorPrefix20201226\Psr\Container\ContainerInterface
+    public function createFromConfigs(array $configFileInfos) : \RectorPrefix20201227\Psr\Container\ContainerInterface
     {
         // to override the configs without clearing cache
         $environment = 'prod' . \random_int(1, 10000000);
-        $isDebug = \Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug();
+        $isDebug = \RectorPrefix20201227\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug();
         $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel($environment, $isDebug);
         if ($configFileInfos !== []) {
             $configFilePaths = $this->unpackRealPathsFromFileInfos($configFileInfos);

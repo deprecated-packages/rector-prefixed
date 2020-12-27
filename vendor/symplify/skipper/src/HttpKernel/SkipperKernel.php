@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\Skipper\HttpKernel;
+namespace RectorPrefix20201227\Symplify\Skipper\HttpKernel;
 
-use RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix20201226\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use Symplify\Skipper\Bundle\SkipperBundle;
-use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class SkipperKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use RectorPrefix20201227\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20201227\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use RectorPrefix20201227\Symplify\Skipper\Bundle\SkipperBundle;
+use RectorPrefix20201227\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use RectorPrefix20201227\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class SkipperKernel extends \RectorPrefix20201227\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
-    public function registerContainerConfiguration(\RectorPrefix20201226\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20201227\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         parent::registerContainerConfiguration($loader);
@@ -20,6 +20,6 @@ final class SkipperKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSy
      */
     public function registerBundles() : iterable
     {
-        return [new \Symplify\Skipper\Bundle\SkipperBundle(), new \Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
+        return [new \RectorPrefix20201227\Symplify\Skipper\Bundle\SkipperBundle(), new \RectorPrefix20201227\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }
 }

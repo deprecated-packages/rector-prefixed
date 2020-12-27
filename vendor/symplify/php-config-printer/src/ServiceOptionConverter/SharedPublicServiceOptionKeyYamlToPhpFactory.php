@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace RectorPrefix20201227\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
 use PhpParser\Node\Expr\MethodCall;
-use Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
-final class SharedPublicServiceOptionKeyYamlToPhpFactory implements \Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20201227\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
+final class SharedPublicServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20201227\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     public function decorateServiceMethodCall($key, $yaml, $values, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
     {
@@ -16,7 +16,7 @@ final class SharedPublicServiceOptionKeyYamlToPhpFactory implements \Symplify\Ph
             }
             return new \PhpParser\Node\Expr\MethodCall($methodCall, 'public');
         }
-        throw new \Symplify\PhpConfigPrinter\Exception\NotImplementedYetException();
+        throw new \RectorPrefix20201227\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException();
     }
     public function isMatch($key, $values) : bool
     {

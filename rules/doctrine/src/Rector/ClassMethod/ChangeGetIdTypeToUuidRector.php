@@ -6,10 +6,10 @@ namespace Rector\Doctrine\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
-use RectorPrefix20201226\Ramsey\Uuid\UuidInterface;
+use RectorPrefix20201227\Ramsey\Uuid\UuidInterface;
 use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
@@ -17,9 +17,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class ChangeGetIdTypeToUuidRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change return type of getId() to uuid interface', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change return type of getId() to uuid interface', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,7 +70,7 @@ CODE_SAMPLE
         if ($this->hasUuidReturnType($node)) {
             return null;
         }
-        $node->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201226\Ramsey\Uuid\UuidInterface::class);
+        $node->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201227\Ramsey\Uuid\UuidInterface::class);
         return $node;
     }
     private function hasUuidReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
@@ -78,6 +78,6 @@ CODE_SAMPLE
         if ($classMethod->returnType === null) {
             return \false;
         }
-        return $this->isName($classMethod->returnType, \RectorPrefix20201226\Ramsey\Uuid\UuidInterface::class);
+        return $this->isName($classMethod->returnType, \RectorPrefix20201227\Ramsey\Uuid\UuidInterface::class);
     }
 }
