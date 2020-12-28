@@ -3151,6 +3151,7 @@ return array(
     'Rector\\TypeDeclaration\\Rector\\Property\\CompleteVarDocTypePropertyRector' => $baseDir . '/rules/type-declaration/src/Rector/Property/CompleteVarDocTypePropertyRector.php',
     'Rector\\TypeDeclaration\\Rector\\Property\\PropertyTypeDeclarationRector' => $baseDir . '/rules/type-declaration/src/Rector/Property/PropertyTypeDeclarationRector.php',
     'Rector\\TypeDeclaration\\TypeAlreadyAddedChecker\\ReturnTypeAlreadyAddedChecker' => $baseDir . '/rules/type-declaration/src/TypeAlreadyAddedChecker/ReturnTypeAlreadyAddedChecker.php',
+    'Rector\\TypeDeclaration\\TypeAnalyzer\\AdvancedArrayAnalyzer' => $baseDir . '/rules/type-declaration/src/TypeAnalyzer/AdvancedArrayAnalyzer.php',
     'Rector\\TypeDeclaration\\TypeInferer\\AbstractPriorityAwareTypeInferer' => $baseDir . '/rules/type-declaration/src/TypeInferer/AbstractPriorityAwareTypeInferer.php',
     'Rector\\TypeDeclaration\\TypeInferer\\AbstractTypeInferer' => $baseDir . '/rules/type-declaration/src/TypeInferer/AbstractTypeInferer.php',
     'Rector\\TypeDeclaration\\TypeInferer\\AssignToPropertyTypeInferer' => $baseDir . '/rules/type-declaration/src/TypeInferer/AssignToPropertyTypeInferer.php',

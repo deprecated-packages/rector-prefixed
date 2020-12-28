@@ -11,6 +11,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -334,6 +335,13 @@ final class PhpDocInfo
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $attributeAwareParamTagValueNode;
+    }
+    /**
+     * @return TemplateTagValueNode[]
+     */
+    public function getTemplateTagValueNodes() : array
+    {
+        return $this->phpDocNode->getTemplateTagValues();
     }
     private function getTypeOrMixed(?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {
