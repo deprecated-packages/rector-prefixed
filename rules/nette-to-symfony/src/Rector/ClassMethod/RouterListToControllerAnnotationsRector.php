@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\ClassMethod;
 
-use RectorPrefix20201228\Nette\Application\Routers\RouteList;
 use RectorPrefix20201228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -36,6 +35,13 @@ final class RouterListToControllerAnnotationsRector extends \Rector\Core\Rector\
      * @see https://regex101.com/r/qVlXk2/2
      */
     private const ACTION_RENDER_NAME_MATCHING_REGEX = '#^(action|render)(?<short_action_name>.*?$)#sm';
+    /**
+     * Package "nette/application" is required for DEV, might not exist for PROD.
+     * So access the class throgh the string
+     *
+     * @var string
+     */
+    private const ROUTE_LIST_CLASS = 'RectorPrefix20201228\\Nette\\Application\\Routers\\RouteList';
     /**
      * @var RouteInfoFactory
      */
@@ -123,7 +129,7 @@ CODE_SAMPLE
             return null;
         }
         $inferedReturnType = $this->returnTypeInferer->inferFunctionLike($node);
-        $routeListObjectType = new \PHPStan\Type\ObjectType(\RectorPrefix20201228\Nette\Application\Routers\RouteList::class);
+        $routeListObjectType = new \PHPStan\Type\ObjectType(self::ROUTE_LIST_CLASS);
         if (!$inferedReturnType->isSuperTypeOf($routeListObjectType)->yes()) {
             return null;
         }

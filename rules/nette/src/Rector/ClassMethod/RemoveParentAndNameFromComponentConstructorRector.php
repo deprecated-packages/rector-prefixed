@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\Nette\Rector\ClassMethod;
 
-use RectorPrefix20201228\Nette\Application\UI\Control;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\New_;
@@ -35,6 +34,13 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
      * @var string
      */
     private const NAME = 'name';
+    /**
+     * Package "nette/application" is required for DEV, might not exist for PROD.
+     * So access the class throgh the string
+     *
+     * @var string
+     */
+    private const CONTROL_CLASS = 'RectorPrefix20201228\\Nette\\Application\\UI\\Control';
     /**
      * @var StaticCallAnalyzer
      */
@@ -100,7 +106,7 @@ CODE_SAMPLE
     }
     private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
-        if (!$this->isInObjectType($classMethod, \RectorPrefix20201228\Nette\Application\UI\Control::class)) {
+        if (!$this->isInObjectType($classMethod, self::CONTROL_CLASS)) {
             return null;
         }
         if (!$this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
