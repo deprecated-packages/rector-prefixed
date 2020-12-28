@@ -10,10 +10,10 @@ use Rector\RectorGenerator\Config\ConfigFilesystem;
 use Rector\RectorGenerator\Finder\TemplateFinder;
 use Rector\RectorGenerator\Generator\FileGenerator;
 use Rector\RectorGenerator\Guard\OverrideGuard;
-use Rector\RectorGenerator\Provider\RectorRecipeInteractiveProvider;
 use Rector\RectorGenerator\Provider\RectorRecipeProvider;
 use Rector\RectorGenerator\TemplateVariablesFactory;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
+use Rector\RectorGenerator\ValueObjectFactory\RectorRecipeInteractiveFactory;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use RectorPrefix20201228\Symfony\Component\Console\Command\Command;
 use RectorPrefix20201228\Symfony\Component\Console\Input\InputInterface;
@@ -22,9 +22,15 @@ use RectorPrefix20201228\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20201228\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20201228\Symplify\PackageBuilder\Console\ShellCode;
 use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo;
+/**
+ * @see \Rector\RectorGenerator\Tests\RectorGenerator\GenerateCommandInteractiveModeTest
+ */
 final class GenerateCommand extends \RectorPrefix20201228\Symfony\Component\Console\Command\Command
 {
-    private const INTERACTIVE_MODE_NAME = 'interactive';
+    /**
+     * @var string
+     */
+    public const INTERACTIVE_MODE_NAME = 'interactive';
     /**
      * @var SymfonyStyle
      */
@@ -58,10 +64,10 @@ final class GenerateCommand extends \RectorPrefix20201228\Symfony\Component\Cons
      */
     private $rectorRecipeProvider;
     /**
-     * @var RectorRecipeInteractiveProvider
+     * @var RectorRecipeInteractiveFactory
      */
-    private $rectorRecipeInteractiveProvider;
-    public function __construct(\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater $composerPackageAutoloadUpdater, \Rector\RectorGenerator\Config\ConfigFilesystem $configFilesystem, \Rector\RectorGenerator\Generator\FileGenerator $fileGenerator, \Rector\RectorGenerator\Guard\OverrideGuard $overrideGuard, \RectorPrefix20201228\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\RectorGenerator\Finder\TemplateFinder $templateFinder, \Rector\RectorGenerator\TemplateVariablesFactory $templateVariablesFactory, \Rector\RectorGenerator\Provider\RectorRecipeProvider $rectorRecipeProvider, \Rector\RectorGenerator\Provider\RectorRecipeInteractiveProvider $rectorRecipeInteractiveProvider)
+    private $rectorRecipeInteractiveFactory;
+    public function __construct(\Rector\RectorGenerator\Composer\ComposerPackageAutoloadUpdater $composerPackageAutoloadUpdater, \Rector\RectorGenerator\Config\ConfigFilesystem $configFilesystem, \Rector\RectorGenerator\Generator\FileGenerator $fileGenerator, \Rector\RectorGenerator\Guard\OverrideGuard $overrideGuard, \RectorPrefix20201228\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\RectorGenerator\Finder\TemplateFinder $templateFinder, \Rector\RectorGenerator\TemplateVariablesFactory $templateVariablesFactory, \Rector\RectorGenerator\Provider\RectorRecipeProvider $rectorRecipeProvider, \Rector\RectorGenerator\ValueObjectFactory\RectorRecipeInteractiveFactory $rectorRecipeInteractiveFactory)
     {
         parent::__construct();
         $this->templateVariablesFactory = $templateVariablesFactory;
@@ -72,7 +78,7 @@ final class GenerateCommand extends \RectorPrefix20201228\Symfony\Component\Cons
         $this->symfonyStyle = $symfonyStyle;
         $this->fileGenerator = $fileGenerator;
         $this->rectorRecipeProvider = $rectorRecipeProvider;
-        $this->rectorRecipeInteractiveProvider = $rectorRecipeInteractiveProvider;
+        $this->rectorRecipeInteractiveFactory = $rectorRecipeInteractiveFactory;
     }
     protected function configure() : void
     {
@@ -118,7 +124,10 @@ final class GenerateCommand extends \RectorPrefix20201228\Symfony\Component\Cons
         if (\RectorPrefix20201228\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
             return \true;
         }
-        return \RectorPrefix20201228\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php.inc') && \Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun();
+        if (!\RectorPrefix20201228\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php.inc')) {
+            return \false;
+        }
+        return \Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun();
     }
     /**
      * @param string[] $generatedFilePaths
@@ -142,6 +151,6 @@ final class GenerateCommand extends \RectorPrefix20201228\Symfony\Component\Cons
         if (!$isInteractive) {
             return $this->rectorRecipeProvider->provide();
         }
-        return $this->rectorRecipeInteractiveProvider->provide($this->symfonyStyle);
+        return $this->rectorRecipeInteractiveFactory->create();
     }
 }

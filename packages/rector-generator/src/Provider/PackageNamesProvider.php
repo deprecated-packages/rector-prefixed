@@ -4,20 +4,26 @@ declare (strict_types=1);
 namespace Rector\RectorGenerator\Provider;
 
 use Rector\Core\Util\StaticRectorStrings;
+use SplFileInfo;
 use RectorPrefix20201228\Symfony\Component\Finder\Finder;
+/**
+ * @see \Rector\RectorGenerator\Tests\Provider\PackageNamesProviderTest
+ */
 final class PackageNamesProvider
 {
     /**
-     * @return array<int, string>
+     * @return string[]
      */
     public function provide() : array
     {
         $finder = new \RectorPrefix20201228\Symfony\Component\Finder\Finder();
-        $directoriesList = $finder->directories()->depth(0)->in(__DIR__ . '/../../../../rules/')->getIterator();
-        $names = [];
-        foreach ($directoriesList as $directory) {
-            $names[] = \Rector\Core\Util\StaticRectorStrings::dashesToCamelCase($directory->getFilename());
+        $finder = $finder->directories()->depth(0)->in(__DIR__ . '/../../../../rules')->sortByName();
+        $fileInfos = \iterator_to_array($finder->getIterator());
+        $packageNames = [];
+        foreach ($fileInfos as $fileInfo) {
+            /** @var SplFileInfo $fileInfo */
+            $packageNames[] = \Rector\Core\Util\StaticRectorStrings::dashesToCamelCase($fileInfo->getFilename());
         }
-        return $names;
+        return $packageNames;
     }
 }

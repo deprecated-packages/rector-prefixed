@@ -1,15 +1,57 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\RectorGenerator\Provider;
+namespace Rector\RectorGenerator\ValueObjectFactory;
 
+use Rector\RectorGenerator\Provider\NodeTypesProvider;
+use Rector\RectorGenerator\Provider\PackageNamesProvider;
+use Rector\RectorGenerator\Provider\SetsListProvider;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
 use Rector\Set\ValueObject\SetList;
 use RectorPrefix20201228\Symfony\Component\Console\Question\ChoiceQuestion;
 use RectorPrefix20201228\Symfony\Component\Console\Question\Question;
 use RectorPrefix20201228\Symfony\Component\Console\Style\SymfonyStyle;
-final class RectorRecipeInteractiveProvider
+/**
+ * @see \Rector\RectorGenerator\Tests\Provider\RectorRecipeInteractiveProviderTest
+ */
+final class RectorRecipeInteractiveFactory
 {
+    /**
+     * @var string
+     */
+    public const EXAMPLE_CODE_BEFORE = <<<'CODE_SAMPLE'
+<?php
+
+namespace RectorPrefix20201228;
+
+class SomeClass
+{
+    public function run()
+    {
+        $this->something();
+    }
+}
+\class_alias('RectorPrefix20201228\\SomeClass', 'SomeClass', \false);
+
+CODE_SAMPLE;
+    /**
+     * @var string
+     */
+    public const EXAMPLE_CODE_AFTER = <<<'CODE_SAMPLE'
+<?php
+
+namespace RectorPrefix20201228;
+
+class SomeClass
+{
+    public function run()
+    {
+        $this->somethingElse();
+    }
+}
+\class_alias('RectorPrefix20201228\\SomeClass', 'SomeClass', \false);
+
+CODE_SAMPLE;
     /**
      * @var SymfonyStyle
      */
@@ -26,16 +68,16 @@ final class RectorRecipeInteractiveProvider
      * @var SetsListProvider
      */
     private $setsListProvider;
-    public function __construct(\Rector\RectorGenerator\Provider\PackageNamesProvider $packageNamesProvider, \Rector\RectorGenerator\Provider\NodeTypesProvider $nodeTypesProvider, \Rector\RectorGenerator\Provider\SetsListProvider $setsListProvider)
+    public function __construct(\Rector\RectorGenerator\Provider\PackageNamesProvider $packageNamesProvider, \Rector\RectorGenerator\Provider\NodeTypesProvider $nodeTypesProvider, \Rector\RectorGenerator\Provider\SetsListProvider $setsListProvider, \RectorPrefix20201228\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->packageNamesProvider = $packageNamesProvider;
         $this->nodeTypesProvider = $nodeTypesProvider;
         $this->setsListProvider = $setsListProvider;
-    }
-    public function provide(\RectorPrefix20201228\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle) : \Rector\RectorGenerator\ValueObject\RectorRecipe
-    {
         $this->symfonyStyle = $symfonyStyle;
-        $rectorRecipe = new \Rector\RectorGenerator\ValueObject\RectorRecipe($this->askForPackageName(), $this->askForRectorName(), $this->askForNodeTypes(), $this->askForRectorDescription(), $this->getExampleCodeBefore(), $this->getExampleCodeAfter());
+    }
+    public function create() : \Rector\RectorGenerator\ValueObject\RectorRecipe
+    {
+        $rectorRecipe = new \Rector\RectorGenerator\ValueObject\RectorRecipe($this->askForPackageName(), $this->askForRectorName(), $this->askForNodeTypes(), $this->askForRectorDescription(), self::EXAMPLE_CODE_BEFORE, self::EXAMPLE_CODE_AFTER);
         $rectorRecipe->setResources($this->askForResources());
         $set = $this->askForSet();
         if ($set !== null) {
@@ -61,9 +103,9 @@ final class RectorRecipeInteractiveProvider
      */
     private function askForNodeTypes() : array
     {
-        $question = new \RectorPrefix20201228\Symfony\Component\Console\Question\ChoiceQuestion(\sprintf('For what Nodes should the Rector be run (e.g. <fg=yellow>%s</>)', 'Expr/MethodCall'), $this->nodeTypesProvider->provide());
-        $question->setMultiselect(\true);
-        $nodeTypes = $this->symfonyStyle->askQuestion($question);
+        $choiceQuestion = new \RectorPrefix20201228\Symfony\Component\Console\Question\ChoiceQuestion(\sprintf('For what Nodes should the Rector be run (e.g. <fg=yellow>%s</>)', 'Expr/MethodCall'), $this->nodeTypesProvider->provide());
+        $choiceQuestion->setMultiselect(\true);
+        $nodeTypes = $this->symfonyStyle->askQuestion($choiceQuestion);
         $classes = [];
         foreach ($nodeTypes as $nodeType) {
             /** @var class-string $class */
@@ -76,42 +118,6 @@ final class RectorRecipeInteractiveProvider
     {
         $description = $this->symfonyStyle->ask('Short description of new Rector');
         return $description ?? $this->askForRectorDescription();
-    }
-    private function getExampleCodeBefore() : string
-    {
-        return <<<'CODE_SAMPLE'
-<?php
-
-namespace RectorPrefix20201228;
-
-class SomeClass
-{
-    public function run()
-    {
-        $this->something();
-    }
-}
-\class_alias('RectorPrefix20201228\\SomeClass', 'SomeClass', \false);
-
-CODE_SAMPLE;
-    }
-    private function getExampleCodeAfter() : string
-    {
-        return <<<'CODE_SAMPLE'
-<?php
-
-namespace RectorPrefix20201228;
-
-class SomeClass
-{
-    public function run()
-    {
-        $this->somethingElse();
-    }
-}
-\class_alias('RectorPrefix20201228\\SomeClass', 'SomeClass', \false);
-
-CODE_SAMPLE;
     }
     /**
      * @return array<string>
