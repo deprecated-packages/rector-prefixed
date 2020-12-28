@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7bedd8cf8879d43363e3c4ff04fab1c2
+class ComposerStaticInit64dfb1d662873095e68f2d0ed5523dbb
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3698,7 +3698,11 @@ class ComposerStaticInit7bedd8cf8879d43363e3c4ff04fab1c2
         'Rector\\RectorGenerator\\Generator\\FileGenerator' => __DIR__ . '/../..' . '/packages/rector-generator/src/Generator/FileGenerator.php',
         'Rector\\RectorGenerator\\Guard\\OverrideGuard' => __DIR__ . '/../..' . '/packages/rector-generator/src/Guard/OverrideGuard.php',
         'Rector\\RectorGenerator\\NodeFactory\\ConfigurationNodeFactory' => __DIR__ . '/../..' . '/packages/rector-generator/src/NodeFactory/ConfigurationNodeFactory.php',
+        'Rector\\RectorGenerator\\Provider\\NodeTypesProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Provider/NodeTypesProvider.php',
+        'Rector\\RectorGenerator\\Provider\\PackageNamesProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Provider/PackageNamesProvider.php',
+        'Rector\\RectorGenerator\\Provider\\RectorRecipeInteractiveProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Provider/RectorRecipeInteractiveProvider.php',
         'Rector\\RectorGenerator\\Provider\\RectorRecipeProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Provider/RectorRecipeProvider.php',
+        'Rector\\RectorGenerator\\Provider\\SetsListProvider' => __DIR__ . '/../..' . '/packages/rector-generator/src/Provider/SetsListProvider.php',
         'Rector\\RectorGenerator\\Rector\\Closure\\AddNewServiceToSymfonyPhpConfigRector' => __DIR__ . '/../..' . '/packages/rector-generator/src/Rector/Closure/AddNewServiceToSymfonyPhpConfigRector.php',
         'Rector\\RectorGenerator\\TemplateFactory' => __DIR__ . '/../..' . '/packages/rector-generator/src/TemplateFactory.php',
         'Rector\\RectorGenerator\\TemplateInitializer' => __DIR__ . '/../..' . '/packages/rector-generator/src/TemplateInitializer.php',
@@ -3968,9 +3972,9 @@ class ComposerStaticInit7bedd8cf8879d43363e3c4ff04fab1c2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7bedd8cf8879d43363e3c4ff04fab1c2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7bedd8cf8879d43363e3c4ff04fab1c2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7bedd8cf8879d43363e3c4ff04fab1c2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit64dfb1d662873095e68f2d0ed5523dbb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit64dfb1d662873095e68f2d0ed5523dbb::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit64dfb1d662873095e68f2d0ed5523dbb::$classMap;
 
         }, null, ClassLoader::class);
     }
