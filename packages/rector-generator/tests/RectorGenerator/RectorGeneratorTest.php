@@ -4,10 +4,7 @@ declare (strict_types=1);
 namespace Rector\RectorGenerator\Tests\RectorGenerator;
 
 use Rector\Core\HttpKernel\RectorKernel;
-use Rector\RectorGenerator\Finder\TemplateFinder;
-use Rector\RectorGenerator\Generator\FileGenerator;
 use Rector\RectorGenerator\Generator\RectorRecipeGenerator;
-use Rector\RectorGenerator\TemplateVariablesFactory;
 use Rector\RectorGenerator\Tests\RectorGenerator\Source\StaticRectorRecipeFactory;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
 use RectorPrefix20201228\Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
@@ -31,9 +28,6 @@ final class RectorGeneratorTest extends \RectorPrefix20201228\Symplify\PackageBu
     protected function setUp() : void
     {
         $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->getService(\Rector\RectorGenerator\TemplateVariablesFactory::class);
-        $this->getService(\Rector\RectorGenerator\Finder\TemplateFinder::class);
-        $this->getService(\Rector\RectorGenerator\Generator\FileGenerator::class);
         $this->smartFileSystem = $this->getService(\RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileSystem::class);
         $this->rectorRecipeGenerator = $this->getService(\Rector\RectorGenerator\Generator\RectorRecipeGenerator::class);
     }
