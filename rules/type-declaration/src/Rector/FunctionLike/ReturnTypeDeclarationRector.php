@@ -36,7 +36,7 @@ final class ReturnTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\F
     /**
      * @var string[]
      */
-    private const EXCLUDED_METHOD_NAMES = [\Rector\Core\ValueObject\MethodName::CONSTRUCT, \Rector\Core\ValueObject\MethodName::DESCTRUCT, '__clone'];
+    private const EXCLUDED_METHOD_NAMES = [\Rector\Core\ValueObject\MethodName::CONSTRUCT, \Rector\Core\ValueObject\MethodName::DESCTRUCT, \Rector\Core\ValueObject\MethodName::CLONE];
     /**
      * @var bool
      */

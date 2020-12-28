@@ -104,7 +104,7 @@ CODE_SAMPLE
                 $this->removeNodeFromStatements($class, $classMethod);
                 continue;
             }
-            if (!$this->isNames($classMethod, [\Rector\Core\ValueObject\MethodName::CONSTRUCT, '__clone', '__wakeup'])) {
+            if (!$this->isNames($classMethod, [\Rector\Core\ValueObject\MethodName::CONSTRUCT, \Rector\Core\ValueObject\MethodName::CLONE, '__wakeup'])) {
                 continue;
             }
             if ($classMethod->isPublic()) {
