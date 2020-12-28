@@ -131,6 +131,9 @@ CODE_SAMPLE
         if ($currentPhpDocReturnType instanceof \PHPStan\Type\ArrayType && $currentPhpDocReturnType->getItemType() instanceof \PHPStan\Type\MixedType) {
             return \true;
         }
+        if ($this->hasInheritDoc($classMethod)) {
+            return \true;
+        }
         return $currentPhpDocReturnType instanceof \PHPStan\Type\IterableType;
     }
     private function getNodeReturnPhpDocType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Type\Type
@@ -203,5 +206,13 @@ CODE_SAMPLE
             return \false;
         }
         return $attributeAwareReturnTagValueNode->type->type instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode;
+    }
+    private function hasInheritDoc(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    {
+        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+            return \false;
+        }
+        return $phpDocInfo->hasInheritDoc();
     }
 }

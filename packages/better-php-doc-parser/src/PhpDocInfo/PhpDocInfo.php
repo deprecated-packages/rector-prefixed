@@ -343,6 +343,13 @@ final class PhpDocInfo
     {
         return $this->phpDocNode->getTemplateTagValues();
     }
+    public function hasInheritDoc() : bool
+    {
+        if ($this->hasByName('inheritdoc')) {
+            return \true;
+        }
+        return $this->hasByName('inheritDoc');
+    }
     private function getTypeOrMixed(?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {
         if ($phpDocTagValueNode === null) {
