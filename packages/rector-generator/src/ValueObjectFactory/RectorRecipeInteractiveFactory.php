@@ -31,7 +31,7 @@ class SomeClass
         $this->something();
     }
 }
-\class_alias('RectorPrefix20201228\\SomeClass', 'SomeClass', \false);
+\class_alias('SomeClass', 'SomeClass', \false);
 
 CODE_SAMPLE;
     /**
@@ -49,7 +49,7 @@ class SomeClass
         $this->somethingElse();
     }
 }
-\class_alias('RectorPrefix20201228\\SomeClass', 'SomeClass', \false);
+\class_alias('SomeClass', 'SomeClass', \false);
 
 CODE_SAMPLE;
     /**

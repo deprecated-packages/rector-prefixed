@@ -41,12 +41,12 @@ final class SymfonyFormAbstractTypeFactory
         $formBuilderVariable = new \PhpParser\Node\Expr\Variable('formBuilder');
         // public function buildForm(\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
         $buildFormClassMethod = $this->nodeFactory->createPublicMethod('buildForm');
-        $buildFormClassMethod->params[] = new \PhpParser\Node\Param($formBuilderVariable, null, new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\Symfony\\Component\\Form\\FormBuilderInterface'));
+        $buildFormClassMethod->params[] = new \PhpParser\Node\Param($formBuilderVariable, null, new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\FormBuilderInterface'));
         $buildFormClassMethod->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('options'), null, new \PhpParser\Node\Identifier('array'));
         $symfonyMethodCalls = $this->createBuildFormMethodCalls($methodCalls, $formBuilderVariable);
         $buildFormClassMethod->stmts = $symfonyMethodCalls;
         $formTypeClass = new \PhpParser\Node\Stmt\Class_('SomeFormType');
-        $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\Symfony\\Component\\Form\\AbstractType');
+        $formTypeClass->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\AbstractType');
         $formTypeClass->stmts[] = $buildFormClassMethod;
         return $formTypeClass;
     }

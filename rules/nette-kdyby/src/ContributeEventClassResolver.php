@@ -22,21 +22,21 @@ final class ContributeEventClassResolver
      */
     private const CONTRIBUTTE_EVENT_GETTER_METHODS_WITH_TYPE = [
         // application
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['RectorPrefix20201228\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['RectorPrefix20201228\\Nette\\Application\\Application' => 'getApplication'],
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent' => ['RectorPrefix20201228\\Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent' => ['RectorPrefix20201228\\Nette\\Application\\Application' => 'getApplication', 'RectorPrefix20201228\\Nette\\Application\\IPresenter' => 'getPresenter'],
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Application\\RequestEvent' => ['RectorPrefix20201228\\Nette\\Application\\Application' => 'getApplication', 'RectorPrefix20201228\\Nette\\Application\\Request' => 'getRequest'],
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent' => ['RectorPrefix20201228\\Nette\\Application\\Application' => 'getApplication', 'RectorPrefix20201228\\Nette\\Application\\IResponse' => 'getResponse'],
+        'Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent' => ['Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
+        'Contributte\\Events\\Extra\\Event\\Application\\StartupEvent' => ['Nette\\Application\\Application' => 'getApplication'],
+        'Contributte\\Events\\Extra\\Event\\Application\\ErrorEvent' => ['Nette\\Application\\Application' => 'getApplication', 'Throwable' => 'getThrowable'],
+        'Contributte\\Events\\Extra\\Event\\Application\\PresenterEvent' => ['Nette\\Application\\Application' => 'getApplication', 'Nette\\Application\\IPresenter' => 'getPresenter'],
+        'Contributte\\Events\\Extra\\Event\\Application\\RequestEvent' => ['Nette\\Application\\Application' => 'getApplication', 'Nette\\Application\\Request' => 'getRequest'],
+        'Contributte\\Events\\Extra\\Event\\Application\\ResponseEvent' => ['Nette\\Application\\Application' => 'getApplication', 'Nette\\Application\\IResponse' => 'getResponse'],
         // presenter
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent' => ['RectorPrefix20201228\\Nette\\Application\\IPresenter' => 'getPresenter', 'RectorPrefix20201228\\Nette\\Application\\IResponse' => 'getResponse'],
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent' => ['RectorPrefix20201228\\Nette\\Application\\UI\\Presenter' => 'getPresenter'],
+        'Contributte\\Events\\Extra\\Event\\Application\\PresenterShutdownEvent' => ['Nette\\Application\\IPresenter' => 'getPresenter', 'Nette\\Application\\IResponse' => 'getResponse'],
+        'Contributte\\Events\\Extra\\Event\\Application\\PresenterStartupEvent' => ['Nette\\Application\\UI\\Presenter' => 'getPresenter'],
         // nette/security
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent' => ['RectorPrefix20201228\\Nette\\Security\\User' => 'getUser'],
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent' => ['RectorPrefix20201228\\Nette\\Security\\User' => 'getUser'],
+        'Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent' => ['Nette\\Security\\User' => 'getUser'],
+        'Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent' => ['Nette\\Security\\User' => 'getUser'],
         // latte
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent' => ['RectorPrefix20201228\\Latte\\Engine' => 'getEngine'],
-        'RectorPrefix20201228\\Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent' => ['RectorPrefix20201228\\Nette\\Bridges\\ApplicationLatte\\Template' => 'getTemplate'],
+        'Contributte\\Events\\Extra\\Event\\Latte\\LatteCompileEvent' => ['Latte\\Engine' => 'getEngine'],
+        'Contributte\\Events\\Extra\\Event\\Latte\\TemplateCreateEvent' => ['Nette\\Bridges\\ApplicationLatte\\Template' => 'getTemplate'],
     ];
     /**
      * @var NodeNameResolver

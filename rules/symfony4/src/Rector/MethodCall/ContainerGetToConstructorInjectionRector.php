@@ -24,7 +24,7 @@ final class ContainerGetToConstructorInjectionRector extends \Rector\Symfony\Rec
     /**
      * @var string[]
      */
-    private $containerAwareParentTypes = ['RectorPrefix20201228\\Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand', 'RectorPrefix20201228\\Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller'];
+    private $containerAwareParentTypes = ['Symfony\\Bundle\\FrameworkBundle\\Command\\ContainerAwareCommand', 'Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller'];
     public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns fetching of dependencies via `$container->get()` in ContainerAware to constructor injection in Command and Controller in Symfony', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -68,7 +68,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, 'RectorPrefix20201228\\Symfony\\Component\\DependencyInjection\\ContainerInterface')) {
+        if (!$this->isObjectType($node->var, 'Symfony\\Component\\DependencyInjection\\ContainerInterface')) {
             return null;
         }
         if (!$this->isName($node->name, 'get')) {

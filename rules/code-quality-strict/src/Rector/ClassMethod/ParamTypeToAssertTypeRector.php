@@ -164,7 +164,7 @@ CODE_SAMPLE
                 $methodName = 'isAOf';
             }
             $args = $this->createArgs($arguments);
-            $staticCall = $this->createStaticCall('RectorPrefix20201228\\Webmozart\\Assert\\Assert', $methodName, $args);
+            $staticCall = $this->createStaticCall('Webmozart\\Assert\\Assert', $methodName, $args);
             $assertStatements[] = new \PhpParser\Node\Stmt\Expression($staticCall);
         }
         return $this->addStatements($classMethod, $assertStatements);

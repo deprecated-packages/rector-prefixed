@@ -100,8 +100,8 @@ CODE_SAMPLE
             return null;
         }
         $this->removeBlameablePropertiesAndMethods($node);
-        $this->classInsertManipulator->addAsFirstTrait($node, 'RectorPrefix20201228\\Knp\\DoctrineBehaviors\\Model\\Blameable\\BlameableTrait');
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\Knp\\DoctrineBehaviors\\Contract\\Entity\\BlameableInterface');
+        $this->classInsertManipulator->addAsFirstTrait($node, 'Knp\\DoctrineBehaviors\\Model\\Blameable\\BlameableTrait');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\BlameableInterface');
         return $node;
     }
     private function isGedmoBlameableClass(\PhpParser\Node\Stmt\Class_ $class) : bool

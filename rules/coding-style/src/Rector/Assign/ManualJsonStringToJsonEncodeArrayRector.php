@@ -199,7 +199,7 @@ CODE_SAMPLE
         $jsonDataVariable = new \PhpParser\Node\Expr\Variable('jsonData');
         $jsonDataAssign = new \PhpParser\Node\Expr\Assign($jsonDataVariable, $jsonArray);
         $this->addNodeBeforeNode($jsonDataAssign, $assign);
-        $assign->expr = $this->createStaticCall('RectorPrefix20201228\\Nette\\Utils\\Json', 'encode', [$jsonDataVariable]);
+        $assign->expr = $this->createStaticCall('Nette\\Utils\\Json', 'encode', [$jsonDataVariable]);
         return $assign;
     }
     /**

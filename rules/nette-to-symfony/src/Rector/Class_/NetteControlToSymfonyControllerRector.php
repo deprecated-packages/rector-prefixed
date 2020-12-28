@@ -108,7 +108,7 @@ CODE_SAMPLE
         if ($this->isName($class, '*Presenter')) {
             return \true;
         }
-        return !$this->isObjectType($class, 'RectorPrefix20201228\\Nette\\Application\\UI\\Control');
+        return !$this->isObjectType($class, 'Nette\\Application\\UI\\Control');
     }
     private function removeSuffix(string $content, string $suffix) : string
     {
@@ -151,7 +151,7 @@ CODE_SAMPLE
             if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            $this->addConstructorDependencyToClass($classLike, new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType('RectorPrefix20201228\\Nette\\Http\\Session'), 'session');
+            $this->addConstructorDependencyToClass($classLike, new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType('Nette\\Http\\Session'), 'session');
             return $node;
         });
     }

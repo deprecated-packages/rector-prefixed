@@ -56,7 +56,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \Rector\Transform\ValueObject\FuncNameToMethodCallName('view', 'RectorPrefix20201228\\Namespaced\\SomeRenderer', 'render')]])]);
+, [self::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \Rector\Transform\ValueObject\FuncNameToMethodCallName('view', 'Namespaced\\SomeRenderer', 'render')]])]);
     }
     /**
      * @return string[]

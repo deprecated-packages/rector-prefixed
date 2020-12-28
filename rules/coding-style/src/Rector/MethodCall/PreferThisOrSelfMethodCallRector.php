@@ -64,7 +64,7 @@ class SomeClass extends \PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-, [self::TYPE_TO_PREFERENCE => ['RectorPrefix20201228\\PHPUnit\\Framework\\TestCase' => self::PREFER_SELF]])]);
+, [self::TYPE_TO_PREFERENCE => ['PHPUnit\\Framework\\TestCase' => self::PREFER_SELF]])]);
     }
     /**
      * @return string[]

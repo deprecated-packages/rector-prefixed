@@ -77,7 +77,7 @@ CODE_SAMPLE
         if (!$node->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
-        if (!$this->isObjectType($node->var, 'RectorPrefix20201228\\Nette\\DI\\Container')) {
+        if (!$this->isObjectType($node->var, 'Nette\\DI\\Container')) {
             return null;
         }
         if (!$this->isName($node->name, 'getByType')) {
@@ -91,6 +91,6 @@ CODE_SAMPLE
         if ($classLike === null) {
             return \false;
         }
-        return $this->isObjectTypes($classLike, ['RectorPrefix20201228\\PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
+        return $this->isObjectTypes($classLike, ['PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
     }
 }

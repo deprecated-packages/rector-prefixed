@@ -6,4 +6,4 @@ namespace RectorPrefix20201228;
 interface SomeInterface
 {
 }
-\class_alias('RectorPrefix20201228\\SomeInterface', 'SomeInterface', \false);
+\class_alias('SomeInterface', 'SomeInterface', \false);

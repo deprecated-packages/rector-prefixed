@@ -53,7 +53,7 @@ CODE_SAMPLE
         if (!$this->isStaticCallNamed($node, 'PHPExcel_Cell_DataType', 'dataTypeForValue')) {
             return null;
         }
-        $node->class = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\PhpOffice\\PhpSpreadsheet\\Cell\\DefaultValueBinder');
+        $node->class = new \PhpParser\Node\Name\FullyQualified('PhpOffice\\PhpSpreadsheet\\Cell\\DefaultValueBinder');
         return $node;
     }
 }

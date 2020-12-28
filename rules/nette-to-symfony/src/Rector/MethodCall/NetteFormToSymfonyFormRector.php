@@ -31,24 +31,24 @@ final class NetteFormToSymfonyFormRector extends \Rector\Core\Rector\AbstractRec
      * @var string[]
      */
     private const ADD_METHOD_TO_FORM_TYPE = [
-        'addText' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
-        'addPassword' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType',
-        'addTextArea' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
-        'addEmail' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
-        'addInteger' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType',
-        'addHidden' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType',
+        'addText' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
+        'addPassword' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\PasswordType',
+        'addTextArea' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
+        'addEmail' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\EmailType',
+        'addInteger' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType',
+        'addHidden' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\HiddenType',
         // https://symfony.com/doc/current/reference/forms/types/checkbox.html
-        'addCheckbox' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
-        'addUpload' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
-        'addImage' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
-        'addMultiUpload' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addCheckbox' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CheckboxType',
+        'addUpload' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addImage' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
+        'addMultiUpload' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\FileType',
         // https://symfony.com/doc/current/reference/forms/types/choice.html#select-tag-checkboxes-or-radio-buttons
-        'addSelect' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addRadioList' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addCheckboxList' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addMultiSelect' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
-        'addSubmit' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType',
-        'addButton' => 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\ButtonType',
+        'addSelect' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addRadioList' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addCheckboxList' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addMultiSelect' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
+        'addSubmit' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\SubmitType',
+        'addButton' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ButtonType',
     ];
     public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -104,14 +104,14 @@ CODE_SAMPLE
         if ($classLike === null) {
             return null;
         }
-        if (!$this->isObjectType($classLike, 'RectorPrefix20201228\\Nette\\Application\\IPresenter')) {
+        if (!$this->isObjectType($classLike, 'Nette\\Application\\IPresenter')) {
             return null;
         }
         if ($node instanceof \PhpParser\Node\Expr\New_) {
             return $this->processNew($node);
         }
         /** @var MethodCall $node */
-        if (!$this->isObjectType($node->var, 'RectorPrefix20201228\\Nette\\Application\\UI\\Form')) {
+        if (!$this->isObjectType($node->var, 'Nette\\Application\\UI\\Form')) {
             return null;
         }
         foreach (self::ADD_METHOD_TO_FORM_TYPE as $method => $classType) {
@@ -124,7 +124,7 @@ CODE_SAMPLE
     }
     private function processNew(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node\Expr\MethodCall
     {
-        if (!$this->isName($new->class, 'RectorPrefix20201228\\Nette\\Application\\UI\\Form')) {
+        if (!$this->isName($new->class, 'Nette\\Application\\UI\\Form')) {
             return null;
         }
         return $this->createMethodCall('this', 'createFormBuilder');

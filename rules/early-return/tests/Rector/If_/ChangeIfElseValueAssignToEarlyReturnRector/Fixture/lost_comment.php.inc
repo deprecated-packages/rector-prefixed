@@ -8,7 +8,7 @@ class LostComment
     {
         if (null === $publicUrl) {
             // parameters could not be resolved into a url
-            $contenttext = preg_replace('@href=(["\'\s]*'.preg_quote($internalUrl, '@').'["\'\s]*)@', '', $contenttext);
+            $contenttext = preg_replace('@href=(["\'s]*'.preg_quote($internalUrl, '@').'["\'s]*)@', '', $contenttext);
         } else {
             // else comment
             $contenttext = str_replace($internalUrl, $publicUrl, $contenttext);
@@ -30,7 +30,7 @@ class LostComment
     {
         if (null === $publicUrl) {
             // parameters could not be resolved into a url
-            return preg_replace('@href=(["\'\s]*'.preg_quote($internalUrl, '@').'["\'\s]*)@', '', $contenttext);
+            return preg_replace('@href=(["\'s]*'.preg_quote($internalUrl, '@').'["\'s]*)@', '', $contenttext);
         }
 
         // else comment

@@ -19,7 +19,7 @@ final class FluentMethodCallSkipper
      *
      * @var string[]
      */
-    private const ALLOWED_FLUENT_TYPES = ['RectorPrefix20201228\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\AbstractConfigurator', 'RectorPrefix20201228\\Nette\\Forms\\Controls\\BaseControl', 'RectorPrefix20201228\\Nette\\DI\\ContainerBuilder', 'RectorPrefix20201228\\Nette\\DI\\Definitions\\Definition', 'RectorPrefix20201228\\Nette\\DI\\Definitions\\ServiceDefinition', 'PHPStan\\Analyser\\Scope', 'DateTime', 'RectorPrefix20201228\\Nette\\Utils\\DateTime', 'DateTimeInterface', '*Finder', '*Builder', '*Query'];
+    private const ALLOWED_FLUENT_TYPES = ['Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\AbstractConfigurator', 'Nette\\Forms\\Controls\\BaseControl', 'Nette\\DI\\ContainerBuilder', 'Nette\\DI\\Definitions\\Definition', 'Nette\\DI\\Definitions\\ServiceDefinition', 'PHPStan\\Analyser\\Scope', 'DateTime', 'Nette\\Utils\\DateTime', 'DateTimeInterface', '*Finder', '*Builder', '*Query'];
     /**
      * @var FluentCallStaticTypeResolver
      */

@@ -52,7 +52,7 @@ class SomeTest extends PHPUnit\Framework\TestCase
     }
 }
 CODE_SAMPLE
-, [self::RENAMED_ANNOTATIONS_IN_TYPES => [new \Rector\Renaming\ValueObject\RenameAnnotation('RectorPrefix20201228\\PHPUnit\\Framework\\TestCase', 'test', 'scenario')]])]);
+, [self::RENAMED_ANNOTATIONS_IN_TYPES => [new \Rector\Renaming\ValueObject\RenameAnnotation('PHPUnit\\Framework\\TestCase', 'test', 'scenario')]])]);
     }
     /**
      * @return string[]

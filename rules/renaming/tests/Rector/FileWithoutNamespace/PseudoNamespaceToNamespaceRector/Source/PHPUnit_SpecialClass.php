@@ -6,4 +6,4 @@ namespace RectorPrefix20201228;
 final class PHPUnit_SpecialClass
 {
 }
-\class_alias('RectorPrefix20201228\\PHPUnit_SpecialClass', 'PHPUnit_SpecialClass', \false);
+\class_alias('PHPUnit_SpecialClass', 'PHPUnit_SpecialClass', \false);

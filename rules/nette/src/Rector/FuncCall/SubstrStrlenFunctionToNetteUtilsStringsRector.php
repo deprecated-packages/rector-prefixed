@@ -56,7 +56,7 @@ CODE_SAMPLE
             if (!$this->isName($node, $function)) {
                 continue;
             }
-            return $this->createStaticCall('RectorPrefix20201228\\Nette\\Utils\\Strings', $staticMethod, $node->args);
+            return $this->createStaticCall('Nette\\Utils\\Strings', $staticMethod, $node->args);
         }
         return null;
     }

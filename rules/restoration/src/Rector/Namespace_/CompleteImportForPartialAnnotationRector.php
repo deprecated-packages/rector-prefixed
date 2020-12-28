@@ -51,7 +51,7 @@ class SomeClass
     public $id;
 }
 CODE_SAMPLE
-, [self::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('RectorPrefix20201228\\Doctrine\\ORM\\Mapping', 'ORM')]])]);
+, [self::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('Doctrine\\ORM\\Mapping', 'ORM')]])]);
     }
     /**
      * @return string[]
@@ -84,7 +84,7 @@ CODE_SAMPLE
      */
     public function configure(array $configuration) : void
     {
-        $default = [new \Rector\Restoration\ValueObject\UseWithAlias('RectorPrefix20201228\\Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\UseWithAlias('RectorPrefix20201228\\Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\UseWithAlias('RectorPrefix20201228\\JMS\\Serializer\\Annotation', 'Serializer')];
+        $default = [new \Rector\Restoration\ValueObject\UseWithAlias('Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\UseWithAlias('Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\UseWithAlias('JMS\\Serializer\\Annotation', 'Serializer')];
         $this->useImportsToRestore = \array_merge($configuration[self::USE_IMPORTS_TO_RESTORE] ?? [], $default);
     }
     private function addImportToNamespaceIfMissing(\PhpParser\Node\Stmt\Namespace_ $namespace, \Rector\Restoration\ValueObject\UseWithAlias $useWithAlias) : \PhpParser\Node\Stmt\Namespace_

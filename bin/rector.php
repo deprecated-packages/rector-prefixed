@@ -112,4 +112,4 @@ final class AutoloadIncluder
         require_once $filePath;
     }
 }
-\class_alias('RectorPrefix20201228\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('AutoloadIncluder', 'AutoloadIncluder', \false);

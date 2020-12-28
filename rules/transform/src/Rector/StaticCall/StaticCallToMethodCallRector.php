@@ -65,7 +65,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::STATIC_CALLS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\StaticCallToMethodCall('RectorPrefix20201228\\Nette\\Utils\\FileSystem', 'write', 'RectorPrefix20201228\\Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile')]])]);
+, [self::STATIC_CALLS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\StaticCallToMethodCall('Nette\\Utils\\FileSystem', 'write', 'Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile')]])]);
     }
     /**
      * @return string[]

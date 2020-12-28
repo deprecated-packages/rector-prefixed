@@ -6,4 +6,4 @@ namespace RectorPrefix20201228;
 final class PHPUnit_Framework_Something
 {
 }
-\class_alias('RectorPrefix20201228\\PHPUnit_Framework_Something', 'PHPUnit_Framework_Something', \false);
+\class_alias('PHPUnit_Framework_Something', 'PHPUnit_Framework_Something', \false);

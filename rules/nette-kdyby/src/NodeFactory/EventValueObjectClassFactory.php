@@ -64,7 +64,7 @@ final class EventValueObjectClassFactory
         $shortClassName = $this->classNaming->getShortName($className);
         $classBuilder = new \Rector\Core\PhpParser\Builder\ClassBuilder($shortClassName);
         $classBuilder->makeFinal();
-        $classBuilder->extend(new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\Symfony\\Contracts\\EventDispatcher\\Event'));
+        $classBuilder->extend(new \PhpParser\Node\Name\FullyQualified('Symfony\\Contracts\\EventDispatcher\\Event'));
         return $classBuilder;
     }
     /**

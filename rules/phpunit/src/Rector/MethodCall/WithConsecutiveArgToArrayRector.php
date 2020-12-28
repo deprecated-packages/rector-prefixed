@@ -95,7 +95,7 @@ CODE_SAMPLE
             return null;
         }
         // is a mock?
-        if (!$this->isObjectType($node, 'RectorPrefix20201228\\PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker')) {
+        if (!$this->isObjectType($node, 'PHPUnit\\Framework\\MockObject\\Builder\\InvocationMocker')) {
             return null;
         }
         $mockClass = $this->inferMockedClassName($node);

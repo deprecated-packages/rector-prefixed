@@ -19,7 +19,7 @@ final class ConstraintUrlOptionRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const URL_CONSTRAINT_CLASS = 'RectorPrefix20201228\\Symfony\\Component\\Validator\\Constraints\\Url';
+    private const URL_CONSTRAINT_CLASS = 'Symfony\\Component\\Validator\\Constraints\\Url';
     public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns true value to `Url::CHECK_DNS_TYPE_ANY` in Validator in Symfony.', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('$constraint = new Url(["checkDNS" => true]);', '$constraint = new Url(["checkDNS" => Url::CHECK_DNS_TYPE_ANY]);')]);

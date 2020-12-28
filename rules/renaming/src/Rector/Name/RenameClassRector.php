@@ -69,7 +69,7 @@ function someFunction(SomeNewClass $someOldClass): SomeNewClass
     }
 }
 CODE_SAMPLE
-, [self::OLD_TO_NEW_CLASSES => ['RectorPrefix20201228\\App\\SomeOldClass' => 'RectorPrefix20201228\\App\\SomeNewClass']])]);
+, [self::OLD_TO_NEW_CLASSES => ['App\\SomeOldClass' => 'App\\SomeNewClass']])]);
     }
     /**
      * @return string[]

@@ -81,7 +81,7 @@ final class SomeTestCase extends \RectorPrefix20201228\PHPUnit\Framework\TestCas
         $product = \RectorPrefix20201228\EntityFactory::create('product');
     }
 }
-\class_alias('RectorPrefix20201228\\SomeTestCase', 'SomeTestCase', \false);
+\class_alias('SomeTestCase', 'SomeTestCase', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -189,8 +189,8 @@ CODE_SAMPLE
             }
         }
         // update parent clsas if not already
-        if (!$this->isObjectType($class, 'RectorPrefix20201228\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
-            $class->extends = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase');
+        if (!$this->isObjectType($class, 'Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase')) {
+            $class->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Bundle\\FrameworkBundle\\Test\\KernelTestCase');
         }
         return $class;
     }

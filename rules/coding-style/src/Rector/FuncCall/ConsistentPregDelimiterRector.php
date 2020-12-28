@@ -39,7 +39,7 @@ final class ConsistentPregDelimiterRector extends \Rector\Core\Rector\AbstractRe
      * All with pattern as 2st argument
      * @var array<string, array<string, int>>
      */
-    private const STATIC_METHODS_WITH_REGEX_PATTERN = ['RectorPrefix20201228\\Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
+    private const STATIC_METHODS_WITH_REGEX_PATTERN = ['Nette\\Utils\\Strings' => ['match' => 1, 'matchAll' => 1, 'replace' => 1, 'split' => 1]];
     /**
      * @var string
      */

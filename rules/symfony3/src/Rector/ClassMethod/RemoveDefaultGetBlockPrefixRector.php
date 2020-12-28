@@ -76,7 +76,7 @@ CODE_SAMPLE
     }
     private function isObjectMethodNameMatch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$this->isInObjectType($classMethod, 'RectorPrefix20201228\\Symfony\\Component\\Form\\AbstractType')) {
+        if (!$this->isInObjectType($classMethod, 'Symfony\\Component\\Form\\AbstractType')) {
             return \false;
         }
         return $this->isName($classMethod->name, 'getBlockPrefix');

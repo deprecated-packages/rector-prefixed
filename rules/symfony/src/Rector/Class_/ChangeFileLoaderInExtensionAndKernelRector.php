@@ -34,7 +34,7 @@ final class ChangeFileLoaderInExtensionAndKernelRector extends \Rector\Core\Rect
     /**
      * @var array<string, string>
      */
-    private const FILE_LOADERS_BY_TYPE = ['xml' => 'RectorPrefix20201228\\Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'RectorPrefix20201228\\Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'RectorPrefix20201228\\Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
+    private const FILE_LOADERS_BY_TYPE = ['xml' => 'Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader', 'yaml' => 'Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader', 'php' => 'Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader'];
     /**
      * @var string
      */
@@ -116,10 +116,10 @@ CODE_SAMPLE
     }
     private function isKernelOrExtensionClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if ($this->isObjectType($class, 'RectorPrefix20201228\\Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension')) {
+        if ($this->isObjectType($class, 'Symfony\\Component\\HttpKernel\\DependencyInjection\\Extension')) {
             return \true;
         }
-        return $this->isObjectType($class, 'RectorPrefix20201228\\Symfony\\Component\\HttpKernel\\Kernel');
+        return $this->isObjectType($class, 'Symfony\\Component\\HttpKernel\\Kernel');
     }
     private function validateConfiguration(string $from, string $to) : void
     {
@@ -140,7 +140,7 @@ CODE_SAMPLE
         if (!$node->var instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
-        if (!$this->isObjectType($node->var, 'RectorPrefix20201228\\Symfony\\Component\\Config\\Loader\\LoaderInterface')) {
+        if (!$this->isObjectType($node->var, 'Symfony\\Component\\Config\\Loader\\LoaderInterface')) {
             return null;
         }
         if (!$this->isName($node->name, 'load')) {

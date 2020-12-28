@@ -54,7 +54,7 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->isName($node->name, 'parse')) {
             return null;
         }
-        if (!$this->isObjectType($node->class, 'RectorPrefix20201228\\Symfony\\Component\\Yaml\\Yaml')) {
+        if (!$this->isObjectType($node->class, 'Symfony\\Component\\Yaml\\Yaml')) {
             return null;
         }
         if (!$this->isArgumentYamlFile($node)) {

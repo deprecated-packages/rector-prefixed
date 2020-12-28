@@ -81,7 +81,7 @@ class SomeController
     }
 }
 CODE_SAMPLE
-, [self::FUNCTIONS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('view', 'RectorPrefix20201228\\Illuminate\\Contracts\\View\\Factory', 'make')]])]);
+, [self::FUNCTIONS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\ArgumentFuncCallToMethodCall('view', 'Illuminate\\Contracts\\View\\Factory', 'make')]])]);
     }
     /**
      * @return string[]

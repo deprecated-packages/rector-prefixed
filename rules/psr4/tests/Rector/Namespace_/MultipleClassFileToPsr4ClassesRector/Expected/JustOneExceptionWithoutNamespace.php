@@ -6,4 +6,4 @@ namespace RectorPrefix20201228;
 final class JustOneExceptionWithoutNamespace
 {
 }
-\class_alias('RectorPrefix20201228\\JustOneExceptionWithoutNamespace', 'JustOneExceptionWithoutNamespace', \false);
+\class_alias('JustOneExceptionWithoutNamespace', 'JustOneExceptionWithoutNamespace', \false);

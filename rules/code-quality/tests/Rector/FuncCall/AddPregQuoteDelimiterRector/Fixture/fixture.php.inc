@@ -8,7 +8,7 @@ class Fixture
     {
         $patttern1 =  '/' . preg_quote('name'). '/';
         $patttern2 =  '#' . preg_quote('name'). '#';
-        $patttern3 =  '#\d' . preg_quote('name'). '\d#';
+        $patttern3 =  '#\d' . preg_quote('name'). 'd#';
     }
 }
 
@@ -24,7 +24,7 @@ class Fixture
     {
         $patttern1 =  '/' . preg_quote('name', '/'). '/';
         $patttern2 =  '#' . preg_quote('name', '#'). '#';
-        $patttern3 =  '#\d' . preg_quote('name', '#'). '\d#';
+        $patttern3 =  '#\d' . preg_quote('name', '#'). 'd#';
     }
 }
 

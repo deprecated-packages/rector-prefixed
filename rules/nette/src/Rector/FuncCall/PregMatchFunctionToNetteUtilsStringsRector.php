@@ -121,7 +121,7 @@ CODE_SAMPLE
         $args[] = $funcCall->args[1];
         $args[] = $funcCall->args[0];
         $args = $this->compensateMatchAllEnforcedFlag($methodName, $funcCall, $args);
-        return $this->createStaticCall('RectorPrefix20201228\\Nette\\Utils\\Strings', $methodName, $args);
+        return $this->createStaticCall('Nette\\Utils\\Strings', $methodName, $args);
     }
     /**
      * Compensate enforced flag https://github.com/nette/utils/blob/e3dd1853f56ee9a68bfbb2e011691283c2ed420d/src/Utils/Strings.php#L487

@@ -60,6 +60,6 @@ CODE_SAMPLE
         if ($constantName === null) {
             return null;
         }
-        return $this->createClassConstFetch('RectorPrefix20201228\\Nette\\Utils\\DateTime', $constantName);
+        return $this->createClassConstFetch('Nette\\Utils\\DateTime', $constantName);
     }
 }

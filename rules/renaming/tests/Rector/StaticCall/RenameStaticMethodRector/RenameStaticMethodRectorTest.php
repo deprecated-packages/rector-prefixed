@@ -28,6 +28,6 @@ final class RenameStaticMethodRectorTest extends \Rector\Testing\PHPUnit\Abstrac
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::class => [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => [new \Rector\Renaming\ValueObject\RenameStaticMethod(\RectorPrefix20201228\Nette\Utils\Html::class, 'add', \RectorPrefix20201228\Nette\Utils\Html::class, 'addHtml'), new \Rector\Renaming\ValueObject\RenameStaticMethod(\Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector\Source\FormMacros::class, 'renderFormBegin', 'RectorPrefix20201228\\Nette\\Bridges\\FormsLatte\\Runtime', 'renderFormBegin')]]];
+        return [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::class => [\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => [new \Rector\Renaming\ValueObject\RenameStaticMethod(\RectorPrefix20201228\Nette\Utils\Html::class, 'add', \RectorPrefix20201228\Nette\Utils\Html::class, 'addHtml'), new \Rector\Renaming\ValueObject\RenameStaticMethod(\Rector\Renaming\Tests\Rector\StaticCall\RenameStaticMethodRector\Source\FormMacros::class, 'renderFormBegin', 'Nette\\Bridges\\FormsLatte\\Runtime', 'renderFormBegin')]]];
     }
 }

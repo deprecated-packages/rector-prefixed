@@ -22,7 +22,7 @@ final class NodeTypesProviderTest extends \RectorPrefix20201228\Symplify\Package
         $nodeTypes = $this->nodeTypesProvider->provide();
         $nodeTypeCount = \count($nodeTypes);
         $this->assertGreaterThan(70, $nodeTypeCount);
-        $this->assertContains('RectorPrefix20201228\\Expr\\New_', $nodeTypes);
+        $this->assertContains('Expr\\New_', $nodeTypes);
         $this->assertContains('Param', $nodeTypes);
     }
 }

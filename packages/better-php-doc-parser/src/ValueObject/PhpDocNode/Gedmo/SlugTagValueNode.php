@@ -17,7 +17,7 @@ final class SlugTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpD
     }
     public function getShortName() : string
     {
-        return 'RectorPrefix20201228\\@Gedmo\\Slug';
+        return '@Gedmo\\Slug';
     }
     public function getSilentKey() : string
     {

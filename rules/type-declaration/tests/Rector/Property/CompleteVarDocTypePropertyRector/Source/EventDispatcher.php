@@ -6,4 +6,4 @@ namespace RectorPrefix20201228;
 final class EventDispatcher
 {
 }
-\class_alias('RectorPrefix20201228\\EventDispatcher', 'EventDispatcher', \false);
+\class_alias('EventDispatcher', 'EventDispatcher', \false);

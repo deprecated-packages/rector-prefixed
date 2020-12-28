@@ -6,4 +6,4 @@ namespace RectorPrefix20201228;
 final class Twig_Extension_Sandbox
 {
 }
-\class_alias('RectorPrefix20201228\\Twig_Extension_Sandbox', 'Twig_Extension_Sandbox', \false);
+\class_alias('Twig_Extension_Sandbox', 'Twig_Extension_Sandbox', \false);

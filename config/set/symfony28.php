@@ -13,9 +13,9 @@ return static function (\RectorPrefix20201228\Symfony\Component\DependencyInject
     $services->set(\Rector\Symfony2\Rector\StaticCall\ParseFileRector::class);
     $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::REPLACED_ARGUMENTS => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // https://github.com/symfony/symfony/commit/912fc4de8fd6de1e5397be4a94d39091423e5188
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('RectorPrefix20201228\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \true, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_URL'),
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('RectorPrefix20201228\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \false, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_PATH'),
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('RectorPrefix20201228\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'relative', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::RELATIVE_PATH'),
-        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('RectorPrefix20201228\\Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'network', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::NETWORK_PATH'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \true, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_URL'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, \false, 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::ABSOLUTE_PATH'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'relative', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::RELATIVE_PATH'),
+        new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface', 'generate', 2, 'network', 'Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface::NETWORK_PATH'),
     ])]]);
 };

@@ -26,6 +26,6 @@ final class StaticCallToMethodCallRectorTest extends \Rector\Testing\PHPUnit\Abs
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class => [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\StaticCallToMethodCall('RectorPrefix20201228\\Nette\\Utils\\FileSystem', 'write', 'RectorPrefix20201228\\Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('RectorPrefix20201228\\Illuminate\\Support\\Facades\\Response', '*', 'RectorPrefix20201228\\Illuminate\\Contracts\\Routing\\ResponseFactory', '*')]]];
+        return [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class => [\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\StaticCallToMethodCall('Nette\\Utils\\FileSystem', 'write', 'Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('Illuminate\\Support\\Facades\\Response', '*', 'Illuminate\\Contracts\\Routing\\ResponseFactory', '*')]]];
     }
 }

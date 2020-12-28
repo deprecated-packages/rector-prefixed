@@ -13,7 +13,7 @@ abstract class AbstractFormAddRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string[]
      */
-    private const FORM_TYPES = ['RectorPrefix20201228\\Symfony\\Component\\Form\\FormBuilderInterface', 'RectorPrefix20201228\\Symfony\\Component\\Form\\FormInterface'];
+    private const FORM_TYPES = ['Symfony\\Component\\Form\\FormBuilderInterface', 'Symfony\\Component\\Form\\FormInterface'];
     /**
      * @var FormTypeStringToTypeProvider
      */
@@ -53,7 +53,7 @@ abstract class AbstractFormAddRector extends \Rector\Core\Rector\AbstractRector
     protected function isCollectionType(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         $typeValue = $methodCall->args[1]->value;
-        if ($typeValue instanceof \PhpParser\Node\Expr\ClassConstFetch && $this->isName($typeValue->class, 'RectorPrefix20201228\\Symfony\\Component\\Form\\Extension\\Core\\Type\\CollectionType')) {
+        if ($typeValue instanceof \PhpParser\Node\Expr\ClassConstFetch && $this->isName($typeValue->class, 'Symfony\\Component\\Form\\Extension\\Core\\Type\\CollectionType')) {
             return \true;
         }
         return $this->isValue($typeValue, 'collection');

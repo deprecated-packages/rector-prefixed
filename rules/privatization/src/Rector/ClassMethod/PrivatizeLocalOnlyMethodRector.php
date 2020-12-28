@@ -110,7 +110,7 @@ CODE_SAMPLE
         if ($this->isAnonymousClass($classLike)) {
             return \true;
         }
-        if ($this->isObjectType($classLike, 'RectorPrefix20201228\\PHPUnit\\Framework\\TestCase')) {
+        if ($this->isObjectType($classLike, 'PHPUnit\\Framework\\TestCase')) {
             return \true;
         }
         if ($this->isDoctrineEntityClass($classLike)) {

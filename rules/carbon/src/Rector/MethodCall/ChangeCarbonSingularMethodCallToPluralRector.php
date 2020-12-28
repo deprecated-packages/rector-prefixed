@@ -22,7 +22,7 @@ final class ChangeCarbonSingularMethodCallToPluralRector extends \Rector\Core\Re
     private const SINGULAR_TO_PLURAL_NAMES = ['addSecond' => 'addSeconds', 'subSecond' => 'subSeconds', 'addMinute' => 'addMinutes', 'subMinute' => 'subMinutes', 'addDay' => 'addDays', 'subDay' => 'subDays', 'addHour' => 'addHours', 'subHour' => 'subHours', 'addWeek' => 'addWeeks', 'subWeek' => 'subWeeks', 'addMonth' => 'addMonths', 'subMonth' => 'subMonths', 'addYear' => 'addYears', 'subYear' => 'subYears'];
     public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('RectorPrefix20201228\\Change setter methods with args to their plural names on Carbon\\Carbon', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change setter methods with args to their plural names on Carbon\\Carbon', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Carbon\Carbon;
 
 final class SomeClass

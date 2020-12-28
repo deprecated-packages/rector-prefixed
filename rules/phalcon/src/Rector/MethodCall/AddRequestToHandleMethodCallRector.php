@@ -56,7 +56,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, 'RectorPrefix20201228\\Phalcon\\Mvc\\Application')) {
+        if (!$this->isObjectType($node->var, 'Phalcon\\Mvc\\Application')) {
             return null;
         }
         if (!$this->isName($node->name, 'handle')) {

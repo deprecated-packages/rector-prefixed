@@ -56,7 +56,7 @@ final class FileGenerator
         $content = $this->templateFactory->create($smartFileInfo->getContents(), $templateVariables);
         // replace "Rector\Utils\" with "Utils\Rector\" for 3rd party packages
         if (!$rectorRecipe->isRectorRepository()) {
-            $content = \RectorPrefix20201228\Nette\Utils\Strings::replace($content, self::RECTOR_UTILS_REGEX, 'RectorPrefix20201228\\Utils\\Rector');
+            $content = \RectorPrefix20201228\Nette\Utils\Strings::replace($content, self::RECTOR_UTILS_REGEX, 'Utils\\Rector');
         }
         $this->smartFileSystem->dumpFile($targetFilePath, $content);
         return $targetFilePath;

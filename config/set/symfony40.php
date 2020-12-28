@@ -19,5 +19,5 @@ return static function (\RectorPrefix20201228\Symfony\Component\DependencyInject
     $services->set(\Rector\Symfony4\Rector\MethodCall\ContainerBuilderCompileEnvArgumentRector::class);
     $services->set(\Rector\Symfony4\Rector\StaticCall\ProcessBuilderInstanceRector::class);
     $services->set(\Rector\Symfony4\Rector\MethodCall\ProcessBuilderGetProcessRector::class);
-    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['RectorPrefix20201228\\Symfony\\Component\\Validator\\Tests\\Constraints\\AbstractConstraintValidatorTest' => 'RectorPrefix20201228\\Symfony\\Component\\Validator\\Test\\ConstraintValidatorTestCase', 'RectorPrefix20201228\\Symfony\\Component\\Process\\ProcessBuilder' => 'RectorPrefix20201228\\Symfony\\Component\\Process\\Process']]]);
+    $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['Symfony\\Component\\Validator\\Tests\\Constraints\\AbstractConstraintValidatorTest' => 'Symfony\\Component\\Validator\\Test\\ConstraintValidatorTestCase', 'Symfony\\Component\\Process\\ProcessBuilder' => 'Symfony\\Component\\Process\\Process']]]);
 };

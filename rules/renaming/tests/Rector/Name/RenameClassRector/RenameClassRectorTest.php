@@ -42,21 +42,21 @@ final class RenameClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRector
     protected function getRectorsWithConfiguration() : array
     {
         return [\Rector\Renaming\Rector\Name\RenameClassRector::class => [\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
-            'FqnizeNamespaced' => 'RectorPrefix20201228\\Abc\\FqnizeNamespaced',
+            'FqnizeNamespaced' => 'Abc\\FqnizeNamespaced',
             \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class,
             \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClassWithTypo::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClassWithoutTypo::class,
             'DateTime' => 'DateTimeInterface',
             'Countable' => 'stdClass',
             \RectorPrefix20201228\Manual_Twig_Filter::class => \RectorPrefix20201228\Manual\Twig\TwigFilter::class,
             'Twig_AbstractManualExtension' => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension::class,
-            'Twig_Extension_Sandbox' => 'RectorPrefix20201228\\Twig\\Extension\\SandboxExtension',
+            'Twig_Extension_Sandbox' => 'Twig\\Extension\\SandboxExtension',
             // Renaming class itself and its namespace
-            'RectorPrefix20201228\\MyNamespace\\MyClass' => 'RectorPrefix20201228\\MyNewNamespace\\MyNewClass',
-            'RectorPrefix20201228\\MyNamespace\\MyTrait' => 'RectorPrefix20201228\\MyNewNamespace\\MyNewTrait',
-            'RectorPrefix20201228\\MyNamespace\\MyInterface' => 'RectorPrefix20201228\\MyNewNamespace\\MyNewInterface',
-            'MyOldClass' => 'RectorPrefix20201228\\MyNamespace\\MyNewClass',
+            'MyNamespace\\MyClass' => 'MyNewNamespace\\MyNewClass',
+            'MyNamespace\\MyTrait' => 'MyNewNamespace\\MyNewTrait',
+            'MyNamespace\\MyInterface' => 'MyNewNamespace\\MyNewInterface',
+            'MyOldClass' => 'MyNamespace\\MyNewClass',
             'AnotherMyOldClass' => 'AnotherMyNewClass',
-            'RectorPrefix20201228\\MyNamespace\\AnotherMyClass' => 'MyNewClassWithoutNamespace',
+            'MyNamespace\\AnotherMyClass' => 'MyNewClassWithoutNamespace',
             // test duplicated class - @see https://github.com/rectorphp/rector/issues/1438
             'Rector\\Renaming\\Tests\\Rector\\Name\\RenameClassRector\\Fixture\\SingularClass' => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture\DuplicatedClass::class,
         ]]];

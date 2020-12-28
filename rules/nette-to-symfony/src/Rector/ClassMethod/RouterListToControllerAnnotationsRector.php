@@ -41,7 +41,7 @@ final class RouterListToControllerAnnotationsRector extends \Rector\Core\Rector\
      *
      * @var string
      */
-    private const ROUTE_LIST_CLASS = 'RectorPrefix20201228\\Nette\\Application\\Routers\\RouteList';
+    private const ROUTE_LIST_CLASS = 'Nette\\Application\\Routers\\RouteList';
     /**
      * @var RouteInfoFactory
      */
@@ -167,7 +167,7 @@ CODE_SAMPLE
             if (!$node->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
                 return \false;
             }
-            if ($this->isObjectType($node->expr, 'RectorPrefix20201228\\Nette\\Application\\IRouter')) {
+            if ($this->isObjectType($node->expr, 'Nette\\Application\\IRouter')) {
                 return \true;
             }
             if ($node->expr instanceof \PhpParser\Node\Expr\StaticCall) {
@@ -238,7 +238,7 @@ CODE_SAMPLE
             return \false;
         }
         $staticCallReturnType = (string) $reflectionMethod->getReturnType();
-        return \is_a($staticCallReturnType, 'RectorPrefix20201228\\Nette\\Application\\IRouter', \true);
+        return \is_a($staticCallReturnType, 'Nette\\Application\\IRouter', \true);
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {

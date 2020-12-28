@@ -27,7 +27,7 @@ final class JMSInjectPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
      */
     public function getClasses() : array
     {
-        return ['RectorPrefix20201228\\JMS\\DiExtraBundle\\Annotation\\Inject'];
+        return ['JMS\\DiExtraBundle\\Annotation\\Inject'];
     }
     /**
      * @return JMSInjectTagValueNode|null

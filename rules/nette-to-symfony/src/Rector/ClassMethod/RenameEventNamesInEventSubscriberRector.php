@@ -77,7 +77,7 @@ CODE_SAMPLE
         if ($classLike === null) {
             return null;
         }
-        if (!$this->isObjectType($classLike, 'RectorPrefix20201228\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+        if (!$this->isObjectType($classLike, 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
             return null;
         }
         if (!$this->isName($node, 'getSubscribedEvents')) {

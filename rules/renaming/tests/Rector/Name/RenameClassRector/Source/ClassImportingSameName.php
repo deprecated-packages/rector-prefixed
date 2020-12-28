@@ -6,4 +6,4 @@ namespace RectorPrefix20201228;
 interface ClassImportingSameName
 {
 }
-\class_alias('RectorPrefix20201228\\ClassImportingSameName', 'ClassImportingSameName', \false);
+\class_alias('ClassImportingSameName', 'ClassImportingSameName', \false);

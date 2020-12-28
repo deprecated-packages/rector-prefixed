@@ -36,15 +36,15 @@ final class EventListenerToEventSubscriberRector extends \Rector\Core\Rector\Abs
     /**
      * @var string
      */
-    private const EVENT_SUBSCRIBER_INTERFACE = 'RectorPrefix20201228\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
+    private const EVENT_SUBSCRIBER_INTERFACE = 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface';
     /**
      * @var string
      */
-    private const KERNEL_EVENTS_CLASS = 'RectorPrefix20201228\\Symfony\\Component\\HttpKernel\\KernelEvents';
+    private const KERNEL_EVENTS_CLASS = 'Symfony\\Component\\HttpKernel\\KernelEvents';
     /**
      * @var string
      */
-    private const CONSOLE_EVENTS_CLASS = 'RectorPrefix20201228\\Symfony\\Component\\Console\\ConsoleEvents';
+    private const CONSOLE_EVENTS_CLASS = 'Symfony\\Component\\Console\\ConsoleEvents';
     /**
      * @var string
      * @see https://regex101.com/r/qiHZ4T/1
@@ -160,7 +160,7 @@ CODE_SAMPLE
     private function isAlreadyEventSubscriber(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->implements as $implement) {
-            if ($this->isName($implement, 'RectorPrefix20201228\\Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
+            if ($this->isName($implement, 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
                 return \true;
             }
         }

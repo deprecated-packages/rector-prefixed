@@ -20,7 +20,7 @@ final class ResponseStatusCodeRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    private const RESPONSE_CLASS = 'RectorPrefix20201228\\Symfony\\Component\\HttpFoundation\\Response';
+    private const RESPONSE_CLASS = 'Symfony\\Component\\HttpFoundation\\Response';
     /**
      * @var string[]
      */

@@ -24,18 +24,18 @@ final class TestListenerToHooksRector extends \Rector\Core\Rector\AbstractRector
      * @var string[][]
      */
     private const LISTENER_METHOD_TO_HOOK_INTERFACES = [
-        'addIncompleteTest' => ['RectorPrefix20201228\\PHPUnit\\Runner\\AfterIncompleteTestHook', 'executeAfterIncompleteTest'],
-        'addRiskyTest' => ['RectorPrefix20201228\\PHPUnit\\Runner\\AfterRiskyTestHook', 'executeAfterRiskyTest'],
-        'addSkippedTest' => ['RectorPrefix20201228\\PHPUnit\\Runner\\AfterSkippedTestHook', 'executeAfterSkippedTest'],
-        'addError' => ['RectorPrefix20201228\\PHPUnit\\Runner\\AfterTestErrorHook', 'executeAfterTestError'],
-        'addFailure' => ['RectorPrefix20201228\\PHPUnit\\Runner\\AfterTestFailureHook', 'executeAfterTestFailure'],
-        'addWarning' => ['RectorPrefix20201228\\PHPUnit\\Runner\\AfterTestWarningHook', 'executeAfterTestWarning'],
+        'addIncompleteTest' => ['PHPUnit\\Runner\\AfterIncompleteTestHook', 'executeAfterIncompleteTest'],
+        'addRiskyTest' => ['PHPUnit\\Runner\\AfterRiskyTestHook', 'executeAfterRiskyTest'],
+        'addSkippedTest' => ['PHPUnit\\Runner\\AfterSkippedTestHook', 'executeAfterSkippedTest'],
+        'addError' => ['PHPUnit\\Runner\\AfterTestErrorHook', 'executeAfterTestError'],
+        'addFailure' => ['PHPUnit\\Runner\\AfterTestFailureHook', 'executeAfterTestFailure'],
+        'addWarning' => ['PHPUnit\\Runner\\AfterTestWarningHook', 'executeAfterTestWarning'],
         # test
-        'startTest' => ['RectorPrefix20201228\\PHPUnit\\Runner\\BeforeTestHook', 'executeBeforeTest'],
-        'endTest' => ['RectorPrefix20201228\\PHPUnit\\Runner\\AfterTestHook', 'executeAfterTest'],
+        'startTest' => ['PHPUnit\\Runner\\BeforeTestHook', 'executeBeforeTest'],
+        'endTest' => ['PHPUnit\\Runner\\AfterTestHook', 'executeAfterTest'],
         # suite
-        'startTestSuite' => ['RectorPrefix20201228\\PHPUnit\\Runner\\BeforeFirstTestHook', 'executeBeforeFirstTest'],
-        'endTestSuite' => ['RectorPrefix20201228\\PHPUnit\\Runner\\AfterLastTestHook', 'executeAfterLastTest'],
+        'startTestSuite' => ['PHPUnit\\Runner\\BeforeFirstTestHook', 'executeBeforeFirstTest'],
+        'endTestSuite' => ['PHPUnit\\Runner\\AfterLastTestHook', 'executeAfterLastTest'],
     ];
     public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -121,11 +121,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node, 'RectorPrefix20201228\\PHPUnit\\Framework\\TestListener')) {
+        if (!$this->isObjectType($node, 'PHPUnit\\Framework\\TestListener')) {
             return null;
         }
         foreach ($node->implements as $implement) {
-            if ($this->isName($implement, 'RectorPrefix20201228\\PHPUnit\\Framework\\TestListener')) {
+            if ($this->isName($implement, 'PHPUnit\\Framework\\TestListener')) {
                 $this->removeNode($implement);
             }
         }

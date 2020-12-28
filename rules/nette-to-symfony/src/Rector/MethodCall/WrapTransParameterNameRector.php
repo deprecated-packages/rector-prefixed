@@ -70,7 +70,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isObjectType($node->var, 'RectorPrefix20201228\\Symfony\\Component\\Translation\\TranslatorInterface')) {
+        if (!$this->isObjectType($node->var, 'Symfony\\Component\\Translation\\TranslatorInterface')) {
             return null;
         }
         if (!$this->isName($node->name, 'trans')) {

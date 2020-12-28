@@ -6,4 +6,4 @@ namespace RectorPrefix20201228;
 interface Controller
 {
 }
-\class_alias('RectorPrefix20201228\\Controller', 'Controller', \false);
+\class_alias('Controller', 'Controller', \false);

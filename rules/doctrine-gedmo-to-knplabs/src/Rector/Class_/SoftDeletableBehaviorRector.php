@@ -89,8 +89,8 @@ CODE_SAMPLE
         $softDeleteableTagValueNode = $classPhpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
         $fieldName = $softDeleteableTagValueNode->getFieldName();
         $this->removePropertyAndClassMethods($node, $fieldName);
-        $this->classInsertManipulator->addAsFirstTrait($node, 'RectorPrefix20201228\\Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableTrait');
-        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\Knp\\DoctrineBehaviors\\Contract\\Entity\\SoftDeletableInterface');
+        $this->classInsertManipulator->addAsFirstTrait($node, 'Knp\\DoctrineBehaviors\\Model\\SoftDeletable\\SoftDeletableTrait');
+        $node->implements[] = new \PhpParser\Node\Name\FullyQualified('Knp\\DoctrineBehaviors\\Contract\\Entity\\SoftDeletableInterface');
         $classPhpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SoftDeleteableTagValueNode::class);
         return $node;
     }

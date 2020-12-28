@@ -17,7 +17,7 @@ final class EntityTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Ph
     }
     public function getShortName() : string
     {
-        return 'RectorPrefix20201228\\@ORM\\Entity';
+        return '@ORM\\Entity';
     }
     /**
      * @return mixed[]

@@ -44,7 +44,7 @@ final class SomeSubscriber
     }
 }
 CODE_SAMPLE
-, [self::STRINGS_TO_CLASS_CONSTANTS => [new \Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', 'RectorPrefix20201228\\Yet\\AnotherClass', 'CONSTANT')]])]);
+, [self::STRINGS_TO_CLASS_CONSTANTS => [new \Rector\Generic\ValueObject\StringToClassConstant('compiler.post_dump', 'Yet\\AnotherClass', 'CONSTANT')]])]);
     }
     /**
      * @return string[]

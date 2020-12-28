@@ -37,7 +37,7 @@ return static function (\RectorPrefix20201228\Symfony\Component\DependencyInject
     $services->set(\Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class);
     $services->set(\Rector\Php80\Rector\Switch_\ChangeSwitchToMatchRector::class);
     // nette\utils and Strings::replace()
-    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentAdder('RectorPrefix20201228\\Nette\\Utils\\Strings', 'replace', 2, 'replacement', '')])]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentAdder('Nette\\Utils\\Strings', 'replace', 2, 'replacement', '')])]]);
     $services->set(\Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector::class);
     $services->set(\Rector\Php80\Rector\ClassMethod\SetStateToStaticRector::class);
     $services->set(\Rector\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector::class);

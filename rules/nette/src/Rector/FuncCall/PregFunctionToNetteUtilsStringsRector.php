@@ -135,7 +135,7 @@ CODE_SAMPLE
             $args[] = $funcCall->args[1];
             $args[] = $funcCall->args[0];
         }
-        return $this->createStaticCall('RectorPrefix20201228\\Nette\\Utils\\Strings', $methodName, $args);
+        return $this->createStaticCall('Nette\\Utils\\Strings', $methodName, $args);
     }
     /**
      * @return FuncCall|StaticCall

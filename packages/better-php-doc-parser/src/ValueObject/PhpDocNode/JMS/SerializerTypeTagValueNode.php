@@ -16,7 +16,7 @@ final class SerializerTypeTagValueNode extends \Rector\BetterPhpDocParser\ValueO
     private const NAME = 'name';
     public function getShortName() : string
     {
-        return 'RectorPrefix20201228\\@Serializer\\Type';
+        return '@Serializer\\Type';
     }
     public function changeName(string $newName) : void
     {

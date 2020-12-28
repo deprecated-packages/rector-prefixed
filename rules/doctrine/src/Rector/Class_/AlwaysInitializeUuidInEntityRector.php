@@ -130,7 +130,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
-            if (!$this->isStaticCallNamed($node->expr, 'RectorPrefix20201228\\Ramsey\\Uuid\\Uuid', 'uuid4')) {
+            if (!$this->isStaticCallNamed($node->expr, 'Ramsey\\Uuid\\Uuid', 'uuid4')) {
                 return \false;
             }
             return $this->isName($node->var, $uuidPropertyName);

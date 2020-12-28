@@ -75,7 +75,7 @@ class SomeClass
         return new \RectorPrefix20201228\AnotherClass();
     }
 }
-\class_alias('RectorPrefix20201228\\SomeClass', 'SomeClass', \false);
+\class_alias('SomeClass', 'SomeClass', \false);
 class AnotherClass
 {
     public function someFun()
@@ -83,7 +83,7 @@ class AnotherClass
         return \RectorPrefix20201228\StaticClass::staticMethod();
     }
 }
-\class_alias('RectorPrefix20201228\\AnotherClass', 'AnotherClass', \false);
+\class_alias('AnotherClass', 'AnotherClass', \false);
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass
