@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator/src'),
     'Rector\\VendorLocker\\' => array($baseDir . '/packages/vendor-locker/src'),
     'Rector\\TypeDeclaration\\' => array($baseDir . '/rules/type-declaration/src'),
     'Rector\\Twig\\' => array($baseDir . '/rules/twig/src'),
@@ -109,7 +110,6 @@ return array(
     'RectorPrefix20201228\\Symplify\\Skipper\\' => array($vendorDir . '/symplify/skipper/src'),
     'RectorPrefix20201228\\Symplify\\SimplePhpDocParser\\' => array($vendorDir . '/symplify/simple-php-doc-parser/src'),
     'RectorPrefix20201228\\Symplify\\SetConfigResolver\\' => array($vendorDir . '/symplify/set-config-resolver/src'),
-    'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator/src'),
     'RectorPrefix20201228\\Symplify\\PhpConfigPrinter\\' => array($vendorDir . '/symplify/php-config-printer/src'),
     'RectorPrefix20201228\\Symplify\\PackageBuilder\\' => array($vendorDir . '/symplify/package-builder/src'),
     'RectorPrefix20201228\\Symplify\\MarkdownDiff\\' => array($vendorDir . '/symplify/markdown-diff/src'),

@@ -18,8 +18,8 @@ use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://stackoverflow.com/questions/5577003/using-settype-in-php-instead-of-typecasting-using-brackets-what-is-the-differen/5577068#5577068
  * @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/3709
@@ -31,9 +31,9 @@ final class SetTypeToCastRector extends \Rector\Core\Rector\AbstractRector
      * @var string[]
      */
     private const TYPE_TO_CAST = ['array' => \PhpParser\Node\Expr\Cast\Array_::class, 'bool' => \PhpParser\Node\Expr\Cast\Bool_::class, 'boolean' => \PhpParser\Node\Expr\Cast\Bool_::class, 'double' => \PhpParser\Node\Expr\Cast\Double::class, 'float' => \PhpParser\Node\Expr\Cast\Double::class, 'int' => \PhpParser\Node\Expr\Cast\Int_::class, 'integer' => \PhpParser\Node\Expr\Cast\Int_::class, 'object' => \PhpParser\Node\Expr\Cast\Object_::class, 'string' => \PhpParser\Node\Expr\Cast\String_::class];
-    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes settype() to (type) where possible', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes settype() to (type) where possible', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($foo)

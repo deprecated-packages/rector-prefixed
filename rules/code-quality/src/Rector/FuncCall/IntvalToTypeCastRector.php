@@ -7,8 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Cast\Int_;
 use PhpParser\Node\Expr\FuncCall;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/kalessil/phpinspectionsea/commit/25f53c8c7e08234c34b0d21f308f7c5cbd7a6c95
  * @see https://www.php.net/manual/en/function.intval.php
@@ -17,9 +17,9 @@ use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class IntvalToTypeCastRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change intval() to faster and readable (int) $value', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change intval() to faster and readable (int) $value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run($value)

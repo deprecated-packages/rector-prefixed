@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4
+class ComposerStaticInit1d586a65de38f6d3c566a8cd001411a0
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -21,6 +21,10 @@ class ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4
     );
 
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symplify\\RuleDocGenerator\\' => 26,
+        ),
         'R' => 
         array (
             'Rector\\VendorLocker\\' => 20,
@@ -126,7 +130,6 @@ class ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4
             'RectorPrefix20201228\\Symplify\\Skipper\\' => 38,
             'RectorPrefix20201228\\Symplify\\SimplePhpDocParser\\' => 49,
             'RectorPrefix20201228\\Symplify\\SetConfigResolver\\' => 48,
-            'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\' => 47,
             'RectorPrefix20201228\\Symplify\\PhpConfigPrinter\\' => 47,
             'RectorPrefix20201228\\Symplify\\PackageBuilder\\' => 45,
             'RectorPrefix20201228\\Symplify\\MarkdownDiff\\' => 43,
@@ -179,6 +182,10 @@ class ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symplify\\RuleDocGenerator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/rule-doc-generator/src',
+        ),
         'Rector\\VendorLocker\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/vendor-locker/src',
@@ -590,10 +597,6 @@ class ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4
         'RectorPrefix20201228\\Symplify\\SetConfigResolver\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/set-config-resolver/src',
-        ),
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symplify/rule-doc-generator/src',
         ),
         'RectorPrefix20201228\\Symplify\\PhpConfigPrinter\\' => 
         array (
@@ -2159,38 +2162,6 @@ class ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4
         'RectorPrefix20201228\\Symplify\\PhpConfigPrinter\\ValueObject\\YamlServiceKey' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/YamlServiceKey.php',
         'RectorPrefix20201228\\Symplify\\PhpConfigPrinter\\YamlToPhpConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/YamlToPhpConverter.php',
         'RectorPrefix20201228\\Symplify\\PhpConfigPrinter\\Yaml\\CheckerServiceParametersShifter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Yaml/CheckerServiceParametersShifter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Category\\CategoryResolver' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Category/CategoryResolver.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Command\\GenerateCommand' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Command/GenerateCommand.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Contract\\Category\\CategoryInfererInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/Category/CategoryInfererInterface.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Contract\\CodeSampleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/CodeSampleInterface.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Contract\\ConfigurableRuleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/ConfigurableRuleInterface.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Contract\\DocumentedRuleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/DocumentedRuleInterface.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Contract\\RuleCodeSamplePrinterInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/RuleCodeSamplePrinterInterface.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\DirectoryToMarkdownPrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/DirectoryToMarkdownPrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Exception\\PoorDocumentationException' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Exception/PoorDocumentationException.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Finder\\ClassByTypeFinder' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Finder/ClassByTypeFinder.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\HttpKernel\\RuleDocGeneratorKernel' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/HttpKernel/RuleDocGeneratorKernel.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Printer\\CodeSamplePrinter\\BadGoodCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/CodeSamplePrinter/BadGoodCodeSamplePrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Printer\\CodeSamplePrinter\\CodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/CodeSamplePrinter/CodeSamplePrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Printer\\CodeSamplePrinter\\DiffCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/CodeSamplePrinter/DiffCodeSamplePrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Printer\\MarkdownCodeWrapper' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/MarkdownCodeWrapper.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Printer\\RuleDefinitionsPrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/RuleDefinitionsPrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\ConfiguredCodeSamplerPrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/ConfiguredCodeSamplerPrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\PHPCSFixerRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/PHPCSFixerRuleCodeSamplePrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\PHPCodeSnifferRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/PHPCodeSnifferRuleCodeSamplePrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\PHPStanRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/PHPStanRuleCodeSamplePrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\RectorRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/RectorRuleCodeSamplePrinter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\RuleDefinitionsResolver' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleDefinitionsResolver.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Text\\KeywordHighlighter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Text/KeywordHighlighter.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\ValueObject\\AbstractCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/AbstractCodeSample.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\CodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/CodeSample.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ComposerJsonAwareCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/ComposerJsonAwareCodeSample.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ConfiguredCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/ConfiguredCodeSample.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ExtraFileCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/ExtraFileCodeSample.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\ValueObject\\Lines' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/Lines.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/Option.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\ValueObject\\RuleDefinition' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/RuleDefinition.php',
-        'RectorPrefix20201228\\Symplify\\RuleDocGenerator\\ValueObject\\Section' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/Section.php',
         'RectorPrefix20201228\\Symplify\\SetConfigResolver\\AbstractConfigResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/AbstractConfigResolver.php',
         'RectorPrefix20201228\\Symplify\\SetConfigResolver\\Bootstrap\\InvalidSetReporter' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/Bootstrap/InvalidSetReporter.php',
         'RectorPrefix20201228\\Symplify\\SetConfigResolver\\ConfigResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/ConfigResolver.php',
@@ -3969,14 +3940,46 @@ class ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4
         'Rector\\VendorLocker\\NodeVendorLocker\\PropertyTypeVendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/PropertyTypeVendorLockResolver.php',
         'Rector\\VendorLocker\\NodeVendorLocker\\PropertyVisibilityVendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/NodeVendorLocker/PropertyVisibilityVendorLockResolver.php',
         'Rector\\VendorLocker\\VendorLockResolver' => __DIR__ . '/../..' . '/packages/vendor-locker/src/VendorLockResolver.php',
+        'Symplify\\RuleDocGenerator\\Category\\CategoryResolver' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Category/CategoryResolver.php',
+        'Symplify\\RuleDocGenerator\\Command\\GenerateCommand' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Command/GenerateCommand.php',
+        'Symplify\\RuleDocGenerator\\Contract\\Category\\CategoryInfererInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/Category/CategoryInfererInterface.php',
+        'Symplify\\RuleDocGenerator\\Contract\\CodeSampleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/CodeSampleInterface.php',
+        'Symplify\\RuleDocGenerator\\Contract\\ConfigurableRuleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/ConfigurableRuleInterface.php',
+        'Symplify\\RuleDocGenerator\\Contract\\DocumentedRuleInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/DocumentedRuleInterface.php',
+        'Symplify\\RuleDocGenerator\\Contract\\RuleCodeSamplePrinterInterface' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Contract/RuleCodeSamplePrinterInterface.php',
+        'Symplify\\RuleDocGenerator\\DirectoryToMarkdownPrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/DirectoryToMarkdownPrinter.php',
+        'Symplify\\RuleDocGenerator\\Exception\\PoorDocumentationException' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Exception/PoorDocumentationException.php',
+        'Symplify\\RuleDocGenerator\\Finder\\ClassByTypeFinder' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Finder/ClassByTypeFinder.php',
+        'Symplify\\RuleDocGenerator\\HttpKernel\\RuleDocGeneratorKernel' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/HttpKernel/RuleDocGeneratorKernel.php',
+        'Symplify\\RuleDocGenerator\\Printer\\CodeSamplePrinter\\BadGoodCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/CodeSamplePrinter/BadGoodCodeSamplePrinter.php',
+        'Symplify\\RuleDocGenerator\\Printer\\CodeSamplePrinter\\CodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/CodeSamplePrinter/CodeSamplePrinter.php',
+        'Symplify\\RuleDocGenerator\\Printer\\CodeSamplePrinter\\DiffCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/CodeSamplePrinter/DiffCodeSamplePrinter.php',
+        'Symplify\\RuleDocGenerator\\Printer\\MarkdownCodeWrapper' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/MarkdownCodeWrapper.php',
+        'Symplify\\RuleDocGenerator\\Printer\\RuleDefinitionsPrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Printer/RuleDefinitionsPrinter.php',
+        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\ConfiguredCodeSamplerPrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/ConfiguredCodeSamplerPrinter.php',
+        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\PHPCSFixerRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/PHPCSFixerRuleCodeSamplePrinter.php',
+        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\PHPCodeSnifferRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/PHPCodeSnifferRuleCodeSamplePrinter.php',
+        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\PHPStanRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/PHPStanRuleCodeSamplePrinter.php',
+        'Symplify\\RuleDocGenerator\\RuleCodeSamplePrinter\\RectorRuleCodeSamplePrinter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleCodeSamplePrinter/RectorRuleCodeSamplePrinter.php',
+        'Symplify\\RuleDocGenerator\\RuleDefinitionsResolver' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/RuleDefinitionsResolver.php',
+        'Symplify\\RuleDocGenerator\\Text\\KeywordHighlighter' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/Text/KeywordHighlighter.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\AbstractCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/AbstractCodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\CodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/CodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ComposerJsonAwareCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/ComposerJsonAwareCodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ConfiguredCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/ConfiguredCodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ExtraFileCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/CodeSample/ExtraFileCodeSample.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\Lines' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/Lines.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/Option.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\RuleDefinition' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/RuleDefinition.php',
+        'Symplify\\RuleDocGenerator\\ValueObject\\Section' => __DIR__ . '/..' . '/symplify/rule-doc-generator/src/ValueObject/Section.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd988c9ef045302793b7e60933a9ccaf4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1d586a65de38f6d3c566a8cd001411a0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1d586a65de38f6d3c566a8cd001411a0::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1d586a65de38f6d3c566a8cd001411a0::$classMap;
 
         }, null, ClassLoader::class);
     }

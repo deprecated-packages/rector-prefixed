@@ -7,8 +7,8 @@ use RectorPrefix20201228\Nette\Utils\DateTime;
 use PhpParser\Node;
 use PhpParser\Node\Scalar\LNumber;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -21,9 +21,9 @@ final class ReplaceTimeNumberWithDateTimeConstantRector extends \Rector\Core\Rec
      * @var array<int, string>
      */
     private const NUMBER_TO_CONSTANT_NAME = [\RectorPrefix20201228\Nette\Utils\DateTime::HOUR => 'HOUR', \RectorPrefix20201228\Nette\Utils\DateTime::DAY => 'DAY', \RectorPrefix20201228\Nette\Utils\DateTime::WEEK => 'WEEK', \RectorPrefix20201228\Nette\Utils\DateTime::MONTH => 'MONTH', \RectorPrefix20201228\Nette\Utils\DateTime::YEAR => 'YEAR'];
-    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace time numbers with Nette\\Utils\\DateTime constants', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace time numbers with Nette\\Utils\\DateTime constants', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class SomeClass
 {
     public function run()

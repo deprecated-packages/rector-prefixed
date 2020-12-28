@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
+namespace Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
 
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class PHPCSFixerRuleCodeSamplePrinter implements \RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
+use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
+use Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+final class PHPCSFixerRuleCodeSamplePrinter implements \Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
 {
     /**
      * @var DiffCodeSamplePrinter
@@ -18,7 +18,7 @@ final class PHPCSFixerRuleCodeSamplePrinter implements \RectorPrefix20201228\Sym
      * @var ConfiguredCodeSamplerPrinter
      */
     private $configuredCodeSamplerPrinter;
-    public function __construct(\RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter $diffCodeSamplePrinter, \RectorPrefix20201228\Symplify\RuleDocGenerator\RuleCodeSamplePrinter\ConfiguredCodeSamplerPrinter $configuredCodeSamplerPrinter)
+    public function __construct(\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter $diffCodeSamplePrinter, \Symplify\RuleDocGenerator\RuleCodeSamplePrinter\ConfiguredCodeSamplerPrinter $configuredCodeSamplerPrinter)
     {
         $this->diffCodeSamplePrinter = $diffCodeSamplePrinter;
         $this->configuredCodeSamplerPrinter = $configuredCodeSamplerPrinter;
@@ -31,9 +31,9 @@ final class PHPCSFixerRuleCodeSamplePrinter implements \RectorPrefix20201228\Sym
     /**
      * @return mixed[]|string[]
      */
-    public function print(\RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
+    public function print(\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
     {
-        if ($codeSample instanceof \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
+        if ($codeSample instanceof \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
             return $this->configuredCodeSamplerPrinter->printConfiguredCodeSample($ruleDefinition, $codeSample);
         }
         return $this->diffCodeSamplePrinter->print($codeSample);

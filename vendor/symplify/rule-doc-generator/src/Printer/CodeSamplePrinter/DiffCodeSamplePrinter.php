@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
+namespace Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
 
 use RectorPrefix20201228\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 final class DiffCodeSamplePrinter
 {
     /**
@@ -18,7 +18,7 @@ final class DiffCodeSamplePrinter
     /**
      * @return string[]
      */
-    public function print(\RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample) : array
+    public function print(\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample) : array
     {
         $lines = [];
         $lines[] = $this->markdownDiffer->diff($codeSample->getBadCode(), $codeSample->getGoodCode());

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
+namespace Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
 
 use RectorPrefix20201228\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter;
+use Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ConfiguredCodeSamplerPrinter
 {
     /**
@@ -22,7 +22,7 @@ final class ConfiguredCodeSamplerPrinter
      * @var DiffCodeSamplePrinter
      */
     private $diffCodeSamplePrinter;
-    public function __construct(\RectorPrefix20201228\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter $smartPhpConfigPrinter, \RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter $diffCodeSamplePrinter)
+    public function __construct(\RectorPrefix20201228\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter $smartPhpConfigPrinter, \Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\DiffCodeSamplePrinter $diffCodeSamplePrinter)
     {
         $this->smartPhpConfigPrinter = $smartPhpConfigPrinter;
         $this->markdownCodeWrapper = $markdownCodeWrapper;
@@ -31,7 +31,7 @@ final class ConfiguredCodeSamplerPrinter
     /**
      * @return string[]
      */
-    public function printConfiguredCodeSample(\RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition, \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample) : array
+    public function printConfiguredCodeSample(\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition, \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample) : array
     {
         $lines = [];
         $configPhpCode = $this->smartPhpConfigPrinter->printConfiguredServices([$ruleDefinition->getRuleClass() => $configuredCodeSample->getConfiguration()]);

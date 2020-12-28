@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject;
+namespace Symplify\RuleDocGenerator\ValueObject;
 
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 use RectorPrefix20201228\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-abstract class AbstractCodeSample implements \RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface
+abstract class AbstractCodeSample implements \Symplify\RuleDocGenerator\Contract\CodeSampleInterface
 {
     /**
      * @var string

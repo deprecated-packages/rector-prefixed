@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject;
+namespace Symplify\RuleDocGenerator\ValueObject;
 
 use RectorPrefix20201228\Nette\Utils\Strings;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use RectorPrefix20201228\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class RuleDefinition
 {
@@ -29,7 +29,7 @@ final class RuleDefinition
     {
         $this->description = $description;
         if ($codeSamples === []) {
-            throw new \RectorPrefix20201228\Symplify\RuleDocGenerator\Exception\PoorDocumentationException('Provide at least one code sample, so people can practically see what the rule does');
+            throw new \Symplify\RuleDocGenerator\Exception\PoorDocumentationException('Provide at least one code sample, so people can practically see what the rule does');
         }
         $this->codeSamples = $codeSamples;
     }
@@ -62,7 +62,7 @@ final class RuleDefinition
     public function isConfigurable() : bool
     {
         foreach ($this->codeSamples as $codeSample) {
-            if ($codeSample instanceof \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
+            if ($codeSample instanceof \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
                 return \true;
             }
         }

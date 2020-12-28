@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228\Symplify\RuleDocGenerator\HttpKernel;
+namespace Symplify\RuleDocGenerator\HttpKernel;
 
 use RectorPrefix20201228\Symfony\Component\Config\Loader\LoaderInterface;
 use RectorPrefix20201228\Symfony\Component\HttpKernel\Bundle\BundleInterface;

@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
+namespace Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
 
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class PHPCodeSnifferRuleCodeSamplePrinter implements \RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
+use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
+use Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+final class PHPCodeSnifferRuleCodeSamplePrinter implements \Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
 {
     /**
      * @var BadGoodCodeSamplePrinter
      */
     private $badGoodCodeSamplePrinter;
-    public function __construct(\RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter $badGoodCodeSamplePrinter)
+    public function __construct(\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter $badGoodCodeSamplePrinter)
     {
         $this->badGoodCodeSamplePrinter = $badGoodCodeSamplePrinter;
     }
@@ -25,7 +25,7 @@ final class PHPCodeSnifferRuleCodeSamplePrinter implements \RectorPrefix20201228
     /**
      * @return string[]
      */
-    public function print(\RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
+    public function print(\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
     {
         return $this->badGoodCodeSamplePrinter->print($codeSample);
     }

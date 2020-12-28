@@ -26,8 +26,8 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Sensio\NodeFactory\ThisRenderFactory;
 use Rector\Sensio\TypeAnalyzer\ArrayUnionResponseTypeAnalyzer;
 use Rector\Sensio\TypeDeclaration\ReturnTypeDeclarationUpdater;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/symfony/symfony-docs/pull/12387#discussion_r329551967
  * @see https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/view.html
@@ -59,9 +59,9 @@ final class TemplateAnnotationToThisRenderRector extends \Rector\Core\Rector\Abs
         $this->thisRenderFactory = $thisRenderFactory;
         $this->arrayUnionResponseTypeAnalyzer = $arrayUnionResponseTypeAnalyzer;
     }
-    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns `@Template` annotation to explicit method call in Controller of FrameworkExtraBundle in Symfony', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns `@Template` annotation to explicit method call in Controller of FrameworkExtraBundle in Symfony', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 /**
  * @Template()
  */

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228\Symplify\RuleDocGenerator\Text;
+namespace Symplify\RuleDocGenerator\Text;
 
 use RectorPrefix20201228\Nette\Utils\Strings;
 use RectorPrefix20201228\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
