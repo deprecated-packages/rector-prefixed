@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Core\Php;
 
-use RectorPrefix20201227\Nette\Utils\Json;
+use RectorPrefix20201228\Nette\Utils\Json;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Util\PhpVersionFactory;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use RectorPrefix20201227\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20201228\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileSystem;
 final class PhpVersionProvider
 {
     /**
@@ -23,7 +23,7 @@ final class PhpVersionProvider
      * @var PhpVersionFactory
      */
     private $phpVersionFactory;
-    public function __construct(\RectorPrefix20201227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\Util\PhpVersionFactory $phpVersionFactory)
+    public function __construct(\RectorPrefix20201228\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\Util\PhpVersionFactory $phpVersionFactory)
     {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
@@ -59,7 +59,7 @@ final class PhpVersionProvider
             return null;
         }
         $projectComposerContent = $this->smartFileSystem->readFile($projectComposerJson);
-        $projectComposerJson = \RectorPrefix20201227\Nette\Utils\Json::decode($projectComposerContent, \RectorPrefix20201227\Nette\Utils\Json::FORCE_ARRAY);
+        $projectComposerJson = \RectorPrefix20201228\Nette\Utils\Json::decode($projectComposerContent, \RectorPrefix20201228\Nette\Utils\Json::FORCE_ARRAY);
         // Rector's composer.json
         if (isset($projectComposerJson['name']) && $projectComposerJson['name'] === 'rector/rector') {
             return null;

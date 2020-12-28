@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\Symplify\PhpConfigPrinter\Printer\ArrayDecorator;
+namespace RectorPrefix20201228\Symplify\PhpConfigPrinter\Printer\ArrayDecorator;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name\FullyQualified;
-use RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\NewValueObjectFactory;
-use RectorPrefix20201227\Symplify\PhpConfigPrinter\Reflection\ConstantNameFromValueResolver;
-use RectorPrefix20201227\Symplify\SymfonyPhpConfig\ValueObjectInliner;
+use RectorPrefix20201228\Symplify\PhpConfigPrinter\NodeFactory\NewValueObjectFactory;
+use RectorPrefix20201228\Symplify\PhpConfigPrinter\Reflection\ConstantNameFromValueResolver;
+use RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner;
 final class ServiceConfigurationDecorator
 {
     /**
@@ -21,7 +21,7 @@ final class ServiceConfigurationDecorator
      * @var NewValueObjectFactory
      */
     private $newValueObjectFactory;
-    public function __construct(\RectorPrefix20201227\Symplify\PhpConfigPrinter\Reflection\ConstantNameFromValueResolver $constantNameFromValueResolver, \RectorPrefix20201227\Symplify\PhpConfigPrinter\NodeFactory\NewValueObjectFactory $newValueObjectFactory)
+    public function __construct(\RectorPrefix20201228\Symplify\PhpConfigPrinter\Reflection\ConstantNameFromValueResolver $constantNameFromValueResolver, \RectorPrefix20201228\Symplify\PhpConfigPrinter\NodeFactory\NewValueObjectFactory $newValueObjectFactory)
     {
         $this->constantNameFromValueResolver = $constantNameFromValueResolver;
         $this->newValueObjectFactory = $newValueObjectFactory;
@@ -101,7 +101,7 @@ final class ServiceConfigurationDecorator
      */
     private function createInlineStaticCall(array $args) : \PhpParser\Node\Expr\StaticCall
     {
-        $fullyQualified = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201227\Symplify\SymfonyPhpConfig\ValueObjectInliner::class);
+        $fullyQualified = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::class);
         return new \PhpParser\Node\Expr\StaticCall($fullyQualified, 'inline', $args);
     }
 }

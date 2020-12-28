@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Printer;
 
-use RectorPrefix20201227\Nette\Utils\Strings;
+use RectorPrefix20201228\Nette\Utils\Strings;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
@@ -128,7 +128,7 @@ final class PhpDocInfoPrinter
         $phpDocString = $this->printPhpDocNode($this->attributeAwarePhpDocNode);
         $phpDocString = $this->removeExtraSpacesAfterAsterisk($phpDocString);
         // hotfix of extra space with callable ()
-        return \RectorPrefix20201227\Nette\Utils\Strings::replace($phpDocString, self::CALLABLE_REGEX, 'callable(');
+        return \RectorPrefix20201228\Nette\Utils\Strings::replace($phpDocString, self::CALLABLE_REGEX, 'callable(');
     }
     private function printPhpDocNode(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode $attributeAwarePhpDocNode) : string
     {
@@ -145,18 +145,18 @@ final class PhpDocInfoPrinter
         }
         $output = $this->printEnd($output);
         // fix missing start
-        if (!\RectorPrefix20201227\Nette\Utils\Strings::match($output, self::DOCBLOCK_START_REGEX) && $output) {
+        if (!\RectorPrefix20201228\Nette\Utils\Strings::match($output, self::DOCBLOCK_START_REGEX) && $output) {
             $output = '/**' . $output;
         }
         // fix missing end
-        if (\RectorPrefix20201227\Nette\Utils\Strings::match($output, self::OPENING_DOCBLOCK_REGEX) && $output && !\RectorPrefix20201227\Nette\Utils\Strings::match($output, self::CLOSING_DOCBLOCK_REGEX)) {
+        if (\RectorPrefix20201228\Nette\Utils\Strings::match($output, self::OPENING_DOCBLOCK_REGEX) && $output && !\RectorPrefix20201228\Nette\Utils\Strings::match($output, self::CLOSING_DOCBLOCK_REGEX)) {
             $output .= ' */';
         }
         return $output;
     }
     private function removeExtraSpacesAfterAsterisk(string $phpDocString) : string
     {
-        return \RectorPrefix20201227\Nette\Utils\Strings::replace($phpDocString, self::SPACE_AFTER_ASTERISK_REGEX, '$1*');
+        return \RectorPrefix20201228\Nette\Utils\Strings::replace($phpDocString, self::SPACE_AFTER_ASTERISK_REGEX, '$1*');
     }
     private function printNode(\Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface $attributeAwareNode, ?\Rector\BetterPhpDocParser\ValueObject\StartAndEnd $startAndEnd = null, int $key = 0, int $nodeCount = 0) : string
     {
@@ -198,7 +198,7 @@ final class PhpDocInfoPrinter
             --$from;
         }
         // skip extra empty lines above if this is the last one
-        if ($shouldSkipEmptyLinesAbove && \RectorPrefix20201227\Nette\Utils\Strings::contains($this->tokens[$from][0], \PHP_EOL) && \RectorPrefix20201227\Nette\Utils\Strings::contains($this->tokens[$from + 1][0], \PHP_EOL)) {
+        if ($shouldSkipEmptyLinesAbove && \RectorPrefix20201228\Nette\Utils\Strings::contains($this->tokens[$from][0], \PHP_EOL) && \RectorPrefix20201228\Nette\Utils\Strings::contains($this->tokens[$from + 1][0], \PHP_EOL)) {
             ++$from;
         }
         return $this->appendToOutput($output, $from, $to, $positionJumpSet);
@@ -223,13 +223,13 @@ final class PhpDocInfoPrinter
         /** @var AttributeAwarePhpDocTagNode $phpDocTagNode */
         if ($this->hasDescription($phpDocTagNode)) {
             $quotedDescription = \preg_quote($phpDocTagNode->value->description, '#');
-            $pattern = \RectorPrefix20201227\Nette\Utils\Strings::replace($quotedDescription, '#[\\s]+#', '\\s+');
-            $nodeOutput = \RectorPrefix20201227\Nette\Utils\Strings::replace($nodeOutput, '#' . $pattern . '#', function () use($phpDocTagNode) {
+            $pattern = \RectorPrefix20201228\Nette\Utils\Strings::replace($quotedDescription, '#[\\s]+#', '\\s+');
+            $nodeOutput = \RectorPrefix20201228\Nette\Utils\Strings::replace($nodeOutput, '#' . $pattern . '#', function () use($phpDocTagNode) {
                 // warning: classic string replace() breaks double "\\" slashes to "\"
                 return $phpDocTagNode->value->description;
             });
             if (\substr_count($nodeOutput, "\n") !== 0) {
-                $nodeOutput = \RectorPrefix20201227\Nette\Utils\Strings::replace($nodeOutput, "#\n#", self::NEWLINE_ASTERISK);
+                $nodeOutput = \RectorPrefix20201228\Nette\Utils\Strings::replace($nodeOutput, "#\n#", self::NEWLINE_ASTERISK);
             }
         }
         return $output . $nodeOutput;
@@ -284,7 +284,7 @@ final class PhpDocInfoPrinter
     {
         $originalContent = $this->phpDocInfo->getOriginalContent();
         $spacePattern = $this->spacePatternFactory->createSpacePattern($phpDocTagNode);
-        $matches = \RectorPrefix20201227\Nette\Utils\Strings::match($originalContent, $spacePattern);
+        $matches = \RectorPrefix20201228\Nette\Utils\Strings::match($originalContent, $spacePattern);
         if (isset($matches['space'])) {
             return $matches['space'];
         }

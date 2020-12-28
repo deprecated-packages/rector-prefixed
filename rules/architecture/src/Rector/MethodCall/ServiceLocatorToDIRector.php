@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Architecture\Rector\MethodCall;
 
-use RectorPrefix20201227\Nette\Utils\Strings;
+use RectorPrefix20201228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -18,8 +18,8 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\Contract\Mapper\DoctrineEntityAndRepositoryMapperInterface;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService\DoctrineRepositoryAsServiceTest
  */
@@ -38,9 +38,9 @@ final class ServiceLocatorToDIRector extends \Rector\Core\Rector\AbstractRector
         $this->doctrineEntityAndRepositoryMapper = $doctrineEntityAndRepositoryMapper;
         $this->propertyNaming = $propertyNaming;
     }
-    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns $this->getRepository() in Symfony Controller to constructor injection and private property access.', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns $this->getRepository() in Symfony Controller to constructor injection and private property access.', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class ProductController extends Controller
 {
     public function someAction()
@@ -106,11 +106,11 @@ CODE_SAMPLE
             /** @var String_ $string */
             $string = $methodCallNode->args[0]->value;
             // is alias
-            if (\RectorPrefix20201227\Nette\Utils\Strings::contains($string->value, ':')) {
+            if (\RectorPrefix20201228\Nette\Utils\Strings::contains($string->value, ':')) {
                 return null;
             }
         }
-        if (\RectorPrefix20201227\Nette\Utils\Strings::endsWith($className, 'Repository')) {
+        if (\RectorPrefix20201228\Nette\Utils\Strings::endsWith($className, 'Repository')) {
             return null;
         }
         $repositoryFqn = $this->resolveRepositoryFqnFromGetRepositoryMethodCall($node);

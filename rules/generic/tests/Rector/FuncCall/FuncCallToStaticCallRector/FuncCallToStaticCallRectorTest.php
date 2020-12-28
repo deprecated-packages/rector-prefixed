@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\ValueObject\FuncCallToStaticCall;
-use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo;
 final class FuncCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +26,6 @@ final class FuncCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\Abstr
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::class => [\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::FUNC_CALLS_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\FuncCallToStaticCall('view', 'SomeStaticClass', 'render'), new \Rector\Transform\ValueObject\FuncCallToStaticCall('RectorPrefix20201227\\SomeNamespaced\\view', 'AnotherStaticClass', 'render')]]];
+        return [\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::class => [\Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector::FUNC_CALLS_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\FuncCallToStaticCall('view', 'SomeStaticClass', 'render'), new \Rector\Transform\ValueObject\FuncCallToStaticCall('RectorPrefix20201228\\SomeNamespaced\\view', 'AnotherStaticClass', 'render')]]];
     }
 }

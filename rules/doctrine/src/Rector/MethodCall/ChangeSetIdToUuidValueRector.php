@@ -11,12 +11,12 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
-use RectorPrefix20201227\Ramsey\Uuid\Uuid;
+use RectorPrefix20201228\Ramsey\Uuid\Uuid;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://spaceflow.io/ for sponsoring this rule - visit them on https://github.com/SpaceFlow-app
  *
@@ -32,9 +32,9 @@ final class ChangeSetIdToUuidValueRector extends \Rector\Core\Rector\AbstractRec
     {
         $this->doctrineEntityManipulator = $doctrineEntityManipulator;
     }
-    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change set id to uuid values', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change set id to uuid values', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 
@@ -113,11 +113,11 @@ CODE_SAMPLE
             }
             // update constant value
             $classConst->consts[0]->value = $this->createUuidStringNode();
-            $node->args[0]->value = $this->createStaticCall(\RectorPrefix20201227\Ramsey\Uuid\Uuid::class, 'fromString', [$argumentValue]);
+            $node->args[0]->value = $this->createStaticCall(\RectorPrefix20201228\Ramsey\Uuid\Uuid::class, 'fromString', [$argumentValue]);
             return $node;
         }
         // C. set uuid from string with generated string
-        $value = $this->createStaticCall(\RectorPrefix20201227\Ramsey\Uuid\Uuid::class, 'fromString', [$this->createUuidStringNode()]);
+        $value = $this->createStaticCall(\RectorPrefix20201228\Ramsey\Uuid\Uuid::class, 'fromString', [$this->createUuidStringNode()]);
         $node->args[0]->value = $value;
         return $node;
     }
@@ -163,7 +163,7 @@ CODE_SAMPLE
     }
     private function createUuidStringNode() : \PhpParser\Node\Scalar\String_
     {
-        $uuidValue = \RectorPrefix20201227\Ramsey\Uuid\Uuid::uuid4();
+        $uuidValue = \RectorPrefix20201228\Ramsey\Uuid\Uuid::uuid4();
         $uuidValueString = $uuidValue->toString();
         return new \PhpParser\Node\Scalar\String_($uuidValueString);
     }
@@ -174,6 +174,6 @@ CODE_SAMPLE
         if (!$argumentStaticType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
-        return $argumentStaticType->getClassName() === \RectorPrefix20201227\Ramsey\Uuid\Uuid::class;
+        return $argumentStaticType->getClassName() === \RectorPrefix20201228\Ramsey\Uuid\Uuid::class;
     }
 }

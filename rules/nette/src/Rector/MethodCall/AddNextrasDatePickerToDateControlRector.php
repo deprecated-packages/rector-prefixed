@@ -14,8 +14,8 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -23,9 +23,9 @@ use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class AddNextrasDatePickerToDateControlRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Nextras/Form upgrade of addDatePicker method call to DateControl assign', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Nextras/Form upgrade of addDatePicker method call to DateControl assign', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Form;
 
 class SomeClass
@@ -65,7 +65,7 @@ CODE_SAMPLE
     {
         // 1. chain call
         if ($node->var instanceof \PhpParser\Node\Expr\MethodCall) {
-            if (!$this->isOnClassMethodCall($node->var, 'RectorPrefix20201227\\Nette\\Application\\UI\\Form', 'addDatePicker')) {
+            if (!$this->isOnClassMethodCall($node->var, 'RectorPrefix20201228\\Nette\\Application\\UI\\Form', 'addDatePicker')) {
                 return null;
             }
             $assign = $this->createAssign($node->var);
@@ -80,7 +80,7 @@ CODE_SAMPLE
             return $node;
         }
         // 2. assign call
-        if (!$this->isOnClassMethodCall($node, 'RectorPrefix20201227\\Nette\\Application\\UI\\Form', 'addDatePicker')) {
+        if (!$this->isOnClassMethodCall($node, 'RectorPrefix20201228\\Nette\\Application\\UI\\Form', 'addDatePicker')) {
             return null;
         }
         return $this->createAssign($node);
@@ -118,7 +118,7 @@ CODE_SAMPLE
     }
     private function createDateTimeControlNew(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\New_
     {
-        $fullyQualified = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201227\\Nextras\\FormComponents\\Controls\\DateControl');
+        $fullyQualified = new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\Nextras\\FormComponents\\Controls\\DateControl');
         $new = new \PhpParser\Node\Expr\New_($fullyQualified);
         if (isset($methodCall->args[1])) {
             $new->args[] = $methodCall->args[1];

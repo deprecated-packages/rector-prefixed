@@ -9,6 +9,6 @@ final class LoggableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
 {
     public function getShortName() : string
     {
-        return 'RectorPrefix20201227\\@Gedmo\\Loggable';
+        return 'RectorPrefix20201228\\@Gedmo\\Loggable';
     }
 }

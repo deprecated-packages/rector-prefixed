@@ -16,10 +16,10 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\StringType;
 use Rector\Core\PhpParser\NodeTransformer;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20201227\Symfony\Component\Console\Input\StringInput;
-use RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesCaller;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Symfony\Component\Console\Input\StringInput;
+use RectorPrefix20201228\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/symfony/symfony/pull/27821/files
  * @see \Rector\Symfony4\Tests\Rector\New_\StringToArrayArgumentProcessRector\StringToArrayArgumentProcessRectorTest
@@ -34,9 +34,9 @@ final class StringToArrayArgumentProcessRector extends \Rector\Core\Rector\Abstr
     {
         $this->nodeTransformer = $nodeTransformer;
     }
-    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes Process string argument to an array', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes Process string argument to an array', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Process\Process;
 $process = new Process('ls -l');
 CODE_SAMPLE
@@ -59,10 +59,10 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $expr = $node instanceof \PhpParser\Node\Expr\New_ ? $node->class : $node->var;
-        if ($this->isObjectType($expr, 'RectorPrefix20201227\\Symfony\\Component\\Process\\Process')) {
+        if ($this->isObjectType($expr, 'RectorPrefix20201228\\Symfony\\Component\\Process\\Process')) {
             return $this->processArgumentPosition($node, 0);
         }
-        if ($this->isObjectType($expr, 'RectorPrefix20201227\\Symfony\\Component\\Console\\Helper\\ProcessHelper')) {
+        if ($this->isObjectType($expr, 'RectorPrefix20201228\\Symfony\\Component\\Console\\Helper\\ProcessHelper')) {
             return $this->processArgumentPosition($node, 1);
         }
         return null;
@@ -113,8 +113,8 @@ CODE_SAMPLE
      */
     private function splitProcessCommandToItems(string $process) : array
     {
-        $privatesCaller = new \RectorPrefix20201227\Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        return $privatesCaller->callPrivateMethod(new \RectorPrefix20201227\Symfony\Component\Console\Input\StringInput(''), 'tokenize', $process);
+        $privatesCaller = new \RectorPrefix20201228\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        return $privatesCaller->callPrivateMethod(new \RectorPrefix20201228\Symfony\Component\Console\Input\StringInput(''), 'tokenize', $process);
     }
     private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {

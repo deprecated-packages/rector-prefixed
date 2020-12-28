@@ -7,17 +7,17 @@ use InvalidArgumentException;
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector;
-use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo;
 final class InvalidConfigurationTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @var string[][]
      */
-    private const CONFIGURATION = [['RectorPrefix20201227\\Nette\\Utils\\FileSystem', 'write', 'RectorPrefix20201227\\Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile']];
+    private const CONFIGURATION = [['RectorPrefix20201228\\Nette\\Utils\\FileSystem', 'write', 'RectorPrefix20201228\\Symplify\\SmartFileSystem\\SmartFileSystem', 'dumpFile']];
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->doTestFileInfo($fileInfo);

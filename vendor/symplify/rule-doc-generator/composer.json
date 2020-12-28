@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20201227\\Symplify\\RuleDocGenerator\\": "src"
+            "RectorPrefix20201228\\Symplify\\RuleDocGenerator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20201227\\Symplify\\RuleDocGenerator\\Tests\\": "tests"
+            "RectorPrefix20201228\\Symplify\\RuleDocGenerator\\Tests\\": "tests"
         },
         "classmap": [
             "stubs"

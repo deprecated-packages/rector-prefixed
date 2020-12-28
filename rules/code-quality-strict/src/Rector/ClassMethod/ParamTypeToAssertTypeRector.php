@@ -16,8 +16,8 @@ use Rector\CodeQualityStrict\NodeFactory\ClassConstFetchFactory;
 use Rector\CodeQualityStrict\TypeAnalyzer\SubTypeAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodeQualityStrict\Tests\Rector\ClassMethod\ParamTypeToAssertTypeRector\ParamTypeToAssertTypeRectorTest
  */
@@ -36,9 +36,9 @@ final class ParamTypeToAssertTypeRector extends \Rector\Core\Rector\AbstractRect
         $this->classConstFetchFactory = $classConstFetchFactory;
         $this->subTypeAnalyzer = $subTypeAnalyzer;
     }
-    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turn @param type to assert type', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turn @param type to assert type', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     /**
@@ -164,7 +164,7 @@ CODE_SAMPLE
                 $methodName = 'isAOf';
             }
             $args = $this->createArgs($arguments);
-            $staticCall = $this->createStaticCall('RectorPrefix20201227\\Webmozart\\Assert\\Assert', $methodName, $args);
+            $staticCall = $this->createStaticCall('RectorPrefix20201228\\Webmozart\\Assert\\Assert', $methodName, $args);
             $assertStatements[] = new \PhpParser\Node\Stmt\Expression($staticCall);
         }
         return $this->addStatements($classMethod, $assertStatements);

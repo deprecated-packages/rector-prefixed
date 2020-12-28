@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace RectorPrefix20201227\Composer\XdebugHandler;
+namespace RectorPrefix20201228\Composer\XdebugHandler;
 
 /**
  * Provides utility functions to prepare a child process command-line and set

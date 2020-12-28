@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
+namespace RectorPrefix20201228\Symplify\RuleDocGenerator\RuleCodeSamplePrinter;
 
-use RectorPrefix20201227\Symplify\PackageBuilder\Neon\NeonPrinter;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class PHPStanRuleCodeSamplePrinter implements \RectorPrefix20201227\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
+use RectorPrefix20201228\Symplify\PackageBuilder\Neon\NeonPrinter;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+final class PHPStanRuleCodeSamplePrinter implements \RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\RuleCodeSamplePrinterInterface
 {
     /**
      * @var NeonPrinter
@@ -24,7 +24,7 @@ final class PHPStanRuleCodeSamplePrinter implements \RectorPrefix20201227\Sympli
      * @var BadGoodCodeSamplePrinter
      */
     private $badGoodCodeSamplePrinter;
-    public function __construct(\RectorPrefix20201227\Symplify\PackageBuilder\Neon\NeonPrinter $neonPrinter, \RectorPrefix20201227\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \RectorPrefix20201227\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter $badGoodCodeSamplePrinter)
+    public function __construct(\RectorPrefix20201228\Symplify\PackageBuilder\Neon\NeonPrinter $neonPrinter, \RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\MarkdownCodeWrapper $markdownCodeWrapper, \RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\BadGoodCodeSamplePrinter $badGoodCodeSamplePrinter)
     {
         $this->neonPrinter = $neonPrinter;
         $this->markdownCodeWrapper = $markdownCodeWrapper;
@@ -38,9 +38,9 @@ final class PHPStanRuleCodeSamplePrinter implements \RectorPrefix20201227\Sympli
     /**
      * @return string[]
      */
-    public function print(\RectorPrefix20201227\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
+    public function print(\RectorPrefix20201228\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
     {
-        if ($codeSample instanceof \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
+        if ($codeSample instanceof \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
             return $this->printConfigurableCodeSample($codeSample, $ruleDefinition);
         }
         return $this->badGoodCodeSamplePrinter->print($codeSample);
@@ -48,7 +48,7 @@ final class PHPStanRuleCodeSamplePrinter implements \RectorPrefix20201227\Sympli
     /**
      * @return string[]
      */
-    private function printConfigurableCodeSample(\RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample, \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
+    private function printConfigurableCodeSample(\RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample $configuredCodeSample, \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition) : array
     {
         $lines = [];
         $phpstanNeon = ['services' => [['class' => $ruleDefinition->getRuleClass(), 'tags' => ['phpstan.rules.rule'], 'arguments' => $configuredCodeSample->getConfiguration()]]];

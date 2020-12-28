@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\Symplify\RuleDocGenerator\Printer;
+namespace RectorPrefix20201228\Symplify\RuleDocGenerator\Printer;
 
-use RectorPrefix20201227\Nette\Utils\Strings;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\Category\CategoryResolver;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\CodeSamplePrinter;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\Text\KeywordHighlighter;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\Lines;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Nette\Utils\Strings;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\Category\CategoryResolver;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\CodeSamplePrinter;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\Text\KeywordHighlighter;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\Lines;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RuleDefinitionsPrinter
 {
     /**
@@ -23,7 +23,7 @@ final class RuleDefinitionsPrinter
      * @var CategoryResolver
      */
     private $categoryResolver;
-    public function __construct(\RectorPrefix20201227\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\CodeSamplePrinter $codeSamplePrinter, \RectorPrefix20201227\Symplify\RuleDocGenerator\Text\KeywordHighlighter $keywordHighlighter, \RectorPrefix20201227\Symplify\RuleDocGenerator\Category\CategoryResolver $categoryResolver)
+    public function __construct(\RectorPrefix20201228\Symplify\RuleDocGenerator\Printer\CodeSamplePrinter\CodeSamplePrinter $codeSamplePrinter, \RectorPrefix20201228\Symplify\RuleDocGenerator\Text\KeywordHighlighter $keywordHighlighter, \RectorPrefix20201228\Symplify\RuleDocGenerator\Category\CategoryResolver $categoryResolver)
     {
         $this->codeSamplePrinter = $codeSamplePrinter;
         $this->keywordHighlighter = $keywordHighlighter;
@@ -80,7 +80,7 @@ final class RuleDefinitionsPrinter
             }
             $lines[] = $this->keywordHighlighter->highlight($ruleDefinition->getDescription());
             if ($ruleDefinition->isConfigurable()) {
-                $lines[] = \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\Lines::CONFIGURE_IT;
+                $lines[] = \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\Lines::CONFIGURE_IT;
             }
             $lines[] = '- class: `' . $ruleDefinition->getRuleClass() . '`';
             $codeSampleLines = $this->codeSamplePrinter->print($ruleDefinition);
@@ -98,7 +98,7 @@ final class RuleDefinitionsPrinter
         $lines[] = '<br>';
         $lines[] = '## Categories';
         foreach ($ruleDefinitionsByCategory as $category => $ruleDefinitions) {
-            $lines[] = \sprintf('- [%s](#%s) (%d)', $category, \RectorPrefix20201227\Nette\Utils\Strings::webalize($category), \count($ruleDefinitions));
+            $lines[] = \sprintf('- [%s](#%s) (%d)', $category, \RectorPrefix20201228\Nette\Utils\Strings::webalize($category), \count($ruleDefinitions));
         }
         $lines[] = '<br>';
         return $lines;

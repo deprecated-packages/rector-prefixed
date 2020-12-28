@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php70\Rector\FuncCall;
 
-use RectorPrefix20201227\Nette\Utils\Strings;
+use RectorPrefix20201228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -18,8 +18,8 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Php70\EregToPcreTransformer;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see http://php.net/reference.pcre.pattern.posix
  * @see https://stackoverflow.com/a/17033826/1348344
@@ -41,9 +41,9 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
     {
         $this->eregToPcreTransformer = $eregToPcreTransformer;
     }
-    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes ereg*() to preg*() calls', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('ereg("hi")', 'preg_match("#hi#");')]);
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes ereg*() to preg*() calls', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample('ereg("hi")', 'preg_match("#hi#");')]);
     }
     /**
      * @return string[]
@@ -103,7 +103,7 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
      */
     private function processSplitLimitArgument(\PhpParser\Node\Expr\FuncCall $funcCall, string $functionName) : void
     {
-        if (!\RectorPrefix20201227\Nette\Utils\Strings::startsWith($functionName, 'split')) {
+        if (!\RectorPrefix20201228\Nette\Utils\Strings::startsWith($functionName, 'split')) {
             return;
         }
         // 3rd argument - $limit, 0 → 1
@@ -128,9 +128,9 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
     }
     private function isCaseInsensitiveFunction(string $functionName) : bool
     {
-        if (\RectorPrefix20201227\Nette\Utils\Strings::contains($functionName, 'eregi')) {
+        if (\RectorPrefix20201228\Nette\Utils\Strings::contains($functionName, 'eregi')) {
             return \true;
         }
-        return \RectorPrefix20201227\Nette\Utils\Strings::contains($functionName, 'spliti');
+        return \RectorPrefix20201228\Nette\Utils\Strings::contains($functionName, 'spliti');
     }
 }

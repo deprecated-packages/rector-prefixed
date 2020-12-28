@@ -9,10 +9,10 @@ use Rector\RectorGenerator\Generator\FileGenerator;
 use Rector\RectorGenerator\TemplateVariablesFactory;
 use Rector\RectorGenerator\Tests\RectorGenerator\Source\StaticRectorRecipeFactory;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
-use RectorPrefix20201227\Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
-use RectorPrefix20201227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileSystem;
-final class RectorGeneratorTest extends \RectorPrefix20201227\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20201228\Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
+use RectorPrefix20201228\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileSystem;
+final class RectorGeneratorTest extends \RectorPrefix20201228\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     use DirectoryAssertableTrait;
     /**
@@ -41,7 +41,7 @@ final class RectorGeneratorTest extends \RectorPrefix20201227\Symplify\PackageBu
         $this->templateVariablesFactory = $this->getService(\Rector\RectorGenerator\TemplateVariablesFactory::class);
         $this->templateFinder = $this->getService(\Rector\RectorGenerator\Finder\TemplateFinder::class);
         $this->fileGenerator = $this->getService(\Rector\RectorGenerator\Generator\FileGenerator::class);
-        $this->smartFileSystem = $this->getService(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileSystem::class);
+        $this->smartFileSystem = $this->getService(\RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileSystem::class);
     }
     protected function tearDown() : void
     {

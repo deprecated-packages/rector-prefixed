@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227;
+namespace RectorPrefix20201228;
 
 final class EventDispatcher
 {
 }
-\class_alias('RectorPrefix20201227\\EventDispatcher', 'EventDispatcher', \false);
+\class_alias('RectorPrefix20201228\\EventDispatcher', 'EventDispatcher', \false);

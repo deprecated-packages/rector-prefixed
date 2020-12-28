@@ -14,8 +14,8 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://github.com/doctrine/orm/blob/2.7/UPGRADE.md#query-querybuilder-and-nativequery-parameters-bc-break
  * @see \Rector\DoctrineCodeQuality\Tests\Rector\MethodCall\ChangeSetParametersArrayToArrayCollectionRector\ChangeSetParametersArrayToArrayCollectionRectorTest
@@ -50,9 +50,9 @@ final class ChangeSetParametersArrayToArrayCollectionRector extends \Rector\Core
         $node->args = [new \PhpParser\Node\Arg($new)];
         return $node;
     }
-    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array to ArrayCollection in setParameters method of query builder', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array to ArrayCollection in setParameters method of query builder', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\EntityRepository;
 
 class SomeRepository extends EntityRepository
@@ -103,10 +103,10 @@ CODE_SAMPLE
             return \true;
         }
         //one of the cases when we are in the repo and it's extended from EntityRepository
-        if (!$this->isObjectType($classLike, 'RectorPrefix20201227\\Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($classLike, 'RectorPrefix20201228\\Doctrine\\ORM\\EntityRepository')) {
             return \true;
         }
-        if (!$this->isObjectType($methodCall->var, 'RectorPrefix20201227\\Doctrine\\ORM\\EntityRepository')) {
+        if (!$this->isObjectType($methodCall->var, 'RectorPrefix20201228\\Doctrine\\ORM\\EntityRepository')) {
             return \true;
         }
         return !$this->isName($methodCall->name, 'setParameters');
@@ -122,11 +122,11 @@ CODE_SAMPLE
             if (!$firstArgumentArrayItem->key instanceof \PhpParser\Node\Scalar\String_ || !$firstArgumentArrayItem->value instanceof \PhpParser\Node\Scalar\String_) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
-            $queryParameter = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201227\\Doctrine\\ORM\\Query\\Parameter'));
+            $queryParameter = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\Doctrine\\ORM\\Query\\Parameter'));
             $queryParameter->args = [new \PhpParser\Node\Arg($firstArgumentArrayItem->key), new \PhpParser\Node\Arg($firstArgumentArrayItem->value)];
             $arrayCollectionArrayArguments[] = new \PhpParser\Node\Expr\ArrayItem($queryParameter);
         }
-        $arrayCollection = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201227\\Doctrine\\Common\\Collections\\ArrayCollection'));
+        $arrayCollection = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('RectorPrefix20201228\\Doctrine\\Common\\Collections\\ArrayCollection'));
         $arrayCollection->args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Array_($arrayCollectionArrayArguments))];
         return $arrayCollection;
     }

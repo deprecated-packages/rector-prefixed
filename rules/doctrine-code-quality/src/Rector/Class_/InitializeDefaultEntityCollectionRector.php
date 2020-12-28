@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
-use RectorPrefix20201227\Doctrine\Common\Collections\ArrayCollection;
+use RectorPrefix20201228\Doctrine\Common\Collections\ArrayCollection;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\New_;
@@ -14,8 +14,8 @@ use Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
 use Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://www.doctrine-project.org/projects/doctrine-orm/en/2.6/reference/best-practices.html#initialize-collections-in-the-constructor
  *
@@ -31,9 +31,9 @@ final class InitializeDefaultEntityCollectionRector extends \Rector\Core\Rector\
     {
         $this->classDependencyManipulator = $classDependencyManipulator;
     }
-    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Initialize collection property in Entity constructor', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Initialize collection property in Entity constructor', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -125,7 +125,7 @@ CODE_SAMPLE
     private function createPropertyArrayCollectionAssign(string $toManyPropertyName) : \PhpParser\Node\Stmt\Expression
     {
         $propertyFetch = $this->createPropertyFetch('this', $toManyPropertyName);
-        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201227\Doctrine\Common\Collections\ArrayCollection::class));
+        $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20201228\Doctrine\Common\Collections\ArrayCollection::class));
         $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $new);
         return new \PhpParser\Node\Stmt\Expression($assign);
     }

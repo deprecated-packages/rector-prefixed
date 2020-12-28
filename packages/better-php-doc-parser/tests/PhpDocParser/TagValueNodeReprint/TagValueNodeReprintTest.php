@@ -22,14 +22,14 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagVal
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertTypeTagValueNode;
-use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo;
 final class TagValueNodeReprintTest extends \Rector\BetterPhpDocParser\Tests\PhpDocParser\AbstractPhpDocInfoTest
 {
     /**
      * @dataProvider provideData()
      * @param class-string $tagValueNodeClass
      */
-    public function test(\RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $tagValueNodeClass) : void
+    public function test(\RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $tagValueNodeClass) : void
     {
         $this->doTestPrintedPhpDocInfo($fileInfo, $tagValueNodeClass);
     }

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227;
+namespace RectorPrefix20201228;
 
 final class JustOneExceptionWithoutNamespace
 {
 }
-\class_alias('RectorPrefix20201227\\JustOneExceptionWithoutNamespace', 'JustOneExceptionWithoutNamespace', \false);
+\class_alias('RectorPrefix20201228\\JustOneExceptionWithoutNamespace', 'JustOneExceptionWithoutNamespace', \false);

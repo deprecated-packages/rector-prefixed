@@ -5,12 +5,12 @@ namespace Rector\Core\Console\Command;
 
 use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Configuration\Option;
-use RectorPrefix20201227\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20201227\Symfony\Component\Console\Output\OutputInterface;
-use RectorPrefix20201227\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20201227\Symplify\PackageBuilder\Console\ShellCode;
-use RectorPrefix20201227\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201228\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201228\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20201228\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20201228\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20201228\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo;
 final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
 {
     /**
@@ -25,7 +25,7 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\RectorPrefix20201227\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \RectorPrefix20201227\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\RectorPrefix20201228\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \RectorPrefix20201228\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->activeRectorsProvider = $activeRectorsProvider;
@@ -36,11 +36,11 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
     {
         $this->setDescription('Show loaded Rectors with their configuration');
     }
-    protected function execute(\RectorPrefix20201227\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201227\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\RectorPrefix20201228\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201228\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->reportLoadedRectors();
         $this->reportLoadedSets();
-        return \RectorPrefix20201227\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \RectorPrefix20201228\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
     private function reportLoadedRectors() : void
     {
@@ -69,7 +69,7 @@ final class ShowCommand extends \Rector\Core\Console\Command\AbstractCommand
         \sort($sets);
         $setFilePaths = [];
         foreach ($sets as $set) {
-            $setFileInfo = new \RectorPrefix20201227\Symplify\SmartFileSystem\SmartFileInfo($set);
+            $setFileInfo = new \RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo($set);
             $setFilePaths[] = $setFileInfo->getRelativeFilePathFromCwd();
         }
         $this->symfonyStyle->listing($setFilePaths);

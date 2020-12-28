@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20201227\\Symplify\\SymfonyPhpConfig\\": "src"
+            "RectorPrefix20201228\\Symplify\\SymfonyPhpConfig\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20201227\\Symplify\\SymfonyPhpConfig\\Tests\\": "tests"
+            "RectorPrefix20201228\\Symplify\\SymfonyPhpConfig\\Tests\\": "tests"
         },
         "files": [
             "vendor\/symfony\/dependency-injection\/Loader\/Configurator\/ContainerConfigurator.php"

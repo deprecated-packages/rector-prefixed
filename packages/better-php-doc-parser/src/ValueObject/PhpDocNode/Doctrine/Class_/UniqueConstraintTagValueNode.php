@@ -22,6 +22,6 @@ final class UniqueConstraintTagValueNode extends \Rector\BetterPhpDocParser\Valu
     }
     public function getShortName() : string
     {
-        return 'RectorPrefix20201227\\@ORM\\UniqueConstraint';
+        return 'RectorPrefix20201228\\@ORM\\UniqueConstraint';
     }
 }

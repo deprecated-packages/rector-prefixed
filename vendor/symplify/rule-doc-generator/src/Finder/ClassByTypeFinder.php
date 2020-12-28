@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\Symplify\RuleDocGenerator\Finder;
+namespace RectorPrefix20201228\Symplify\RuleDocGenerator\Finder;
 
-use RectorPrefix20201227\Nette\Loaders\RobotLoader;
+use RectorPrefix20201228\Nette\Loaders\RobotLoader;
 use ReflectionClass;
 final class ClassByTypeFinder
 {
@@ -13,7 +13,7 @@ final class ClassByTypeFinder
      */
     public function findByType(array $directories, string $type) : array
     {
-        $robotLoader = new \RectorPrefix20201227\Nette\Loaders\RobotLoader();
+        $robotLoader = new \RectorPrefix20201228\Nette\Loaders\RobotLoader();
         $robotLoader->setTempDirectory(\sys_get_temp_dir() . '/robot_loader_temp');
         $robotLoader->addDirectory(...$directories);
         $robotLoader->ignoreDirs[] = '*tests*';

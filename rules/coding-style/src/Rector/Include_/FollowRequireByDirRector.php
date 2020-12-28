@@ -3,23 +3,23 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Include_;
 
-use RectorPrefix20201227\Nette\Utils\Strings;
+use RectorPrefix20201228\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\Include_;
 use PhpParser\Node\Scalar\MagicConst\Dir;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\CodingStyle\Tests\Rector\Include_\FollowRequireByDirRector\FollowRequireByDirRectorTest
  */
 final class FollowRequireByDirRector extends \Rector\Core\Rector\AbstractRector
 {
-    public function getRuleDefinition() : \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition() : \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('include/require should be followed by absolute path', [new \RectorPrefix20201227\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\RuleDefinition('include/require should be followed by absolute path', [new \RectorPrefix20201228\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -64,7 +64,7 @@ CODE_SAMPLE
     }
     private function isRefactorableStringPath(\PhpParser\Node\Scalar\String_ $string) : bool
     {
-        return !\RectorPrefix20201227\Nette\Utils\Strings::startsWith($string->value, 'phar://');
+        return !\RectorPrefix20201228\Nette\Utils\Strings::startsWith($string->value, 'phar://');
     }
     private function prefixWithDir(\PhpParser\Node\Scalar\String_ $string) : \PhpParser\Node\Expr\BinaryOp\Concat
     {
@@ -77,14 +77,14 @@ CODE_SAMPLE
      */
     private function removeExtraDotSlash(\PhpParser\Node\Scalar\String_ $string) : void
     {
-        if (!\RectorPrefix20201227\Nette\Utils\Strings::startsWith($string->value, './')) {
+        if (!\RectorPrefix20201228\Nette\Utils\Strings::startsWith($string->value, './')) {
             return;
         }
-        $string->value = \RectorPrefix20201227\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
+        $string->value = \RectorPrefix20201228\Nette\Utils\Strings::replace($string->value, '#^\\.\\/#', '/');
     }
     private function prependSlashIfMissing(\PhpParser\Node\Scalar\String_ $string) : void
     {
-        if (\RectorPrefix20201227\Nette\Utils\Strings::startsWith($string->value, '/')) {
+        if (\RectorPrefix20201228\Nette\Utils\Strings::startsWith($string->value, '/')) {
             return;
         }
         $string->value = '/' . $string->value;

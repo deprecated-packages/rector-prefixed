@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201227\PackageVersions;
+namespace RectorPrefix20201228\PackageVersions;
 
-use RectorPrefix20201227\Composer\Composer;
-use RectorPrefix20201227\Composer\Config;
-use RectorPrefix20201227\Composer\EventDispatcher\EventSubscriberInterface;
-use RectorPrefix20201227\Composer\IO\IOInterface;
-use RectorPrefix20201227\Composer\Package\AliasPackage;
-use RectorPrefix20201227\Composer\Package\Locker;
-use RectorPrefix20201227\Composer\Package\PackageInterface;
-use RectorPrefix20201227\Composer\Package\RootPackageInterface;
-use RectorPrefix20201227\Composer\Plugin\PluginInterface;
-use RectorPrefix20201227\Composer\Script\Event;
-use RectorPrefix20201227\Composer\Script\ScriptEvents;
+use RectorPrefix20201228\Composer\Composer;
+use RectorPrefix20201228\Composer\Config;
+use RectorPrefix20201228\Composer\EventDispatcher\EventSubscriberInterface;
+use RectorPrefix20201228\Composer\IO\IOInterface;
+use RectorPrefix20201228\Composer\Package\AliasPackage;
+use RectorPrefix20201228\Composer\Package\Locker;
+use RectorPrefix20201228\Composer\Package\PackageInterface;
+use RectorPrefix20201228\Composer\Package\RootPackageInterface;
+use RectorPrefix20201228\Composer\Plugin\PluginInterface;
+use RectorPrefix20201228\Composer\Script\Event;
+use RectorPrefix20201228\Composer\Script\ScriptEvents;
 use Generator;
 use RuntimeException;
 use function array_key_exists;
@@ -28,7 +28,7 @@ use function rename;
 use function sprintf;
 use function uniqid;
 use function var_export;
-final class Installer implements \RectorPrefix20201227\Composer\Plugin\PluginInterface, \RectorPrefix20201227\Composer\EventDispatcher\EventSubscriberInterface
+final class Installer implements \RectorPrefix20201228\Composer\Plugin\PluginInterface, \RectorPrefix20201228\Composer\EventDispatcher\EventSubscriberInterface
 {
     private static $generatedClassTemplate = <<<'PHP'
 <?php
@@ -113,15 +113,15 @@ class_exists(InstalledVersions::class);
 }
 
 PHP;
-    public function activate(\RectorPrefix20201227\Composer\Composer $composer, \RectorPrefix20201227\Composer\IO\IOInterface $io)
+    public function activate(\RectorPrefix20201228\Composer\Composer $composer, \RectorPrefix20201228\Composer\IO\IOInterface $io)
     {
         // Nothing to do here, as all features are provided through event listeners
     }
-    public function deactivate(\RectorPrefix20201227\Composer\Composer $composer, \RectorPrefix20201227\Composer\IO\IOInterface $io)
+    public function deactivate(\RectorPrefix20201228\Composer\Composer $composer, \RectorPrefix20201228\Composer\IO\IOInterface $io)
     {
         // Nothing to do here, as all features are provided through event listeners
     }
-    public function uninstall(\RectorPrefix20201227\Composer\Composer $composer, \RectorPrefix20201227\Composer\IO\IOInterface $io)
+    public function uninstall(\RectorPrefix20201228\Composer\Composer $composer, \RectorPrefix20201228\Composer\IO\IOInterface $io)
     {
         // Nothing to do here, as all features are provided through event listeners
     }
@@ -130,12 +130,12 @@ PHP;
      */
     public static function getSubscribedEvents() : array
     {
-        return [\RectorPrefix20201227\Composer\Script\ScriptEvents::POST_AUTOLOAD_DUMP => 'dumpVersionsClass'];
+        return [\RectorPrefix20201228\Composer\Script\ScriptEvents::POST_AUTOLOAD_DUMP => 'dumpVersionsClass'];
     }
     /**
      * @throws RuntimeException
      */
-    public static function dumpVersionsClass(\RectorPrefix20201227\Composer\Script\Event $composerEvent)
+    public static function dumpVersionsClass(\RectorPrefix20201228\Composer\Script\Event $composerEvent)
     {
         $composer = $composerEvent->getComposer();
         $rootPackage = $composer->getPackage();
@@ -164,7 +164,7 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    private static function writeVersionClassToFile(string $versionClassSource, \RectorPrefix20201227\Composer\Composer $composer, \RectorPrefix20201227\Composer\IO\IOInterface $io)
+    private static function writeVersionClassToFile(string $versionClassSource, \RectorPrefix20201228\Composer\Composer $composer, \RectorPrefix20201228\Composer\IO\IOInterface $io)
     {
         $installPath = self::locateRootPackageInstallPath($composer->getConfig(), $composer->getPackage()) . '/src/PackageVersions/Versions.php';
         $installDir = \dirname($installPath);
@@ -186,17 +186,17 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    private static function locateRootPackageInstallPath(\RectorPrefix20201227\Composer\Config $composerConfig, \RectorPrefix20201227\Composer\Package\RootPackageInterface $rootPackage) : string
+    private static function locateRootPackageInstallPath(\RectorPrefix20201228\Composer\Config $composerConfig, \RectorPrefix20201228\Composer\Package\RootPackageInterface $rootPackage) : string
     {
         if (self::getRootPackageAlias($rootPackage)->getName() === 'composer/package-versions-deprecated') {
             return \dirname($composerConfig->get('vendor-dir'));
         }
         return $composerConfig->get('vendor-dir') . '/composer/package-versions-deprecated';
     }
-    private static function getRootPackageAlias(\RectorPrefix20201227\Composer\Package\RootPackageInterface $rootPackage) : \RectorPrefix20201227\Composer\Package\PackageInterface
+    private static function getRootPackageAlias(\RectorPrefix20201228\Composer\Package\RootPackageInterface $rootPackage) : \RectorPrefix20201228\Composer\Package\PackageInterface
     {
         $package = $rootPackage;
-        while ($package instanceof \RectorPrefix20201227\Composer\Package\AliasPackage) {
+        while ($package instanceof \RectorPrefix20201228\Composer\Package\AliasPackage) {
             $package = $package->getAliasOf();
         }
         return $package;
@@ -206,7 +206,7 @@ PHP;
      *
      * @psalm-return Generator<string, string>
      */
-    private static function getVersions(\RectorPrefix20201227\Composer\Package\Locker $locker, \RectorPrefix20201227\Composer\Package\RootPackageInterface $rootPackage) : \Generator
+    private static function getVersions(\RectorPrefix20201228\Composer\Package\Locker $locker, \RectorPrefix20201228\Composer\Package\RootPackageInterface $rootPackage) : \Generator
     {
         $lockData = $locker->getLockData();
         $lockData['packages-dev'] = $lockData['packages-dev'] ?? [];
