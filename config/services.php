@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20201229;
 
+use RectorPrefix20201229\Composer\Semver\VersionParser;
 use RectorPrefix20201229\Doctrine\Inflector\Inflector;
 use RectorPrefix20201229\Doctrine\Inflector\Rules\English\InflectorFactory;
 use PhpParser\BuilderFactory;
@@ -60,4 +61,5 @@ return static function (\RectorPrefix20201229\Symfony\Component\DependencyInject
     $services->set(\RectorPrefix20201229\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\RectorPrefix20201229\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\RectorPrefix20201229\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
     $services->set(\RectorPrefix20201229\Doctrine\Inflector\Rules\English\InflectorFactory::class);
     $services->set(\RectorPrefix20201229\Doctrine\Inflector\Inflector::class)->factory([\RectorPrefix20201229\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\RectorPrefix20201229\Doctrine\Inflector\Rules\English\InflectorFactory::class), 'build']);
+    $services->set(\RectorPrefix20201229\Composer\Semver\VersionParser::class);
 };

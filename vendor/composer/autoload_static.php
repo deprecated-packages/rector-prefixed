@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6770afe3101ed8a2c146adb708334526
+class ComposerStaticInit6eec2da38341023e4be65c7ad185994c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -172,6 +172,7 @@ class ComposerStaticInit6770afe3101ed8a2c146adb708334526
             'RectorPrefix20201229\\Doctrine\\Common\\Lexer\\' => 43,
             'RectorPrefix20201229\\Doctrine\\Common\\Annotations\\' => 49,
             'RectorPrefix20201229\\Composer\\XdebugHandler\\' => 44,
+            'RectorPrefix20201229\\Composer\\Semver\\' => 37,
         ),
         'P' => 
         array (
@@ -766,6 +767,10 @@ class ComposerStaticInit6770afe3101ed8a2c146adb708334526
         array (
             0 => __DIR__ . '/..' . '/composer/xdebug-handler/src',
         ),
+        'RectorPrefix20201229\\Composer\\Semver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/semver/src',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -1084,6 +1089,18 @@ class ComposerStaticInit6770afe3101ed8a2c146adb708334526
         'PhpParser\\PrettyPrinterAbstract' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php',
         'PhpParser\\PrettyPrinter\\Standard' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php',
         'RectorPrefix20201229\\Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Comparator' => __DIR__ . '/..' . '/composer/semver/src/Comparator.php',
+        'RectorPrefix20201229\\Composer\\Semver\\CompilingMatcher' => __DIR__ . '/..' . '/composer/semver/src/CompilingMatcher.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Constraint\\Bound' => __DIR__ . '/..' . '/composer/semver/src/Constraint/Bound.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Constraint\\Constraint' => __DIR__ . '/..' . '/composer/semver/src/Constraint/Constraint.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Constraint\\ConstraintInterface' => __DIR__ . '/..' . '/composer/semver/src/Constraint/ConstraintInterface.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Constraint\\MatchAllConstraint' => __DIR__ . '/..' . '/composer/semver/src/Constraint/MatchAllConstraint.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Constraint\\MatchNoneConstraint' => __DIR__ . '/..' . '/composer/semver/src/Constraint/MatchNoneConstraint.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Constraint\\MultiConstraint' => __DIR__ . '/..' . '/composer/semver/src/Constraint/MultiConstraint.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Interval' => __DIR__ . '/..' . '/composer/semver/src/Interval.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Intervals' => __DIR__ . '/..' . '/composer/semver/src/Intervals.php',
+        'RectorPrefix20201229\\Composer\\Semver\\Semver' => __DIR__ . '/..' . '/composer/semver/src/Semver.php',
+        'RectorPrefix20201229\\Composer\\Semver\\VersionParser' => __DIR__ . '/..' . '/composer/semver/src/VersionParser.php',
         'RectorPrefix20201229\\Composer\\XdebugHandler\\PhpConfig' => __DIR__ . '/..' . '/composer/xdebug-handler/src/PhpConfig.php',
         'RectorPrefix20201229\\Composer\\XdebugHandler\\Process' => __DIR__ . '/..' . '/composer/xdebug-handler/src/Process.php',
         'RectorPrefix20201229\\Composer\\XdebugHandler\\Status' => __DIR__ . '/..' . '/composer/xdebug-handler/src/Status.php',
@@ -2721,6 +2738,7 @@ class ComposerStaticInit6770afe3101ed8a2c146adb708334526
         'Rector\\Core\\PhpParser\\Printer\\FormatPerservingPrinter' => __DIR__ . '/../..' . '/src/PhpParser/Printer/FormatPerservingPrinter.php',
         'Rector\\Core\\PhpParser\\Printer\\NodesWithFileDestinationPrinter' => __DIR__ . '/../..' . '/src/PhpParser/Printer/NodesWithFileDestinationPrinter.php',
         'Rector\\Core\\Php\\PhpVersionProvider' => __DIR__ . '/../..' . '/src/Php/PhpVersionProvider.php',
+        'Rector\\Core\\Php\\PhpVersionResolver\\ProjectComposerJsonPhpVersionResolver' => __DIR__ . '/../..' . '/src/Php/PhpVersionResolver/ProjectComposerJsonPhpVersionResolver.php',
         'Rector\\Core\\Php\\Regex\\RegexPatternArgumentManipulator' => __DIR__ . '/../..' . '/src/Php/Regex/RegexPatternArgumentManipulator.php',
         'Rector\\Core\\Php\\ReservedKeywordAnalyzer' => __DIR__ . '/../..' . '/src/Php/ReservedKeywordAnalyzer.php',
         'Rector\\Core\\Php\\TypeAnalyzer' => __DIR__ . '/../..' . '/src/Php/TypeAnalyzer.php',
@@ -3977,9 +3995,9 @@ class ComposerStaticInit6770afe3101ed8a2c146adb708334526
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6770afe3101ed8a2c146adb708334526::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6770afe3101ed8a2c146adb708334526::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6770afe3101ed8a2c146adb708334526::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6eec2da38341023e4be65c7ad185994c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6eec2da38341023e4be65c7ad185994c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6eec2da38341023e4be65c7ad185994c::$classMap;
 
         }, null, ClassLoader::class);
     }

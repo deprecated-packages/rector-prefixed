@@ -152,6 +152,7 @@ return array(
     'RectorPrefix20201229\\Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib/Doctrine/Common/Lexer'),
     'RectorPrefix20201229\\Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),
     'RectorPrefix20201229\\Composer\\XdebugHandler\\' => array($vendorDir . '/composer/xdebug-handler/src'),
+    'RectorPrefix20201229\\Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'PHPStan\\PhpDocParser\\' => array($vendorDir . '/phpstan/phpdoc-parser/src'),
     'PHPStan\\' => array($vendorDir . '/phpstan/phpstan-phpunit/src'),

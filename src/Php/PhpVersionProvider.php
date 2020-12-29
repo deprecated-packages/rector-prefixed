@@ -3,12 +3,13 @@
 declare (strict_types=1);
 namespace Rector\Core\Php;
 
-use RectorPrefix20201229\Nette\Utils\Json;
 use Rector\Core\Configuration\Option;
-use Rector\Core\Util\PhpVersionFactory;
+use Rector\Core\Php\PhpVersionResolver\ProjectComposerJsonPhpVersionResolver;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use RectorPrefix20201229\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileSystem;
+/**
+ * @see \Rector\Core\Tests\Php\PhpVersionProviderTest
+ */
 final class PhpVersionProvider
 {
     /**
@@ -16,18 +17,13 @@ final class PhpVersionProvider
      */
     private $parameterProvider;
     /**
-     * @var SmartFileSystem
+     * @var ProjectComposerJsonPhpVersionResolver
      */
-    private $smartFileSystem;
-    /**
-     * @var PhpVersionFactory
-     */
-    private $phpVersionFactory;
-    public function __construct(\RectorPrefix20201229\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\Util\PhpVersionFactory $phpVersionFactory)
+    private $projectComposerJsonPhpVersionResolver;
+    public function __construct(\RectorPrefix20201229\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Php\PhpVersionResolver\ProjectComposerJsonPhpVersionResolver $projectComposerJsonPhpVersionResolver)
     {
         $this->parameterProvider = $parameterProvider;
-        $this->smartFileSystem = $smartFileSystem;
-        $this->phpVersionFactory = $phpVersionFactory;
+        $this->projectComposerJsonPhpVersionResolver = $projectComposerJsonPhpVersionResolver;
     }
     public function provide() : int
     {
@@ -41,33 +37,17 @@ final class PhpVersionProvider
             // so we don't have to up
             return 100000;
         }
-        // see https://getcomposer.org/doc/06-config.md#platform
-        $platformPhp = $this->provideProjectComposerJsonConfigPlatformPhp();
-        if ($platformPhp !== null) {
-            return $platformPhp;
+        $projectComposerJson = \getcwd() . '/composer.json';
+        if (\file_exists($projectComposerJson)) {
+            $phpVersion = $this->projectComposerJsonPhpVersionResolver->resolve($projectComposerJson);
+            if ($phpVersion !== null) {
+                return $phpVersion;
+            }
         }
         return \PHP_VERSION_ID;
     }
     public function isAtLeastPhpVersion(int $phpVersion) : bool
     {
         return $phpVersion <= $this->provide();
-    }
-    private function provideProjectComposerJsonConfigPlatformPhp() : ?int
-    {
-        $projectComposerJson = \getcwd() . '/composer.json';
-        if (!\file_exists($projectComposerJson)) {
-            return null;
-        }
-        $projectComposerContent = $this->smartFileSystem->readFile($projectComposerJson);
-        $projectComposerJson = \RectorPrefix20201229\Nette\Utils\Json::decode($projectComposerContent, \RectorPrefix20201229\Nette\Utils\Json::FORCE_ARRAY);
-        // Rector's composer.json
-        if (isset($projectComposerJson['name']) && $projectComposerJson['name'] === 'rector/rector') {
-            return null;
-        }
-        $platformPhp = $projectComposerJson['config']['platform']['php'] ?? null;
-        if ($platformPhp !== null) {
-            return $this->phpVersionFactory->createIntVersion($platformPhp);
-        }
-        return null;
     }
 }
