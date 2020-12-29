@@ -30,7 +30,7 @@ final class AttributeAwareParamTagValueNodeFactory implements \Rector\AttributeA
     public function create(\PHPStan\PhpDocParser\Ast\Node $node, string $docContent) : \Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface
     {
         $node->type = $this->attributeAwareNodeFactory->createFromNode($node->type, $docContent);
-        return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode($node->type, $node->isVariadic, $node->parameterName, $node->description, \false);
+        return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode($node->type, $node->isVariadic, $node->parameterName, $node->description);
     }
     public function setAttributeAwareNodeFactory(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory) : void
     {

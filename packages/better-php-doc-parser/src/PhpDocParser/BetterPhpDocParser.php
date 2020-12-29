@@ -20,7 +20,6 @@ use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
 use Rector\BetterPhpDocParser\Contract\GenericPhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\Contract\SpecificPhpDocNodeFactoryInterface;
-use Rector\BetterPhpDocParser\PhpDocNodeFactory\ParamPhpDocNodeFactory;
 use Rector\BetterPhpDocParser\PhpDocNodeFactory\PHPUnitDataProviderDocNodeFactory;
 use Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
@@ -76,17 +75,13 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
      */
     private $annotationContentResolver;
     /**
-     * @var ParamPhpDocNodeFactory
-     */
-    private $paramPhpDocNodeFactory;
-    /**
      * @var PHPUnitDataProviderDocNodeFactory
      */
     private $phpUnitDataProviderDocNodeFactory;
     /**
      * @param PhpDocNodeFactoryInterface[] $phpDocNodeFactories
      */
-    public function __construct(\PHPStan\PhpDocParser\Parser\TypeParser $typeParser, \PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver $multilineSpaceFormatPreserver, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher, \PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\PhpDocNodeFactory\ParamPhpDocNodeFactory $paramPhpDocNodeFactory, \Rector\BetterPhpDocParser\PhpDocNodeFactory\PHPUnitDataProviderDocNodeFactory $phpUnitDataProviderDocNodeFactory, array $phpDocNodeFactories = [])
+    public function __construct(\PHPStan\PhpDocParser\Parser\TypeParser $typeParser, \PHPStan\PhpDocParser\Parser\ConstExprParser $constExprParser, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver $multilineSpaceFormatPreserver, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\BetterPhpDocParser\PhpDocParser\ClassAnnotationMatcher $classAnnotationMatcher, \PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\AnnotationContentResolver $annotationContentResolver, \Rector\BetterPhpDocParser\PhpDocNodeFactory\PHPUnitDataProviderDocNodeFactory $phpUnitDataProviderDocNodeFactory, array $phpDocNodeFactories = [])
     {
         parent::__construct($typeParser, $constExprParser);
         $this->privatesCaller = new \RectorPrefix20201229\Symplify\PackageBuilder\Reflection\PrivatesCaller();
@@ -97,7 +92,6 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         $this->classAnnotationMatcher = $classAnnotationMatcher;
         $this->lexer = $lexer;
         $this->annotationContentResolver = $annotationContentResolver;
-        $this->paramPhpDocNodeFactory = $paramPhpDocNodeFactory;
         $this->phpUnitDataProviderDocNodeFactory = $phpUnitDataProviderDocNodeFactory;
         $this->setPhpDocNodeFactories($phpDocNodeFactories);
     }
@@ -143,11 +137,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $lowercasedTag = \strtolower($tag);
-        if ($lowercasedTag === '@param') {
-            // to prevent circular reference of this service
-            $this->paramPhpDocNodeFactory->setPhpDocParser($this);
-            $tagValueNode = $this->paramPhpDocNodeFactory->createFromTokens($tokenIterator);
-        } elseif ($lowercasedTag === '@dataprovider') {
+        if ($lowercasedTag === '@dataprovider') {
             $this->phpUnitDataProviderDocNodeFactory->setPhpDocParser($this);
             $tagValueNode = $this->phpUnitDataProviderDocNodeFactory->createFromTokens($tokenIterator);
         } elseif ($lowercasedTag === '@' . \Rector\PhpAttribute\ValueObject\TagName::REQUIRED) {

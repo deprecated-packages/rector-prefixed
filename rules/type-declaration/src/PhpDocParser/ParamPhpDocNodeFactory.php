@@ -19,6 +19,6 @@ final class ParamPhpDocNodeFactory
     }
     public function create(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node\Param $param) : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode
     {
-        return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode($typeNode, $param->variadic, '$' . $this->nodeNameResolver->getName($param), '', $param->byRef);
+        return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode($typeNode, $param->variadic, '$' . $this->nodeNameResolver->getName($param), '');
     }
 }

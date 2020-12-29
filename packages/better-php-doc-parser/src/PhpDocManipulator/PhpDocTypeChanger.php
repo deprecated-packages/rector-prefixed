@@ -28,10 +28,6 @@ final class PhpDocTypeChanger
      */
     private $staticTypeMapper;
     /**
-     * @var ParamPhpDocNodeFactory
-     */
-    private $paramPhpDocNodeFactory;
-    /**
      * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
@@ -39,13 +35,17 @@ final class PhpDocTypeChanger
      * @var CurrentNodeProvider
      */
     private $currentNodeProvider;
-    public function __construct(\Rector\TypeDeclaration\PhpDocParser\ParamPhpDocNodeFactory $paramPhpDocNodeFactory, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider)
+    /**
+     * @var ParamPhpDocNodeFactory
+     */
+    private $paramPhpDocNodeFactory;
+    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\TypeDeclaration\PhpDocParser\ParamPhpDocNodeFactory $paramPhpDocNodeFactory)
     {
         $this->typeComparator = $typeComparator;
         $this->staticTypeMapper = $staticTypeMapper;
-        $this->paramPhpDocNodeFactory = $paramPhpDocNodeFactory;
         $this->rectorChangeCollector = $rectorChangeCollector;
         $this->currentNodeProvider = $currentNodeProvider;
+        $this->paramPhpDocNodeFactory = $paramPhpDocNodeFactory;
     }
     public function changeVarType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType) : void
     {

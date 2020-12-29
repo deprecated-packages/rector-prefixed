@@ -1579,7 +1579,6 @@ return array(
     'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\JMS\\JMSInjectPhpDocNodeFactory' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/JMS/JMSInjectPhpDocNodeFactory.php',
     'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\MultiPhpDocNodeFactory' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/MultiPhpDocNodeFactory.php',
     'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\PHPUnitDataProviderDocNodeFactory' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/PHPUnitDataProviderDocNodeFactory.php',
-    'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\ParamPhpDocNodeFactory' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/ParamPhpDocNodeFactory.php',
     'Rector\\BetterPhpDocParser\\PhpDocNode\\PrintTagValueNodeTrait' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocNode/PrintTagValueNodeTrait.php',
     'Rector\\BetterPhpDocParser\\PhpDocParser\\AnnotationContentResolver' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocParser/AnnotationContentResolver.php',
     'Rector\\BetterPhpDocParser\\PhpDocParser\\BetterPhpDocParser' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocParser/BetterPhpDocParser.php',

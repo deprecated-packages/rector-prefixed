@@ -36,9 +36,6 @@ final class SpacePatternFactory
         $spacePattern .= self::TYPE_PATTERN;
         if ($attributeAwareParamTagValueNode->parameterName !== '') {
             $spacePattern .= '\\s+';
-            if ($attributeAwareParamTagValueNode->isReference()) {
-                $spacePattern .= '&';
-            }
             if ($attributeAwareParamTagValueNode->isVariadic) {
                 $spacePattern .= '...';
             }
