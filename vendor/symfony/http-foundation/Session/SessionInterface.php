@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201228\Symfony\Component\HttpFoundation\Session;
+namespace RectorPrefix20201229\Symfony\Component\HttpFoundation\Session;
 
-use RectorPrefix20201228\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
+use RectorPrefix20201229\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
 /**
  * Interface for the session.
  *
@@ -130,7 +130,7 @@ interface SessionInterface
     /**
      * Registers a SessionBagInterface with the session.
      */
-    public function registerBag(\RectorPrefix20201228\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag);
+    public function registerBag(\RectorPrefix20201229\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag);
     /**
      * Gets a bag instance by name.
      *

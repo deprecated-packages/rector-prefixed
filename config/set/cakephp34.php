@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228;
+namespace RectorPrefix20201229;
 
 use Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector;
 use Rector\CakePHP\ValueObject\ModalToGetSet;
@@ -17,11 +17,11 @@ use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameProperty;
 use Rector\Transform\Rector\Assign\PropertyToMethodRector;
 use Rector\Transform\ValueObject\PropertyToMethod;
-use RectorPrefix20201228\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20201228\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20201229\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
+return static function (\RectorPrefix20201229\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Transform\Rector\Assign\PropertyToMethodRector::class)->call('configure', [[\Rector\Transform\Rector\Assign\PropertyToMethodRector::PROPERTIES_TO_METHOD_CALLS => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\Rector\Transform\Rector\Assign\PropertyToMethodRector::class)->call('configure', [[\Rector\Transform\Rector\Assign\PropertyToMethodRector::PROPERTIES_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // source: https://book.cakephp.org/3.0/en/appendices/3-4-migration-guide.html
         new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'params', 'getAttribute', null, ['params']),
         new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'data', 'getData'),
@@ -31,8 +31,8 @@ return static function (\RectorPrefix20201228\Symfony\Component\DependencyInject
         new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'webroot', 'getAttribute', null, ['webroot']),
         new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'here', 'getAttribute', null, ['here']),
     ])]]);
-    $services->set(\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::class)->call('configure', [[\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::RENAMED_PROPERTIES => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameProperty('Cake\\Network\\Request', '_session', 'session')])]]);
-    $services->set(\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::class)->call('configure', [[\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::UNPREFIXED_METHODS_TO_GET_SET => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::class)->call('configure', [[\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::RENAMED_PROPERTIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameProperty('Cake\\Network\\Request', '_session', 'session')])]]);
+    $services->set(\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::class)->call('configure', [[\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::UNPREFIXED_METHODS_TO_GET_SET => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         new \Rector\CakePHP\ValueObject\ModalToGetSet('Cake\\Core\\InstanceConfigTrait', 'config', null, null, 2, 'array'),
         new \Rector\CakePHP\ValueObject\ModalToGetSet('Cake\\Core\\StaticConfigTrait', 'config', null, null, 2, 'array'),
         new \Rector\CakePHP\ValueObject\ModalToGetSet('Cake\\Console\\ConsoleOptionParser', 'command'),
@@ -133,7 +133,7 @@ return static function (\RectorPrefix20201228\Symfony\Component\DependencyInject
         new \Rector\CakePHP\ValueObject\ModalToGetSet('Cake\\View\\ViewBuilder', 'className'),
         new \Rector\CakePHP\ValueObject\ModalToGetSet('Cake\\View\\ViewBuilder', 'autoLayout', 'isAutoLayoutEnabled', 'enableAutoLayout'),
     ])]]);
-    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         new \Rector\Renaming\ValueObject\MethodCallRename('Cake\\Network\\Request', 'param', 'getParam'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Cake\\Network\\Request', 'data', 'getData'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Cake\\Network\\Request', 'query', 'getQuery'),
@@ -174,7 +174,7 @@ return static function (\RectorPrefix20201228\Symfony\Component\DependencyInject
         new \Rector\Renaming\ValueObject\MethodCallRename('Cake\\Routing\\Route\\Route', 'parse', 'parseRequest'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Cake\\Routing\\Router', 'parse', 'parseRequest'),
     ])]]);
-    $services->set(\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ChangeMethodVisibility('Cake\\Mailer\\MailerAwareTrait', 'getMailer', \Rector\Core\ValueObject\Visibility::PROTECTED), new \Rector\Generic\ValueObject\ChangeMethodVisibility('Cake\\View\\CellTrait', 'cell', \Rector\Core\ValueObject\Visibility::PROTECTED)])]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ChangeMethodVisibility('Cake\\Mailer\\MailerAwareTrait', 'getMailer', \Rector\Core\ValueObject\Visibility::PROTECTED), new \Rector\Generic\ValueObject\ChangeMethodVisibility('Cake\\View\\CellTrait', 'cell', \Rector\Core\ValueObject\Visibility::PROTECTED)])]]);
     $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => ['Cake\\Database\\Schema\\Table' => 'Cake\\Database\\Schema\\TableSchema']]]);
-    $services->set(\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::CALLS_TO_FLUENT => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\NormalToFluent('Cake\\Network\\Response', ['withLocation', 'withHeader', 'withDisabledCache', 'withType', 'withCharset', 'withCache', 'withModified', 'withExpires', 'withSharable', 'withMaxAge', 'withVary', 'withEtag', 'withCompression', 'withLength', 'withMustRevalidate', 'withNotModified', 'withCookie', 'withFile', 'withDownload'])])]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\NormalToFluentRector::CALLS_TO_FLUENT => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\NormalToFluent('Cake\\Network\\Response', ['withLocation', 'withHeader', 'withDisabledCache', 'withType', 'withCharset', 'withCache', 'withModified', 'withExpires', 'withSharable', 'withMaxAge', 'withVary', 'withEtag', 'withCompression', 'withLength', 'withMustRevalidate', 'withNotModified', 'withCookie', 'withFile', 'withDownload'])])]]);
 };

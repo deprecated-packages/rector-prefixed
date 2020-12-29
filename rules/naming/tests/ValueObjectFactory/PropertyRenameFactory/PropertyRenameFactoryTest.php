@@ -12,9 +12,9 @@ use Rector\FileSystemRector\Parser\FileInfoParser;
 use Rector\Naming\ExpectedNameResolver\MatchPropertyTypeExpectedNameResolver;
 use Rector\Naming\ValueObject\PropertyRename;
 use Rector\Naming\ValueObjectFactory\PropertyRenameFactory;
-use RectorPrefix20201228\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo;
-final class PropertyRenameFactoryTest extends \RectorPrefix20201228\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20201229\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
+final class PropertyRenameFactoryTest extends \RectorPrefix20201229\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PropertyRenameFactory
@@ -43,7 +43,7 @@ final class PropertyRenameFactoryTest extends \RectorPrefix20201228\Symplify\Pac
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo $fileInfoWithProperty, string $expectedName, string $currentName) : void
+    public function test(\RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo $fileInfoWithProperty, string $expectedName, string $currentName) : void
     {
         $property = $this->getPropertyFromFileInfo($fileInfoWithProperty);
         $actualPropertyRename = $this->propertyRenameFactory->create($property, $this->matchPropertyTypeExpectedNameResolver);
@@ -55,9 +55,9 @@ final class PropertyRenameFactoryTest extends \RectorPrefix20201228\Symplify\Pac
     }
     public function provideData() : \Iterator
     {
-        (yield [new \RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/SomeClass.php.inc'), 'eliteManager', 'eventManager']);
+        (yield [new \RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/SomeClass.php.inc'), 'eliteManager', 'eventManager']);
     }
-    private function getPropertyFromFileInfo(\RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : \PhpParser\Node\Stmt\Property
+    private function getPropertyFromFileInfo(\RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : \PhpParser\Node\Stmt\Property
     {
         $nodes = $this->fileInfoParser->parseFileInfoToNodesAndDecorate($fileInfo);
         /** @var Property|null $property */

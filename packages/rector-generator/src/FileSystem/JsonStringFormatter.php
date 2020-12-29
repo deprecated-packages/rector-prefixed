@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\FileSystem;
 
-use RectorPrefix20201228\Nette\Utils\Strings;
+use RectorPrefix20201229\Nette\Utils\Strings;
 final class JsonStringFormatter
 {
     /**
@@ -18,8 +18,8 @@ final class JsonStringFormatter
     {
         foreach ($sections as $section) {
             $pattern = '#("' . \preg_quote($section, '#') . '": )\\[(.*?)\\](,)#ms';
-            $jsonContent = \RectorPrefix20201228\Nette\Utils\Strings::replace($jsonContent, $pattern, function (array $match) : string {
-                $inlined = \RectorPrefix20201228\Nette\Utils\Strings::replace($match[2], '#\\s+#', ' ');
+            $jsonContent = \RectorPrefix20201229\Nette\Utils\Strings::replace($jsonContent, $pattern, function (array $match) : string {
+                $inlined = \RectorPrefix20201229\Nette\Utils\Strings::replace($match[2], '#\\s+#', ' ');
                 $inlined = \trim($inlined);
                 $inlined = '[' . $inlined . ']';
                 return $match[1] . $inlined . $match[3];
@@ -29,10 +29,10 @@ final class JsonStringFormatter
     }
     public function inlineAuthors(string $jsonContent) : string
     {
-        return \RectorPrefix20201228\Nette\Utils\Strings::replace($jsonContent, self::REPLACE_REGEX, function (array $match) : string {
-            $inlined = \RectorPrefix20201228\Nette\Utils\Strings::replace($match['content'], '#\\s+#', ' ');
+        return \RectorPrefix20201229\Nette\Utils\Strings::replace($jsonContent, self::REPLACE_REGEX, function (array $match) : string {
+            $inlined = \RectorPrefix20201229\Nette\Utils\Strings::replace($match['content'], '#\\s+#', ' ');
             $inlined = \trim($inlined);
-            $inlined = \RectorPrefix20201228\Nette\Utils\Strings::replace($inlined, '#},#', "},\n       ");
+            $inlined = \RectorPrefix20201229\Nette\Utils\Strings::replace($inlined, '#},#', "},\n       ");
             return $match['start'] . $inlined . $match['end'];
         });
     }

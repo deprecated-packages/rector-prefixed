@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteTesterToPHPUnit\Tests\Rector\Class_\NetteTesterClassToPHPUnitClassRector\Source;
 
-use RectorPrefix20201228\Tester\TestCase;
-abstract class ORMTestCase extends \RectorPrefix20201228\Tester\TestCase
+use RectorPrefix20201229\Tester\TestCase;
+abstract class ORMTestCase extends \RectorPrefix20201229\Tester\TestCase
 {
 }

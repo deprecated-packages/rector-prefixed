@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228;
+namespace RectorPrefix20201229;
 
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -15,14 +15,14 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
-use RectorPrefix20201228\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner;
+use RectorPrefix20201229\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # see https://symfony.com/blog/symfony-type-declarations-return-types-and-phpunit-compatibility
-return static function (\RectorPrefix20201228\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20201229\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
     $iterableType = new \PHPStan\Type\IterableType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
-    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \RectorPrefix20201228\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // see https://github.com/symfony/symfony/issues/32179
         new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'addListener', 0, new \PHPStan\Type\StringType()),
         new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Symfony\\Component\\EventDispatcher\\EventDispatcherInterface', 'addListener', 2, new \PHPStan\Type\IntegerType()),

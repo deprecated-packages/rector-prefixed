@@ -8,25 +8,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201228\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20201229\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20201228\Psr\Cache\CacheItemInterface;
-use RectorPrefix20201228\Symfony\Component\Cache\CacheItem;
-use RectorPrefix20201228\Symfony\Contracts\Cache\CacheInterface;
+use RectorPrefix20201229\Psr\Cache\CacheItemInterface;
+use RectorPrefix20201229\Symfony\Component\Cache\CacheItem;
+use RectorPrefix20201229\Symfony\Contracts\Cache\CacheInterface;
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>
  */
-class NullAdapter implements \RectorPrefix20201228\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20201228\Symfony\Contracts\Cache\CacheInterface
+class NullAdapter implements \RectorPrefix20201229\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20201229\Symfony\Contracts\Cache\CacheInterface
 {
     private $createCacheItem;
     public function __construct()
     {
         $this->createCacheItem = \Closure::bind(function ($key) {
-            $item = new \RectorPrefix20201228\Symfony\Component\Cache\CacheItem();
+            $item = new \RectorPrefix20201229\Symfony\Component\Cache\CacheItem();
             $item->key = $key;
             $item->isHit = \false;
             return $item;
-        }, $this, \RectorPrefix20201228\Symfony\Component\Cache\CacheItem::class);
+        }, $this, \RectorPrefix20201229\Symfony\Component\Cache\CacheItem::class);
     }
     /**
      * {@inheritdoc}
@@ -92,7 +92,7 @@ class NullAdapter implements \RectorPrefix20201228\Symfony\Component\Cache\Adapt
      *
      * @return bool
      */
-    public function save(\RectorPrefix20201228\Psr\Cache\CacheItemInterface $item)
+    public function save(\RectorPrefix20201229\Psr\Cache\CacheItemInterface $item)
     {
         return \false;
     }
@@ -101,7 +101,7 @@ class NullAdapter implements \RectorPrefix20201228\Symfony\Component\Cache\Adapt
      *
      * @return bool
      */
-    public function saveDeferred(\RectorPrefix20201228\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred(\RectorPrefix20201229\Psr\Cache\CacheItemInterface $item)
     {
         return \false;
     }

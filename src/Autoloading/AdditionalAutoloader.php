@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Rector\Core\Autoloading;
 
-use RectorPrefix20201228\Nette\Loaders\RobotLoader;
+use RectorPrefix20201229\Nette\Loaders\RobotLoader;
 use Rector\Core\Configuration\Option;
 use Rector\Core\FileSystem\FileGuard;
-use RectorPrefix20201228\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20201228\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20201228\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
-use RectorPrefix20201228\Symplify\SmartFileSystem\FileSystemFilter;
+use RectorPrefix20201229\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201229\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20201229\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
+use RectorPrefix20201229\Symplify\SmartFileSystem\FileSystemFilter;
 /**
  * Should it pass autoload files/directories to PHPStan analyzer?
  */
@@ -31,7 +31,7 @@ final class AdditionalAutoloader
      * @var SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    public function __construct(\Rector\Core\FileSystem\FileGuard $fileGuard, \RectorPrefix20201228\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \RectorPrefix20201228\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20201228\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
+    public function __construct(\Rector\Core\FileSystem\FileGuard $fileGuard, \RectorPrefix20201229\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \RectorPrefix20201229\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20201229\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
     {
         $this->fileGuard = $fileGuard;
         $this->autoloadPaths = (array) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTOLOAD_PATHS);
@@ -41,7 +41,7 @@ final class AdditionalAutoloader
     /**
      * @param string[] $source
      */
-    public function autoloadWithInputAndSource(\RectorPrefix20201228\Symfony\Component\Console\Input\InputInterface $input, array $source) : void
+    public function autoloadWithInputAndSource(\RectorPrefix20201229\Symfony\Component\Console\Input\InputInterface $input, array $source) : void
     {
         $autoloadDirectories = $this->fileSystemFilter->filterDirectories($this->autoloadPaths);
         $autoloadFiles = $this->fileSystemFilter->filterFiles($this->autoloadPaths);
@@ -57,7 +57,7 @@ final class AdditionalAutoloader
             }
         }
     }
-    private function autoloadFileFromInput(\RectorPrefix20201228\Symfony\Component\Console\Input\InputInterface $input) : void
+    private function autoloadFileFromInput(\RectorPrefix20201229\Symfony\Component\Console\Input\InputInterface $input) : void
     {
         if (!$input->hasOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE)) {
             return;
@@ -77,7 +77,7 @@ final class AdditionalAutoloader
         if ($directories === []) {
             return;
         }
-        $robotLoader = new \RectorPrefix20201228\Nette\Loaders\RobotLoader();
+        $robotLoader = new \RectorPrefix20201229\Nette\Loaders\RobotLoader();
         $robotLoader->ignoreDirs[] = '*Fixtures';
         $excludePaths = $this->skippedPathsResolver->resolve();
         foreach ($excludePaths as $excludePath) {

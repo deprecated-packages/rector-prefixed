@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\Composer;
 
-use RectorPrefix20201228\Nette\Utils\Arrays;
-use RectorPrefix20201228\Nette\Utils\Json;
+use RectorPrefix20201229\Nette\Utils\Arrays;
+use RectorPrefix20201229\Nette\Utils\Json;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileSystem;
 final class ComposerAutoloadedDirectoryProvider
 {
     /**
@@ -21,7 +21,7 @@ final class ComposerAutoloadedDirectoryProvider
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->composerFilePath = \getcwd() . '/composer.json';
         $this->smartFileSystem = $smartFileSystem;
@@ -43,7 +43,7 @@ final class ComposerAutoloadedDirectoryProvider
             $sectionDirectories = $this->collectDirectoriesFromAutoload($composerJson[$autoloadSection]);
             $autoloadDirectories[] = $sectionDirectories;
         }
-        return \RectorPrefix20201228\Nette\Utils\Arrays::flatten($autoloadDirectories);
+        return \RectorPrefix20201229\Nette\Utils\Arrays::flatten($autoloadDirectories);
     }
     /**
      * @return mixed[]
@@ -54,7 +54,7 @@ final class ComposerAutoloadedDirectoryProvider
             return [];
         }
         $composerFileContent = $this->smartFileSystem->readFile($this->composerFilePath);
-        return \RectorPrefix20201228\Nette\Utils\Json::decode($composerFileContent, \RectorPrefix20201228\Nette\Utils\Json::FORCE_ARRAY);
+        return \RectorPrefix20201229\Nette\Utils\Json::decode($composerFileContent, \RectorPrefix20201229\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param string[] $composerJsonAutoload

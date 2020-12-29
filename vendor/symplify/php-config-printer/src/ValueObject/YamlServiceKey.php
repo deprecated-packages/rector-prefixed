@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201228\Symplify\PhpConfigPrinter\ValueObject;
+namespace RectorPrefix20201229\Symplify\PhpConfigPrinter\ValueObject;
 
 final class YamlServiceKey
 {

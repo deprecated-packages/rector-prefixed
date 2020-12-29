@@ -12,7 +12,7 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeRemoval\BreakingRemovalGuard;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
-use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**

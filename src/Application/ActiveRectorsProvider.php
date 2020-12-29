@@ -6,8 +6,8 @@ namespace Rector\Core\Application;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use Rector\RectorGenerator\Contract\InternalRectorInterface;
-use RectorPrefix20201228\Symplify\Skipper\Skipper\Skipper;
-use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201229\Symplify\Skipper\Skipper\Skipper;
+use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Provides list of Rector rules, that are not internal → only those registered by user
  */
@@ -20,11 +20,11 @@ final class ActiveRectorsProvider
     /**
      * @param RectorInterface[] $rectors
      */
-    public function __construct(array $rectors, \RectorPrefix20201228\Symplify\Skipper\Skipper\Skipper $skipper)
+    public function __construct(array $rectors, \RectorPrefix20201229\Symplify\Skipper\Skipper\Skipper $skipper)
     {
         foreach ($rectors as $key => $rector) {
             // @todo add should skip element to avoid faking a file info?
-            $dummyFileInfo = new \RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../config/config.php');
+            $dummyFileInfo = new \RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../config/config.php');
             if ($skipper->shouldSkipElementAndFileInfo($rector, $dummyFileInfo)) {
                 unset($rectors[$key]);
             }

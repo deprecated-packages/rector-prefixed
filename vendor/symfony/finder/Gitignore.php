@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201228\Symfony\Component\Finder;
+namespace RectorPrefix20201229\Symfony\Component\Finder;
 
 /**
  * Gitignore matches against text.

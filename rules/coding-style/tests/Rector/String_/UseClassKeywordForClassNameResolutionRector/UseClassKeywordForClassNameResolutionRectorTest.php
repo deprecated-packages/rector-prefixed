@@ -6,13 +6,13 @@ namespace Rector\CodingStyle\Tests\Rector\String_\UseClassKeywordForClassNameRes
 use Iterator;
 use Rector\CodingStyle\Rector\String_\UseClassKeywordForClassNameResolutionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
 final class UseClassKeywordForClassNameResolutionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20201228\Symplify\SmartFileSystem\SmartFileInfo $file) : void
+    public function test(\RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo $file) : void
     {
         $this->doTestFileInfo($file);
     }

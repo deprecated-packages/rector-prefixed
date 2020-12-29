@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201228\Symfony\Component\HttpFoundation\Test\Constraint;
+namespace RectorPrefix20201229\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use RectorPrefix20201228\PHPUnit\Framework\Constraint\Constraint;
-use RectorPrefix20201228\Symfony\Component\HttpFoundation\Request;
-final class RequestAttributeValueSame extends \RectorPrefix20201228\PHPUnit\Framework\Constraint\Constraint
+use RectorPrefix20201229\PHPUnit\Framework\Constraint\Constraint;
+use RectorPrefix20201229\Symfony\Component\HttpFoundation\Request;
+final class RequestAttributeValueSame extends \RectorPrefix20201229\PHPUnit\Framework\Constraint\Constraint
 {
     private $name;
     private $value;

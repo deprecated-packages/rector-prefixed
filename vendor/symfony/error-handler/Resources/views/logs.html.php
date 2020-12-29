@@ -1,6 +1,6 @@
 <table class="logs" data-filter-level="Emergency,Alert,Critical,Error,Warning,Notice,Info,Debug" data-filters>
 <?php 
-namespace RectorPrefix20201228;
+namespace RectorPrefix20201229;
 
 $channelIsDefined = isset($logs[0]['channel']);
 ?>

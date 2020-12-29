@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20201228\Doctrine\Common\Annotations;
+namespace RectorPrefix20201229\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use SplFileObject;
@@ -35,7 +35,7 @@ final class PhpParser
         }
         $namespace = \preg_quote($class->getNamespaceName());
         $content = \preg_replace('/^.*?(\\bnamespace\\s+' . $namespace . '\\s*[;{].*)$/s', '\\1', $content);
-        $tokenizer = new \RectorPrefix20201228\Doctrine\Common\Annotations\TokenParser('<?php ' . $content);
+        $tokenizer = new \RectorPrefix20201229\Doctrine\Common\Annotations\TokenParser('<?php ' . $content);
         return $tokenizer->parseUseStatements($class->getNamespaceName());
     }
     /**

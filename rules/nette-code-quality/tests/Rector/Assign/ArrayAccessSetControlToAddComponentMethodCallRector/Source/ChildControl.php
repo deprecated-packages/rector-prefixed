@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Tests\Rector\Assign\ArrayAccessSetControlToAddComponentMethodCallRector\Source;
 
-use RectorPrefix20201228\Nette\Application\UI\Control;
-final class ChildControl extends \RectorPrefix20201228\Nette\Application\UI\Control
+use RectorPrefix20201229\Nette\Application\UI\Control;
+final class ChildControl extends \RectorPrefix20201229\Nette\Application\UI\Control
 {
 }

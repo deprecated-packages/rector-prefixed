@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201228\Symfony\Component\Cache\Exception;
+namespace RectorPrefix20201229\Symfony\Component\Cache\Exception;
 
-use RectorPrefix20201228\Psr\Cache\CacheException as Psr6CacheInterface;
-use RectorPrefix20201228\Psr\SimpleCache\CacheException as SimpleCacheInterface;
-if (\interface_exists(\RectorPrefix20201228\Psr\SimpleCache\CacheException::class)) {
-    class CacheException extends \Exception implements \RectorPrefix20201228\Psr\Cache\CacheException, \RectorPrefix20201228\Psr\SimpleCache\CacheException
+use RectorPrefix20201229\Psr\Cache\CacheException as Psr6CacheInterface;
+use RectorPrefix20201229\Psr\SimpleCache\CacheException as SimpleCacheInterface;
+if (\interface_exists(\RectorPrefix20201229\Psr\SimpleCache\CacheException::class)) {
+    class CacheException extends \Exception implements \RectorPrefix20201229\Psr\Cache\CacheException, \RectorPrefix20201229\Psr\SimpleCache\CacheException
     {
     }
 } else {
-    class CacheException extends \Exception implements \RectorPrefix20201228\Psr\Cache\CacheException
+    class CacheException extends \Exception implements \RectorPrefix20201229\Psr\Cache\CacheException
     {
     }
 }
