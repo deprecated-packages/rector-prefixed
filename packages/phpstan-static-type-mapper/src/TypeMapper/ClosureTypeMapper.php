@@ -6,13 +6,20 @@ namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 use Closure;
 use PhpParser\Node;
 use PhpParser\Node\Name;
+use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\Type;
-use Rector\Core\Exception\NotImplementedException;
+use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareCallableTypeNode;
+use Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
-final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface, \Rector\PHPStanStaticTypeMapper\Contract\PHPStanStaticTypeMapperAwareInterface
 {
+    /**
+     * @var PHPStanStaticTypeMapper
+     */
+    private $phpStanStaticTypeMapper;
     public function getNodeClass() : string
     {
         return \PHPStan\Type\ClosureType::class;
@@ -22,7 +29,9 @@ final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
      */
     public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        throw new \Rector\Core\Exception\NotImplementedException();
+        $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($type->getClassName());
+        $returnDocTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getReturnType());
+        return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareCallableTypeNode($identifierTypeNode, [], $returnDocTypeNode);
     }
     /**
      * @param ClosureType $type
@@ -37,5 +46,9 @@ final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
     public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
         return '\\' . \Closure::class;
+    }
+    public function setPHPStanStaticTypeMapper(\Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
+    {
+        $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
 }
