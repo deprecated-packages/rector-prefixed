@@ -106,7 +106,7 @@ final class ObjectTypeSpecifier
         if ($namespaceName === null) {
             return null;
         }
-        $namespacedObject = $namespaceName . '\\' . $objectType->getClassName();
+        $namespacedObject = $namespaceName . '\\' . \ltrim($objectType->getClassName(), '\\');
         if (\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($namespacedObject)) {
             return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($namespacedObject);
         }
