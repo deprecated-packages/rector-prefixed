@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
-use RectorPrefix20201229\Jean85\PrettyVersions;
+use RectorPrefix20201230\Jean85\PrettyVersions;
 use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use RectorPrefix20201229\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20201229\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201230\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201230\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo;
 final class Configuration
 {
     /**
@@ -69,7 +69,7 @@ final class Configuration
      * @var SmartFileInfo|null
      */
     private $configFileInfo;
-    public function __construct(\RectorPrefix20201229\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\RectorPrefix20201230\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->isCacheEnabled = (bool) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::ENABLE_CACHE);
         $this->fileExtensions = (array) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::FILE_EXTENSIONS);
@@ -79,7 +79,7 @@ final class Configuration
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      */
-    public function resolveFromInput(\RectorPrefix20201229\Symfony\Component\Console\Input\InputInterface $input) : void
+    public function resolveFromInput(\RectorPrefix20201230\Symfony\Component\Console\Input\InputInterface $input) : void
     {
         $this->isDryRun = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN);
         $this->shouldClearCache = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
@@ -99,7 +99,7 @@ final class Configuration
     /**
      * @api
      */
-    public function setFirstResolverConfigFileInfo(\RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo $firstResolvedConfigFileInfo) : void
+    public function setFirstResolverConfigFileInfo(\RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo $firstResolvedConfigFileInfo) : void
     {
         $this->configFileInfo = $firstResolvedConfigFileInfo;
     }
@@ -112,7 +112,7 @@ final class Configuration
     }
     public function getPrettyVersion() : string
     {
-        $version = \RectorPrefix20201229\Jean85\PrettyVersions::getVersion('rector/rector');
+        $version = \RectorPrefix20201230\Jean85\PrettyVersions::getVersion('rector/rector');
         return $version->getPrettyVersion();
     }
     /**
@@ -215,7 +215,7 @@ final class Configuration
         }
         return $this->outputFormat === \Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME;
     }
-    private function canShowProgressBar(\RectorPrefix20201229\Symfony\Component\Console\Input\InputInterface $input) : bool
+    private function canShowProgressBar(\RectorPrefix20201230\Symfony\Component\Console\Input\InputInterface $input) : bool
     {
         $noProgressBar = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_NO_PROGRESS_BAR);
         if ($noProgressBar) {

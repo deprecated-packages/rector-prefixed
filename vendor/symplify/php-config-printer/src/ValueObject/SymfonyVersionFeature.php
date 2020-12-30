@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201229\Symplify\PhpConfigPrinter\ValueObject;
+namespace RectorPrefix20201230\Symplify\PhpConfigPrinter\ValueObject;
 
 final class SymfonyVersionFeature
 {

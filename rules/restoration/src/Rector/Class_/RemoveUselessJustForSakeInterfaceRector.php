@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Restoration\Rector\Class_;
 
-use RectorPrefix20201229\Nette\Utils\Strings;
+use RectorPrefix20201230\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
@@ -15,7 +15,7 @@ use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -53,12 +53,12 @@ final class RemoveUselessJustForSakeInterfaceRector extends \Rector\Core\Rector\
         }
         foreach ($node->implements as $key => $implement) {
             $implementedInterfaceName = $this->getName($implement);
-            if (!\RectorPrefix20201229\Nette\Utils\Strings::match($implementedInterfaceName, $this->interfacePattern)) {
+            if (!\RectorPrefix20201230\Nette\Utils\Strings::match($implementedInterfaceName, $this->interfacePattern)) {
                 continue;
             }
             // is interface in /vendor? probably useful
             $classFileLocation = $this->resolveClassFileLocation($implementedInterfaceName);
-            if (\RectorPrefix20201229\Nette\Utils\Strings::contains($classFileLocation, 'vendor')) {
+            if (\RectorPrefix20201230\Nette\Utils\Strings::contains($classFileLocation, 'vendor')) {
                 continue;
             }
             $interfaceImplementers = $this->getInterfaceImplementers($implementedInterfaceName);
@@ -144,7 +144,7 @@ CODE_SAMPLE
                 $this->removeNode($interface);
             }
         } else {
-            $smartFileInfo = new \RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo($classFileLocation);
+            $smartFileInfo = new \RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo($classFileLocation);
             $this->removeFile($smartFileInfo);
         }
     }

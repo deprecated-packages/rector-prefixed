@@ -8,10 +8,10 @@ use Rector\RectorGenerator\Exception\ConfigurationException;
 use Rector\RectorGenerator\Generator\RectorRecipeGenerator;
 use Rector\RectorGenerator\Testing\ManualInteractiveInputProvider;
 use Rector\RectorGenerator\ValueObjectFactory\RectorRecipeInteractiveFactory;
-use RectorPrefix20201229\Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
-use RectorPrefix20201229\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileSystem;
-final class RectorRecipeInteractiveProviderTest extends \RectorPrefix20201229\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20201230\Symplify\EasyTesting\PHPUnit\Behavior\DirectoryAssertableTrait;
+use RectorPrefix20201230\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileSystem;
+final class RectorRecipeInteractiveProviderTest extends \RectorPrefix20201230\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     use DirectoryAssertableTrait;
     /**
@@ -40,7 +40,7 @@ final class RectorRecipeInteractiveProviderTest extends \RectorPrefix20201229\Sy
         $this->rectorRecipeInteractiveFactory = $this->getService(\Rector\RectorGenerator\ValueObjectFactory\RectorRecipeInteractiveFactory::class);
         $this->rectorRecipeGenerator = $this->getService(\Rector\RectorGenerator\Generator\RectorRecipeGenerator::class);
         $this->manualInteractiveInputProvider = $this->getService(\Rector\RectorGenerator\Testing\ManualInteractiveInputProvider::class);
-        $this->smartFileSystem = $this->getService(\RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileSystem::class);
+        $this->smartFileSystem = $this->getService(\RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileSystem::class);
     }
     public function test() : void
     {

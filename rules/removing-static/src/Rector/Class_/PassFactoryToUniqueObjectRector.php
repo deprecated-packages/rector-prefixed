@@ -66,13 +66,13 @@ final class PassFactoryToUniqueObjectRector extends \Rector\Core\Rector\Abstract
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Convert new X/Static::call() to factories in entities, pass them via constructor to each other', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20201229;
+namespace RectorPrefix20201230;
 
 class SomeClass
 {
     public function run()
     {
-        return new \RectorPrefix20201229\AnotherClass();
+        return new \RectorPrefix20201230\AnotherClass();
     }
 }
 \class_alias('SomeClass', 'SomeClass', \false);
@@ -80,7 +80,7 @@ class AnotherClass
 {
     public function someFun()
     {
-        return \RectorPrefix20201229\StaticClass::staticMethod();
+        return \RectorPrefix20201230\StaticClass::staticMethod();
     }
 }
 \class_alias('AnotherClass', 'AnotherClass', \false);

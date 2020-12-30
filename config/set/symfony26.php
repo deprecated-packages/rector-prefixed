@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201229;
+namespace RectorPrefix20201230;
 
 use Rector\Symfony2\Rector\MethodCall\AddFlashRector;
 use Rector\Symfony2\Rector\MethodCall\RedirectToRouteRector;
-use RectorPrefix20201229\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20201229\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20201230\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20201230\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Symfony2\Rector\MethodCall\RedirectToRouteRector::class);
     $services->set(\Rector\Symfony2\Rector\MethodCall\AddFlashRector::class);

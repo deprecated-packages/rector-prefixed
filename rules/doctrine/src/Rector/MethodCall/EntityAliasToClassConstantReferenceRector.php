@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Rector\MethodCall;
 
-use RectorPrefix20201229\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
-use RectorPrefix20201229\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
-use RectorPrefix20201229\Doctrine\ORM\EntityManagerInterface;
-use RectorPrefix20201229\Doctrine\Persistence\ManagerRegistry;
-use RectorPrefix20201229\Doctrine\Persistence\ObjectManager;
-use RectorPrefix20201229\Nette\Utils\Strings;
+use RectorPrefix20201230\Doctrine\Common\Persistence\ManagerRegistry as DeprecatedManagerRegistry;
+use RectorPrefix20201230\Doctrine\Common\Persistence\ObjectManager as DeprecatedObjectManager;
+use RectorPrefix20201230\Doctrine\ORM\EntityManagerInterface;
+use RectorPrefix20201230\Doctrine\Persistence\ManagerRegistry;
+use RectorPrefix20201230\Doctrine\Persistence\ObjectManager;
+use RectorPrefix20201230\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
@@ -29,7 +29,7 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
     /**
      * @var string[]
      */
-    private const ALLOWED_OBJECT_TYPES = [\RectorPrefix20201229\Doctrine\ORM\EntityManagerInterface::class, \RectorPrefix20201229\Doctrine\Persistence\ObjectManager::class, \RectorPrefix20201229\Doctrine\Common\Persistence\ObjectManager::class, \RectorPrefix20201229\Doctrine\Persistence\ManagerRegistry::class, \RectorPrefix20201229\Doctrine\Common\Persistence\ManagerRegistry::class];
+    private const ALLOWED_OBJECT_TYPES = [\RectorPrefix20201230\Doctrine\ORM\EntityManagerInterface::class, \RectorPrefix20201230\Doctrine\Persistence\ObjectManager::class, \RectorPrefix20201230\Doctrine\Common\Persistence\ObjectManager::class, \RectorPrefix20201230\Doctrine\Persistence\ManagerRegistry::class, \RectorPrefix20201230\Doctrine\Common\Persistence\ManagerRegistry::class];
     /**
      * @var string[]
      */
@@ -96,7 +96,7 @@ CODE_SAMPLE
     }
     private function isAlias(string $name) : bool
     {
-        return \RectorPrefix20201229\Nette\Utils\Strings::contains($name, ':');
+        return \RectorPrefix20201230\Nette\Utils\Strings::contains($name, ':');
     }
     private function hasAlias(string $name) : bool
     {

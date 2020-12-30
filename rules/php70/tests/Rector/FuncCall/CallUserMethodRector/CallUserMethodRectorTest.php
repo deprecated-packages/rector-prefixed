@@ -6,7 +6,7 @@ namespace Rector\Php70\Tests\Rector\FuncCall\CallUserMethodRector;
 use Iterator;
 use Rector\Php70\Rector\FuncCall\CallUserMethodRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://www.mail-archive.com/php-dev@lists.php.net/msg11576.html
  */
@@ -15,7 +15,7 @@ final class CallUserMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRec
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

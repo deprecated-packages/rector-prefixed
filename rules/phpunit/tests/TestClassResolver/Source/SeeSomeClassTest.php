@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\Tests\TestClassResolver\Source;
 
-use RectorPrefix20201229\PHPUnit\Framework\TestCase;
-final class SeeSomeClassTest extends \RectorPrefix20201229\PHPUnit\Framework\TestCase
+use RectorPrefix20201230\PHPUnit\Framework\TestCase;
+final class SeeSomeClassTest extends \RectorPrefix20201230\PHPUnit\Framework\TestCase
 {
 }

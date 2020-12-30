@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201229\Symplify\EasyTesting\PHPUnit\Behavior;
+namespace RectorPrefix20201230\Symplify\EasyTesting\PHPUnit\Behavior;
 
-use RectorPrefix20201229\Symfony\Component\Finder\Finder;
-use RectorPrefix20201229\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
-use RectorPrefix20201229\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201230\Symfony\Component\Finder\Finder;
+use RectorPrefix20201230\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
+use RectorPrefix20201230\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Use only in "\PHPUnit\Framework\TestCase"
  *
@@ -35,9 +35,9 @@ trait DirectoryAssertableTrait
      */
     private function findFileInfosInDirectory(string $directory) : array
     {
-        $firstDirectoryFinder = new \RectorPrefix20201229\Symfony\Component\Finder\Finder();
+        $firstDirectoryFinder = new \RectorPrefix20201230\Symfony\Component\Finder\Finder();
         $firstDirectoryFinder->files()->in($directory);
-        $finderSanitizer = new \RectorPrefix20201229\Symplify\SmartFileSystem\Finder\FinderSanitizer();
+        $finderSanitizer = new \RectorPrefix20201230\Symplify\SmartFileSystem\Finder\FinderSanitizer();
         return $finderSanitizer->sanitize($firstDirectoryFinder);
     }
     /**
@@ -52,14 +52,14 @@ trait DirectoryAssertableTrait
             $relativeFilePath = $expectedFileInfo->getRelativeFilePathFromDirectory($expectedDirectory);
             // match output file info
             $outputFileInfo = $this->resolveFileInfoByRelativeFilePath($outputFileInfos, $outputDirectory, $relativeFilePath);
-            $fileInfosByRelativeFilePath[$relativeFilePath] = new \RectorPrefix20201229\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair($expectedFileInfo, $outputFileInfo);
+            $fileInfosByRelativeFilePath[$relativeFilePath] = new \RectorPrefix20201230\Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair($expectedFileInfo, $outputFileInfo);
         }
         return $fileInfosByRelativeFilePath;
     }
     /**
      * @param SmartFileInfo[] $fileInfos
      */
-    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath) : ?\RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo
+    private function resolveFileInfoByRelativeFilePath(array $fileInfos, string $directory, string $desiredRelativeFilePath) : ?\RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($fileInfos as $fileInfo) {
             $relativeFilePath = $fileInfo->getRelativeFilePathFromDirectory($directory);

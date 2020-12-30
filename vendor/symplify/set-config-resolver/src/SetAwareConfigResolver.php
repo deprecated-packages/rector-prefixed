@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201229\Symplify\SetConfigResolver;
+namespace RectorPrefix20201230\Symplify\SetConfigResolver;
 
-use RectorPrefix20201229\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20201229\Symplify\SetConfigResolver\Config\SetsParameterResolver;
-use RectorPrefix20201229\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201230\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201230\Symplify\SetConfigResolver\Config\SetsParameterResolver;
+use RectorPrefix20201230\Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SetConfigResolver\Tests\ConfigResolver\SetAwareConfigResolverTest
  */
-final class SetAwareConfigResolver extends \RectorPrefix20201229\Symplify\SetConfigResolver\AbstractConfigResolver
+final class SetAwareConfigResolver extends \RectorPrefix20201230\Symplify\SetConfigResolver\AbstractConfigResolver
 {
     /**
      * @var SetsParameterResolver
@@ -20,10 +20,10 @@ final class SetAwareConfigResolver extends \RectorPrefix20201229\Symplify\SetCon
      * @var SetResolver
      */
     private $setResolver;
-    public function __construct(\RectorPrefix20201229\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
+    public function __construct(\RectorPrefix20201230\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
     {
-        $this->setResolver = new \RectorPrefix20201229\Symplify\SetConfigResolver\SetResolver($setProvider);
-        $this->setsParameterResolver = new \RectorPrefix20201229\Symplify\SetConfigResolver\Config\SetsParameterResolver($this->setResolver);
+        $this->setResolver = new \RectorPrefix20201230\Symplify\SetConfigResolver\SetResolver($setProvider);
+        $this->setsParameterResolver = new \RectorPrefix20201230\Symplify\SetConfigResolver\Config\SetsParameterResolver($this->setResolver);
         parent::__construct();
     }
     /**
@@ -34,7 +34,7 @@ final class SetAwareConfigResolver extends \RectorPrefix20201229\Symplify\SetCon
     {
         return $this->setsParameterResolver->resolveFromFileInfos($fileInfos);
     }
-    public function resolveSetFromInput(\RectorPrefix20201229\Symfony\Component\Console\Input\InputInterface $input) : ?\RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo
+    public function resolveSetFromInput(\RectorPrefix20201230\Symfony\Component\Console\Input\InputInterface $input) : ?\RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->setResolver->detectFromInput($input);
     }

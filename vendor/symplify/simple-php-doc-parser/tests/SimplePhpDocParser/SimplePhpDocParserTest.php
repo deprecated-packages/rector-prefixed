@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201229\Symplify\SimplePhpDocParser\Tests\SimplePhpDocParser;
+namespace RectorPrefix20201230\Symplify\SimplePhpDocParser\Tests\SimplePhpDocParser;
 
-use RectorPrefix20201229\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20201229\Symplify\SimplePhpDocParser\SimplePhpDocParser;
-use RectorPrefix20201229\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel;
-use RectorPrefix20201229\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
-use RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo;
-final class SimplePhpDocParserTest extends \RectorPrefix20201229\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20201230\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20201230\Symplify\SimplePhpDocParser\SimplePhpDocParser;
+use RectorPrefix20201230\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel;
+use RectorPrefix20201230\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode;
+use RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo;
+final class SimplePhpDocParserTest extends \RectorPrefix20201230\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var SimplePhpDocParser
@@ -16,22 +16,22 @@ final class SimplePhpDocParserTest extends \RectorPrefix20201229\Symplify\Packag
     private $simplePhpDocParser;
     protected function setUp() : void
     {
-        $this->bootKernel(\RectorPrefix20201229\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel::class);
-        $this->simplePhpDocParser = $this->getService(\RectorPrefix20201229\Symplify\SimplePhpDocParser\SimplePhpDocParser::class);
+        $this->bootKernel(\RectorPrefix20201230\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel::class);
+        $this->simplePhpDocParser = $this->getService(\RectorPrefix20201230\Symplify\SimplePhpDocParser\SimplePhpDocParser::class);
     }
     public function testVar() : void
     {
-        $smartFileInfo = new \RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/var_int.txt');
+        $smartFileInfo = new \RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/var_int.txt');
         $phpDocNode = $this->simplePhpDocParser->parseDocBlock($smartFileInfo->getContents());
-        $this->assertInstanceOf(\RectorPrefix20201229\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
+        $this->assertInstanceOf(\RectorPrefix20201230\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
         $varTagValues = $phpDocNode->getVarTagValues();
         $this->assertCount(1, $varTagValues);
     }
     public function testParam() : void
     {
-        $smartFileInfo = new \RectorPrefix20201229\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/param_string_name.txt');
+        $smartFileInfo = new \RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/param_string_name.txt');
         $phpDocNode = $this->simplePhpDocParser->parseDocBlock($smartFileInfo->getContents());
-        $this->assertInstanceOf(\RectorPrefix20201229\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
+        $this->assertInstanceOf(\RectorPrefix20201230\Symplify\SimplePhpDocParser\ValueObject\Ast\PhpDoc\SimplePhpDocNode::class, $phpDocNode);
         // DX friendly
         $paramType = $phpDocNode->getParamType('name');
         $withDollarParamType = $phpDocNode->getParamType('$name');

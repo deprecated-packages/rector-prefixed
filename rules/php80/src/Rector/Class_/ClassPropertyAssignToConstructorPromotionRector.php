@@ -81,10 +81,13 @@ CODE_SAMPLE
         foreach ($promotionCandidates as $promotionCandidate) {
             // does property have some useful annotations?
             $property = $promotionCandidate->getProperty();
+            $param = $promotionCandidate->getParam();
+            if ($param->variadic) {
+                continue;
+            }
             $this->removeNode($property);
             $this->removeNode($promotionCandidate->getAssign());
             $property = $promotionCandidate->getProperty();
-            $param = $promotionCandidate->getParam();
             $this->decorateParamWithPropertyPhpDocInfo($property, $param);
             /** @var string $oldName */
             $oldName = $this->getName($param->var);

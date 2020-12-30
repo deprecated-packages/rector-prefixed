@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201229\Symfony\Component\HttpKernel\EventListener;
+namespace RectorPrefix20201230\Symfony\Component\HttpKernel\EventListener;
 
-use RectorPrefix20201229\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use RectorPrefix20201229\Symfony\Component\HttpFoundation\Cookie;
-use RectorPrefix20201229\Symfony\Component\HttpFoundation\Session\Session;
-use RectorPrefix20201229\Symfony\Component\HttpFoundation\Session\SessionInterface;
-use RectorPrefix20201229\Symfony\Component\HttpKernel\Event\RequestEvent;
-use RectorPrefix20201229\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use RectorPrefix20201229\Symfony\Component\HttpKernel\KernelEvents;
+use RectorPrefix20201230\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use RectorPrefix20201230\Symfony\Component\HttpFoundation\Cookie;
+use RectorPrefix20201230\Symfony\Component\HttpFoundation\Session\Session;
+use RectorPrefix20201230\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use RectorPrefix20201230\Symfony\Component\HttpKernel\Event\RequestEvent;
+use RectorPrefix20201230\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use RectorPrefix20201230\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * TestSessionListener.
  *
@@ -27,7 +27,7 @@ use RectorPrefix20201229\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @internal
  */
-abstract class AbstractTestSessionListener implements \RectorPrefix20201229\Symfony\Component\EventDispatcher\EventSubscriberInterface
+abstract class AbstractTestSessionListener implements \RectorPrefix20201230\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $sessionId;
     private $sessionOptions;
@@ -35,7 +35,7 @@ abstract class AbstractTestSessionListener implements \RectorPrefix20201229\Symf
     {
         $this->sessionOptions = $sessionOptions;
     }
-    public function onKernelRequest(\RectorPrefix20201229\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+    public function onKernelRequest(\RectorPrefix20201230\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -54,7 +54,7 @@ abstract class AbstractTestSessionListener implements \RectorPrefix20201229\Symf
      * Checks if session was initialized and saves if current request is master
      * Runs on 'kernel.response' in test environment.
      */
-    public function onKernelResponse(\RectorPrefix20201229\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onKernelResponse(\RectorPrefix20201230\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -67,7 +67,7 @@ abstract class AbstractTestSessionListener implements \RectorPrefix20201229\Symf
         if ($wasStarted = $session->isStarted()) {
             $session->save();
         }
-        if ($session instanceof \RectorPrefix20201229\Symfony\Component\HttpFoundation\Session\Session ? !$session->isEmpty() || null !== $this->sessionId && $session->getId() !== $this->sessionId : $wasStarted) {
+        if ($session instanceof \RectorPrefix20201230\Symfony\Component\HttpFoundation\Session\Session ? !$session->isEmpty() || null !== $this->sessionId && $session->getId() !== $this->sessionId : $wasStarted) {
             $params = \session_get_cookie_params() + ['samesite' => null];
             foreach ($this->sessionOptions as $k => $v) {
                 if (0 === \strpos($k, 'cookie_')) {
@@ -79,13 +79,13 @@ abstract class AbstractTestSessionListener implements \RectorPrefix20201229\Symf
                     return;
                 }
             }
-            $event->getResponse()->headers->setCookie(new \RectorPrefix20201229\Symfony\Component\HttpFoundation\Cookie($session->getName(), $session->getId(), 0 === $params['lifetime'] ? 0 : \time() + $params['lifetime'], $params['path'], $params['domain'], $params['secure'], $params['httponly'], \false, $params['samesite'] ?: null));
+            $event->getResponse()->headers->setCookie(new \RectorPrefix20201230\Symfony\Component\HttpFoundation\Cookie($session->getName(), $session->getId(), 0 === $params['lifetime'] ? 0 : \time() + $params['lifetime'], $params['path'], $params['domain'], $params['secure'], $params['httponly'], \false, $params['samesite'] ?: null));
             $this->sessionId = $session->getId();
         }
     }
     public static function getSubscribedEvents() : array
     {
-        return [\RectorPrefix20201229\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 192], \RectorPrefix20201229\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onKernelResponse', -128]];
+        return [\RectorPrefix20201230\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 192], \RectorPrefix20201230\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onKernelResponse', -128]];
     }
     /**
      * Gets the session object.

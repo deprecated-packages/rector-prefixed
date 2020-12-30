@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\NodeFactory;
 
-use RectorPrefix20201229\Nette\Utils\Strings;
+use RectorPrefix20201230\Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -92,7 +92,7 @@ final class EventValueObjectClassFactory
     }
     private function wrapClassToNamespace(string $className, \PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Namespace_
     {
-        $namespace = \RectorPrefix20201229\Nette\Utils\Strings::before($className, '\\', -1);
+        $namespace = \RectorPrefix20201230\Nette\Utils\Strings::before($className, '\\', -1);
         $namespaceBuilder = new \Rector\Core\PhpParser\Builder\NamespaceBuilder($namespace);
         $namespaceBuilder->addStmt($class);
         return $namespaceBuilder->getNode();
