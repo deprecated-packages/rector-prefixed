@@ -8,8 +8,8 @@ use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\Testing\TestingParser\TestingParser;
-use RectorPrefix20201230\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-abstract class AbstractNodeTypeResolverTest extends \RectorPrefix20201230\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20201231\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+abstract class AbstractNodeTypeResolverTest extends \RectorPrefix20201231\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var NodeTypeResolver

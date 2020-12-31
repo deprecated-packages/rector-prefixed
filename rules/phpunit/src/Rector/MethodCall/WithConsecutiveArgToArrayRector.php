@@ -13,7 +13,7 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator;
 use Rector\Core\Rector\AbstractRector;
 use ReflectionMethod;
-use RectorPrefix20201230\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use RectorPrefix20201231\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**

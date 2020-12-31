@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201230\Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace RectorPrefix20201231\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20201230\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20201230\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
-use RectorPrefix20201230\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
-use RectorPrefix20201230\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
-final class BindAutowireAutoconfigureServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20201230\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use RectorPrefix20201231\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20201231\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
+use RectorPrefix20201231\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use RectorPrefix20201231\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+final class BindAutowireAutoconfigureServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20201231\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var CommonNodeFactory
      */
     private $commonNodeFactory;
-    public function __construct(\RectorPrefix20201230\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
+    public function __construct(\RectorPrefix20201231\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
     {
         $this->commonNodeFactory = $commonNodeFactory;
     }
@@ -33,6 +33,6 @@ final class BindAutowireAutoconfigureServiceOptionKeyYamlToPhpFactory implements
     }
     public function isMatch($key, $values) : bool
     {
-        return \in_array($key, [\RectorPrefix20201230\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::BIND, \RectorPrefix20201230\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOWIRE, \RectorPrefix20201230\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOCONFIGURE], \true);
+        return \in_array($key, [\RectorPrefix20201231\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::BIND, \RectorPrefix20201231\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOWIRE, \RectorPrefix20201231\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOCONFIGURE], \true);
     }
 }

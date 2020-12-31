@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory\JMS;
 
-use RectorPrefix20201230\JMS\DiExtraBundle\Annotation\Inject;
+use RectorPrefix20201231\JMS\DiExtraBundle\Annotation\Inject;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;

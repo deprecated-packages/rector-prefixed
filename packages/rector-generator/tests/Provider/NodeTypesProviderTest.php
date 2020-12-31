@@ -5,8 +5,8 @@ namespace Rector\RectorGenerator\Tests\Provider;
 
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\RectorGenerator\Provider\NodeTypesProvider;
-use RectorPrefix20201230\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class NodeTypesProviderTest extends \RectorPrefix20201230\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20201231\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class NodeTypesProviderTest extends \RectorPrefix20201231\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var NodeTypesProvider

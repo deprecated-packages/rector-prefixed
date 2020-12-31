@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201230\Symplify\SetConfigResolver\Bootstrap;
+namespace RectorPrefix20201231\Symplify\SetConfigResolver\Bootstrap;
 
-use RectorPrefix20201230\Nette\Utils\ObjectHelpers;
-use RectorPrefix20201230\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20201230\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use RectorPrefix20201230\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20201231\Nette\Utils\ObjectHelpers;
+use RectorPrefix20201231\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20201231\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use RectorPrefix20201231\Symplify\SetConfigResolver\Exception\SetNotFoundException;
 final class InvalidSetReporter
 {
     /**
@@ -15,13 +15,13 @@ final class InvalidSetReporter
     private $symfonyStyle;
     public function __construct()
     {
-        $symfonyStyleFactory = new \RectorPrefix20201230\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+        $symfonyStyleFactory = new \RectorPrefix20201231\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
         $this->symfonyStyle = $symfonyStyleFactory->create();
     }
-    public function report(\RectorPrefix20201230\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) : void
+    public function report(\RectorPrefix20201231\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) : void
     {
         $message = $setNotFoundException->getMessage();
-        $suggestedSet = \RectorPrefix20201230\Nette\Utils\ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());
+        $suggestedSet = \RectorPrefix20201231\Nette\Utils\ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());
         if ($suggestedSet !== null) {
             $message .= \sprintf('. Did you mean "%s"?', $suggestedSet);
             $this->symfonyStyle->error($message);

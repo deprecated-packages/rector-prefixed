@@ -3,13 +3,19 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\ClassMethod;
 
+use RectorPrefix20201231\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\ThisType;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -17,6 +23,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class UnSpreadOperatorRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @see https://regex101.com/r/ChpDsj/1
+     * @var string
+     */
+    private const ANONYMOUS_CLASS_REGEX = '#^AnonymousClass[\\w+]#';
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove spread operator', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -64,8 +75,48 @@ CODE_SAMPLE
         }
         return $this->processUnspreadOperatorMethodCallArgs($node);
     }
+    private function getClassFileNameByClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?string
+    {
+        $parent = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\Stmt\Class_) {
+            return null;
+        }
+        $shortClassName = (string) $parent->name;
+        if (\RectorPrefix20201231\Nette\Utils\Strings::match($shortClassName, self::ANONYMOUS_CLASS_REGEX)) {
+            return null;
+        }
+        $reflectionClass = new \ReflectionClass((string) $parent->namespacedName);
+        return (string) $reflectionClass->getFileName();
+    }
+    private function getClassFileNameByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?string
+    {
+        $scope = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if ($scope === null) {
+            return null;
+        }
+        $type = $scope->getType($methodCall->var);
+        if ($type instanceof \PHPStan\Type\ObjectType) {
+            $classReflection = $type->getClassReflection();
+            if ($classReflection === null) {
+                return null;
+            }
+            return (string) $classReflection->getFileName();
+        }
+        if ($type instanceof \PHPStan\Type\ThisType) {
+            $staticObjectType = $type->getStaticObjectType();
+            $classReflection = $staticObjectType->getClassReflection();
+            if ($classReflection === null) {
+                return null;
+            }
+            return (string) $classReflection->getFileName();
+        }
+        return null;
+    }
     private function processUnspreadOperatorClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
+        if ($this->isInVendor($classMethod)) {
+            return null;
+        }
         $params = $classMethod->params;
         if ($params === []) {
             return null;
@@ -80,8 +131,23 @@ CODE_SAMPLE
         }
         return $classMethod;
     }
+    /**
+     * @param ClassMethod|MethodCall $node
+     */
+    private function isInVendor(\PhpParser\Node $node) : bool
+    {
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $fileName = $node instanceof \PhpParser\Node\Stmt\ClassMethod ? $this->getClassFileNameByClassMethod($node) : $this->getClassFileNameByMethodCall($node);
+        if ($fileName === null) {
+            return \false;
+        }
+        return \RectorPrefix20201231\Nette\Utils\Strings::contains($fileName, 'vendor');
+    }
     private function processUnspreadOperatorMethodCallArgs(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
+        if ($this->isInVendor($methodCall)) {
+            return null;
+        }
         $args = $methodCall->args;
         if ($args === []) {
             return null;

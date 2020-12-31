@@ -13,7 +13,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\ArgumentRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20201230\Webmozart\Assert\Assert;
+use RectorPrefix20201231\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\ArgumentRemoverRector\ArgumentRemoverRectorTest
  */
@@ -65,7 +65,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $removedArguments = $configuration[self::REMOVED_ARGUMENTS] ?? [];
-        \RectorPrefix20201230\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Generic\ValueObject\ArgumentRemover::class);
+        \RectorPrefix20201231\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Generic\ValueObject\ArgumentRemover::class);
         $this->removedArguments = $removedArguments;
     }
     /**

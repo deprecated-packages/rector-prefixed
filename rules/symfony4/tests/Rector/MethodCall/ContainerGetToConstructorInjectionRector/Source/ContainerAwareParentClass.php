@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Symfony4\Tests\Rector\MethodCall\ContainerGetToConstructorInjectionRector\Source;
 
-use RectorPrefix20201230\Symfony\Component\DependencyInjection\ContainerInterface;
+use RectorPrefix20201231\Symfony\Component\DependencyInjection\ContainerInterface;
 class ContainerAwareParentClass
 {
-    public function getContainer() : \RectorPrefix20201230\Symfony\Component\DependencyInjection\ContainerInterface
+    public function getContainer() : \RectorPrefix20201231\Symfony\Component\DependencyInjection\ContainerInterface
     {
     }
 }

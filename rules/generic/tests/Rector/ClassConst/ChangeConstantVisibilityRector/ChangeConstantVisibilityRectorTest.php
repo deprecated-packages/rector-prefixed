@@ -9,13 +9,13 @@ use Rector\Generic\Rector\ClassConst\ChangeConstantVisibilityRector;
 use Rector\Generic\Tests\Rector\ClassConst\ChangeConstantVisibilityRector\Source\ParentObject;
 use Rector\Generic\ValueObject\ClassConstantVisibilityChange;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileInfo;
 final class ChangeConstantVisibilityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

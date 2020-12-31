@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Rector\Core\Console\Command;
 
-use RectorPrefix20201230\Nette\Utils\Strings;
+use RectorPrefix20201231\Nette\Utils\Strings;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Configuration\Option;
-use RectorPrefix20201230\Symfony\Component\Console\Command\Command;
-use RectorPrefix20201230\Symfony\Component\Console\Descriptor\TextDescriptor;
-use RectorPrefix20201230\Symfony\Component\Console\Exception\RuntimeException;
-use RectorPrefix20201230\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20201230\Symfony\Component\Console\Output\OutputInterface;
-use RectorPrefix20201230\Symplify\PackageBuilder\Console\ShellCode;
-abstract class AbstractCommand extends \RectorPrefix20201230\Symfony\Component\Console\Command\Command
+use RectorPrefix20201231\Symfony\Component\Console\Command\Command;
+use RectorPrefix20201231\Symfony\Component\Console\Descriptor\TextDescriptor;
+use RectorPrefix20201231\Symfony\Component\Console\Exception\RuntimeException;
+use RectorPrefix20201231\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20201231\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20201231\Symplify\PackageBuilder\Console\ShellCode;
+abstract class AbstractCommand extends \RectorPrefix20201231\Symfony\Component\Console\Command\Command
 {
     /**
      * @var ChangedFilesDetector
@@ -25,18 +25,18 @@ abstract class AbstractCommand extends \RectorPrefix20201230\Symfony\Component\C
     /**
      * @required
      */
-    public function autowireAbstractCommand(\RectorPrefix20201230\Symfony\Component\Console\Descriptor\TextDescriptor $textDescriptor, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector) : void
+    public function autowireAbstractCommand(\RectorPrefix20201231\Symfony\Component\Console\Descriptor\TextDescriptor $textDescriptor, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector) : void
     {
         $this->textDescriptor = $textDescriptor;
         $this->changedFilesDetector = $changedFilesDetector;
     }
-    public function run(\RectorPrefix20201230\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201230\Symfony\Component\Console\Output\OutputInterface $output) : int
+    public function run(\RectorPrefix20201231\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201231\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         // show help on arguments fail
         try {
             return parent::run($input, $output);
-        } catch (\RectorPrefix20201230\Symfony\Component\Console\Exception\RuntimeException $runtimeException) {
-            if (\RectorPrefix20201230\Nette\Utils\Strings::contains($runtimeException->getMessage(), 'Not enough arguments')) {
+        } catch (\RectorPrefix20201231\Symfony\Component\Console\Exception\RuntimeException $runtimeException) {
+            if (\RectorPrefix20201231\Nette\Utils\Strings::contains($runtimeException->getMessage(), 'Not enough arguments')) {
                 // sometimes there is "command" argument, not really needed on fail of chosen command and missing argument
                 $inputDefinition = $this->getDefinition();
                 $arguments = $inputDefinition->getArguments();
@@ -45,12 +45,12 @@ abstract class AbstractCommand extends \RectorPrefix20201230\Symfony\Component\C
                     $inputDefinition->setArguments($arguments);
                 }
                 $this->textDescriptor->describe($output, $this);
-                return \RectorPrefix20201230\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+                return \RectorPrefix20201231\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
             }
             throw $runtimeException;
         }
     }
-    protected function initialize(\RectorPrefix20201230\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201230\Symfony\Component\Console\Output\OutputInterface $output) : void
+    protected function initialize(\RectorPrefix20201231\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20201231\Symfony\Component\Console\Output\OutputInterface $output) : void
     {
         $application = $this->getApplication();
         $optionDebug = $input->getOption(\Rector\Core\Configuration\Option::OPTION_DEBUG);

@@ -47,13 +47,13 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20201230\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
+            "RectorPrefix20201231\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20201230\\Doctrine\\Performance\\Common\\Annotations\\": "tests\/Doctrine\/Performance\/Common\/Annotations",
-            "RectorPrefix20201230\\Doctrine\\Tests\\Common\\Annotations\\": "tests\/Doctrine\/Tests\/Common\/Annotations"
+            "RectorPrefix20201231\\Doctrine\\Performance\\Common\\Annotations\\": "tests\/Doctrine\/Performance\/Common\/Annotations",
+            "RectorPrefix20201231\\Doctrine\\Tests\\Common\\Annotations\\": "tests\/Doctrine\/Tests\/Common\/Annotations"
         },
         "files": [
             "tests\/Doctrine\/Tests\/Common\/Annotations\/Fixtures\/SingleClassLOC1000.php"

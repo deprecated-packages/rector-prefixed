@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201230\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace RectorPrefix20201231\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
-use RectorPrefix20201230\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use RectorPrefix20201231\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 trait CallTrait
 {
     /**

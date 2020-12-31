@@ -14,7 +14,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Renaming\ValueObject\RenameAnnotation;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20201230\Webmozart\Assert\Assert;
+use RectorPrefix20201231\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\ClassMethod\RenameAnnotationRector\RenameAnnotationRectorTest
  */
@@ -87,7 +87,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $renamedAnnotationsInTypes = $configuration[self::RENAMED_ANNOTATIONS_IN_TYPES] ?? [];
-        \RectorPrefix20201230\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);
+        \RectorPrefix20201231\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);
         $this->renamedAnnotationInTypes = $renamedAnnotationsInTypes;
     }
 }

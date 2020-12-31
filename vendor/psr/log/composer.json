@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20201230\\Psr\\Log\\": "Psr\/Log\/"
+            "RectorPrefix20201231\\Psr\\Log\\": "Psr\/Log\/"
         }
     },
     "extra": {

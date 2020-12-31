@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use RectorPrefix20201230\JMS\Serializer\Annotation as Serializer;
-use RectorPrefix20201230\Symfony\Component\Validator\Constraints as Assert;
+use RectorPrefix20201231\JMS\Serializer\Annotation as Serializer;
+use RectorPrefix20201231\Symfony\Component\Validator\Constraints as Assert;
 final class AnotherPropertyClass
 {
     /**

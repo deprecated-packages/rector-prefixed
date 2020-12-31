@@ -6,12 +6,12 @@ namespace Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceEventManagerWithEvent
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NetteKdyby\Rector\MethodCall\ReplaceEventManagerWithEventSubscriberRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileInfo;
 final class ReplaceEventManagerWithEventSubscriberRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     public function test() : void
     {
-        $fixtureFileInfo = new \RectorPrefix20201230\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc');
+        $fixtureFileInfo = new \RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc');
         $this->doTestFileInfo($fixtureFileInfo);
         $expectedEventFilePath = $this->originalTempFileInfo->getPath() . '/Event/SomeClassCopyEvent.php';
         $this->assertFileExists($expectedEventFilePath);

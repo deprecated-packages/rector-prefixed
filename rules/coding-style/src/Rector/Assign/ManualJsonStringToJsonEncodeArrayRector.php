@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Assign;
 
-use RectorPrefix20201230\Nette\Utils\Json;
-use RectorPrefix20201230\Nette\Utils\JsonException;
-use RectorPrefix20201230\Nette\Utils\Strings;
+use RectorPrefix20201231\Nette\Utils\Json;
+use RectorPrefix20201231\Nette\Utils\JsonException;
+use RectorPrefix20201231\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -124,12 +124,12 @@ CODE_SAMPLE
     }
     private function isJsonString(string $stringValue) : bool
     {
-        if (!(bool) \RectorPrefix20201230\Nette\Utils\Strings::match($stringValue, self::JSON_STRING_REGEX)) {
+        if (!(bool) \RectorPrefix20201231\Nette\Utils\Strings::match($stringValue, self::JSON_STRING_REGEX)) {
             return \false;
         }
         try {
-            return (bool) \RectorPrefix20201230\Nette\Utils\Json::decode($stringValue, \RectorPrefix20201230\Nette\Utils\Json::FORCE_ARRAY);
-        } catch (\RectorPrefix20201230\Nette\Utils\JsonException $jsonException) {
+            return (bool) \RectorPrefix20201231\Nette\Utils\Json::decode($stringValue, \RectorPrefix20201231\Nette\Utils\Json::FORCE_ARRAY);
+        } catch (\RectorPrefix20201231\Nette\Utils\JsonException $jsonException) {
             return \false;
         }
     }
@@ -174,7 +174,7 @@ CODE_SAMPLE
      */
     private function removeNodesAndCreateJsonEncodeFromStringValue(array $nodesToRemove, string $stringValue, array $placeholderNodes, \PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node\Expr\Assign
     {
-        $stringValue = \RectorPrefix20201230\Nette\Utils\Strings::replace($stringValue, self::UNQUOTED_OBJECT_HASH_REGEX, '$1"$2"');
+        $stringValue = \RectorPrefix20201231\Nette\Utils\Strings::replace($stringValue, self::UNQUOTED_OBJECT_HASH_REGEX, '$1"$2"');
         if (!$this->isJsonString($stringValue)) {
             return null;
         }
@@ -185,7 +185,7 @@ CODE_SAMPLE
     }
     private function createArrayNodeFromJsonString(string $stringValue) : \PhpParser\Node\Expr\Array_
     {
-        $array = \RectorPrefix20201230\Nette\Utils\Json::decode($stringValue, \RectorPrefix20201230\Nette\Utils\Json::FORCE_ARRAY);
+        $array = \RectorPrefix20201231\Nette\Utils\Json::decode($stringValue, \RectorPrefix20201231\Nette\Utils\Json::FORCE_ARRAY);
         return $this->createArray($array);
     }
     /**

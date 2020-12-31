@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201230;
+namespace RectorPrefix20201231;
 
 use Rector\CodingStyle\Rector\Assign\ManualJsonStringToJsonEncodeArrayRector;
 use Rector\CodingStyle\Rector\Assign\PHPStormVarAnnotationRector;
@@ -13,6 +13,7 @@ use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\CodingStyle\Rector\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector;
 use Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector;
 use Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector;
+use Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector;
 use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
 use Rector\CodingStyle\Rector\FuncCall\CallUserFuncCallToVariadicRector;
@@ -34,8 +35,8 @@ use Rector\CodingStyle\Rector\Ternary\TernaryConditionVariableAssignmentRector;
 use Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector;
 use Rector\CodingStyle\Rector\Use_\SplitGroupedUseImportsRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
-use RectorPrefix20201230\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20201230\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20201231\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20201231\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\CodingStyle\Rector\Assign\PHPStormVarAnnotationRector::class);
     $services->set(\Rector\CodingStyle\Rector\If_\NullableCompareToNullRector::class);
@@ -68,4 +69,5 @@ return static function (\RectorPrefix20201230\Symfony\Component\DependencyInject
     $services->set(\Rector\CodingStyle\Rector\Use_\SplitGroupedUseImportsRector::class);
     $services->set(\Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector::class);
     $services->set(\Rector\CodingStyle\Rector\PostInc\PostIncDecToPreIncDecRector::class);
+    $services->set(\Rector\CodingStyle\Rector\ClassMethod\UnSpreadOperatorRector::class);
 };

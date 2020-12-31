@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201230\Symfony\Component\HttpKernel\Event;
+namespace RectorPrefix20201231\Symfony\Component\HttpKernel\Event;
 
-use RectorPrefix20201230\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20201230\Symfony\Component\HttpFoundation\Response;
-use RectorPrefix20201230\Symfony\Component\HttpKernel\HttpKernelInterface;
+use RectorPrefix20201231\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20201231\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix20201231\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows to execute logic after a response was sent.
  *
@@ -21,15 +21,15 @@ use RectorPrefix20201230\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
  */
-final class TerminateEvent extends \RectorPrefix20201230\Symfony\Component\HttpKernel\Event\KernelEvent
+final class TerminateEvent extends \RectorPrefix20201231\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $response;
-    public function __construct(\RectorPrefix20201230\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20201230\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20201230\Symfony\Component\HttpFoundation\Response $response)
+    public function __construct(\RectorPrefix20201231\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20201231\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20201231\Symfony\Component\HttpFoundation\Response $response)
     {
-        parent::__construct($kernel, $request, \RectorPrefix20201230\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST);
+        parent::__construct($kernel, $request, \RectorPrefix20201231\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST);
         $this->response = $response;
     }
-    public function getResponse() : \RectorPrefix20201230\Symfony\Component\HttpFoundation\Response
+    public function getResponse() : \RectorPrefix20201231\Symfony\Component\HttpFoundation\Response
     {
         return $this->response;
     }
