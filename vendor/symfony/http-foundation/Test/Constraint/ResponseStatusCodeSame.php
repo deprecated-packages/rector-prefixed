@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201231\Symfony\Component\HttpFoundation\Test\Constraint;
+namespace RectorPrefix20210101\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use RectorPrefix20201231\PHPUnit\Framework\Constraint\Constraint;
-use RectorPrefix20201231\Symfony\Component\HttpFoundation\Response;
-final class ResponseStatusCodeSame extends \RectorPrefix20201231\PHPUnit\Framework\Constraint\Constraint
+use RectorPrefix20210101\PHPUnit\Framework\Constraint\Constraint;
+use RectorPrefix20210101\Symfony\Component\HttpFoundation\Response;
+final class ResponseStatusCodeSame extends \RectorPrefix20210101\PHPUnit\Framework\Constraint\Constraint
 {
     private $statusCode;
     public function __construct(int $statusCode)

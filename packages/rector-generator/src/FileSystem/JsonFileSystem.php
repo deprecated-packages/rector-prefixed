@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\FileSystem;
 
-use RectorPrefix20201231\Nette\Utils\Json;
-use RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210101\Nette\Utils\Json;
+use RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileSystem;
 final class JsonFileSystem
 {
     /**
@@ -15,7 +15,7 @@ final class JsonFileSystem
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Rector\RectorGenerator\FileSystem\JsonStringFormatter $jsonStringFormatter, \RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\Rector\RectorGenerator\FileSystem\JsonStringFormatter $jsonStringFormatter, \RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->jsonStringFormatter = $jsonStringFormatter;
         $this->smartFileSystem = $smartFileSystem;
@@ -26,14 +26,14 @@ final class JsonFileSystem
     public function loadFileToJson(string $filePath) : array
     {
         $fileContent = $this->smartFileSystem->readFile($filePath);
-        return \RectorPrefix20201231\Nette\Utils\Json::decode($fileContent, \RectorPrefix20201231\Nette\Utils\Json::FORCE_ARRAY);
+        return \RectorPrefix20210101\Nette\Utils\Json::decode($fileContent, \RectorPrefix20210101\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param mixed[] $json
      */
     public function saveJsonToFile(string $filePath, array $json) : void
     {
-        $content = \RectorPrefix20201231\Nette\Utils\Json::encode($json, \RectorPrefix20201231\Nette\Utils\Json::PRETTY);
+        $content = \RectorPrefix20210101\Nette\Utils\Json::encode($json, \RectorPrefix20210101\Nette\Utils\Json::PRETTY);
         $content = $this->jsonStringFormatter->inlineSections($content, ['keywords', 'bin']);
         $content = $this->jsonStringFormatter->inlineAuthors($content);
         // make sure there is newline in the end

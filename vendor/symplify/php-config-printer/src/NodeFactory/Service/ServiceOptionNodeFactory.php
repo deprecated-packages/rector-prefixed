@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201231\Symplify\PhpConfigPrinter\NodeFactory\Service;
+namespace RectorPrefix20210101\Symplify\PhpConfigPrinter\NodeFactory\Service;
 
-use RectorPrefix20201231\Nette\Utils\Strings;
+use RectorPrefix20210101\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20201231\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20201231\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+use RectorPrefix20210101\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210101\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
 final class ServiceOptionNodeFactory
 {
     /**
@@ -25,7 +25,7 @@ final class ServiceOptionNodeFactory
         $servicesValues = $this->unNestArguments($servicesValues);
         foreach ($servicesValues as $key => $value) {
             // options started by decoration_<option> are used as options of the method decorate().
-            if (\RectorPrefix20201231\Nette\Utils\Strings::startsWith($key, 'decoration_') || $key === 'alias') {
+            if (\RectorPrefix20210101\Nette\Utils\Strings::startsWith($key, 'decoration_') || $key === 'alias') {
                 continue;
             }
             foreach ($this->serviceOptionKeyYamlToPhpFactories as $serviceOptionKeyYamlToPhpFactory) {
@@ -44,7 +44,7 @@ final class ServiceOptionNodeFactory
             return \false;
         }
         foreach (\array_keys($servicesValues) as $key) {
-            if (!\RectorPrefix20201231\Nette\Utils\Strings::startsWith((string) $key, '$')) {
+            if (!\RectorPrefix20210101\Nette\Utils\Strings::startsWith((string) $key, '$')) {
                 return \false;
             }
         }
@@ -55,6 +55,6 @@ final class ServiceOptionNodeFactory
         if (!$this->isNestedArguments($servicesValues)) {
             return $servicesValues;
         }
-        return [\RectorPrefix20201231\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS => $servicesValues];
+        return [\RectorPrefix20210101\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS => $servicesValues];
     }
 }

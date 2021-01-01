@@ -6,13 +6,13 @@ namespace Rector\Symfony3\Tests\Rector\ClassConstFetch\ConsoleExceptionToErrorEv
 use Iterator;
 use Rector\Symfony3\Rector\ClassConstFetch\ConsoleExceptionToErrorEventConstantRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileInfo;
 final class ConsoleExceptionToErrorEventConstantRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201231\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210101\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20201231\Psr\Cache\CacheItemInterface;
-use RectorPrefix20201231\Symfony\Component\Cache\CacheItem;
-use RectorPrefix20201231\Symfony\Component\Cache\PruneableInterface;
-use RectorPrefix20201231\Symfony\Component\Cache\ResettableInterface;
-use RectorPrefix20201231\Symfony\Contracts\Cache\CacheInterface;
-use RectorPrefix20201231\Symfony\Contracts\Service\ResetInterface;
+use RectorPrefix20210101\Psr\Cache\CacheItemInterface;
+use RectorPrefix20210101\Symfony\Component\Cache\CacheItem;
+use RectorPrefix20210101\Symfony\Component\Cache\PruneableInterface;
+use RectorPrefix20210101\Symfony\Component\Cache\ResettableInterface;
+use RectorPrefix20210101\Symfony\Contracts\Cache\CacheInterface;
+use RectorPrefix20210101\Symfony\Contracts\Service\ResetInterface;
 /**
  * An adapter that collects data about all cache calls.
  *
@@ -23,11 +23,11 @@ use RectorPrefix20201231\Symfony\Contracts\Service\ResetInterface;
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class TraceableAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20201231\Symfony\Contracts\Cache\CacheInterface, \RectorPrefix20201231\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20201231\Symfony\Component\Cache\ResettableInterface
+class TraceableAdapter implements \RectorPrefix20210101\Symfony\Component\Cache\Adapter\AdapterInterface, \RectorPrefix20210101\Symfony\Contracts\Cache\CacheInterface, \RectorPrefix20210101\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20210101\Symfony\Component\Cache\ResettableInterface
 {
     protected $pool;
     private $calls = [];
-    public function __construct(\RectorPrefix20201231\Symfony\Component\Cache\Adapter\AdapterInterface $pool)
+    public function __construct(\RectorPrefix20210101\Symfony\Component\Cache\Adapter\AdapterInterface $pool)
     {
         $this->pool = $pool;
     }
@@ -36,11 +36,11 @@ class TraceableAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\
      */
     public function get(string $key, callable $callback, float $beta = null, array &$metadata = null)
     {
-        if (!$this->pool instanceof \RectorPrefix20201231\Symfony\Contracts\Cache\CacheInterface) {
-            throw new \BadMethodCallException(\sprintf('Cannot call "%s::get()": this class doesn\'t implement "%s".', \get_debug_type($this->pool), \RectorPrefix20201231\Symfony\Contracts\Cache\CacheInterface::class));
+        if (!$this->pool instanceof \RectorPrefix20210101\Symfony\Contracts\Cache\CacheInterface) {
+            throw new \BadMethodCallException(\sprintf('Cannot call "%s::get()": this class doesn\'t implement "%s".', \get_debug_type($this->pool), \RectorPrefix20210101\Symfony\Contracts\Cache\CacheInterface::class));
         }
         $isHit = \true;
-        $callback = function (\RectorPrefix20201231\Symfony\Component\Cache\CacheItem $item, bool &$save) use($callback, &$isHit) {
+        $callback = function (\RectorPrefix20210101\Symfony\Component\Cache\CacheItem $item, bool &$save) use($callback, &$isHit) {
             $isHit = $item->isHit();
             return $callback($item, $save);
         };
@@ -109,7 +109,7 @@ class TraceableAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\
      *
      * @return bool
      */
-    public function save(\RectorPrefix20201231\Psr\Cache\CacheItemInterface $item)
+    public function save(\RectorPrefix20210101\Psr\Cache\CacheItemInterface $item)
     {
         $event = $this->start(__FUNCTION__);
         try {
@@ -123,7 +123,7 @@ class TraceableAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\
      *
      * @return bool
      */
-    public function saveDeferred(\RectorPrefix20201231\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred(\RectorPrefix20210101\Psr\Cache\CacheItemInterface $item)
     {
         $event = $this->start(__FUNCTION__);
         try {
@@ -165,7 +165,7 @@ class TraceableAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\
     {
         $event = $this->start(__FUNCTION__);
         try {
-            if ($this->pool instanceof \RectorPrefix20201231\Symfony\Component\Cache\Adapter\AdapterInterface) {
+            if ($this->pool instanceof \RectorPrefix20210101\Symfony\Component\Cache\Adapter\AdapterInterface) {
                 return $event->result = $this->pool->clear($prefix);
             }
             return $event->result = $this->pool->clear();
@@ -207,7 +207,7 @@ class TraceableAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\
      */
     public function prune()
     {
-        if (!$this->pool instanceof \RectorPrefix20201231\Symfony\Component\Cache\PruneableInterface) {
+        if (!$this->pool instanceof \RectorPrefix20210101\Symfony\Component\Cache\PruneableInterface) {
             return \false;
         }
         $event = $this->start(__FUNCTION__);
@@ -222,7 +222,7 @@ class TraceableAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\
      */
     public function reset()
     {
-        if ($this->pool instanceof \RectorPrefix20201231\Symfony\Contracts\Service\ResetInterface) {
+        if ($this->pool instanceof \RectorPrefix20210101\Symfony\Contracts\Service\ResetInterface) {
             $this->pool->reset();
         }
         $this->clearCalls();
@@ -249,7 +249,7 @@ class TraceableAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\
     }
     protected function start($name)
     {
-        $this->calls[] = $event = new \RectorPrefix20201231\Symfony\Component\Cache\Adapter\TraceableAdapterEvent();
+        $this->calls[] = $event = new \RectorPrefix20210101\Symfony\Component\Cache\Adapter\TraceableAdapterEvent();
         $event->name = $name;
         $event->start = \microtime(\true);
         return $event;

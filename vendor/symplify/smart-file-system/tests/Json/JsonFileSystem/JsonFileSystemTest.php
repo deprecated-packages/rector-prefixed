@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201231\Symplify\SmartFileSystem\Tests\Json\JsonFileSystem;
+namespace RectorPrefix20210101\Symplify\SmartFileSystem\Tests\Json\JsonFileSystem;
 
-use RectorPrefix20201231\PHPUnit\Framework\TestCase;
-use RectorPrefix20201231\Symplify\SmartFileSystem\FileSystemGuard;
-use RectorPrefix20201231\Symplify\SmartFileSystem\Json\JsonFileSystem;
-use RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileSystem;
-final class JsonFileSystemTest extends \RectorPrefix20201231\PHPUnit\Framework\TestCase
+use RectorPrefix20210101\PHPUnit\Framework\TestCase;
+use RectorPrefix20210101\Symplify\SmartFileSystem\FileSystemGuard;
+use RectorPrefix20210101\Symplify\SmartFileSystem\Json\JsonFileSystem;
+use RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileSystem;
+final class JsonFileSystemTest extends \RectorPrefix20210101\PHPUnit\Framework\TestCase
 {
     /**
      * @var string
@@ -23,8 +23,8 @@ final class JsonFileSystemTest extends \RectorPrefix20201231\PHPUnit\Framework\T
     private $smartFileSystem;
     protected function setUp() : void
     {
-        $this->smartFileSystem = new \RectorPrefix20201231\Symplify\SmartFileSystem\SmartFileSystem();
-        $this->jsonFileSystem = new \RectorPrefix20201231\Symplify\SmartFileSystem\Json\JsonFileSystem(new \RectorPrefix20201231\Symplify\SmartFileSystem\FileSystemGuard(), $this->smartFileSystem);
+        $this->smartFileSystem = new \RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->jsonFileSystem = new \RectorPrefix20210101\Symplify\SmartFileSystem\Json\JsonFileSystem(new \RectorPrefix20210101\Symplify\SmartFileSystem\FileSystemGuard(), $this->smartFileSystem);
     }
     public function testLoadFilePathToJson() : void
     {

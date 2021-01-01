@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201231\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace RectorPrefix20210101\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use RectorPrefix20201231\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210101\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ParametersConfigurator extends \RectorPrefix20201231\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
+class ParametersConfigurator extends \RectorPrefix20210101\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
     public const FACTORY = 'parameters';
     private $container;
-    public function __construct(\RectorPrefix20201231\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function __construct(\RectorPrefix20210101\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
     }

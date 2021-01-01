@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20201231\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210101\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20201231\Psr\Cache\CacheItemInterface;
-use RectorPrefix20201231\Psr\Cache\InvalidArgumentException;
-use RectorPrefix20201231\Symfony\Component\Cache\CacheItem;
-use RectorPrefix20201231\Symfony\Component\Cache\PruneableInterface;
-use RectorPrefix20201231\Symfony\Component\Cache\ResettableInterface;
-use RectorPrefix20201231\Symfony\Component\Cache\Traits\ContractsTrait;
-use RectorPrefix20201231\Symfony\Component\Cache\Traits\ProxyTrait;
-use RectorPrefix20201231\Symfony\Contracts\Cache\TagAwareCacheInterface;
+use RectorPrefix20210101\Psr\Cache\CacheItemInterface;
+use RectorPrefix20210101\Psr\Cache\InvalidArgumentException;
+use RectorPrefix20210101\Symfony\Component\Cache\CacheItem;
+use RectorPrefix20210101\Symfony\Component\Cache\PruneableInterface;
+use RectorPrefix20210101\Symfony\Component\Cache\ResettableInterface;
+use RectorPrefix20210101\Symfony\Component\Cache\Traits\ContractsTrait;
+use RectorPrefix20210101\Symfony\Component\Cache\Traits\ProxyTrait;
+use RectorPrefix20210101\Symfony\Contracts\Cache\TagAwareCacheInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class TagAwareAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface, \RectorPrefix20201231\Symfony\Contracts\Cache\TagAwareCacheInterface, \RectorPrefix20201231\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20201231\Symfony\Component\Cache\ResettableInterface
+class TagAwareAdapter implements \RectorPrefix20210101\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface, \RectorPrefix20210101\Symfony\Contracts\Cache\TagAwareCacheInterface, \RectorPrefix20210101\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20210101\Symfony\Component\Cache\ResettableInterface
 {
     public const TAGS_PREFIX = "\0tags\0";
     use ContractsTrait;
@@ -34,27 +34,27 @@ class TagAwareAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\A
     private $tags;
     private $knownTagVersions = [];
     private $knownTagVersionsTtl;
-    public function __construct(\RectorPrefix20201231\Symfony\Component\Cache\Adapter\AdapterInterface $itemsPool, \RectorPrefix20201231\Symfony\Component\Cache\Adapter\AdapterInterface $tagsPool = null, float $knownTagVersionsTtl = 0.15)
+    public function __construct(\RectorPrefix20210101\Symfony\Component\Cache\Adapter\AdapterInterface $itemsPool, \RectorPrefix20210101\Symfony\Component\Cache\Adapter\AdapterInterface $tagsPool = null, float $knownTagVersionsTtl = 0.15)
     {
         $this->pool = $itemsPool;
         $this->tags = $tagsPool ?: $itemsPool;
         $this->knownTagVersionsTtl = $knownTagVersionsTtl;
-        $this->createCacheItem = \Closure::bind(static function ($key, $value, \RectorPrefix20201231\Symfony\Component\Cache\CacheItem $protoItem) {
-            $item = new \RectorPrefix20201231\Symfony\Component\Cache\CacheItem();
+        $this->createCacheItem = \Closure::bind(static function ($key, $value, \RectorPrefix20210101\Symfony\Component\Cache\CacheItem $protoItem) {
+            $item = new \RectorPrefix20210101\Symfony\Component\Cache\CacheItem();
             $item->key = $key;
             $item->value = $value;
             $item->expiry = $protoItem->expiry;
             $item->poolHash = $protoItem->poolHash;
             return $item;
-        }, null, \RectorPrefix20201231\Symfony\Component\Cache\CacheItem::class);
-        $this->setCacheItemTags = \Closure::bind(static function (\RectorPrefix20201231\Symfony\Component\Cache\CacheItem $item, $key, array &$itemTags) {
+        }, null, \RectorPrefix20210101\Symfony\Component\Cache\CacheItem::class);
+        $this->setCacheItemTags = \Closure::bind(static function (\RectorPrefix20210101\Symfony\Component\Cache\CacheItem $item, $key, array &$itemTags) {
             $item->isTaggable = \true;
             if (!$item->isHit) {
                 return $item;
             }
             if (isset($itemTags[$key])) {
                 foreach ($itemTags[$key] as $tag => $version) {
-                    $item->metadata[\RectorPrefix20201231\Symfony\Component\Cache\CacheItem::METADATA_TAGS][$tag] = $tag;
+                    $item->metadata[\RectorPrefix20210101\Symfony\Component\Cache\CacheItem::METADATA_TAGS][$tag] = $tag;
                 }
                 unset($itemTags[$key]);
             } else {
@@ -62,21 +62,21 @@ class TagAwareAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\A
                 $item->isHit = \false;
             }
             return $item;
-        }, null, \RectorPrefix20201231\Symfony\Component\Cache\CacheItem::class);
+        }, null, \RectorPrefix20210101\Symfony\Component\Cache\CacheItem::class);
         $this->getTagsByKey = \Closure::bind(static function ($deferred) {
             $tagsByKey = [];
             foreach ($deferred as $key => $item) {
-                $tagsByKey[$key] = $item->newMetadata[\RectorPrefix20201231\Symfony\Component\Cache\CacheItem::METADATA_TAGS] ?? [];
+                $tagsByKey[$key] = $item->newMetadata[\RectorPrefix20210101\Symfony\Component\Cache\CacheItem::METADATA_TAGS] ?? [];
             }
             return $tagsByKey;
-        }, null, \RectorPrefix20201231\Symfony\Component\Cache\CacheItem::class);
-        $this->invalidateTags = \Closure::bind(static function (\RectorPrefix20201231\Symfony\Component\Cache\Adapter\AdapterInterface $tagsAdapter, array $tags) {
+        }, null, \RectorPrefix20210101\Symfony\Component\Cache\CacheItem::class);
+        $this->invalidateTags = \Closure::bind(static function (\RectorPrefix20210101\Symfony\Component\Cache\Adapter\AdapterInterface $tagsAdapter, array $tags) {
             foreach ($tags as $v) {
                 $v->expiry = 0;
                 $tagsAdapter->saveDeferred($v);
             }
             return $tagsAdapter->commit();
-        }, null, \RectorPrefix20201231\Symfony\Component\Cache\CacheItem::class);
+        }, null, \RectorPrefix20210101\Symfony\Component\Cache\CacheItem::class);
     }
     /**
      * {@inheritdoc}
@@ -87,7 +87,7 @@ class TagAwareAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\A
         $tagsByKey = [];
         $invalidatedTags = [];
         foreach ($tags as $tag) {
-            \RectorPrefix20201231\Symfony\Component\Cache\CacheItem::validateKey($tag);
+            \RectorPrefix20210101\Symfony\Component\Cache\CacheItem::validateKey($tag);
             $invalidatedTags[$tag] = 0;
         }
         if ($this->deferred) {
@@ -168,7 +168,7 @@ class TagAwareAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\A
         }
         try {
             $items = $this->pool->getItems($tagKeys + $keys);
-        } catch (\RectorPrefix20201231\Psr\Cache\InvalidArgumentException $e) {
+        } catch (\RectorPrefix20210101\Psr\Cache\InvalidArgumentException $e) {
             $this->pool->getItems($keys);
             // Should throw an exception
             throw $e;
@@ -191,7 +191,7 @@ class TagAwareAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\A
         } else {
             $this->deferred = [];
         }
-        if ($this->pool instanceof \RectorPrefix20201231\Symfony\Component\Cache\Adapter\AdapterInterface) {
+        if ($this->pool instanceof \RectorPrefix20210101\Symfony\Component\Cache\Adapter\AdapterInterface) {
             return $this->pool->clear($prefix);
         }
         return $this->pool->clear();
@@ -224,9 +224,9 @@ class TagAwareAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\A
      *
      * @return bool
      */
-    public function save(\RectorPrefix20201231\Psr\Cache\CacheItemInterface $item)
+    public function save(\RectorPrefix20210101\Psr\Cache\CacheItemInterface $item)
     {
-        if (!$item instanceof \RectorPrefix20201231\Symfony\Component\Cache\CacheItem) {
+        if (!$item instanceof \RectorPrefix20210101\Symfony\Component\Cache\CacheItem) {
             return \false;
         }
         $this->deferred[$item->getKey()] = $item;
@@ -237,9 +237,9 @@ class TagAwareAdapter implements \RectorPrefix20201231\Symfony\Component\Cache\A
      *
      * @return bool
      */
-    public function saveDeferred(\RectorPrefix20201231\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred(\RectorPrefix20210101\Psr\Cache\CacheItemInterface $item)
     {
-        if (!$item instanceof \RectorPrefix20201231\Symfony\Component\Cache\CacheItem) {
+        if (!$item instanceof \RectorPrefix20210101\Symfony\Component\Cache\CacheItem) {
             return \false;
         }
         $this->deferred[$item->getKey()] = $item;

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20201231\Symplify\SymplifyKernel\Tests\HttpKernel;
+namespace RectorPrefix20210101\Symplify\SymplifyKernel\Tests\HttpKernel;
 
-use RectorPrefix20201231\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class PackageBuilderTestingKernel extends \RectorPrefix20201231\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use RectorPrefix20210101\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class PackageBuilderTestingKernel extends \RectorPrefix20210101\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
 }
