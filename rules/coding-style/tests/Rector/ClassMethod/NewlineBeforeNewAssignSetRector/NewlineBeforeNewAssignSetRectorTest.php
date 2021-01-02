@@ -6,13 +6,13 @@ namespace Rector\CodingStyle\Tests\Rector\ClassMethod\NewlineBeforeNewAssignSetR
 use Iterator;
 use Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo;
 final class NewlineBeforeNewAssignSetRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

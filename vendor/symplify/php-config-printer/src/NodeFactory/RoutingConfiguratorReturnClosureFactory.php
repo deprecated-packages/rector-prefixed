@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210101\Symplify\PhpConfigPrinter\NodeFactory;
+namespace RectorPrefix20210102\Symplify\PhpConfigPrinter\NodeFactory;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Return_;
-use RectorPrefix20210101\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
-use RectorPrefix20210101\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory;
+use RectorPrefix20210102\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
+use RectorPrefix20210102\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory;
 final class RoutingConfiguratorReturnClosureFactory
 {
     /**
@@ -20,7 +20,7 @@ final class RoutingConfiguratorReturnClosureFactory
     /**
      * @param RoutingCaseConverterInterface[] $routingCaseConverters
      */
-    public function __construct(\RectorPrefix20210101\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $containerConfiguratorClosureNodeFactory, array $routingCaseConverters)
+    public function __construct(\RectorPrefix20210102\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $containerConfiguratorClosureNodeFactory, array $routingCaseConverters)
     {
         $this->containerConfiguratorClosureNodeFactory = $containerConfiguratorClosureNodeFactory;
         $this->routingCaseConverters = $routingCaseConverters;

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\ClassMethod;
 
-use RectorPrefix20210101\Nette\Utils\Strings;
+use RectorPrefix20210102\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
@@ -82,7 +82,7 @@ CODE_SAMPLE
             return null;
         }
         $shortClassName = (string) $parent->name;
-        if (\RectorPrefix20210101\Nette\Utils\Strings::match($shortClassName, self::ANONYMOUS_CLASS_REGEX)) {
+        if (\RectorPrefix20210102\Nette\Utils\Strings::match($shortClassName, self::ANONYMOUS_CLASS_REGEX)) {
             return null;
         }
         $reflectionClass = new \ReflectionClass((string) $parent->namespacedName);
@@ -141,7 +141,7 @@ CODE_SAMPLE
         if ($fileName === null) {
             return \false;
         }
-        return \RectorPrefix20210101\Nette\Utils\Strings::contains($fileName, 'vendor');
+        return \RectorPrefix20210102\Nette\Utils\Strings::contains($fileName, 'vendor');
     }
     private function processUnspreadOperatorMethodCallArgs(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {

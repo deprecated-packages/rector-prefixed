@@ -6,13 +6,13 @@ namespace Rector\PHPUnit\Tests\Rector\ClassMethod\TryCatchToExpectExceptionRecto
 use Iterator;
 use Rector\PHPUnit\Rector\ClassMethod\TryCatchToExpectExceptionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo;
 final class TryCatchToExpectExceptionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

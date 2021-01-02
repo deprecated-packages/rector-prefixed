@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp74\Tests\Rector\LNumber\DowngradeNumericLiteralSepa
 use Iterator;
 use Rector\DowngradePhp74\Rector\LNumber\DowngradeNumericLiteralSeparatorRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradeNumericLiteralSeparatorRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210101\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

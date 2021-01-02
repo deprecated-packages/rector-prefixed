@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210101\\Symplify\\MarkdownDiff\\": "src"
+            "RectorPrefix20210102\\Symplify\\MarkdownDiff\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210101\\Symplify\\MarkdownDiff\\Tests\\": "tests"
+            "RectorPrefix20210102\\Symplify\\MarkdownDiff\\Tests\\": "tests"
         }
     },
     "extra": {
