@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Instanceof_;
+use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
@@ -66,7 +67,8 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
         if ($className === null) {
             return null;
         }
-        $instanceof = new \PhpParser\Node\Expr\Instanceof_($varNode, new \PhpParser\Node\Name\FullyQualified($className));
+        $class = $className === 'static' ? new \PhpParser\Node\Name('static') : new \PhpParser\Node\Name\FullyQualified($className);
+        $instanceof = new \PhpParser\Node\Expr\Instanceof_($varNode, $class);
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return new \PhpParser\Node\Expr\BooleanNot($instanceof);
         }
