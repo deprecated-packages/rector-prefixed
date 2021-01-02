@@ -3,6 +3,8 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Encapsed;
 
+use RectorPrefix20210102\Nette\Utils\Strings;
+use const PHP_EOL;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -81,6 +83,7 @@ CODE_SAMPLE
         $stringValue = $encapsedStringPart->value;
         if ($stringValue === "\n") {
             $this->argumentVariables[] = new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('PHP_EOL'));
+            $this->sprintfFormat .= '%s';
             return;
         }
         $this->sprintfFormat .= $stringValue;
@@ -96,18 +99,36 @@ CODE_SAMPLE
     }
     /**
      * @param Expr[] $argumentVariables
-     * @return Concat|FuncCall
+     * @return Concat|FuncCall|null
      */
-    private function createSprintfFuncCallOrConcat(string $string, array $argumentVariables) : \PhpParser\Node
+    private function createSprintfFuncCallOrConcat(string $string, array $argumentVariables) : ?\PhpParser\Node
     {
         // special case for variable with PHP_EOL
-        if ($string === '%s' && \count($argumentVariables) === 2) {
+        if ($string === '%s%s' && \count($argumentVariables) === 2 && $this->hasEndOfLine($argumentVariables)) {
             return new \PhpParser\Node\Expr\BinaryOp\Concat($argumentVariables[0], $argumentVariables[1]);
+        }
+        if (\RectorPrefix20210102\Nette\Utils\Strings::contains($string, \PHP_EOL)) {
+            return null;
         }
         $arguments = [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($string))];
         foreach ($argumentVariables as $argumentVariable) {
             $arguments[] = new \PhpParser\Node\Arg($argumentVariable);
         }
         return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('sprintf'), $arguments);
+    }
+    /**
+     * @param Expr[] $argumentVariables
+     */
+    private function hasEndOfLine(array $argumentVariables) : bool
+    {
+        foreach ($argumentVariables as $argumentVariable) {
+            if (!$argumentVariable instanceof \PhpParser\Node\Expr\ConstFetch) {
+                continue;
+            }
+            if ($this->isName($argumentVariable, 'PHP_EOL')) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

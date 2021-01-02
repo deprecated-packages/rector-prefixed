@@ -23,6 +23,10 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
+     * @var string[]
+     */
+    private const NO_NAMESPACED_CLASSNAMES = ['self', 'static'];
+    /**
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
@@ -67,7 +71,7 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
         if ($className === null) {
             return null;
         }
-        $class = $className === 'static' ? new \PhpParser\Node\Name('static') : new \PhpParser\Node\Name\FullyQualified($className);
+        $class = \in_array($className, self::NO_NAMESPACED_CLASSNAMES, \true) ? new \PhpParser\Node\Name($className) : new \PhpParser\Node\Name\FullyQualified($className);
         $instanceof = new \PhpParser\Node\Expr\Instanceof_($varNode, $class);
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return new \PhpParser\Node\Expr\BooleanNot($instanceof);
