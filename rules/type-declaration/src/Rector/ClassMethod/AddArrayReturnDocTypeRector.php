@@ -15,6 +15,8 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VoidType;
+use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayShapeNode;
+use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -201,6 +203,12 @@ CODE_SAMPLE
         $attributeAwareReturnTagValueNode = $phpDocInfo->getReturnTagValue();
         if (!$attributeAwareReturnTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode) {
             return \false;
+        }
+        if ($attributeAwareReturnTagValueNode->type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode) {
+            return \true;
+        }
+        if ($attributeAwareReturnTagValueNode->type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayShapeNode) {
+            return \true;
         }
         if (!$attributeAwareReturnTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode) {
             return \false;
