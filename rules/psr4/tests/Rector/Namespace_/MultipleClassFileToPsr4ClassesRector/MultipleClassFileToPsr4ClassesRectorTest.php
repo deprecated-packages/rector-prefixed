@@ -40,7 +40,7 @@ final class MultipleClassFileToPsr4ClassesRectorTest extends \Rector\Testing\PHP
             // extra files
             [new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/SomeClass_Exception.php', $smartFileSystem->readFile(__DIR__ . '/Expected/SomeClass_Exception.php'))],
         ]);
-        (yield [new \RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/ReadyException.php.inc'), []]);
+        (yield [new \RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/skip_ready_exception.php.inc'), []]);
     }
     protected function getRectorClass() : string
     {

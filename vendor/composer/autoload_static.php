@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit37fbd7792ff3e202f6086f96472825f5
+class ComposerStaticInit71cbc4a63507fd00d1acdcf9867198ab
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -134,6 +134,7 @@ class ComposerStaticInit37fbd7792ff3e202f6086f96472825f5
             'RectorPrefix20210103\\Symplify\\PackageBuilder\\' => 45,
             'RectorPrefix20210103\\Symplify\\MarkdownDiff\\' => 43,
             'RectorPrefix20210103\\Symplify\\EasyTesting\\' => 42,
+            'RectorPrefix20210103\\Symplify\\ConsolePackageBuilder\\' => 52,
             'RectorPrefix20210103\\Symplify\\ConsoleColorDiff\\' => 47,
             'RectorPrefix20210103\\Symplify\\ComposerJsonManipulator\\' => 54,
             'RectorPrefix20210103\\Symplify\\AutowireArrayParameter\\' => 53,
@@ -614,6 +615,10 @@ class ComposerStaticInit37fbd7792ff3e202f6086f96472825f5
         'RectorPrefix20210103\\Symplify\\EasyTesting\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/easy-testing/src',
+        ),
+        'RectorPrefix20210103\\Symplify\\ConsolePackageBuilder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/console-package-builder/src',
         ),
         'RectorPrefix20210103\\Symplify\\ConsoleColorDiff\\' => 
         array (
@@ -2074,8 +2079,14 @@ class ComposerStaticInit37fbd7792ff3e202f6086f96472825f5
         'RectorPrefix20210103\\Symplify\\ConsoleColorDiff\\Console\\Output\\ConsoleDiffer' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Console/Output/ConsoleDiffer.php',
         'RectorPrefix20210103\\Symplify\\ConsoleColorDiff\\DependencyInjection\\Extension\\ConsoleColorDiffExtension' => __DIR__ . '/..' . '/symplify/console-color-diff/src/DependencyInjection/Extension/ConsoleColorDiffExtension.php',
         'RectorPrefix20210103\\Symplify\\ConsoleColorDiff\\Diff\\Output\\CompleteUnifiedDiffOutputBuilderFactory' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Diff/Output/CompleteUnifiedDiffOutputBuilderFactory.php',
+        'RectorPrefix20210103\\Symplify\\ConsolePackageBuilder\\Bundle\\NamelessConsoleCommandBundle' => __DIR__ . '/..' . '/symplify/console-package-builder/src/Bundle/NamelessConsoleCommandBundle.php',
+        'RectorPrefix20210103\\Symplify\\ConsolePackageBuilder\\DependencyInjection\\CompilerPass\\NamelessConsoleCommandCompilerPass' => __DIR__ . '/..' . '/symplify/console-package-builder/src/DependencyInjection/CompilerPass/NamelessConsoleCommandCompilerPass.php',
+        'RectorPrefix20210103\\Symplify\\EasyTesting\\Command\\ValidateFixtureSkipNamingCommand' => __DIR__ . '/..' . '/symplify/easy-testing/src/Command/ValidateFixtureSkipNamingCommand.php',
         'RectorPrefix20210103\\Symplify\\EasyTesting\\DataProvider\\StaticFixtureFinder' => __DIR__ . '/..' . '/symplify/easy-testing/src/DataProvider/StaticFixtureFinder.php',
         'RectorPrefix20210103\\Symplify\\EasyTesting\\DataProvider\\StaticFixtureUpdater' => __DIR__ . '/..' . '/symplify/easy-testing/src/DataProvider/StaticFixtureUpdater.php',
+        'RectorPrefix20210103\\Symplify\\EasyTesting\\Finder\\FixtureFinder' => __DIR__ . '/..' . '/symplify/easy-testing/src/Finder/FixtureFinder.php',
+        'RectorPrefix20210103\\Symplify\\EasyTesting\\HttpKernel\\EasyTestingKernel' => __DIR__ . '/..' . '/symplify/easy-testing/src/HttpKernel/EasyTestingKernel.php',
+        'RectorPrefix20210103\\Symplify\\EasyTesting\\MissplacedSkipPrefixResolver' => __DIR__ . '/..' . '/symplify/easy-testing/src/MissplacedSkipPrefixResolver.php',
         'RectorPrefix20210103\\Symplify\\EasyTesting\\PHPUnit\\Behavior\\DirectoryAssertableTrait' => __DIR__ . '/..' . '/symplify/easy-testing/src/PHPUnit/Behavior/DirectoryAssertableTrait.php',
         'RectorPrefix20210103\\Symplify\\EasyTesting\\PHPUnit\\StaticPHPUnitEnvironment' => __DIR__ . '/..' . '/symplify/easy-testing/src/PHPUnit/StaticPHPUnitEnvironment.php',
         'RectorPrefix20210103\\Symplify\\EasyTesting\\StaticFixtureSplitter' => __DIR__ . '/..' . '/symplify/easy-testing/src/StaticFixtureSplitter.php',
@@ -2083,6 +2094,8 @@ class ComposerStaticInit37fbd7792ff3e202f6086f96472825f5
         'RectorPrefix20210103\\Symplify\\EasyTesting\\ValueObject\\InputAndExpected' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/InputAndExpected.php',
         'RectorPrefix20210103\\Symplify\\EasyTesting\\ValueObject\\InputFileInfoAndExpected' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/InputFileInfoAndExpected.php',
         'RectorPrefix20210103\\Symplify\\EasyTesting\\ValueObject\\InputFileInfoAndExpectedFileInfo' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/InputFileInfoAndExpectedFileInfo.php',
+        'RectorPrefix20210103\\Symplify\\EasyTesting\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Option.php',
+        'RectorPrefix20210103\\Symplify\\EasyTesting\\ValueObject\\Prefix' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Prefix.php',
         'RectorPrefix20210103\\Symplify\\EasyTesting\\ValueObject\\SplitLine' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/SplitLine.php',
         'RectorPrefix20210103\\Symplify\\MarkdownDiff\\Bundle\\MarkdownDiffBundle' => __DIR__ . '/..' . '/symplify/markdown-diff/src/Bundle/MarkdownDiffBundle.php',
         'RectorPrefix20210103\\Symplify\\MarkdownDiff\\DependencyInjection\\Extension\\MarkdownDiffExtension' => __DIR__ . '/..' . '/symplify/markdown-diff/src/DependencyInjection/Extension/MarkdownDiffExtension.php',
@@ -3994,9 +4007,9 @@ class ComposerStaticInit37fbd7792ff3e202f6086f96472825f5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit37fbd7792ff3e202f6086f96472825f5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit37fbd7792ff3e202f6086f96472825f5::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit37fbd7792ff3e202f6086f96472825f5::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit71cbc4a63507fd00d1acdcf9867198ab::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit71cbc4a63507fd00d1acdcf9867198ab::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit71cbc4a63507fd00d1acdcf9867198ab::$classMap;
 
         }, null, ClassLoader::class);
     }

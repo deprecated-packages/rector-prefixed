@@ -114,6 +114,7 @@ return array(
     'RectorPrefix20210103\\Symplify\\PackageBuilder\\' => array($vendorDir . '/symplify/package-builder/src'),
     'RectorPrefix20210103\\Symplify\\MarkdownDiff\\' => array($vendorDir . '/symplify/markdown-diff/src'),
     'RectorPrefix20210103\\Symplify\\EasyTesting\\' => array($vendorDir . '/symplify/easy-testing/src'),
+    'RectorPrefix20210103\\Symplify\\ConsolePackageBuilder\\' => array($vendorDir . '/symplify/console-package-builder/src'),
     'RectorPrefix20210103\\Symplify\\ConsoleColorDiff\\' => array($vendorDir . '/symplify/console-color-diff/src'),
     'RectorPrefix20210103\\Symplify\\ComposerJsonManipulator\\' => array($vendorDir . '/symplify/composer-json-manipulator/src'),
     'RectorPrefix20210103\\Symplify\\AutowireArrayParameter\\' => array($vendorDir . '/symplify/autowire-array-parameter/src'),
