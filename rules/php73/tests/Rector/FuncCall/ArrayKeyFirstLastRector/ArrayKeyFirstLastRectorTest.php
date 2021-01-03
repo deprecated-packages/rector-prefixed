@@ -6,13 +6,13 @@ namespace Rector\Php73\Tests\Rector\FuncCall\ArrayKeyFirstLastRector;
 use Iterator;
 use Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo;
 final class ArrayKeyFirstLastRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

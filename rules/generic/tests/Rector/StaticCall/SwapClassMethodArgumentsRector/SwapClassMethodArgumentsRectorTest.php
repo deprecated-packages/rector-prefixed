@@ -8,13 +8,13 @@ use Rector\Generic\Rector\StaticCall\SwapClassMethodArgumentsRector;
 use Rector\Generic\Tests\Rector\StaticCall\SwapClassMethodArgumentsRector\Fixture\SomeClass;
 use Rector\Generic\ValueObject\SwapClassMethodArguments;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo;
 final class SwapClassMethodArgumentsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

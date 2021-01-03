@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210102\Symplify\PhpConfigPrinter\NodeFactory;
+namespace RectorPrefix20210103\Symplify\PhpConfigPrinter\NodeFactory;
 
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Expr;

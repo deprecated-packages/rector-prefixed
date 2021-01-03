@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210102\Doctrine\Common\Annotations\Annotation;
+namespace RectorPrefix20210103\Doctrine\Common\Annotations\Annotation;
 
 /**
  * Annotation that can be used to signal to the parser

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Naming;
 
-use RectorPrefix20210102\Nette\Utils\Strings;
+use RectorPrefix20210103\Nette\Utils\Strings;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\FuncCall;
@@ -189,7 +189,7 @@ final class ExpectedNameResolver
     private function endsWith(string $currentName, string $expectedName) : bool
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return (bool) \RectorPrefix20210102\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
+        return (bool) \RectorPrefix20210103\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
     /**
      * @param MethodCall|StaticCall|FuncCall $expr

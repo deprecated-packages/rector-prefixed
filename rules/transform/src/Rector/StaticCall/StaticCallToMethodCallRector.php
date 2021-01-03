@@ -16,7 +16,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\ValueObject\StaticCallToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210102\Webmozart\Assert\Assert;
+use RectorPrefix20210103\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\StaticCall\StaticCallToMethodCallRector\StaticCallToMethodCallRectorTest
  */
@@ -110,7 +110,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $staticCallsToMethodCalls = $configuration[self::STATIC_CALLS_TO_METHOD_CALLS] ?? [];
-        \RectorPrefix20210102\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToMethodCalls, \Rector\Transform\ValueObject\StaticCallToMethodCall::class);
+        \RectorPrefix20210103\Webmozart\Assert\Assert::allIsInstanceOf($staticCallsToMethodCalls, \Rector\Transform\ValueObject\StaticCallToMethodCall::class);
         $this->staticCallsToMethodCalls = $staticCallsToMethodCalls;
     }
     private function refactorToInstanceCall(\PhpParser\Node\Expr\StaticCall $staticCall, \Rector\Transform\ValueObject\StaticCallToMethodCall $staticCallToMethodCall) : \PhpParser\Node\Expr\MethodCall

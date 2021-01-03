@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
 
 use Doctrine\ORM\Mapping\Table;
-use RectorPrefix20210102\Nette\Utils\Strings;
+use RectorPrefix20210103\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
@@ -54,11 +54,11 @@ final class TablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
         $indexesContent = $this->annotationContentResolver->resolveNestedKey($annotationContent, 'indexes');
         $indexTagValueNodes = $this->indexPhpDocNodeFactory->createIndexTagValueNodes($table->indexes, $indexesContent);
         $indexesAroundSpaces = $this->matchCurlyBracketAroundSpaces($indexesContent);
-        $haveIndexesFinalComma = (bool) \RectorPrefix20210102\Nette\Utils\Strings::match($indexesContent, self::SPACE_BEFORE_CLOSING_BRACKET_REGEX);
+        $haveIndexesFinalComma = (bool) \RectorPrefix20210103\Nette\Utils\Strings::match($indexesContent, self::SPACE_BEFORE_CLOSING_BRACKET_REGEX);
         $uniqueConstraintsContent = $this->annotationContentResolver->resolveNestedKey($annotationContent, 'uniqueConstraints');
         $uniqueConstraintAroundSpaces = $this->matchCurlyBracketAroundSpaces($uniqueConstraintsContent);
         $uniqueConstraintTagValueNodes = $this->uniqueConstraintPhpDocNodeFactory->createUniqueConstraintTagValueNodes($table->uniqueConstraints, $uniqueConstraintsContent);
-        $haveUniqueConstraintsFinalComma = (bool) \RectorPrefix20210102\Nette\Utils\Strings::match($uniqueConstraintsContent, self::SPACE_BEFORE_CLOSING_BRACKET_REGEX);
+        $haveUniqueConstraintsFinalComma = (bool) \RectorPrefix20210103\Nette\Utils\Strings::match($uniqueConstraintsContent, self::SPACE_BEFORE_CLOSING_BRACKET_REGEX);
         return new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\TableTagValueNode($table->name, $table->schema, $indexTagValueNodes, $uniqueConstraintTagValueNodes, $table->options, $annotationContent, $haveIndexesFinalComma, $haveUniqueConstraintsFinalComma, $indexesAroundSpaces, $uniqueConstraintAroundSpaces);
     }
 }

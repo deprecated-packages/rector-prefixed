@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210102\Symplify\SymplifyKernel\Exception\HttpKernel;
+namespace RectorPrefix20210103\Symplify\SymplifyKernel\Exception\HttpKernel;
 
 use Exception;
 final class TooGenericKernelClassException extends \Exception

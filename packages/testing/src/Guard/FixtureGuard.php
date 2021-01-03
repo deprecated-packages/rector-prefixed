@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Testing\Guard;
 
-use RectorPrefix20210102\Nette\Utils\Strings;
+use RectorPrefix20210103\Nette\Utils\Strings;
 use Rector\Core\Exception\Testing\SuperfluousAfterContentFixtureException;
-use RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo;
 final class FixtureGuard
 {
     /**
@@ -13,9 +13,9 @@ final class FixtureGuard
      * @var string
      */
     private const BEFORE_AFTER_CONTENT_REGEX = '#^(?<before_content>.*?)\\-\\-\\-\\-\\-\\n(?<after_content>.*?)$#s';
-    public function ensureFileInfoHasDifferentBeforeAndAfterContent(\RectorPrefix20210102\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function ensureFileInfoHasDifferentBeforeAndAfterContent(\RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
-        $match = \RectorPrefix20210102\Nette\Utils\Strings::match($smartFileInfo->getContents(), self::BEFORE_AFTER_CONTENT_REGEX);
+        $match = \RectorPrefix20210103\Nette\Utils\Strings::match($smartFileInfo->getContents(), self::BEFORE_AFTER_CONTENT_REGEX);
         if ($match === null) {
             return;
         }
