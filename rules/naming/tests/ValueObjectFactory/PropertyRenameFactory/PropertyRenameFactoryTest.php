@@ -55,7 +55,7 @@ final class PropertyRenameFactoryTest extends \RectorPrefix20210104\Symplify\Pac
     }
     public function provideData() : \Iterator
     {
-        (yield [new \RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/SomeClass.php.inc'), 'eliteManager', 'eventManager']);
+        (yield [new \RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/skip_some_class.php.inc'), 'eliteManager', 'eventManager']);
     }
     private function getPropertyFromFileInfo(\RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : \PhpParser\Node\Stmt\Property
     {
