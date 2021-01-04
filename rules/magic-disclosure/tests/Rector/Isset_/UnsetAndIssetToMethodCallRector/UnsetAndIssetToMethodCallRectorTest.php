@@ -8,13 +8,13 @@ use Rector\MagicDisclosure\Rector\Isset_\UnsetAndIssetToMethodCallRector;
 use Rector\MagicDisclosure\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector\Source\LocalContainer;
 use Rector\MagicDisclosure\ValueObject\IssetUnsetToMethodCall;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo;
 final class UnsetAndIssetToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

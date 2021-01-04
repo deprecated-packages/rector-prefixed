@@ -6,13 +6,13 @@ namespace Rector\DeadCode\Tests\Rector\FunctionLike\RemoveOverriddenValuesRector
 use Iterator;
 use Rector\DeadCode\Rector\FunctionLike\RemoveOverriddenValuesRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveOverriddenValuesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

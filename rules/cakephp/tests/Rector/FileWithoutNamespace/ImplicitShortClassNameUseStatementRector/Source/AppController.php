@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210103;
+namespace RectorPrefix20210104;
 
 class AppController
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210103;
+namespace RectorPrefix20210104;
 
 /*
  * This file is part of the Symfony package.
@@ -10,16 +10,16 @@ namespace RectorPrefix20210103;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use RectorPrefix20210103\Symfony\Polyfill\Intl\Normalizer as p;
+use RectorPrefix20210104\Symfony\Polyfill\Intl\Normalizer as p;
 if (!\function_exists('normalizer_is_normalized')) {
-    function normalizer_is_normalized($input, $form = \RectorPrefix20210103\Symfony\Polyfill\Intl\Normalizer\Normalizer::NFC)
+    function normalizer_is_normalized($input, $form = \RectorPrefix20210104\Symfony\Polyfill\Intl\Normalizer\Normalizer::NFC)
     {
-        return \RectorPrefix20210103\Symfony\Polyfill\Intl\Normalizer\Normalizer::isNormalized($input, $form);
+        return \RectorPrefix20210104\Symfony\Polyfill\Intl\Normalizer\Normalizer::isNormalized($input, $form);
     }
 }
 if (!\function_exists('normalizer_normalize')) {
-    function normalizer_normalize($input, $form = \RectorPrefix20210103\Symfony\Polyfill\Intl\Normalizer\Normalizer::NFC)
+    function normalizer_normalize($input, $form = \RectorPrefix20210104\Symfony\Polyfill\Intl\Normalizer\Normalizer::NFC)
     {
-        return \RectorPrefix20210103\Symfony\Polyfill\Intl\Normalizer\Normalizer::normalize($input, $form);
+        return \RectorPrefix20210104\Symfony\Polyfill\Intl\Normalizer\Normalizer::normalize($input, $form);
     }
 }

@@ -6,13 +6,13 @@ namespace Rector\Restoration\Tests\Rector\ClassLike\UpdateFileNameByClassNameFil
 use Iterator;
 use Rector\Restoration\Rector\ClassLike\UpdateFileNameByClassNameFileSystemRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo;
 final class UpdateFileNameByClassNameFileSystemRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210103\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function test(\RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
         $path = $this->originalTempFileInfo->getPath();

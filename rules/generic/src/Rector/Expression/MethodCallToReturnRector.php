@@ -13,7 +13,7 @@ use Rector\Generic\ValueObject\MethodCallToReturn;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210103\Webmozart\Assert\Assert;
+use RectorPrefix20210104\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\Expression\MethodCallToReturnRector\MethodCallToReturnRectorTest
  */
@@ -80,7 +80,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $methodCallWraps = $configuration[self::METHOD_CALL_WRAPS] ?? [];
-        \RectorPrefix20210103\Webmozart\Assert\Assert::allIsInstanceOf($methodCallWraps, \Rector\Generic\ValueObject\MethodCallToReturn::class);
+        \RectorPrefix20210104\Webmozart\Assert\Assert::allIsInstanceOf($methodCallWraps, \Rector\Generic\ValueObject\MethodCallToReturn::class);
         $this->methodCallWraps = $methodCallWraps;
     }
     private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node

@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210103\Doctrine\Common\Annotations;
+namespace RectorPrefix20210104\Doctrine\Common\Annotations;
 
 /**
  * Marker interface for PHP7/PHP8 compatible support

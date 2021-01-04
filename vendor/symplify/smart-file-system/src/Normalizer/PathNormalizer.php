@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210103\Symplify\SmartFileSystem\Normalizer;
+namespace RectorPrefix20210104\Symplify\SmartFileSystem\Normalizer;
 
-use RectorPrefix20210103\Nette\Utils\Strings;
+use RectorPrefix20210104\Nette\Utils\Strings;
 /**
  * Used from https://github.com/phpstan/phpstan-src/blob/02425e61aa48f0668b4efb3e73d52ad544048f65/src/File/FileHelper.php#L40,
  * with custom modifications
@@ -22,7 +22,7 @@ final class PathNormalizer
     private const TWO_AND_MORE_SLASHES_REGEX = '#/{2,}#';
     public function normalizePath(string $originalPath, string $directorySeparator = \DIRECTORY_SEPARATOR) : string
     {
-        $matches = \RectorPrefix20210103\Nette\Utils\Strings::match($originalPath, self::SCHEME_PATH_REGEX);
+        $matches = \RectorPrefix20210104\Nette\Utils\Strings::match($originalPath, self::SCHEME_PATH_REGEX);
         if ($matches !== null) {
             [, $scheme, $path] = $matches;
         } else {
@@ -30,7 +30,7 @@ final class PathNormalizer
             $path = $originalPath;
         }
         $path = \str_replace('\\', '/', $path);
-        $path = \RectorPrefix20210103\Nette\Utils\Strings::replace($path, self::TWO_AND_MORE_SLASHES_REGEX, '/');
+        $path = \RectorPrefix20210104\Nette\Utils\Strings::replace($path, self::TWO_AND_MORE_SLASHES_REGEX, '/');
         $pathRoot = \strpos($path, '/') === 0 ? $directorySeparator : '';
         $pathParts = \explode('/', \trim($path, '/'));
         $normalizedPathParts = $this->normalizePathParts($pathParts, $scheme);
