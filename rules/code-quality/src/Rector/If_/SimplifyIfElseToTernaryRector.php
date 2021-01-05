@@ -21,7 +21,7 @@ final class SimplifyIfElseToTernaryRector extends \Rector\Core\Rector\AbstractRe
     /**
      * @var int
      */
-    private const LINE_LENGHT_LIMIT = 120;
+    private const LINE_LENGTH_LIMIT = 120;
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes if/else for same value as assign to ternary', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -140,6 +140,6 @@ CODE_SAMPLE
     }
     private function isNodeTooLong(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        return \RectorPrefix20210105\Nette\Utils\Strings::length($this->print($assign)) > self::LINE_LENGHT_LIMIT;
+        return \RectorPrefix20210105\Nette\Utils\Strings::length($this->print($assign)) > self::LINE_LENGTH_LIMIT;
     }
 }
