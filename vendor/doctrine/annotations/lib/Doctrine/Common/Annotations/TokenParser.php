@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210104\Doctrine\Common\Annotations;
+namespace RectorPrefix20210105\Doctrine\Common\Annotations;
 
 use function array_merge;
 use function count;

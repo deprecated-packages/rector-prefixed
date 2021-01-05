@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Restoration\Rector\New_\CompleteMissingDependencyInNewRector;
 use Rector\Restoration\Tests\Rector\New_\CompleteMissingDependencyInNewRector\Source\RandomDependency;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
 final class CompleteMissingDependencyInNewRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

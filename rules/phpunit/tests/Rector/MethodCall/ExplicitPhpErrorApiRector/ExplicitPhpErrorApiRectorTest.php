@@ -6,13 +6,13 @@ namespace Rector\PHPUnit\Tests\Rector\MethodCall\ExplicitPhpErrorApiRector;
 use Iterator;
 use Rector\PHPUnit\Rector\MethodCall\ExplicitPhpErrorApiRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
 final class ExplicitPhpErrorApiRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

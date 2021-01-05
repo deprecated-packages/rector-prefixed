@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony\Rector\Class_;
 
-use RectorPrefix20210104\Nette\Utils\Strings;
+use RectorPrefix20210105\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -157,7 +157,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
                 return null;
             }
-            $node->value = \RectorPrefix20210104\Nette\Utils\Strings::replace($node->value, '#\\.' . $from . '$#', '.' . $to);
+            $node->value = \RectorPrefix20210105\Nette\Utils\Strings::replace($node->value, '#\\.' . $from . '$#', '.' . $to);
             return $node;
         });
     }

@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Tests\Rector\Assign\MakeGetComponentAssignAnnotatedRector\Source;
 
-use RectorPrefix20210104\Nette\Application\UI\Control;
-final class ExternalControl extends \RectorPrefix20210104\Nette\Application\UI\Control
+use RectorPrefix20210105\Nette\Application\UI\Control;
+final class ExternalControl extends \RectorPrefix20210105\Nette\Application\UI\Control
 {
     public function createComponentAnother() : \Rector\NetteCodeQuality\Tests\Rector\Assign\MakeGetComponentAssignAnnotatedRector\Source\AnotherControl
     {

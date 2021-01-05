@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210104\SomeAnother;
+namespace RectorPrefix20210105\SomeAnother;
 
 final class AnotherClass
 {

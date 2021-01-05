@@ -26,13 +26,13 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210104\\Webmozart\\Assert\\": "src\/"
+            "RectorPrefix20210105\\Webmozart\\Assert\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210104\\Webmozart\\Assert\\Tests\\": "tests\/",
-            "RectorPrefix20210104\\Webmozart\\Assert\\Bin\\": "bin\/src"
+            "RectorPrefix20210105\\Webmozart\\Assert\\Tests\\": "tests\/",
+            "RectorPrefix20210105\\Webmozart\\Assert\\Bin\\": "bin\/src"
         }
     }
 }

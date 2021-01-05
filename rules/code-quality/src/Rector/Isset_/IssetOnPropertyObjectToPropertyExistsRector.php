@@ -18,6 +18,7 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ThisType;
+use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -73,17 +74,15 @@ CODE_SAMPLE
             }
             /** @var Expr $object */
             $object = $issetVar->var->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE);
-            /** @var Scope $scope */
-            $scope = $object->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-            /** @var ThisType|ObjectType $type */
-            $type = $scope->getType($object);
-            if ($type instanceof \PHPStan\Type\ThisType) {
-                $newNodes[] = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->createNull());
-                continue;
-            }
+            /** @var ThisType|ObjectType|null $type */
+            $type = $this->getType($object);
             /** @var Identifier|Variable $name */
             $name = $issetVar->name;
-            if (!$name instanceof \PhpParser\Node\Identifier) {
+            if ($type === null || !$name instanceof \PhpParser\Node\Identifier) {
+                continue;
+            }
+            if ($type instanceof \PHPStan\Type\ThisType) {
+                $newNodes[] = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->createNull());
                 continue;
             }
             $property = $name->toString();
@@ -99,6 +98,15 @@ CODE_SAMPLE
             $newNodes[] = $this->replaceToPropertyExistsWithNullCheck($object, $property, $issetVar);
         }
         return $this->createReturnNodes($newNodes);
+    }
+    private function getType(\PhpParser\Node\Expr $expr) : ?\PHPStan\Type\Type
+    {
+        /** @var Scope|null $scope */
+        $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if ($scope === null) {
+            return null;
+        }
+        return $scope->getType($expr);
     }
     private function replaceToPropertyExistsWithNullCheck(\PhpParser\Node\Expr $expr, string $property, \PhpParser\Node\Expr\PropertyFetch $propertyFetch) : \PhpParser\Node\Expr\BinaryOp\BooleanAnd
     {

@@ -5,7 +5,7 @@ namespace Rector\RectorGenerator\Provider;
 
 use ReflectionClass;
 use SplFileInfo;
-use RectorPrefix20210104\Symfony\Component\Finder\Finder;
+use RectorPrefix20210105\Symfony\Component\Finder\Finder;
 /**
  * @see \Rector\RectorGenerator\Tests\Provider\NodeTypesProviderTest
  */
@@ -24,7 +24,7 @@ final class NodeTypesProvider
      */
     public function provide() : array
     {
-        $finder = new \RectorPrefix20210104\Symfony\Component\Finder\Finder();
+        $finder = new \RectorPrefix20210105\Symfony\Component\Finder\Finder();
         $finder = $finder->files()->in(self::PHP_PARSER_NODES_PATH);
         $fileInfos = \iterator_to_array($finder->getIterator());
         $nodeTypes = [];

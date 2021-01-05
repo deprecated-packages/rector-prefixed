@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210104\Symfony\Contracts\Cache;
+namespace RectorPrefix20210105\Symfony\Contracts\Cache;
 
-use RectorPrefix20210104\Psr\Cache\CacheItemInterface;
+use RectorPrefix20210105\Psr\Cache\CacheItemInterface;
 /**
  * Computes and returns the cached value of an item.
  *
@@ -24,5 +24,5 @@ interface CallbackInterface
      *
      * @return mixed The computed value for the passed item
      */
-    public function __invoke(\RectorPrefix20210104\Psr\Cache\CacheItemInterface $item, bool &$save);
+    public function __invoke(\RectorPrefix20210105\Psr\Cache\CacheItemInterface $item, bool &$save);
 }

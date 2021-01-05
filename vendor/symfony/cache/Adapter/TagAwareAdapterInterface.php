@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210104\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210105\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20210104\Psr\Cache\InvalidArgumentException;
+use RectorPrefix20210105\Psr\Cache\InvalidArgumentException;
 /**
  * Interface for invalidating cached items using tags.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-interface TagAwareAdapterInterface extends \RectorPrefix20210104\Symfony\Component\Cache\Adapter\AdapterInterface
+interface TagAwareAdapterInterface extends \RectorPrefix20210105\Symfony\Component\Cache\Adapter\AdapterInterface
 {
     /**
      * Invalidates cached items using tags.

@@ -6,13 +6,13 @@ namespace Rector\Symfony3\Tests\Rector\MethodCall\FormTypeInstanceToClassConstRe
 use Iterator;
 use Rector\Symfony3\Rector\MethodCall\FormTypeInstanceToClassConstRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
 final class FormTypeInstanceToClassConstRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210104\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

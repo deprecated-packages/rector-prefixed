@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210104;
+namespace RectorPrefix20210105;
 
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
@@ -11,10 +11,10 @@ use Rector\Symfony5\Rector\MethodCall\ReflectionExtractorEnableMagicCallExtracto
 use Rector\Symfony5\Rector\New_\PropertyAccessorCreationBooleanToFlagsRector;
 use Rector\Symfony5\Rector\New_\PropertyPathMapperToDataMapperRector;
 use Rector\Symfony5\Rector\StaticCall\BinaryFileResponseCreateToNewInstanceRector;
-use RectorPrefix20210104\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210105\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # https://github.com/symfony/symfony/blob/5.x/UPGRADE-5.2.md
-return static function (\RectorPrefix20210104\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210105\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $containerConfigurator->import(__DIR__ . '/symfony50-types.php');
     $services = $containerConfigurator->services();
     # https://github.com/symfony/symfony/blob/5.x/UPGRADE-5.2.md#form
