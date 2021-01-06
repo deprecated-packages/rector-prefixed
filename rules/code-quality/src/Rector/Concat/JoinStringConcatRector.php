@@ -73,7 +73,8 @@ CODE_SAMPLE
     }
     private function isTopMostConcatNode(\PhpParser\Node\Expr\BinaryOp\Concat $concat) : bool
     {
-        return !$concat->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE) instanceof \PhpParser\Node\Expr\BinaryOp\Concat;
+        $parent = $concat->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        return !$parent instanceof \PhpParser\Node\Expr\BinaryOp\Concat;
     }
     /**
      * @return Concat|String_
@@ -93,7 +94,17 @@ CODE_SAMPLE
         if (!$concat->right instanceof \PhpParser\Node\Scalar\String_) {
             return $node;
         }
-        $resultString = new \PhpParser\Node\Scalar\String_($concat->left->value . $concat->right->value);
+        $leftValue = $concat->left->value;
+        $rightValue = $concat->right->value;
+        if ($leftValue === "\n") {
+            $this->nodeReplacementIsRestricted = \true;
+            return $node;
+        }
+        if ($rightValue === "\n") {
+            $this->nodeReplacementIsRestricted = \true;
+            return $node;
+        }
+        $resultString = new \PhpParser\Node\Scalar\String_($leftValue . $rightValue);
         if (\RectorPrefix20210106\Nette\Utils\Strings::length($resultString->value) >= self::LINE_BREAK_POINT) {
             $this->nodeReplacementIsRestricted = \true;
             return $node;
