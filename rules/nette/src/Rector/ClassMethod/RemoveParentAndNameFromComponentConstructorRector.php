@@ -5,14 +5,17 @@ namespace Rector\Nette\Rector\ClassMethod;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Nette\NodeAnalyzer\StaticCallAnalyzer;
 use Rector\NodeCollector\Reflection\MethodReflectionProvider;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -112,8 +115,15 @@ CODE_SAMPLE
         if (!$this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return null;
         }
+        return $this->removeClassMethodParams($classMethod);
+    }
+    private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
+    {
         $hasClassMethodChanged = \false;
         foreach ($classMethod->params as $param) {
+            if ($this->isInAssign($classMethod, $param)) {
+                continue;
+            }
             if ($this->isName($param, self::PARENT) && $param->type !== null && $this->isName($param->type, self::COMPONENT_CONTAINER_CLASS)) {
                 $this->removeNode($param);
                 $hasClassMethodChanged = \true;
@@ -186,5 +196,16 @@ CODE_SAMPLE
             return \false;
         }
         return \true;
+    }
+    private function isInAssign(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : bool
+    {
+        $variable = $param->var;
+        return (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (\PhpParser\Node $node) use($variable) : bool {
+            $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
+                return \false;
+            }
+            return $this->areNodesEqual($node, $variable);
+        });
     }
 }
