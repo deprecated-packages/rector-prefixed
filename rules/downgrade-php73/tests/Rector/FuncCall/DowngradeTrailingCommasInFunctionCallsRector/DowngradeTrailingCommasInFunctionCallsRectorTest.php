@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp73\Tests\Rector\FuncCall\DowngradeTrailingCommasInF
 use Iterator;
 use Rector\DowngradePhp73\Rector\FuncCall\DowngradeTrailingCommasInFunctionCallsRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradeTrailingCommasInFunctionCallsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP >= 7.3
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

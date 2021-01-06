@@ -7,7 +7,7 @@ use Iterator;
 use Rector\Core\Configuration\Option;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PostRector\Rector\NameImportingPostRector
  */
@@ -18,7 +18,7 @@ final class ImportFullyQualifiedNamesRectorTest extends \Rector\Testing\PHPUnit\
      * @dataProvider provideDataFunction()
      * @dataProvider provideDataGeneric()
      */
-    public function test(\RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
         $this->doTestFileInfo($fileInfo);

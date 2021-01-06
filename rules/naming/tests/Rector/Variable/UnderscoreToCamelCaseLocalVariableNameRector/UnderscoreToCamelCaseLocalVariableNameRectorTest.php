@@ -6,13 +6,13 @@ namespace Rector\Naming\Tests\Rector\Variable\UnderscoreToCamelCaseLocalVariable
 use Iterator;
 use Rector\Naming\Rector\Variable\UnderscoreToCamelCaseLocalVariableNameRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
 final class UnderscoreToCamelCaseLocalVariableNameRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

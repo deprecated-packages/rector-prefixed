@@ -1,8 +1,8 @@
 <?php
 
-namespace RectorPrefix20210105;
+namespace RectorPrefix20210106;
 
-class Normalizer extends \RectorPrefix20210105\Symfony\Polyfill\Intl\Normalizer\Normalizer
+class Normalizer extends \RectorPrefix20210106\Symfony\Polyfill\Intl\Normalizer\Normalizer
 {
     /**
      * @deprecated since ICU 56 and removed in PHP 8
@@ -17,4 +17,4 @@ class Normalizer extends \RectorPrefix20210105\Symfony\Polyfill\Intl\Normalizer\
     const NFC = 4;
     const NFKC = 5;
 }
-\class_alias('RectorPrefix20210105\\Normalizer', 'Normalizer', \false);
+\class_alias('RectorPrefix20210106\\Normalizer', 'Normalizer', \false);

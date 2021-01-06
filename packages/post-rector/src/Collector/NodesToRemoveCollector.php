@@ -4,15 +4,22 @@ declare (strict_types=1);
 namespace Rector\PostRector\Collector;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use Rector\ChangesReporting\Collector\AffectedFilesCollector;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeRemoval\BreakingRemovalGuard;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
-use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
@@ -27,16 +34,30 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
      * @var Stmt[]|Node[]
      */
     private $nodesToRemove = [];
-    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard)
+    /**
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    /**
+     * @var BetterStandardPrinter
+     */
+    private $betterStandardPrinter;
+    public function __construct(\Rector\ChangesReporting\Collector\AffectedFilesCollector $affectedFilesCollector, \Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->affectedFilesCollector = $affectedFilesCollector;
         $this->breakingRemovalGuard = $breakingRemovalGuard;
+        $this->betterNodeFinder = $betterNodeFinder;
+        $this->betterStandardPrinter = $betterStandardPrinter;
     }
     public function addNodeToRemove(\PhpParser\Node $node) : void
     {
+        /** Node|null $parentNode */
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parentNode !== null && $this->isUsedInArg($node, $parentNode)) {
+            return;
+        }
         // chain call: "->method()->another()"
         $this->ensureIsNotPartOfChainMethodCall($node);
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$node instanceof \PhpParser\Node\Stmt\Expression && $parentNode instanceof \PhpParser\Node\Stmt\Expression) {
             // only expressions can be removed
             $node = $parentNode;
@@ -73,6 +94,29 @@ final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collec
     public function unset(int $key) : void
     {
         unset($this->nodesToRemove[$key]);
+    }
+    private function isUsedInArg(\PhpParser\Node $node, \PhpParser\Node $parentNode) : bool
+    {
+        if (!$node instanceof \PhpParser\Node\Param) {
+            return \false;
+        }
+        if (!$parentNode instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return \false;
+        }
+        $paramVariable = $node->var;
+        if ($paramVariable instanceof \PhpParser\Node\Expr\Variable) {
+            return (bool) $this->betterNodeFinder->findFirst((array) $parentNode->stmts, function (\PhpParser\Node $variable) use($paramVariable) : bool {
+                if (!$this->betterStandardPrinter->areNodesEqual($variable, $paramVariable)) {
+                    return \false;
+                }
+                $hasArgParent = (bool) $this->betterNodeFinder->findFirstParentInstanceOf($variable, \PhpParser\Node\Arg::class);
+                if (!$hasArgParent) {
+                    return \false;
+                }
+                return !(bool) $this->betterNodeFinder->findFirstParentInstanceOf($variable, [\PhpParser\Node\Expr\StaticCall::class]);
+            });
+        }
+        return \false;
     }
     private function ensureIsNotPartOfChainMethodCall(\PhpParser\Node $node) : void
     {

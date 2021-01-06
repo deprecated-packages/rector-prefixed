@@ -1,45 +1,45 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210105\Symplify\SmartFileSystem\Tests\SmartFileInfo;
+namespace RectorPrefix20210106\Symplify\SmartFileSystem\Tests\SmartFileInfo;
 
-use RectorPrefix20210105\PHPUnit\Framework\TestCase;
-use RectorPrefix20210105\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
-use RectorPrefix20210105\Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
-final class SmartFileInfoTest extends \RectorPrefix20210105\PHPUnit\Framework\TestCase
+use RectorPrefix20210106\PHPUnit\Framework\TestCase;
+use RectorPrefix20210106\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
+use RectorPrefix20210106\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
+final class SmartFileInfoTest extends \RectorPrefix20210106\PHPUnit\Framework\TestCase
 {
     public function testInvalidPath() : void
     {
-        $this->expectException(\RectorPrefix20210105\Symplify\SmartFileSystem\Exception\FileNotFoundException::class);
-        new \RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo('random');
+        $this->expectException(\RectorPrefix20210106\Symplify\SmartFileSystem\Exception\FileNotFoundException::class);
+        new \RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo('random');
     }
     public function testRelatives() : void
     {
-        $smartFileInfo = new \RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
+        $smartFileInfo = new \RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
         $this->assertNotSame($smartFileInfo->getRelativePath(), $smartFileInfo->getRealPath());
         $this->assertStringEndsWith($this->normalizePath($smartFileInfo->getRelativePath()), $this->normalizePath(__DIR__));
         $this->assertStringEndsWith($this->normalizePath($smartFileInfo->getRelativePathname()), $this->normalizePath(__FILE__));
     }
     public function testRealPathWithoutSuffix() : void
     {
-        $smartFileInfo = new \RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
+        $smartFileInfo = new \RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
         $this->assertStringEndsWith('tests/SmartFileInfo/Source/AnotherFile', $smartFileInfo->getRealPathWithoutSuffix());
     }
     public function testRelativeToDir() : void
     {
-        $smartFileInfo = new \RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
+        $smartFileInfo = new \RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
         $this->assertSame('Source/AnotherFile.txt', $smartFileInfo->getRelativeFilePathFromDirectory(__DIR__));
     }
     public function testRelativeToDirException() : void
     {
-        $smartFileInfo = new \RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
-        $this->expectException(\RectorPrefix20210105\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException::class);
+        $smartFileInfo = new \RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
+        $this->expectException(\RectorPrefix20210106\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException::class);
         $smartFileInfo->getRelativeFilePathFromDirectory('non-existing-path');
     }
     public function testDoesFnmatch() : void
     {
-        $smartFileInfo = new \RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
+        $smartFileInfo = new \RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
         // Test param
         $this->assertStringEndsWith($this->normalizePath('tests\\SmartFileInfo\\Source\\AnotherFile.txt'), $smartFileInfo->getRelativePathname());
         $this->assertStringEndsWith($this->normalizePath('tests/SmartFileInfo/Source/AnotherFile.txt'), $smartFileInfo->getRelativePathname());

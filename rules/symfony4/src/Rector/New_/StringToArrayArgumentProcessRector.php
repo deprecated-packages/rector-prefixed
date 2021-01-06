@@ -16,8 +16,8 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\StringType;
 use Rector\Core\PhpParser\NodeTransformer;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20210105\Symfony\Component\Console\Input\StringInput;
-use RectorPrefix20210105\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210106\Symfony\Component\Console\Input\StringInput;
+use RectorPrefix20210106\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -113,8 +113,8 @@ CODE_SAMPLE
      */
     private function splitProcessCommandToItems(string $process) : array
     {
-        $privatesCaller = new \RectorPrefix20210105\Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        return $privatesCaller->callPrivateMethod(new \RectorPrefix20210105\Symfony\Component\Console\Input\StringInput(''), 'tokenize', $process);
+        $privatesCaller = new \RectorPrefix20210106\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        return $privatesCaller->callPrivateMethod(new \RectorPrefix20210106\Symfony\Component\Console\Input\StringInput(''), 'tokenize', $process);
     }
     private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {

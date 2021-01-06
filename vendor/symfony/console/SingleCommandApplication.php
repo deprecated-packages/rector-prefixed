@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210105\Symfony\Component\Console;
+namespace RectorPrefix20210106\Symfony\Component\Console;
 
-use RectorPrefix20210105\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210105\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210105\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20210106\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210106\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210106\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class SingleCommandApplication extends \RectorPrefix20210105\Symfony\Component\Console\Command\Command
+class SingleCommandApplication extends \RectorPrefix20210106\Symfony\Component\Console\Command\Command
 {
     private $version = 'UNKNOWN';
     private $autoExit = \true;
@@ -34,13 +34,13 @@ class SingleCommandApplication extends \RectorPrefix20210105\Symfony\Component\C
         $this->autoExit = $autoExit;
         return $this;
     }
-    public function run(\RectorPrefix20210105\Symfony\Component\Console\Input\InputInterface $input = null, \RectorPrefix20210105\Symfony\Component\Console\Output\OutputInterface $output = null) : int
+    public function run(\RectorPrefix20210106\Symfony\Component\Console\Input\InputInterface $input = null, \RectorPrefix20210106\Symfony\Component\Console\Output\OutputInterface $output = null) : int
     {
         if ($this->running) {
             return parent::run($input, $output);
         }
         // We use the command name as the application name
-        $application = new \RectorPrefix20210105\Symfony\Component\Console\Application($this->getName() ?: 'UNKNOWN', $this->version);
+        $application = new \RectorPrefix20210106\Symfony\Component\Console\Application($this->getName() ?: 'UNKNOWN', $this->version);
         $application->setAutoExit($this->autoExit);
         // Fix the usage of the command displayed with "--help"
         $this->setName($_SERVER['argv'][0]);

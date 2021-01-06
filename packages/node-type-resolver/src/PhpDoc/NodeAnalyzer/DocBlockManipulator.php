@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 
-use RectorPrefix20210105\Nette\Utils\Strings;
+use RectorPrefix20210106\Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
@@ -152,8 +152,8 @@ final class DocBlockManipulator
     }
     private function inlineDocContent(string $docContent) : string
     {
-        $docContent = \RectorPrefix20210105\Nette\Utils\Strings::replace($docContent, self::NEWLINE_MIDDLE_DOC_REGEX, ' ');
-        return \RectorPrefix20210105\Nette\Utils\Strings::replace($docContent, self::NEWLINE_CLOSING_DOC_REGEX, ' */');
+        $docContent = \RectorPrefix20210106\Nette\Utils\Strings::replace($docContent, self::NEWLINE_MIDDLE_DOC_REGEX, ' ');
+        return \RectorPrefix20210106\Nette\Utils\Strings::replace($docContent, self::NEWLINE_CLOSING_DOC_REGEX, ' */');
     }
     /**
      * add // comments to phpdoc (only has /**
@@ -163,7 +163,7 @@ final class DocBlockManipulator
         $startComments = '';
         foreach ($node->getComments() as $comment) {
             // skip non-simple comments
-            if (!\RectorPrefix20210105\Nette\Utils\Strings::startsWith($comment->getText(), '//')) {
+            if (!\RectorPrefix20210106\Nette\Utils\Strings::startsWith($comment->getText(), '//')) {
                 continue;
             }
             $startComments .= $comment->getText();
@@ -175,6 +175,6 @@ final class DocBlockManipulator
     }
     private function removeSpacesAndAsterisks(string $content) : string
     {
-        return \RectorPrefix20210105\Nette\Utils\Strings::replace($content, self::SPACE_OR_ASTERISK_REGEX, '');
+        return \RectorPrefix20210106\Nette\Utils\Strings::replace($content, self::SPACE_OR_ASTERISK_REGEX, '');
     }
 }

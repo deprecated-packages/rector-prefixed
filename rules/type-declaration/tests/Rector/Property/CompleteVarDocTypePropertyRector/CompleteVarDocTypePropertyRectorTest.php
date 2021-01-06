@@ -6,7 +6,7 @@ namespace Rector\TypeDeclaration\Tests\Rector\Property\CompleteVarDocTypePropert
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\TypeDeclaration\Rector\Property\CompleteVarDocTypePropertyRector;
-use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @requires PHP < 8.0
  */
@@ -15,7 +15,7 @@ final class CompleteVarDocTypePropertyRectorTest extends \Rector\Testing\PHPUnit
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -3,15 +3,15 @@
 declare (strict_types=1);
 namespace Rector\RemovingStatic\Printer;
 
-use RectorPrefix20210105\Nette\Utils\Strings;
+use RectorPrefix20210106\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileSystem;
 final class FactoryClassPrinter
 {
     /**
@@ -26,7 +26,7 @@ final class FactoryClassPrinter
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210105\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -54,12 +54,12 @@ final class FactoryClassPrinter
         if ($classFileInfo === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $directoryPath = \RectorPrefix20210105\Nette\Utils\Strings::before($classFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);
+        $directoryPath = \RectorPrefix20210106\Nette\Utils\Strings::before($classFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);
         $resolvedOldClass = $this->nodeNameResolver->getName($oldClass);
         if ($resolvedOldClass === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $bareClassName = \RectorPrefix20210105\Nette\Utils\Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
+        $bareClassName = \RectorPrefix20210106\Nette\Utils\Strings::after($resolvedOldClass, '\\', -1) . 'Factory.php';
         return $directoryPath . \DIRECTORY_SEPARATOR . $bareClassName;
     }
 }
