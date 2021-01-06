@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Cast\Bool_;
 use PhpParser\Node\Expr\Ternary;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
@@ -133,8 +134,11 @@ CODE_SAMPLE
     /**
      * @return Identical|NotIdentical
      */
-    private function resolveArray(bool $isNegated, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\BinaryOp
+    private function resolveArray(bool $isNegated, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr\BinaryOp
     {
+        if (!$expr instanceof \PhpParser\Node\Expr\Variable) {
+            return null;
+        }
         $array = new \PhpParser\Node\Expr\Array_([]);
         // compare === []
         if ($isNegated) {
