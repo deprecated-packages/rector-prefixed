@@ -6,6 +6,7 @@ namespace Rector\PostRector\Rector;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
 use Rector\CodingStyle\Node\NameImporter;
 use Rector\Core\Configuration\Option;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -27,11 +28,16 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
      * @var DocBlockNameImporter
      */
     private $docBlockNameImporter;
-    public function __construct(\RectorPrefix20210107\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter)
+    /**
+     * @var ClassNameImportSkipper
+     */
+    private $classNameImportSkipper;
+    public function __construct(\RectorPrefix20210107\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper)
     {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;
         $this->docBlockNameImporter = $docBlockNameImporter;
+        $this->classNameImportSkipper = $classNameImportSkipper;
     }
     public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
@@ -40,7 +46,7 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
             return null;
         }
         if ($node instanceof \PhpParser\Node\Name) {
-            return $this->nameImporter->importName($node);
+            return $this->processNodeName($node);
         }
         $importDocBlocks = (bool) $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::IMPORT_DOC_BLOCKS);
         if (!$importDocBlocks) {
@@ -72,5 +78,16 @@ use Some\FullyQualified\SomeClass;
 $someClass = new SomeClass();
 CODE_SAMPLE
 )]);
+    }
+    private function processNodeName(\PhpParser\Node\Name $name) : ?\PhpParser\Node
+    {
+        $importName = $this->getName($name);
+        if (!\is_callable($importName)) {
+            return $this->nameImporter->importName($name);
+        }
+        if (\substr_count($name->toCodeString(), '\\') > 1 && $this->classNameImportSkipper->isFoundInUse($name) && !\function_exists($name->getLast())) {
+            return null;
+        }
+        return $this->nameImporter->importName($name);
     }
 }

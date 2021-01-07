@@ -40,7 +40,7 @@ final class ClassNameImportSkipper
         }
         return $this->isFoundInUse($name);
     }
-    private function isFoundInUse(\PhpParser\Node\Name $name) : bool
+    public function isFoundInUse(\PhpParser\Node\Name $name) : bool
     {
         /** @var Use_[] $uses */
         $uses = (array) $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES);

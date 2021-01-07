@@ -120,6 +120,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         $content = $this->contentPatcher->rollbackValidAnnotation($contentOriginal, $content, \Rector\Core\PhpParser\Printer\ContentPatcher::VALID_ANNOTATION_ROUTE_OPTION_REGEX, \Rector\Core\PhpParser\Printer\ContentPatcher::INVALID_ANNOTATION_ROUTE_OPTION_REGEX);
         $content = $this->contentPatcher->rollbackValidAnnotation($contentOriginal, $content, \Rector\Core\PhpParser\Printer\ContentPatcher::VALID_ANNOTATION_ROUTE_LOCALIZATION_REGEX, \Rector\Core\PhpParser\Printer\ContentPatcher::INVALID_ANNOTATION_ROUTE_LOCALIZATION_REGEX);
         $content = $this->contentPatcher->rollbackValidAnnotation($contentOriginal, $content, \Rector\Core\PhpParser\Printer\ContentPatcher::VALID_ANNOTATION_VAR_RETURN_EXPLICIT_FORMAT_REGEX, \Rector\Core\PhpParser\Printer\ContentPatcher::INVALID_ANNOTATION_VAR_RETURN_EXPLICIT_FORMAT_REGEX);
+        $content = $this->contentPatcher->rollbackDuplicateComment($contentOriginal, $content);
         // add new line in case of added stmts
         if (\count($stmts) !== \count($origStmts) && !(bool) \RectorPrefix20210107\Nette\Utils\Strings::match($content, self::NEWLINE_END_REGEX)) {
             $content .= $this->nl;
