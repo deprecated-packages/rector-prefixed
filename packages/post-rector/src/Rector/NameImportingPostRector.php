@@ -10,7 +10,7 @@ use Rector\CodingStyle\Node\NameImporter;
 use Rector\Core\Configuration\Option;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
-use RectorPrefix20210106\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210107\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
@@ -27,7 +27,7 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
      * @var DocBlockNameImporter
      */
     private $docBlockNameImporter;
-    public function __construct(\RectorPrefix20210106\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter)
+    public function __construct(\RectorPrefix20210107\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter)
     {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;

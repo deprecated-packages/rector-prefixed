@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Php73\Rector\FuncCall;
 
-use RectorPrefix20210106\Nette\Utils\Strings;
+use RectorPrefix20210107\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\StaticCall;
@@ -71,14 +71,14 @@ CODE_SAMPLE
     private function escapeStringNode(\PhpParser\Node\Scalar\String_ $string) : void
     {
         $stringValue = $string->value;
-        if (\RectorPrefix20210106\Nette\Utils\Strings::match($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX)) {
-            $string->value = \RectorPrefix20210106\Nette\Utils\Strings::replace($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX, '$1\\-');
+        if (\RectorPrefix20210107\Nette\Utils\Strings::match($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX)) {
+            $string->value = \RectorPrefix20210107\Nette\Utils\Strings::replace($stringValue, self::LEFT_HAND_UNESCAPED_DASH_REGEX, '$1\\-');
             // helped needed to skip re-escaping regular expression
             $string->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_REGULAR_PATTERN, \true);
             return;
         }
-        if (\RectorPrefix20210106\Nette\Utils\Strings::match($stringValue, self::RIGHT_HAND_UNESCAPED_DASH_REGEX)) {
-            $string->value = \RectorPrefix20210106\Nette\Utils\Strings::replace($stringValue, self::RIGHT_HAND_UNESCAPED_DASH_REGEX, '\\-$1]');
+        if (\RectorPrefix20210107\Nette\Utils\Strings::match($stringValue, self::RIGHT_HAND_UNESCAPED_DASH_REGEX)) {
+            $string->value = \RectorPrefix20210107\Nette\Utils\Strings::replace($stringValue, self::RIGHT_HAND_UNESCAPED_DASH_REGEX, '\\-$1]');
             // helped needed to skip re-escaping regular expression
             $string->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_REGULAR_PATTERN, \true);
         }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\Tests\Rector\StaticCall\StaticCallToMethodCallRector\Source;
 
-use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileSystem;
 abstract class ClassWithFileSystem
 {
     /**

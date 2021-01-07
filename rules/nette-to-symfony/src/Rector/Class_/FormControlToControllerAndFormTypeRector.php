@@ -21,10 +21,10 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NetteToSymfony\Collector\OnFormVariableMethodCallsCollector;
 use Rector\NetteToSymfony\NodeFactory\SymfonyControllerFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210106\Symfony\Component\Form\Extension\Core\Type\TextType;
+use RectorPrefix20210107\Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://symfony.com/doc/current/forms.html#creating-form-classes
  *
@@ -87,16 +87,16 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20210106;
+namespace RectorPrefix20210107;
 
-use RectorPrefix20210106\Symfony\Component\Form\AbstractType;
-use RectorPrefix20210106\Symfony\Component\Form\Extension\Core\Type\TextType;
-use RectorPrefix20210106\Symfony\Component\Form\FormBuilderInterface;
-class SomeFormType extends \RectorPrefix20210106\Symfony\Component\Form\AbstractType
+use RectorPrefix20210107\Symfony\Component\Form\AbstractType;
+use RectorPrefix20210107\Symfony\Component\Form\Extension\Core\Type\TextType;
+use RectorPrefix20210107\Symfony\Component\Form\FormBuilderInterface;
+class SomeFormType extends \RectorPrefix20210107\Symfony\Component\Form\AbstractType
 {
-    public function buildForm(\RectorPrefix20210106\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
+    public function buildForm(\RectorPrefix20210107\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
     {
-        $formBuilder->add('name', \RectorPrefix20210106\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
+        $formBuilder->add('name', \RectorPrefix20210107\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
     }
 }
 \class_alias('SomeFormType', 'SomeFormType', \false);
@@ -153,7 +153,7 @@ CODE_SAMPLE
             if ($this->isName($onFormVariableMethodCall->name, 'addText')) {
                 // text input
                 $inputName = $onFormVariableMethodCall->args[0];
-                $formTypeClassConstant = $this->createClassConstantReference(\RectorPrefix20210106\Symfony\Component\Form\Extension\Core\Type\TextType::class);
+                $formTypeClassConstant = $this->createClassConstantReference(\RectorPrefix20210107\Symfony\Component\Form\Extension\Core\Type\TextType::class);
                 $args = $this->createAddTextArgs($inputName, $formTypeClassConstant, $onFormVariableMethodCall);
                 $methodCall = new \PhpParser\Node\Expr\MethodCall($formBuilderVariable, 'add', $args);
                 $symfonyMethodCalls[] = new \PhpParser\Node\Stmt\Expression($methodCall);

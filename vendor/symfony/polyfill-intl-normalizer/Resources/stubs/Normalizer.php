@@ -1,20 +1,20 @@
 <?php
 
-namespace RectorPrefix20210106;
+namespace RectorPrefix20210107;
 
-class Normalizer extends \RectorPrefix20210106\Symfony\Polyfill\Intl\Normalizer\Normalizer
+class Normalizer extends \RectorPrefix20210107\Symfony\Polyfill\Intl\Normalizer\Normalizer
 {
     /**
      * @deprecated since ICU 56 and removed in PHP 8
      */
-    const NONE = 1;
-    const FORM_D = 2;
-    const FORM_KD = 3;
-    const FORM_C = 4;
-    const FORM_KC = 5;
-    const NFD = 2;
-    const NFKD = 3;
-    const NFC = 4;
-    const NFKC = 5;
+    public const NONE = 2;
+    public const FORM_D = 4;
+    public const FORM_KD = 8;
+    public const FORM_C = 16;
+    public const FORM_KC = 32;
+    public const NFD = 4;
+    public const NFKD = 8;
+    public const NFC = 16;
+    public const NFKC = 32;
 }
-\class_alias('RectorPrefix20210106\\Normalizer', 'Normalizer', \false);
+\class_alias('RectorPrefix20210107\\Normalizer', 'Normalizer', \false);

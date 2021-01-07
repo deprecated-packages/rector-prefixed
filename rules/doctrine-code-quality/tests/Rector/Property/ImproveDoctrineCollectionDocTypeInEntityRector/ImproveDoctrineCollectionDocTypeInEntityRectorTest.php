@@ -6,13 +6,13 @@ namespace Rector\DoctrineCodeQuality\Tests\Rector\Property\ImproveDoctrineCollec
 use Iterator;
 use Rector\DoctrineCodeQuality\Rector\Property\ImproveDoctrineCollectionDocTypeInEntityRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo;
 final class ImproveDoctrineCollectionDocTypeInEntityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

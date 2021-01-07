@@ -38,7 +38,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\PackageVersions\\": "src\/PackageVersions"
+                    "RectorPrefix20210107\\PackageVersions\\": "src\/PackageVersions"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -108,7 +108,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Composer\\Semver\\": "src"
+                    "RectorPrefix20210107\\Composer\\Semver\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -187,7 +187,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Composer\\XdebugHandler\\": "src"
+                    "RectorPrefix20210107\\Composer\\XdebugHandler\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -262,7 +262,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
+                    "RectorPrefix20210107\\Doctrine\\Common\\Annotations\\": "lib\/Doctrine\/Common\/Annotations"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -339,7 +339,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Doctrine\\Inflector\\": "lib\/Doctrine\/Inflector"
+                    "RectorPrefix20210107\\Doctrine\\Inflector\\": "lib\/Doctrine\/Inflector"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -435,7 +435,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
+                    "RectorPrefix20210107\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -517,7 +517,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Jean85\\": "src\/"
+                    "RectorPrefix20210107\\Jean85\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1101,7 +1101,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Psr\\Cache\\": "src\/"
+                    "RectorPrefix20210107\\Psr\\Cache\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1153,7 +1153,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Psr\\Container\\": "src\/"
+                    "RectorPrefix20210107\\Psr\\Container\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1209,7 +1209,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Psr\\EventDispatcher\\": "src\/"
+                    "RectorPrefix20210107\\Psr\\EventDispatcher\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1262,7 +1262,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Psr\\Log\\": "Psr\/Log\/"
+                    "RectorPrefix20210107\\Psr\\Log\\": "Psr\/Log\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1315,7 +1315,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Psr\\SimpleCache\\": "src\/"
+                    "RectorPrefix20210107\\Psr\\SimpleCache\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1463,7 +1463,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\Cache\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\Cache\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1544,7 +1544,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Contracts\\Cache\\": ""
+                    "RectorPrefix20210107\\Symfony\\Contracts\\Cache\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -1630,7 +1630,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\Config\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\Config\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1724,7 +1724,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\Console\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\Console\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1820,7 +1820,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\DependencyInjection\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\DependencyInjection\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -1962,7 +1962,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\ErrorHandler\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\ErrorHandler\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2050,7 +2050,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\EventDispatcher\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\EventDispatcher\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2127,7 +2127,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Contracts\\EventDispatcher\\": ""
+                    "RectorPrefix20210107\\Symfony\\Contracts\\EventDispatcher\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2197,7 +2197,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\Filesystem\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\Filesystem\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2261,7 +2261,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\Finder\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\Finder\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2338,7 +2338,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Contracts\\HttpClient\\": ""
+                    "RectorPrefix20210107\\Symfony\\Contracts\\HttpClient\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2419,7 +2419,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\HttpFoundation\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\HttpFoundation\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2534,7 +2534,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\HttpKernel\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\HttpKernel\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -2577,17 +2577,17 @@
         },
         {
             "name": "symfony\/polyfill-ctype",
-            "version": "v1.20.0",
-            "version_normalized": "1.20.0.0",
+            "version": "v1.22.0",
+            "version_normalized": "1.22.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/polyfill-ctype.git",
-                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41"
+                "reference": "c6c942b1ac76c82448322025e084cadc56048b4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-ctype\/zipball\/f4ba089a5b6366e453971d3aad5fe8e897b37f41",
-                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-ctype\/zipball\/c6c942b1ac76c82448322025e084cadc56048b4e",
+                "reference": "c6c942b1ac76c82448322025e084cadc56048b4e",
                 "shasum": ""
             },
             "require": {
@@ -2596,11 +2596,11 @@
             "suggest": {
                 "ext-ctype": "For best performance"
             },
-            "time": "2020-10-23T14:02:19+00:00",
+            "time": "2021-01-07T16:49:33+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.20-dev"
+                    "dev-main": "1.22-dev"
                 },
                 "thanks": {
                     "name": "symfony\/polyfill",
@@ -2610,7 +2610,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Polyfill\\Ctype\\": ""
+                    "RectorPrefix20210107\\Symfony\\Polyfill\\Ctype\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2639,7 +2639,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-ctype\/tree\/v1.20.0"
+                "source": "https:\/\/github.com\/symfony\/polyfill-ctype\/tree\/v1.22.0"
             },
             "funding": [
                 {
@@ -2659,17 +2659,17 @@
         },
         {
             "name": "symfony\/polyfill-intl-grapheme",
-            "version": "v1.20.0",
-            "version_normalized": "1.20.0.0",
+            "version": "v1.22.0",
+            "version_normalized": "1.22.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/polyfill-intl-grapheme.git",
-                "reference": "c7cf3f858ec7d70b89559d6e6eb1f7c2517d479c"
+                "reference": "267a9adeb8ecb8071040a740930e077cdfb987af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-intl-grapheme\/zipball\/c7cf3f858ec7d70b89559d6e6eb1f7c2517d479c",
-                "reference": "c7cf3f858ec7d70b89559d6e6eb1f7c2517d479c",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-intl-grapheme\/zipball\/267a9adeb8ecb8071040a740930e077cdfb987af",
+                "reference": "267a9adeb8ecb8071040a740930e077cdfb987af",
                 "shasum": ""
             },
             "require": {
@@ -2678,11 +2678,11 @@
             "suggest": {
                 "ext-intl": "For best performance"
             },
-            "time": "2020-10-23T14:02:19+00:00",
+            "time": "2021-01-07T16:49:33+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.20-dev"
+                    "dev-main": "1.22-dev"
                 },
                 "thanks": {
                     "name": "symfony\/polyfill",
@@ -2692,7 +2692,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
+                    "RectorPrefix20210107\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2723,7 +2723,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-intl-grapheme\/tree\/v1.20.0"
+                "source": "https:\/\/github.com\/symfony\/polyfill-intl-grapheme\/tree\/v1.22.0"
             },
             "funding": [
                 {
@@ -2743,17 +2743,17 @@
         },
         {
             "name": "symfony\/polyfill-intl-normalizer",
-            "version": "v1.20.0",
-            "version_normalized": "1.20.0.0",
+            "version": "v1.22.0",
+            "version_normalized": "1.22.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/polyfill-intl-normalizer.git",
-                "reference": "727d1096295d807c309fb01a851577302394c897"
+                "reference": "6e971c891537eb617a00bb07a43d182a6915faba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-intl-normalizer\/zipball\/727d1096295d807c309fb01a851577302394c897",
-                "reference": "727d1096295d807c309fb01a851577302394c897",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-intl-normalizer\/zipball\/6e971c891537eb617a00bb07a43d182a6915faba",
+                "reference": "6e971c891537eb617a00bb07a43d182a6915faba",
                 "shasum": ""
             },
             "require": {
@@ -2762,11 +2762,11 @@
             "suggest": {
                 "ext-intl": "For best performance"
             },
-            "time": "2020-10-23T14:02:19+00:00",
+            "time": "2021-01-07T17:09:11+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.20-dev"
+                    "dev-main": "1.22-dev"
                 },
                 "thanks": {
                     "name": "symfony\/polyfill",
@@ -2776,7 +2776,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                    "RectorPrefix20210107\\Symfony\\Polyfill\\Intl\\Normalizer\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2810,7 +2810,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-intl-normalizer\/tree\/v1.20.0"
+                "source": "https:\/\/github.com\/symfony\/polyfill-intl-normalizer\/tree\/v1.22.0"
             },
             "funding": [
                 {
@@ -2830,17 +2830,17 @@
         },
         {
             "name": "symfony\/polyfill-mbstring",
-            "version": "v1.20.0",
-            "version_normalized": "1.20.0.0",
+            "version": "v1.22.0",
+            "version_normalized": "1.22.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/polyfill-mbstring.git",
-                "reference": "39d483bdf39be819deabf04ec872eb0b2410b531"
+                "reference": "f377a3dd1fde44d37b9831d68dc8dea3ffd28e13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-mbstring\/zipball\/39d483bdf39be819deabf04ec872eb0b2410b531",
-                "reference": "39d483bdf39be819deabf04ec872eb0b2410b531",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-mbstring\/zipball\/f377a3dd1fde44d37b9831d68dc8dea3ffd28e13",
+                "reference": "f377a3dd1fde44d37b9831d68dc8dea3ffd28e13",
                 "shasum": ""
             },
             "require": {
@@ -2849,11 +2849,11 @@
             "suggest": {
                 "ext-mbstring": "For best performance"
             },
-            "time": "2020-10-23T14:02:19+00:00",
+            "time": "2021-01-07T16:49:33+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.20-dev"
+                    "dev-main": "1.22-dev"
                 },
                 "thanks": {
                     "name": "symfony\/polyfill",
@@ -2863,7 +2863,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Polyfill\\Mbstring\\": ""
+                    "RectorPrefix20210107\\Symfony\\Polyfill\\Mbstring\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2893,7 +2893,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-mbstring\/tree\/v1.20.0"
+                "source": "https:\/\/github.com\/symfony\/polyfill-mbstring\/tree\/v1.22.0"
             },
             "funding": [
                 {
@@ -2913,27 +2913,27 @@
         },
         {
             "name": "symfony\/polyfill-php73",
-            "version": "v1.20.0",
-            "version_normalized": "1.20.0.0",
+            "version": "v1.22.0",
+            "version_normalized": "1.22.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/polyfill-php73.git",
-                "reference": "8ff431c517be11c78c48a39a66d37431e26a6bed"
+                "reference": "a678b42e92f86eca04b7fa4c0f6f19d097fb69e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-php73\/zipball\/8ff431c517be11c78c48a39a66d37431e26a6bed",
-                "reference": "8ff431c517be11c78c48a39a66d37431e26a6bed",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-php73\/zipball\/a678b42e92f86eca04b7fa4c0f6f19d097fb69e2",
+                "reference": "a678b42e92f86eca04b7fa4c0f6f19d097fb69e2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
-            "time": "2020-10-23T14:02:19+00:00",
+            "time": "2021-01-07T16:49:33+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.20-dev"
+                    "dev-main": "1.22-dev"
                 },
                 "thanks": {
                     "name": "symfony\/polyfill",
@@ -2943,7 +2943,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Polyfill\\Php73\\": ""
+                    "RectorPrefix20210107\\Symfony\\Polyfill\\Php73\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -2975,7 +2975,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-php73\/tree\/v1.20.0"
+                "source": "https:\/\/github.com\/symfony\/polyfill-php73\/tree\/v1.22.0"
             },
             "funding": [
                 {
@@ -2995,27 +2995,27 @@
         },
         {
             "name": "symfony\/polyfill-php80",
-            "version": "v1.20.0",
-            "version_normalized": "1.20.0.0",
+            "version": "v1.22.0",
+            "version_normalized": "1.22.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/polyfill-php80.git",
-                "reference": "e70aa8b064c5b72d3df2abd5ab1e90464ad009de"
+                "reference": "dc3063ba22c2a1fd2f45ed856374d79114998f91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-php80\/zipball\/e70aa8b064c5b72d3df2abd5ab1e90464ad009de",
-                "reference": "e70aa8b064c5b72d3df2abd5ab1e90464ad009de",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-php80\/zipball\/dc3063ba22c2a1fd2f45ed856374d79114998f91",
+                "reference": "dc3063ba22c2a1fd2f45ed856374d79114998f91",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
-            "time": "2020-10-23T14:02:19+00:00",
+            "time": "2021-01-07T16:49:33+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.20-dev"
+                    "dev-main": "1.22-dev"
                 },
                 "thanks": {
                     "name": "symfony\/polyfill",
@@ -3025,7 +3025,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Polyfill\\Php80\\": ""
+                    "RectorPrefix20210107\\Symfony\\Polyfill\\Php80\\": ""
                 },
                 "files": [
                     "bootstrap.php"
@@ -3061,7 +3061,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-php80\/tree\/v1.20.0"
+                "source": "https:\/\/github.com\/symfony\/polyfill-php80\/tree\/v1.22.0"
             },
             "funding": [
                 {
@@ -3115,7 +3115,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Contracts\\Service\\": ""
+                    "RectorPrefix20210107\\Symfony\\Contracts\\Service\\": ""
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3195,7 +3195,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\String\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\String\\": ""
                 },
                 "files": [
                     "Resources\/functions.php"
@@ -3293,7 +3293,7 @@
                     "Resources\/functions\/dump.php"
                 ],
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\VarDumper\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\VarDumper\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3365,7 +3365,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\VarExporter\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\VarExporter\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3451,7 +3451,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symfony\\Component\\Yaml\\": ""
+                    "RectorPrefix20210107\\Symfony\\Component\\Yaml\\": ""
                 },
                 "exclude-from-classmap": [
                     "\/Tests\/"
@@ -3526,7 +3526,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\AutowireArrayParameter\\": "src"
+                    "RectorPrefix20210107\\Symplify\\AutowireArrayParameter\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3587,7 +3587,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\ComposerJsonManipulator\\": "src"
+                    "RectorPrefix20210107\\Symplify\\ComposerJsonManipulator\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3647,7 +3647,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\ConsoleColorDiff\\": "src"
+                    "RectorPrefix20210107\\Symplify\\ConsoleColorDiff\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3706,7 +3706,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\ConsolePackageBuilder\\": "src"
+                    "RectorPrefix20210107\\Symplify\\ConsolePackageBuilder\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3760,7 +3760,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\EasyTesting\\": "src"
+                    "RectorPrefix20210107\\Symplify\\EasyTesting\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3819,7 +3819,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\MarkdownDiff\\": "src"
+                    "RectorPrefix20210107\\Symplify\\MarkdownDiff\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3884,7 +3884,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\PackageBuilder\\": "src"
+                    "RectorPrefix20210107\\Symplify\\PackageBuilder\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -3943,7 +3943,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\PhpConfigPrinter\\": "src"
+                    "RectorPrefix20210107\\Symplify\\PhpConfigPrinter\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -4064,7 +4064,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\SetConfigResolver\\": "src"
+                    "RectorPrefix20210107\\Symplify\\SetConfigResolver\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -4125,7 +4125,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\SimplePhpDocParser\\": "src"
+                    "RectorPrefix20210107\\Symplify\\SimplePhpDocParser\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -4188,7 +4188,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\Skipper\\": "src"
+                    "RectorPrefix20210107\\Symplify\\Skipper\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -4246,7 +4246,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\SmartFileSystem\\": "src"
+                    "RectorPrefix20210107\\Symplify\\SmartFileSystem\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -4357,7 +4357,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Symplify\\SymplifyKernel\\": "src"
+                    "RectorPrefix20210107\\Symplify\\SymplifyKernel\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -4402,7 +4402,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "RectorPrefix20210106\\Webmozart\\Assert\\": "src\/"
+                    "RectorPrefix20210107\\Webmozart\\Assert\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",

@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector;
-use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo;
 final class InvalidConfigurationTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
@@ -17,7 +17,7 @@ final class InvalidConfigurationTest extends \Rector\Testing\PHPUnit\AbstractRec
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->doTestFileInfo($fileInfo);

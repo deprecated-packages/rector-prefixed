@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210106\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
+            "RectorPrefix20210107\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
         },
         "files": [
             "bootstrap.php"
@@ -39,7 +39,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-main": "1.20-dev"
+            "dev-main": "1.22-dev"
         },
         "thanks": {
             "name": "symfony\/polyfill",

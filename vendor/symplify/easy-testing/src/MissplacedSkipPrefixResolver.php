@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210106\Symplify\EasyTesting;
+namespace RectorPrefix20210107\Symplify\EasyTesting;
 
-use RectorPrefix20210106\Nette\Utils\Strings;
-use RectorPrefix20210106\Symplify\EasyTesting\ValueObject\Prefix;
-use RectorPrefix20210106\Symplify\EasyTesting\ValueObject\SplitLine;
-use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210107\Nette\Utils\Strings;
+use RectorPrefix20210107\Symplify\EasyTesting\ValueObject\Prefix;
+use RectorPrefix20210107\Symplify\EasyTesting\ValueObject\SplitLine;
+use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyTesting\Tests\MissingSkipPrefixResolver\MissingSkipPrefixResolverTest
  */
@@ -21,7 +21,7 @@ final class MissplacedSkipPrefixResolver
         $invalidFileInfos = [];
         foreach ($fixtureFileInfos as $fixtureFileInfo) {
             $fileContents = $fixtureFileInfo->getContents();
-            if (\RectorPrefix20210106\Nette\Utils\Strings::match($fileContents, \RectorPrefix20210106\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX)) {
+            if (\RectorPrefix20210107\Nette\Utils\Strings::match($fileContents, \RectorPrefix20210107\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX)) {
                 if ($this->hasNameSkipStart($fixtureFileInfo)) {
                     $invalidFileInfos[] = $fixtureFileInfo;
                 }
@@ -34,8 +34,8 @@ final class MissplacedSkipPrefixResolver
         }
         return $invalidFileInfos;
     }
-    private function hasNameSkipStart(\RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : bool
+    private function hasNameSkipStart(\RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : bool
     {
-        return (bool) \RectorPrefix20210106\Nette\Utils\Strings::match($fixtureFileInfo->getBasenameWithoutSuffix(), \RectorPrefix20210106\Symplify\EasyTesting\ValueObject\Prefix::SKIP_PREFIX_REGEX);
+        return (bool) \RectorPrefix20210107\Nette\Utils\Strings::match($fixtureFileInfo->getBasenameWithoutSuffix(), \RectorPrefix20210107\Symplify\EasyTesting\ValueObject\Prefix::SKIP_PREFIX_REGEX);
     }
 }

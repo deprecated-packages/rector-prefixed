@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210106\Symplify\PhpConfigPrinter\NodeFactory;
+namespace RectorPrefix20210107\Symplify\PhpConfigPrinter\NodeFactory;
 
-use RectorPrefix20210106\Nette\Utils\Strings;
+use RectorPrefix20210107\Nette\Utils\Strings;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
@@ -14,11 +14,11 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
-use RectorPrefix20210106\Symfony\Component\Yaml\Tag\TaggedValue;
-use RectorPrefix20210106\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
-use RectorPrefix20210106\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
-use RectorPrefix20210106\Symplify\PhpConfigPrinter\ValueObject\FunctionName;
-use RectorPrefix20210106\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature;
+use RectorPrefix20210107\Symfony\Component\Yaml\Tag\TaggedValue;
+use RectorPrefix20210107\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
+use RectorPrefix20210107\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
+use RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\FunctionName;
+use RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature;
 final class ArgsNodeFactory
 {
     /**
@@ -50,7 +50,7 @@ final class ArgsNodeFactory
      * @var SymfonyVersionFeatureGuardInterface
      */
     private $symfonyVersionFeatureGuard;
-    public function __construct(\RectorPrefix20210106\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210106\Symplify\PhpConfigPrinter\NodeFactory\ConstantNodeFactory $constantNodeFactory, \RectorPrefix20210106\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface $symfonyVersionFeatureGuard)
+    public function __construct(\RectorPrefix20210107\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210107\Symplify\PhpConfigPrinter\NodeFactory\ConstantNodeFactory $constantNodeFactory, \RectorPrefix20210107\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface $symfonyVersionFeatureGuard)
     {
         $this->commonNodeFactory = $commonNodeFactory;
         $this->constantNodeFactory = $constantNodeFactory;
@@ -95,7 +95,7 @@ final class ArgsNodeFactory
             $expr = $this->resolveExpr($values);
             return [new \PhpParser\Node\Arg($expr)];
         }
-        throw new \RectorPrefix20210106\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException();
+        throw new \RectorPrefix20210107\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException();
     }
     public function resolveExpr($value, bool $skipServiceReference = \false, bool $skipClassesToConstantReference = \false) : \PhpParser\Node\Expr
     {
@@ -105,7 +105,7 @@ final class ArgsNodeFactory
         if ($value instanceof \PhpParser\Node\Expr) {
             return $value;
         }
-        if ($value instanceof \RectorPrefix20210106\Symfony\Component\Yaml\Tag\TaggedValue) {
+        if ($value instanceof \RectorPrefix20210107\Symfony\Component\Yaml\Tag\TaggedValue) {
             return $this->createServiceReferenceFromTaggedValue($value);
         }
         if (\is_array($value)) {
@@ -139,7 +139,7 @@ final class ArgsNodeFactory
         }
         return new \PhpParser\Node\Expr\Array_($arrayItems);
     }
-    private function createServiceReferenceFromTaggedValue(\RectorPrefix20210106\Symfony\Component\Yaml\Tag\TaggedValue $taggedValue) : \PhpParser\Node\Expr
+    private function createServiceReferenceFromTaggedValue(\RectorPrefix20210107\Symfony\Component\Yaml\Tag\TaggedValue $taggedValue) : \PhpParser\Node\Expr
     {
         $shouldWrapInArray = \false;
         // that's the only value
@@ -149,7 +149,7 @@ final class ArgsNodeFactory
             $shouldWrapInArray = \true;
         } elseif ($taggedValue->getTag() === self::TAG_SERVICE) {
             $serviceName = $taggedValue->getValue()['class'];
-            $functionName = \RectorPrefix20210106\Symplify\PhpConfigPrinter\ValueObject\FunctionName::INLINE_SERVICE;
+            $functionName = \RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\FunctionName::INLINE_SERVICE;
         } else {
             if (\is_array($taggedValue->getValue())) {
                 $args = $this->createFromValues($taggedValue->getValue());
@@ -183,13 +183,13 @@ final class ArgsNodeFactory
         if (\ctype_upper($value[0]) && \class_exists($value) || \interface_exists($value)) {
             return $this->resolveClassType($skipClassesToConstantReference, $value);
         }
-        if (\RectorPrefix20210106\Nette\Utils\Strings::startsWith($value, '@=')) {
+        if (\RectorPrefix20210107\Nette\Utils\Strings::startsWith($value, '@=')) {
             $value = \ltrim($value, '@=');
             $args = $this->createFromValues($value);
-            return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210106\Symplify\PhpConfigPrinter\ValueObject\FunctionName::EXPR), $args);
+            return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\FunctionName::EXPR), $args);
         }
         // is service reference
-        if (\RectorPrefix20210106\Nette\Utils\Strings::startsWith($value, '@') && !$this->isFilePath($value)) {
+        if (\RectorPrefix20210107\Nette\Utils\Strings::startsWith($value, '@') && !$this->isFilePath($value)) {
             $refOrServiceFunctionName = $this->getRefOrServiceFunctionName();
             return $this->resolveServiceReferenceExpr($value, $skipServiceReference, $refOrServiceFunctionName);
         }
@@ -218,14 +218,14 @@ final class ArgsNodeFactory
     }
     private function getRefOrServiceFunctionName() : string
     {
-        if ($this->symfonyVersionFeatureGuard->isAtLeastSymfonyVersion(\RectorPrefix20210106\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature::REF_OVER_SERVICE)) {
-            return \RectorPrefix20210106\Symplify\PhpConfigPrinter\ValueObject\FunctionName::SERVICE;
+        if ($this->symfonyVersionFeatureGuard->isAtLeastSymfonyVersion(\RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature::REF_OVER_SERVICE)) {
+            return \RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\FunctionName::SERVICE;
         }
-        return \RectorPrefix20210106\Symplify\PhpConfigPrinter\ValueObject\FunctionName::REF;
+        return \RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\FunctionName::REF;
     }
     private function isFilePath(string $value) : bool
     {
-        return (bool) \RectorPrefix20210106\Nette\Utils\Strings::match($value, self::TWIG_HTML_XML_SUFFIX_REGEX);
+        return (bool) \RectorPrefix20210107\Nette\Utils\Strings::match($value, self::TWIG_HTML_XML_SUFFIX_REGEX);
     }
     private function resolveClassType(bool $skipClassesToConstantReference, string $value)
     {

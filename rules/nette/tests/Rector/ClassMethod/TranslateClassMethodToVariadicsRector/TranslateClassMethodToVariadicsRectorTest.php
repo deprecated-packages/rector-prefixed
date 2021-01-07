@@ -6,13 +6,13 @@ namespace Rector\Nette\Tests\Rector\ClassMethod\TranslateClassMethodToVariadicsR
 use Iterator;
 use Rector\Nette\Rector\ClassMethod\TranslateClassMethodToVariadicsRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo;
 final class TranslateClassMethodToVariadicsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210106\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $localFilePath = __DIR__ . '/../../../../../../vendor/nette/utils/src/Utils/ITranslator.php';
         if (\file_exists($localFilePath)) {
