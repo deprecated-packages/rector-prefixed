@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Restoration\Tests\Rector\Class_\RemoveUselessJustForSakeInterfaceRector;
+namespace Rector\DeadCode\Tests\Rector\Class_\RemoveUselessJustForSakeInterfaceRector;
 
 use Iterator;
-use Rector\Restoration\Rector\Class_\RemoveUselessJustForSakeInterfaceRector;
+use Rector\DeadCode\Rector\Class_\RemoveUselessJustForSakeInterfaceRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveUselessJustForSakeInterfaceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -22,6 +22,6 @@ final class RemoveUselessJustForSakeInterfaceRectorTest extends \Rector\Testing\
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Restoration\Rector\Class_\RemoveUselessJustForSakeInterfaceRector::class;
+        return \Rector\DeadCode\Rector\Class_\RemoveUselessJustForSakeInterfaceRector::class;
     }
 }

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0ae8b6fde834013e67ceee94b8ffa3a0
+class ComposerStaticInit8d0b5a2ff5c03161be6203c3d94d5d41
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2821,6 +2821,7 @@ class ComposerStaticInit0ae8b6fde834013e67ceee94b8ffa3a0
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
         'Rector\\DeadCode\\Rector\\Class_\\RemoveUnusedClassesRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/Class_/RemoveUnusedClassesRector.php',
         'Rector\\DeadCode\\Rector\\Class_\\RemoveUnusedDoctrineEntityMethodAndPropertyRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/Class_/RemoveUnusedDoctrineEntityMethodAndPropertyRector.php',
+        'Rector\\DeadCode\\Rector\\Class_\\RemoveUselessJustForSakeInterfaceRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/Class_/RemoveUselessJustForSakeInterfaceRector.php',
         'Rector\\DeadCode\\Rector\\Concat\\RemoveConcatAutocastRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/Concat/RemoveConcatAutocastRector.php',
         'Rector\\DeadCode\\Rector\\Expression\\RemoveDeadStmtRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/Expression/RemoveDeadStmtRector.php',
         'Rector\\DeadCode\\Rector\\Expression\\SimplifyMirrorAssignRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/Expression/SimplifyMirrorAssignRector.php',
@@ -3747,7 +3748,6 @@ class ComposerStaticInit0ae8b6fde834013e67ceee94b8ffa3a0
         'Rector\\Restoration\\Rector\\ClassLike\\UpdateFileNameByClassNameFileSystemRector' => __DIR__ . '/../..' . '/rules/restoration/src/Rector/ClassLike/UpdateFileNameByClassNameFileSystemRector.php',
         'Rector\\Restoration\\Rector\\ClassMethod\\InferParamFromClassMethodReturnRector' => __DIR__ . '/../..' . '/rules/restoration/src/Rector/ClassMethod/InferParamFromClassMethodReturnRector.php',
         'Rector\\Restoration\\Rector\\Class_\\RemoveFinalFromEntityRector' => __DIR__ . '/../..' . '/rules/restoration/src/Rector/Class_/RemoveFinalFromEntityRector.php',
-        'Rector\\Restoration\\Rector\\Class_\\RemoveUselessJustForSakeInterfaceRector' => __DIR__ . '/../..' . '/rules/restoration/src/Rector/Class_/RemoveUselessJustForSakeInterfaceRector.php',
         'Rector\\Restoration\\Rector\\Namespace_\\CompleteImportForPartialAnnotationRector' => __DIR__ . '/../..' . '/rules/restoration/src/Rector/Namespace_/CompleteImportForPartialAnnotationRector.php',
         'Rector\\Restoration\\Rector\\New_\\CompleteMissingDependencyInNewRector' => __DIR__ . '/../..' . '/rules/restoration/src/Rector/New_/CompleteMissingDependencyInNewRector.php',
         'Rector\\Restoration\\Rector\\Property\\MakeTypedPropertyNullableIfCheckedRector' => __DIR__ . '/../..' . '/rules/restoration/src/Rector/Property/MakeTypedPropertyNullableIfCheckedRector.php',
@@ -4007,9 +4007,9 @@ class ComposerStaticInit0ae8b6fde834013e67ceee94b8ffa3a0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0ae8b6fde834013e67ceee94b8ffa3a0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0ae8b6fde834013e67ceee94b8ffa3a0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0ae8b6fde834013e67ceee94b8ffa3a0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8d0b5a2ff5c03161be6203c3d94d5d41::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8d0b5a2ff5c03161be6203c3d94d5d41::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8d0b5a2ff5c03161be6203c3d94d5d41::$classMap;
 
         }, null, ClassLoader::class);
     }
