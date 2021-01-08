@@ -69,11 +69,11 @@ final class BundleClassResolver
         $fileInfo = new \RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo($filePath);
         $nodes = $this->parser->parseFileInfo($fileInfo);
         $this->addFullyQualifiedNamesToNodes($nodes);
-        $class = $this->betterNodeFinder->findFirstNonAnonymousClass($nodes);
-        if ($class === null) {
+        $classLike = $this->betterNodeFinder->findFirstNonAnonymousClass($nodes);
+        if ($classLike === null) {
             return null;
         }
-        return $this->nodeNameResolver->getName($class);
+        return $this->nodeNameResolver->getName($classLike);
     }
     /**
      * @param Node[] $nodes

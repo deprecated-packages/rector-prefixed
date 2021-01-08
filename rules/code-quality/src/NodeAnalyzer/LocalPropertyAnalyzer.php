@@ -153,7 +153,7 @@ final class LocalPropertyAnalyzer
      */
     private function isPartOfClosureBind(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
-        $parentStaticCall = $this->betterNodeFinder->findFirstParentInstanceOf($propertyFetch, \PhpParser\Node\Expr\StaticCall::class);
+        $parentStaticCall = $this->betterNodeFinder->findParentType($propertyFetch, \PhpParser\Node\Expr\StaticCall::class);
         if (!$parentStaticCall instanceof \PhpParser\Node\Expr\StaticCall) {
             return \false;
         }
@@ -164,7 +164,7 @@ final class LocalPropertyAnalyzer
     }
     private function isPartOfClosureBindTo(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
-        $parentMethodCall = $this->betterNodeFinder->findFirstParentInstanceOf($propertyFetch, \PhpParser\Node\Expr\MethodCall::class);
+        $parentMethodCall = $this->betterNodeFinder->findParentType($propertyFetch, \PhpParser\Node\Expr\MethodCall::class);
         if (!$parentMethodCall instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
         }

@@ -31,7 +31,9 @@ abstract class AbstractNodeTypeResolverTest extends \RectorPrefix20210108\Sympli
         $this->nodeTypeResolver = $this->getService(\Rector\NodeTypeResolver\NodeTypeResolver::class);
     }
     /**
-     * @return Node[]
+     * @template T as Node
+     * @param class-string<T> $type
+     * @return T[]
      */
     protected function getNodesForFileOfType(string $file, string $type) : array
     {

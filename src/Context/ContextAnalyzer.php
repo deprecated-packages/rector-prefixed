@@ -35,7 +35,7 @@ final class ContextAnalyzer
     public function isInLoop(\PhpParser\Node $node) : bool
     {
         $stopNodes = \array_merge(self::LOOP_NODES, self::BREAK_NODES);
-        $firstParent = $this->betterNodeFinder->findFirstParentInstanceOf($node, $stopNodes);
+        $firstParent = $this->betterNodeFinder->findParentTypes($node, $stopNodes);
         if ($firstParent === null) {
             return \false;
         }
@@ -44,7 +44,7 @@ final class ContextAnalyzer
     public function isInIf(\PhpParser\Node $node) : bool
     {
         $breakNodes = \array_merge([\PhpParser\Node\Stmt\If_::class], self::BREAK_NODES);
-        $previousNode = $this->betterNodeFinder->findFirstParentInstanceOf($node, $breakNodes);
+        $previousNode = $this->betterNodeFinder->findParentTypes($node, $breakNodes);
         if ($previousNode === null) {
             return \false;
         }

@@ -94,7 +94,7 @@ CODE_SAMPLE
     }
     private function shouldSkipAsPartOfNestedForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
-        $foreachParent = $this->betterNodeFinder->findFirstParentInstanceOf($foreach, \PhpParser\Node\Stmt\Foreach_::class);
+        $foreachParent = $this->betterNodeFinder->findParentType($foreach, \PhpParser\Node\Stmt\Foreach_::class);
         return $foreachParent !== null;
     }
 }

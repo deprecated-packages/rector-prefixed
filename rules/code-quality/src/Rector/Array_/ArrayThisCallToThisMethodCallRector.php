@@ -120,7 +120,7 @@ CODE_SAMPLE
     }
     private function isInsideProperty(\PhpParser\Node\Expr\Array_ $array) : bool
     {
-        $parentProperty = $this->betterNodeFinder->findFirstParentInstanceOf($array, [\PhpParser\Node\Stmt\Property::class]);
+        $parentProperty = $this->betterNodeFinder->findParentType($array, \PhpParser\Node\Stmt\Property::class);
         return $parentProperty !== null;
     }
 }

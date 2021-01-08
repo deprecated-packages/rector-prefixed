@@ -200,7 +200,7 @@ CODE_SAMPLE
     }
     private function isIfInLoop(\PhpParser\Node\Stmt\If_ $if) : bool
     {
-        $parentLoop = $this->betterNodeFinder->findFirstParentInstanceOf($if, self::LOOP_TYPES);
+        $parentLoop = $this->betterNodeFinder->findParentTypes($if, self::LOOP_TYPES);
         return $parentLoop !== null;
     }
     private function isIfReturnsVoid(\PhpParser\Node\Stmt\If_ $if) : bool
@@ -222,7 +222,7 @@ CODE_SAMPLE
     private function isFunctionLikeReturnsVoid(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         /** @var FunctionLike|null $functionLike */
-        $functionLike = $this->betterNodeFinder->findFirstParentInstanceOf($if, \PhpParser\Node\FunctionLike::class);
+        $functionLike = $this->betterNodeFinder->findParentType($if, \PhpParser\Node\FunctionLike::class);
         if ($functionLike === null) {
             return \true;
         }
@@ -243,7 +243,7 @@ CODE_SAMPLE
         if (!$this->isIfInLoop($if)) {
             return \false;
         }
-        return (bool) $this->betterNodeFinder->findFirstParentInstanceOf($if, [\PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class]);
+        return (bool) $this->betterNodeFinder->findParentTypes($if, [\PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class]);
     }
     private function isLastIfOrBeforeLastReturn(\PhpParser\Node\Stmt\If_ $if) : bool
     {

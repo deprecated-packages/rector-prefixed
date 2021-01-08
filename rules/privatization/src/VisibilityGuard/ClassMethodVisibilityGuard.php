@@ -21,14 +21,28 @@ final class ClassMethodVisibilityGuard
         if ($class->extends === null) {
             return \false;
         }
+        $methodName = $this->nodeNameResolver->getName($classMethod);
         $parentClasses = $this->getParentClasses($class);
-        $propertyName = $this->nodeNameResolver->getName($classMethod);
-        foreach ($parentClasses as $parentClass) {
-            if (\method_exists($parentClass, $propertyName)) {
-                return \true;
-            }
+        return $this->methodExistsInClasses($parentClasses, $methodName);
+    }
+    public function isClassMethodVisibilityGuardedByTrait(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class) : bool
+    {
+        $traits = $this->getParentTraits($class);
+        $methodName = $this->nodeNameResolver->getName($classMethod);
+        return $this->methodExistsInClasses($traits, $methodName);
+    }
+    /**
+     * @return string[]
+     */
+    public function getParentTraits(\PhpParser\Node\Stmt\Class_ $class) : array
+    {
+        /** @var string $className */
+        $className = $this->nodeNameResolver->getName($class);
+        $traits = \class_uses($className);
+        if ($traits === \false) {
+            return [];
         }
-        return \false;
+        return $traits;
     }
     /**
      * @return string[]
@@ -42,5 +56,17 @@ final class ClassMethodVisibilityGuard
             return [];
         }
         return $classParents;
+    }
+    /**
+     * @param string[] $classes
+     */
+    private function methodExistsInClasses(array $classes, string $method) : bool
+    {
+        foreach ($classes as $class) {
+            if (\method_exists($class, $method)) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

@@ -66,11 +66,10 @@ CODE_SAMPLE
         if ($this->shouldSkipClassMethod($node)) {
             return null;
         }
-        if ($classLike->extends === null) {
-            $this->makePrivate($node);
-            return $node;
-        }
         if ($this->classMethodVisibilityGuard->isClassMethodVisibilityGuardedByParent($node, $classLike)) {
+            return null;
+        }
+        if ($this->classMethodVisibilityGuard->isClassMethodVisibilityGuardedByTrait($node, $classLike)) {
             return null;
         }
         $this->makePrivate($node);

@@ -167,7 +167,7 @@ CODE_SAMPLE
     }
     private function isInsideLoopStmts(\PhpParser\Node $node) : bool
     {
-        $loopNode = $this->betterNodeFinder->findFirstParentInstanceOf($node, [\PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\Do_::class]);
+        $loopNode = $this->betterNodeFinder->findParentTypes($node, [\PhpParser\Node\Stmt\For_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\Do_::class]);
         return (bool) $loopNode;
     }
     private function isUsedAsArrayKey(?\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : bool

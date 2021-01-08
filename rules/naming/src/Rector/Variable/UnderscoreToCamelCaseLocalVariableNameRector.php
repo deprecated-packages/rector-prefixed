@@ -105,7 +105,7 @@ CODE_SAMPLE
     private function isFoundInParentNode(\PhpParser\Node\Expr\Variable $variable) : bool
     {
         /** @var ClassMethod|Function_|null $classMethodOrFunction */
-        $classMethodOrFunction = $this->betterNodeFinder->findFirstParentInstanceOf($variable, [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class]);
+        $classMethodOrFunction = $this->betterNodeFinder->findParentTypes($variable, [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class]);
         if ($classMethodOrFunction === null) {
             return \false;
         }

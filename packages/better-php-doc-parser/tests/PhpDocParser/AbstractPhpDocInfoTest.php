@@ -66,7 +66,9 @@ abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210108\Symplify\Pac
         return \RectorPrefix20210108\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
     }
     /**
-     * @param class-string $nodeType
+     * @template T as Node
+     * @param class-string<T> $nodeType
+     * @return T
      */
     private function parseFileAndGetFirstNodeOfType(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $nodeType) : \PhpParser\Node
     {
