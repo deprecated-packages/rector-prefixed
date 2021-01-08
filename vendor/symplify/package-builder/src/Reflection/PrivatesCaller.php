@@ -5,6 +5,7 @@ namespace RectorPrefix20210108\Symplify\PackageBuilder\Reflection;
 
 use ReflectionClass;
 use ReflectionMethod;
+use RectorPrefix20210108\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesCallerTest
  */
@@ -16,6 +17,7 @@ final class PrivatesCaller
      */
     public function callPrivateMethod($object, string $methodName, ...$arguments)
     {
+        $this->ensureIsNotNull($object, __METHOD__);
         if (\is_string($object)) {
             $reflectionClass = new \ReflectionClass($object);
             $object = $reflectionClass->newInstanceWithoutConstructor();
@@ -28,6 +30,7 @@ final class PrivatesCaller
      */
     public function callPrivateMethodWithReference($object, string $methodName, $argument)
     {
+        $this->ensureIsNotNull($object, __METHOD__);
         if (\is_string($object)) {
             $reflectionClass = new \ReflectionClass($object);
             $object = $reflectionClass->newInstanceWithoutConstructor();
@@ -41,5 +44,16 @@ final class PrivatesCaller
         $reflectionMethod = new \ReflectionMethod(\get_class($object), $methodName);
         $reflectionMethod->setAccessible(\true);
         return $reflectionMethod;
+    }
+    /**
+     * @param mixed $object
+     */
+    private function ensureIsNotNull($object, string $location) : void
+    {
+        if ($object !== null) {
+            return;
+        }
+        $errorMessage = \sprintf('Value passed to "%s()" method cannot be null', $location);
+        throw new \RectorPrefix20210108\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($errorMessage);
     }
 }

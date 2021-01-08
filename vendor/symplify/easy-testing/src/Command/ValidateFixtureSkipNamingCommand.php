@@ -3,14 +3,12 @@
 declare (strict_types=1);
 namespace RectorPrefix20210108\Symplify\EasyTesting\Command;
 
-use RectorPrefix20210108\Nette\Utils\Strings;
 use RectorPrefix20210108\Symfony\Component\Console\Input\InputArgument;
 use RectorPrefix20210108\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210108\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210108\Symplify\EasyTesting\Finder\FixtureFinder;
 use RectorPrefix20210108\Symplify\EasyTesting\MissplacedSkipPrefixResolver;
 use RectorPrefix20210108\Symplify\EasyTesting\ValueObject\Option;
-use RectorPrefix20210108\Symplify\EasyTesting\ValueObject\Prefix;
 use RectorPrefix20210108\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 use RectorPrefix20210108\Symplify\PackageBuilder\Console\ShellCode;
 final class ValidateFixtureSkipNamingCommand extends \RectorPrefix20210108\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
@@ -44,18 +42,21 @@ final class ValidateFixtureSkipNamingCommand extends \RectorPrefix20210108\Sympl
             $this->symfonyStyle->success($message);
             return \RectorPrefix20210108\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
-        foreach ($missplacedFixtureFileInfos as $missplacedFixtureFileInfo) {
-            if (\RectorPrefix20210108\Nette\Utils\Strings::match($missplacedFixtureFileInfo->getBasenameWithoutSuffix(), \RectorPrefix20210108\Symplify\EasyTesting\ValueObject\Prefix::SKIP_PREFIX_REGEX)) {
-                // A. file has incorrect "skip"
-                $baseMessage = 'The file "%s" should drop the "skip" prefix';
-            } else {
-                // B. file is missing "skip"
-                $baseMessage = 'The file "%s" should start with "skip" prefix';
-            }
-            $errorMessage = \sprintf($baseMessage, $missplacedFixtureFileInfo->getRelativeFilePathFromCwd());
+        foreach ($missplacedFixtureFileInfos['incorrect_skips'] as $missplacedFixtureFileInfo) {
+            $errorMessage = \sprintf('The file "%s" should drop the "skip/keep" prefix', $missplacedFixtureFileInfo->getRelativeFilePathFromCwd());
             $this->symfonyStyle->note($errorMessage);
         }
-        $errorMessage = \sprintf('Found %d test file fixtures with wrong prefix', \count($missplacedFixtureFileInfos));
+        foreach ($missplacedFixtureFileInfos['missing_skips'] as $missplacedFixtureFileInfo) {
+            $errorMessage = \sprintf('The file "%s" should start with "skip/keep" prefix', $missplacedFixtureFileInfo->getRelativeFilePathFromCwd());
+            $this->symfonyStyle->note($errorMessage);
+        }
+        $countError = \count($missplacedFixtureFileInfos['incorrect_skips']) + \count($missplacedFixtureFileInfos['missing_skips']);
+        if ($countError === 0) {
+            $message = \sprintf('All %d fixture files have valid names', \count($fixtureFileInfos));
+            $this->symfonyStyle->success($message);
+            return \RectorPrefix20210108\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        }
+        $errorMessage = \sprintf('Found %d test file fixtures with wrong prefix', $countError);
         $this->symfonyStyle->error($errorMessage);
         return \RectorPrefix20210108\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }

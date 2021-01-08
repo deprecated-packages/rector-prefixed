@@ -34,11 +34,11 @@ final class PropertyRenameFactory
         $currentName = $this->nodeNameResolver->getName($property);
         $propertyClassLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($propertyClassLike === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException("There shouldn't be a property without AttributeKey::CLASS_NODE");
+            return null;
         }
         $propertyClassLikeName = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($propertyClassLikeName === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException("There shouldn't be a property without AttributeKey::CLASS_NAME");
+            return null;
         }
         return new \Rector\Naming\ValueObject\PropertyRename($property, $expectedName, $currentName, $propertyClassLike, $propertyClassLikeName, $property->props[0]);
     }

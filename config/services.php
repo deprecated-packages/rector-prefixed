@@ -21,7 +21,7 @@ use RectorPrefix20210108\Symfony\Component\Console\Application as SymfonyApplica
 use RectorPrefix20210108\Symfony\Component\Console\Descriptor\TextDescriptor;
 use RectorPrefix20210108\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\ref;
+use function RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use RectorPrefix20210108\Symfony\Component\Filesystem\Filesystem;
 use RectorPrefix20210108\Symplify\PackageBuilder\Console\Command\CommandNaming;
 use RectorPrefix20210108\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
@@ -43,8 +43,8 @@ return static function (\RectorPrefix20210108\Symfony\Component\DependencyInject
     $services->set(\PhpParser\BuilderFactory::class);
     $services->set(\PhpParser\NodeVisitor\CloningVisitor::class);
     $services->set(\PhpParser\NodeFinder::class);
-    $services->set(\PhpParser\Parser::class)->factory([\RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\Core\PhpParser\Parser\NikicPhpParserFactory::class), 'create']);
-    $services->set(\PhpParser\Lexer::class)->factory([\RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\Rector\Core\PhpParser\Parser\PhpParserLexerFactory::class), 'create']);
+    $services->set(\PhpParser\Parser::class)->factory([\RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Rector\Core\PhpParser\Parser\NikicPhpParserFactory::class), 'create']);
+    $services->set(\PhpParser\Lexer::class)->factory([\RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Rector\Core\PhpParser\Parser\PhpParserLexerFactory::class), 'create']);
     // symplify/package-builder
     $services->set(\RectorPrefix20210108\Symfony\Component\Filesystem\Filesystem::class);
     $services->set(\RectorPrefix20210108\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
@@ -52,14 +52,14 @@ return static function (\RectorPrefix20210108\Symfony\Component\DependencyInject
     $services->set(\RectorPrefix20210108\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
     $services->set(\RectorPrefix20210108\Symplify\SmartFileSystem\FileSystemFilter::class);
     $services->set(\RectorPrefix20210108\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
-    $services->set(\RectorPrefix20210108\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->arg('$container', \RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\ref('service_container'));
-    $services->set(\Rector\Core\Configuration\RectorClassesProvider::class)->arg('$container', \RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\ref('service_container'));
+    $services->set(\RectorPrefix20210108\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->arg('$container', \RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\service('service_container'));
+    $services->set(\Rector\Core\Configuration\RectorClassesProvider::class)->arg('$container', \RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\service('service_container'));
     $services->set(\RectorPrefix20210108\Symplify\PackageBuilder\Console\Command\CommandNaming::class);
     $services->set(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileSystem::class);
     $services->set(\RectorPrefix20210108\Symplify\PackageBuilder\Strings\StringFormatConverter::class);
     $services->set(\RectorPrefix20210108\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
-    $services->set(\RectorPrefix20210108\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\RectorPrefix20210108\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
+    $services->set(\RectorPrefix20210108\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210108\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
     $services->set(\RectorPrefix20210108\Doctrine\Inflector\Rules\English\InflectorFactory::class);
-    $services->set(\RectorPrefix20210108\Doctrine\Inflector\Inflector::class)->factory([\RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\ref(\RectorPrefix20210108\Doctrine\Inflector\Rules\English\InflectorFactory::class), 'build']);
+    $services->set(\RectorPrefix20210108\Doctrine\Inflector\Inflector::class)->factory([\RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210108\Doctrine\Inflector\Rules\English\InflectorFactory::class), 'build']);
     $services->set(\RectorPrefix20210108\Composer\Semver\VersionParser::class);
 };

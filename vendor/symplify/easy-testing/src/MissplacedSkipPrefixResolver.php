@@ -14,23 +14,23 @@ final class MissplacedSkipPrefixResolver
 {
     /**
      * @param SmartFileInfo[] $fixtureFileInfos
-     * @return SmartFileInfo[]
+     * @return array<string, SmartFileInfo[]>
      */
     public function resolve(array $fixtureFileInfos) : array
     {
-        $invalidFileInfos = [];
+        $invalidFileInfos = ['incorrect_skips' => [], 'missing_skips' => []];
         foreach ($fixtureFileInfos as $fixtureFileInfo) {
+            $hasNameSkipStart = $this->hasNameSkipStart($fixtureFileInfo);
             $fileContents = $fixtureFileInfo->getContents();
-            if (\RectorPrefix20210108\Nette\Utils\Strings::match($fileContents, \RectorPrefix20210108\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX)) {
-                if ($this->hasNameSkipStart($fixtureFileInfo)) {
-                    $invalidFileInfos[] = $fixtureFileInfo;
-                }
+            $hasSplitLine = (bool) \RectorPrefix20210108\Nette\Utils\Strings::match($fileContents, \RectorPrefix20210108\Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
+            if ($hasNameSkipStart && $hasSplitLine) {
+                $invalidFileInfos['incorrect_skips'][] = $fixtureFileInfo;
                 continue;
             }
-            if ($this->hasNameSkipStart($fixtureFileInfo)) {
+            if (!$hasNameSkipStart && !$hasSplitLine) {
+                $invalidFileInfos['missing_skips'][] = $fixtureFileInfo;
                 continue;
             }
-            $invalidFileInfos[] = $fixtureFileInfo;
         }
         return $invalidFileInfos;
     }
