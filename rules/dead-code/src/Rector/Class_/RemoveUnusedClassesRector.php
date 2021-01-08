@@ -5,9 +5,11 @@ namespace Rector\DeadCode\Rector\Class_;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\UnusedNodeResolver\UnusedClassResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -91,6 +93,30 @@ CODE_SAMPLE
         if ($this->isName($class, '*Factory')) {
             return \true;
         }
+        if ($this->hasMethodWithApiAnnotation($class)) {
+            return \true;
+        }
+        if ($this->hasApiAnnotation($class)) {
+            return \true;
+        }
         return $class->isAbstract();
+    }
+    private function hasMethodWithApiAnnotation(\PhpParser\Node\Stmt\Class_ $class) : bool
+    {
+        foreach ($class->getMethods() as $classMethod) {
+            if (!$this->hasApiAnnotation($classMethod)) {
+                continue;
+            }
+            return \true;
+        }
+        return \false;
+    }
+    private function hasApiAnnotation(\PhpParser\Node $node) : bool
+    {
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+            return \false;
+        }
+        return $phpDocInfo->hasByName('api');
     }
 }
