@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Tests\Rector\Interface_\DeleteFactoryInterfaceRector\Source;
 
-use RectorPrefix20210107\Nette\Application\UI\Control;
-final class SomeControl extends \RectorPrefix20210107\Nette\Application\UI\Control
+use RectorPrefix20210108\Nette\Application\UI\Control;
+final class SomeControl extends \RectorPrefix20210108\Nette\Application\UI\Control
 {
 }

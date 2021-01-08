@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Naming;
 
-use RectorPrefix20210107\Nette\Utils\Strings;
+use RectorPrefix20210108\Nette\Utils\Strings;
 use Rector\Core\Util\StaticRectorStrings;
 final class NetteControlNaming
 {
     public function createVariableName(string $shortName) : string
     {
         $variableName = \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($shortName);
-        if (\RectorPrefix20210107\Nette\Utils\Strings::endsWith($variableName, 'Form')) {
+        if (\RectorPrefix20210108\Nette\Utils\Strings::endsWith($variableName, 'Form')) {
             return $variableName;
         }
         return $variableName . 'Control';

@@ -6,13 +6,13 @@ namespace Rector\Symfony5\Tests\Rector\New_\PropertyAccessorCreationBooleanToFla
 use Iterator;
 use Rector\Symfony5\Rector\New_\PropertyAccessorCreationBooleanToFlagsRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo;
 final class PropertyAccessorCreationBooleanToFlagsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

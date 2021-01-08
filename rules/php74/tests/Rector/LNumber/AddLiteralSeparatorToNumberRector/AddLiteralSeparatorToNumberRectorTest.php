@@ -6,13 +6,13 @@ namespace Rector\Php74\Tests\Rector\LNumber\AddLiteralSeparatorToNumberRector;
 use Iterator;
 use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo;
 final class AddLiteralSeparatorToNumberRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

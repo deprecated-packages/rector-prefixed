@@ -6,13 +6,13 @@ namespace Rector\CodingStyle\Tests\Rector\Ternary\TernaryConditionVariableAssign
 use Iterator;
 use Rector\CodingStyle\Rector\Ternary\TernaryConditionVariableAssignmentRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo;
 final class TernaryConditionVariableAssignmentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

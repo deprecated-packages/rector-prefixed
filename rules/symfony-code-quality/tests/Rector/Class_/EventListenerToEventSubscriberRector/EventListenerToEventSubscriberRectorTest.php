@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Core\Configuration\Option;
 use Rector\SymfonyCodeQuality\Rector\Class_\EventListenerToEventSubscriberRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo;
 final class EventListenerToEventSubscriberRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210107\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         // wtf: all test have to be in single file due to autoloading race-condigition and container creating issue of fixture
         $this->setParameter(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/config/listener_services.xml');

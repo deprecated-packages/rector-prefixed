@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210107\\PackageVersions\\": "src\/PackageVersions"
+            "RectorPrefix20210108\\PackageVersions\\": "src\/PackageVersions"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210107\\PackageVersionsTest\\": "test\/PackageVersionsTest"
+            "RectorPrefix20210108\\PackageVersionsTest\\": "test\/PackageVersionsTest"
         }
     },
     "extra": {

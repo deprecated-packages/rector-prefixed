@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210107\Symplify\PhpConfigPrinter\NodeFactory;
+namespace RectorPrefix20210108\Symplify\PhpConfigPrinter\NodeFactory;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
@@ -9,12 +9,12 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
-use RectorPrefix20210107\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use RectorPrefix20210107\Symplify\PhpConfigPrinter\Contract\NestedCaseConverterInterface;
-use RectorPrefix20210107\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory;
-use RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\MethodName;
-use RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\VariableName;
-use RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use RectorPrefix20210108\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use RectorPrefix20210108\Symplify\PhpConfigPrinter\Contract\NestedCaseConverterInterface;
+use RectorPrefix20210108\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory;
+use RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\MethodName;
+use RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\VariableName;
+use RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 final class ContainerConfiguratorReturnClosureFactory
 {
     /**
@@ -33,7 +33,7 @@ final class ContainerConfiguratorReturnClosureFactory
      * @param CaseConverterInterface[] $caseConverters
      * @param NestedCaseConverterInterface[] $nestedCaseConverters
      */
-    public function __construct(\RectorPrefix20210107\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $configuratorClosureNodeFactory, array $caseConverters, array $nestedCaseConverters)
+    public function __construct(\RectorPrefix20210108\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $configuratorClosureNodeFactory, array $caseConverters, array $nestedCaseConverters)
     {
         $this->configuratorClosureNodeFactory = $configuratorClosureNodeFactory;
         $this->caseConverters = $caseConverters;
@@ -99,17 +99,17 @@ final class ContainerConfiguratorReturnClosureFactory
     private function createInitializeAssign(string $variableName, string $methodName) : \PhpParser\Node\Stmt\Expression
     {
         $servicesVariable = new \PhpParser\Node\Expr\Variable($variableName);
-        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
+        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
         $assign = new \PhpParser\Node\Expr\Assign($servicesVariable, new \PhpParser\Node\Expr\MethodCall($containerConfiguratorVariable, $methodName));
         return new \PhpParser\Node\Stmt\Expression($assign);
     }
     private function createInitializeNode(string $key, array $nodes) : array
     {
-        if ($key === \RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\YamlKey::SERVICES) {
-            $nodes[] = $this->createInitializeAssign(\RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\VariableName::SERVICES, \RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\MethodName::SERVICES);
+        if ($key === \RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\YamlKey::SERVICES) {
+            $nodes[] = $this->createInitializeAssign(\RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\VariableName::SERVICES, \RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\MethodName::SERVICES);
         }
-        if ($key === \RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\YamlKey::PARAMETERS) {
-            $nodes[] = $this->createInitializeAssign(\RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\VariableName::PARAMETERS, \RectorPrefix20210107\Symplify\PhpConfigPrinter\ValueObject\MethodName::PARAMETERS);
+        if ($key === \RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\YamlKey::PARAMETERS) {
+            $nodes[] = $this->createInitializeAssign(\RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\VariableName::PARAMETERS, \RectorPrefix20210108\Symplify\PhpConfigPrinter\ValueObject\MethodName::PARAMETERS);
         }
         return $nodes;
     }
