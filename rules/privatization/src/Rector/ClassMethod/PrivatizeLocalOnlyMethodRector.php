@@ -32,6 +32,10 @@ final class PrivatizeLocalOnlyMethodRector extends \Rector\Core\Rector\AbstractR
      */
     private const CONTROLLER_PRESENTER_SUFFIX_REGEX = '#(Controller|Presenter)$#';
     /**
+     * @var string
+     */
+    private const API = 'api';
+    /**
      * @var ClassMethodVisibilityVendorLockResolver
      */
     private $classMethodVisibilityVendorLockResolver;
@@ -107,13 +111,10 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
-        if ($this->isAnonymousClass($classLike)) {
+        if ($this->shouldSkipClassLike($classLike)) {
             return \true;
         }
-        if ($this->isObjectType($classLike, 'PHPUnit\\Framework\\TestCase')) {
-            return \true;
-        }
-        if ($this->isDoctrineEntityClass($classLike)) {
+        if ($this->hasTagByName($classMethod, self::API)) {
             return \true;
         }
         if ($this->isControllerAction($classLike, $classMethod)) {
@@ -134,7 +135,7 @@ CODE_SAMPLE
         if ($phpDocInfo === null) {
             return \false;
         }
-        return $phpDocInfo->hasByNames(['api', \Rector\PhpAttribute\ValueObject\TagName::REQUIRED]);
+        return $phpDocInfo->hasByNames([self::API, \Rector\PhpAttribute\ValueObject\TagName::REQUIRED]);
     }
     private function isControllerAction(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
@@ -158,6 +159,9 @@ CODE_SAMPLE
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
+        if ($this->hasTagByName($classMethod, self::API)) {
+            return \true;
+        }
         if ($classMethod->isPrivate()) {
             return \true;
         }
@@ -173,5 +177,18 @@ CODE_SAMPLE
         }
         // possibly container service factories
         return $this->isNames($classMethod, ['create', 'create*']);
+    }
+    private function shouldSkipClassLike(\PhpParser\Node\Stmt\Class_ $class) : bool
+    {
+        if ($this->isAnonymousClass($class)) {
+            return \true;
+        }
+        if ($this->isDoctrineEntityClass($class)) {
+            return \true;
+        }
+        if ($this->isObjectType($class, 'PHPUnit\\Framework\\TestCase')) {
+            return \true;
+        }
+        return $this->hasTagByName($class, self::API);
     }
 }
