@@ -1773,7 +1773,7 @@ return array(
     'Rector\\CodingStyle\\DocBlock\\ThrowsFactory' => $baseDir . '/rules/coding-style/src/DocBlock/ThrowsFactory.php',
     'Rector\\CodingStyle\\Naming\\ClassNaming' => $baseDir . '/rules/coding-style/src/Naming/ClassNaming.php',
     'Rector\\CodingStyle\\Naming\\NameRenamer' => $baseDir . '/rules/coding-style/src/Naming/NameRenamer.php',
-    'Rector\\CodingStyle\\Node' => $baseDir . '/rules/coding-style/src/Node.php',
+    'Rector\\CodingStyle\\NodeAnalyzer\\SpreadVariablesCollector' => $baseDir . '/rules/coding-style/src/NodeAnalyzer/SpreadVariablesCollector.php',
     'Rector\\CodingStyle\\NodeAnalyzer\\ThrowAnalyzer' => $baseDir . '/rules/coding-style/src/NodeAnalyzer/ThrowAnalyzer.php',
     'Rector\\CodingStyle\\Node\\ConcatJoiner' => $baseDir . '/rules/coding-style/src/Node/ConcatJoiner.php',
     'Rector\\CodingStyle\\Node\\ConcatManipulator' => $baseDir . '/rules/coding-style/src/Node/ConcatManipulator.php',

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit60781b053f644e59d0f19bae91d7b883
+class ComposerStaticInite30caff587b1221521c0cb571c0e6252
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2558,7 +2558,7 @@ class ComposerStaticInit60781b053f644e59d0f19bae91d7b883
         'Rector\\CodingStyle\\DocBlock\\ThrowsFactory' => __DIR__ . '/../..' . '/rules/coding-style/src/DocBlock/ThrowsFactory.php',
         'Rector\\CodingStyle\\Naming\\ClassNaming' => __DIR__ . '/../..' . '/rules/coding-style/src/Naming/ClassNaming.php',
         'Rector\\CodingStyle\\Naming\\NameRenamer' => __DIR__ . '/../..' . '/rules/coding-style/src/Naming/NameRenamer.php',
-        'Rector\\CodingStyle\\Node' => __DIR__ . '/../..' . '/rules/coding-style/src/Node.php',
+        'Rector\\CodingStyle\\NodeAnalyzer\\SpreadVariablesCollector' => __DIR__ . '/../..' . '/rules/coding-style/src/NodeAnalyzer/SpreadVariablesCollector.php',
         'Rector\\CodingStyle\\NodeAnalyzer\\ThrowAnalyzer' => __DIR__ . '/../..' . '/rules/coding-style/src/NodeAnalyzer/ThrowAnalyzer.php',
         'Rector\\CodingStyle\\Node\\ConcatJoiner' => __DIR__ . '/../..' . '/rules/coding-style/src/Node/ConcatJoiner.php',
         'Rector\\CodingStyle\\Node\\ConcatManipulator' => __DIR__ . '/../..' . '/rules/coding-style/src/Node/ConcatManipulator.php',
@@ -4007,9 +4007,9 @@ class ComposerStaticInit60781b053f644e59d0f19bae91d7b883
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit60781b053f644e59d0f19bae91d7b883::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit60781b053f644e59d0f19bae91d7b883::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit60781b053f644e59d0f19bae91d7b883::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite30caff587b1221521c0cb571c0e6252::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite30caff587b1221521c0cb571c0e6252::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite30caff587b1221521c0cb571c0e6252::$classMap;
 
         }, null, ClassLoader::class);
     }

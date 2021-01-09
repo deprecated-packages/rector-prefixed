@@ -404,16 +404,15 @@ final class NodeFactory
         } elseif (\is_array($item)) {
             $arrayItem = new \PhpParser\Node\Expr\ArrayItem($this->createArray($item));
         }
-        if ($arrayItem !== null) {
-            if ($key === null) {
-                return $arrayItem;
-            }
-            $arrayItem->key = \PhpParser\BuilderHelpers::normalizeValue($key);
-            return $arrayItem;
-        }
         if ($item instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             $itemValue = \PhpParser\BuilderHelpers::normalizeValue($item);
-            return new \PhpParser\Node\Expr\ArrayItem($itemValue);
+            $arrayItem = new \PhpParser\Node\Expr\ArrayItem($itemValue);
+        }
+        if ($item instanceof \PhpParser\Node\Arg) {
+            $arrayItem = new \PhpParser\Node\Expr\ArrayItem($item->value);
+        }
+        if ($arrayItem !== null) {
+            return $this->createArrayItemWithKey($key, $arrayItem);
         }
         throw new \Rector\Core\Exception\NotImplementedException(\sprintf('Not implemented yet. Go to "%s()" and add check for "%s" node.', __METHOD__, \is_object($item) ? \get_class($item) : $item));
     }
@@ -480,5 +479,15 @@ final class NodeFactory
             $phpDocInfo->changeVarType($staticType);
         }
         return $classConst;
+    }
+    /**
+     * @param int|string|null $key
+     */
+    private function createArrayItemWithKey($key, \PhpParser\Node\Expr\ArrayItem $arrayItem) : \PhpParser\Node\Expr\ArrayItem
+    {
+        if ($key !== null) {
+            $arrayItem->key = \PhpParser\BuilderHelpers::normalizeValue($key);
+        }
+        return $arrayItem;
     }
 }
