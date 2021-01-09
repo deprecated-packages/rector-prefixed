@@ -114,7 +114,7 @@ CODE_SAMPLE
     private function splitProcessCommandToItems(string $process) : array
     {
         $privatesCaller = new \RectorPrefix20210109\Symplify\PackageBuilder\Reflection\PrivatesCaller();
-        return $privatesCaller->callPrivateMethod(new \RectorPrefix20210109\Symfony\Component\Console\Input\StringInput(''), 'tokenize', $process);
+        return $privatesCaller->callPrivateMethod(new \RectorPrefix20210109\Symfony\Component\Console\Input\StringInput(''), 'tokenize', [$process]);
     }
     private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {

@@ -33,7 +33,7 @@ final class PHPUnitDataProviderDocNodeFactory
             return $attributeAwareDataProviderTagValueNode;
         } catch (\PHPStan\PhpDocParser\Parser\ParserException $parserException) {
             $tokenIterator->rollback();
-            $description = $this->privatesCaller->callPrivateMethod($this->phpDocParser, 'parseOptionalDescription', $tokenIterator);
+            $description = $this->privatesCaller->callPrivateMethod($this->phpDocParser, 'parseOptionalDescription', [$tokenIterator]);
             return new \PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode($description, $parserException);
         }
     }

@@ -24,7 +24,7 @@ final class SymfonyStyleFactory
         $argvInput = new \RectorPrefix20210109\Symfony\Component\Console\Input\ArgvInput();
         $consoleOutput = new \RectorPrefix20210109\Symfony\Component\Console\Output\ConsoleOutput();
         // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
-        $this->privatesCaller->callPrivateMethod(new \RectorPrefix20210109\Symfony\Component\Console\Application(), 'configureIO', $argvInput, $consoleOutput);
+        $this->privatesCaller->callPrivateMethod(new \RectorPrefix20210109\Symfony\Component\Console\Application(), 'configureIO', [$argvInput, $consoleOutput]);
         $debugArgvInputParameterOption = $argvInput->getParameterOption('--debug');
         // --debug is called
         if ($debugArgvInputParameterOption === null) {
