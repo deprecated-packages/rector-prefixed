@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\PhpDocParser;
 
-use RectorPrefix20210108\Nette\Utils\Strings;
+use RectorPrefix20210109\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
@@ -122,7 +122,7 @@ final class DoctrineDocBlockResolver
         $reflectionClass = new \ReflectionClass($class);
         // dummy check of 3rd party code without running it
         $docCommentContent = (string) $reflectionClass->getDocComment();
-        return (bool) \RectorPrefix20210108\Nette\Utils\Strings::match($docCommentContent, self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
+        return (bool) \RectorPrefix20210109\Nette\Utils\Strings::match($docCommentContent, self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
     }
     private function hasPropertyDoctrineIdTag(\PhpParser\Node\Stmt\Property $property) : bool
     {

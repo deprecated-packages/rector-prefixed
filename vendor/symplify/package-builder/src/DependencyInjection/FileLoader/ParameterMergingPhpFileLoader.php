@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210108\Symplify\PackageBuilder\DependencyInjection\FileLoader;
+namespace RectorPrefix20210109\Symplify\PackageBuilder\DependencyInjection\FileLoader;
 
-use RectorPrefix20210108\Symfony\Component\Config\FileLocatorInterface;
-use RectorPrefix20210108\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use RectorPrefix20210108\Symplify\PackageBuilder\Yaml\ParametersMerger;
+use RectorPrefix20210109\Symfony\Component\Config\FileLocatorInterface;
+use RectorPrefix20210109\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210109\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use RectorPrefix20210109\Symplify\PackageBuilder\Yaml\ParametersMerger;
 /**
  * The need:
  * - https://github.com/symfony/symfony/issues/26713
  * - https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
  */
-final class ParameterMergingPhpFileLoader extends \RectorPrefix20210108\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+final class ParameterMergingPhpFileLoader extends \RectorPrefix20210109\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
 {
     /**
      * @var ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\RectorPrefix20210108\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \RectorPrefix20210108\Symfony\Component\Config\FileLocatorInterface $fileLocator)
+    public function __construct(\RectorPrefix20210109\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \RectorPrefix20210109\Symfony\Component\Config\FileLocatorInterface $fileLocator)
     {
-        $this->parametersMerger = new \RectorPrefix20210108\Symplify\PackageBuilder\Yaml\ParametersMerger();
+        $this->parametersMerger = new \RectorPrefix20210109\Symplify\PackageBuilder\Yaml\ParametersMerger();
         parent::__construct($containerBuilder, $fileLocator);
     }
     /**

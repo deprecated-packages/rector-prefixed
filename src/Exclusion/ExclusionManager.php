@@ -4,29 +4,62 @@ declare (strict_types=1);
 namespace Rector\Core\Exclusion;
 
 use PhpParser\Node;
-use Rector\Core\Contract\Exclusion\ExclusionCheckInterface;
+use PhpParser\Node\Const_;
+use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\PropertyProperty;
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
+use Rector\Core\Contract\Rector\RectorInterface;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * @todo move to symplify/skipper if grown enough
  * @see \Rector\Core\Tests\Exclusion\ExclusionManagerTest
  */
 final class ExclusionManager
 {
-    /**
-     * @var ExclusionCheckInterface[]
-     */
-    private $exclusionChecks = [];
-    /**
-     * @param ExclusionCheckInterface[] $exclusionChecks
-     */
-    public function __construct(array $exclusionChecks = [])
+    public function isNodeSkippedByRector(\PhpParser\Node $node, \Rector\Core\Contract\Rector\PhpRectorInterface $phpRector) : bool
     {
-        $this->exclusionChecks = $exclusionChecks;
+        if ($node instanceof \PhpParser\Node\Stmt\PropertyProperty || $node instanceof \PhpParser\Node\Const_) {
+            $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($node === null) {
+                return \false;
+            }
+        }
+        if ($this->hasNoRectorPhpDocTagMatch($node, $phpRector)) {
+            return \true;
+        }
+        // recurse up until a Stmt node is found since it might contain a noRector
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$node instanceof \PhpParser\Node\Stmt && $parentNode !== null) {
+            return $this->isNodeSkippedByRector($parentNode, $phpRector);
+        }
+        return \false;
     }
-    public function isNodeSkippedByRector(\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector, \PhpParser\Node $onNode) : bool
+    private function hasNoRectorPhpDocTagMatch(\PhpParser\Node $node, \Rector\Core\Contract\Rector\PhpRectorInterface $phpRector) : bool
     {
-        foreach ($this->exclusionChecks as $exclusionCheck) {
-            if ($exclusionCheck->isNodeSkippedByRector($phpRector, $onNode)) {
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+            return \false;
+        }
+        /** @var PhpDocTagNode[] $noRectorTags */
+        $noRectorTags = \array_merge($phpDocInfo->getTagsByName('noRector'), $phpDocInfo->getTagsByName('norector'));
+        $rectorClass = \get_class($phpRector);
+        foreach ($noRectorTags as $noRectorTag) {
+            if (!$noRectorTag->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
+            }
+            $description = $noRectorTag->value->value;
+            if ($description === '') {
+                return \true;
+            }
+            $description = \ltrim($description, '\\');
+            if ($description === $rectorClass) {
+                return \true;
+            }
+            if (!\is_a($description, \Rector\Core\Contract\Rector\RectorInterface::class, \true)) {
                 return \true;
             }
         }

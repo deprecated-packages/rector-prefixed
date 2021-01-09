@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Source;
 
-use RectorPrefix20210108\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210109\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Embeddable
  */

@@ -1,0 +1,39 @@
+<?php
+
+declare (strict_types=1);
+namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
+
+use PhpParser\Node;
+use PHPStan\PhpDocParser\Ast\Type\TypeNode;
+use PHPStan\Type\Accessory\HasOffsetType;
+use PHPStan\Type\Type;
+use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
+final class HasOffsetTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
+{
+    public function getNodeClass() : string
+    {
+        return \PHPStan\Type\Accessory\HasOffsetType::class;
+    }
+    /**
+     * @param HasOffsetType $type
+     */
+    public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
+    {
+        throw new \Rector\Core\Exception\ShouldNotHappenException();
+    }
+    /**
+     * @param HasOffsetType $type
+     */
+    public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
+    {
+        throw new \Rector\Core\Exception\ShouldNotHappenException();
+    }
+    /**
+     * @param HasOffsetType $type
+     */
+    public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
+    {
+        return 'hasOfset()';
+    }
+}

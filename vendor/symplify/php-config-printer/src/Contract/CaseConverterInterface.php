@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210108\Symplify\PhpConfigPrinter\Contract;
+namespace RectorPrefix20210109\Symplify\PhpConfigPrinter\Contract;
 
 use PhpParser\Node\Stmt\Expression;
 interface CaseConverterInterface

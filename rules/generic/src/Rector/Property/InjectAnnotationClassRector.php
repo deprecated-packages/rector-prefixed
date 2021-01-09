@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\Property;
 
-use RectorPrefix20210108\DI\Annotation\Inject as PHPDIInject;
-use RectorPrefix20210108\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
-use RectorPrefix20210108\Nette\Utils\Strings;
+use RectorPrefix20210109\DI\Annotation\Inject as PHPDIInject;
+use RectorPrefix20210109\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
+use RectorPrefix20210109\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
@@ -25,7 +25,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Symfony\ServiceMapProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://jmsyst.com/bundles/JMSDiExtraBundle/master/annotations#inject
  *
@@ -40,7 +40,7 @@ final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var array<string, string>
      */
-    private const ANNOTATION_TO_TAG_CLASS = [\RectorPrefix20210108\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \RectorPrefix20210108\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
+    private const ANNOTATION_TO_TAG_CLASS = [\RectorPrefix20210109\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \RectorPrefix20210109\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
     /**
      * @var string
      * @see https://regex101.com/r/pjusUN/1
@@ -92,7 +92,7 @@ class SomeController
     }
 }
 CODE_SAMPLE
-, [self::ANNOTATION_CLASSES => [\RectorPrefix20210108\DI\Annotation\Inject::class, \RectorPrefix20210108\JMS\DiExtraBundle\Annotation\Inject::class]])]);
+, [self::ANNOTATION_CLASSES => [\RectorPrefix20210109\DI\Annotation\Inject::class, \RectorPrefix20210109\JMS\DiExtraBundle\Annotation\Inject::class]])]);
     }
     /**
      * @return string[]
@@ -145,7 +145,7 @@ CODE_SAMPLE
         if ($serviceName === null) {
             return \false;
         }
-        return (bool) \RectorPrefix20210108\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
+        return (bool) \RectorPrefix20210109\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
     }
     private function resolveType(\PhpParser\Node\Stmt\Property $property, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {

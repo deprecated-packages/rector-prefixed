@@ -13,10 +13,10 @@ use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\FileSystemRector\Parser\FileInfoParser;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210108\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use RectorPrefix20210108\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210108\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210109\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use RectorPrefix20210109\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo;
+abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210109\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var FileInfoParser
@@ -40,7 +40,7 @@ abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210108\Symplify\Pac
     /**
      * @param class-string $tagValueNodeType
      */
-    protected function doTestPrintedPhpDocInfo(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $tagValueNodeType) : void
+    protected function doTestPrintedPhpDocInfo(\RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $tagValueNodeType) : void
     {
         if (!isset(\Rector\BetterPhpDocParser\Tests\PhpDocParser\Helper\TagValueToPhpParserNodeMap::MAP[$tagValueNodeType])) {
             throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('[tests] Add "%s" to %s::%s constant', $tagValueNodeType, \Rector\BetterPhpDocParser\Tests\PhpDocParser\Helper\TagValueToPhpParserNodeMap::class, 'MAP'));
@@ -59,18 +59,18 @@ abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210108\Symplify\Pac
     }
     protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php') : \Iterator
     {
-        return \RectorPrefix20210108\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
+        return \RectorPrefix20210109\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
     }
     protected function findFilesFromDirectory(string $directory, string $suffix = '*.php') : \Iterator
     {
-        return \RectorPrefix20210108\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
+        return \RectorPrefix20210109\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
     }
     /**
      * @template T as Node
      * @param class-string<T> $nodeType
      * @return T
      */
-    private function parseFileAndGetFirstNodeOfType(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $nodeType) : \PhpParser\Node
+    private function parseFileAndGetFirstNodeOfType(\RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $nodeType) : \PhpParser\Node
     {
         $nodes = $this->fileInfoParser->parseFileInfoToNodesAndDecorate($fileInfo);
         return $this->betterNodeFinder->findFirstInstanceOf($nodes, $nodeType);
@@ -83,11 +83,11 @@ abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210108\Symplify\Pac
         }
         return $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo);
     }
-    private function createErrorMessage(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
+    private function createErrorMessage(\RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : string
     {
         return 'Caused by: ' . $fileInfo->getRelativeFilePathFromCwd() . \PHP_EOL;
     }
-    private function doTestContainsTagValueNodeType(\PhpParser\Node $node, string $tagValueNodeType, \RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    private function doTestContainsTagValueNodeType(\PhpParser\Node $node, string $tagValueNodeType, \RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);

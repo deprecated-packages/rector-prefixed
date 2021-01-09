@@ -6,13 +6,13 @@ namespace Rector\Php72\Tests\Rector\FuncCall\GetClassOnNullRector;
 use Iterator;
 use Rector\Php72\Rector\FuncCall\GetClassOnNullRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo;
 final class GetClassOnNullRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

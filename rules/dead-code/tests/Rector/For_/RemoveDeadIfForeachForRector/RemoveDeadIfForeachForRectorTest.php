@@ -6,13 +6,13 @@ namespace Rector\DeadCode\Tests\Rector\For_\RemoveDeadIfForeachForRector;
 use Iterator;
 use Rector\DeadCode\Rector\For_\RemoveDeadIfForeachForRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveDeadIfForeachForRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210108\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
