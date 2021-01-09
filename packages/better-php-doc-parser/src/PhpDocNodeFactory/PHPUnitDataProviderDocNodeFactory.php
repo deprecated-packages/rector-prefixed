@@ -46,7 +46,7 @@ final class PHPUnitDataProviderDocNodeFactory
      */
     private function parseDataProviderTagValue(\PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator) : \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode
     {
-        $method = $this->privatesCaller->callPrivateMethod($this->phpDocParser, 'parseOptionalDescription', $tokenIterator);
+        $method = $this->privatesCaller->callPrivateMethod($this->phpDocParser, 'parseOptionalDescription', [$tokenIterator]);
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode($method);
     }
 }
