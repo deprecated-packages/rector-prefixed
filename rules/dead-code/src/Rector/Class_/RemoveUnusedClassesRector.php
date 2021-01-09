@@ -75,7 +75,7 @@ CODE_SAMPLE
         if ($this->unusedClassResolver->isClassUsed($node)) {
             return null;
         }
-        $this->removeNode($node);
+        $this->removeFile($this->getFileInfo());
         return null;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\Class_ $class) : bool
