@@ -77,6 +77,9 @@ CODE_SAMPLE
             return null;
         }
         $this->collectGlobalVariableNamesAndRefactorToPropertyFetch($node);
+        if ($this->globalVariableNames === []) {
+            return null;
+        }
         foreach ($this->globalVariableNames as $globalVariableName) {
             $this->addPropertyToClass($classLike, null, $globalVariableName);
         }

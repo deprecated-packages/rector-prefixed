@@ -4,6 +4,8 @@ declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
+use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
+use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\Accessory\HasOffsetType;
 use PHPStan\Type\Type;
@@ -20,7 +22,7 @@ final class HasOffsetTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contr
      */
     public function mapToPHPStanPhpDocTypeNode(\PHPStan\Type\Type $type) : \PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
-        throw new \Rector\Core\Exception\ShouldNotHappenException();
+        return new \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('mixed'));
     }
     /**
      * @param HasOffsetType $type
@@ -34,6 +36,6 @@ final class HasOffsetTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contr
      */
     public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {
-        return 'hasOfset()';
+        return 'mixed[]';
     }
 }
