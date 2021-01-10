@@ -11,6 +11,7 @@ use PHPStan\Type\MixedType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeTypeResolver\PHPStan\TypeComparator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -22,6 +23,14 @@ final class VarConstantCommentRector extends \Rector\Core\Rector\AbstractRector
      * @var int
      */
     private const ARRAY_LIMIT_TYPES = 3;
+    /**
+     * @var TypeComparator
+     */
+    private $typeComparator;
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator)
+    {
+        $this->typeComparator = $typeComparator;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Constant should have a @var comment with type', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -70,6 +79,9 @@ CODE_SAMPLE
             if ($currentVarType instanceof \PHPStan\Type\ArrayType && $currentVarType->getItemType() instanceof \PHPStan\Type\MixedType) {
                 return null;
             }
+        }
+        if ($phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo && $this->typeComparator->isSubtype($constType, $phpDocInfo->getVarType())) {
+            return null;
         }
         $phpDocInfo->changeVarType($constType);
         return $node;

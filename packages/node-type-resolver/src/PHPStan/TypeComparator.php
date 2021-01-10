@@ -9,6 +9,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
@@ -57,6 +58,13 @@ final class TypeComparator
         $phpParserNodeType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($phpParserNode);
         $phpStanDocType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($phpStanDocTypeNode, $node);
         return $this->areTypesEqual($phpParserNodeType, $phpStanDocType);
+    }
+    public function isSubtype(\PHPStan\Type\Type $checkedType, \PHPStan\Type\Type $mainType) : bool
+    {
+        if ($mainType instanceof \PHPStan\Type\MixedType) {
+            return \false;
+        }
+        return $mainType->isSuperTypeOf($checkedType)->yes();
     }
     private function areBothSameScalarType(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
     {
