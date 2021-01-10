@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210109\Symplify\PhpConfigPrinter\Printer;
+namespace RectorPrefix20210110\Symplify\PhpConfigPrinter\Printer;
 
-use RectorPrefix20210109\Symplify\PhpConfigPrinter\NodeFactory\ContainerConfiguratorReturnClosureFactory;
-use RectorPrefix20210109\Symplify\PhpConfigPrinter\Printer\ArrayDecorator\ServiceConfigurationDecorator;
+use RectorPrefix20210110\Symplify\PhpConfigPrinter\NodeFactory\ContainerConfiguratorReturnClosureFactory;
+use RectorPrefix20210110\Symplify\PhpConfigPrinter\Printer\ArrayDecorator\ServiceConfigurationDecorator;
 /**
  * @see \Symplify\PhpConfigPrinter\Tests\Printer\SmartPhpConfigPrinter\SmartPhpConfigPrinterTest
  */
@@ -22,7 +22,7 @@ final class SmartPhpConfigPrinter
      * @var ServiceConfigurationDecorator
      */
     private $serviceConfigurationDecorator;
-    public function __construct(\RectorPrefix20210109\Symplify\PhpConfigPrinter\NodeFactory\ContainerConfiguratorReturnClosureFactory $configuratorReturnClosureFactory, \RectorPrefix20210109\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter $phpParserPhpConfigPrinter, \RectorPrefix20210109\Symplify\PhpConfigPrinter\Printer\ArrayDecorator\ServiceConfigurationDecorator $serviceConfigurationDecorator)
+    public function __construct(\RectorPrefix20210110\Symplify\PhpConfigPrinter\NodeFactory\ContainerConfiguratorReturnClosureFactory $configuratorReturnClosureFactory, \RectorPrefix20210110\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter $phpParserPhpConfigPrinter, \RectorPrefix20210110\Symplify\PhpConfigPrinter\Printer\ArrayDecorator\ServiceConfigurationDecorator $serviceConfigurationDecorator)
     {
         $this->configuratorReturnClosureFactory = $configuratorReturnClosureFactory;
         $this->phpParserPhpConfigPrinter = $phpParserPhpConfigPrinter;
@@ -43,9 +43,12 @@ final class SmartPhpConfigPrinter
     /**
      * @param mixed[]|null $configuration
      */
-    private function createServiceConfiguration($configuration, string $class) : ?array
+    private function createServiceConfiguration(?array $configuration, string $class) : ?array
     {
-        if ($configuration === null || $configuration === []) {
+        if ($configuration === null) {
+            return null;
+        }
+        if ($configuration === []) {
             return null;
         }
         $configuration = $this->serviceConfigurationDecorator->decorate($configuration, $class);

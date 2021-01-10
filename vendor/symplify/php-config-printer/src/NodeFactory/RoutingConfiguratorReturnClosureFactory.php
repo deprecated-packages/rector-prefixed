@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210109\Symplify\PhpConfigPrinter\NodeFactory;
+namespace RectorPrefix20210110\Symplify\PhpConfigPrinter\NodeFactory;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Return_;
-use RectorPrefix20210109\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
-use RectorPrefix20210109\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory;
+use RectorPrefix20210110\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
+use RectorPrefix20210110\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory;
 final class RoutingConfiguratorReturnClosureFactory
 {
     /**
@@ -20,7 +20,7 @@ final class RoutingConfiguratorReturnClosureFactory
     /**
      * @param RoutingCaseConverterInterface[] $routingCaseConverters
      */
-    public function __construct(\RectorPrefix20210109\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $containerConfiguratorClosureNodeFactory, array $routingCaseConverters)
+    public function __construct(\RectorPrefix20210110\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $containerConfiguratorClosureNodeFactory, array $routingCaseConverters)
     {
         $this->containerConfiguratorClosureNodeFactory = $containerConfiguratorClosureNodeFactory;
         $this->routingCaseConverters = $routingCaseConverters;
@@ -39,6 +39,9 @@ final class RoutingConfiguratorReturnClosureFactory
         $arrayData = $this->removeEmptyValues($arrayData);
         return $this->createNodesFromCaseConverters($arrayData);
     }
+    /**
+     * @return mixed[]
+     */
     private function removeEmptyValues(array $yamlData) : array
     {
         return \array_filter($yamlData);

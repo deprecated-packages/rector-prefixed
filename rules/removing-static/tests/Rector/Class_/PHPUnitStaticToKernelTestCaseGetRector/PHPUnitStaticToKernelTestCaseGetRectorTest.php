@@ -7,13 +7,13 @@ use Iterator;
 use Rector\RemovingStatic\Rector\Class_\PHPUnitStaticToKernelTestCaseGetRector;
 use Rector\RemovingStatic\Tests\Rector\Class_\PHPUnitStaticToKernelTestCaseGetRector\Source\ClassWithStaticMethods;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo;
 final class PHPUnitStaticToKernelTestCaseGetRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

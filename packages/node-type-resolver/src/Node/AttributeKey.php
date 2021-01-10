@@ -10,7 +10,7 @@ use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Namespace_;
 use PHPStan\Analyser\Scope;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo;
 final class AttributeKey
 {
     /**
@@ -126,7 +126,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const FILE_INFO = \RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo::class;
+    public const FILE_INFO = \RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo::class;
     /**
      * Internal php-parser name.
      * Do not change this even if you want!

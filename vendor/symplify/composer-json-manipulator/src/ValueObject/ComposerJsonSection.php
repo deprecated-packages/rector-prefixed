@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210109\Symplify\ComposerJsonManipulator\ValueObject;
+namespace RectorPrefix20210110\Symplify\ComposerJsonManipulator\ValueObject;
 
 final class ComposerJsonSection
 {
@@ -70,6 +70,16 @@ final class ComposerJsonSection
      * @var string
      */
     public const DESCRIPTION = 'description';
+    /**
+     * @api
+     * @var string
+     */
+    public const KEYWORDS = 'keywords';
+    /**
+     * @api
+     * @var string
+     */
+    public const HOMEPAGE = 'homepage';
     /**
      * @api
      * @var string

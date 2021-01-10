@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210109\Symplify\PackageBuilder\Parameter;
+namespace RectorPrefix20210110\Symplify\PackageBuilder\Parameter;
 
-use RectorPrefix20210109\Symfony\Component\DependencyInjection\Container;
-use RectorPrefix20210109\Symfony\Component\DependencyInjection\ContainerInterface;
-use RectorPrefix20210109\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use RectorPrefix20210110\Symfony\Component\DependencyInjection\Container;
+use RectorPrefix20210110\Symfony\Component\DependencyInjection\ContainerInterface;
+use RectorPrefix20210110\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 /**
  * @see \Symplify\PackageBuilder\Tests\Parameter\ParameterProviderTest
  */
@@ -18,29 +18,29 @@ final class ParameterProvider
     /**
      * @param Container|ContainerInterface $container
      */
-    public function __construct(\RectorPrefix20210109\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    public function __construct(\RectorPrefix20210110\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
         $parameterBag = $container->getParameterBag();
         $this->parameters = $parameterBag->all();
     }
     /**
+     * @api
      * @return mixed|null
      */
     public function provideParameter(string $name)
     {
         return $this->parameters[$name] ?? null;
     }
+    /**
+     * @api
+     */
     public function provideStringParameter(string $name) : string
     {
         $this->ensureParameterIsSet($name);
         return (string) $this->parameters[$name];
     }
-    public function provideIntParameter(string $name) : int
-    {
-        $this->ensureParameterIsSet($name);
-        return (int) $this->parameters[$name];
-    }
     /**
+     * @api
      * @return mixed[]
      */
     public function provideArrayParameter(string $name) : array
@@ -48,6 +48,9 @@ final class ParameterProvider
         $this->ensureParameterIsSet($name);
         return $this->parameters[$name];
     }
+    /**
+     * @api
+     */
     public function provideBoolParameter(string $parameterName) : bool
     {
         return $this->parameters[$parameterName] ?? \false;
@@ -57,17 +60,29 @@ final class ParameterProvider
         $this->parameters[$name] = $value;
     }
     /**
+     * @api
      * @return mixed[]
      */
     public function provide() : array
     {
         return $this->parameters;
     }
-    private function ensureParameterIsSet(string $name) : void
+    /**
+     * @api
+     */
+    public function provideIntParameter(string $name) : int
+    {
+        $this->ensureParameterIsSet($name);
+        return (int) $this->parameters[$name];
+    }
+    /**
+     * @api
+     */
+    public function ensureParameterIsSet(string $name) : void
     {
         if (\array_key_exists($name, $this->parameters)) {
             return;
         }
-        throw new \RectorPrefix20210109\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
+        throw new \RectorPrefix20210110\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
     }
 }

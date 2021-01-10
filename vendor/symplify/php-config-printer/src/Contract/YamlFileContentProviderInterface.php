@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210109\Symplify\PhpConfigPrinter\Contract;
+namespace RectorPrefix20210110\Symplify\PhpConfigPrinter\Contract;
 
 interface YamlFileContentProviderInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210109;
+namespace RectorPrefix20210110;
 
 abstract class PHPUnit_Framework_TestCase
 {

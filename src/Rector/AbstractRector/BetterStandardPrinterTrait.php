@@ -6,7 +6,7 @@ namespace Rector\Core\Rector\AbstractRector;
 use PhpParser\Node;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -28,7 +28,7 @@ trait BetterStandardPrinterTrait
     /**
      * @required
      */
-    public function autowireBetterStandardPrinterTrait(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem) : void
+    public function autowireBetterStandardPrinterTrait(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem) : void
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->betterNodeFinder = $betterNodeFinder;

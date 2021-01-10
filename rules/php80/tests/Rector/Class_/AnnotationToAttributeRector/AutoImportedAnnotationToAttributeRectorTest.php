@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Core\Configuration\Option;
 use Rector\Php80\Rector\Class_\AnnotationToAttributeRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo;
 final class AutoImportedAnnotationToAttributeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
         $this->doTestFileInfo($fileInfo);

@@ -1,14 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210109\Symplify\PhpConfigPrinter\ValueObject;
+namespace RectorPrefix20210110\Symplify\PhpConfigPrinter\ValueObject;
 
 final class YamlKey
 {
-    /**
-     * @var string
-     */
-    public const DEFAULTS = '_defaults';
     /**
      * @var string
      */

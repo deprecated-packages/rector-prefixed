@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\RuleDocGenerator\Printer\CodeSamplePrinter;
 
-use RectorPrefix20210109\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
+use RectorPrefix20210110\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
 use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 final class DiffCodeSamplePrinter
 {
@@ -11,7 +11,7 @@ final class DiffCodeSamplePrinter
      * @var MarkdownDiffer
      */
     private $markdownDiffer;
-    public function __construct(\RectorPrefix20210109\Symplify\MarkdownDiff\Differ\MarkdownDiffer $markdownDiffer)
+    public function __construct(\RectorPrefix20210110\Symplify\MarkdownDiff\Differ\MarkdownDiffer $markdownDiffer)
     {
         $this->markdownDiffer = $markdownDiffer;
     }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Restoration\Rector\Namespace_;
 
-use RectorPrefix20210109\Nette\Utils\Strings;
+use RectorPrefix20210110\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
@@ -72,7 +72,7 @@ CODE_SAMPLE
         }
         foreach ($this->useImportsToRestore as $useImportToRestore) {
             $annotationToSeek = '#\\*\\s+\\@' . $useImportToRestore->getAlias() . '#';
-            if (!\RectorPrefix20210109\Nette\Utils\Strings::match($this->print($class), $annotationToSeek)) {
+            if (!\RectorPrefix20210110\Nette\Utils\Strings::match($this->print($class), $annotationToSeek)) {
                 continue;
             }
             $node = $this->addImportToNamespaceIfMissing($node, $useImportToRestore);

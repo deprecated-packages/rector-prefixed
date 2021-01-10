@@ -9,7 +9,7 @@ use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Logging\CurrentRectorProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo;
 final class RectorChangeCollector
 {
     /**
@@ -27,7 +27,7 @@ final class RectorChangeCollector
     /**
      * @return RectorWithFileAndLineChange[]
      */
-    public function getRectorChangesByFileInfo(\RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function getRectorChangesByFileInfo(\RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         return \array_filter($this->rectorWithFileAndLineChanges, function (\Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange $rectorWithFileAndLineChange) use($smartFileInfo) : bool {
             return $rectorWithFileAndLineChange->getRealPath() === $smartFileInfo->getRealPath();
@@ -47,7 +47,7 @@ final class RectorChangeCollector
         }
         $this->addRectorClassWithLine($currentRector, $fileInfo, $node->getLine());
     }
-    private function addRectorClassWithLine(\Rector\Core\Contract\Rector\RectorInterface $rector, \RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, int $line) : void
+    private function addRectorClassWithLine(\Rector\Core\Contract\Rector\RectorInterface $rector, \RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, int $line) : void
     {
         $this->rectorWithFileAndLineChanges[] = new \Rector\ChangesReporting\ValueObject\RectorWithFileAndLineChange($rector, $smartFileInfo->getRealPath(), $line);
     }

@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\PSR4\Composer;
 
-use RectorPrefix20210109\Nette\Utils\Strings;
+use RectorPrefix20210110\Nette\Utils\Strings;
 use PhpParser\Node;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface;
-use RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo;
 final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNamespaceMatcherInterface
 {
     /**
@@ -37,7 +37,7 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
             $paths = \is_array($path) ? $path : [$path];
             foreach ($paths as $singlePath) {
                 $singlePath = \rtrim($singlePath, '/');
-                if (!\RectorPrefix20210109\Nette\Utils\Strings::startsWith($smartFileInfo->getRelativeDirectoryPath(), $singlePath)) {
+                if (!\RectorPrefix20210110\Nette\Utils\Strings::startsWith($smartFileInfo->getRelativeDirectoryPath(), $singlePath)) {
                     continue;
                 }
                 $expectedNamespace = $namespace . $this->resolveExtraNamespace($smartFileInfo, $singlePath);
@@ -49,10 +49,10 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
     /**
      * Get the extra path that is not included in root PSR-4 namespace
      */
-    private function resolveExtraNamespace(\RectorPrefix20210109\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $path) : string
+    private function resolveExtraNamespace(\RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $path) : string
     {
-        $extraNamespace = \RectorPrefix20210109\Nette\Utils\Strings::substring($smartFileInfo->getRelativeDirectoryPath(), \RectorPrefix20210109\Nette\Utils\Strings::length($path) + 1);
-        $extraNamespace = \RectorPrefix20210109\Nette\Utils\Strings::replace($extraNamespace, '#/#', '\\');
+        $extraNamespace = \RectorPrefix20210110\Nette\Utils\Strings::substring($smartFileInfo->getRelativeDirectoryPath(), \RectorPrefix20210110\Nette\Utils\Strings::length($path) + 1);
+        $extraNamespace = \RectorPrefix20210110\Nette\Utils\Strings::replace($extraNamespace, '#/#', '\\');
         return \trim($extraNamespace);
     }
 }

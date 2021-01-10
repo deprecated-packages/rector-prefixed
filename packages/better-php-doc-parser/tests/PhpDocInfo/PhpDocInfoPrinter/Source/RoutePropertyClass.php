@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use RectorPrefix20210109\Symfony\Component\Routing\Annotation\Route;
+use RectorPrefix20210110\Symfony\Component\Routing\Annotation\Route;
 class RoutePropertyClass
 {
     /**

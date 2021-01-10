@@ -15,7 +15,7 @@ jobs:
                 with:
                     github-token: ${{ secrets.ACCESS_TOKEN }}
                     pr-comment: |
-                        Hi, thank you for you contribution.
+                        Hi, thank you for your contribution.
 
                         Unfortunatelly, this repository is read-only. It's a split from our main monorepo repository.
 

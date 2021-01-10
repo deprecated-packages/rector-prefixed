@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Tests\Rector\ClassMethod\ChangeReturnTypeOfClassMethodWithGetIdRector\Source;
 
-use RectorPrefix20210109\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210110\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
 class Building
 {
     private $id;
-    public function getId() : \RectorPrefix20210109\Ramsey\Uuid\UuidInterface
+    public function getId() : \RectorPrefix20210110\Ramsey\Uuid\UuidInterface
     {
         return $this->id;
     }

@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210109\Symplify\PackageBuilder\Reflection;
+namespace RectorPrefix20210110\Symplify\PackageBuilder\Reflection;
 
 use ReflectionClass;
 use ReflectionMethod;
-use RectorPrefix20210109\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use RectorPrefix20210110\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesCallerTest
  */
@@ -15,7 +15,7 @@ final class PrivatesCaller
      * @param object|string $object
      * @param mixed[] $arguments
      */
-    public function callPrivateMethod($object, string $methodName, ...$arguments)
+    public function callPrivateMethod($object, string $methodName, array $arguments)
     {
         $this->ensureIsNotNull($object, __METHOD__);
         if (\is_string($object)) {
@@ -54,6 +54,6 @@ final class PrivatesCaller
             return;
         }
         $errorMessage = \sprintf('Value passed to "%s()" method cannot be null', $location);
-        throw new \RectorPrefix20210109\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($errorMessage);
+        throw new \RectorPrefix20210110\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($errorMessage);
     }
 }
