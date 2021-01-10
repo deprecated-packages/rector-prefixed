@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\Class_;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\UnusedNodeResolver\UnusedClassResolver;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -75,7 +76,11 @@ CODE_SAMPLE
         if ($this->unusedClassResolver->isClassUsed($node)) {
             return null;
         }
-        $this->removeFile($this->getFileInfo());
+        if (\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            $this->removeNode($node);
+        } else {
+            $this->removeFile($this->getFileInfo());
+        }
         return null;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\Class_ $class) : bool
