@@ -41,7 +41,7 @@ final class AssignRemover
         /** @var Assign $assign */
         $parent = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent instanceof \PhpParser\Node\Stmt\Expression) {
-            $this->livingCodeManipulator->addLivingCodeBeforeNode($assign->expr, $currentStatement);
+            //            $this->livingCodeManipulator->addLivingCodeBeforeNode($assign->expr, $currentStatement);
             $this->nodeRemover->removeNode($assign);
         } else {
             $this->nodesToReplaceCollector->addReplaceNodeWithAnotherNode($assign, $assign->expr);

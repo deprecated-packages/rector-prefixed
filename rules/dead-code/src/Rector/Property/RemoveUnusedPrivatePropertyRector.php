@@ -72,6 +72,6 @@ CODE_SAMPLE
         }
         /** @var Class_|Interface_|Trait_|null $classLike */
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        return $classLike === null || $classLike instanceof \PhpParser\Node\Stmt\Trait_ || $classLike instanceof \PhpParser\Node\Stmt\Interface_;
+        return !$classLike instanceof \PhpParser\Node\Stmt\Class_;
     }
 }
