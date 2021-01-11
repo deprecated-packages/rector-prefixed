@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7adf9b394da7367e32e70e44c7217caa
+class ComposerStaticInitb4e689b0c2f45d83d88b0c6a481989c5
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3590,6 +3590,7 @@ class ComposerStaticInit7adf9b394da7367e32e70e44c7217caa
         'Rector\\Php80\\NodeManipulator\\TokenManipulator' => __DIR__ . '/../..' . '/rules/php80/src/NodeManipulator/TokenManipulator.php',
         'Rector\\Php80\\NodeResolver\\PromotedPropertyResolver' => __DIR__ . '/../..' . '/rules/php80/src/NodeResolver/PromotedPropertyResolver.php',
         'Rector\\Php80\\NodeResolver\\SwitchExprsResolver' => __DIR__ . '/../..' . '/rules/php80/src/NodeResolver/SwitchExprsResolver.php',
+        'Rector\\Php80\\Rector\\Assign\\FalseableCountToZeroRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Assign/FalseableCountToZeroRector.php',
         'Rector\\Php80\\Rector\\Catch_\\RemoveUnusedVariableInCatchRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Catch_/RemoveUnusedVariableInCatchRector.php',
         'Rector\\Php80\\Rector\\ClassMethod\\FinalPrivateToPrivateVisibilityRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/ClassMethod/FinalPrivateToPrivateVisibilityRector.php',
         'Rector\\Php80\\Rector\\ClassMethod\\SetStateToStaticRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/ClassMethod/SetStateToStaticRector.php',
@@ -4004,9 +4005,9 @@ class ComposerStaticInit7adf9b394da7367e32e70e44c7217caa
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7adf9b394da7367e32e70e44c7217caa::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7adf9b394da7367e32e70e44c7217caa::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7adf9b394da7367e32e70e44c7217caa::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb4e689b0c2f45d83d88b0c6a481989c5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb4e689b0c2f45d83d88b0c6a481989c5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb4e689b0c2f45d83d88b0c6a481989c5::$classMap;
 
         }, null, ClassLoader::class);
     }

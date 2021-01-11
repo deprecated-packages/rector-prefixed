@@ -2805,6 +2805,7 @@ return array(
     'Rector\\Php80\\NodeManipulator\\TokenManipulator' => $baseDir . '/rules/php80/src/NodeManipulator/TokenManipulator.php',
     'Rector\\Php80\\NodeResolver\\PromotedPropertyResolver' => $baseDir . '/rules/php80/src/NodeResolver/PromotedPropertyResolver.php',
     'Rector\\Php80\\NodeResolver\\SwitchExprsResolver' => $baseDir . '/rules/php80/src/NodeResolver/SwitchExprsResolver.php',
+    'Rector\\Php80\\Rector\\Assign\\FalseableCountToZeroRector' => $baseDir . '/rules/php80/src/Rector/Assign/FalseableCountToZeroRector.php',
     'Rector\\Php80\\Rector\\Catch_\\RemoveUnusedVariableInCatchRector' => $baseDir . '/rules/php80/src/Rector/Catch_/RemoveUnusedVariableInCatchRector.php',
     'Rector\\Php80\\Rector\\ClassMethod\\FinalPrivateToPrivateVisibilityRector' => $baseDir . '/rules/php80/src/Rector/ClassMethod/FinalPrivateToPrivateVisibilityRector.php',
     'Rector\\Php80\\Rector\\ClassMethod\\SetStateToStaticRector' => $baseDir . '/rules/php80/src/Rector/ClassMethod/SetStateToStaticRector.php',
