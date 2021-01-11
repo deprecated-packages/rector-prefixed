@@ -6,13 +6,13 @@ namespace Rector\Php80\Tests\Rector\Identical\StrStartsWithRector;
 use Iterator;
 use Rector\Php80\Rector\Identical\StrStartsWithRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo;
 final class StrStartsWithRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

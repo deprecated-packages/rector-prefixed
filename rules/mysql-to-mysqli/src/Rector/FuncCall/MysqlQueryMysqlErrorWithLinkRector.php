@@ -109,7 +109,22 @@ CODE_SAMPLE
         if (!$expr instanceof \PhpParser\Node\Expr\Variable) {
             return \false;
         }
-        return $this->isName($expr, 'connection');
+        return $this->isMysqliConnect($expr);
+    }
+    private function isMysqliConnect(\PhpParser\Node\Expr\Variable $variable) : bool
+    {
+        return (bool) $this->betterNodeFinder->findFirstPrevious($variable, function (\PhpParser\Node $node) use($variable) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+                return \false;
+            }
+            if (!$node->expr instanceof \PhpParser\Node\Expr\FuncCall) {
+                return \false;
+            }
+            if (!$this->areNodesEqual($node->var, $variable)) {
+                return \false;
+            }
+            return $this->isName($node->expr, 'mysqli_connect');
+        });
     }
     private function findConnectionVariable(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {

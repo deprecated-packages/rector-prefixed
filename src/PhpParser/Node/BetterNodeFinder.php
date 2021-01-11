@@ -15,7 +15,7 @@ use PhpParser\NodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210110\Webmozart\Assert\Assert;
+use RectorPrefix20210111\Webmozart\Assert\Assert;
 /**
  * @template T of Node
  * @see \Rector\Core\Tests\PhpParser\Node\BetterNodeFinder\BetterNodeFinderTest
@@ -46,7 +46,7 @@ final class BetterNodeFinder
      */
     public function findParentType(\PhpParser\Node $node, string $type) : ?\PhpParser\Node
     {
-        \RectorPrefix20210110\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
+        \RectorPrefix20210111\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         /** @var Node|null $parent */
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent === null) {
@@ -68,7 +68,7 @@ final class BetterNodeFinder
      */
     public function findParentTypes(\PhpParser\Node $node, array $types) : ?\PhpParser\Node
     {
-        \RectorPrefix20210110\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
+        \RectorPrefix20210111\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
         /** @var Node|null $parent */
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parent === null) {
@@ -123,7 +123,7 @@ final class BetterNodeFinder
      */
     public function findInstanceOf($nodes, string $type) : array
     {
-        \RectorPrefix20210110\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
+        \RectorPrefix20210111\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         return $this->nodeFinder->findInstanceOf($nodes, $type);
     }
     /**
@@ -133,7 +133,7 @@ final class BetterNodeFinder
      */
     public function findFirstInstanceOf($nodes, string $type) : ?\PhpParser\Node
     {
-        \RectorPrefix20210110\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
+        \RectorPrefix20210111\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         return $this->nodeFinder->findFirstInstanceOf($nodes, $type);
     }
     /**
@@ -142,7 +142,7 @@ final class BetterNodeFinder
      */
     public function hasInstanceOfName($nodes, string $type, string $name) : bool
     {
-        \RectorPrefix20210110\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
+        \RectorPrefix20210111\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         return (bool) $this->findInstanceOfName($nodes, $type, $name);
     }
     /**
@@ -166,7 +166,7 @@ final class BetterNodeFinder
      */
     public function hasInstancesOf($nodes, array $types) : bool
     {
-        \RectorPrefix20210110\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
+        \RectorPrefix20210111\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
         foreach ($types as $type) {
             $nodeFinderFindFirstInstanceOf = $this->nodeFinder->findFirstInstanceOf($nodes, $type);
             if ($nodeFinderFindFirstInstanceOf === null) {
@@ -183,7 +183,7 @@ final class BetterNodeFinder
      */
     public function findLastInstanceOf($nodes, string $type) : ?\PhpParser\Node
     {
-        \RectorPrefix20210110\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
+        \RectorPrefix20210111\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         $foundInstances = $this->nodeFinder->findInstanceOf($nodes, $type);
         if ($foundInstances === []) {
             return null;
@@ -291,7 +291,7 @@ final class BetterNodeFinder
      */
     private function isTypes(\PhpParser\Node $node, array $types) : bool
     {
-        \RectorPrefix20210110\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
+        \RectorPrefix20210111\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
         foreach ($types as $type) {
             if (\is_a($node, $type, \true)) {
                 return \true;
@@ -306,7 +306,7 @@ final class BetterNodeFinder
      */
     private function findInstanceOfName($nodes, string $type, string $name) : ?\PhpParser\Node
     {
-        \RectorPrefix20210110\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
+        \RectorPrefix20210111\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
         $foundInstances = $this->nodeFinder->findInstanceOf($nodes, $type);
         foreach ($foundInstances as $foundInstance) {
             if (!$this->nodeNameResolver->isName($foundInstance, $name)) {

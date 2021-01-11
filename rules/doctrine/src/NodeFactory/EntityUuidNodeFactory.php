@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use RectorPrefix20210110\Ramsey\Uuid\Uuid;
+use RectorPrefix20210111\Ramsey\Uuid\Uuid;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode;
@@ -46,7 +46,7 @@ final class EntityUuidNodeFactory
     public function createUuidPropertyDefaultValueAssign(string $uuidVariableName) : \PhpParser\Node\Stmt\Expression
     {
         $thisUuidPropertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $uuidVariableName);
-        $uuid4StaticCall = $this->nodeFactory->createStaticCall(\RectorPrefix20210110\Ramsey\Uuid\Uuid::class, 'uuid4');
+        $uuid4StaticCall = $this->nodeFactory->createStaticCall(\RectorPrefix20210111\Ramsey\Uuid\Uuid::class, 'uuid4');
         $assign = new \PhpParser\Node\Expr\Assign($thisUuidPropertyFetch, $uuid4StaticCall);
         return new \PhpParser\Node\Stmt\Expression($assign);
     }

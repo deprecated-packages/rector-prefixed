@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\RuleDocGenerator\ValueObject;
 
-use RectorPrefix20210110\Nette\Utils\Strings;
+use RectorPrefix20210111\Nette\Utils\Strings;
 use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 use Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use RectorPrefix20210110\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use RectorPrefix20210111\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class RuleDefinition
 {
     /**
@@ -44,13 +44,13 @@ final class RuleDefinition
     public function getRuleClass() : string
     {
         if ($this->ruleClass === null) {
-            throw new \RectorPrefix20210110\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \RectorPrefix20210111\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->ruleClass;
     }
     public function getRuleShortClass() : string
     {
-        return (string) \RectorPrefix20210110\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
+        return (string) \RectorPrefix20210111\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
     }
     /**
      * @return CodeSampleInterface[]

@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210110\Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace RectorPrefix20210111\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
-use RectorPrefix20210110\Nette\Utils\Strings;
+use RectorPrefix20210111\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20210110\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20210110\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use RectorPrefix20210110\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
-final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210110\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use RectorPrefix20210111\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210111\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210111\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210111\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\RectorPrefix20210110\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    public function __construct(\RectorPrefix20210111\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
     }
@@ -32,7 +32,7 @@ final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
     }
     public function isMatch($key, $values) : bool
     {
-        return $key === \RectorPrefix20210110\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS;
+        return $key === \RectorPrefix20210111\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS;
     }
     private function hasNamedArguments(array $data) : bool
     {
@@ -40,7 +40,7 @@ final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
             return \false;
         }
         foreach (\array_keys($data) as $key) {
-            if (!\RectorPrefix20210110\Nette\Utils\Strings::startsWith((string) $key, '$')) {
+            if (!\RectorPrefix20210111\Nette\Utils\Strings::startsWith((string) $key, '$')) {
                 return \false;
             }
         }

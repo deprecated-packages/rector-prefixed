@@ -7,14 +7,14 @@ use Iterator;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo;
 final class UnionTypeTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 8.0
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

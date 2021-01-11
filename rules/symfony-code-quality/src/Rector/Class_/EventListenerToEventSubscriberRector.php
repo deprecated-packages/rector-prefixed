@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\SymfonyCodeQuality\Rector\Class_;
 
-use RectorPrefix20210110\Nette\Utils\Strings;
+use RectorPrefix20210111\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -178,7 +178,7 @@ CODE_SAMPLE
         $eventListeners = $serviceMap->getServicesByTag('kernel.event_listener');
         foreach ($eventListeners as $eventListener) {
             // skip Symfony core listeners
-            if (\RectorPrefix20210110\Nette\Utils\Strings::match((string) $eventListener->getClass(), self::SYMFONY_FAMILY_REGEX)) {
+            if (\RectorPrefix20210111\Nette\Utils\Strings::match((string) $eventListener->getClass(), self::SYMFONY_FAMILY_REGEX)) {
                 continue;
             }
             foreach ($eventListener->getTags() as $tag) {
@@ -200,7 +200,7 @@ CODE_SAMPLE
         $class->implements[] = new \PhpParser\Node\Name\FullyQualified(self::EVENT_SUBSCRIBER_INTERFACE);
         $classShortName = $this->getShortName($class);
         // remove suffix
-        $classShortName = \RectorPrefix20210110\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
+        $classShortName = \RectorPrefix20210111\Nette\Utils\Strings::replace($classShortName, self::LISTENER_MATCH_REGEX, '$1');
         $class->name = new \PhpParser\Node\Identifier($classShortName . 'EventSubscriber');
         $classMethod = $this->createGetSubscribedEventsClassMethod($eventsToMethods);
         $class->stmts[] = $classMethod;

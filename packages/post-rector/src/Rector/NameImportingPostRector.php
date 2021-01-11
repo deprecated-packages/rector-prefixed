@@ -11,7 +11,7 @@ use Rector\CodingStyle\Node\NameImporter;
 use Rector\Core\Configuration\Option;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
-use RectorPrefix20210110\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210111\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
@@ -32,7 +32,7 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
      * @var ClassNameImportSkipper
      */
     private $classNameImportSkipper;
-    public function __construct(\RectorPrefix20210110\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper)
+    public function __construct(\RectorPrefix20210111\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\CodingStyle\Node\NameImporter $nameImporter, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter $docBlockNameImporter, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper)
     {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;

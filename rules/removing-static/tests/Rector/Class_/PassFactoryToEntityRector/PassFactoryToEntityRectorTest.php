@@ -8,17 +8,17 @@ use Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector;
 use Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector;
 use Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210110\Symplify\EasyTesting\StaticFixtureSplitter;
-use RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210111\Symplify\EasyTesting\StaticFixtureSplitter;
+use RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo;
 final class PassFactoryToEntityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210110\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
-        $expectedFactoryFilePath = \RectorPrefix20210110\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath() . '/AnotherClassWithMoreArgumentsFactory.php';
+        $expectedFactoryFilePath = \RectorPrefix20210111\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath() . '/AnotherClassWithMoreArgumentsFactory.php';
         $this->assertFileExists($expectedFactoryFilePath);
         $this->assertFileEquals(__DIR__ . '/Source/ExpectedAnotherClassWithMoreArgumentsFactory.php', $expectedFactoryFilePath);
     }

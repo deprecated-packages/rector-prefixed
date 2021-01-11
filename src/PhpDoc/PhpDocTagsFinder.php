@@ -7,7 +7,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
-use RectorPrefix20210110\Symplify\SimplePhpDocParser\SimplePhpDocParser;
+use RectorPrefix20210111\Symplify\SimplePhpDocParser\SimplePhpDocParser;
 /**
  * @see \Rector\Core\Tests\PhpDoc\PhpDocTagsFinderTest
  */
@@ -17,7 +17,7 @@ final class PhpDocTagsFinder
      * @var SimplePhpDocParser
      */
     private $simplePhpDocParser;
-    public function __construct(\RectorPrefix20210110\Symplify\SimplePhpDocParser\SimplePhpDocParser $simplePhpDocParser)
+    public function __construct(\RectorPrefix20210111\Symplify\SimplePhpDocParser\SimplePhpDocParser $simplePhpDocParser)
     {
         $this->simplePhpDocParser = $simplePhpDocParser;
     }

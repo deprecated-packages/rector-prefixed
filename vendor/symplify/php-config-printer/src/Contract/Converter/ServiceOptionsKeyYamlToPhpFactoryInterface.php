@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210110\Symplify\PhpConfigPrinter\Contract\Converter;
+namespace RectorPrefix20210111\Symplify\PhpConfigPrinter\Contract\Converter;
 
 use PhpParser\Node\Expr\MethodCall;
 interface ServiceOptionsKeyYamlToPhpFactoryInterface

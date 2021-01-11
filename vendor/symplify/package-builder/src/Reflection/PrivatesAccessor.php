@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210110\Symplify\PackageBuilder\Reflection;
+namespace RectorPrefix20210111\Symplify\PackageBuilder\Reflection;
 
 use ReflectionProperty;
-use RectorPrefix20210110\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
+use RectorPrefix20210111\Symplify\PHPStanRules\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesAccessorTest
  */
@@ -12,22 +12,27 @@ final class PrivatesAccessor
 {
     public function getPrivateProperty(object $object, string $propertyName)
     {
-        if (\property_exists($object, $propertyName)) {
-            $propertyReflection = new \ReflectionProperty($object, $propertyName);
-        } else {
-            $parentClass = \get_parent_class($object);
-            if ($parentClass === \false) {
-                throw new \RectorPrefix20210110\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
-            }
-            $propertyReflection = new \ReflectionProperty($parentClass, $propertyName);
-        }
+        $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);
         return $propertyReflection->getValue($object);
     }
     public function setPrivateProperty(object $object, string $propertyName, $value) : void
     {
-        $propertyReflection = new \ReflectionProperty(\get_class($object), $propertyName);
+        $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);
         $propertyReflection->setValue($object, $value);
+    }
+    private function resolvePropertyReflection(object $object, string $propertyName) : \ReflectionProperty
+    {
+        if (\property_exists($object, $propertyName)) {
+            $propertyReflection = new \ReflectionProperty($object, $propertyName);
+        } else {
+            $parentClass = \get_parent_class($object);
+            if ($parentClass === \false) {
+                throw new \RectorPrefix20210111\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+            }
+            $propertyReflection = new \ReflectionProperty($parentClass, $propertyName);
+        }
+        return $propertyReflection;
     }
 }
