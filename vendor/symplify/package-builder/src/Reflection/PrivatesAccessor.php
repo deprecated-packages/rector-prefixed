@@ -25,14 +25,12 @@ final class PrivatesAccessor
     private function resolvePropertyReflection(object $object, string $propertyName) : \ReflectionProperty
     {
         if (\property_exists($object, $propertyName)) {
-            $propertyReflection = new \ReflectionProperty($object, $propertyName);
-        } else {
-            $parentClass = \get_parent_class($object);
-            if ($parentClass === \false) {
-                throw new \RectorPrefix20210111\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
-            }
-            $propertyReflection = new \ReflectionProperty($parentClass, $propertyName);
+            return new \ReflectionProperty($object, $propertyName);
         }
-        return $propertyReflection;
+        $parentClass = \get_parent_class($object);
+        if ($parentClass === \false) {
+            throw new \RectorPrefix20210111\Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+        }
+        return new \ReflectionProperty($parentClass, $propertyName);
     }
 }

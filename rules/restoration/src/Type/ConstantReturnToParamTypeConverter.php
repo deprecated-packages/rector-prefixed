@@ -27,7 +27,7 @@ final class ConstantReturnToParamTypeConverter
         }
         return $this->unwrapConstantTypeToObjectType($type);
     }
-    private function unwrapConstantTypeToObjectType(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
+    private function unwrapConstantTypeToObjectType(\PHPStan\Type\Type $type) : ?\PHPStan\Type\Type
     {
         if ($type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             return $this->unwrapConstantTypeToObjectType($type->getItemType());
@@ -38,10 +38,13 @@ final class ConstantReturnToParamTypeConverter
         if ($type instanceof \PHPStan\Type\UnionType) {
             $types = [];
             foreach ($type->getTypes() as $unionedType) {
-                $types[] = $this->unwrapConstantTypeToObjectType($unionedType);
+                $type = $this->unwrapConstantTypeToObjectType($unionedType);
+                if ($type !== null) {
+                    $types[] = $type;
+                }
             }
             return $this->typeFactory->createMixedPassedOrUnionType($types);
         }
-        throw new \Rector\Core\Exception\NotImplementedYetException();
+        return null;
     }
 }
