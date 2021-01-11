@@ -75,6 +75,10 @@ CODE_SAMPLE
         if ($param->type instanceof \PhpParser\Node\UnionType) {
             return \false;
         }
+        // Contravariant arguments are supported for __construct
+        if ($this->getName($functionLike) === '__construct') {
+            return \false;
+        }
         // Check if the type is different from the one declared in some ancestor
         return $this->getDifferentParamTypeFromAncestorClass($param, $functionLike) !== null;
     }
