@@ -2194,6 +2194,7 @@ return array(
     'Rector\\DowngradePhp74\\Rector\\ArrowFunction\\ArrowFunctionToAnonymousFunctionRector' => $baseDir . '/rules/downgrade-php74/src/Rector/ArrowFunction/ArrowFunctionToAnonymousFunctionRector.php',
     'Rector\\DowngradePhp74\\Rector\\ClassMethod\\DowngradeContravariantArgumentTypeRector' => $baseDir . '/rules/downgrade-php74/src/Rector/ClassMethod/DowngradeContravariantArgumentTypeRector.php',
     'Rector\\DowngradePhp74\\Rector\\ClassMethod\\DowngradeCovariantReturnTypeRector' => $baseDir . '/rules/downgrade-php74/src/Rector/ClassMethod/DowngradeCovariantReturnTypeRector.php',
+    'Rector\\DowngradePhp74\\Rector\\ClassMethod\\DowngradeReturnSelfTypeDeclarationRector' => $baseDir . '/rules/downgrade-php74/src/Rector/ClassMethod/DowngradeReturnSelfTypeDeclarationRector.php',
     'Rector\\DowngradePhp74\\Rector\\Coalesce\\DowngradeNullCoalescingOperatorRector' => $baseDir . '/rules/downgrade-php74/src/Rector/Coalesce/DowngradeNullCoalescingOperatorRector.php',
     'Rector\\DowngradePhp74\\Rector\\FuncCall\\DowngradeArrayMergeCallWithoutArgumentsRector' => $baseDir . '/rules/downgrade-php74/src/Rector/FuncCall/DowngradeArrayMergeCallWithoutArgumentsRector.php',
     'Rector\\DowngradePhp74\\Rector\\FuncCall\\DowngradeStripTagsCallWithArrayRector' => $baseDir . '/rules/downgrade-php74/src/Rector/FuncCall/DowngradeStripTagsCallWithArrayRector.php',

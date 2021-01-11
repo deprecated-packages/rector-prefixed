@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Name;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StaticType;
+use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -36,9 +37,12 @@ final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
         if ($this->isExistingClass($name)) {
             return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($name);
         }
+        $className = (string) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($name === 'static') {
-            $className = (string) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             return new \PHPStan\Type\StaticType($className);
+        }
+        if ($name === 'self') {
+            return new \PHPStan\Type\ThisType($className);
         }
         return new \PHPStan\Type\MixedType();
     }
