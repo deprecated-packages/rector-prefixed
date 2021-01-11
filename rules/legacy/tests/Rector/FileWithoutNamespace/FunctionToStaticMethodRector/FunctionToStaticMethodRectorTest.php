@@ -15,9 +15,7 @@ final class FunctionToStaticMethodRectorTest extends \Rector\Testing\PHPUnit\Abs
     public function test(\RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
-        $expectedClassFilePath = $this->getFixtureTempDirectory() . '/StaticFunctions.php';
-        $this->assertFileExists($expectedClassFilePath);
-        $this->assertFileEquals(__DIR__ . '/Source/ExpectedStaticFunctions.php', $expectedClassFilePath);
+        $this->doTestExtraFile('StaticFunctions.php', __DIR__ . '/Source/ExpectedStaticFunctions.php');
     }
     public function provideData() : \Iterator
     {

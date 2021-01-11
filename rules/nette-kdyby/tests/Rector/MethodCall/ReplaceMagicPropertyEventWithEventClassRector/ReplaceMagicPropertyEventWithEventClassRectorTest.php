@@ -21,9 +21,7 @@ final class ReplaceMagicPropertyEventWithEventClassRectorTest extends \Rector\Te
     public function test(\RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, string $expectedRelativeFilePath, string $expectedContentFilePath) : void
     {
         $this->doTestFileInfo($fixtureFileInfo);
-        $expectedEventFilePath = $this->originalTempFileInfo->getPath() . $expectedRelativeFilePath;
-        $this->assertFileExists($expectedEventFilePath);
-        $this->assertFileEquals($expectedContentFilePath, $expectedEventFilePath);
+        $this->doTestExtraFile($expectedRelativeFilePath, $expectedContentFilePath);
     }
     public function provideData() : \Iterator
     {

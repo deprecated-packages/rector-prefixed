@@ -20,12 +20,12 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
-use Rector\Core\PhpParser\Builder\MethodBuilder;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator;
 use Rector\SymfonyPHPUnit\Naming\ServiceNaming;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 final class KernelTestCaseNodeFactory
 {
     /**
@@ -56,7 +56,7 @@ final class KernelTestCaseNodeFactory
             return null;
         }
         $stmts = \array_merge([new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('parent'), \Rector\Core\ValueObject\MethodName::SET_UP)], $assigns);
-        $classMethodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder(\Rector\Core\ValueObject\MethodName::SET_UP);
+        $classMethodBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::SET_UP);
         $classMethodBuilder->makeProtected();
         $classMethodBuilder->addStmts($stmts);
         $classMethod = $classMethodBuilder->getNode();

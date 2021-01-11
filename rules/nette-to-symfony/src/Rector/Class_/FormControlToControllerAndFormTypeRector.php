@@ -4,27 +4,18 @@ declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\Class_;
 
 use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
-use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NetteToSymfony\Collector\OnFormVariableMethodCallsCollector;
+use Rector\NetteToSymfony\NodeFactory\BuildFormClassMethodFactory;
 use Rector\NetteToSymfony\NodeFactory\SymfonyControllerFactory;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210111\Symfony\Component\Form\Extension\Core\Type\TextType;
+use Rector\NetteToSymfony\NodeFactory\SymfonyMethodCallsFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://symfony.com/doc/current/forms.html#creating-form-classes
  *
@@ -40,10 +31,20 @@ final class FormControlToControllerAndFormTypeRector extends \Rector\Core\Rector
      * @var SymfonyControllerFactory
      */
     private $symfonyControllerFactory;
-    public function __construct(\Rector\NetteToSymfony\Collector\OnFormVariableMethodCallsCollector $onFormVariableMethodCallsCollector, \Rector\NetteToSymfony\NodeFactory\SymfonyControllerFactory $symfonyControllerFactory)
+    /**
+     * @var BuildFormClassMethodFactory
+     */
+    private $buildFormClassMethodFactory;
+    /**
+     * @var SymfonyMethodCallsFactory
+     */
+    private $symfonyMethodCallsFactory;
+    public function __construct(\Rector\NetteToSymfony\Collector\OnFormVariableMethodCallsCollector $onFormVariableMethodCallsCollector, \Rector\NetteToSymfony\NodeFactory\SymfonyControllerFactory $symfonyControllerFactory, \Rector\NetteToSymfony\NodeFactory\BuildFormClassMethodFactory $buildFormClassMethodFactory, \Rector\NetteToSymfony\NodeFactory\SymfonyMethodCallsFactory $symfonyMethodCallsFactory)
     {
         $this->onFormVariableMethodCallsCollector = $onFormVariableMethodCallsCollector;
         $this->symfonyControllerFactory = $symfonyControllerFactory;
+        $this->buildFormClassMethodFactory = $buildFormClassMethodFactory;
+        $this->symfonyMethodCallsFactory = $symfonyMethodCallsFactory;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -130,10 +131,7 @@ CODE_SAMPLE
             if ($symfonyControllerNamespace === null) {
                 continue;
             }
-            /** @var SmartFileInfo $smartFileInfo */
-            $smartFileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-            $filePath = \dirname($smartFileInfo->getRealPath()) . \DIRECTORY_SEPARATOR . 'SomeFormController.php';
-            $this->printToFile([$symfonyControllerNamespace], $filePath);
+            $this->printNodesToFilePath([$symfonyControllerNamespace], 'src/Controller/SomeFormController.php');
             return $formTypeClass;
         }
         return $node;
@@ -146,40 +144,10 @@ CODE_SAMPLE
         }
         $formBuilderVariable = new \PhpParser\Node\Expr\Variable('formBuilder');
         // public function buildForm(\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
-        $buildFormClassMethod = $this->createBuildFormClassMethod($formBuilderVariable);
-        $symfonyMethodCalls = [];
-        // create symfony form from nette form method calls
-        foreach ($onFormVariableMethodCalls as $onFormVariableMethodCall) {
-            if ($this->isName($onFormVariableMethodCall->name, 'addText')) {
-                // text input
-                $inputName = $onFormVariableMethodCall->args[0];
-                $formTypeClassConstant = $this->createClassConstantReference(\RectorPrefix20210111\Symfony\Component\Form\Extension\Core\Type\TextType::class);
-                $args = $this->createAddTextArgs($inputName, $formTypeClassConstant, $onFormVariableMethodCall);
-                $methodCall = new \PhpParser\Node\Expr\MethodCall($formBuilderVariable, 'add', $args);
-                $symfonyMethodCalls[] = new \PhpParser\Node\Stmt\Expression($methodCall);
-            }
-        }
+        $buildFormClassMethod = $this->buildFormClassMethodFactory->create($formBuilderVariable);
+        $symfonyMethodCalls = $this->symfonyMethodCallsFactory->create($onFormVariableMethodCalls, $formBuilderVariable);
         $buildFormClassMethod->stmts = $symfonyMethodCalls;
         return $this->createFormTypeClassFromBuildFormClassMethod($buildFormClassMethod);
-    }
-    private function createBuildFormClassMethod(\PhpParser\Node\Expr\Variable $formBuilderVariable) : \PhpParser\Node\Stmt\ClassMethod
-    {
-        $buildFormClassMethod = $this->nodeFactory->createPublicMethod('buildForm');
-        $buildFormClassMethod->params[] = new \PhpParser\Node\Param($formBuilderVariable, null, new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\FormBuilderInterface'));
-        $buildFormClassMethod->params[] = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable('options'), null, new \PhpParser\Node\Identifier('array'));
-        return $buildFormClassMethod;
-    }
-    /**
-     * @return Arg[]
-     */
-    private function createAddTextArgs(\PhpParser\Node\Arg $arg, \PhpParser\Node\Expr\ClassConstFetch $classConstFetch, \PhpParser\Node\Expr\MethodCall $onFormVariableMethodCall) : array
-    {
-        $args = [$arg, new \PhpParser\Node\Arg($classConstFetch)];
-        if (isset($onFormVariableMethodCall->args[1])) {
-            $optionsArray = new \PhpParser\Node\Expr\Array_([new \PhpParser\Node\Expr\ArrayItem($onFormVariableMethodCall->args[1]->value, new \PhpParser\Node\Scalar\String_('label'))]);
-            $args[] = new \PhpParser\Node\Arg($optionsArray);
-        }
-        return $args;
     }
     private function createFormTypeClassFromBuildFormClassMethod(\PhpParser\Node\Stmt\ClassMethod $buildFormClassMethod) : \PhpParser\Node\Stmt\Class_
     {

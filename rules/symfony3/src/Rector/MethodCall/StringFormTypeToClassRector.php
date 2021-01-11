@@ -57,7 +57,7 @@ CODE_SAMPLE
         if ($formClass === null) {
             return null;
         }
-        $node->args[1]->value = $this->createClassConstantReference($formClass);
+        $node->args[1]->value = $this->createClassConstReference($formClass);
         return $node;
     }
 }

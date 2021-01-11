@@ -232,7 +232,7 @@ CODE_SAMPLE
     private function createEventName(string $eventName) : \PhpParser\Node
     {
         if (\class_exists($eventName)) {
-            return $this->createClassConstantReference($eventName);
+            return $this->createClassConstReference($eventName);
         }
         // is string a that could be caught in constant, e.g. KernelEvents?
         foreach ($this->eventNamesToClassConstants as $eventNameToClassConstant) {

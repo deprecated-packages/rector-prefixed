@@ -8,13 +8,13 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\Naming\ClassNaming;
-use Rector\Core\PhpParser\Builder\MethodBuilder;
-use Rector\Core\PhpParser\Builder\ParamBuilder;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PhpAttribute\ValueObject\TagName;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 final class InjectMethodFactory
 {
     /**
@@ -52,12 +52,12 @@ final class InjectMethodFactory
     {
         $objectTypes = $this->typeFactory->uniquateTypes($objectTypes);
         $shortClassName = $this->classNaming->getShortName($className);
-        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder('inject' . $shortClassName);
+        $methodBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('inject' . $shortClassName);
         $methodBuilder->makePublic();
         foreach ($objectTypes as $objectType) {
             /** @var ObjectType $objectType */
             $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-            $paramBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder($propertyName);
+            $paramBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyName);
             $paramBuilder->setType(new \PhpParser\Node\Name\FullyQualified($objectType->getClassName()));
             $methodBuilder->addParam($paramBuilder);
             $assign = $this->nodeFactory->createPropertyAssignment($propertyName);

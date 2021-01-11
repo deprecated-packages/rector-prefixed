@@ -18,15 +18,15 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Builder\ClassBuilder;
-use Rector\Core\PhpParser\Builder\MethodBuilder;
-use Rector\Core\PhpParser\Builder\ParamBuilder;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\StaticTypeMapper;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 final class UniqueObjectFactoryFactory
 {
     /**
@@ -60,7 +60,7 @@ final class UniqueObjectFactoryFactory
         }
         $name = $className . 'Factory';
         $shortName = $this->resolveClassShortName($name);
-        $factoryClassBuilder = new \Rector\Core\PhpParser\Builder\ClassBuilder($shortName);
+        $factoryClassBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder($shortName);
         $factoryClassBuilder->makeFinal();
         $properties = $this->createPropertiesFromTypes($objectType);
         $factoryClassBuilder->addStmts($properties);
@@ -96,14 +96,14 @@ final class UniqueObjectFactoryFactory
     private function createConstructMethod(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\ClassMethod
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-        $paramBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder($propertyName);
+        $paramBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyName);
         $typeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($objectType);
         if ($typeNode !== null) {
             $paramBuilder->setType($typeNode);
         }
         $params = [$paramBuilder->getNode()];
         $assigns = $this->createAssignsFromParams($params);
-        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $methodBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         $methodBuilder->makePublic();
         $methodBuilder->addParams($params);
         $methodBuilder->addStmts($assigns);
@@ -129,7 +129,7 @@ final class UniqueObjectFactoryFactory
             $new->args[] = new \PhpParser\Node\Arg($propertyFetch);
         }
         $return = new \PhpParser\Node\Stmt\Return_($new);
-        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder('create');
+        $methodBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('create');
         $methodBuilder->setReturnType(new \PhpParser\Node\Name\FullyQualified($className));
         $methodBuilder->makePublic();
         $methodBuilder->addStmt($return);

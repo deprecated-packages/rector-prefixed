@@ -35,7 +35,7 @@ use RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileSystem;
 return static function (\RectorPrefix20210111\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('Rector\\Core\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Exception', __DIR__ . '/../src/DependencyInjection/CompilerPass', __DIR__ . '/../src/DependencyInjection/Loader', __DIR__ . '/../src/PhpParser/Builder', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/Bootstrap', __DIR__ . '/../src/PhpParser/Node/CustomNode']);
+    $services->load('Rector\\Core\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Exception', __DIR__ . '/../src/DependencyInjection/CompilerPass', __DIR__ . '/../src/DependencyInjection/Loader', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/Bootstrap', __DIR__ . '/../src/PhpParser/Node/CustomNode']);
     $services->alias(\RectorPrefix20210111\Symfony\Component\Console\Application::class, \Rector\Core\Console\ConsoleApplication::class);
     $services->set(\Rector\Core\Bootstrap\NoRectorsLoadedReporter::class);
     $services->set(\RectorPrefix20210111\Symfony\Component\Console\Descriptor\TextDescriptor::class);

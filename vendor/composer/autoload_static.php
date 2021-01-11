@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitee0e1242207c02112ab1aaec4c349a20
+class ComposerStaticInit7adf9b394da7367e32e70e44c7217caa
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2694,13 +2694,6 @@ class ComposerStaticInitee0e1242207c02112ab1aaec4c349a20
         'Rector\\Core\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\TypeToCallReflectionResolverRegistry' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/TypeToCallReflectionResolver/TypeToCallReflectionResolverRegistry.php',
         'Rector\\Core\\PhpDoc\\PhpDocClassRenamer' => __DIR__ . '/../..' . '/src/PhpDoc/PhpDocClassRenamer.php',
         'Rector\\Core\\PhpDoc\\PhpDocTagsFinder' => __DIR__ . '/../..' . '/src/PhpDoc/PhpDocTagsFinder.php',
-        'Rector\\Core\\PhpParser\\Builder\\ClassBuilder' => __DIR__ . '/../..' . '/src/PhpParser/Builder/ClassBuilder.php',
-        'Rector\\Core\\PhpParser\\Builder\\MethodBuilder' => __DIR__ . '/../..' . '/src/PhpParser/Builder/MethodBuilder.php',
-        'Rector\\Core\\PhpParser\\Builder\\NamespaceBuilder' => __DIR__ . '/../..' . '/src/PhpParser/Builder/NamespaceBuilder.php',
-        'Rector\\Core\\PhpParser\\Builder\\ParamBuilder' => __DIR__ . '/../..' . '/src/PhpParser/Builder/ParamBuilder.php',
-        'Rector\\Core\\PhpParser\\Builder\\PropertyBuilder' => __DIR__ . '/../..' . '/src/PhpParser/Builder/PropertyBuilder.php',
-        'Rector\\Core\\PhpParser\\Builder\\TraitUseBuilder' => __DIR__ . '/../..' . '/src/PhpParser/Builder/TraitUseBuilder.php',
-        'Rector\\Core\\PhpParser\\Builder\\UseBuilder' => __DIR__ . '/../..' . '/src/PhpParser/Builder/UseBuilder.php',
         'Rector\\Core\\PhpParser\\NodeTransformer' => __DIR__ . '/../..' . '/src/PhpParser/NodeTransformer.php',
         'Rector\\Core\\PhpParser\\NodeTraverser\\CallableNodeTraverser' => __DIR__ . '/../..' . '/src/PhpParser/NodeTraverser/CallableNodeTraverser.php',
         'Rector\\Core\\PhpParser\\NodeTraverser\\RectorNodeTraverser' => __DIR__ . '/../..' . '/src/PhpParser/NodeTraverser/RectorNodeTraverser.php',
@@ -2918,6 +2911,7 @@ class ComposerStaticInitee0e1242207c02112ab1aaec4c349a20
         'Rector\\DoctrineCodeQuality\\Rector\\Property\\CorrectDefaultTypesOnEntityPropertyRector' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/Rector/Property/CorrectDefaultTypesOnEntityPropertyRector.php',
         'Rector\\DoctrineCodeQuality\\Rector\\Property\\ImproveDoctrineCollectionDocTypeInEntityRector' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/Rector/Property/ImproveDoctrineCollectionDocTypeInEntityRector.php',
         'Rector\\DoctrineCodeQuality\\Rector\\Property\\RemoveRedundantDefaultPropertyAnnotationValuesRector' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/Rector/Property/RemoveRedundantDefaultPropertyAnnotationValuesRector.php',
+        'Rector\\DoctrineGedmoToKnplabs\\NodeFactory\\TranslationClassNodeFactory' => __DIR__ . '/../..' . '/rules/doctrine-gedmo-to-knplabs/src/NodeFactory/TranslationClassNodeFactory.php',
         'Rector\\DoctrineGedmoToKnplabs\\Rector\\Class_\\BlameableBehaviorRector' => __DIR__ . '/../..' . '/rules/doctrine-gedmo-to-knplabs/src/Rector/Class_/BlameableBehaviorRector.php',
         'Rector\\DoctrineGedmoToKnplabs\\Rector\\Class_\\LoggableBehaviorRector' => __DIR__ . '/../..' . '/rules/doctrine-gedmo-to-knplabs/src/Rector/Class_/LoggableBehaviorRector.php',
         'Rector\\DoctrineGedmoToKnplabs\\Rector\\Class_\\SluggableBehaviorRector' => __DIR__ . '/../..' . '/rules/doctrine-gedmo-to-knplabs/src/Rector/Class_/SluggableBehaviorRector.php',
@@ -3237,7 +3231,9 @@ class ComposerStaticInitee0e1242207c02112ab1aaec4c349a20
         'Rector\\NetteToSymfony\\Collector\\OnFormVariableMethodCallsCollector' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/Collector/OnFormVariableMethodCallsCollector.php',
         'Rector\\NetteToSymfony\\Event\\EventInfosFactory' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/Event/EventInfosFactory.php',
         'Rector\\NetteToSymfony\\NodeFactory\\ActionWithFormProcessClassMethodFactory' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/NodeFactory/ActionWithFormProcessClassMethodFactory.php',
+        'Rector\\NetteToSymfony\\NodeFactory\\BuildFormClassMethodFactory' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/NodeFactory/BuildFormClassMethodFactory.php',
         'Rector\\NetteToSymfony\\NodeFactory\\SymfonyControllerFactory' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/NodeFactory/SymfonyControllerFactory.php',
+        'Rector\\NetteToSymfony\\NodeFactory\\SymfonyMethodCallsFactory' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/NodeFactory/SymfonyMethodCallsFactory.php',
         'Rector\\NetteToSymfony\\Rector\\ClassMethod\\RenameEventNamesInEventSubscriberRector' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/Rector/ClassMethod/RenameEventNamesInEventSubscriberRector.php',
         'Rector\\NetteToSymfony\\Rector\\ClassMethod\\RouterListToControllerAnnotationsRector' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/Rector/ClassMethod/RouterListToControllerAnnotationsRector.php',
         'Rector\\NetteToSymfony\\Rector\\Class_\\FormControlToControllerAndFormTypeRector' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/Rector/Class_/FormControlToControllerAndFormTypeRector.php',
@@ -3823,7 +3819,10 @@ class ComposerStaticInitee0e1242207c02112ab1aaec4c349a20
         'Rector\\Symfony5\\Rector\\New_\\PropertyAccessorCreationBooleanToFlagsRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/New_/PropertyAccessorCreationBooleanToFlagsRector.php',
         'Rector\\Symfony5\\Rector\\New_\\PropertyPathMapperToDataMapperRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/New_/PropertyPathMapperToDataMapperRector.php',
         'Rector\\Symfony5\\Rector\\StaticCall\\BinaryFileResponseCreateToNewInstanceRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/StaticCall/BinaryFileResponseCreateToNewInstanceRector.php',
+        'Rector\\SymfonyCodeQuality\\NodeFactory\\RouteNameClassFactory' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/NodeFactory/RouteNameClassFactory.php',
+        'Rector\\SymfonyCodeQuality\\Rector\\Attribute\\ExtractAttributeRouteNameConstantsRector' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/Rector/Attribute/ExtractAttributeRouteNameConstantsRector.php',
         'Rector\\SymfonyCodeQuality\\Rector\\Class_\\EventListenerToEventSubscriberRector' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/Rector/Class_/EventListenerToEventSubscriberRector.php',
+        'Rector\\SymfonyCodeQuality\\ValueObject\\ClassName' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ValueObject/ClassName.php',
         'Rector\\SymfonyCodeQuality\\ValueObject\\EventNameToClassAndConstant' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ValueObject/EventNameToClassAndConstant.php',
         'Rector\\SymfonyPHPUnit\\Naming\\ServiceNaming' => __DIR__ . '/../..' . '/rules/symfony-phpunit/src/Naming/ServiceNaming.php',
         'Rector\\SymfonyPHPUnit\\Node\\KernelTestCaseNodeAnalyzer' => __DIR__ . '/../..' . '/rules/symfony-phpunit/src/Node/KernelTestCaseNodeAnalyzer.php',
@@ -4005,9 +4004,9 @@ class ComposerStaticInitee0e1242207c02112ab1aaec4c349a20
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitee0e1242207c02112ab1aaec4c349a20::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitee0e1242207c02112ab1aaec4c349a20::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitee0e1242207c02112ab1aaec4c349a20::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7adf9b394da7367e32e70e44c7217caa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7adf9b394da7367e32e70e44c7217caa::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7adf9b394da7367e32e70e44c7217caa::$classMap;
 
         }, null, ClassLoader::class);
     }

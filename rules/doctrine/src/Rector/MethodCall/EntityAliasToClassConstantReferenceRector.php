@@ -75,7 +75,7 @@ CODE_SAMPLE
         if (!$this->isAliasWithConfiguredEntity($stringNode->value)) {
             return null;
         }
-        $node->args[0]->value = $this->createClassConstantReference($this->convertAliasToFqn($node->args[0]->value->value));
+        $node->args[0]->value = $this->createClassConstReference($this->convertAliasToFqn($node->args[0]->value->value));
         return $node;
     }
     public function configure(array $configuration) : void

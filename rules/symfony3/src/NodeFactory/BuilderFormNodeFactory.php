@@ -12,9 +12,9 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
-use Rector\Core\PhpParser\Builder\MethodBuilder;
-use Rector\Core\PhpParser\Builder\ParamBuilder;
 use Rector\NodeNameResolver\NodeNameResolver;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 final class BuilderFormNodeFactory
 {
     /**
@@ -29,7 +29,7 @@ final class BuilderFormNodeFactory
     {
         $formBuilderParam = $this->createBuilderParam();
         $optionsParam = $this->createOptionsParam();
-        $classMethodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder('buildForm');
+        $classMethodBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('buildForm');
         $classMethodBuilder->makePublic();
         $classMethodBuilder->addParam($formBuilderParam);
         $classMethodBuilder->addParam($optionsParam);
@@ -40,13 +40,13 @@ final class BuilderFormNodeFactory
     }
     private function createBuilderParam() : \PhpParser\Node\Param
     {
-        $builderParamBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder('builder');
+        $builderParamBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder('builder');
         $builderParamBuilder->setType(new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Form\\FormBuilderInterface'));
         return $builderParamBuilder->getNode();
     }
     private function createOptionsParam() : \PhpParser\Node\Param
     {
-        $optionsParamBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder('options');
+        $optionsParamBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder('options');
         $optionsParamBuilder->setType('array');
         return $optionsParamBuilder->getNode();
     }

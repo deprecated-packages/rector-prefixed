@@ -118,6 +118,6 @@ CODE_SAMPLE
         if ($formClass === null) {
             return;
         }
-        $return->expr = $this->createClassConstantReference($formClass);
+        $return->expr = $this->createClassConstReference($formClass);
     }
 }

@@ -13,14 +13,14 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Builder\ClassBuilder;
-use Rector\Core\PhpParser\Builder\MethodBuilder;
-use Rector\Core\PhpParser\Builder\NamespaceBuilder;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NetteKdyby\BlueprintFactory\VariableWithTypesFactory;
 use Rector\NetteKdyby\ValueObject\VariableWithType;
 use Rector\NodeNameResolver\NodeNameResolver;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
 /**
  * @todo decouple to generic object factory for better re-use, e.g. this is just value object pattern
  */
@@ -59,10 +59,10 @@ final class EventValueObjectClassFactory
         $class = $classBuilder->getNode();
         return $this->wrapClassToNamespace($className, $class);
     }
-    private function createEventClassBuilder(string $className) : \Rector\Core\PhpParser\Builder\ClassBuilder
+    private function createEventClassBuilder(string $className) : \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder
     {
         $shortClassName = $this->classNaming->getShortName($className);
-        $classBuilder = new \Rector\Core\PhpParser\Builder\ClassBuilder($shortClassName);
+        $classBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder($shortClassName);
         $classBuilder->makeFinal();
         $classBuilder->extend(new \PhpParser\Node\Name\FullyQualified('Symfony\\Contracts\\EventDispatcher\\Event'));
         return $classBuilder;
@@ -70,7 +70,7 @@ final class EventValueObjectClassFactory
     /**
      * @param Arg[] $args
      */
-    private function decorateWithConstructorIfHasArgs(\Rector\Core\PhpParser\Builder\ClassBuilder $classBuilder, array $args) : void
+    private function decorateWithConstructorIfHasArgs(\RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder, array $args) : void
     {
         if ($args === []) {
             return;
@@ -93,14 +93,14 @@ final class EventValueObjectClassFactory
     private function wrapClassToNamespace(string $className, \PhpParser\Node\Stmt\Class_ $class) : \PhpParser\Node\Stmt\Namespace_
     {
         $namespace = \RectorPrefix20210111\Nette\Utils\Strings::before($className, '\\', -1);
-        $namespaceBuilder = new \Rector\Core\PhpParser\Builder\NamespaceBuilder($namespace);
+        $namespaceBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder($namespace);
         $namespaceBuilder->addStmt($class);
         return $namespaceBuilder->getNode();
     }
     /**
      * @param VariableWithType[] $variablesWithTypes
      */
-    private function ensureVariablesAreUnique(array $variablesWithTypes, \Rector\Core\PhpParser\Builder\ClassBuilder $classBuilder) : void
+    private function ensureVariablesAreUnique(array $variablesWithTypes, \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder $classBuilder) : void
     {
         $usedVariableNames = [];
         foreach ($variablesWithTypes as $variablesWithType) {
@@ -117,7 +117,7 @@ final class EventValueObjectClassFactory
      */
     private function createConstructClassMethod(array $variableWithTypes) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        $methodBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
         $methodBuilder->makePublic();
         foreach ($variableWithTypes as $variableWithType) {
             $param = new \PhpParser\Node\Param(new \PhpParser\Node\Expr\Variable($variableWithType->getName()));

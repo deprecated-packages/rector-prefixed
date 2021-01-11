@@ -49,14 +49,6 @@ trait BetterStandardPrinterTrait
         return $this->betterStandardPrinter->printWithoutComments($node);
     }
     /**
-     * @param Node[] $nodes
-     */
-    public function printToFile(array $nodes, string $filePath) : void
-    {
-        $content = $this->betterStandardPrinter->prettyPrintFile($nodes);
-        $this->smartFileSystem->dumpFile($filePath, $content);
-    }
-    /**
      * Removes all comments from both nodes
      *
      * @param Node|Node[]|null $firstNode

@@ -15,8 +15,7 @@ final class UpdateFileNameByClassNameFileSystemRectorTest extends \Rector\Testin
     public function test(\RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
-        $path = $this->originalTempFileInfo->getPath();
-        $this->assertFileExists($path . '/SkipDifferentClassName.php');
+        $this->doTestExtraFile('SkipDifferentClassName.php', __DIR__ . '/Fixture/skip_different_class_name.php.inc');
     }
     public function provideData() : \Iterator
     {

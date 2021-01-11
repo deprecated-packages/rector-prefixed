@@ -26,7 +26,7 @@ final class AttributeAwareNodeFactoryTest extends \RectorPrefix20210111\Symplify
     protected function setUp() : void
     {
         $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
-        $this->attributeAwareNodeFactory = static::$container->get(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory::class);
+        $this->attributeAwareNodeFactory = $this->getService(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory::class);
     }
     public function testPhpDocNodeAndChildren() : void
     {

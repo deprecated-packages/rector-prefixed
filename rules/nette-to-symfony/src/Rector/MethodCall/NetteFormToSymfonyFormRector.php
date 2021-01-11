@@ -143,7 +143,7 @@ CODE_SAMPLE
         }
         $this->addChoiceTypeOptions($method, $optionsArray);
         $this->addMultiFileTypeOptions($method, $optionsArray);
-        $methodCall->args[1] = new \PhpParser\Node\Arg($this->createClassConstantReference($classType));
+        $methodCall->args[1] = new \PhpParser\Node\Arg($this->createClassConstReference($classType));
         if ($optionsArray->items !== []) {
             $methodCall->args[2] = new \PhpParser\Node\Arg($optionsArray);
         }

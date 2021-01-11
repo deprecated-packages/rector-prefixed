@@ -16,11 +16,11 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\PhpParser\Builder\MethodBuilder;
-use Rector\Core\PhpParser\Builder\ParamBuilder;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -130,7 +130,7 @@ CODE_SAMPLE
                 $class->implements[] = new \PhpParser\Node\Name\FullyQualified($implements);
             }
             $variableName = $this->propertyNaming->fqnToVariableName($objectType);
-            $paramBuilder = new \Rector\Core\PhpParser\Builder\ParamBuilder($variableName);
+            $paramBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($variableName);
             $paramBuilder->setType(new \PhpParser\Node\Name\FullyQualified($staticType));
             $param = $paramBuilder->getNode();
             $assign = $this->nodeFactory->createPropertyAssignment($variableName);
@@ -154,7 +154,7 @@ CODE_SAMPLE
     private function createSetEntityFactoryClassMethod(string $variableName, \PhpParser\Node\Param $param, \PhpParser\Node\Expr\Assign $assign) : \PhpParser\Node\Stmt\ClassMethod
     {
         $setMethodName = 'set' . \ucfirst($variableName);
-        $setEntityFactoryMethodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder($setMethodName);
+        $setEntityFactoryMethodBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($setMethodName);
         $setEntityFactoryMethodBuilder->makePublic();
         $setEntityFactoryMethodBuilder->addParam($param);
         $setEntityFactoryMethodBuilder->setReturnType('void');

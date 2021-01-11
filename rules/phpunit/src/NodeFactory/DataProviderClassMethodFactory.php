@@ -10,13 +10,13 @@ use PhpParser\Node\Expr\Yield_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
-use Rector\Core\PhpParser\Builder\MethodBuilder;
 use Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe;
+use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 final class DataProviderClassMethodFactory
 {
     public function createFromRecipe(\Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe $dataProviderClassMethodRecipe) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new \Rector\Core\PhpParser\Builder\MethodBuilder($dataProviderClassMethodRecipe->getMethodName());
+        $methodBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder($dataProviderClassMethodRecipe->getMethodName());
         $methodBuilder->makePublic();
         $classMethod = $methodBuilder->getNode();
         foreach ($dataProviderClassMethodRecipe->getArgs() as $arg) {

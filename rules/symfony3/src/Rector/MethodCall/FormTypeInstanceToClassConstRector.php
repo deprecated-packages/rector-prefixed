@@ -114,7 +114,7 @@ CODE_SAMPLE
                 return null;
             }
         }
-        $methodCall->args[$position]->value = $this->createClassConstantReference($argValue->class->toString());
+        $methodCall->args[$position]->value = $this->createClassConstReference($argValue->class->toString());
         return $methodCall;
     }
     private function refactorCollectionOptions(\PhpParser\Node\Expr\MethodCall $methodCall) : void
@@ -140,7 +140,7 @@ CODE_SAMPLE
             if (!$newClass instanceof \PhpParser\Node\Name) {
                 continue;
             }
-            $arrayItem->value = $this->createClassConstantReference($newClass->toString());
+            $arrayItem->value = $this->createClassConstReference($newClass->toString());
         }
     }
     /**

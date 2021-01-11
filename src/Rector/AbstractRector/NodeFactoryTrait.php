@@ -101,7 +101,7 @@ trait NodeFactoryTrait
     {
         return $this->nodeFactory->createFuncCall($name, $arguments);
     }
-    protected function createClassConstantReference(string $class) : \PhpParser\Node\Expr\ClassConstFetch
+    protected function createClassConstReference(string $class) : \PhpParser\Node\Expr\ClassConstFetch
     {
         return $this->nodeFactory->createClassConstReference($class);
     }

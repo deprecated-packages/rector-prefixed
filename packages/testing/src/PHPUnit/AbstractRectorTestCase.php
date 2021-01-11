@@ -9,9 +9,7 @@ use PHPStan\Analyser\NodeScopeResolver;
 use RectorPrefix20210111\PHPUnit\Framework\ExpectationFailedException;
 use Rector\Core\Application\FileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
-use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -104,7 +102,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210111\Symplify\Pac
         if ($this->provideConfigFileInfo() !== null) {
             $configFileInfos = $this->resolveConfigs($this->provideConfigFileInfo());
             $this->bootKernelWithConfigInfos(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
-            $enabledRectorsProvider = static::$container->get(\Rector\Testing\Application\EnabledRectorsProvider::class);
+            $enabledRectorsProvider = $this->getService(\Rector\Testing\Application\EnabledRectorsProvider::class);
             $enabledRectorsProvider->reset();
         } else {
             // prepare container with all rectors
@@ -127,22 +125,19 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210111\Symplify\Pac
             $this->configureEnabledRectors($enabledRectorsProvider);
         }
         // load stubs
-        $stubLoader = static::$container->get(\Rector\Core\Stubs\StubLoader::class);
+        $stubLoader = $this->getService(\Rector\Core\Stubs\StubLoader::class);
         $stubLoader->loadStubs();
         // disable any output
-        $symfonyStyle = static::$container->get(\RectorPrefix20210111\Symfony\Component\Console\Style\SymfonyStyle::class);
+        $symfonyStyle = $this->getService(\RectorPrefix20210111\Symfony\Component\Console\Style\SymfonyStyle::class);
         $symfonyStyle->setVerbosity(\RectorPrefix20210111\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
-        $this->fileProcessor = static::$container->get(\Rector\Core\Application\FileProcessor::class);
-        $this->nonPhpFileProcessor = static::$container->get(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
-        $this->parameterProvider = static::$container->get(\RectorPrefix20210111\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        $this->fileProcessor = $this->getService(\Rector\Core\Application\FileProcessor::class);
+        $this->nonPhpFileProcessor = $this->getService(\Rector\Core\NonPhpFile\NonPhpFileProcessor::class);
+        $this->parameterProvider = $this->getService(\RectorPrefix20210111\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
         // needed for PHPStan, because the analyzed file is just create in /temp
-        $this->nodeScopeResolver = static::$container->get(\PHPStan\Analyser\NodeScopeResolver::class);
+        $this->nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
         $this->configurePhpVersionFeatures();
-        // so the files are removed and added
-        $configuration = static::$container->get(\Rector\Core\Configuration\Configuration::class);
-        $configuration->setIsDryRun(\false);
         $this->oldParameterValues = [];
     }
     protected function tearDown() : void
@@ -265,10 +260,23 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210111\Symplify\Pac
     }
     protected function doTestExtraFile(string $expectedExtraFileName, string $expectedExtraContentFilePath) : void
     {
-        $temporaryPath = \RectorPrefix20210111\Symplify\EasyTesting\StaticFixtureSplitter::getTemporaryPath();
-        $expectedFilePath = $temporaryPath . '/' . $expectedExtraFileName;
-        $this->assertFileExists($expectedFilePath);
-        $this->assertFileEquals($expectedExtraContentFilePath, $expectedFilePath);
+        $addedFilesWithContents = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
+        foreach ($addedFilesWithContents as $addedFilesWithContent) {
+            if (!\RectorPrefix20210111\Nette\Utils\Strings::endsWith($addedFilesWithContent->getFilePath(), $expectedExtraFileName)) {
+                continue;
+            }
+            $this->assertStringEqualsFile($expectedExtraContentFilePath, $addedFilesWithContent->getFileContent());
+            return;
+        }
+        $movedFiles = $this->removedAndAddedFilesCollector->getMovedFiles();
+        foreach ($movedFiles as $movedFile) {
+            if (!\RectorPrefix20210111\Nette\Utils\Strings::endsWith($movedFile->getNewPathname(), $expectedExtraFileName)) {
+                continue;
+            }
+            $this->assertStringEqualsFile($expectedExtraContentFilePath, $movedFile->getFileContent());
+            return;
+        }
+        throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
     protected function getFixtureTempDirectory() : string
     {
@@ -360,8 +368,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210111\Symplify\Pac
             }
             // mimic post-rectors
             $changedContent = $this->fileProcessor->printToString($originalFileInfo);
-            $removedAndAddedFilesProcessor = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesProcessor::class);
-            $removedAndAddedFilesProcessor->run();
         } elseif (\RectorPrefix20210111\Nette\Utils\Strings::match($originalFileInfo->getFilename(), \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern())) {
             $changedContent = $this->nonPhpFileProcessor->processFileInfo($originalFileInfo);
         } else {

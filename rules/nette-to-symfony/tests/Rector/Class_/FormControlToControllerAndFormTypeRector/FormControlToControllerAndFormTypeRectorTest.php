@@ -19,7 +19,7 @@ final class FormControlToControllerAndFormTypeRectorTest extends \Rector\Testing
     }
     public function provideData() : \Iterator
     {
-        (yield [new \RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc'), 'SomeFormController.php', __DIR__ . '/Source/extra_file.php']);
+        (yield [new \RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc'), 'src/Controller/SomeFormController.php', __DIR__ . '/Source/extra_file.php']);
     }
     protected function getRectorClass() : string
     {
