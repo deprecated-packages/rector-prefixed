@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210111\Symplify\PhpConfigPrinter\RoutingCaseConverter;
+namespace RectorPrefix20210112\Symplify\PhpConfigPrinter\RoutingCaseConverter;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
-use RectorPrefix20210111\Symplify\PackageBuilder\Strings\StringFormatConverter;
-use RectorPrefix20210111\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
-use RectorPrefix20210111\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use RectorPrefix20210111\Symplify\PhpConfigPrinter\ValueObject\VariableName;
-final class ImportRoutingCaseConverter implements \RectorPrefix20210111\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface
+use RectorPrefix20210112\Symplify\PackageBuilder\Strings\StringFormatConverter;
+use RectorPrefix20210112\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface;
+use RectorPrefix20210112\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210112\Symplify\PhpConfigPrinter\ValueObject\VariableName;
+final class ImportRoutingCaseConverter implements \RectorPrefix20210112\Symplify\PhpConfigPrinter\Contract\RoutingCaseConverterInterface
 {
     /**
      * @var string[]
@@ -57,10 +57,10 @@ final class ImportRoutingCaseConverter implements \RectorPrefix20210111\Symplify
      * @var StringFormatConverter
      */
     private $stringFormatConverter;
-    public function __construct(\RectorPrefix20210111\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    public function __construct(\RectorPrefix20210112\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
-        $this->stringFormatConverter = new \RectorPrefix20210111\Symplify\PackageBuilder\Strings\StringFormatConverter();
+        $this->stringFormatConverter = new \RectorPrefix20210112\Symplify\PackageBuilder\Strings\StringFormatConverter();
     }
     public function match(string $key, $values) : bool
     {
@@ -68,7 +68,7 @@ final class ImportRoutingCaseConverter implements \RectorPrefix20210111\Symplify
     }
     public function convertToMethodCall(string $key, $values) : \PhpParser\Node\Stmt\Expression
     {
-        $variable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210111\Symplify\PhpConfigPrinter\ValueObject\VariableName::ROUTING_CONFIGURATOR);
+        $variable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210112\Symplify\PhpConfigPrinter\ValueObject\VariableName::ROUTING_CONFIGURATOR);
         $args = $this->createAddArgs(self::IMPORT_ARGS, $values);
         $methodCall = new \PhpParser\Node\Expr\MethodCall($variable, 'import', $args);
         // Handle prefix independently as it has specific args

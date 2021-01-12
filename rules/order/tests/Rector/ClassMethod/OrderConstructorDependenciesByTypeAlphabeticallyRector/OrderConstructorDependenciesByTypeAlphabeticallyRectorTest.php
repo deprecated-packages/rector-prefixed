@@ -6,13 +6,13 @@ namespace Rector\Order\Tests\Rector\ClassMethod\OrderConstructorDependenciesByTy
 use Iterator;
 use Rector\Order\Rector\ClassMethod\OrderConstructorDependenciesByTypeAlphabeticallyRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo;
 final class OrderConstructorDependenciesByTypeAlphabeticallyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

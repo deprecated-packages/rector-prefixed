@@ -9,7 +9,7 @@ use PHPStan\PhpDocParser\Parser\ParserException;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode;
-use RectorPrefix20210111\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210112\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class PHPUnitDataProviderDocNodeFactory
 {
     /**
@@ -20,7 +20,7 @@ final class PHPUnitDataProviderDocNodeFactory
      * @var PhpDocParser
      */
     private $phpDocParser;
-    public function __construct(\RectorPrefix20210111\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)
+    public function __construct(\RectorPrefix20210112\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller)
     {
         $this->privatesCaller = $privatesCaller;
     }

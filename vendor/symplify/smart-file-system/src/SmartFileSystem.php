@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210111\Symplify\SmartFileSystem;
+namespace RectorPrefix20210112\Symplify\SmartFileSystem;
 
-use RectorPrefix20210111\Nette\Utils\Html;
-use RectorPrefix20210111\Nette\Utils\Strings;
-use RectorPrefix20210111\Symfony\Component\Filesystem\Exception\IOException;
-use RectorPrefix20210111\Symfony\Component\Filesystem\Filesystem;
-final class SmartFileSystem extends \RectorPrefix20210111\Symfony\Component\Filesystem\Filesystem
+use RectorPrefix20210112\Nette\Utils\Html;
+use RectorPrefix20210112\Nette\Utils\Strings;
+use RectorPrefix20210112\Symfony\Component\Filesystem\Exception\IOException;
+use RectorPrefix20210112\Symfony\Component\Filesystem\Filesystem;
+final class SmartFileSystem extends \RectorPrefix20210112\Symfony\Component\Filesystem\Filesystem
 {
     /**
      * @var string
@@ -22,13 +22,13 @@ final class SmartFileSystem extends \RectorPrefix20210111\Symfony\Component\File
         $source = @\file_get_contents($filename);
         if (!$source) {
             $message = \sprintf('Failed to read "%s" file: "%s"', $filename, $this->getLastError());
-            throw new \RectorPrefix20210111\Symfony\Component\Filesystem\Exception\IOException($message, 0, null, $filename);
+            throw new \RectorPrefix20210112\Symfony\Component\Filesystem\Exception\IOException($message, 0, null, $filename);
         }
         return $source;
     }
-    public function readFileToSmartFileInfo(string $filename) : \RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo
+    public function readFileToSmartFileInfo(string $filename) : \RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo($filename);
+        return new \RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo($filename);
     }
     /**
      * Converts given HTML code to plain text
@@ -58,6 +58,6 @@ final class SmartFileSystem extends \RectorPrefix20210111\Symfony\Component\File
     {
         $message = \error_get_last()['message'] ?? '';
         $message = \ini_get('html_errors') ? $this->htmlToText($message) : $message;
-        return \RectorPrefix20210111\Nette\Utils\Strings::replace($message, self::BEFORE_COLLON_REGEX, '');
+        return \RectorPrefix20210112\Nette\Utils\Strings::replace($message, self::BEFORE_COLLON_REGEX, '');
     }
 }

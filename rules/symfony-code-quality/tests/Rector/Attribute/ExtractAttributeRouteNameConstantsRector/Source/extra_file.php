@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210111\App\ValueObject\Routing;
+namespace RectorPrefix20210112\App\ValueObject\Routing;
 
 final class RouteName
 {

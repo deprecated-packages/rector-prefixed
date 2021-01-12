@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp80\Tests\Rector\FunctionLike\DowngradeReturnMixedTy
 use Iterator;
 use Rector\DowngradePhp80\Rector\FunctionLike\DowngradeReturnMixedTypeDeclarationRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradeReturnMixedTypeDeclarationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 8.0
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210111\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

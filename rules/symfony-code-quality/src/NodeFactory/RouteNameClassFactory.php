@@ -6,8 +6,9 @@ namespace Rector\SymfonyCodeQuality\NodeFactory;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\SymfonyCodeQuality\ValueObject\ClassName;
-use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
-use RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
+use Rector\SymfonyCodeQuality\ValueObject\ConstantNameAndValue;
+use RectorPrefix20210112\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
+use RectorPrefix20210112\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
 final class RouteNameClassFactory
 {
     /**
@@ -19,17 +20,17 @@ final class RouteNameClassFactory
         $this->nodeFactory = $nodeFactory;
     }
     /**
-     * @param array<string, string> $constantNamesToValues
+     * @param ConstantNameAndValue[] $constantNamesAndValues
      */
-    public function create(array $constantNamesToValues) : \PhpParser\Node\Stmt\Namespace_
+    public function create(array $constantNamesAndValues) : \PhpParser\Node\Stmt\Namespace_
     {
-        $classBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_CLASS_SHORT_NAME);
+        $classBuilder = new \RectorPrefix20210112\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_CLASS_SHORT_NAME);
         $classBuilder->makeFinal();
-        foreach ($constantNamesToValues as $constantName => $constantValue) {
-            $classConst = $this->nodeFactory->createPublicClassConst($constantName, $constantValue);
+        foreach ($constantNamesAndValues as $constantNameAndValue) {
+            $classConst = $this->nodeFactory->createPublicClassConst($constantNameAndValue->getName(), $constantNameAndValue->getValue());
             $classBuilder->addStmt($classConst);
         }
-        $namespaceBuilder = new \RectorPrefix20210111\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_NAME_NAMESPACE);
+        $namespaceBuilder = new \RectorPrefix20210112\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_NAME_NAMESPACE);
         $namespaceBuilder->addStmt($classBuilder->getNode());
         return $namespaceBuilder->getNode();
     }
