@@ -3,6 +3,10 @@
 declare (strict_types=1);
 namespace RectorPrefix20210112;
 
+use Rector\Composer\Modifier\ComposerModifier;
+use Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion;
+use Rector\Composer\ValueObject\ComposerModifier\RemovePackage;
+use Rector\Composer\ValueObject\ComposerModifier\ReplacePackage;
 use Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
 use Rector\Generic\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector;
@@ -71,4 +75,38 @@ return static function (\RectorPrefix20210112\Symfony\Component\DependencyInject
     $services->set(\Rector\Nette\Rector\ClassMethod\RemoveParentAndNameFromComponentConstructorRector::class);
     $services->set(\Rector\Nette\Rector\Class_\MoveFinalGetUserToCheckRequirementsClassMethodRector::class);
     $services->set(\Rector\Nette\Rector\MethodCall\ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector::class);
+    $services->set(\Rector\Composer\Modifier\ComposerModifier::class)->call('configure', [\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/nette', '^3.0'),
+        // meta package
+        // https://github.com/nette/nette/blob/v2.4.0/composer.json vs https://github.com/nette/nette/blob/v3.0.0/composer.json
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/application', '^3.0.6'),
+        // older versions have security issues
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/bootstrap', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/caching', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/component-model', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/database', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\RemovePackage('nette/deprecated'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/di', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/finder', '^2.5'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/forms', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/http', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/mail', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/neon', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/php-generator', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\RemovePackage('nette/reflection'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/robot-loader', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/safe-stream', '^2.4'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/security', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/tokenizer', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/utils', '^3.0'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('latte/latte', '^2.5'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('tracy/tracy', '^2.6'),
+        // webchemistry to contributte
+        new \Rector\Composer\ValueObject\ComposerModifier\ReplacePackage('webchemistry/forms-multiplier', 'contributte/forms-multiplier', '3.1.x-dev'),
+        // contributte packages
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('contributte/event-dispatcher-extra', '^0.8'),
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('contributte/forms-multiplier', '3.1.x-dev'),
+        // other packages
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('radekdostal/nette-datetimepicker', '^3.0'),
+    ])]);
 };
