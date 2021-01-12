@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf500ce5cda1fe4224962a2fa0f73ae6b
+class ComposerStaticInit24b2afac83e06c4edc2d152d648f7f35
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3658,6 +3658,7 @@ class ComposerStaticInitf500ce5cda1fe4224962a2fa0f73ae6b
         'Rector\\PostRector\\Rector\\UseAddingPostRector' => __DIR__ . '/../..' . '/packages/post-rector/src/Rector/UseAddingPostRector.php',
         'Rector\\Privatization\\NodeAnalyzer\\ClassMethodExternalCallNodeAnalyzer' => __DIR__ . '/../..' . '/rules/privatization/src/NodeAnalyzer/ClassMethodExternalCallNodeAnalyzer.php',
         'Rector\\Privatization\\NodeAnalyzer\\EventSubscriberMethodNamesResolver' => __DIR__ . '/../..' . '/rules/privatization/src/NodeAnalyzer/EventSubscriberMethodNamesResolver.php',
+        'Rector\\Privatization\\NodeFactory\\ClassConstantFetchValueFactory' => __DIR__ . '/../..' . '/rules/privatization/src/NodeFactory/ClassConstantFetchValueFactory.php',
         'Rector\\Privatization\\NodeFinder\\ParentClassConstantNodeFinder' => __DIR__ . '/../..' . '/rules/privatization/src/NodeFinder/ParentClassConstantNodeFinder.php',
         'Rector\\Privatization\\Rector\\ClassConst\\PrivatizeLocalClassConstantRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/ClassConst/PrivatizeLocalClassConstantRector.php',
         'Rector\\Privatization\\Rector\\ClassMethod\\ChangeGlobalVariablesToPropertiesRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/ClassMethod/ChangeGlobalVariablesToPropertiesRector.php',
@@ -3669,11 +3670,14 @@ class ComposerStaticInitf500ce5cda1fe4224962a2fa0f73ae6b
         'Rector\\Privatization\\Rector\\Class_\\MakeUnusedClassesWithChildrenAbstractRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/Class_/MakeUnusedClassesWithChildrenAbstractRector.php',
         'Rector\\Privatization\\Rector\\Class_\\RepeatedLiteralToClassConstantRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/Class_/RepeatedLiteralToClassConstantRector.php',
         'Rector\\Privatization\\Rector\\MethodCall\\PrivatizeLocalGetterToPropertyRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/MethodCall/PrivatizeLocalGetterToPropertyRector.php',
+        'Rector\\Privatization\\Rector\\MethodCall\\ReplaceStringWithClassConstantRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/MethodCall/ReplaceStringWithClassConstantRector.php',
         'Rector\\Privatization\\Rector\\Property\\ChangeReadOnlyPropertyWithDefaultValueToConstantRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/Property/ChangeReadOnlyPropertyWithDefaultValueToConstantRector.php',
         'Rector\\Privatization\\Rector\\Property\\PrivatizeFinalClassPropertyRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/Property/PrivatizeFinalClassPropertyRector.php',
         'Rector\\Privatization\\Rector\\Property\\PrivatizeLocalPropertyToPrivatePropertyRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/Property/PrivatizeLocalPropertyToPrivatePropertyRector.php',
+        'Rector\\Privatization\\Reflection\\ClassConstantsResolver' => __DIR__ . '/../..' . '/rules/privatization/src/Reflection/ClassConstantsResolver.php',
         'Rector\\Privatization\\Reflection\\ParentConstantReflectionResolver' => __DIR__ . '/../..' . '/rules/privatization/src/Reflection/ParentConstantReflectionResolver.php',
         'Rector\\Privatization\\ValueObject\\ConstantVisibility' => __DIR__ . '/../..' . '/rules/privatization/src/ValueObject/ConstantVisibility.php',
+        'Rector\\Privatization\\ValueObject\\ReplaceStringWithClassConstant' => __DIR__ . '/../..' . '/rules/privatization/src/ValueObject/ReplaceStringWithClassConstant.php',
         'Rector\\Privatization\\VisibilityGuard\\ClassMethodVisibilityGuard' => __DIR__ . '/../..' . '/rules/privatization/src/VisibilityGuard/ClassMethodVisibilityGuard.php',
         'Rector\\ReadWrite\\Contract\\ReadNodeAnalyzerInterface' => __DIR__ . '/../..' . '/packages/read-write/src/Contract/ReadNodeAnalyzerInterface.php',
         'Rector\\ReadWrite\\Guard\\VariableToConstantGuard' => __DIR__ . '/../..' . '/packages/read-write/src/Guard/VariableToConstantGuard.php',
@@ -4010,9 +4014,9 @@ class ComposerStaticInitf500ce5cda1fe4224962a2fa0f73ae6b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf500ce5cda1fe4224962a2fa0f73ae6b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf500ce5cda1fe4224962a2fa0f73ae6b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf500ce5cda1fe4224962a2fa0f73ae6b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit24b2afac83e06c4edc2d152d648f7f35::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit24b2afac83e06c4edc2d152d648f7f35::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit24b2afac83e06c4edc2d152d648f7f35::$classMap;
 
         }, null, ClassLoader::class);
     }
