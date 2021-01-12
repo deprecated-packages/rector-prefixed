@@ -92,6 +92,7 @@ return array(
     'Rector\\DeadCode\\' => array($baseDir . '/rules/dead-code/src'),
     'Rector\\Core\\' => array($baseDir . '/src'),
     'Rector\\ConsoleDiffer\\' => array($baseDir . '/packages/console-differ/src'),
+    'Rector\\Composer\\' => array($baseDir . '/rules/composer/src'),
     'Rector\\Compiler\\' => array($baseDir . '/utils/compiler/src'),
     'Rector\\CodingStyle\\' => array($baseDir . '/rules/coding-style/src'),
     'Rector\\CodeQuality\\' => array($baseDir . '/rules/code-quality/src'),

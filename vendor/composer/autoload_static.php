@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitccd242487e87d05b13761b7947feda2e
+class ComposerStaticInit28763f31af73114999a1510950c5e42c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -112,6 +112,7 @@ class ComposerStaticInitccd242487e87d05b13761b7947feda2e
             'Rector\\DeadCode\\' => 16,
             'Rector\\Core\\' => 12,
             'Rector\\ConsoleDiffer\\' => 21,
+            'Rector\\Composer\\' => 16,
             'Rector\\Compiler\\' => 16,
             'Rector\\CodingStyle\\' => 19,
             'Rector\\CodeQuality\\' => 19,
@@ -527,6 +528,10 @@ class ComposerStaticInitccd242487e87d05b13761b7947feda2e
         'Rector\\ConsoleDiffer\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/console-differ/src',
+        ),
+        'Rector\\Composer\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/rules/composer/src',
         ),
         'Rector\\Compiler\\' => 
         array (
@@ -2062,6 +2067,7 @@ class ComposerStaticInitccd242487e87d05b13761b7947feda2e
         'RectorPrefix20210112\\Symfony\\Polyfill\\Php73\\Php73' => __DIR__ . '/..' . '/symfony/polyfill-php73/Php73.php',
         'RectorPrefix20210112\\Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
         'RectorPrefix20210112\\Symplify\\AutowireArrayParameter\\DependencyInjection\\CompilerPass\\AutowireArrayParameterCompilerPass' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DependencyInjection/CompilerPass/AutowireArrayParameterCompilerPass.php',
+        'RectorPrefix20210112\\Symplify\\AutowireArrayParameter\\DocBlock\\ParamTypeDocBlockResolver' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DocBlock/ParamTypeDocBlockResolver.php',
         'RectorPrefix20210112\\Symplify\\ComposerJsonManipulator\\Bundle\\ComposerJsonManipulatorBundle' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Bundle/ComposerJsonManipulatorBundle.php',
         'RectorPrefix20210112\\Symplify\\ComposerJsonManipulator\\ComposerJsonFactory' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ComposerJsonFactory.php',
         'RectorPrefix20210112\\Symplify\\ComposerJsonManipulator\\DependencyInjection\\Extension\\ComposerJsonManipulatorExtension' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/DependencyInjection/Extension/ComposerJsonManipulatorExtension.php',
@@ -2609,6 +2615,17 @@ class ComposerStaticInitccd242487e87d05b13761b7947feda2e
         'Rector\\CodingStyle\\ValueObject\\NodeToRemoveAndConcatItem' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/NodeToRemoveAndConcatItem.php',
         'Rector\\CodingStyle\\ValueObject\\ObjectMagicMethods' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/ObjectMagicMethods.php',
         'Rector\\CodingStyle\\ValueObject\\ReturnArrayClassMethodToYield' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/ReturnArrayClassMethodToYield.php',
+        'Rector\\Composer\\Contract\\ComposerModifier\\ComposerModifierInterface' => __DIR__ . '/../..' . '/rules/composer/src/Contract/ComposerModifier/ComposerModifierInterface.php',
+        'Rector\\Composer\\Modifier\\ComposerModifier' => __DIR__ . '/../..' . '/rules/composer/src/Modifier/ComposerModifier.php',
+        'Rector\\Composer\\Processor\\ComposerProcessor' => __DIR__ . '/../..' . '/rules/composer/src/Processor/ComposerProcessor.php',
+        'Rector\\Composer\\ValueObject\\ComposerModifier\\AddPackageToRequire' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/AddPackageToRequire.php',
+        'Rector\\Composer\\ValueObject\\ComposerModifier\\AddPackageToRequireDev' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/AddPackageToRequireDev.php',
+        'Rector\\Composer\\ValueObject\\ComposerModifier\\ChangePackageVersion' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/ChangePackageVersion.php',
+        'Rector\\Composer\\ValueObject\\ComposerModifier\\MovePackageToRequire' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/MovePackageToRequire.php',
+        'Rector\\Composer\\ValueObject\\ComposerModifier\\MovePackageToRequireDev' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/MovePackageToRequireDev.php',
+        'Rector\\Composer\\ValueObject\\ComposerModifier\\RemovePackage' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/RemovePackage.php',
+        'Rector\\Composer\\ValueObject\\ComposerModifier\\ReplacePackage' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/ReplacePackage.php',
+        'Rector\\Composer\\ValueObject\\Version\\Version' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/Version/Version.php',
         'Rector\\ConsoleDiffer\\Diff\\Output\\CompleteUnifiedDiffOutputBuilderFactory' => __DIR__ . '/../..' . '/packages/console-differ/src/Diff/Output/CompleteUnifiedDiffOutputBuilderFactory.php',
         'Rector\\ConsoleDiffer\\DifferAndFormatter' => __DIR__ . '/../..' . '/packages/console-differ/src/DifferAndFormatter.php',
         'Rector\\ConsoleDiffer\\MarkdownDifferAndFormatter' => __DIR__ . '/../..' . '/packages/console-differ/src/MarkdownDifferAndFormatter.php',
@@ -4014,9 +4031,9 @@ class ComposerStaticInitccd242487e87d05b13761b7947feda2e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitccd242487e87d05b13761b7947feda2e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitccd242487e87d05b13761b7947feda2e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitccd242487e87d05b13761b7947feda2e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit28763f31af73114999a1510950c5e42c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit28763f31af73114999a1510950c5e42c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit28763f31af73114999a1510950c5e42c::$classMap;
 
         }, null, ClassLoader::class);
     }

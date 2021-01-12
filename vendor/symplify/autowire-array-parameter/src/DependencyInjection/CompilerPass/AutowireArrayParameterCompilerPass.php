@@ -12,10 +12,10 @@ use RectorPrefix20210112\Symfony\Component\DependencyInjection\Compiler\Compiler
 use RectorPrefix20210112\Symfony\Component\DependencyInjection\ContainerBuilder;
 use RectorPrefix20210112\Symfony\Component\DependencyInjection\Definition;
 use RectorPrefix20210112\Symfony\Component\DependencyInjection\Reference;
+use RectorPrefix20210112\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
 use RectorPrefix20210112\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
 /**
  * @inspiration https://github.com/nette/di/pull/178
- * Not final just for BC with previous class location
  * @see \Symplify\AutowireArrayParameter\Tests\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPassTest
  */
 final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210112\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
@@ -36,11 +36,16 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210112\
      */
     private $definitionFinder;
     /**
+     * @var ParamTypeDocBlockResolver
+     */
+    private $paramTypeDocBlockResolver;
+    /**
      * @param string[] $excludedFatalClasses
      */
     public function __construct(array $excludedFatalClasses = [])
     {
         $this->definitionFinder = new \RectorPrefix20210112\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
+        $this->paramTypeDocBlockResolver = new \RectorPrefix20210112\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
         $this->excludedFatalClasses = \array_merge($this->excludedFatalClasses, $excludedFatalClasses);
     }
     public function process(\RectorPrefix20210112\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
@@ -135,17 +140,19 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210112\
     }
     private function resolveParameterType(string $parameterName, \ReflectionMethod $reflectionMethod) : ?string
     {
-        $parameterDocTypeRegex = '#@param[ \\t]+(?<type>[\\w\\\\]+)\\[\\][ \\t]+\\$' . $parameterName . '#';
-        // copied from https://github.com/nette/di/blob/d1c0598fdecef6d3b01e2ace5f2c30214b3108e6/src/DI/Autowiring.php#L215
-        $result = \RectorPrefix20210112\Nette\Utils\Strings::match((string) $reflectionMethod->getDocComment(), $parameterDocTypeRegex);
-        if ($result === null) {
+        $docComment = $reflectionMethod->getDocComment();
+        if ($docComment === \false) {
+            return null;
+        }
+        $resolvedType = $this->paramTypeDocBlockResolver->resolve($docComment, $parameterName);
+        if ($resolvedType === null) {
             return null;
         }
         // not a class|interface type
-        if (\ctype_lower($result['type'][0])) {
+        if (\ctype_lower($resolvedType[0])) {
             return null;
         }
-        return \RectorPrefix20210112\Nette\Utils\Reflection::expandClassName($result['type'], $reflectionMethod->getDeclaringClass());
+        return \RectorPrefix20210112\Nette\Utils\Reflection::expandClassName($resolvedType, $reflectionMethod->getDeclaringClass());
     }
     /**
      * Abstract definitions cannot be the target of references
