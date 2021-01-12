@@ -2025,6 +2025,7 @@ return array(
     'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveEmptyClassMethodRector' => $baseDir . '/rules/dead-code/src/Rector/ClassMethod/RemoveEmptyClassMethodRector.php',
     'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedParameterRector' => $baseDir . '/rules/dead-code/src/Rector/ClassMethod/RemoveUnusedParameterRector.php',
     'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => $baseDir . '/rules/dead-code/src/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
+    'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPublicMethodRector' => $baseDir . '/rules/dead-code/src/Rector/ClassMethod/RemoveUnusedPublicMethodRector.php',
     'Rector\\DeadCode\\Rector\\Class_\\RemoveUnusedClassesRector' => $baseDir . '/rules/dead-code/src/Rector/Class_/RemoveUnusedClassesRector.php',
     'Rector\\DeadCode\\Rector\\Class_\\RemoveUnusedDoctrineEntityMethodAndPropertyRector' => $baseDir . '/rules/dead-code/src/Rector/Class_/RemoveUnusedDoctrineEntityMethodAndPropertyRector.php',
     'Rector\\DeadCode\\Rector\\Class_\\RemoveUselessJustForSakeInterfaceRector' => $baseDir . '/rules/dead-code/src/Rector/Class_/RemoveUselessJustForSakeInterfaceRector.php',
