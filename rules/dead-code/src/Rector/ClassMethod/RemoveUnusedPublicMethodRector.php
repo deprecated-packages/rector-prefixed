@@ -73,6 +73,9 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
+        if ($this->isOpenSourceProjectType()) {
+            return null;
+        }
         if (!$node->isPublic()) {
             return null;
         }
