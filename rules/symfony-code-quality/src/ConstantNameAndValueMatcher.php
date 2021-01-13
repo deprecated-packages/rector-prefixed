@@ -18,7 +18,7 @@ final class ConstantNameAndValueMatcher
     {
         $this->valueResolver = $valueResolver;
     }
-    public function matchFromArg(\PhpParser\Node\Arg $arg) : ?\Rector\SymfonyCodeQuality\ValueObject\ConstantNameAndValue
+    public function matchFromArg(\PhpParser\Node\Arg $arg, string $prefixForNumeric) : ?\Rector\SymfonyCodeQuality\ValueObject\ConstantNameAndValue
     {
         if ($arg->value instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return null;
@@ -28,6 +28,9 @@ final class ConstantNameAndValueMatcher
             return null;
         }
         $constantName = \Rector\Core\Util\StaticRectorStrings::camelCaseToConstant($argumentValue);
+        if (!\ctype_alpha($constantName[0])) {
+            $constantName = $prefixForNumeric . $constantName;
+        }
         return new \Rector\SymfonyCodeQuality\ValueObject\ConstantNameAndValue($constantName, $argumentValue);
     }
 }

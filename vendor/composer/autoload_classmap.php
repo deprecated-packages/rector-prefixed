@@ -3053,6 +3053,7 @@ return array(
     'Rector\\Symfony5\\Rector\\New_\\PropertyAccessorCreationBooleanToFlagsRector' => $baseDir . '/rules/symfony5/src/Rector/New_/PropertyAccessorCreationBooleanToFlagsRector.php',
     'Rector\\Symfony5\\Rector\\New_\\PropertyPathMapperToDataMapperRector' => $baseDir . '/rules/symfony5/src/Rector/New_/PropertyPathMapperToDataMapperRector.php',
     'Rector\\Symfony5\\Rector\\StaticCall\\BinaryFileResponseCreateToNewInstanceRector' => $baseDir . '/rules/symfony5/src/Rector/StaticCall/BinaryFileResponseCreateToNewInstanceRector.php',
+    'Rector\\SymfonyCodeQuality\\Composer\\ComposerNamespaceMatcher' => $baseDir . '/rules/symfony-code-quality/src/Composer/ComposerNamespaceMatcher.php',
     'Rector\\SymfonyCodeQuality\\ConstantNameAndValueMatcher' => $baseDir . '/rules/symfony-code-quality/src/ConstantNameAndValueMatcher.php',
     'Rector\\SymfonyCodeQuality\\ConstantNameAndValueResolver' => $baseDir . '/rules/symfony-code-quality/src/ConstantNameAndValueResolver.php',
     'Rector\\SymfonyCodeQuality\\NodeFactory\\RouteNameClassFactory' => $baseDir . '/rules/symfony-code-quality/src/NodeFactory/RouteNameClassFactory.php',

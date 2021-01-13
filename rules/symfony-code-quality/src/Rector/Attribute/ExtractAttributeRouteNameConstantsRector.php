@@ -11,7 +11,7 @@ use Rector\SymfonyCodeQuality\ConstantNameAndValueResolver;
 use Rector\SymfonyCodeQuality\NodeFactory\RouteNameClassFactory;
 use Rector\SymfonyCodeQuality\ValueObject\ClassName;
 use RectorPrefix20210113\Symfony\Component\Routing\Annotation\Route;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see https://tomasvotruba.com/blog/2020/12/21/5-new-combos-opened-by-symfony-52-and-php-80/
@@ -20,6 +20,10 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class ExtractAttributeRouteNameConstantsRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var string
+     */
+    private const ROUTE_NAME_FILE_LOCATION = 'src/ValueObject/Routing/RouteName.php';
     /**
      * @var RouteNameClassFactory
      */
@@ -44,7 +48,7 @@ final class ExtractAttributeRouteNameConstantsRector extends \Rector\Core\Rector
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Extract #[Route] attribute name argument from string to constant', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Extract #[Route] attribute name argument from string to constant', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\Routing\Annotation\Route;
 
 class SomeClass
@@ -64,6 +68,15 @@ class SomeClass
     public function run()
     {
     }
+}
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
+final class RouteName
+{
+    /**
+     * @var string
+     */
+    public NAME = 'name';
 }
 CODE_SAMPLE
 )]);
@@ -88,7 +101,7 @@ CODE_SAMPLE
             if (!$this->isName($arg, 'name')) {
                 continue;
             }
-            $constantNameAndValue = $this->constantNameAndValueMatcher->matchFromArg($arg);
+            $constantNameAndValue = $this->constantNameAndValueMatcher->matchFromArg($arg, 'ROUTE_');
             if ($constantNameAndValue === null) {
                 continue;
             }
@@ -101,10 +114,14 @@ CODE_SAMPLE
         if ($this->isRouteNameValueObjectCreated) {
             return;
         }
+        if ($this->smartFileSystem->exists(self::ROUTE_NAME_FILE_LOCATION)) {
+            // avoid override
+            return;
+        }
         $routeAttributes = $this->nodeRepository->findAttributes(\RectorPrefix20210113\Symfony\Component\Routing\Annotation\Route::class);
-        $constantNameAndValues = $this->constantNameAndValueResolver->resolveFromAttributes($routeAttributes);
-        $namespace = $this->routeNameClassFactory->create($constantNameAndValues);
-        $this->printNodesToFilePath([$namespace], 'src/ValueObject/Routing/RouteName.php');
+        $constantNameAndValues = $this->constantNameAndValueResolver->resolveFromAttributes($routeAttributes, 'ROUTE_');
+        $namespace = $this->routeNameClassFactory->create($constantNameAndValues, self::ROUTE_NAME_FILE_LOCATION);
+        $this->printNodesToFilePath([$namespace], self::ROUTE_NAME_FILE_LOCATION);
         $this->isRouteNameValueObjectCreated = \true;
     }
 }
