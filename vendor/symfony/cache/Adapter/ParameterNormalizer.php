@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210112\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210113\Symfony\Component\Cache\Adapter;
 
 /**
  * @author Lars Strojny <lars@strojny.net>

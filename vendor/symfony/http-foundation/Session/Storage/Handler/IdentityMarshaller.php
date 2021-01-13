@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210112\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace RectorPrefix20210113\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
-use RectorPrefix20210112\Symfony\Component\Cache\Marshaller\MarshallerInterface;
+use RectorPrefix20210113\Symfony\Component\Cache\Marshaller\MarshallerInterface;
 /**
  * @author Ahmed TAILOULOUTE <ahmed.tailouloute@gmail.com>
  */
-class IdentityMarshaller implements \RectorPrefix20210112\Symfony\Component\Cache\Marshaller\MarshallerInterface
+class IdentityMarshaller implements \RectorPrefix20210113\Symfony\Component\Cache\Marshaller\MarshallerInterface
 {
     /**
      * {@inheritdoc}

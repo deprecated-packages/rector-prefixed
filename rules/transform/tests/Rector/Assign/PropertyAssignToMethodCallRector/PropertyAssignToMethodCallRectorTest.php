@@ -8,13 +8,13 @@ use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\Assign\PropertyAssignToMethodCallRector;
 use Rector\Transform\Tests\Rector\Assign\PropertyAssignToMethodCallRector\Source\ChoiceControl;
 use Rector\Transform\ValueObject\PropertyAssignToMethodCall;
-use RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo;
 final class PropertyAssignToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

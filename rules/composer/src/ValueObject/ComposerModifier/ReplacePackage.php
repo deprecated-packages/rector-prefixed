@@ -5,8 +5,8 @@ namespace Rector\Composer\ValueObject\ComposerModifier;
 
 use Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface;
 use Rector\Composer\ValueObject\Version\Version;
-use RectorPrefix20210112\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use RectorPrefix20210112\Webmozart\Assert\Assert;
+use RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210113\Webmozart\Assert\Assert;
 /**
  * Replace one package for another
  * @see \Rector\Composer\Tests\ValueObject\ComposerModifier\ReplacePackageTest
@@ -26,12 +26,12 @@ final class ReplacePackage implements \Rector\Composer\Contract\ComposerModifier
      */
     public function __construct(string $oldPackageName, string $newPackageName, string $targetVersion)
     {
-        \RectorPrefix20210112\Webmozart\Assert\Assert::notSame($oldPackageName, $newPackageName, '$oldPackageName cannot be the same as $newPackageName. If you want to change version of package, use ' . \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion::class);
+        \RectorPrefix20210113\Webmozart\Assert\Assert::notSame($oldPackageName, $newPackageName, '$oldPackageName cannot be the same as $newPackageName. If you want to change version of package, use ' . \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion::class);
         $this->oldPackageName = $oldPackageName;
         $this->newPackageName = $newPackageName;
         $this->targetVersion = new \Rector\Composer\ValueObject\Version\Version($targetVersion);
     }
-    public function modify(\RectorPrefix20210112\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210112\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         $composerJson->replacePackage($this->oldPackageName, $this->newPackageName, $this->targetVersion->getVersion());
         return $composerJson;

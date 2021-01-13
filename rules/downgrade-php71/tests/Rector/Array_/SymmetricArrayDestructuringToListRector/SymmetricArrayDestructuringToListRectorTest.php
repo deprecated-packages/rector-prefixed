@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp71\Tests\Rector\Array_\SymmetricArrayDestructuringT
 use Iterator;
 use Rector\DowngradePhp71\Rector\Array_\SymmetricArrayDestructuringToListRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo;
 final class SymmetricArrayDestructuringToListRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.1
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

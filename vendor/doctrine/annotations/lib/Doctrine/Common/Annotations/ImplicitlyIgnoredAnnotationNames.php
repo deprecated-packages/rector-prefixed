@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210112\Doctrine\Common\Annotations;
+namespace RectorPrefix20210113\Doctrine\Common\Annotations;
 
 /**
  *  A list of annotations that are implicitly ignored during the parsing process.

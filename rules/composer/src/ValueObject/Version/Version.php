@@ -2,7 +2,7 @@
 
 namespace Rector\Composer\ValueObject\Version;
 
-use RectorPrefix20210112\Composer\Semver\VersionParser;
+use RectorPrefix20210113\Composer\Semver\VersionParser;
 use UnexpectedValueException;
 final class Version
 {
@@ -14,7 +14,7 @@ final class Version
      */
     public function __construct(string $version)
     {
-        $versionParser = new \RectorPrefix20210112\Composer\Semver\VersionParser();
+        $versionParser = new \RectorPrefix20210113\Composer\Semver\VersionParser();
         $versionParser->parseConstraints($version);
         $this->version = $version;
     }

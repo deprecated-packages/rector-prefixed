@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source;
 
-use RectorPrefix20210112\phpDocumentor\Reflection\Types\Integer;
+use RectorPrefix20210113\phpDocumentor\Reflection\Types\Integer;
 final class GenericEntityFactoryWithInterface
 {
-    public static function make() : \RectorPrefix20210112\phpDocumentor\Reflection\Types\Integer
+    public static function make() : \RectorPrefix20210113\phpDocumentor\Reflection\Types\Integer
     {
         return 5;
     }

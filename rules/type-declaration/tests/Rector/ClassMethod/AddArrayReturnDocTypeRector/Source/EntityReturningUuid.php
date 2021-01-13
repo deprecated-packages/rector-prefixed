@@ -3,12 +3,12 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddArrayReturnDocTypeRector\Source;
 
-use RectorPrefix20210112\Ramsey\Uuid\Uuid;
-use RectorPrefix20210112\Ramsey\Uuid\UuidInterface;
+use RectorPrefix20210113\Ramsey\Uuid\Uuid;
+use RectorPrefix20210113\Ramsey\Uuid\UuidInterface;
 final class EntityReturningUuid
 {
-    public function getId() : \RectorPrefix20210112\Ramsey\Uuid\UuidInterface
+    public function getId() : \RectorPrefix20210113\Ramsey\Uuid\UuidInterface
     {
-        return \RectorPrefix20210112\Ramsey\Uuid\Uuid::uuid4();
+        return \RectorPrefix20210113\Ramsey\Uuid\Uuid::uuid4();
     }
 }

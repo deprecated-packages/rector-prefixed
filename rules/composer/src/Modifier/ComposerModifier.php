@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\Composer\Modifier;
 
 use Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface;
-use RectorPrefix20210112\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use RectorPrefix20210112\Webmozart\Assert\Assert;
+use RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210113\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Composer\Tests\Modifier\ComposerModifierTest
  */
@@ -22,7 +22,7 @@ final class ComposerModifier
      */
     public function configure(array $configuration) : void
     {
-        \RectorPrefix20210112\Webmozart\Assert\Assert::allIsInstanceOf($configuration, \Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface::class);
+        \RectorPrefix20210113\Webmozart\Assert\Assert::allIsInstanceOf($configuration, \Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface::class);
         $this->configuration = \array_merge($this->configuration, $configuration);
     }
     /**
@@ -30,7 +30,7 @@ final class ComposerModifier
      */
     public function reconfigure(array $configuration) : void
     {
-        \RectorPrefix20210112\Webmozart\Assert\Assert::allIsInstanceOf($configuration, \Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface::class);
+        \RectorPrefix20210113\Webmozart\Assert\Assert::allIsInstanceOf($configuration, \Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface::class);
         $this->configuration = $configuration;
     }
     public function filePath(string $filePath) : void
@@ -49,7 +49,7 @@ final class ComposerModifier
     {
         return $this->command;
     }
-    public function modify(\RectorPrefix20210112\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210112\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         foreach ($this->configuration as $composerChanger) {
             $composerJson = $composerChanger->modify($composerJson);

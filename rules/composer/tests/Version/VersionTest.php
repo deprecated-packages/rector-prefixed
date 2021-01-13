@@ -2,10 +2,10 @@
 
 namespace Rector\Composer\Tests\Version;
 
-use RectorPrefix20210112\PHPUnit\Framework\TestCase;
+use RectorPrefix20210113\PHPUnit\Framework\TestCase;
 use Rector\Composer\ValueObject\Version\Version;
 use UnexpectedValueException;
-final class VersionTest extends \RectorPrefix20210112\PHPUnit\Framework\TestCase
+final class VersionTest extends \RectorPrefix20210113\PHPUnit\Framework\TestCase
 {
     public function testExactVersion() : void
     {

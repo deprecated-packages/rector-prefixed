@@ -6,7 +6,7 @@ namespace Rector\Php72\Tests\Rector\While_\WhileEachToForeachRector;
 use Iterator;
 use Rector\Php72\Rector\While_\WhileEachToForeachRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @requires PHP < 8.0
  */
@@ -15,7 +15,7 @@ final class WhileEachToForeachRectorTest extends \Rector\Testing\PHPUnit\Abstrac
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210112\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

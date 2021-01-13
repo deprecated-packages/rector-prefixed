@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210112\Symfony\Component\Cache\Traits;
+namespace RectorPrefix20210113\Symfony\Component\Cache\Traits;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>

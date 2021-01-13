@@ -10,7 +10,7 @@ use Rector\SymfonyCodeQuality\ConstantNameAndValueMatcher;
 use Rector\SymfonyCodeQuality\ConstantNameAndValueResolver;
 use Rector\SymfonyCodeQuality\NodeFactory\RouteNameClassFactory;
 use Rector\SymfonyCodeQuality\ValueObject\ClassName;
-use RectorPrefix20210112\Symfony\Component\Routing\Annotation\Route;
+use RectorPrefix20210113\Symfony\Component\Routing\Annotation\Route;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -80,7 +80,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isName($node->name, \RectorPrefix20210112\Symfony\Component\Routing\Annotation\Route::class)) {
+        if (!$this->isName($node->name, \RectorPrefix20210113\Symfony\Component\Routing\Annotation\Route::class)) {
             return null;
         }
         $this->createRouteNameValueObject();
@@ -101,7 +101,7 @@ CODE_SAMPLE
         if ($this->isRouteNameValueObjectCreated) {
             return;
         }
-        $routeAttributes = $this->nodeRepository->findAttributes(\RectorPrefix20210112\Symfony\Component\Routing\Annotation\Route::class);
+        $routeAttributes = $this->nodeRepository->findAttributes(\RectorPrefix20210113\Symfony\Component\Routing\Annotation\Route::class);
         $constantNameAndValues = $this->constantNameAndValueResolver->resolveFromAttributes($routeAttributes);
         $namespace = $this->routeNameClassFactory->create($constantNameAndValues);
         $this->printNodesToFilePath([$namespace], 'src/ValueObject/Routing/RouteName.php');

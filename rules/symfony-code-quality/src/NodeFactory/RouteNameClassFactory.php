@@ -7,8 +7,8 @@ use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\SymfonyCodeQuality\ValueObject\ClassName;
 use Rector\SymfonyCodeQuality\ValueObject\ConstantNameAndValue;
-use RectorPrefix20210112\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
-use RectorPrefix20210112\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
+use RectorPrefix20210113\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
+use RectorPrefix20210113\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder;
 final class RouteNameClassFactory
 {
     /**
@@ -24,13 +24,13 @@ final class RouteNameClassFactory
      */
     public function create(array $constantNamesAndValues) : \PhpParser\Node\Stmt\Namespace_
     {
-        $classBuilder = new \RectorPrefix20210112\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_CLASS_SHORT_NAME);
+        $classBuilder = new \RectorPrefix20210113\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_CLASS_SHORT_NAME);
         $classBuilder->makeFinal();
         foreach ($constantNamesAndValues as $constantNameAndValue) {
             $classConst = $this->nodeFactory->createPublicClassConst($constantNameAndValue->getName(), $constantNameAndValue->getValue());
             $classBuilder->addStmt($classConst);
         }
-        $namespaceBuilder = new \RectorPrefix20210112\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_NAME_NAMESPACE);
+        $namespaceBuilder = new \RectorPrefix20210113\Symplify\Astral\ValueObject\NodeBuilder\NamespaceBuilder(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_NAME_NAMESPACE);
         $namespaceBuilder->addStmt($classBuilder->getNode());
         return $namespaceBuilder->getNode();
     }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Tests\Rector\Identical\ChangeIdenticalUuidToEqualsMethodCallRector\Source;
 
-use RectorPrefix20210112\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210113\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
