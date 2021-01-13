@@ -21,7 +21,8 @@ final class DoctrineTest extends \Rector\BetterPhpDocParser\Tests\PhpDocInfo\Php
         $phpDocInfo = $this->createPhpDocInfoFromDocCommentAndNode($docComment, $node);
         $fileInfo = new \RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo($docFilePath);
         $relativeFilePathFromCwd = $fileInfo->getRelativeFilePathFromCwd();
-        $this->assertSame($docComment, $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo), $relativeFilePathFromCwd);
+        $printedPhpDocInfo = $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo);
+        $this->assertSame($docComment, $printedPhpDocInfo, $relativeFilePathFromCwd);
     }
     public function provideDataClass() : \Iterator
     {

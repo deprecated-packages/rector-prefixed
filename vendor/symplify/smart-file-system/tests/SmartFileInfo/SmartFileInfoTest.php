@@ -18,8 +18,12 @@ final class SmartFileInfoTest extends \RectorPrefix20210113\PHPUnit\Framework\Te
     {
         $smartFileInfo = new \RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
         $this->assertNotSame($smartFileInfo->getRelativePath(), $smartFileInfo->getRealPath());
-        $this->assertStringEndsWith($this->normalizePath($smartFileInfo->getRelativePath()), $this->normalizePath(__DIR__));
-        $this->assertStringEndsWith($this->normalizePath($smartFileInfo->getRelativePathname()), $this->normalizePath(__FILE__));
+        $normalizedRelativePath = $this->normalizePath($smartFileInfo->getRelativePath());
+        $normalizedDir = $this->normalizePath(__DIR__);
+        $this->assertStringEndsWith($normalizedRelativePath, $normalizedDir);
+        $normalizedRelativePathname = $this->normalizePath($smartFileInfo->getRelativePathname());
+        $normalizeFile = $this->normalizePath(__FILE__);
+        $this->assertStringEndsWith($normalizedRelativePathname, $normalizeFile);
     }
     public function testRealPathWithoutSuffix() : void
     {
@@ -29,7 +33,8 @@ final class SmartFileInfoTest extends \RectorPrefix20210113\PHPUnit\Framework\Te
     public function testRelativeToDir() : void
     {
         $smartFileInfo = new \RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/AnotherFile.txt');
-        $this->assertSame('Source/AnotherFile.txt', $smartFileInfo->getRelativeFilePathFromDirectory(__DIR__));
+        $relativePath = $smartFileInfo->getRelativeFilePathFromDirectory(__DIR__);
+        $this->assertSame('Source/AnotherFile.txt', $relativePath);
     }
     public function testRelativeToDirException() : void
     {

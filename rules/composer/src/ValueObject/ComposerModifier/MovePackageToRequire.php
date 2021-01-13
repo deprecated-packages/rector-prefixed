@@ -11,7 +11,9 @@ use RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJs
  */
 final class MovePackageToRequire implements \Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $packageName;
     /**
      * @param string $packageName name of package to be moved (vendor/package)

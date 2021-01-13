@@ -10,6 +10,7 @@ use RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210113\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @api
+ * @see \Symplify\ComposerJsonManipulator\Tests\ValueObject\ComposerJsonTest
  */
 final class ComposerJson
 {
@@ -413,7 +414,7 @@ final class ComposerJson
         $this->authors = $authors;
     }
     /**
-     * @return mixed[] $authors
+     * @return mixed[]
      */
     public function getAuthors() : array
     {
@@ -438,12 +439,14 @@ final class ComposerJson
     {
         if (!$this->hasPackage($packageName)) {
             $this->require[$packageName] = $version;
+            $this->require = $this->composerPackageSorter->sortPackages($this->require);
         }
     }
     public function addRequiredDevPackage(string $packageName, string $version) : void
     {
         if (!$this->hasPackage($packageName)) {
             $this->requireDev[$packageName] = $version;
+            $this->requireDev = $this->composerPackageSorter->sortPackages($this->requireDev);
         }
     }
     public function changePackageVersion(string $packageName, string $version) : void
@@ -457,19 +460,21 @@ final class ComposerJson
     }
     public function movePackageToRequire(string $packageName) : void
     {
-        if ($this->hasRequiredDevPackage($packageName)) {
-            $version = $this->requireDev[$packageName];
-            $this->removePackage($packageName);
-            $this->addRequiredPackage($packageName, $version);
+        if (!$this->hasRequiredDevPackage($packageName)) {
+            return;
         }
+        $version = $this->requireDev[$packageName];
+        $this->removePackage($packageName);
+        $this->addRequiredPackage($packageName, $version);
     }
     public function movePackageToRequireDev(string $packageName) : void
     {
-        if ($this->hasRequiredPackage($packageName)) {
-            $version = $this->require[$packageName];
-            $this->removePackage($packageName);
-            $this->addRequiredDevPackage($packageName, $version);
+        if (!$this->hasRequiredPackage($packageName)) {
+            return;
         }
+        $version = $this->require[$packageName];
+        $this->removePackage($packageName);
+        $this->addRequiredDevPackage($packageName, $version);
     }
     public function removePackage(string $packageName) : void
     {

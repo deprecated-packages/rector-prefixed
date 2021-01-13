@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Rector\Composer\Tests\Version;
 
 use RectorPrefix20210113\PHPUnit\Framework\TestCase;
@@ -11,25 +12,25 @@ final class VersionTest extends \RectorPrefix20210113\PHPUnit\Framework\TestCase
     {
         $version = new \Rector\Composer\ValueObject\Version\Version('1.2.3');
         $this->assertInstanceOf(\Rector\Composer\ValueObject\Version\Version::class, $version);
-        $this->assertEquals('1.2.3', $version->getVersion());
+        $this->assertSame('1.2.3', $version->getVersion());
     }
     public function testTildeVersion() : void
     {
         $version = new \Rector\Composer\ValueObject\Version\Version('~1.2.3');
         $this->assertInstanceOf(\Rector\Composer\ValueObject\Version\Version::class, $version);
-        $this->assertEquals('~1.2.3', $version->getVersion());
+        $this->assertSame('~1.2.3', $version->getVersion());
     }
     public function testCaretVersion() : void
     {
         $version = new \Rector\Composer\ValueObject\Version\Version('^1.2.3');
         $this->assertInstanceOf(\Rector\Composer\ValueObject\Version\Version::class, $version);
-        $this->assertEquals('^1.2.3', $version->getVersion());
+        $this->assertSame('^1.2.3', $version->getVersion());
     }
     public function testDevMasterAsVersion() : void
     {
         $version = new \Rector\Composer\ValueObject\Version\Version('dev-master as 1.2.3');
         $this->assertInstanceOf(\Rector\Composer\ValueObject\Version\Version::class, $version);
-        $this->assertEquals('dev-master as 1.2.3', $version->getVersion());
+        $this->assertSame('dev-master as 1.2.3', $version->getVersion());
     }
     public function testWrongAliasVersion() : void
     {

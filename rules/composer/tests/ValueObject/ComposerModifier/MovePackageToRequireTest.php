@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Rector\Composer\Tests\ValueObject\ComposerModifier;
 
 use RectorPrefix20210113\PHPUnit\Framework\TestCase;
@@ -11,30 +12,33 @@ final class MovePackageToRequireTest extends \RectorPrefix20210113\PHPUnit\Frame
     {
         $composerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         $composerJson->setRequire(['vendor1/package1' => '^1.0', 'vendor1/package2' => '^2.0']);
-        $changedComposerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
-        $changedComposerJson->setRequire(['vendor1/package1' => '^1.0', 'vendor1/package2' => '^2.0']);
+        $expectedComposerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        $expectedComposerJson->setRequire(['vendor1/package1' => '^1.0', 'vendor1/package2' => '^2.0']);
         $movePackageToRequire = new \Rector\Composer\ValueObject\ComposerModifier\MovePackageToRequire('vendor1/package3');
-        $this->assertEquals($changedComposerJson, $movePackageToRequire->modify($composerJson));
+        $movePackageToRequire->modify($composerJson);
+        $this->assertSame($expectedComposerJson->getJsonArray(), $composerJson->getJsonArray());
     }
     public function testMoveExistingDevPackage() : void
     {
         $composerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         $composerJson->setRequireDev(['vendor1/package1' => '^1.0', 'vendor1/package2' => '^2.0']);
-        $changedComposerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
-        $changedComposerJson->setRequire(['vendor1/package1' => '^1.0']);
-        $changedComposerJson->setRequireDev(['vendor1/package2' => '^2.0']);
+        $expectedComposerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        $expectedComposerJson->setRequire(['vendor1/package1' => '^1.0']);
+        $expectedComposerJson->setRequireDev(['vendor1/package2' => '^2.0']);
         $movePackageToRequire = new \Rector\Composer\ValueObject\ComposerModifier\MovePackageToRequire('vendor1/package1');
-        $this->assertEquals($changedComposerJson, $movePackageToRequire->modify($composerJson));
+        $movePackageToRequire->modify($composerJson);
+        $this->assertSame($expectedComposerJson->getJsonArray(), $composerJson->getJsonArray());
     }
     public function testMoveExistingPackage() : void
     {
         $composerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         $composerJson->setRequire(['vendor1/package1' => '^1.0']);
         $composerJson->setRequireDev(['vendor1/package2' => '^2.0']);
-        $changedComposerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
-        $changedComposerJson->setRequire(['vendor1/package1' => '^1.0']);
-        $changedComposerJson->setRequireDev(['vendor1/package2' => '^2.0']);
+        $expectedComposerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        $expectedComposerJson->setRequire(['vendor1/package1' => '^1.0']);
+        $expectedComposerJson->setRequireDev(['vendor1/package2' => '^2.0']);
         $movePackageToRequire = new \Rector\Composer\ValueObject\ComposerModifier\MovePackageToRequire('vendor1/package1');
-        $this->assertEquals($changedComposerJson, $movePackageToRequire->modify($composerJson));
+        $movePackageToRequire->modify($composerJson);
+        $this->assertSame($expectedComposerJson->getJsonArray(), $composerJson->getJsonArray());
     }
 }

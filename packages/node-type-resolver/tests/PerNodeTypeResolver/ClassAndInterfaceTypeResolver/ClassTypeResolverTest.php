@@ -26,7 +26,8 @@ final class ClassTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerNode
     public function test(string $file, int $nodePosition, \PHPStan\Type\Type $expectedType) : void
     {
         $variableNodes = $this->getNodesForFileOfType($file, \PhpParser\Node\Stmt\Class_::class);
-        $this->assertEquals($expectedType, $this->nodeTypeResolver->resolve($variableNodes[$nodePosition]));
+        $resolvedType = $this->nodeTypeResolver->resolve($variableNodes[$nodePosition]);
+        $this->assertEquals($expectedType, $resolvedType);
     }
     public function dataProvider() : \Iterator
     {

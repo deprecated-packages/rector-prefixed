@@ -12,9 +12,13 @@ use RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJs
  */
 final class AddPackageToRequireDev implements \Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $packageName;
-    /** @var Version */
+    /**
+     * @var Version
+     */
     private $version;
     /**
      * @param string $packageName name of package (vendor/package)

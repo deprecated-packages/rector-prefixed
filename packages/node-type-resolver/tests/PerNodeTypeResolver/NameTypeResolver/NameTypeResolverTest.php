@@ -20,7 +20,8 @@ final class NameTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerNodeT
     public function test(string $file, int $nodePosition, \PHPStan\Type\Type $expectedType) : void
     {
         $nameNodes = $this->getNodesForFileOfType($file, \PhpParser\Node\Name::class);
-        $this->assertEquals($expectedType, $this->nodeTypeResolver->resolve($nameNodes[$nodePosition]));
+        $resolvedType = $this->nodeTypeResolver->resolve($nameNodes[$nodePosition]);
+        $this->assertEquals($expectedType, $resolvedType);
     }
     public function provideData() : \Iterator
     {

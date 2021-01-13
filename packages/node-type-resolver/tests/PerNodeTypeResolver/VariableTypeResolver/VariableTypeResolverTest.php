@@ -23,7 +23,8 @@ final class VariableTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerN
     public function test(string $file, int $nodePosition, \PHPStan\Type\Type $expectedType) : void
     {
         $variableNodes = $this->getNodesForFileOfType($file, \PhpParser\Node\Expr\Variable::class);
-        $this->assertEquals($expectedType, $this->nodeTypeResolver->resolve($variableNodes[$nodePosition]));
+        $resolvedType = $this->nodeTypeResolver->resolve($variableNodes[$nodePosition]);
+        $this->assertEquals($expectedType, $resolvedType);
     }
     public function provideData() : \Iterator
     {

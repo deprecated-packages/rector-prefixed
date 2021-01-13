@@ -76,11 +76,11 @@ return static function (\RectorPrefix20210113\Symfony\Component\DependencyInject
     $services->set(\Rector\Nette\Rector\Class_\MoveFinalGetUserToCheckRequirementsClassMethodRector::class);
     $services->set(\Rector\Nette\Rector\MethodCall\ConvertAddUploadWithThirdArgumentTrueToAddMultiUploadRector::class);
     $services->set(\Rector\Composer\Modifier\ComposerModifier::class)->call('configure', [\Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
-        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/nette', '^3.0'),
         // meta package
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/nette', '^3.0'),
         // https://github.com/nette/nette/blob/v2.4.0/composer.json vs https://github.com/nette/nette/blob/v3.0.0/composer.json
-        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/application', '^3.0.6'),
         // older versions have security issues
+        new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/application', '^3.0.6'),
         new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/bootstrap', '^3.0'),
         new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/caching', '^3.0'),
         new \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion('nette/component-model', '^3.0'),

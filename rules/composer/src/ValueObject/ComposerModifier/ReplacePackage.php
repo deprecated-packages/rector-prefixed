@@ -13,11 +13,17 @@ use RectorPrefix20210113\Webmozart\Assert\Assert;
  */
 final class ReplacePackage implements \Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $oldPackageName;
-    /** @var string */
+    /**
+     * @var string
+     */
     private $newPackageName;
-    /** @var Version */
+    /**
+     * @var Version
+     */
     private $targetVersion;
     /**
      * @param string $oldPackageName name of package to be replaced (vendor1/package1)

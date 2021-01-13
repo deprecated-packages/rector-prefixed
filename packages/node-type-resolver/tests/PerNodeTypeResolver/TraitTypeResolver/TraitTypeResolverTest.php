@@ -21,7 +21,8 @@ final class TraitTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerNode
     public function test(string $file, int $nodePosition, \PHPStan\Type\Type $expectedType) : void
     {
         $variableNodes = $this->getNodesForFileOfType($file, \PhpParser\Node\Stmt\Trait_::class);
-        $this->assertEquals($expectedType, $this->nodeTypeResolver->resolve($variableNodes[$nodePosition]));
+        $resolvedType = $this->nodeTypeResolver->resolve($variableNodes[$nodePosition]);
+        $this->assertEquals($expectedType, $resolvedType);
     }
     public function provideData() : \Iterator
     {

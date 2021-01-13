@@ -24,7 +24,8 @@ final class FinderSanitizerTest extends \RectorPrefix20210113\PHPUnit\Framework\
     public function testValidTypes() : void
     {
         $files = [new \SplFileInfo(__DIR__ . '/Source/MissingFile.php')];
-        $this->assertCount(0, $this->finderSanitizer->sanitize($files));
+        $sanitizedFiles = $this->finderSanitizer->sanitize($files);
+        $this->assertCount(0, $sanitizedFiles);
     }
     public function testSymfonyFinder() : void
     {
