@@ -13,17 +13,29 @@ use RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileSystem;
 final class ComposerProcessor
 {
-    /** @var ComposerJsonFactory */
+    /**
+     * @var ComposerJsonFactory
+     */
     private $composerJsonFactory;
-    /** @var ComposerJsonPrinter */
+    /**
+     * @var ComposerJsonPrinter
+     */
     private $composerJsonPrinter;
-    /** @var ComposerModifier */
+    /**
+     * @var ComposerModifier
+     */
     private $composerModifier;
-    /** @var Configuration */
+    /**
+     * @var Configuration
+     */
     private $configuration;
-    /** @var SmartFileSystem */
+    /**
+     * @var SmartFileSystem
+     */
     private $smartFileSystem;
-    /** @var ErrorAndDiffCollector */
+    /**
+     * @var ErrorAndDiffCollector
+     */
     private $errorAndDiffCollector;
     public function __construct(\RectorPrefix20210113\Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \RectorPrefix20210113\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter $composerJsonPrinter, \Rector\Composer\Modifier\ComposerModifier $composerModifier, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector)
     {
@@ -36,7 +48,11 @@ final class ComposerProcessor
     }
     public function process() : void
     {
-        $smartFileInfo = new \RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo($this->composerModifier->getFilePath());
+        $composerJsonFilePath = $this->composerModifier->getFilePath();
+        if (!$this->smartFileSystem->exists($composerJsonFilePath)) {
+            return;
+        }
+        $smartFileInfo = new \RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo($composerJsonFilePath);
         $composerJson = $this->composerJsonFactory->createFromFileInfo($smartFileInfo);
         $oldContents = $smartFileInfo->getContents();
         $newComposerJson = $this->composerModifier->modify($composerJson);
