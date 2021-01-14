@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb81bd7fe538ad59ec8b533162bf60d68
+class ComposerStaticInitace0f37fbdebe49fcc019873a7d632f3
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -139,6 +139,7 @@ class ComposerStaticInitb81bd7fe538ad59ec8b533162bf60d68
             'RectorPrefix20210114\\Symplify\\ConsoleColorDiff\\' => 47,
             'RectorPrefix20210114\\Symplify\\ComposerJsonManipulator\\' => 54,
             'RectorPrefix20210114\\Symplify\\AutowireArrayParameter\\' => 53,
+            'RectorPrefix20210114\\Symplify\\Astral\\' => 37,
             'RectorPrefix20210114\\Symfony\\Polyfill\\Php80\\' => 44,
             'RectorPrefix20210114\\Symfony\\Polyfill\\Php73\\' => 44,
             'RectorPrefix20210114\\Symfony\\Polyfill\\Mbstring\\' => 47,
@@ -636,6 +637,10 @@ class ComposerStaticInitb81bd7fe538ad59ec8b533162bf60d68
         'RectorPrefix20210114\\Symplify\\AutowireArrayParameter\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src',
+        ),
+        'RectorPrefix20210114\\Symplify\\Astral\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/astral/src',
         ),
         'RectorPrefix20210114\\Symfony\\Polyfill\\Php80\\' => 
         array (
@@ -2066,6 +2071,31 @@ class ComposerStaticInitb81bd7fe538ad59ec8b533162bf60d68
         'RectorPrefix20210114\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'RectorPrefix20210114\\Symfony\\Polyfill\\Php73\\Php73' => __DIR__ . '/..' . '/symfony/polyfill-php73/Php73.php',
         'RectorPrefix20210114\\Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\Bundle\\AstralBundle' => __DIR__ . '/..' . '/symplify/astral/src/Bundle/AstralBundle.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\Contract\\NodeNameResolverInterface' => __DIR__ . '/..' . '/symplify/astral/src/Contract/NodeNameResolverInterface.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\DependencyInjection\\Extension\\AstralExtension' => __DIR__ . '/..' . '/symplify/astral/src/DependencyInjection/Extension/AstralExtension.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\Exception\\ShouldNotHappenException' => __DIR__ . '/..' . '/symplify/astral/src/Exception/ShouldNotHappenException.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\HttpKernel\\AstralKernel' => __DIR__ . '/..' . '/symplify/astral/src/HttpKernel/AstralKernel.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\Naming\\SimpleNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/Naming/SimpleNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeNameResolver\\ArgNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/ArgNodeNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeNameResolver\\AttributeNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/AttributeNodeNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeNameResolver\\ClassLikeNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/ClassLikeNodeNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeNameResolver\\ClassMethodNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/ClassMethodNodeNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeNameResolver\\FuncCallNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/FuncCallNodeNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeNameResolver\\IdentifierNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/IdentifierNodeNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeNameResolver\\NamespaceNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/NamespaceNodeNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeNameResolver\\ParamNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/ParamNodeNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeNameResolver\\PropertyNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/PropertyNodeNameResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeTraverser\\SimpleCallableNodeTraverser' => __DIR__ . '/..' . '/symplify/astral/src/NodeTraverser/SimpleCallableNodeTraverser.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\NodeValue\\NodeValueResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeValue/NodeValueResolver.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\StaticFactory\\SimpleNameResolverStaticFactory' => __DIR__ . '/..' . '/symplify/astral/src/StaticFactory/SimpleNameResolverStaticFactory.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\ValueObject\\NodeBuilder\\ClassBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/ClassBuilder.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\ValueObject\\NodeBuilder\\MethodBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/MethodBuilder.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\ValueObject\\NodeBuilder\\NamespaceBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/NamespaceBuilder.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\ValueObject\\NodeBuilder\\ParamBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/ParamBuilder.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\ValueObject\\NodeBuilder\\PropertyBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/PropertyBuilder.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\ValueObject\\NodeBuilder\\TraitUseBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/TraitUseBuilder.php',
+        'RectorPrefix20210114\\Symplify\\Astral\\ValueObject\\NodeBuilder\\UseBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/UseBuilder.php',
         'RectorPrefix20210114\\Symplify\\AutowireArrayParameter\\DependencyInjection\\CompilerPass\\AutowireArrayParameterCompilerPass' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DependencyInjection/CompilerPass/AutowireArrayParameterCompilerPass.php',
         'RectorPrefix20210114\\Symplify\\AutowireArrayParameter\\DocBlock\\ParamTypeDocBlockResolver' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DocBlock/ParamTypeDocBlockResolver.php',
         'RectorPrefix20210114\\Symplify\\ComposerJsonManipulator\\Bundle\\ComposerJsonManipulatorBundle' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Bundle/ComposerJsonManipulatorBundle.php',
@@ -4032,9 +4062,9 @@ class ComposerStaticInitb81bd7fe538ad59ec8b533162bf60d68
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb81bd7fe538ad59ec8b533162bf60d68::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb81bd7fe538ad59ec8b533162bf60d68::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb81bd7fe538ad59ec8b533162bf60d68::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitace0f37fbdebe49fcc019873a7d632f3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitace0f37fbdebe49fcc019873a7d632f3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitace0f37fbdebe49fcc019873a7d632f3::$classMap;
 
         }, null, ClassLoader::class);
     }

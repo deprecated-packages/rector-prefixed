@@ -3493,6 +3493,67 @@
             "install-path": "..\/symfony\/yaml"
         },
         {
+            "name": "symplify\/astral",
+            "version": "9.0.34",
+            "version_normalized": "9.0.34.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symplify\/astral.git",
+                "reference": "081a345c9282ae15b283002522231d5dca6463b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symplify\/astral\/zipball\/081a345c9282ae15b283002522231d5dca6463b5",
+                "reference": "081a345c9282ae15b283002522231d5dca6463b5",
+                "shasum": ""
+            },
+            "require": {
+                "nette\/utils": "^3.0",
+                "nikic\/php-parser": "^4.10.4",
+                "php": ">=7.3",
+                "symfony\/dependency-injection": "^5.1",
+                "symfony\/http-kernel": "^4.4|^5.1",
+                "symplify\/autowire-array-parameter": "^9.0.34",
+                "symplify\/package-builder": "^9.0.34"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.5",
+                "symplify\/easy-testing": "^9.0.34"
+            },
+            "time": "2021-01-13T12:18:29+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "9.1-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "RectorPrefix20210114\\Symplify\\Astral\\": "src"
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Toolking for smart daily work with AST",
+            "support": {
+                "source": "https:\/\/github.com\/symplify\/astral\/tree\/9.0.34"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/www.paypal.me\/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "install-path": "..\/symplify\/astral"
+        },
+        {
             "name": "symplify\/autowire-array-parameter",
             "version": "9.0.34",
             "version_normalized": "9.0.34.0",
