@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Rector\Composer\Tests\ValueObject\ComposerModifier;
 
-use RectorPrefix20210113\PHPUnit\Framework\TestCase;
+use RectorPrefix20210114\PHPUnit\Framework\TestCase;
 use Rector\Composer\ValueObject\ComposerModifier\MovePackageToRequireDev;
-use RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-final class MovePackageToRequireDevTest extends \RectorPrefix20210113\PHPUnit\Framework\TestCase
+use RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+final class MovePackageToRequireDevTest extends \RectorPrefix20210114\PHPUnit\Framework\TestCase
 {
     public function testMoveNonExistingPackage() : void
     {
-        $composerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        $composerJson = new \RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         $composerJson->setRequire(['vendor1/package1' => '^1.0', 'vendor1/package2' => '^2.0']);
-        $expectedComposerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        $expectedComposerJson = new \RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         $expectedComposerJson->setRequire(['vendor1/package1' => '^1.0', 'vendor1/package2' => '^2.0']);
         $movePackageToRequireDev = new \Rector\Composer\ValueObject\ComposerModifier\MovePackageToRequireDev('vendor1/package3');
         $movePackageToRequireDev->modify($composerJson);
@@ -20,9 +20,9 @@ final class MovePackageToRequireDevTest extends \RectorPrefix20210113\PHPUnit\Fr
     }
     public function testMoveExistingPackage() : void
     {
-        $composerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        $composerJson = new \RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         $composerJson->setRequire(['vendor1/package1' => '^1.0', 'vendor1/package2' => '^2.0']);
-        $expectedComposerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        $expectedComposerJson = new \RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         $expectedComposerJson->setRequire(['vendor1/package2' => '^2.0']);
         $expectedComposerJson->setRequireDev(['vendor1/package1' => '^1.0']);
         $movePackageToRequireDev = new \Rector\Composer\ValueObject\ComposerModifier\MovePackageToRequireDev('vendor1/package1');
@@ -31,10 +31,10 @@ final class MovePackageToRequireDevTest extends \RectorPrefix20210113\PHPUnit\Fr
     }
     public function testMoveExistingDevPackage() : void
     {
-        $composerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        $composerJson = new \RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         $composerJson->setRequire(['vendor1/package1' => '^1.0']);
         $composerJson->setRequireDev(['vendor1/package2' => '^2.0']);
-        $expectedComposerJson = new \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        $expectedComposerJson = new \RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
         $expectedComposerJson->setRequire(['vendor1/package1' => '^1.0']);
         $expectedComposerJson->setRequireDev(['vendor1/package2' => '^2.0']);
         $movePackageToRequireDev = new \Rector\Composer\ValueObject\ComposerModifier\MovePackageToRequireDev('vendor1/package2');

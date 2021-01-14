@@ -5,7 +5,7 @@ namespace Rector\Composer\ValueObject\ComposerModifier;
 
 use Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface;
 use Rector\Composer\ValueObject\Version\Version;
-use RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 /**
  * Only adds package to require section, if package is already in composer data, nothing happen
  * @see \Rector\Composer\Tests\ValueObject\ComposerModifier\AddPackageToRequireTest
@@ -29,7 +29,7 @@ final class AddPackageToRequire implements \Rector\Composer\Contract\ComposerMod
         $this->packageName = $packageName;
         $this->version = new \Rector\Composer\ValueObject\Version\Version($version);
     }
-    public function modify(\RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210113\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         $composerJson->addRequiredPackage($this->packageName, $this->version->getVersion());
         return $composerJson;

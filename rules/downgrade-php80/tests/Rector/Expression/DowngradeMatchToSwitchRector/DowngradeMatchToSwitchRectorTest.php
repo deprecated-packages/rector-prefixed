@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp80\Tests\Rector\Expression\DowngradeMatchToSwitchRe
 use Iterator;
 use Rector\DowngradePhp80\Rector\Expression\DowngradeMatchToSwitchRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradeMatchToSwitchRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      * @requires PHP 8.0
      */
-    public function test(\RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

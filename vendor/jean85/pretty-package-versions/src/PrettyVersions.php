@@ -1,21 +1,21 @@
 <?php
 
-namespace RectorPrefix20210113\Jean85;
+namespace RectorPrefix20210114\Jean85;
 
-use RectorPrefix20210113\PackageVersions\Versions;
+use RectorPrefix20210114\PackageVersions\Versions;
 class PrettyVersions
 {
     const SHORT_COMMIT_LENGTH = 7;
-    public static function getVersion(string $packageName) : \RectorPrefix20210113\Jean85\Version
+    public static function getVersion(string $packageName) : \RectorPrefix20210114\Jean85\Version
     {
-        return new \RectorPrefix20210113\Jean85\Version($packageName, \RectorPrefix20210113\PackageVersions\Versions::getVersion($packageName));
+        return new \RectorPrefix20210114\Jean85\Version($packageName, \RectorPrefix20210114\PackageVersions\Versions::getVersion($packageName));
     }
     public static function getRootPackageName() : string
     {
-        return \RectorPrefix20210113\PackageVersions\Versions::ROOT_PACKAGE_NAME;
+        return \RectorPrefix20210114\PackageVersions\Versions::ROOT_PACKAGE_NAME;
     }
-    public static function getRootPackageVersion() : \RectorPrefix20210113\Jean85\Version
+    public static function getRootPackageVersion() : \RectorPrefix20210114\Jean85\Version
     {
-        return self::getVersion(\RectorPrefix20210113\PackageVersions\Versions::ROOT_PACKAGE_NAME);
+        return self::getVersion(\RectorPrefix20210114\PackageVersions\Versions::ROOT_PACKAGE_NAME);
     }
 }

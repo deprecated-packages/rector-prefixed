@@ -7,7 +7,7 @@ use Iterator;
 use Rector\Core\Configuration\Option;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PostRector\Rector\NameImportingPostRector
  */
@@ -16,7 +16,7 @@ final class NonNamespacedTest extends \Rector\Testing\PHPUnit\AbstractRectorTest
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
         $this->doTestFileInfo($fileInfo);

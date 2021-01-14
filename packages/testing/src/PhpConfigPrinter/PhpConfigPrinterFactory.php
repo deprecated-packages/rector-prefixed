@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Rector\Testing\PhpConfigPrinter;
 
-use RectorPrefix20210113\Symplify\PhpConfigPrinter\HttpKernel\PhpConfigPrinterKernel;
-use RectorPrefix20210113\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
+use RectorPrefix20210114\Symplify\PhpConfigPrinter\HttpKernel\PhpConfigPrinterKernel;
+use RectorPrefix20210114\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
 final class PhpConfigPrinterFactory
 {
-    public function create() : \RectorPrefix20210113\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter
+    public function create() : \RectorPrefix20210114\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter
     {
-        $phpConfigPrinterKernel = new \RectorPrefix20210113\Symplify\PhpConfigPrinter\HttpKernel\PhpConfigPrinterKernel('prod', \true);
+        $phpConfigPrinterKernel = new \RectorPrefix20210114\Symplify\PhpConfigPrinter\HttpKernel\PhpConfigPrinterKernel('prod', \true);
         $phpConfigPrinterKernel->setConfigs([__DIR__ . '/config/php-config-printer-config.php']);
         $phpConfigPrinterKernel->boot();
         $container = $phpConfigPrinterKernel->getContainer();
-        return $container->get(\RectorPrefix20210113\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter::class);
+        return $container->get(\RectorPrefix20210114\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter::class);
     }
 }

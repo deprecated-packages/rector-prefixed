@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\FuncCall;
 
-use RectorPrefix20210113\Nette\Utils\Strings;
+use RectorPrefix20210114\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
@@ -45,7 +45,7 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
             if (!$this->isName($node, $oldFunction)) {
                 continue;
             }
-            $node->name = \RectorPrefix20210113\Nette\Utils\Strings::contains($newFunction, '\\') ? new \PhpParser\Node\Name\FullyQualified($newFunction) : new \PhpParser\Node\Name($newFunction);
+            $node->name = \RectorPrefix20210114\Nette\Utils\Strings::contains($newFunction, '\\') ? new \PhpParser\Node\Name\FullyQualified($newFunction) : new \PhpParser\Node\Name($newFunction);
         }
         return $node;
     }

@@ -6,13 +6,13 @@ namespace Rector\Php80\Tests\Rector\Assign\FalseableCountToZeroRector;
 use Iterator;
 use Rector\Php80\Rector\Assign\FalseableCountToZeroRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo;
 final class FalseableCountToZeroRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210113\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
