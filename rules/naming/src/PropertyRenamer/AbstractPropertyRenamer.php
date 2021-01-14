@@ -4,9 +4,6 @@ declare (strict_types=1);
 namespace Rector\Naming\PropertyRenamer;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticPropertyFetch;
-use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\VarLikeIdentifier;
 use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
@@ -32,13 +29,9 @@ abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\Rename
      */
     protected $conflictingPropertyNameGuard;
     /**
-     * @var CallableNodeTraverser
+     * @var PropertyFetchRenamer
      */
-    private $callableNodeTraverser;
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
+    protected $propertyFetchRenamer;
     /**
      * @var NotPrivatePropertyGuard
      */
@@ -58,15 +51,14 @@ abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\Rename
     /**
      * @required
      */
-    public function autowireAbstractPropertyRenamer(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard) : void
+    public function autowireAbstractPropertyRenamer(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer) : void
     {
-        $this->callableNodeTraverser = $callableNodeTraverser;
-        $this->nodeNameResolver = $nodeNameResolver;
         $this->notPrivatePropertyGuard = $notPrivatePropertyGuard;
         $this->ramseyUuidInterfaceGuard = $ramseyUuidInterfaceGuard;
         $this->dateTimeAtNamingConventionGuard = $dateTimeAtNamingConventionGuard;
         $this->propertyRenameGuard = $propertyRenameGuard;
         $this->hasMagicGetSetGuard = $hasMagicGetSetGuard;
+        $this->propertyFetchRenamer = $propertyFetchRenamer;
     }
     /**
      * @param PropertyRename $renameValueObject
@@ -85,26 +77,12 @@ abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\Rename
         $this->renamePropertyFetchesInClass($renameValueObject);
         return $renameValueObject->getProperty();
     }
+    public function renamePropertyFetchesInClass(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : void
+    {
+        $this->propertyFetchRenamer->renamePropertyFetchesInClass($propertyRename->getClassLike(), $propertyRename->getCurrentName(), $propertyRename->getExpectedName());
+    }
     private function areNamesDifferent(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : bool
     {
         return $propertyRename->getCurrentName() !== $propertyRename->getExpectedName();
-    }
-    private function renamePropertyFetchesInClass(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : void
-    {
-        // 1. replace property fetch rename in whole class
-        $this->callableNodeTraverser->traverseNodesWithCallable($propertyRename->getClassLike(), function (\PhpParser\Node $node) use($propertyRename) : ?Node {
-            if ($this->nodeNameResolver->isLocalPropertyFetchNamed($node, $propertyRename->getCurrentName()) && $node instanceof \PhpParser\Node\Expr\PropertyFetch) {
-                $node->name = new \PhpParser\Node\Identifier($propertyRename->getExpectedName());
-                return $node;
-            }
-            if ($this->nodeNameResolver->isLocalStaticPropertyFetchNamed($node, $propertyRename->getCurrentName())) {
-                if (!$node instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
-                    return null;
-                }
-                $node->name = new \PhpParser\Node\VarLikeIdentifier($propertyRename->getExpectedName());
-                return $node;
-            }
-            return null;
-        });
     }
 }

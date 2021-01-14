@@ -2404,6 +2404,7 @@ return array(
     'Rector\\Naming\\PropertyRenamer\\AbstractPropertyRenamer' => $baseDir . '/rules/naming/src/PropertyRenamer/AbstractPropertyRenamer.php',
     'Rector\\Naming\\PropertyRenamer\\BoolPropertyRenamer' => $baseDir . '/rules/naming/src/PropertyRenamer/BoolPropertyRenamer.php',
     'Rector\\Naming\\PropertyRenamer\\MatchTypePropertyRenamer' => $baseDir . '/rules/naming/src/PropertyRenamer/MatchTypePropertyRenamer.php',
+    'Rector\\Naming\\PropertyRenamer\\PropertyFetchRenamer' => $baseDir . '/rules/naming/src/PropertyRenamer/PropertyFetchRenamer.php',
     'Rector\\Naming\\PropertyRenamer\\UnderscoreCamelCasePropertyRenamer' => $baseDir . '/rules/naming/src/PropertyRenamer/UnderscoreCamelCasePropertyRenamer.php',
     'Rector\\Naming\\RectorNamingInflector' => $baseDir . '/rules/naming/src/RectorNamingInflector.php',
     'Rector\\Naming\\Rector\\Assign\\RenameVariableToMatchMethodCallReturnTypeRector' => $baseDir . '/rules/naming/src/Rector/Assign/RenameVariableToMatchMethodCallReturnTypeRector.php',

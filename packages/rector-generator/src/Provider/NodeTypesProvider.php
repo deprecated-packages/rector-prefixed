@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\RectorGenerator\Provider;
 
 use ReflectionClass;
-use SplFileInfo;
 use RectorPrefix20210114\Symfony\Component\Finder\Finder;
+use RectorPrefix20210114\Symfony\Component\Finder\SplFileInfo;
 /**
  * @see \Rector\RectorGenerator\Tests\Provider\NodeTypesProviderTest
  */

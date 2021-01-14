@@ -4,13 +4,16 @@ declare (strict_types=1);
 namespace Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector;
 
 use Iterator;
+use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo;
-final class Php74TestTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+/**
+ * @requires PHP 8.0
+ */
+final class Php80Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
-     * @requires PHP 7.4
      * @dataProvider provideData()
      */
     public function test(\RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
@@ -19,10 +22,14 @@ final class Php74TestTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
     }
     public function provideData() : \Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/FixturePhp74');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/FixturePhp80');
     }
     protected function getRectorClass() : string
     {
         return \Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::class;
+    }
+    protected function getPhpVersion() : int
+    {
+        return \Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION;
     }
 }

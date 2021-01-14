@@ -136,9 +136,8 @@ trait ComplexRemovalTrait
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return;
         }
-        /** @var Class_|null $class */
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructClassMethod === null) {
+        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
         $constructClassMethodStmts = $constructClassMethod->stmts;
