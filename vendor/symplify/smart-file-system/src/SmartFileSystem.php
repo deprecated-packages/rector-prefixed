@@ -7,6 +7,9 @@ use RectorPrefix20210115\Nette\Utils\Html;
 use RectorPrefix20210115\Nette\Utils\Strings;
 use RectorPrefix20210115\Symfony\Component\Filesystem\Exception\IOException;
 use RectorPrefix20210115\Symfony\Component\Filesystem\Filesystem;
+/**
+ * @see \Symplify\SmartFileSystem\Tests\SmartFileSystem\SmartFileSystemTest
+ */
 final class SmartFileSystem extends \RectorPrefix20210115\Symfony\Component\Filesystem\Filesystem
 {
     /**
