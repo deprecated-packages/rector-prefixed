@@ -82,12 +82,7 @@ trait NodeTypeResolverTrait
      */
     protected function isObjectTypes(\PhpParser\Node $node, array $requiredTypes) : bool
     {
-        foreach ($requiredTypes as $requiredType) {
-            if ($this->isObjectType($node, $requiredType)) {
-                return \true;
-            }
-        }
-        return \false;
+        return $this->nodeTypeResolver->isObjectTypes($node, $requiredTypes);
     }
     protected function isReturnOfObjectType(\PhpParser\Node\Stmt\Return_ $return, string $objectType) : bool
     {

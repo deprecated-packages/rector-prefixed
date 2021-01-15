@@ -8,9 +8,20 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 abstract class AbstractPHPUnitRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    /**
+     * @required
+     */
+    public function autowireAbstractPHPUnitRector(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer) : void
+    {
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
+    }
     protected function isTestClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if (!$classMethod->isPublic()) {
@@ -46,11 +57,7 @@ abstract class AbstractPHPUnitRector extends \Rector\Core\Rector\AbstractRector
     }
     protected function isInTestClass(\PhpParser\Node $node) : bool
     {
-        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
-            return \false;
-        }
-        return $this->isObjectTypes($classLike, ['PHPUnit\\Framework\\TestCase', 'PHPUnit_Framework_TestCase']);
+        return $this->testsNodeAnalyzer->isInTestClass($node);
     }
     /**
      * @param StaticCall|MethodCall $node

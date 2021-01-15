@@ -168,7 +168,7 @@ CODE_SAMPLE
         $newParams = $this->copyParams($classMethod->params);
         $anonymousFunction->params = $newParams;
         $innerMethodCall = new \PhpParser\Node\Expr\MethodCall($node, $classMethod->name);
-        $innerMethodCall->args = $this->convertParamsToArgs($newParams);
+        $innerMethodCall->args = $this->nodeFactory->createArgsFromParams($newParams);
         if ($classMethod->returnType !== null) {
             $newReturnType = $classMethod->returnType;
             $newReturnType->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
@@ -223,18 +223,6 @@ CODE_SAMPLE
             $newParams[] = $newParam;
         }
         return $newParams;
-    }
-    /**
-     * @param Param[] $params
-     * @return Arg[]
-     */
-    private function convertParamsToArgs(array $params) : array
-    {
-        $args = [];
-        foreach ($params as $param) {
-            $args[] = new \PhpParser\Node\Arg($param->var);
-        }
-        return $args;
     }
     /**
      * @param Return_[] $nodes

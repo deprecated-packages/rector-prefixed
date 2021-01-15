@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\Defluent\NodeFactory;
 
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -12,6 +11,7 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
+use Rector\Defluent\NodeResolver\FirstMethodCallVarResolver;
 use Rector\Defluent\ValueObject\AssignAndRootExpr;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\NetteKdyby\Naming\VariableNaming;
@@ -25,10 +25,15 @@ final class NonFluentChainMethodCallFactory
      * @var VariableNaming
      */
     private $variableNaming;
-    public function __construct(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    /**
+     * @var FirstMethodCallVarResolver
+     */
+    private $firstMethodCallVarResolver;
+    public function __construct(\Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer, \Rector\NetteKdyby\Naming\VariableNaming $variableNaming, \Rector\Defluent\NodeResolver\FirstMethodCallVarResolver $firstMethodCallVarResolver)
     {
         $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
         $this->variableNaming = $variableNaming;
+        $this->firstMethodCallVarResolver = $firstMethodCallVarResolver;
     }
     /**
      * @return Expression[]
@@ -97,24 +102,12 @@ final class NonFluentChainMethodCallFactory
             if ($key === $lastKey && $assignAndRootExpr->isFirstCallFactory() && $isNewNodeNeeded) {
                 continue;
             }
-            $var = $this->resolveMethodCallVar($assignAndRootExpr, $key);
-            $chainMethodCall->var = $var;
+            $chainMethodCall->var = $this->firstMethodCallVarResolver->resolve($assignAndRootExpr, $key);
             $decoupledMethodCalls[] = $chainMethodCall;
         }
         if ($assignAndRootExpr->getRootExpr() instanceof \PhpParser\Node\Expr\New_ && $assignAndRootExpr->getSilentVariable() !== null) {
             $decoupledMethodCalls[] = new \PhpParser\Node\Expr\Assign($assignAndRootExpr->getSilentVariable(), $assignAndRootExpr->getRootExpr());
         }
         return \array_reverse($decoupledMethodCalls);
-    }
-    private function resolveMethodCallVar(\Rector\Defluent\ValueObject\AssignAndRootExpr $assignAndRootExpr, int $key) : \PhpParser\Node\Expr
-    {
-        if (!$assignAndRootExpr->isFirstCallFactory()) {
-            return $assignAndRootExpr->getCallerExpr();
-        }
-        // very first call
-        if ($key !== 0) {
-            return $assignAndRootExpr->getCallerExpr();
-        }
-        return $assignAndRootExpr->getFactoryAssignVariable();
     }
 }

@@ -31,6 +31,7 @@ use RectorPrefix20210115\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use RectorPrefix20210115\Symplify\PackageBuilder\Strings\StringFormatConverter;
 use RectorPrefix20210115\Symplify\SmartFileSystem\FileSystemFilter;
 use RectorPrefix20210115\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use RectorPrefix20210115\Symplify\SmartFileSystem\Json\JsonFileSystem;
 use RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileSystem;
 return static function (\RectorPrefix20210115\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
@@ -59,6 +60,7 @@ return static function (\RectorPrefix20210115\Symfony\Component\DependencyInject
     $services->set(\RectorPrefix20210115\Symplify\PackageBuilder\Strings\StringFormatConverter::class);
     $services->set(\RectorPrefix20210115\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
     $services->set(\RectorPrefix20210115\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\RectorPrefix20210115\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210115\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
+    $services->set(\RectorPrefix20210115\Symplify\SmartFileSystem\Json\JsonFileSystem::class);
     $services->set(\RectorPrefix20210115\Doctrine\Inflector\Rules\English\InflectorFactory::class);
     $services->set(\RectorPrefix20210115\Doctrine\Inflector\Inflector::class)->factory([\RectorPrefix20210115\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210115\Doctrine\Inflector\Rules\English\InflectorFactory::class), 'build']);
     $services->set(\RectorPrefix20210115\Composer\Semver\VersionParser::class);

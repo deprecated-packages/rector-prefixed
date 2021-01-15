@@ -55,7 +55,7 @@ CODE_SAMPLE
         if ($node instanceof \PhpParser\Node\Expr\BooleanNot) {
             return $this->processMarkTruthyNegation($node);
         }
-        if ($this->getName($node) !== 'count') {
+        if (!$this->isName($node, 'count')) {
             return null;
         }
         /** @var Expr $expr */
@@ -83,7 +83,7 @@ CODE_SAMPLE
         if (!$booleanNot->expr instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
-        if ($this->getName($booleanNot->expr) !== 'count') {
+        if (!$this->isName($booleanNot->expr, 'count')) {
             return null;
         }
         /** @var Expr $expr */

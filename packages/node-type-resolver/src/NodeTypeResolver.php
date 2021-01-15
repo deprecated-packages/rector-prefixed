@@ -38,7 +38,9 @@ use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
 use Rector\StaticTypeMapper\TypeFactory\TypeFactoryStaticHelper;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
+use RectorPrefix20210115\Webmozart\Assert\Assert;
 final class NodeTypeResolver
 {
     /**
@@ -85,6 +87,18 @@ final class NodeTypeResolver
     public function autowireNodeTypeResolver(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer) : void
     {
         $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
+    }
+    /**
+     * @param string[]|ObjectType[] $requiredTypes
+     */
+    public function isObjectTypes(\PhpParser\Node $node, array $requiredTypes) : bool
+    {
+        foreach ($requiredTypes as $requiredType) {
+            if ($this->isObjectType($node, $requiredType)) {
+                return \true;
+            }
+        }
+        return \false;
     }
     /**
      * @param ObjectType|string|mixed $requiredType
@@ -228,6 +242,13 @@ final class NodeTypeResolver
             return \false;
         }
         return $this->isStaticType($defaultNodeValue, \PHPStan\Type\BooleanType::class);
+    }
+    public function getFullyQualifiedClassName(\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
+    {
+        if ($typeWithClassName instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
+            return $typeWithClassName->getFullyQualifiedName();
+        }
+        return $typeWithClassName->getClassName();
     }
     private function addNodeTypeResolver(\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface $nodeTypeResolver) : void
     {

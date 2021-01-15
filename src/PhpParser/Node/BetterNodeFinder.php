@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210115\Webmozart\Assert\Assert;
@@ -75,7 +76,7 @@ final class BetterNodeFinder
             return null;
         }
         do {
-            if ($this->isTypes($parent, $types)) {
+            if (\Rector\Core\Util\StaticInstanceOf::isOneOf($parent, $types)) {
                 return $parent;
             }
             if ($parent === null) {
@@ -285,19 +286,6 @@ final class BetterNodeFinder
             }
             return \false;
         });
-    }
-    /**
-     * @param string[] $types
-     */
-    private function isTypes(\PhpParser\Node $node, array $types) : bool
-    {
-        \RectorPrefix20210115\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
-        foreach ($types as $type) {
-            if (\is_a($node, $type, \true)) {
-                return \true;
-            }
-        }
-        return \false;
     }
     /**
      * @param Node|Node[] $nodes

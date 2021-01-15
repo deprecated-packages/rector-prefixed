@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Nette\Rector\FuncCall;
 
 use RectorPrefix20210115\Nette\Utils\Strings;
-use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -62,24 +61,7 @@ class SomeClass
 CODE_SAMPLE
 )]);
     }
-    /**
-     * @return string[]
-     */
-    public function getNodeTypes() : array
-    {
-        return [\PhpParser\Node\Expr\FuncCall::class, \PhpParser\Node\Expr\BinaryOp\Identical::class];
-    }
-    /**
-     * @param FuncCall|Identical $node
-     */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
-    {
-        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
-            return $this->refactorIdentical($node);
-        }
-        return $this->refactorFuncCall($node);
-    }
-    private function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr\Cast\Bool_
+    public function refactorIdentical(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\PhpParser\Node\Expr\Cast\Bool_
     {
         $parentNode = $identical->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($identical->left instanceof \PhpParser\Node\Expr\FuncCall) {
@@ -99,7 +81,7 @@ CODE_SAMPLE
     /**
      * @return FuncCall|StaticCall|Assign|null
      */
-    private function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
+    public function refactorFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
         $methodName = $this->matchFuncCallRenameToMethod($funcCall, self::FUNCTION_NAME_TO_METHOD_NAME);
         if ($methodName === null) {

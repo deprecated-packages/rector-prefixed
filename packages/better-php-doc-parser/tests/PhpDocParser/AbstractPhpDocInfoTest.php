@@ -73,12 +73,16 @@ abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210115\Symplify\Pac
     private function parseFileAndGetFirstNodeOfType(\RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $nodeType) : \PhpParser\Node
     {
         $nodes = $this->fileInfoParser->parseFileInfoToNodesAndDecorate($fileInfo);
-        return $this->betterNodeFinder->findFirstInstanceOf($nodes, $nodeType);
+        $foundNode = $this->betterNodeFinder->findFirstInstanceOf($nodes, $nodeType);
+        if (!$foundNode instanceof \PhpParser\Node) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        return $foundNode;
     }
     private function printNodePhpDocInfoToString(\PhpParser\Node $node) : string
     {
         $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo);

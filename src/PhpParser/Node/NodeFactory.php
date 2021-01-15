@@ -257,7 +257,7 @@ final class NodeFactory
      */
     public function createParentConstructWithParams(array $params) : \PhpParser\Node\Expr\StaticCall
     {
-        return new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name(self::REFERENCE_PARENT), new \PhpParser\Node\Identifier(\Rector\Core\ValueObject\MethodName::CONSTRUCT), $this->convertParamNodesToArgNodes($params));
+        return new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name(self::REFERENCE_PARENT), new \PhpParser\Node\Identifier(\Rector\Core\ValueObject\MethodName::CONSTRUCT), $this->createArgsFromParams($params));
     }
     public function createStaticProtectedPropertyWithDefault(string $name, \PhpParser\Node $node) : \PhpParser\Node\Stmt\Property
     {
@@ -386,6 +386,18 @@ final class NodeFactory
         $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME));
         return new \PhpParser\Node\Expr\ClassConstFetch($name, $constantName);
     }
+    /**
+     * @param Param[] $params
+     * @return Arg[]
+     */
+    public function createArgsFromParams(array $params) : array
+    {
+        $args = [];
+        foreach ($params as $param) {
+            $args[] = new \PhpParser\Node\Arg($param->var);
+        }
+        return $args;
+    }
     private function createClassConstFetchFromName(\PhpParser\Node\Name $className, string $constantName) : \PhpParser\Node\Expr\ClassConstFetch
     {
         $classConstFetchNode = $this->builderFactory->classConstFetch($className, $constantName);
@@ -456,18 +468,6 @@ final class NodeFactory
         // complete property property parent, needed for other operations
         $propertyProperty = $property->props[0];
         $propertyProperty->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $property);
-    }
-    /**
-     * @param Param[] $paramNodes
-     * @return Arg[]
-     */
-    private function convertParamNodesToArgNodes(array $paramNodes) : array
-    {
-        $args = [];
-        foreach ($paramNodes as $paramNode) {
-            $args[] = new \PhpParser\Node\Arg($paramNode->var);
-        }
-        return $args;
     }
     /**
      * @param mixed $value

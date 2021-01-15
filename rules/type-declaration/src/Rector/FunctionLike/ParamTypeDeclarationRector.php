@@ -8,16 +8,16 @@ use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use Rector\TypeDeclaration\ValueObject\NewType;
-use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -33,10 +33,20 @@ final class ParamTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\Fu
      * @var ChildParamPopulator
      */
     private $childParamPopulator;
-    public function __construct(\Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator $childParamPopulator, \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer)
+    /**
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+    public function __construct(\Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator $childParamPopulator, \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
     {
         $this->paramTypeInferer = $paramTypeInferer;
         $this->childParamPopulator = $childParamPopulator;
+        $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->reflectionProvider = $reflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -159,15 +169,8 @@ CODE_SAMPLE
         if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
             return \false;
         }
-        $fullyQualifiedName = $this->getFullyQualifiedName($type);
-        $reflectionClass = new \ReflectionClass($fullyQualifiedName);
-        return $reflectionClass->isTrait();
-    }
-    private function getFullyQualifiedName(\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
-    {
-        if ($typeWithClassName instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
-            return $typeWithClassName->getFullyQualifiedName();
-        }
-        return $typeWithClassName->getClassName();
+        $fullyQualifiedName = $this->nodeTypeResolver->getFullyQualifiedClassName($type);
+        $classReflection = $this->reflectionProvider->getClass($fullyQualifiedName);
+        return $classReflection->isTrait();
     }
 }

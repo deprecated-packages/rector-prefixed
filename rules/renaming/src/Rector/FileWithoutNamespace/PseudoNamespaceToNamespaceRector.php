@@ -16,6 +16,7 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\Generic\ValueObject\PseudoNamespaceToNamespace;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\PhpDocTypeRenamer;
@@ -109,7 +110,7 @@ CODE_SAMPLE
     private function refactorStmts(array $stmts) : array
     {
         $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) : ?Node {
-            if (!$this->isInstancesOf($node, [\PhpParser\Node\Name::class, \PhpParser\Node\Identifier::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\FunctionLike::class])) {
+            if (!\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Name::class, \PhpParser\Node\Identifier::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\FunctionLike::class])) {
                 return null;
             }
             // replace on @var/@param/@return/@throws
@@ -125,18 +126,6 @@ CODE_SAMPLE
             return null;
         });
         return $stmts;
-    }
-    /**
-     * @param class-string[] $types
-     */
-    private function isInstancesOf(\PhpParser\Node $node, array $types) : bool
-    {
-        foreach ($types as $type) {
-            if (\is_a($node, $type, \true)) {
-                return \true;
-            }
-        }
-        return \false;
     }
     /**
      * @param Name|Identifier $node

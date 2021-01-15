@@ -75,6 +75,6 @@ final class NetteInjectDetector
             }
         }
         $classReflection = new \ReflectionClass($parentClass);
-        return $classReflection->hasMethod('__construct');
+        return $classReflection->hasMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
     }
 }

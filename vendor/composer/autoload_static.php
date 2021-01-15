@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite4a82b00543378256a23d105a6fde822
+class ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2911,6 +2911,7 @@ class ComposerStaticInite4a82b00543378256a23d105a6fde822
         'Rector\\Defluent\\NodeFactory\\ReturnFluentMethodCallFactory' => __DIR__ . '/../..' . '/rules/defluent/src/NodeFactory/ReturnFluentMethodCallFactory.php',
         'Rector\\Defluent\\NodeFactory\\SeparateReturnMethodCallFactory' => __DIR__ . '/../..' . '/rules/defluent/src/NodeFactory/SeparateReturnMethodCallFactory.php',
         'Rector\\Defluent\\NodeFactory\\VariableFromNewFactory' => __DIR__ . '/../..' . '/rules/defluent/src/NodeFactory/VariableFromNewFactory.php',
+        'Rector\\Defluent\\NodeResolver\\FirstMethodCallVarResolver' => __DIR__ . '/../..' . '/rules/defluent/src/NodeResolver/FirstMethodCallVarResolver.php',
         'Rector\\Defluent\\Rector\\AbstractFluentChainMethodCallRector' => __DIR__ . '/../..' . '/rules/defluent/src/Rector/AbstractFluentChainMethodCallRector.php',
         'Rector\\Defluent\\Rector\\ClassMethod\\ReturnThisRemoveRector' => __DIR__ . '/../..' . '/rules/defluent/src/Rector/ClassMethod/ReturnThisRemoveRector.php',
         'Rector\\Defluent\\Rector\\MethodCall\\FluentChainMethodCallToNormalMethodCallRector' => __DIR__ . '/../..' . '/rules/defluent/src/Rector/MethodCall/FluentChainMethodCallToNormalMethodCallRector.php',
@@ -3150,6 +3151,7 @@ class ComposerStaticInite4a82b00543378256a23d105a6fde822
         'Rector\\MagicDisclosure\\Rector\\Isset_\\UnsetAndIssetToMethodCallRector' => __DIR__ . '/../..' . '/rules/magic-disclosure/src/Rector/Isset_/UnsetAndIssetToMethodCallRector.php',
         'Rector\\MagicDisclosure\\Rector\\String_\\ToStringToMethodCallRector' => __DIR__ . '/../..' . '/rules/magic-disclosure/src/Rector/String_/ToStringToMethodCallRector.php',
         'Rector\\MagicDisclosure\\ValueObject\\IssetUnsetToMethodCall' => __DIR__ . '/../..' . '/rules/magic-disclosure/src/ValueObject/IssetUnsetToMethodCall.php',
+        'Rector\\MockeryToProphecy\\Collector\\MockVariableCollector' => __DIR__ . '/../..' . '/rules/mockery-to-prophecy/src/Collector/MockVariableCollector.php',
         'Rector\\MockeryToProphecy\\Rector\\ClassMethod\\MockeryCreateMockToProphizeRector' => __DIR__ . '/../..' . '/rules/mockery-to-prophecy/src/Rector/ClassMethod/MockeryCreateMockToProphizeRector.php',
         'Rector\\MockeryToProphecy\\Rector\\StaticCall\\MockeryCloseRemoveRector' => __DIR__ . '/../..' . '/rules/mockery-to-prophecy/src/Rector/StaticCall/MockeryCloseRemoveRector.php',
         'Rector\\MockistaToMockery\\MockistaDetector' => __DIR__ . '/../..' . '/rules/mockista-to-mockery/src/MockistaDetector.php',
@@ -3300,6 +3302,7 @@ class ComposerStaticInite4a82b00543378256a23d105a6fde822
         'Rector\\NetteToSymfony\\ValueObject\\EventInfo' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/ValueObject/EventInfo.php',
         'Rector\\NetteToSymfony\\ValueObject\\RouteInfo' => __DIR__ . '/../..' . '/rules/nette-to-symfony/src/ValueObject/RouteInfo.php',
         'Rector\\NetteUtilsCodeQuality\\Rector\\LNumber\\ReplaceTimeNumberWithDateTimeConstantRector' => __DIR__ . '/../..' . '/rules/nette-utils-code-quality/src/Rector/LNumber/ReplaceTimeNumberWithDateTimeConstantRector.php',
+        'Rector\\Nette\\Contract\\PregToNetteUtilsStringInterface' => __DIR__ . '/../..' . '/rules/nette/src/Contract/PregToNetteUtilsStringInterface.php',
         'Rector\\Nette\\Contract\\WithFunctionToNetteUtilsStringsRectorInterface' => __DIR__ . '/../..' . '/rules/nette/src/Contract/WithFunctionToNetteUtilsStringsRectorInterface.php',
         'Rector\\Nette\\NodeAnalyzer\\StaticCallAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/StaticCallAnalyzer.php',
         'Rector\\Nette\\NodeFactory\\ActionRenderFactory' => __DIR__ . '/../..' . '/rules/nette/src/NodeFactory/ActionRenderFactory.php',
@@ -3479,6 +3482,7 @@ class ComposerStaticInite4a82b00543378256a23d105a6fde822
         'Rector\\PHPUnit\\Collector\\FormerVariablesByMethodCollector' => __DIR__ . '/../..' . '/rules/phpunit/src/Collector/FormerVariablesByMethodCollector.php',
         'Rector\\PHPUnit\\Composer\\ComposerAutoloadedDirectoryProvider' => __DIR__ . '/../..' . '/rules/phpunit/src/Composer/ComposerAutoloadedDirectoryProvider.php',
         'Rector\\PHPUnit\\Manipulator\\OnContainerGetCallManipulator' => __DIR__ . '/../..' . '/rules/phpunit/src/Manipulator/OnContainerGetCallManipulator.php',
+        'Rector\\PHPUnit\\NodeAnalyzer\\TestsNodeAnalyzer' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeAnalyzer/TestsNodeAnalyzer.php',
         'Rector\\PHPUnit\\NodeFactory\\DataProviderClassMethodFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/DataProviderClassMethodFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionMethodCallFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ExpectExceptionMethodCallFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\SetUpClassMethodFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/SetUpClassMethodFactory.php',
@@ -3744,8 +3748,6 @@ class ComposerStaticInite4a82b00543378256a23d105a6fde822
         'Rector\\RectorGenerator\\Config\\ConfigFilesystem' => __DIR__ . '/../..' . '/packages/rector-generator/src/Config/ConfigFilesystem.php',
         'Rector\\RectorGenerator\\Contract\\InternalRectorInterface' => __DIR__ . '/../..' . '/packages/rector-generator/src/Contract/InternalRectorInterface.php',
         'Rector\\RectorGenerator\\Exception\\ConfigurationException' => __DIR__ . '/../..' . '/packages/rector-generator/src/Exception/ConfigurationException.php',
-        'Rector\\RectorGenerator\\FileSystem\\JsonFileSystem' => __DIR__ . '/../..' . '/packages/rector-generator/src/FileSystem/JsonFileSystem.php',
-        'Rector\\RectorGenerator\\FileSystem\\JsonStringFormatter' => __DIR__ . '/../..' . '/packages/rector-generator/src/FileSystem/JsonStringFormatter.php',
         'Rector\\RectorGenerator\\FileSystem\\TemplateFileSystem' => __DIR__ . '/../..' . '/packages/rector-generator/src/FileSystem/TemplateFileSystem.php',
         'Rector\\RectorGenerator\\Finder\\TemplateFinder' => __DIR__ . '/../..' . '/packages/rector-generator/src/Finder/TemplateFinder.php',
         'Rector\\RectorGenerator\\Generator\\FileGenerator' => __DIR__ . '/../..' . '/packages/rector-generator/src/Generator/FileGenerator.php',
@@ -4067,9 +4069,9 @@ class ComposerStaticInite4a82b00543378256a23d105a6fde822
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite4a82b00543378256a23d105a6fde822::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite4a82b00543378256a23d105a6fde822::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite4a82b00543378256a23d105a6fde822::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544::$classMap;
 
         }, null, ClassLoader::class);
     }

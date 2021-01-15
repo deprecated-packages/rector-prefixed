@@ -12,7 +12,7 @@ use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
+use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ClassMethodReturnTypeOverrideGuard
 {
     /**
@@ -23,9 +23,14 @@ final class ClassMethodReturnTypeOverrideGuard
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->nodeTypeResolver = $nodeTypeResolver;
     }
     public function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
@@ -84,8 +89,8 @@ final class ClassMethodReturnTypeOverrideGuard
             if (!$newUnionedType instanceof \PHPStan\Type\TypeWithClassName) {
                 return \false;
             }
-            $oldClass = $this->resolveClass($oldTypeWithClassName);
-            $newClass = $this->resolveClass($newUnionedType);
+            $oldClass = $this->nodeTypeResolver->getFullyQualifiedClassName($oldTypeWithClassName);
+            $newClass = $this->nodeTypeResolver->getFullyQualifiedClassName($newUnionedType);
             if (\is_a($oldClass, $newClass, \true) || \is_a($newClass, $oldClass, \true)) {
                 $isMatchingClassTypes = \true;
             } else {
@@ -93,12 +98,5 @@ final class ClassMethodReturnTypeOverrideGuard
             }
         }
         return $isMatchingClassTypes;
-    }
-    private function resolveClass(\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
-    {
-        if ($typeWithClassName instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
-            return $typeWithClassName->getFullyQualifiedName();
-        }
-        return $typeWithClassName->getClassName();
     }
 }

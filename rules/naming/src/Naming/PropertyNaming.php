@@ -17,9 +17,9 @@ use Rector\Naming\ValueObject\ExpectedName;
 use Rector\NetteKdyby\Naming\VariableNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
-use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 /**
  * @deprecated
  * @todo merge with very similar logic in
@@ -67,12 +67,17 @@ final class PropertyNaming
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\Naming\RectorNamingInflector $rectorNamingInflector, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+    public function __construct(\Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\Naming\RectorNamingInflector $rectorNamingInflector, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->typeUnwrapper = $typeUnwrapper;
         $this->rectorNamingInflector = $rectorNamingInflector;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->nodeTypeResolver = $nodeTypeResolver;
     }
     public function getExpectedNameFromMethodName(string $methodName) : ?\Rector\Naming\ValueObject\ExpectedName
     {
@@ -95,7 +100,7 @@ final class PropertyNaming
         if ($type instanceof \PHPStan\Type\StaticType) {
             return null;
         }
-        $className = $this->getClassName($type);
+        $className = $this->nodeTypeResolver->getFullyQualifiedClassName($type);
         foreach (self::EXCLUDED_CLASSES as $excludedClass) {
             if (\RectorPrefix20210115\Nette\Utils\Strings::match($className, $excludedClass)) {
                 return null;
@@ -145,13 +150,6 @@ final class PropertyNaming
         }
         $classMethod = \reset($classMethods);
         return $this->nodeNameResolver->getName($classMethod);
-    }
-    private function getClassName(\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
-    {
-        if ($typeWithClassName instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
-            return $typeWithClassName->getFullyQualifiedName();
-        }
-        return $typeWithClassName->getClassName();
     }
     private function resolveShortClassName(string $className) : string
     {

@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\MockeryToProphecy\Collector\MockVariableCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
 use RectorPrefix20210115\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -30,6 +31,14 @@ final class MockistaMockToMockeryMockRector extends \Rector\Core\Rector\Abstract
      * @var string[]
      */
     private $mockVariableTypesByNames = [];
+    /**
+     * @var MockVariableCollector
+     */
+    private $mockVariableCollector;
+    public function __construct(\Rector\MockeryToProphecy\Collector\MockVariableCollector $mockVariableCollector)
+    {
+        $this->mockVariableCollector = $mockVariableCollector;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change functions to static calls, so composer can autoload them', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -84,7 +93,8 @@ CODE_SAMPLE
                 return null;
             }
             /** @var FuncCall $node */
-            $this->collectMockVariableName($node);
+            $collectedVariableTypesByNames = $this->mockVariableCollector->collectMockVariableName($node);
+            $this->mockVariableTypesByNames = \array_merge($this->mockVariableTypesByNames, $collectedVariableTypesByNames);
             return $this->createStaticCall('Mockery', 'mock', $node->args);
         });
     }
@@ -173,23 +183,6 @@ CODE_SAMPLE
             }
             [$node->name, $previousMethodCall->name] = [$previousMethodCall->name, $node->name];
         });
-    }
-    private function collectMockVariableName(\PhpParser\Node\Expr\FuncCall $funcCall) : void
-    {
-        $parentNode = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parentNode instanceof \PhpParser\Node\Expr\Assign) {
-            return;
-        }
-        if (!$parentNode->var instanceof \PhpParser\Node\Expr\Variable) {
-            return;
-        }
-        /** @var Variable $variable */
-        $variable = $parentNode->var;
-        /** @var string $variableName */
-        $variableName = $this->getName($variable);
-        $type = $funcCall->args[0]->value;
-        $mockedType = $this->getValue($type);
-        $this->mockVariableTypesByNames[$variableName] = $mockedType;
     }
     private function isMethodCallOrPropertyFetchOnMockVariable(\PhpParser\Node $node) : bool
     {

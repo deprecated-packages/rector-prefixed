@@ -13,9 +13,9 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
-use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\TypeNormalizer;
 final class TypeComparator
 {
@@ -31,11 +31,16 @@ final class TypeComparator
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    /**
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->typeHasher = $typeHasher;
         $this->typeNormalizer = $typeNormalizer;
         $this->staticTypeMapper = $staticTypeMapper;
+        $this->nodeTypeResolver = $nodeTypeResolver;
     }
     public function areTypesEqual(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
     {
@@ -110,8 +115,8 @@ final class TypeComparator
         $firstArrayItemType = $firstType->getItemType();
         $secondArrayItemType = $secondType->getItemType();
         if ($firstArrayItemType instanceof \PHPStan\Type\ObjectType && $secondArrayItemType instanceof \PHPStan\Type\ObjectType) {
-            $firstFqnClassName = $this->getFqnClassName($firstArrayItemType);
-            $secondFqnClassName = $this->getFqnClassName($secondArrayItemType);
+            $firstFqnClassName = $this->nodeTypeResolver->getFullyQualifiedClassName($firstArrayItemType);
+            $secondFqnClassName = $this->nodeTypeResolver->getFullyQualifiedClassName($secondArrayItemType);
             if (\is_a($firstFqnClassName, $secondFqnClassName, \true)) {
                 return \true;
             }
@@ -120,12 +125,5 @@ final class TypeComparator
             }
         }
         return \false;
-    }
-    private function getFqnClassName(\PHPStan\Type\ObjectType $objectType) : string
-    {
-        if ($objectType instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
-            return $objectType->getFullyQualifiedName();
-        }
-        return $objectType->getClassName();
     }
 }
