@@ -7,13 +7,12 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
-use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
+use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\Naming\ConstantNaming;
 final class PropertyFetchWithConstFetchReplacer
 {
@@ -33,12 +32,17 @@ final class PropertyFetchWithConstFetchReplacer
      * @var ConstantNaming
      */
     private $constantNaming;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\Privatization\Naming\ConstantNaming $constantNaming)
+    /**
+     * @var NodeFactory
+     */
+    private $nodeFactory;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\Privatization\Naming\ConstantNaming $constantNaming, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->callableNodeTraverser = $callableNodeTraverser;
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
         $this->constantNaming = $constantNaming;
+        $this->nodeFactory = $nodeFactory;
     }
     public function replace(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\Property $property) : void
     {
@@ -54,18 +58,7 @@ final class PropertyFetchWithConstFetchReplacer
                 return null;
             }
             // replace with constant fetch
-            // replace with constant fetch
-            $name = $this->createSelf($node);
-            return new \PhpParser\Node\Expr\ClassConstFetch($name, $constantName);
+            return $this->nodeFactory->createSelfFetchConstant($constantName, $node);
         });
-    }
-    /**
-     * @param PropertyFetch|StaticPropertyFetch $propertyFetch
-     */
-    private function createSelf($propertyFetch) : \PhpParser\Node\Name
-    {
-        $name = new \PhpParser\Node\Name('self');
-        $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME));
-        return $name;
     }
 }

@@ -15,6 +15,7 @@ use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -152,7 +153,7 @@ CODE_SAMPLE
                 return null;
             }
             $constantName = $this->createConstName($node->value);
-            return new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name('self'), $constantName);
+            return $this->nodeFactory->createSelfFetchConstant($constantName, $node);
         });
     }
     /**

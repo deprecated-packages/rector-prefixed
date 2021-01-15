@@ -380,6 +380,12 @@ final class NodeFactory
         $arguments = $this->createArgs($arguments);
         return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name($name), $arguments);
     }
+    public function createSelfFetchConstant(string $constantName, \PhpParser\Node $node) : \PhpParser\Node\Expr\ClassConstFetch
+    {
+        $name = new \PhpParser\Node\Name('self');
+        $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME));
+        return new \PhpParser\Node\Expr\ClassConstFetch($name, $constantName);
+    }
     private function createClassConstFetchFromName(\PhpParser\Node\Name $className, string $constantName) : \PhpParser\Node\Expr\ClassConstFetch
     {
         $classConstFetchNode = $this->builderFactory->classConstFetch($className, $constantName);
