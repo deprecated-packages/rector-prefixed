@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\ClassConstFetch;
 
-use RectorPrefix20210114\Nette\Utils\Strings;
+use RectorPrefix20210115\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Identifier;
@@ -13,7 +13,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Renaming\ValueObject\RenameClassConstant;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210114\Webmozart\Assert\Assert;
+use RectorPrefix20210115\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\RenameClassConstantRectorTest
  */
@@ -59,7 +59,7 @@ CODE_SAMPLE
             if (!$this->isName($node->name, $classConstantRename->getOldConstant())) {
                 continue;
             }
-            if (\RectorPrefix20210114\Nette\Utils\Strings::contains($classConstantRename->getNewConstant(), '::')) {
+            if (\RectorPrefix20210115\Nette\Utils\Strings::contains($classConstantRename->getNewConstant(), '::')) {
                 return $this->createClassConstantFetchNodeFromDoubleColonFormat($classConstantRename->getNewConstant());
             }
             $node->name = new \PhpParser\Node\Identifier($classConstantRename->getNewConstant());
@@ -73,7 +73,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $classConstantRenames = $configuration[self::CLASS_CONSTANT_RENAME] ?? [];
-        \RectorPrefix20210114\Webmozart\Assert\Assert::allIsInstanceOf($classConstantRenames, \Rector\Renaming\ValueObject\RenameClassConstant::class);
+        \RectorPrefix20210115\Webmozart\Assert\Assert::allIsInstanceOf($classConstantRenames, \Rector\Renaming\ValueObject\RenameClassConstant::class);
         $this->classConstantRenames = $classConstantRenames;
     }
     private function createClassConstantFetchNodeFromDoubleColonFormat(string $constant) : \PhpParser\Node\Expr\ClassConstFetch

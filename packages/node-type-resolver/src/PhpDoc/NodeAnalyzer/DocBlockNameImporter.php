@@ -12,8 +12,8 @@ use Rector\Core\Configuration\Option;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210114\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210114\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210115\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210115\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockNameImporter
 {
     /**
@@ -40,7 +40,7 @@ final class DocBlockNameImporter
      * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \RectorPrefix20210114\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210114\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    public function __construct(\Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \RectorPrefix20210115\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210115\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
     {
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
         $this->staticTypeMapper = $staticTypeMapper;

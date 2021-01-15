@@ -4,22 +4,14 @@ declare (strict_types=1);
 namespace Rector\Privatization\Rector\Property;
 
 use PhpParser\Node;
-use PhpParser\Node\Const_;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\StaticPropertyFetch;
-use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
-use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
 use Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Privatization\NodeFactory\ClassConstantFactory;
+use Rector\Privatization\NodeReplacer\PropertyFetchWithConstFetchReplacer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -32,13 +24,18 @@ final class ChangeReadOnlyPropertyWithDefaultValueToConstantRector extends \Rect
      */
     private $propertyManipulator;
     /**
-     * @var PropertyFetchAnalyzer
+     * @var ClassConstantFactory
      */
-    private $propertyFetchAnalyzer;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer)
+    private $classConstantFactory;
+    /**
+     * @var PropertyFetchWithConstFetchReplacer
+     */
+    private $propertyFetchWithConstFetchReplacer;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \Rector\Privatization\NodeFactory\ClassConstantFactory $classConstantFactory, \Rector\Privatization\NodeReplacer\PropertyFetchWithConstFetchReplacer $propertyFetchWithConstFetchReplacer)
     {
         $this->propertyManipulator = $propertyManipulator;
-        $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
+        $this->classConstantFactory = $classConstantFactory;
+        $this->propertyFetchWithConstFetchReplacer = $propertyFetchWithConstFetchReplacer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -110,8 +107,10 @@ CODE_SAMPLE
         if ($this->propertyManipulator->isPropertyChangeable($node)) {
             return null;
         }
-        $this->replacePropertyFetchWithClassConstFetch($node, $onlyProperty);
-        return $this->createClassConst($node, $onlyProperty);
+        /** @var Class_ $classLike */
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        $this->propertyFetchWithConstFetchReplacer->replace($classLike, $node);
+        return $this->classConstantFactory->createFromProperty($node);
     }
     private function shouldSkip(\PhpParser\Node\Stmt\Property $property) : bool
     {
@@ -123,42 +122,5 @@ CODE_SAMPLE
             return \true;
         }
         return $this->isObjectType($classLike, 'PHP_CodeSniffer\\Sniffs\\Sniff');
-    }
-    private function replacePropertyFetchWithClassConstFetch(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : void
-    {
-        $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        $propertyName = $this->getName($propertyProperty);
-        $constantName = $this->createConstantNameFromProperty($propertyProperty);
-        $this->traverseNodesWithCallable($classLike, function (\PhpParser\Node $node) use($propertyName, $constantName) : ?ClassConstFetch {
-            if (!$this->propertyFetchAnalyzer->isLocalPropertyFetch($node)) {
-                return null;
-            }
-            /** @var PropertyFetch|StaticPropertyFetch $node */
-            if (!$this->isName($node->name, $propertyName)) {
-                return null;
-            }
-            // replace with constant fetch
-            return new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name('self'), $constantName);
-        });
-    }
-    private function createClassConst(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : \PhpParser\Node\Stmt\ClassConst
-    {
-        $constantName = $this->createConstantNameFromProperty($propertyProperty);
-        /** @var Expr $defaultValue */
-        $defaultValue = $propertyProperty->default;
-        $const = new \PhpParser\Node\Const_($constantName, $defaultValue);
-        $classConst = new \PhpParser\Node\Stmt\ClassConst([$const]);
-        $classConst->flags = $property->flags & ~\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC;
-        $classConst->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO));
-        return $classConst;
-    }
-    private function createConstantNameFromProperty(\PhpParser\Node\Stmt\PropertyProperty $propertyProperty) : string
-    {
-        $propertyName = $this->getName($propertyProperty);
-        $constantName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($propertyName);
-        return \strtoupper($constantName);
     }
 }

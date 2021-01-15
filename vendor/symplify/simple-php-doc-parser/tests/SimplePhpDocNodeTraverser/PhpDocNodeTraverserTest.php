@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210114\Symplify\SimplePhpDocParser\Tests\SimplePhpDocNodeTraverser;
+namespace RectorPrefix20210115\Symplify\SimplePhpDocParser\Tests\SimplePhpDocNodeTraverser;
 
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
-use RectorPrefix20210114\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210114\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
-use RectorPrefix20210114\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel;
-final class PhpDocNodeTraverserTest extends \RectorPrefix20210114\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210115\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210115\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210115\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel;
+final class PhpDocNodeTraverserTest extends \RectorPrefix20210115\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var string
@@ -23,8 +23,8 @@ final class PhpDocNodeTraverserTest extends \RectorPrefix20210114\Symplify\Packa
     private $phpDocNodeTraverser;
     protected function setUp() : void
     {
-        $this->bootKernel(\RectorPrefix20210114\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel::class);
-        $this->phpDocNodeTraverser = $this->getService(\RectorPrefix20210114\Symplify\SimplePhpDocParser\PhpDocNodeTraverser::class);
+        $this->bootKernel(\RectorPrefix20210115\Symplify\SimplePhpDocParser\Tests\HttpKernel\SimplePhpDocParserKernel::class);
+        $this->phpDocNodeTraverser = $this->getService(\RectorPrefix20210115\Symplify\SimplePhpDocParser\PhpDocNodeTraverser::class);
     }
     public function test() : void
     {

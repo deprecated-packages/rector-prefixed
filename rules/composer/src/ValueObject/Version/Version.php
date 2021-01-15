@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Composer\ValueObject\Version;
 
-use RectorPrefix20210114\Composer\Semver\VersionParser;
+use RectorPrefix20210115\Composer\Semver\VersionParser;
 final class Version
 {
     /**
@@ -15,7 +15,7 @@ final class Version
      */
     public function __construct(string $version)
     {
-        $versionParser = new \RectorPrefix20210114\Composer\Semver\VersionParser();
+        $versionParser = new \RectorPrefix20210115\Composer\Semver\VersionParser();
         $versionParser->parseConstraints($version);
         $this->version = $version;
     }

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210114\Symplify\Astral\Tests\NodeValue;
+namespace RectorPrefix20210115\Symplify\Astral\Tests\NodeValue;
 
 use Iterator;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Scalar\String_;
-use RectorPrefix20210114\PHPUnit\Framework\TestCase;
-use RectorPrefix20210114\Symplify\Astral\NodeValue\NodeValueResolver;
-use RectorPrefix20210114\Symplify\Astral\StaticFactory\SimpleNameResolverStaticFactory;
-use RectorPrefix20210114\Symplify\PackageBuilder\Php\TypeChecker;
-final class NodeValueResolverTest extends \RectorPrefix20210114\PHPUnit\Framework\TestCase
+use RectorPrefix20210115\PHPUnit\Framework\TestCase;
+use RectorPrefix20210115\Symplify\Astral\NodeValue\NodeValueResolver;
+use RectorPrefix20210115\Symplify\Astral\StaticFactory\SimpleNameResolverStaticFactory;
+use RectorPrefix20210115\Symplify\PackageBuilder\Php\TypeChecker;
+final class NodeValueResolverTest extends \RectorPrefix20210115\PHPUnit\Framework\TestCase
 {
     /**
      * @var NodeValueResolver
@@ -18,8 +18,8 @@ final class NodeValueResolverTest extends \RectorPrefix20210114\PHPUnit\Framewor
     private $nodeValueResolver;
     protected function setUp() : void
     {
-        $simpleNameResolver = \RectorPrefix20210114\Symplify\Astral\StaticFactory\SimpleNameResolverStaticFactory::create();
-        $this->nodeValueResolver = new \RectorPrefix20210114\Symplify\Astral\NodeValue\NodeValueResolver($simpleNameResolver, new \RectorPrefix20210114\Symplify\PackageBuilder\Php\TypeChecker());
+        $simpleNameResolver = \RectorPrefix20210115\Symplify\Astral\StaticFactory\SimpleNameResolverStaticFactory::create();
+        $this->nodeValueResolver = new \RectorPrefix20210115\Symplify\Astral\NodeValue\NodeValueResolver($simpleNameResolver, new \RectorPrefix20210115\Symplify\PackageBuilder\Php\TypeChecker());
     }
     /**
      * @dataProvider provideData()

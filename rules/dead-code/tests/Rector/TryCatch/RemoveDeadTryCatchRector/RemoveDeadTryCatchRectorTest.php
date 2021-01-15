@@ -6,13 +6,13 @@ namespace Rector\DeadCode\Tests\Rector\TryCatch\RemoveDeadTryCatchRector;
 use Iterator;
 use Rector\DeadCode\Rector\TryCatch\RemoveDeadTryCatchRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveDeadTryCatchRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210114\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

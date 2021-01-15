@@ -5,7 +5,7 @@ namespace Rector\Composer\ValueObject\ComposerModifier;
 
 use Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface;
 use Rector\Composer\ValueObject\Version\Version;
-use RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 /**
  * Only adds package to require-dev section, if package is already in composer data, nothing happen
  * @see \Rector\Composer\Tests\ValueObject\ComposerModifier\AddPackageToRequireDevTest
@@ -29,7 +29,7 @@ final class AddPackageToRequireDev implements \Rector\Composer\Contract\Composer
         $this->packageName = $packageName;
         $this->version = new \Rector\Composer\ValueObject\Version\Version($version);
     }
-    public function modify(\RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         $composerJson->addRequiredDevPackage($this->packageName, $this->version->getVersion());
         return $composerJson;

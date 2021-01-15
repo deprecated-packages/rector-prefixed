@@ -5,7 +5,7 @@ namespace Rector\Composer\ValueObject\ComposerModifier;
 
 use Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface;
 use Rector\Composer\ValueObject\Version\Version;
-use RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 /**
  * Changes package version of package which is already in composer data
  * @see \Rector\Composer\Tests\ValueObject\ComposerModifier\ChangePackageVersionTest
@@ -29,7 +29,7 @@ final class ChangePackageVersion implements \Rector\Composer\Contract\ComposerMo
         $this->packageName = $packageName;
         $this->targetVersion = new \Rector\Composer\ValueObject\Version\Version($targetVersion);
     }
-    public function modify(\RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210114\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         $composerJson->changePackageVersion($this->packageName, $this->targetVersion->getVersion());
         return $composerJson;
