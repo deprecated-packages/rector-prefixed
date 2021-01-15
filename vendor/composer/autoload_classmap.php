@@ -2085,6 +2085,7 @@ return array(
     'Rector\\DeadCode\\Rector\\PropertyProperty\\RemoveNullPropertyInitializationRector' => $baseDir . '/rules/dead-code/src/Rector/PropertyProperty/RemoveNullPropertyInitializationRector.php',
     'Rector\\DeadCode\\Rector\\Property\\RemoveSetterOnlyPropertyAndMethodCallRector' => $baseDir . '/rules/dead-code/src/Rector/Property/RemoveSetterOnlyPropertyAndMethodCallRector.php',
     'Rector\\DeadCode\\Rector\\Property\\RemoveUnusedPrivatePropertyRector' => $baseDir . '/rules/dead-code/src/Rector/Property/RemoveUnusedPrivatePropertyRector.php',
+    'Rector\\DeadCode\\Rector\\Return_\\RemoveDeadConditionAboveReturnRector' => $baseDir . '/rules/dead-code/src/Rector/Return_/RemoveDeadConditionAboveReturnRector.php',
     'Rector\\DeadCode\\Rector\\StaticCall\\RemoveParentCallWithoutParentRector' => $baseDir . '/rules/dead-code/src/Rector/StaticCall/RemoveParentCallWithoutParentRector.php',
     'Rector\\DeadCode\\Rector\\Stmt\\RemoveUnreachableStatementRector' => $baseDir . '/rules/dead-code/src/Rector/Stmt/RemoveUnreachableStatementRector.php',
     'Rector\\DeadCode\\Rector\\Switch_\\RemoveDuplicatedCaseInSwitchRector' => $baseDir . '/rules/dead-code/src/Rector/Switch_/RemoveDuplicatedCaseInSwitchRector.php',
