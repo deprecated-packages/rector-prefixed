@@ -65,7 +65,7 @@ CODE_SAMPLE
         if (!$this->areNodesEqual($previousStatement->expr->var, $node->var)) {
             return null;
         }
-        if ($this->isCall($node->expr)) {
+        if ($this->isCall($previousStatement->expr->expr)) {
             return null;
         }
         if ($this->shouldSkipForDifferentScope($node, $previousStatement)) {
