@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Composer\ValueObject\ComposerModifier;
 
 use Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface;
-use Rector\Composer\ValueObject\Version\Version;
 use RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use RectorPrefix20210115\Webmozart\Assert\Assert;
 /**
@@ -22,24 +21,18 @@ final class ReplacePackage implements \Rector\Composer\Contract\ComposerModifier
      */
     private $newPackageName;
     /**
-     * @var Version
+     * @var string
      */
     private $targetVersion;
-    /**
-     * @param string $oldPackageName name of package to be replaced (vendor1/package1)
-     * @param string $newPackageName new name of package (vendor2/package2)
-     * @param string $targetVersion target package version (1.2.3, ^1.2, ~1.2.3 etc.)
-     */
     public function __construct(string $oldPackageName, string $newPackageName, string $targetVersion)
     {
         \RectorPrefix20210115\Webmozart\Assert\Assert::notSame($oldPackageName, $newPackageName, '$oldPackageName cannot be the same as $newPackageName. If you want to change version of package, use ' . \Rector\Composer\ValueObject\ComposerModifier\ChangePackageVersion::class);
         $this->oldPackageName = $oldPackageName;
         $this->newPackageName = $newPackageName;
-        $this->targetVersion = new \Rector\Composer\ValueObject\Version\Version($targetVersion);
+        $this->targetVersion = $targetVersion;
     }
-    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
-        $composerJson->replacePackage($this->oldPackageName, $this->newPackageName, $this->targetVersion->getVersion());
-        return $composerJson;
+        $composerJson->replacePackage($this->oldPackageName, $this->newPackageName, $this->targetVersion);
     }
 }

@@ -15,16 +15,12 @@ final class MovePackageToRequire implements \Rector\Composer\Contract\ComposerMo
      * @var string
      */
     private $packageName;
-    /**
-     * @param string $packageName name of package to be moved (vendor/package)
-     */
     public function __construct(string $packageName)
     {
         $this->packageName = $packageName;
     }
-    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         $composerJson->movePackageToRequire($this->packageName);
-        return $composerJson;
     }
 }

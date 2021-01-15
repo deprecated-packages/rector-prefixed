@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544
+class ComposerStaticInitfe7792e584f506cf5bef6a53d623a681
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2655,7 +2655,6 @@ class ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544
         'Rector\\Composer\\ValueObject\\ComposerModifier\\MovePackageToRequireDev' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/MovePackageToRequireDev.php',
         'Rector\\Composer\\ValueObject\\ComposerModifier\\RemovePackage' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/RemovePackage.php',
         'Rector\\Composer\\ValueObject\\ComposerModifier\\ReplacePackage' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/ReplacePackage.php',
-        'Rector\\Composer\\ValueObject\\Version\\Version' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/Version/Version.php',
         'Rector\\ConsoleDiffer\\Diff\\Output\\CompleteUnifiedDiffOutputBuilderFactory' => __DIR__ . '/../..' . '/packages/console-differ/src/Diff/Output/CompleteUnifiedDiffOutputBuilderFactory.php',
         'Rector\\ConsoleDiffer\\DifferAndFormatter' => __DIR__ . '/../..' . '/packages/console-differ/src/DifferAndFormatter.php',
         'Rector\\ConsoleDiffer\\MarkdownDifferAndFormatter' => __DIR__ . '/../..' . '/packages/console-differ/src/MarkdownDifferAndFormatter.php',
@@ -4069,9 +4068,9 @@ class ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbb6e3b8e60be11d37c9c029d471fa544::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfe7792e584f506cf5bef6a53d623a681::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfe7792e584f506cf5bef6a53d623a681::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfe7792e584f506cf5bef6a53d623a681::$classMap;
 
         }, null, ClassLoader::class);
     }

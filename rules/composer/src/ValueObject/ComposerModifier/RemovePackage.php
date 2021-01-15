@@ -15,16 +15,12 @@ final class RemovePackage implements \Rector\Composer\Contract\ComposerModifier\
      * @var string
      */
     private $packageName;
-    /**
-     * @param string $packageName name of package to be removed (vendor/package)
-     */
     public function __construct(string $packageName)
     {
         $this->packageName = $packageName;
     }
-    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         $composerJson->removePackage($this->packageName);
-        return $composerJson;
     }
 }

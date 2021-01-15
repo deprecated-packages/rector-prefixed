@@ -15,16 +15,12 @@ final class MovePackageToRequireDev implements \Rector\Composer\Contract\Compose
      * @var string
      */
     private $packageName;
-    /**
-     * @param string $packageName name of package to be moved (vendor/package)
-     */
     public function __construct(string $packageName)
     {
         $this->packageName = $packageName;
     }
-    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         $composerJson->movePackageToRequireDev($this->packageName);
-        return $composerJson;
     }
 }

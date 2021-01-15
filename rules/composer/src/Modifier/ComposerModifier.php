@@ -55,11 +55,10 @@ final class ComposerModifier
     {
         return $this->command;
     }
-    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : \RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         foreach ($this->configuration as $composerChanger) {
-            $composerJson = $composerChanger->modify($composerJson);
+            $composerChanger->modify($composerJson);
         }
-        return $composerJson;
     }
 }

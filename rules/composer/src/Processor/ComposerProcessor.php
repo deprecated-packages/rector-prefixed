@@ -11,6 +11,9 @@ use RectorPrefix20210115\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use RectorPrefix20210115\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 use RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileSystem;
+/**
+ * @see \Rector\Composer\Tests\Processor\ComposerProcessorTest
+ */
 final class ComposerProcessor
 {
     /**
@@ -55,8 +58,8 @@ final class ComposerProcessor
         $smartFileInfo = new \RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo($composerJsonFilePath);
         $composerJson = $this->composerJsonFactory->createFromFileInfo($smartFileInfo);
         $oldContents = $smartFileInfo->getContents();
-        $newComposerJson = $this->composerModifier->modify($composerJson);
-        $newContents = $this->composerJsonPrinter->printToString($newComposerJson);
+        $this->composerModifier->modify($composerJson);
+        $newContents = $this->composerJsonPrinter->printToString($composerJson);
         // nothing has changed
         if ($oldContents === $newContents) {
             return;

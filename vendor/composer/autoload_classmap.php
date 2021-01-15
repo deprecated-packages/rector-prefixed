@@ -1860,7 +1860,6 @@ return array(
     'Rector\\Composer\\ValueObject\\ComposerModifier\\MovePackageToRequireDev' => $baseDir . '/rules/composer/src/ValueObject/ComposerModifier/MovePackageToRequireDev.php',
     'Rector\\Composer\\ValueObject\\ComposerModifier\\RemovePackage' => $baseDir . '/rules/composer/src/ValueObject/ComposerModifier/RemovePackage.php',
     'Rector\\Composer\\ValueObject\\ComposerModifier\\ReplacePackage' => $baseDir . '/rules/composer/src/ValueObject/ComposerModifier/ReplacePackage.php',
-    'Rector\\Composer\\ValueObject\\Version\\Version' => $baseDir . '/rules/composer/src/ValueObject/Version/Version.php',
     'Rector\\ConsoleDiffer\\Diff\\Output\\CompleteUnifiedDiffOutputBuilderFactory' => $baseDir . '/packages/console-differ/src/Diff/Output/CompleteUnifiedDiffOutputBuilderFactory.php',
     'Rector\\ConsoleDiffer\\DifferAndFormatter' => $baseDir . '/packages/console-differ/src/DifferAndFormatter.php',
     'Rector\\ConsoleDiffer\\MarkdownDifferAndFormatter' => $baseDir . '/packages/console-differ/src/MarkdownDifferAndFormatter.php',
