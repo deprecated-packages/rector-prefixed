@@ -153,9 +153,6 @@ trait NodeTypeResolverTrait
     protected function isMethodStaticCallOrClassMethodObjectType(\PhpParser\Node $node, string $type) : bool
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
-            if ($node->var instanceof \PhpParser\Node\Expr\Variable) {
-                return $this->isObjectType($node->var, $type);
-            }
             // method call is variable return
             return $this->isObjectType($node->var, $type);
         }

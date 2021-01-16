@@ -71,6 +71,9 @@ CODE_SAMPLE
         if (!($parent instanceof \PhpParser\Node\Expr\Assign && $parent->var === $node)) {
             return null;
         }
+        if ($parent->expr instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+            return null;
+        }
         $expression = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$expression instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
@@ -81,10 +84,7 @@ CODE_SAMPLE
         if ($this->hasPropertyInExpr($expression, $parent->expr)) {
             return null;
         }
-        if ($this->hasReAssign($expression, $parent->var)) {
-            return null;
-        }
-        if ($this->hasReAssign($expression, $parent->expr)) {
+        if ($this->shouldSkipReAssign($expression, $parent)) {
             return null;
         }
         $variable = $this->getUsageInNextStmts($expression, $node);
@@ -99,6 +99,13 @@ CODE_SAMPLE
         $this->addNodeBeforeNode($expression, $usageStmt);
         $this->removeNode($expression);
         return $node;
+    }
+    private function shouldSkipReAssign(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Assign $assign) : bool
+    {
+        if ($this->hasReAssign($expression, $assign->var)) {
+            return \true;
+        }
+        return $this->hasReAssign($expression, $assign->expr);
     }
     private function isUsedAsArraykeyOrInsideIfCondition(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Variable $variable) : bool
     {
