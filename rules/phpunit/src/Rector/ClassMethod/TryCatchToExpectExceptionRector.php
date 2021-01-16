@@ -27,7 +27,7 @@ final class TryCatchToExpectExceptionRector extends \Rector\Core\Rector\Abstract
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns try/catch to expectException() call', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 try {
-	$someService->run();
+    $someService->run();
 } catch (Throwable $exception) {
     $this->assertInstanceOf(RuntimeException::class, $e);
     $this->assertContains('There was an error executing the following script', $e->getMessage());
@@ -118,7 +118,6 @@ CODE_SAMPLE
         if (!$this->isLocalMethodCallNamed($methodCall, 'assertInstanceOf')) {
             return;
         }
-        /** @var MethodCall $methodCall */
         $argumentVariableName = $this->getName($methodCall->args[1]->value);
         if ($argumentVariableName === null) {
             return;

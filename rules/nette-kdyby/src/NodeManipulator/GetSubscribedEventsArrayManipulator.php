@@ -9,21 +9,21 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name\FullyQualified;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\NetteKdyby\ValueObject\NetteEventToContributeEventClass;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class GetSubscribedEventsArrayManipulator
 {
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
+    private $simpleCallableNodeTraverser;
     /**
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->valueResolver = $valueResolver;
     }
     public function change(\PhpParser\Node\Expr\Array_ $array) : void
@@ -31,7 +31,7 @@ final class GetSubscribedEventsArrayManipulator
         $arrayItems = \array_filter($array->items, function (\PhpParser\Node\Expr\ArrayItem $arrayItem) : bool {
             return $arrayItem !== null;
         });
-        $this->callableNodeTraverser->traverseNodesWithCallable($arrayItems, function (\PhpParser\Node $node) : ?Node {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($arrayItems, function (\PhpParser\Node $node) : ?Node {
             if (!$node instanceof \PhpParser\Node\Expr\ArrayItem) {
                 return null;
             }

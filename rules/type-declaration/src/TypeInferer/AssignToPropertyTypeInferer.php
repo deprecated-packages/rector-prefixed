@@ -43,7 +43,7 @@ final class AssignToPropertyTypeInferer extends \Rector\TypeDeclaration\TypeInfe
     public function inferPropertyInClassLike(string $propertyName, \PhpParser\Node\Stmt\ClassLike $classLike) : \PHPStan\Type\Type
     {
         $assignedExprTypes = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$assignedExprTypes) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$assignedExprTypes) {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }

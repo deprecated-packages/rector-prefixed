@@ -15,6 +15,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\Closure;
+use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\Error;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
@@ -398,6 +399,10 @@ final class NodeFactory
             $args[] = new \PhpParser\Node\Arg($param->var);
         }
         return $args;
+    }
+    public function createNull() : \PhpParser\Node\Expr\ConstFetch
+    {
+        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null'));
     }
     private function createClassConstFetchFromName(\PhpParser\Node\Name $className, string $constantName) : \PhpParser\Node\Expr\ClassConstFetch
     {

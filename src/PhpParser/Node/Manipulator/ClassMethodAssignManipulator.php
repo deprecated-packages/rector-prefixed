@@ -23,12 +23,12 @@ use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Type\Type;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Node\NodeFactory;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\PHPStan\Reflection\CallReflectionResolver;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ClassMethodAssignManipulator
 {
     /**
@@ -36,9 +36,9 @@ final class ClassMethodAssignManipulator
      */
     private $variableManipulator;
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
+    private $simpleCallableNodeTraverser;
     /**
      * @var NodeNameResolver
      */
@@ -59,10 +59,10 @@ final class ClassMethodAssignManipulator
      * @var CallReflectionResolver
      */
     private $callReflectionResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Manipulator\VariableManipulator $variableManipulator, \Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Manipulator\VariableManipulator $variableManipulator, \Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver)
     {
         $this->variableManipulator = $variableManipulator;
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeFactory = $nodeFactory;
         $this->betterNodeFinder = $betterNodeFinder;
@@ -97,7 +97,7 @@ final class ClassMethodAssignManipulator
     private function filterOutArrayDestructedVariables(array $variableAssigns, \PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $arrayDestructionCreatedVariables = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use(&$arrayDestructionCreatedVariables) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use(&$arrayDestructionCreatedVariables) {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }
@@ -181,7 +181,7 @@ final class ClassMethodAssignManipulator
     private function collectReferenceVariableNames(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $referencedVariables = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use(&$referencedVariables) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use(&$referencedVariables) {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return null;
             }

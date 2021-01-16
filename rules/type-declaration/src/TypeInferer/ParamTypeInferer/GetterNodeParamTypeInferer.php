@@ -49,7 +49,7 @@ final class GetterNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInfer
         }
         $returnType = new \PHPStan\Type\MixedType();
         // resolve property assigns
-        $this->callableNodeTraverser->traverseNodesWithCallable($classLike, function (\PhpParser\Node $node) use($propertyNames, &$returnType) : ?int {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike, function (\PhpParser\Node $node) use($propertyNames, &$returnType) : ?int {
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                 return null;
             }

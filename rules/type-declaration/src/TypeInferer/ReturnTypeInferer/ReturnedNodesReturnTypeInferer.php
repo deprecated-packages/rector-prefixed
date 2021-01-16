@@ -78,7 +78,7 @@ final class ReturnedNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeI
     private function collectReturns(\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $returns = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use(&$returns) : ?int {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use(&$returns) : ?int {
             if ($node instanceof \PhpParser\Node\Stmt\Switch_) {
                 $this->processSwitch($node);
             }

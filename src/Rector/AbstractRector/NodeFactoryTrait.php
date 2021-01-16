@@ -62,7 +62,7 @@ trait NodeFactoryTrait
     }
     protected function createNull() : \PhpParser\Node\Expr\ConstFetch
     {
-        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null'));
+        return $this->nodeFactory->createNull();
     }
     protected function createFalse() : \PhpParser\Node\Expr\ConstFetch
     {

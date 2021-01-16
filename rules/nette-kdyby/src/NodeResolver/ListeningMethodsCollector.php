@@ -11,11 +11,11 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\NetteKdyby\Naming\EventClassNaming;
 use Rector\NetteKdyby\ValueObject\EventClassAndClassMethod;
 use Rector\NetteKdyby\ValueObject\NetteEventToContributeEventClass;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ListeningMethodsCollector
 {
     /**
@@ -31,9 +31,9 @@ final class ListeningMethodsCollector
      */
     private $eventClassesAndClassMethods = [];
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
+    private $simpleCallableNodeTraverser;
     /**
      * @var ValueResolver
      */
@@ -42,9 +42,9 @@ final class ListeningMethodsCollector
      * @var EventClassNaming
      */
     private $eventClassNaming;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->valueResolver = $valueResolver;
         $this->eventClassNaming = $eventClassNaming;
     }
@@ -56,7 +56,7 @@ final class ListeningMethodsCollector
         /** @var Class_ $classLike */
         $classLike = $getSubscribedEventsClassMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         $this->eventClassesAndClassMethods = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $getSubscribedEventsClassMethod->stmts, function (\PhpParser\Node $node) use($classLike, $type) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $getSubscribedEventsClassMethod->stmts, function (\PhpParser\Node $node) use($classLike, $type) {
             $classMethod = $this->matchClassMethodByArrayItem($node, $classLike);
             if ($classMethod === null) {
                 return null;

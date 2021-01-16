@@ -6,7 +6,6 @@ namespace Rector\Naming\PropertyRenamer;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\VarLikeIdentifier;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\Naming\Contract\Guard\ConflictingGuardInterface;
 use Rector\Naming\Contract\RenameGuard\RenameGuardInterface;
 use Rector\Naming\Contract\RenamerInterface;
@@ -18,6 +17,7 @@ use Rector\Naming\Guard\RamseyUuidInterfaceGuard;
 use Rector\Naming\RenameGuard\PropertyRenameGuard;
 use Rector\Naming\ValueObject\PropertyRename;
 use Rector\NodeNameResolver\NodeNameResolver;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\RenamerInterface
 {
     /**
@@ -51,7 +51,7 @@ abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\Rename
     /**
      * @required
      */
-    public function autowireAbstractPropertyRenamer(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer) : void
+    public function autowireAbstractPropertyRenamer(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer) : void
     {
         $this->notPrivatePropertyGuard = $notPrivatePropertyGuard;
         $this->ramseyUuidInterfaceGuard = $ramseyUuidInterfaceGuard;

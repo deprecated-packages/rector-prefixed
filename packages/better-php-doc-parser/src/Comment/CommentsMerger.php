@@ -5,17 +5,17 @@ namespace Rector\BetterPhpDocParser\Comment;
 
 use PhpParser\Comment;
 use PhpParser\Node;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class CommentsMerger
 {
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser)
+    private $simpleCallableNodeTraverser;
+    public function __construct(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
     {
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
     /**
      * @param Node[] $mergedNodes
@@ -65,7 +65,7 @@ final class CommentsMerger
     private function collectChildrenComments(\PhpParser\Node $node) : array
     {
         $childrenComments = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use(&$childrenComments) : void {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use(&$childrenComments) : void {
             $comments = $node->getComments();
             if ($comments !== []) {
                 $childrenComments = \array_merge($childrenComments, $comments);

@@ -10,9 +10,9 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeTypeResolver\NodeTypeResolver;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ParentGetterStmtsToExternalStmtsFactory
 {
     /**
@@ -20,17 +20,17 @@ final class ParentGetterStmtsToExternalStmtsFactory
      */
     private $nodeTypeResolver;
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
+    private $simpleCallableNodeTraverser;
     /**
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
     /**
@@ -63,7 +63,7 @@ final class ParentGetterStmtsToExternalStmtsFactory
             return [];
         }
         // stmts without assign
-        $this->callableNodeTraverser->traverseNodesWithCallable($getUserStmts, function (\PhpParser\Node $node) use($userExpression) : ?MethodCall {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($getUserStmts, function (\PhpParser\Node $node) use($userExpression) : ?MethodCall {
             if (!$this->betterStandardPrinter->areNodesEqual($node, $userExpression)) {
                 return null;
             }

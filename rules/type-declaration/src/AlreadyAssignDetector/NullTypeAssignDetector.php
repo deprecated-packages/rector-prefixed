@@ -35,7 +35,7 @@ final class NullTypeAssignDetector extends \Rector\TypeDeclaration\AlreadyAssign
     public function detect(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : ?bool
     {
         $needsNullType = null;
-        $this->callableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$needsNullType) : ?int {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$needsNullType) : ?int {
             $expr = $this->matchAssignExprToPropertyName($node, $propertyName);
             if ($expr === null) {
                 return null;

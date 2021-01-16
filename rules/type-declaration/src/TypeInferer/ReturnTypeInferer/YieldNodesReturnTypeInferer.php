@@ -68,7 +68,7 @@ final class YieldNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeInfe
     private function findCurrentScopeYieldNodes(\PhpParser\Node\FunctionLike $functionLike) : array
     {
         $yieldNodes = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use(&$yieldNodes) : ?int {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use(&$yieldNodes) : ?int {
             // skip nested scope
             if ($node instanceof \PhpParser\Node\FunctionLike) {
                 return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;

@@ -9,27 +9,27 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\VarLikeIdentifier;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\NodeNameResolver\NodeNameResolver;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class PropertyFetchRenamer
 {
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
+    private $simpleCallableNodeTraverser;
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
     }
     public function renamePropertyFetchesInClass(\PhpParser\Node\Stmt\ClassLike $classLike, string $currentName, string $expectedName) : void
     {
         // 1. replace property fetch rename in whole class
-        $this->callableNodeTraverser->traverseNodesWithCallable($classLike, function (\PhpParser\Node $node) use($currentName, $expectedName) : ?Node {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike, function (\PhpParser\Node $node) use($currentName, $expectedName) : ?Node {
             if ($this->nodeNameResolver->isLocalPropertyFetchNamed($node, $currentName) && $node instanceof \PhpParser\Node\Expr\PropertyFetch) {
                 $node->name = new \PhpParser\Node\Identifier($expectedName);
                 return $node;

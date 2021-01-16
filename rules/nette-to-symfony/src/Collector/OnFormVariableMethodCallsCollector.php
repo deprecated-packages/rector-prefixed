@@ -9,15 +9,15 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeTypeResolver\NodeTypeResolver;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class OnFormVariableMethodCallsCollector
 {
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
+    private $simpleCallableNodeTraverser;
     /**
      * @var NodeTypeResolver
      */
@@ -26,9 +26,9 @@ final class OnFormVariableMethodCallsCollector
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
@@ -50,7 +50,7 @@ final class OnFormVariableMethodCallsCollector
     private function resolveNewFormVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr
     {
         $newFormVariable = null;
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use(&$newFormVariable) : ?int {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use(&$newFormVariable) : ?int {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }
@@ -68,7 +68,7 @@ final class OnFormVariableMethodCallsCollector
     private function collectOnFormVariableMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr $expr) : array
     {
         $onFormVariableMethodCalls = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use($expr, &$onFormVariableMethodCalls) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use($expr, &$onFormVariableMethodCalls) {
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }

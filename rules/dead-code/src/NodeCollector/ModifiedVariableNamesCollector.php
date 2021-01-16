@@ -9,22 +9,22 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ModifiedVariableNamesCollector
 {
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
+    private $simpleCallableNodeTraverser;
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
     }
     /**
@@ -42,7 +42,7 @@ final class ModifiedVariableNamesCollector
     private function collectFromArgs(\PhpParser\Node\Stmt $stmt) : array
     {
         $variableNames = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($stmt, function (\PhpParser\Node $node) use(&$variableNames) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($stmt, function (\PhpParser\Node $node) use(&$variableNames) {
             if (!$node instanceof \PhpParser\Node\Arg) {
                 return null;
             }
@@ -63,7 +63,7 @@ final class ModifiedVariableNamesCollector
     private function collectFromAssigns(\PhpParser\Node\Stmt $stmt) : array
     {
         $modifiedVariableNames = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($stmt, function (\PhpParser\Node $node) use(&$modifiedVariableNames) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($stmt, function (\PhpParser\Node $node) use(&$modifiedVariableNames) {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }

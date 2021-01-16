@@ -14,7 +14,7 @@ final class ConstructorAssignDetector extends \Rector\TypeDeclaration\AlreadyAss
     public function isPropertyAssigned(\PhpParser\Node\Stmt\ClassLike $classLike, string $propertyName) : bool
     {
         $isAssignedInConstructor = \false;
-        $this->callableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$isAssignedInConstructor) : ?int {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$isAssignedInConstructor) : ?int {
             $expr = $this->matchAssignExprToPropertyName($node, $propertyName);
             if ($expr === null) {
                 return null;

@@ -10,9 +10,9 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\Nette\ValueObject\MagicTemplatePropertyCalls;
 use Rector\NodeNameResolver\NodeNameResolver;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class TemplatePropertyAssignCollector
 {
     /**
@@ -24,9 +24,9 @@ final class TemplatePropertyAssignCollector
      */
     private $nodesToRemove = [];
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
+    private $simpleCallableNodeTraverser;
     /**
      * @var NodeNameResolver
      */
@@ -35,9 +35,9 @@ final class TemplatePropertyAssignCollector
      * @var Expr|null
      */
     private $templateFileExpr;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
     }
     public function collectTemplateFileNameVariablesAndNodesToRemove(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \Rector\Nette\ValueObject\MagicTemplatePropertyCalls
@@ -45,7 +45,7 @@ final class TemplatePropertyAssignCollector
         $this->templateFileExpr = null;
         $this->templateVariables = [];
         $this->nodesToRemove = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) : void {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) : void {
             if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
                 $this->collectTemplateFileExpr($node);
             }

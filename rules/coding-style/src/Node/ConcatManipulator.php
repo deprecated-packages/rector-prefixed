@@ -6,8 +6,8 @@ namespace Rector\CodingStyle\Node;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Concat;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ConcatManipulator
 {
     /**
@@ -15,13 +15,13 @@ final class ConcatManipulator
      */
     private $betterStandardPrinter;
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser)
+    private $simpleCallableNodeTraverser;
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
     public function getFirstConcatItem(\PhpParser\Node\Expr\BinaryOp\Concat $concat) : \PhpParser\Node
     {
@@ -39,7 +39,7 @@ final class ConcatManipulator
         }
         $newConcat = clone $concat;
         $firstConcatItem = $this->getFirstConcatItem($concat);
-        $this->callableNodeTraverser->traverseNodesWithCallable($newConcat, function (\PhpParser\Node $node) use($firstConcatItem) : ?Expr {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($newConcat, function (\PhpParser\Node $node) use($firstConcatItem) : ?Expr {
             if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
                 return null;
             }

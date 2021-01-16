@@ -44,7 +44,7 @@ final class SingleMethodAssignedNodePropertyTypeInferer extends \Rector\TypeDecl
     private function resolveAssignedNodeToProperty(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $propertyName) : ?\PhpParser\Node\Expr
     {
         $assignedNode = null;
-        $this->callableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use($propertyName, &$assignedNode) : ?int {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use($propertyName, &$assignedNode) : ?int {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }

@@ -35,7 +35,7 @@ final class PropertyNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInf
         /** @var ClassMethod $classMethod */
         $classMethod = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         $propertyStaticTypes = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use($paramName, &$propertyStaticTypes) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use($paramName, &$propertyStaticTypes) {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }

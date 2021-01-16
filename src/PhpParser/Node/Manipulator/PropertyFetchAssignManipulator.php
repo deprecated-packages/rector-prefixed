@@ -7,8 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\NodeNameResolver\NodeNameResolver;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class PropertyFetchAssignManipulator
 {
     /**
@@ -16,13 +16,13 @@ final class PropertyFetchAssignManipulator
      */
     private $nodeNameResolver;
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    private $simpleCallableNodeTraverser;
+    public function __construct(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
     }
     /**
      * @return string[]
@@ -30,7 +30,7 @@ final class PropertyFetchAssignManipulator
     public function getPropertyNamesOfAssignOfVariable(\PhpParser\Node $node, string $paramName) : array
     {
         $propertyNames = [];
-        $this->callableNodeTraverser->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use($paramName, &$propertyNames) {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use($paramName, &$propertyNames) {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }

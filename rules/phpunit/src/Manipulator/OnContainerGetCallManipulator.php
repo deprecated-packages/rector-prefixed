@@ -10,13 +10,13 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
-use Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPUnit\Collector\FormerVariablesByMethodCollector;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
 use Rector\SymfonyPHPUnit\Naming\ServiceNaming;
 use Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer;
+use RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class OnContainerGetCallManipulator
 {
     /**
@@ -24,9 +24,9 @@ final class OnContainerGetCallManipulator
      */
     private $nodeNameResolver;
     /**
-     * @var CallableNodeTraverser
+     * @var SimpleCallableNodeTraverser
      */
-    private $callableNodeTraverser;
+    private $simpleCallableNodeTraverser;
     /**
      * @var ServiceNaming
      */
@@ -47,10 +47,10 @@ final class OnContainerGetCallManipulator
      * @var FormerVariablesByMethodCollector
      */
     private $formerVariablesByMethodCollector;
-    public function __construct(\Rector\Core\PhpParser\NodeTraverser\CallableNodeTraverser $callableNodeTraverser, \Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\SymfonyPHPUnit\Naming\ServiceNaming $serviceNaming, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\PHPUnit\Collector\FormerVariablesByMethodCollector $formerVariablesByMethodCollector)
+    public function __construct(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\SymfonyPHPUnit\Naming\ServiceNaming $serviceNaming, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\PHPUnit\Collector\FormerVariablesByMethodCollector $formerVariablesByMethodCollector)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->callableNodeTraverser = $callableNodeTraverser;
+        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->serviceNaming = $serviceNaming;
         $this->kernelTestCaseNodeAnalyzer = $kernelTestCaseNodeAnalyzer;
         $this->valueResolver = $valueResolver;
@@ -63,7 +63,7 @@ final class OnContainerGetCallManipulator
      */
     public function replaceFormerVariablesWithPropertyFetch(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) : ?PropertyFetch {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) : ?PropertyFetch {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return null;
             }
@@ -86,7 +86,7 @@ final class OnContainerGetCallManipulator
     }
     public function removeAndCollectFormerAssignedVariables(\PhpParser\Node\Stmt\Class_ $class, bool $skipSetUpMethod = \true) : void
     {
-        $this->callableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use($skipSetUpMethod) : ?PropertyFetch {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($class->stmts, function (\PhpParser\Node $node) use($skipSetUpMethod) : ?PropertyFetch {
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
