@@ -39,6 +39,7 @@ return static function (\RectorPrefix20210116\Symfony\Component\DependencyInject
     $services->load('Rector\\Core\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/Exception', __DIR__ . '/../src/DependencyInjection/CompilerPass', __DIR__ . '/../src/DependencyInjection/Loader', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/Bootstrap', __DIR__ . '/../src/PhpParser/Node/CustomNode']);
     $services->alias(\RectorPrefix20210116\Symfony\Component\Console\Application::class, \Rector\Core\Console\ConsoleApplication::class);
     $services->set(\Rector\Core\Bootstrap\NoRectorsLoadedReporter::class);
+    $services->set(\RectorPrefix20210116\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser::class);
     $services->set(\RectorPrefix20210116\Symfony\Component\Console\Descriptor\TextDescriptor::class);
     $services->set(\PhpParser\ParserFactory::class);
     $services->set(\PhpParser\BuilderFactory::class);

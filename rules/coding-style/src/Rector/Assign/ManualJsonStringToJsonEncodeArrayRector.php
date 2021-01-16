@@ -8,19 +8,18 @@ use RectorPrefix20210116\Nette\Utils\JsonException;
 use RectorPrefix20210116\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignOp\Concat as ConcatAssign;
 use PhpParser\Node\Expr\BinaryOp\Concat;
-use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use Rector\CodingStyle\Node\ConcatJoiner;
 use Rector\CodingStyle\Node\ConcatManipulator;
+use Rector\CodingStyle\NodeFactory\JsonArrayFactory;
+use Rector\CodingStyle\NodeFactory\JsonEncodeStaticCallFactory;
 use Rector\CodingStyle\ValueObject\ConcatExpressionJoinData;
 use Rector\CodingStyle\ValueObject\NodeToRemoveAndConcatItem;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -50,10 +49,20 @@ final class ManualJsonStringToJsonEncodeArrayRector extends \Rector\Core\Rector\
      * @var ConcatManipulator
      */
     private $concatManipulator;
-    public function __construct(\Rector\CodingStyle\Node\ConcatJoiner $concatJoiner, \Rector\CodingStyle\Node\ConcatManipulator $concatManipulator)
+    /**
+     * @var JsonEncodeStaticCallFactory
+     */
+    private $jsonEncodeStaticCallFactory;
+    /**
+     * @var JsonArrayFactory
+     */
+    private $jsonArrayFactory;
+    public function __construct(\Rector\CodingStyle\Node\ConcatJoiner $concatJoiner, \Rector\CodingStyle\Node\ConcatManipulator $concatManipulator, \Rector\CodingStyle\NodeFactory\JsonEncodeStaticCallFactory $jsonEncodeStaticCallFactory, \Rector\CodingStyle\NodeFactory\JsonArrayFactory $jsonArrayFactory)
     {
         $this->concatJoiner = $concatJoiner;
         $this->concatManipulator = $concatManipulator;
+        $this->jsonEncodeStaticCallFactory = $jsonEncodeStaticCallFactory;
+        $this->jsonArrayFactory = $jsonArrayFactory;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -67,6 +76,8 @@ final class SomeClass
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
+use Nette\Utils\Json;
+
 final class SomeClass
 {
     public function run()
@@ -75,8 +86,7 @@ final class SomeClass
             'role_name' => 'admin',
             'numberz' => ['id' => 10]
         ];
-
-        $someJsonAsString = Nette\Utils\Json::encode($data);
+        $someJsonAsString = Json::encode($data);
     }
 }
 CODE_SAMPLE
@@ -99,7 +109,12 @@ CODE_SAMPLE
             // A. full json string
             $isJsonString = $this->isJsonString($stringValue);
             if ($isJsonString) {
-                return $this->processJsonString($node, $stringValue);
+                $jsonArray = $this->jsonArrayFactory->createFromJsonString($stringValue);
+                $jsonEncodeAssign = $this->jsonEncodeStaticCallFactory->createFromArray($node->var, $jsonArray);
+                $jsonDataVariable = new \PhpParser\Node\Expr\Variable('jsonData');
+                $jsonDataAssign = new \PhpParser\Node\Expr\Assign($jsonDataVariable, $jsonArray);
+                $this->addNodeBeforeNode($jsonDataAssign, $node);
+                return $jsonEncodeAssign;
             }
             // B. just start of a json? join with all the strings that concat so same variable
             $concatExpressionJoinData = $this->collectContentAndPlaceholderNodesFromNextExpressions($node);
@@ -132,11 +147,6 @@ CODE_SAMPLE
         } catch (\RectorPrefix20210116\Nette\Utils\JsonException $jsonException) {
             return \false;
         }
-    }
-    private function processJsonString(\PhpParser\Node\Expr\Assign $assign, string $stringValue) : \PhpParser\Node
-    {
-        $arrayNode = $this->createArrayNodeFromJsonString($stringValue);
-        return $this->createAndReturnJsonEncodeFromArray($assign, $arrayNode);
     }
     private function collectContentAndPlaceholderNodesFromNextExpressions(\PhpParser\Node\Expr\Assign $assign) : \Rector\CodingStyle\ValueObject\ConcatExpressionJoinData
     {
@@ -179,28 +189,11 @@ CODE_SAMPLE
             return null;
         }
         $this->removeNodes($nodesToRemove);
-        $jsonArray = $this->createArrayNodeFromJsonString($stringValue);
-        $this->replaceNodeObjectHashPlaceholdersWithNodes($jsonArray, $placeholderNodes);
-        return $this->createAndReturnJsonEncodeFromArray($assign, $jsonArray);
-    }
-    private function createArrayNodeFromJsonString(string $stringValue) : \PhpParser\Node\Expr\Array_
-    {
-        $array = \RectorPrefix20210116\Nette\Utils\Json::decode($stringValue, \RectorPrefix20210116\Nette\Utils\Json::FORCE_ARRAY);
-        return $this->createArray($array);
-    }
-    /**
-     * Creates + adds
-     *
-     * $jsonData = ['...'];
-     * $json = Nette\Utils\Json::encode($jsonData);
-     */
-    private function createAndReturnJsonEncodeFromArray(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\Array_ $jsonArray) : \PhpParser\Node\Expr\Assign
-    {
+        $jsonArray = $this->jsonArrayFactory->createFromJsonStringAndPlaceholders($stringValue, $placeholderNodes);
         $jsonDataVariable = new \PhpParser\Node\Expr\Variable('jsonData');
         $jsonDataAssign = new \PhpParser\Node\Expr\Assign($jsonDataVariable, $jsonArray);
         $this->addNodeBeforeNode($jsonDataAssign, $assign);
-        $assign->expr = $this->createStaticCall('Nette\\Utils\\Json', 'encode', [$jsonDataVariable]);
-        return $assign;
+        return $this->jsonEncodeStaticCallFactory->createFromArray($assign->var, $jsonArray);
     }
     /**
      * @param Assign|ConcatAssign $currentNode
@@ -238,56 +231,5 @@ CODE_SAMPLE
             return new \Rector\CodingStyle\ValueObject\NodeToRemoveAndConcatItem($nextExpressionNode, $allButFirstConcatItem);
         }
         return null;
-    }
-    /**
-     * @param Expr[] $placeholderNodes
-     */
-    private function replaceNodeObjectHashPlaceholdersWithNodes(\PhpParser\Node\Expr\Array_ $array, array $placeholderNodes) : void
-    {
-        // traverse and replace placeholder by original nodes
-        $this->traverseNodesWithCallable($array, function (\PhpParser\Node $node) use($placeholderNodes) : ?Expr {
-            if ($node instanceof \PhpParser\Node\Expr\Array_ && \count($node->items) === 1) {
-                $onlyItem = $node->items[0];
-                if ($onlyItem === null) {
-                    throw new \Rector\Core\Exception\ShouldNotHappenException();
-                }
-                $placeholderNode = $this->matchPlaceholderNode($onlyItem->value, $placeholderNodes);
-                if ($placeholderNode && $this->isImplodeToJson($placeholderNode)) {
-                    /** @var FuncCall $placeholderNode */
-                    return $placeholderNode->args[1]->value;
-                }
-            }
-            return $this->matchPlaceholderNode($node, $placeholderNodes);
-        });
-    }
-    /**
-     * @param Expr[] $placeholderNodes
-     */
-    private function matchPlaceholderNode(\PhpParser\Node $node, array $placeholderNodes) : ?\PhpParser\Node\Expr
-    {
-        if (!$node instanceof \PhpParser\Node\Scalar\String_) {
-            return null;
-        }
-        return $placeholderNodes[$node->value] ?? null;
-    }
-    /**
-     * Matches: "implode('","', $items)"
-     */
-    private function isImplodeToJson(\PhpParser\Node\Expr $expr) : bool
-    {
-        if (!$expr instanceof \PhpParser\Node\Expr\FuncCall) {
-            return \false;
-        }
-        if (!$this->isName($expr, 'implode')) {
-            return \false;
-        }
-        if (!isset($expr->args[1])) {
-            return \false;
-        }
-        $firstArgumentValue = $expr->args[0]->value;
-        if ($firstArgumentValue instanceof \PhpParser\Node\Scalar\String_ && $firstArgumentValue->value !== '","') {
-            return \false;
-        }
-        return \true;
     }
 }

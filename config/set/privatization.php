@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210116;
 
+use Rector\Privatization\Rector\Class_\ChangeLocalPropertyToVariableRector;
 use Rector\Privatization\Rector\Class_\ChangeReadOnlyVariableWithDefaultValueToConstantRector;
 use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Privatization\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector;
@@ -24,6 +25,7 @@ return static function (\RectorPrefix20210116\Symfony\Component\DependencyInject
     $services->set(\Rector\Privatization\Rector\Property\ChangeReadOnlyPropertyWithDefaultValueToConstantRector::class);
     $services->set(\Rector\Privatization\Rector\Class_\ChangeReadOnlyVariableWithDefaultValueToConstantRector::class);
     $services->set(\Rector\Privatization\Rector\Class_\RepeatedLiteralToClassConstantRector::class);
+    // $services->set(ChangeLocalPropertyToVariableRector::class);
     $services->set(\Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class);
     $services->set(\Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector::class);
     $services->set(\Rector\Privatization\Rector\Property\PrivatizeLocalPropertyToPrivatePropertyRector::class);

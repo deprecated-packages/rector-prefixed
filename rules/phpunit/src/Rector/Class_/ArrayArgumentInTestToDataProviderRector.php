@@ -6,9 +6,7 @@ namespace Rector\PHPUnit\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
@@ -16,7 +14,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
@@ -25,8 +22,8 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory;
+use Rector\PHPUnit\NodeManipulator\ParamAndArgFromArrayResolver;
 use Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider;
 use Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe;
 use Rector\PHPUnit\ValueObject\ParamAndArg;
@@ -58,13 +55,13 @@ final class ArrayArgumentInTestToDataProviderRector extends \Rector\Core\Rector\
      */
     private $dataProviderClassMethodFactory;
     /**
-     * @var TypeFactory
+     * @var ParamAndArgFromArrayResolver
      */
-    private $typeFactory;
-    public function __construct(\Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory $dataProviderClassMethodFactory, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    private $paramAndArgFromArrayResolver;
+    public function __construct(\Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory $dataProviderClassMethodFactory, \Rector\PHPUnit\NodeManipulator\ParamAndArgFromArrayResolver $paramAndArgFromArrayResolver)
     {
         $this->dataProviderClassMethodFactory = $dataProviderClassMethodFactory;
-        $this->typeFactory = $typeFactory;
+        $this->paramAndArgFromArrayResolver = $paramAndArgFromArrayResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -159,7 +156,7 @@ CODE_SAMPLE
         $dataProviderMethodName = $this->createDataProviderMethodName($methodCall);
         $this->dataProviderClassMethodRecipes[] = new \Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe($dataProviderMethodName, $methodCall->args);
         $methodCall->args = [];
-        $paramAndArgs = $this->collectParamAndArgsFromArray($firstArgumentValue, $arrayArgumentToDataProvider->getVariableName());
+        $paramAndArgs = $this->paramAndArgFromArrayResolver->resolve($firstArgumentValue, $arrayArgumentToDataProvider->getVariableName());
         foreach ($paramAndArgs as $paramAndArg) {
             $methodCall->args[] = new \PhpParser\Node\Arg($paramAndArg->getVariable());
         }
@@ -197,18 +194,6 @@ CODE_SAMPLE
         return 'provideDataFor' . \ucfirst($methodName);
     }
     /**
-     * @return ParamAndArg[]
-     */
-    private function collectParamAndArgsFromArray(\PhpParser\Node\Expr\Array_ $array, string $variableName) : array
-    {
-        $isNestedArray = $this->isNestedArray($array);
-        if ($isNestedArray) {
-            return $this->collectParamAndArgsFromNestedArray($array, $variableName);
-        }
-        $itemsStaticType = $this->resolveItemStaticType($array, $isNestedArray);
-        return $this->collectParamAndArgsFromNonNestedArray($array, $variableName, $itemsStaticType);
-    }
-    /**
      * @param ParamAndArg[] $paramAndArgs
      */
     private function refactorTestClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $paramAndArgs) : void
@@ -232,78 +217,6 @@ CODE_SAMPLE
     private function createDataProviderTagNode(string $dataProviderMethodName) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode
     {
         return new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode('@dataProvider', new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode($dataProviderMethodName . '()'));
-    }
-    private function isNestedArray(\PhpParser\Node\Expr\Array_ $array) : bool
-    {
-        foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-                continue;
-            }
-            if ($arrayItem->value instanceof \PhpParser\Node\Expr\Array_) {
-                return \true;
-            }
-        }
-        return \false;
-    }
-    /**
-     * @return ParamAndArg[]
-     */
-    private function collectParamAndArgsFromNestedArray(\PhpParser\Node\Expr\Array_ $array, string $variableName) : array
-    {
-        $paramAndArgs = [];
-        $i = 1;
-        foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-                continue;
-            }
-            $nestedArray = $arrayItem->value;
-            if (!$nestedArray instanceof \PhpParser\Node\Expr\Array_) {
-                continue;
-            }
-            foreach ($nestedArray->items as $nestedArrayItem) {
-                if (!$nestedArrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-                    continue;
-                }
-                $variable = new \PhpParser\Node\Expr\Variable($variableName . ($i === 1 ? '' : $i));
-                $itemsStaticType = $this->getStaticType($nestedArrayItem->value);
-                $paramAndArgs[] = new \Rector\PHPUnit\ValueObject\ParamAndArg($variable, $itemsStaticType);
-                ++$i;
-            }
-        }
-        return $paramAndArgs;
-    }
-    private function resolveItemStaticType(\PhpParser\Node\Expr\Array_ $array, bool $isNestedArray) : \PHPStan\Type\Type
-    {
-        $staticTypes = [];
-        if (!$isNestedArray) {
-            foreach ($array->items as $arrayItem) {
-                if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-                    continue;
-                }
-                $staticTypes[] = $this->getStaticType($arrayItem->value);
-            }
-        }
-        return $this->typeFactory->createMixedPassedOrUnionType($staticTypes);
-    }
-    /**
-     * @return ParamAndArg[]
-     */
-    private function collectParamAndArgsFromNonNestedArray(\PhpParser\Node\Expr\Array_ $array, string $variableName, \PHPStan\Type\Type $itemsStaticType) : array
-    {
-        $i = 1;
-        $paramAndArgs = [];
-        foreach ($array->items as $arrayItem) {
-            if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
-                continue;
-            }
-            $variable = new \PhpParser\Node\Expr\Variable($variableName . ($i === 1 ? '' : $i));
-            $paramAndArgs[] = new \Rector\PHPUnit\ValueObject\ParamAndArg($variable, $itemsStaticType);
-            ++$i;
-            if (!$arrayItem->value instanceof \PhpParser\Node\Expr\Array_) {
-                break;
-            }
-        }
-        return $paramAndArgs;
     }
     /**
      * @param ParamAndArg[] $paramAndArgs

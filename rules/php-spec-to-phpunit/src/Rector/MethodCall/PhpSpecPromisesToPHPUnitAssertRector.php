@@ -5,7 +5,6 @@ namespace Rector\PhpSpecToPHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\ArrayItem;
@@ -25,6 +24,7 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PhpSpecToPHPUnit\MatchersManipulator;
 use Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming;
+use Rector\PhpSpecToPHPUnit\NodeFactory\AssertMethodCallFactory;
 use Rector\PhpSpecToPHPUnit\Rector\AbstractPhpSpecToPHPUnitRector;
 /**
  * @see \Rector\PhpSpecToPHPUnit\Tests\Rector\Variable\PhpSpecToPHPUnitRector\PhpSpecToPHPUnitRectorTest
@@ -35,7 +35,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
      * @see https://github.com/phpspec/phpspec/blob/master/src/PhpSpec/Wrapper/Subject.php
      * ↓
      * @see https://phpunit.readthedocs.io/en/8.0/assertions.html
-     * @var string[][]
+     * @var array<string, string[]>
      */
     private const NEW_METHOD_TO_OLD_METHODS = [
         'assertInstanceOf' => ['shouldBeAnInstanceOf', 'shouldHaveType', 'shouldReturnAnInstanceOf'],
@@ -84,10 +84,6 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
     /**
      * @var bool
      */
-    private $isBoolAssert = \false;
-    /**
-     * @var bool
-     */
     private $isPrepared = \false;
     /**
      * @var string[]
@@ -105,10 +101,15 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
      * @var MatchersManipulator
      */
     private $matchersManipulator;
-    public function __construct(\Rector\PhpSpecToPHPUnit\MatchersManipulator $matchersManipulator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming)
+    /**
+     * @var AssertMethodCallFactory
+     */
+    private $assertMethodCallFactory;
+    public function __construct(\Rector\PhpSpecToPHPUnit\MatchersManipulator $matchersManipulator, \Rector\PhpSpecToPHPUnit\Naming\PhpSpecRenaming $phpSpecRenaming, \Rector\PhpSpecToPHPUnit\NodeFactory\AssertMethodCallFactory $assertMethodCallFactory)
     {
         $this->phpSpecRenaming = $phpSpecRenaming;
         $this->matchersManipulator = $matchersManipulator;
+        $this->assertMethodCallFactory = $assertMethodCallFactory;
     }
     /**
      * @return string[]
@@ -131,7 +132,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
             return $node->var;
         }
         if ($this->isName($node->name, 'during')) {
-            return $this->processDuring($node);
+            return $this->processDuringMethodCall($node);
         }
         if ($this->isName($node->name, 'duringInstantiation')) {
             return $this->processDuringInstantiation($node);
@@ -146,7 +147,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         $this->processMatchersKeys($node);
         foreach (self::NEW_METHOD_TO_OLD_METHODS as $newMethod => $oldMethods) {
             if ($this->isNames($node->name, $oldMethods)) {
-                return $this->createAssertMethod($newMethod, $node->var, $node->args[0]->value ?? null);
+                return $this->assertMethodCallFactory->createAssertMethod($newMethod, $node->var, $node->args[0]->value ?? null, $this->testedObjectPropertyFetch);
             }
         }
         if ($this->shouldSkip($node)) {
@@ -169,7 +170,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
         $node->var = $this->testedObjectPropertyFetch;
         return $node;
     }
-    private function processDuring(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
+    private function processDuringMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
     {
         if (!isset($methodCall->args[0])) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
@@ -253,20 +254,6 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
             return;
         }
     }
-    private function createAssertMethod(string $name, \PhpParser\Node\Expr $value, ?\PhpParser\Node\Expr $expected) : \PhpParser\Node\Expr\MethodCall
-    {
-        $this->isBoolAssert = \false;
-        // special case with bool!
-        if ($expected !== null) {
-            $name = $this->resolveBoolMethodName($name, $expected);
-        }
-        $assetMethodCall = $this->createMethodCall(self::THIS, $name);
-        if (!$this->isBoolAssert && $expected) {
-            $assetMethodCall->args[] = new \PhpParser\Node\Arg($this->thisToTestedObjectPropertyFetch($expected));
-        }
-        $assetMethodCall->args[] = new \PhpParser\Node\Arg($this->thisToTestedObjectPropertyFetch($value));
-        return $assetMethodCall;
-    }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
         if (!$this->isVariableName($methodCall->var, self::THIS)) {
@@ -296,27 +283,5 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
             }
             $staticCall->args[] = new \PhpParser\Node\Arg($arrayItem->value);
         }
-    }
-    private function resolveBoolMethodName(string $name, \PhpParser\Node\Expr $expr) : string
-    {
-        if (!$this->isBool($expr)) {
-            return $name;
-        }
-        if ($name === 'assertSame') {
-            $this->isBoolAssert = \true;
-            return $this->isFalse($expr) ? 'assertFalse' : 'assertTrue';
-        }
-        if ($name === 'assertNotSame') {
-            $this->isBoolAssert = \true;
-            return $this->isFalse($expr) ? 'assertNotFalse' : 'assertNotTrue';
-        }
-        return $name;
-    }
-    private function thisToTestedObjectPropertyFetch(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
-    {
-        if (!$this->isVariableName($expr, self::THIS)) {
-            return $expr;
-        }
-        return $this->testedObjectPropertyFetch;
     }
 }

@@ -6,7 +6,6 @@ namespace Rector\Privatization\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Do_;
@@ -17,7 +16,9 @@ use PhpParser\NodeTraverser;
 use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
 use Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Privatization\NodeReplacer\PropertyFetchWithVariableReplacer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -37,10 +38,15 @@ final class ChangeLocalPropertyToVariableRector extends \Rector\Core\Rector\Abst
      * @var PropertyFetchManipulator
      */
     private $propertyFetchManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator)
+    /**
+     * @var PropertyFetchWithVariableReplacer
+     */
+    private $propertyFetchWithVariableReplacer;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator, \Rector\Privatization\NodeReplacer\PropertyFetchWithVariableReplacer $propertyFetchWithVariableReplacer)
     {
         $this->classManipulator = $classManipulator;
         $this->propertyFetchManipulator = $propertyFetchManipulator;
+        $this->propertyFetchWithVariableReplacer = $propertyFetchWithVariableReplacer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -90,7 +96,7 @@ CODE_SAMPLE
             }
             unset($propertyUsageByMethods[$propertyName]);
         }
-        $this->replacePropertyFetchesByLocalProperty($node, $propertyUsageByMethods);
+        $this->propertyFetchWithVariableReplacer->replacePropertyFetchesByVariable($node, $propertyUsageByMethods);
         // remove properties
         foreach ($node->getProperties() as $property) {
             $classMethodNames = \array_keys($propertyUsageByMethods);
@@ -131,28 +137,6 @@ CODE_SAMPLE
         return $propertyUsageByMethods;
     }
     /**
-     * @param string[][] $propertyUsageByMethods
-     */
-    private function replacePropertyFetchesByLocalProperty(\PhpParser\Node\Stmt\Class_ $class, array $propertyUsageByMethods) : void
-    {
-        foreach ($propertyUsageByMethods as $propertyName => $methodNames) {
-            $methodName = $methodNames[0];
-            $classMethod = $class->getMethod($methodName);
-            if ($classMethod === null) {
-                continue;
-            }
-            $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use($propertyName) : ?Variable {
-                if (!$node instanceof \PhpParser\Node\Expr\PropertyFetch) {
-                    return null;
-                }
-                if (!$this->isName($node, $propertyName)) {
-                    return null;
-                }
-                return new \PhpParser\Node\Expr\Variable($propertyName);
-            });
-        }
-    }
-    /**
      * Covers https://github.com/rectorphp/rector/pull/2558#discussion_r363036110
      */
     private function isPropertyChangingInMultipleMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $privatePropertyName) : bool
@@ -186,13 +170,7 @@ CODE_SAMPLE
     }
     private function isScopeChangingNode(\PhpParser\Node $node) : bool
     {
-        foreach (self::SCOPE_CHANGING_NODE_TYPES as $scopeChangingNode) {
-            if (!\is_a($node, $scopeChangingNode, \true)) {
-                continue;
-            }
-            return \true;
-        }
-        return \false;
+        return \Rector\Core\Util\StaticInstanceOf::isOneOf($node, self::SCOPE_CHANGING_NODE_TYPES);
     }
     private function refactorIf(\PhpParser\Node\Stmt\If_ $if, string $privatePropertyName) : ?bool
     {

@@ -363,14 +363,15 @@ final class NodeFactory
         }
         return $uses;
     }
-    public function createStaticCall(string $class, string $method) : \PhpParser\Node\Expr\StaticCall
+    /**
+     * @param Node[] $args
+     */
+    public function createStaticCall(string $class, string $method, array $args = []) : \PhpParser\Node\Expr\StaticCall
     {
-        if (\in_array($class, self::REFERENCES, \true)) {
-            $class = new \PhpParser\Node\Name($class);
-        } else {
-            $class = new \PhpParser\Node\Name\FullyQualified($class);
-        }
-        return new \PhpParser\Node\Expr\StaticCall($class, $method);
+        $class = $this->createClassPart($class);
+        $staticCall = new \PhpParser\Node\Expr\StaticCall($class, $method);
+        $staticCall->args = $this->createArgs($args);
+        return $staticCall;
     }
     /**
      * @param mixed[] $arguments
@@ -495,5 +496,12 @@ final class NodeFactory
             $arrayItem->key = \PhpParser\BuilderHelpers::normalizeValue($key);
         }
         return $arrayItem;
+    }
+    private function createClassPart(string $class) : \PhpParser\Node\Name
+    {
+        if (\in_array($class, self::REFERENCES, \true)) {
+            return new \PhpParser\Node\Name($class);
+        }
+        return new \PhpParser\Node\Name\FullyQualified($class);
     }
 }
