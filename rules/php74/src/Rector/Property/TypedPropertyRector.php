@@ -8,20 +8,15 @@ use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\UnionType as PhpParserUnionType;
-use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
-use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\DeadDocBlock\TagRemover\VarTagRemover;
 use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer;
@@ -60,11 +55,16 @@ final class TypedPropertyRector extends \Rector\Core\Rector\AbstractRector imple
      * @var DoctrineTypeAnalyzer
      */
     private $doctrineTypeAnalyzer;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer)
+    /**
+     * @var VarTagRemover
+     */
+    private $varTagRemover;
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer $propertyTypeInferer, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\DeadDocBlock\TagRemover\VarTagRemover $varTagRemover)
     {
         $this->propertyTypeInferer = $propertyTypeInferer;
         $this->vendorLockResolver = $vendorLockResolver;
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
+        $this->varTagRemover = $varTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -123,7 +123,7 @@ CODE_SAMPLE
         if ($this->vendorLockResolver->isPropertyTypeChangeVendorLockedIn($node)) {
             return null;
         }
-        $this->removeVarPhpTagValueNodeIfNotComment($node, $varType);
+        $this->varTagRemover->removeVarPhpTagValueNodeIfNotComment($node, $varType);
         $this->removeDefaultValueForDoctrineCollection($node, $varType);
         $this->addDefaultValueNullForNullableType($node, $varType);
         $node->type = $propertyTypeNode;
@@ -157,35 +157,6 @@ CODE_SAMPLE
         }
         return !\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($typeName);
     }
-    private function removeVarPhpTagValueNodeIfNotComment(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $type) : void
-    {
-        // keep doctrine collection narrow type
-        if ($this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($type)) {
-            return;
-        }
-        $propertyPhpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        // nothing to remove
-        if ($propertyPhpDocInfo === null) {
-            return;
-        }
-        $varTagValueNode = $propertyPhpDocInfo->getByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
-        if ($varTagValueNode === null) {
-            return;
-        }
-        // has description? keep it
-        if ($varTagValueNode->description !== '') {
-            return;
-        }
-        // keep generic types
-        if ($varTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\GenericTypeNode) {
-            return;
-        }
-        // keep string[] etc.
-        if ($this->isNonBasicArrayType($property, $varTagValueNode)) {
-            return;
-        }
-        $propertyPhpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
-    }
     private function removeDefaultValueForDoctrineCollection(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
     {
         if (!$this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($propertyType)) {
@@ -208,24 +179,5 @@ CODE_SAMPLE
             return;
         }
         $onlyProperty->default = $this->createNull();
-    }
-    private function isNonBasicArrayType(\PhpParser\Node\Stmt\Property $property, \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode $varTagValueNode) : bool
-    {
-        if ($varTagValueNode->type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode) {
-            foreach ($varTagValueNode->type->types as $type) {
-                if ($type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode && \class_exists((string) $type->type)) {
-                    return \true;
-                }
-            }
-        }
-        if (!$this->isArrayTypeNode($varTagValueNode)) {
-            return \false;
-        }
-        $varTypeDocString = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPhpDocString($varTagValueNode->type, $property);
-        return $varTypeDocString !== 'array';
-    }
-    private function isArrayTypeNode(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode $varTagValueNode) : bool
-    {
-        return $varTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
     }
 }

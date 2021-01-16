@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
+use Rector\DeadDocBlock\TagRemover\VarTagRemover;
 use Rector\Naming\VariableRenamer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Php80\NodeResolver\PromotedPropertyResolver;
@@ -32,10 +33,15 @@ final class ClassPropertyAssignToConstructorPromotionRector extends \Rector\Core
      * @var VariableRenamer
      */
     private $variableRenamer;
-    public function __construct(\Rector\Php80\NodeResolver\PromotedPropertyResolver $promotedPropertyResolver, \Rector\Naming\VariableRenamer $variableRenamer)
+    /**
+     * @var VarTagRemover
+     */
+    private $varTagRemover;
+    public function __construct(\Rector\Php80\NodeResolver\PromotedPropertyResolver $promotedPropertyResolver, \Rector\Naming\VariableRenamer $variableRenamer, \Rector\DeadDocBlock\TagRemover\VarTagRemover $varTagRemover)
     {
         $this->promotedPropertyResolver = $promotedPropertyResolver;
         $this->variableRenamer = $variableRenamer;
+        $this->varTagRemover = $varTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -108,8 +114,13 @@ CODE_SAMPLE
         if (!$propertyPhpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return;
         }
-        // make sure the docblock is useful
         $param->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $propertyPhpDocInfo);
+        // make sure the docblock is useful
+        if ($param->type === null) {
+            return;
+        }
+        $paramType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
+        $this->varTagRemover->removeVarPhpTagValueNodeIfNotComment($param, $paramType);
     }
     private function removeClassMethodParam(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $paramName) : void
     {

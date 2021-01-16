@@ -2102,6 +2102,7 @@ return array(
     'Rector\\DeadDocBlock\\Rector\\ClassMethod\\RemoveUselessParamTagRector' => $baseDir . '/rules/dead-doc-block/src/Rector/ClassMethod/RemoveUselessParamTagRector.php',
     'Rector\\DeadDocBlock\\Rector\\ClassMethod\\RemoveUselessReturnTagRector' => $baseDir . '/rules/dead-doc-block/src/Rector/ClassMethod/RemoveUselessReturnTagRector.php',
     'Rector\\DeadDocBlock\\Rector\\Node\\RemoveNonExistingVarAnnotationRector' => $baseDir . '/rules/dead-doc-block/src/Rector/Node/RemoveNonExistingVarAnnotationRector.php',
+    'Rector\\DeadDocBlock\\TagRemover\\VarTagRemover' => $baseDir . '/rules/dead-doc-block/src/TagRemover/VarTagRemover.php',
     'Rector\\Defluent\\ConflictGuard\\ParentClassMethodTypeOverrideGuard' => $baseDir . '/rules/defluent/src/ConflictGuard/ParentClassMethodTypeOverrideGuard.php',
     'Rector\\Defluent\\Contract\\ValueObject\\FirstCallFactoryAwareInterface' => $baseDir . '/rules/defluent/src/Contract/ValueObject/FirstCallFactoryAwareInterface.php',
     'Rector\\Defluent\\Contract\\ValueObject\\RootExprAwareInterface' => $baseDir . '/rules/defluent/src/Contract/ValueObject/RootExprAwareInterface.php',
