@@ -40,7 +40,6 @@ use Rector\StaticTypeMapper\TypeFactory\TypeFactoryStaticHelper;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier;
-use RectorPrefix20210116\Webmozart\Assert\Assert;
 final class NodeTypeResolver
 {
     /**

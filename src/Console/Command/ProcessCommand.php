@@ -135,7 +135,8 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
         // must run after PHP rectors, because they might change class names, and these class names must be changed in configs
         $nonPhpFileInfos = $this->filesFinder->findInDirectoriesAndFiles($paths, \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::SUFFIXES);
         $this->nonPhpFileProcessor->runOnFileInfos($nonPhpFileInfos);
-        $this->composerProcessor->process();
+        $composerJsonFilePath = \getcwd() . '/composer.json';
+        $this->composerProcessor->process($composerJsonFilePath);
         $this->reportZeroCacheRectorsCondition();
         // report diffs and errors
         $outputFormat = (string) $input->getOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);

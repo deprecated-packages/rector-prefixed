@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd0ec7fec342ea64b52342f3b467d8a28
+class ComposerStaticInitcc9f1aa61e9d1a7f1d1f43c5d6024243
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2645,16 +2645,18 @@ class ComposerStaticInitd0ec7fec342ea64b52342f3b467d8a28
         'Rector\\CodingStyle\\ValueObject\\NodeToRemoveAndConcatItem' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/NodeToRemoveAndConcatItem.php',
         'Rector\\CodingStyle\\ValueObject\\ObjectMagicMethods' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/ObjectMagicMethods.php',
         'Rector\\CodingStyle\\ValueObject\\ReturnArrayClassMethodToYield' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/ReturnArrayClassMethodToYield.php',
-        'Rector\\Composer\\Contract\\ComposerModifier\\ComposerModifierInterface' => __DIR__ . '/../..' . '/rules/composer/src/Contract/ComposerModifier/ComposerModifierInterface.php',
+        'Rector\\Composer\\Contract\\Rector\\ComposerRectorInterface' => __DIR__ . '/../..' . '/rules/composer/src/Contract/Rector/ComposerRectorInterface.php',
         'Rector\\Composer\\Modifier\\ComposerModifier' => __DIR__ . '/../..' . '/rules/composer/src/Modifier/ComposerModifier.php',
         'Rector\\Composer\\Processor\\ComposerProcessor' => __DIR__ . '/../..' . '/rules/composer/src/Processor/ComposerProcessor.php',
-        'Rector\\Composer\\ValueObject\\ComposerModifier\\AddPackageToRequire' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/AddPackageToRequire.php',
-        'Rector\\Composer\\ValueObject\\ComposerModifier\\AddPackageToRequireDev' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/AddPackageToRequireDev.php',
-        'Rector\\Composer\\ValueObject\\ComposerModifier\\ChangePackageVersion' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/ChangePackageVersion.php',
-        'Rector\\Composer\\ValueObject\\ComposerModifier\\MovePackageToRequire' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/MovePackageToRequire.php',
-        'Rector\\Composer\\ValueObject\\ComposerModifier\\MovePackageToRequireDev' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/MovePackageToRequireDev.php',
-        'Rector\\Composer\\ValueObject\\ComposerModifier\\RemovePackage' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/RemovePackage.php',
-        'Rector\\Composer\\ValueObject\\ComposerModifier\\ReplacePackage' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ComposerModifier/ReplacePackage.php',
+        'Rector\\Composer\\Rector\\AddPackageToRequireDevRector' => __DIR__ . '/../..' . '/rules/composer/src/Rector/AddPackageToRequireDevRector.php',
+        'Rector\\Composer\\Rector\\AddPackageToRequireRector' => __DIR__ . '/../..' . '/rules/composer/src/Rector/AddPackageToRequireRector.php',
+        'Rector\\Composer\\Rector\\ChangePackageVersionRector' => __DIR__ . '/../..' . '/rules/composer/src/Rector/ChangePackageVersionRector.php',
+        'Rector\\Composer\\Rector\\MovePackageToRequireDevRector' => __DIR__ . '/../..' . '/rules/composer/src/Rector/MovePackageToRequireDevRector.php',
+        'Rector\\Composer\\Rector\\MovePackageToRequireRector' => __DIR__ . '/../..' . '/rules/composer/src/Rector/MovePackageToRequireRector.php',
+        'Rector\\Composer\\Rector\\RemovePackageRector' => __DIR__ . '/../..' . '/rules/composer/src/Rector/RemovePackageRector.php',
+        'Rector\\Composer\\Rector\\ReplacePackageAndVersionRector' => __DIR__ . '/../..' . '/rules/composer/src/Rector/ReplacePackageAndVersionRector.php',
+        'Rector\\Composer\\ValueObject\\PackageAndVersion' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/PackageAndVersion.php',
+        'Rector\\Composer\\ValueObject\\ReplacePackageAndVersion' => __DIR__ . '/../..' . '/rules/composer/src/ValueObject/ReplacePackageAndVersion.php',
         'Rector\\ConsoleDiffer\\Diff\\Output\\CompleteUnifiedDiffOutputBuilderFactory' => __DIR__ . '/../..' . '/packages/console-differ/src/Diff/Output/CompleteUnifiedDiffOutputBuilderFactory.php',
         'Rector\\ConsoleDiffer\\DifferAndFormatter' => __DIR__ . '/../..' . '/packages/console-differ/src/DifferAndFormatter.php',
         'Rector\\ConsoleDiffer\\MarkdownDifferAndFormatter' => __DIR__ . '/../..' . '/packages/console-differ/src/MarkdownDifferAndFormatter.php',
@@ -4067,9 +4069,9 @@ class ComposerStaticInitd0ec7fec342ea64b52342f3b467d8a28
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd0ec7fec342ea64b52342f3b467d8a28::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd0ec7fec342ea64b52342f3b467d8a28::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd0ec7fec342ea64b52342f3b467d8a28::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcc9f1aa61e9d1a7f1d1f43c5d6024243::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcc9f1aa61e9d1a7f1d1f43c5d6024243::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcc9f1aa61e9d1a7f1d1f43c5d6024243::$classMap;
 
         }, null, ClassLoader::class);
     }
