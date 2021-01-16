@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Composer\ValueObject\ComposerModifier;
 
 use Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface;
-use RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 /**
  * Removes package from composer data
  * @see \Rector\Composer\Tests\ValueObject\ComposerModifier\RemovePackageTest
@@ -19,7 +19,7 @@ final class RemovePackage implements \Rector\Composer\Contract\ComposerModifier\
     {
         $this->packageName = $packageName;
     }
-    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
+    public function modify(\RectorPrefix20210116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         $composerJson->removePackage($this->packageName);
     }

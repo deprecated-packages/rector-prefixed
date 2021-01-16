@@ -5,8 +5,8 @@ namespace Rector\Composer\Tests\Processor;
 
 use Rector\Composer\Processor\ComposerProcessor;
 use Rector\Core\HttpKernel\RectorKernel;
-use RectorPrefix20210115\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class ComposerProcessorTest extends \RectorPrefix20210115\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210116\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class ComposerProcessorTest extends \RectorPrefix20210116\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var ComposerProcessor

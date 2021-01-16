@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony4\Tests\Rector\MethodCall\VarDumperTestTraitMethodArgsRector\Source;
 
-use RectorPrefix20210115\Symfony\Component\VarDumper\Test\VarDumperTestTrait;
+use RectorPrefix20210116\Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 class ClassWithVarDumperTrait
 {
     use VarDumperTestTrait;

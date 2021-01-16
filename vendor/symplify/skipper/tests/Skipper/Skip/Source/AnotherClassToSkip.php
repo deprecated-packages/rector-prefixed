@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210115\Symplify\Skipper\Tests\Skipper\Skip\Source;
+namespace RectorPrefix20210116\Symplify\Skipper\Tests\Skipper\Skip\Source;
 
 final class AnotherClassToSkip
 {

@@ -8,13 +8,13 @@ use Rector\RemovingStatic\Rector\Class_\SingleStaticServiceToDynamicRector;
 use Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\ClassWithStaticProperties;
 use Rector\RemovingStatic\Tests\Rector\Class_\SingleStaticServiceToDynamicRector\Source\FirstStaticClass;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleStaticServiceToDynamicRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

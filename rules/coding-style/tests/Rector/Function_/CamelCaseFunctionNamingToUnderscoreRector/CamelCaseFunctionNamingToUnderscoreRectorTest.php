@@ -6,13 +6,13 @@ namespace Rector\CodingStyle\Tests\Rector\Function_\CamelCaseFunctionNamingToUnd
 use Iterator;
 use Rector\CodingStyle\Rector\Function_\CamelCaseFunctionNamingToUnderscoreRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo;
 final class CamelCaseFunctionNamingToUnderscoreRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

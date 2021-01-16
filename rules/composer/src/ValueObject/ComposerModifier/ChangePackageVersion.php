@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Composer\ValueObject\ComposerModifier;
 
 use Rector\Composer\Contract\ComposerModifier\ComposerModifierInterface;
-use RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use RectorPrefix20210116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 /**
  * @see \Rector\Composer\Tests\ValueObject\ComposerModifier\ChangePackageVersionTest
  */
@@ -23,7 +23,7 @@ final class ChangePackageVersion implements \Rector\Composer\Contract\ComposerMo
         $this->packageName = $packageName;
         $this->targetVersion = $targetVersion;
     }
-    public function modify(\RectorPrefix20210115\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
+    public function modify(\RectorPrefix20210116\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         $composerJson->changePackageVersion($this->packageName, $this->targetVersion);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210115\Doctrine\Common\Annotations;
+namespace RectorPrefix20210116\Doctrine\Common\Annotations;
 
 use function array_key_exists;
 use function array_merge;

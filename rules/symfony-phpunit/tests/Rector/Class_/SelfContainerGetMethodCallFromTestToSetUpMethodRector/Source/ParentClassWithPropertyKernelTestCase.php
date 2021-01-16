@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\SymfonyPHPUnit\Tests\Rector\Class_\SelfContainerGetMethodCallFromTestToSetUpMethodRector\Source;
 
-use RectorPrefix20210115\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-abstract class ParentClassWithPropertyKernelTestCase extends \RectorPrefix20210115\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
+use RectorPrefix20210116\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+abstract class ParentClassWithPropertyKernelTestCase extends \RectorPrefix20210116\Symfony\Bundle\FrameworkBundle\Test\KernelTestCase
 {
     protected $itemRepository;
 }

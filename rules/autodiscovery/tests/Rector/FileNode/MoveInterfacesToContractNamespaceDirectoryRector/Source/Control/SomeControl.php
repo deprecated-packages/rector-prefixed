@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Tests\Rector\FileNode\MoveInterfacesToContractNamespaceDirectoryRector\Source\Control;
 
-use RectorPrefix20210115\Nette\Application\UI\Control;
-final class SomeControl extends \RectorPrefix20210115\Nette\Application\UI\Control
+use RectorPrefix20210116\Nette\Application\UI\Control;
+final class SomeControl extends \RectorPrefix20210116\Nette\Application\UI\Control
 {
 }

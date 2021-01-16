@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210115\Symplify\Astral\NodeValue;
+namespace RectorPrefix20210116\Symplify\Astral\NodeValue;
 
 use PhpParser\ConstExprEvaluationException;
 use PhpParser\ConstExprEvaluator;
@@ -17,8 +17,8 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\MagicConst;
 use PhpParser\Node\Scalar\MagicConst\Dir;
 use PhpParser\Node\Scalar\MagicConst\File;
-use RectorPrefix20210115\Symplify\Astral\Naming\SimpleNameResolver;
-use RectorPrefix20210115\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210116\Symplify\Astral\Naming\SimpleNameResolver;
+use RectorPrefix20210116\Symplify\PackageBuilder\Php\TypeChecker;
 /**
  * @see \Symplify\Astral\Tests\NodeValue\NodeValueResolverTest
  */
@@ -40,7 +40,7 @@ final class NodeValueResolver
      * @var string
      */
     private $currentFilePath;
-    public function __construct(\RectorPrefix20210115\Symplify\Astral\Naming\SimpleNameResolver $simpleNameResolver, \RectorPrefix20210115\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    public function __construct(\RectorPrefix20210116\Symplify\Astral\Naming\SimpleNameResolver $simpleNameResolver, \RectorPrefix20210116\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->simpleNameResolver = $simpleNameResolver;
         $this->constExprEvaluator = new \PhpParser\ConstExprEvaluator(function (\PhpParser\Node\Expr $expr) {

@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210115\Symplify\PhpConfigPrinter\NodeFactory\Service;
+namespace RectorPrefix20210116\Symplify\PhpConfigPrinter\NodeFactory\Service;
 
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20210115\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
-use RectorPrefix20210115\Symplify\PhpConfigPrinter\Converter\ServiceOptionsKeyYamlToPhpFactory\TagsServiceOptionKeyYamlToPhpFactory;
-use RectorPrefix20210115\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use RectorPrefix20210115\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
-use RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature;
-use RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use RectorPrefix20210116\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
+use RectorPrefix20210116\Symplify\PhpConfigPrinter\Converter\ServiceOptionsKeyYamlToPhpFactory\TagsServiceOptionKeyYamlToPhpFactory;
+use RectorPrefix20210116\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210116\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
+use RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature;
+use RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 final class AutoBindNodeFactory
 {
     /**
@@ -37,7 +37,7 @@ final class AutoBindNodeFactory
      * @var TagsServiceOptionKeyYamlToPhpFactory
      */
     private $tagsServiceOptionKeyYamlToPhpFactory;
-    public function __construct(\RectorPrefix20210115\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210115\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210115\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface $symfonyVersionFeatureGuard, \RectorPrefix20210115\Symplify\PhpConfigPrinter\Converter\ServiceOptionsKeyYamlToPhpFactory\TagsServiceOptionKeyYamlToPhpFactory $tagsServiceOptionKeyYamlToPhpFactory)
+    public function __construct(\RectorPrefix20210116\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210116\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210116\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface $symfonyVersionFeatureGuard, \RectorPrefix20210116\Symplify\PhpConfigPrinter\Converter\ServiceOptionsKeyYamlToPhpFactory\TagsServiceOptionKeyYamlToPhpFactory $tagsServiceOptionKeyYamlToPhpFactory)
     {
         $this->commonNodeFactory = $commonNodeFactory;
         $this->argsNodeFactory = $argsNodeFactory;
@@ -53,19 +53,19 @@ final class AutoBindNodeFactory
     public function createAutoBindCalls(array $yaml, \PhpParser\Node\Expr\MethodCall $methodCall, string $type) : \PhpParser\Node\Expr\MethodCall
     {
         foreach ($yaml as $key => $value) {
-            if ($key === \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOWIRE) {
+            if ($key === \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOWIRE) {
                 $methodCall = $this->createAutowire($value, $methodCall, $type);
             }
-            if ($key === \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOCONFIGURE) {
+            if ($key === \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOCONFIGURE) {
                 $methodCall = $this->createAutoconfigure($value, $methodCall, $type);
             }
-            if ($key === \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::PUBLIC) {
+            if ($key === \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::PUBLIC) {
                 $methodCall = $this->createPublicPrivate($value, $methodCall, $type);
             }
-            if ($key === \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::BIND) {
-                $methodCall = $this->createBindMethodCall($methodCall, $yaml[\RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::BIND]);
+            if ($key === \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::BIND) {
+                $methodCall = $this->createBindMethodCall($methodCall, $yaml[\RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::BIND]);
             }
-            if ($key === \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::TAGS) {
+            if ($key === \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::TAGS) {
                 $methodCall = $this->createTagsMethodCall($methodCall, $value);
             }
         }
@@ -75,33 +75,33 @@ final class AutoBindNodeFactory
     {
         foreach ($bindValues as $key => $value) {
             $args = $this->argsNodeFactory->createFromValues([$key, $value]);
-            $methodCall = new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::BIND, $args);
+            $methodCall = new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::BIND, $args);
         }
         return $methodCall;
     }
     private function createAutowire($value, \PhpParser\Node\Expr\MethodCall $methodCall, string $type) : \PhpParser\Node\Expr\MethodCall
     {
         if ($value === \true) {
-            return new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOWIRE);
+            return new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOWIRE);
         }
         // skip default false
         if ($type === self::TYPE_DEFAULTS) {
             return $methodCall;
         }
         $args = [new \PhpParser\Node\Arg($this->commonNodeFactory->createFalse())];
-        return new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOWIRE, $args);
+        return new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOWIRE, $args);
     }
     private function createAutoconfigure($value, \PhpParser\Node\Expr\MethodCall $methodCall, string $type) : \PhpParser\Node\Expr\MethodCall
     {
         if ($value === \true) {
-            return new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOCONFIGURE);
+            return new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOCONFIGURE);
         }
         // skip default false
         if ($type === self::TYPE_DEFAULTS) {
             return $methodCall;
         }
         $args = [new \PhpParser\Node\Arg($this->commonNodeFactory->createFalse())];
-        return new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOCONFIGURE, $args);
+        return new \PhpParser\Node\Expr\MethodCall($methodCall, \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::AUTOCONFIGURE, $args);
     }
     private function createPublicPrivate($value, \PhpParser\Node\Expr\MethodCall $methodCall, string $type) : \PhpParser\Node\Expr\MethodCall
     {
@@ -110,7 +110,7 @@ final class AutoBindNodeFactory
         }
         // default value
         if ($type === self::TYPE_DEFAULTS) {
-            if ($this->symfonyVersionFeatureGuard->isAtLeastSymfonyVersion(\RectorPrefix20210115\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature::PRIVATE_SERVICES_BY_DEFAULT)) {
+            if ($this->symfonyVersionFeatureGuard->isAtLeastSymfonyVersion(\RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature::PRIVATE_SERVICES_BY_DEFAULT)) {
                 return $methodCall;
             }
             return new \PhpParser\Node\Expr\MethodCall($methodCall, 'private');

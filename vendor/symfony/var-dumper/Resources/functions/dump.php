@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210115;
+namespace RectorPrefix20210116;
 
 /*
  * This file is part of the Symfony package.
@@ -10,16 +10,16 @@ namespace RectorPrefix20210115;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use RectorPrefix20210115\Symfony\Component\VarDumper\VarDumper;
-if (!\function_exists('RectorPrefix20210115\\dump')) {
+use RectorPrefix20210116\Symfony\Component\VarDumper\VarDumper;
+if (!\function_exists('RectorPrefix20210116\\dump')) {
     /**
      * @author Nicolas Grekas <p@tchwork.com>
      */
     function dump($var, ...$moreVars)
     {
-        \RectorPrefix20210115\Symfony\Component\VarDumper\VarDumper::dump($var);
+        \RectorPrefix20210116\Symfony\Component\VarDumper\VarDumper::dump($var);
         foreach ($moreVars as $v) {
-            \RectorPrefix20210115\Symfony\Component\VarDumper\VarDumper::dump($v);
+            \RectorPrefix20210116\Symfony\Component\VarDumper\VarDumper::dump($v);
         }
         if (1 < \func_num_args()) {
             return \func_get_args();
@@ -27,11 +27,11 @@ if (!\function_exists('RectorPrefix20210115\\dump')) {
         return $var;
     }
 }
-if (!\function_exists('RectorPrefix20210115\\dd')) {
+if (!\function_exists('RectorPrefix20210116\\dd')) {
     function dd(...$vars)
     {
         foreach ($vars as $v) {
-            \RectorPrefix20210115\Symfony\Component\VarDumper\VarDumper::dump($v);
+            \RectorPrefix20210116\Symfony\Component\VarDumper\VarDumper::dump($v);
         }
         exit(1);
     }

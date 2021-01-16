@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use RectorPrefix20210115\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210116\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table("Table_Name")
  * @ORM\Entity()

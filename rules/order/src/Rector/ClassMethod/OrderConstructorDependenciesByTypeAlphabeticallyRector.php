@@ -16,7 +16,7 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Order\Tests\Rector\ClassMethod\OrderConstructorDependenciesByTypeAlphabeticallyRector\OrderConstructorDependenciesByTypeAlphabeticallyRectorTest
  */
@@ -117,7 +117,7 @@ CODE_SAMPLE
     /**
      * Match file against matches, no patterns provided, then it matches
      */
-    private function isFileInfoMatch(\RectorPrefix20210115\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    private function isFileInfoMatch(\RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         if ($this->skipPatterns === []) {
             return \true;
