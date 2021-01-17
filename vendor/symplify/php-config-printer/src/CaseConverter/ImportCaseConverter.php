@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210116\Symplify\PhpConfigPrinter\CaseConverter;
+namespace RectorPrefix20210117\Symplify\PhpConfigPrinter\CaseConverter;
 
-use RectorPrefix20210116\Nette\Utils\Strings;
+use RectorPrefix20210117\Nette\Utils\Strings;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -11,18 +11,18 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
-use RectorPrefix20210116\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use RectorPrefix20210116\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
-use RectorPrefix20210116\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
-use RectorPrefix20210116\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter;
-use RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\VariableName;
-use RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use RectorPrefix20210117\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use RectorPrefix20210117\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
+use RectorPrefix20210117\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
+use RectorPrefix20210117\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter;
+use RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\VariableName;
+use RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 /**
  * Handles this part:
  *
  * imports: <---
  */
-final class ImportCaseConverter implements \RectorPrefix20210116\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
+final class ImportCaseConverter implements \RectorPrefix20210117\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
      * @see https://regex101.com/r/hOTdIE/1
@@ -37,29 +37,29 @@ final class ImportCaseConverter implements \RectorPrefix20210116\Symplify\PhpCon
      * @var CommonNodeFactory
      */
     private $commonNodeFactory;
-    public function __construct(\RectorPrefix20210116\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter $yamlArgumentSorter, \RectorPrefix20210116\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
+    public function __construct(\RectorPrefix20210117\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter $yamlArgumentSorter, \RectorPrefix20210117\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
     {
         $this->yamlArgumentSorter = $yamlArgumentSorter;
         $this->commonNodeFactory = $commonNodeFactory;
     }
     public function match(string $rootKey, $key, $values) : bool
     {
-        return $rootKey === \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IMPORTS;
+        return $rootKey === \RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IMPORTS;
     }
     public function convertToMethodCall($key, $values) : \PhpParser\Node\Stmt\Expression
     {
         if (\is_array($values)) {
-            $arguments = $this->yamlArgumentSorter->sortArgumentsByKeyIfExists($values, [\RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::RESOURCE => '', 'type' => null, \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IGNORE_ERRORS => \false]);
+            $arguments = $this->yamlArgumentSorter->sortArgumentsByKeyIfExists($values, [\RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlKey::RESOURCE => '', 'type' => null, \RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IGNORE_ERRORS => \false]);
             return $this->createImportMethodCall($arguments);
         }
-        throw new \RectorPrefix20210116\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException();
+        throw new \RectorPrefix20210117\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException();
     }
     /**
      * @param mixed[] $arguments
      */
     private function createImportMethodCall(array $arguments) : \PhpParser\Node\Stmt\Expression
     {
-        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
+        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
         $args = $this->createArgs($arguments);
         $methodCall = new \PhpParser\Node\Expr\MethodCall($containerConfiguratorVariable, 'import', $args);
         return new \PhpParser\Node\Stmt\Expression($methodCall);
@@ -83,7 +83,7 @@ final class ImportCaseConverter implements \RectorPrefix20210116\Symplify\PhpCon
     private function shouldSkipDefaultValue(string $name, $value, array $arguments) : bool
     {
         // skip default value for "ignore_errors"
-        if ($name === \RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IGNORE_ERRORS && $value === \false) {
+        if ($name === \RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IGNORE_ERRORS && $value === \false) {
             return \true;
         }
         // check if default value for "type"
@@ -94,10 +94,10 @@ final class ImportCaseConverter implements \RectorPrefix20210116\Symplify\PhpCon
             return \false;
         }
         // follow by default value for "ignore_errors"
-        if (!isset($arguments[\RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IGNORE_ERRORS])) {
+        if (!isset($arguments[\RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IGNORE_ERRORS])) {
             return \false;
         }
-        return $arguments[\RectorPrefix20210116\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IGNORE_ERRORS] === \false;
+        return $arguments[\RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlKey::IGNORE_ERRORS] === \false;
     }
     /**
      * @return mixed|string
@@ -107,7 +107,7 @@ final class ImportCaseConverter implements \RectorPrefix20210116\Symplify\PhpCon
         if (!\is_string($value)) {
             return $value;
         }
-        return \RectorPrefix20210116\Nette\Utils\Strings::replace($value, self::INPUT_SUFFIX_REGEX, '.php');
+        return \RectorPrefix20210117\Nette\Utils\Strings::replace($value, self::INPUT_SUFFIX_REGEX, '.php');
     }
     private function resolveExpr($value) : \PhpParser\Node\Expr
     {

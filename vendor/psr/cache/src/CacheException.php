@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210116\Psr\Cache;
+namespace RectorPrefix20210117\Psr\Cache;
 
 /**
  * Exception interface for all exceptions thrown by an Implementing Library.

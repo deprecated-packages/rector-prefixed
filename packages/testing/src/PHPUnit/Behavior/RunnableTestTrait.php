@@ -4,13 +4,13 @@ declare (strict_types=1);
 namespace Rector\Testing\PHPUnit\Behavior;
 
 use Rector\Testing\PHPUnit\RunnableRectorFactory;
-use RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @property-read RunnableRectorFactory $runnableRectorFactory
  */
 trait RunnableTestTrait
 {
-    protected function assertOriginalAndFixedFileResultEquals(\RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo) : void
+    protected function assertOriginalAndFixedFileResultEquals(\RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo) : void
     {
         $runnable = $this->runnableRectorFactory->createRunnableClass($originalFileInfo);
         $expectedInstance = $this->runnableRectorFactory->createRunnableClass($expectedFileInfo);

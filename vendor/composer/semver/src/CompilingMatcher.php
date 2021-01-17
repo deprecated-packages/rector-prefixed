@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace RectorPrefix20210116\Composer\Semver;
+namespace RectorPrefix20210117\Composer\Semver;
 
-use RectorPrefix20210116\Composer\Semver\Constraint\Constraint;
-use RectorPrefix20210116\Composer\Semver\Constraint\ConstraintInterface;
+use RectorPrefix20210117\Composer\Semver\Constraint\Constraint;
+use RectorPrefix20210117\Composer\Semver\Constraint\ConstraintInterface;
 /**
  * Helper class to evaluate constraint by compiling and reusing the code to evaluate
  */
@@ -22,7 +22,7 @@ class CompilingMatcher
     /**
      * @phpstan-var array<Constraint::OP_*, string>
      */
-    private static $transOpInt = array(\RectorPrefix20210116\Composer\Semver\Constraint\Constraint::OP_EQ => '==', \RectorPrefix20210116\Composer\Semver\Constraint\Constraint::OP_LT => '<', \RectorPrefix20210116\Composer\Semver\Constraint\Constraint::OP_LE => '<=', \RectorPrefix20210116\Composer\Semver\Constraint\Constraint::OP_GT => '>', \RectorPrefix20210116\Composer\Semver\Constraint\Constraint::OP_GE => '>=', \RectorPrefix20210116\Composer\Semver\Constraint\Constraint::OP_NE => '!=');
+    private static $transOpInt = array(\RectorPrefix20210117\Composer\Semver\Constraint\Constraint::OP_EQ => '==', \RectorPrefix20210117\Composer\Semver\Constraint\Constraint::OP_LT => '<', \RectorPrefix20210117\Composer\Semver\Constraint\Constraint::OP_LE => '<=', \RectorPrefix20210117\Composer\Semver\Constraint\Constraint::OP_GT => '>', \RectorPrefix20210117\Composer\Semver\Constraint\Constraint::OP_GE => '>=', \RectorPrefix20210117\Composer\Semver\Constraint\Constraint::OP_NE => '!=');
     /**
      * Evaluates the expression: $constraint match $operator $version
      *
@@ -33,13 +33,13 @@ class CompilingMatcher
      *
      * @return mixed
      */
-    public static function match(\RectorPrefix20210116\Composer\Semver\Constraint\ConstraintInterface $constraint, $operator, $version)
+    public static function match(\RectorPrefix20210117\Composer\Semver\Constraint\ConstraintInterface $constraint, $operator, $version)
     {
         if (self::$enabled === null) {
             self::$enabled = !\in_array('eval', \explode(',', \ini_get('disable_functions')), \true);
         }
         if (!self::$enabled) {
-            return $constraint->matches(new \RectorPrefix20210116\Composer\Semver\Constraint\Constraint(self::$transOpInt[$operator], $version));
+            return $constraint->matches(new \RectorPrefix20210117\Composer\Semver\Constraint\Constraint(self::$transOpInt[$operator], $version));
         }
         $cacheKey = $operator . $constraint;
         if (!isset(self::$compiledCheckerCache[$cacheKey])) {

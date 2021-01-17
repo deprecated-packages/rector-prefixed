@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\FileSystemRector\ValueObjectFactory;
 
-use RectorPrefix20210116\Nette\Utils\Strings;
+use RectorPrefix20210117\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -13,7 +13,7 @@ use Rector\Autodiscovery\Configuration\CategoryNamespaceProvider;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
 use Rector\PSR4\FileRelocationResolver;
-use RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo;
 final class MovedFileWithNodesFactory
 {
     /**
@@ -37,7 +37,7 @@ final class MovedFileWithNodesFactory
     /**
      * @param Node[] $nodes
      */
-    public function createWithDesiredGroup(\RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, array $nodes, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\MovedFileWithNodes
+    public function createWithDesiredGroup(\RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, array $nodes, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\MovedFileWithNodes
     {
         /** @var Namespace_|null $currentNamespace */
         $currentNamespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
@@ -50,7 +50,7 @@ final class MovedFileWithNodesFactory
         }
         // is already in the right group
         $currentNamespaceName = (string) $currentNamespace->name;
-        if (\RectorPrefix20210116\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
+        if (\RectorPrefix20210117\Nette\Utils\Strings::endsWith($currentNamespaceName, '\\' . $desiredGroupName)) {
             return null;
         }
         $oldClassName = $currentNamespaceName . '\\' . $oldFileInfo->getBasenameWithoutSuffix();
@@ -61,7 +61,7 @@ final class MovedFileWithNodesFactory
         if ($oldClassName === $newClassName) {
             return null;
         }
-        if (\RectorPrefix20210116\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
+        if (\RectorPrefix20210117\Nette\Utils\Strings::match($oldClassName, '#\\b' . $desiredGroupName . '\\b#')) {
             return null;
         }
         // 1. rename namespace
@@ -83,7 +83,7 @@ final class MovedFileWithNodesFactory
     {
         return $this->fileRelocationResolver->resolveNewNamespaceName($currentNamespace, $desiredGroupName, $this->categoryNamespaceProvider->provide());
     }
-    private function createNewClassName(\RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newNamespaceName) : string
+    private function createNewClassName(\RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newNamespaceName) : string
     {
         return $newNamespaceName . '\\' . $smartFileInfo->getBasenameWithoutSuffix();
     }

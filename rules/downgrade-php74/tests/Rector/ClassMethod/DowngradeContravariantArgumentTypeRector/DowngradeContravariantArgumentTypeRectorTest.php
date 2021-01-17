@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp74\Tests\Rector\ClassMethod\DowngradeContravariantA
 use Iterator;
 use Rector\DowngradePhp74\Rector\ClassMethod\DowngradeContravariantArgumentTypeRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradeContravariantArgumentTypeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

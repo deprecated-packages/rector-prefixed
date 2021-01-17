@@ -6,13 +6,13 @@ namespace Rector\CakePHP\Tests\Rector\Property\ChangeSnakedFixtureNameToPascal;
 use Iterator;
 use Rector\CakePHP\Rector\Property\ChangeSnakedFixtureNameToPascalRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo;
 final class ChangeSnakedFixtureNameToPascalTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

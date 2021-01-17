@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210116\Symplify\Astral\Naming;
+namespace RectorPrefix20210117\Symplify\Astral\Naming;
 
-use RectorPrefix20210116\Nette\Utils\Strings;
+use RectorPrefix20210117\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
-use RectorPrefix20210116\Symplify\Astral\Contract\NodeNameResolverInterface;
+use RectorPrefix20210117\Symplify\Astral\Contract\NodeNameResolverInterface;
 /**
  * @see \Symplify\Astral\Tests\Naming\SimpleNameResolverTest
  */
@@ -74,7 +74,7 @@ final class SimpleNameResolver
         if ($name === null) {
             return \false;
         }
-        if (\RectorPrefix20210116\Nette\Utils\Strings::contains($desiredName, '*')) {
+        if (\RectorPrefix20210117\Nette\Utils\Strings::contains($desiredName, '*')) {
             return \fnmatch($desiredName, $name);
         }
         return $name === $desiredName;
@@ -97,10 +97,10 @@ final class SimpleNameResolver
     }
     public function getShortClassName(string $className) : string
     {
-        if (!\RectorPrefix20210116\Nette\Utils\Strings::contains($className, '\\')) {
+        if (!\RectorPrefix20210117\Nette\Utils\Strings::contains($className, '\\')) {
             return $className;
         }
-        return (string) \RectorPrefix20210116\Nette\Utils\Strings::after($className, '\\', -1);
+        return (string) \RectorPrefix20210117\Nette\Utils\Strings::after($className, '\\', -1);
     }
     public function getShortClassNameFromScope(\PHPStan\Analyser\Scope $scope) : ?string
     {
@@ -131,13 +131,13 @@ final class SimpleNameResolver
         if ($name === null) {
             return \false;
         }
-        return (bool) \RectorPrefix20210116\Nette\Utils\Strings::match($name, $desiredNameRegex);
+        return (bool) \RectorPrefix20210117\Nette\Utils\Strings::match($name, $desiredNameRegex);
     }
     private function resolveShortName(string $className) : string
     {
-        if (!\RectorPrefix20210116\Nette\Utils\Strings::contains($className, '\\')) {
+        if (!\RectorPrefix20210117\Nette\Utils\Strings::contains($className, '\\')) {
             return $className;
         }
-        return (string) \RectorPrefix20210116\Nette\Utils\Strings::after($className, '\\', -1);
+        return (string) \RectorPrefix20210117\Nette\Utils\Strings::after($className, '\\', -1);
     }
 }

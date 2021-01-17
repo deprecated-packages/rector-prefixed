@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Generic\Rector\FuncCall\FuncCallToStaticCallRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\ValueObject\FuncCallToStaticCall;
-use RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo;
 final class FuncCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210116\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

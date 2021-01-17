@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210116\Nette\Neon;
+namespace RectorPrefix20210117\Nette\Neon;
 
 /**
  * Representation of 'foo(bar=1)' literal
