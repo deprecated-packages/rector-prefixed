@@ -6,6 +6,7 @@ namespace RectorPrefix20210117\Symplify\PhpConfigPrinter\NodeFactory\Service;
 use RectorPrefix20210117\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
 use RectorPrefix20210117\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210117\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer;
 use RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
 final class ServiceOptionNodeFactory
 {
@@ -14,11 +15,16 @@ final class ServiceOptionNodeFactory
      */
     private $serviceOptionKeyYamlToPhpFactories = [];
     /**
+     * @var ServiceOptionAnalyzer
+     */
+    private $serviceOptionAnalyzer;
+    /**
      * @param ServiceOptionsKeyYamlToPhpFactoryInterface[] $serviceOptionKeyYamlToPhpFactories
      */
-    public function __construct(array $serviceOptionKeyYamlToPhpFactories)
+    public function __construct(\RectorPrefix20210117\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer, array $serviceOptionKeyYamlToPhpFactories)
     {
         $this->serviceOptionKeyYamlToPhpFactories = $serviceOptionKeyYamlToPhpFactories;
+        $this->serviceOptionAnalyzer = $serviceOptionAnalyzer;
     }
     public function convertServiceOptionsToNodes(array $servicesValues, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
     {
@@ -38,24 +44,12 @@ final class ServiceOptionNodeFactory
         }
         return $methodCall;
     }
-    private function isNestedArguments(array $servicesValues) : bool
-    {
-        if (\count($servicesValues) === 0) {
-            return \false;
-        }
-        foreach (\array_keys($servicesValues) as $key) {
-            if (!\RectorPrefix20210117\Nette\Utils\Strings::startsWith((string) $key, '$')) {
-                return \false;
-            }
-        }
-        return \true;
-    }
     /**
      * @return array<string, mixed>
      */
     private function unNestArguments(array $servicesValues) : array
     {
-        if (!$this->isNestedArguments($servicesValues)) {
+        if (!$this->serviceOptionAnalyzer->hasNamedArguments($servicesValues)) {
             return $servicesValues;
         }
         return [\RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS => $servicesValues];

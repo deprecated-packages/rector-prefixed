@@ -15,7 +15,7 @@ final class JsonCleaner
             if (!\is_array($value)) {
                 continue;
             }
-            if (\count($value) === 0) {
+            if ($value === []) {
                 unset($data[$key]);
             } else {
                 $data[$key] = $this->removeEmptyKeysFromJsonArray($value);

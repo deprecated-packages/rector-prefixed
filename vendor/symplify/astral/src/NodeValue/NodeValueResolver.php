@@ -17,7 +17,10 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\MagicConst;
 use PhpParser\Node\Scalar\MagicConst\Dir;
 use PhpParser\Node\Scalar\MagicConst\File;
+use PhpParser\Node\Stmt\ClassLike;
+use ReflectionClassConstant;
 use RectorPrefix20210117\Symplify\Astral\Naming\SimpleNameResolver;
+use RectorPrefix20210117\Symplify\Astral\NodeFinder\ParentNodeFinder;
 use RectorPrefix20210117\Symplify\PackageBuilder\Php\TypeChecker;
 /**
  * @see \Symplify\Astral\Tests\NodeValue\NodeValueResolverTest
@@ -40,13 +43,18 @@ final class NodeValueResolver
      * @var string
      */
     private $currentFilePath;
-    public function __construct(\RectorPrefix20210117\Symplify\Astral\Naming\SimpleNameResolver $simpleNameResolver, \RectorPrefix20210117\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    /**
+     * @var ParentNodeFinder
+     */
+    private $parentNodeFinder;
+    public function __construct(\RectorPrefix20210117\Symplify\Astral\Naming\SimpleNameResolver $simpleNameResolver, \RectorPrefix20210117\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \RectorPrefix20210117\Symplify\Astral\NodeFinder\ParentNodeFinder $parentNodeFinder)
     {
         $this->simpleNameResolver = $simpleNameResolver;
         $this->constExprEvaluator = new \PhpParser\ConstExprEvaluator(function (\PhpParser\Node\Expr $expr) {
             return $this->resolveByNode($expr);
         });
         $this->typeChecker = $typeChecker;
+        $this->parentNodeFinder = $parentNodeFinder;
     }
     /**
      * @return array|bool|float|int|mixed|string|null
@@ -66,6 +74,13 @@ final class NodeValueResolver
     private function resolveClassConstFetch(\PhpParser\Node\Expr\ClassConstFetch $classConstFetch)
     {
         $className = $this->simpleNameResolver->getName($classConstFetch->class);
+        if ($className === 'self') {
+            $classLike = $this->parentNodeFinder->getFirstParentByType($classConstFetch, \PhpParser\Node\Stmt\ClassLike::class);
+            if ($classLike === null) {
+                return null;
+            }
+            $className = $this->simpleNameResolver->getName($classLike);
+        }
         if ($className === null) {
             return null;
         }
@@ -73,7 +88,8 @@ final class NodeValueResolver
         if ($constantName === null) {
             return null;
         }
-        return \constant($className . '::' . $constantName);
+        $reflectionClassConstant = new \ReflectionClassConstant($className, $constantName);
+        return $reflectionClassConstant->getValue();
     }
     private function resolveMagicConst(\PhpParser\Node\Scalar\MagicConst $magicConst) : ?string
     {

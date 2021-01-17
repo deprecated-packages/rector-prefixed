@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2
+class ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2077,6 +2077,7 @@ class ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2
         'RectorPrefix20210117\\Symplify\\Astral\\Exception\\ShouldNotHappenException' => __DIR__ . '/..' . '/symplify/astral/src/Exception/ShouldNotHappenException.php',
         'RectorPrefix20210117\\Symplify\\Astral\\HttpKernel\\AstralKernel' => __DIR__ . '/..' . '/symplify/astral/src/HttpKernel/AstralKernel.php',
         'RectorPrefix20210117\\Symplify\\Astral\\Naming\\SimpleNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/Naming/SimpleNameResolver.php',
+        'RectorPrefix20210117\\Symplify\\Astral\\NodeFinder\\ParentNodeFinder' => __DIR__ . '/..' . '/symplify/astral/src/NodeFinder/ParentNodeFinder.php',
         'RectorPrefix20210117\\Symplify\\Astral\\NodeNameResolver\\ArgNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/ArgNodeNameResolver.php',
         'RectorPrefix20210117\\Symplify\\Astral\\NodeNameResolver\\AttributeNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/AttributeNodeNameResolver.php',
         'RectorPrefix20210117\\Symplify\\Astral\\NodeNameResolver\\ClassLikeNodeNameResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeNameResolver/ClassLikeNodeNameResolver.php',
@@ -2089,6 +2090,7 @@ class ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2
         'RectorPrefix20210117\\Symplify\\Astral\\NodeTraverser\\SimpleCallableNodeTraverser' => __DIR__ . '/..' . '/symplify/astral/src/NodeTraverser/SimpleCallableNodeTraverser.php',
         'RectorPrefix20210117\\Symplify\\Astral\\NodeValue\\NodeValueResolver' => __DIR__ . '/..' . '/symplify/astral/src/NodeValue/NodeValueResolver.php',
         'RectorPrefix20210117\\Symplify\\Astral\\StaticFactory\\SimpleNameResolverStaticFactory' => __DIR__ . '/..' . '/symplify/astral/src/StaticFactory/SimpleNameResolverStaticFactory.php',
+        'RectorPrefix20210117\\Symplify\\Astral\\ValueObject\\CommonAttributeKey' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/CommonAttributeKey.php',
         'RectorPrefix20210117\\Symplify\\Astral\\ValueObject\\NodeBuilder\\ClassBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/ClassBuilder.php',
         'RectorPrefix20210117\\Symplify\\Astral\\ValueObject\\NodeBuilder\\MethodBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/MethodBuilder.php',
         'RectorPrefix20210117\\Symplify\\Astral\\ValueObject\\NodeBuilder\\NamespaceBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/NamespaceBuilder.php',
@@ -2098,6 +2100,8 @@ class ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2
         'RectorPrefix20210117\\Symplify\\Astral\\ValueObject\\NodeBuilder\\UseBuilder' => __DIR__ . '/..' . '/symplify/astral/src/ValueObject/NodeBuilder/UseBuilder.php',
         'RectorPrefix20210117\\Symplify\\AutowireArrayParameter\\DependencyInjection\\CompilerPass\\AutowireArrayParameterCompilerPass' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DependencyInjection/CompilerPass/AutowireArrayParameterCompilerPass.php',
         'RectorPrefix20210117\\Symplify\\AutowireArrayParameter\\DocBlock\\ParamTypeDocBlockResolver' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DocBlock/ParamTypeDocBlockResolver.php',
+        'RectorPrefix20210117\\Symplify\\AutowireArrayParameter\\Skipper\\ParameterSkipper' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/Skipper/ParameterSkipper.php',
+        'RectorPrefix20210117\\Symplify\\AutowireArrayParameter\\TypeResolver\\ParameterTypeResolver' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/TypeResolver/ParameterTypeResolver.php',
         'RectorPrefix20210117\\Symplify\\ComposerJsonManipulator\\Bundle\\ComposerJsonManipulatorBundle' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Bundle/ComposerJsonManipulatorBundle.php',
         'RectorPrefix20210117\\Symplify\\ComposerJsonManipulator\\ComposerJsonFactory' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ComposerJsonFactory.php',
         'RectorPrefix20210117\\Symplify\\ComposerJsonManipulator\\DependencyInjection\\Extension\\ComposerJsonManipulatorExtension' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/DependencyInjection/Extension/ComposerJsonManipulatorExtension.php',
@@ -2210,6 +2214,7 @@ class ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2
         'RectorPrefix20210117\\Symplify\\PhpConfigPrinter\\Reflection\\ConstantNameFromValueResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Reflection/ConstantNameFromValueResolver.php',
         'RectorPrefix20210117\\Symplify\\PhpConfigPrinter\\RoutingCaseConverter\\ImportRoutingCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/RoutingCaseConverter/ImportRoutingCaseConverter.php',
         'RectorPrefix20210117\\Symplify\\PhpConfigPrinter\\RoutingCaseConverter\\PathRoutingCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/RoutingCaseConverter/PathRoutingCaseConverter.php',
+        'RectorPrefix20210117\\Symplify\\PhpConfigPrinter\\ServiceOptionAnalyzer\\ServiceOptionAnalyzer' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionAnalyzer/ServiceOptionAnalyzer.php',
         'RectorPrefix20210117\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\ArgumentsServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/ArgumentsServiceOptionKeyYamlToPhpFactory.php',
         'RectorPrefix20210117\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\BindAutowireAutoconfigureServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/BindAutowireAutoconfigureServiceOptionKeyYamlToPhpFactory.php',
         'RectorPrefix20210117\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\CallsServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/CallsServiceOptionKeyYamlToPhpFactory.php',
@@ -3655,7 +3660,6 @@ class ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2
         'Rector\\Php80\\NodeManipulator\\TokenManipulator' => __DIR__ . '/../..' . '/rules/php80/src/NodeManipulator/TokenManipulator.php',
         'Rector\\Php80\\NodeResolver\\PromotedPropertyResolver' => __DIR__ . '/../..' . '/rules/php80/src/NodeResolver/PromotedPropertyResolver.php',
         'Rector\\Php80\\NodeResolver\\SwitchExprsResolver' => __DIR__ . '/../..' . '/rules/php80/src/NodeResolver/SwitchExprsResolver.php',
-        'Rector\\Php80\\Rector\\Assign\\FalseableCountToZeroRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Assign/FalseableCountToZeroRector.php',
         'Rector\\Php80\\Rector\\Catch_\\RemoveUnusedVariableInCatchRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Catch_/RemoveUnusedVariableInCatchRector.php',
         'Rector\\Php80\\Rector\\ClassMethod\\FinalPrivateToPrivateVisibilityRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/ClassMethod/FinalPrivateToPrivateVisibilityRector.php',
         'Rector\\Php80\\Rector\\ClassMethod\\SetStateToStaticRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/ClassMethod/SetStateToStaticRector.php',
@@ -4088,9 +4092,9 @@ class ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit272fe2e7a9225da91ea69ec86298dba2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2::$classMap;
 
         }, null, ClassLoader::class);
     }

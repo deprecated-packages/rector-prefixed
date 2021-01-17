@@ -10,6 +10,11 @@ use RectorPrefix20210117\Symfony\Component\HttpKernel\Kernel;
 use RectorPrefix20210117\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 final class AutowireArrayParameterHttpKernel extends \RectorPrefix20210117\Symfony\Component\HttpKernel\Kernel
 {
+    public function __construct()
+    {
+        // to invoke container override for test re-run
+        parent::__construct('dev' . \random_int(0, 10000), \true);
+    }
     public function registerContainerConfiguration(\RectorPrefix20210117\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../config/autowire_array_parameter.php');

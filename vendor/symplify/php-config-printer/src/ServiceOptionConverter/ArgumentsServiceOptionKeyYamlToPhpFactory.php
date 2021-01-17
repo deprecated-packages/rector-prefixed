@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace RectorPrefix20210117\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
-use RectorPrefix20210117\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
 use RectorPrefix20210117\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
 use RectorPrefix20210117\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210117\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer;
 use RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
 final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210117\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
@@ -14,13 +14,18 @@ final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
      * @var ArgsNodeFactory
      */
     private $argsNodeFactory;
-    public function __construct(\RectorPrefix20210117\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory)
+    /**
+     * @var ServiceOptionAnalyzer
+     */
+    private $serviceOptionAnalyzer;
+    public function __construct(\RectorPrefix20210117\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210117\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer)
     {
         $this->argsNodeFactory = $argsNodeFactory;
+        $this->serviceOptionAnalyzer = $serviceOptionAnalyzer;
     }
     public function decorateServiceMethodCall($key, $yaml, $values, \PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\MethodCall
     {
-        if (!$this->hasNamedArguments($yaml)) {
+        if (!$this->serviceOptionAnalyzer->hasNamedArguments($yaml)) {
             $args = $this->argsNodeFactory->createFromValuesAndWrapInArray($yaml);
             return new \PhpParser\Node\Expr\MethodCall($methodCall, 'args', $args);
         }
@@ -33,17 +38,5 @@ final class ArgumentsServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
     public function isMatch($key, $values) : bool
     {
         return $key === \RectorPrefix20210117\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS;
-    }
-    private function hasNamedArguments(array $data) : bool
-    {
-        if (\count($data) === 0) {
-            return \false;
-        }
-        foreach (\array_keys($data) as $key) {
-            if (!\RectorPrefix20210117\Nette\Utils\Strings::startsWith((string) $key, '$')) {
-                return \false;
-            }
-        }
-        return \true;
     }
 }

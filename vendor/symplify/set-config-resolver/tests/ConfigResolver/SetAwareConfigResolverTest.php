@@ -44,8 +44,8 @@ final class SetAwareConfigResolverTest extends \RectorPrefix20210117\PHPUnit\Fra
     }
     public function testSetsNotFound() : void
     {
-        $basicConfigFileInfo = new \RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/missing_set_config.php');
         $this->expectException(\RectorPrefix20210117\Symplify\SetConfigResolver\Exception\SetNotFoundException::class);
+        $basicConfigFileInfo = new \RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/missing_set_config.php');
         $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles([$basicConfigFileInfo]);
     }
     public function testPhpSetsFileInfos() : void

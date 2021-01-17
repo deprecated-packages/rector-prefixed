@@ -38,8 +38,8 @@ final class SmartFileInfoTest extends \RectorPrefix20210117\PHPUnit\Framework\Te
     }
     public function testRelativeToDirException() : void
     {
-        $smartFileInfo = new \RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
         $this->expectException(\RectorPrefix20210117\Symplify\SmartFileSystem\Exception\DirectoryNotFoundException::class);
+        $smartFileInfo = new \RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo(__FILE__);
         $smartFileInfo->getRelativeFilePathFromDirectory('non-existing-path');
     }
     public function testDoesFnmatch() : void

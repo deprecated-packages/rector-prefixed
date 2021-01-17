@@ -31,7 +31,7 @@ final class SmartFinder
     {
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
-        if (\count($directories) > 0) {
+        if ($directories !== []) {
             $finder = new \RectorPrefix20210117\Symfony\Component\Finder\Finder();
             $finder->name('*')->in($directories)->path($path)->files()->sortByName();
             $fileInfos = $this->finderSanitizer->sanitize($finder);
@@ -46,7 +46,7 @@ final class SmartFinder
     {
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
-        if (\count($directories) > 0) {
+        if ($directories !== []) {
             $finder = new \RectorPrefix20210117\Symfony\Component\Finder\Finder();
             $finder->name($name)->in($directories)->files()->sortByName();
             if ($excludedDirectories !== []) {
