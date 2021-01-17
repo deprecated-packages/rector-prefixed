@@ -3,16 +3,14 @@
 declare (strict_types=1);
 namespace Rector\DeadCode\Rector\MethodCall;
 
-use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\DeadCode\NodeManipulator\CallDefaultParamValuesResolver;
 use ReflectionFunction;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,6 +19,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveDefaultArgumentValueRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var CallDefaultParamValuesResolver
+     */
+    private $callDefaultParamValuesResolver;
+    public function __construct(\Rector\DeadCode\NodeManipulator\CallDefaultParamValuesResolver $callDefaultParamValuesResolver)
+    {
+        $this->callDefaultParamValuesResolver = $callDefaultParamValuesResolver;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Remove argument value, if it is the same as default value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -80,7 +86,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $defaultValues = $this->resolveDefaultValuesFromCall($node);
+        $defaultValues = $this->callDefaultParamValuesResolver->resolveFromCall($node);
         $keysToRemove = $this->resolveKeysToRemove($node, $defaultValues);
         if ($keysToRemove === []) {
             return null;
@@ -116,31 +122,6 @@ CODE_SAMPLE
         return $reflectionFunction->isInternal();
     }
     /**
-     * @param StaticCall|FuncCall|MethodCall $node
-     * @return Node[]
-     */
-    private function resolveDefaultValuesFromCall(\PhpParser\Node $node) : array
-    {
-        $nodeName = $this->resolveNodeName($node);
-        if ($nodeName === null) {
-            return [];
-        }
-        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
-            return $this->resolveFuncCallDefaultParamValues($nodeName);
-        }
-        /** @var string|null $className */
-        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        // anonymous class
-        if ($className === null) {
-            return [];
-        }
-        $classMethodNode = $this->nodeRepository->findClassMethod($className, $nodeName);
-        if ($classMethodNode !== null) {
-            return $this->resolveDefaultParamValuesFromFunctionLike($classMethodNode);
-        }
-        return [];
-    }
-    /**
      * @param StaticCall|MethodCall|FuncCall $node
      * @param Expr[]|mixed[] $defaultValues
      * @return int[]
@@ -169,54 +150,5 @@ CODE_SAMPLE
         }
         /** @var int[] $keysToRemove */
         return $keysToRemove;
-    }
-    /**
-     * @param StaticCall|FuncCall|MethodCall $node
-     */
-    private function resolveNodeName(\PhpParser\Node $node) : ?string
-    {
-        if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
-            return $this->getName($node);
-        }
-        return $this->getName($node->name);
-    }
-    /**
-     * @return Node[]|Expr[]
-     */
-    private function resolveFuncCallDefaultParamValues(string $nodeName) : array
-    {
-        $functionNode = $this->nodeRepository->findFunction($nodeName);
-        if ($functionNode !== null) {
-            return $this->resolveDefaultParamValuesFromFunctionLike($functionNode);
-        }
-        // non existing function
-        if (!\function_exists($nodeName)) {
-            return [];
-        }
-        $reflectionFunction = new \ReflectionFunction($nodeName);
-        if ($reflectionFunction->isUserDefined()) {
-            $defaultValues = [];
-            foreach ($reflectionFunction->getParameters() as $key => $reflectionParameter) {
-                if ($reflectionParameter->isDefaultValueAvailable()) {
-                    $defaultValues[$key] = \PhpParser\BuilderHelpers::normalizeValue($reflectionParameter->getDefaultValue());
-                }
-            }
-            return $defaultValues;
-        }
-        return [];
-    }
-    /**
-     * @return Node[]
-     */
-    private function resolveDefaultParamValuesFromFunctionLike(\PhpParser\Node\FunctionLike $functionLike) : array
-    {
-        $defaultValues = [];
-        foreach ($functionLike->getParams() as $key => $param) {
-            if ($param->default === null) {
-                continue;
-            }
-            $defaultValues[$key] = $param->default;
-        }
-        return $defaultValues;
     }
 }

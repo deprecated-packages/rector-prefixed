@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit60a291366747d9c5d785e234f90ce123
+class ComposerStaticInit8bf2c2eb54c1a408d609c7f90cd07cd3
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2841,6 +2841,7 @@ class ComposerStaticInit60a291366747d9c5d785e234f90ce123
         'Rector\\DeadCode\\NodeCollector\\UnusedParameterResolver' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeCollector/UnusedParameterResolver.php',
         'Rector\\DeadCode\\NodeFinder\\NextVariableUsageNodeFinder' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeFinder/NextVariableUsageNodeFinder.php',
         'Rector\\DeadCode\\NodeFinder\\PreviousVariableAssignNodeFinder' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeFinder/PreviousVariableAssignNodeFinder.php',
+        'Rector\\DeadCode\\NodeManipulator\\CallDefaultParamValuesResolver' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeManipulator/CallDefaultParamValuesResolver.php',
         'Rector\\DeadCode\\NodeManipulator\\ClassMethodAndCallMatcher' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeManipulator/ClassMethodAndCallMatcher.php',
         'Rector\\DeadCode\\NodeManipulator\\ControllerClassMethodManipulator' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeManipulator/ControllerClassMethodManipulator.php',
         'Rector\\DeadCode\\NodeManipulator\\CountManipulator' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeManipulator/CountManipulator.php',
@@ -3076,6 +3077,7 @@ class ComposerStaticInit60a291366747d9c5d785e234f90ce123
         'Rector\\FileSystemRector\\ValueObject\\MovedFileWithContent' => __DIR__ . '/../..' . '/packages/file-system-rector/src/ValueObject/MovedFileWithContent.php',
         'Rector\\FileSystemRector\\ValueObject\\MovedFileWithNodes' => __DIR__ . '/../..' . '/packages/file-system-rector/src/ValueObject/MovedFileWithNodes.php',
         'Rector\\Generic\\Contract\\IsAbleFuncCallInterface' => __DIR__ . '/../..' . '/rules/generic/src/Contract/IsAbleFuncCallInterface.php',
+        'Rector\\Generic\\NodeAnalyzer\\ArgumentAddingScope' => __DIR__ . '/../..' . '/rules/generic/src/NodeAnalyzer/ArgumentAddingScope.php',
         'Rector\\Generic\\NodeTypeAnalyzer\\CallTypeAnalyzer' => __DIR__ . '/../..' . '/rules/generic/src/NodeTypeAnalyzer/CallTypeAnalyzer.php',
         'Rector\\Generic\\NodeTypeAnalyzer\\TypeProvidingExprFromClassResolver' => __DIR__ . '/../..' . '/rules/generic/src/NodeTypeAnalyzer/TypeProvidingExprFromClassResolver.php',
         'Rector\\Generic\\Rector\\AbstractIsAbleFunCallRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/AbstractIsAbleFunCallRector.php',
@@ -3682,6 +3684,8 @@ class ComposerStaticInit60a291366747d9c5d785e234f90ce123
         'Rector\\PhpSpecToPHPUnit\\MatchersManipulator' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/MatchersManipulator.php',
         'Rector\\PhpSpecToPHPUnit\\Naming\\PhpSpecRenaming' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/Naming/PhpSpecRenaming.php',
         'Rector\\PhpSpecToPHPUnit\\NodeFactory\\AssertMethodCallFactory' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/NodeFactory/AssertMethodCallFactory.php',
+        'Rector\\PhpSpecToPHPUnit\\NodeFactory\\BeConstructedWithAssignFactory' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/NodeFactory/BeConstructedWithAssignFactory.php',
+        'Rector\\PhpSpecToPHPUnit\\NodeFactory\\DuringMethodCallFactory' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/NodeFactory/DuringMethodCallFactory.php',
         'Rector\\PhpSpecToPHPUnit\\PHPUnitTypeDeclarationDecorator' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/PHPUnitTypeDeclarationDecorator.php',
         'Rector\\PhpSpecToPHPUnit\\PhpSpecMockCollector' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/PhpSpecMockCollector.php',
         'Rector\\PhpSpecToPHPUnit\\Rector\\AbstractPhpSpecToPHPUnitRector' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/Rector/AbstractPhpSpecToPHPUnitRector.php',
@@ -4084,9 +4088,9 @@ class ComposerStaticInit60a291366747d9c5d785e234f90ce123
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit60a291366747d9c5d785e234f90ce123::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit60a291366747d9c5d785e234f90ce123::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit60a291366747d9c5d785e234f90ce123::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8bf2c2eb54c1a408d609c7f90cd07cd3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8bf2c2eb54c1a408d609c7f90cd07cd3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8bf2c2eb54c1a408d609c7f90cd07cd3::$classMap;
 
         }, null, ClassLoader::class);
     }

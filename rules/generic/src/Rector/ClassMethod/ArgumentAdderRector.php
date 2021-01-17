@@ -18,6 +18,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Generic\NodeAnalyzer\ArgumentAddingScope;
 use Rector\Generic\ValueObject\ArgumentAdder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -29,28 +30,20 @@ use RectorPrefix20210117\Webmozart\Assert\Assert;
 final class ArgumentAdderRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
-     * @var string
-     */
-    public const ADDED_ARGUMENTS = 'added_arguments';
-    /**
-     * @var string
-     */
-    public const SCOPE_PARENT_CALL = 'parent_call';
-    /**
-     * @var string
-     */
-    public const SCOPE_METHOD_CALL = 'method_call';
-    /**
-     * @var string
-     */
-    public const SCOPE_CLASS_METHOD = 'class_method';
-    /**
      * @var ArgumentAdder[]
      */
     private $addedArguments = [];
+    /**
+     * @var ArgumentAddingScope
+     */
+    private $argumentAddingScope;
+    public function __construct(\Rector\Generic\NodeAnalyzer\ArgumentAddingScope $argumentAddingScope)
+    {
+        $this->argumentAddingScope = $argumentAddingScope;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        $exampleConfiguration = [self::ADDED_ARGUMENTS => [new \Rector\Generic\ValueObject\ArgumentAdder('SomeExampleClass', 'someMethod', 0, 'someArgument', 'true', 'SomeType')]];
+        $exampleConfiguration = [\Rector\Generic\NodeAnalyzer\ArgumentAddingScope::ADDED_ARGUMENTS => [new \Rector\Generic\ValueObject\ArgumentAdder('SomeExampleClass', 'someMethod', 0, 'someArgument', 'true', 'SomeType')]];
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('This Rector adds new default arguments in calls of defined methods and class types.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $someObject = new SomeExampleClass;
 $someObject->someMethod();
@@ -105,7 +98,7 @@ CODE_SAMPLE
      */
     public function configure(array $configuration) : void
     {
-        $addedArguments = $configuration[self::ADDED_ARGUMENTS] ?? [];
+        $addedArguments = $configuration[\Rector\Generic\NodeAnalyzer\ArgumentAddingScope::ADDED_ARGUMENTS] ?? [];
         \RectorPrefix20210117\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Generic\ValueObject\ArgumentAdder::class);
         $this->addedArguments = $addedArguments;
     }
@@ -171,7 +164,7 @@ CODE_SAMPLE
             return \true;
         }
         // is correct scope?
-        return !$this->isInCorrectScope($node, $argumentAdder);
+        return !$this->argumentAddingScope->isInCorrectScope($node, $argumentAdder);
     }
     /**
      * @param mixed $defaultValue
@@ -202,28 +195,35 @@ CODE_SAMPLE
         }
         $staticCall->args[$position] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\Variable($argumentName));
     }
-    /**
-     * @param ClassMethod|MethodCall|StaticCall $node
-     */
-    private function isInCorrectScope(\PhpParser\Node $node, \Rector\Generic\ValueObject\ArgumentAdder $argumentAdder) : bool
-    {
-        if ($argumentAdder->getScope() === null) {
-            return \true;
-        }
-        $scope = $argumentAdder->getScope();
-        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return $scope === self::SCOPE_CLASS_METHOD;
-        }
-        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
-            if (!$node->class instanceof \PhpParser\Node\Name) {
-                return \false;
-            }
-            if ($this->isName($node->class, 'parent')) {
-                return $scope === self::SCOPE_PARENT_CALL;
-            }
-            return $scope === self::SCOPE_METHOD_CALL;
-        }
-        // MethodCall
-        return $scope === self::SCOPE_METHOD_CALL;
-    }
+    //
+    //    /**
+    //     * @param ClassMethod|MethodCall|StaticCall $node
+    //     */
+    //    private function isInCorrectScope(Node $node, ArgumentAdder $argumentAdder): bool
+    //    {
+    //        if ($argumentAdder->getScope() === null) {
+    //            return true;
+    //        }
+    //
+    //        $scope = $argumentAdder->getScope();
+    //
+    //        if ($node instanceof ClassMethod) {
+    //            return $scope === self::SCOPE_CLASS_METHOD;
+    //        }
+    //
+    //        if ($node instanceof StaticCall) {
+    //            if (! $node->class instanceof Name) {
+    //                return false;
+    //            }
+    //
+    //            if ($this->isName($node->class, 'parent')) {
+    //                return $scope === self::SCOPE_PARENT_CALL;
+    //            }
+    //
+    //            return $scope === self::SCOPE_METHOD_CALL;
+    //        }
+    //
+    //        // MethodCall
+    //        return $scope === self::SCOPE_METHOD_CALL;
+    //    }
 }
