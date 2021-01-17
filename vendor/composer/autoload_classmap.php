@@ -2831,6 +2831,7 @@ return array(
     'Rector\\Php72\\Rector\\FuncCall\\StringsAssertNakedRector' => $baseDir . '/rules/php72/src/Rector/FuncCall/StringsAssertNakedRector.php',
     'Rector\\Php72\\Rector\\Unset_\\UnsetCastRector' => $baseDir . '/rules/php72/src/Rector/Unset_/UnsetCastRector.php',
     'Rector\\Php72\\Rector\\While_\\WhileEachToForeachRector' => $baseDir . '/rules/php72/src/Rector/While_/WhileEachToForeachRector.php',
+    'Rector\\Php73\\NodeTypeAnalyzer\\NodeTypeAnalyzer' => $baseDir . '/rules/php73/src/NodeTypeAnalyzer/NodeTypeAnalyzer.php',
     'Rector\\Php73\\Rector\\BinaryOp\\IsCountableRector' => $baseDir . '/rules/php73/src/Rector/BinaryOp/IsCountableRector.php',
     'Rector\\Php73\\Rector\\ConstFetch\\SensitiveConstantNameRector' => $baseDir . '/rules/php73/src/Rector/ConstFetch/SensitiveConstantNameRector.php',
     'Rector\\Php73\\Rector\\FuncCall\\ArrayKeyFirstLastRector' => $baseDir . '/rules/php73/src/Rector/FuncCall/ArrayKeyFirstLastRector.php',

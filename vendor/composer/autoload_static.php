@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2
+class ComposerStaticInitab17853e1945076bfdadb3f638d0023e
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3626,6 +3626,7 @@ class ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2
         'Rector\\Php72\\Rector\\FuncCall\\StringsAssertNakedRector' => __DIR__ . '/../..' . '/rules/php72/src/Rector/FuncCall/StringsAssertNakedRector.php',
         'Rector\\Php72\\Rector\\Unset_\\UnsetCastRector' => __DIR__ . '/../..' . '/rules/php72/src/Rector/Unset_/UnsetCastRector.php',
         'Rector\\Php72\\Rector\\While_\\WhileEachToForeachRector' => __DIR__ . '/../..' . '/rules/php72/src/Rector/While_/WhileEachToForeachRector.php',
+        'Rector\\Php73\\NodeTypeAnalyzer\\NodeTypeAnalyzer' => __DIR__ . '/../..' . '/rules/php73/src/NodeTypeAnalyzer/NodeTypeAnalyzer.php',
         'Rector\\Php73\\Rector\\BinaryOp\\IsCountableRector' => __DIR__ . '/../..' . '/rules/php73/src/Rector/BinaryOp/IsCountableRector.php',
         'Rector\\Php73\\Rector\\ConstFetch\\SensitiveConstantNameRector' => __DIR__ . '/../..' . '/rules/php73/src/Rector/ConstFetch/SensitiveConstantNameRector.php',
         'Rector\\Php73\\Rector\\FuncCall\\ArrayKeyFirstLastRector' => __DIR__ . '/../..' . '/rules/php73/src/Rector/FuncCall/ArrayKeyFirstLastRector.php',
@@ -4092,9 +4093,9 @@ class ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5c7482616a5e62d803c77cd1f31143f2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitab17853e1945076bfdadb3f638d0023e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitab17853e1945076bfdadb3f638d0023e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitab17853e1945076bfdadb3f638d0023e::$classMap;
 
         }, null, ClassLoader::class);
     }

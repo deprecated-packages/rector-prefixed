@@ -110,9 +110,10 @@ final class ConsoleApplication extends \RectorPrefix20210117\Symfony\Component\C
     }
     private function getNewWorkingDir(\RectorPrefix20210117\Symfony\Component\Console\Input\InputInterface $input) : string
     {
-        $workingDir = $input->getParameterOption(['--working-dir', '-d']);
+        $workingDir = $input->getParameterOption('--working-dir');
         if ($workingDir !== \false && !\is_dir($workingDir)) {
-            throw new \Rector\Core\Exception\Configuration\InvalidConfigurationException('Invalid working directory specified, ' . $workingDir . ' does not exist.');
+            $errorMessage = \sprintf('Invalid working directory specified, "%s" does not exist.', $workingDir);
+            throw new \Rector\Core\Exception\Configuration\InvalidConfigurationException($errorMessage);
         }
         return (string) $workingDir;
     }
@@ -141,7 +142,7 @@ final class ConsoleApplication extends \RectorPrefix20210117\Symfony\Component\C
         $inputDefinition->addOption(new \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption(\Rector\Core\Configuration\Option::OPTION_DEBUG, null, \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Enable debug verbosity (-vvv)'));
         $inputDefinition->addOption(new \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption(\Rector\Core\Configuration\Option::XDEBUG, null, \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running xdebug'));
         $inputDefinition->addOption(new \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE, null, \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Clear cache'));
-        $inputDefinition->addOption(new \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption('--working-dir', '-d', \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'If specified, use the given directory as working directory.'));
+        $inputDefinition->addOption(new \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption('working-dir', null, \RectorPrefix20210117\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'If specified, use the given directory as working directory.'));
     }
     private function getDefaultConfigPath() : string
     {

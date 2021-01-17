@@ -100,9 +100,9 @@ CODE_SAMPLE
         if ($this->hasTagByName($classConst, 'api')) {
             return \true;
         }
-        $class = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($class instanceof \PhpParser\Node\Stmt\ClassLike) {
-            return $this->hasTagByName($class, 'api');
+        $classLike = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if ($classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
+            return $this->hasTagByName($classLike, 'api');
         }
         return \false;
     }

@@ -6,8 +6,8 @@ namespace Rector\Php73\Rector\FuncCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Cast\String_;
 use PhpParser\Node\Expr\FuncCall;
-use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Php73\NodeTypeAnalyzer\NodeTypeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -20,6 +20,14 @@ final class StringifyStrNeedlesRector extends \Rector\Core\Rector\AbstractRector
      * @var string[]
      */
     private const NEEDLE_STRING_SENSITIVE_FUNCTIONS = ['strpos', 'strrpos', 'stripos', 'strstr', 'stripos', 'strripos', 'strstr', 'strchr', 'strrchr', 'stristr'];
+    /**
+     * @var NodeTypeAnalyzer
+     */
+    private $nodeTypeAnalyzer;
+    public function __construct(\Rector\Php73\NodeTypeAnalyzer\NodeTypeAnalyzer $nodeTypeAnalyzer)
+    {
+        $this->nodeTypeAnalyzer = $nodeTypeAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Makes needles explicit strings', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -49,8 +57,7 @@ CODE_SAMPLE
         }
         // is argument string?
         $needleArgNode = $node->args[1]->value;
-        $nodeStaticType = $this->getStaticType($needleArgNode);
-        if ($nodeStaticType instanceof \PHPStan\Type\StringType) {
+        if ($this->nodeTypeAnalyzer->isStringTypeExpr($needleArgNode)) {
             return null;
         }
         if ($node->args[1]->value instanceof \PhpParser\Node\Expr\Cast\String_) {
