@@ -5,7 +5,7 @@ namespace Rector\DeadCode\Rector\ClassConst;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassConst;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use PhpParser\Node\Stmt\ClassLike;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator;
 use Rector\Core\Rector\AbstractRector;
@@ -97,11 +97,13 @@ CODE_SAMPLE
         if ($this->classConstManipulator->isEnum($classConst)) {
             return \true;
         }
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            return \false;
+        if ($this->hasTagByName($classConst, 'api')) {
+            return \true;
         }
-        return $phpDocInfo->hasByName('api');
+        $class = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if ($class instanceof \PhpParser\Node\Stmt\ClassLike) {
+            return $this->hasTagByName($class, 'api');
+        }
+        return \false;
     }
 }
