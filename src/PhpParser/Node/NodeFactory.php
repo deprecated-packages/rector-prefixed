@@ -49,6 +49,7 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use RectorPrefix20210118\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 use RectorPrefix20210118\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
@@ -403,6 +404,21 @@ final class NodeFactory
     public function createNull() : \PhpParser\Node\Expr\ConstFetch
     {
         return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('null'));
+    }
+    public function createPromotedPropertyParam(\Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : \PhpParser\Node\Param
+    {
+        $paramBuilder = new \RectorPrefix20210118\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyMetadata->getName());
+        $propertyType = $propertyMetadata->getType();
+        if ($propertyType !== null) {
+            $typeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyType);
+            if ($typeNode !== null) {
+                $paramBuilder->setType($typeNode);
+            }
+        }
+        $param = $paramBuilder->getNode();
+        $propertyFlags = $propertyMetadata->getFlags();
+        $param->flags = $propertyFlags !== 0 ? $propertyFlags : \PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+        return $param;
     }
     private function createClassConstFetchFromName(\PhpParser\Node\Name $className, string $constantName) : \PhpParser\Node\Expr\ClassConstFetch
     {

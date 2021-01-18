@@ -21,6 +21,7 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\NotImplementedException;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Symfony\ServiceMapProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -173,7 +174,11 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $this->addConstructorDependencyToClass($classLike, $type, $propertyName);
+        $this->addConstructorDependencyToClass($classLike, $type, $propertyName, $property->flags);
+        if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION)) {
+            $this->removeNode($property);
+            return null;
+        }
         return $property;
     }
     private function resolveJMSDIInjectType(\PhpParser\Node\Stmt\Property $property, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode $jmsInjectTagValueNode) : \PHPStan\Type\Type

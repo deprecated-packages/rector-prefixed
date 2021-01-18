@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\FamilyTree\NodeAnalyzer\ClassChildAnalyzer;
 use Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -87,6 +88,10 @@ CODE_SAMPLE
             $this->makePrivate($node);
         }
         $this->addPropertyToCollector($node);
+        if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION)) {
+            $this->removeNode($node);
+            return null;
+        }
         return $node;
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool

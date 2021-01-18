@@ -120,7 +120,7 @@ trait NodeCommandersTrait
         }
         /** @var string $propertyName */
         $propertyName = $this->getName($property);
-        $this->addConstructorDependencyToClass($classNode, $propertyType, $propertyName);
+        $this->addConstructorDependencyToClass($classNode, $propertyType, $propertyName, $property->flags);
     }
     protected function addServiceConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, string $className) : void
     {
@@ -128,9 +128,9 @@ trait NodeCommandersTrait
         $propertyName = $this->propertyNaming->fqnToVariableName($serviceObjectType);
         $this->addConstructorDependencyToClass($class, $serviceObjectType, $propertyName);
     }
-    protected function addConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, ?\PHPStan\Type\Type $propertyType, string $propertyName) : void
+    protected function addConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, ?\PHPStan\Type\Type $propertyType, string $propertyName, int $propertyFlags = 0) : void
     {
-        $this->propertyToAddCollector->addPropertyToClass($propertyName, $propertyType, $class);
+        $this->propertyToAddCollector->addPropertyToClass($class, $propertyName, $propertyType, $propertyFlags);
         $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
     protected function addConstantToClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassConst $classConst) : void
@@ -152,13 +152,7 @@ trait NodeCommandersTrait
      */
     protected function removeNodeFromStatements(\PhpParser\Node $nodeWithStatements, \PhpParser\Node $nodeToRemove) : void
     {
-        foreach ((array) $nodeWithStatements->stmts as $key => $stmt) {
-            if ($nodeToRemove !== $stmt) {
-                continue;
-            }
-            unset($nodeWithStatements->stmts[$key]);
-            break;
-        }
+        $this->nodeRemover->removeNodeFromStatements($nodeWithStatements, $nodeToRemove);
     }
     protected function isNodeRemoved(\PhpParser\Node $node) : bool
     {

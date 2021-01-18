@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\TraitUse;
 use PHPStan\Type\Type;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\PostRector\ValueObject\PropertyMetadata;
 final class ClassInsertManipulator
 {
     /**
@@ -69,12 +70,12 @@ final class ClassInsertManipulator
         $property = $this->nodeFactory->createPrivatePropertyFromNameAndType($name, $type);
         $this->addAsFirstMethod($class, $property);
     }
-    public function addInjectPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, string $name, ?\PHPStan\Type\Type $type) : void
+    public function addInjectPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : void
     {
-        if ($this->hasClassProperty($class, $name)) {
+        if ($this->hasClassProperty($class, $propertyMetadata->getName())) {
             return;
         }
-        $propertyNode = $this->nodeFactory->createPublicInjectPropertyFromNameAndType($name, $type);
+        $propertyNode = $this->nodeFactory->createPublicInjectPropertyFromNameAndType($propertyMetadata->getName(), $propertyMetadata->getType());
         $this->addAsFirstMethod($class, $propertyNode);
     }
     public function addAsFirstTrait(\PhpParser\Node\Stmt\Class_ $class, string $traitName) : void

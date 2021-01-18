@@ -16,6 +16,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\NodeTypeAnalyzer\TypeProvidingExprFromClassResolver;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use Rector\Transform\NodeFactory\PropertyFetchFactory;
 abstract class AbstractToMethodCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
@@ -27,12 +28,17 @@ abstract class AbstractToMethodCallRector extends \Rector\Core\Rector\AbstractRe
      */
     private $typeProvidingExprFromClassResolver;
     /**
+     * @var PropertyFetchFactory
+     */
+    private $propertyFetchFactory;
+    /**
      * @required
      */
-    public function autowireAbstractToMethodCallRector(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Generic\NodeTypeAnalyzer\TypeProvidingExprFromClassResolver $typeProvidingExprFromClassResolver) : void
+    public function autowireAbstractToMethodCallRector(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\Generic\NodeTypeAnalyzer\TypeProvidingExprFromClassResolver $typeProvidingExprFromClassResolver, \Rector\Transform\NodeFactory\PropertyFetchFactory $propertyFetchFactory) : void
     {
         $this->propertyNaming = $propertyNaming;
         $this->typeProvidingExprFromClassResolver = $typeProvidingExprFromClassResolver;
+        $this->propertyFetchFactory = $propertyFetchFactory;
     }
     /**
      * @param ClassMethod|Function_ $functionLike
@@ -48,7 +54,7 @@ abstract class AbstractToMethodCallRector extends \Rector\Core\Rector\AbstractRe
             return $expr;
         }
         $this->addPropertyTypeToClass($type, $class);
-        return $this->createPropertyFetchFromClass($type);
+        return $this->propertyFetchFactory->createFromType($type);
     }
     /**
      * @param ClassMethod|Function_ $functionLike
@@ -66,11 +72,5 @@ abstract class AbstractToMethodCallRector extends \Rector\Core\Rector\AbstractRe
         $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($type);
         $propertyName = $this->propertyNaming->fqnToVariableName($fullyQualifiedObjectType);
         $this->addConstructorDependencyToClass($class, $fullyQualifiedObjectType, $propertyName);
-    }
-    private function createPropertyFetchFromClass(string $type) : \PhpParser\Node\Expr\PropertyFetch
-    {
-        $thisVariable = new \PhpParser\Node\Expr\Variable('this');
-        $propertyName = $this->propertyNaming->fqnToVariableName($type);
-        return new \PhpParser\Node\Expr\PropertyFetch($thisVariable, $propertyName);
     }
 }

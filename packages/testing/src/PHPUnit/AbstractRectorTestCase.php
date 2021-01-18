@@ -215,7 +215,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210118\Symplify\Pac
     protected function getPhpVersion() : int
     {
         // to be implemented
-        return 0;
+        return self::PHP_VERSION_UNDEFINED;
     }
     protected function assertFileMissing(string $temporaryFilePath) : void
     {

@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\ClassConst;
 use PHPStan\Type\Type;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
+use Rector\PostRector\ValueObject\PropertyMetadata;
 final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
@@ -19,7 +20,7 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
      */
     private $nodeNameResolver;
     /**
-     * @var Type[][]|null[][]
+     * @var array<string, PropertyMetadata[]>
      */
     private $propertiesByClass = [];
     /**
@@ -40,9 +41,10 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
         }
         return $this->constantsByClass !== [];
     }
-    public function addPropertyToClass(string $propertyName, ?\PHPStan\Type\Type $propertyType, \PhpParser\Node\Stmt\Class_ $class) : void
+    public function addPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, string $propertyName, ?\PHPStan\Type\Type $propertyType, int $propertyFlags) : void
     {
-        $this->propertiesByClass[\spl_object_hash($class)][$propertyName] = $propertyType;
+        $uniqueHash = \spl_object_hash($class);
+        $this->propertiesByClass[$uniqueHash][] = new \Rector\PostRector\ValueObject\PropertyMetadata($propertyName, $propertyType, $propertyFlags);
     }
     public function addConstantToClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassConst $classConst) : void
     {
@@ -63,7 +65,7 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
         return $this->constantsByClass[$classHash] ?? [];
     }
     /**
-     * @return Type[]|null[]
+     * @return PropertyMetadata[]
      */
     public function getPropertiesByClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
