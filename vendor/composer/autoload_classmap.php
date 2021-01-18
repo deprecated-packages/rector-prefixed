@@ -3222,6 +3222,7 @@ return array(
     'Rector\\TypeDeclaration\\Rector\\FunctionLike\\AbstractTypeDeclarationRector' => $baseDir . '/rules/type-declaration/src/Rector/FunctionLike/AbstractTypeDeclarationRector.php',
     'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ParamTypeDeclarationRector' => $baseDir . '/rules/type-declaration/src/Rector/FunctionLike/ParamTypeDeclarationRector.php',
     'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ReturnTypeDeclarationRector' => $baseDir . '/rules/type-declaration/src/Rector/FunctionLike/ReturnTypeDeclarationRector.php',
+    'Rector\\TypeDeclaration\\Rector\\Identical\\FlipTypeControlToUseExclusiveTypeRector' => $baseDir . '/rules/type-declaration/src/Rector/Identical/FlipTypeControlToUseExclusiveTypeRector.php',
     'Rector\\TypeDeclaration\\Rector\\Property\\CompleteVarDocTypePropertyRector' => $baseDir . '/rules/type-declaration/src/Rector/Property/CompleteVarDocTypePropertyRector.php',
     'Rector\\TypeDeclaration\\Rector\\Property\\PropertyTypeDeclarationRector' => $baseDir . '/rules/type-declaration/src/Rector/Property/PropertyTypeDeclarationRector.php',
     'Rector\\TypeDeclaration\\TypeAlreadyAddedChecker\\ReturnTypeAlreadyAddedChecker' => $baseDir . '/rules/type-declaration/src/TypeAlreadyAddedChecker/ReturnTypeAlreadyAddedChecker.php',
