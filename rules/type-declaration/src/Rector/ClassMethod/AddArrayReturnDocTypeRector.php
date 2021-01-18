@@ -18,6 +18,7 @@ use PHPStan\Type\VoidType;
 use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayShapeNode;
 use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\TypeDeclaration\OverrideGuard\ClassMethodReturnTypeOverrideGuard;
@@ -49,11 +50,16 @@ final class AddArrayReturnDocTypeRector extends \Rector\Core\Rector\AbstractRect
      * @var AdvancedArrayAnalyzer
      */
     private $advancedArrayAnalyzer;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\TypeDeclaration\OverrideGuard\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, \Rector\TypeDeclaration\TypeAnalyzer\AdvancedArrayAnalyzer $advancedArrayAnalyzer)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\TypeDeclaration\OverrideGuard\ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, \Rector\TypeDeclaration\TypeAnalyzer\AdvancedArrayAnalyzer $advancedArrayAnalyzer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->returnTypeInferer = $returnTypeInferer;
         $this->classMethodReturnTypeOverrideGuard = $classMethodReturnTypeOverrideGuard;
         $this->advancedArrayAnalyzer = $advancedArrayAnalyzer;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -118,7 +124,7 @@ CODE_SAMPLE
         if ($phpDocInfo === null) {
             return null;
         }
-        $phpDocInfo->changeReturnType($inferedType);
+        $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $inferedType);
         return $node;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

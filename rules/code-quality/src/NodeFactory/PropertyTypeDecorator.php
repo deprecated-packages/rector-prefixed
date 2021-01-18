@@ -9,6 +9,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -23,10 +24,15 @@ final class PropertyTypeDecorator
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->phpVersionProvider = $phpVersionProvider;
         $this->staticTypeMapper = $staticTypeMapper;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function decorateProperty(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void
     {
@@ -38,7 +44,7 @@ final class PropertyTypeDecorator
         /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         if ($this->isNonMixedArrayType($propertyType)) {
-            $phpDocInfo->changeVarType($propertyType);
+            $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
             $property->type = new \PhpParser\Node\Identifier('array');
             return;
         }
@@ -46,10 +52,10 @@ final class PropertyTypeDecorator
             $phpParserNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyType);
             if ($phpParserNode === null) {
                 // fallback to doc type in PHP 7.4
-                $phpDocInfo->changeVarType($propertyType);
+                $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
             }
         } else {
-            $phpDocInfo->changeVarType($propertyType);
+            $this->phpDocTypeChanger->changeVarType($phpDocInfo, $propertyType);
         }
     }
     private function decoratePropertyWithType(\PhpParser\Node\Stmt\Property $property, \PHPStan\Type\Type $propertyType) : void

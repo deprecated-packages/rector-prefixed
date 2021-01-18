@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\DependencyInjection\Tests\Rector\Class_\MultiParentingToAbstractDependencyRector;
 
 use Iterator;
+use Rector\Core\ValueObject\FrameworkName;
 use Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo;
@@ -25,6 +26,6 @@ final class SymfonyMultiParentingToAbstractDependencyRectorTest extends \Rector\
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector::class => [\Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector::FRAMEWORK => 'symfony']];
+        return [\Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector::class => [\Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector::FRAMEWORK => \Rector\Core\ValueObject\FrameworkName::SYMFONY]];
     }
 }

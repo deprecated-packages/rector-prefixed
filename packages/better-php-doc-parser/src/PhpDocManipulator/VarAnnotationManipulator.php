@@ -19,9 +19,14 @@ final class VarAnnotationManipulator
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function decorateNodeWithInlineVarType(\PhpParser\Node $node, \PHPStan\Type\TypeWithClassName $typeWithClassName, string $variableName) : void
     {
@@ -39,12 +44,8 @@ final class VarAnnotationManipulator
         if ($staticType instanceof \PHPStan\Type\MixedType) {
             return;
         }
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            $phpDocInfo = $this->phpDocInfoFactory->createEmpty($node);
-        }
-        $phpDocInfo->changeVarType($staticType);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $this->phpDocTypeChanger->changeVarType($phpDocInfo, $staticType);
     }
     private function resolvePhpDocInfo(\PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {

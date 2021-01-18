@@ -19,7 +19,7 @@ use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\UnionType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
@@ -41,9 +41,14 @@ final class DateTimeToDateTimeInterfaceRector extends \Rector\Core\Rector\Abstra
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -113,11 +118,6 @@ CODE_SAMPLE
     }
     private function refactorParamDocBlock(\PhpParser\Node\Param $param, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            $phpDocInfo = $this->phpDocInfoFactory->createEmpty($classMethod);
-        }
         $types = [new \PHPStan\Type\ObjectType(\DateTime::class), new \PHPStan\Type\ObjectType(\DateTimeImmutable::class)];
         if ($param->type instanceof \PhpParser\Node\NullableType) {
             $types[] = new \PHPStan\Type\NullType();
@@ -126,7 +126,8 @@ CODE_SAMPLE
         if ($paramName === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $phpDocInfo->changeParamType(new \PHPStan\Type\UnionType($types), $param, $paramName);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+        $this->phpDocTypeChanger->changeParamType($phpDocInfo, new \PHPStan\Type\UnionType($types), $param, $paramName);
     }
     private function refactorMethodCalls(\PhpParser\Node\Param $param, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {

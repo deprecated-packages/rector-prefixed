@@ -14,6 +14,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
@@ -37,7 +38,7 @@ final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var string
      */
-    public const ANNOTATION_CLASSES = '$annotationClasses';
+    public const ANNOTATION_CLASSES = 'annotation_classes';
     /**
      * @var array<string, string>
      */
@@ -59,10 +60,15 @@ final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRect
      * @var ServiceMapProvider
      */
     private $serviceMapProvider;
-    public function __construct(\Rector\Symfony\ServiceMapProvider $serviceMapProvider, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\Symfony\ServiceMapProvider $serviceMapProvider, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->serviceMapProvider = $serviceMapProvider;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -168,7 +174,7 @@ CODE_SAMPLE
         $propertyName = $this->getName($property);
         /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $phpDocInfo->changeVarType($type);
+        $this->phpDocTypeChanger->changeVarType($phpDocInfo, $type);
         $phpDocInfo->removeByType($tagClass);
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {

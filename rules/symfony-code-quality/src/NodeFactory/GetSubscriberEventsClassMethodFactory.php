@@ -16,6 +16,7 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\PhpParser\Node\Manipulator\VisibilityManipulator;
 use Rector\Core\PhpParser\Node\NodeFactory;
@@ -43,12 +44,17 @@ final class GetSubscriberEventsClassMethodFactory
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Core\PhpParser\Node\Manipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Core\PhpParser\Node\Manipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->nodeFactory = $nodeFactory;
         $this->visibilityManipulator = $visibilityManipulator;
         $this->phpVersionProvider = $phpVersionProvider;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     /**
      * @param array<string, ServiceDefinition[]> $eventsToMethods
@@ -128,7 +134,7 @@ final class GetSubscriberEventsClassMethodFactory
         }
         $returnType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType(\true));
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $phpDocInfo->changeReturnType($returnType);
+        $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $returnType);
     }
     /**
      * @param TagInterface[] $alreadyUsedTags

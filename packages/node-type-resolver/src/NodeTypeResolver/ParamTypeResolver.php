@@ -12,6 +12,7 @@ use PhpParser\NodeTraverser;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
@@ -40,10 +41,15 @@ final class ParamTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeT
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
-    public function __construct(\RectorPrefix20210118\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\RectorPrefix20210118\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     /**
      * @required
@@ -109,18 +115,15 @@ final class ParamTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeT
     private function resolveFromFunctionDocBlock(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
         $phpDocInfo = $this->getFunctionLikePhpDocInfo($param);
-        if ($phpDocInfo === null) {
-            return new \PHPStan\Type\MixedType();
-        }
         $paramName = $this->nodeNameResolver->getName($param);
         return $phpDocInfo->getParamType($paramName);
     }
-    private function getFunctionLikePhpDocInfo(\PhpParser\Node\Param $param) : ?\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    private function getFunctionLikePhpDocInfo(\PhpParser\Node\Param $param) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
         $parentNode = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentNode instanceof \PhpParser\Node\FunctionLike) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        return $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        return $this->phpDocInfoFactory->createFromNodeOrEmpty($parentNode);
     }
 }

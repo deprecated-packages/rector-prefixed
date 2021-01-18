@@ -11,7 +11,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -26,6 +26,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class DowngradeCovariantReturnTypeRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    {
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make method return same type as parent', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -142,14 +150,10 @@ CODE_SAMPLE
     }
     private function addDocBlockReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            $phpDocInfo = $this->phpDocInfoFactory->createEmpty($classMethod);
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         /** @var Node $returnType */
         $returnType = $classMethod->returnType;
         $type = $this->staticTypeMapper->mapPhpParserNodePHPStanType($returnType);
-        $phpDocInfo->changeReturnType($type);
+        $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $type);
     }
 }

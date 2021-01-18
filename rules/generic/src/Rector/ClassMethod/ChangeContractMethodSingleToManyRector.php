@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -25,11 +26,19 @@ final class ChangeContractMethodSingleToManyRector extends \Rector\Core\Rector\A
      * @api
      * @var string
      */
-    public const OLD_TO_NEW_METHOD_BY_TYPE = '$oldToNewMethodByType';
+    public const OLD_TO_NEW_METHOD_BY_TYPE = 'old_to_new_method_by_type';
     /**
      * @var mixed[]
      */
     private $oldToNewMethodByType = [];
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    {
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change method that returns single value to multiple values', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -102,7 +111,7 @@ CODE_SAMPLE
         $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $staticType);
         /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $phpDocInfo->changeReturnType($arrayType);
+        $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $arrayType);
     }
     private function wrapReturnValueToArray(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {

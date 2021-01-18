@@ -17,6 +17,7 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\MethodName;
@@ -45,12 +46,17 @@ final class UniqueObjectFactoryFactory
      * @var NodeFactory
      */
     private $nodeFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->propertyNaming = $propertyNaming;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeFactory = $nodeFactory;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function createFactoryClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Class_
     {
@@ -89,7 +95,7 @@ final class UniqueObjectFactoryFactory
         $property = $this->nodeFactory->createPrivateProperty($propertyName);
         /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $phpDocInfo->changeVarType($objectType);
+        $this->phpDocTypeChanger->changeVarType($phpDocInfo, $objectType);
         $properties[] = $property;
         return $properties;
     }

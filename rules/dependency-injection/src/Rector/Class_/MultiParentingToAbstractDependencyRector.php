@@ -13,6 +13,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\FrameworkName;
 use Rector\Core\ValueObject\MethodName;
 use Rector\DependencyInjection\NodeFactory\InjectMethodFactory;
 use Rector\DependencyInjection\NodeRemover\ClassMethodNodeRemover;
@@ -26,16 +27,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MultiParentingToAbstractDependencyRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
-    /**
-     * @api
-     * @var string
-     */
-    public const FRAMEWORK_SYMFONY = 'symfony';
-    /**
-     * @api
-     * @var string
-     */
-    public const FRAMEWORK_NETTE = 'nette';
     /**
      * @api
      * @var string
@@ -115,7 +106,7 @@ class SecondChild extends AbstractParentClass
 {
 }
 CODE_SAMPLE
-, [self::FRAMEWORK => self::FRAMEWORK_NETTE])]);
+, [self::FRAMEWORK => \Rector\Core\ValueObject\FrameworkName::NETTE])]);
     }
     /**
      * @return string[]

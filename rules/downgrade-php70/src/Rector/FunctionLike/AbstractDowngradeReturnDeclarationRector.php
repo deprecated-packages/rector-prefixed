@@ -11,13 +11,23 @@ use PHPStan\Type\IntersectionType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\UnionType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DowngradePhp70\Contract\Rector\DowngradeReturnDeclarationRectorInterface;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Traversable;
 abstract class AbstractDowngradeReturnDeclarationRector extends \Rector\Core\Rector\AbstractRector implements \Rector\DowngradePhp70\Contract\Rector\DowngradeReturnDeclarationRectorInterface
 {
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    /**
+     * @required
+     */
+    public function autowireAbstractDowngradeReturnDeclarationRector(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger) : void
+    {
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
+    }
     /**
      * @return string[]
      */
@@ -42,18 +52,14 @@ abstract class AbstractDowngradeReturnDeclarationRector extends \Rector\Core\Rec
      */
     private function decorateFunctionLikeWithReturnTagValueNode(\PhpParser\Node\FunctionLike $functionLike) : void
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            $phpDocInfo = $this->phpDocInfoFactory->createEmpty($functionLike);
-        }
         if ($functionLike->returnType === null) {
             return;
         }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($functionLike);
         $type = $this->staticTypeMapper->mapPhpParserNodePHPStanType($functionLike->returnType);
         if ($type instanceof \PHPStan\Type\IterableType) {
             $type = new \PHPStan\Type\UnionType([$type, new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectType(\Traversable::class)])]);
         }
-        $phpDocInfo->changeReturnType($type);
+        $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $type);
     }
 }

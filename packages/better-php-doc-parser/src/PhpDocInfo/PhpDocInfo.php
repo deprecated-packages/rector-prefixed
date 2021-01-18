@@ -26,7 +26,6 @@ use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover;
-use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Exception\NotImplementedException;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
@@ -67,10 +66,6 @@ final class PhpDocInfo
      */
     private $node;
     /**
-     * @var PhpDocTypeChanger
-     */
-    private $phpDocTypeChanger;
-    /**
      * @var PhpDocRemover
      */
     private $phpDocRemover;
@@ -81,7 +76,7 @@ final class PhpDocInfo
     /**
      * @param mixed[] $tokens
      */
-    public function __construct(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode $attributeAwarePhpDocNode, array $tokens, string $originalContent, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \PhpParser\Node $node, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover $phpDocRemover, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory)
+    public function __construct(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode $attributeAwarePhpDocNode, array $tokens, string $originalContent, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \PhpParser\Node $node, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover $phpDocRemover, \Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory)
     {
         $this->phpDocNode = $attributeAwarePhpDocNode;
         $this->tokens = $tokens;
@@ -89,7 +84,6 @@ final class PhpDocInfo
         $this->originalContent = $originalContent;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->node = $node;
-        $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->phpDocRemover = $phpDocRemover;
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
     }
@@ -259,14 +253,6 @@ final class PhpDocInfo
         }
         return $paramTypesByName;
     }
-    public function changeVarType(\PHPStan\Type\Type $type) : void
-    {
-        $this->phpDocTypeChanger->changeVarType($this, $type);
-    }
-    public function changeReturnType(\PHPStan\Type\Type $newType) : void
-    {
-        $this->phpDocTypeChanger->changeReturnType($this, $newType);
-    }
     public function addBareTag(string $tag) : void
     {
         $tag = '@' . \ltrim($tag, '@');
@@ -285,10 +271,6 @@ final class PhpDocInfo
             return \false;
         }
         return $this->tokens === [];
-    }
-    public function changeParamType(\PHPStan\Type\Type $type, \PhpParser\Node\Param $param, string $paramName) : void
-    {
-        $this->phpDocTypeChanger->changeParamType($this, $type, $param, $paramName);
     }
     /**
      * @return class-string[]

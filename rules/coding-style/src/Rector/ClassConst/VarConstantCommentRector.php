@@ -9,8 +9,8 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\TypeComparator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -27,9 +27,14 @@ final class VarConstantCommentRector extends \Rector\Core\Rector\AbstractRector
      * @var TypeComparator
      */
     private $typeComparator;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->typeComparator = $typeComparator;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -69,7 +74,7 @@ CODE_SAMPLE
         if ($constType instanceof \PHPStan\Type\MixedType) {
             return null;
         }
-        $phpDocInfo = $this->getOrCreatePhpDocInfo($node);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         // skip big arrays and mixed[] constants
         if ($constType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             if (\count($constType->getValueTypes()) > self::ARRAY_LIMIT_TYPES) {
@@ -83,16 +88,7 @@ CODE_SAMPLE
         if ($phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo && $this->typeComparator->isSubtype($constType, $phpDocInfo->getVarType())) {
             return null;
         }
-        $phpDocInfo->changeVarType($constType);
+        $this->phpDocTypeChanger->changeVarType($phpDocInfo, $constType);
         return $node;
-    }
-    private function getOrCreatePhpDocInfo(\PhpParser\Node\Stmt\ClassConst $classConst) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
-    {
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            $phpDocInfo = $this->phpDocInfoFactory->createEmpty($classConst);
-        }
-        return $phpDocInfo;
     }
 }

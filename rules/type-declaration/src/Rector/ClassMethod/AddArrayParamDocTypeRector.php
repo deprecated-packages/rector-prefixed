@@ -9,9 +9,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -26,9 +25,14 @@ final class AddArrayParamDocTypeRector extends \Rector\Core\Rector\AbstractRecto
      * @var ParamTypeInferer
      */
     private $paramTypeInferer;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->paramTypeInferer = $paramTypeInferer;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -80,20 +84,24 @@ CODE_SAMPLE
         if ($node->getParams() === []) {
             return null;
         }
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $hasChanged = \false;
         foreach ($node->getParams() as $param) {
             if ($this->shouldSkipParam($param)) {
-                return null;
+                continue;
             }
             $type = $this->paramTypeInferer->inferParam($param);
             if ($type instanceof \PHPStan\Type\MixedType) {
-                return null;
+                continue;
             }
             $paramName = $this->getName($param);
-            $phpDocInfo->changeParamType($type, $param, $paramName);
+            $this->phpDocTypeChanger->changeParamType($phpDocInfo, $type, $param, $paramName);
+            $hasChanged = \true;
+        }
+        if ($hasChanged) {
             return $node;
         }
+        return null;
     }
     private function shouldSkipParam(\PhpParser\Node\Param $param) : bool
     {

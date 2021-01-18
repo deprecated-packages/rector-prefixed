@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
 use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\PHPUnit\NodeManipulator\ArgumentMover;
 use Rector\PHPUnit\ValueObject\ConstantWithAssertMethods;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -25,10 +26,15 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
+    /**
+     * @var ArgumentMover
+     */
+    private $argumentMover;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeManipulator\ArgumentMover $argumentMover)
     {
         $this->identifierManipulator = $identifierManipulator;
         $this->constantWithAssertMethods = [new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('null', 'assertNull', 'assertNotNull'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('true', 'assertTrue', 'assertNotTrue'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('false', 'assertFalse', 'assertNotFalse')];
+        $this->argumentMover = $argumentMover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -58,7 +64,7 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
                 continue;
             }
             $this->renameMethod($node, $constantWithAssertMethod);
-            $this->moveArguments($node);
+            $this->argumentMover->removeFirst($node);
             return $node;
         }
         return null;
@@ -69,14 +75,5 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
     private function renameMethod(\PhpParser\Node $node, \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods $constantWithAssertMethods) : void
     {
         $this->identifierManipulator->renameNodeWithMap($node, ['assertSame' => $constantWithAssertMethods->getAssetMethodName(), 'assertNotSame' => $constantWithAssertMethods->getNotAssertMethodName()]);
-    }
-    /**
-     * @param MethodCall|StaticCall $node
-     */
-    private function moveArguments(\PhpParser\Node $node) : void
-    {
-        $methodArguments = $node->args;
-        \array_shift($methodArguments);
-        $node->args = $methodArguments;
     }
 }

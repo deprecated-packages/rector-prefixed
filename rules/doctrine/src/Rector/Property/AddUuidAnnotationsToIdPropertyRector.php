@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use RectorPrefix20210118\Ramsey\Uuid\UuidInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
@@ -22,6 +23,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class AddUuidAnnotationsToIdPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    {
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Add uuid annotations to $id property', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -82,7 +91,7 @@ CODE_SAMPLE
         /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType(\RectorPrefix20210118\Ramsey\Uuid\UuidInterface::class);
-        $phpDocInfo->changeVarType($fullyQualifiedObjectType);
+        $this->phpDocTypeChanger->changeVarType($phpDocInfo, $fullyQualifiedObjectType);
         $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode::class);
         $this->changeColumnTypeToUuidBinary($phpDocInfo);
         $this->changeSerializerTypeToString($phpDocInfo);

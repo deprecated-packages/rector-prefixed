@@ -13,7 +13,7 @@ use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Interface_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -32,9 +32,14 @@ final class DowngradeParameterTypeWideningRector extends \Rector\Core\Rector\Abs
      * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
-    public function __construct(\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->rectorChangeCollector = $rectorChangeCollector;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -237,13 +242,9 @@ CODE_SAMPLE
         if ($param->type === null) {
             return;
         }
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            $phpDocInfo = $this->phpDocInfoFactory->createEmpty($classMethod);
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $paramName = $this->getName($param);
         $mappedCurrentParamType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($param->type);
-        $phpDocInfo->changeParamType($mappedCurrentParamType, $param, $paramName);
+        $this->phpDocTypeChanger->changeParamType($phpDocInfo, $mappedCurrentParamType, $param, $paramName);
     }
 }

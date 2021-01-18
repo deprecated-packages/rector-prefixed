@@ -10,6 +10,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -42,10 +43,15 @@ final class InferParamFromClassMethodReturnRector extends \Rector\Core\Rector\Ab
      * @var ConstantReturnToParamTypeConverter
      */
     private $constantReturnToParamTypeConverter;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\Restoration\Type\ConstantReturnToParamTypeConverter $constantReturnToParamTypeConverter)
+    /**
+     * @var PhpDocTypeChanger
+     */
+    private $phpDocTypeChanger;
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer $returnTypeInferer, \Rector\Restoration\Type\ConstantReturnToParamTypeConverter $constantReturnToParamTypeConverter, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->returnTypeInferer = $returnTypeInferer;
         $this->constantReturnToParamTypeConverter = $constantReturnToParamTypeConverter;
+        $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -116,7 +122,7 @@ CODE_SAMPLE
             if ($this->isParamDocTypeEqualToPhpType($firstParam, $paramType)) {
                 return null;
             }
-            $currentPhpDocInfo->changeParamType($paramType, $firstParam, $paramName);
+            $this->phpDocTypeChanger->changeParamType($currentPhpDocInfo, $paramType, $firstParam, $paramName);
             return $node;
         }
         return null;

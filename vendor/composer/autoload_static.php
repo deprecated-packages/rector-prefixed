@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac
+class ComposerStaticInit622be90ac8b39e59f87b357954da2aa3
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2832,6 +2832,7 @@ class ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac
         'Rector\\Core\\Util\\StaticRectorStrings' => __DIR__ . '/../..' . '/src/Util/StaticRectorStrings.php',
         'Rector\\Core\\ValueObject\\Application\\ParsedStmtsAndTokens' => __DIR__ . '/../..' . '/src/ValueObject/Application/ParsedStmtsAndTokens.php',
         'Rector\\Core\\ValueObject\\Application\\RectorError' => __DIR__ . '/../..' . '/src/ValueObject/Application/RectorError.php',
+        'Rector\\Core\\ValueObject\\FrameworkName' => __DIR__ . '/../..' . '/src/ValueObject/FrameworkName.php',
         'Rector\\Core\\ValueObject\\MethodName' => __DIR__ . '/../..' . '/src/ValueObject/MethodName.php',
         'Rector\\Core\\ValueObject\\PhpVersion' => __DIR__ . '/../..' . '/src/ValueObject/PhpVersion.php',
         'Rector\\Core\\ValueObject\\PhpVersionFeature' => __DIR__ . '/../..' . '/src/ValueObject/PhpVersionFeature.php',
@@ -3510,6 +3511,7 @@ class ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac
         'Rector\\PHPUnit\\NodeFactory\\DataProviderClassMethodFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/DataProviderClassMethodFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionMethodCallFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ExpectExceptionMethodCallFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\SetUpClassMethodFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/SetUpClassMethodFactory.php',
+        'Rector\\PHPUnit\\NodeManipulator\\ArgumentMover' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeManipulator/ArgumentMover.php',
         'Rector\\PHPUnit\\NodeManipulator\\ParamAndArgFromArrayResolver' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeManipulator/ParamAndArgFromArrayResolver.php',
         'Rector\\PHPUnit\\NodeManipulator\\SetUpClassMethodNodeManipulator' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeManipulator/SetUpClassMethodNodeManipulator.php',
         'Rector\\PHPUnit\\NodeManipulator\\StmtManipulator' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeManipulator/StmtManipulator.php',
@@ -4108,9 +4110,9 @@ class ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit622be90ac8b39e59f87b357954da2aa3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit622be90ac8b39e59f87b357954da2aa3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit622be90ac8b39e59f87b357954da2aa3::$classMap;
 
         }, null, ClassLoader::class);
     }

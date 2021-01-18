@@ -13,7 +13,6 @@ use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover;
-use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
 use Rector\BetterPhpDocParser\ValueObject\StartAndEnd;
 use Rector\Core\Configuration\CurrentNodeProvider;
@@ -42,27 +41,27 @@ final class PhpDocInfoFactory
      */
     private $attributeAwareNodeFactory;
     /**
-     * @var PhpDocTypeChanger
-     */
-    private $phpDocTypeChanger;
-    /**
      * @var PhpDocRemover
      */
     private $phpDocRemover;
-    public function __construct(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover $phpDocRemover, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocRemover $phpDocRemover, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->betterPhpDocParser = $betterPhpDocParser;
         $this->lexer = $lexer;
         $this->currentNodeProvider = $currentNodeProvider;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->attributeAwareNodeFactory = $attributeAwareNodeFactory;
-        $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->phpDocRemover = $phpDocRemover;
     }
     public function createFromNodeOrEmpty(\PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
+        // already added
+        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if ($phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+            return $phpDocInfo;
+        }
         $phpDocInfo = $this->createFromNode($node);
-        if ($phpDocInfo !== null) {
+        if ($phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return $phpDocInfo;
         }
         return $this->createEmpty($node);
@@ -127,7 +126,7 @@ final class PhpDocInfoFactory
     {
         /** @var AttributeAwarePhpDocNode $attributeAwarePhpDocNode */
         $attributeAwarePhpDocNode = $this->attributeAwareNodeFactory->createFromNode($attributeAwarePhpDocNode, $content);
-        $phpDocInfo = new \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo($attributeAwarePhpDocNode, $tokens, $content, $this->staticTypeMapper, $node, $this->phpDocTypeChanger, $this->phpDocRemover, $this->attributeAwareNodeFactory);
+        $phpDocInfo = new \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo($attributeAwarePhpDocNode, $tokens, $content, $this->staticTypeMapper, $node, $this->phpDocRemover, $this->attributeAwareNodeFactory);
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
         return $phpDocInfo;
     }
