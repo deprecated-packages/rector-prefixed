@@ -154,7 +154,7 @@ CODE_SAMPLE
             return \true;
         }
         /** @var PhpDocInfo|null $propertyPhpDocInfo */
-        $propertyPhpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         if ($propertyPhpDocInfo === null) {
             return \true;
         }
@@ -196,7 +196,7 @@ CODE_SAMPLE
     private function mirrorPhpDocInfoToUuid(\PhpParser\Node\Stmt\Property $property) : void
     {
         /** @var PhpDocInfo $propertyPhpDocInfo */
-        $propertyPhpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $newPropertyPhpDocInfo = clone $propertyPhpDocInfo;
         /** @var DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode */
         $doctrineRelationTagValueNode = $this->getDoctrineRelationTagValueNode($property);

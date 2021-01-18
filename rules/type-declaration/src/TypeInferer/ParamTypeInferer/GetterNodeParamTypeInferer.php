@@ -11,7 +11,7 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\Manipulator\PropertyFetchAssignManipulator;
 use Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -27,10 +27,15 @@ final class GetterNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInfer
      * @var PropertyFetchAssignManipulator
      */
     private $propertyFetchAssignManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchAssignManipulator $propertyFetchAssignManipulator, \Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchAssignManipulator $propertyFetchAssignManipulator, \Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->propertyFetchManipulator = $propertyFetchManipulator;
         $this->propertyFetchAssignManipulator = $propertyFetchAssignManipulator;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
@@ -66,11 +71,7 @@ final class GetterNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInfer
             if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 return null;
             }
-            /** @var PhpDocInfo|null $phpDocInfo */
-            $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-            if ($phpDocInfo === null) {
-                return null;
-            }
+            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
             $methodReturnType = $phpDocInfo->getReturnType();
             if ($methodReturnType instanceof \PHPStan\Type\MixedType) {
                 return null;

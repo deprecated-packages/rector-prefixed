@@ -240,7 +240,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         foreach ($stmts as $key => $ifStmt) {
             if ($key === 0) {
                 // move /* */ doc block from if to first element to keep it
-                $currentPhpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+                $currentPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
                 $ifStmt->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $currentPhpDocInfo);
                 // move // comments
                 $ifStmt->setAttribute(self::COMMENTS, $node->getComments());

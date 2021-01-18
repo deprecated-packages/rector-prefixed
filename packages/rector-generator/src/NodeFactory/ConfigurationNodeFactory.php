@@ -96,7 +96,7 @@ final class ConfigurationNodeFactory
             $assigns[] = new \PhpParser\Node\Stmt\Expression($assign);
         }
         $classMethod->stmts = $assigns;
-        $phpDocInfo = $this->phpDocInfoFactory->createEmpty($classMethod);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('mixed[]');
         $paramTagValueNode = new \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode($identifierTypeNode, \false, '$configuration', '');
         $phpDocInfo->addTagValueNode($paramTagValueNode);

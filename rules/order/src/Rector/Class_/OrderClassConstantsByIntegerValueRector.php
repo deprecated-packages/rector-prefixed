@@ -89,8 +89,8 @@ CODE_SAMPLE
         return $classConstConstsByValue;
     }
     /**
-     * @param array<int,ClassConst> $numericClassConstsByKey
-     * @return array<int,string>
+     * @param array<int, ClassConst> $numericClassConstsByKey
+     * @return array<int, string>
      */
     private function resolveClassConstConstByUniqueValue(array $numericClassConstsByKey) : array
     {

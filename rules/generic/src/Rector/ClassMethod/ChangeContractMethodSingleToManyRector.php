@@ -110,7 +110,7 @@ CODE_SAMPLE
         $staticType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($oldReturnType);
         $arrayType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), $staticType);
         /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $arrayType);
     }
     private function wrapReturnValueToArray(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void

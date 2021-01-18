@@ -14,6 +14,8 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
@@ -33,10 +35,15 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
      * @var TypeFactory
      */
     private $typeFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->typeFactory = $typeFactory;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     /**
      * Prevents circular reference
@@ -63,9 +70,6 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     private function resolveDataProviderClassMethod(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $phpDocInfo = $this->getFunctionLikePhpDocInfo($param);
-        if ($phpDocInfo === null) {
-            return null;
-        }
         /** @var DataProviderTagValueNode|null $attributeAwareDataProviderTagValueNode */
         $attributeAwareDataProviderTagValueNode = $phpDocInfo->getByType(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode::class);
         if ($attributeAwareDataProviderTagValueNode === null) {
@@ -105,12 +109,12 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
         }
         return $this->typeFactory->createMixedPassedOrUnionType($paramOnPositionTypes);
     }
-    private function getFunctionLikePhpDocInfo(\PhpParser\Node\Param $param) : ?\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
+    private function getFunctionLikePhpDocInfo(\PhpParser\Node\Param $param) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
         $parent = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node\FunctionLike) {
-            return null;
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        return $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        return $this->phpDocInfoFactory->createFromNodeOrEmpty($parent);
     }
 }

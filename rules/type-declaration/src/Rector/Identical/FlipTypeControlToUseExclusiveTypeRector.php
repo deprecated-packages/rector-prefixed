@@ -78,10 +78,7 @@ CODE_SAMPLE
         if (!$expression instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        $phpDocInfo = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return null;
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($expression);
         /** @var AttributeAwareIdentifierTypeNode[] $types */
         $types = $this->getTypes($phpDocInfo);
         if ($this->skipNotNullOneOf($types)) {

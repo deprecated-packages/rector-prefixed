@@ -75,10 +75,7 @@ CODE_SAMPLE
         if ($node instanceof \PhpParser\Node\Stmt\Property) {
             return null;
         }
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            return null;
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $docVariableName = $this->getVarDocVariableName($phpDocInfo);
         if ($docVariableName === null) {
             return null;

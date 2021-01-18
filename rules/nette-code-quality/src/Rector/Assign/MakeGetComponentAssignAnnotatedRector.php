@@ -180,6 +180,9 @@ CODE_SAMPLE
         if ($scope === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
+        if (!$arrayDimFetch->dim instanceof \PhpParser\Node\Scalar\String_) {
+            return new \PHPStan\Type\MixedType();
+        }
         return $this->resolveTypeFromShortControlNameAndVariable($arrayDimFetch->dim, $scope, $arrayDimFetch->var);
     }
     private function resolveTypeFromShortControlNameAndVariable(\PhpParser\Node\Scalar\String_ $shortControlString, \PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\Type

@@ -72,30 +72,27 @@ final class PropertyTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abst
                 return $this->unionWithDefaultValueType($defaultValueType, $resolvedType);
             }
         }
-        if ($resolvedType === null) {
-            return new \PHPStan\Type\MixedType();
-        }
         return $resolvedType;
     }
-    private function shouldUnionWithDefaultValue(\PHPStan\Type\Type $defaultValueType, ?\PHPStan\Type\Type $type = null) : bool
+    private function shouldUnionWithDefaultValue(\PHPStan\Type\Type $defaultValueType, \PHPStan\Type\Type $type) : bool
     {
         if ($defaultValueType instanceof \PHPStan\Type\MixedType) {
             return \false;
         }
         // skip empty array type (mixed[])
-        if ($defaultValueType instanceof \PHPStan\Type\ArrayType && $defaultValueType->getItemType() instanceof \PHPStan\Type\NeverType && $type !== null) {
+        if ($defaultValueType instanceof \PHPStan\Type\ArrayType && $defaultValueType->getItemType() instanceof \PHPStan\Type\NeverType && !$type instanceof \PHPStan\Type\MixedType) {
             return \false;
         }
-        if ($type === null) {
+        if ($type instanceof \PHPStan\Type\MixedType) {
             return \true;
         }
         return !$this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($type);
     }
-    private function unionWithDefaultValueType(\PHPStan\Type\Type $defaultValueType, ?\PHPStan\Type\Type $resolvedType) : \PHPStan\Type\Type
+    private function unionWithDefaultValueType(\PHPStan\Type\Type $defaultValueType, \PHPStan\Type\Type $resolvedType) : \PHPStan\Type\Type
     {
         $types = [];
         $types[] = $defaultValueType;
-        if ($resolvedType !== null) {
+        if (!$resolvedType instanceof \PHPStan\Type\MixedType) {
             $types[] = $resolvedType;
         }
         return $this->typeFactory->createMixedPassedOrUnionType($types);

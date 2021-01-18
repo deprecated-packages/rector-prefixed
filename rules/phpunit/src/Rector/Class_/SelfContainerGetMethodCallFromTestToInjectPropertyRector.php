@@ -6,10 +6,8 @@ namespace Rector\PHPUnit\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractPHPUnitRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPUnit\Collector\FormerVariablesByMethodCollector;
 use Rector\PHPUnit\Manipulator\OnContainerGetCallManipulator;
 use Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeFactory;
@@ -130,10 +128,9 @@ CODE_SAMPLE
         $this->onContainerGetCallManipulator->replaceFormerVariablesWithPropertyFetch($node);
         return $node;
     }
-    private function addInjectAnnotationToProperty(\PhpParser\Node\Stmt\Property $privateProperty) : void
+    private function addInjectAnnotationToProperty(\PhpParser\Node\Stmt\Property $property) : void
     {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $privateProperty->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $phpDocInfo->addBareTag('@inject');
     }
     /**

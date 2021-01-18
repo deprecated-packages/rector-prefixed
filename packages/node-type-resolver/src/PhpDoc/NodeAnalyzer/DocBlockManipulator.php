@@ -162,11 +162,14 @@ final class DocBlockManipulator
     {
         $startComments = '';
         foreach ($node->getComments() as $comment) {
-            // skip non-simple comments
-            if (!\RectorPrefix20210118\Nette\Utils\Strings::startsWith($comment->getText(), '//')) {
+            // skip simple comments
+            if (\RectorPrefix20210118\Nette\Utils\Strings::startsWith($comment->getText(), '//')) {
                 continue;
             }
-            $startComments .= $comment->getText();
+            if (\RectorPrefix20210118\Nette\Utils\Strings::startsWith($comment->getText(), '#')) {
+                continue;
+            }
+            $startComments .= $comment->getText() . \PHP_EOL;
         }
         if ($startComments === '') {
             return $phpDoc;
