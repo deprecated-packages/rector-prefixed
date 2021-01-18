@@ -1862,6 +1862,8 @@ return array(
     'Rector\\CodingStyle\\ValueObject\\ObjectMagicMethods' => $baseDir . '/rules/coding-style/src/ValueObject/ObjectMagicMethods.php',
     'Rector\\CodingStyle\\ValueObject\\ReturnArrayClassMethodToYield' => $baseDir . '/rules/coding-style/src/ValueObject/ReturnArrayClassMethodToYield.php',
     'Rector\\Composer\\Contract\\Rector\\ComposerRectorInterface' => $baseDir . '/rules/composer/src/Contract/Rector/ComposerRectorInterface.php',
+    'Rector\\Composer\\Contract\\VersionAwareInterface' => $baseDir . '/rules/composer/src/Contract/VersionAwareInterface.php',
+    'Rector\\Composer\\Guard\\VersionGuard' => $baseDir . '/rules/composer/src/Guard/VersionGuard.php',
     'Rector\\Composer\\Modifier\\ComposerModifier' => $baseDir . '/rules/composer/src/Modifier/ComposerModifier.php',
     'Rector\\Composer\\Processor\\ComposerProcessor' => $baseDir . '/rules/composer/src/Processor/ComposerProcessor.php',
     'Rector\\Composer\\Rector\\AddPackageToRequireDevRector' => $baseDir . '/rules/composer/src/Rector/AddPackageToRequireDevRector.php',

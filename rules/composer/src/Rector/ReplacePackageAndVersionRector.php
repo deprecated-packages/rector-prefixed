@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Composer\Rector;
 
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
+use Rector\Composer\Guard\VersionGuard;
 use Rector\Composer\ValueObject\ReplacePackageAndVersion;
 use RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -21,10 +22,18 @@ final class ReplacePackageAndVersionRector implements \Rector\Composer\Contract\
      * @var ReplacePackageAndVersion[]
      */
     private $replacePackagesAndVersions = [];
+    /**
+     * @var VersionGuard
+     */
+    private $versionGuard;
+    public function __construct(\Rector\Composer\Guard\VersionGuard $versionGuard)
+    {
+        $this->versionGuard = $versionGuard;
+    }
     public function refactor(\RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson) : void
     {
         foreach ($this->replacePackagesAndVersions as $replacePackagesAndVersion) {
-            $composerJson->replacePackage($replacePackagesAndVersion->getOldPackageName(), $replacePackagesAndVersion->getNewPackageName(), $replacePackagesAndVersion->getTargetVersion());
+            $composerJson->replacePackage($replacePackagesAndVersion->getOldPackageName(), $replacePackagesAndVersion->getNewPackageName(), $replacePackagesAndVersion->getVersion());
         }
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -50,6 +59,8 @@ CODE_SAMPLE
      */
     public function configure(array $configuration) : void
     {
-        $this->replacePackagesAndVersions = $configuration[self::REPLACE_PACKAGES_AND_VERSIONS] ?? [];
+        $replacePackagesAndVersions = $configuration[self::REPLACE_PACKAGES_AND_VERSIONS] ?? [];
+        $this->versionGuard->validate($replacePackagesAndVersions);
+        $this->replacePackagesAndVersions = $replacePackagesAndVersions;
     }
 }
