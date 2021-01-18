@@ -83,7 +83,7 @@ final class ComposerJson
      */
     private $replace = [];
     /**
-     * @var mixed[]
+     * @var array<string, string|string[]>
      */
     private $scripts = [];
     /**
@@ -114,6 +114,10 @@ final class ComposerJson
      * @var mixed[]
      */
     private $authors = [];
+    /**
+     * @var array<string, string>
+     */
+    private $scriptsDescriptions = [];
     public function __construct()
     {
         $this->composerPackageSorter = new \RectorPrefix20210118\Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter();
@@ -330,7 +334,7 @@ final class ComposerJson
      */
     public function getJsonArray() : array
     {
-        $array = \array_filter([\RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME => $this->name, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::DESCRIPTION => $this->description, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::KEYWORDS => $this->keywords, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::HOMEPAGE => $this->homepage, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::LICENSE => $this->license, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTHORS => $this->authors, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::TYPE => $this->type, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE => $this->require, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV => $this->requireDev, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICT => $this->conflicts, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD => $this->autoload, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV => $this->autoloadDev, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES => $this->repositories, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA => $this->extra, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::BIN => $this->bin, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS => $this->scripts, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG => $this->config, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE => $this->replace]);
+        $array = \array_filter([\RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME => $this->name, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::DESCRIPTION => $this->description, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::KEYWORDS => $this->keywords, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::HOMEPAGE => $this->homepage, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::LICENSE => $this->license, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTHORS => $this->authors, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::TYPE => $this->type, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE => $this->require, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REQUIRE_DEV => $this->requireDev, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFLICT => $this->conflicts, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD => $this->autoload, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV => $this->autoloadDev, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPOSITORIES => $this->repositories, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA => $this->extra, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::BIN => $this->bin, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS => $this->scripts, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::SCRIPTS_DESCRIPTIONS => $this->scriptsDescriptions, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG => $this->config, \RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE => $this->replace]);
         if ($this->minimumStability !== null) {
             $array[\RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY] = $this->minimumStability;
             $this->moveValueToBack(\RectorPrefix20210118\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::MINIMUM_STABILITY);
@@ -342,7 +346,7 @@ final class ComposerJson
         return $this->sortItemsByOrderedListOfKeys($array, $this->orderedKeys);
     }
     /**
-     * @param mixed[] $scripts
+     * @param array<string, string|string[]> $scripts
      */
     public function setScripts(array $scripts) : void
     {
@@ -526,11 +530,18 @@ final class ComposerJson
         return \array_merge($psr4Directories, $classmapDirectories);
     }
     /**
-     * @return mixed[]
+     * @return array<string, string|string[]>
      */
     public function getScripts() : array
     {
         return $this->scripts;
+    }
+    /**
+     * @return array<string, string>
+     */
+    public function getScriptsDescriptions() : array
+    {
+        return $this->scriptsDescriptions;
     }
     /**
      * @return string[]
@@ -571,6 +582,13 @@ final class ComposerJson
         $psr4Directories = \array_values($this->autoloadDev['psr-4'] ?? []);
         $classmapDirectories = $this->autoloadDev['classmap'] ?? [];
         return \array_merge($psr4Directories, $classmapDirectories);
+    }
+    /**
+     * @param array<string, string> $scriptsDescriptions
+     */
+    public function setScriptsDescriptions(array $scriptsDescriptions) : void
+    {
+        $this->scriptsDescriptions = $scriptsDescriptions;
     }
     private function moveValueToBack(string $valueName) : void
     {

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitda253d7d1f74d5c27611e8dfeded8e36
+class ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3472,6 +3472,7 @@ class ComposerStaticInitda253d7d1f74d5c27611e8dfeded8e36
         'Rector\\PHPStanStaticTypeMapper\\Contract\\TypeMapperInterface' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/Contract/TypeMapperInterface.php',
         'Rector\\PHPStanStaticTypeMapper\\DoctrineTypeAnalyzer' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/DoctrineTypeAnalyzer.php',
         'Rector\\PHPStanStaticTypeMapper\\PHPStanStaticTypeMapper' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/PHPStanStaticTypeMapper.php',
+        'Rector\\PHPStanStaticTypeMapper\\TypeAnalyzer\\BoolUnionTypeAnalyzer' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/TypeAnalyzer/BoolUnionTypeAnalyzer.php',
         'Rector\\PHPStanStaticTypeMapper\\TypeAnalyzer\\UnionTypeAnalyzer' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/TypeAnalyzer/UnionTypeAnalyzer.php',
         'Rector\\PHPStanStaticTypeMapper\\TypeMapper\\ArrayTypeMapper' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/TypeMapper/ArrayTypeMapper.php',
         'Rector\\PHPStanStaticTypeMapper\\TypeMapper\\BooleanTypeMapper' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/TypeMapper/BooleanTypeMapper.php',
@@ -3873,6 +3874,7 @@ class ComposerStaticInitda253d7d1f74d5c27611e8dfeded8e36
         'Rector\\StaticTypeMapper\\StaticTypeMapper' => __DIR__ . '/../..' . '/packages/static-type-mapper/src/StaticTypeMapper.php',
         'Rector\\StaticTypeMapper\\TypeFactory\\TypeFactoryStaticHelper' => __DIR__ . '/../..' . '/packages/static-type-mapper/src/TypeFactory/TypeFactoryStaticHelper.php',
         'Rector\\StaticTypeMapper\\ValueObject\\Type\\AliasedObjectType' => __DIR__ . '/../..' . '/packages/static-type-mapper/src/ValueObject/Type/AliasedObjectType.php',
+        'Rector\\StaticTypeMapper\\ValueObject\\Type\\FalseBooleanType' => __DIR__ . '/../..' . '/packages/static-type-mapper/src/ValueObject/Type/FalseBooleanType.php',
         'Rector\\StaticTypeMapper\\ValueObject\\Type\\FullyQualifiedObjectType' => __DIR__ . '/../..' . '/packages/static-type-mapper/src/ValueObject/Type/FullyQualifiedObjectType.php',
         'Rector\\StaticTypeMapper\\ValueObject\\Type\\ParentStaticType' => __DIR__ . '/../..' . '/packages/static-type-mapper/src/ValueObject/Type/ParentStaticType.php',
         'Rector\\StaticTypeMapper\\ValueObject\\Type\\SelfObjectType' => __DIR__ . '/../..' . '/packages/static-type-mapper/src/ValueObject/Type/SelfObjectType.php',
@@ -4106,9 +4108,9 @@ class ComposerStaticInitda253d7d1f74d5c27611e8dfeded8e36
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitda253d7d1f74d5c27611e8dfeded8e36::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitda253d7d1f74d5c27611e8dfeded8e36::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitda253d7d1f74d5c27611e8dfeded8e36::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit72e3dfbfab4832795e54d008bf0ee6ac::$classMap;
 
         }, null, ClassLoader::class);
     }
