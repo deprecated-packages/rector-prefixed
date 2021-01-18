@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\AssertChoice;
 
-use RectorPrefix20210117\Symfony\Component\Validator\Constraints as Assert;
+use RectorPrefix20210118\Symfony\Component\Validator\Constraints as Assert;
 class AssertQuoteChoice
 {
     const CHOICE_ONE = 'choice_one';

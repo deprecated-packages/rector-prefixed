@@ -6,13 +6,13 @@ namespace Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethod
 use Iterator;
 use Rector\Legacy\Rector\FileWithoutNamespace\FunctionToStaticMethodRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo;
 final class FunctionToStaticMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function test(\RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
         $this->doTestExtraFile('StaticFunctions.php', __DIR__ . '/Source/ExpectedStaticFunctions.php');

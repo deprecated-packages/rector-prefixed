@@ -5,8 +5,13 @@ namespace Rector\StaticTypeMapper\PhpParser;
 
 use PhpParser\Node;
 use PhpParser\Node\Name;
+use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
+use PHPStan\Type\FloatType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\StaticType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
@@ -43,6 +48,21 @@ final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
         }
         if ($name === 'self') {
             return new \PHPStan\Type\ThisType($className);
+        }
+        if ($name === 'array') {
+            return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
+        }
+        if ($name === 'int') {
+            return new \PHPStan\Type\IntegerType();
+        }
+        if ($name === 'float') {
+            return new \PHPStan\Type\FloatType();
+        }
+        if ($name === 'string') {
+            return new \PHPStan\Type\StringType();
+        }
+        if ($name === 'bool') {
+            return new \PHPStan\Type\BooleanType();
         }
         return new \PHPStan\Type\MixedType();
     }

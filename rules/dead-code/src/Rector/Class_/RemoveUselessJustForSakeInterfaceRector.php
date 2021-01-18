@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DeadCode\Rector\Class_;
 
-use RectorPrefix20210117\Nette\Utils\Strings;
+use RectorPrefix20210118\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
@@ -15,7 +15,7 @@ use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -136,7 +136,7 @@ CODE_SAMPLE
                 $this->removeNode($interface);
             }
         } else {
-            $smartFileInfo = new \RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo($classFileLocation);
+            $smartFileInfo = new \RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo($classFileLocation);
             $this->removeFile($smartFileInfo);
         }
     }
@@ -166,6 +166,6 @@ CODE_SAMPLE
         }
         // is interface in /vendor? probably useful
         $classFileLocation = $this->resolveClassFileLocation($implementedInterfaceName);
-        return \RectorPrefix20210117\Nette\Utils\Strings::contains($classFileLocation, 'vendor');
+        return \RectorPrefix20210118\Nette\Utils\Strings::contains($classFileLocation, 'vendor');
     }
 }

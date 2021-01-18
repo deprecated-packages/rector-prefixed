@@ -24,7 +24,7 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\Core\ValueObject\PhpVersionFeature;
-use RectorPrefix20210117\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210118\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class ConfigurationNodeFactory
 {
     /**
@@ -39,7 +39,7 @@ final class ConfigurationNodeFactory
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \RectorPrefix20210117\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \RectorPrefix20210118\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->nodeFactory = $nodeFactory;
         $this->phpDocInfoFactory = $phpDocInfoFactory;

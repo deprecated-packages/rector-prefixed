@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\SymfonyPHPUnit\Node;
 
-use RectorPrefix20210117\Nette\Utils\Strings;
+use RectorPrefix20210118\Nette\Utils\Strings;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -25,7 +25,7 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PhpSpecToPHPUnit\PHPUnitTypeDeclarationDecorator;
 use Rector\SymfonyPHPUnit\Naming\ServiceNaming;
-use RectorPrefix20210117\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210118\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 final class KernelTestCaseNodeFactory
 {
     /**
@@ -56,7 +56,7 @@ final class KernelTestCaseNodeFactory
             return null;
         }
         $stmts = \array_merge([new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('parent'), \Rector\Core\ValueObject\MethodName::SET_UP)], $assigns);
-        $classMethodBuilder = new \RectorPrefix20210117\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::SET_UP);
+        $classMethodBuilder = new \RectorPrefix20210118\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::SET_UP);
         $classMethodBuilder->makeProtected();
         $classMethodBuilder->addStmts($stmts);
         $classMethod = $classMethodBuilder->getNode();
@@ -113,7 +113,7 @@ final class KernelTestCaseNodeFactory
     {
         $staticPropertyFetch = new \PhpParser\Node\Expr\StaticPropertyFetch(new \PhpParser\Node\Name('self'), 'container');
         $methodCall = new \PhpParser\Node\Expr\MethodCall($staticPropertyFetch, 'get');
-        if (\RectorPrefix20210117\Nette\Utils\Strings::contains($serviceType, '_') && !\RectorPrefix20210117\Nette\Utils\Strings::contains($serviceType, '\\')) {
+        if (\RectorPrefix20210118\Nette\Utils\Strings::contains($serviceType, '_') && !\RectorPrefix20210118\Nette\Utils\Strings::contains($serviceType, '\\')) {
             // keep string
             $getArgumentValue = new \PhpParser\Node\Scalar\String_($serviceType);
         } else {

@@ -10,13 +10,13 @@ use Rector\Generic\Tests\Rector\Class_\ParentClassToTraitsRector\Source\ParentOb
 use Rector\Generic\Tests\Rector\Class_\ParentClassToTraitsRector\Source\SecondTrait;
 use Rector\Generic\Tests\Rector\Class_\ParentClassToTraitsRector\Source\SomeTrait;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo;
 final class ParentClassToTraitsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210117\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

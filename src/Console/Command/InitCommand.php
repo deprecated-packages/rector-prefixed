@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\Core\Console\Command;
 
 use Rector\RectorGenerator\TemplateInitializer;
-use RectorPrefix20210117\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210117\Symfony\Component\Console\Output\OutputInterface;
-use RectorPrefix20210117\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20210118\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210118\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix20210118\Symplify\PackageBuilder\Console\ShellCode;
 final class InitCommand extends \Rector\Core\Console\Command\AbstractCommand
 {
     /**
@@ -22,9 +22,9 @@ final class InitCommand extends \Rector\Core\Console\Command\AbstractCommand
     {
         $this->setDescription('Generate rector.php configuration file');
     }
-    protected function execute(\RectorPrefix20210117\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210117\Symfony\Component\Console\Output\OutputInterface $output) : int
+    protected function execute(\RectorPrefix20210118\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210118\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
         $this->templateInitializer->initialize(__DIR__ . '/../../../templates/rector.php.dist', 'rector.php');
-        return \RectorPrefix20210117\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \RectorPrefix20210118\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

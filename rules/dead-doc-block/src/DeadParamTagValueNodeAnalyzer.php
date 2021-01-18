@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\DeadDocBlock;
 
+use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Param;
-use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\PHPStan\TypeComparator;
@@ -23,23 +23,23 @@ final class DeadParamTagValueNodeAnalyzer
         $this->nodeNameResolver = $nodeNameResolver;
         $this->typeComparator = $typeComparator;
     }
-    public function isDead(\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode $paramTagValueNode, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
+    public function isDead(\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode $paramTagValueNode, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
-        $param = $this->matchParamByName($paramTagValueNode->parameterName, $classMethod);
+        $param = $this->matchParamByName($paramTagValueNode->parameterName, $functionLike);
         if ($param === null) {
             return \false;
         }
         if ($param->type === null) {
             return \false;
         }
-        if (!$this->typeComparator->arePhpParserAndPhpStanPhpDocTypesEqual($param->type, $paramTagValueNode->type, $classMethod)) {
+        if (!$this->typeComparator->arePhpParserAndPhpStanPhpDocTypesEqual($param->type, $paramTagValueNode->type, $functionLike)) {
             return \false;
         }
         return $paramTagValueNode->description === '';
     }
-    private function matchParamByName(string $desiredParamName, \PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Param
+    private function matchParamByName(string $desiredParamName, \PhpParser\Node\FunctionLike $functionLike) : ?\PhpParser\Node\Param
     {
-        foreach ($classMethod->params as $param) {
+        foreach ($functionLike->getParams() as $param) {
             $paramName = $this->nodeNameResolver->getName($param);
             if ('$' . $paramName !== $desiredParamName) {
                 continue;

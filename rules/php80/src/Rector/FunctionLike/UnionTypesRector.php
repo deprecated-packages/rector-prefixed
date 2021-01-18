@@ -13,6 +13,8 @@ use PhpParser\Node\UnionType as PhpParserUnionType;
 use PHPStan\Type\UnionType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
+use Rector\DeadDocBlock\TagRemover\ParamTagRemover;
+use Rector\DeadDocBlock\TagRemover\ReturnTagRemover;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,6 +23,19 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class UnionTypesRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var ReturnTagRemover
+     */
+    private $returnTagRemover;
+    /**
+     * @var ParamTagRemover
+     */
+    private $paramTagRemover;
+    public function __construct(\Rector\DeadDocBlock\TagRemover\ReturnTagRemover $returnTagRemover, \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover)
+    {
+        $this->returnTagRemover = $returnTagRemover;
+        $this->paramTagRemover = $paramTagRemover;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change docs types to union types, where possible (properties are covered by TypedPropertiesRector)', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -38,10 +53,6 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 class SomeClass
 {
-    /**
-     * @param array|int $number
-     * @return bool|float
-     */
     public function go(array|int $number): bool|float
     {
     }
@@ -67,6 +78,8 @@ CODE_SAMPLE
         }
         $this->refactorParamTypes($node, $phpDocInfo);
         $this->refactorReturnType($node, $phpDocInfo);
+        $this->paramTagRemover->removeParamTagsIfUseless($node);
+        $this->returnTagRemover->removeReturnTagIfUseless($node);
         return $node;
     }
     /**
@@ -74,7 +87,7 @@ CODE_SAMPLE
      */
     private function refactorParamTypes(\PhpParser\Node\FunctionLike $functionLike, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        foreach ($functionLike->params as $param) {
+        foreach ($functionLike->getParams() as $param) {
             if ($param->type !== null) {
                 continue;
             }

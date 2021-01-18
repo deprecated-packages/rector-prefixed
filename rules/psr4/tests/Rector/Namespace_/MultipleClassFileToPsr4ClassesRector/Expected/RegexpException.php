@@ -5,7 +5,7 @@ declare (strict_types=1);
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-namespace RectorPrefix20210117\NettePostfixedToUniqueAutoload\Utils;
+namespace RectorPrefix20210118\NettePostfixedToUniqueAutoload\Utils;
 
 /**
  * The exception that indicates error of the last Regexp execution.
