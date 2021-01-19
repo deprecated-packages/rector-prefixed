@@ -16,8 +16,8 @@ final class VarTagValueNodeRenamer
         if ($phpDocInfo === null) {
             return;
         }
-        $varTagValueNode = $phpDocInfo->getByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
-        if ($varTagValueNode === null) {
+        $varTagValueNode = $phpDocInfo->getVarTagValueNode();
+        if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             return;
         }
         if ($varTagValueNode->variableName !== '$' . $originalName) {

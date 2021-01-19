@@ -103,7 +103,7 @@ final class ClassRenamer
             $newClassType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($newClass);
             $this->docBlockManipulator->changeType($phpDocInfo, $node, $oldClassType, $newClassType);
         }
-        $this->phpDocClassRenamer->changeTypeInAnnotationTypes($node, $oldToNewClasses);
+        $this->phpDocClassRenamer->changeTypeInAnnotationTypes($phpDocInfo, $oldToNewClasses);
     }
     /**
      * @param array<string, string> $oldToNewClasses

@@ -39,13 +39,13 @@ final class CommentsMerger
         if (!$parent instanceof \PhpParser\Node) {
             return;
         }
-        $arrayPhpDocInfo = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $arrayComments = $parent->getComments();
-        if ($arrayPhpDocInfo === null && $arrayComments === []) {
+        $phpDocInfo = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $comments = $parent->getComments();
+        if ($phpDocInfo === null && $comments === []) {
             return;
         }
-        $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $arrayPhpDocInfo);
-        $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $arrayComments);
+        $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
+        $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $comments);
     }
     public function keepChildren(\PhpParser\Node $newNode, \PhpParser\Node $oldNode) : void
     {

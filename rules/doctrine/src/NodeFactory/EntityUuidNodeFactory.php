@@ -11,13 +11,12 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use RectorPrefix20210119\Ramsey\Uuid\Uuid;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 final class EntityUuidNodeFactory
 {
     /**
@@ -28,10 +27,15 @@ final class EntityUuidNodeFactory
      * @var NodeFactory
      */
     private $nodeFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->phpDocTagNodeFactory = $phpDocTagNodeFactory;
         $this->nodeFactory = $nodeFactory;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function createTemporaryUuidProperty() : \PhpParser\Node\Stmt\Property
     {
@@ -54,8 +58,7 @@ final class EntityUuidNodeFactory
     {
         $this->clearVarAndOrmAnnotations($property);
         $this->replaceIntSerializerTypeWithString($property);
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         // add @var
         $attributeAwareVarTagValueNode = $this->phpDocTagNodeFactory->createUuidInterfaceVarTagValueNode();
         $phpDocInfo->addTagValueNode($attributeAwareVarTagValueNode);
@@ -74,10 +77,7 @@ final class EntityUuidNodeFactory
     }
     private function clearVarAndOrmAnnotations(\PhpParser\Node\Stmt\Property $property) : void
     {
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return;
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
         $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface::class);
     }
@@ -86,10 +86,7 @@ final class EntityUuidNodeFactory
      */
     private function replaceIntSerializerTypeWithString(\PhpParser\Node\Stmt\Property $property) : void
     {
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return;
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $serializerTypeTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class);
         if (!$serializerTypeTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode) {
             return;

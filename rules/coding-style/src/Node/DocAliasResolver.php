@@ -8,7 +8,7 @@ use PhpParser\Node;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 use RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class DocAliasResolver
@@ -22,9 +22,14 @@ final class DocAliasResolver
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
-    public function __construct(\RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     /**
      * @return string[]
@@ -37,8 +42,7 @@ final class DocAliasResolver
             if ($docComment === null) {
                 return;
             }
-            /** @var PhpDocInfo $phpDocInfo */
-            $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
             $possibleDocAliases = $this->collectVarType($phpDocInfo, $possibleDocAliases);
             // e.g. "use Dotrine\ORM\Mapping as ORM" etc.
             $matches = \RectorPrefix20210119\Nette\Utils\Strings::matchAll($docComment->getText(), self::DOC_ALIAS_REGEX);

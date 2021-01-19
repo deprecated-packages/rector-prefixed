@@ -4,12 +4,11 @@ declare (strict_types=1);
 namespace Rector\Doctrine\NodeFactory;
 
 use PhpParser\Node\Stmt\Property;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 final class EntityIdNodeFactory
 {
     /**
@@ -20,10 +19,15 @@ final class EntityIdNodeFactory
      * @var NodeFactory
      */
     private $nodeFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->phpDocTagNodeFactory = $phpDocTagNodeFactory;
         $this->nodeFactory = $nodeFactory;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function createIdProperty() : \PhpParser\Node\Stmt\Property
     {
@@ -33,8 +37,7 @@ final class EntityIdNodeFactory
     }
     private function decoratePropertyWithIdAnnotations(\PhpParser\Node\Stmt\Property $property) : void
     {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         // add @var int
         $attributeAwareVarTagValueNode = $this->phpDocTagNodeFactory->createVarTagIntValueNode();
         $phpDocInfo->addTagValueNode($attributeAwareVarTagValueNode);

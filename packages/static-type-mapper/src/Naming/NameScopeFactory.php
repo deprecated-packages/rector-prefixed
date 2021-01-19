@@ -10,7 +10,7 @@ use PhpParser\Node\Stmt\UseUse;
 use PHPStan\Analyser\NameScope;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\StaticTypeMapper;
@@ -23,6 +23,18 @@ final class NameScopeFactory
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    /**
+     * This is needed to avoid circular references
+     * @required
+     */
+    public function autowireNameScopeFactory(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory) : void
+    {
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
+    }
     public function createNameScopeFromNodeWithoutTemplateTypes(\PhpParser\Node $node) : \PHPStan\Analyser\NameScope
     {
         $namespace = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME);
@@ -80,10 +92,7 @@ final class NameScopeFactory
      */
     private function resolveTemplateTypesFromNode(\PhpParser\Node $node) : array
     {
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return [];
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $templateTypes = [];
         foreach ($phpDocInfo->getTemplateTagValueNodes() as $templateTagValueNode) {
             $phpstanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeToPHPStanType($templateTagValueNode, $node);

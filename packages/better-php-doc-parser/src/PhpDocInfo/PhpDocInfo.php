@@ -184,6 +184,19 @@ final class PhpDocInfo
         return (bool) $this->getByType($type);
     }
     /**
+     * @template T as \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+     * @param class-string<T>[] $types
+     */
+    public function hasByTypes(array $types) : bool
+    {
+        foreach ($types as $type) {
+            if ($this->getByType($type)) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    /**
      * @param string[] $names
      */
     public function hasByNames(array $names) : bool

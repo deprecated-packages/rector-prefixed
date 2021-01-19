@@ -19,7 +19,10 @@ abstract class AbstractExpectedNameResolver implements \Rector\Naming\Contract\E
      * @var NodeNameResolver
      */
     protected $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @required
+     */
+    public function autowireAbstractExpectedNameResolver(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver) : void
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;

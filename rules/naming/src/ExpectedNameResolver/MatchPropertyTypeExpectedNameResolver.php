@@ -5,9 +5,8 @@ namespace Rector\Naming\ExpectedNameResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Naming\Naming\PropertyNaming;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 final class MatchPropertyTypeExpectedNameResolver extends \Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
 {
     /**
@@ -15,21 +14,20 @@ final class MatchPropertyTypeExpectedNameResolver extends \Rector\Naming\Expecte
      */
     private $propertyNaming;
     /**
-     * @required
+     * @var PhpDocInfoFactory
      */
-    public function autowireMatchPropertyTypeExpectedNameResolver(\Rector\Naming\Naming\PropertyNaming $propertyNaming) : void
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->propertyNaming = $propertyNaming;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     /**
      * @param Property $node
      */
     public function resolve(\PhpParser\Node $node) : ?string
     {
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return null;
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $expectedName = $this->propertyNaming->getExpectedNameFromType($phpDocInfo->getVarType());
         if ($expectedName === null) {
             return null;

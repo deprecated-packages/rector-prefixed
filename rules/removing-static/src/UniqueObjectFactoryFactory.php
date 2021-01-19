@@ -16,14 +16,13 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use RectorPrefix20210119\Symplify\Astral\ValueObject\NodeBuilder\ClassBuilder;
 use RectorPrefix20210119\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
@@ -50,13 +49,18 @@ final class UniqueObjectFactoryFactory
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Naming\PropertyNaming $propertyNaming, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->propertyNaming = $propertyNaming;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeFactory = $nodeFactory;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function createFactoryClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Class_
     {
@@ -91,12 +95,7 @@ final class UniqueObjectFactoryFactory
     private function createPropertiesFromTypes(\PHPStan\Type\ObjectType $objectType) : array
     {
         $properties = [];
-        $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-        $property = $this->nodeFactory->createPrivateProperty($propertyName);
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $this->phpDocTypeChanger->changeVarType($phpDocInfo, $objectType);
-        $properties[] = $property;
+        $properties[] = $this->createPropertyFromObjectType($objectType);
         return $properties;
     }
     private function createConstructMethod(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\ClassMethod
@@ -156,5 +155,13 @@ final class UniqueObjectFactoryFactory
             $assigns[] = new \PhpParser\Node\Expr\Assign($propertyFetch, new \PhpParser\Node\Expr\Variable($param->var->name));
         }
         return $assigns;
+    }
+    private function createPropertyFromObjectType(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Property
+    {
+        $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
+        $property = $this->nodeFactory->createPrivateProperty($propertyName);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $this->phpDocTypeChanger->changeVarType($phpDocInfo, $objectType);
+        return $property;
     }
 }

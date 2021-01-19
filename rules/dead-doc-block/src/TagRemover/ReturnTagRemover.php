@@ -8,7 +8,6 @@ use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\DeadDocBlock\DeadReturnTagValueNodeAnalyzer;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ReturnTagRemover
 {
     /**
@@ -24,12 +23,8 @@ final class ReturnTagRemover
         $this->deadReturnTagValueNodeAnalyzer = $deadReturnTagValueNodeAnalyzer;
         $this->phpDocTagRemover = $phpDocTagRemover;
     }
-    public function removeReturnTagIfUseless(\PhpParser\Node\FunctionLike $functionLike) : void
+    public function removeReturnTagIfUseless(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\FunctionLike $functionLike) : void
     {
-        $phpDocInfo = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return;
-        }
         // remove existing type
         $attributeAwareReturnTagValueNode = $phpDocInfo->getReturnTagValue();
         if ($attributeAwareReturnTagValueNode === null) {

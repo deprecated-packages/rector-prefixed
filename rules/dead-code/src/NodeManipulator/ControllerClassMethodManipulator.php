@@ -6,8 +6,7 @@ namespace Rector\DeadCode\NodeManipulator;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ControllerClassMethodManipulator
@@ -16,28 +15,22 @@ final class ControllerClassMethodManipulator
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function isControllerClassMethodWithBehaviorAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if (!$this->isControllerClassMethod($classMethod)) {
             return \false;
         }
-        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return \false;
-        }
-        foreach ($phpDocInfo->getPhpDocNode()->children as $phpDocChildNode) {
-            if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
-                continue;
-            }
-            if ($phpDocChildNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
-                return \true;
-            }
-        }
-        return \false;
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+        return $phpDocInfo->hasByType(\PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode::class);
     }
     private function isControllerClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {

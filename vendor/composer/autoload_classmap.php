@@ -2169,7 +2169,6 @@ return array(
     'Rector\\DoctrineAnnotationGenerated\\PhpDocNode\\ConstantReferenceIdentifierRestorer' => $baseDir . '/packages/doctrine-annotation-generated/src/PhpDocNode/ConstantReferenceIdentifierRestorer.php',
     'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\ColumnDatetimePropertyAnalyzer' => $baseDir . '/rules/doctrine-code-quality/src/NodeAnalyzer/ColumnDatetimePropertyAnalyzer.php',
     'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\ConstructorAssignPropertyAnalyzer' => $baseDir . '/rules/doctrine-code-quality/src/NodeAnalyzer/ConstructorAssignPropertyAnalyzer.php',
-    'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\DoctrineClassAnalyzer' => $baseDir . '/rules/doctrine-code-quality/src/NodeAnalyzer/DoctrineClassAnalyzer.php',
     'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\SetterClassMethodAnalyzer' => $baseDir . '/rules/doctrine-code-quality/src/NodeAnalyzer/SetterClassMethodAnalyzer.php',
     'Rector\\DoctrineCodeQuality\\NodeFactory\\ValueAssignFactory' => $baseDir . '/rules/doctrine-code-quality/src/NodeFactory/ValueAssignFactory.php',
     'Rector\\DoctrineCodeQuality\\NodeManipulator\\ColumnDatetimePropertyManipulator' => $baseDir . '/rules/doctrine-code-quality/src/NodeManipulator/ColumnDatetimePropertyManipulator.php',

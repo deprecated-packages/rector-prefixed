@@ -12,13 +12,11 @@ use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
 use Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode;
 use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 final class DoctrineEntityManipulator
 {
@@ -72,33 +70,24 @@ final class DoctrineEntityManipulator
         if ($class->isAbstract()) {
             return \false;
         }
-        $phpDocInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return \false;
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
         // is parent entity
-        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode::class)) {
-            return \false;
-        }
-        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);
+        return $phpDocInfo->hasByTypes([\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class]);
     }
     public function removeMappedByOrInversedByFromProperty(\PhpParser\Node\Stmt\Property $property) : void
     {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $relationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
-        $shouldUpdate = \false;
         if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface && $relationTagValueNode->getMappedBy()) {
-            $shouldUpdate = \true;
             $relationTagValueNode->removeMappedBy();
         }
-        if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface && $relationTagValueNode->getInversedBy()) {
-            $shouldUpdate = \true;
-            $relationTagValueNode->removeInversedBy();
-        }
-        if (!$shouldUpdate) {
+        if (!$relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface) {
             return;
         }
+        if (!$relationTagValueNode->getInversedBy()) {
+            return;
+        }
+        $relationTagValueNode->removeInversedBy();
     }
     public function isMethodCallOnDoctrineEntity(\PhpParser\Node $node, string $methodName) : bool
     {

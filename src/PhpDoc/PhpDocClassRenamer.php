@@ -3,12 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Core\PhpDoc;
 
-use PhpParser\Node;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertChoiceTagValueNode;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 final class PhpDocClassRenamer
 {
     /**
@@ -17,10 +15,8 @@ final class PhpDocClassRenamer
      *
      * @param string[] $oldToNewClasses
      */
-    public function changeTypeInAnnotationTypes(\PhpParser\Node $node, array $oldToNewClasses) : void
+    public function changeTypeInAnnotationTypes(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, array $oldToNewClasses) : void
     {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $this->processAssertChoiceTagValueNode($oldToNewClasses, $phpDocInfo);
         $this->processDoctrineRelationTagValueNode($oldToNewClasses, $phpDocInfo);
         $this->processSerializerTypeTagValueNode($oldToNewClasses, $phpDocInfo);

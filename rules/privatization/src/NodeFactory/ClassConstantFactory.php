@@ -8,6 +8,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Property;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\Naming\ConstantNaming;
 final class ClassConstantFactory
@@ -16,9 +17,14 @@ final class ClassConstantFactory
      * @var ConstantNaming
      */
     private $constantNaming;
-    public function __construct(\Rector\Privatization\Naming\ConstantNaming $constantNaming)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Privatization\Naming\ConstantNaming $constantNaming, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->constantNaming = $constantNaming;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function createFromProperty(\PhpParser\Node\Stmt\Property $property) : \PhpParser\Node\Stmt\ClassConst
     {
@@ -29,8 +35,8 @@ final class ClassConstantFactory
         $const = new \PhpParser\Node\Const_($constantName, $defaultValue);
         $classConst = new \PhpParser\Node\Stmt\ClassConst([$const]);
         $classConst->flags = $property->flags & ~\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC;
-        $propertyPhpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $classConst->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $propertyPhpDocInfo);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $classConst->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
         return $classConst;
     }
 }

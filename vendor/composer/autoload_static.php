@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1
+class ComposerStaticInit1e9d50302aba5a9e9636635c74607784
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2969,7 +2969,6 @@ class ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1
         'Rector\\DoctrineAnnotationGenerated\\PhpDocNode\\ConstantReferenceIdentifierRestorer' => __DIR__ . '/../..' . '/packages/doctrine-annotation-generated/src/PhpDocNode/ConstantReferenceIdentifierRestorer.php',
         'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\ColumnDatetimePropertyAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/ColumnDatetimePropertyAnalyzer.php',
         'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\ConstructorAssignPropertyAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/ConstructorAssignPropertyAnalyzer.php',
-        'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\DoctrineClassAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/DoctrineClassAnalyzer.php',
         'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\SetterClassMethodAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/SetterClassMethodAnalyzer.php',
         'Rector\\DoctrineCodeQuality\\NodeFactory\\ValueAssignFactory' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeFactory/ValueAssignFactory.php',
         'Rector\\DoctrineCodeQuality\\NodeManipulator\\ColumnDatetimePropertyManipulator' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeManipulator/ColumnDatetimePropertyManipulator.php',
@@ -4121,9 +4120,9 @@ class ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1e9d50302aba5a9e9636635c74607784::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1e9d50302aba5a9e9636635c74607784::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1e9d50302aba5a9e9636635c74607784::$classMap;
 
         }, null, ClassLoader::class);
     }

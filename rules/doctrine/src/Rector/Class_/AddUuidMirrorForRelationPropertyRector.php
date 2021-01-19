@@ -197,10 +197,9 @@ CODE_SAMPLE
     }
     private function mirrorPhpDocInfoToUuid(\PhpParser\Node\Stmt\Property $property) : void
     {
-        $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $newPropertyPhpDocInfo = clone $propertyPhpDocInfo;
-        /** @var DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode */
-        $doctrineRelationTagValueNode = $this->getDoctrineRelationTagValueNode($property);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $newPropertyPhpDocInfo = clone $phpDocInfo;
+        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
         if ($doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface) {
             $this->refactorToManyPropertyPhpDocInfo($newPropertyPhpDocInfo, $property);
         } elseif ($doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface) {
@@ -209,10 +208,13 @@ CODE_SAMPLE
     }
     private function addNewPropertyToCollector(\PhpParser\Node\Stmt\Property $property, string $oldPropertyName, string $uuidPropertyName) : void
     {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
+        if (!$doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface) {
+            return;
+        }
         /** @var string $className */
         $className = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        /** @var DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode */
-        $doctrineRelationTagValueNode = $this->getDoctrineRelationTagValueNode($property);
         $this->uuidMigrationDataCollector->addClassToManyRelationProperty($className, $oldPropertyName, $uuidPropertyName, $doctrineRelationTagValueNode);
     }
     private function refactorToManyPropertyPhpDocInfo(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : void

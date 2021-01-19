@@ -4,9 +4,8 @@ declare (strict_types=1);
 namespace Rector\NetteToSymfony\Routing;
 
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 final class ExplicitRouteAnnotationDecorator
@@ -19,14 +18,18 @@ final class ExplicitRouteAnnotationDecorator
      * @var UseNodesToAddCollector
      */
     private $useNodesToAddCollector;
-    public function __construct(\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->useNodesToAddCollector = $useNodesToAddCollector;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function decorateClassMethodWithRouteAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode $symfonyRouteTagValueNode) : void
     {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $phpDocInfo->addTagValueNodeWithShortName($symfonyRouteTagValueNode);
         $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::CLASS_NAME);
         $this->useNodesToAddCollector->addUseImport($classMethod, $fullyQualifiedObjectType);

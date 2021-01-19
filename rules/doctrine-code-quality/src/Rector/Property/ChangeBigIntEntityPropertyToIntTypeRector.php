@@ -89,7 +89,7 @@ CODE_SAMPLE
         if ($attributeAwareVarTagValueNode === null) {
             return null;
         }
-        $this->docBlockClassRenamer->renamePhpDocTypes($phpDocInfo->getPhpDocNode(), [new \PHPStan\Type\IntegerType(), new \PHPStan\Type\FloatType(), new \PHPStan\Type\BooleanType()], new \PHPStan\Type\StringType(), $node);
+        $this->docBlockClassRenamer->renamePhpDocTypes($phpDocInfo, [new \PHPStan\Type\IntegerType(), new \PHPStan\Type\FloatType(), new \PHPStan\Type\BooleanType()], new \PHPStan\Type\StringType(), $node);
         return $node;
     }
 }

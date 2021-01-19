@@ -5,8 +5,8 @@ namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
 use Rector\Core\Rector\AbstractRector;
-use Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrineClassAnalyzer;
 use Rector\DoctrineCodeQuality\NodeManipulator\DoctrineItemDefaultValueManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -16,16 +16,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveRedundantDefaultClassAnnotationValuesRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var DoctrineClassAnalyzer
-     */
-    private $doctrineClassAnalyzer;
-    /**
      * @var DoctrineItemDefaultValueManipulator
      */
     private $doctrineItemDefaultValueManipulator;
-    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrineClassAnalyzer $doctrineClassAnalyzer, \Rector\DoctrineCodeQuality\NodeManipulator\DoctrineItemDefaultValueManipulator $doctrineItemDefaultValueManipulator)
+    public function __construct(\Rector\DoctrineCodeQuality\NodeManipulator\DoctrineItemDefaultValueManipulator $doctrineItemDefaultValueManipulator)
     {
-        $this->doctrineClassAnalyzer = $doctrineClassAnalyzer;
         $this->doctrineItemDefaultValueManipulator = $doctrineItemDefaultValueManipulator;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -79,8 +74,9 @@ CODE_SAMPLE
     }
     private function refactorEntityAnnotation(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $entityTagValueNode = $this->doctrineClassAnalyzer->matchDoctrineEntityTagValueNode($class);
-        if ($entityTagValueNode === null) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
+        $entityTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);
+        if (!$entityTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode) {
             return;
         }
         $this->doctrineItemDefaultValueManipulator->remove($entityTagValueNode, 'readOnly', \false);
