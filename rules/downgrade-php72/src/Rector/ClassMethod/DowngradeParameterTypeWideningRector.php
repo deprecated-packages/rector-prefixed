@@ -18,7 +18,6 @@ use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
-use ReflectionParameter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -224,7 +223,6 @@ CODE_SAMPLE
             return \false;
         }
         $parentReflectionMethod = new \ReflectionMethod($parentClassName, $methodName);
-        /** @var ReflectionParameter[] */
         $parentReflectionMethodParams = $parentReflectionMethod->getParameters();
         foreach ($parentReflectionMethodParams as $reflectionParameter) {
             if ($reflectionParameter->name === $paramName && $reflectionParameter->getType() !== null) {

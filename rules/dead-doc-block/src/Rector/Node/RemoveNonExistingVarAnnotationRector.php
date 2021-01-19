@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\DeadDocBlock\Rector\Node;
 
-use RectorPrefix20210119\Nette\Utils\Strings;
 use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignRef;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Echo_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Foreach_;
@@ -20,6 +20,7 @@ use PhpParser\Node\Stmt\Throw_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use Rector\Core\Rector\AbstractRector;
+use RectorPrefix20210119\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -33,6 +34,14 @@ final class RemoveNonExistingVarAnnotationRector extends \Rector\Core\Rector\Abs
      * @var class-string[]
      */
     private const NODES_TO_MATCH = [\PhpParser\Node\Expr\Assign::class, \PhpParser\Node\Expr\AssignRef::class, \PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\Static_::class, \PhpParser\Node\Stmt\Echo_::class, \PhpParser\Node\Stmt\Return_::class, \PhpParser\Node\Stmt\Expression::class, \PhpParser\Node\Stmt\Throw_::class, \PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Switch_::class, \PhpParser\Node\Stmt\Nop::class];
+    /**
+     * @var TypeChecker
+     */
+    private $typeChecker;
+    public function __construct(\RectorPrefix20210119\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    {
+        $this->typeChecker = $typeChecker;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Removes non-existing @var annotations above the code', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -69,17 +78,12 @@ CODE_SAMPLE
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $attributeAwareVarTagValueNode = $phpDocInfo->getVarTagValueNode();
-        if ($attributeAwareVarTagValueNode === null) {
+        $varTagValueNode = $phpDocInfo->getVarTagValueNode();
+        if ($varTagValueNode === null) {
             return null;
         }
-        $variableName = $attributeAwareVarTagValueNode->variableName;
-        if ($variableName === '') {
-            return null;
-        }
-        $nodeContentWithoutPhpDoc = $this->printWithoutComments($node);
-        // it's there
-        if (\RectorPrefix20210119\Nette\Utils\Strings::match($nodeContentWithoutPhpDoc, '#' . \preg_quote($variableName, '#') . '\\b#')) {
+        $variableName = \ltrim($varTagValueNode->variableName, '$');
+        if ($this->hasVariableName($node, $variableName)) {
             return null;
         }
         $comments = $node->getComments();
@@ -95,12 +99,15 @@ CODE_SAMPLE
         if ($node instanceof \PhpParser\Node\Stmt\Nop && \count($node->getComments()) > 1) {
             return \true;
         }
-        foreach (self::NODES_TO_MATCH as $nodeToMatch) {
-            if (!\is_a($node, $nodeToMatch, \true)) {
-                continue;
+        return !$this->typeChecker->isInstanceOf($node, self::NODES_TO_MATCH);
+    }
+    private function hasVariableName(\PhpParser\Node $node, string $variableName) : bool
+    {
+        return (bool) $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $node) use($variableName) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+                return \false;
             }
-            return \false;
-        }
-        return \true;
+            return $this->isName($node, $variableName);
+        });
     }
 }

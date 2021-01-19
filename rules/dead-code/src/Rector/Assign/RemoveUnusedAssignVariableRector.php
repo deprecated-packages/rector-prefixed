@@ -120,7 +120,6 @@ CODE_SAMPLE
     }
     private function isVariableTypeInScope(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        /** @var Scope|null $scope */
         $scope = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return \false;
@@ -143,7 +142,7 @@ CODE_SAMPLE
      */
     private function isNestedAssign(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        $parentNode = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        return $parentNode instanceof \PhpParser\Node\Expr\Assign;
+        $parent = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        return $parent instanceof \PhpParser\Node\Expr\Assign;
     }
 }

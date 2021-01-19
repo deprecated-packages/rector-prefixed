@@ -26,6 +26,7 @@ use RectorPrefix20210119\Symfony\Component\Filesystem\Filesystem;
 use RectorPrefix20210119\Symplify\PackageBuilder\Console\Command\CommandNaming;
 use RectorPrefix20210119\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use RectorPrefix20210119\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210119\Symplify\PackageBuilder\Php\TypeChecker;
 use RectorPrefix20210119\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use RectorPrefix20210119\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use RectorPrefix20210119\Symplify\PackageBuilder\Strings\StringFormatConverter;
@@ -65,4 +66,5 @@ return static function (\RectorPrefix20210119\Symfony\Component\DependencyInject
     $services->set(\RectorPrefix20210119\Doctrine\Inflector\Rules\English\InflectorFactory::class);
     $services->set(\RectorPrefix20210119\Doctrine\Inflector\Inflector::class)->factory([\RectorPrefix20210119\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210119\Doctrine\Inflector\Rules\English\InflectorFactory::class), 'build']);
     $services->set(\RectorPrefix20210119\Composer\Semver\VersionParser::class);
+    $services->set(\RectorPrefix20210119\Symplify\PackageBuilder\Php\TypeChecker::class);
 };

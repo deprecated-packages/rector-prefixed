@@ -80,7 +80,7 @@ CODE_SAMPLE
             if (!$fullyQualifiedName instanceof \PhpParser\Node\Name\FullyQualified) {
                 continue;
             }
-            $useUse->name = $fullyQualifiedName;
+            $useUse->name = new \PhpParser\Node\Name($fullyQualifiedName->toString());
         }
         return $use;
     }

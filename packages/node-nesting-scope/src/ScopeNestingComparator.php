@@ -6,6 +6,7 @@ namespace Rector\NodeNestingScope;
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNestingScope\ValueObject\ControlStructure;
 final class ScopeNestingComparator
 {
@@ -13,15 +14,20 @@ final class ScopeNestingComparator
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    /**
+     * @var BetterStandardPrinter
+     */
+    private $betterStandardPrinter;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->betterStandardPrinter = $betterStandardPrinter;
     }
     public function areScopeNestingEqual(\PhpParser\Node $firstNode, \PhpParser\Node $secondNode) : bool
     {
         $firstNodeScopeNode = $this->findParentControlStructure($firstNode);
         $secondNodeScopeNode = $this->findParentControlStructure($secondNode);
-        return $firstNodeScopeNode === $secondNodeScopeNode;
+        return $this->betterStandardPrinter->areNodesEqual($firstNodeScopeNode, $secondNodeScopeNode);
     }
     public function isNodeConditionallyScoped(\PhpParser\Node $node) : bool
     {

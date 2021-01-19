@@ -287,11 +287,7 @@ CODE_SAMPLE
             if (!$this->areNodesEqual($node->var, $foreachedValue)) {
                 return null;
             }
-            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($this->assignManipulator->isNodePartOfAssign($parentNode)) {
-                return null;
-            }
-            if ($this->isArgParentCount($parentNode)) {
+            if ($this->shouldSkipNode($node)) {
                 return null;
             }
             // is dim same as key value name, ...[$i]
@@ -328,15 +324,26 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function isArgParentCount(?\PhpParser\Node $node) : bool
+    private function isArgParentCount(\PhpParser\Node $node) : bool
     {
-        if ($node instanceof \PhpParser\Node\Arg) {
-            /** @var Node $parentNode */
-            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($this->isFuncCallName($parentNode, self::COUNT)) {
-                return \true;
-            }
+        if (!$node instanceof \PhpParser\Node\Arg) {
+            return \false;
         }
-        return \false;
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node) {
+            return \false;
+        }
+        return $this->isFuncCallName($parent, self::COUNT);
+    }
+    private function shouldSkipNode(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+    {
+        $parentNode = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentNode instanceof \PhpParser\Node) {
+            return \false;
+        }
+        if ($this->assignManipulator->isNodePartOfAssign($parentNode)) {
+            return \true;
+        }
+        return $this->isArgParentCount($parentNode);
     }
 }

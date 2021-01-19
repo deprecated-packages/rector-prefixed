@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1
+class ComposerStaticInit1ce77af669426cc10d6c7dfec00e15dd
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -114,6 +114,7 @@ class ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1
             'Rector\\ConsoleDiffer\\' => 21,
             'Rector\\Composer\\' => 16,
             'Rector\\Compiler\\' => 16,
+            'Rector\\Comments\\' => 16,
             'Rector\\CodingStyle\\' => 19,
             'Rector\\CodeQuality\\' => 19,
             'Rector\\CodeQualityStrict\\' => 25,
@@ -537,6 +538,10 @@ class ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1
         'Rector\\Compiler\\' => 
         array (
             0 => __DIR__ . '/../..' . '/utils/compiler/src',
+        ),
+        'Rector\\Comments\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/packages/comments/src',
         ),
         'Rector\\CodingStyle\\' => 
         array (
@@ -2655,6 +2660,9 @@ class ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1
         'Rector\\CodingStyle\\ValueObject\\NodeToRemoveAndConcatItem' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/NodeToRemoveAndConcatItem.php',
         'Rector\\CodingStyle\\ValueObject\\ObjectMagicMethods' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/ObjectMagicMethods.php',
         'Rector\\CodingStyle\\ValueObject\\ReturnArrayClassMethodToYield' => __DIR__ . '/../..' . '/rules/coding-style/src/ValueObject/ReturnArrayClassMethodToYield.php',
+        'Rector\\Comments\\CommentRemover' => __DIR__ . '/../..' . '/packages/comments/src/CommentRemover.php',
+        'Rector\\Comments\\NodeTraverser\\CommentRemovingNodeTraverser' => __DIR__ . '/../..' . '/packages/comments/src/NodeTraverser/CommentRemovingNodeTraverser.php',
+        'Rector\\Comments\\NodeVisitor\\CommentRemovingNodeVisitor' => __DIR__ . '/../..' . '/packages/comments/src/NodeVisitor/CommentRemovingNodeVisitor.php',
         'Rector\\Composer\\Contract\\Rector\\ComposerRectorInterface' => __DIR__ . '/../..' . '/rules/composer/src/Contract/Rector/ComposerRectorInterface.php',
         'Rector\\Composer\\Contract\\VersionAwareInterface' => __DIR__ . '/../..' . '/rules/composer/src/Contract/VersionAwareInterface.php',
         'Rector\\Composer\\Guard\\VersionGuard' => __DIR__ . '/../..' . '/rules/composer/src/Guard/VersionGuard.php',
@@ -2756,6 +2764,7 @@ class ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1
         'Rector\\Core\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\TypeToCallReflectionResolverRegistry' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/TypeToCallReflectionResolver/TypeToCallReflectionResolverRegistry.php',
         'Rector\\Core\\PhpDoc\\PhpDocClassRenamer' => __DIR__ . '/../..' . '/src/PhpDoc/PhpDocClassRenamer.php',
         'Rector\\Core\\PhpDoc\\PhpDocTagsFinder' => __DIR__ . '/../..' . '/src/PhpDoc/PhpDocTagsFinder.php',
+        'Rector\\Core\\PhpParser\\NodeFinder\\PropertyFetchFinder' => __DIR__ . '/../..' . '/src/PhpParser/NodeFinder/PropertyFetchFinder.php',
         'Rector\\Core\\PhpParser\\NodeTransformer' => __DIR__ . '/../..' . '/src/PhpParser/NodeTransformer.php',
         'Rector\\Core\\PhpParser\\NodeTraverser\\RectorNodeTraverser' => __DIR__ . '/../..' . '/src/PhpParser/NodeTraverser/RectorNodeTraverser.php',
         'Rector\\Core\\PhpParser\\Node\\AssignAndBinaryMap' => __DIR__ . '/../..' . '/src/PhpParser/Node/AssignAndBinaryMap.php',
@@ -2796,11 +2805,12 @@ class ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1
         'Rector\\Core\\PhpParser\\Parser\\Parser' => __DIR__ . '/../..' . '/src/PhpParser/Parser/Parser.php',
         'Rector\\Core\\PhpParser\\Parser\\PhpParserLexerFactory' => __DIR__ . '/../..' . '/src/PhpParser/Parser/PhpParserLexerFactory.php',
         'Rector\\Core\\PhpParser\\Parser\\SimplePhpParser' => __DIR__ . '/../..' . '/src/PhpParser/Parser/SimplePhpParser.php',
+        'Rector\\Core\\PhpParser\\Printer\\AnnotationFormatRestorer' => __DIR__ . '/../..' . '/src/PhpParser/Printer/AnnotationFormatRestorer.php',
         'Rector\\Core\\PhpParser\\Printer\\BetterStandardPrinter' => __DIR__ . '/../..' . '/src/PhpParser/Printer/BetterStandardPrinter.php',
-        'Rector\\Core\\PhpParser\\Printer\\CommentRemover' => __DIR__ . '/../..' . '/src/PhpParser/Printer/CommentRemover.php',
         'Rector\\Core\\PhpParser\\Printer\\ContentPatcher' => __DIR__ . '/../..' . '/src/PhpParser/Printer/ContentPatcher.php',
         'Rector\\Core\\PhpParser\\Printer\\FormatPerservingPrinter' => __DIR__ . '/../..' . '/src/PhpParser/Printer/FormatPerservingPrinter.php',
         'Rector\\Core\\PhpParser\\Printer\\NodesWithFileDestinationPrinter' => __DIR__ . '/../..' . '/src/PhpParser/Printer/NodesWithFileDestinationPrinter.php',
+        'Rector\\Core\\PhpParser\\Printer\\Whitespace\\IndentCharacterDetector' => __DIR__ . '/../..' . '/src/PhpParser/Printer/Whitespace/IndentCharacterDetector.php',
         'Rector\\Core\\Php\\PhpVersionProvider' => __DIR__ . '/../..' . '/src/Php/PhpVersionProvider.php',
         'Rector\\Core\\Php\\PhpVersionResolver\\ProjectComposerJsonPhpVersionResolver' => __DIR__ . '/../..' . '/src/Php/PhpVersionResolver/ProjectComposerJsonPhpVersionResolver.php',
         'Rector\\Core\\Php\\Regex\\RegexPatternArgumentManipulator' => __DIR__ . '/../..' . '/src/Php/Regex/RegexPatternArgumentManipulator.php',
@@ -4110,9 +4120,9 @@ class ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1ce77af669426cc10d6c7dfec00e15dd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1ce77af669426cc10d6c7dfec00e15dd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1ce77af669426cc10d6c7dfec00e15dd::$classMap;
 
         }, null, ClassLoader::class);
     }

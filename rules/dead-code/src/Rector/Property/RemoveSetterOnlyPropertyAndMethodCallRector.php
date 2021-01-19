@@ -12,6 +12,7 @@ use PhpParser\Node\Stmt\Interface_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Trait_;
 use Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator;
+use Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -33,10 +34,15 @@ final class RemoveSetterOnlyPropertyAndMethodCallRector extends \Rector\Core\Rec
      * @var VendorLockResolver
      */
     private $vendorLockResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver)
+    /**
+     * @var PropertyFetchFinder
+     */
+    private $propertyFetchFinder;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder)
     {
         $this->propertyManipulator = $propertyManipulator;
         $this->vendorLockResolver = $vendorLockResolver;
+        $this->propertyFetchFinder = $propertyFetchFinder;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -90,7 +96,7 @@ CODE_SAMPLE
         if ($this->shouldSkipProperty($node)) {
             return null;
         }
-        $propertyFetches = $this->propertyManipulator->getPrivatePropertyFetches($node);
+        $propertyFetches = $this->propertyFetchFinder->findPrivatePropertyFetches($node);
         $classMethodsToCheck = $this->collectClassMethodsToCheck($propertyFetches);
         $vendorLockedClassMethodNames = $this->getVendorLockedClassMethodNames($classMethodsToCheck);
         $this->removePropertyAndUsages($node, $vendorLockedClassMethodNames);

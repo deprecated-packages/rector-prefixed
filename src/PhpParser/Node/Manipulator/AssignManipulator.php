@@ -66,31 +66,28 @@ final class AssignManipulator
     }
     public function isLeftPartOfAssign(\PhpParser\Node $node) : bool
     {
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $parentNode->var === $node) {
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Expr\Assign && $this->betterStandardPrinter->areNodesEqual($parent->var, $node)) {
             return \true;
         }
-        if ($parentNode !== null && $this->isValueModifyingNode($parentNode)) {
+        if ($parent !== null && $this->isValueModifyingNode($parent)) {
             return \true;
         }
         // traverse up to array dim fetches
-        if ($parentNode instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
-            $previousParentNode = $parentNode;
-            while ($parentNode instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
-                $previousParentNode = $parentNode;
-                $parentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+            $previousParent = $parent;
+            while ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+                $previousParent = $parent;
+                $parent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             }
-            if ($parentNode instanceof \PhpParser\Node\Expr\Assign) {
-                return $parentNode->var === $previousParentNode;
+            if ($parent instanceof \PhpParser\Node\Expr\Assign) {
+                return $parent->var === $previousParent;
             }
         }
         return \false;
     }
-    public function isNodePartOfAssign(?\PhpParser\Node $node) : bool
+    public function isNodePartOfAssign(\PhpParser\Node $node) : bool
     {
-        if ($node === null) {
-            return \false;
-        }
         $previousNode = $node;
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         while ($parentNode !== null && !$parentNode instanceof \PhpParser\Node\Stmt\Expression) {
