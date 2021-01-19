@@ -19,7 +19,7 @@ final class JoinTableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
      */
     private const INVERSE_JOIN_COLUMNS = 'inverseJoinColumns';
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
     /**
@@ -46,7 +46,7 @@ final class JoinTableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
      * @param JoinColumnTagValueNode[] $joinColumns
      * @param JoinColumnTagValueNode[] $inverseJoinColumns
      */
-    public function __construct(string $name, ?string $schema = null, array $joinColumns = [], array $inverseJoinColumns = [], ?string $originalContent = null, ?\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $joinColumnsAroundSpaces = null, ?\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $inverseJoinColumnsAroundSpaces = null)
+    public function __construct(?string $name, ?string $schema = null, array $joinColumns = [], array $inverseJoinColumns = [], ?string $originalContent = null, ?\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $joinColumnsAroundSpaces = null, ?\Rector\BetterPhpDocParser\ValueObject\AroundSpaces $inverseJoinColumnsAroundSpaces = null)
     {
         $this->name = $name;
         $this->schema = $schema;
@@ -72,7 +72,9 @@ final class JoinTableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     public function getAttributableItems() : array
     {
         $items = [];
-        $items['name'] = $this->name;
+        if ($this->name !== null) {
+            $items['name'] = $this->name;
+        }
         if ($this->schema !== null) {
             $items['schema'] = $this->schema;
         }
@@ -102,7 +104,9 @@ final class JoinTableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     private function createItems() : array
     {
         $items = [];
-        $items['name'] = \sprintf('"%s"', $this->name);
+        if ($this->name !== null) {
+            $items['name'] = \sprintf('"%s"', $this->name);
+        }
         if ($this->schema !== null) {
             $items['schema'] = \sprintf('"%s"', $this->schema);
         }
