@@ -16,7 +16,6 @@ use Rector\NodeTypeResolver\NodeVisitor\FirstLevelNodeVisitor;
 use Rector\NodeTypeResolver\NodeVisitor\FunctionLikeParamArgPositionNodeVisitor;
 use Rector\NodeTypeResolver\NodeVisitor\FunctionMethodAndClassNodeVisitor;
 use Rector\NodeTypeResolver\NodeVisitor\NamespaceNodeVisitor;
-use Rector\NodeTypeResolver\NodeVisitor\PhpDocInfoNodeVisitor;
 use Rector\NodeTypeResolver\NodeVisitor\StatementNodeVisitor;
 use Rector\NodeTypeResolver\PHPStan\Scope\PHPStanNodeScopeResolver;
 use RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo;
@@ -55,10 +54,6 @@ final class NodeScopeAndMetadataDecorator
      */
     private $configuration;
     /**
-     * @var PhpDocInfoNodeVisitor
-     */
-    private $phpDocInfoNodeVisitor;
-    /**
      * @var NodeConnectingVisitor
      */
     private $nodeConnectingVisitor;
@@ -70,7 +65,7 @@ final class NodeScopeAndMetadataDecorator
      * @var FirstLevelNodeVisitor
      */
     private $firstLevelNodeVisitor;
-    public function __construct(\PhpParser\NodeVisitor\CloningVisitor $cloningVisitor, \Rector\Core\Configuration\Configuration $configuration, \Rector\NodeTypeResolver\NodeVisitor\FileInfoNodeVisitor $fileInfoNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\FunctionMethodAndClassNodeVisitor $functionMethodAndClassNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\NamespaceNodeVisitor $namespaceNodeVisitor, \Rector\NodeCollector\NodeVisitor\NodeCollectorNodeVisitor $nodeCollectorNodeVisitor, \Rector\NodeTypeResolver\PHPStan\Scope\PHPStanNodeScopeResolver $phpStanNodeScopeResolver, \Rector\NodeTypeResolver\NodeVisitor\PhpDocInfoNodeVisitor $phpDocInfoNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\StatementNodeVisitor $statementNodeVisitor, \PhpParser\NodeVisitor\NodeConnectingVisitor $nodeConnectingVisitor, \Rector\NodeTypeResolver\NodeVisitor\FunctionLikeParamArgPositionNodeVisitor $functionLikeParamArgPositionNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\FirstLevelNodeVisitor $firstLevelNodeVisitor)
+    public function __construct(\PhpParser\NodeVisitor\CloningVisitor $cloningVisitor, \Rector\Core\Configuration\Configuration $configuration, \Rector\NodeTypeResolver\NodeVisitor\FileInfoNodeVisitor $fileInfoNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\FunctionMethodAndClassNodeVisitor $functionMethodAndClassNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\NamespaceNodeVisitor $namespaceNodeVisitor, \Rector\NodeCollector\NodeVisitor\NodeCollectorNodeVisitor $nodeCollectorNodeVisitor, \Rector\NodeTypeResolver\PHPStan\Scope\PHPStanNodeScopeResolver $phpStanNodeScopeResolver, \Rector\NodeTypeResolver\NodeVisitor\StatementNodeVisitor $statementNodeVisitor, \PhpParser\NodeVisitor\NodeConnectingVisitor $nodeConnectingVisitor, \Rector\NodeTypeResolver\NodeVisitor\FunctionLikeParamArgPositionNodeVisitor $functionLikeParamArgPositionNodeVisitor, \Rector\NodeTypeResolver\NodeVisitor\FirstLevelNodeVisitor $firstLevelNodeVisitor)
     {
         $this->phpStanNodeScopeResolver = $phpStanNodeScopeResolver;
         $this->cloningVisitor = $cloningVisitor;
@@ -80,7 +75,6 @@ final class NodeScopeAndMetadataDecorator
         $this->fileInfoNodeVisitor = $fileInfoNodeVisitor;
         $this->nodeCollectorNodeVisitor = $nodeCollectorNodeVisitor;
         $this->configuration = $configuration;
-        $this->phpDocInfoNodeVisitor = $phpDocInfoNodeVisitor;
         $this->nodeConnectingVisitor = $nodeConnectingVisitor;
         $this->functionLikeParamArgPositionNodeVisitor = $functionLikeParamArgPositionNodeVisitor;
         $this->firstLevelNodeVisitor = $firstLevelNodeVisitor;
@@ -116,7 +110,6 @@ final class NodeScopeAndMetadataDecorator
         $nodeTraverser->addVisitor($this->nodeConnectingVisitor);
         $nodeTraverser->addVisitor($this->functionMethodAndClassNodeVisitor);
         $nodeTraverser->addVisitor($this->namespaceNodeVisitor);
-        $nodeTraverser->addVisitor($this->phpDocInfoNodeVisitor);
         $nodeTraverser->addVisitor($this->firstLevelNodeVisitor);
         $nodeTraverser->addVisitor($this->functionLikeParamArgPositionNodeVisitor);
         $nodes = $nodeTraverser->traverse($nodes);

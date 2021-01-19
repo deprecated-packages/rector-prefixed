@@ -2623,7 +2623,6 @@ return array(
     'Rector\\NodeTypeResolver\\NodeVisitor\\FunctionLikeParamArgPositionNodeVisitor' => $baseDir . '/packages/node-type-resolver/src/NodeVisitor/FunctionLikeParamArgPositionNodeVisitor.php',
     'Rector\\NodeTypeResolver\\NodeVisitor\\FunctionMethodAndClassNodeVisitor' => $baseDir . '/packages/node-type-resolver/src/NodeVisitor/FunctionMethodAndClassNodeVisitor.php',
     'Rector\\NodeTypeResolver\\NodeVisitor\\NamespaceNodeVisitor' => $baseDir . '/packages/node-type-resolver/src/NodeVisitor/NamespaceNodeVisitor.php',
-    'Rector\\NodeTypeResolver\\NodeVisitor\\PhpDocInfoNodeVisitor' => $baseDir . '/packages/node-type-resolver/src/NodeVisitor/PhpDocInfoNodeVisitor.php',
     'Rector\\NodeTypeResolver\\NodeVisitor\\StatementNodeVisitor' => $baseDir . '/packages/node-type-resolver/src/NodeVisitor/StatementNodeVisitor.php',
     'Rector\\NodeTypeResolver\\Node\\AttributeKey' => $baseDir . '/packages/node-type-resolver/src/Node/AttributeKey.php',
     'Rector\\NodeTypeResolver\\PHPStan\\Collector\\TraitNodeScopeCollector' => $baseDir . '/packages/node-type-resolver/src/PHPStan/Collector/TraitNodeScopeCollector.php',
