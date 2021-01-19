@@ -1602,7 +1602,7 @@ return array(
     'Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfo' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocInfo/PhpDocInfo.php',
     'Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfoFactory' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocInfo/PhpDocInfoFactory.php',
     'Rector\\BetterPhpDocParser\\PhpDocInfo\\TokenIteratorFactory' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocInfo/TokenIteratorFactory.php',
-    'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PhpDocRemover' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocManipulator/PhpDocRemover.php',
+    'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PhpDocTagRemover' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocManipulator/PhpDocTagRemover.php',
     'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PhpDocTypeChanger' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocManipulator/PhpDocTypeChanger.php',
     'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PropertyDocBlockManipulator' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocManipulator/PropertyDocBlockManipulator.php',
     'Rector\\BetterPhpDocParser\\PhpDocManipulator\\VarAnnotationManipulator' => $baseDir . '/packages/better-php-doc-parser/src/PhpDocManipulator/VarAnnotationManipulator.php',

@@ -6,6 +6,7 @@ namespace Rector\NetteCodeQuality\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Core\ValueObject\PhpVersionFeature;
@@ -24,9 +25,14 @@ final class MoveInjectToExistingConstructorRector extends \Rector\Core\Rector\Ab
      * @var PropertyUsageAnalyzer
      */
     private $propertyUsageAnalyzer;
-    public function __construct(\Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer)
+    /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+    public function __construct(\Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
     {
         $this->propertyUsageAnalyzer = $propertyUsageAnalyzer;
+        $this->phpDocTagRemover = $phpDocTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -114,7 +120,7 @@ CODE_SAMPLE
     private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $phpDocInfo->removeByName(\Rector\PhpAttribute\ValueObject\TagName::INJECT);
+        $this->phpDocTagRemover->removeByName($phpDocInfo, \Rector\PhpAttribute\ValueObject\TagName::INJECT);
     }
     private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty) : void
     {

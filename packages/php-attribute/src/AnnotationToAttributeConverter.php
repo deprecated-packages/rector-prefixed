@@ -11,8 +11,8 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Property;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
 use Rector\PhpAttribute\Printer\PhpAttributteGroupFactory;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
@@ -26,10 +26,15 @@ final class AnnotationToAttributeConverter
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\PhpAttribute\Printer\PhpAttributteGroupFactory $phpAttributteGroupFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+    public function __construct(\Rector\PhpAttribute\Printer\PhpAttributteGroupFactory $phpAttributteGroupFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
     {
         $this->phpAttributteGroupFactory = $phpAttributteGroupFactory;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->phpDocTagRemover = $phpDocTagRemover;
     }
     /**
      * @param Class_|Property|ClassMethod|Function_|Closure|ArrowFunction $node
@@ -51,8 +56,7 @@ final class AnnotationToAttributeConverter
         }
         // 2. remove tags
         foreach ($phpAttributableTagNodes as $phpAttributableTagNode) {
-            /** @var PhpDocTagValueNode $phpAttributableTagNode */
-            $phpDocInfo->removeTagValueNodeFromNode($phpAttributableTagNode);
+            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $phpAttributableTagNode);
         }
         // 3. convert annotations to attributes
         $newAttrGroups = $this->phpAttributteGroupFactory->create($phpAttributableTagNodes);

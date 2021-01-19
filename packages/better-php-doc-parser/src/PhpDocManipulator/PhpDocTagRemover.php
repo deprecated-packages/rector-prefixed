@@ -6,7 +6,7 @@ namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-final class PhpDocRemover
+final class PhpDocTagRemover
 {
     public function removeByName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, string $name) : void
     {

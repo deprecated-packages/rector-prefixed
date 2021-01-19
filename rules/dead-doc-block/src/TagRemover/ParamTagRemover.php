@@ -5,6 +5,7 @@ namespace Rector\DeadDocBlock\TagRemover;
 
 use PhpParser\Node\FunctionLike;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\DeadDocBlock\DeadParamTagValueNodeAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ParamTagRemover
@@ -13,9 +14,14 @@ final class ParamTagRemover
      * @var DeadParamTagValueNodeAnalyzer
      */
     private $deadParamTagValueNodeAnalyzer;
-    public function __construct(\Rector\DeadDocBlock\DeadParamTagValueNodeAnalyzer $deadParamTagValueNodeAnalyzer)
+    /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+    public function __construct(\Rector\DeadDocBlock\DeadParamTagValueNodeAnalyzer $deadParamTagValueNodeAnalyzer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
     {
         $this->deadParamTagValueNodeAnalyzer = $deadParamTagValueNodeAnalyzer;
+        $this->phpDocTagRemover = $phpDocTagRemover;
     }
     public function removeParamTagsIfUseless(\PhpParser\Node\FunctionLike $functionLike) : void
     {
@@ -34,7 +40,7 @@ final class ParamTagRemover
             if (!$isParamTagValueDead) {
                 continue;
             }
-            $phpDocInfo->removeTagValueNodeFromNode($paramTagValueNode);
+            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $paramTagValueNode);
         }
     }
 }
