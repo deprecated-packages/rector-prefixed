@@ -19,6 +19,7 @@ final class PhpDocRemover
                 continue;
             }
             unset($attributeAwarePhpDocNode->children[$key]);
+            $phpDocInfo->markAsChanged();
         }
     }
     public function removeTagValueFromNode(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : void
@@ -32,6 +33,7 @@ final class PhpDocRemover
                 continue;
             }
             unset($attributeAwarePhpDocNode->children[$key]);
+            $phpDocInfo->markAsChanged();
         }
     }
     private function areAnnotationNamesEqual(string $firstAnnotationName, string $secondAnnotationName) : bool

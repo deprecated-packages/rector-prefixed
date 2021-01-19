@@ -10,6 +10,7 @@ use PhpParser\Node\Stmt\Property;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
 use Rector\Renaming\ValueObject\RenameAnnotation;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -26,7 +27,15 @@ final class RenameAnnotationRector extends \Rector\Core\Rector\AbstractPHPUnitRe
     /**
      * @var RenameAnnotation[]
      */
-    private $renamedAnnotationInTypes = [];
+    private $renamedAnnotations = [];
+    /**
+     * @var DocBlockTagReplacer
+     */
+    private $docBlockTagReplacer;
+    public function __construct(\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer $docBlockTagReplacer)
+    {
+        $this->docBlockTagReplacer = $docBlockTagReplacer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns defined annotations above properties and methods to their new values.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -65,17 +74,16 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        /** @var Class_ $classLike */
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return null;
+        }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        foreach ($this->renamedAnnotationInTypes as $renamedAnnotationInType) {
+        foreach ($this->renamedAnnotations as $renamedAnnotationInType) {
             if (!$this->isObjectType($classLike, $renamedAnnotationInType->getType())) {
                 continue;
             }
-            if (!$phpDocInfo->hasByName($renamedAnnotationInType->getOldAnnotation())) {
-                continue;
-            }
-            $this->docBlockManipulator->replaceAnnotationInNode($node, $renamedAnnotationInType);
+            $this->docBlockTagReplacer->replaceTagByAnother($phpDocInfo, $renamedAnnotationInType->getOldAnnotation(), $renamedAnnotationInType->getNewAnnotation());
         }
         return $node;
     }
@@ -83,6 +91,6 @@ CODE_SAMPLE
     {
         $renamedAnnotationsInTypes = $configuration[self::RENAMED_ANNOTATIONS_IN_TYPES] ?? [];
         \RectorPrefix20210119\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);
-        $this->renamedAnnotationInTypes = $renamedAnnotationsInTypes;
+        $this->renamedAnnotations = $renamedAnnotationsInTypes;
     }
 }

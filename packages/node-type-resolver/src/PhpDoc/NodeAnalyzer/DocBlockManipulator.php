@@ -6,15 +6,10 @@ namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 use RectorPrefix20210119\Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming;
-use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Renaming\ValueObject\RenameAnnotation;
 final class DocBlockManipulator
 {
     /**
@@ -49,25 +44,6 @@ final class DocBlockManipulator
     {
         $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo->getPhpDocNode(), $oldType, $newType, $node);
     }
-    public function replaceAnnotationInNode(\PhpParser\Node $node, \Rector\Renaming\ValueObject\RenameAnnotation $renameAnnotation) : void
-    {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $this->replaceTagByAnother($phpDocInfo->getPhpDocNode(), $renameAnnotation->getOldAnnotation(), $renameAnnotation->getNewAnnotation());
-    }
-    public function replaceTagByAnother(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $phpDocNode, string $oldTag, string $newTag) : void
-    {
-        $oldTag = \Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming::normalizeName($oldTag);
-        $newTag = \Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming::normalizeName($newTag);
-        foreach ($phpDocNode->children as $phpDocChildNode) {
-            if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
-                continue;
-            }
-            if ($phpDocChildNode->name === $oldTag) {
-                $phpDocChildNode->name = $newTag;
-            }
-        }
-    }
     public function updateNodeWithPhpDocInfo(\PhpParser\Node $node) : void
     {
         // nothing to change
@@ -96,16 +72,6 @@ final class DocBlockManipulator
         }
         // this is needed to remove duplicated // commentsAsText
         $node->setDocComment(new \PhpParser\Comment\Doc($phpDoc));
-    }
-    public function getDoctrineFqnTargetEntity(\PhpParser\Node $node) : ?string
-    {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
-        if ($doctrineRelationTagValueNode === null) {
-            return null;
-        }
-        return $doctrineRelationTagValueNode->getFullyQualifiedTargetEntity();
     }
     private function printPhpDocInfoToString(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : string
     {

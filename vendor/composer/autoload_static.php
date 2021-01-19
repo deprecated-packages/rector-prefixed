@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb3d0dfc84b390c09c7324ae7ca6fa8d6
+class ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2372,8 +2372,8 @@ class ComposerStaticInitb3d0dfc84b390c09c7324ae7ca6fa8d6
         'Rector\\BetterPhpDocParser\\AnnotationReader\\AnnotationReaderFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/AnnotationReader/AnnotationReaderFactory.php',
         'Rector\\BetterPhpDocParser\\AnnotationReader\\NodeAnnotationReader' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/AnnotationReader/NodeAnnotationReader.php',
         'Rector\\BetterPhpDocParser\\Annotation\\AnnotationItemsResolver' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Annotation/AnnotationItemsResolver.php',
+        'Rector\\BetterPhpDocParser\\Annotation\\AnnotationNaming' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Annotation/AnnotationNaming.php',
         'Rector\\BetterPhpDocParser\\Annotation\\AnnotationVisibilityDetector' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Annotation/AnnotationVisibilityDetector.php',
-        'Rector\\BetterPhpDocParser\\Annotation\\StaticAnnotationNaming' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Annotation/StaticAnnotationNaming.php',
         'Rector\\BetterPhpDocParser\\Attributes\\Ast\\AttributeAwareNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Attributes/Ast/AttributeAwareNodeFactory.php',
         'Rector\\BetterPhpDocParser\\Attributes\\Ast\\PhpDoc\\SpacelessPhpDocTagNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Attributes/Ast/PhpDoc/SpacelessPhpDocTagNode.php',
         'Rector\\BetterPhpDocParser\\Attributes\\Attribute\\Attribute' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Attributes/Attribute/Attribute.php',
@@ -3429,6 +3429,7 @@ class ComposerStaticInitb3d0dfc84b390c09c7324ae7ca6fa8d6
         'Rector\\NodeTypeResolver\\PhpDoc\\NodeAnalyzer\\DocBlockClassRenamer' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/PhpDoc/NodeAnalyzer/DocBlockClassRenamer.php',
         'Rector\\NodeTypeResolver\\PhpDoc\\NodeAnalyzer\\DocBlockManipulator' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/PhpDoc/NodeAnalyzer/DocBlockManipulator.php',
         'Rector\\NodeTypeResolver\\PhpDoc\\NodeAnalyzer\\DocBlockNameImporter' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/PhpDoc/NodeAnalyzer/DocBlockNameImporter.php',
+        'Rector\\NodeTypeResolver\\PhpDoc\\NodeAnalyzer\\DocBlockTagReplacer' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/PhpDoc/NodeAnalyzer/DocBlockTagReplacer.php',
         'Rector\\NodeTypeResolver\\PhpDoc\\PhpDocTypeRenamer' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/PhpDoc/PhpDocTypeRenamer.php',
         'Rector\\NodeTypeResolver\\Reflection\\ClassReflectionTypesResolver' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/Reflection/ClassReflectionTypesResolver.php',
         'Rector\\NodeTypeResolver\\TypeAnalyzer\\ArrayTypeAnalyzer' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/TypeAnalyzer/ArrayTypeAnalyzer.php',
@@ -4109,9 +4110,9 @@ class ComposerStaticInitb3d0dfc84b390c09c7324ae7ca6fa8d6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb3d0dfc84b390c09c7324ae7ca6fa8d6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb3d0dfc84b390c09c7324ae7ca6fa8d6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb3d0dfc84b390c09c7324ae7ca6fa8d6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7ab6b00dcc442827f8249ee49f106dd1::$classMap;
 
         }, null, ClassLoader::class);
     }

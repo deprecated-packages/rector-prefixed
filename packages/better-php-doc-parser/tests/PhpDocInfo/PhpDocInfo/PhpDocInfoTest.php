@@ -11,7 +11,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
 use Rector\Core\HttpKernel\RectorKernel;
-use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
+use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
 use RectorPrefix20210119\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileSystem;
 final class PhpDocInfoTest extends \RectorPrefix20210119\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
@@ -29,19 +29,19 @@ final class PhpDocInfoTest extends \RectorPrefix20210119\Symplify\PackageBuilder
      */
     private $node;
     /**
-     * @var DocBlockManipulator
-     */
-    private $docBlockManipulator;
-    /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
+    /**
+     * @var DocBlockTagReplacer
+     */
+    private $docBlockTagReplacer;
     protected function setUp() : void
     {
         $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
         $this->phpDocInfoPrinter = $this->getService(\Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter::class);
-        $this->docBlockManipulator = $this->getService(\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator::class);
         $this->smartFileSystem = $this->getService(\RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileSystem::class);
+        $this->docBlockTagReplacer = $this->getService(\Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer::class);
         $this->phpDocInfo = $this->createPhpDocInfoFromFile(__DIR__ . '/Source/doc.txt');
     }
     public function testGetTagsByName() : void
@@ -62,7 +62,7 @@ final class PhpDocInfoTest extends \RectorPrefix20210119\Symplify\PackageBuilder
     public function testReplaceTagByAnother() : void
     {
         $phpDocInfo = $this->createPhpDocInfoFromFile(__DIR__ . '/Source/test-tag.txt');
-        $this->docBlockManipulator->replaceTagByAnother($phpDocInfo->getPhpDocNode(), 'test', 'flow');
+        $this->docBlockTagReplacer->replaceTagByAnother($phpDocInfo, 'test', 'flow');
         $printedPhpDocInfo = $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo);
         $this->assertStringEqualsFile(__DIR__ . '/Source/expected-replaced-tag.txt', $printedPhpDocInfo);
     }

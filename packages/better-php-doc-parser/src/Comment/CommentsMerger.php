@@ -36,7 +36,7 @@ final class CommentsMerger
     public function keepParent(\PhpParser\Node $newNode, \PhpParser\Node $oldNode) : void
     {
         $parent = $oldNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent === null) {
+        if (!$parent instanceof \PhpParser\Node) {
             return;
         }
         $arrayPhpDocInfo = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);

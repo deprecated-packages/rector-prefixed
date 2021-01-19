@@ -5,7 +5,6 @@ namespace Rector\BetterPhpDocParser\Tests\PhpDocParser;
 
 use Iterator;
 use PhpParser\Node;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
 use Rector\BetterPhpDocParser\Tests\PhpDocParser\Helper\TagValueToPhpParserNodeMap;
@@ -13,7 +12,6 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\FileSystemRector\Parser\FileInfoParser;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210119\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210119\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo;
@@ -96,8 +94,7 @@ abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210119\Symplify\Pac
     }
     private function doTestContainsTagValueNodeType(\PhpParser\Node $node, string $tagValueNodeType, \RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $this->assertTrue($phpDocInfo->hasByType($tagValueNodeType), $fileInfo->getRelativeFilePathFromCwd());
     }
 }
