@@ -3,11 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Privatization\Rector\ClassMethod;
 
-use RectorPrefix20210118\Nette\Utils\Strings;
+use RectorPrefix20210119\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -31,10 +30,6 @@ final class PrivatizeLocalOnlyMethodRector extends \Rector\Core\Rector\AbstractR
      * @see https://regex101.com/r/FXhI9M/1
      */
     private const CONTROLLER_PRESENTER_SUFFIX_REGEX = '#(Controller|Presenter)$#';
-    /**
-     * @var string
-     */
-    private const API = 'api';
     /**
      * @var ClassMethodVisibilityVendorLockResolver
      */
@@ -114,7 +109,7 @@ CODE_SAMPLE
         if ($this->shouldSkipClassLike($classLike)) {
             return \true;
         }
-        if ($this->hasTagByName($classMethod, self::API)) {
+        if ($this->hasTagByName($classMethod, \Rector\PhpAttribute\ValueObject\TagName::API)) {
             return \true;
         }
         if ($this->isControllerAction($classLike, $classMethod)) {
@@ -131,7 +126,7 @@ CODE_SAMPLE
             return \true;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        return $phpDocInfo->hasByNames([self::API, \Rector\PhpAttribute\ValueObject\TagName::REQUIRED]);
+        return $phpDocInfo->hasByNames([\Rector\PhpAttribute\ValueObject\TagName::API, \Rector\PhpAttribute\ValueObject\TagName::REQUIRED]);
     }
     private function isControllerAction(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
@@ -139,23 +134,19 @@ CODE_SAMPLE
         if ($className === null) {
             return \false;
         }
-        if (!\RectorPrefix20210118\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
+        if (!\RectorPrefix20210119\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
             return \false;
         }
         $classMethodName = $this->getName($classMethod);
-        if ((bool) \RectorPrefix20210118\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
+        if ((bool) \RectorPrefix20210119\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
             return \true;
         }
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        if ($phpDocInfo === null) {
-            return \false;
-        }
-        return $phpDocInfo->hasByName('inject');
+        return $phpDocInfo->hasByName(\Rector\PhpAttribute\ValueObject\TagName::INJECT);
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if ($this->hasTagByName($classMethod, self::API)) {
+        if ($this->hasTagByName($classMethod, \Rector\PhpAttribute\ValueObject\TagName::API)) {
             return \true;
         }
         if ($classMethod->isPrivate()) {
@@ -185,6 +176,6 @@ CODE_SAMPLE
         if ($this->isObjectType($class, 'PHPUnit\\Framework\\TestCase')) {
             return \true;
         }
-        return $this->hasTagByName($class, self::API);
+        return $this->hasTagByName($class, \Rector\PhpAttribute\ValueObject\TagName::API);
     }
 }

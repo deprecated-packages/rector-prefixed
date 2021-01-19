@@ -10,6 +10,7 @@ use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PhpAttribute\ValueObject\TagName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -97,12 +98,12 @@ CODE_SAMPLE
         if ($this->classConstManipulator->isEnum($classConst)) {
             return \true;
         }
-        if ($this->hasTagByName($classConst, 'api')) {
+        if ($this->hasTagByName($classConst, \Rector\PhpAttribute\ValueObject\TagName::API)) {
             return \true;
         }
         $classLike = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
-            return $this->hasTagByName($classLike, 'api');
+            return $this->hasTagByName($classLike, \Rector\PhpAttribute\ValueObject\TagName::API);
         }
         return \false;
     }

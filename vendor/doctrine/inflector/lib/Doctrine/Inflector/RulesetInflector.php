@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210118\Doctrine\Inflector;
+namespace RectorPrefix20210119\Doctrine\Inflector;
 
-use RectorPrefix20210118\Doctrine\Inflector\Rules\Ruleset;
+use RectorPrefix20210119\Doctrine\Inflector\Rules\Ruleset;
 use function array_merge;
 /**
  * Inflects based on multiple rulesets.
@@ -14,11 +14,11 @@ use function array_merge;
  * - The first ruleset that returns a different value for a regular word wins
  * - If none of the above match, the word is left as-is
  */
-class RulesetInflector implements \RectorPrefix20210118\Doctrine\Inflector\WordInflector
+class RulesetInflector implements \RectorPrefix20210119\Doctrine\Inflector\WordInflector
 {
     /** @var Ruleset[] */
     private $rulesets;
-    public function __construct(\RectorPrefix20210118\Doctrine\Inflector\Rules\Ruleset $ruleset, \RectorPrefix20210118\Doctrine\Inflector\Rules\Ruleset ...$rulesets)
+    public function __construct(\RectorPrefix20210119\Doctrine\Inflector\Rules\Ruleset $ruleset, \RectorPrefix20210119\Doctrine\Inflector\Rules\Ruleset ...$rulesets)
     {
         $this->rulesets = \array_merge([$ruleset], $rulesets);
     }

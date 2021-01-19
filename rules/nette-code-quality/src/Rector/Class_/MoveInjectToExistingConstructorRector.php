@@ -6,11 +6,11 @@ namespace Rector\NetteCodeQuality\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer;
+use Rector\PhpAttribute\ValueObject\TagName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -113,9 +113,8 @@ CODE_SAMPLE
     }
     private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property) : void
     {
-        /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $phpDocInfo->removeByName('inject');
+        $phpDocInfo->removeByName(\Rector\PhpAttribute\ValueObject\TagName::INJECT);
     }
     private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty) : void
     {
@@ -131,6 +130,6 @@ CODE_SAMPLE
             return \false;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        return (bool) $phpDocInfo->getTagsByName('inject');
+        return $phpDocInfo->hasByName(\Rector\PhpAttribute\ValueObject\TagName::INJECT);
     }
 }

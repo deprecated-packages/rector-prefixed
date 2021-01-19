@@ -17,7 +17,6 @@ use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\UnionType;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractPHPUnitRector;
@@ -29,7 +28,7 @@ use Rector\PHPUnit\ValueObject\DataProviderClassMethodRecipe;
 use Rector\PHPUnit\ValueObject\ParamAndArg;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210118\Webmozart\Assert\Assert;
+use RectorPrefix20210119\Webmozart\Assert\Assert;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\Class_\ArrayArgumentInTestToDataProviderRector\ArrayArgumentInTestToDataProviderRectorTest
  *
@@ -134,7 +133,7 @@ CODE_SAMPLE
     public function configure(array $arrayArgumentsToDataProviders) : void
     {
         $arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders[self::ARRAY_ARGUMENTS_TO_DATA_PROVIDERS] ?? [];
-        \RectorPrefix20210118\Webmozart\Assert\Assert::allIsInstanceOf($arrayArgumentsToDataProviders, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider::class);
+        \RectorPrefix20210119\Webmozart\Assert\Assert::allIsInstanceOf($arrayArgumentsToDataProviders, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider::class);
         $this->arrayArgumentsToDataProviders = $arrayArgumentsToDataProviders;
     }
     private function refactorMethodCallWithConfiguration(\PhpParser\Node\Expr\MethodCall $methodCall, \Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider $arrayArgumentToDataProvider) : void
@@ -165,7 +164,6 @@ CODE_SAMPLE
         $this->refactorTestClassMethodParams($classMethod, $paramAndArgs);
         // add data provider annotation
         $dataProviderTagNode = $this->createDataProviderTagNode($dataProviderMethodName);
-        /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $phpDocInfo->addPhpDocTagNode($dataProviderTagNode);
     }
@@ -199,7 +197,6 @@ CODE_SAMPLE
     private function refactorTestClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $paramAndArgs) : void
     {
         $classMethod->params = $this->createParams($paramAndArgs);
-        /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         foreach ($paramAndArgs as $paramAndArg) {
             $staticType = $paramAndArg->getType();

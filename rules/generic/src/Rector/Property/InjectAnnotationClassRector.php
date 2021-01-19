@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\Property;
 
-use RectorPrefix20210118\DI\Annotation\Inject as PHPDIInject;
-use RectorPrefix20210118\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
-use RectorPrefix20210118\Nette\Utils\Strings;
+use RectorPrefix20210119\DI\Annotation\Inject as PHPDIInject;
+use RectorPrefix20210119\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
+use RectorPrefix20210119\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
@@ -13,7 +13,6 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode;
@@ -27,7 +26,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Symfony\ServiceMapProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://jmsyst.com/bundles/JMSDiExtraBundle/master/annotations#inject
  *
@@ -42,7 +41,7 @@ final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var array<string, string>
      */
-    private const ANNOTATION_TO_TAG_CLASS = [\RectorPrefix20210118\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \RectorPrefix20210118\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
+    private const ANNOTATION_TO_TAG_CLASS = [\RectorPrefix20210119\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \RectorPrefix20210119\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
     /**
      * @var string
      * @see https://regex101.com/r/pjusUN/1
@@ -99,7 +98,7 @@ class SomeController
     }
 }
 CODE_SAMPLE
-, [self::ANNOTATION_CLASSES => [\RectorPrefix20210118\DI\Annotation\Inject::class, \RectorPrefix20210118\JMS\DiExtraBundle\Annotation\Inject::class]])]);
+, [self::ANNOTATION_CLASSES => [\RectorPrefix20210119\DI\Annotation\Inject::class, \RectorPrefix20210119\JMS\DiExtraBundle\Annotation\Inject::class]])]);
     }
     /**
      * @return string[]
@@ -114,9 +113,6 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return null;
-        }
         foreach ($this->annotationClasses as $annotationClass) {
             $this->ensureAnnotationClassIsSupported($annotationClass);
             $tagClass = self::ANNOTATION_TO_TAG_CLASS[$annotationClass];
@@ -152,7 +148,7 @@ CODE_SAMPLE
         if ($serviceName === null) {
             return \false;
         }
-        return (bool) \RectorPrefix20210118\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
+        return (bool) \RectorPrefix20210119\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
     }
     private function resolveType(\PhpParser\Node\Stmt\Property $property, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {
@@ -160,7 +156,6 @@ CODE_SAMPLE
             return $this->resolveJMSDIInjectType($property, $phpDocTagValueNode);
         }
         if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode) {
-            /** @var PhpDocInfo $phpDocInfo */
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
             return $phpDocInfo->getVarType();
         }
@@ -172,7 +167,6 @@ CODE_SAMPLE
             return null;
         }
         $propertyName = $this->getName($property);
-        /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $this->phpDocTypeChanger->changeVarType($phpDocInfo, $type);
         $phpDocInfo->removeByType($tagClass);
@@ -205,7 +199,6 @@ CODE_SAMPLE
             }
         }
         // 3. service is in @var annotation
-        /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $varType = $phpDocInfo->getVarType();
         if (!$varType instanceof \PHPStan\Type\MixedType) {

@@ -13,6 +13,7 @@ use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInte
 use Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
 use Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode;
 use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
@@ -33,16 +34,20 @@ final class DoctrineEntityManipulator
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function resolveOtherProperty(\PhpParser\Node\Stmt\Property $property) : ?string
     {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $relationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
         if ($relationTagValueNode === null) {
             return null;

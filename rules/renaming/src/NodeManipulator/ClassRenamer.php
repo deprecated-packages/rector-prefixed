@@ -14,6 +14,8 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use PHPStan\Type\ObjectType;
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\PhpDoc\PhpDocClassRenamer;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
@@ -22,7 +24,7 @@ use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210118\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ClassRenamer
 {
     /**
@@ -53,7 +55,11 @@ final class ClassRenamer
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210118\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator $docBlockManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpDoc\PhpDocClassRenamer $phpDocClassRenamer)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator $docBlockManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpDoc\PhpDocClassRenamer $phpDocClassRenamer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->docBlockManipulator = $docBlockManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
@@ -61,6 +67,7 @@ final class ClassRenamer
         $this->phpDocClassRenamer = $phpDocClassRenamer;
         $this->classNaming = $classNaming;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     /**
      * @param array<string, string> $oldToNewClasses
@@ -87,13 +94,14 @@ final class ClassRenamer
      */
     private function refactorPhpDoc(\PhpParser\Node $node, array $oldToNewClasses) : void
     {
-        if (!$this->docBlockManipulator->hasNodeTypeTags($node)) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface::class)) {
             return;
         }
         foreach ($oldToNewClasses as $oldClass => $newClass) {
             $oldClassType = new \PHPStan\Type\ObjectType($oldClass);
             $newClassType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($newClass);
-            $this->docBlockManipulator->changeType($node, $oldClassType, $newClassType);
+            $this->docBlockManipulator->changeType($phpDocInfo, $node, $oldClassType, $newClassType);
         }
         $this->phpDocClassRenamer->changeTypeInAnnotationTypes($node, $oldToNewClasses);
     }

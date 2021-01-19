@@ -5,11 +5,10 @@ namespace Rector\Sensio\TypeDeclaration;
 
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\UnionType;
 use Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -29,15 +28,15 @@ final class ReturnTypeDeclarationUpdater
      */
     private $nodeNameResolver;
     /**
-     * @var PhpDocInfoManipulator
+     * @var PhpDocInfoFactory
      */
-    private $phpDocInfoManipulator;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoManipulator $phpDocInfoManipulator, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->phpVersionProvider = $phpVersionProvider;
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->phpDocInfoManipulator = $phpDocInfoManipulator;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     public function updateClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
     {
@@ -46,14 +45,14 @@ final class ReturnTypeDeclarationUpdater
     }
     private function updatePhpDoc(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void
     {
-        /** @var ReturnTagValueNode|null $returnTagValueNode */
-        $returnTagValueNode = $this->phpDocInfoManipulator->getPhpDocTagValueNode($classMethod, \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
-        if ($returnTagValueNode === null) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+        $attributeAwareReturnTagValueNode = $phpDocInfo->getReturnTagValue();
+        if ($attributeAwareReturnTagValueNode === null) {
             return;
         }
-        $returnStaticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($returnTagValueNode->type, $classMethod);
+        $returnStaticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($attributeAwareReturnTagValueNode->type, $classMethod);
         if ($returnStaticType instanceof \PHPStan\Type\ArrayType || $returnStaticType instanceof \PHPStan\Type\UnionType) {
-            $returnTagValueNode->type = new \Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode($className);
+            $attributeAwareReturnTagValueNode->type = new \Rector\AttributeAwarePhpDoc\Ast\Type\FullyQualifiedIdentifierTypeNode($className);
         }
     }
     private function updatePhp(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $className) : void

@@ -7,7 +7,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use ReflectionClass;
-use RectorPrefix20210118\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210119\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 final class TypeFactoryStaticHelper
 {
     /**
@@ -23,7 +23,7 @@ final class TypeFactoryStaticHelper
         $reflectionClass = new \ReflectionClass(\PHPStan\Type\UnionType::class);
         /** @var UnionType $unionType */
         $unionType = $reflectionClass->newInstanceWithoutConstructor();
-        $privatesAccessor = new \RectorPrefix20210118\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        $privatesAccessor = new \RectorPrefix20210119\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
         $privatesAccessor->setPrivateProperty($unionType, 'types', $objectTypes);
         return $unionType;
     }

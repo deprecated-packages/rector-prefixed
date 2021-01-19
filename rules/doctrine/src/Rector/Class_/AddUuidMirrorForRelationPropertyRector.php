@@ -153,11 +153,7 @@ CODE_SAMPLE
         if (!\property_exists($targetEntity, 'uuid')) {
             return \true;
         }
-        /** @var PhpDocInfo|null $propertyPhpDocInfo */
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        if ($propertyPhpDocInfo === null) {
-            return \true;
-        }
         $oneToOneTagValueNode = $propertyPhpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode::class);
         // skip mappedBy oneToOne, as the column doesn't really exist
         if ($oneToOneTagValueNode === null) {
@@ -195,7 +191,6 @@ CODE_SAMPLE
     }
     private function mirrorPhpDocInfoToUuid(\PhpParser\Node\Stmt\Property $property) : void
     {
-        /** @var PhpDocInfo $propertyPhpDocInfo */
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $newPropertyPhpDocInfo = clone $propertyPhpDocInfo;
         /** @var DoctrineRelationTagValueNodeInterface $doctrineRelationTagValueNode */

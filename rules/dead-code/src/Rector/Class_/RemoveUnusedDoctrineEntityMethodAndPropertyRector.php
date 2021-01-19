@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\DeadCode\Rector\Class_;
 
-use RectorPrefix20210118\Doctrine\Common\Collections\ArrayCollection;
+use RectorPrefix20210119\Doctrine\Common\Collections\ArrayCollection;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\New_;
@@ -140,7 +140,8 @@ CODE_SAMPLE
     private function removeClassPrivatePropertiesByNames(\PhpParser\Node\Stmt\Class_ $class, array $unusedPropertyNames) : \PhpParser\Node\Stmt\Class_
     {
         foreach ($class->getProperties() as $property) {
-            if ($this->hasPhpDocTagValueNode($property, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode::class)) {
+            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+            if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode::class)) {
                 continue;
             }
             if (!$this->isNames($property, $unusedPropertyNames)) {
@@ -202,7 +203,7 @@ CODE_SAMPLE
         }
         /** @var New_ $new */
         $new = $parentNode->expr;
-        return $this->isName($new->class, \RectorPrefix20210118\Doctrine\Common\Collections\ArrayCollection::class);
+        return $this->isName($new->class, \RectorPrefix20210119\Doctrine\Common\Collections\ArrayCollection::class);
     }
     private function getOtherRelationProperty(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {

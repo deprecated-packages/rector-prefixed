@@ -68,7 +68,8 @@ CODE_SAMPLE
         if (!$this->isName($node, 'uuid')) {
             return null;
         }
-        if (!$this->hasPhpDocTagValueNode($node, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class)) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class)) {
             return null;
         }
         $this->removeNode($node);

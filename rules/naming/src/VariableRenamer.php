@@ -14,7 +14,7 @@ use PhpParser\Node\Stmt\Function_;
 use Rector\Naming\PhpDoc\VarTagValueNodeRenamer;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210118\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class VariableRenamer
 {
     /**
@@ -29,7 +29,7 @@ final class VariableRenamer
      * @var VarTagValueNodeRenamer
      */
     private $varTagValueNodeRenamer;
-    public function __construct(\RectorPrefix20210118\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer)
+    public function __construct(\RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;

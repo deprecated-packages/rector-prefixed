@@ -7,14 +7,13 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Renaming\ValueObject\RenameAnnotation;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210118\Webmozart\Assert\Assert;
+use RectorPrefix20210119\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Renaming\Tests\Rector\ClassMethod\RenameAnnotationRector\RenameAnnotationRectorTest
  */
@@ -68,11 +67,7 @@ CODE_SAMPLE
     {
         /** @var Class_ $classLike */
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        if ($phpDocInfo === null) {
-            return null;
-        }
         foreach ($this->renamedAnnotationInTypes as $renamedAnnotationInType) {
             if (!$this->isObjectType($classLike, $renamedAnnotationInType->getType())) {
                 continue;
@@ -87,7 +82,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $renamedAnnotationsInTypes = $configuration[self::RENAMED_ANNOTATIONS_IN_TYPES] ?? [];
-        \RectorPrefix20210118\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);
+        \RectorPrefix20210119\Webmozart\Assert\Assert::allIsInstanceOf($renamedAnnotationsInTypes, \Rector\Renaming\ValueObject\RenameAnnotation::class);
         $this->renamedAnnotationInTypes = $renamedAnnotationsInTypes;
     }
 }

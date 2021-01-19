@@ -5,6 +5,8 @@ namespace Rector\DoctrineCodeQuality\Rector\Property;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DoctrineCodeQuality\NodeAnalyzer\DoctrinePropertyAnalyzer;
 use Rector\DoctrineCodeQuality\NodeManipulator\DoctrineItemDefaultValueManipulator;
@@ -136,8 +138,9 @@ CODE_SAMPLE
     }
     private function refactorManyToManyAnnotation(\PhpParser\Node\Stmt\Property $property) : void
     {
-        $manyToManyTagValueNode = $this->doctrinePropertyAnalyzer->matchDoctrineManyToManyTagValueNode($property);
-        if ($manyToManyTagValueNode === null) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $manyToManyTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode::class);
+        if (!$manyToManyTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode) {
             return;
         }
         $this->doctrineItemDefaultValueManipulator->remove($manyToManyTagValueNode, self::ORPHAN_REMOVAL, \false);
@@ -162,8 +165,9 @@ CODE_SAMPLE
     }
     private function refactorOneToOneAnnotation(\PhpParser\Node\Stmt\Property $property) : void
     {
-        $oneToOneTagValueNode = $this->doctrinePropertyAnalyzer->matchDoctrineOneToOneTagValueNode($property);
-        if ($oneToOneTagValueNode === null) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $oneToOneTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode::class);
+        if (!$oneToOneTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode) {
             return;
         }
         $this->doctrineItemDefaultValueManipulator->remove($oneToOneTagValueNode, self::ORPHAN_REMOVAL, \false);

@@ -3,15 +3,16 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\PhpDocParser;
 
-use RectorPrefix20210118\Nette\Utils\Strings;
+use RectorPrefix20210119\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddableTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
@@ -29,9 +30,14 @@ final class DoctrineDocBlockResolver
      * @var ParsedNodeCollector
      */
     private $parsedNodeCollector;
-    public function __construct(\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     /**
      * @param Class_|string|mixed $class
@@ -79,15 +85,8 @@ final class DoctrineDocBlockResolver
     }
     public function isDoctrineProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            return \false;
-        }
-        $hasTypeColumnTagValueNode = $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
-        if ($hasTypeColumnTagValueNode) {
-            return \true;
-        }
-        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode::class);
     }
     public function isInDoctrineEntityClass(\PhpParser\Node $node) : bool
     {
@@ -100,12 +99,8 @@ final class DoctrineDocBlockResolver
     }
     private function isDoctrineEntityClassNode(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        $phpDocInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            return \false;
-        }
-        $hasTypeEntityTagValueNode = $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);
-        if ($hasTypeEntityTagValueNode) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($class);
+        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class)) {
             return \true;
         }
         return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddableTagValueNode::class);
@@ -122,7 +117,7 @@ final class DoctrineDocBlockResolver
         $reflectionClass = new \ReflectionClass($class);
         // dummy check of 3rd party code without running it
         $docCommentContent = (string) $reflectionClass->getDocComment();
-        return (bool) \RectorPrefix20210118\Nette\Utils\Strings::match($docCommentContent, self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
+        return (bool) \RectorPrefix20210119\Nette\Utils\Strings::match($docCommentContent, self::ORM_ENTITY_EMBEDDABLE_SHORT_ANNOTATION_REGEX);
     }
     private function hasPropertyDoctrineIdTag(\PhpParser\Node\Stmt\Property $property) : bool
     {

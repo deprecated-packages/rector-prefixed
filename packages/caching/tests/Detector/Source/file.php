@@ -1,5 +1,5 @@
 <?php
 
-namespace RectorPrefix20210118;
+namespace RectorPrefix20210119;
 
 echo 'hi';

@@ -170,6 +170,10 @@ final class PhpDocInfo
     {
         $this->phpDocRemover->removeTagValueFromNode($this, $phpDocTagValueNode);
     }
+    /**
+     * @template T as \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+     * @param class-string<T> $type
+     */
     public function hasByType(string $type) : bool
     {
         return (bool) $this->getByType($type);
@@ -190,6 +194,11 @@ final class PhpDocInfo
     {
         return (bool) $this->getTagsByName($name);
     }
+    /**
+     * @template T as \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+     * @param class-string<T> $type
+     * @return T|null
+     */
     public function getByType(string $type) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
         $this->ensureTypeIsTagValueNode($type, __METHOD__);

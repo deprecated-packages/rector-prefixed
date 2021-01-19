@@ -8,6 +8,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PhpAttribute\ValueObject\TagName;
 use ReflectionClass;
 use ReflectionMethod;
 final class NetteInjectDetector
@@ -38,7 +39,7 @@ final class NetteInjectDetector
             if ($phpDocInfo === null) {
                 continue;
             }
-            $injectPhpDocInfoTagsName = $phpDocInfo->getTagsByName('inject');
+            $injectPhpDocInfoTagsName = $phpDocInfo->getTagsByName(\Rector\PhpAttribute\ValueObject\TagName::INJECT);
             if ($injectPhpDocInfoTagsName === []) {
                 continue;
             }

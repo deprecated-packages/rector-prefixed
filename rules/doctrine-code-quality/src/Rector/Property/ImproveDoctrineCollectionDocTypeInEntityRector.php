@@ -9,7 +9,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode;
 use Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
@@ -108,12 +107,10 @@ CODE_SAMPLE
     }
     private function refactorProperty(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
-        if (!$this->hasNodeTagValueNode($property, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class)) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class)) {
             return null;
         }
-        // @todo make an own local property on enter node?
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $attributeAwareVarTagValueNode = $this->collectionVarTagValueNodeResolver->resolve($property);
         if ($attributeAwareVarTagValueNode !== null) {
             $collectionObjectType = $this->collectionTypeResolver->resolveFromTypeNode($attributeAwareVarTagValueNode->type, $property);
@@ -147,17 +144,11 @@ CODE_SAMPLE
         if (\count($classMethod->params) !== 1) {
             return null;
         }
-        /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $param = $classMethod->params[0];
         $parameterName = $this->getName($param);
         $this->phpDocTypeChanger->changeParamType($phpDocInfo, $collectionObjectType, $param, $parameterName);
         return $classMethod;
-    }
-    private function hasNodeTagValueNode(\PhpParser\Node\Stmt\Property $property, string $tagValueNodeClass) : bool
-    {
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        return $phpDocInfo->hasByType($tagValueNodeClass);
     }
     private function resolveCollectionSetterAssignType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Type\Type
     {

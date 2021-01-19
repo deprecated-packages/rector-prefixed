@@ -6,13 +6,13 @@ namespace Rector\DeadCode\Tests\Rector\ClassMethod\RemoveUnusedPrivateMethodRect
 use Iterator;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveUnusedPrivateMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -7,14 +7,13 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\Core\Reflection\ClassMethodReflectionFactory;
 use Rector\FileSystemRector\Parser\FileInfoParser;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://phpunit.readthedocs.io/en/7.3/annotations.html#doesnotperformassertions
  * @see https://github.com/sebastianbergmann/phpunit/issues/2484
@@ -129,7 +128,6 @@ CODE_SAMPLE
     }
     private function addDoesNotPerformAssertions(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
-        /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $phpDocInfo->addBareTag('@' . self::DOES_NOT_PERFORM_ASSERTION_TAG);
     }
@@ -242,7 +240,7 @@ CODE_SAMPLE
         if (isset($this->analyzedMethodsInFileName[$fileName][$methodName])) {
             return $this->analyzedMethodsInFileName[$fileName][$methodName];
         }
-        $smartFileInfo = new \RectorPrefix20210118\Symplify\SmartFileSystem\SmartFileInfo($fileName);
+        $smartFileInfo = new \RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo($fileName);
         $examinedMethodNodes = $this->fileInfoParser->parseFileInfoToNodesAndDecorate($smartFileInfo);
         /** @var ClassMethod|null $examinedClassMethod */
         $examinedClassMethod = $this->betterNodeFinder->findFirst($examinedMethodNodes, function (\PhpParser\Node $node) use($methodName) : bool {

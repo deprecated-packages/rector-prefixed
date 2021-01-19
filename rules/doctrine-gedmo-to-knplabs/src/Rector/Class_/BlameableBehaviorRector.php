@@ -107,7 +107,8 @@ CODE_SAMPLE
     private function isGedmoBlameableClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->getProperties() as $property) {
-            if ($this->hasPhpDocTagValueNode($property, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\BlameableTagValueNode::class)) {
+            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+            if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\BlameableTagValueNode::class)) {
                 return \true;
             }
         }
@@ -117,7 +118,8 @@ CODE_SAMPLE
     {
         $removedPropertyNames = [];
         foreach ($class->getProperties() as $property) {
-            if (!$this->hasPhpDocTagValueNode($property, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\BlameableTagValueNode::class)) {
+            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+            if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\BlameableTagValueNode::class)) {
                 continue;
             }
             /** @var string $propertyName */

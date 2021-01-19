@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\Class_;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\UnusedNodeResolver\UnusedClassResolver;
+use Rector\PhpAttribute\ValueObject\TagName;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -99,7 +100,7 @@ CODE_SAMPLE
         if ($this->hasMethodWithApiAnnotation($class)) {
             return \true;
         }
-        if ($this->hasTagByName($class, 'api')) {
+        if ($this->hasTagByName($class, \Rector\PhpAttribute\ValueObject\TagName::API)) {
             return \true;
         }
         return $class->isAbstract();
@@ -107,7 +108,7 @@ CODE_SAMPLE
     private function hasMethodWithApiAnnotation(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->getMethods() as $classMethod) {
-            if (!$this->hasTagByName($classMethod, 'api')) {
+            if (!$this->hasTagByName($classMethod, \Rector\PhpAttribute\ValueObject\TagName::API)) {
                 continue;
             }
             return \true;

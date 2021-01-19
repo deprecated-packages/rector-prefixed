@@ -3,23 +3,26 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Naming\Contract\RenameValueObjectInterface;
 use Rector\Naming\ValueObject\ParamRename;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 final class PropertyDocBlockManipulator
 {
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    {
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
+    }
     /**
      * @param ParamRename $renameValueObject
      */
     public function renameParameterNameInDocBlock(\Rector\Naming\Contract\RenameValueObjectInterface $renameValueObject) : void
     {
         $functionLike = $renameValueObject->getFunctionLike();
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            return;
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($functionLike);
         $paramTagValueNode = $phpDocInfo->getParamTagValueNodeByName($renameValueObject->getCurrentName());
         if ($paramTagValueNode === null) {
             return;

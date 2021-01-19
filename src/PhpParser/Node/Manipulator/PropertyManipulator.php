@@ -15,7 +15,8 @@ use PhpParser\Node\Expr\StaticPropertyFetch;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
@@ -59,7 +60,11 @@ final class PropertyManipulator
      * @var ReadWritePropertyAnalyzer
      */
     private $readWritePropertyAnalyzer;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer $readWritePropertyAnalyzer)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer $readWritePropertyAnalyzer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -68,6 +73,7 @@ final class PropertyManipulator
         $this->variableToConstantGuard = $variableToConstantGuard;
         $this->nodeRepository = $nodeRepository;
         $this->readWritePropertyAnalyzer = $readWritePropertyAnalyzer;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     /**
      * @return PropertyFetch[]|StaticPropertyFetch[]
@@ -102,12 +108,11 @@ final class PropertyManipulator
     }
     public function isPropertyUsedInReadContext(\PhpParser\Node\Stmt\Property $property) : bool
     {
-        if ($this->isDoctrineProperty($property)) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode::class)) {
             return \true;
         }
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo !== null && $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class)) {
+        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class)) {
             return \true;
         }
         $privatePropertyFetches = $this->getPrivatePropertyFetches($property);

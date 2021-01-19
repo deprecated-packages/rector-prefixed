@@ -110,9 +110,9 @@ CODE_SAMPLE
         if (!$classMethod->isPublic()) {
             return null;
         }
-        /** @var SensioTemplateTagValueNode|null $sensioTemplateTagValueNode */
-        $sensioTemplateTagValueNode = $this->getPhpDocTagValueNode($classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
-        if ($sensioTemplateTagValueNode === null) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+        $sensioTemplateTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
+        if (!$sensioTemplateTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode) {
             return null;
         }
         $this->refactorClassMethod($classMethod, $sensioTemplateTagValueNode);
@@ -121,7 +121,8 @@ CODE_SAMPLE
     private function classHasTemplateAnnotations(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
         foreach ($class->getMethods() as $classMethod) {
-            if ($this->hasPhpDocTagValueNode($classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class)) {
+            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+            if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class)) {
                 return \true;
             }
         }

@@ -10,7 +10,7 @@ use PhpParser\Node\Stmt\Trait_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -37,10 +37,15 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
      * @var TraitNodeScopeCollector
      */
     private $traitNodeScopeCollector;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector)
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->traitNodeScopeCollector = $traitNodeScopeCollector;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
     /**
      * @return string[]
@@ -50,28 +55,25 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
         return [\PhpParser\Node\Expr\Variable::class];
     }
     /**
-     * @param Variable $variableNode
+     * @param Variable $node
      */
-    public function resolve(\PhpParser\Node $variableNode) : \PHPStan\Type\Type
+    public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
-        $parentNode = $variableNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \PhpParser\Node\Param) {
-            return $this->nodeTypeResolver->resolve($parentNode);
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Param) {
+            return $this->nodeTypeResolver->resolve($parent);
         }
-        $variableName = $this->nodeNameResolver->getName($variableNode);
+        $variableName = $this->nodeNameResolver->getName($node);
         if ($variableName === null) {
             return new \PHPStan\Type\MixedType();
         }
-        $scopeType = $this->resolveTypesFromScope($variableNode, $variableName);
+        $scopeType = $this->resolveTypesFromScope($node, $variableName);
         if (!$scopeType instanceof \PHPStan\Type\MixedType) {
             return $scopeType;
         }
         // get from annotation
-        $phpDocInfo = $variableNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            $phpDocInfo->getVarType();
-        }
-        return new \PHPStan\Type\MixedType();
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        return $phpDocInfo->getVarType();
     }
     /**
      * @required

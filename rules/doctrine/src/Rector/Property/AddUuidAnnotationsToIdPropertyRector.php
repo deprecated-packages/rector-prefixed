@@ -5,7 +5,7 @@ namespace Rector\Doctrine\Rector\Property;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
-use RectorPrefix20210118\Ramsey\Uuid\UuidInterface;
+use RectorPrefix20210119\Ramsey\Uuid\UuidInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
@@ -87,9 +87,8 @@ CODE_SAMPLE
         if (!$this->isName($node, 'id')) {
             return null;
         }
-        /** @var PhpDocInfo $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType(\RectorPrefix20210118\Ramsey\Uuid\UuidInterface::class);
+        $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType(\RectorPrefix20210119\Ramsey\Uuid\UuidInterface::class);
         $this->phpDocTypeChanger->changeVarType($phpDocInfo, $fullyQualifiedObjectType);
         $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode::class);
         $this->changeColumnTypeToUuidBinary($phpDocInfo);

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer;
 
-use RectorPrefix20210118\Nette\Utils\Strings;
+use RectorPrefix20210119\Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
@@ -11,7 +11,6 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\Annotation\StaticAnnotationNaming;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
-use Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -46,10 +45,8 @@ final class DocBlockManipulator
         $this->phpDocInfoPrinter = $phpDocInfoPrinter;
         $this->docBlockClassRenamer = $docBlockClassRenamer;
     }
-    public function changeType(\PhpParser\Node $node, \PHPStan\Type\Type $oldType, \PHPStan\Type\Type $newType) : void
+    public function changeType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $node, \PHPStan\Type\Type $oldType, \PHPStan\Type\Type $newType) : void
     {
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
         $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo->getPhpDocNode(), $oldType, $newType, $node);
     }
     public function replaceAnnotationInNode(\PhpParser\Node $node, \Rector\Renaming\ValueObject\RenameAnnotation $renameAnnotation) : void
@@ -70,18 +67,6 @@ final class DocBlockManipulator
                 $phpDocChildNode->name = $newTag;
             }
         }
-    }
-    /**
-     * For better performance
-     */
-    public function hasNodeTypeTags(\PhpParser\Node $node) : bool
-    {
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
-            return \false;
-        }
-        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface::class);
     }
     public function updateNodeWithPhpDocInfo(\PhpParser\Node $node) : void
     {
@@ -152,8 +137,8 @@ final class DocBlockManipulator
     }
     private function inlineDocContent(string $docContent) : string
     {
-        $docContent = \RectorPrefix20210118\Nette\Utils\Strings::replace($docContent, self::NEWLINE_MIDDLE_DOC_REGEX, ' ');
-        return \RectorPrefix20210118\Nette\Utils\Strings::replace($docContent, self::NEWLINE_CLOSING_DOC_REGEX, ' */');
+        $docContent = \RectorPrefix20210119\Nette\Utils\Strings::replace($docContent, self::NEWLINE_MIDDLE_DOC_REGEX, ' ');
+        return \RectorPrefix20210119\Nette\Utils\Strings::replace($docContent, self::NEWLINE_CLOSING_DOC_REGEX, ' */');
     }
     /**
      * add // comments to phpdoc (only has /**
@@ -163,10 +148,10 @@ final class DocBlockManipulator
         $startComments = '';
         foreach ($node->getComments() as $comment) {
             // skip simple comments
-            if (\RectorPrefix20210118\Nette\Utils\Strings::startsWith($comment->getText(), '//')) {
+            if (\RectorPrefix20210119\Nette\Utils\Strings::startsWith($comment->getText(), '//')) {
                 continue;
             }
-            if (\RectorPrefix20210118\Nette\Utils\Strings::startsWith($comment->getText(), '#')) {
+            if (\RectorPrefix20210119\Nette\Utils\Strings::startsWith($comment->getText(), '#')) {
                 continue;
             }
             $startComments .= $comment->getText() . \PHP_EOL;
@@ -178,6 +163,6 @@ final class DocBlockManipulator
     }
     private function removeSpacesAndAsterisks(string $content) : string
     {
-        return \RectorPrefix20210118\Nette\Utils\Strings::replace($content, self::SPACE_OR_ASTERISK_REGEX, '');
+        return \RectorPrefix20210119\Nette\Utils\Strings::replace($content, self::SPACE_OR_ASTERISK_REGEX, '');
     }
 }
