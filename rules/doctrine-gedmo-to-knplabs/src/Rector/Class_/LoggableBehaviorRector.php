@@ -96,10 +96,6 @@ CODE_SAMPLE
     {
         foreach ($class->getProperties() as $property) {
             $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            $hasTypeVersionedTagValueNode = $propertyPhpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\VersionedTagValueNode::class);
-            if (!$hasTypeVersionedTagValueNode) {
-                continue;
-            }
             $propertyPhpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\VersionedTagValueNode::class);
         }
     }

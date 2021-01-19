@@ -102,6 +102,7 @@ final class PhpDocInfo
     public function addPhpDocTagNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode $phpDocChildNode) : void
     {
         $this->phpDocNode->children[] = $phpDocChildNode;
+        $this->markAsChanged();
     }
     public function addTagValueNodeWithShortName(\Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface $shortNameAwareTag) : void
     {
@@ -266,6 +267,7 @@ final class PhpDocInfo
                 continue;
             }
             unset($this->phpDocNode->children[$key]);
+            $this->markAsChanged();
         }
     }
     /**

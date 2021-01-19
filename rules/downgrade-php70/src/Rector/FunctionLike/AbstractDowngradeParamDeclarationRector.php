@@ -65,7 +65,6 @@ abstract class AbstractDowngradeParamDeclarationRector extends \Rector\Core\Rect
      */
     private function decorateWithDocBlock(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
     {
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($functionLike);
         if ($param->type === null) {
             return;
         }
@@ -74,6 +73,7 @@ abstract class AbstractDowngradeParamDeclarationRector extends \Rector\Core\Rect
             $type = new \PHPStan\Type\UnionType([$type, new \PHPStan\Type\IntersectionType([new \PHPStan\Type\ObjectType(\Traversable::class)])]);
         }
         $paramName = $this->getName($param->var) ?? '';
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($functionLike);
         $this->phpDocTypeChanger->changeParamType($phpDocInfo, $type, $param, $paramName);
     }
 }

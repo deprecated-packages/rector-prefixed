@@ -85,16 +85,16 @@ CODE_SAMPLE
             return null;
         }
         $toBeProcessedTypes = [];
-        foreach ($docParamTypes as $key => $docParamType) {
+        foreach ($docParamTypes as $paramName => $docParamType) {
             if (!$this->isExclusivelyObjectType($docParamType)) {
                 continue;
             }
             /** @var ObjectType|UnionType $docParamType */
-            $assertionTypes = $this->getToBeProcessedTypes($params, $key, $docParamType);
+            $assertionTypes = $this->getToBeProcessedTypes($params, $paramName, $docParamType);
             if ($assertionTypes === null) {
                 continue;
             }
-            $variableName = \ltrim($key, '$');
+            $variableName = \ltrim($paramName, '$');
             $toBeProcessedTypes[$variableName] = $assertionTypes;
         }
         return $this->processAddTypeAssert($node, $toBeProcessedTypes);

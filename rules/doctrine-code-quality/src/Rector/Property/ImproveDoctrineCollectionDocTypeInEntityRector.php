@@ -160,7 +160,7 @@ CODE_SAMPLE
             return null;
         }
         $property = $this->matchPropertyFetchToClassProperty($propertyFetches[0]);
-        if ($property === null) {
+        if (!$property instanceof \PhpParser\Node\Stmt\Property) {
             return null;
         }
         $varTagValueNode = $this->collectionVarTagValueNodeResolver->resolve($property);

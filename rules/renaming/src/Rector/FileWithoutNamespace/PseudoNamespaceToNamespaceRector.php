@@ -113,9 +113,10 @@ CODE_SAMPLE
             if (!\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Name::class, \PhpParser\Node\Identifier::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\FunctionLike::class])) {
                 return null;
             }
+            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
             // replace on @var/@param/@return/@throws
             foreach ($this->pseudoNamespacesToNamespaces as $namespacePrefixWithExcludedClasses) {
-                $this->phpDocTypeRenamer->changeUnderscoreType($node, $namespacePrefixWithExcludedClasses);
+                $this->phpDocTypeRenamer->changeUnderscoreType($phpDocInfo, $node, $namespacePrefixWithExcludedClasses);
             }
             if ($node instanceof \PhpParser\Node\Name) {
                 return $this->processNameOrIdentifier($node);

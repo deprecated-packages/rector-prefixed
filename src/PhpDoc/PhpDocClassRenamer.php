@@ -35,6 +35,7 @@ final class PhpDocClassRenamer
                 continue;
             }
             $assertChoiceTagValueNode->changeCallbackClass($newClass);
+            $phpDocInfo->markAsChanged();
             break;
         }
     }
@@ -52,6 +53,7 @@ final class PhpDocClassRenamer
                 continue;
             }
             $doctrineRelationTagValueNode->changeTargetEntity($newClass);
+            $phpDocInfo->markAsChanged();
             break;
         }
     }
@@ -65,7 +67,10 @@ final class PhpDocClassRenamer
             return;
         }
         foreach ($oldToNewClasses as $oldClass => $newClass) {
-            $serializerTypeTagValueNode->replaceName($oldClass, $newClass);
+            $hasReplaced = $serializerTypeTagValueNode->replaceName($oldClass, $newClass);
+            if ($hasReplaced) {
+                $phpDocInfo->markAsChanged();
+            }
         }
     }
 }

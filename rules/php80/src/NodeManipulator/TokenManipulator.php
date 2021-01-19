@@ -79,7 +79,6 @@ final class TokenManipulator
             if (!$this->isArrayDimFetchWithDimIntegerValue($node, 1)) {
                 return null;
             }
-            /** @var ArrayDimFetch $node */
             $tokenStaticType = $this->nodeTypeResolver->getStaticType($node->var);
             if (!$tokenStaticType instanceof \PHPStan\Type\ArrayType) {
                 return null;
@@ -221,15 +220,12 @@ final class TokenManipulator
             return new \PhpParser\Node\Expr\MethodCall($singleTokenExpr, 'getTokenName');
         });
     }
-    private function isArrayDimFetchWithDimIntegerValue(\PhpParser\Node $node, int $value) : bool
+    private function isArrayDimFetchWithDimIntegerValue(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, int $value) : bool
     {
-        if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+        if ($arrayDimFetch->dim === null) {
             return \false;
         }
-        if ($node->dim === null) {
-            return \false;
-        }
-        return $this->valueResolver->isValue($node->dim, $value);
+        return $this->valueResolver->isValue($arrayDimFetch->dim, $value);
     }
     private function matchArrayDimFetchAndConstFetch(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\Rector\Php80\ValueObject\ArrayDimFetchAndConstFetch
     {

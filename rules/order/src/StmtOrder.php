@@ -64,7 +64,7 @@ final class StmtOrder
         return $classLike;
     }
     /**
-     * @return array<int,string>
+     * @return array<int, string>
      */
     public function getStmtsOfTypeOrder(\PhpParser\Node\Stmt\ClassLike $classLike, string $type) : array
     {

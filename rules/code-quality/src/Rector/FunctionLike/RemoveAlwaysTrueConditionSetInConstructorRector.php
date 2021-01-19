@@ -12,6 +12,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
+use PhpParser\Node\Stmt\Property;
 use PhpParser\NodeTraverser;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
@@ -152,7 +153,7 @@ CODE_SAMPLE
             return new \PHPStan\Type\MixedType();
         }
         $property = $classLike->getProperty($propertyName);
-        if ($property === null) {
+        if (!$property instanceof \PhpParser\Node\Stmt\Property) {
             return new \PHPStan\Type\MixedType();
         }
         // anything but private can be changed from outer scope

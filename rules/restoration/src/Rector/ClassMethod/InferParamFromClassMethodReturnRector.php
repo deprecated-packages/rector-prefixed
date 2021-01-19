@@ -9,7 +9,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
@@ -110,11 +109,7 @@ CODE_SAMPLE
                 continue;
             }
             $returnType = $this->returnTypeInferer->inferFunctionLike($returnClassMethod);
-            /** @var PhpDocInfo|null $currentPhpDocInfo */
             $currentPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-            if ($currentPhpDocInfo === null) {
-                $currentPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-            }
             $paramType = $this->constantReturnToParamTypeConverter->convert($returnType);
             if ($paramType === null) {
                 continue;

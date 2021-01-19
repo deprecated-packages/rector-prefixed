@@ -41,22 +41,27 @@ final class VariableMethodCallToServiceCallRector extends \Rector\Core\Rector\Ab
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace variable method call to a service one', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+use PhpParser\Node;
+
 class SomeClass
 {
-    public function run(\PhpParser\Node $node)
+    public function run(Node $node)
     {
         $phpDocInfo = $node->getAttribute('php_doc_info');
     }
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use PhpParser\Node;
+
 class SomeClass
 {
-    public function (\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    public function __construct(PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
-    public function run(\PhpParser\Node $node)
+    public function run(Node $node)
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
     }

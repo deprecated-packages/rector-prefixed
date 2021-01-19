@@ -5,6 +5,7 @@ namespace Rector\DoctrineCodeQuality\Rector\ClassMethod;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Property;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer;
 use Rector\DoctrineCodeQuality\NodeManipulator\PropertyTypeManipulator;
@@ -87,7 +88,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $property = $this->setterClassMethodAnalyzer->matchDateTimeSetterProperty($node);
-        if ($property === null) {
+        if (!$property instanceof \PhpParser\Node\Stmt\Property) {
             return null;
         }
         if (!$this->isObjectType($property, 'DateTime')) {

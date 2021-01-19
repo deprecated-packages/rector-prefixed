@@ -175,7 +175,9 @@ CODE_SAMPLE
     }
     private function renameVariable(\Rector\Naming\ValueObject\VariableAndCallAssign $variableAndCallAssign, string $expectedName) : void
     {
-        $this->varTagValueNodeRenamer->renameAssignVarTagVariableName($variableAndCallAssign->getAssign(), $variableAndCallAssign->getVariableName(), $expectedName);
+        $assign = $variableAndCallAssign->getAssign();
+        $assignPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($assign);
+        $this->varTagValueNodeRenamer->renameAssignVarTagVariableName($assignPhpDocInfo, $variableAndCallAssign->getVariableName(), $expectedName);
         $this->variableRenamer->renameVariableInFunctionLike($variableAndCallAssign->getFunctionLike(), $variableAndCallAssign->getAssign(), $variableAndCallAssign->getVariableName(), $expectedName);
     }
     /**
