@@ -7,7 +7,6 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 abstract class AbstractPHPUnitRector extends \Rector\Core\Rector\AbstractRector
 {
@@ -30,11 +29,8 @@ abstract class AbstractPHPUnitRector extends \Rector\Core\Rector\AbstractRector
         if ($this->isName($classMethod, 'test*')) {
             return \true;
         }
-        $phpDocInfo = $classMethod->getAttribute(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo::class);
-        if ($phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-            return $phpDocInfo->hasByName('test');
-        }
-        return \false;
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+        return $phpDocInfo->hasByName('test');
     }
     protected function isPHPUnitMethodName(\PhpParser\Node $node, string $name) : bool
     {

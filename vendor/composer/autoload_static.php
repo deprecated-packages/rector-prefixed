@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit169e94fa047695b741f226b7f2040cd6
+class ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2970,7 +2970,6 @@ class ComposerStaticInit169e94fa047695b741f226b7f2040cd6
         'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\ColumnDatetimePropertyAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/ColumnDatetimePropertyAnalyzer.php',
         'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\ConstructorAssignPropertyAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/ConstructorAssignPropertyAnalyzer.php',
         'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\DoctrineClassAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/DoctrineClassAnalyzer.php',
-        'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\DoctrinePropertyAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/DoctrinePropertyAnalyzer.php',
         'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\SetterClassMethodAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/SetterClassMethodAnalyzer.php',
         'Rector\\DoctrineCodeQuality\\NodeFactory\\ValueAssignFactory' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeFactory/ValueAssignFactory.php',
         'Rector\\DoctrineCodeQuality\\NodeManipulator\\ColumnDatetimePropertyManipulator' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeManipulator/ColumnDatetimePropertyManipulator.php',
@@ -3990,6 +3989,7 @@ class ComposerStaticInit169e94fa047695b741f226b7f2040cd6
         'Rector\\Transform\\Rector\\MethodCall\\MethodCallToStaticCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/MethodCall/MethodCallToStaticCallRector.php',
         'Rector\\Transform\\Rector\\MethodCall\\ReplaceParentCallByPropertyCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/MethodCall/ReplaceParentCallByPropertyCallRector.php',
         'Rector\\Transform\\Rector\\MethodCall\\ServiceGetterToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/MethodCall/ServiceGetterToConstructorInjectionRector.php',
+        'Rector\\Transform\\Rector\\MethodCall\\VariableMethodCallToServiceCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/MethodCall/VariableMethodCallToServiceCallRector.php',
         'Rector\\Transform\\Rector\\New_\\NewToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/New_/NewToConstructorInjectionRector.php',
         'Rector\\Transform\\Rector\\New_\\NewToStaticCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/New_/NewToStaticCallRector.php',
         'Rector\\Transform\\Rector\\StaticCall\\StaticCallToFuncCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/StaticCall/StaticCallToFuncCallRector.php',
@@ -4007,6 +4007,7 @@ class ComposerStaticInit169e94fa047695b741f226b7f2040cd6
         'Rector\\Transform\\ValueObject\\ServiceGetterToConstructorInjection' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/ServiceGetterToConstructorInjection.php',
         'Rector\\Transform\\ValueObject\\StaticCallToFuncCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/StaticCallToFuncCall.php',
         'Rector\\Transform\\ValueObject\\StaticCallToMethodCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/StaticCallToMethodCall.php',
+        'Rector\\Transform\\ValueObject\\VariableMethodCallToServiceCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/VariableMethodCallToServiceCall.php',
         'Rector\\Twig\\Rector\\Return_\\SimpleFunctionAndFilterRector' => __DIR__ . '/../..' . '/rules/twig/src/Rector/Return_/SimpleFunctionAndFilterRector.php',
         'Rector\\TypeDeclaration\\AlreadyAssignDetector\\AbstractAssignDetector' => __DIR__ . '/../..' . '/rules/type-declaration/src/AlreadyAssignDetector/AbstractAssignDetector.php',
         'Rector\\TypeDeclaration\\AlreadyAssignDetector\\ConstructorAssignDetector' => __DIR__ . '/../..' . '/rules/type-declaration/src/AlreadyAssignDetector/ConstructorAssignDetector.php',
@@ -4120,9 +4121,9 @@ class ComposerStaticInit169e94fa047695b741f226b7f2040cd6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit169e94fa047695b741f226b7f2040cd6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit169e94fa047695b741f226b7f2040cd6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit169e94fa047695b741f226b7f2040cd6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf6e4d5e7a416d662ef33e7eceeb2c1c1::$classMap;
 
         }, null, ClassLoader::class);
     }

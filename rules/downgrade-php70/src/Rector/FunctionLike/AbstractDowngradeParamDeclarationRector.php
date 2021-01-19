@@ -41,9 +41,6 @@ abstract class AbstractDowngradeParamDeclarationRector extends \Rector\Core\Rect
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node->params === null) {
-            return null;
-        }
         if ($node->params === []) {
             return null;
         }
