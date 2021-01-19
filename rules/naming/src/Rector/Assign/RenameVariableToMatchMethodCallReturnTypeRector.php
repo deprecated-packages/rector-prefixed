@@ -114,9 +114,8 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        /** @var VariableAndCallAssign|null $variableAndCallAssign */
         $variableAndCallAssign = $this->variableAndCallAssignMatcher->match($node);
-        if ($variableAndCallAssign === null) {
+        if (!$variableAndCallAssign instanceof \Rector\Naming\ValueObject\VariableAndCallAssign) {
             return null;
         }
         $call = $variableAndCallAssign->getCall();

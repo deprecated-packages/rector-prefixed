@@ -114,9 +114,8 @@ CODE_SAMPLE
     }
     private function isInStaticClassMethod(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
-        /** @var ClassMethod|null $locationClassMethod */
         $locationClassMethod = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if ($locationClassMethod === null) {
+        if (!$locationClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
         return $locationClassMethod->isStatic();

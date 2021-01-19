@@ -48,9 +48,8 @@ final class BetterNodeFinder
     public function findParentType(\PhpParser\Node $node, string $type) : ?\PhpParser\Node
     {
         \RectorPrefix20210119\Webmozart\Assert\Assert::isAOf($type, \PhpParser\Node::class);
-        /** @var Node|null $parent */
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent === null) {
+        if (!$parent instanceof \PhpParser\Node) {
             return null;
         }
         do {
@@ -70,9 +69,8 @@ final class BetterNodeFinder
     public function findParentTypes(\PhpParser\Node $node, array $types) : ?\PhpParser\Node
     {
         \RectorPrefix20210119\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
-        /** @var Node|null $parent */
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent === null) {
+        if (!$parent instanceof \PhpParser\Node) {
             return null;
         }
         do {

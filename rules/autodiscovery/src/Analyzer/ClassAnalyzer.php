@@ -89,9 +89,8 @@ final class ClassAnalyzer
             if (!$stmt instanceof \PhpParser\Node\Stmt\Property) {
                 continue;
             }
-            /** @var PhpDocInfo|null $phpDocInfo */
             $phpDocInfo = $stmt->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-            if ($phpDocInfo === null) {
+            if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
                 continue;
             }
             if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class)) {

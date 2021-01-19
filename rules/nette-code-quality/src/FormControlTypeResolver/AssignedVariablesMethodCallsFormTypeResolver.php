@@ -32,9 +32,8 @@ final class AssignedVariablesMethodCallsFormTypeResolver implements \Rector\Nett
         if (!$node instanceof \PhpParser\Node\Expr\Variable) {
             return [];
         }
-        /** @var Assign|null $formVariableAssign */
         $formVariableAssign = $this->betterNodeFinder->findPreviousAssignToExpr($node);
-        if ($formVariableAssign === null) {
+        if (!$formVariableAssign instanceof \PhpParser\Node\Expr\Assign) {
             return [];
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($formVariableAssign->expr);

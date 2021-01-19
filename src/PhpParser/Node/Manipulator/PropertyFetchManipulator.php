@@ -46,9 +46,8 @@ final class PropertyFetchManipulator
         if (!$this->nodeNameResolver->isName($propertyFetch->var, 'this')) {
             return \false;
         }
-        /** @var Class_|null $classLike */
         $classLike = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         foreach ($classLike->getProperties() as $property) {

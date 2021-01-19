@@ -135,9 +135,8 @@ CODE_SAMPLE
         /** @var string $propertyName */
         $propertyName = $this->getName($property);
         $onlyProperty = $property->props[0];
-        /** @var Expr|null $defaultExpr */
         $defaultExpr = $onlyProperty->default;
-        if ($defaultExpr === null) {
+        if (!$defaultExpr instanceof \PhpParser\Node\Expr) {
             return;
         }
         $expression = $this->valueAssignFactory->createDefaultDateTimeWithValueAssign($propertyName, $defaultExpr);

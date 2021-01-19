@@ -79,9 +79,8 @@ abstract class AbstractArrayDimFetchToAnnotatedControlVariableRector extends \Re
     }
     private function shouldSkipForAlreadyAddedInCurrentClassMethod(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch, string $variableName) : bool
     {
-        /** @var ClassMethod|null $classMethod */
         $classMethod = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
         $classMethodObjectHash = \spl_object_hash($classMethod) . $variableName;

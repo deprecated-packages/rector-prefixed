@@ -21,9 +21,8 @@ final class DoctrineEmbeddedPhpDocNodeFactory extends \Rector\BetterPhpDocParser
     }
     public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
-        /** @var Embedded|null $annotation */
         $annotation = $this->nodeAnnotationReader->readAnnotation($node, $annotationClass);
-        if ($annotation === null) {
+        if (!$annotation instanceof \Doctrine\ORM\Mapping\Embedded) {
             return null;
         }
         $content = $this->resolveContentFromTokenIterator($tokenIterator);

@@ -71,15 +71,13 @@ CODE_SAMPLE
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        /** @var SensioMethodTagValueNode|null $sensioMethodTagValueNode */
         $sensioMethodTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioMethodTagValueNode::class);
-        if ($sensioMethodTagValueNode === null) {
+        if (!$sensioMethodTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioMethodTagValueNode) {
             return null;
         }
         $methods = $sensioMethodTagValueNode->getMethods();
-        /** @var SymfonyRouteTagValueNode|null $symfonyRouteTagValueNode */
         $symfonyRouteTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class);
-        if ($symfonyRouteTagValueNode === null) {
+        if (!$symfonyRouteTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode) {
             return null;
         }
         $symfonyRouteTagValueNode->changeMethods($methods);

@@ -54,9 +54,8 @@ CODE_SAMPLE
         if (isset($node->args[1])) {
             return null;
         }
-        /** @var MethodCall|null $rootMethodCallNode */
         $rootMethodCallNode = $this->getRootMethodCallNode($node);
-        if ($rootMethodCallNode === null) {
+        if (!$rootMethodCallNode instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         $rootNameNode = $rootMethodCallNode->args[0]->value;

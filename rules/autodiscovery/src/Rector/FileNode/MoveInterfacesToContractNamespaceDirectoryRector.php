@@ -61,9 +61,8 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        /** @var Interface_|null $interface */
         $interface = $this->betterNodeFinder->findFirstInstanceOf([$node], \PhpParser\Node\Stmt\Interface_::class);
-        if ($interface === null) {
+        if (!$interface instanceof \PhpParser\Node\Stmt\Interface_) {
             return null;
         }
         if ($this->netteControlFactoryInterfaceAnalyzer->isComponentFactoryInterface($interface)) {

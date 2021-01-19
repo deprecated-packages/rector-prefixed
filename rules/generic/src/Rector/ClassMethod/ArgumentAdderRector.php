@@ -117,7 +117,7 @@ CODE_SAMPLE
         /** @var Class_|null $classLike */
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         // anonymous class
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         return $this->isObjectType($classLike, $type);

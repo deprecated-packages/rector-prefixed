@@ -41,15 +41,13 @@ final class ClassAndInterfaceTypeResolver implements \Rector\NodeTypeResolver\Co
      */
     public function resolve(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
-        /** @var Scope|null $nodeScope */
         $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($nodeScope === null) {
+        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
             // new node probably
             return new \PHPStan\Type\MixedType();
         }
-        /** @var ClassReflection|null $classReflection */
         $classReflection = $nodeScope->getClassReflection();
-        if ($classReflection === null) {
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return new \PHPStan\Type\MixedType();
         }
         $classTypes = $this->classReflectionTypesResolver->resolve($classReflection);

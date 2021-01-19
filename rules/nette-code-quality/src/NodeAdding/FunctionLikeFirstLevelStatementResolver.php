@@ -48,9 +48,8 @@ final class FunctionLikeFirstLevelStatementResolver
      */
     private function matchMultiplierClosure(\PhpParser\Node $node) : ?\PhpParser\Node\Expr\Closure
     {
-        /** @var Closure|null $closure */
         $closure = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE);
-        if ($closure === null) {
+        if (!$closure instanceof \PhpParser\Node\Expr\Closure) {
             return null;
         }
         $parent = $closure->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

@@ -40,9 +40,8 @@ final class NonInformativeReturnTagRemover
      */
     public function removeReturnTagIfNotUseful(\PhpParser\Node\FunctionLike $functionLike) : void
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return;
         }
         $returnTagValueNode = $phpDocInfo->getByType(\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);

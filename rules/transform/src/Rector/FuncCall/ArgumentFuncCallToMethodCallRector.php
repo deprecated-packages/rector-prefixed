@@ -129,9 +129,10 @@ CODE_SAMPLE
     private function shouldSkipFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
         // we can inject only in injectable class method  context
+        // we can inject only in injectable class method  context
         /** @var ClassMethod|null $classMethod */
         $classMethod = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \true;
         }
         return $classMethod->isStatic();

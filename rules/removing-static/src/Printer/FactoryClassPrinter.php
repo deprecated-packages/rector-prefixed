@@ -49,9 +49,8 @@ final class FactoryClassPrinter
     }
     private function createFactoryClassFilePath(\PhpParser\Node\Stmt\Class_ $oldClass) : string
     {
-        /** @var SmartFileInfo|null $classFileInfo */
         $classFileInfo = $oldClass->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($classFileInfo === null) {
+        if (!$classFileInfo instanceof \RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $directoryPath = \RectorPrefix20210119\Nette\Utils\Strings::before($classFileInfo->getRealPath(), \DIRECTORY_SEPARATOR, -1);

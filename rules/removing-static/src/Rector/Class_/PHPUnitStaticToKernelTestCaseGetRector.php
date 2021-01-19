@@ -152,9 +152,8 @@ CODE_SAMPLE
     }
     private function processStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\MethodCall
     {
-        /** @var Class_|null $classLike */
         $classLike = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         foreach ($this->staticClassTypes as $type) {

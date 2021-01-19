@@ -221,9 +221,8 @@ CODE_SAMPLE
     }
     private function isFunctionLikeReturnsVoid(\PhpParser\Node\Stmt\If_ $if) : bool
     {
-        /** @var FunctionLike|null $functionLike */
         $functionLike = $this->betterNodeFinder->findParentType($if, \PhpParser\Node\FunctionLike::class);
-        if ($functionLike === null) {
+        if (!$functionLike instanceof \PhpParser\Node\FunctionLike) {
             return \true;
         }
         if ($functionLike->getStmts() === null) {

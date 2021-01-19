@@ -105,9 +105,8 @@ CODE_SAMPLE
         if (!\RectorPrefix20210119\Nette\Utils\Strings::endsWith($className, 'Controller')) {
             return \false;
         }
-        /** @var ClassMethod|null $classMethod */
         $classMethod = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
         // is probably in controller action

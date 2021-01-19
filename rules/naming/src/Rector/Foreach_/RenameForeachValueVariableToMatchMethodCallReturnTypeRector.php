@@ -87,9 +87,8 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        /** @var VariableAndCallForeach|null $variableAndCallAssign */
         $variableAndCallAssign = $this->varValueAndCallForeachMatcher->match($node);
-        if ($variableAndCallAssign === null) {
+        if (!$variableAndCallAssign instanceof \Rector\Naming\ValueObject\VariableAndCallForeach) {
             return null;
         }
         $expectedName = $this->expectedNameResolver->resolveForForeach($variableAndCallAssign->getCall());

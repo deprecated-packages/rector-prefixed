@@ -67,17 +67,15 @@ CODE_SAMPLE
         if ($node instanceof \PhpParser\Node\Stmt\Use_) {
             return $this->refactorUse($node);
         }
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return null;
         }
         if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class)) {
             return null;
         }
-        /** @var SensioRouteTagValueNode|null $sensioRouteTagValueNode */
         $sensioRouteTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode::class);
-        if ($sensioRouteTagValueNode === null) {
+        if (!$sensioRouteTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode) {
             return null;
         }
         /** @var SensioRouteTagValueNode $sensioRouteTagValueNode */

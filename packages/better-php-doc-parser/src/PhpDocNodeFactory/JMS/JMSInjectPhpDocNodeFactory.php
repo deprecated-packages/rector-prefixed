@@ -37,9 +37,8 @@ final class JMSInjectPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
         if (!$node instanceof \PhpParser\Node\Stmt\Property) {
             return null;
         }
-        /** @var Inject|null $inject */
         $inject = $this->nodeAnnotationReader->readPropertyAnnotation($node, $annotationClass);
-        if ($inject === null) {
+        if (!$inject instanceof \RectorPrefix20210119\JMS\DiExtraBundle\Annotation\Inject) {
             return null;
         }
         $serviceName = $inject->value === null ? $this->nodeNameResolver->getName($node) : $inject->value;

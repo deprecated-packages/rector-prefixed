@@ -160,9 +160,8 @@ trait NodeTypeResolverTrait
             return $this->isObjectType($node->class, $type);
         }
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            /** @var Class_|null $classLike */
             $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            if ($classLike === null) {
+            if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
                 return \false;
             }
             return $this->isObjectType($classLike, $type);

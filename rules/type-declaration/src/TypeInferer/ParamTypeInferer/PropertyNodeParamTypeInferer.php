@@ -26,9 +26,8 @@ final class PropertyNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInf
     }
     public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
-        /** @var Class_|null $classLike */
         $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return new \PHPStan\Type\MixedType();
         }
         $paramName = $this->nodeNameResolver->getName($param);

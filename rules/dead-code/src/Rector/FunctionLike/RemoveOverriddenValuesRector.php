@@ -139,7 +139,6 @@ CODE_SAMPLE
     {
         $nodesToRemove = [];
         foreach ($assignedVariableNames as $assignedVariableName) {
-            /** @var VariableNodeUse|null $previousNode */
             $previousNode = null;
             foreach ($nodesByTypeAndPosition as $nodeByTypeAndPosition) {
                 $variableNode = $nodeByTypeAndPosition->getVariableNode();
@@ -165,7 +164,7 @@ CODE_SAMPLE
     private function isAssignNodeUsed(?\Rector\DeadCode\ValueObject\VariableNodeUse $previousNode, \Rector\DeadCode\ValueObject\VariableNodeUse $nodeByTypeAndPosition) : bool
     {
         // this node was just used, skip to next one
-        if ($previousNode === null) {
+        if (!$previousNode instanceof \Rector\DeadCode\ValueObject\VariableNodeUse) {
             return \false;
         }
         if (!$previousNode->isType(\Rector\DeadCode\ValueObject\VariableNodeUse::TYPE_ASSIGN)) {

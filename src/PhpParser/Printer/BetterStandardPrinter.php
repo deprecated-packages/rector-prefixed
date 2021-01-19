@@ -428,9 +428,8 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
             if (!$stmt instanceof \PhpParser\Node) {
                 continue;
             }
-            /** @var SmartFileInfo|null $fileInfo */
             $fileInfo = $stmt->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-            if ($fileInfo === null) {
+            if (!$fileInfo instanceof \RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo) {
                 continue;
             }
             $whitespaces = \count(\RectorPrefix20210119\Nette\Utils\Strings::matchAll($fileInfo->getContents(), self::FOUR_SPACE_START_REGEX));

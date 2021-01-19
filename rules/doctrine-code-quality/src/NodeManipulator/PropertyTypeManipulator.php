@@ -25,9 +25,8 @@ final class PropertyTypeManipulator
             // fix later
             throw new \Rector\Core\Exception\NotImplementedYetException();
         }
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return;
         }
         $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo->getPhpDocNode(), new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($oldClass), new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($newClass), $property);

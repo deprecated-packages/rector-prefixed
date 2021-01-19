@@ -72,9 +72,8 @@ final class MethodCallManipulator
     }
     public function findAssignToVariable(\PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Assign
     {
-        /** @var Node|null $parentNode */
         $parentNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode === null) {
+        if (!$parentNode instanceof \PhpParser\Node) {
             return null;
         }
         $variableName = $this->nodeNameResolver->getName($variable);
@@ -96,9 +95,8 @@ final class MethodCallManipulator
     public function findMethodCallsOnVariable(\PhpParser\Node\Expr\Variable $variable) : array
     {
         // get scope node, e.g. parent function call, method call or anonymous function
-        /** @var ClassMethod|null $classMethod */
         $classMethod = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         $variableName = $this->nodeNameResolver->getName($variable);

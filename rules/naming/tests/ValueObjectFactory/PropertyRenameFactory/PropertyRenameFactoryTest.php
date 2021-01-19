@@ -60,9 +60,8 @@ final class PropertyRenameFactoryTest extends \RectorPrefix20210119\Symplify\Pac
     private function getPropertyFromFileInfo(\RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : \PhpParser\Node\Stmt\Property
     {
         $nodes = $this->fileInfoParser->parseFileInfoToNodesAndDecorate($fileInfo);
-        /** @var Property|null $property */
         $property = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Property::class);
-        if ($property === null) {
+        if (!$property instanceof \PhpParser\Node\Stmt\Property) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $property;

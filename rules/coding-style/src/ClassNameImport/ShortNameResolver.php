@@ -136,9 +136,8 @@ final class ShortNameResolver
     {
         $shortNames = [];
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use(&$shortNames) {
-            /** @var PhpDocInfo|null $phpDocInfo */
             $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-            if ($phpDocInfo === null) {
+            if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
                 return null;
             }
             foreach ($phpDocInfo->getPhpDocNode()->children as $phpDocChildNode) {

@@ -157,12 +157,11 @@ final class NodeTypeResolver
         if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Param::class, \PhpParser\Node\Scalar::class])) {
             return $this->resolve($node);
         }
-        /** @var Scope|null $nodeScope */
         $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$node instanceof \PhpParser\Node\Expr) {
             return new \PHPStan\Type\MixedType();
         }
-        if ($nodeScope === null) {
+        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
         if ($node instanceof \PhpParser\Node\Expr\New_ && $this->classNodeAnalyzer->isAnonymousClass($node->class)) {
@@ -300,9 +299,8 @@ final class NodeTypeResolver
         if ($type !== null) {
             return $type;
         }
-        /** @var Scope|null $nodeScope */
         $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($nodeScope === null) {
+        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
         if (!$node instanceof \PhpParser\Node\Expr) {

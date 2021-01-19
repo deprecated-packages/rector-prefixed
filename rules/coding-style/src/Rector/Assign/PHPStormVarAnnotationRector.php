@@ -59,15 +59,13 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        /** @var Expression|null $expression */
         $expression = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         // unable to analyze
-        if ($expression === null) {
+        if (!$expression instanceof \PhpParser\Node\Stmt\Expression) {
             return null;
         }
-        /** @var Node|null $nextNode */
         $nextNode = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if ($nextNode === null) {
+        if (!$nextNode instanceof \PhpParser\Node) {
             return null;
         }
         $docContent = $this->getDocContent($nextNode);

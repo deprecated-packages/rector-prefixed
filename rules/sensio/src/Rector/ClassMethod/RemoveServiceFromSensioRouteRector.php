@@ -60,9 +60,8 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        /** @var SensioRouteTagValueNode|null $sensioRouteTagValueNode */
         $sensioRouteTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode::class);
-        if ($sensioRouteTagValueNode === null) {
+        if (!$sensioRouteTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode) {
             return null;
         }
         $sensioRouteTagValueNode->removeService();

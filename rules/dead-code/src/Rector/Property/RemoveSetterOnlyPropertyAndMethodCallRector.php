@@ -141,9 +141,8 @@ CODE_SAMPLE
             if ($methodName === \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
                 continue;
             }
-            /** @var ClassMethod|null $classMethod */
             $classMethod = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-            if ($classMethod === null) {
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
             $classMethodsToCheck[$methodName] = $classMethod;

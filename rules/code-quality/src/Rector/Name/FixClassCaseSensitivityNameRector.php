@@ -103,9 +103,8 @@ CODE_SAMPLE
         if (!$parent instanceof \PhpParser\Node\Param && !$parent instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return $this->getName($name);
         }
-        /** @var Name|null $originalName */
         $originalName = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME);
-        if ($originalName === null) {
+        if (!$originalName instanceof \PhpParser\Node\Name) {
             return $this->getName($name);
         }
         // replace parts from the old one

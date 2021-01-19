@@ -26,9 +26,8 @@ final class MatchPropertyTypeExpectedNameResolver extends \Rector\Naming\Expecte
      */
     public function resolve(\PhpParser\Node $node) : ?string
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return null;
         }
         $expectedName = $this->propertyNaming->getExpectedNameFromType($phpDocInfo->getVarType());

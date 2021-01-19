@@ -44,9 +44,8 @@ final class JoinTablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDoc
         if (!$node instanceof \PhpParser\Node\Stmt\Property) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        /** @var JoinTable|null $joinTable */
         $joinTable = $this->nodeAnnotationReader->readPropertyAnnotation($node, $annotationClass);
-        if ($joinTable === null) {
+        if (!$joinTable instanceof \Doctrine\ORM\Mapping\JoinTable) {
             return null;
         }
         $annotationContent = $this->resolveContentFromTokenIterator($tokenIterator);

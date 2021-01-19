@@ -11,9 +11,8 @@ final class DoctrineClassAnalyzer
 {
     public function matchDoctrineEntityTagValueNode(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return null;
         }
         return $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);

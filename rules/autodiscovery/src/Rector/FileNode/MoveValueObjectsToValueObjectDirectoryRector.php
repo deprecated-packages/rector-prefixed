@@ -110,9 +110,8 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        /** @var Class_|null $class */
         $class = $this->betterNodeFinder->findFirstInstanceOf([$node], \PhpParser\Node\Stmt\Class_::class);
-        if ($class === null) {
+        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         if (!$this->isValueObjectMatch($class)) {

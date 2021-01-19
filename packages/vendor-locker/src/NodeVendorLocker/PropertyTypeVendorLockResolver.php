@@ -13,9 +13,8 @@ final class PropertyTypeVendorLockResolver extends \Rector\VendorLocker\NodeVend
 {
     public function isVendorLocked(\PhpParser\Node\Stmt\Property $property) : bool
     {
-        /** @var Class_|null $classLike */
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         /** @var Class_|Interface_ $classLike */

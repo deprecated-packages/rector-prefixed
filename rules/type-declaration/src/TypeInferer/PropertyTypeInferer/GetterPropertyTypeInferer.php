@@ -42,9 +42,8 @@ final class GetterPropertyTypeInferer extends \Rector\TypeDeclaration\TypeInfere
     }
     public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {
-        /** @var Class_|null $classLike */
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             // anonymous class
             return new \PHPStan\Type\MixedType();
         }

@@ -166,9 +166,8 @@ CODE_SAMPLE
         if ($this->isListAssign($parentNode)) {
             return \true;
         }
-        /** @var Scope|null $nodeScope */
         $nodeScope = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($nodeScope === null) {
+        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
             return \true;
         }
         $variableName = $this->getName($variable);

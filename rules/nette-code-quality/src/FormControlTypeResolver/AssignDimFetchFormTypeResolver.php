@@ -37,7 +37,7 @@ final class AssignDimFetchFormTypeResolver implements \Rector\NetteCodeQuality\C
         // traverse up and find all $this['some_name'] = $type
         /** @var Assign|null $formVariableAssign */
         $formVariableAssign = $this->betterNodeFinder->findPreviousAssignToExpr($node);
-        if ($formVariableAssign === null) {
+        if (!$formVariableAssign instanceof \PhpParser\Node\Expr\Assign) {
             return [];
         }
         if (!$node->dim instanceof \PhpParser\Node\Scalar\String_) {

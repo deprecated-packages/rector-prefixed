@@ -47,9 +47,8 @@ final class ClassConstManipulator
      */
     public function getAllClassConstFetch(\PhpParser\Node\Stmt\ClassConst $classConst) : array
     {
-        /** @var Class_|null $classLike */
         $classLike = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return [];
         }
         $searchInNodes = [$classLike];

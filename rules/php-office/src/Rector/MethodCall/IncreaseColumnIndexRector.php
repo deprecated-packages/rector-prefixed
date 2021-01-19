@@ -95,9 +95,8 @@ CODE_SAMPLE
     }
     private function findPreviousForWithVariable(\PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Scalar\LNumber
     {
-        /** @var For_|null $for */
         $for = $this->betterNodeFinder->findFirstPreviousOfTypes($variable, [\PhpParser\Node\Stmt\For_::class]);
-        if ($for === null) {
+        if (!$for instanceof \PhpParser\Node\Stmt\For_) {
             return null;
         }
         $variableName = $this->getName($variable);

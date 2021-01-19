@@ -26,9 +26,8 @@ final class PropertyRanker
     private const TYPE_TO_RANK = [\PHPStan\Type\StringType::class => 5, \PHPStan\Type\IntegerType::class => 5, \PHPStan\Type\BooleanType::class => 5, \PHPStan\Type\FloatType::class => 5, \PHPStan\Type\ArrayType::class => 10, \PHPStan\Type\IterableType::class => 10, \PHPStan\Type\TypeWithClassName::class => 15, \PHPStan\Type\IntersectionType::class => 20, \PHPStan\Type\UnionType::class => 25, \PHPStan\Type\MixedType::class => 30, \PHPStan\Type\CallableType::class => 35];
     public function rank(\PhpParser\Node\Stmt\Property $property) : int
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return 1;
         }
         $varType = $phpDocInfo->getVarType();

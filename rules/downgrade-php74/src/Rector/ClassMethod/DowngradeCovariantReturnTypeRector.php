@@ -109,9 +109,8 @@ CODE_SAMPLE
     }
     private function getDifferentReturnTypeNameFromAncestorClass(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?string
     {
-        /** @var Scope|null $scope */
         $scope = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             // possibly trait
             return null;
         }
@@ -138,9 +137,8 @@ CODE_SAMPLE
                 continue;
             }
             $parentReflectionMethod = new \ReflectionMethod($parentClassName, $methodName);
-            /** @var ReflectionNamedType|null $parentReflectionMethodReturnType */
             $parentReflectionMethodReturnType = $parentReflectionMethod->getReturnType();
-            if ($parentReflectionMethodReturnType === null || $parentReflectionMethodReturnType->getName() === $nodeReturnTypeName) {
+            if (!$parentReflectionMethodReturnType instanceof \ReflectionNamedType || $parentReflectionMethodReturnType->getName() === $nodeReturnTypeName) {
                 continue;
             }
             // This is an ancestor class with a different return type

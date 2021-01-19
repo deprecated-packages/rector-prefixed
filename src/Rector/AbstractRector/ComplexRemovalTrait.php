@@ -104,9 +104,8 @@ trait ComplexRemovalTrait
      */
     private function shouldSkipPropertyForClassMethod(\PhpParser\Node\Expr $expr, array $classMethodNamesToSkip) : bool
     {
-        /** @var ClassMethod|null $classMethodNode */
         $classMethodNode = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if ($classMethodNode === null) {
+        if (!$classMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
         $classMethodName = $this->getName($classMethodNode);

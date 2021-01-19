@@ -85,9 +85,8 @@ CODE_SAMPLE
     }
     private function isDoctrineEntityFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : bool
     {
-        /** @var Class_|null $class */
         $class = $this->betterNodeFinder->findFirstInstanceOf($fileNode->stmts, \PhpParser\Node\Stmt\Class_::class);
-        if ($class === null) {
+        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         return $this->isDoctrineEntityClass($class);

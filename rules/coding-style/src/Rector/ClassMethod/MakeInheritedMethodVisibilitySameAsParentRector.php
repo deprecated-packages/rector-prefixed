@@ -69,9 +69,8 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        /** @var Scope|null $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             // possibly trait
             return null;
         }
@@ -122,9 +121,8 @@ CODE_SAMPLE
         if ($methodName !== \Rector\Core\ValueObject\MethodName::CONSTRUCT) {
             return \false;
         }
-        /** @var Class_|null $classLike */
         $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         foreach ($classLike->getMethods() as $iteratedClassMethod) {

@@ -56,9 +56,8 @@ final class StaticCallTypeResolver implements \Rector\NodeTypeResolver\Contract\
             if (!\method_exists($className, $methodName)) {
                 continue;
             }
-            /** @var Scope|null $nodeScope */
             $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-            if ($nodeScope === null) {
+            if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
                 return $classType;
             }
             return $nodeScope->getType($node);

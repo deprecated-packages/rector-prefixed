@@ -71,9 +71,8 @@ final class DocBlockManipulator
     public function updateNodeWithPhpDocInfo(\PhpParser\Node $node) : void
     {
         // nothing to change
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return;
         }
         $phpDoc = $this->printPhpDocInfoToString($phpDocInfo);

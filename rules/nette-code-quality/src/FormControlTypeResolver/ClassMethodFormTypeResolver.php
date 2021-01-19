@@ -43,9 +43,8 @@ final class ClassMethodFormTypeResolver implements \Rector\NetteCodeQuality\Cont
         if ($this->nodeNameResolver->isName($node, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return [];
         }
-        /** @var Return_|null $lastReturn */
         $lastReturn = $this->betterNodeFinder->findLastInstanceOf((array) $node->stmts, \PhpParser\Node\Stmt\Return_::class);
-        if ($lastReturn === null) {
+        if (!$lastReturn instanceof \PhpParser\Node\Stmt\Return_) {
             return [];
         }
         if (!$lastReturn->expr instanceof \PhpParser\Node\Expr\Variable) {

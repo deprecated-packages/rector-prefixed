@@ -34,9 +34,8 @@ final class NetteInjectDetector
             if (!$property->isPublic()) {
                 continue;
             }
-            /** @var PhpDocInfo|null $phpDocInfo */
             $phpDocInfo = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-            if ($phpDocInfo === null) {
+            if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
                 continue;
             }
             $injectPhpDocInfoTagsName = $phpDocInfo->getTagsByName(\Rector\PhpAttribute\ValueObject\TagName::INJECT);

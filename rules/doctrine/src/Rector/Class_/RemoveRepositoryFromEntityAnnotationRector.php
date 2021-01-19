@@ -51,9 +51,8 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        /** @var EntityTagValueNode|null $entityTagValueNode */
         $entityTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class);
-        if ($entityTagValueNode === null) {
+        if (!$entityTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode) {
             return null;
         }
         $entityTagValueNode->removeRepositoryClass();

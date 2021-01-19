@@ -70,9 +70,8 @@ final class VariableRenamer
     }
     private function isParamInParentFunction(\PhpParser\Node\Expr\Variable $variable) : bool
     {
-        /** @var Closure|null $closure */
         $closure = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLOSURE_NODE);
-        if ($closure === null) {
+        if (!$closure instanceof \PhpParser\Node\Expr\Closure) {
             return \false;
         }
         $variableName = $this->nodeNameResolver->getName($variable);

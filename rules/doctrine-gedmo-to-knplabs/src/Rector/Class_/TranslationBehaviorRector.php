@@ -209,9 +209,8 @@ CODE_SAMPLE
      */
     private function dumpEntityTranslation(\PhpParser\Node\Stmt\Class_ $class, array $translatedPropertyToPhpDocInfos) : void
     {
-        /** @var SmartFileInfo|null $fileInfo */
         $fileInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo === null) {
+        if (!$fileInfo instanceof \RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $classShortName = $class->name . 'Translation';

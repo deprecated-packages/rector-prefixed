@@ -112,9 +112,8 @@ CODE_SAMPLE
         if ($param->type !== null) {
             return;
         }
-        /** @var Scope|null $scope */
         $scope = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             // possibly trait
             return;
         }

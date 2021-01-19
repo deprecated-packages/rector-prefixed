@@ -27,9 +27,8 @@ final class SymfonyControllerFactory
     }
     public function createNamespace(\PhpParser\Node\Stmt\Class_ $node, \PhpParser\Node\Stmt\Class_ $formTypeClass) : ?\PhpParser\Node\Stmt\Namespace_
     {
-        /** @var SmartFileInfo|null $fileInfo */
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo === null) {
+        if (!$fileInfo instanceof \RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo) {
             return null;
         }
         /** @var string $namespaceName */

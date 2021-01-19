@@ -11,9 +11,8 @@ final class ClassMethodParamVendorLockResolver extends \Rector\VendorLocker\Node
 {
     public function isVendorLocked(\PhpParser\Node\Stmt\ClassMethod $classMethod, int $paramPosition) : bool
     {
-        /** @var Class_|null $classNode */
         $classNode = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classNode === null) {
+        if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         if (!$this->hasParentClassChildrenClassesOrImplementsInterface($classNode)) {

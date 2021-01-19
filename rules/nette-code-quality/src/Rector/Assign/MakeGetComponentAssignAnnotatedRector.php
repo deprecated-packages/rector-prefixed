@@ -159,9 +159,8 @@ CODE_SAMPLE
     }
     private function resolveCreateComponentMethodCallReturnType(\PhpParser\Node\Expr\MethodCall $methodCall) : \PHPStan\Type\Type
     {
-        /** @var Scope|null $scope */
         $scope = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
         if (\count($methodCall->args) !== 1) {
@@ -175,9 +174,8 @@ CODE_SAMPLE
     }
     private function resolveArrayDimFetchControlType(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : \PHPStan\Type\Type
     {
-        /** @var Scope|null $scope */
         $scope = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         if (!$arrayDimFetch->dim instanceof \PhpParser\Node\Scalar\String_) {

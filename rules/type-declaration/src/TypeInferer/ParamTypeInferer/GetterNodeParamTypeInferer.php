@@ -39,9 +39,8 @@ final class GetterNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInfer
     }
     public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
-        /** @var Class_|null $classLike */
         $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return new \PHPStan\Type\MixedType();
         }
         /** @var ClassMethod $classMethod */
@@ -66,7 +65,6 @@ final class GetterNodeParamTypeInferer extends \Rector\TypeDeclaration\TypeInfer
                 return null;
             }
             // what is return type?
-            /** @var ClassMethod|null $classMethod */
             $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
             if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 return null;

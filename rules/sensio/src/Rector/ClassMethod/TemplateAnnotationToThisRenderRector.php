@@ -167,9 +167,8 @@ CODE_SAMPLE
     }
     private function hasLastReturnResponse(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        /** @var Return_|null $lastReturn */
         $lastReturn = $this->betterNodeFinder->findLastInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Stmt\Return_::class);
-        if ($lastReturn === null) {
+        if (!$lastReturn instanceof \PhpParser\Node\Stmt\Return_) {
             return \false;
         }
         return $this->isReturnOfObjectType($lastReturn, self::RESPONSE_CLASS);

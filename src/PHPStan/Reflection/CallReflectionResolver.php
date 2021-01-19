@@ -50,9 +50,8 @@ final class CallReflectionResolver
     }
     public function resolveConstructor(\PhpParser\Node\Expr\New_ $new) : ?\PHPStan\Reflection\MethodReflection
     {
-        /** @var Scope|null $scope */
         $scope = $new->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return null;
         }
         $classType = $this->nodeTypeResolver->resolve($new->class);
@@ -92,9 +91,8 @@ final class CallReflectionResolver
         if ($nbVariants === 1) {
             return \PHPStan\Reflection\ParametersAcceptorSelector::selectSingle($variants);
         }
-        /** @var Scope|null $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return null;
         }
         return \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs($scope, $node->args, $variants);
@@ -117,7 +115,6 @@ final class CallReflectionResolver
      */
     private function resolveFunctionCall(\PhpParser\Node\Expr\FuncCall $funcCall)
     {
-        /** @var Scope|null $scope */
         $scope = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($funcCall->name instanceof \PhpParser\Node\Name) {
             try {
@@ -126,7 +123,7 @@ final class CallReflectionResolver
                 return null;
             }
         }
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return null;
         }
         return $this->typeToCallReflectionResolverRegistry->resolve($scope->getType($funcCall->name), $scope);
@@ -136,9 +133,8 @@ final class CallReflectionResolver
      */
     private function resolveMethodCall(\PhpParser\Node $node) : ?\PHPStan\Reflection\MethodReflection
     {
-        /** @var Scope|null $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return null;
         }
         $classType = $this->nodeTypeResolver->resolve($node instanceof \PhpParser\Node\Expr\MethodCall ? $node->var : $node->class);

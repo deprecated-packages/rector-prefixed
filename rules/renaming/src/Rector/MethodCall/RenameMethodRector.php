@@ -99,9 +99,8 @@ CODE_SAMPLE
         if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
-        /** @var ClassLike|null $classLike */
         $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return \false;
         }
         return (bool) $classLike->getMethod($methodCallRename->getNewMethod());

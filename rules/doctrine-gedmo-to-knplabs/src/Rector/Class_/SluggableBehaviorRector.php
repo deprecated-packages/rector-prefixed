@@ -97,9 +97,8 @@ CODE_SAMPLE
         $matchedProperty = null;
         foreach ($node->getProperties() as $property) {
             $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            /** @var SlugTagValueNode|null $slugTagValueNode */
             $slugTagValueNode = $propertyPhpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SlugTagValueNode::class);
-            if ($slugTagValueNode === null) {
+            if (!$slugTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\SlugTagValueNode) {
                 continue;
             }
             $slugFields = $slugTagValueNode->getFields();

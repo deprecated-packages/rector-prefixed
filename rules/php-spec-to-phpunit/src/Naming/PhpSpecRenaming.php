@@ -62,9 +62,8 @@ final class PhpSpecRenaming
     }
     public function renameNamespace(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        /** @var Namespace_|null $namespace */
         $namespace = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE);
-        if ($namespace === null) {
+        if (!$namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
             return;
         }
         $namespaceName = $this->nodeNameResolver->getName($namespace);

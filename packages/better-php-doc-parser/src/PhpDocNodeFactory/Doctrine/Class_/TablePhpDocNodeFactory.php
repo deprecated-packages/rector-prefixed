@@ -45,9 +45,8 @@ final class TablePhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
         if (!$node instanceof \PhpParser\Node\Stmt\Class_) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        /** @var Table|null $table */
         $table = $this->nodeAnnotationReader->readClassAnnotation($node, $annotationClass);
-        if ($table === null) {
+        if (!$table instanceof \Doctrine\ORM\Mapping\Table) {
             return null;
         }
         $annotationContent = $this->resolveContentFromTokenIterator($tokenIterator);

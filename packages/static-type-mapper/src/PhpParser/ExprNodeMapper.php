@@ -21,9 +21,8 @@ final class ExprNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
      */
     public function mapToPHPStan(\PhpParser\Node $node) : \PHPStan\Type\Type
     {
-        /** @var Scope|null $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
         return $scope->getType($node);

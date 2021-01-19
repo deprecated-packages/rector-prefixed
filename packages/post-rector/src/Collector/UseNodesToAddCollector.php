@@ -61,9 +61,8 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     }
     public function removeShortUse(\PhpParser\Node $node, string $shortUse) : void
     {
-        /** @var SmartFileInfo|null $fileInfo */
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo === null) {
+        if (!$fileInfo instanceof \RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo) {
             return;
         }
         $this->removedShortUsesInFilePath[$fileInfo->getRealPath()][] = $shortUse;

@@ -80,9 +80,8 @@ final class PropertyManipulator
      */
     public function getPrivatePropertyFetches(\PhpParser\Node\Stmt\Property $property) : array
     {
-        /** @var Class_|null $classLike */
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return [];
         }
         $nodesToSearch = $this->nodeRepository->findUsedTraitsInClass($classLike);

@@ -12,12 +12,13 @@ use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
-use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode;
-use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
+use PHPStan\Type\NullType;
+use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -79,43 +80,41 @@ CODE_SAMPLE
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($expression);
-        /** @var AttributeAwareIdentifierTypeNode[] $types */
-        $types = $this->getTypes($phpDocInfo);
+        $type = $phpDocInfo->getVarType();
+        if (!$type instanceof \PHPStan\Type\UnionType) {
+            return null;
+        }
+        /** @var Type[] $types */
+        $types = $this->getTypes($type);
         if ($this->skipNotNullOneOf($types)) {
             return null;
         }
         return $this->processConvertToExclusiveType($types, $variable, $phpDocInfo);
     }
     /**
-     * @param AttributeAwareIdentifierTypeNode[] $types
+     * @param Type[] $types
      */
     private function processConvertToExclusiveType(array $types, \PhpParser\Node\Expr $expr, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?\PhpParser\Node\Expr\BooleanNot
     {
-        $type = $types[0]->name === 'null' ? $types[1]->name : $types[0]->name;
-        if (!\class_exists($type) && !\interface_exists($type)) {
+        $type = $types[0] instanceof \PHPStan\Type\NullType ? $types[1] : $types[0];
+        if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
             return null;
         }
         /** @var VarTagValueNode $tagValueNode */
         $tagValueNode = $phpDocInfo->getVarTagValueNode();
         $phpDocInfo->removeTagValueNodeFromNode($tagValueNode);
-        return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Instanceof_($expr, new \PhpParser\Node\Name\FullyQualified($type)));
+        return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Instanceof_($expr, new \PhpParser\Node\Name\FullyQualified($type->getClassName())));
     }
     /**
-     * @return TypeNode[]
+     * @return Type[]
      */
-    private function getTypes(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : array
+    private function getTypes(\PHPStan\Type\UnionType $unionType) : array
     {
-        $tagValueNode = $phpDocInfo->getVarTagValueNode();
-        if (!$tagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
+        $types = $unionType->getTypes();
+        if (\count($types) > 2) {
             return [];
         }
-        if (!$tagValueNode->type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode) {
-            return [];
-        }
-        if (\count($tagValueNode->type->types) > 2) {
-            return [];
-        }
-        return $tagValueNode->type->types;
+        return $types;
     }
     private function getVariableAssign(\PhpParser\Node\Expr\BinaryOp\Identical $identical, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node
     {
@@ -127,24 +126,19 @@ CODE_SAMPLE
         });
     }
     /**
-     * @param AttributeAwareIdentifierTypeNode[] $types
+     * @param Type[] $types
      */
     private function skipNotNullOneOf(array $types) : bool
     {
         if ($types === []) {
             return \true;
         }
-        foreach ($types as $type) {
-            if (!$type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode) {
-                return \true;
-            }
-        }
-        if ($types[0]->name === $types[1]->name) {
+        if ($types[0] === $types[1]) {
             return \true;
         }
-        if ($types[0]->name === 'null') {
+        if ($types[0] instanceof \PHPStan\Type\NullType) {
             return \false;
         }
-        return $types[1]->name !== 'null';
+        return !$types[1] instanceof \PHPStan\Type\NullType;
     }
 }

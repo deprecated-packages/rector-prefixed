@@ -72,9 +72,8 @@ final class DoctrineEntityManipulator
         if ($class->isAbstract()) {
             return \false;
         }
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return \false;
         }
         // is parent entity

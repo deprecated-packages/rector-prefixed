@@ -23,9 +23,8 @@ final class AllAssignNodePropertyTypeInferer extends \Rector\TypeDeclaration\Typ
     }
     public function inferProperty(\PhpParser\Node\Stmt\Property $property) : \PHPStan\Type\Type
     {
-        /** @var ClassLike|null $classLike */
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             // anonymous class
             return new \PHPStan\Type\MixedType();
         }

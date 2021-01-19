@@ -128,7 +128,6 @@ CODE_SAMPLE
         }
         /** @var Expression $expression */
         $expression = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        /** @var Node|null $nextNode */
         $nextNode = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         /** @var NullsafeMethodCall|NullsafePropertyFetch $nullSafe */
         $nullSafe = $this->nullsafeManipulator->processNullSafeExpr($assignExpr);
@@ -156,7 +155,7 @@ CODE_SAMPLE
     }
     private function processIfMayInNextNode(?\PhpParser\Node $nextNode = null) : ?\PhpParser\Node
     {
-        if ($nextNode === null) {
+        if (!$nextNode instanceof \PhpParser\Node) {
             return null;
         }
         $nextOfNextNode = $nextNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);

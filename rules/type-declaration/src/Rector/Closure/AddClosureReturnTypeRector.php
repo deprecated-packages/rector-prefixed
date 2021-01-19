@@ -69,9 +69,8 @@ CODE_SAMPLE
         if ($node->returnType !== null) {
             return null;
         }
-        /** @var Scope|null $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return null;
         }
         $inferedReturnType = $this->returnTypeInferer->inferFunctionLike($node);

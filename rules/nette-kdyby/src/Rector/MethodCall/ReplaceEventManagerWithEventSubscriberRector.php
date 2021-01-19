@@ -113,9 +113,8 @@ CODE_SAMPLE
         $node->args[] = new \PhpParser\Node\Arg($new);
         // 3. create new event class with args
         $eventClassInNamespace = $this->eventValueObjectClassFactory->create($eventClassName, $args);
-        /** @var SmartFileInfo|null $fileInfo */
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo === null) {
+        if (!$fileInfo instanceof \RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $eventFileLocation = $this->eventClassNaming->resolveEventFileLocationFromClassNameAndFileInfo($eventClassName, $fileInfo);

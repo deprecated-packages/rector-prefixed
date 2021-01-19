@@ -48,9 +48,8 @@ final class CollectionTypeResolver
         if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return null;
         }
-        /** @var OneToManyTagValueNode|null $oneToManyTagValueNode */
         $oneToManyTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class);
-        if ($oneToManyTagValueNode === null) {
+        if (!$oneToManyTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode) {
             return null;
         }
         $fullyQualifiedTargetEntity = $oneToManyTagValueNode->getFullyQualifiedTargetEntity();

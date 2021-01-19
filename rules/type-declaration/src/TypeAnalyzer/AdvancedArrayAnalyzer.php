@@ -78,9 +78,8 @@ final class AdvancedArrayAnalyzer
     }
     private function getNodeReturnPhpDocType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PHPStan\Type\Type
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-        if ($phpDocInfo === null) {
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
             return null;
         }
         return $phpDocInfo->getReturnType();

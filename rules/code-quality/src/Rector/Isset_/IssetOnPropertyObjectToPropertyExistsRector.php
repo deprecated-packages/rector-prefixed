@@ -101,9 +101,8 @@ CODE_SAMPLE
     }
     private function getType(\PhpParser\Node\Expr $expr) : ?\PHPStan\Type\Type
     {
-        /** @var Scope|null $scope */
         $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             return null;
         }
         return $scope->getType($expr);

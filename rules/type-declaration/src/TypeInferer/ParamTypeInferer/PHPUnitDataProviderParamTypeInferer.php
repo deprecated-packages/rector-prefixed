@@ -70,9 +70,8 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     private function resolveDataProviderClassMethod(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $phpDocInfo = $this->getFunctionLikePhpDocInfo($param);
-        /** @var DataProviderTagValueNode|null $attributeAwareDataProviderTagValueNode */
         $attributeAwareDataProviderTagValueNode = $phpDocInfo->getByType(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode::class);
-        if ($attributeAwareDataProviderTagValueNode === null) {
+        if (!$attributeAwareDataProviderTagValueNode instanceof \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode) {
             return null;
         }
         $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);

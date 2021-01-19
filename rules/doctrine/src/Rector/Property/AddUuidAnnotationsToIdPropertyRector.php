@@ -105,9 +105,8 @@ CODE_SAMPLE
     }
     private function changeSerializerTypeToString(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        /** @var SerializerTypeTagValueNode|null $serializerTypeTagValueNode */
         $serializerTypeTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class);
-        if ($serializerTypeTagValueNode === null) {
+        if (!$serializerTypeTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode) {
             return;
         }
         if ($serializerTypeTagValueNode->getName() === 'string') {

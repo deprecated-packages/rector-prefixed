@@ -39,10 +39,9 @@ final class MovedFileWithNodesFactory
      */
     public function createWithDesiredGroup(\RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, array $nodes, string $desiredGroupName) : ?\Rector\FileSystemRector\ValueObject\MovedFileWithNodes
     {
-        /** @var Namespace_|null $currentNamespace */
         $currentNamespace = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
         // file without namespace → skip
-        if ($currentNamespace === null) {
+        if (!$currentNamespace instanceof \PhpParser\Node\Stmt\Namespace_) {
             return null;
         }
         if ($currentNamespace->name === null) {
@@ -69,9 +68,8 @@ final class MovedFileWithNodesFactory
         // 2. return changed nodes and new file destination
         $newFileDestination = $this->fileRelocationResolver->createNewFileDestination($oldFileInfo, $desiredGroupName, $this->categoryNamespaceProvider->provide());
         // 3. update fully qualifed name of the class like - will be used further
-        /** @var ClassLike|null $classLike */
         $classLike = $this->betterNodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\ClassLike::class);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
         // clone to prevent deep override

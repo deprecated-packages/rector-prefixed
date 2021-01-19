@@ -85,12 +85,11 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
         }
         /** @var Scope|null $scope */
         $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             if ($classNode instanceof \PhpParser\Node\Stmt\Trait_) {
                 /** @var string $traitName */
                 $traitName = $classNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-                /** @var Scope|null $scope */
                 $scope = $this->traitNodeScopeCollector->getScopeForTraitAndNode($traitName, $node);
             }
         }

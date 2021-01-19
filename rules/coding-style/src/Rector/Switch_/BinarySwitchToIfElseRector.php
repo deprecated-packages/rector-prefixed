@@ -62,7 +62,6 @@ CODE_SAMPLE
         if ($firstCase->cond === null) {
             return null;
         }
-        /** @var Case_|null $secondCase */
         $secondCase = \array_shift($node->cases);
         // special case with empty first case → ||
         $isFirstCaseEmpty = $firstCase->stmts === [];
@@ -75,7 +74,7 @@ CODE_SAMPLE
         $ifNode = new \PhpParser\Node\Stmt\If_(new \PhpParser\Node\Expr\BinaryOp\Equal($node->cond, $firstCase->cond));
         $ifNode->stmts = $this->removeBreakNodes($firstCase->stmts);
         // just one condition
-        if ($secondCase === null) {
+        if (!$secondCase instanceof \PhpParser\Node\Stmt\Case_) {
             return $ifNode;
         }
         if ($secondCase->cond !== null) {
