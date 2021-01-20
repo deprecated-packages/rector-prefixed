@@ -15,10 +15,6 @@ use RectorPrefix20210120\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockClassRenamer
 {
     /**
-     * @var bool
-     */
-    private $hasNodeChanged = \false;
-    /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
@@ -40,9 +36,9 @@ final class DocBlockClassRenamer
             $this->renamePhpDocType($phpDocInfo, $oldType, $newType, $phpParserNode);
         }
     }
-    public function renamePhpDocType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $oldType, \PHPStan\Type\Type $newType, \PhpParser\Node $phpParserNode) : bool
+    public function renamePhpDocType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $oldType, \PHPStan\Type\Type $newType, \PhpParser\Node $phpParserNode) : void
     {
-        $this->phpDocNodeTraverser->traverseWithCallable($phpDocInfo->getPhpDocNode(), '', function (\PHPStan\PhpDocParser\Ast\Node $node) use($phpParserNode, $oldType, $newType) : PhpDocParserNode {
+        $this->phpDocNodeTraverser->traverseWithCallable($phpDocInfo->getPhpDocNode(), '', function (\PHPStan\PhpDocParser\Ast\Node $node) use($phpDocInfo, $phpParserNode, $oldType, $newType) : PhpDocParserNode {
             if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
                 return $node;
             }
@@ -54,9 +50,8 @@ final class DocBlockClassRenamer
             if (!$staticType->equals($oldType)) {
                 return $node;
             }
-            $this->hasNodeChanged = \true;
+            $phpDocInfo->markAsChanged();
             return $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($newType);
         });
-        return $this->hasNodeChanged;
     }
 }

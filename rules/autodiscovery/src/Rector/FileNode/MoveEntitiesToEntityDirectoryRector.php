@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -25,6 +26,14 @@ final class MoveEntitiesToEntityDirectoryRector extends \Rector\Core\Rector\Abst
      * @see https://regex101.com/r/auSMk3/1
      */
     private const ENTITY_PATH_REGEX = '#\\bEntity\\b#';
+    /**
+     * @var DoctrineDocBlockResolver
+     */
+    private $doctrineDocBlockResolver;
+    public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
+    {
+        $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Move entities to Entity namespace', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -90,6 +99,6 @@ CODE_SAMPLE
         if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
-        return $this->isDoctrineEntityClass($class);
+        return $this->doctrineDocBlockResolver->isDoctrineEntityClass($class);
     }
 }

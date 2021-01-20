@@ -167,7 +167,7 @@ trait NodeCommandersTrait
             $this->removeNode($node);
         }
     }
-    protected function notifyNodeFileInfo(\PhpParser\Node $node) : void
+    private function notifyNodeFileInfo(\PhpParser\Node $node) : void
     {
         $this->rectorChangeCollector->notifyNodeFileInfo($node);
     }

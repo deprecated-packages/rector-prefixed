@@ -117,6 +117,7 @@ CODE_SAMPLE
     private function decorateParamWithPropertyPhpDocInfo(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Param $param) : void
     {
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $propertyPhpDocInfo->markAsChanged();
         $param->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $propertyPhpDocInfo);
         // make sure the docblock is useful
         if ($param->type === null) {

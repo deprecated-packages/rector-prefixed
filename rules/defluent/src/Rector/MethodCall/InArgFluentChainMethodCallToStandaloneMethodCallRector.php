@@ -7,8 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\Variable;
 use Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer;
+use Rector\Defluent\NodeFactory\FluentMethodCallAsArgFactory;
 use Rector\Defluent\NodeFactory\VariableFromNewFactory;
 use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
 use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
@@ -31,10 +31,15 @@ final class InArgFluentChainMethodCallToStandaloneMethodCallRector extends \Rect
      * @var VariableFromNewFactory
      */
     private $variableFromNewFactory;
-    public function __construct(\Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer $newFluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeFactory\VariableFromNewFactory $variableFromNewFactory)
+    /**
+     * @var FluentMethodCallAsArgFactory
+     */
+    private $fluentMethodCallAsArgFactory;
+    public function __construct(\Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer $newFluentChainMethodCallNodeAnalyzer, \Rector\Defluent\NodeFactory\VariableFromNewFactory $variableFromNewFactory, \Rector\Defluent\NodeFactory\FluentMethodCallAsArgFactory $fluentMethodCallAsArgFactory)
     {
         $this->newFluentChainMethodCallNodeAnalyzer = $newFluentChainMethodCallNodeAnalyzer;
         $this->variableFromNewFactory = $variableFromNewFactory;
+        $this->fluentMethodCallAsArgFactory = $fluentMethodCallAsArgFactory;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -81,13 +86,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->hasParentType($node, \PhpParser\Node\Arg::class)) {
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\Arg) {
             return null;
         }
-        /** @var Arg $arg */
-        $arg = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        /** @var Node|null $parentMethodCall */
-        $parentMethodCall = $arg->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentMethodCall = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentMethodCall instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
@@ -113,23 +116,9 @@ CODE_SAMPLE
         }
         $nodesToAdd = $this->nonFluentChainMethodCallFactory->createFromNewAndRootMethodCall($new, $methodCall);
         $newVariable = $this->variableFromNewFactory->create($new);
-        $nodesToAdd[] = $this->createFluentAsArg($methodCall, $newVariable);
+        $nodesToAdd[] = $this->fluentMethodCallAsArgFactory->createFluentAsArg($methodCall, $newVariable);
         $this->addNodesBeforeNode($nodesToAdd, $methodCall);
         $this->removeParentParent($methodCall);
-    }
-    /**
-     * @deprecated
-     * @todo extact to factory
-     */
-    private function createFluentAsArg(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $variable) : \PhpParser\Node\Expr\MethodCall
-    {
-        /** @var Arg $parent */
-        $parent = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        /** @var MethodCall $parentParent */
-        $parentParent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        $lastMethodCall = new \PhpParser\Node\Expr\MethodCall($parentParent->var, $parentParent->name);
-        $lastMethodCall->args[] = new \PhpParser\Node\Arg($variable);
-        return $lastMethodCall;
     }
     private function removeParentParent(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {

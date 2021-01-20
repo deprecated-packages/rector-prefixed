@@ -20,7 +20,6 @@ use PhpParser\NodeVisitorAbstract;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Exclusion\ExclusionManager;
 use Rector\Core\Logging\CurrentRectorProvider;
 use Rector\Core\NodeAnalyzer\ClassNodeAnalyzer;
@@ -28,7 +27,6 @@ use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\Rector\AbstractRector\AbstractRectorTrait;
 use Rector\Core\ValueObject\ProjectType;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use RectorPrefix20210120\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210120\Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -42,10 +40,6 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
      */
     private const ATTRIBUTES_TO_MIRROR = [\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, \Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, \Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::USE_NODES, \Rector\NodeTypeResolver\Node\AttributeKey::SCOPE, \Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NAME, \Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NAME, \Rector\NodeTypeResolver\Node\AttributeKey::NAMESPACE_NODE, \Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME];
     /**
-     * @var string
-     */
-    private const COMMENTS = 'comments';
-    /**
      * @var BuilderFactory
      */
     protected $builderFactory;
@@ -58,17 +52,9 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
      */
     protected $phpVersionProvider;
     /**
-     * @var DocBlockManipulator
-     */
-    protected $docBlockManipulator;
-    /**
      * @var StaticTypeMapper
      */
     protected $staticTypeMapper;
-    /**
-     * @var SmartFileInfo
-     */
-    private $currentFileInfo;
     /**
      * @var SymfonyStyle
      */
@@ -100,13 +86,12 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     /**
      * @required
      */
-    public function autowireAbstractRector(\RectorPrefix20210120\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \PhpParser\BuilderFactory $builderFactory, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator $docBlockManipulator, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210120\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210120\Symplify\Skipper\Skipper\Skipper $skipper) : void
+    public function autowireAbstractRector(\RectorPrefix20210120\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \PhpParser\BuilderFactory $builderFactory, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210120\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210120\Symplify\Skipper\Skipper\Skipper $skipper) : void
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->phpVersionProvider = $phpVersionProvider;
         $this->builderFactory = $builderFactory;
         $this->exclusionManager = $exclusionManager;
-        $this->docBlockManipulator = $docBlockManipulator;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->parameterProvider = $parameterProvider;
         $this->currentRectorProvider = $currentRectorProvider;
@@ -123,29 +108,6 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         return parent::beforeTraverse($nodes);
     }
     /**
-     * @param string[] $types
-     */
-    public function hasParentTypes(\PhpParser\Node $node, array $types) : bool
-    {
-        foreach ($types as $type) {
-            if (!\is_a($type, \PhpParser\Node::class, \true)) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException(__METHOD__);
-            }
-            if ($this->hasParentType($node, $type)) {
-                return \true;
-            }
-        }
-        return \false;
-    }
-    public function hasParentType(\PhpParser\Node $node, string $type) : bool
-    {
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parent instanceof \PhpParser\Node) {
-            return \false;
-        }
-        return \is_a($parent, $type, \true);
-    }
-    /**
      * @return Expression|Node|null
      */
     public final function enterNode(\PhpParser\Node $node)
@@ -154,19 +116,11 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         if (!$this->isMatchingNodeType($nodeClass)) {
             return null;
         }
-        $this->currentFileInfo = $node->getAttribute(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo::class);
         $this->currentRectorProvider->changeCurrentRector($this);
-        // mostly for PHP doc and change notifications
+        // for PHP doc info factory and change notifier
         $this->currentNodeProvider->setNode($node);
         // already removed
-        if ($this->isNodeRemoved($node)) {
-            return null;
-        }
-        if ($this->exclusionManager->isNodeSkippedByRector($node, $this)) {
-            return null;
-        }
-        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo instanceof \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo && $this->skipper->shouldSkipElementAndFileInfo($this, $fileInfo)) {
+        if ($this->shouldSkipCurrentNode($node)) {
             return null;
         }
         // show current Rector class on --debug
@@ -224,7 +178,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     protected function mirrorComments(\PhpParser\Node $newNode, \PhpParser\Node $oldNode) : void
     {
         $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $oldNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO));
-        $newNode->setAttribute(self::COMMENTS, $oldNode->getAttribute(self::COMMENTS));
+        $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $oldNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS));
     }
     protected function rollbackComments(\PhpParser\Node $node, \PhpParser\Comment $comment) : void
     {
@@ -243,7 +197,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
                 $currentPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
                 $ifStmt->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $currentPhpDocInfo);
                 // move // comments
-                $ifStmt->setAttribute(self::COMMENTS, $node->getComments());
+                $ifStmt->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $node->getComments());
             }
             $this->addNodeAfterNode($ifStmt, $node);
         }
@@ -289,13 +243,6 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
             $newArgs[] = new \PhpParser\Node\Arg($oldArgument->value);
         }
         return $newArgs;
-    }
-    protected function getFileInfo() : \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo
-    {
-        if ($this->currentFileInfo === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        return $this->currentFileInfo;
     }
     protected function unwrapExpression(\PhpParser\Node\Stmt $stmt) : \PhpParser\Node
     {
@@ -370,5 +317,19 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         }
         // names are the same
         return $this->areNodesEqual($originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME), $node);
+    }
+    private function shouldSkipCurrentNode(\PhpParser\Node $node) : bool
+    {
+        if ($this->isNodeRemoved($node)) {
+            return \true;
+        }
+        if ($this->exclusionManager->isNodeSkippedByRector($node, $this)) {
+            return \true;
+        }
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        if (!$fileInfo instanceof \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo) {
+            return \false;
+        }
+        return $this->skipper->shouldSkipElementAndFileInfo($this, $fileInfo);
     }
 }

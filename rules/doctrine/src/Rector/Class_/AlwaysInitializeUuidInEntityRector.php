@@ -14,6 +14,7 @@ use Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Doctrine\NodeFactory\EntityUuidNodeFactory;
+use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -31,10 +32,15 @@ final class AlwaysInitializeUuidInEntityRector extends \Rector\Core\Rector\Abstr
      * @var ClassDependencyManipulator
      */
     private $classDependencyManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator $classDependencyManipulator, \Rector\Doctrine\NodeFactory\EntityUuidNodeFactory $entityUuidNodeFactory)
+    /**
+     * @var DoctrineDocBlockResolver
+     */
+    private $doctrineDocBlockResolver;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator $classDependencyManipulator, \Rector\Doctrine\NodeFactory\EntityUuidNodeFactory $entityUuidNodeFactory, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
     {
         $this->entityUuidNodeFactory = $entityUuidNodeFactory;
         $this->classDependencyManipulator = $classDependencyManipulator;
+        $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -86,7 +92,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isDoctrineEntityClass($node)) {
+        if (!$this->doctrineDocBlockResolver->isDoctrineEntityClass($node)) {
             return null;
         }
         $uuidProperty = $this->resolveUuidPropertyFromClass($node);

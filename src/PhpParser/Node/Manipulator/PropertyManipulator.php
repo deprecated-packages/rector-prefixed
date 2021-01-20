@@ -19,7 +19,6 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTa
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder;
-use Rector\Doctrine\AbstractRector\DoctrineTrait;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\ReadWrite\Guard\VariableToConstantGuard;
 use Rector\ReadWrite\NodeAnalyzer\ReadWritePropertyAnalyzer;
@@ -29,7 +28,6 @@ use RectorPrefix20210120\Symplify\PackageBuilder\Php\TypeChecker;
  */
 final class PropertyManipulator
 {
-    use DoctrineTrait;
     /**
      * @var BetterNodeFinder
      */

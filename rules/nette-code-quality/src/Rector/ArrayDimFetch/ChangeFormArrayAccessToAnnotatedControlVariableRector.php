@@ -11,6 +11,8 @@ use PhpParser\Node\Stmt\Unset_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210120\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -24,9 +26,14 @@ final class ChangeFormArrayAccessToAnnotatedControlVariableRector extends \Recto
      * @var FormVariableInputNameTypeResolver
      */
     private $formVariableInputNameTypeResolver;
-    public function __construct(\Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver)
+    /**
+     * @var TypeChecker
+     */
+    private $typeChecker;
+    public function __construct(\Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver, \RectorPrefix20210120\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->formVariableInputNameTypeResolver = $formVariableInputNameTypeResolver;
+        $this->typeChecker = $typeChecker;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -77,7 +84,8 @@ CODE_SAMPLE
         if ($this->isBeingAssignedOrInitialized($node)) {
             return null;
         }
-        if ($this->hasParentTypes($node, [\PhpParser\Node\Expr\Isset_::class, \PhpParser\Node\Stmt\Unset_::class])) {
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($this->typeChecker->isInstanceOf($parent, [\PhpParser\Node\Expr\Isset_::class, \PhpParser\Node\Stmt\Unset_::class])) {
             return null;
         }
         $inputName = $this->controlDimFetchAnalyzer->matchNameOnFormOrControlVariable($node);

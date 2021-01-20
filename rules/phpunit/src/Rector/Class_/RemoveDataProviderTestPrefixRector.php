@@ -99,6 +99,7 @@ CODE_SAMPLE
                 $oldMethodName = \trim($oldMethodName, '()');
                 $newMethodName = \trim($newMethodName, '()');
                 $this->providerMethodNamesToNewNames[$oldMethodName] = $newMethodName;
+                $phpDocInfo->markAsChanged();
             }
         }
     }

@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PhpAttribute\ValueObject\TagName;
 use Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer;
@@ -38,10 +39,15 @@ final class PrivatizeLocalOnlyMethodRector extends \Rector\Core\Rector\AbstractR
      * @var ClassMethodExternalCallNodeAnalyzer
      */
     private $classMethodExternalCallNodeAnalyzer;
-    public function __construct(\Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer $classMethodExternalCallNodeAnalyzer, \Rector\VendorLocker\NodeVendorLocker\ClassMethodVisibilityVendorLockResolver $classMethodVisibilityVendorLockResolver)
+    /**
+     * @var DoctrineDocBlockResolver
+     */
+    private $doctrineDocBlockResolver;
+    public function __construct(\Rector\Privatization\NodeAnalyzer\ClassMethodExternalCallNodeAnalyzer $classMethodExternalCallNodeAnalyzer, \Rector\VendorLocker\NodeVendorLocker\ClassMethodVisibilityVendorLockResolver $classMethodVisibilityVendorLockResolver, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
     {
         $this->classMethodVisibilityVendorLockResolver = $classMethodVisibilityVendorLockResolver;
         $this->classMethodExternalCallNodeAnalyzer = $classMethodExternalCallNodeAnalyzer;
+        $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -170,7 +176,7 @@ CODE_SAMPLE
         if ($this->isAnonymousClass($class)) {
             return \true;
         }
-        if ($this->isDoctrineEntityClass($class)) {
+        if ($this->doctrineDocBlockResolver->isDoctrineEntityClass($class)) {
             return \true;
         }
         if ($this->isObjectType($class, 'PHPUnit\\Framework\\TestCase')) {

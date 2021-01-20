@@ -36,6 +36,7 @@ final class ClassConstantFactory
         $classConst = new \PhpParser\Node\Stmt\ClassConst([$const]);
         $classConst->flags = $property->flags & ~\PhpParser\Node\Stmt\Class_::MODIFIER_STATIC;
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $phpDocInfo->markAsChanged();
         $classConst->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $phpDocInfo);
         return $classConst;
     }

@@ -129,6 +129,7 @@ CODE_SAMPLE
                 return;
             }
             $attributeAwareReturnTagValueNode->type = $fullyQualifiedTypeNode;
+            $phpDocInfo->markAsChanged();
         }
     }
 }

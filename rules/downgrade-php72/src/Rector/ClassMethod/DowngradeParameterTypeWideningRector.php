@@ -14,7 +14,6 @@ use PhpParser\Node\Stmt\Interface_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
-use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
@@ -28,16 +27,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DowngradeParameterTypeWideningRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var RectorChangeCollector
-     */
-    private $rectorChangeCollector;
-    /**
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
-        $this->rectorChangeCollector = $rectorChangeCollector;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -200,7 +194,6 @@ CODE_SAMPLE
         $this->addPHPDocParamTypeToMethod($classMethod, $param);
         // Remove the type
         $param->type = null;
-        $this->rectorChangeCollector->notifyNodeFileInfo($param);
     }
     private function removeParamTypeFromMethodForChildren(string $parentClassName, string $methodName, int $position) : void
     {

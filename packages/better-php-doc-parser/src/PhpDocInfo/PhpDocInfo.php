@@ -360,6 +360,9 @@ final class PhpDocInfo
     }
     public function hasChanged() : bool
     {
+        if ($this->isNewNode()) {
+            return \true;
+        }
         return $this->hasChanged;
     }
     private function getTypeOrMixed(?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type

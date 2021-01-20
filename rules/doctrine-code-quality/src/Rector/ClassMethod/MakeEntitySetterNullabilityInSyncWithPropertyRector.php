@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -25,9 +26,14 @@ final class MakeEntitySetterNullabilityInSyncWithPropertyRector extends \Rector\
      * @var SetterClassMethodAnalyzer
      */
     private $setterClassMethodAnalyzer;
-    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer)
+    /**
+     * @var DoctrineDocBlockResolver
+     */
+    private $doctrineDocBlockResolver;
+    public function __construct(\Rector\DoctrineCodeQuality\NodeAnalyzer\SetterClassMethodAnalyzer $setterClassMethodAnalyzer, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
     {
         $this->setterClassMethodAnalyzer = $setterClassMethodAnalyzer;
+        $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -84,7 +90,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         // is setter in doctrine?
-        if (!$this->isInDoctrineEntityClass($node)) {
+        if (!$this->doctrineDocBlockResolver->isInDoctrineEntityClass($node)) {
             return null;
         }
         $property = $this->setterClassMethodAnalyzer->matchNullalbeClassMethodProperty($node);

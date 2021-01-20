@@ -93,12 +93,25 @@ final class PhpDocInfoPrinter
      * @var EmptyPhpDocDetector
      */
     private $emptyPhpDocDetector;
-    public function __construct(\Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector $emptyPhpDocDetector, \Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver $multilineSpaceFormatPreserver, \Rector\BetterPhpDocParser\Printer\OriginalSpacingRestorer $originalSpacingRestorer, \Rector\BetterPhpDocParser\Printer\SpacePatternFactory $spacePatternFactory)
+    /**
+     * @var DocBlockInliner
+     */
+    private $docBlockInliner;
+    public function __construct(\Rector\BetterPhpDocParser\Printer\EmptyPhpDocDetector $emptyPhpDocDetector, \Rector\BetterPhpDocParser\Printer\MultilineSpaceFormatPreserver $multilineSpaceFormatPreserver, \Rector\BetterPhpDocParser\Printer\OriginalSpacingRestorer $originalSpacingRestorer, \Rector\BetterPhpDocParser\Printer\SpacePatternFactory $spacePatternFactory, \Rector\BetterPhpDocParser\Printer\DocBlockInliner $docBlockInliner)
     {
         $this->originalSpacingRestorer = $originalSpacingRestorer;
         $this->multilineSpaceFormatPreserver = $multilineSpaceFormatPreserver;
         $this->spacePatternFactory = $spacePatternFactory;
         $this->emptyPhpDocDetector = $emptyPhpDocDetector;
+        $this->docBlockInliner = $docBlockInliner;
+    }
+    public function printNew(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : string
+    {
+        $docContent = (string) $phpDocInfo->getPhpDocNode();
+        if (!$phpDocInfo->isSingleLine()) {
+            return $docContent;
+        }
+        return $this->docBlockInliner->inline($docContent);
     }
     /**
      * As in php-parser

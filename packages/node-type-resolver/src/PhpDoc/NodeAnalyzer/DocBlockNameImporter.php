@@ -17,10 +17,6 @@ use RectorPrefix20210120\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockNameImporter
 {
     /**
-     * @var bool
-     */
-    private $hasPhpDocChanged = \false;
-    /**
      * @var PhpDocNodeTraverser
      */
     private $phpDocNodeTraverser;
@@ -48,11 +44,10 @@ final class DocBlockNameImporter
         $this->parameterProvider = $parameterProvider;
         $this->useNodesToAddCollector = $useNodesToAddCollector;
     }
-    public function importNames(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $phpParserNode) : bool
+    public function importNames(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $phpParserNode) : void
     {
         $attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
-        $this->hasPhpDocChanged = \false;
-        $this->phpDocNodeTraverser->traverseWithCallable($attributeAwarePhpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $docNode) use($phpParserNode) : PhpDocParserNode {
+        $this->phpDocNodeTraverser->traverseWithCallable($attributeAwarePhpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $docNode) use($phpDocInfo, $phpParserNode) : PhpDocParserNode {
             if (!$docNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
                 return $docNode;
             }
@@ -65,11 +60,10 @@ final class DocBlockNameImporter
             if (!$importShortClasses && \substr_count($staticType->getClassName(), '\\') === 0) {
                 return $docNode;
             }
-            return $this->processFqnNameImport($phpParserNode, $docNode, $staticType);
+            return $this->processFqnNameImport($phpDocInfo, $phpParserNode, $docNode, $staticType);
         });
-        return $this->hasPhpDocChanged;
     }
-    private function processFqnNameImport(\PhpParser\Node $node, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $identifierTypeNode, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \PHPStan\PhpDocParser\Ast\Node
+    private function processFqnNameImport(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $node, \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode $identifierTypeNode, \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType $fullyQualifiedObjectType) : \PHPStan\PhpDocParser\Ast\Node
     {
         if ($this->classNameImportSkipper->shouldSkipNameForFullyQualifiedObjectType($node, $fullyQualifiedObjectType)) {
             return $identifierTypeNode;
@@ -78,13 +72,13 @@ final class DocBlockNameImporter
         if ($this->useNodesToAddCollector->isShortImported($node, $fullyQualifiedObjectType)) {
             if ($this->useNodesToAddCollector->isImportShortable($node, $fullyQualifiedObjectType)) {
                 $identifierTypeNode->name = $fullyQualifiedObjectType->getShortName();
-                $this->hasPhpDocChanged = \true;
+                $phpDocInfo->markAsChanged();
             }
             return $identifierTypeNode;
         }
         $shortenedIdentifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($fullyQualifiedObjectType->getShortName());
-        $this->hasPhpDocChanged = \true;
         $this->useNodesToAddCollector->addUseImport($node, $fullyQualifiedObjectType);
+        $phpDocInfo->markAsChanged();
         return $shortenedIdentifierTypeNode;
     }
 }

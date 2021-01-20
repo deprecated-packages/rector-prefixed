@@ -57,10 +57,7 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $hasChanged = $this->docBlockNameImporter->importNames($phpDocInfo, $node);
-        if (!$hasChanged) {
-            return null;
-        }
+        $this->docBlockNameImporter->importNames($phpDocInfo, $node);
         return $node;
     }
     public function getPriority() : int

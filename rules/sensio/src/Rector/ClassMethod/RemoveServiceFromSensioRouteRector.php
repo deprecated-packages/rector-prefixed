@@ -65,6 +65,7 @@ CODE_SAMPLE
             return null;
         }
         $sensioRouteTagValueNode->removeService();
+        $phpDocInfo->markAsChanged();
         return $node;
     }
 }

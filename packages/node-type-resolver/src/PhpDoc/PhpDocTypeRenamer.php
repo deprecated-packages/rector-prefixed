@@ -32,7 +32,7 @@ final class PhpDocTypeRenamer
     {
         $attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
         $phpParserNode = $node;
-        $this->phpDocNodeTraverser->traverseWithCallable($attributeAwarePhpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $node) use($pseudoNamespaceToNamespace, $phpParserNode) : PhpDocParserNode {
+        $this->phpDocNodeTraverser->traverseWithCallable($attributeAwarePhpDocNode, '', function (\PHPStan\PhpDocParser\Ast\Node $node) use($pseudoNamespaceToNamespace, $phpParserNode, $phpDocInfo) : PhpDocParserNode {
             if (!$node instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
                 return $node;
             }
@@ -47,6 +47,7 @@ final class PhpDocTypeRenamer
             // change underscore to \\
             $slashedName = '\\' . \RectorPrefix20210120\Nette\Utils\Strings::replace($staticType->getClassName(), '#_#', '\\');
             $node->name = $slashedName;
+            $phpDocInfo->markAsChanged();
             return $node;
         });
     }

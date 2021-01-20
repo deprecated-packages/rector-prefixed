@@ -59,12 +59,8 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $this->doctrineItemDefaultValueManipulator->resetHasModifiedAnnotation();
         if ($node instanceof \PhpParser\Node\Stmt\Class_) {
             $this->refactorClassAnnotations($node);
-        }
-        if (!$this->doctrineItemDefaultValueManipulator->hasModifiedAnnotation()) {
-            return null;
         }
         return $node;
     }
@@ -79,6 +75,6 @@ CODE_SAMPLE
         if (!$entityTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode) {
             return;
         }
-        $this->doctrineItemDefaultValueManipulator->remove($entityTagValueNode, 'readOnly', \false);
+        $this->doctrineItemDefaultValueManipulator->remove($phpDocInfo, $entityTagValueNode, 'readOnly', \false);
     }
 }

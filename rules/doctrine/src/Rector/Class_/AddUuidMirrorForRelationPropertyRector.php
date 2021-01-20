@@ -18,6 +18,7 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOne
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\Collector\UuidMigrationDataCollector;
 use Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory;
+use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -40,11 +41,16 @@ final class AddUuidMirrorForRelationPropertyRector extends \Rector\Core\Rector\A
      * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
-    public function __construct(\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
+    /**
+     * @var DoctrineDocBlockResolver
+     */
+    private $doctrineDocBlockResolver;
+    public function __construct(\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
     {
         $this->phpDocTagNodeFactory = $phpDocTagNodeFactory;
         $this->uuidMigrationDataCollector = $uuidMigrationDataCollector;
         $this->phpDocTagRemover = $phpDocTagRemover;
+        $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -130,7 +136,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isDoctrineEntityClass($node)) {
+        if (!$this->doctrineDocBlockResolver->isDoctrineEntityClass($node)) {
             return null;
         }
         // traverse relations and see which of them have freshly added uuid on the other side
@@ -152,7 +158,7 @@ CODE_SAMPLE
         if ($this->hasClassPropertyName($class, $uuidPropertyName)) {
             return \true;
         }
-        $targetEntity = $this->getTargetEntity($property);
+        $targetEntity = $this->doctrineDocBlockResolver->getTargetEntity($property);
         if ($targetEntity === null) {
             return \true;
         }

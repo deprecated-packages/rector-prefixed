@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
-use PhpParser\Node;
 use PhpParser\Node\Param;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
@@ -12,9 +11,6 @@ use PHPStan\Type\Type;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\ChangesReporting\Collector\RectorChangeCollector;
-use Rector\Core\Configuration\CurrentNodeProvider;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\PHPStan\TypeComparator;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\TypeDeclaration\PhpDocParser\ParamPhpDocNodeFactory;
@@ -29,23 +25,13 @@ final class PhpDocTypeChanger
      */
     private $staticTypeMapper;
     /**
-     * @var RectorChangeCollector
-     */
-    private $rectorChangeCollector;
-    /**
-     * @var CurrentNodeProvider
-     */
-    private $currentNodeProvider;
-    /**
      * @var ParamPhpDocNodeFactory
      */
     private $paramPhpDocNodeFactory;
-    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \Rector\TypeDeclaration\PhpDocParser\ParamPhpDocNodeFactory $paramPhpDocNodeFactory)
+    public function __construct(\Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator, \Rector\TypeDeclaration\PhpDocParser\ParamPhpDocNodeFactory $paramPhpDocNodeFactory)
     {
         $this->typeComparator = $typeComparator;
         $this->staticTypeMapper = $staticTypeMapper;
-        $this->rectorChangeCollector = $rectorChangeCollector;
-        $this->currentNodeProvider = $currentNodeProvider;
         $this->paramPhpDocNodeFactory = $paramPhpDocNodeFactory;
     }
     public function changeVarType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType) : void
@@ -64,13 +50,12 @@ final class PhpDocTypeChanger
         if ($currentVarTagValueNode !== null) {
             // only change type
             $currentVarTagValueNode->type = $newPHPStanPhpDocType;
+            $phpDocInfo->markAsChanged();
         } else {
             // add completely new one
             $attributeAwareVarTagValueNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareVarTagValueNode($newPHPStanPhpDocType, '', '');
             $phpDocInfo->addTagValueNode($attributeAwareVarTagValueNode);
         }
-        // notify about node change
-        $this->notifyChange();
     }
     public function changeReturnType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType) : void
     {
@@ -84,13 +69,12 @@ final class PhpDocTypeChanger
         if ($currentReturnTagValueNode !== null) {
             // only change type
             $currentReturnTagValueNode->type = $newPHPStanPhpDocType;
+            $phpDocInfo->markAsChanged();
         } else {
             // add completely new one
             $attributeAwareReturnTagValueNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode($newPHPStanPhpDocType, '');
             $phpDocInfo->addTagValueNode($attributeAwareReturnTagValueNode);
         }
-        // notify about node change
-        $this->notifyChange();
     }
     public function changeParamType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\Type\Type $newType, \PhpParser\Node\Param $param, string $paramName) : void
     {
@@ -104,19 +88,10 @@ final class PhpDocTypeChanger
                 return;
             }
             $paramTagValueNode->type = $phpDocType;
+            $phpDocInfo->markAsChanged();
         } else {
             $paramTagValueNode = $this->paramPhpDocNodeFactory->create($phpDocType, $param);
             $phpDocInfo->addTagValueNode($paramTagValueNode);
         }
-        // notify about node change
-        $this->notifyChange();
-    }
-    private function notifyChange() : void
-    {
-        $node = $this->currentNodeProvider->getNode();
-        if (!$node instanceof \PhpParser\Node) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        $this->rectorChangeCollector->notifyNodeFileInfo($node);
     }
 }

@@ -77,7 +77,6 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $seeTagNode = $this->createSeePhpDocTagNode($testCaseClassName);
         $phpDocInfo->addPhpDocTagNode($seeTagNode);
-        $this->notifyNodeFileInfo($node);
         return $node;
     }
     private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class, string $testCaseClassName) : bool

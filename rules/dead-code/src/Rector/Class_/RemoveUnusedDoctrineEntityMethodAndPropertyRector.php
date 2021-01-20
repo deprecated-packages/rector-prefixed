@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
@@ -154,7 +155,7 @@ CODE_SAMPLE
             if (isset($this->collectionByPropertyName[$propertyName])) {
                 $this->removeNode($this->collectionByPropertyName[$propertyName]);
             }
-            $this->removeInversedByOrMappedByOnRelatedProperty($property);
+            $this->removeInversedByOrMappedByOnRelatedProperty($phpDocInfo, $property);
         }
         return $class;
     }
@@ -185,13 +186,14 @@ CODE_SAMPLE
         });
         return $usedPropertyNames;
     }
-    private function removeInversedByOrMappedByOnRelatedProperty(\PhpParser\Node\Stmt\Property $property) : void
+    private function removeInversedByOrMappedByOnRelatedProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : void
     {
-        $otherRelationProperty = $this->getOtherRelationProperty($property);
+        $otherRelationProperty = $this->getOtherRelationProperty($phpDocInfo, $property);
         if (!$otherRelationProperty instanceof \PhpParser\Node\Stmt\Property) {
             return;
         }
-        $this->doctrineEntityManipulator->removeMappedByOrInversedByFromProperty($otherRelationProperty);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($otherRelationProperty);
+        $this->doctrineEntityManipulator->removeMappedByOrInversedByFromProperty($phpDocInfo);
     }
     private function isPropertyFetchAssignOfArrayCollection(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : bool
     {
@@ -206,9 +208,8 @@ CODE_SAMPLE
         $new = $parentNode->expr;
         return $this->isName($new->class, \RectorPrefix20210120\Doctrine\Common\Collections\ArrayCollection::class);
     }
-    private function getOtherRelationProperty(\PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
+    private function getOtherRelationProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : ?\PhpParser\Node\Stmt\Property
     {
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $doctrineRelationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
         if (!$doctrineRelationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface) {
             return null;

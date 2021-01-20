@@ -12,6 +12,7 @@ use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
 use Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode;
@@ -74,9 +75,8 @@ final class DoctrineEntityManipulator
         // is parent entity
         return $phpDocInfo->hasByTypes([\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode::class]);
     }
-    public function removeMappedByOrInversedByFromProperty(\PhpParser\Node\Stmt\Property $property) : void
+    public function removeMappedByOrInversedByFromProperty(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $relationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
         if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\MappedByNodeInterface && $relationTagValueNode->getMappedBy()) {
             $relationTagValueNode->removeMappedBy();
@@ -87,6 +87,7 @@ final class DoctrineEntityManipulator
         if (!$relationTagValueNode->getInversedBy()) {
             return;
         }
+        $phpDocInfo->markAsChanged();
         $relationTagValueNode->removeInversedBy();
     }
     public function isMethodCallOnDoctrineEntity(\PhpParser\Node $node, string $methodName) : bool
