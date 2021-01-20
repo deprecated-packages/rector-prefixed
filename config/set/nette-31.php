@@ -3,6 +3,9 @@
 declare (strict_types=1);
 namespace RectorPrefix20210120;
 
+use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
+use PHPStan\Type\UnionType;
 use Rector\Composer\Rector\ChangePackageVersionRector;
 use Rector\Composer\Rector\RemovePackageRector;
 use Rector\Composer\ValueObject\PackageAndVersion;
@@ -14,11 +17,14 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
+use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
+use Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
 use RectorPrefix20210120\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 return static function (\RectorPrefix20210120\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
+        'Nette\\Bridges\\ApplicationLatte\\Template' => 'Nette\\Bridges\\ApplicationLatte\\DefaultTemplate',
         // https://github.com/nette/application/compare/v3.0.7...v3.1.0
         'Nette\\Application\\IRouter' => 'Nette\\Routing\\Router',
         'Nette\\Application\\IResponse' => 'Nette\\Application\\Response',
@@ -69,12 +75,14 @@ return static function (\RectorPrefix20210120\Symfony\Component\DependencyInject
         new \Rector\Renaming\ValueObject\MethodCallRename('Nette\\Forms\\Container', 'addImage', 'addImageButton'),
         // https://github.com/nette/utils/commit/d0427c1811462dbb6c503143eabe5478b26685f7
         new \Rector\Renaming\ValueObject\MethodCallRename('Nette\\Utils\\Arrays', 'searchKey', 'getKeyOffset'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('Nette\\Configurator', 'addParameters', 'addStaticParameters'),
     ])]]);
     $services->set(\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // https://github.com/nette/utils/commit/8a4b795acd00f3f6754c28a73a7e776b60350c34
         new \Rector\Renaming\ValueObject\RenameStaticMethod('Nette\\Utils\\Callback', 'closure', 'Closure', 'fromCallable'),
     ])]]);
     $services->set(\Rector\Generic\Rector\Assign\DimFetchAssignToMethodCallRector::class)->call('configure', [[\Rector\Generic\Rector\Assign\DimFetchAssignToMethodCallRector::DIM_FETCH_ASSIGN_TO_METHOD_CALL => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\DimFetchAssignToMethodCall('Nette\\Application\\Routers\\RouteList', 'Nette\\Application\\Routers\\Route', 'addRoute')])]]);
+    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Nette\\Application\\UI\\Presenter', 'sendTemplate', 0, new \PHPStan\Type\UnionType([new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Template'), new \PHPStan\Type\NullType()]))])]]);
     $services->set(\Rector\Nette\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector::class);
     $services->set(\Rector\Composer\Rector\ChangePackageVersionRector::class)->call('configure', [[\Rector\Composer\Rector\ChangePackageVersionRector::PACKAGES_AND_VERSIONS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // meta package
@@ -98,6 +106,13 @@ return static function (\RectorPrefix20210120\Symfony\Component\DependencyInject
         new \Rector\Composer\ValueObject\PackageAndVersion('nette/utils', '^3.2'),
         new \Rector\Composer\ValueObject\PackageAndVersion('latte/latte', '^2.9'),
         new \Rector\Composer\ValueObject\PackageAndVersion('tracy/tracy', '^2.8'),
+        // contributte
+        new \Rector\Composer\ValueObject\PackageAndVersion('contributte/console', '^0.9'),
+        new \Rector\Composer\ValueObject\PackageAndVersion('contributte/event-dispatcher', '^0.8'),
+        new \Rector\Composer\ValueObject\PackageAndVersion('contributte/event-dispatcher-extra', '^0.8'),
+        // netrinne
+        new \Rector\Composer\ValueObject\PackageAndVersion('nettrine/annotations', '^0.7'),
+        new \Rector\Composer\ValueObject\PackageAndVersion('nettrine/cache', '^0.3'),
     ])]]);
     $services->set(\Rector\Composer\Rector\RemovePackageRector::class)->call('configure', [[\Rector\Composer\Rector\RemovePackageRector::PACKAGE_NAMES => ['nette/component-model', 'nette/neon']]]);
 };

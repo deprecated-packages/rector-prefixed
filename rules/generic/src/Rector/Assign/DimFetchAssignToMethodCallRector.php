@@ -20,6 +20,9 @@ use RectorPrefix20210120\Webmozart\Assert\Assert;
  */
 final class DimFetchAssignToMethodCallRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
+    /**
+     * @var string
+     */
     public const DIM_FETCH_ASSIGN_TO_METHOD_CALL = 'dim_fetch_assign_to_method_call';
     /**
      * @var DimFetchAssignToMethodCall[]
@@ -79,10 +82,16 @@ CODE_SAMPLE
             return null;
         }
         $dimFetchAssignToMethodCall = $this->findDimFetchAssignToMethodCall($node);
-        if ($dimFetchAssignToMethodCall === null) {
+        if (!$dimFetchAssignToMethodCall instanceof \Rector\Generic\ValueObject\DimFetchAssignToMethodCall) {
             return null;
         }
         return new \PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, $dimFetchAssignToMethodCall->getAddMethod(), $node->expr->args);
+    }
+    public function configure(array $configuration) : void
+    {
+        $dimFetchAssignToMethodCalls = $configuration[self::DIM_FETCH_ASSIGN_TO_METHOD_CALL] ?? [];
+        \RectorPrefix20210120\Webmozart\Assert\Assert::allIsInstanceOf($dimFetchAssignToMethodCalls, \Rector\Generic\ValueObject\DimFetchAssignToMethodCall::class);
+        $this->dimFetchAssignToMethodCalls = $dimFetchAssignToMethodCalls;
     }
     private function findDimFetchAssignToMethodCall(\PhpParser\Node\Expr\Assign $assign) : ?\Rector\Generic\ValueObject\DimFetchAssignToMethodCall
     {
@@ -94,11 +103,5 @@ CODE_SAMPLE
             }
         }
         return null;
-    }
-    public function configure(array $configuration) : void
-    {
-        $dimFetchAssignToMethodCalls = $configuration[self::DIM_FETCH_ASSIGN_TO_METHOD_CALL] ?? [];
-        \RectorPrefix20210120\Webmozart\Assert\Assert::allIsInstanceOf($dimFetchAssignToMethodCalls, \Rector\Generic\ValueObject\DimFetchAssignToMethodCall::class);
-        $this->dimFetchAssignToMethodCalls = $dimFetchAssignToMethodCalls;
     }
 }

@@ -13,7 +13,6 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
-use Rector\NodeTypeResolver\PHPStan\TypeHasher;
 use Rector\StaticTypeMapper\TypeFactory\TypeFactoryStaticHelper;
 use Rector\TypeDeclaration\ValueObject\NestedArrayType;
 /**
@@ -29,14 +28,9 @@ final class TypeNormalizer
      * @var TypeFactory
      */
     private $typeFactory;
-    /**
-     * @var TypeHasher
-     */
-    private $typeHasher;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory, \Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher)
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\Type\TypeFactory $typeFactory)
     {
         $this->typeFactory = $typeFactory;
-        $this->typeHasher = $typeHasher;
     }
     public function convertConstantArrayTypeToArrayType(\PHPStan\Type\Constant\ConstantArrayType $constantArrayType) : ?\PHPStan\Type\ArrayType
     {
@@ -83,39 +77,6 @@ final class TypeNormalizer
             $this->collectedNestedArrayTypes[] = new \Rector\TypeDeclaration\ValueObject\NestedArrayType($type->getItemType(), $arrayNesting, $type->getKeyType());
         }
         return $this->createUnionedTypesFromArrayTypes($this->collectedNestedArrayTypes);
-    }
-    public function uniqueateConstantArrayType(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
-    {
-        if (!$type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-            return $type;
-        }
-        // nothing to normalize
-        if ($type->getValueTypes() === []) {
-            return $type;
-        }
-        $uniqueTypes = [];
-        $removedKeys = [];
-        foreach ($type->getValueTypes() as $key => $valueType) {
-            $typeHash = $this->typeHasher->createTypeHash($valueType);
-            $valueType = $this->uniqueateConstantArrayType($valueType);
-            $valueType = $this->normalizeArrayOfUnionToUnionArray($valueType);
-            if (!isset($uniqueTypes[$typeHash])) {
-                $uniqueTypes[$typeHash] = $valueType;
-            } else {
-                $removedKeys[] = $key;
-            }
-        }
-        // re-index keys
-        $uniqueTypes = \array_values($uniqueTypes);
-        $keyTypes = [];
-        foreach ($type->getKeyTypes() as $key => $keyType) {
-            if (\in_array($key, $removedKeys, \true)) {
-                // remove it
-                continue;
-            }
-            $keyTypes[$key] = $keyType;
-        }
-        return new \PHPStan\Type\Constant\ConstantArrayType($keyTypes, $uniqueTypes);
     }
     /**
      * From "string[]|mixed[]" based on empty array to to "string[]"

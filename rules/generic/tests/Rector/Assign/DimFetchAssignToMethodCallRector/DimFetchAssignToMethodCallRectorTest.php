@@ -21,6 +21,9 @@ final class DimFetchAssignToMethodCallRectorTest extends \Rector\Testing\PHPUnit
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
+    /**
+     * @return array<string, array<string, DimFetchAssignToMethodCall[]>>
+     */
     protected function getRectorsWithConfiguration() : array
     {
         return [\Rector\Generic\Rector\Assign\DimFetchAssignToMethodCallRector::class => [\Rector\Generic\Rector\Assign\DimFetchAssignToMethodCallRector::DIM_FETCH_ASSIGN_TO_METHOD_CALL => [new \Rector\Generic\ValueObject\DimFetchAssignToMethodCall('Nette\\Application\\Routers\\RouteList', 'Nette\\Application\\Routers\\Route', 'addRoute')]]];
