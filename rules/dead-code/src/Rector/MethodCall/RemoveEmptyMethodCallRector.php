@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
@@ -78,7 +79,7 @@ CODE_SAMPLE
             return null;
         }
         $class = $this->classReflectionToAstResolver->getClassFromObjectType($type);
-        if ($class === null) {
+        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         if ($this->shouldSkipClassMethod($class, $node)) {
@@ -102,7 +103,7 @@ CODE_SAMPLE
             return \true;
         }
         $classMethod = $class->getMethod($methodName);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \true;
         }
         if ($classMethod->isAbstract()) {

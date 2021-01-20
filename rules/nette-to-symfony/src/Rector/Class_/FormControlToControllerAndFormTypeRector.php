@@ -9,6 +9,7 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NetteToSymfony\Collector\OnFormVariableMethodCallsCollector;
 use Rector\NetteToSymfony\NodeFactory\BuildFormClassMethodFactory;
@@ -124,11 +125,11 @@ CODE_SAMPLE
                 continue;
             }
             $formTypeClass = $this->collectFormMethodCallsAndCreateFormTypeClass($classMethod);
-            if ($formTypeClass === null) {
+            if (!$formTypeClass instanceof \PhpParser\Node\Stmt\Class_) {
                 continue;
             }
             $symfonyControllerNamespace = $this->symfonyControllerFactory->createNamespace($node, $formTypeClass);
-            if ($symfonyControllerNamespace === null) {
+            if (!$symfonyControllerNamespace instanceof \PhpParser\Node\Stmt\Namespace_) {
                 continue;
             }
             $this->printNodesToFilePath([$symfonyControllerNamespace], 'src/Controller/SomeFormController.php');

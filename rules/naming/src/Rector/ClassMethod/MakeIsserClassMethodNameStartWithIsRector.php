@@ -86,7 +86,7 @@ CODE_SAMPLE
             return null;
         }
         $getterClassMethodReturnedExpr = $this->matchIsserClassMethodReturnedExpr($node);
-        if ($getterClassMethodReturnedExpr === null) {
+        if (!$getterClassMethodReturnedExpr instanceof \PhpParser\Node\Expr) {
             return null;
         }
         $isserMethodName = $this->methodNameResolver->resolveIsserFromReturnedExpr($getterClassMethodReturnedExpr);

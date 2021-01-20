@@ -78,7 +78,7 @@ CODE_SAMPLE
         /** @var PropertyFetch $propertyFetchNode */
         $propertyFetchNode = $assign->var;
         $propertyToMethodCall = $this->matchPropertyFetchCandidate($propertyFetchNode);
-        if ($propertyToMethodCall === null) {
+        if (!$propertyToMethodCall instanceof \Rector\Transform\ValueObject\PropertyToMethod) {
             return null;
         }
         if ($propertyToMethodCall->getNewSetMethod() === null) {
@@ -94,7 +94,7 @@ CODE_SAMPLE
         /** @var PropertyFetch $propertyFetchNode */
         $propertyFetchNode = $assign->expr;
         $propertyToMethodCall = $this->matchPropertyFetchCandidate($propertyFetchNode);
-        if ($propertyToMethodCall === null) {
+        if (!$propertyToMethodCall instanceof \Rector\Transform\ValueObject\PropertyToMethod) {
             return null;
         }
         // simple method name

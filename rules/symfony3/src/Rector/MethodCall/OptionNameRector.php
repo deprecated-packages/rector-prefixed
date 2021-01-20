@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Symfony3\Rector\MethodCall;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -45,7 +46,7 @@ CODE_SAMPLE
             return null;
         }
         $optionsArray = $this->matchOptionsArray($node);
-        if ($optionsArray === null) {
+        if (!$optionsArray instanceof \PhpParser\Node\Expr\Array_) {
             return null;
         }
         foreach ($optionsArray->items as $arrayItemNode) {

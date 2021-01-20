@@ -71,7 +71,7 @@ final class MethodReflectionProvider
     public function provideParameterTypesByStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : array
     {
         $methodReflection = $this->provideByStaticCall($staticCall);
-        if ($methodReflection === null) {
+        if (!$methodReflection instanceof \PHPStan\Reflection\MethodReflection) {
             return [];
         }
         return $this->provideParameterTypesFromMethodReflection($methodReflection);
@@ -98,7 +98,7 @@ final class MethodReflectionProvider
     public function provideParameterTypesByClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $methodReflection = $this->provideByClassMethod($classMethod);
-        if ($methodReflection === null) {
+        if (!$methodReflection instanceof \PHPStan\Reflection\MethodReflection) {
             return [];
         }
         return $this->provideParameterTypesFromMethodReflection($methodReflection);

@@ -8,6 +8,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
@@ -103,7 +104,7 @@ CODE_SAMPLE
         $argumentValue = $node->args[0]->value;
         if ($argumentValue instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             $classConst = $this->nodeRepository->findClassConstByClassConstFetch($argumentValue);
-            if ($classConst === null) {
+            if (!$classConst instanceof \PhpParser\Node\Stmt\ClassConst) {
                 return null;
             }
             $constantValueStaticType = $this->getStaticType($classConst->consts[0]->value);
@@ -138,7 +139,7 @@ CODE_SAMPLE
         if ($parentNode instanceof \PhpParser\Node\Stmt\Expression) {
             $parentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         }
-        if ($parentNode === null) {
+        if (!$parentNode instanceof \PhpParser\Node) {
             return null;
         }
         $variableName = $this->getName($methodCall->var);

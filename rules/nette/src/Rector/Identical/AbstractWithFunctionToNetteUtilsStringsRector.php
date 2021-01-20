@@ -26,7 +26,7 @@ abstract class AbstractWithFunctionToNetteUtilsStringsRector extends \Rector\Cor
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $contentExprAndNeedleExpr = $this->resolveContentExprAndNeedleExpr($node);
-        if ($contentExprAndNeedleExpr === null) {
+        if (!$contentExprAndNeedleExpr instanceof \Rector\Nette\ValueObject\ContentExprAndNeedleExpr) {
             return null;
         }
         $staticCall = $this->createStaticCall('Nette\\Utils\\Strings', $this->getMethodName(), [$contentExprAndNeedleExpr->getContentExpr(), $contentExprAndNeedleExpr->getNeedleExpr()]);

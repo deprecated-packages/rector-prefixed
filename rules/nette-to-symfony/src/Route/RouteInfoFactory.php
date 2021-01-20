@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Class_;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\NetteToSymfony\ValueObject\RouteInfo;
 use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
@@ -132,11 +133,11 @@ final class RouteInfoFactory
         // detect class by controller name?
         // foreach all instance and try to match a name $controller . 'Presenter/Controller'
         $classNode = $this->parsedNodeCollector->findByShortName($controller . 'Presenter');
-        if ($classNode === null) {
+        if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
             $classNode = $this->parsedNodeCollector->findByShortName($controller . 'Controller');
         }
         // unable to find here
-        if ($classNode === null) {
+        if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         $controllerClass = $this->nodeNameResolver->getName($classNode);

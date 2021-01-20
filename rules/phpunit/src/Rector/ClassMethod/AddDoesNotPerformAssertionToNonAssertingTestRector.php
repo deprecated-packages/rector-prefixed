@@ -11,6 +11,7 @@ use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\Core\Reflection\ClassMethodReflectionFactory;
 use Rector\FileSystemRector\Parser\FileInfoParser;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
+use ReflectionMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
@@ -222,7 +223,7 @@ CODE_SAMPLE
             $objectType = $this->getObjectType($node->class);
         }
         $reflectionMethod = $this->classMethodReflectionFactory->createFromPHPStanTypeAndMethodName($objectType, $methodName);
-        if ($reflectionMethod === null) {
+        if (!$reflectionMethod instanceof \ReflectionMethod) {
             return null;
         }
         $fileName = $reflectionMethod->getFileName();

@@ -26,7 +26,7 @@ final class DeadParamTagValueNodeAnalyzer
     public function isDead(\PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode $paramTagValueNode, \PhpParser\Node\FunctionLike $functionLike) : bool
     {
         $param = $this->matchParamByName($paramTagValueNode->parameterName, $functionLike);
-        if ($param === null) {
+        if (!$param instanceof \PhpParser\Node\Param) {
             return \false;
         }
         if ($param->type === null) {

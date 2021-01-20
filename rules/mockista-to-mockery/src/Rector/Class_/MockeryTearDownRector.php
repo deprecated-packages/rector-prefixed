@@ -74,7 +74,7 @@ CODE_SAMPLE
             return null;
         }
         $tearDownClassMethod = $node->getMethod(\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
-        if ($tearDownClassMethod === null) {
+        if (!$tearDownClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             $node->stmts[] = $this->createTearDownMethodWithMockeryClose();
         } elseif (!$this->containsMockeryClose($tearDownClassMethod)) {
             $tearDownClassMethod->stmts[] = $this->createMockeryClose();

@@ -87,7 +87,7 @@ CODE_SAMPLE
     private function processUnspreadOperatorMethodCallArgs(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($methodCall);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         $spreadParams = $this->spreadVariablesCollector->resolveFromClassMethod($classMethod);

@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Php70\Rector\Ternary;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
@@ -53,7 +54,7 @@ final class TernaryToNullCoalescingRector extends \Rector\Core\Rector\AbstractRe
         if ($checkedNode === null) {
             return null;
         }
-        if ($fallbackNode === null) {
+        if (!$fallbackNode instanceof \PhpParser\Node\Expr) {
             return null;
         }
         /** @var Identical|NotIdentical $ternaryCompareNode */

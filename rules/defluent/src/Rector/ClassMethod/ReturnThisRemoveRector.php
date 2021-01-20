@@ -71,7 +71,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $returnThis = $this->matchSingleReturnThis($node);
-        if ($returnThis === null) {
+        if (!$returnThis instanceof \PhpParser\Node\Stmt\Return_) {
             return null;
         }
         if ($this->shouldSkip($returnThis, $node)) {
@@ -79,7 +79,7 @@ CODE_SAMPLE
         }
         $this->removeNode($returnThis);
         $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {

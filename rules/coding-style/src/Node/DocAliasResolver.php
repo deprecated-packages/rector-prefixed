@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\CodingStyle\Node;
 
 use RectorPrefix20210120\Nette\Utils\Strings;
+use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
@@ -39,7 +40,7 @@ final class DocAliasResolver
         $possibleDocAliases = [];
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use(&$possibleDocAliases) : void {
             $docComment = $node->getDocComment();
-            if ($docComment === null) {
+            if (!$docComment instanceof \PhpParser\Comment\Doc) {
                 return;
             }
             $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);

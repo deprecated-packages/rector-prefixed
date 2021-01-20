@@ -61,7 +61,7 @@ final class ConditionResolver
             /** @var FuncCall $funcCall */
             $funcCall = $expr->right;
             $versionCompareCondition = $this->resolveVersionCompareConditionForFuncCall($funcCall);
-            if ($versionCompareCondition === null) {
+            if (!$versionCompareCondition instanceof \Rector\Polyfill\ValueObject\VersionCompareCondition) {
                 return null;
             }
             $expectedValue = $this->valueResolver->getValue($expr->left);
@@ -96,7 +96,7 @@ final class ConditionResolver
     private function resolveFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr, string $binaryClass) : ?\Rector\Polyfill\ValueObject\BinaryToVersionCompareCondition
     {
         $versionCompareCondition = $this->resolveVersionCompareConditionForFuncCall($funcCall);
-        if ($versionCompareCondition === null) {
+        if (!$versionCompareCondition instanceof \Rector\Polyfill\ValueObject\VersionCompareCondition) {
             return null;
         }
         $expectedValue = $this->valueResolver->getValue($expr);

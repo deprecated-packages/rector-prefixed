@@ -50,7 +50,7 @@ final class PropertyUsageAnalyzer
         $childrenClassNames = $this->familyRelationsAnalyzer->getChildrenOfClass($className);
         foreach ($childrenClassNames as $childClassName) {
             $childClass = $this->nodeRepository->findClass($childClassName);
-            if ($childClass === null) {
+            if (!$childClass instanceof \PhpParser\Node\Stmt\Class_) {
                 continue;
             }
             $isPropertyFetched = (bool) $this->betterNodeFinder->findFirst($childClass->stmts, function (\PhpParser\Node $node) use($propertyName) : bool {

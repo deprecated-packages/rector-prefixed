@@ -59,7 +59,7 @@ CODE_SAMPLE
             return null;
         }
         $returnedExpr = $this->resolveOnlyStmtReturnExpr($node);
-        if ($returnedExpr === null) {
+        if (!$returnedExpr instanceof \PhpParser\Node\Expr) {
             return null;
         }
         $returnedValue = $this->getValue($returnedExpr);

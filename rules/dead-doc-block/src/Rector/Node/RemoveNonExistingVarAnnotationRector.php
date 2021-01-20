@@ -79,7 +79,7 @@ CODE_SAMPLE
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $varTagValueNode = $phpDocInfo->getVarTagValueNode();
-        if ($varTagValueNode === null) {
+        if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             return null;
         }
         $variableName = \ltrim($varTagValueNode->variableName, '$');

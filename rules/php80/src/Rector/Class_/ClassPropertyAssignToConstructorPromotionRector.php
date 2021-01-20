@@ -8,6 +8,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
@@ -128,7 +129,7 @@ CODE_SAMPLE
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $attributeAwareParamTagValueNode = $phpDocInfo->getParamTagValueByName($paramName);
-        if ($attributeAwareParamTagValueNode === null) {
+        if (!$attributeAwareParamTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode) {
             return;
         }
         $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $attributeAwareParamTagValueNode);

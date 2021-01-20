@@ -12,6 +12,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\Naming\ExpectedNameResolver\UnderscoreCamelCaseExpectedNameResolver;
 use Rector\Naming\ParamRenamer\ParamRenamer;
+use Rector\Naming\ValueObject\ParamRename;
 use Rector\Naming\ValueObjectFactory\ParamRenameFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -108,11 +109,11 @@ CODE_SAMPLE
     private function renameParam(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Expr\Variable
     {
         $paramRename = $this->paramRenameFactory->create($param, $this->underscoreCamelCaseExpectedNameResolver);
-        if ($paramRename === null) {
+        if (!$paramRename instanceof \Rector\Naming\ValueObject\ParamRename) {
             return null;
         }
         $renamedParam = $this->paramRenamer->rename($paramRename);
-        if ($renamedParam === null) {
+        if (!$renamedParam instanceof \PhpParser\Node\Param) {
             return null;
         }
         /** @var Variable $variable */

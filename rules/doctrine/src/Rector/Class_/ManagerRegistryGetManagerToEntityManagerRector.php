@@ -106,7 +106,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $constructorClassMethod = $node->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructorClassMethod === null) {
+        if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         // collect on registry method calls, so we know if the manager registry is needed
@@ -116,7 +116,7 @@ CODE_SAMPLE
         }
         $managerRegistryParam = $this->resolveManagerRegistryParam($constructorClassMethod);
         // no registry manager in the constructor
-        if ($managerRegistryParam === null) {
+        if (!$managerRegistryParam instanceof \PhpParser\Node\Param) {
             return null;
         }
         if ($registryCalledMethods === [self::GET_MANAGER]) {

@@ -79,7 +79,7 @@ CODE_SAMPLE
     private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\MethodCall
     {
         $classMethod = $this->nodeRepository->findClassMethodByStaticCall($staticCall);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         // is static call in the same as class method

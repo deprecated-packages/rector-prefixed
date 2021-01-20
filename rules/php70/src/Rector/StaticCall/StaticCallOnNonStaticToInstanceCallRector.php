@@ -9,12 +9,14 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\Manipulator\ClassMethodManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeCollector\StaticAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
+use ReflectionMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -108,7 +110,7 @@ CODE_SAMPLE
         }
         // can we add static to method?
         $classMethodNode = $this->nodeRepository->findClassMethod($className, $methodName);
-        if ($classMethodNode === null) {
+        if (!$classMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         if ($this->classMethodManipulator->isStaticClassMethod($classMethodNode)) {
@@ -146,7 +148,7 @@ CODE_SAMPLE
         }
         $reflectionClass = new \ReflectionClass($className);
         $classConstructorReflection = $reflectionClass->getConstructor();
-        if ($classConstructorReflection === null) {
+        if (!$classConstructorReflection instanceof \ReflectionMethod) {
             return \true;
         }
         if (!$classConstructorReflection->isPublic()) {

@@ -77,7 +77,7 @@ CODE_SAMPLE
         $ifCondition = $firstNodeInsideForeach->cond;
         $foreachValueVar = $node->valueVar;
         $twoNodeMatch = $this->matchNodes($ifCondition, $foreachValueVar);
-        if ($twoNodeMatch === null) {
+        if (!$twoNodeMatch instanceof \Rector\Php71\ValueObject\TwoNodeMatch) {
             return null;
         }
         $comparedNode = $twoNodeMatch->getSecondExpr();
@@ -116,14 +116,14 @@ CODE_SAMPLE
             return \true;
         }
         $nextNode = $foreach->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if ($nextNode === null) {
+        if (!$nextNode instanceof \PhpParser\Node) {
             return \true;
         }
         if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
             return \true;
         }
         $returnExpression = $nextNode->expr;
-        if ($returnExpression === null) {
+        if (!$returnExpression instanceof \PhpParser\Node\Expr) {
             return \true;
         }
         if (!$this->isBool($returnExpression)) {

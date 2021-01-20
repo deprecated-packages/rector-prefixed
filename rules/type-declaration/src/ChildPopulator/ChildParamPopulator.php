@@ -65,7 +65,7 @@ final class ChildParamPopulator extends \Rector\TypeDeclaration\ChildPopulator\A
     {
         $methodName = $this->nodeNameResolver->getName($classMethod);
         $currentClassMethod = $classLike->getMethod($methodName);
-        if ($currentClassMethod === null) {
+        if (!$currentClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
         if (!isset($currentClassMethod->params[$position])) {

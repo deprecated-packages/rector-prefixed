@@ -37,7 +37,7 @@ final class ContextAnalyzer
     {
         $stopNodes = \array_merge(self::LOOP_NODES, self::BREAK_NODES);
         $firstParent = $this->betterNodeFinder->findParentTypes($node, $stopNodes);
-        if ($firstParent === null) {
+        if (!$firstParent instanceof \PhpParser\Node) {
             return \false;
         }
         return \Rector\Core\Util\StaticInstanceOf::isOneOf($firstParent, self::LOOP_NODES);
@@ -46,7 +46,7 @@ final class ContextAnalyzer
     {
         $breakNodes = \array_merge([\PhpParser\Node\Stmt\If_::class], self::BREAK_NODES);
         $previousNode = $this->betterNodeFinder->findParentTypes($node, $breakNodes);
-        if ($previousNode === null) {
+        if (!$previousNode instanceof \PhpParser\Node) {
             return \false;
         }
         return $previousNode instanceof \PhpParser\Node\Stmt\If_;

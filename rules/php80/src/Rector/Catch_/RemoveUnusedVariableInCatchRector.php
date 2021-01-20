@@ -55,7 +55,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $caughtVar = $node->var;
-        if ($caughtVar === null) {
+        if (!$caughtVar instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
         if ($this->isVariableUsed($node->stmts, $caughtVar)) {

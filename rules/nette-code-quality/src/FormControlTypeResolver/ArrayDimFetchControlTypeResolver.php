@@ -56,7 +56,7 @@ final class ArrayDimFetchControlTypeResolver implements \Rector\NetteCodeQuality
             return [];
         }
         $createComponentClassMethod = $this->matchCreateComponentClassMethod($node, $controlShortName);
-        if ($createComponentClassMethod === null) {
+        if (!$createComponentClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         $createComponentClassMethodReturnType = $this->returnTypeInferer->inferFunctionLike($createComponentClassMethod);

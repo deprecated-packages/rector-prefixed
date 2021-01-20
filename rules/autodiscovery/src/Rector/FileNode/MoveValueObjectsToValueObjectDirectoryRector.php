@@ -10,6 +10,7 @@ use Rector\Autodiscovery\Analyzer\ClassAnalyzer;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
+use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -119,7 +120,7 @@ CODE_SAMPLE
         }
         $smartFileInfo = $node->getFileInfo();
         $movedFileWithNodes = $this->movedFileWithNodesFactory->createWithDesiredGroup($smartFileInfo, $node->stmts, 'ValueObject');
-        if ($movedFileWithNodes === null) {
+        if (!$movedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\MovedFileWithNodes) {
             return null;
         }
         $this->addMovedFile($movedFileWithNodes);

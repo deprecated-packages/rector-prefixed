@@ -10,6 +10,7 @@ use Rector\SymfonyCodeQuality\ConstantNameAndValueMatcher;
 use Rector\SymfonyCodeQuality\ConstantNameAndValueResolver;
 use Rector\SymfonyCodeQuality\NodeFactory\RouteNameClassFactory;
 use Rector\SymfonyCodeQuality\ValueObject\ClassName;
+use Rector\SymfonyCodeQuality\ValueObject\ConstantNameAndValue;
 use RectorPrefix20210120\Symfony\Component\Routing\Annotation\Route;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ExtraFileCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -108,7 +109,7 @@ CODE_SAMPLE
                 continue;
             }
             $constantNameAndValue = $this->constantNameAndValueMatcher->matchFromArg($arg, 'ROUTE_');
-            if ($constantNameAndValue === null) {
+            if (!$constantNameAndValue instanceof \Rector\SymfonyCodeQuality\ValueObject\ConstantNameAndValue) {
                 continue;
             }
             $arg->value = $this->createClassConstFetch(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_CLASS_NAME, $constantNameAndValue->getName());

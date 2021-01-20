@@ -13,6 +13,7 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
@@ -91,6 +92,9 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($expression);
         $type = $phpDocInfo->getVarType();
         if (!$type instanceof \PHPStan\Type\UnionType) {
+            $type = $this->getObjectType($assign->expr);
+        }
+        if (!$type instanceof \PHPStan\Type\UnionType) {
             return null;
         }
         /** @var Type[] $types */
@@ -106,12 +110,13 @@ CODE_SAMPLE
     private function processConvertToExclusiveType(array $types, \PhpParser\Node\Expr $expr, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?\PhpParser\Node\Expr\BooleanNot
     {
         $type = $types[0] instanceof \PHPStan\Type\NullType ? $types[1] : $types[0];
-        if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
+        if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType && !$type instanceof \PHPStan\Type\ObjectType) {
             return null;
         }
-        /** @var VarTagValueNode $tagValueNode */
         $tagValueNode = $phpDocInfo->getVarTagValueNode();
-        $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $tagValueNode);
+        if ($tagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
+            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $tagValueNode);
+        }
         return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Instanceof_($expr, new \PhpParser\Node\Name\FullyQualified($type->getClassName())));
     }
     /**

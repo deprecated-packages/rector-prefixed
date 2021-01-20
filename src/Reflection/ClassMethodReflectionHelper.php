@@ -5,6 +5,7 @@ namespace Rector\Core\Reflection;
 
 use RectorPrefix20210120\Nette\Utils\Reflection;
 use Rector\Core\PhpDoc\PhpDocTagsFinder;
+use ReflectionMethod;
 final class ClassMethodReflectionHelper
 {
     /**
@@ -26,7 +27,7 @@ final class ClassMethodReflectionHelper
     public function extractTagsFromMethodDocBlock(string $class, string $method) : array
     {
         $reflectedMethod = $this->classMethodReflectionFactory->createReflectionMethodIfExists($class, $method);
-        if ($reflectedMethod === null) {
+        if (!$reflectedMethod instanceof \ReflectionMethod) {
             return [];
         }
         $docComment = $reflectedMethod->getDocComment();

@@ -15,6 +15,7 @@ use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor;
 use Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
 use Rector\Defluent\NodeFactory\NonFluentChainMethodCallFactory;
 use Rector\Defluent\Skipper\FluentMethodCallSkipper;
+use Rector\Defluent\ValueObject\AssignAndRootExpr;
 use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 abstract class AbstractFluentChainMethodCallRector extends \Rector\Core\Rector\AbstractRector
@@ -57,7 +58,7 @@ abstract class AbstractFluentChainMethodCallRector extends \Rector\Core\Rector\A
             return null;
         }
         $assignAndRootExpr = $this->fluentChainMethodCallRootExtractor->extractFromMethodCalls($chainMethodCalls, $kind);
-        if ($assignAndRootExpr === null) {
+        if (!$assignAndRootExpr instanceof \Rector\Defluent\ValueObject\AssignAndRootExpr) {
             return null;
         }
         if ($this->fluentMethodCallSkipper->shouldSkipMethodCalls($assignAndRootExpr, $chainMethodCalls)) {

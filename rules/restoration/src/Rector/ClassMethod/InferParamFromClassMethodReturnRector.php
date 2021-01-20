@@ -105,13 +105,13 @@ CODE_SAMPLE
         $paramName = $this->getName($firstParam);
         foreach ($this->inferParamFromClassMethodReturn as $inferParamFromClassMethodReturn) {
             $returnClassMethod = $this->matchReturnClassMethod($node, $inferParamFromClassMethodReturn);
-            if ($returnClassMethod === null) {
+            if (!$returnClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
             $returnType = $this->returnTypeInferer->inferFunctionLike($returnClassMethod);
             $currentPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
             $paramType = $this->constantReturnToParamTypeConverter->convert($returnType);
-            if ($paramType === null) {
+            if (!$paramType instanceof \PHPStan\Type\Type) {
                 continue;
             }
             if ($this->isParamDocTypeEqualToPhpType($firstParam, $paramType)) {

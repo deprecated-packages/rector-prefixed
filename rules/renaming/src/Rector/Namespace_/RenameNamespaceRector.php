@@ -59,7 +59,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
             return null;
         }
         $renamedNamespaceValueObject = $this->namespaceMatcher->matchRenamedNamespace($name, $this->oldToNewNamespaces);
-        if ($renamedNamespaceValueObject === null) {
+        if (!$renamedNamespaceValueObject instanceof \Rector\Core\ValueObject\RenamedNamespace) {
             return null;
         }
         if ($this->isClassFullyQualifiedName($node)) {
@@ -92,7 +92,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     private function isClassFullyQualifiedName(\PhpParser\Node $node) : bool
     {
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode === null) {
+        if (!$parentNode instanceof \PhpParser\Node) {
             return \false;
         }
         if (!$parentNode instanceof \PhpParser\Node\Expr\New_) {
@@ -106,7 +106,7 @@ final class RenameNamespaceRector extends \Rector\Core\Rector\AbstractRector imp
     private function isPartialNamespace(\PhpParser\Node\Name $name) : bool
     {
         $resolvedName = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::RESOLVED_NAME);
-        if ($resolvedName === null) {
+        if (!$resolvedName instanceof \PhpParser\Node\Name) {
             return \false;
         }
         if ($resolvedName instanceof \PhpParser\Node\Name\FullyQualified) {

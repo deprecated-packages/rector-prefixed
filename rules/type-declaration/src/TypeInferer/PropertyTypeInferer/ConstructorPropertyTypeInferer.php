@@ -43,12 +43,12 @@ final class ConstructorPropertyTypeInferer extends \Rector\TypeDeclaration\TypeI
             return new \PHPStan\Type\MixedType();
         }
         $classMethod = $classLike->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return new \PHPStan\Type\MixedType();
         }
         $propertyName = $this->nodeNameResolver->getName($property);
         $param = $this->classMethodPropertyFetchManipulator->resolveParamForPropertyFetch($classMethod, $propertyName);
-        if ($param === null) {
+        if (!$param instanceof \PhpParser\Node\Param) {
             return new \PHPStan\Type\MixedType();
         }
         // A. infer from type declaration of parameter

@@ -93,7 +93,7 @@ CODE_SAMPLE
     private function getVarDocVariableName(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?string
     {
         $attributeAwareVarTagValueNode = $phpDocInfo->getVarTagValueNode();
-        if ($attributeAwareVarTagValueNode === null) {
+        if (!$attributeAwareVarTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             return null;
         }
         $variableName = $attributeAwareVarTagValueNode->variableName;
@@ -126,7 +126,7 @@ CODE_SAMPLE
         $stmt->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
         $type = $phpDocInfo->getVarType();
         $assertFuncCall = $this->createFuncCallBasedOnType($type, $variable);
-        if ($assertFuncCall === null) {
+        if (!$assertFuncCall instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);
@@ -136,12 +136,12 @@ CODE_SAMPLE
     private function refactorAlreadyCreatedNode(\PhpParser\Node\Stmt $stmt, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node
     {
         $varTagValue = $phpDocInfo->getVarTagValueNode();
-        if ($varTagValue === null) {
+        if (!$varTagValue instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($varTagValue->type, $variable);
         $assertFuncCall = $this->createFuncCallBasedOnType($phpStanType, $variable);
-        if ($assertFuncCall === null) {
+        if (!$assertFuncCall instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         $this->addNodeAfterNode($assertFuncCall, $stmt);

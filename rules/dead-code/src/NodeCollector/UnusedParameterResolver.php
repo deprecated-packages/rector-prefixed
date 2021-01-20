@@ -42,7 +42,7 @@ final class UnusedParameterResolver
         }
         foreach ($childrenOfClass as $childClassNode) {
             $methodOfChild = $childClassNode->getMethod($methodName);
-            if ($methodOfChild === null) {
+            if (!$methodOfChild instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
             $unusedParameters = $this->getParameterOverlap($unusedParameters, $this->resolveUnusedParameters($methodOfChild));

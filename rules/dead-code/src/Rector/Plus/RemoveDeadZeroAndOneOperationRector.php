@@ -79,7 +79,7 @@ CODE_SAMPLE
                 $changedNode = $this->refactor($changedNode);
             }
             // nothing more to change, return last node
-            if ($changedNode === null) {
+            if (!$changedNode instanceof \PhpParser\Node) {
                 return $previousNode;
             }
         }

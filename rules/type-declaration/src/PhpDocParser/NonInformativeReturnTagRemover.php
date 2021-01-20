@@ -101,11 +101,11 @@ final class NonInformativeReturnTagRemover
     private function removeNullableType(\PHPStan\Type\Type $returnType, \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode $attributeAwareReturnTagValueNode, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
         $nullabledReturnType = $this->matchNullabledType($returnType);
-        if ($nullabledReturnType === null) {
+        if (!$nullabledReturnType instanceof \PHPStan\Type\Type) {
             return;
         }
         $nullabledReturnTagValueNode = $this->matchNullabledReturnTagValueNode($attributeAwareReturnTagValueNode);
-        if ($nullabledReturnTagValueNode === null) {
+        if (!$nullabledReturnTagValueNode instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
             return;
         }
         if (!$nullabledReturnType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {

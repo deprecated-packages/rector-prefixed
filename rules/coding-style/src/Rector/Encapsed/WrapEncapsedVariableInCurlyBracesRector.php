@@ -48,7 +48,7 @@ CODE_SAMPLE
         foreach ($node->parts as $index => $nodePart) {
             if ($nodePart instanceof \PhpParser\Node\Expr\Variable) {
                 $previousNode = $nodePart->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-                $previousNodeEndTokenPosition = $previousNode === null ? $startTokenPos : $previousNode->getEndTokenPos();
+                $previousNodeEndTokenPosition = $previousNode instanceof \PhpParser\Node ? $previousNode->getEndTokenPos() : $startTokenPos;
                 if ($previousNodeEndTokenPosition + 1 === $nodePart->getStartTokenPos()) {
                     $hasVariableBeenWrapped = \true;
                     $node->parts[$index] = new \PhpParser\Node\Expr\Variable($nodePart->name);

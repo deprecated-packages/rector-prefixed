@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\TypeDeclaration\AlreadyAssignDetector;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\NodeTraverser;
 use Rector\NodeNestingScope\ScopeNestingComparator;
@@ -37,7 +38,7 @@ final class NullTypeAssignDetector extends \Rector\TypeDeclaration\AlreadyAssign
         $needsNullType = null;
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($classLike->stmts, function (\PhpParser\Node $node) use($propertyName, &$needsNullType) : ?int {
             $expr = $this->matchAssignExprToPropertyName($node, $propertyName);
-            if ($expr === null) {
+            if (!$expr instanceof \PhpParser\Node\Expr) {
                 return null;
             }
             if ($this->scopeNestingComparator->isNodeConditionallyScoped($expr)) {

@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\Variable;
 use Rector\Defluent\NodeAnalyzer\NewFluentChainMethodCallNodeAnalyzer;
 use Rector\Defluent\NodeFactory\VariableFromNewFactory;
 use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
+use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -99,7 +100,7 @@ CODE_SAMPLE
             return null;
         }
         $assignAndRootExprAndNodesToAdd = $this->createStandaloneNodesToAddFromChainMethodCalls($node, \Rector\Defluent\ValueObject\FluentCallsKind::IN_ARGS);
-        if ($assignAndRootExprAndNodesToAdd === null) {
+        if (!$assignAndRootExprAndNodesToAdd instanceof \Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd) {
             return null;
         }
         $this->addNodesBeforeNode($assignAndRootExprAndNodesToAdd->getNodesToAdd(), $node);

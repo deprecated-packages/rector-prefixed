@@ -94,7 +94,7 @@ CODE_SAMPLE
                 continue;
             }
             $arrayNode = $this->collectReturnArrayNodesFromClassMethod($node);
-            if ($arrayNode === null) {
+            if (!$arrayNode instanceof \PhpParser\Node\Expr\Array_) {
                 continue;
             }
             $this->transformArrayToYieldsOnMethodNode($node, $arrayNode);
@@ -135,7 +135,7 @@ CODE_SAMPLE
         $yieldNodes = $this->nodeTransformer->transformArrayToYields($array);
         // remove whole return node
         $parentNode = $array->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode === null) {
+        if (!$parentNode instanceof \PhpParser\Node) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->removeReturnTag($classMethod);

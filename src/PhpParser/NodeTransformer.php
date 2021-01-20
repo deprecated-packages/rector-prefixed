@@ -31,7 +31,7 @@ final class NodeTransformer
     public function transformSprintfToArray(\PhpParser\Node\Expr\FuncCall $sprintfFuncCall) : ?\PhpParser\Node\Expr\Array_
     {
         $sprintfStringAndArgs = $this->splitMessageAndArgs($sprintfFuncCall);
-        if ($sprintfStringAndArgs === null) {
+        if (!$sprintfStringAndArgs instanceof \Rector\Core\ValueObject\SprintfStringAndArgs) {
             return null;
         }
         $arrayItems = $sprintfStringAndArgs->getArrayItems();

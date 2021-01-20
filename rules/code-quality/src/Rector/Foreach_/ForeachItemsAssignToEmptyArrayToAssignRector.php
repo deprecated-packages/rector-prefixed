@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Foreach_;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Foreach_;
 use Rector\CodeQuality\NodeAnalyzer\ForeachNodeAnalyzer;
@@ -71,14 +72,14 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $assignVariable = $this->foreachNodeAnalyzer->matchAssignItemsOnlyForeachArrayVariable($node);
-        if ($assignVariable === null) {
+        if (!$assignVariable instanceof \PhpParser\Node\Expr) {
             return null;
         }
         if ($this->shouldSkipAsPartOfNestedForeach($node)) {
             return null;
         }
         $previousDeclaration = $this->nodeUsageFinder->findPreviousForeachNodeUsage($node, $assignVariable);
-        if ($previousDeclaration === null) {
+        if (!$previousDeclaration instanceof \PhpParser\Node) {
             return null;
         }
         $previousDeclarationParentNode = $previousDeclaration->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

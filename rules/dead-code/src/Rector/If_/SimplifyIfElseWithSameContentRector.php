@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\DeadCode\Rector\If_;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\If_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
@@ -72,7 +73,7 @@ CODE_SAMPLE
             $possibleContents[] = $this->print($elseif->stmts);
         }
         $else = $if->else;
-        if ($else === null) {
+        if (!$else instanceof \PhpParser\Node\Stmt\Else_) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $possibleContents[] = $this->print($else->stmts);

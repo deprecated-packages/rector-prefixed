@@ -8,6 +8,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
@@ -64,7 +65,7 @@ CODE_SAMPLE
             return null;
         }
         $commandName = $this->resolveCommandNameAndRemove($node);
-        if ($commandName === null) {
+        if (!$commandName instanceof \PhpParser\Node) {
             return null;
         }
         $defaultNameProperty = $this->nodeFactory->createStaticProtectedPropertyWithDefault('defaultName', $commandName);
@@ -74,7 +75,7 @@ CODE_SAMPLE
     private function resolveCommandNameAndRemove(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
     {
         $commandName = $this->resolveCommandNameFromConstructor($class);
-        if ($commandName === null) {
+        if (!$commandName instanceof \PhpParser\Node) {
             $commandName = $this->resolveCommandNameFromSetName($class);
         }
         $this->removeConstructorIfHasOnlySetNameMethodCall($class);
@@ -91,7 +92,7 @@ CODE_SAMPLE
                 return null;
             }
             $commandName = $this->matchCommandNameNodeInConstruct($node);
-            if ($commandName === null) {
+            if (!$commandName instanceof \PhpParser\Node\Expr) {
                 return null;
             }
             \array_shift($node->args);
@@ -127,7 +128,7 @@ CODE_SAMPLE
     private function removeConstructorIfHasOnlySetNameMethodCall(\PhpParser\Node\Stmt\Class_ $class) : void
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructClassMethod === null) {
+        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
         $stmts = (array) $constructClassMethod->stmts;

@@ -134,7 +134,7 @@ CODE_SAMPLE
             return \false;
         }
         $classMethod = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
         return $this->controllerMethodAnalyzer->isAction($classMethod);

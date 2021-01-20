@@ -76,7 +76,7 @@ CODE_SAMPLE
             return null;
         }
         $parentVariable = $this->getParentOfGetStatusCode($node->args[1]->value);
-        if ($parentVariable === null) {
+        if (!$parentVariable instanceof \PhpParser\Node\Expr) {
             return null;
         }
         $getContentMethodCall = new \PhpParser\Node\Expr\MethodCall($parentVariable, 'getContent');

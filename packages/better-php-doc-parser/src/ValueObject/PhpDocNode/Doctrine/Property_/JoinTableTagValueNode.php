@@ -120,13 +120,13 @@ final class JoinTableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
     {
         $items = [];
         if ($this->joinColumns !== []) {
-            if ($this->joinColumnsAroundSpaces === null) {
+            if (!$this->joinColumnsAroundSpaces instanceof \Rector\BetterPhpDocParser\ValueObject\AroundSpaces) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $items[$joinColumnsKey] = $this->printNestedTag($this->joinColumns, \false, $this->joinColumnsAroundSpaces->getOpeningSpace(), $this->joinColumnsAroundSpaces->getClosingSpace());
         }
         if ($this->inverseJoinColumns !== []) {
-            if ($this->inverseJoinColumnsAroundSpaces === null) {
+            if (!$this->inverseJoinColumnsAroundSpaces instanceof \Rector\BetterPhpDocParser\ValueObject\AroundSpaces) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $items[$inverseJoinColumnsKey] = $this->printNestedTag($this->inverseJoinColumns, \false, $this->inverseJoinColumnsAroundSpaces->getOpeningSpace(), $this->inverseJoinColumnsAroundSpaces->getClosingSpace());

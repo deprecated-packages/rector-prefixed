@@ -81,7 +81,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $factoryMethod = $this->matchTypeAndMethodName($node);
-        if ($factoryMethod === null) {
+        if (!$factoryMethod instanceof \Rector\CakePHP\ValueObject\FactoryMethod) {
             return null;
         }
         foreach ($this->arraysToFluentCalls as $arraysToFluentCall) {

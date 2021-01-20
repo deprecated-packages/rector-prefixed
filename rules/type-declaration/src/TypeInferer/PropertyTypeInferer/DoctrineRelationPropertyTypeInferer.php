@@ -39,7 +39,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $relationTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class);
-        if ($relationTagValueNode === null) {
+        if (!$relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface) {
             return new \PHPStan\Type\MixedType();
         }
         if ($relationTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface) {
@@ -73,7 +73,7 @@ final class DoctrineRelationPropertyTypeInferer implements \Rector\TypeDeclarati
             $types[] = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($fullyQualifiedTargetEntity);
         }
         // nullable by default
-        if ($joinColumnTagValueNode === null || $joinColumnTagValueNode->isNullable()) {
+        if (!$joinColumnTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode || $joinColumnTagValueNode->isNullable()) {
             $types[] = new \PHPStan\Type\NullType();
         }
         return $this->typeFactory->createMixedPassedOrUnionType($types);

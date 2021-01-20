@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Naming\Naming\PropertyNaming;
+use Rector\Naming\ValueObject\ExpectedName;
 final class MatchPropertyTypeExpectedNameResolver extends \Rector\Naming\ExpectedNameResolver\AbstractExpectedNameResolver
 {
     /**
@@ -29,7 +30,7 @@ final class MatchPropertyTypeExpectedNameResolver extends \Rector\Naming\Expecte
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         $expectedName = $this->propertyNaming->getExpectedNameFromType($phpDocInfo->getVarType());
-        if ($expectedName === null) {
+        if (!$expectedName instanceof \Rector\Naming\ValueObject\ExpectedName) {
             return null;
         }
         return $expectedName->getName();

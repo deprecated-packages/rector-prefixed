@@ -236,7 +236,7 @@ final class NodeTypeResolver
             return \true;
         }
         $defaultNodeValue = $property->props[0]->default;
-        if ($defaultNodeValue === null) {
+        if (!$defaultNodeValue instanceof \PhpParser\Node\Expr) {
             return \false;
         }
         return $this->isStaticType($defaultNodeValue, \PHPStan\Type\BooleanType::class);

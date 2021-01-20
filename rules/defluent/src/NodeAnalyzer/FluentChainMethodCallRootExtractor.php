@@ -16,6 +16,7 @@ use Rector\Core\Util\StaticInstanceOf;
 use Rector\Defluent\ValueObject\AssignAndRootExpr;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\Naming\Naming\PropertyNaming;
+use Rector\Naming\ValueObject\ExpectedName;
 use Rector\NetteKdyby\Naming\VariableNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -144,7 +145,7 @@ final class FluentChainMethodCallRootExtractor
             }
             $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className);
             $expectedName = $this->propertyNaming->getExpectedNameFromType($fullyQualifiedObjectType);
-            if ($expectedName === null) {
+            if (!$expectedName instanceof \Rector\Naming\ValueObject\ExpectedName) {
                 return null;
             }
             $variable = new \PhpParser\Node\Expr\Variable($expectedName->getName());

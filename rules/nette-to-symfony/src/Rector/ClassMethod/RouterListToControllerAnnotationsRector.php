@@ -140,7 +140,7 @@ CODE_SAMPLE
         /** @var RouteInfo $routeInfo */
         foreach ($routeInfos as $routeInfo) {
             $classMethod = $this->resolveControllerClassMethod($routeInfo);
-            if ($classMethod === null) {
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
             $symfonyRoutePhpDocTagValueNode = $this->createSymfonyRoutePhpDocTagValueNode($routeInfo);
@@ -186,7 +186,7 @@ CODE_SAMPLE
         // collect annotations and target controllers
         foreach ($assignNodes as $assignNode) {
             $routeNameToControllerMethod = $this->routeInfoFactory->createFromNode($assignNode->expr);
-            if ($routeNameToControllerMethod === null) {
+            if (!$routeNameToControllerMethod instanceof \Rector\NetteToSymfony\ValueObject\RouteInfo) {
                 continue;
             }
             $routeInfos[] = $routeNameToControllerMethod;
@@ -196,7 +196,7 @@ CODE_SAMPLE
     private function resolveControllerClassMethod(\Rector\NetteToSymfony\ValueObject\RouteInfo $routeInfo) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $classNode = $this->nodeRepository->findClass($routeInfo->getClass());
-        if ($classNode === null) {
+        if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
         return $classNode->getMethod($routeInfo->getMethod());

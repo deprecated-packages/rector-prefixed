@@ -57,7 +57,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $funcCall = $this->matchStrposInComparisonToFalse($node);
-        if ($funcCall === null) {
+        if (!$funcCall instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         if (isset($funcCall->args[2]) && !$this->isValue($funcCall->args[2]->value, 0)) {

@@ -32,7 +32,7 @@ final class ExclusionManager
     {
         if ($node instanceof \PhpParser\Node\Stmt\PropertyProperty || $node instanceof \PhpParser\Node\Const_) {
             $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($node === null) {
+            if (!$node instanceof \PhpParser\Node) {
                 return \false;
             }
         }

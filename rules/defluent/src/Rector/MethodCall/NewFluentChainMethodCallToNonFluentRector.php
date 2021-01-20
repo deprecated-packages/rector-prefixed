@@ -8,6 +8,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
+use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -53,7 +54,7 @@ CODE_SAMPLE
             return null;
         }
         $assignAndRootExprAndNodesToAdd = $this->createStandaloneNodesToAddFromChainMethodCalls($node, \Rector\Defluent\ValueObject\FluentCallsKind::NORMAL);
-        if ($assignAndRootExprAndNodesToAdd === null) {
+        if (!$assignAndRootExprAndNodesToAdd instanceof \Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd) {
             return null;
         }
         $this->removeCurrentNode($node);

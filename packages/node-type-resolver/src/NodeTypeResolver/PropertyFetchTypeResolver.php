@@ -93,13 +93,13 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
                 $scope = $this->traitNodeScopeCollector->getScopeForTraitAndNode($traitName, $node);
             }
         }
-        if ($scope === null) {
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
             $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
             // fallback to class, since property fetches are not scoped by PHPStan
             if ($classNode instanceof \PhpParser\Node\Stmt\ClassLike) {
                 $scope = $classNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
             }
-            if ($scope === null) {
+            if (!$scope instanceof \PHPStan\Analyser\Scope) {
                 return new \PHPStan\Type\MixedType();
             }
         }

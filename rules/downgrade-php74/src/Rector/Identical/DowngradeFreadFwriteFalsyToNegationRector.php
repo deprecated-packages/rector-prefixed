@@ -45,7 +45,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $compareValue = $this->getCompareValue($node);
-        if ($compareValue === null) {
+        if (!$compareValue instanceof \PhpParser\Node\Expr) {
             return null;
         }
         if (!$this->isFalse($compareValue)) {

@@ -78,7 +78,7 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
         $this->classInsertManipulator->addPropertyToClass($node, $propertyName, $this->testedObjectType);
         $classMethod = $node->getMethod('let');
         // add let if missing
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             if (!$this->letManipulator->isLetNeededInClass($node)) {
                 return null;
             }

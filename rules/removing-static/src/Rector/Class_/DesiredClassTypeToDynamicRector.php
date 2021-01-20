@@ -129,7 +129,7 @@ CODE_SAMPLE
     private function completeDependencyToConstructorOnly(\PhpParser\Node\Stmt\Class_ $class, string $classType) : void
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructClassMethod === null) {
+        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
         $hasStaticCall = $this->staticCallPresenceAnalyzer->hasMethodStaticCallOnType($constructClassMethod, $classType);

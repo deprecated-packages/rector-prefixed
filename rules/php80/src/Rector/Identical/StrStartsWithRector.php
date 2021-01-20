@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Php80\Contract\StrStartWithMatchAndRefactorInterface;
+use Rector\Php80\ValueObject\StrStartsWith;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -71,7 +72,7 @@ CODE_SAMPLE
     {
         foreach ($this->strStartWithMatchAndRefactors as $strStartWithMatchAndRefactor) {
             $strStartsWithValueObject = $strStartWithMatchAndRefactor->match($node);
-            if ($strStartsWithValueObject === null) {
+            if (!$strStartsWithValueObject instanceof \Rector\Php80\ValueObject\StrStartsWith) {
                 continue;
             }
             return $strStartWithMatchAndRefactor->refactorStrStartsWith($strStartsWithValueObject);

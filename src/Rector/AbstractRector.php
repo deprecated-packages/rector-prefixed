@@ -140,7 +140,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     public function hasParentType(\PhpParser\Node $node, string $type) : bool
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent === null) {
+        if (!$parent instanceof \PhpParser\Node) {
             return \false;
         }
         return \is_a($parent, $type, \true);
@@ -175,7 +175,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         $originalNodeWithAttributes = clone $node;
         $node = $this->refactor($node);
         // nothing to change → continue
-        if ($node === null) {
+        if (!$node instanceof \PhpParser\Node) {
             return null;
         }
         // changed!

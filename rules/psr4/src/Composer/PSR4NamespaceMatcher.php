@@ -27,7 +27,7 @@ final class PSR4NamespaceMatcher implements \Rector\PSR4\Contract\PSR4AutoloadNa
     public function getExpectedNamespace(\PhpParser\Node $node) : ?string
     {
         $smartFileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-        if ($smartFileInfo === null) {
+        if (!$smartFileInfo instanceof \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $psr4Autoloads = $this->psr4AutoloadPathsProvider->provide();

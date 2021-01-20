@@ -34,7 +34,7 @@ final class ConstantNameAndValueResolver
                     continue;
                 }
                 $constantNameAndValue = $this->constantNameAndValueMatcher->matchFromArg($arg, $prefixForNumeric);
-                if ($constantNameAndValue === null) {
+                if (!$constantNameAndValue instanceof \Rector\SymfonyCodeQuality\ValueObject\ConstantNameAndValue) {
                     continue;
                 }
                 $constantNameAndValues[] = $constantNameAndValue;

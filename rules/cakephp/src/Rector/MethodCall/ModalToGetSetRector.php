@@ -64,7 +64,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $unprefixedMethodToGetSet = $this->matchTypeAndMethodName($node);
-        if ($unprefixedMethodToGetSet === null) {
+        if (!$unprefixedMethodToGetSet instanceof \Rector\CakePHP\ValueObject\ModalToGetSet) {
             return null;
         }
         $newName = $this->resolveNewMethodNameByCondition($node, $unprefixedMethodToGetSet);

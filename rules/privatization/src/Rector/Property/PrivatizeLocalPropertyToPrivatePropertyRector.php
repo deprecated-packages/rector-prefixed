@@ -94,7 +94,7 @@ CODE_SAMPLE
     private function shouldSkip(\PhpParser\Node\Stmt\Property $property) : bool
     {
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return \true;
         }
         if ($this->shouldSkipClass($classLike)) {

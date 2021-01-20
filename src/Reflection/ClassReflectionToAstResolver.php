@@ -33,7 +33,7 @@ final class ClassReflectionToAstResolver
     public function getClassFromObjectType(\PHPStan\Type\ObjectType $objectType) : ?\PhpParser\Node\Stmt\Class_
     {
         $classReflection = $objectType->getClassReflection();
-        if ($classReflection === null) {
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return null;
         }
         $className = $objectType->getClassName();

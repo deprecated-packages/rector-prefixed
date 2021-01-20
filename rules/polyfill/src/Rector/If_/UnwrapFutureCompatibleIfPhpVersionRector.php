@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\If_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Polyfill\ConditionEvaluator;
 use Rector\Polyfill\ConditionResolver;
+use Rector\Polyfill\Contract\ConditionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -62,7 +63,7 @@ CODE_SAMPLE
             return null;
         }
         $condition = $this->conditionResolver->resolveFromExpr($node->cond);
-        if ($condition === null) {
+        if (!$condition instanceof \Rector\Polyfill\Contract\ConditionInterface) {
             return null;
         }
         $result = $this->conditionEvaluator->evaluate($condition);

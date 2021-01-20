@@ -5,6 +5,7 @@ namespace Rector\NetteKdyby\Rector\ClassMethod;
 
 use RectorPrefix20210120\Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\NetteKdyby\DataProvider\EventAndListenerTreeProvider;
@@ -110,7 +111,7 @@ CODE_SAMPLE
                 return null;
             }
             $arrayKey = $node->key;
-            if ($arrayKey === null) {
+            if (!$arrayKey instanceof \PhpParser\Node\Expr) {
                 return null;
             }
             $eventPropertyReferenceName = $this->getValue($arrayKey);

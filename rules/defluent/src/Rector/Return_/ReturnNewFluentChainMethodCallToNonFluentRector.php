@@ -4,8 +4,10 @@ declare (strict_types=1);
 namespace Rector\Defluent\Rector\Return_;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
+use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -45,14 +47,14 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $methodCall = $this->matchReturnMethodCall($node);
-        if ($methodCall === null) {
+        if (!$methodCall instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
         if ($this->shouldSkipMethodCall($methodCall)) {
             return null;
         }
         $assignAndRootExprAndNodesToAdd = $this->createStandaloneNodesToAddFromChainMethodCalls($methodCall, \Rector\Defluent\ValueObject\FluentCallsKind::NORMAL);
-        if ($assignAndRootExprAndNodesToAdd === null) {
+        if (!$assignAndRootExprAndNodesToAdd instanceof \Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd) {
             return null;
         }
         $this->removeCurrentNode($node);

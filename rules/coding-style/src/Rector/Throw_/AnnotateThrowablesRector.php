@@ -140,7 +140,7 @@ CODE_SAMPLE
     private function annotateThrowables(\PhpParser\Node $node) : void
     {
         $callee = $this->identifyCaller($node);
-        if ($callee === null) {
+        if (!$callee instanceof \PhpParser\Node) {
             return;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($callee);
@@ -186,7 +186,7 @@ CODE_SAMPLE
     private function extractAlreadyAnnotatedThrowables(\PhpParser\Node $node) : array
     {
         $callee = $this->identifyCaller($node);
-        if ($callee === null) {
+        if (!$callee instanceof \PhpParser\Node) {
             return [];
         }
         $callePhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($callee);

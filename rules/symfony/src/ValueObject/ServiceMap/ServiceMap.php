@@ -26,7 +26,7 @@ final class ServiceMap
     public function getServiceType(string $id) : ?\PHPStan\Type\Type
     {
         $serviceDefinition = $this->getService($id);
-        if ($serviceDefinition === null) {
+        if (!$serviceDefinition instanceof \Rector\Symfony\ValueObject\ServiceDefinition) {
             return null;
         }
         $class = $serviceDefinition->getClass();

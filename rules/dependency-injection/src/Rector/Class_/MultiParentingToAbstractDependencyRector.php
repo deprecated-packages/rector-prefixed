@@ -133,7 +133,7 @@ CODE_SAMPLE
             return null;
         }
         $classMethod = $node->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         $abstractClassConstructorParamTypes = $this->resolveConstructorParamClassTypes($node);
@@ -141,7 +141,7 @@ CODE_SAMPLE
         $this->objectTypesToInject = [];
         foreach ($childrenClasses as $childrenClass) {
             $constructorClassMethod = $childrenClass->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-            if ($constructorClassMethod === null) {
+            if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
             $this->refactorChildConstructorClassMethod($constructorClassMethod, $abstractClassConstructorParamTypes);
@@ -163,7 +163,7 @@ CODE_SAMPLE
     private function resolveConstructorParamClassTypes(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $constructorClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructorClassMethod === null) {
+        if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         $objectTypes = [];

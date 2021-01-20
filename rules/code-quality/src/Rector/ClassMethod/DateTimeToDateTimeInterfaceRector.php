@@ -171,7 +171,7 @@ CODE_SAMPLE
             return \true;
         }
         $parentNode = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode === null) {
+        if (!$parentNode instanceof \PhpParser\Node) {
             return \true;
         }
         return $parentNode instanceof \PhpParser\Node\Expr\Assign;

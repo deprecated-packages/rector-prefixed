@@ -132,7 +132,7 @@ CODE_SAMPLE
     {
         // is previous variable node as part of assign?
         $previousVariableAssign = $this->previousVariableAssignNodeFinder->find($assign);
-        if ($previousVariableAssign === null) {
+        if (!$previousVariableAssign instanceof \PhpParser\Node) {
             return \false;
         }
         return $this->scopeNestingComparator->areScopeNestingEqual($assign, $previousVariableAssign);

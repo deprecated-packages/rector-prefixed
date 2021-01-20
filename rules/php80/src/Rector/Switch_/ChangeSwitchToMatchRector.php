@@ -161,7 +161,7 @@ CODE_SAMPLE
                 $expr = $expr->expr;
             }
             $condExpr = $condAndExpr->getCondExpr();
-            $condList = $condExpr === null ? null : [$condExpr];
+            $condList = $condExpr instanceof \PhpParser\Node\Expr ? [$condExpr] : null;
             $matchArms[] = new \PhpParser\Node\MatchArm($condList, $expr);
         }
         return $matchArms;

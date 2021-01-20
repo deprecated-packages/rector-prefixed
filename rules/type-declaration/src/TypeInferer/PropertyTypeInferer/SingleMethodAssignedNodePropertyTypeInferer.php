@@ -26,12 +26,12 @@ final class SingleMethodAssignedNodePropertyTypeInferer extends \Rector\TypeDecl
             return new \PHPStan\Type\MixedType();
         }
         $classMethod = $classLike->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return new \PHPStan\Type\MixedType();
         }
         $propertyName = $this->nodeNameResolver->getName($property);
         $assignedNode = $this->resolveAssignedNodeToProperty($classMethod, $propertyName);
-        if ($assignedNode === null) {
+        if (!$assignedNode instanceof \PhpParser\Node\Expr) {
             return new \PHPStan\Type\MixedType();
         }
         return $this->nodeTypeResolver->getStaticType($assignedNode);

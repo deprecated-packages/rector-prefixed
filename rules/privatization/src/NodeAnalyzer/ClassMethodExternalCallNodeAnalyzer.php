@@ -104,7 +104,7 @@ final class ClassMethodExternalCallNodeAnalyzer
             return \false;
         }
         $getSubscribedEventsClassMethod = $classLike->getMethod('getSubscribedEvents');
-        if ($getSubscribedEventsClassMethod === null) {
+        if (!$getSubscribedEventsClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
         $methodNames = $this->eventSubscriberMethodNamesResolver->resolveFromClassMethod($getSubscribedEventsClassMethod);

@@ -6,6 +6,7 @@ namespace Rector\FamilyTree\NodeAnalyzer;
 use PhpParser\Node\Stmt\Class_;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
+use ReflectionMethod;
 final class ClassChildAnalyzer
 {
     public function hasChildClassConstructor(\PhpParser\Node\Stmt\Class_ $class) : bool
@@ -17,7 +18,7 @@ final class ClassChildAnalyzer
             }
             $reflectionClass = new \ReflectionClass($childClass);
             $constructorReflectionMethod = $reflectionClass->getConstructor();
-            if ($constructorReflectionMethod === null) {
+            if (!$constructorReflectionMethod instanceof \ReflectionMethod) {
                 continue;
             }
             if ($constructorReflectionMethod->class !== $childClass) {
@@ -38,7 +39,7 @@ final class ClassChildAnalyzer
         foreach ($classParents as $classParent) {
             $parentReflectionClass = new \ReflectionClass($classParent);
             $constructMethodReflection = $parentReflectionClass->getConstructor();
-            if ($constructMethodReflection === null) {
+            if (!$constructMethodReflection instanceof \ReflectionMethod) {
                 continue;
             }
             if ($constructMethodReflection->class !== $classParent) {

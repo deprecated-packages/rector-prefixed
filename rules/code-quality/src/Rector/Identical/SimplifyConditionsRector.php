@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\BooleanNot;
 use Rector\Core\PhpParser\Node\AssignAndBinaryMap;
 use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Php71\ValueObject\TwoNodeMatch;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -70,7 +71,7 @@ final class SimplifyConditionsRector extends \Rector\Core\Rector\AbstractRector
         }, function (\PhpParser\Node $binaryOp) : bool {
             return $this->isBool($binaryOp);
         });
-        if ($twoNodeMatch === null) {
+        if (!$twoNodeMatch instanceof \Rector\Php71\ValueObject\TwoNodeMatch) {
             return $twoNodeMatch;
         }
         /** @var Identical|NotIdentical $subBinaryOp */

@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser;
 
 use Iterator;
+use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\Printer\PhpDocInfoPrinter;
@@ -52,7 +53,7 @@ abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210120\Symplify\Pac
         $nodeType = \Rector\BetterPhpDocParser\Tests\PhpDocParser\Helper\TagValueToPhpParserNodeMap::MAP[$tagValueNodeType];
         $nodeWithPhpDocInfo = $this->parseFileAndGetFirstNodeOfType($fileInfo, $nodeType);
         $docComment = $nodeWithPhpDocInfo->getDocComment();
-        if ($docComment === null) {
+        if (!$docComment instanceof \PhpParser\Comment\Doc) {
             throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Doc comments for "%s" file cannot not be empty', $fileInfo));
         }
         $originalDocCommentText = $docComment->getText();

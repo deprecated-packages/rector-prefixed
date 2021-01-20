@@ -74,7 +74,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $caughtThrowableVariable = $node->var;
-        if ($caughtThrowableVariable === null) {
+        if (!$caughtThrowableVariable instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
         $this->traverseNodesWithCallable($node->stmts, function (\PhpParser\Node $node) use($caughtThrowableVariable) : ?int {

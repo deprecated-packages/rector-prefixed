@@ -7,6 +7,7 @@ use RectorPrefix20210120\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\Constant\ConstantStringType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
@@ -78,7 +79,7 @@ final class ParseFileRector extends \Rector\Core\Rector\AbstractRector
         }
         // try to detect current value
         $nodeScope = $possibleFileNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($nodeScope === null) {
+        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $nodeType = $nodeScope->getType($possibleFileNode);

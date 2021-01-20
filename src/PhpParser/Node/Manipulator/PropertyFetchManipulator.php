@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
@@ -114,7 +115,7 @@ final class PropertyFetchManipulator
     private function hasPublicProperty(\PhpParser\Node\Expr\PropertyFetch $propertyFetch, string $propertyName) : bool
     {
         $nodeScope = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if ($nodeScope === null) {
+        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $propertyFetchType = $nodeScope->getType($propertyFetch->var);

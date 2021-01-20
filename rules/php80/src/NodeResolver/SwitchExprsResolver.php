@@ -27,7 +27,7 @@ final class SwitchExprsResolver
             }
             if ($expr instanceof \PhpParser\Node\Stmt\Return_) {
                 $returnedExpr = $expr->expr;
-                if ($returnedExpr === null) {
+                if (!$returnedExpr instanceof \PhpParser\Node\Expr) {
                     return [];
                 }
                 $condAndExpr[] = new \Rector\Php80\ValueObject\CondAndExpr($case->cond, $returnedExpr, \Rector\Php80\ValueObject\CondAndExpr::TYPE_RETURN);

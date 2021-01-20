@@ -5,6 +5,7 @@ namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Interface_;
 use PHPStan\Type\TypeWithClassName;
 use Rector\Core\ValueObject\MethodName;
@@ -52,7 +53,7 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
             return [];
         }
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
@@ -65,7 +66,7 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
             return [];
         }
         $constructorClassMethod = $this->nodeRepository->findClassMethod($returnedType->getClassName(), \Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructorClassMethod === null) {
+        if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($constructorClassMethod);

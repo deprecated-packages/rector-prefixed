@@ -83,7 +83,7 @@ CODE_SAMPLE
             return null;
         }
         $constructClassMethod = $node->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructClassMethod === null) {
+        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         $this->removeNode($constructClassMethod);

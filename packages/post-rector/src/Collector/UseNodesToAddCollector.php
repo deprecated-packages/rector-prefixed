@@ -44,10 +44,10 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
     {
         /** @var SmartFileInfo|null $fileInfo */
         $fileInfo = $positionNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo === null) {
+        if (!$fileInfo instanceof \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo) {
             // fallback for freshly created Name nodes
             $fileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-            if ($fileInfo === null) {
+            if (!$fileInfo instanceof \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo) {
                 return;
             }
         }
@@ -154,7 +154,7 @@ final class UseNodesToAddCollector implements \Rector\PostRector\Contract\Collec
             return $fileInfo->getRealPath();
         }
         $smartFileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-        if ($smartFileInfo === null) {
+        if (!$smartFileInfo instanceof \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo) {
             return null;
         }
         return $smartFileInfo->getRealPath();

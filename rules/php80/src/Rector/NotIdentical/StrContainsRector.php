@@ -58,7 +58,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $funcCall = $this->matchNotIdenticalToFalse($node);
-        if ($funcCall === null) {
+        if (!$funcCall instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
         $funcCall->name = new \PhpParser\Node\Name('str_contains');

@@ -123,7 +123,7 @@ final class NodeRepository
         // array callable - [$this, 'someCall']
         if ($node instanceof \PhpParser\Node\Expr\Array_) {
             $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($node);
-            if ($arrayCallable === null) {
+            if (!$arrayCallable instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
                 return;
             }
             if (!$arrayCallable->isExistingMethod()) {

@@ -172,7 +172,7 @@ CODE_SAMPLE
             $concatExpressionJoinData->addNodeToRemove($nextExprAndConcatItem->getRemovedExpr());
             // jump to next one
             $currentNode = $this->getNextExpression($currentNode);
-            if ($currentNode === null) {
+            if (!$currentNode instanceof \PhpParser\Node) {
                 return $concatExpressionJoinData;
             }
         }

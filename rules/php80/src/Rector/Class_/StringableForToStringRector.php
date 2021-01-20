@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -65,7 +66,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $toStringClassMethod = $node->getMethod('__toString');
-        if ($toStringClassMethod === null) {
+        if (!$toStringClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         if ($this->classManipulator->hasInterface($node, self::STRINGABLE)) {

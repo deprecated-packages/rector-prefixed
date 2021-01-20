@@ -138,7 +138,7 @@ final class ClassRenamer
             return null;
         }
         $classLike = $this->getClassOfNamespaceToRefactor($namespace, $oldToNewClasses);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
         $currentName = $this->nodeNameResolver->getName($classLike);

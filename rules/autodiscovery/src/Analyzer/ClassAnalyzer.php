@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Autodiscovery\Analyzer;
 
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
@@ -51,7 +52,7 @@ final class ClassAnalyzer
             return $this->valueObjectStatusByClassName[$className];
         }
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructClassMethod === null) {
+        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return $this->analyseWithoutConstructor($class, $className);
         }
         // resolve constructor types
@@ -63,7 +64,7 @@ final class ClassAnalyzer
             // awesome!
             // is it services or value object?
             $paramTypeClass = $this->parsedNodeCollector->findClass($paramType->getClassName());
-            if ($paramTypeClass === null) {
+            if (!$paramTypeClass instanceof \PhpParser\Node\Stmt\Class_) {
                 // not sure :/
                 continue;
             }

@@ -54,7 +54,7 @@ final class UseManipulator
                 continue;
             }
             $parentNode = $nameNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentNode === null) {
+            if (!$parentNode instanceof \PhpParser\Node) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $this->resolvedNodeNames[$originalName->toString()][] = new \Rector\CodingStyle\ValueObject\NameAndParent($nameNode, $parentNode);
@@ -66,7 +66,7 @@ final class UseManipulator
         $classLikes = $this->betterNodeFinder->findClassLikes([$searchNode]);
         foreach ($classLikes as $classLike) {
             $classLikeName = $classLike->name;
-            if ($classLikeName === null) {
+            if (!$classLikeName instanceof \PhpParser\Node\Identifier) {
                 continue;
             }
             $name = $this->nodeNameResolver->getName($classLikeName);

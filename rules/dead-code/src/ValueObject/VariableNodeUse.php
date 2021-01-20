@@ -64,7 +64,7 @@ final class VariableNodeUse
     public function getParentNode() : \PhpParser\Node
     {
         $parentNode = $this->variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode === null) {
+        if (!$parentNode instanceof \PhpParser\Node) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $parentNode;

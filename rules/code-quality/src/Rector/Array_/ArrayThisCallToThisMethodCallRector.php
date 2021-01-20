@@ -14,6 +14,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer;
+use Rector\NodeCollector\ValueObject\ArrayCallable;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -75,7 +76,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($node);
-        if ($arrayCallable === null) {
+        if (!$arrayCallable instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
             return null;
         }
         if ($this->isAssignedToNetteMagicOnProperty($node)) {

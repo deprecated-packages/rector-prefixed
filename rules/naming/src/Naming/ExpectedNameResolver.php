@@ -19,6 +19,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\Naming\ExpectedNameResolver\MatchParamTypeExpectedNameResolver;
+use Rector\Naming\ValueObject\ExpectedName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
@@ -95,7 +96,7 @@ final class ExpectedNameResolver
         $className = $this->nodeNameResolver->getName($new->class);
         $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($className);
         $expectedName = $this->propertyNaming->getExpectedNameFromType($fullyQualifiedObjectType);
-        if ($expectedName === null) {
+        if (!$expectedName instanceof \Rector\Naming\ValueObject\ExpectedName) {
             return null;
         }
         return $expectedName->getName();
@@ -151,7 +152,7 @@ final class ExpectedNameResolver
         }
         if ($returnedType instanceof \PHPStan\Type\ArrayType) {
             $returnedType = $this->resolveReturnTypeFromArrayType($expr, $returnedType);
-            if ($returnedType === null) {
+            if (!$returnedType instanceof \PHPStan\Type\Type) {
                 return null;
             }
         }
@@ -160,7 +161,7 @@ final class ExpectedNameResolver
             return $expectedNameFromType->getSingularized();
         }
         $expectedNameFromMethodName = $this->propertyNaming->getExpectedNameFromMethodName($name);
-        if ($expectedNameFromMethodName === null) {
+        if (!$expectedNameFromMethodName instanceof \Rector\Naming\ValueObject\ExpectedName) {
             return null;
         }
         if ($expectedNameFromMethodName->isSingular()) {

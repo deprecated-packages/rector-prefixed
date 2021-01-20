@@ -139,7 +139,7 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
     private function setClassNodeAndName(?\PhpParser\Node\Stmt\ClassLike $classLike) : void
     {
         $this->classLike = $classLike;
-        if ($classLike === null || $classLike->name === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike || $classLike->name === null) {
             $this->className = null;
         } elseif (\property_exists($classLike, 'namespacedName')) {
             $this->className = $classLike->namespacedName->toString();

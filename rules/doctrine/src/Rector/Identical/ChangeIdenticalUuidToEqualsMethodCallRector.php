@@ -66,7 +66,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $twoNodeMatch = $this->matchEntityCallAndComparedVariable($node);
-        if ($twoNodeMatch === null) {
+        if (!$twoNodeMatch instanceof \Rector\Php71\ValueObject\TwoNodeMatch) {
             return null;
         }
         $entityMethodCall = $twoNodeMatch->getFirstExpr();

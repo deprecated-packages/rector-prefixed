@@ -69,7 +69,7 @@ CODE_SAMPLE
                 return null;
             }
             $assign = $this->createAssign($node->var);
-            if ($assign === null) {
+            if (!$assign instanceof \PhpParser\Node) {
                 return null;
             }
             $controlName = $this->resolveControlName($node->var);

@@ -36,13 +36,13 @@ final class RectorChangeCollector
     public function notifyNodeFileInfo(\PhpParser\Node $node) : void
     {
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo === null) {
+        if (!$fileInfo instanceof \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo) {
             // this file was changed before and this is a sub-new node
             // array Traverse to all new nodes would have to be used, but it's not worth the performance
             return;
         }
         $currentRector = $this->currentRectorProvider->getCurrentRector();
-        if ($currentRector === null) {
+        if (!$currentRector instanceof \Rector\Core\Contract\Rector\RectorInterface) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->addRectorClassWithLine($currentRector, $fileInfo, $node->getLine());

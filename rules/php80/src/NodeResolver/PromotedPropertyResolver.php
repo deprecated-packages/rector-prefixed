@@ -42,7 +42,7 @@ final class PromotedPropertyResolver
     public function resolveFromClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructClassMethod === null) {
+        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         $propertyPromotionCandidates = [];
@@ -51,7 +51,7 @@ final class PromotedPropertyResolver
                 continue;
             }
             $propertyPromotionCandidate = $this->matchPropertyPromotionCandidate($property, $constructClassMethod);
-            if ($propertyPromotionCandidate === null) {
+            if (!$propertyPromotionCandidate instanceof \Rector\Php80\ValueObject\PropertyPromotionCandidate) {
                 continue;
             }
             $propertyPromotionCandidates[] = $propertyPromotionCandidate;
@@ -82,7 +82,7 @@ final class PromotedPropertyResolver
                 continue;
             }
             $matchedParam = $this->matchClassMethodParamByAssignedVariable($constructClassMethod, $assignedExpr);
-            if ($matchedParam === null) {
+            if (!$matchedParam instanceof \PhpParser\Node\Param) {
                 continue;
             }
             // is param used above assign?
@@ -117,7 +117,7 @@ final class PromotedPropertyResolver
                 }
                 return $this->nodeNameResolver->isName($node, $paramName);
             });
-            if ($firstParamVariable === null) {
+            if (!$firstParamVariable instanceof \PhpParser\Node) {
                 continue;
             }
             $paramByFirstUsage[$paramName] = $firstParamVariable->getStartTokenPos();

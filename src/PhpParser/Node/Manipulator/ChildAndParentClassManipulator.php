@@ -74,7 +74,7 @@ final class ChildAndParentClassManipulator
         $childClasses = $this->nodeRepository->findChildrenOfClass($className);
         foreach ($childClasses as $childClass) {
             $childConstructorClassMethod = $childClass->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-            if ($childConstructorClassMethod === null) {
+            if (!$childConstructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 continue;
             }
             // replicate parent parameters
@@ -86,7 +86,7 @@ final class ChildAndParentClassManipulator
     private function completeParentConstructorBasedOnParentNode(\PhpParser\Node\Stmt\Class_ $parentClassNode, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $firstParentConstructMethodNode = $this->findFirstParentConstructor($parentClassNode);
-        if ($firstParentConstructMethodNode === null) {
+        if (!$firstParentConstructMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
         $cleanParams = $this->promotedPropertyParamCleaner->cleanFromFlags($firstParentConstructMethodNode->params);

@@ -129,7 +129,7 @@ final class VariableNaming
         if ($node instanceof \PhpParser\Node\Expr\FuncCall) {
             return $this->resolveFromNode($node->name);
         }
-        if ($node === null) {
+        if (!$node instanceof \PhpParser\Node) {
             throw new \Rector\Core\Exception\NotImplementedException();
         }
         $paramName = $this->nodeNameResolver->getName($node);
@@ -197,14 +197,14 @@ final class VariableNaming
     }
     private function isCall(?\PhpParser\Node $node) : bool
     {
-        if ($node === null) {
+        if (!$node instanceof \PhpParser\Node) {
             return \false;
         }
         return \Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\NullsafeMethodCall::class, \PhpParser\Node\Expr\StaticCall::class]);
     }
     private function resolveFromMethodCall(?\PhpParser\Node $node) : ?string
     {
-        if ($node === null) {
+        if (!$node instanceof \PhpParser\Node) {
             return null;
         }
         if (!\property_exists($node, 'name')) {

@@ -38,7 +38,7 @@ final class OnFormVariableMethodCallsCollector
     public function collectFromClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         $newFormVariable = $this->resolveNewFormVariable($classMethod);
-        if ($newFormVariable === null) {
+        if (!$newFormVariable instanceof \PhpParser\Node\Expr) {
             return [];
         }
         return $this->collectOnFormVariableMethodCalls($classMethod, $newFormVariable);

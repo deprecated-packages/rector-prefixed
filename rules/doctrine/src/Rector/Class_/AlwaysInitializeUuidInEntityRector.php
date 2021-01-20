@@ -7,6 +7,7 @@ use RectorPrefix20210120\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\Manipulator\ClassDependencyManipulator;
@@ -89,7 +90,7 @@ CODE_SAMPLE
             return null;
         }
         $uuidProperty = $this->resolveUuidPropertyFromClass($node);
-        if ($uuidProperty === null) {
+        if (!$uuidProperty instanceof \PhpParser\Node\Stmt\Property) {
             return null;
         }
         $uuidPropertyName = $this->getName($uuidProperty);
@@ -119,7 +120,7 @@ CODE_SAMPLE
     private function hasUuidInitAlreadyAdded(\PhpParser\Node\Stmt\Class_ $class, string $uuidPropertyName) : bool
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructClassMethod === null) {
+        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return \false;
         }
         return (bool) $this->betterNodeFinder->findFirst($class->stmts, function (\PhpParser\Node $node) use($uuidPropertyName) : bool {

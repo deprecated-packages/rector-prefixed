@@ -83,7 +83,7 @@ CODE_SAMPLE
         }
         $this->newExpressions = [];
         $exceptionVariable = $tryCatch->catches[0]->var;
-        if ($exceptionVariable === null) {
+        if (!$exceptionVariable instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
         // we look for:

@@ -119,7 +119,7 @@ CODE_SAMPLE
     private function processPreviousAssign(\PhpParser\Node $node, \PhpParser\Node\Expr $firstArgumentExpr) : void
     {
         $previousNodeAssign = $this->findPreviousNodeAssign($node, $firstArgumentExpr);
-        if ($previousNodeAssign === null) {
+        if (!$previousNodeAssign instanceof \PhpParser\Node\Expr\Assign) {
             return;
         }
         if (!$this->isFuncCallName($previousNodeAssign->expr, 'sprintf')) {

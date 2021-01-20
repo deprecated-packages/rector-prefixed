@@ -6,6 +6,7 @@ namespace Rector\PhpSpecToPHPUnit;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 final class MatchersManipulator
 {
@@ -15,7 +16,7 @@ final class MatchersManipulator
     public function resolveMatcherNamesFromClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $classMethod = $class->getMethod('getMatchers');
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         if (!isset($classMethod->stmts[0])) {

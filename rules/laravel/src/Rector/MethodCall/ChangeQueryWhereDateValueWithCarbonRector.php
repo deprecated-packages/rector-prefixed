@@ -63,7 +63,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $argValue = $this->matchWhereDateThirdArgValue($node);
-        if ($argValue === null) {
+        if (!$argValue instanceof \PhpParser\Node\Expr) {
             return null;
         }
         // is just made with static call?

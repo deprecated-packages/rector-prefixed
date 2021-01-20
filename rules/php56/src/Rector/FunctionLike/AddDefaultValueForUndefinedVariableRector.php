@@ -150,7 +150,7 @@ CODE_SAMPLE
     private function shouldSkipVariable(\PhpParser\Node\Expr\Variable $variable) : bool
     {
         $parentNode = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode === null) {
+        if (!$parentNode instanceof \PhpParser\Node) {
             return \true;
         }
         if ($parentNode instanceof \PhpParser\Node\Stmt\Global_) {

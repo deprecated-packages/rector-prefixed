@@ -58,7 +58,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $callWithParamRename = $this->matchTypeAndMethodName($node);
-        if ($callWithParamRename === null) {
+        if (!$callWithParamRename instanceof \Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter) {
             return null;
         }
         $node->name = new \PhpParser\Node\Identifier($callWithParamRename->getNewMethod());

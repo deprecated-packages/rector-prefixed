@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\Empty_;
 use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Php71\ValueObject\TwoNodeMatch;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -51,7 +52,7 @@ final class SimplifyEmptyArrayCheckRector extends \Rector\Core\Rector\AbstractRe
             },
             \PhpParser\Node\Expr\Empty_::class
         );
-        if ($twoNodeMatch === null) {
+        if (!$twoNodeMatch instanceof \Rector\Php71\ValueObject\TwoNodeMatch) {
             return null;
         }
         /** @var Empty_ $emptyOrNotIdenticalNode */

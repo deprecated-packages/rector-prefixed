@@ -74,11 +74,11 @@ CODE_SAMPLE
         $hasChanged = \false;
         foreach ($this->replaceStringWithClassConstants as $replaceStringWithClassConstant) {
             $desiredArg = $this->matchArg($node, $replaceStringWithClassConstant);
-            if ($desiredArg === null) {
+            if (!$desiredArg instanceof \PhpParser\Node\Arg) {
                 continue;
             }
             $classConstFetch = $this->classConstantFetchValueFactory->create($desiredArg->value, $replaceStringWithClassConstant->getClassWithConstants());
-            if ($classConstFetch === null) {
+            if (!$classConstFetch instanceof \PhpParser\Node\Expr\ClassConstFetch) {
                 continue;
             }
             $desiredArg->value = $classConstFetch;
@@ -102,7 +102,7 @@ CODE_SAMPLE
             return null;
         }
         $desiredArg = $methodCall->args[$replaceStringWithClassConstant->getArgPosition()] ?? null;
-        if ($desiredArg === null) {
+        if (!$desiredArg instanceof \PhpParser\Node\Arg) {
             return null;
         }
         if ($desiredArg->value instanceof \PhpParser\Node\Expr\ClassConstFetch) {

@@ -63,7 +63,7 @@ final class ArrayManipulator
                 continue;
             }
             $removedArrayItem = $array->items[$i];
-            if ($removedArrayItem === null) {
+            if (!$removedArrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
                 continue;
             }
             // remove + recount for the printer

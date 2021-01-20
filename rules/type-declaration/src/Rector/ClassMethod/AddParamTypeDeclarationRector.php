@@ -130,7 +130,7 @@ CODE_SAMPLE
     private function refactorClassMethodWithTypehintByParameterPosition(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration $addParamTypeDeclaration) : void
     {
         $parameter = $classMethod->params[$addParamTypeDeclaration->getPosition()] ?? null;
-        if ($parameter === null) {
+        if (!$parameter instanceof \PhpParser\Node\Param) {
             return;
         }
         $this->refactorParameter($parameter, $addParamTypeDeclaration);

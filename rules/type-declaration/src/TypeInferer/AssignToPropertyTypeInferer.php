@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\TypeDeclaration\TypeInferer;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\ClassLike;
@@ -48,11 +49,11 @@ final class AssignToPropertyTypeInferer extends \Rector\TypeDeclaration\TypeInfe
                 return null;
             }
             $expr = $this->propertyAssignMatcher->matchPropertyAssignExpr($node, $propertyName);
-            if ($expr === null) {
+            if (!$expr instanceof \PhpParser\Node\Expr) {
                 return null;
             }
             $exprStaticType = $this->resolveExprStaticTypeIncludingDimFetch($node);
-            if ($exprStaticType === null) {
+            if (!$exprStaticType instanceof \PHPStan\Type\Type) {
                 return null;
             }
             $assignedExprTypes[] = $exprStaticType;

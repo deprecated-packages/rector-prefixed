@@ -25,7 +25,7 @@ final class StatementNodeVisitor extends \PhpParser\NodeVisitorAbstract
     public function enterNode(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent === null) {
+        if (!$parent instanceof \PhpParser\Node) {
             if (!$node instanceof \PhpParser\Node\Stmt) {
                 return null;
             }

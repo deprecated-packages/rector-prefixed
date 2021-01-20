@@ -4,6 +4,8 @@ declare (strict_types=1);
 namespace Rector\Naming\Naming;
 
 use RectorPrefix20210120\Nette\Utils\Strings;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Return_;
@@ -238,7 +240,7 @@ final class PropertyNaming
     private function getPrefixedClassMethods(\PhpParser\Node\Stmt\Property $property) : array
     {
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return [];
         }
         $classMethods = $this->betterNodeFinder->findInstanceOf($classLike, \PhpParser\Node\Stmt\ClassMethod::class);
@@ -267,7 +269,7 @@ final class PropertyNaming
                 return \false;
             }
             $node = $return->expr;
-            if ($node === null) {
+            if (!$node instanceof \PhpParser\Node\Expr) {
                 return \false;
             }
             return $this->nodeNameResolver->isName($node, $currentName);

@@ -56,7 +56,7 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
         $dataProviderClassMethod = $this->resolveDataProviderClassMethod($param);
-        if ($dataProviderClassMethod === null) {
+        if (!$dataProviderClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return new \PHPStan\Type\MixedType();
         }
         $parameterPosition = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARAMETER_POSITION);

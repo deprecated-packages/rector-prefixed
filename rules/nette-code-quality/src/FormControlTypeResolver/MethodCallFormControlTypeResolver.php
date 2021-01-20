@@ -5,6 +5,7 @@ namespace Rector\NetteCodeQuality\FormControlTypeResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Stmt\ClassMethod;
 use Rector\NetteCodeQuality\Contract\FormControlTypeResolverInterface;
 use Rector\NetteCodeQuality\Contract\MethodNamesByInputNamesResolverAwareInterface;
 use Rector\NetteCodeQuality\NodeResolver\MethodNamesByInputNamesResolver;
@@ -41,7 +42,7 @@ final class MethodCallFormControlTypeResolver implements \Rector\NetteCodeQualit
             return [];
         }
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         return $this->methodNamesByInputNamesResolver->resolveExpr($classMethod);

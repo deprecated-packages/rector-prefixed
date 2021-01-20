@@ -59,7 +59,7 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
             return $nodes;
         }
         $smartFileInfo = $this->getSmartFileInfo($nodes);
-        if ($smartFileInfo === null) {
+        if (!$smartFileInfo instanceof \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo) {
             return $nodes;
         }
         $useImportTypes = $this->useNodesToAddCollector->getObjectImportsByFileInfo($smartFileInfo);

@@ -7,6 +7,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -54,11 +55,11 @@ final class CallableClassMethodMatcher
         $objectType = $this->popFirstObjectType($objectType);
         if ($objectType instanceof \PHPStan\Type\ObjectType) {
             $class = $this->nodeRepository->findClass($objectType->getClassName());
-            if ($class === null) {
+            if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
                 return null;
             }
             $classMethod = $class->getMethod($methodName);
-            if ($classMethod === null) {
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 return null;
             }
             if ($this->nodeNameResolver->isName($objectExpr, 'this')) {

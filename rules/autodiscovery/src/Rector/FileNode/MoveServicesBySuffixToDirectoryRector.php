@@ -9,6 +9,7 @@ use Rector\Autodiscovery\FileLocation\ExpectedFileLocationResolver;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
+use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
@@ -122,7 +123,7 @@ CODE_SAMPLE
     private function moveFileToGroupName(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, \Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode, string $desiredGroupName) : void
     {
         $movedFileWithNodes = $this->movedFileWithNodesFactory->createWithDesiredGroup($fileInfo, $fileNode->stmts, $desiredGroupName);
-        if ($movedFileWithNodes === null) {
+        if (!$movedFileWithNodes instanceof \Rector\FileSystemRector\ValueObject\MovedFileWithNodes) {
             return;
         }
         $this->addMovedFile($movedFileWithNodes);

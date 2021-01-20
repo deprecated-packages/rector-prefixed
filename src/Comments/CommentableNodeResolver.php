@@ -17,7 +17,7 @@ final class CommentableNodeResolver
         $previousNode = $node;
         while (!$currentNode instanceof \PhpParser\Node\Stmt) {
             $currentNode = $currentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($currentNode === null) {
+            if (!$currentNode instanceof \PhpParser\Node) {
                 return $previousNode;
             }
             $previousNode = $currentNode;

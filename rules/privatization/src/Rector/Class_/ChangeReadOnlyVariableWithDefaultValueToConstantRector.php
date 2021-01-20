@@ -100,7 +100,7 @@ CODE_SAMPLE
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $classMethod = $node->getMethod($methodName);
-            if ($classMethod === null) {
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $this->refactorClassMethod($classMethod, $node, $readOnlyVariableAssigns);

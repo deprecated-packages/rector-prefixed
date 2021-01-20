@@ -68,10 +68,10 @@ CODE_SAMPLE
         }
         $ifAssignVar = $this->resolveOnlyStmtAssignVar($node->stmts);
         $elseAssignVar = $this->resolveOnlyStmtAssignVar($node->else->stmts);
-        if ($ifAssignVar === null) {
+        if (!$ifAssignVar instanceof \PhpParser\Node\Expr) {
             return null;
         }
-        if ($elseAssignVar === null) {
+        if (!$elseAssignVar instanceof \PhpParser\Node\Expr) {
             return null;
         }
         if (!$this->areNodesEqual($ifAssignVar, $elseAssignVar)) {
@@ -79,10 +79,10 @@ CODE_SAMPLE
         }
         $ternaryIf = $this->resolveOnlyStmtAssignExpr($node->stmts);
         $ternaryElse = $this->resolveOnlyStmtAssignExpr($node->else->stmts);
-        if ($ternaryIf === null) {
+        if (!$ternaryIf instanceof \PhpParser\Node\Expr) {
             return null;
         }
-        if ($ternaryElse === null) {
+        if (!$ternaryElse instanceof \PhpParser\Node\Expr) {
             return null;
         }
         // has nested ternary → skip, it's super hard to read

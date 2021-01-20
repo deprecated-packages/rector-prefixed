@@ -91,7 +91,7 @@ CODE_SAMPLE
             return null;
         }
         $classReflection = $scope->getClassReflection();
-        if ($classReflection === null) {
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return null;
         }
         $paramName = $this->getName($param);

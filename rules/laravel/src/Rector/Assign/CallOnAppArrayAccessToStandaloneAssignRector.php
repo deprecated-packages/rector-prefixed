@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Laravel\Rector\Assign;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
@@ -54,7 +55,7 @@ final class CallOnAppArrayAccessToStandaloneAssignRector extends \Rector\Core\Re
             return null;
         }
         $arrayDimFetchDim = $methodCall->var->dim;
-        if ($arrayDimFetchDim === null) {
+        if (!$arrayDimFetchDim instanceof \PhpParser\Node\Expr) {
             return null;
         }
         foreach ($this->serviceNameTypeAndVariableNames as $serviceNameTypeAndVariableName) {

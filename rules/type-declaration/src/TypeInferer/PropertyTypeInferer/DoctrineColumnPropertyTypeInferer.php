@@ -79,7 +79,7 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $doctrineColumnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
-        if ($doctrineColumnTagValueNode === null) {
+        if (!$doctrineColumnTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode) {
             return new \PHPStan\Type\MixedType();
         }
         $type = $doctrineColumnTagValueNode->getType();
@@ -87,7 +87,7 @@ final class DoctrineColumnPropertyTypeInferer implements \Rector\TypeDeclaration
             return new \PHPStan\Type\MixedType();
         }
         $scalarType = $this->doctrineTypeToScalarType[$type] ?? null;
-        if ($scalarType === null) {
+        if (!$scalarType instanceof \PHPStan\Type\Type) {
             return new \PHPStan\Type\MixedType();
         }
         $types = [$scalarType];

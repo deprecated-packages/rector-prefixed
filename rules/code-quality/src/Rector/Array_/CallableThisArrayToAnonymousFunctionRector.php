@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\ClassMethod;
 use Rector\CodeQuality\NodeAnalyzer\CallableClassMethodMatcher;
 use Rector\CodeQuality\NodeFactory\AnonymousFunctionFactory;
 use Rector\Core\Rector\AbstractRector;
@@ -112,7 +113,7 @@ CODE_SAMPLE
             return null;
         }
         $classMethod = $this->callableClassMethodMatcher->match($objectVariable, $methodName);
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         return $this->anonymousFunctionFactory->create($classMethod, $objectVariable);

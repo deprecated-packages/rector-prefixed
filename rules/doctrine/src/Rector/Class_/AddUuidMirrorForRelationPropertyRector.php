@@ -162,7 +162,7 @@ CODE_SAMPLE
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
         $oneToOneTagValueNode = $propertyPhpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode::class);
         // skip mappedBy oneToOne, as the column doesn't really exist
-        if ($oneToOneTagValueNode === null) {
+        if (!$oneToOneTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode) {
             return \false;
         }
         return (bool) $oneToOneTagValueNode->getMappedBy();

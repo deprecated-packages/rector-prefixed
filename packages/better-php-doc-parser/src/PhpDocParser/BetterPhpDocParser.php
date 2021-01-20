@@ -133,7 +133,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         // needed for reference support in params, see https://github.com/rectorphp/rector/issues/1734
         $tagValueNode = null;
         $currentPhpNode = $this->currentNodeProvider->getNode();
-        if ($currentPhpNode === null) {
+        if (!$currentPhpNode instanceof \PhpParser\Node) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $lowercasedTag = \strtolower($tag);
@@ -219,7 +219,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
     private function matchTagToPhpDocNodeFactory(string $tag) : ?\Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface
     {
         $currentPhpNode = $this->currentNodeProvider->getNode();
-        if ($currentPhpNode === null) {
+        if (!$currentPhpNode instanceof \PhpParser\Node) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $fullyQualifiedAnnotationClass = $this->classAnnotationMatcher->resolveTagFullyQualifiedName($tag, $currentPhpNode);

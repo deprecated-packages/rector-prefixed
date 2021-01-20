@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Scalar\MagicConst\Dir;
 use PhpParser\Node\Scalar\MagicConst\File;
+use PhpParser\Node\Stmt\ClassConst;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\ConstantScalarType;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -177,7 +178,7 @@ final class ValueResolver
             return $class;
         }
         $classConstNode = $this->parsedNodeCollector->findClassConstant($class, $constant);
-        if ($classConstNode === null) {
+        if (!$classConstNode instanceof \PhpParser\Node\Stmt\ClassConst) {
             // fallback to the name
             return $class . '::' . $constant;
         }

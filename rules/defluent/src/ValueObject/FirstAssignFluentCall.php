@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Defluent\ValueObject;
 
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Defluent\Contract\ValueObject\FirstCallFactoryAwareInterface;
 use Rector\Defluent\Contract\ValueObject\RootExprAwareInterface;
@@ -39,7 +40,7 @@ final class FirstAssignFluentCall extends \Rector\Defluent\ValueObject\AbstractR
     public function getFactoryAssignVariable() : \PhpParser\Node\Expr
     {
         $firstAssign = $this->getFirstAssign();
-        if ($firstAssign === null) {
+        if (!$firstAssign instanceof \PhpParser\Node\Expr\Assign) {
             return $this->assignExpr;
         }
         return $firstAssign->var;

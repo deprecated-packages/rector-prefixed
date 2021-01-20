@@ -90,7 +90,7 @@ CODE_SAMPLE
             return null;
         }
         $newConditionNode = $this->resolveNewConditionNode($conditionNode, $isNegated);
-        if ($newConditionNode === null) {
+        if (!$newConditionNode instanceof \PhpParser\Node\Expr\BinaryOp) {
             return null;
         }
         $node->cond = $newConditionNode;

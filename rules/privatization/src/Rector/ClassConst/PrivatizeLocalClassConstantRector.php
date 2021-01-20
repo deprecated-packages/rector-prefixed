@@ -13,6 +13,7 @@ use Rector\PhpAttribute\ValueObject\TagName;
 use Rector\Privatization\NodeFinder\ParentClassConstantNodeFinder;
 use Rector\Privatization\Reflection\ParentConstantReflectionResolver;
 use Rector\Privatization\ValueObject\ConstantVisibility;
+use ReflectionClassConstant;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -131,7 +132,7 @@ CODE_SAMPLE
             // If the constant isn't declared in the parent, it might be declared in the parent's parent
         }
         $parentClassConstantReflection = $this->parentConstantReflectionResolver->resolve($class, $constant);
-        if ($parentClassConstantReflection === null) {
+        if (!$parentClassConstantReflection instanceof \ReflectionClassConstant) {
             return null;
         }
         return new \Rector\Privatization\ValueObject\ConstantVisibility($parentClassConstantReflection->isPublic(), $parentClassConstantReflection->isProtected(), $parentClassConstantReflection->isPrivate());

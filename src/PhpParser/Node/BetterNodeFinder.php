@@ -174,7 +174,7 @@ final class BetterNodeFinder
         \RectorPrefix20210120\Webmozart\Assert\Assert::allIsAOf($types, \PhpParser\Node::class);
         foreach ($types as $type) {
             $nodeFinderFindFirstInstanceOf = $this->nodeFinder->findFirstInstanceOf($nodes, $type);
-            if ($nodeFinderFindFirstInstanceOf === null) {
+            if (!$nodeFinderFindFirstInstanceOf instanceof \PhpParser\Node) {
                 continue;
             }
             return \true;

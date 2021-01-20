@@ -122,7 +122,7 @@ CODE_SAMPLE
                 return null;
             }
             $classMethod = $classLike->getMethod($methodName);
-            if ($classMethod === null) {
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 return null;
             }
             if ($classMethod->isPrivate()) {

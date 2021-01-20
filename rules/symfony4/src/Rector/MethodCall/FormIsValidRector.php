@@ -65,7 +65,7 @@ CODE_SAMPLE
     {
         $originalNode = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE);
         // skip just added calls
-        if ($originalNode === null) {
+        if (!$originalNode instanceof \PhpParser\Node) {
             return \true;
         }
         if (!$this->isObjectType($methodCall->var, 'Symfony\\Component\\Form\\Form')) {

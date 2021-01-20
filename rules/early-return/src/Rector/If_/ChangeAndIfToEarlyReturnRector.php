@@ -100,7 +100,7 @@ CODE_SAMPLE
             return null;
         }
         $ifReturn = $this->getIfReturn($node);
-        if ($ifReturn === null) {
+        if (!$ifReturn instanceof \PhpParser\Node\Stmt) {
             return null;
         }
         /** @var BooleanAnd $expr */
@@ -247,7 +247,7 @@ CODE_SAMPLE
     private function isLastIfOrBeforeLastReturn(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         $nextNode = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if ($nextNode === null) {
+        if (!$nextNode instanceof \PhpParser\Node) {
             return \true;
         }
         return $nextNode instanceof \PhpParser\Node\Stmt\Return_;

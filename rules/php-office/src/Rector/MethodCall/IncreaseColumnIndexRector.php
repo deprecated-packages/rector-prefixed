@@ -74,7 +74,7 @@ CODE_SAMPLE
         if ($firstArgumentValue instanceof \PhpParser\Node\Expr\Variable) {
             // check if for() value, rather update that
             $lNumber = $this->findPreviousForWithVariable($firstArgumentValue);
-            if ($lNumber === null) {
+            if (!$lNumber instanceof \PhpParser\Node\Scalar\LNumber) {
                 $node->args[0]->value = new \PhpParser\Node\Expr\BinaryOp\Plus($firstArgumentValue, new \PhpParser\Node\Scalar\LNumber(1));
                 return null;
             }

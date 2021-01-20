@@ -52,7 +52,7 @@ final class ReadWritePropertyAnalyzer
     {
         \RectorPrefix20210120\Webmozart\Assert\Assert::isAnyOf($node, [\PhpParser\Node\Expr\PropertyFetch::class, \PhpParser\Node\Expr\StaticPropertyFetch::class]);
         $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent === null) {
+        if (!$parent instanceof \PhpParser\Node) {
             throw new \Rector\Core\Exception\Node\MissingParentNodeException();
         }
         $parent = $this->unwrapPostPreIncDec($parent);
@@ -75,7 +75,7 @@ final class ReadWritePropertyAnalyzer
     {
         if ($node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PreDec || $node instanceof \PhpParser\Node\Expr\PostInc || $node instanceof \PhpParser\Node\Expr\PostDec) {
             $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($node === null) {
+            if (!$node instanceof \PhpParser\Node) {
                 throw new \Rector\Core\Exception\Node\MissingParentNodeException();
             }
         }
@@ -84,7 +84,7 @@ final class ReadWritePropertyAnalyzer
     private function isArrayDimFetchRead(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
         $parentParent = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentParent === null) {
+        if (!$parentParent instanceof \PhpParser\Node) {
             throw new \Rector\Core\Exception\Node\MissingParentNodeException();
         }
         if (!$this->assignManipulator->isLeftPartOfAssign($arrayDimFetch)) {

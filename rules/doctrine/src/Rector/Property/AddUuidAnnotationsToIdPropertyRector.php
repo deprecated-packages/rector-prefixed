@@ -98,7 +98,7 @@ CODE_SAMPLE
     private function changeColumnTypeToUuidBinary(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : void
     {
         $columnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode::class);
-        if ($columnTagValueNode === null) {
+        if (!$columnTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode) {
             return;
         }
         $columnTagValueNode->changeType('uuid_binary');

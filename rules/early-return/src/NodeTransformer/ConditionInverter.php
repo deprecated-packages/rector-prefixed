@@ -23,7 +23,7 @@ final class ConditionInverter
         // inverse condition
         if ($expr instanceof \PhpParser\Node\Expr\BinaryOp) {
             $inversedCondition = $this->binaryOpManipulator->invertCondition($expr);
-            if ($inversedCondition === null) {
+            if (!$inversedCondition instanceof \PhpParser\Node\Expr\BinaryOp) {
                 return new \PhpParser\Node\Expr\BooleanNot($expr);
             }
             if ($inversedCondition instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {

@@ -76,7 +76,7 @@ CODE_SAMPLE
             return null;
         }
         $staticCall = $this->matchStaticCall($onlyStmt);
-        if ($staticCall === null) {
+        if (!$staticCall instanceof \PhpParser\Node\Expr\StaticCall) {
             return null;
         }
         if (!$this->currentAndParentClassMethodComparator->isParentCallMatching($node, $staticCall)) {

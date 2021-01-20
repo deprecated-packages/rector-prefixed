@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\ValueObjectFactory;
 
+use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use Rector\Naming\Contract\ExpectedNameResolver\ExpectedNameResolverInterface;
 use Rector\Naming\ValueObject\PropertyRename;
@@ -32,7 +33,7 @@ final class PropertyRenameFactory
         }
         $currentName = $this->nodeNameResolver->getName($property);
         $propertyClassLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($propertyClassLike === null) {
+        if (!$propertyClassLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
         $propertyClassLikeName = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);

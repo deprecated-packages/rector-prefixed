@@ -44,7 +44,7 @@ final class YieldNodesReturnTypeInferer extends \Rector\TypeDeclaration\TypeInfe
         $types = [];
         foreach ($yieldNodes as $yieldNode) {
             $value = $this->resolveYieldValue($yieldNode);
-            if ($value === null) {
+            if (!$value instanceof \PhpParser\Node\Expr) {
                 continue;
             }
             $yieldValueStaticType = $this->nodeTypeResolver->getStaticType($value);

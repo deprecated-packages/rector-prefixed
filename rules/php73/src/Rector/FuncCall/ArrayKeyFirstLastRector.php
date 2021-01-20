@@ -65,7 +65,7 @@ CODE_SAMPLE
             return null;
         }
         $nextExpression = $this->getNextExpression($node);
-        if ($nextExpression === null) {
+        if (!$nextExpression instanceof \PhpParser\Node) {
             return null;
         }
         $resetOrEndFuncCall = $node;

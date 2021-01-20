@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Property;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
@@ -72,7 +73,7 @@ CODE_SAMPLE
         }
         $onlyProperty = $node->props[0];
         $defaultValue = $onlyProperty->default;
-        if ($defaultValue === null) {
+        if (!$defaultValue instanceof \PhpParser\Node\Expr) {
             return null;
         }
         if (\in_array($columnTagValueNode->getType(), ['bool', 'boolean'], \true)) {

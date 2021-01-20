@@ -52,7 +52,7 @@ final class ChildReturnPopulator extends \Rector\TypeDeclaration\ChildPopulator\
     {
         $methodName = $this->nodeNameResolver->getName($classMethod);
         $currentClassMethod = $classLike->getMethod($methodName);
-        if ($currentClassMethod === null) {
+        if (!$currentClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
         $resolvedChildTypeNode = $this->resolveChildTypeNode($returnType);

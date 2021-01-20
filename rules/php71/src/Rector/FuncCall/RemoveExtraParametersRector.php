@@ -81,7 +81,7 @@ final class RemoveExtraParametersRector extends \Rector\Core\Rector\AbstractRect
             }
         }
         $parametersAcceptor = $this->callReflectionResolver->resolveParametersAcceptor($this->callReflectionResolver->resolveCall($node), $node);
-        if ($parametersAcceptor === null) {
+        if (!$parametersAcceptor instanceof \PHPStan\Reflection\ParametersAcceptor) {
             return \true;
         }
         // can be any number of arguments → nothing to limit here

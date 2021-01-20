@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
@@ -33,7 +34,7 @@ final class SetterClassMethodAnalyzer
     public function matchNullalbeClassMethodProperty(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\Property
     {
         $propertyFetch = $this->matchNullalbeClassMethodPropertyFetch($classMethod);
-        if ($propertyFetch === null) {
+        if (!$propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         return $this->getPropertyByPropertyFetch($classMethod, $propertyFetch);
@@ -41,7 +42,7 @@ final class SetterClassMethodAnalyzer
     public function matchDateTimeSetterProperty(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\Property
     {
         $propertyFetch = $this->matchDateTimeSetterPropertyFetch($classMethod);
-        if ($propertyFetch === null) {
+        if (!$propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         return $this->getPropertyByPropertyFetch($classMethod, $propertyFetch);
@@ -57,7 +58,7 @@ final class SetterClassMethodAnalyzer
     private function matchNullalbeClassMethodPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\PropertyFetch
     {
         $propertyFetch = $this->matchSetterOnlyPropertyFetch($classMethod);
-        if ($propertyFetch === null) {
+        if (!$propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         // is nullable param
@@ -82,7 +83,7 @@ final class SetterClassMethodAnalyzer
     private function matchDateTimeSetterPropertyFetch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\PropertyFetch
     {
         $propertyFetch = $this->matchSetterOnlyPropertyFetch($classMethod);
-        if ($propertyFetch === null) {
+        if (!$propertyFetch instanceof \PhpParser\Node\Expr\PropertyFetch) {
             return null;
         }
         $param = $classMethod->params[0];
@@ -105,7 +106,7 @@ final class SetterClassMethodAnalyzer
             return null;
         }
         $onlyStmt = $stmts[0] ?? null;
-        if ($onlyStmt === null) {
+        if (!$onlyStmt instanceof \PhpParser\Node\Stmt) {
             return null;
         }
         if ($onlyStmt instanceof \PhpParser\Node\Stmt\Expression) {

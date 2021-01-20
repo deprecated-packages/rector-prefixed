@@ -32,7 +32,7 @@ final class ScopeNestingComparator
     public function isNodeConditionallyScoped(\PhpParser\Node $node) : bool
     {
         $foundParentType = $this->betterNodeFinder->findParentTypes($node, \Rector\NodeNestingScope\ValueObject\ControlStructure::CONDITIONAL_NODE_SCOPE_TYPES + [\PhpParser\Node\FunctionLike::class]);
-        if ($foundParentType === null) {
+        if (!$foundParentType instanceof \PhpParser\Node) {
             return \false;
         }
         return !$foundParentType instanceof \PhpParser\Node\FunctionLike;

@@ -5,6 +5,7 @@ namespace Rector\DoctrineCodeQuality\Rector\Property;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -86,7 +87,7 @@ CODE_SAMPLE
             return null;
         }
         $attributeAwareVarTagValueNode = $phpDocInfo->getVarTagValueNode();
-        if ($attributeAwareVarTagValueNode === null) {
+        if (!$attributeAwareVarTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             return null;
         }
         $this->docBlockClassRenamer->renamePhpDocTypes($phpDocInfo, [new \PHPStan\Type\IntegerType(), new \PHPStan\Type\FloatType(), new \PHPStan\Type\BooleanType()], new \PHPStan\Type\StringType(), $node);

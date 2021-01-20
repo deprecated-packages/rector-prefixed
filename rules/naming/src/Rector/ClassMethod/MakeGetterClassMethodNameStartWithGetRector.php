@@ -85,7 +85,7 @@ CODE_SAMPLE
             return null;
         }
         $getterClassMethodReturnedExpr = $this->matchGetterClassMethodReturnedExpr($node);
-        if ($getterClassMethodReturnedExpr === null) {
+        if (!$getterClassMethodReturnedExpr instanceof \PhpParser\Node\Expr) {
             return null;
         }
         $getterMethodName = $this->methodNameResolver->resolveGetterFromReturnedExpr($getterClassMethodReturnedExpr);

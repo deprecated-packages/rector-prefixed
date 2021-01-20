@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocInfo;
 
+use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
@@ -77,7 +78,7 @@ final class PhpDocInfoFactory
         /** needed for @see PhpDocNodeFactoryInterface */
         $this->currentNodeProvider->setNode($node);
         $docComment = $node->getDocComment();
-        if ($docComment === null) {
+        if (!$docComment instanceof \PhpParser\Comment\Doc) {
             if ($node->getComments() !== []) {
                 return null;
             }

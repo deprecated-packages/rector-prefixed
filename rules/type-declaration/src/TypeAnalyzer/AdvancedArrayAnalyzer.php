@@ -37,7 +37,7 @@ final class AdvancedArrayAnalyzer
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $arrayType = $this->typeNormalizer->convertConstantArrayTypeToArrayType($arrayType);
-        if ($arrayType === null) {
+        if (!$arrayType instanceof \PHPStan\Type\ArrayType) {
             return \false;
         }
         $currentReturnType = $phpDocInfo->getReturnType();

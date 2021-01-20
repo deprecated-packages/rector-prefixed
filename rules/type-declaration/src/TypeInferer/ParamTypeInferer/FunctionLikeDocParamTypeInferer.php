@@ -26,7 +26,7 @@ final class FunctionLikeDocParamTypeInferer extends \Rector\TypeDeclaration\Type
     public function inferParam(\PhpParser\Node\Param $param) : \PHPStan\Type\Type
     {
         $functionLike = $this->resolveScopeNode($param);
-        if ($functionLike === null) {
+        if (!$functionLike instanceof \PhpParser\Node\FunctionLike) {
             return new \PHPStan\Type\MixedType();
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($functionLike);

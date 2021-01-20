@@ -188,7 +188,7 @@ CODE_SAMPLE
     private function removeInversedByOrMappedByOnRelatedProperty(\PhpParser\Node\Stmt\Property $property) : void
     {
         $otherRelationProperty = $this->getOtherRelationProperty($property);
-        if ($otherRelationProperty === null) {
+        if (!$otherRelationProperty instanceof \PhpParser\Node\Stmt\Property) {
             return;
         }
         $this->doctrineEntityManipulator->removeMappedByOrInversedByFromProperty($otherRelationProperty);

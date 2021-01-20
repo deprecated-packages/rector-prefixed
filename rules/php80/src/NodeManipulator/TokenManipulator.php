@@ -137,7 +137,7 @@ final class TokenManipulator
                 return null;
             }
             $arrayDimFetchAndConstFetch = $this->matchArrayDimFetchAndConstFetch($node);
-            if ($arrayDimFetchAndConstFetch === null) {
+            if (!$arrayDimFetchAndConstFetch instanceof \Rector\Php80\ValueObject\ArrayDimFetchAndConstFetch) {
                 return null;
             }
             if (!$this->isArrayDimFetchWithDimIntegerValue($arrayDimFetchAndConstFetch->getArrayDimFetch(), 0)) {

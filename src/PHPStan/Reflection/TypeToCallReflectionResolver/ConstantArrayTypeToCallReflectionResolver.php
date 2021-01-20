@@ -37,7 +37,7 @@ final class ConstantArrayTypeToCallReflectionResolver implements \Rector\Core\Co
     public function resolve(\PHPStan\Type\Type $type, \PHPStan\Reflection\ClassMemberAccessAnswerer $classMemberAccessAnswerer) : ?\PHPStan\Reflection\MethodReflection
     {
         $constantArrayTypeAndMethod = $this->findTypeAndMethodName($type);
-        if ($constantArrayTypeAndMethod === null) {
+        if (!$constantArrayTypeAndMethod instanceof \PHPStan\Type\Constant\ConstantArrayTypeAndMethod) {
             return null;
         }
         if ($constantArrayTypeAndMethod->isUnknown()) {

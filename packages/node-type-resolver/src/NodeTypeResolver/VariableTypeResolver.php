@@ -85,7 +85,7 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
     private function resolveTypesFromScope(\PhpParser\Node\Expr\Variable $variable, string $variableName) : \PHPStan\Type\Type
     {
         $nodeScope = $this->resolveNodeScope($variable);
-        if ($nodeScope === null) {
+        if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
         if (!$nodeScope->hasVariableType($variableName)->yes()) {
@@ -121,7 +121,7 @@ final class VariableTypeResolver implements \Rector\NodeTypeResolver\Contract\No
                 continue;
             }
             $parentNodeScope = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-            if ($parentNodeScope === null) {
+            if (!$parentNodeScope instanceof \PHPStan\Analyser\Scope) {
                 continue;
             }
             return $parentNodeScope;

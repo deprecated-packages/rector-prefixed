@@ -5,11 +5,13 @@ namespace Rector\NetteToSymfony\Rector\ClassMethod;
 
 use RectorPrefix20210120\Composer\Script\Event;
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
@@ -74,7 +76,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if ($classLike === null) {
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
         if (!$this->isObjectType($classLike, 'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface')) {
@@ -103,10 +105,10 @@ CODE_SAMPLE
                 continue;
             }
             $eventInfo = $this->matchStringKeys($arrayItem);
-            if ($eventInfo === null) {
+            if (!$eventInfo instanceof \Rector\NetteToSymfony\ValueObject\EventInfo) {
                 $eventInfo = $this->matchClassConstKeys($arrayItem);
             }
-            if ($eventInfo === null) {
+            if (!$eventInfo instanceof \Rector\NetteToSymfony\ValueObject\EventInfo) {
                 continue;
             }
             $arrayItem->key = new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name\FullyQualified($eventInfo->getClass()), $eventInfo->getConstant());
@@ -146,7 +148,7 @@ CODE_SAMPLE
     private function processMethodArgument(string $class, string $method, \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo) : void
     {
         $classMethodNode = $this->nodeRepository->findClassMethod($class, $method);
-        if ($classMethodNode === null) {
+        if (!$classMethodNode instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
         if (\count($classMethodNode->params) !== 1) {
@@ -158,7 +160,7 @@ CODE_SAMPLE
     {
         foreach ($eventInfo->getOldClassConstAliases() as $netteClassConst) {
             $classConstFetchNode = $arrayItem->key;
-            if ($classConstFetchNode === null) {
+            if (!$classConstFetchNode instanceof \PhpParser\Node\Expr) {
                 continue;
             }
             if ($this->isName($classConstFetchNode, $netteClassConst)) {

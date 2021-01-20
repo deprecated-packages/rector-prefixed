@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode;
@@ -17,6 +18,7 @@ use Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeFactory;
 use Rector\DoctrineCodeQuality\PhpDoc\CollectionTypeResolver;
 use Rector\DoctrineCodeQuality\PhpDoc\CollectionVarTagValueNodeResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -114,14 +116,14 @@ CODE_SAMPLE
         $attributeAwareVarTagValueNode = $this->collectionVarTagValueNodeResolver->resolve($property);
         if ($attributeAwareVarTagValueNode !== null) {
             $collectionObjectType = $this->collectionTypeResolver->resolveFromTypeNode($attributeAwareVarTagValueNode->type, $property);
-            if ($collectionObjectType === null) {
+            if (!$collectionObjectType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
                 return null;
             }
             $newVarType = $this->collectionTypeFactory->createType($collectionObjectType);
             $this->phpDocTypeChanger->changeVarType($phpDocInfo, $newVarType);
         } else {
             $collectionObjectType = $this->collectionTypeResolver->resolveFromOneToManyProperty($property);
-            if ($collectionObjectType === null) {
+            if (!$collectionObjectType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
                 return null;
             }
             $newVarType = $this->collectionTypeFactory->createType($collectionObjectType);
@@ -138,7 +140,7 @@ CODE_SAMPLE
             return null;
         }
         $collectionObjectType = $this->resolveCollectionSetterAssignType($classMethod);
-        if ($collectionObjectType === null) {
+        if (!$collectionObjectType instanceof \PHPStan\Type\Type) {
             return null;
         }
         if (\count($classMethod->params) !== 1) {
@@ -164,7 +166,7 @@ CODE_SAMPLE
             return null;
         }
         $varTagValueNode = $this->collectionVarTagValueNodeResolver->resolve($property);
-        if ($varTagValueNode === null) {
+        if (!$varTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             return null;
         }
         return $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($varTagValueNode->type, $property);

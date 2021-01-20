@@ -83,7 +83,7 @@ CODE_SAMPLE
             if ($node->args === [] || !$this->isProbablyMysql($node->args[0]->value)) {
                 $connectionVariable = $this->findConnectionVariable($node);
                 $this->removeExistingConnectionParameter($node);
-                if ($connectionVariable === null) {
+                if (!$connectionVariable instanceof \PhpParser\Node\Expr) {
                     return null;
                 }
                 $node->args = \array_merge([new \PhpParser\Node\Arg($connectionVariable)], $node->args);

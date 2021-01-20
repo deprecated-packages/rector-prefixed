@@ -75,13 +75,13 @@ final class TableTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Php
     private function addCustomItems(array $items) : array
     {
         if ($this->indexes !== []) {
-            if ($this->indexesAroundSpaces === null) {
+            if (!$this->indexesAroundSpaces instanceof \Rector\BetterPhpDocParser\ValueObject\AroundSpaces) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $items['indexes'] = $this->printNestedTag($this->indexes, $this->haveIndexesFinalComma, $this->indexesAroundSpaces->getOpeningSpace(), $this->indexesAroundSpaces->getClosingSpace());
         }
         if ($this->uniqueConstraints !== []) {
-            if ($this->uniqueConstraintsAroundSpaces === null) {
+            if (!$this->uniqueConstraintsAroundSpaces instanceof \Rector\BetterPhpDocParser\ValueObject\AroundSpaces) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $items['uniqueConstraints'] = $this->printNestedTag($this->uniqueConstraints, $this->haveUniqueConstraintsFinalComma, $this->uniqueConstraintsAroundSpaces->getOpeningSpace(), $this->uniqueConstraintsAroundSpaces->getClosingSpace());

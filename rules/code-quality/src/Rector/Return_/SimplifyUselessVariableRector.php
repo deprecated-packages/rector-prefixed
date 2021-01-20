@@ -93,7 +93,7 @@ CODE_SAMPLE
         }
         $variableNode = $return->expr;
         $previousExpression = $return->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
-        if ($previousExpression === null) {
+        if (!$previousExpression instanceof \PhpParser\Node) {
             return \true;
         }
         if (!$previousExpression instanceof \PhpParser\Node\Stmt\Expression) {

@@ -58,7 +58,7 @@ final class ListeningMethodsCollector
         $this->eventClassesAndClassMethods = [];
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $getSubscribedEventsClassMethod->stmts, function (\PhpParser\Node $node) use($classLike, $type) {
             $classMethod = $this->matchClassMethodByArrayItem($node, $classLike);
-            if ($classMethod === null) {
+            if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
                 return null;
             }
             if (!$node instanceof \PhpParser\Node\Expr\ArrayItem) {
@@ -77,7 +77,7 @@ final class ListeningMethodsCollector
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $eventClassAndClassMethod = $this->resolveCustomClassMethodAndEventClass($node, $classLike, $eventClass);
-            if ($eventClassAndClassMethod === null) {
+            if (!$eventClassAndClassMethod instanceof \Rector\NetteKdyby\ValueObject\EventClassAndClassMethod) {
                 return null;
             }
             $this->eventClassesAndClassMethods[] = $eventClassAndClassMethod;
@@ -127,7 +127,7 @@ final class ListeningMethodsCollector
             [$dispatchingClass, $property] = \explode('::', $eventClass);
             $eventClass = $this->eventClassNaming->createEventClassNameFromClassAndProperty($dispatchingClass, $property);
         }
-        if ($classMethod === null) {
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
         return new \Rector\NetteKdyby\ValueObject\EventClassAndClassMethod($eventClass, $classMethod);

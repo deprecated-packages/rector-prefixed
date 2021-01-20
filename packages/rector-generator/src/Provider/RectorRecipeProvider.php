@@ -24,7 +24,7 @@ final class RectorRecipeProvider
     }
     public function provide() : \Rector\RectorGenerator\ValueObject\RectorRecipe
     {
-        if ($this->rectorRecipe === null) {
+        if (!$this->rectorRecipe instanceof \Rector\RectorGenerator\ValueObject\RectorRecipe) {
             throw new \Rector\RectorGenerator\Exception\ConfigurationException(self::MESSAGE);
         }
         return $this->rectorRecipe;

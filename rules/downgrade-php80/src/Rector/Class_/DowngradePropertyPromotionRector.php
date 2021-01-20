@@ -81,7 +81,7 @@ CODE_SAMPLE
     private function resolvePromotedParams(\PhpParser\Node\Stmt\Class_ $class) : array
     {
         $constructorClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
-        if ($constructorClassMethod === null) {
+        if (!$constructorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return [];
         }
         $promotedParams = [];

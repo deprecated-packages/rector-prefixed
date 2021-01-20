@@ -62,7 +62,7 @@ CODE_SAMPLE
     private function determineDelimiter(\PhpParser\Node\Expr\FuncCall $funcCall) : ?string
     {
         $concat = $this->getUppermostConcat($funcCall);
-        if ($concat === null) {
+        if (!$concat instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
             return null;
         }
         $leftMostConcatNode = $concat->left;
