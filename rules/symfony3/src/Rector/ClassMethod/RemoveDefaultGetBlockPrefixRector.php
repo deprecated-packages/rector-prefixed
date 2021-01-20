@@ -6,6 +6,7 @@ namespace Rector\Symfony3\Rector\ClassMethod;
 use RectorPrefix20210120\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Exception\ShouldNotHappenException;
@@ -76,7 +77,11 @@ CODE_SAMPLE
     }
     private function isObjectMethodNameMatch(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$this->isInObjectType($classMethod, 'Symfony\\Component\\Form\\AbstractType')) {
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return \false;
+        }
+        if (!$this->isObjectType($classMethod, 'Symfony\\Component\\Form\\AbstractType')) {
             return \false;
         }
         return $this->isName($classMethod->name, 'getBlockPrefix');

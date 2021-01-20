@@ -57,15 +57,6 @@ trait NodeTypeResolverTrait
         $this->stringTypeAnalyzer = $stringTypeAnalyzer;
         $this->typeUnwrapper = $typeUnwrapper;
     }
-    public function isInObjectType(\PhpParser\Node $node, string $type) : bool
-    {
-        $objectType = $this->nodeTypeResolver->resolve($node);
-        $desiredObjectType = new \PHPStan\Type\ObjectType($type);
-        if ($objectType->isSuperTypeOf($desiredObjectType)->yes()) {
-            return \true;
-        }
-        return $objectType->equals($desiredObjectType);
-    }
     public function isPropertyBoolean(\PhpParser\Node\Stmt\Property $property) : bool
     {
         return $this->nodeTypeResolver->isPropertyBoolean($property);

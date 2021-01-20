@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0655275b0958f821a8c38acca2165d8b
+class ComposerStaticInita354af150453b2a624d69d9944947510
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3364,6 +3364,7 @@ class ComposerStaticInit0655275b0958f821a8c38acca2165d8b
         'Rector\\Nette\\NodeFactory\\ActionRenderFactory' => __DIR__ . '/../..' . '/rules/nette/src/NodeFactory/ActionRenderFactory.php',
         'Rector\\Nette\\NodeFactory\\CheckRequirementsClassMethodFactory' => __DIR__ . '/../..' . '/rules/nette/src/NodeFactory/CheckRequirementsClassMethodFactory.php',
         'Rector\\Nette\\NodeFactory\\ParentGetterStmtsToExternalStmtsFactory' => __DIR__ . '/../..' . '/rules/nette/src/NodeFactory/ParentGetterStmtsToExternalStmtsFactory.php',
+        'Rector\\Nette\\NodeFinder\\ParamFinder' => __DIR__ . '/../..' . '/rules/nette/src/NodeFinder/ParamFinder.php',
         'Rector\\Nette\\Rector\\ClassMethod\\RemoveParentAndNameFromComponentConstructorRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/ClassMethod/RemoveParentAndNameFromComponentConstructorRector.php',
         'Rector\\Nette\\Rector\\ClassMethod\\TemplateMagicAssignToExplicitVariableArrayRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/ClassMethod/TemplateMagicAssignToExplicitVariableArrayRector.php',
         'Rector\\Nette\\Rector\\ClassMethod\\TranslateClassMethodToVariadicsRector' => __DIR__ . '/../..' . '/rules/nette/src/Rector/ClassMethod/TranslateClassMethodToVariadicsRector.php',
@@ -4143,9 +4144,9 @@ class ComposerStaticInit0655275b0958f821a8c38acca2165d8b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0655275b0958f821a8c38acca2165d8b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0655275b0958f821a8c38acca2165d8b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0655275b0958f821a8c38acca2165d8b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita354af150453b2a624d69d9944947510::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita354af150453b2a624d69d9944947510::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita354af150453b2a624d69d9944947510::$classMap;
 
         }, null, ClassLoader::class);
     }

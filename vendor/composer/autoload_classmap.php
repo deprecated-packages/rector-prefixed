@@ -2559,6 +2559,7 @@ return array(
     'Rector\\Nette\\NodeFactory\\ActionRenderFactory' => $baseDir . '/rules/nette/src/NodeFactory/ActionRenderFactory.php',
     'Rector\\Nette\\NodeFactory\\CheckRequirementsClassMethodFactory' => $baseDir . '/rules/nette/src/NodeFactory/CheckRequirementsClassMethodFactory.php',
     'Rector\\Nette\\NodeFactory\\ParentGetterStmtsToExternalStmtsFactory' => $baseDir . '/rules/nette/src/NodeFactory/ParentGetterStmtsToExternalStmtsFactory.php',
+    'Rector\\Nette\\NodeFinder\\ParamFinder' => $baseDir . '/rules/nette/src/NodeFinder/ParamFinder.php',
     'Rector\\Nette\\Rector\\ClassMethod\\RemoveParentAndNameFromComponentConstructorRector' => $baseDir . '/rules/nette/src/Rector/ClassMethod/RemoveParentAndNameFromComponentConstructorRector.php',
     'Rector\\Nette\\Rector\\ClassMethod\\TemplateMagicAssignToExplicitVariableArrayRector' => $baseDir . '/rules/nette/src/Rector/ClassMethod/TemplateMagicAssignToExplicitVariableArrayRector.php',
     'Rector\\Nette\\Rector\\ClassMethod\\TranslateClassMethodToVariadicsRector' => $baseDir . '/rules/nette/src/Rector/ClassMethod/TranslateClassMethodToVariadicsRector.php',

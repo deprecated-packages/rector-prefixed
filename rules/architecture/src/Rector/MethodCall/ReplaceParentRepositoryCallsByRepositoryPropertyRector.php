@@ -75,6 +75,6 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
-        return !$this->isInObjectType($classLike, 'Doctrine\\ORM\\EntityRepository');
+        return !$this->isObjectType($classLike, 'Doctrine\\ORM\\EntityRepository');
     }
 }
