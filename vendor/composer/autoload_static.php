@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitda4d50fa11f8ba1ad935cbc348b7cd8d
+class ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -155,6 +155,7 @@ class ComposerStaticInitda4d50fa11f8ba1ad935cbc348b7cd8d
             'RectorPrefix20210120\\Symfony\\Component\\VarExporter\\' => 51,
             'RectorPrefix20210120\\Symfony\\Component\\VarDumper\\' => 49,
             'RectorPrefix20210120\\Symfony\\Component\\String\\' => 46,
+            'RectorPrefix20210120\\Symfony\\Component\\Process\\' => 47,
             'RectorPrefix20210120\\Symfony\\Component\\HttpKernel\\' => 50,
             'RectorPrefix20210120\\Symfony\\Component\\HttpFoundation\\' => 54,
             'RectorPrefix20210120\\Symfony\\Component\\Finder\\' => 46,
@@ -702,6 +703,10 @@ class ComposerStaticInitda4d50fa11f8ba1ad935cbc348b7cd8d
         'RectorPrefix20210120\\Symfony\\Component\\String\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
+        ),
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
         ),
         'RectorPrefix20210120\\Symfony\\Component\\HttpKernel\\' => 
         array (
@@ -1945,6 +1950,23 @@ class ComposerStaticInitda4d50fa11f8ba1ad935cbc348b7cd8d
         'RectorPrefix20210120\\Symfony\\Component\\HttpKernel\\RebootableInterface' => __DIR__ . '/..' . '/symfony/http-kernel/RebootableInterface.php',
         'RectorPrefix20210120\\Symfony\\Component\\HttpKernel\\TerminableInterface' => __DIR__ . '/..' . '/symfony/http-kernel/TerminableInterface.php',
         'RectorPrefix20210120\\Symfony\\Component\\HttpKernel\\UriSigner' => __DIR__ . '/..' . '/symfony/http-kernel/UriSigner.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/process/Exception/ExceptionInterface.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/process/Exception/InvalidArgumentException.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/process/Exception/LogicException.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Exception\\ProcessFailedException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessFailedException.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Exception\\ProcessSignaledException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessSignaledException.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Exception\\ProcessTimedOutException' => __DIR__ . '/..' . '/symfony/process/Exception/ProcessTimedOutException.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/process/Exception/RuntimeException.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\ExecutableFinder' => __DIR__ . '/..' . '/symfony/process/ExecutableFinder.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\InputStream' => __DIR__ . '/..' . '/symfony/process/InputStream.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\PhpExecutableFinder' => __DIR__ . '/..' . '/symfony/process/PhpExecutableFinder.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\PhpProcess' => __DIR__ . '/..' . '/symfony/process/PhpProcess.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Pipes\\AbstractPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/AbstractPipes.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Pipes\\PipesInterface' => __DIR__ . '/..' . '/symfony/process/Pipes/PipesInterface.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Pipes\\UnixPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/UnixPipes.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Pipes\\WindowsPipes' => __DIR__ . '/..' . '/symfony/process/Pipes/WindowsPipes.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\Process' => __DIR__ . '/..' . '/symfony/process/Process.php',
+        'RectorPrefix20210120\\Symfony\\Component\\Process\\ProcessUtils' => __DIR__ . '/..' . '/symfony/process/ProcessUtils.php',
         'RectorPrefix20210120\\Symfony\\Component\\String\\AbstractString' => __DIR__ . '/..' . '/symfony/string/AbstractString.php',
         'RectorPrefix20210120\\Symfony\\Component\\String\\AbstractUnicodeString' => __DIR__ . '/..' . '/symfony/string/AbstractUnicodeString.php',
         'RectorPrefix20210120\\Symfony\\Component\\String\\ByteString' => __DIR__ . '/..' . '/symfony/string/ByteString.php',
@@ -4121,9 +4143,9 @@ class ComposerStaticInitda4d50fa11f8ba1ad935cbc348b7cd8d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitda4d50fa11f8ba1ad935cbc348b7cd8d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitda4d50fa11f8ba1ad935cbc348b7cd8d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitda4d50fa11f8ba1ad935cbc348b7cd8d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -135,6 +135,7 @@ return array(
     'RectorPrefix20210120\\Symfony\\Component\\VarExporter\\' => array($vendorDir . '/symfony/var-exporter'),
     'RectorPrefix20210120\\Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'RectorPrefix20210120\\Symfony\\Component\\String\\' => array($vendorDir . '/symfony/string'),
+    'RectorPrefix20210120\\Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
     'RectorPrefix20210120\\Symfony\\Component\\HttpKernel\\' => array($vendorDir . '/symfony/http-kernel'),
     'RectorPrefix20210120\\Symfony\\Component\\HttpFoundation\\' => array($vendorDir . '/symfony/http-foundation'),
     'RectorPrefix20210120\\Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),

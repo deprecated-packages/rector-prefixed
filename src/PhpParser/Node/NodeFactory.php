@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\ConstFetch;
@@ -435,7 +436,7 @@ final class NodeFactory
     private function createArrayItem($item, $key = null) : \PhpParser\Node\Expr\ArrayItem
     {
         $arrayItem = null;
-        if ($item instanceof \PhpParser\Node\Expr\Variable || $item instanceof \PhpParser\Node\Expr\MethodCall || $item instanceof \PhpParser\Node\Expr\StaticCall || $item instanceof \PhpParser\Node\Expr\FuncCall || $item instanceof \PhpParser\Node\Expr\BinaryOp\Concat || $item instanceof \PhpParser\Node\Scalar) {
+        if ($item instanceof \PhpParser\Node\Expr\Variable || $item instanceof \PhpParser\Node\Expr\MethodCall || $item instanceof \PhpParser\Node\Expr\StaticCall || $item instanceof \PhpParser\Node\Expr\FuncCall || $item instanceof \PhpParser\Node\Expr\BinaryOp\Concat || $item instanceof \PhpParser\Node\Scalar || $item instanceof \PhpParser\Node\Expr\Cast) {
             $arrayItem = new \PhpParser\Node\Expr\ArrayItem($item);
         } elseif ($item instanceof \PhpParser\Node\Identifier) {
             $string = new \PhpParser\Node\Scalar\String_($item->toString());
