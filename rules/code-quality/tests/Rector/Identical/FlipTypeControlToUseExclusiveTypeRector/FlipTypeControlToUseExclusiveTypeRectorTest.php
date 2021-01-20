@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\TypeDeclaration\Tests\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
+namespace Rector\CodeQuality\Tests\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 
 use Iterator;
+use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\TypeDeclaration\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
 final class FlipTypeControlToUseExclusiveTypeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -22,6 +22,6 @@ final class FlipTypeControlToUseExclusiveTypeRectorTest extends \Rector\Testing\
     }
     protected function getRectorClass() : string
     {
-        return \Rector\TypeDeclaration\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class;
+        return \Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class;
     }
 }

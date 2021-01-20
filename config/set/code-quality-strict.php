@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210120;
 
+use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\CodeQualityStrict\Rector\If_\MoveOutMethodCallInsideIfConditionRector;
 use Rector\CodeQualityStrict\Rector\Variable\MoveVariableDeclarationNearReferenceRector;
 use Rector\CodingStyle\Rector\MethodCall\UseMessageVariableForSprintfInSymfonyStyleRector;
@@ -14,4 +15,5 @@ return static function (\RectorPrefix20210120\Symfony\Component\DependencyInject
     $services->set(\Rector\Performance\Rector\FuncCall\CountArrayToEmptyArrayComparisonRector::class);
     $services->set(\Rector\CodeQualityStrict\Rector\Variable\MoveVariableDeclarationNearReferenceRector::class);
     $services->set(\Rector\CodingStyle\Rector\MethodCall\UseMessageVariableForSprintfInSymfonyStyleRector::class);
+    $services->set(\Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class);
 };

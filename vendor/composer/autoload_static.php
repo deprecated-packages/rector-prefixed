@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9
+class ComposerStaticInit0655275b0958f821a8c38acca2165d8b
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2585,6 +2585,7 @@ class ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9
         'Rector\\CodeQuality\\Rector\\FuncCall\\UnwrapSprintfOneArgumentRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/FuncCall/UnwrapSprintfOneArgumentRector.php',
         'Rector\\CodeQuality\\Rector\\FunctionLike\\RemoveAlwaysTrueConditionSetInConstructorRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/FunctionLike/RemoveAlwaysTrueConditionSetInConstructorRector.php',
         'Rector\\CodeQuality\\Rector\\Identical\\BooleanNotIdenticalToNotIdenticalRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Identical/BooleanNotIdenticalToNotIdenticalRector.php',
+        'Rector\\CodeQuality\\Rector\\Identical\\FlipTypeControlToUseExclusiveTypeRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Identical/FlipTypeControlToUseExclusiveTypeRector.php',
         'Rector\\CodeQuality\\Rector\\Identical\\GetClassToInstanceOfRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Identical/GetClassToInstanceOfRector.php',
         'Rector\\CodeQuality\\Rector\\Identical\\SimplifyArraySearchRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Identical/SimplifyArraySearchRector.php',
         'Rector\\CodeQuality\\Rector\\Identical\\SimplifyBoolIdenticalTrueRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Identical/SimplifyBoolIdenticalTrueRector.php',
@@ -4060,7 +4061,6 @@ class ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9
         'Rector\\TypeDeclaration\\Rector\\FunctionLike\\AbstractTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/FunctionLike/AbstractTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ParamTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/FunctionLike/ParamTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ReturnTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/FunctionLike/ReturnTypeDeclarationRector.php',
-        'Rector\\TypeDeclaration\\Rector\\Identical\\FlipTypeControlToUseExclusiveTypeRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Identical/FlipTypeControlToUseExclusiveTypeRector.php',
         'Rector\\TypeDeclaration\\Rector\\Property\\CompleteVarDocTypePropertyRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Property/CompleteVarDocTypePropertyRector.php',
         'Rector\\TypeDeclaration\\Rector\\Property\\PropertyTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Property/PropertyTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\TypeAlreadyAddedChecker\\ReturnTypeAlreadyAddedChecker' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeAlreadyAddedChecker/ReturnTypeAlreadyAddedChecker.php',
@@ -4143,9 +4143,9 @@ class ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit25ce588a5bdada0ea68888c6bbc06ed9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0655275b0958f821a8c38acca2165d8b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0655275b0958f821a8c38acca2165d8b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0655275b0958f821a8c38acca2165d8b::$classMap;
 
         }, null, ClassLoader::class);
     }
