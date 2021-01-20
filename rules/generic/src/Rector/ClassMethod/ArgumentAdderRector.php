@@ -23,7 +23,7 @@ use Rector\Generic\ValueObject\ArgumentAdder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210119\Webmozart\Assert\Assert;
+use RectorPrefix20210120\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\ArgumentAdderRectorTest
  */
@@ -99,7 +99,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $addedArguments = $configuration[\Rector\Generic\NodeAnalyzer\ArgumentAddingScope::ADDED_ARGUMENTS] ?? [];
-        \RectorPrefix20210119\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Generic\ValueObject\ArgumentAdder::class);
+        \RectorPrefix20210120\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Generic\ValueObject\ArgumentAdder::class);
         $this->addedArguments = $addedArguments;
     }
     /**

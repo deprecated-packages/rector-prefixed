@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210119\Symplify\SimplePhpDocParser;
+namespace RectorPrefix20210120\Symplify\SimplePhpDocParser;
 
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;

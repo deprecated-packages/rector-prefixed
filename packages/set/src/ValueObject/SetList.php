@@ -268,6 +268,10 @@ final class SetList
     /**
      * @var string
      */
+    public const NETTE_31 = __DIR__ . '/../../../../config/set/nette-31.php';
+    /**
+     * @var string
+     */
     public const NETTE_CODE_QUALITY = __DIR__ . '/../../../../config/set/nette-code-quality.php';
     /**
      * @var string

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Rector\Class_;
 
-use RectorPrefix20210119\Nette\Utils\Strings;
+use RectorPrefix20210120\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Class_;
@@ -109,7 +109,7 @@ CODE_SAMPLE
             if (!$varType instanceof \PHPStan\Type\ObjectType) {
                 continue;
             }
-            if (!\RectorPrefix20210119\Nette\Utils\Strings::contains($varType->getClassName(), 'UuidInterface')) {
+            if (!\RectorPrefix20210120\Nette\Utils\Strings::contains($varType->getClassName(), 'UuidInterface')) {
                 continue;
             }
             return $property;

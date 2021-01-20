@@ -6,13 +6,13 @@ namespace Rector\Renaming\Tests\Rector\Namespace_\RenameNamespaceRector;
 use Iterator;
 use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameNamespaceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

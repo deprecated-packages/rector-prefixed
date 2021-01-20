@@ -24,7 +24,7 @@ use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210120\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ClassRenamer
 {
     /**
@@ -59,7 +59,7 @@ final class ClassRenamer
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator $docBlockManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpDoc\PhpDocClassRenamer $phpDocClassRenamer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210120\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator $docBlockManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpDoc\PhpDocClassRenamer $phpDocClassRenamer, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->docBlockManipulator = $docBlockManipulator;
         $this->nodeNameResolver = $nodeNameResolver;

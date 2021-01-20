@@ -11,7 +11,7 @@ use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
-use RectorPrefix20210119\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
+use RectorPrefix20210120\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class DocBlockClassRenamer
 {
     /**
@@ -26,7 +26,7 @@ final class DocBlockClassRenamer
      * @var PhpDocNodeTraverser
      */
     private $phpDocNodeTraverser;
-    public function __construct(\RectorPrefix20210119\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\RectorPrefix20210120\Symplify\SimplePhpDocParser\PhpDocNodeTraverser $phpDocNodeTraverser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;

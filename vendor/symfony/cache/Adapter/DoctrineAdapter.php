@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210119\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210120\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20210119\Doctrine\Common\Cache\CacheProvider;
+use RectorPrefix20210120\Doctrine\Common\Cache\CacheProvider;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class DoctrineAdapter extends \RectorPrefix20210119\Symfony\Component\Cache\Adapter\AbstractAdapter
+class DoctrineAdapter extends \RectorPrefix20210120\Symfony\Component\Cache\Adapter\AbstractAdapter
 {
     private $provider;
-    public function __construct(\RectorPrefix20210119\Doctrine\Common\Cache\CacheProvider $provider, string $namespace = '', int $defaultLifetime = 0)
+    public function __construct(\RectorPrefix20210120\Doctrine\Common\Cache\CacheProvider $provider, string $namespace = '', int $defaultLifetime = 0)
     {
         parent::__construct('', $defaultLifetime);
         $this->provider = $provider;

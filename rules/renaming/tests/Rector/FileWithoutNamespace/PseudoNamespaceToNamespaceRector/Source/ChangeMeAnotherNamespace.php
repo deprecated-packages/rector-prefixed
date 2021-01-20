@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210119;
+namespace RectorPrefix20210120;
 
 final class ChangeMe_AnotherNamespace
 {

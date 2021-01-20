@@ -8,8 +8,8 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer;
-use RectorPrefix20210119\Symfony\Component\HttpFoundation\Session\SessionInterface;
-use RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210120\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use RectorPrefix20210120\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class SelfContainerMethodCallCollector
 {
     /**
@@ -24,7 +24,7 @@ final class SelfContainerMethodCallCollector
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\RectorPrefix20210119\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\RectorPrefix20210120\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\SymfonyPHPUnit\Node\KernelTestCaseNodeAnalyzer $kernelTestCaseNodeAnalyzer, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->kernelTestCaseNodeAnalyzer = $kernelTestCaseNodeAnalyzer;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
@@ -64,6 +64,6 @@ final class SelfContainerMethodCallCollector
     }
     private function shouldSkipServiceType(string $serviceType) : bool
     {
-        return $serviceType === \RectorPrefix20210119\Symfony\Component\HttpFoundation\Session\SessionInterface::class;
+        return $serviceType === \RectorPrefix20210120\Symfony\Component\HttpFoundation\Session\SessionInterface::class;
     }
 }

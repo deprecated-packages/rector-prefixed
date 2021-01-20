@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Order\Rector\Class_\OrderPublicInterfaceMethodRector;
 use Rector\Order\Tests\Rector\Class_\OrderPublicInterfaceMethodRector\Source\FoodRecipeInterface;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
 final class OrderPublicInterfaceMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

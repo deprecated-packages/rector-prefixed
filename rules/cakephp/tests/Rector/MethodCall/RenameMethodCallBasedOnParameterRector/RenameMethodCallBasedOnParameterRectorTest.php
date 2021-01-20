@@ -8,13 +8,13 @@ use Rector\CakePHP\Rector\MethodCall\RenameMethodCallBasedOnParameterRector;
 use Rector\CakePHP\Tests\Rector\MethodCall\RenameMethodCallBasedOnParameterRector\Source\SomeModelType;
 use Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameMethodCallBasedOnParameterRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210119\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

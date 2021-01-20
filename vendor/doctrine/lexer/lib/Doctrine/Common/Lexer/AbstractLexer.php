@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210119\Doctrine\Common\Lexer;
+namespace RectorPrefix20210120\Doctrine\Common\Lexer;
 
 use ReflectionClass;
 use const PREG_SPLIT_DELIM_CAPTURE;
