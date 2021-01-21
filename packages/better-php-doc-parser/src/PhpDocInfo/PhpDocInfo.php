@@ -37,6 +37,10 @@ use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 final class PhpDocInfo
 {
     /**
+     * @var array<string, string>
+     */
+    private const TAGS_TYPES_TO_NAMES = [\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class => '@return', \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode::class => '@param', \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class => '@var'];
+    /**
      * @var string
      */
     private $originalContent;
@@ -302,21 +306,17 @@ final class PhpDocInfo
         return $this->tokens === [];
     }
     /**
-     * @return class-string[]
+     * @return string[]
      */
     public function getThrowsClassNames() : array
     {
         $throwsClasses = [];
         foreach ($this->getThrowsTypes() as $throwsType) {
             if ($throwsType instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
-                /** @var class-string $className */
-                $className = $throwsType->getFullyQualifiedName();
-                $throwsClasses[] = $className;
+                $throwsClasses[] = $throwsType->getFullyQualifiedName();
             }
             if ($throwsType instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
-                /** @var class-string $className */
-                $className = $throwsType->getClassName();
-                $throwsClasses[] = $className;
+                $throwsClasses[] = $throwsType->getClassName();
             }
         }
         return $throwsClasses;
@@ -381,14 +381,10 @@ final class PhpDocInfo
     }
     private function resolveNameForPhpDocTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : string
     {
-        if ($phpDocTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode) {
-            return '@return';
-        }
-        if ($phpDocTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode) {
-            return '@param';
-        }
-        if ($phpDocTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
-            return '@var';
+        foreach (self::TAGS_TYPES_TO_NAMES as $tagValueNodeType => $name) {
+            if ($phpDocTagValueNode instanceof $tagValueNodeType) {
+                return $name;
+            }
         }
         throw new \Rector\Core\Exception\NotImplementedException();
     }

@@ -181,7 +181,7 @@ CODE_SAMPLE
     }
     /**
      * @param Throw_|MethodCall|FuncCall $node
-     * @return class-string[]
+     * @return string[]
      */
     private function extractAlreadyAnnotatedThrowables(\PhpParser\Node $node) : array
     {

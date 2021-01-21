@@ -19,6 +19,9 @@ final class ShortenedObjectType extends \PHPStan\Type\ObjectType
     {
         return $this->getClassName();
     }
+    /**
+     * @return class-string
+     */
     public function getFullyQualifiedName() : string
     {
         return $this->fullyQualifiedName;

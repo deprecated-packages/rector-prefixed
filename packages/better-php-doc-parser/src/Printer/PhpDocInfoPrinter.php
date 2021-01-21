@@ -108,10 +108,10 @@ final class PhpDocInfoPrinter
     public function printNew(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : string
     {
         $docContent = (string) $phpDocInfo->getPhpDocNode();
-        if (!$phpDocInfo->isSingleLine()) {
-            return $docContent;
+        if ($phpDocInfo->isSingleLine()) {
+            return $this->docBlockInliner->inline($docContent);
         }
-        return $this->docBlockInliner->inline($docContent);
+        return $docContent;
     }
     /**
      * As in php-parser
