@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\NodeFactory;
 
-use RectorPrefix20210120\Nette\Utils\Json;
+use RectorPrefix20210121\Nette\Utils\Json;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -12,7 +12,7 @@ use PhpParser\Node\Scalar\String_;
 use Rector\CodingStyle\NodeAnalyzer\ImplodeAnalyzer;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\NodeFactory;
-use RectorPrefix20210120\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210121\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class JsonArrayFactory
 {
     /**
@@ -27,7 +27,7 @@ final class JsonArrayFactory
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\CodingStyle\NodeAnalyzer\ImplodeAnalyzer $implodeAnalyzer, \RectorPrefix20210120\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\CodingStyle\NodeAnalyzer\ImplodeAnalyzer $implodeAnalyzer, \RectorPrefix20210121\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
     {
         $this->nodeFactory = $nodeFactory;
         $this->implodeAnalyzer = $implodeAnalyzer;
@@ -35,7 +35,7 @@ final class JsonArrayFactory
     }
     public function createFromJsonString(string $stringValue) : \PhpParser\Node\Expr\Array_
     {
-        $array = \RectorPrefix20210120\Nette\Utils\Json::decode($stringValue, \RectorPrefix20210120\Nette\Utils\Json::FORCE_ARRAY);
+        $array = \RectorPrefix20210121\Nette\Utils\Json::decode($stringValue, \RectorPrefix20210121\Nette\Utils\Json::FORCE_ARRAY);
         return $this->nodeFactory->createArray($array);
     }
     /**

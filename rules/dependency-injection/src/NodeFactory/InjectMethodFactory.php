@@ -13,8 +13,8 @@ use Rector\Core\ValueObject\FrameworkName;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PhpAttribute\ValueObject\TagName;
-use RectorPrefix20210120\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use RectorPrefix20210120\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use RectorPrefix20210121\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210121\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 final class InjectMethodFactory
 {
     /**
@@ -52,12 +52,12 @@ final class InjectMethodFactory
     {
         $objectTypes = $this->typeFactory->uniquateTypes($objectTypes);
         $shortClassName = $this->classNaming->getShortName($className);
-        $methodBuilder = new \RectorPrefix20210120\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('inject' . $shortClassName);
+        $methodBuilder = new \RectorPrefix20210121\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder('inject' . $shortClassName);
         $methodBuilder->makePublic();
         foreach ($objectTypes as $objectType) {
             /** @var ObjectType $objectType */
             $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-            $paramBuilder = new \RectorPrefix20210120\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyName);
+            $paramBuilder = new \RectorPrefix20210121\Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder($propertyName);
             $paramBuilder->setType(new \PhpParser\Node\Name\FullyQualified($objectType->getClassName()));
             $methodBuilder->addParam($paramBuilder);
             $assign = $this->nodeFactory->createPropertyAssignment($propertyName);

@@ -6,13 +6,13 @@ namespace Rector\Php80\Tests\Rector\FuncCall\ClassOnObjectRector;
 use Iterator;
 use Rector\Php80\Rector\FuncCall\ClassOnObjectRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassOnObjectRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

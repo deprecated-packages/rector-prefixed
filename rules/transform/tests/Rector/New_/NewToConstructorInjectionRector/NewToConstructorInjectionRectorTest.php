@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\New_\NewToConstructorInjectionRector;
 use Rector\Transform\Tests\Rector\New_\NewToConstructorInjectionRector\Source\DummyValidator;
-use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
 final class NewToConstructorInjectionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

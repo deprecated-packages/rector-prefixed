@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\MethodCall\VariableMethodCallToServiceCallRector;
 use Rector\Transform\ValueObject\VariableMethodCallToServiceCall;
-use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
 final class VariableMethodCallToServiceCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

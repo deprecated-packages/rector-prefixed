@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Tests\Rector\ClassMethod\RouterListToControllerAnnotationsRector\Source;
 
-use RectorPrefix20210120\Nette\Application\Routers\Route;
+use RectorPrefix20210121\Nette\Application\Routers\Route;
 final class RouteFactory
 {
-    public static function get(string $path, string $presenterClass) : \RectorPrefix20210120\Nette\Application\Routers\Route
+    public static function get(string $path, string $presenterClass) : \RectorPrefix20210121\Nette\Application\Routers\Route
     {
-        return new \RectorPrefix20210120\Nette\Application\Routers\Route($path, $presenterClass);
+        return new \RectorPrefix20210121\Nette\Application\Routers\Route($path, $presenterClass);
     }
 }

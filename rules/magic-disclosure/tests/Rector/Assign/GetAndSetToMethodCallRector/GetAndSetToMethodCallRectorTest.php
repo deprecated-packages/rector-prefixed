@@ -8,13 +8,13 @@ use Rector\MagicDisclosure\Rector\Assign\GetAndSetToMethodCallRector;
 use Rector\MagicDisclosure\Tests\Rector\Assign\GetAndSetToMethodCallRector\Source\Klarka;
 use Rector\MagicDisclosure\Tests\Rector\Assign\GetAndSetToMethodCallRector\Source\SomeContainer;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
 final class GetAndSetToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

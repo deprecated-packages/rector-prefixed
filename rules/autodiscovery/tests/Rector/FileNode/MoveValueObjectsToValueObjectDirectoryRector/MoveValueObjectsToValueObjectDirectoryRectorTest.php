@@ -8,14 +8,14 @@ use Rector\Autodiscovery\Rector\FileNode\MoveValueObjectsToValueObjectDirectoryR
 use Rector\Autodiscovery\Tests\Rector\FileNode\MoveValueObjectsToValueObjectDirectoryRector\Source\ObviousValueObjectInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileSystem;
 final class MoveValueObjectsToValueObjectDirectoryRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, ?\Rector\FileSystemRector\ValueObject\AddedFileWithContent $expectedAddedFileWithContent) : void
+    public function test(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, ?\Rector\FileSystemRector\ValueObject\AddedFileWithContent $expectedAddedFileWithContent) : void
     {
         $this->doTestFileInfo($fixtureFileInfo);
         if ($expectedAddedFileWithContent !== null) {
@@ -26,14 +26,14 @@ final class MoveValueObjectsToValueObjectDirectoryRectorTest extends \Rector\Tes
     }
     public function provideData() : \Iterator
     {
-        $smartFileSystem = new \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileSystem();
-        (yield [new \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Repository/PrimitiveValueObject.php'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/Source/ValueObject/PrimitiveValueObject.php', $smartFileSystem->readFile(__DIR__ . '/Expected/ValueObject/PrimitiveValueObject.php'))]);
+        $smartFileSystem = new \RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileSystem();
+        (yield [new \RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Repository/PrimitiveValueObject.php'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/Source/ValueObject/PrimitiveValueObject.php', $smartFileSystem->readFile(__DIR__ . '/Expected/ValueObject/PrimitiveValueObject.php'))]);
         // type
-        (yield [new \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Command/SomeName.php'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/Source/ValueObject/SomeName.php', $smartFileSystem->readFile(__DIR__ . '/Expected/ValueObject/SomeName.php'))]);
+        (yield [new \RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Command/SomeName.php'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/Source/ValueObject/SomeName.php', $smartFileSystem->readFile(__DIR__ . '/Expected/ValueObject/SomeName.php'))]);
         // suffix
-        (yield [new \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Command/MeSearch.php'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/Source/ValueObject/MeSearch.php', $smartFileSystem->readFile(__DIR__ . '/Expected/ValueObject/MeSearch.php'))]);
+        (yield [new \RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Command/MeSearch.php'), new \Rector\FileSystemRector\ValueObject\AddedFileWithContent($this->getFixtureTempDirectory() . '/Source/ValueObject/MeSearch.php', $smartFileSystem->readFile(__DIR__ . '/Expected/ValueObject/MeSearch.php'))]);
         // skip known service types
-        (yield [new \RectorPrefix20210120\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Utils/SomeSuffixedTest.php.inc'), null]);
+        (yield [new \RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Utils/SomeSuffixedTest.php.inc'), null]);
     }
     /**
      * @return array<string, mixed[]>
