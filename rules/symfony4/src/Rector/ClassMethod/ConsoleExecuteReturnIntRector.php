@@ -88,6 +88,11 @@ CODE_SAMPLE
             if ($node instanceof \PhpParser\Node\FunctionLike) {
                 return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
+            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if ($parentNode instanceof \PhpParser\Node\Stmt\Return_ && $this->areNodesEqual($parentNode->expr, $node) && $node instanceof \PhpParser\Node\Expr\Cast\Int_) {
+                $hasReturn = \true;
+                return null;
+            }
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                 return null;
             }
