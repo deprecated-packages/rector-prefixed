@@ -86,8 +86,8 @@ final class ClassMethodExternalCallNodeAnalyzer
         $arrayCallables = \array_filter($methodCalls, function (object $node) : bool {
             return $node instanceof \Rector\NodeCollector\ValueObject\ArrayCallable;
         });
+        $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         foreach ($arrayCallables as $arrayCallable) {
-            $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($className === $arrayCallable->getClass() && $methodName === $arrayCallable->getMethod()) {
                 return \true;
             }

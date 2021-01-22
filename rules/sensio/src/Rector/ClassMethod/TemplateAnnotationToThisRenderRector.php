@@ -187,7 +187,8 @@ CODE_SAMPLE
     {
         $this->processClassMethodWithoutReturn($classMethod, $thisRenderMethodCall);
         $this->returnTypeDeclarationUpdater->updateClassMethod($classMethod, self::RESPONSE_CLASS);
-        $this->removePhpDocTagValueNode($classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
     }
     private function refactorReturnWithValue(\PhpParser\Node\Stmt\Return_ $return, bool $hasThisRenderOrReturnsResponse, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
@@ -209,7 +210,8 @@ CODE_SAMPLE
             $this->processIsArrayOrResponseType($return, $lastReturnExpr, $thisRenderMethodCall);
         }
         $this->returnTypeDeclarationUpdater->updateClassMethod($classMethod, self::RESPONSE_CLASS);
-        $this->removePhpDocTagValueNode($classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode::class);
     }
     private function processClassMethodWithoutReturn(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\MethodCall $thisRenderMethodCall) : void
     {

@@ -63,12 +63,12 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
+            return null;
+        }
         foreach ($this->propertyToVisibilityByClass as $type => $propertyToVisibility) {
-            $classNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-            if (!$classNode instanceof \PhpParser\Node\Stmt\ClassLike) {
-                continue;
-            }
-            if (!$this->isObjectType($classNode, $type)) {
+            if (!$this->isObjectType($classLike, $type)) {
                 continue;
             }
             foreach ($propertyToVisibility as $property => $visibility) {

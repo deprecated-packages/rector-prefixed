@@ -10,12 +10,18 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use RectorPrefix20210122\Symplify\Astral\Contract\NodeNameResolverInterface;
 /**
  * @see \Symplify\Astral\Tests\Naming\SimpleNameResolverTest
  */
 final class SimpleNameResolver
 {
+    /**
+     * @see https://regex101.com/r/ChpDsj/1
+     * @var string
+     */
+    private const ANONYMOUS_CLASS_REGEX = '#^AnonymousClass[\\w+]#';
     /**
      * @var NodeNameResolverInterface[]
      */
@@ -87,22 +93,19 @@ final class SimpleNameResolver
         }
         return $this->isName($secondNode, $firstName);
     }
-    public function getShortClassNameFromNode(\PhpParser\Node\Stmt\ClassLike $classLike) : ?string
+    public function resolveShortNameFromNode(\PhpParser\Node\Stmt\ClassLike $classLike) : ?string
     {
         $className = $this->getName($classLike);
         if ($className === null) {
             return null;
         }
-        return $this->getShortClassName($className);
-    }
-    public function getShortClassName(string $className) : string
-    {
-        if (!\RectorPrefix20210122\Nette\Utils\Strings::contains($className, '\\')) {
-            return $className;
+        // anonymous class return null name
+        if (\RectorPrefix20210122\Nette\Utils\Strings::match($className, self::ANONYMOUS_CLASS_REGEX)) {
+            return null;
         }
-        return (string) \RectorPrefix20210122\Nette\Utils\Strings::after($className, '\\', -1);
+        return $this->resolveShortName($className);
     }
-    public function getShortClassNameFromScope(\PHPStan\Analyser\Scope $scope) : ?string
+    public function resolveShortNameFromScope(\PHPStan\Analyser\Scope $scope) : ?string
     {
         $className = $this->getClassNameFromScope($scope);
         if ($className === null) {
@@ -114,13 +117,13 @@ final class SimpleNameResolver
     {
         if ($scope->isInTrait()) {
             $traitReflection = $scope->getTraitReflection();
-            if ($traitReflection === null) {
+            if (!$traitReflection instanceof \PHPStan\Reflection\ClassReflection) {
                 return null;
             }
             return $traitReflection->getName();
         }
         $classReflection = $scope->getClassReflection();
-        if ($classReflection === null) {
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return null;
         }
         return $classReflection->getName();
@@ -133,7 +136,7 @@ final class SimpleNameResolver
         }
         return (bool) \RectorPrefix20210122\Nette\Utils\Strings::match($name, $desiredNameRegex);
     }
-    private function resolveShortName(string $className) : string
+    public function resolveShortName(string $className) : string
     {
         if (!\RectorPrefix20210122\Nette\Utils\Strings::contains($className, '\\')) {
             return $className;

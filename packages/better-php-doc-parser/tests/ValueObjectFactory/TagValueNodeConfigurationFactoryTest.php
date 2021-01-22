@@ -4,11 +4,12 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\ValueObjectFactory;
 
 use Iterator;
-use RectorPrefix20210122\PHPUnit\Framework\TestCase;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory;
-final class TagValueNodeConfigurationFactoryTest extends \RectorPrefix20210122\PHPUnit\Framework\TestCase
+use Rector\Core\HttpKernel\RectorKernel;
+use RectorPrefix20210122\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class TagValueNodeConfigurationFactoryTest extends \RectorPrefix20210122\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var TagValueNodeConfigurationFactory
@@ -16,7 +17,8 @@ final class TagValueNodeConfigurationFactoryTest extends \RectorPrefix20210122\P
     private $tagValueNodeConfigurationFactory;
     protected function setUp() : void
     {
-        $this->tagValueNodeConfigurationFactory = new \Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory();
+        $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
+        $this->tagValueNodeConfigurationFactory = $this->getService(\Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory::class);
     }
     public function test() : void
     {

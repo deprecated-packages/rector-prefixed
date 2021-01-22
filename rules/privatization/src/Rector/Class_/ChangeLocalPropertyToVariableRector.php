@@ -160,7 +160,7 @@ CODE_SAMPLE
             if ($node instanceof \PhpParser\Node\Stmt\If_) {
                 $isPropertyReadInIf = $this->refactorIf($node, $privatePropertyName);
             }
-            $isPropertyChanging = $this->isPropertyChanging($node, $this, $privatePropertyName);
+            $isPropertyChanging = $this->isPropertyChanging($node, $privatePropertyName);
             if (!$isPropertyChanging) {
                 return null;
             }
@@ -183,11 +183,11 @@ CODE_SAMPLE
         });
         return $isPropertyReadInIf;
     }
-    private function isPropertyChanging(\PhpParser\Node $node, self $this__, string $privatePropertyName) : bool
+    private function isPropertyChanging(\PhpParser\Node $node, string $privatePropertyName) : bool
     {
         $isPropertyChanging = \false;
         // here cannot be any property assign
-        $this__->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use(&$isPropertyChanging, $privatePropertyName) : ?int {
+        $this->traverseNodesWithCallable($node, function (\PhpParser\Node $node) use(&$isPropertyChanging, $privatePropertyName) : ?int {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }

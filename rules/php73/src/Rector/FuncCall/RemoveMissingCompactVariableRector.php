@@ -73,7 +73,7 @@ CODE_SAMPLE
     }
     private function unsetUnusedArrayElements(\PhpParser\Node\Expr\FuncCall $funcCall, \PHPStan\Analyser\Scope $scope) : void
     {
-        foreach ($funcCall->args as $positoin => $arg) {
+        foreach ($funcCall->args as $position => $arg) {
             if (!$arg->value instanceof \PhpParser\Node\Expr\Array_) {
                 continue;
             }
@@ -89,7 +89,7 @@ CODE_SAMPLE
             }
             if ($arg->value->items === []) {
                 // Drops empty array from `compact()` arguments.
-                unset($funcCall->args[$positoin]);
+                unset($funcCall->args[$position]);
             }
         }
     }

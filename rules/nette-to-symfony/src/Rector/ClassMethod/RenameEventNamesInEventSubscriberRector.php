@@ -25,6 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://symfony.com/doc/current/reference/events.html
  * @see https://symfony.com/doc/current/components/http_kernel.html#creating-an-event-listener
  * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpKernel/KernelEvents.php
+ *
  * @see \Rector\NetteToSymfony\Tests\Rector\ClassMethod\RenameEventNamesInEventSubscriberRector\RenameEventNamesInEventSubscriberRectorTest
  */
 final class RenameEventNamesInEventSubscriberRector extends \Rector\Core\Rector\AbstractRector
@@ -158,11 +159,11 @@ CODE_SAMPLE
     }
     private function resolveClassConstAliasMatch(\PhpParser\Node\Expr\ArrayItem $arrayItem, \Rector\NetteToSymfony\ValueObject\EventInfo $eventInfo) : bool
     {
+        $classConstFetchNode = $arrayItem->key;
+        if (!$classConstFetchNode instanceof \PhpParser\Node\Expr) {
+            return \false;
+        }
         foreach ($eventInfo->getOldClassConstAliases() as $netteClassConst) {
-            $classConstFetchNode = $arrayItem->key;
-            if (!$classConstFetchNode instanceof \PhpParser\Node\Expr) {
-                continue;
-            }
             if ($this->isName($classConstFetchNode, $netteClassConst)) {
                 return \true;
             }

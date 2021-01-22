@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
+use RectorPrefix20210122\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use RectorPrefix20210122\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
 use RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
 use RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
@@ -48,11 +49,16 @@ final class AliasCaseConverter implements \RectorPrefix20210122\Symplify\PhpConf
      * @var ServiceOptionNodeFactory
      */
     private $serviceOptionNodeFactory;
-    public function __construct(\RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory)
+    /**
+     * @var ClassLikeExistenceChecker
+     */
+    private $classLikeExistenceChecker;
+    public function __construct(\RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\Service\ServiceOptionNodeFactory $serviceOptionNodeFactory, \RectorPrefix20210122\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
     {
         $this->commonNodeFactory = $commonNodeFactory;
         $this->argsNodeFactory = $argsNodeFactory;
         $this->serviceOptionNodeFactory = $serviceOptionNodeFactory;
+        $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }
     public function convertToMethodCall($key, $values) : \PhpParser\Node\Stmt\Expression
     {
@@ -60,14 +66,8 @@ final class AliasCaseConverter implements \RectorPrefix20210122\Symplify\PhpConf
             throw new \RectorPrefix20210122\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $servicesVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\VariableName::SERVICES);
-        if (\class_exists($key) || \interface_exists($key)) {
-            $classReference = $this->commonNodeFactory->createClassReference($key);
-            $argValues = [];
-            $argValues[] = $classReference;
-            $argValues[] = $values[\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS] ?? $values;
-            $args = $this->argsNodeFactory->createFromValues($argValues, \true);
-            $methodCall = new \PhpParser\Node\Expr\MethodCall($servicesVariable, \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS, $args);
-            return new \PhpParser\Node\Stmt\Expression($methodCall);
+        if ($this->classLikeExistenceChecker->doesClassLikeExist($key)) {
+            return $this->createFromClassLike($key, $values, $servicesVariable);
         }
         // handles: "SomeClass $someVariable: ..."
         $fullClassName = \RectorPrefix20210122\Nette\Utils\Strings::before($key, ' $');
@@ -75,29 +75,15 @@ final class AliasCaseConverter implements \RectorPrefix20210122\Symplify\PhpConf
             $methodCall = $this->createAliasNode($key, $fullClassName, $values);
             return new \PhpParser\Node\Stmt\Expression($methodCall);
         }
-        $methodCall = null;
-        if (isset($values[\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS])) {
-            $className = $values[\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS];
-            $classReference = $this->commonNodeFactory->createClassReference($className);
-            $args = $this->argsNodeFactory->createFromValues([$key, $classReference]);
-            $methodCall = new \PhpParser\Node\Expr\MethodCall($servicesVariable, \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS, $args);
-            unset($values[\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS]);
-        }
-        /** @var string|mixed[] $values */
         if (\is_string($values) && $values[0] === '@') {
             $args = $this->argsNodeFactory->createFromValues([$values], \true);
             $methodCall = new \PhpParser\Node\Expr\MethodCall($servicesVariable, \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS, $args);
-        } elseif (\is_array($values)) {
-            if ($methodCall === null) {
-                throw new \RectorPrefix20210122\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
-            }
-            /** @var MethodCall $methodCall */
-            $methodCall = $this->serviceOptionNodeFactory->convertServiceOptionsToNodes($values, $methodCall);
+            return new \PhpParser\Node\Stmt\Expression($methodCall);
         }
-        if ($methodCall === null) {
-            throw new \RectorPrefix20210122\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        if (\is_array($values)) {
+            return $this->createFromArrayValues($values, $key, $servicesVariable);
         }
-        return new \PhpParser\Node\Stmt\Expression($methodCall);
+        throw new \RectorPrefix20210122\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
     public function match(string $rootKey, $key, $values) : bool
     {
@@ -126,5 +112,39 @@ final class AliasCaseConverter implements \RectorPrefix20210122\Symplify\PhpConf
         $serviceName = \ltrim($serviceValues, '@');
         $args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($serviceName));
         return new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable(\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\VariableName::SERVICES), \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS, $args);
+    }
+    /**
+     * @param mixed $values
+     */
+    private function createFromClassLike(string $key, $values, \PhpParser\Node\Expr\Variable $servicesVariable) : \PhpParser\Node\Stmt\Expression
+    {
+        $classReference = $this->commonNodeFactory->createClassReference($key);
+        $argValues = [];
+        $argValues[] = $classReference;
+        $argValues[] = $values[\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS] ?? $values;
+        $args = $this->argsNodeFactory->createFromValues($argValues, \true);
+        $methodCall = new \PhpParser\Node\Expr\MethodCall($servicesVariable, \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS, $args);
+        return new \PhpParser\Node\Stmt\Expression($methodCall);
+    }
+    private function createFromAlias(string $className, string $key, \PhpParser\Node\Expr\Variable $servicesVariable) : \PhpParser\Node\Expr\MethodCall
+    {
+        $classReference = $this->commonNodeFactory->createClassReference($className);
+        $args = $this->argsNodeFactory->createFromValues([$key, $classReference]);
+        return new \PhpParser\Node\Expr\MethodCall($servicesVariable, \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS, $args);
+    }
+    /**
+     * @param mixed[] $values
+     */
+    private function createFromArrayValues(array $values, string $key, \PhpParser\Node\Expr\Variable $servicesVariable) : \PhpParser\Node\Stmt\Expression
+    {
+        if (isset($values[\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS])) {
+            $methodCall = $this->createFromAlias($values[\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS], $key, $servicesVariable);
+            unset($values[\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::ALIAS]);
+        } else {
+            throw new \RectorPrefix20210122\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        }
+        /** @var MethodCall $methodCall */
+        $methodCall = $this->serviceOptionNodeFactory->convertServiceOptionsToNodes($values, $methodCall);
+        return new \PhpParser\Node\Stmt\Expression($methodCall);
     }
 }

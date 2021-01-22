@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
-use RectorPrefix20210122\Symplify\PhpConfigPrinter\CaseConverter\InstanceOfNestedCaseConverter;
 use RectorPrefix20210122\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
 use RectorPrefix20210122\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory;
 use RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName;
@@ -26,17 +25,17 @@ final class ContainerConfiguratorReturnClosureFactory
      */
     private $caseConverters = [];
     /**
-     * @var InstanceOfNestedCaseConverter
+     * @var ContainerNestedNodesFactory
      */
-    private $instanceOfNestedCaseConverter;
+    private $containerNestedNodesFactory;
     /**
      * @param CaseConverterInterface[] $caseConverters
      */
-    public function __construct(\RectorPrefix20210122\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $configuratorClosureNodeFactory, array $caseConverters, \RectorPrefix20210122\Symplify\PhpConfigPrinter\CaseConverter\InstanceOfNestedCaseConverter $instanceOfNestedCaseConverter)
+    public function __construct(\RectorPrefix20210122\Symplify\PhpConfigPrinter\PhpParser\NodeFactory\ConfiguratorClosureNodeFactory $configuratorClosureNodeFactory, array $caseConverters, \RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\ContainerNestedNodesFactory $containerNestedNodesFactory)
     {
         $this->configuratorClosureNodeFactory = $configuratorClosureNodeFactory;
         $this->caseConverters = $caseConverters;
-        $this->instanceOfNestedCaseConverter = $instanceOfNestedCaseConverter;
+        $this->containerNestedNodesFactory = $containerNestedNodesFactory;
     }
     public function createFromYamlArray(array $arrayData) : \PhpParser\Node\Stmt\Return_
     {
@@ -62,29 +61,16 @@ final class ContainerConfiguratorReturnClosureFactory
         foreach ($yamlData as $key => $values) {
             $nodes = $this->createInitializeNode($key, $nodes);
             foreach ($values as $nestedKey => $nestedValues) {
-                $expression = null;
                 $nestedNodes = [];
                 if (\is_array($nestedValues)) {
-                    foreach ($nestedValues as $subNestedKey => $subNestedValue) {
-                        if (!$this->instanceOfNestedCaseConverter->isMatch($key, $nestedKey)) {
-                            continue;
-                        }
-                        $nestedNodes[] = $this->instanceOfNestedCaseConverter->convertToMethodCall($subNestedKey, $subNestedValue);
-                    }
+                    $nestedNodes = $this->containerNestedNodesFactory->createFromValues($nestedValues, $key, $nestedKey);
                 }
                 if ($nestedNodes !== []) {
                     $nodes = \array_merge($nodes, $nestedNodes);
                     continue;
                 }
-                foreach ($this->caseConverters as $caseConverter) {
-                    if (!$caseConverter->match($key, $nestedKey, $nestedValues)) {
-                        continue;
-                    }
-                    /** @var string $nestedKey */
-                    $expression = $caseConverter->convertToMethodCall($nestedKey, $nestedValues);
-                    break;
-                }
-                if ($expression === null) {
+                $expression = $this->resolveExpression($key, $nestedKey, $nestedValues);
+                if (!$expression instanceof \PhpParser\Node\Stmt\Expression) {
                     continue;
                 }
                 $nodes[] = $expression;
@@ -111,5 +97,20 @@ final class ContainerConfiguratorReturnClosureFactory
             $nodes[] = $this->createInitializeAssign(\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\VariableName::PARAMETERS, \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\MethodName::PARAMETERS);
         }
         return $nodes;
+    }
+    /**
+     * @param int|string $nestedKey
+     * @param mixed|mixed[] $nestedValues
+     */
+    private function resolveExpression(string $key, $nestedKey, $nestedValues) : ?\PhpParser\Node\Stmt\Expression
+    {
+        foreach ($this->caseConverters as $caseConverter) {
+            if (!$caseConverter->match($key, $nestedKey, $nestedValues)) {
+                continue;
+            }
+            /** @var string $nestedKey */
+            return $caseConverter->convertToMethodCall($nestedKey, $nestedValues);
+        }
+        return null;
     }
 }

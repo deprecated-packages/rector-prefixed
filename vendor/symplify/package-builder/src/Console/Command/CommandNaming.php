@@ -33,7 +33,7 @@ final class CommandNaming
     public static function classToName(string $class) : string
     {
         /** @var string $shortClassName */
-        $shortClassName = self::getShortClassName($class);
+        $shortClassName = self::resolveShortName($class);
         $rawCommandName = \RectorPrefix20210122\Nette\Utils\Strings::substring($shortClassName, 0, -\strlen('Command'));
         // ECSCommand => ecs
         for ($i = 0; $i < \strlen($rawCommandName); ++$i) {
@@ -48,7 +48,7 @@ final class CommandNaming
             return '-' . \strtolower($matches[0]);
         });
     }
-    private static function getShortClassName(string $class) : string
+    private static function resolveShortName(string $class) : string
     {
         $classParts = \explode('\\', $class);
         return \array_pop($classParts);

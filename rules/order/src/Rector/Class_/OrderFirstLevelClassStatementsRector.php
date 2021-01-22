@@ -18,6 +18,10 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class OrderFirstLevelClassStatementsRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var array<string, int>
+     */
+    private const TYPE_TO_RANK = [\PhpParser\Node\Stmt\ClassMethod::class => 3, \PhpParser\Node\Stmt\Property::class => 2, \PhpParser\Node\Stmt\ClassConst::class => 1];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Orders first level Class statements', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -68,14 +72,10 @@ CODE_SAMPLE
     }
     private function resolveClassElementRank(\PhpParser\Node\Stmt $stmt) : int
     {
-        if ($stmt instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return 3;
-        }
-        if ($stmt instanceof \PhpParser\Node\Stmt\Property) {
-            return 2;
-        }
-        if ($stmt instanceof \PhpParser\Node\Stmt\ClassConst) {
-            return 1;
+        foreach (self::TYPE_TO_RANK as $type => $rank) {
+            if (\is_a($stmt, $type, \true)) {
+                return $rank;
+            }
         }
         // TraitUse
         return 0;

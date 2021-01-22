@@ -85,6 +85,7 @@ CODE_SAMPLE
     }
     private function refactorMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
     {
+        $parent = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         foreach ($this->methodCallWraps as $methodCallWrap) {
             if (!$this->isObjectType($methodCall->var, $methodCallWrap->getClass())) {
                 continue;
@@ -92,9 +93,8 @@ CODE_SAMPLE
             if (!$this->isName($methodCall->name, $methodCallWrap->getMethod())) {
                 continue;
             }
-            $parentNode = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             // already wrapped
-            if ($parentNode instanceof \PhpParser\Node\Stmt\Return_) {
+            if ($parent instanceof \PhpParser\Node\Stmt\Return_) {
                 continue;
             }
             $return = new \PhpParser\Node\Stmt\Return_($methodCall);

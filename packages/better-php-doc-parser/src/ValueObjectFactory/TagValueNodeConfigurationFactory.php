@@ -11,6 +11,7 @@ use Rector\BetterPhpDocParser\Utils\ArrayItemStaticHelper;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
+use RectorPrefix20210122\Symplify\PackageBuilder\Php\TypeChecker;
 /**
  * @see \Rector\BetterPhpDocParser\Tests\ValueObjectFactory\TagValueNodeConfigurationFactoryTest
  */
@@ -41,6 +42,14 @@ final class TagValueNodeConfigurationFactory
      * @see https://regex101.com/r/0KlSQv/1
      */
     public const ARRAY_COLON_SEPARATOR_REGEX = '#{([^{}]+)[:]([^{}]+)}#';
+    /**
+     * @var TypeChecker
+     */
+    private $typeChecker;
+    public function __construct(\RectorPrefix20210122\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    {
+        $this->typeChecker = $typeChecker;
+    }
     public function createFromOriginalContent(?string $originalContent, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration
     {
         if ($originalContent === null) {
@@ -109,13 +118,7 @@ final class TagValueNodeConfigurationFactory
      */
     private function resolveArrayEqualSignByPhpNodeClass(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : string
     {
-        if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode) {
-            return '=';
-        }
-        if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface) {
-            return '=';
-        }
-        if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode) {
+        if ($this->typeChecker->isInstanceOf($phpDocTagValueNode, [\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class, \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineTagNodeInterface::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode::class])) {
             return '=';
         }
         return ':';

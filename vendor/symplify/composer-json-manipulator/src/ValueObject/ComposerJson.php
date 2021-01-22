@@ -139,7 +139,7 @@ final class ComposerJson
      */
     public function setRequire(array $require) : void
     {
-        $this->require = $this->composerPackageSorter->sortPackages($require);
+        $this->require = $this->sortPackagesIfNeeded($require);
     }
     /**
      * @return mixed[]
@@ -172,7 +172,7 @@ final class ComposerJson
     }
     public function setRequireDev(array $requireDev) : void
     {
-        $this->requireDev = $this->composerPackageSorter->sortPackages($requireDev);
+        $this->requireDev = $this->sortPackagesIfNeeded($requireDev);
     }
     /**
      * @param string[] $orderedKeys
@@ -443,14 +443,14 @@ final class ComposerJson
     {
         if (!$this->hasPackage($packageName)) {
             $this->require[$packageName] = $version;
-            $this->require = $this->composerPackageSorter->sortPackages($this->require);
+            $this->require = $this->sortPackagesIfNeeded($this->require);
         }
     }
     public function addRequiredDevPackage(string $packageName, string $version) : void
     {
         if (!$this->hasPackage($packageName)) {
             $this->requireDev[$packageName] = $version;
-            $this->requireDev = $this->composerPackageSorter->sortPackages($this->requireDev);
+            $this->requireDev = $this->sortPackagesIfNeeded($this->requireDev);
         }
     }
     public function changePackageVersion(string $packageName, string $version) : void
@@ -630,5 +630,16 @@ final class ComposerJson
             }
         }
         return $autoloadDirectory;
+    }
+    /**
+     * @return array<string, string>
+     */
+    private function sortPackagesIfNeeded(array $packages) : array
+    {
+        $sortPackages = $this->config['sort-packages'] ?? \false;
+        if ($sortPackages) {
+            return $this->composerPackageSorter->sortPackages($packages);
+        }
+        return $packages;
     }
 }

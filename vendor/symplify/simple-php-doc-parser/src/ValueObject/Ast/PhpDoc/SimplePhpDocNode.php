@@ -25,7 +25,7 @@ class SimplePhpDocNode extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
     public function getParamType(string $desiredParamName) : ?\PHPStan\PhpDocParser\Ast\Type\TypeNode
     {
         $paramTagValueNode = $this->getParam($desiredParamName);
-        if ($paramTagValueNode === null) {
+        if (!$paramTagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode) {
             return null;
         }
         return $paramTagValueNode->type;

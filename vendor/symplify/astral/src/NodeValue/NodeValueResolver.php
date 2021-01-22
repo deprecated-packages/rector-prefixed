@@ -76,7 +76,7 @@ final class NodeValueResolver
         $className = $this->simpleNameResolver->getName($classConstFetch->class);
         if ($className === 'self') {
             $classLike = $this->parentNodeFinder->getFirstParentByType($classConstFetch, \PhpParser\Node\Stmt\ClassLike::class);
-            if ($classLike === null) {
+            if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
                 return null;
             }
             $className = $this->simpleNameResolver->getName($classLike);

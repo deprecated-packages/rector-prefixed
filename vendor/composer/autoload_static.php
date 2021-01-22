@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite87ccf39c4d58eec827f443884c6ec63
+class ComposerStaticInit6d92abc8e11f1f5cb5be513dbf57d45c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2207,6 +2207,7 @@ class ComposerStaticInite87ccf39c4d58eec827f443884c6ec63
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\CaseConverter\\ParameterCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ParameterCaseConverter.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\CaseConverter\\ResourceCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ResourceCaseConverter.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\CaseConverter\\ServicesDefaultsCaseConverter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/CaseConverter/ServicesDefaultsCaseConverter.php',
+        'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\Configuration\\SymfonyFunctionNameProvider' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Configuration/SymfonyFunctionNameProvider.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\Contract\\CaseConverterInterface' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Contract/CaseConverterInterface.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\Contract\\Converter\\ServiceOptionsKeyYamlToPhpFactoryInterface' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Contract/Converter/ServiceOptionsKeyYamlToPhpFactoryInterface.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\Contract\\NestedCaseConverterInterface' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Contract/NestedCaseConverterInterface.php',
@@ -2218,12 +2219,17 @@ class ComposerStaticInite87ccf39c4d58eec827f443884c6ec63
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\Dummy\\DummySymfonyVersionFeatureGuard' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Dummy/DummySymfonyVersionFeatureGuard.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\Dummy\\DummyYamlFileContentProvider' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Dummy/DummyYamlFileContentProvider.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\Exception\\NotImplementedYetException' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Exception/NotImplementedYetException.php',
+        'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ExprResolver\\ServiceReferenceExprResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ExprResolver/ServiceReferenceExprResolver.php',
+        'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ExprResolver\\StringExprResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ExprResolver/StringExprResolver.php',
+        'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ExprResolver\\TaggedReturnsCloneResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ExprResolver/TaggedReturnsCloneResolver.php',
+        'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ExprResolver\\TaggedServiceResolver' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ExprResolver/TaggedServiceResolver.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\HttpKernel\\PhpConfigPrinterKernel' => __DIR__ . '/..' . '/symplify/php-config-printer/src/HttpKernel/PhpConfigPrinterKernel.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\Naming\\ClassNaming' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Naming/ClassNaming.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\NodeFactory\\ArgsNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/ArgsNodeFactory.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\NodeFactory\\CommonNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/CommonNodeFactory.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\NodeFactory\\ConstantNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/ConstantNodeFactory.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\NodeFactory\\ContainerConfiguratorReturnClosureFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/ContainerConfiguratorReturnClosureFactory.php',
+        'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\NodeFactory\\ContainerNestedNodesFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/ContainerNestedNodesFactory.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\NodeFactory\\NewValueObjectFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/NewValueObjectFactory.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\NodeFactory\\RoutingConfiguratorReturnClosureFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/RoutingConfiguratorReturnClosureFactory.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\NodeFactory\\Service\\AutoBindNodeFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/NodeFactory/Service/AutoBindNodeFactory.php',
@@ -2251,6 +2257,7 @@ class ComposerStaticInite87ccf39c4d58eec827f443884c6ec63
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\PropertiesServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/PropertiesServiceOptionKeyYamlToPhpFactory.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ServiceOptionConverter\\SharedPublicServiceOptionKeyYamlToPhpFactory' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ServiceOptionConverter/SharedPublicServiceOptionKeyYamlToPhpFactory.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\Sorter\\YamlArgumentSorter' => __DIR__ . '/..' . '/symplify/php-config-printer/src/Sorter/YamlArgumentSorter.php',
+        'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ValueObject\\AttributeKey' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/AttributeKey.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ValueObject\\FunctionName' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/FunctionName.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ValueObject\\MethodName' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/MethodName.php',
         'RectorPrefix20210122\\Symplify\\PhpConfigPrinter\\ValueObject\\SymfonyVersionFeature' => __DIR__ . '/..' . '/symplify/php-config-printer/src/ValueObject/SymfonyVersionFeature.php',
@@ -3691,6 +3698,7 @@ class ComposerStaticInite87ccf39c4d58eec827f443884c6ec63
         'Rector\\Php74\\Rector\\LNumber\\AddLiteralSeparatorToNumberRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/LNumber/AddLiteralSeparatorToNumberRector.php',
         'Rector\\Php74\\Rector\\MethodCall\\ChangeReflectionTypeToStringToGetNameRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/MethodCall/ChangeReflectionTypeToStringToGetNameRector.php',
         'Rector\\Php74\\Rector\\Property\\RestoreDefaultNullToNullableTypePropertyRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/Property/RestoreDefaultNullToNullableTypePropertyRector.php',
+        'Rector\\Php74\\Rector\\Property\\TypedPropertyFromStrictConstructorRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/Property/TypedPropertyFromStrictConstructorRector.php',
         'Rector\\Php74\\Rector\\Property\\TypedPropertyRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/Property/TypedPropertyRector.php',
         'Rector\\Php74\\Rector\\StaticCall\\ExportToReflectionFunctionRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/StaticCall/ExportToReflectionFunctionRector.php',
         'Rector\\Php80\\Contract\\StrStartWithMatchAndRefactorInterface' => __DIR__ . '/../..' . '/rules/php80/src/Contract/StrStartWithMatchAndRefactorInterface.php',
@@ -3718,7 +3726,6 @@ class ComposerStaticInite87ccf39c4d58eec827f443884c6ec63
         'Rector\\Php80\\Rector\\Identical\\StrStartsWithRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Identical/StrStartsWithRector.php',
         'Rector\\Php80\\Rector\\If_\\NullsafeOperatorRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/If_/NullsafeOperatorRector.php',
         'Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/NotIdentical/StrContainsRector.php',
-        'Rector\\Php80\\Rector\\Property\\TypedPropertyFromStrictConstructorRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Property/TypedPropertyFromStrictConstructorRector.php',
         'Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Switch_/ChangeSwitchToMatchRector.php',
         'Rector\\Php80\\Rector\\Ternary\\GetDebugTypeRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Ternary/GetDebugTypeRector.php',
         'Rector\\Php80\\ValueObject\\ArrayDimFetchAndConstFetch' => __DIR__ . '/../..' . '/rules/php80/src/ValueObject/ArrayDimFetchAndConstFetch.php',
@@ -4144,9 +4151,9 @@ class ComposerStaticInite87ccf39c4d58eec827f443884c6ec63
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite87ccf39c4d58eec827f443884c6ec63::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite87ccf39c4d58eec827f443884c6ec63::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite87ccf39c4d58eec827f443884c6ec63::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6d92abc8e11f1f5cb5be513dbf57d45c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6d92abc8e11f1f5cb5be513dbf57d45c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6d92abc8e11f1f5cb5be513dbf57d45c::$classMap;
 
         }, null, ClassLoader::class);
     }

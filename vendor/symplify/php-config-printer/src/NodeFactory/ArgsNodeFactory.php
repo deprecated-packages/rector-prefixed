@@ -3,30 +3,21 @@
 declare (strict_types=1);
 namespace RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory;
 
-use RectorPrefix20210122\Nette\Utils\Strings;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Scalar\String_;
 use RectorPrefix20210122\Symfony\Component\Yaml\Tag\TaggedValue;
-use RectorPrefix20210122\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface;
 use RectorPrefix20210122\Symplify\PhpConfigPrinter\Exception\NotImplementedYetException;
-use RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\FunctionName;
-use RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature;
+use RectorPrefix20210122\Symplify\PhpConfigPrinter\ExprResolver\StringExprResolver;
+use RectorPrefix20210122\Symplify\PhpConfigPrinter\ExprResolver\TaggedReturnsCloneResolver;
+use RectorPrefix20210122\Symplify\PhpConfigPrinter\ExprResolver\TaggedServiceResolver;
 final class ArgsNodeFactory
 {
-    /**
-     * @see https://regex101.com/r/laf2wR/1
-     * @var string
-     */
-    private const TWIG_HTML_XML_SUFFIX_REGEX = '#\\.(twig|html|xml)$#';
     /**
      * @var string
      */
@@ -36,26 +27,22 @@ final class ArgsNodeFactory
      */
     private const TAG_RETURNS_CLONE = 'returns_clone';
     /**
-     * @var string
+     * @var StringExprResolver
      */
-    private const KIND = 'kind';
+    private $stringExprResolver;
     /**
-     * @var CommonNodeFactory
+     * @var TaggedReturnsCloneResolver
      */
-    private $commonNodeFactory;
+    private $taggedReturnsCloneResolver;
     /**
-     * @var ConstantNodeFactory
+     * @var TaggedServiceResolver
      */
-    private $constantNodeFactory;
-    /**
-     * @var SymfonyVersionFeatureGuardInterface
-     */
-    private $symfonyVersionFeatureGuard;
-    public function __construct(\RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory, \RectorPrefix20210122\Symplify\PhpConfigPrinter\NodeFactory\ConstantNodeFactory $constantNodeFactory, \RectorPrefix20210122\Symplify\PhpConfigPrinter\Contract\SymfonyVersionFeatureGuardInterface $symfonyVersionFeatureGuard)
+    private $taggedServiceResolver;
+    public function __construct(\RectorPrefix20210122\Symplify\PhpConfigPrinter\ExprResolver\StringExprResolver $stringExprResolver, \RectorPrefix20210122\Symplify\PhpConfigPrinter\ExprResolver\TaggedReturnsCloneResolver $taggedReturnsCloneResolver, \RectorPrefix20210122\Symplify\PhpConfigPrinter\ExprResolver\TaggedServiceResolver $taggedServiceResolver)
     {
-        $this->commonNodeFactory = $commonNodeFactory;
-        $this->constantNodeFactory = $constantNodeFactory;
-        $this->symfonyVersionFeatureGuard = $symfonyVersionFeatureGuard;
+        $this->stringExprResolver = $stringExprResolver;
+        $this->taggedReturnsCloneResolver = $taggedReturnsCloneResolver;
+        $this->taggedServiceResolver = $taggedServiceResolver;
     }
     /**
      * @return Arg[]
@@ -101,7 +88,7 @@ final class ArgsNodeFactory
     public function resolveExpr($value, bool $skipServiceReference = \false, bool $skipClassesToConstantReference = \false) : \PhpParser\Node\Expr
     {
         if (\is_string($value)) {
-            return $this->resolveStringExpr($value, $skipServiceReference, $skipClassesToConstantReference);
+            return $this->stringExprResolver->resolve($value, $skipServiceReference, $skipClassesToConstantReference);
         }
         if ($value instanceof \PhpParser\Node\Expr) {
             return $value;
@@ -114,16 +101,6 @@ final class ArgsNodeFactory
             return new \PhpParser\Node\Expr\Array_($arrayItems);
         }
         return \PhpParser\BuilderHelpers::normalizeValue($value);
-    }
-    private function resolveServiceReferenceExpr(string $value, bool $skipServiceReference, string $functionName) : \PhpParser\Node\Expr
-    {
-        $value = \ltrim($value, '@');
-        $expr = $this->resolveExpr($value);
-        if ($skipServiceReference) {
-            return $expr;
-        }
-        $args = [new \PhpParser\Node\Arg($expr)];
-        return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified($functionName), $args);
     }
     private function resolveExprFromArray(array $values) : \PhpParser\Node\Expr\Array_
     {
@@ -142,57 +119,15 @@ final class ArgsNodeFactory
     }
     private function createServiceReferenceFromTaggedValue(\RectorPrefix20210122\Symfony\Component\Yaml\Tag\TaggedValue $taggedValue) : \PhpParser\Node\Expr
     {
-        $shouldWrapInArray = \false;
         // that's the only value
         if ($taggedValue->getTag() === self::TAG_RETURNS_CLONE) {
-            $serviceName = $taggedValue->getValue()[0];
-            $functionName = $this->getRefOrServiceFunctionName();
-            $shouldWrapInArray = \true;
-        } elseif ($taggedValue->getTag() === self::TAG_SERVICE) {
-            $serviceName = $taggedValue->getValue()['class'];
-            $functionName = \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\FunctionName::INLINE_SERVICE;
-        } else {
-            if (\is_array($taggedValue->getValue())) {
-                $args = $this->createFromValues($taggedValue->getValue());
-            } else {
-                $args = $this->createFromValues([$taggedValue->getValue()]);
-            }
-            return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name($taggedValue->getTag()), $args);
+            return $this->taggedReturnsCloneResolver->resolve($taggedValue);
         }
-        $funcCall = $this->resolveServiceReferenceExpr($serviceName, \false, $functionName);
-        if ($shouldWrapInArray) {
-            return new \PhpParser\Node\Expr\Array_([new \PhpParser\Node\Expr\ArrayItem($funcCall)]);
+        if ($taggedValue->getTag() === self::TAG_SERVICE) {
+            return $this->taggedServiceResolver->resolve($taggedValue);
         }
-        return $funcCall;
-    }
-    private function resolveStringExpr(string $value, bool $skipServiceReference, bool $skipClassesToConstantReference) : \PhpParser\Node\Expr
-    {
-        if ($value === '') {
-            return new \PhpParser\Node\Scalar\String_($value);
-        }
-        $constFetch = $this->constantNodeFactory->createConstantIfValue($value);
-        if ($constFetch !== null) {
-            return $constFetch;
-        }
-        // do not print "\n" as empty space, but use string value instead
-        if (\in_array($value, ["\r", "\n", "\r\n"], \true)) {
-            return $this->keepNewline($value);
-        }
-        $value = \ltrim($value, '\\');
-        if ($this->isClassType($value)) {
-            return $this->resolveClassType($skipClassesToConstantReference, $value);
-        }
-        if (\RectorPrefix20210122\Nette\Utils\Strings::startsWith($value, '@=')) {
-            $value = \ltrim($value, '@=');
-            $args = $this->createFromValues($value);
-            return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\FunctionName::EXPR), $args);
-        }
-        // is service reference
-        if (\RectorPrefix20210122\Nette\Utils\Strings::startsWith($value, '@') && !$this->isFilePath($value)) {
-            $refOrServiceFunctionName = $this->getRefOrServiceFunctionName();
-            return $this->resolveServiceReferenceExpr($value, $skipServiceReference, $refOrServiceFunctionName);
-        }
-        return \PhpParser\BuilderHelpers::normalizeValue($value);
+        $args = $this->createFromValues($taggedValue->getValue());
+        return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name($taggedValue->getTag()), $args);
     }
     /**
      * @param mixed[] $value
@@ -214,42 +149,5 @@ final class ArgsNodeFactory
             ++$naturalKey;
         }
         return $arrayItems;
-    }
-    private function getRefOrServiceFunctionName() : string
-    {
-        if ($this->symfonyVersionFeatureGuard->isAtLeastSymfonyVersion(\RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\SymfonyVersionFeature::REF_OVER_SERVICE)) {
-            return \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\FunctionName::SERVICE;
-        }
-        return \RectorPrefix20210122\Symplify\PhpConfigPrinter\ValueObject\FunctionName::REF;
-    }
-    private function isFilePath(string $value) : bool
-    {
-        return (bool) \RectorPrefix20210122\Nette\Utils\Strings::match($value, self::TWIG_HTML_XML_SUFFIX_REGEX);
-    }
-    /**
-     * @return String_|ClassConstFetch
-     */
-    private function resolveClassType(bool $skipClassesToConstantReference, string $value)
-    {
-        if ($skipClassesToConstantReference) {
-            return new \PhpParser\Node\Scalar\String_($value);
-        }
-        return $this->commonNodeFactory->createClassReference($value);
-    }
-    private function isClassType(string $value) : bool
-    {
-        if (!\ctype_upper($value[0])) {
-            return \false;
-        }
-        if (\class_exists($value)) {
-            return \true;
-        }
-        return \interface_exists($value);
-    }
-    private function keepNewline(string $value) : \PhpParser\Node\Scalar\String_
-    {
-        $string = new \PhpParser\Node\Scalar\String_($value);
-        $string->setAttribute(self::KIND, \PhpParser\Node\Scalar\String_::KIND_DOUBLE_QUOTED);
-        return $string;
     }
 }

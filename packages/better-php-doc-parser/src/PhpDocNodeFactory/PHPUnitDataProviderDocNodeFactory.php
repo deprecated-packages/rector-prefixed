@@ -37,6 +37,9 @@ final class PHPUnitDataProviderDocNodeFactory
             return new \PHPStan\PhpDocParser\Ast\PhpDoc\InvalidTagValueNode($description, $parserException);
         }
     }
+    /**
+     * @deprecated Refactor to remove dependency on phpdoc parser
+     */
     public function setPhpDocParser(\PHPStan\PhpDocParser\Parser\PhpDocParser $phpDocParser) : void
     {
         $this->phpDocParser = $phpDocParser;

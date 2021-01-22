@@ -27,9 +27,8 @@ final class EmptyLineNodeDecorator
      */
     public function decorate(array $stmts) : void
     {
-        /** @var Closure|null $closure */
         $closure = $this->nodeFinder->findFirstInstanceOf($stmts, \PhpParser\Node\Expr\Closure::class);
-        if ($closure === null) {
+        if (!$closure instanceof \PhpParser\Node\Expr\Closure) {
             throw new \RectorPrefix20210122\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $newStmts = [];

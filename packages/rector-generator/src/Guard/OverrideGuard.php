@@ -28,11 +28,11 @@ final class OverrideGuard
      */
     public function isUnwantedOverride(array $templateFileInfos, array $templateVariables, \Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $targetDirectory) : bool
     {
+        $message = \sprintf('Files for "%s" rule already exist. Should we override them?', $rectorRecipe->getName());
         foreach ($templateFileInfos as $templateFileInfo) {
             if (!$this->doesFileInfoAlreadyExist($templateVariables, $rectorRecipe, $templateFileInfo, $targetDirectory)) {
                 continue;
             }
-            $message = \sprintf('Files for "%s" rule already exist. Should we override them?', $rectorRecipe->getName());
             return !$this->symfonyStyle->confirm($message);
         }
         return \false;

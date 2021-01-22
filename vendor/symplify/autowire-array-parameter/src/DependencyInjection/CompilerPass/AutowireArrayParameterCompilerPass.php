@@ -90,7 +90,7 @@ final class AutowireArrayParameterCompilerPass implements \RectorPrefix20210122\
             return \true;
         }
         $reflectionClass = $containerBuilder->getReflectionClass($definition->getClass());
-        if ($reflectionClass === null) {
+        if (!$reflectionClass instanceof \ReflectionClass) {
             return \true;
         }
         if (!$reflectionClass->hasMethod('__construct')) {

@@ -8,6 +8,7 @@ use RectorPrefix20210122\Symplify\SetConfigResolver\Console\Option\OptionName;
 use RectorPrefix20210122\Symplify\SetConfigResolver\Console\OptionValueResolver;
 use RectorPrefix20210122\Symplify\SetConfigResolver\Contract\SetProviderInterface;
 use RectorPrefix20210122\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20210122\Symplify\SetConfigResolver\ValueObject\Set;
 use RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetResolver
 {
@@ -35,7 +36,7 @@ final class SetResolver
     public function detectFromName(string $setName) : \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo
     {
         $set = $this->setProvider->provideByName($setName);
-        if ($set === null) {
+        if (!$set instanceof \RectorPrefix20210122\Symplify\SetConfigResolver\ValueObject\Set) {
             $this->reportSetNotFound($setName);
         }
         return $set->getSetFileInfo();

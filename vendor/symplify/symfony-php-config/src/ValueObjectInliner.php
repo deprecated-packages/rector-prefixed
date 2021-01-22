@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Symplify\SymfonyPhpConfig;
 
 use ReflectionClass;
+use ReflectionMethod;
 use RectorPrefix20210122\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator;
 use RectorPrefix20210122\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
 use RectorPrefix20210122\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
@@ -42,7 +43,7 @@ final class ValueObjectInliner
     {
         $argumentValues = [];
         $constructorMethodReflection = $reflectionClass->getConstructor();
-        if ($constructorMethodReflection === null) {
+        if (!$constructorMethodReflection instanceof \ReflectionMethod) {
             // value object without constructor
             return [];
         }

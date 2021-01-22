@@ -72,6 +72,10 @@ CODE_SAMPLE
     }
     private function matchTypeAndMethodName(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\Rector\CakePHP\ValueObject\RenameMethodCallBasedOnParameter
     {
+        if (\count($methodCall->args) < 1) {
+            return null;
+        }
+        $firstArgValue = $methodCall->args[0]->value;
         foreach ($this->callsWithParamRenames as $callWithParamRename) {
             if (!$this->isObjectType($methodCall, $callWithParamRename->getOldClass())) {
                 continue;
@@ -79,11 +83,7 @@ CODE_SAMPLE
             if (!$this->isName($methodCall->name, $callWithParamRename->getOldMethod())) {
                 continue;
             }
-            if (\count($methodCall->args) < 1) {
-                continue;
-            }
-            $arg = $methodCall->args[0];
-            if (!$this->isValue($arg->value, $callWithParamRename->getParameterName())) {
+            if (!$this->isValue($firstArgValue, $callWithParamRename->getParameterName())) {
                 continue;
             }
             return $callWithParamRename;

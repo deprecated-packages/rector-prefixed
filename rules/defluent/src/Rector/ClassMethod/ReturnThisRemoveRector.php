@@ -85,7 +85,8 @@ CODE_SAMPLE
         if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
             $classMethod->returnType = new \PhpParser\Node\Identifier('void');
         }
-        $this->removePhpDocTagValueNode($classMethod, \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
         return null;
     }
     /**

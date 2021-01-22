@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php80\Rector\Property;
+namespace Rector\Php74\Rector\Property;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
@@ -14,7 +14,7 @@ use Rector\TypeDeclaration\TypeInferer\PropertyTypeInferer\ConstructorPropertyTy
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\Php80\Tests\Rector\Property\TypedPropertyFromStrictConstructorRector\TypedPropertyFromStrictConstructorRectorTest
+ * @see \Rector\Php74\Tests\Rector\Property\TypedPropertyFromStrictConstructorRector\TypedPropertyFromStrictConstructorRectorTest
  */
 final class TypedPropertyFromStrictConstructorRector extends \Rector\Core\Rector\AbstractRector
 {

@@ -45,6 +45,9 @@ final class ComposerJsonFactory
     public function createFromArray(array $jsonArray) : \RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
         $composerJson = new \RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson();
+        if (isset($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG])) {
+            $composerJson->setConfig($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG]);
+        }
         if (isset($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME])) {
             $composerJson->setName($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::NAME]);
         }
@@ -83,9 +86,6 @@ final class ComposerJsonFactory
         }
         if (isset($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE])) {
             $composerJson->setReplace($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::REPLACE]);
-        }
-        if (isset($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG])) {
-            $composerJson->setConfig($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::CONFIG]);
         }
         if (isset($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA])) {
             $composerJson->setExtra($jsonArray[\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::EXTRA]);

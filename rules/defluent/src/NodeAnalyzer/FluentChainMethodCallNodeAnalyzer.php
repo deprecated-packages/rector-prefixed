@@ -150,9 +150,6 @@ final class FluentChainMethodCallNodeAnalyzer
                 return \false;
             }
             $node = $node->var;
-            if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
-                continue;
-            }
         }
         $variableType = $this->nodeTypeResolver->resolve($node);
         if ($variableType instanceof \PHPStan\Type\MixedType) {
