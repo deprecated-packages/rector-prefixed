@@ -5,7 +5,6 @@ namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use Closure;
 use PhpParser\Node;
-use PhpParser\Node\Name;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ClosureType;
@@ -20,6 +19,14 @@ final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
      * @var PHPStanStaticTypeMapper
      */
     private $phpStanStaticTypeMapper;
+    /**
+     * @var CallableTypeMapper
+     */
+    private $callableTypeMapper;
+    public function __construct(\Rector\PHPStanStaticTypeMapper\TypeMapper\CallableTypeMapper $callableTypeMapper)
+    {
+        $this->callableTypeMapper = $callableTypeMapper;
+    }
     public function getNodeClass() : string
     {
         return \PHPStan\Type\ClosureType::class;
@@ -38,10 +45,7 @@ final class ClosureTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contrac
      */
     public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {
-        if ($kind === 'property') {
-            return null;
-        }
-        return new \PhpParser\Node\Name('callable');
+        return $this->callableTypeMapper->mapToPhpParserNode($type, $kind);
     }
     public function mapToDocString(\PHPStan\Type\Type $type, ?\PHPStan\Type\Type $parentType = null) : string
     {

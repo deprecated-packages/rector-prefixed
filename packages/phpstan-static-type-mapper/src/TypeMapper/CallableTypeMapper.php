@@ -8,6 +8,7 @@ use PhpParser\Node\Name;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\ClosureType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareCallableTypeNode;
@@ -39,7 +40,7 @@ final class CallableTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contra
         return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareCallableTypeNode(new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('callable'), [], $returnTypeNode);
     }
     /**
-     * @param CallableType $type
+     * @param CallableType|ClosureType $type
      */
     public function mapToPhpParserNode(\PHPStan\Type\Type $type, ?string $kind = null) : ?\PhpParser\Node
     {

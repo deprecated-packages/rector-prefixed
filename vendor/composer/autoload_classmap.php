@@ -2903,6 +2903,7 @@ return array(
     'Rector\\Php80\\NodeResolver\\SwitchExprsResolver' => $baseDir . '/rules/php80/src/NodeResolver/SwitchExprsResolver.php',
     'Rector\\Php80\\Rector\\Catch_\\RemoveUnusedVariableInCatchRector' => $baseDir . '/rules/php80/src/Rector/Catch_/RemoveUnusedVariableInCatchRector.php',
     'Rector\\Php80\\Rector\\ClassMethod\\FinalPrivateToPrivateVisibilityRector' => $baseDir . '/rules/php80/src/Rector/ClassMethod/FinalPrivateToPrivateVisibilityRector.php',
+    'Rector\\Php80\\Rector\\ClassMethod\\OptionalParametersAfterRequiredRector' => $baseDir . '/rules/php80/src/Rector/ClassMethod/OptionalParametersAfterRequiredRector.php',
     'Rector\\Php80\\Rector\\ClassMethod\\SetStateToStaticRector' => $baseDir . '/rules/php80/src/Rector/ClassMethod/SetStateToStaticRector.php',
     'Rector\\Php80\\Rector\\Class_\\AnnotationToAttributeRector' => $baseDir . '/rules/php80/src/Rector/Class_/AnnotationToAttributeRector.php',
     'Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector' => $baseDir . '/rules/php80/src/Rector/Class_/ClassPropertyAssignToConstructorPromotionRector.php',
