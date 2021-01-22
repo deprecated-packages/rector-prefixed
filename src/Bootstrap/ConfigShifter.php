@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\Bootstrap;
 
-use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo;
 final class ConfigShifter
 {
     /**
@@ -13,7 +13,7 @@ final class ConfigShifter
      * @return SmartFileInfo[]
      * @noRector
      */
-    public function shiftInputConfigAsLast(array $configFileInfos, ?\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $inputConfigFileInfo) : array
+    public function shiftInputConfigAsLast(array $configFileInfos, ?\RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $inputConfigFileInfo) : array
     {
         if ($inputConfigFileInfo === null) {
             return $configFileInfos;

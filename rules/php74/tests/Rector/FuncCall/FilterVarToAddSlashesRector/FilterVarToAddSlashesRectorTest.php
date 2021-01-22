@@ -6,7 +6,7 @@ namespace Rector\Php74\Tests\Rector\FuncCall\FilterVarToAddSlashesRector;
 use Iterator;
 use Rector\Php74\Rector\FuncCall\FilterVarToAddSlashesRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @requires PHP < 8.0
  */
@@ -15,7 +15,7 @@ final class FilterVarToAddSlashesRectorTest extends \Rector\Testing\PHPUnit\Abst
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

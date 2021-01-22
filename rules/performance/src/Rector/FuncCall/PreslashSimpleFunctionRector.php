@@ -3,11 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Performance\Rector\FuncCall;
 
-use RectorPrefix20210121\Nette\Utils\Strings;
+use RectorPrefix20210122\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name\FullyQualified;
-use Rector\Core\Configuration\Option;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -59,7 +58,7 @@ CODE_SAMPLE
         if ($functionName === null) {
             return null;
         }
-        if (\RectorPrefix20210121\Nette\Utils\Strings::contains($functionName, '\\')) {
+        if (\RectorPrefix20210122\Nette\Utils\Strings::contains($functionName, '\\')) {
             return null;
         }
         $node->name = new \PhpParser\Node\Name\FullyQualified($functionName);

@@ -46,6 +46,10 @@ final class RemoveParentAndNameFromComponentConstructorRector extends \Rector\Co
      */
     private const CONTROL_CLASS = 'Nette\\Application\\UI\\Control';
     /**
+     * @var string
+     */
+    private const PRESENTER_CLASS = 'Nette\\Application\\UI\\Presenter';
+    /**
      * @var StaticCallAnalyzer
      */
     private $staticCallAnalyzer;
@@ -115,7 +119,7 @@ CODE_SAMPLE
     }
     private function refactorClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Stmt\ClassMethod
     {
-        if (!$this->isInsideNetteControlClass($classMethod)) {
+        if (!$this->isInsideNetteComponentClass($classMethod)) {
             return null;
         }
         if (!$this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
@@ -141,7 +145,7 @@ CODE_SAMPLE
     }
     private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\StaticCall
     {
-        if (!$this->isInsideNetteControlClass($staticCall)) {
+        if (!$this->isInsideNetteComponentClass($staticCall)) {
             return null;
         }
         if (!$this->staticCallAnalyzer->isParentCallNamed($staticCall, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
@@ -190,10 +194,13 @@ CODE_SAMPLE
         }
         return \true;
     }
-    private function isInsideNetteControlClass(\PhpParser\Node $node) : bool
+    private function isInsideNetteComponentClass(\PhpParser\Node $node) : bool
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return \false;
+        }
+        if ($this->isObjectType($classLike, self::PRESENTER_CLASS)) {
             return \false;
         }
         return $this->isObjectType($classLike, self::CONTROL_CLASS);

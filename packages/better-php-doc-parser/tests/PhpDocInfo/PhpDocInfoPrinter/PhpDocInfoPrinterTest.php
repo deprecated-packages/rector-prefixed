@@ -5,20 +5,20 @@ namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter;
 
 use Iterator;
 use PhpParser\Node\Stmt\Nop;
-use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo;
 final class PhpDocInfoPrinterTest extends \Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\AbstractPhpDocInfoPrinterTest
 {
     /**
      * @dataProvider provideData()
      * @dataProvider provideDataCallable()
      */
-    public function test(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $docFileInfo) : void
+    public function test(\RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $docFileInfo) : void
     {
         $this->doComparePrintedFileEquals($docFileInfo, $docFileInfo);
     }
     public function testRemoveSpace() : void
     {
-        $this->doComparePrintedFileEquals(new \RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/FixtureChanged/with_space.txt'), new \RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/FixtureChangedExpected/with_space_expected.txt'));
+        $this->doComparePrintedFileEquals(new \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/FixtureChanged/with_space.txt'), new \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/FixtureChangedExpected/with_space_expected.txt'));
     }
     public function provideData() : \Iterator
     {
@@ -31,7 +31,7 @@ final class PhpDocInfoPrinterTest extends \Rector\BetterPhpDocParser\Tests\PhpDo
     /**
      * @dataProvider provideDataEmpty()
      */
-    public function testEmpty(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function testEmpty(\RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $phpDocInfo = $this->createPhpDocInfoFromDocCommentAndNode($fileInfo->getContents(), new \PhpParser\Node\Stmt\Nop());
         $this->assertEmpty($this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo));
@@ -40,7 +40,7 @@ final class PhpDocInfoPrinterTest extends \Rector\BetterPhpDocParser\Tests\PhpDo
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureEmpty', '*.txt');
     }
-    private function doComparePrintedFileEquals(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo) : void
+    private function doComparePrintedFileEquals(\RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo) : void
     {
         $phpDocInfo = $this->createPhpDocInfoFromDocCommentAndNode($inputFileInfo->getContents(), new \PhpParser\Node\Stmt\Nop());
         $printedDocComment = $this->phpDocInfoPrinter->printFormatPreserving($phpDocInfo);

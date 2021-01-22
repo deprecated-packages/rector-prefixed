@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\NodeResolver;
 
-use RectorPrefix20210121\Nette\Utils\Strings;
+use RectorPrefix20210122\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayItem;
@@ -15,7 +15,7 @@ use Rector\NetteKdyby\Naming\EventClassNaming;
 use Rector\NetteKdyby\ValueObject\EventClassAndClassMethod;
 use Rector\NetteKdyby\ValueObject\NetteEventToContributeEventClass;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210121\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210122\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ListeningMethodsCollector
 {
     /**
@@ -42,7 +42,7 @@ final class ListeningMethodsCollector
      * @var EventClassNaming
      */
     private $eventClassNaming;
-    public function __construct(\RectorPrefix20210121\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    public function __construct(\RectorPrefix20210122\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NetteKdyby\Naming\EventClassNaming $eventClassNaming, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->valueResolver = $valueResolver;
@@ -123,7 +123,7 @@ final class ListeningMethodsCollector
         // custom method name
         $classMethodName = $this->valueResolver->getValue($arrayItem->value);
         $classMethod = $class->getMethod($classMethodName);
-        if (\RectorPrefix20210121\Nette\Utils\Strings::contains($eventClass, '::')) {
+        if (\RectorPrefix20210122\Nette\Utils\Strings::contains($eventClass, '::')) {
             [$dispatchingClass, $property] = \explode('::', $eventClass);
             $eventClass = $this->eventClassNaming->createEventClassNameFromClassAndProperty($dispatchingClass, $property);
         }

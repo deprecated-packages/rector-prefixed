@@ -4,16 +4,15 @@ declare (strict_types=1);
 namespace Rector\Performance\Tests\Rector\FuncCall\PreslashSimpleFunctionRector;
 
 use Iterator;
-use Rector\Core\Configuration\Option;
 use Rector\Performance\Rector\FuncCall\PreslashSimpleFunctionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo;
 final class PreslashSimpleFunctionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

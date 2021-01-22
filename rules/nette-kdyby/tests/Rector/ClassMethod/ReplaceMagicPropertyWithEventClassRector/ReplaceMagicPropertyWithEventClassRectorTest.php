@@ -5,12 +5,12 @@ namespace Rector\NetteKdyby\Tests\Rector\ClassMethod\ReplaceMagicPropertyWithEve
 
 use Rector\NetteKdyby\Rector\ClassMethod\ReplaceMagicPropertyWithEventClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo;
 final class ReplaceMagicPropertyWithEventClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     public function test() : void
     {
-        $fixtureFileInfo = new \RectorPrefix20210121\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc');
+        $fixtureFileInfo = new \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/fixture.php.inc');
         $this->doTestFileInfo($fixtureFileInfo);
     }
     protected function getRectorClass() : string

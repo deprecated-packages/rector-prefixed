@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Node;
 
-use RectorPrefix20210121\Nette\Utils\Strings;
+use RectorPrefix20210122\Nette\Utils\Strings;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
@@ -20,7 +20,7 @@ use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\PSR4\Collector\RenamedClassesCollector;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210121\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210122\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class NameImporter
 {
     /**
@@ -55,7 +55,7 @@ final class NameImporter
      * @var RenamedClassesCollector
      */
     private $renamedClassesCollector;
-    public function __construct(\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210121\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
+    public function __construct(\Rector\CodingStyle\ClassNameImport\AliasUsesResolver $aliasUsesResolver, \Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper $classNameImportSkipper, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210122\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector)
     {
         $this->staticTypeMapper = $staticTypeMapper;
         $this->aliasUsesResolver = $aliasUsesResolver;
@@ -177,7 +177,7 @@ final class NameImporter
         }
         $fullName = $name->toString();
         $autoImportNames = $this->parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES);
-        if ($autoImportNames && !\RectorPrefix20210121\Nette\Utils\Strings::contains($fullName, '\\') && \function_exists($fullName)) {
+        if ($autoImportNames && !\RectorPrefix20210122\Nette\Utils\Strings::contains($fullName, '\\') && \function_exists($fullName)) {
             return;
         }
         $parentNode = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
