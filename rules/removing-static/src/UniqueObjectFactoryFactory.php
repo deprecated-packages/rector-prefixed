@@ -141,6 +141,14 @@ final class UniqueObjectFactoryFactory
         $methodBuilder->addParams($params);
         return $methodBuilder->getNode();
     }
+    private function createPropertyFromObjectType(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Property
+    {
+        $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
+        $property = $this->nodeFactory->createPrivateProperty($propertyName);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+        $this->phpDocTypeChanger->changeVarType($phpDocInfo, $objectType);
+        return $property;
+    }
     /**
      * @param Param[] $params
      *
@@ -155,13 +163,5 @@ final class UniqueObjectFactoryFactory
             $assigns[] = new \PhpParser\Node\Expr\Assign($propertyFetch, new \PhpParser\Node\Expr\Variable($param->var->name));
         }
         return $assigns;
-    }
-    private function createPropertyFromObjectType(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Property
-    {
-        $propertyName = $this->propertyNaming->fqnToVariableName($objectType);
-        $property = $this->nodeFactory->createPrivateProperty($propertyName);
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $this->phpDocTypeChanger->changeVarType($phpDocInfo, $objectType);
-        return $property;
     }
 }

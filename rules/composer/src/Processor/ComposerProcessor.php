@@ -71,6 +71,12 @@ final class ComposerProcessor
         $this->addComposerJsonFileDiff($oldComposerJson, $composerJson, $smartFileInfo);
         $this->reportFileContentChange($composerJson, $smartFileInfo);
     }
+    private function addComposerJsonFileDiff(\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $oldComposerJson, \RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $newComposerJson, \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    {
+        $newContents = $this->composerJsonPrinter->printToString($newComposerJson);
+        $oldContents = $this->composerJsonPrinter->printToString($oldComposerJson);
+        $this->errorAndDiffCollector->addFileDiff($smartFileInfo, $newContents, $oldContents);
+    }
     private function reportFileContentChange(\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         if ($this->configuration->isDryRun()) {
@@ -82,11 +88,5 @@ final class ComposerProcessor
             // $type is always err https://github.com/composer/composer/issues/3795#issuecomment-76401013
             echo $message;
         });
-    }
-    private function addComposerJsonFileDiff(\RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $oldComposerJson, \RectorPrefix20210122\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $newComposerJson, \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
-    {
-        $newContents = $this->composerJsonPrinter->printToString($newComposerJson);
-        $oldContents = $this->composerJsonPrinter->printToString($oldComposerJson);
-        $this->errorAndDiffCollector->addFileDiff($smartFileInfo, $newContents, $oldContents);
     }
 }

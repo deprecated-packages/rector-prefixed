@@ -104,20 +104,14 @@ CODE_SAMPLE
         }
         return $this->processConvertToExclusiveType($types, $variable, $phpDocInfo);
     }
-    /**
-     * @param Type[] $types
-     */
-    private function processConvertToExclusiveType(array $types, \PhpParser\Node\Expr $expr, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?\PhpParser\Node\Expr\BooleanNot
+    private function getVariableAssign(\PhpParser\Node\Expr\BinaryOp\Identical $identical, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node
     {
-        $type = $types[0] instanceof \PHPStan\Type\NullType ? $types[1] : $types[0];
-        if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType && !$type instanceof \PHPStan\Type\ObjectType) {
-            return null;
-        }
-        $tagValueNode = $phpDocInfo->getVarTagValueNode();
-        if ($tagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
-            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $tagValueNode);
-        }
-        return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Instanceof_($expr, new \PhpParser\Node\Name\FullyQualified($type->getClassName())));
+        return $this->betterNodeFinder->findFirstPrevious($identical, function (\PhpParser\Node $node) use($expr) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+                return \false;
+            }
+            return $this->areNodesEqual($node->var, $expr);
+        });
     }
     /**
      * @return Type[]
@@ -129,15 +123,6 @@ CODE_SAMPLE
             return [];
         }
         return $types;
-    }
-    private function getVariableAssign(\PhpParser\Node\Expr\BinaryOp\Identical $identical, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node
-    {
-        return $this->betterNodeFinder->findFirstPrevious($identical, function (\PhpParser\Node $node) use($expr) : bool {
-            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
-                return \false;
-            }
-            return $this->areNodesEqual($node->var, $expr);
-        });
     }
     /**
      * @param Type[] $types
@@ -154,5 +139,20 @@ CODE_SAMPLE
             return \false;
         }
         return !$types[1] instanceof \PHPStan\Type\NullType;
+    }
+    /**
+     * @param Type[] $types
+     */
+    private function processConvertToExclusiveType(array $types, \PhpParser\Node\Expr $expr, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : ?\PhpParser\Node\Expr\BooleanNot
+    {
+        $type = $types[0] instanceof \PHPStan\Type\NullType ? $types[1] : $types[0];
+        if (!$type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType && !$type instanceof \PHPStan\Type\ObjectType) {
+            return null;
+        }
+        $tagValueNode = $phpDocInfo->getVarTagValueNode();
+        if ($tagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
+            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $tagValueNode);
+        }
+        return new \PhpParser\Node\Expr\BooleanNot(new \PhpParser\Node\Expr\Instanceof_($expr, new \PhpParser\Node\Name\FullyQualified($type->getClassName())));
     }
 }

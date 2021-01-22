@@ -511,6 +511,13 @@ final class NodeFactory
         }
         return $classConst;
     }
+    private function createClassPart(string $class) : \PhpParser\Node\Name
+    {
+        if (\in_array($class, self::REFERENCES, \true)) {
+            return new \PhpParser\Node\Name($class);
+        }
+        return new \PhpParser\Node\Name\FullyQualified($class);
+    }
     /**
      * @param int|string|null $key
      */
@@ -520,12 +527,5 @@ final class NodeFactory
             $arrayItem->key = \PhpParser\BuilderHelpers::normalizeValue($key);
         }
         return $arrayItem;
-    }
-    private function createClassPart(string $class) : \PhpParser\Node\Name
-    {
-        if (\in_array($class, self::REFERENCES, \true)) {
-            return new \PhpParser\Node\Name($class);
-        }
-        return new \PhpParser\Node\Name\FullyQualified($class);
     }
 }

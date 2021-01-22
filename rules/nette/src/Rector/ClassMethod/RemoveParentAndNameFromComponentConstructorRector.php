@@ -127,22 +127,6 @@ CODE_SAMPLE
         }
         return $this->removeClassMethodParams($classMethod);
     }
-    private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \PhpParser\Node\Stmt\ClassMethod
-    {
-        foreach ($classMethod->params as $param) {
-            if ($this->paramFinder->isInAssign((array) $classMethod->stmts, $param)) {
-                continue;
-            }
-            if ($this->isObjectType($param, self::COMPONENT_CONTAINER_CLASS)) {
-                $this->removeNode($param);
-                continue;
-            }
-            if ($this->isName($param, self::NAME)) {
-                $this->removeNode($param);
-            }
-        }
-        return $classMethod;
-    }
     private function refactorStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr\StaticCall
     {
         if (!$this->isInsideNetteComponentClass($staticCall)) {
@@ -184,16 +168,6 @@ CODE_SAMPLE
         }
         return $new;
     }
-    private function shouldRemoveEmptyCall(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
-    {
-        foreach ($staticCall->args as $arg) {
-            if ($this->isNodeRemoved($arg)) {
-                continue;
-            }
-            return \false;
-        }
-        return \true;
-    }
     private function isInsideNetteComponentClass(\PhpParser\Node $node) : bool
     {
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
@@ -204,5 +178,31 @@ CODE_SAMPLE
             return \false;
         }
         return $this->isObjectType($classLike, self::CONTROL_CLASS);
+    }
+    private function removeClassMethodParams(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \PhpParser\Node\Stmt\ClassMethod
+    {
+        foreach ($classMethod->params as $param) {
+            if ($this->paramFinder->isInAssign((array) $classMethod->stmts, $param)) {
+                continue;
+            }
+            if ($this->isObjectType($param, self::COMPONENT_CONTAINER_CLASS)) {
+                $this->removeNode($param);
+                continue;
+            }
+            if ($this->isName($param, self::NAME)) {
+                $this->removeNode($param);
+            }
+        }
+        return $classMethod;
+    }
+    private function shouldRemoveEmptyCall(\PhpParser\Node\Expr\StaticCall $staticCall) : bool
+    {
+        foreach ($staticCall->args as $arg) {
+            if ($this->isNodeRemoved($arg)) {
+                continue;
+            }
+            return \false;
+        }
+        return \true;
     }
 }

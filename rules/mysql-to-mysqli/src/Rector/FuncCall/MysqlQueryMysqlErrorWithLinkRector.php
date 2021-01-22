@@ -111,21 +111,6 @@ CODE_SAMPLE
         }
         return $this->isMysqliConnect($expr);
     }
-    private function isMysqliConnect(\PhpParser\Node\Expr\Variable $variable) : bool
-    {
-        return (bool) $this->betterNodeFinder->findFirstPrevious($variable, function (\PhpParser\Node $node) use($variable) : bool {
-            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
-                return \false;
-            }
-            if (!$node->expr instanceof \PhpParser\Node\Expr\FuncCall) {
-                return \false;
-            }
-            if (!$this->areNodesEqual($node->var, $variable)) {
-                return \false;
-            }
-            return $this->isName($node->expr, 'mysqli_connect');
-        });
-    }
     private function findConnectionVariable(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
         $connectionAssign = $this->betterNodeFinder->findFirstPrevious($funcCall, function (\PhpParser\Node $node) : ?bool {
@@ -159,5 +144,20 @@ CODE_SAMPLE
             }
         }
         return \false;
+    }
+    private function isMysqliConnect(\PhpParser\Node\Expr\Variable $variable) : bool
+    {
+        return (bool) $this->betterNodeFinder->findFirstPrevious($variable, function (\PhpParser\Node $node) use($variable) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
+                return \false;
+            }
+            if (!$node->expr instanceof \PhpParser\Node\Expr\FuncCall) {
+                return \false;
+            }
+            if (!$this->areNodesEqual($node->var, $variable)) {
+                return \false;
+            }
+            return $this->isName($node->expr, 'mysqli_connect');
+        });
     }
 }

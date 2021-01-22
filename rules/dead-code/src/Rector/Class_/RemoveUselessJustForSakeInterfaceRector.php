@@ -99,14 +99,19 @@ class SomePresenter
 CODE_SAMPLE
 )]);
     }
-    private function resolveClassFileLocation(string $classLikeName) : string
+    private function shouldSkipInterface(string $implementedInterfaceName) : bool
     {
-        $reflectionClass = new \ReflectionClass($classLikeName);
-        $fileName = $reflectionClass->getFileName();
-        if (!$fileName) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if (!\interface_exists($implementedInterfaceName)) {
+            return \true;
         }
-        return $fileName;
+        // is native PHP interface?
+        $reflectionClass = new \ReflectionClass($implementedInterfaceName);
+        if ($reflectionClass->isInternal()) {
+            return \true;
+        }
+        // is interface in /vendor? probably useful
+        $classFileLocation = $this->resolveClassFileLocation($implementedInterfaceName);
+        return \RectorPrefix20210122\Nette\Utils\Strings::contains($classFileLocation, 'vendor');
     }
     /**
      * @return class-string[]
@@ -127,6 +132,15 @@ CODE_SAMPLE
         } else {
             unset($class->implements[$key]);
         }
+    }
+    private function resolveClassFileLocation(string $classLikeName) : string
+    {
+        $reflectionClass = new \ReflectionClass($classLikeName);
+        $fileName = $reflectionClass->getFileName();
+        if (!$fileName) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        return $fileName;
     }
     private function removeInterfaceFile(string $interfaceName, string $classFileLocation) : void
     {
@@ -153,19 +167,5 @@ CODE_SAMPLE
         $reflectionClass = new \ReflectionClass($implementedInterfaceName);
         // get first parent interface
         return $reflectionClass->getInterfaceNames()[0] ?? null;
-    }
-    private function shouldSkipInterface(string $implementedInterfaceName) : bool
-    {
-        if (!\interface_exists($implementedInterfaceName)) {
-            return \true;
-        }
-        // is native PHP interface?
-        $reflectionClass = new \ReflectionClass($implementedInterfaceName);
-        if ($reflectionClass->isInternal()) {
-            return \true;
-        }
-        // is interface in /vendor? probably useful
-        $classFileLocation = $this->resolveClassFileLocation($implementedInterfaceName);
-        return \RectorPrefix20210122\Nette\Utils\Strings::contains($classFileLocation, 'vendor');
     }
 }

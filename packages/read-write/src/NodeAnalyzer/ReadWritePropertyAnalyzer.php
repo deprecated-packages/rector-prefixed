@@ -67,10 +67,6 @@ final class ReadWritePropertyAnalyzer
         }
         return !$this->assignManipulator->isLeftPartOfAssign($node);
     }
-    private function isNotInsideIssetUnset(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
-    {
-        return !(bool) $this->betterNodeFinder->findParentTypes($arrayDimFetch, [\PhpParser\Node\Expr\Isset_::class, \PhpParser\Node\Stmt\Unset_::class]);
-    }
     private function unwrapPostPreIncDec(\PhpParser\Node $node) : \PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\PreInc || $node instanceof \PhpParser\Node\Expr\PreDec || $node instanceof \PhpParser\Node\Expr\PostInc || $node instanceof \PhpParser\Node\Expr\PostDec) {
@@ -80,6 +76,10 @@ final class ReadWritePropertyAnalyzer
             }
         }
         return $node;
+    }
+    private function isNotInsideIssetUnset(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
+    {
+        return !(bool) $this->betterNodeFinder->findParentTypes($arrayDimFetch, [\PhpParser\Node\Expr\Isset_::class, \PhpParser\Node\Stmt\Unset_::class]);
     }
     private function isArrayDimFetchRead(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {

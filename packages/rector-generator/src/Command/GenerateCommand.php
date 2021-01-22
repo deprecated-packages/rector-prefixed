@@ -105,6 +105,14 @@ final class GenerateCommand extends \RectorPrefix20210122\Symfony\Component\Cons
         $this->printSuccess($rectorRecipe->getName(), $generatedFilePaths, $testCaseDirectoryPath);
         return \RectorPrefix20210122\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
+    private function getRectorRecipe(\RectorPrefix20210122\Symfony\Component\Console\Input\InputInterface $input) : \Rector\RectorGenerator\ValueObject\RectorRecipe
+    {
+        $isInteractive = $input->getOption(self::INTERACTIVE_MODE_NAME);
+        if (!$isInteractive) {
+            return $this->rectorRecipeProvider->provide();
+        }
+        return $this->rectorRecipeInteractiveFactory->create();
+    }
     /**
      * @param string[] $generatedFilePaths
      */
@@ -118,16 +126,6 @@ final class GenerateCommand extends \RectorPrefix20210122\Symfony\Component\Cons
             return \dirname($generatedFileInfo->getRelativeFilePathFromCwd());
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();
-    }
-    private function isGeneratedFilePathTestCase(string $generatedFilePath) : bool
-    {
-        if (\RectorPrefix20210122\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
-            return \true;
-        }
-        if (!\RectorPrefix20210122\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php.inc')) {
-            return \false;
-        }
-        return \Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun();
     }
     /**
      * @param string[] $generatedFilePaths
@@ -145,12 +143,14 @@ final class GenerateCommand extends \RectorPrefix20210122\Symfony\Component\Cons
         $message = \sprintf('Make tests green again:%svendor/bin/phpunit %s', \PHP_EOL . \PHP_EOL, $testCaseFilePath);
         $this->symfonyStyle->success($message);
     }
-    private function getRectorRecipe(\RectorPrefix20210122\Symfony\Component\Console\Input\InputInterface $input) : \Rector\RectorGenerator\ValueObject\RectorRecipe
+    private function isGeneratedFilePathTestCase(string $generatedFilePath) : bool
     {
-        $isInteractive = $input->getOption(self::INTERACTIVE_MODE_NAME);
-        if (!$isInteractive) {
-            return $this->rectorRecipeProvider->provide();
+        if (\RectorPrefix20210122\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php')) {
+            return \true;
         }
-        return $this->rectorRecipeInteractiveFactory->create();
+        if (!\RectorPrefix20210122\Nette\Utils\Strings::endsWith($generatedFilePath, 'Test.php.inc')) {
+            return \false;
+        }
+        return \Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun();
     }
 }

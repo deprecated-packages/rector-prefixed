@@ -118,19 +118,6 @@ final class ClassDependencyManipulator
         }
         $this->classInsertManipulator->addInjectPropertyToClass($class, $propertyMetadata);
     }
-    private function hasClassParentClassMethod(\PhpParser\Node\Stmt\Class_ $class, string $methodName) : bool
-    {
-        $parentClassName = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName === null) {
-            return \false;
-        }
-        return \method_exists($parentClassName, $methodName);
-    }
-    private function createParentClassMethodCall(string $methodName) : \PhpParser\Node\Stmt\Expression
-    {
-        $staticCall = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('parent'), $methodName);
-        return new \PhpParser\Node\Stmt\Expression($staticCall);
-    }
     private function addPromotedProperty(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : void
     {
         $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
@@ -144,5 +131,18 @@ final class ClassDependencyManipulator
         }
         $this->childAndParentClassManipulator->completeParentConstructor($class, $constructClassMethod);
         $this->childAndParentClassManipulator->completeChildConstructors($class, $constructClassMethod);
+    }
+    private function hasClassParentClassMethod(\PhpParser\Node\Stmt\Class_ $class, string $methodName) : bool
+    {
+        $parentClassName = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
+        if ($parentClassName === null) {
+            return \false;
+        }
+        return \method_exists($parentClassName, $methodName);
+    }
+    private function createParentClassMethodCall(string $methodName) : \PhpParser\Node\Stmt\Expression
+    {
+        $staticCall = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('parent'), $methodName);
+        return new \PhpParser\Node\Stmt\Expression($staticCall);
     }
 }

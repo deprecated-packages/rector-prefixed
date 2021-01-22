@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit06cb8b9441fc39b02c02f09834dd34ed
+class ComposerStaticInit391c0814a2c65a24eaa2f8a010966b38
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3469,7 +3469,6 @@ class ComposerStaticInit06cb8b9441fc39b02c02f09834dd34ed
         'Rector\\NodeTypeResolver\\TypeAnalyzer\\CountableTypeAnalyzer' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/TypeAnalyzer/CountableTypeAnalyzer.php',
         'Rector\\NodeTypeResolver\\TypeAnalyzer\\StringTypeAnalyzer' => __DIR__ . '/../..' . '/packages/node-type-resolver/src/TypeAnalyzer/StringTypeAnalyzer.php',
         'Rector\\Order\\Contract\\RankeableInterface' => __DIR__ . '/../..' . '/rules/order/src/Contract/RankeableInterface.php',
-        'Rector\\Order\\PropertyRanker' => __DIR__ . '/../..' . '/rules/order/src/PropertyRanker.php',
         'Rector\\Order\\Rector\\AbstractConstantPropertyMethodOrderRector' => __DIR__ . '/../..' . '/rules/order/src/Rector/AbstractConstantPropertyMethodOrderRector.php',
         'Rector\\Order\\Rector\\ClassMethod\\OrderConstructorDependenciesByTypeAlphabeticallyRector' => __DIR__ . '/../..' . '/rules/order/src/Rector/ClassMethod/OrderConstructorDependenciesByTypeAlphabeticallyRector.php',
         'Rector\\Order\\Rector\\Class_\\OrderClassConstantsByIntegerValueRector' => __DIR__ . '/../..' . '/rules/order/src/Rector/Class_/OrderClassConstantsByIntegerValueRector.php',
@@ -3478,13 +3477,10 @@ class ComposerStaticInit06cb8b9441fc39b02c02f09834dd34ed
         'Rector\\Order\\Rector\\Class_\\OrderMethodsByVisibilityRector' => __DIR__ . '/../..' . '/rules/order/src/Rector/Class_/OrderMethodsByVisibilityRector.php',
         'Rector\\Order\\Rector\\Class_\\OrderPrivateMethodsByUseRector' => __DIR__ . '/../..' . '/rules/order/src/Rector/Class_/OrderPrivateMethodsByUseRector.php',
         'Rector\\Order\\Rector\\Class_\\OrderPropertiesByVisibilityRector' => __DIR__ . '/../..' . '/rules/order/src/Rector/Class_/OrderPropertiesByVisibilityRector.php',
-        'Rector\\Order\\Rector\\Class_\\OrderPropertyByComplexityRector' => __DIR__ . '/../..' . '/rules/order/src/Rector/Class_/OrderPropertyByComplexityRector.php',
-        'Rector\\Order\\Rector\\Class_\\OrderPublicInterfaceMethodRector' => __DIR__ . '/../..' . '/rules/order/src/Rector/Class_/OrderPublicInterfaceMethodRector.php',
         'Rector\\Order\\StmtOrder' => __DIR__ . '/../..' . '/rules/order/src/StmtOrder.php',
         'Rector\\Order\\StmtVisibilitySorter' => __DIR__ . '/../..' . '/rules/order/src/StmtVisibilitySorter.php',
         'Rector\\Order\\ValueObject\\ClassConstRankeable' => __DIR__ . '/../..' . '/rules/order/src/ValueObject/ClassConstRankeable.php',
         'Rector\\Order\\ValueObject\\ClassMethodRankeable' => __DIR__ . '/../..' . '/rules/order/src/ValueObject/ClassMethodRankeable.php',
-        'Rector\\Order\\ValueObject\\PropertyNameRankAndPosition' => __DIR__ . '/../..' . '/rules/order/src/ValueObject/PropertyNameRankAndPosition.php',
         'Rector\\Order\\ValueObject\\PropertyRankeable' => __DIR__ . '/../..' . '/rules/order/src/ValueObject/PropertyRankeable.php',
         'Rector\\Order\\ValueObject\\SortedClassMethodsAndOriginalClassMethods' => __DIR__ . '/../..' . '/rules/order/src/ValueObject/SortedClassMethodsAndOriginalClassMethods.php',
         'Rector\\PHPOffice\\Rector\\MethodCall\\ChangeConditionalGetConditionRector' => __DIR__ . '/../..' . '/rules/php-office/src/Rector/MethodCall/ChangeConditionalGetConditionRector.php',
@@ -3722,6 +3718,7 @@ class ComposerStaticInit06cb8b9441fc39b02c02f09834dd34ed
         'Rector\\Php80\\Rector\\Identical\\StrStartsWithRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Identical/StrStartsWithRector.php',
         'Rector\\Php80\\Rector\\If_\\NullsafeOperatorRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/If_/NullsafeOperatorRector.php',
         'Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/NotIdentical/StrContainsRector.php',
+        'Rector\\Php80\\Rector\\Property\\TypedPropertyFromStrictConstructorRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Property/TypedPropertyFromStrictConstructorRector.php',
         'Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Switch_/ChangeSwitchToMatchRector.php',
         'Rector\\Php80\\Rector\\Ternary\\GetDebugTypeRector' => __DIR__ . '/../..' . '/rules/php80/src/Rector/Ternary/GetDebugTypeRector.php',
         'Rector\\Php80\\ValueObject\\ArrayDimFetchAndConstFetch' => __DIR__ . '/../..' . '/rules/php80/src/ValueObject/ArrayDimFetchAndConstFetch.php',
@@ -4147,9 +4144,9 @@ class ComposerStaticInit06cb8b9441fc39b02c02f09834dd34ed
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit06cb8b9441fc39b02c02f09834dd34ed::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit06cb8b9441fc39b02c02f09834dd34ed::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit06cb8b9441fc39b02c02f09834dd34ed::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit391c0814a2c65a24eaa2f8a010966b38::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit391c0814a2c65a24eaa2f8a010966b38::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit391c0814a2c65a24eaa2f8a010966b38::$classMap;
 
         }, null, ClassLoader::class);
     }

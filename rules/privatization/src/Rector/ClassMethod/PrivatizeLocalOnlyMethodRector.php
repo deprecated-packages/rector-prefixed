@@ -134,6 +134,19 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         return $phpDocInfo->hasByNames([\Rector\PhpAttribute\ValueObject\TagName::API, \Rector\PhpAttribute\ValueObject\TagName::REQUIRED]);
     }
+    private function shouldSkipClassLike(\PhpParser\Node\Stmt\Class_ $class) : bool
+    {
+        if ($this->isAnonymousClass($class)) {
+            return \true;
+        }
+        if ($this->doctrineDocBlockResolver->isDoctrineEntityClass($class)) {
+            return \true;
+        }
+        if ($this->isObjectType($class, 'PHPUnit\\Framework\\TestCase')) {
+            return \true;
+        }
+        return $this->hasTagByName($class, \Rector\PhpAttribute\ValueObject\TagName::API);
+    }
     private function isControllerAction(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
@@ -170,18 +183,5 @@ CODE_SAMPLE
         }
         // possibly container service factories
         return $this->isNames($classMethod, ['create', 'create*']);
-    }
-    private function shouldSkipClassLike(\PhpParser\Node\Stmt\Class_ $class) : bool
-    {
-        if ($this->isAnonymousClass($class)) {
-            return \true;
-        }
-        if ($this->doctrineDocBlockResolver->isDoctrineEntityClass($class)) {
-            return \true;
-        }
-        if ($this->isObjectType($class, 'PHPUnit\\Framework\\TestCase')) {
-            return \true;
-        }
-        return $this->hasTagByName($class, \Rector\PhpAttribute\ValueObject\TagName::API);
     }
 }

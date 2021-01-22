@@ -78,6 +78,24 @@ final class GetSubscriberEventsClassMethodFactory
         return $getSubscribersClassMethod;
     }
     /**
+     * @param EventNameToClassAndConstant[] $eventNamesToClassConstants
+     * @return String_|ClassConstFetch
+     */
+    private function createEventName(string $eventName, array $eventNamesToClassConstants) : \PhpParser\Node
+    {
+        if (\class_exists($eventName)) {
+            return $this->nodeFactory->createClassConstReference($eventName);
+        }
+        // is string a that could be caught in constant, e.g. KernelEvents?
+        foreach ($eventNamesToClassConstants as $eventNameToClassConstant) {
+            if ($eventNameToClassConstant->getEventName() !== $eventName) {
+                continue;
+            }
+            return $this->nodeFactory->createClassConstFetch($eventNameToClassConstant->getEventClass(), $eventNameToClassConstant->getEventConstant());
+        }
+        return new \PhpParser\Node\Scalar\String_($eventName);
+    }
+    /**
      * @param ClassConstFetch|String_ $expr
      * @param ServiceDefinition[] $methodNamesWithPriorities
      */
@@ -155,23 +173,5 @@ final class GetSubscriberEventsClassMethodFactory
             return new \PhpParser\Node\Expr\ArrayItem($methodNameWithPriorityArray);
         }
         return new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Scalar\String_($eventListenerTag->getMethod()));
-    }
-    /**
-     * @param EventNameToClassAndConstant[] $eventNamesToClassConstants
-     * @return String_|ClassConstFetch
-     */
-    private function createEventName(string $eventName, array $eventNamesToClassConstants) : \PhpParser\Node
-    {
-        if (\class_exists($eventName)) {
-            return $this->nodeFactory->createClassConstReference($eventName);
-        }
-        // is string a that could be caught in constant, e.g. KernelEvents?
-        foreach ($eventNamesToClassConstants as $eventNameToClassConstant) {
-            if ($eventNameToClassConstant->getEventName() !== $eventName) {
-                continue;
-            }
-            return $this->nodeFactory->createClassConstFetch($eventNameToClassConstant->getEventClass(), $eventNameToClassConstant->getEventConstant());
-        }
-        return new \PhpParser\Node\Scalar\String_($eventName);
     }
 }

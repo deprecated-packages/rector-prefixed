@@ -100,13 +100,6 @@ CODE_SAMPLE
         $this->removeNode($expression);
         return $node;
     }
-    private function shouldSkipReAssign(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Assign $assign) : bool
-    {
-        if ($this->hasReAssign($expression, $assign->var)) {
-            return \true;
-        }
-        return $this->hasReAssign($expression, $assign->expr);
-    }
     private function isUsedAsArraykeyOrInsideIfCondition(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         $parentExpression = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -121,33 +114,12 @@ CODE_SAMPLE
             return $node instanceof \PhpParser\Node\Expr\PropertyFetch || $node instanceof \PhpParser\Node\Expr\StaticPropertyFetch;
         });
     }
-    private function hasReAssign(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr) : bool
+    private function shouldSkipReAssign(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Assign $assign) : bool
     {
-        $next = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        $exprValues = $this->betterNodeFinder->find($expr, function (\PhpParser\Node $node) : bool {
-            return $node instanceof \PhpParser\Node\Expr\Variable;
-        });
-        if ($exprValues === []) {
-            return \false;
+        if ($this->hasReAssign($expression, $assign->var)) {
+            return \true;
         }
-        while ($next) {
-            foreach ($exprValues as $value) {
-                $isReAssign = (bool) $this->betterNodeFinder->findFirst($next, function (\PhpParser\Node $node) : bool {
-                    $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-                    $node = $this->mayBeArrayDimFetch($node);
-                    if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
-                        return \false;
-                    }
-                    return (string) $this->getName($node) === (string) $this->getName($parent->var);
-                });
-                if (!$isReAssign) {
-                    continue;
-                }
-                return \true;
-            }
-            $next = $next->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        }
-        return \false;
+        return $this->hasReAssign($expression, $assign->expr);
     }
     private function getUsageInNextStmts(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Expr\Variable
     {
@@ -202,13 +174,33 @@ CODE_SAMPLE
     {
         return (bool) $this->scopeAwareNodeFinder->findParentType($expression, [\PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\Else_::class, \PhpParser\Node\Stmt\ElseIf_::class]);
     }
-    private function mayBeArrayDimFetch(\PhpParser\Node $node) : \PhpParser\Node
+    private function hasReAssign(\PhpParser\Node\Stmt\Expression $expression, \PhpParser\Node\Expr $expr) : bool
     {
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
-            $node = $parent->var;
+        $next = $expression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        $exprValues = $this->betterNodeFinder->find($expr, function (\PhpParser\Node $node) : bool {
+            return $node instanceof \PhpParser\Node\Expr\Variable;
+        });
+        if ($exprValues === []) {
+            return \false;
         }
-        return $node;
+        while ($next) {
+            foreach ($exprValues as $value) {
+                $isReAssign = (bool) $this->betterNodeFinder->findFirst($next, function (\PhpParser\Node $node) : bool {
+                    $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+                    $node = $this->mayBeArrayDimFetch($node);
+                    if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
+                        return \false;
+                    }
+                    return (string) $this->getName($node) === (string) $this->getName($parent->var);
+                });
+                if (!$isReAssign) {
+                    continue;
+                }
+                return \true;
+            }
+            $next = $next->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        }
+        return \false;
     }
     private function hasStaticCall(\PhpParser\Node $node) : bool
     {
@@ -266,6 +258,14 @@ CODE_SAMPLE
             $node = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
         }
         return null;
+    }
+    private function mayBeArrayDimFetch(\PhpParser\Node $node) : \PhpParser\Node
+    {
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+            $node = $parent->var;
+        }
+        return $node;
     }
     private function countWithElseIf(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable, int $countFound) : int
     {

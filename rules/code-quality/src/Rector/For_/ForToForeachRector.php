@@ -324,17 +324,6 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function isArgParentCount(\PhpParser\Node $node) : bool
-    {
-        if (!$node instanceof \PhpParser\Node\Arg) {
-            return \false;
-        }
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if (!$parent instanceof \PhpParser\Node) {
-            return \false;
-        }
-        return $this->isFuncCallName($parent, self::COUNT);
-    }
     private function shouldSkipNode(\PhpParser\Node\Expr\ArrayDimFetch $arrayDimFetch) : bool
     {
         $parentNode = $arrayDimFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -345,5 +334,16 @@ CODE_SAMPLE
             return \true;
         }
         return $this->isArgParentCount($parentNode);
+    }
+    private function isArgParentCount(\PhpParser\Node $node) : bool
+    {
+        if (!$node instanceof \PhpParser\Node\Arg) {
+            return \false;
+        }
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node) {
+            return \false;
+        }
+        return $this->isFuncCallName($parent, self::COUNT);
     }
 }

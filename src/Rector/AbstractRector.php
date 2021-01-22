@@ -260,6 +260,20 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         }
         return \false;
     }
+    private function shouldSkipCurrentNode(\PhpParser\Node $node) : bool
+    {
+        if ($this->isNodeRemoved($node)) {
+            return \true;
+        }
+        if ($this->exclusionManager->isNodeSkippedByRector($node, $this)) {
+            return \true;
+        }
+        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
+        if (!$fileInfo instanceof \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo) {
+            return \false;
+        }
+        return $this->skipper->shouldSkipElementAndFileInfo($this, $fileInfo);
+    }
     private function printDebugApplying() : void
     {
         if (!$this->symfonyStyle->isDebug()) {
@@ -317,19 +331,5 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
         }
         // names are the same
         return $this->areNodesEqual($originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME), $node);
-    }
-    private function shouldSkipCurrentNode(\PhpParser\Node $node) : bool
-    {
-        if ($this->isNodeRemoved($node)) {
-            return \true;
-        }
-        if ($this->exclusionManager->isNodeSkippedByRector($node, $this)) {
-            return \true;
-        }
-        $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo) {
-            return \false;
-        }
-        return $this->skipper->shouldSkipElementAndFileInfo($this, $fileInfo);
     }
 }

@@ -93,16 +93,6 @@ final class PromotedPropertyResolver
         }
         return null;
     }
-    private function matchClassMethodParamByAssignedVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Param
-    {
-        foreach ($classMethod->params as $param) {
-            if (!$this->betterStandardPrinter->areNodesEqual($variable, $param->var)) {
-                continue;
-            }
-            return $param;
-        }
-        return null;
-    }
     /**
      * @return array<string, int>
      */
@@ -123,6 +113,16 @@ final class PromotedPropertyResolver
             $paramByFirstUsage[$paramName] = $firstParamVariable->getStartTokenPos();
         }
         return $paramByFirstUsage;
+    }
+    private function matchClassMethodParamByAssignedVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Param
+    {
+        foreach ($classMethod->params as $param) {
+            if (!$this->betterStandardPrinter->areNodesEqual($variable, $param->var)) {
+                continue;
+            }
+            return $param;
+        }
+        return null;
     }
     /**
      * @param array<string, int> $firstParamAsVariable
