@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\Reflection;
 
-use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -76,12 +75,6 @@ final class MethodReflectionProvider
         }
         return $this->provideParameterTypesFromMethodReflection($methodReflection);
     }
-    public function provideByNew(\PhpParser\Node\Expr\New_ $new) : ?\PHPStan\Reflection\MethodReflection
-    {
-        $objectType = $this->nodeTypeResolver->resolve($new->class);
-        $classes = \PHPStan\Type\TypeUtils::getDirectClassNames($objectType);
-        return $this->provideByClassNamesAndMethodName($classes, \Rector\Core\ValueObject\MethodName::CONSTRUCT, $new);
-    }
     public function provideByStaticCall(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PHPStan\Reflection\MethodReflection
     {
         $objectType = $this->nodeTypeResolver->resolve($staticCall->class);
@@ -149,10 +142,10 @@ final class MethodReflectionProvider
     /**
      * @param string[] $classes
      */
-    private function provideByClassNamesAndMethodName(array $classes, string $methodName, \PhpParser\Node $node) : ?\PHPStan\Reflection\MethodReflection
+    private function provideByClassNamesAndMethodName(array $classes, string $methodName, \PhpParser\Node\Expr\StaticCall $staticCall) : ?\PHPStan\Reflection\MethodReflection
     {
         /** @var Scope|null $scope */
-        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        $scope = $staticCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$scope instanceof \PHPStan\Analyser\Scope) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
