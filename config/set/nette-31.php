@@ -94,8 +94,7 @@ return static function (\RectorPrefix20210122\Symfony\Component\DependencyInject
         new \Rector\Composer\ValueObject\PackageAndVersion('nette/database', '^3.1'),
         new \Rector\Composer\ValueObject\PackageAndVersion('nette/di', '^3.0'),
         new \Rector\Composer\ValueObject\PackageAndVersion('nette/finder', '^2.5'),
-        new \Rector\Composer\ValueObject\PackageAndVersion('nette/forms', '3.1.0-RC2'),
-        // TODO change when 3.1 will be released
+        new \Rector\Composer\ValueObject\PackageAndVersion('nette/forms', '^3.1'),
         new \Rector\Composer\ValueObject\PackageAndVersion('nette/http', '^3.1'),
         new \Rector\Composer\ValueObject\PackageAndVersion('nette/mail', '^3.1'),
         new \Rector\Composer\ValueObject\PackageAndVersion('nette/php-generator', '^3.5'),
@@ -110,7 +109,7 @@ return static function (\RectorPrefix20210122\Symfony\Component\DependencyInject
         new \Rector\Composer\ValueObject\PackageAndVersion('contributte/console', '^0.9'),
         new \Rector\Composer\ValueObject\PackageAndVersion('contributte/event-dispatcher', '^0.8'),
         new \Rector\Composer\ValueObject\PackageAndVersion('contributte/event-dispatcher-extra', '^0.8'),
-        // netrinne
+        // nettrine
         new \Rector\Composer\ValueObject\PackageAndVersion('nettrine/annotations', '^0.7'),
         new \Rector\Composer\ValueObject\PackageAndVersion('nettrine/cache', '^0.3'),
     ])]]);
