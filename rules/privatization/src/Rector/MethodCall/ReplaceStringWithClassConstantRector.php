@@ -54,7 +54,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::REPLACE_STRING_WITH_CLASS_CONSTANT => [new \Rector\Privatization\ValueObject\ReplaceStringWithClassConstant('SomeClass', 'call', 1, 'Placeholder')]])]);
+, [self::REPLACE_STRING_WITH_CLASS_CONSTANT => [new \Rector\Privatization\ValueObject\ReplaceStringWithClassConstant('SomeClass', 'call', 0, 'Placeholder')]])]);
     }
     /**
      * @return string[]
