@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -17,6 +18,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class LocallyCalledStaticMethodToNonStaticRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var ClassMethodVisibilityGuard
+     */
+    private $classMethodVisibilityGuard;
+    public function __construct(\Rector\Privatization\VisibilityGuard\ClassMethodVisibilityGuard $classMethodVisibilityGuard)
+    {
+        $this->classMethodVisibilityGuard = $classMethodVisibilityGuard;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change static method and local-only calls to non-static', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -70,6 +79,9 @@ CODE_SAMPLE
             return null;
         }
         if (!$this->isClassMethodWithOnlyLocalStaticCalls($classMethod)) {
+            return null;
+        }
+        if ($this->classMethodVisibilityGuard->isClassMethodVisibilityGuardedByParent($classMethod)) {
             return null;
         }
         // change static calls to non-static ones, but only if in non-static method!!!

@@ -6,6 +6,7 @@ namespace Rector\Privatization\VisibilityGuard;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ClassMethodVisibilityGuard
 {
     /**
@@ -16,18 +17,25 @@ final class ClassMethodVisibilityGuard
     {
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function isClassMethodVisibilityGuardedByParent(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isClassMethodVisibilityGuardedByParent(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if ($class->extends === null) {
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
         $methodName = $this->nodeNameResolver->getName($classMethod);
-        $parentClasses = $this->getParentClasses($class);
-        return $this->methodExistsInClasses($parentClasses, $methodName);
+        $parentClasses = $this->getParentClasses($classLike);
+        $classInterfaces = $this->getClassInterfaces($classLike);
+        $classClassLikes = \array_merge($parentClasses, $classInterfaces);
+        return $this->methodExistsInClasses($classClassLikes, $methodName);
     }
-    public function isClassMethodVisibilityGuardedByTrait(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Stmt\Class_ $class) : bool
+    public function isClassMethodVisibilityGuardedByTrait(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        $traits = $this->getParentTraits($class);
+        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return \false;
+        }
+        $traits = $this->getParentTraits($classLike);
         $methodName = $this->nodeNameResolver->getName($classMethod);
         return $this->methodExistsInClasses($traits, $methodName);
     }
@@ -56,6 +64,19 @@ final class ClassMethodVisibilityGuard
             return [];
         }
         return $classParents;
+    }
+    /**
+     * @return string[]
+     */
+    private function getClassInterfaces(\PhpParser\Node\Stmt\Class_ $class) : array
+    {
+        /** @var string $className */
+        $className = $this->nodeNameResolver->getName($class);
+        $classInterfaces = \class_implements($className);
+        if ($classInterfaces === \false) {
+            return [];
+        }
+        return $classInterfaces;
     }
     /**
      * @param string[] $classes
