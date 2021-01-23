@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf130ac33f446f3ae76771301855c826c
+class ComposerStaticInit536ada13fc0b6df285c4bb70ebbc9778
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2837,9 +2837,7 @@ class ComposerStaticInitf130ac33f446f3ae76771301855c826c
         'Rector\\Core\\PhpParser\\Parser\\Parser' => __DIR__ . '/../..' . '/src/PhpParser/Parser/Parser.php',
         'Rector\\Core\\PhpParser\\Parser\\PhpParserLexerFactory' => __DIR__ . '/../..' . '/src/PhpParser/Parser/PhpParserLexerFactory.php',
         'Rector\\Core\\PhpParser\\Parser\\SimplePhpParser' => __DIR__ . '/../..' . '/src/PhpParser/Parser/SimplePhpParser.php',
-        'Rector\\Core\\PhpParser\\Printer\\AnnotationFormatRestorer' => __DIR__ . '/../..' . '/src/PhpParser/Printer/AnnotationFormatRestorer.php',
         'Rector\\Core\\PhpParser\\Printer\\BetterStandardPrinter' => __DIR__ . '/../..' . '/src/PhpParser/Printer/BetterStandardPrinter.php',
-        'Rector\\Core\\PhpParser\\Printer\\ContentPatcher' => __DIR__ . '/../..' . '/src/PhpParser/Printer/ContentPatcher.php',
         'Rector\\Core\\PhpParser\\Printer\\FormatPerservingPrinter' => __DIR__ . '/../..' . '/src/PhpParser/Printer/FormatPerservingPrinter.php',
         'Rector\\Core\\PhpParser\\Printer\\NodesWithFileDestinationPrinter' => __DIR__ . '/../..' . '/src/PhpParser/Printer/NodesWithFileDestinationPrinter.php',
         'Rector\\Core\\PhpParser\\Printer\\Whitespace\\IndentCharacterDetector' => __DIR__ . '/../..' . '/src/PhpParser/Printer/Whitespace/IndentCharacterDetector.php',
@@ -4151,9 +4149,9 @@ class ComposerStaticInitf130ac33f446f3ae76771301855c826c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf130ac33f446f3ae76771301855c826c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf130ac33f446f3ae76771301855c826c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf130ac33f446f3ae76771301855c826c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit536ada13fc0b6df285c4bb70ebbc9778::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit536ada13fc0b6df285c4bb70ebbc9778::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit536ada13fc0b6df285c4bb70ebbc9778::$classMap;
 
         }, null, ClassLoader::class);
     }

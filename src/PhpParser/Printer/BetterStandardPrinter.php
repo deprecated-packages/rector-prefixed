@@ -72,17 +72,13 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      */
     private $commentRemover;
     /**
-     * @var AnnotationFormatRestorer
-     */
-    private $annotationFormatRestorer;
-    /**
      * @var IndentCharacterDetector
      */
     private $indentCharacterDetector;
     /**
      * @param mixed[] $options
      */
-    public function __construct(\Rector\Comments\CommentRemover $commentRemover, \Rector\Core\PhpParser\Printer\AnnotationFormatRestorer $annotationFormatRestorer, \Rector\Core\PhpParser\Printer\Whitespace\IndentCharacterDetector $indentCharacterDetector, \Rector\Comments\NodeDocBlock\DocBlockUpdater $docBlockUpdater, array $options = [])
+    public function __construct(\Rector\Comments\CommentRemover $commentRemover, \Rector\Core\PhpParser\Printer\Whitespace\IndentCharacterDetector $indentCharacterDetector, \Rector\Comments\NodeDocBlock\DocBlockUpdater $docBlockUpdater, array $options = [])
     {
         parent::__construct($options);
         // print return type double colon right after the bracket "function(): string"
@@ -91,7 +87,6 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         $this->insertionMap['Stmt_Function->returnType'] = [')', \false, ': ', null];
         $this->insertionMap['Expr_Closure->returnType'] = [')', \false, ': ', null];
         $this->commentRemover = $commentRemover;
-        $this->annotationFormatRestorer = $annotationFormatRestorer;
         $this->indentCharacterDetector = $indentCharacterDetector;
         $this->docBlockUpdater = $docBlockUpdater;
     }
@@ -107,7 +102,6 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         $this->tabOrSpaceIndentCharacter = $this->indentCharacterDetector->detect($newStmts);
         $content = parent::printFormatPreserving($newStmts, $origStmts, $origTokens);
         $contentOriginal = $this->print($origStmts);
-        $content = $this->annotationFormatRestorer->restore($contentOriginal, $content);
         // add new line in case of added stmts
         if (\count($stmts) !== \count($origStmts) && !(bool) \RectorPrefix20210123\Nette\Utils\Strings::match($content, self::NEWLINE_END_REGEX)) {
             $content .= $this->nl;
