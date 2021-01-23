@@ -6,13 +6,13 @@ namespace Rector\Php71\Tests\Rector\TryCatch\MultiExceptionCatchRector;
 use Iterator;
 use Rector\Php71\Rector\TryCatch\MultiExceptionCatchRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo;
 final class MultiExceptionCatchRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -5,20 +5,20 @@ namespace Rector\Composer\Tests\Rector\ChangePackageVersionRector;
 
 use Iterator;
 use Rector\Composer\Tests\Rector\AbstractComposerRectorTestCase;
-use RectorPrefix20210122\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210123\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo;
 final class ChangePackageVersionRectorTest extends \Rector\Composer\Tests\Rector\AbstractComposerRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
     {
-        return \RectorPrefix20210122\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.json');
+        return \RectorPrefix20210123\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.json');
     }
     public function provideConfigFile() : string
     {

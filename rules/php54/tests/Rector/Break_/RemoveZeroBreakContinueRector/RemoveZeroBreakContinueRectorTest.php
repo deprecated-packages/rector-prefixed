@@ -6,13 +6,13 @@ namespace Rector\Php54\Tests\Rector\Break_\RemoveZeroBreakContinueRector;
 use Iterator;
 use Rector\Php54\Rector\Break_\RemoveZeroBreakContinueRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveZeroBreakContinueRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210122\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         // to prevent loading PHP 5.4+ invalid code
         $this->doTestFileInfoWithoutAutoload($fileInfo);
