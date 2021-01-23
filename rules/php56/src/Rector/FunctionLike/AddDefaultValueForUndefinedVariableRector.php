@@ -5,6 +5,7 @@ namespace Rector\Php56\Rector\FunctionLike;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\ArrowFunction;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignRef;
@@ -13,6 +14,7 @@ use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\List_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Foreach_;
@@ -91,7 +93,8 @@ CODE_SAMPLE
             if (\in_array($undefinedVariable, $this->definedVariables, \true)) {
                 continue;
             }
-            $variablesInitiation[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable($undefinedVariable), $this->createNull()));
+            $value = $this->isArray($undefinedVariable, (array) $node->stmts) ? new \PhpParser\Node\Expr\Array_([]) : $this->createNull();
+            $variablesInitiation[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable($undefinedVariable), $value));
         }
         $node->stmts = \array_merge($variablesInitiation, (array) $node->stmts);
         return $node;
@@ -131,6 +134,18 @@ CODE_SAMPLE
             return null;
         });
         return \array_unique($undefinedVariables);
+    }
+    /**
+     * @param Stmt[] $stmts
+     */
+    private function isArray(string $undefinedVariable, array $stmts) : bool
+    {
+        return (bool) $this->betterNodeFinder->findFirst($stmts, function (\PhpParser\Node $node) use($undefinedVariable) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
+                return \false;
+            }
+            return $this->isName($node->var, $undefinedVariable);
+        });
     }
     private function collectDefinedVariablesFromForeach(\PhpParser\Node\Stmt\Foreach_ $foreach) : void
     {
