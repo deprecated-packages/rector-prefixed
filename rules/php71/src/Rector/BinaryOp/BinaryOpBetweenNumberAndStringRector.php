@@ -6,6 +6,7 @@ namespace Rector\Php71\Rector\BinaryOp;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar;
@@ -59,6 +60,9 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Concat) {
+            return null;
+        }
+        if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Coalesce) {
             return null;
         }
         if ($this->isStringOrStaticNonNumbericString($node->left) && $this->isNumberType($node->right)) {

@@ -2846,6 +2846,7 @@ return array(
     'Rector\\Php70\\ValueObject\\VariableAssignPair' => $baseDir . '/rules/php70/src/ValueObject/VariableAssignPair.php',
     'Rector\\Php71\\IsArrayAndDualCheckToAble' => $baseDir . '/rules/php71/src/IsArrayAndDualCheckToAble.php',
     'Rector\\Php71\\NodeAnalyzer\\CountableAnalyzer' => $baseDir . '/rules/php71/src/NodeAnalyzer/CountableAnalyzer.php',
+    'Rector\\Php71\\NodeFinder\\EmptyStringDefaultPropertyFinder' => $baseDir . '/rules/php71/src/NodeFinder/EmptyStringDefaultPropertyFinder.php',
     'Rector\\Php71\\Rector\\Assign\\AssignArrayToStringRector' => $baseDir . '/rules/php71/src/Rector/Assign/AssignArrayToStringRector.php',
     'Rector\\Php71\\Rector\\BinaryOp\\BinaryOpBetweenNumberAndStringRector' => $baseDir . '/rules/php71/src/Rector/BinaryOp/BinaryOpBetweenNumberAndStringRector.php',
     'Rector\\Php71\\Rector\\BinaryOp\\IsIterableRector' => $baseDir . '/rules/php71/src/Rector/BinaryOp/IsIterableRector.php',

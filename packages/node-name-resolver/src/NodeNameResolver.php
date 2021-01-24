@@ -118,7 +118,11 @@ final class NodeNameResolver
     }
     public function areNamesEqual(\PhpParser\Node $firstNode, \PhpParser\Node $secondNode) : bool
     {
-        return $this->isName($firstNode, $this->getName($secondNode));
+        $secondResolvedName = $this->getName($secondNode);
+        if ($secondResolvedName === null) {
+            return \false;
+        }
+        return $this->isName($firstNode, $secondResolvedName);
     }
     /**
      * @param Name[]|Node[] $nodes
