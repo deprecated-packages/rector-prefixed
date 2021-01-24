@@ -2997,6 +2997,7 @@ return array(
     'Rector\\Privatization\\Rector\\Property\\PrivatizeLocalPropertyToPrivatePropertyRector' => $baseDir . '/rules/privatization/src/Rector/Property/PrivatizeLocalPropertyToPrivatePropertyRector.php',
     'Rector\\Privatization\\Reflection\\ClassConstantsResolver' => $baseDir . '/rules/privatization/src/Reflection/ClassConstantsResolver.php',
     'Rector\\Privatization\\Reflection\\ParentConstantReflectionResolver' => $baseDir . '/rules/privatization/src/Reflection/ParentConstantReflectionResolver.php',
+    'Rector\\Privatization\\TypeManipulator\\NormalizeTypeToRespectArrayScalarType' => $baseDir . '/rules/privatization/src/TypeManipulator/NormalizeTypeToRespectArrayScalarType.php',
     'Rector\\Privatization\\ValueObject\\ConstantVisibility' => $baseDir . '/rules/privatization/src/ValueObject/ConstantVisibility.php',
     'Rector\\Privatization\\ValueObject\\ReplaceStringWithClassConstant' => $baseDir . '/rules/privatization/src/ValueObject/ReplaceStringWithClassConstant.php',
     'Rector\\Privatization\\VisibilityGuard\\ClassMethodVisibilityGuard' => $baseDir . '/rules/privatization/src/VisibilityGuard/ClassMethodVisibilityGuard.php',
