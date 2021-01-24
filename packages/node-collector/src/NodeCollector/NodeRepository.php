@@ -39,6 +39,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
+use ReflectionMethod;
 /**
  * @rector-doc
  * This service contains all the parsed nodes. E.g. all the functions, method call, classes, static calls etc.
@@ -238,11 +239,14 @@ final class NodeRepository
             return $node instanceof \PhpParser\Node\Expr\MethodCall;
         });
     }
-    public function findClassMethodByMethodReflection(\PHPStan\Reflection\MethodReflection $methodReflection) : ?\PhpParser\Node\Stmt\ClassMethod
+    /**
+     * @param MethodReflection|ReflectionMethod $methodReflection
+     */
+    public function findClassMethodByMethodReflection(object $methodReflection) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $methodName = $methodReflection->getName();
-        $classReflection = $methodReflection->getDeclaringClass();
-        $className = $classReflection->getName();
+        $declaringClass = $methodReflection->getDeclaringClass();
+        $className = $declaringClass->getName();
         return $this->findClassMethod($className, $methodName);
     }
     /**
