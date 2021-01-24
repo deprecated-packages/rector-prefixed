@@ -123,7 +123,8 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     }
     private function normalizePathsToRelativeWithLine(string $errorMessage) : string
     {
-        $errorMessage = \RectorPrefix20210124\Nette\Utils\Strings::replace($errorMessage, '#' . \preg_quote(\getcwd(), '#') . '/#', '');
+        $regex = '#' . \preg_quote(\getcwd(), '#') . '/#';
+        $errorMessage = \RectorPrefix20210124\Nette\Utils\Strings::replace($errorMessage, $regex, '');
         return $errorMessage = \RectorPrefix20210124\Nette\Utils\Strings::replace($errorMessage, self::ON_LINE_REGEX, ':');
     }
     private function reportRemovedNodes(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : void

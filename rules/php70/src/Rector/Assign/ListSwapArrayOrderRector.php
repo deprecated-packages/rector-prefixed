@@ -40,19 +40,20 @@ final class ListSwapArrayOrderRector extends \Rector\Core\Rector\AbstractRector
         if (!$node->var instanceof \PhpParser\Node\Expr\List_) {
             return null;
         }
-        $printerVars = [];
+        $printedVariables = [];
         foreach ($node->var->items as $arrayItem) {
             if (!$arrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
                 continue;
             }
             if ($arrayItem->value instanceof \PhpParser\Node\Expr\ArrayDimFetch && $arrayItem->value->dim === null) {
-                $printerVars[] = $this->print($arrayItem->value->var);
+                $printedVariables[] = $this->print($arrayItem->value->var);
             } else {
                 return null;
             }
         }
         // relevant only in 1 variable type
-        if (\count(\array_unique($printerVars)) !== 1) {
+        $uniqueVariables = \array_unique($printedVariables);
+        if (\count($uniqueVariables) !== 1) {
             return null;
         }
         // wrap with array_reverse, to reflect reverse assign order in left

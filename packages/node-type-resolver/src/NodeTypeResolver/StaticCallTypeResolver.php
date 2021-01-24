@@ -52,15 +52,15 @@ final class StaticCallTypeResolver implements \Rector\NodeTypeResolver\Contract\
             return $classType;
         }
         $classNames = \PHPStan\Type\TypeUtils::getDirectClassNames($classType);
+        $scope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return $classType;
+        }
         foreach ($classNames as $className) {
             if (!\method_exists($className, $methodName)) {
                 continue;
             }
-            $nodeScope = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-            if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
-                return $classType;
-            }
-            return $nodeScope->getType($node);
+            return $scope->getType($node);
         }
         return $classType;
     }

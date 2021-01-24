@@ -137,7 +137,9 @@ CODE_SAMPLE
         if (isset(self::ANNOTATION_TO_TAG_CLASS[$annotationClass])) {
             return;
         }
-        throw new \Rector\Core\Exception\NotImplementedException(\sprintf('Annotation class "%s" is not implemented yet. Use one of "%s" or add custom tag for it to Rector.', $annotationClass, \implode('", "', \array_keys(self::ANNOTATION_TO_TAG_CLASS))));
+        $availableAnnotations = \array_keys(self::ANNOTATION_TO_TAG_CLASS);
+        $errorMessage = \sprintf('Annotation class "%s" is not implemented yet. Use one of "%s" or add custom tag for it to Rector.', $annotationClass, \implode('", "', $availableAnnotations));
+        throw new \Rector\Core\Exception\NotImplementedException($errorMessage);
     }
     private function isParameterInject(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : bool
     {

@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\Reflection;
 
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -55,6 +56,21 @@ final class MethodReflectionProvider
             $parameterTypes[] = $phpParameterReflection->getType();
         }
         return $parameterTypes;
+    }
+    public function provideByMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\ReflectionMethod
+    {
+        $className = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        if (!\is_string($className)) {
+            return null;
+        }
+        $methodName = $this->nodeNameResolver->getName($methodCall->name);
+        if ($methodName === null) {
+            return null;
+        }
+        if (!\method_exists($className, $methodName)) {
+            return null;
+        }
+        return new \ReflectionMethod($className, $methodName);
     }
     public function provideByClassAndMethodName(string $class, string $method, \PHPStan\Analyser\Scope $scope) : ?\PHPStan\Reflection\MethodReflection
     {

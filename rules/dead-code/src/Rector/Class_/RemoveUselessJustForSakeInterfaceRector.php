@@ -118,7 +118,8 @@ CODE_SAMPLE
      */
     private function getInterfaceImplementers(string $interfaceName) : array
     {
-        return \array_filter(\get_declared_classes(), function (string $className) use($interfaceName) : bool {
+        $declaredClasses = \get_declared_classes();
+        return \array_filter($declaredClasses, function (string $className) use($interfaceName) : bool {
             /** @var string[] $classImplements */
             $classImplements = (array) \class_implements($className);
             return \in_array($interfaceName, $classImplements, \true);

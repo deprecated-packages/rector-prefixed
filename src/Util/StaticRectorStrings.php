@@ -33,8 +33,9 @@ final class StaticRectorStrings
     }
     public static function dashesToCamelCase(string $input) : string
     {
-        $tokens = \explode('-', $input);
-        return \implode('', \array_map('ucfirst', $tokens));
+        $parts = \explode('-', $input);
+        $uppercasedParts = \array_map('ucfirst', $parts);
+        return \implode('', $uppercasedParts);
     }
     public static function camelCaseToDashes(string $input) : string
     {
@@ -46,8 +47,9 @@ final class StaticRectorStrings
     }
     public static function underscoreToPascalCase(string $input) : string
     {
-        $tokens = \explode('_', $input);
-        return \implode('', \array_map('ucfirst', $tokens));
+        $parts = \explode('_', $input);
+        $uppercasedParts = \array_map('ucfirst', $parts);
+        return \implode('', $uppercasedParts);
     }
     public static function underscoreToCamelCase(string $input) : string
     {

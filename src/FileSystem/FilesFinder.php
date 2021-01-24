@@ -105,7 +105,15 @@ final class FilesFinder
     {
         $plainDiff = \shell_exec('git diff --name-only') ?: '';
         $relativePaths = \explode(\PHP_EOL, \trim($plainDiff));
-        return \array_values(\array_filter(\array_map('realpath', $relativePaths)));
+        $realPaths = [];
+        foreach ($relativePaths as $relativePath) {
+            $realPath = \realpath($relativePath);
+            if ($realPath === \false) {
+                continue;
+            }
+            $realPaths[] = $realPath;
+        }
+        return $realPaths;
     }
     /**
      * @param string[] $suffixes

@@ -87,10 +87,11 @@ CODE_SAMPLE
     private function renameFixtureName(\PhpParser\Node\Scalar\String_ $string) : void
     {
         [$prefix, $table] = \explode('.', $string->value);
-        $table = \array_map(function (string $token) : string {
+        $tableParts = \explode('/', $table);
+        $pascalCaseTableParts = \array_map(function (string $token) : string {
             return \Rector\Core\Util\StaticRectorStrings::underscoreToPascalCase($token);
-        }, \explode('/', $table));
-        $table = \implode('/', $table);
+        }, $tableParts);
+        $table = \implode('/', $pascalCaseTableParts);
         $string->value = \sprintf('%s.%s', $prefix, $table);
     }
 }

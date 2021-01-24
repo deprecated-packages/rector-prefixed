@@ -81,7 +81,8 @@ final class ClassMethodVisibilityVendorLockResolver extends \Rector\VendorLocker
         $interfaces = (array) \class_implements($className);
         $interfaceMethods = [];
         foreach ($interfaces as $interface) {
-            $interfaceMethods = \array_merge($interfaceMethods, \get_class_methods($interface));
+            $currentInterfaceMethods = \get_class_methods($interface);
+            $interfaceMethods = \array_merge($interfaceMethods, $currentInterfaceMethods);
         }
         return $interfaceMethods;
     }

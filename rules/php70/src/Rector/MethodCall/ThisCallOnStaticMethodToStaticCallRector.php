@@ -5,9 +5,12 @@ namespace Rector\Php70\Rector\MethodCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeCollector\Reflection\MethodReflectionProvider;
 use Rector\NodeCollector\StaticAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use ReflectionMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -20,9 +23,14 @@ final class ThisCallOnStaticMethodToStaticCallRector extends \Rector\Core\Rector
      * @var StaticAnalyzer
      */
     private $staticAnalyzer;
-    public function __construct(\Rector\NodeCollector\StaticAnalyzer $staticAnalyzer)
+    /**
+     * @var MethodReflectionProvider
+     */
+    private $methodReflectionProvider;
+    public function __construct(\Rector\NodeCollector\StaticAnalyzer $staticAnalyzer, \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider)
     {
         $this->staticAnalyzer = $staticAnalyzer;
+        $this->methodReflectionProvider = $methodReflectionProvider;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -69,6 +77,10 @@ CODE_SAMPLE
         if (!$this->isVariableName($node->var, 'this')) {
             return null;
         }
+        $methodName = $this->getName($node->name);
+        if ($methodName === null) {
+            return null;
+        }
         // skip PHPUnit calls, as they accept both self:: and $this-> formats
         if ($this->isObjectType($node->var, 'PHPUnit\\Framework\\TestCase')) {
             return null;
@@ -78,14 +90,26 @@ CODE_SAMPLE
         if (!\is_string($className)) {
             return null;
         }
-        $methodName = $this->getName($node->name);
-        if ($methodName === null) {
-            return null;
-        }
         $isStaticMethod = $this->staticAnalyzer->isStaticMethod($methodName, $className);
         if (!$isStaticMethod) {
             return null;
         }
-        return $this->createStaticCall('static', $methodName, $node->args);
+        $classReference = $this->resolveClassSelf($node);
+        return $this->createStaticCall($classReference, $methodName, $node->args);
+    }
+    private function resolveClassSelf(\PhpParser\Node\Expr\MethodCall $methodCall) : string
+    {
+        $classLike = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return 'static';
+        }
+        if ($classLike->isFinal()) {
+            return 'self';
+        }
+        $methodReflection = $this->methodReflectionProvider->provideByMethodCall($methodCall);
+        if ($methodReflection instanceof \ReflectionMethod && $methodReflection->isPrivate()) {
+            return 'self';
+        }
+        return 'static';
     }
 }

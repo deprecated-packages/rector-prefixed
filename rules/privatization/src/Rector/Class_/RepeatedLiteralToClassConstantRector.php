@@ -204,9 +204,10 @@ CODE_SAMPLE
             $value = $matches[self::VALUE];
         }
         // convert camelcase parts to underscore
-        $parts = \array_map(function (string $v) : string {
-            return \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($v);
-        }, \explode(self::UNDERSCORE, $value));
+        $parts = \explode(self::UNDERSCORE, $value);
+        $parts = \array_map(function (string $value) : string {
+            return \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($value);
+        }, $parts);
         // apply "CONST" prefix if constant beginning with number
         if ($beginningNumbers !== '') {
             $parts = \array_merge(['CONST', $beginningNumbers], $parts);

@@ -129,14 +129,16 @@ CODE_SAMPLE
         /** @var string $methodName */
         $methodName = $this->getName($classMethod->name);
         // Either Ancestor classes or implemented interfaces
-        $parentClassNames = \array_merge($classReflection->getParentClassesNames(), \array_map(function (\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
+        $interfaceName = \array_map(function (\PHPStan\Reflection\ClassReflection $interfaceReflection) : string {
             return $interfaceReflection->getName();
-        }, $classReflection->getInterfaces()));
-        foreach ($parentClassNames as $parentClassName) {
-            if (!\method_exists($parentClassName, $methodName)) {
+        }, $classReflection->getInterfaces());
+        $parentClassesNames = $classReflection->getParentClassesNames();
+        $parentClassLikes = \array_merge($parentClassesNames, $interfaceName);
+        foreach ($parentClassLikes as $parentClassLike) {
+            if (!\method_exists($parentClassLike, $methodName)) {
                 continue;
             }
-            $parentReflectionMethod = new \ReflectionMethod($parentClassName, $methodName);
+            $parentReflectionMethod = new \ReflectionMethod($parentClassLike, $methodName);
             $parentReflectionMethodReturnType = $parentReflectionMethod->getReturnType();
             if (!$parentReflectionMethodReturnType instanceof \ReflectionNamedType || $parentReflectionMethodReturnType->getName() === $nodeReturnTypeName) {
                 continue;

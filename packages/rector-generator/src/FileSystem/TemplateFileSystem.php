@@ -26,7 +26,7 @@ final class TemplateFileSystem
      */
     private const CONFIGURED_OR_EXTRA_REGEX = '#(__Configured|__Extra)#';
     /**
-     * @param string[] $templateVariables
+     * @param array<string, mixed> $templateVariables
      */
     public function resolveDestination(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $templateVariables, \Rector\RectorGenerator\ValueObject\RectorRecipe $rectorRecipe, string $targetDirectory) : string
     {
@@ -51,11 +51,13 @@ final class TemplateFileSystem
         return $targetDirectory . \DIRECTORY_SEPARATOR . $destination;
     }
     /**
-     * @param mixed[] $variables
+     * @param array<string, mixed> $variables
      */
     private function applyVariables(string $content, array $variables) : string
     {
-        return \str_replace(\array_keys($variables), \array_values($variables), $content);
+        $variableKeys = \array_keys($variables);
+        $variableValues = \array_values($variables);
+        return \str_replace($variableKeys, $variableValues, $content);
     }
     private function isNonFixtureFileWithIncSuffix(string $filePath) : bool
     {

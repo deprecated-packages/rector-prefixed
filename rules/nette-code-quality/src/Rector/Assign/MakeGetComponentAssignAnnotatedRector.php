@@ -186,7 +186,8 @@ CODE_SAMPLE
     private function resolveTypeFromShortControlNameAndVariable(\PhpParser\Node\Scalar\String_ $shortControlString, \PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\Type
     {
         $componentName = $this->getValue($shortControlString);
-        $methodName = \sprintf('createComponent%s', \ucfirst($componentName));
+        $componentName = \ucfirst($componentName);
+        $methodName = \sprintf('createComponent%s', $componentName);
         $calledOnType = $scope->getType($expr);
         if (!$calledOnType instanceof \PHPStan\Type\TypeWithClassName) {
             return new \PHPStan\Type\MixedType();

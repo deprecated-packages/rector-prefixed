@@ -137,7 +137,8 @@ final class PropertyNaming
      */
     public function underscoreToName(string $underscoreName) : string
     {
-        $pascalCaseName = \str_replace('_', '', \ucwords($underscoreName, '_'));
+        $uppercaseWords = \ucwords($underscoreName, '_');
+        $pascalCaseName = \str_replace('_', '', $uppercaseWords);
         return \lcfirst($pascalCaseName);
     }
     public function getExpectedNameFromBooleanPropertyType(\PhpParser\Node\Stmt\Property $property) : ?string
