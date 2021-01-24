@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Testing\PhpConfigPrinter;
 
-use RectorPrefix20210123\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
-final class YamlFileContentProvider implements \RectorPrefix20210123\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface
+use RectorPrefix20210124\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
+final class YamlFileContentProvider implements \RectorPrefix20210124\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface
 {
     public function setContent(string $yamlContent) : void
     {

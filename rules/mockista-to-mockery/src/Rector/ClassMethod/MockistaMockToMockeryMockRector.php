@@ -15,7 +15,7 @@ use Rector\Core\Rector\AbstractPHPUnitRector;
 use Rector\MockeryToProphecy\Collector\MockVariableCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionMethod;
-use RectorPrefix20210123\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use RectorPrefix20210124\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**

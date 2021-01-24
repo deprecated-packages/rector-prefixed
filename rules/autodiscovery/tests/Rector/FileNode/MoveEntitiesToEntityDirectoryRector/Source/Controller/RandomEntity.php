@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Tests\Rector\FileNode\MoveEntitiesToEntityDirectoryRector\Source\Controller;
 
-use RectorPrefix20210123\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210124\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */

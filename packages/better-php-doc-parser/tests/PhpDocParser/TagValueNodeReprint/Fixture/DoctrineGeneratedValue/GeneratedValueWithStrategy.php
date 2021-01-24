@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\DoctrineGeneratedValue;
 
-use RectorPrefix20210123\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210124\Doctrine\ORM\Mapping as ORM;
 class GeneratedValueWithStrategy
 {
     /**

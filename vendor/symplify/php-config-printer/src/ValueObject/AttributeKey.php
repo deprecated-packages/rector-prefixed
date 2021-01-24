@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210123\Symplify\PhpConfigPrinter\ValueObject;
+namespace RectorPrefix20210124\Symplify\PhpConfigPrinter\ValueObject;
 
 final class AttributeKey
 {

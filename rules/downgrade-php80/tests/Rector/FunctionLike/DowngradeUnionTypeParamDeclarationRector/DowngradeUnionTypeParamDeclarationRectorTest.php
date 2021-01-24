@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp80\Tests\Rector\FunctionLike\DowngradeUnionTypePara
 use Iterator;
 use Rector\DowngradePhp80\Rector\FunctionLike\DowngradeUnionTypeParamDeclarationRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradeUnionTypeParamDeclarationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      * @requires PHP 8.0
      */
-    public function test(\RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

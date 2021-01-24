@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210123;
+namespace RectorPrefix20210124;
 
 final class PHPUnit_Something
 {

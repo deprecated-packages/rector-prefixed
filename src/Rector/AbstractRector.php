@@ -28,10 +28,10 @@ use Rector\Core\Rector\AbstractRector\AbstractRectorTrait;
 use Rector\Core\ValueObject\ProjectType;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix20210123\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210123\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210123\Symplify\Skipper\Skipper\Skipper;
-use RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210124\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210124\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210124\Symplify\Skipper\Skipper\Skipper;
+use RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements \Rector\Core\Contract\Rector\PhpRectorInterface
 {
     use AbstractRectorTrait;
@@ -86,7 +86,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     /**
      * @required
      */
-    public function autowireAbstractRector(\RectorPrefix20210123\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \PhpParser\BuilderFactory $builderFactory, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210123\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210123\Symplify\Skipper\Skipper\Skipper $skipper) : void
+    public function autowireAbstractRector(\RectorPrefix20210124\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \PhpParser\BuilderFactory $builderFactory, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210124\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210124\Symplify\Skipper\Skipper\Skipper $skipper) : void
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->phpVersionProvider = $phpVersionProvider;
@@ -269,7 +269,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
             return \true;
         }
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo) {
             return \false;
         }
         return $this->skipper->shouldSkipElementAndFileInfo($this, $fileInfo);
@@ -313,7 +313,7 @@ abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements 
     private function keepFileInfoAttribute(\PhpParser\Node $node, \PhpParser\Node $originalNode) : void
     {
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo instanceof \RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo) {
+        if ($fileInfo instanceof \RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo) {
             return;
         }
         $fileInfo = $originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);

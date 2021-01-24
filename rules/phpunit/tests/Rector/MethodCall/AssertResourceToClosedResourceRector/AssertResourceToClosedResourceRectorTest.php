@@ -6,13 +6,13 @@ namespace Rector\PHPUnit\Tests\Rector\MethodCall\AssertResourceToClosedResourceR
 use Iterator;
 use Rector\PHPUnit\Rector\MethodCall\AssertResourceToClosedResourceRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo;
 final class AssertResourceToClosedResourceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210123\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
