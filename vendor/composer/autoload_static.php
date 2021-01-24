@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb350463c19ecf8b1b9500c7e18bfc0cc
+class ComposerStaticInit3eaea10826480086d2671fe14f7d330a
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2615,6 +2615,7 @@ class ComposerStaticInitb350463c19ecf8b1b9500c7e18bfc0cc
         'Rector\\CodeQuality\\Rector\\New_\\NewStaticToNewSelfRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/New_/NewStaticToNewSelfRector.php',
         'Rector\\CodeQuality\\Rector\\NotEqual\\CommonNotEqualRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/NotEqual/CommonNotEqualRector.php',
         'Rector\\CodeQuality\\Rector\\Return_\\SimplifyUselessVariableRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Return_/SimplifyUselessVariableRector.php',
+        'Rector\\CodeQuality\\Rector\\Switch_\\SingularSwitchToIfRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Switch_/SingularSwitchToIfRector.php',
         'Rector\\CodeQuality\\Rector\\Ternary\\ArrayKeyExistsTernaryThenValueToCoalescingRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Ternary/ArrayKeyExistsTernaryThenValueToCoalescingRector.php',
         'Rector\\CodeQuality\\Rector\\Ternary\\SimplifyDuplicatedTernaryRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Ternary/SimplifyDuplicatedTernaryRector.php',
         'Rector\\CodeQuality\\Rector\\Ternary\\SimplifyTautologyTernaryRector' => __DIR__ . '/../..' . '/rules/code-quality/src/Rector/Ternary/SimplifyTautologyTernaryRector.php',
@@ -3854,6 +3855,7 @@ class ComposerStaticInitb350463c19ecf8b1b9500c7e18bfc0cc
         'Rector\\RemovingStatic\\ValueObject\\PHPUnitClass' => __DIR__ . '/../..' . '/rules/removing-static/src/ValueObject/PHPUnitClass.php',
         'Rector\\Renaming\\Contract\\MethodCallRenameInterface' => __DIR__ . '/../..' . '/rules/renaming/src/Contract/MethodCallRenameInterface.php',
         'Rector\\Renaming\\NodeManipulator\\ClassRenamer' => __DIR__ . '/../..' . '/rules/renaming/src/NodeManipulator/ClassRenamer.php',
+        'Rector\\Renaming\\NodeManipulator\\SwitchManipulator' => __DIR__ . '/../..' . '/rules/renaming/src/NodeManipulator/SwitchManipulator.php',
         'Rector\\Renaming\\Rector\\ClassConstFetch\\RenameClassConstantRector' => __DIR__ . '/../..' . '/rules/renaming/src/Rector/ClassConstFetch/RenameClassConstantRector.php',
         'Rector\\Renaming\\Rector\\ClassMethod\\RenameAnnotationRector' => __DIR__ . '/../..' . '/rules/renaming/src/Rector/ClassMethod/RenameAnnotationRector.php',
         'Rector\\Renaming\\Rector\\ConstFetch\\RenameConstantRector' => __DIR__ . '/../..' . '/rules/renaming/src/Rector/ConstFetch/RenameConstantRector.php',
@@ -4150,9 +4152,9 @@ class ComposerStaticInitb350463c19ecf8b1b9500c7e18bfc0cc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb350463c19ecf8b1b9500c7e18bfc0cc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb350463c19ecf8b1b9500c7e18bfc0cc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb350463c19ecf8b1b9500c7e18bfc0cc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3eaea10826480086d2671fe14f7d330a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3eaea10826480086d2671fe14f7d330a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3eaea10826480086d2671fe14f7d330a::$classMap;
 
         }, null, ClassLoader::class);
     }

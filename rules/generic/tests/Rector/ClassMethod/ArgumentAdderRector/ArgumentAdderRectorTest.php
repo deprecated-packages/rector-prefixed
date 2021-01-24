@@ -29,7 +29,7 @@ final class ArgumentAdderRectorTest extends \Rector\Testing\PHPUnit\AbstractRect
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class => [\Rector\Generic\NodeAnalyzer\ArgumentAddingScope::ADDED_ARGUMENTS => [
+        return [\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class => [\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => [
             // covers https://github.com/rectorphp/rector/issues/4267
             new \Rector\Generic\ValueObject\ArgumentAdder(\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'sendResetLinkResponse', 0, 'request', null, 'Illuminate\\Http\\Illuminate\\Http'),
             new \Rector\Generic\ValueObject\ArgumentAdder(\Rector\Generic\Tests\Rector\ClassMethod\ArgumentAdderRector\Source\SomeContainerBuilder::class, 'compile', 0, 'isCompiled', \false),

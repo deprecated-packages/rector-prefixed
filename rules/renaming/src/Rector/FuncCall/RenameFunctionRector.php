@@ -20,7 +20,7 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     /**
      * @var string
      */
-    public const OLD_FUNCTION_TO_NEW_FUNCTION = '$oldFunctionToNewFunction';
+    public const OLD_FUNCTION_TO_NEW_FUNCTION = 'old_function_to_new_function';
     /**
      * @var array<string, string>
      */
@@ -45,7 +45,7 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
             if (!$this->isName($node, $oldFunction)) {
                 continue;
             }
-            $node->name = \RectorPrefix20210124\Nette\Utils\Strings::contains($newFunction, '\\') ? new \PhpParser\Node\Name\FullyQualified($newFunction) : new \PhpParser\Node\Name($newFunction);
+            $node->name = $this->createName($newFunction);
         }
         return $node;
     }
@@ -55,5 +55,12 @@ final class RenameFunctionRector extends \Rector\Core\Rector\AbstractRector impl
     public function configure(array $configuration) : void
     {
         $this->oldFunctionToNewFunction = $configuration[self::OLD_FUNCTION_TO_NEW_FUNCTION] ?? [];
+    }
+    private function createName(string $newFunction) : \PhpParser\Node\Name
+    {
+        if (\RectorPrefix20210124\Nette\Utils\Strings::contains($newFunction, '\\')) {
+            return new \PhpParser\Node\Name\FullyQualified($newFunction);
+        }
+        return new \PhpParser\Node\Name($newFunction);
     }
 }

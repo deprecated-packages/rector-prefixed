@@ -30,6 +30,10 @@ use RectorPrefix20210124\Webmozart\Assert\Assert;
 final class ArgumentAdderRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
+     * @var string
+     */
+    public const ADDED_ARGUMENTS = 'added_arguments';
+    /**
      * @var ArgumentAdder[]
      */
     private $addedArguments = [];
@@ -43,7 +47,7 @@ final class ArgumentAdderRector extends \Rector\Core\Rector\AbstractRector imple
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        $exampleConfiguration = [\Rector\Generic\NodeAnalyzer\ArgumentAddingScope::ADDED_ARGUMENTS => [new \Rector\Generic\ValueObject\ArgumentAdder('SomeExampleClass', 'someMethod', 0, 'someArgument', 'true', 'SomeType')]];
+        $exampleConfiguration = [self::ADDED_ARGUMENTS => [new \Rector\Generic\ValueObject\ArgumentAdder('SomeExampleClass', 'someMethod', 0, 'someArgument', 'true', 'SomeType')]];
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('This Rector adds new default arguments in calls of defined methods and class types.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $someObject = new SomeExampleClass;
 $someObject->someMethod();
@@ -94,11 +98,11 @@ CODE_SAMPLE
         return $node;
     }
     /**
-     * @param mixed[] $configuration
+     * @param array<string, ArgumentAdder[]> $configuration
      */
     public function configure(array $configuration) : void
     {
-        $addedArguments = $configuration[\Rector\Generic\NodeAnalyzer\ArgumentAddingScope::ADDED_ARGUMENTS] ?? [];
+        $addedArguments = $configuration[self::ADDED_ARGUMENTS] ?? [];
         \RectorPrefix20210124\Webmozart\Assert\Assert::allIsInstanceOf($addedArguments, \Rector\Generic\ValueObject\ArgumentAdder::class);
         $this->addedArguments = $addedArguments;
     }

@@ -45,7 +45,7 @@ return static function (\RectorPrefix20210124\Symfony\Component\DependencyInject
     # https://symfony.com/blog/new-in-symfony-4-2-important-deprecations
     $services->set(\Rector\Symfony4\Rector\New_\StringToArrayArgumentProcessRector::class);
     $services->set(\Rector\Symfony4\Rector\New_\RootNodeTreeBuilderRector::class);
-    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\NodeAnalyzer\ArgumentAddingScope::ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // https://github.com/symfony/symfony/commit/fa2063efe43109aea093d6fbfc12d675dba82146
         // https://github.com/symfony/symfony/commit/e3aa90f852f69040be19da3d8729cdf02d238ec7
         new \Rector\Generic\ValueObject\ArgumentAdder('Symfony\\Component\\BrowserKit\\Client', 'submit', 2, 'serverParameters', [], null, \Rector\Generic\NodeAnalyzer\ArgumentAddingScope::SCOPE_METHOD_CALL),
