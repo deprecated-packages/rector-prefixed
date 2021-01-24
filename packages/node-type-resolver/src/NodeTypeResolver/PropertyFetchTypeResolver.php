@@ -9,11 +9,12 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Trait_;
 use PHPStan\Analyser\Scope;
+use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
-use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
@@ -21,7 +22,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use ReflectionProperty;
 /**
  * @see \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\NameTypeResolver\NameTypeResolverTest
  */
@@ -40,10 +40,6 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
      */
     private $nodeNameResolver;
     /**
-     * @var BetterPhpDocParser
-     */
-    private $betterPhpDocParser;
-    /**
      * @var StaticTypeMapper
      */
     private $staticTypeMapper;
@@ -51,11 +47,10 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
      * @var TraitNodeScopeCollector
      */
     private $traitNodeScopeCollector;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector)
     {
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->betterPhpDocParser = $betterPhpDocParser;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->traitNodeScopeCollector = $traitNodeScopeCollector;
     }
@@ -123,17 +118,15 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
         if (!\property_exists($varObjectType->getClassName(), $propertyName)) {
             return new \PHPStan\Type\MixedType();
         }
-        // property is used
-        $reflectionProperty = new \ReflectionProperty($varObjectType->getClassName(), $propertyName);
-        if (!$reflectionProperty->getDocComment()) {
+        $phpDocInfo = $propertyFetch->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+        if (!$phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+            return $varObjectType;
+        }
+        $tagValueNode = $phpDocInfo->getVarTagValueNode();
+        if (!$tagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode) {
             return new \PHPStan\Type\MixedType();
         }
-        $phpDocNode = $this->betterPhpDocParser->parseString((string) $reflectionProperty->getDocComment());
-        $varTagValues = $phpDocNode->getVarTagValues();
-        if (!isset($varTagValues[0])) {
-            return new \PHPStan\Type\MixedType();
-        }
-        $typeNode = $varTagValues[0]->type;
+        $typeNode = $tagValueNode->type;
         if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\TypeNode) {
             return new \PHPStan\Type\MixedType();
         }

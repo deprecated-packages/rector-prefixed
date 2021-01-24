@@ -39,7 +39,8 @@ final class SmartFileSystem extends \RectorPrefix20210124\Symfony\Component\File
      */
     public function htmlToText(string $html) : string
     {
-        return \html_entity_decode(\strip_tags($html), \ENT_QUOTES | \ENT_HTML5, 'UTF-8');
+        $content = \strip_tags($html);
+        return \html_entity_decode($content, \ENT_QUOTES | \ENT_HTML5, 'UTF-8');
     }
     /**
      * @param SmartFileInfo[] $fileInfos

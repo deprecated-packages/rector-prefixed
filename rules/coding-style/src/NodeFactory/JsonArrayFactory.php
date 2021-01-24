@@ -7,6 +7,7 @@ use RectorPrefix20210124\Nette\Utils\Json;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\CodingStyle\NodeAnalyzer\ImplodeAnalyzer;
@@ -56,7 +57,7 @@ final class JsonArrayFactory
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($array, function (\PhpParser\Node $node) use($placeholderNodes) : ?Expr {
             if ($node instanceof \PhpParser\Node\Expr\Array_ && \count($node->items) === 1) {
                 $onlyItem = $node->items[0];
-                if ($onlyItem === null) {
+                if (!$onlyItem instanceof \PhpParser\Node\Expr\ArrayItem) {
                     throw new \Rector\Core\Exception\ShouldNotHappenException();
                 }
                 $placeholderNode = $this->matchPlaceholderNode($onlyItem->value, $placeholderNodes);

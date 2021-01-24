@@ -3,25 +3,39 @@
 declare (strict_types=1);
 namespace RectorPrefix20210124\Symplify\AutowireArrayParameter\Tests\Source;
 
-use RectorPrefix20210124\Symplify\AutowireArrayParameter\Tests\Source\Contract\CollectedInterface;
+use RectorPrefix20210124\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
+use RectorPrefix20210124\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface;
 final class SomeCollector
 {
     /**
-     * @var CollectedInterface[]
+     * @var FirstCollectedInterface[]
      */
-    private $collected = [];
+    private $firstCollected = [];
     /**
-     * @param CollectedInterface[] $collected
+     * @var SecondCollectedInterface[]
      */
-    public function __construct(array $collected)
+    private $secondCollected = [];
+    /**
+     * @param FirstCollectedInterface[] $firstCollected
+     * @param SecondCollectedInterface[] $secondCollected
+     */
+    public function __construct(array $firstCollected, array $secondCollected)
     {
-        $this->collected = $collected;
+        $this->firstCollected = $firstCollected;
+        $this->secondCollected = $secondCollected;
     }
     /**
-     * @return CollectedInterface[]
+     * @return FirstCollectedInterface[]
      */
-    public function getCollected() : array
+    public function getFirstCollected() : array
     {
-        return $this->collected;
+        return $this->firstCollected;
+    }
+    /**
+     * @return SecondCollectedInterface[]
+     */
+    public function getSecondCollected() : array
+    {
+        return $this->secondCollected;
     }
 }

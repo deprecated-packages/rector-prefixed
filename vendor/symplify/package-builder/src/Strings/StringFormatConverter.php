@@ -17,7 +17,9 @@ final class StringFormatConverter
     private const BIG_LETTER_REGEX = '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]*)#';
     public function underscoreAndHyphenToCamelCase(string $value) : string
     {
-        $value = \str_replace(' ', '', \ucwords(\str_replace(['_', '-'], ' ', $value)));
+        $underscoreToHyphensValue = \str_replace(['_', '-'], ' ', $value);
+        $uppercasedWords = \ucwords($underscoreToHyphensValue);
+        $value = \str_replace(' ', '', $uppercasedWords);
         return \lcfirst($value);
     }
     public function camelCaseToUnderscore(string $input) : string
