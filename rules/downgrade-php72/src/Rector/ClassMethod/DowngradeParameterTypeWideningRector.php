@@ -119,11 +119,13 @@ CODE_SAMPLE
         $paramName = $this->getName($param);
         // Obtain the list of the ancestors classes and implemented interfaces
         // with a different signature
+        /** @var ClassLike[] $ancestorAndInterfaces */
         $ancestorAndInterfaces = \array_merge($this->getClassesWithDifferentSignature($classReflection, $methodName, $paramName), $this->getInterfacesWithDifferentSignature($classReflection, $methodName, $paramName));
         // Remove the types in:
         // - all ancestors + their descendant classes
         // - all implemented interfaces + their implementing classes
         foreach ($ancestorAndInterfaces as $ancestorClassOrInterface) {
+            /** @var string $parentClassName */
             $parentClassName = $ancestorClassOrInterface->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             $classMethod = $this->nodeRepository->findClassMethod($parentClassName, $methodName);
             /**
