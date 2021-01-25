@@ -6,7 +6,7 @@ namespace Rector\Php74\Tests\Rector\FuncCall\ArrayKeyExistsOnPropertyRector;
 use Iterator;
 use Rector\Php74\Rector\FuncCall\ArrayKeyExistsOnPropertyRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @requires PHP < 8.0
  */
@@ -15,7 +15,7 @@ final class ArrayKeyExistsOnPropertyRectorTest extends \Rector\Testing\PHPUnit\A
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

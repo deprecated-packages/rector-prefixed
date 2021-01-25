@@ -9,21 +9,21 @@
         "symfony\/dependency-injection": "^5.1",
         "symfony\/finder": "^4.4|^5.1",
         "symfony\/filesystem": "^4.4|^5.1",
-        "symplify\/package-builder": "^9.0.42",
-        "symplify\/symplify-kernel": "^9.0.42",
-        "symplify\/smart-file-system": "^9.0.42"
+        "symplify\/package-builder": "^9.0.43",
+        "symplify\/symplify-kernel": "^9.0.43",
+        "symplify\/smart-file-system": "^9.0.43"
     },
     "require-dev": {
         "phpunit\/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210124\\Symplify\\Skipper\\": "src"
+            "RectorPrefix20210125\\Symplify\\Skipper\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210124\\Symplify\\Skipper\\Tests\\": "tests"
+            "RectorPrefix20210125\\Symplify\\Skipper\\Tests\\": "tests"
         }
     },
     "extra": {

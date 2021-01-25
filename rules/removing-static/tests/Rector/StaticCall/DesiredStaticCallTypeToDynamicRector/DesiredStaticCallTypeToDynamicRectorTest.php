@@ -5,13 +5,13 @@ namespace Rector\RemovingStatic\Tests\Rector\StaticCall\DesiredStaticCallTypeToD
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo;
 final class DesiredStaticCallTypeToDynamicRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -19,8 +19,8 @@ final class DesiredStaticCallTypeToDynamicRectorTest extends \Rector\Testing\PHP
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/some_config.php');
+        return new \RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/some_config.php');
     }
 }

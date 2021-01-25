@@ -6,13 +6,13 @@ namespace Rector\CodeQuality\Tests\Rector\FuncCall\SetTypeToCastRector;
 use Iterator;
 use Rector\CodeQuality\Rector\FuncCall\SetTypeToCastRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetTypeToCastRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

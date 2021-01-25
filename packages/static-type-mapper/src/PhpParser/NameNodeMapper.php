@@ -43,13 +43,33 @@ final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
         if ($this->isExistingClass($name)) {
             return new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($name);
         }
-        $className = (string) $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if ($name === 'static') {
+        if (\in_array($name, ['static', 'self'], \true)) {
+            return $this->createClassReferenceType($node, $name);
+        }
+        return $this->createScalarType($name);
+    }
+    private function isExistingClass(string $name) : bool
+    {
+        if (\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($name)) {
+            return \true;
+        }
+        // to be existing class names
+        $oldToNewClasses = $this->renamedClassesCollector->getOldToNewClasses();
+        return \in_array($name, $oldToNewClasses, \true);
+    }
+    private function createClassReferenceType(\PhpParser\Node\Name $name, string $reference) : \PHPStan\Type\Type
+    {
+        $className = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        if ($className === null) {
+            return new \PHPStan\Type\MixedType();
+        }
+        if ($reference === 'static') {
             return new \PHPStan\Type\StaticType($className);
         }
-        if ($name === 'self') {
-            return new \PHPStan\Type\ThisType($className);
-        }
+        return new \PHPStan\Type\ThisType($className);
+    }
+    private function createScalarType(string $name) : \PHPStan\Type\Type
+    {
         if ($name === 'array') {
             return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());
         }
@@ -69,14 +89,5 @@ final class NameNodeMapper implements \Rector\StaticTypeMapper\Contract\PhpParse
             return new \PHPStan\Type\BooleanType();
         }
         return new \PHPStan\Type\MixedType();
-    }
-    private function isExistingClass(string $name) : bool
-    {
-        if (\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($name)) {
-            return \true;
-        }
-        // to be existing class names
-        $oldToNewClasses = $this->renamedClassesCollector->getOldToNewClasses();
-        return \in_array($name, $oldToNewClasses, \true);
     }
 }

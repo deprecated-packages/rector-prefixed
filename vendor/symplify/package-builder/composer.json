@@ -12,8 +12,8 @@
         "symfony\/finder": "^4.4|^5.1",
         "symfony\/http-kernel": "^4.4|^5.1",
         "symfony\/yaml": "^4.4|^5.1",
-        "symplify\/symplify-kernel": "^9.0.42",
-        "symplify\/easy-testing": "^9.0.42",
+        "symplify\/symplify-kernel": "^9.0.43",
+        "symplify\/easy-testing": "^9.0.43",
         "nette\/neon": "^3.2"
     },
     "require-dev": {
@@ -21,12 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210124\\Symplify\\PackageBuilder\\": "src"
+            "RectorPrefix20210125\\Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210124\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "RectorPrefix20210125\\Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {

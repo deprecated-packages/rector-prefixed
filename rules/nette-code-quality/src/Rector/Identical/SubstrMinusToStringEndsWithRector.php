@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteCodeQuality\Rector\Identical;
 
-use RectorPrefix20210124\Nette\Utils\Strings;
+use RectorPrefix20210125\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
@@ -64,7 +64,7 @@ CODE_SAMPLE
         if ($string instanceof \PhpParser\Node\Scalar\String_ && \strlen($string->value) !== $wordLength) {
             return null;
         }
-        $staticCall = $this->createStaticCall(\RectorPrefix20210124\Nette\Utils\Strings::class, 'endsWith', [$substr->args[0]->value, $string]);
+        $staticCall = $this->createStaticCall(\RectorPrefix20210125\Nette\Utils\Strings::class, 'endsWith', [$substr->args[0]->value, $string]);
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return $staticCall;
         }

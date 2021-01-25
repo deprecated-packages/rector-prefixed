@@ -9,7 +9,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NetteToSymfony\Analyzer\NetteControlFactoryInterfaceAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\NetteToSymfony\Tests\Rector\Interface_\DeleteFactoryInterfaceRector\DeleteFactoryInterfaceFileSystemRectorTest
  */
@@ -47,7 +47,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $smartFileInfo = $node->getAttribute(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $node->getAttribute(\RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }

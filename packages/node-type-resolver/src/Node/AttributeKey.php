@@ -10,7 +10,7 @@ use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Namespace_;
 use PHPStan\Analyser\Scope;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo;
 final class AttributeKey
 {
     /**
@@ -126,7 +126,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const FILE_INFO = \RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo::class;
+    public const FILE_INFO = \RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo::class;
     /**
      * Internal php-parser name.
      * Do not change this even if you want!
@@ -193,4 +193,8 @@ final class AttributeKey
      * @var string
      */
     public const FUNC_ARGS_TRAILING_COMMA = 'trailing_comma';
+    /**
+     * @var string
+     */
+    public const JUST_ADDED = 'just_added';
 }

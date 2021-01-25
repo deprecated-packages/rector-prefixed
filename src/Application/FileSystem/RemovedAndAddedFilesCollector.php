@@ -6,7 +6,7 @@ namespace Rector\Core\Application\FileSystem;
 use Rector\FileSystemRector\Contract\MovedFileInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
-use RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemovedAndAddedFilesCollector
 {
     /**
@@ -21,7 +21,7 @@ final class RemovedAndAddedFilesCollector
      * @var MovedFileInterface[]
      */
     private $movedFiles = [];
-    public function removeFile(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function removeFile(\RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->removedFiles[] = $smartFileInfo;
     }
@@ -43,7 +43,7 @@ final class RemovedAndAddedFilesCollector
     {
         return $this->movedFiles;
     }
-    public function getMovedFileByFileInfo(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\Rector\FileSystemRector\Contract\MovedFileInterface
+    public function getMovedFileByFileInfo(\RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : ?\Rector\FileSystemRector\Contract\MovedFileInterface
     {
         foreach ($this->movedFiles as $movedFile) {
             if ($movedFile->getOldPathname() !== $smartFileInfo->getPathname()) {
@@ -53,7 +53,7 @@ final class RemovedAndAddedFilesCollector
         }
         return null;
     }
-    public function isFileRemoved(\RectorPrefix20210124\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
+    public function isFileRemoved(\RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
         foreach ($this->removedFiles as $removedFile) {
             if ($removedFile->getPathname() !== $smartFileInfo->getPathname()) {

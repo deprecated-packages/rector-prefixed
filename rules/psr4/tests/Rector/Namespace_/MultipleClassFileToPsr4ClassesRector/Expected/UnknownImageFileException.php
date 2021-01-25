@@ -5,11 +5,11 @@ declare (strict_types=1);
  * This file is part of the Nette Framework (https://nette.org)
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
-namespace RectorPrefix20210124\NettePostfixedToUniqueAutoload\Utils;
+namespace RectorPrefix20210125\NettePostfixedToUniqueAutoload\Utils;
 
 /**
  * The exception that indicates invalid image file.
  */
-class UnknownImageFileException extends \RectorPrefix20210124\NettePostfixedToUniqueAutoload\Utils\RegexpException
+class UnknownImageFileException extends \RectorPrefix20210125\NettePostfixedToUniqueAutoload\Utils\RegexpException
 {
 }
