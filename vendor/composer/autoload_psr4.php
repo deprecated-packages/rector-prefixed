@@ -71,7 +71,6 @@ return array(
     'Rector\\MagicDisclosure\\' => array($baseDir . '/rules/magic-disclosure/src'),
     'Rector\\Legacy\\' => array($baseDir . '/rules/legacy/src'),
     'Rector\\Laravel\\' => array($baseDir . '/rules/laravel/src'),
-    'Rector\\JMS\\' => array($baseDir . '/rules/jms/src'),
     'Rector\\Generic\\' => array($baseDir . '/rules/generic/src'),
     'Rector\\FileSystemRector\\' => array($baseDir . '/packages/file-system-rector/src'),
     'Rector\\FamilyTree\\' => array($baseDir . '/packages/family-tree/src'),

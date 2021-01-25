@@ -2379,8 +2379,6 @@ return array(
     'Rector\\Generic\\ValueObject\\SwapClassMethodArguments' => $baseDir . '/rules/generic/src/ValueObject/SwapClassMethodArguments.php',
     'Rector\\Generic\\ValueObject\\SwapFuncCallArguments' => $baseDir . '/rules/generic/src/ValueObject/SwapFuncCallArguments.php',
     'Rector\\Generic\\ValueObject\\WrapReturn' => $baseDir . '/rules/generic/src/ValueObject/WrapReturn.php',
-    'Rector\\JMS\\Rector\\ClassMethod\\RemoveJmsInjectParamsAnnotationRector' => $baseDir . '/rules/jms/src/Rector/ClassMethod/RemoveJmsInjectParamsAnnotationRector.php',
-    'Rector\\JMS\\Rector\\Class_\\RemoveJmsInjectServiceAnnotationRector' => $baseDir . '/rules/jms/src/Rector/Class_/RemoveJmsInjectServiceAnnotationRector.php',
     'Rector\\Laravel\\NodeFactory\\AppAssignFactory' => $baseDir . '/rules/laravel/src/NodeFactory/AppAssignFactory.php',
     'Rector\\Laravel\\Rector\\Assign\\CallOnAppArrayAccessToStandaloneAssignRector' => $baseDir . '/rules/laravel/src/Rector/Assign/CallOnAppArrayAccessToStandaloneAssignRector.php',
     'Rector\\Laravel\\Rector\\ClassMethod\\AddParentBootToModelClassMethodRector' => $baseDir . '/rules/laravel/src/Rector/ClassMethod/AddParentBootToModelClassMethodRector.php',

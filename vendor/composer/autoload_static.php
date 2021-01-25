@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2c47a701edacafb7ce15810d420cd4fa
+class ComposerStaticInit9c8e34da380b32829b13f81890740927
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -91,7 +91,6 @@ class ComposerStaticInit2c47a701edacafb7ce15810d420cd4fa
             'Rector\\MagicDisclosure\\' => 23,
             'Rector\\Legacy\\' => 14,
             'Rector\\Laravel\\' => 15,
-            'Rector\\JMS\\' => 11,
             'Rector\\Generic\\' => 15,
             'Rector\\FileSystemRector\\' => 24,
             'Rector\\FamilyTree\\' => 18,
@@ -447,10 +446,6 @@ class ComposerStaticInit2c47a701edacafb7ce15810d420cd4fa
         'Rector\\Laravel\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/laravel/src',
-        ),
-        'Rector\\JMS\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/rules/jms/src',
         ),
         'Rector\\Generic\\' => 
         array (
@@ -3184,8 +3179,6 @@ class ComposerStaticInit2c47a701edacafb7ce15810d420cd4fa
         'Rector\\Generic\\ValueObject\\SwapClassMethodArguments' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SwapClassMethodArguments.php',
         'Rector\\Generic\\ValueObject\\SwapFuncCallArguments' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SwapFuncCallArguments.php',
         'Rector\\Generic\\ValueObject\\WrapReturn' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/WrapReturn.php',
-        'Rector\\JMS\\Rector\\ClassMethod\\RemoveJmsInjectParamsAnnotationRector' => __DIR__ . '/../..' . '/rules/jms/src/Rector/ClassMethod/RemoveJmsInjectParamsAnnotationRector.php',
-        'Rector\\JMS\\Rector\\Class_\\RemoveJmsInjectServiceAnnotationRector' => __DIR__ . '/../..' . '/rules/jms/src/Rector/Class_/RemoveJmsInjectServiceAnnotationRector.php',
         'Rector\\Laravel\\NodeFactory\\AppAssignFactory' => __DIR__ . '/../..' . '/rules/laravel/src/NodeFactory/AppAssignFactory.php',
         'Rector\\Laravel\\Rector\\Assign\\CallOnAppArrayAccessToStandaloneAssignRector' => __DIR__ . '/../..' . '/rules/laravel/src/Rector/Assign/CallOnAppArrayAccessToStandaloneAssignRector.php',
         'Rector\\Laravel\\Rector\\ClassMethod\\AddParentBootToModelClassMethodRector' => __DIR__ . '/../..' . '/rules/laravel/src/Rector/ClassMethod/AddParentBootToModelClassMethodRector.php',
@@ -4153,9 +4146,9 @@ class ComposerStaticInit2c47a701edacafb7ce15810d420cd4fa
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2c47a701edacafb7ce15810d420cd4fa::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2c47a701edacafb7ce15810d420cd4fa::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2c47a701edacafb7ce15810d420cd4fa::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9c8e34da380b32829b13f81890740927::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9c8e34da380b32829b13f81890740927::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9c8e34da380b32829b13f81890740927::$classMap;
 
         }, null, ClassLoader::class);
     }

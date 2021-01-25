@@ -8,6 +8,7 @@ use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
@@ -24,7 +25,7 @@ final class RemoveAnnotationRector extends \Rector\Core\Rector\AbstractRector im
      */
     public const ANNOTATIONS_TO_REMOVE = 'annotations_to_remove';
     /**
-     * @var string[]
+     * @var string[]|class-string[]
      */
     private $annotationsToRemove = [];
     /**
@@ -69,10 +70,13 @@ CODE_SAMPLE
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         foreach ($this->annotationsToRemove as $annotationToRemove) {
-            if (!$phpDocInfo->hasByName($annotationToRemove)) {
+            if ($phpDocInfo->hasByName($annotationToRemove)) {
+                $this->phpDocTagRemover->removeByName($phpDocInfo, $annotationToRemove);
                 continue;
             }
-            $this->phpDocTagRemover->removeByName($phpDocInfo, $annotationToRemove);
+            if (\is_a($annotationToRemove, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \true) && $phpDocInfo->hasByType($annotationToRemove)) {
+                $phpDocInfo->removeByType($annotationToRemove);
+            }
         }
         if ($phpDocInfo->hasChanged()) {
             return null;
@@ -80,7 +84,7 @@ CODE_SAMPLE
         return $node;
     }
     /**
-     * @param mixed[] $configuration
+     * @param array<string, string[]> $configuration
      */
     public function configure(array $configuration) : void
     {
