@@ -2669,7 +2669,6 @@ return array(
     'Rector\\NodeTypeResolver\\TypeAnalyzer\\StringTypeAnalyzer' => $baseDir . '/packages/node-type-resolver/src/TypeAnalyzer/StringTypeAnalyzer.php',
     'Rector\\Order\\Contract\\RankeableInterface' => $baseDir . '/rules/order/src/Contract/RankeableInterface.php',
     'Rector\\Order\\Rector\\AbstractConstantPropertyMethodOrderRector' => $baseDir . '/rules/order/src/Rector/AbstractConstantPropertyMethodOrderRector.php',
-    'Rector\\Order\\Rector\\ClassMethod\\OrderConstructorDependenciesByTypeAlphabeticallyRector' => $baseDir . '/rules/order/src/Rector/ClassMethod/OrderConstructorDependenciesByTypeAlphabeticallyRector.php',
     'Rector\\Order\\Rector\\Class_\\OrderClassConstantsByIntegerValueRector' => $baseDir . '/rules/order/src/Rector/Class_/OrderClassConstantsByIntegerValueRector.php',
     'Rector\\Order\\Rector\\Class_\\OrderConstantsByVisibilityRector' => $baseDir . '/rules/order/src/Rector/Class_/OrderConstantsByVisibilityRector.php',
     'Rector\\Order\\Rector\\Class_\\OrderFirstLevelClassStatementsRector' => $baseDir . '/rules/order/src/Rector/Class_/OrderFirstLevelClassStatementsRector.php',
