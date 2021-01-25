@@ -3,6 +3,8 @@
 declare (strict_types=1);
 namespace RectorPrefix20210125;
 
+use Rector\Core\Configuration\Option;
+use Rector\Core\ValueObject\PhpVersion;
 use Rector\DowngradePhp74\Rector\Array_\DowngradeArraySpreadRector;
 use Rector\DowngradePhp74\Rector\ArrowFunction\ArrowFunctionToAnonymousFunctionRector;
 use Rector\DowngradePhp74\Rector\ClassMethod\DowngradeContravariantArgumentTypeRector;
@@ -26,6 +28,12 @@ return static function (\RectorPrefix20210125\Symfony\Component\DependencyInject
     $services->set(\Rector\DowngradePhp74\Rector\FuncCall\DowngradeStripTagsCallWithArrayRector::class);
     $services->set(\Rector\DowngradePhp74\Rector\Array_\DowngradeArraySpreadRector::class);
     $services->set(\Rector\DowngradePhp74\Rector\FuncCall\DowngradeArrayMergeCallWithoutArgumentsRector::class);
+    $parameters = $containerConfigurator->parameters();
+    $parameters->set(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, \Rector\Core\ValueObject\PhpVersion::PHP_73);
+    // skip root namespace classes, like \DateTime or \Exception [default: true]
+    $parameters->set(\Rector\Core\Configuration\Option::IMPORT_SHORT_CLASSES, \false);
+    // skip classes used in PHP DocBlocks, like in /** @var \Some\Class */ [default: true]
+    $parameters->set(\Rector\Core\Configuration\Option::IMPORT_DOC_BLOCKS, \false);
     $services->set(\Rector\DowngradePhp74\Rector\Identical\DowngradeFreadFwriteFalsyToNegationRector::class);
     $services->set(\Rector\DowngradePhp74\Rector\ClassMethod\DowngradeReturnSelfTypeDeclarationRector::class);
 };

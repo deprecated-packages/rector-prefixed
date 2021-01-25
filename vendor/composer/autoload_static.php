@@ -4,12 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit87e6969da6e0837bff624266f7e334a9
+class ComposerStaticInit487a8012bc06433f55714d2daede4679
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
@@ -158,6 +158,7 @@ class ComposerStaticInit87e6969da6e0837bff624266f7e334a9
             'RectorPrefix20210125\\Symfony\\Component\\HttpFoundation\\' => 54,
             'RectorPrefix20210125\\Symfony\\Component\\Finder\\' => 46,
             'RectorPrefix20210125\\Symfony\\Component\\Filesystem\\' => 50,
+            'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\' => 58,
             'RectorPrefix20210125\\Symfony\\Component\\EventDispatcher\\' => 55,
             'RectorPrefix20210125\\Symfony\\Component\\ErrorHandler\\' => 52,
             'RectorPrefix20210125\\Symfony\\Component\\DependencyInjection\\' => 59,
@@ -713,6 +714,10 @@ class ComposerStaticInit87e6969da6e0837bff624266f7e334a9
         'RectorPrefix20210125\\Symfony\\Component\\Filesystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/filesystem',
+        ),
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/expression-language',
         ),
         'RectorPrefix20210125\\Symfony\\Component\\EventDispatcher\\' => 
         array (
@@ -1689,6 +1694,28 @@ class ComposerStaticInit87e6969da6e0837bff624266f7e334a9
         'RectorPrefix20210125\\Symfony\\Component\\EventDispatcher\\GenericEvent' => __DIR__ . '/..' . '/symfony/event-dispatcher/GenericEvent.php',
         'RectorPrefix20210125\\Symfony\\Component\\EventDispatcher\\ImmutableEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/ImmutableEventDispatcher.php',
         'RectorPrefix20210125\\Symfony\\Component\\EventDispatcher\\LegacyEventDispatcherProxy' => __DIR__ . '/..' . '/symfony/event-dispatcher/LegacyEventDispatcherProxy.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Compiler' => __DIR__ . '/..' . '/symfony/expression-language/Compiler.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Expression' => __DIR__ . '/..' . '/symfony/expression-language/Expression.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\ExpressionFunction' => __DIR__ . '/..' . '/symfony/expression-language/ExpressionFunction.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\ExpressionFunctionProviderInterface' => __DIR__ . '/..' . '/symfony/expression-language/ExpressionFunctionProviderInterface.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\ExpressionLanguage' => __DIR__ . '/..' . '/symfony/expression-language/ExpressionLanguage.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Lexer' => __DIR__ . '/..' . '/symfony/expression-language/Lexer.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\ArgumentsNode' => __DIR__ . '/..' . '/symfony/expression-language/Node/ArgumentsNode.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\ArrayNode' => __DIR__ . '/..' . '/symfony/expression-language/Node/ArrayNode.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\BinaryNode' => __DIR__ . '/..' . '/symfony/expression-language/Node/BinaryNode.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\ConditionalNode' => __DIR__ . '/..' . '/symfony/expression-language/Node/ConditionalNode.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\ConstantNode' => __DIR__ . '/..' . '/symfony/expression-language/Node/ConstantNode.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\FunctionNode' => __DIR__ . '/..' . '/symfony/expression-language/Node/FunctionNode.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\GetAttrNode' => __DIR__ . '/..' . '/symfony/expression-language/Node/GetAttrNode.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\NameNode' => __DIR__ . '/..' . '/symfony/expression-language/Node/NameNode.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\Node' => __DIR__ . '/..' . '/symfony/expression-language/Node/Node.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Node\\UnaryNode' => __DIR__ . '/..' . '/symfony/expression-language/Node/UnaryNode.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\ParsedExpression' => __DIR__ . '/..' . '/symfony/expression-language/ParsedExpression.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Parser' => __DIR__ . '/..' . '/symfony/expression-language/Parser.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\SerializedParsedExpression' => __DIR__ . '/..' . '/symfony/expression-language/SerializedParsedExpression.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\SyntaxError' => __DIR__ . '/..' . '/symfony/expression-language/SyntaxError.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\Token' => __DIR__ . '/..' . '/symfony/expression-language/Token.php',
+        'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\TokenStream' => __DIR__ . '/..' . '/symfony/expression-language/TokenStream.php',
         'RectorPrefix20210125\\Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/filesystem/Exception/ExceptionInterface.php',
         'RectorPrefix20210125\\Symfony\\Component\\Filesystem\\Exception\\FileNotFoundException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/FileNotFoundException.php',
         'RectorPrefix20210125\\Symfony\\Component\\Filesystem\\Exception\\IOException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/IOException.php',
@@ -4136,9 +4163,9 @@ class ComposerStaticInit87e6969da6e0837bff624266f7e334a9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit87e6969da6e0837bff624266f7e334a9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit87e6969da6e0837bff624266f7e334a9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit87e6969da6e0837bff624266f7e334a9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit487a8012bc06433f55714d2daede4679::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit487a8012bc06433f55714d2daede4679::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit487a8012bc06433f55714d2daede4679::$classMap;
 
         }, null, ClassLoader::class);
     }

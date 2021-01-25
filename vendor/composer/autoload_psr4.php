@@ -138,6 +138,7 @@ return array(
     'RectorPrefix20210125\\Symfony\\Component\\HttpFoundation\\' => array($vendorDir . '/symfony/http-foundation'),
     'RectorPrefix20210125\\Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
     'RectorPrefix20210125\\Symfony\\Component\\Filesystem\\' => array($vendorDir . '/symfony/filesystem'),
+    'RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\' => array($vendorDir . '/symfony/expression-language'),
     'RectorPrefix20210125\\Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
     'RectorPrefix20210125\\Symfony\\Component\\ErrorHandler\\' => array($vendorDir . '/symfony/error-handler'),
     'RectorPrefix20210125\\Symfony\\Component\\DependencyInjection\\' => array($vendorDir . '/symfony/dependency-injection'),

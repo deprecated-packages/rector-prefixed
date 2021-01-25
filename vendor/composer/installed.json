@@ -2174,6 +2174,73 @@
             "install-path": "..\/symfony\/event-dispatcher-contracts"
         },
         {
+            "name": "symfony\/expression-language",
+            "version": "v5.2.1",
+            "version_normalized": "5.2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/expression-language.git",
+                "reference": "f9a7c7eb461df6d5d99738346039de71685de6af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/expression-language\/zipball\/f9a7c7eb461df6d5d99738346039de71685de6af",
+                "reference": "f9a7c7eb461df6d5d99738346039de71685de6af",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony\/cache": "^4.4|^5.0",
+                "symfony\/polyfill-php80": "^1.15",
+                "symfony\/service-contracts": "^1.1|^2"
+            },
+            "time": "2020-12-08T17:03:37+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "RectorPrefix20210125\\Symfony\\Component\\ExpressionLanguage\\": ""
+                },
+                "exclude-from-classmap": [
+                    "\/Tests\/"
+                ]
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Symfony ExpressionLanguage Component",
+            "homepage": "https:\/\/symfony.com",
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/expression-language\/tree\/v5.2.1"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/expression-language"
+        },
+        {
             "name": "symfony\/filesystem",
             "version": "v5.2.1",
             "version_normalized": "5.2.1.0",
