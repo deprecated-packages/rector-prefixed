@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit802903af46e81fe7fc1bc0f894cea6a3
+class ComposerStaticInit90f27c3d1d5fd5713f498ef182005eac
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -65,7 +65,6 @@ class ComposerStaticInit802903af46e81fe7fc1bc0f894cea6a3
             'Rector\\Php54\\' => 13,
             'Rector\\Php53\\' => 13,
             'Rector\\Php52\\' => 13,
-            'Rector\\Phalcon\\' => 15,
             'Rector\\Performance\\' => 19,
             'Rector\\PSR4\\' => 12,
             'Rector\\PHPUnit\\' => 15,
@@ -342,10 +341,6 @@ class ComposerStaticInit802903af46e81fe7fc1bc0f894cea6a3
         'Rector\\Php52\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/php52/src',
-        ),
-        'Rector\\Phalcon\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/rules/phalcon/src',
         ),
         'Rector\\Performance\\' => 
         array (
@@ -3601,10 +3596,6 @@ class ComposerStaticInit802903af46e81fe7fc1bc0f894cea6a3
         'Rector\\PSR4\\Rector\\Namespace_\\MultipleClassFileToPsr4ClassesRector' => __DIR__ . '/../..' . '/rules/psr4/src/Rector/Namespace_/MultipleClassFileToPsr4ClassesRector.php',
         'Rector\\Performance\\Rector\\FuncCall\\CountArrayToEmptyArrayComparisonRector' => __DIR__ . '/../..' . '/rules/performance/src/Rector/FuncCall/CountArrayToEmptyArrayComparisonRector.php',
         'Rector\\Performance\\Rector\\FuncCall\\PreslashSimpleFunctionRector' => __DIR__ . '/../..' . '/rules/performance/src/Rector/FuncCall/PreslashSimpleFunctionRector.php',
-        'Rector\\Phalcon\\Rector\\Assign\\FlashWithCssClassesToExtraCallRector' => __DIR__ . '/../..' . '/rules/phalcon/src/Rector/Assign/FlashWithCssClassesToExtraCallRector.php',
-        'Rector\\Phalcon\\Rector\\Assign\\NewApplicationToToFactoryWithDefaultContainerRector' => __DIR__ . '/../..' . '/rules/phalcon/src/Rector/Assign/NewApplicationToToFactoryWithDefaultContainerRector.php',
-        'Rector\\Phalcon\\Rector\\MethodCall\\AddRequestToHandleMethodCallRector' => __DIR__ . '/../..' . '/rules/phalcon/src/Rector/MethodCall/AddRequestToHandleMethodCallRector.php',
-        'Rector\\Phalcon\\Rector\\MethodCall\\DecoupleSaveMethodCallWithArgumentToAssignRector' => __DIR__ . '/../..' . '/rules/phalcon/src/Rector/MethodCall/DecoupleSaveMethodCallWithArgumentToAssignRector.php',
         'Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector' => __DIR__ . '/../..' . '/rules/php52/src/Rector/Property/VarToPublicPropertyRector.php',
         'Rector\\Php52\\Rector\\Switch_\\ContinueToBreakInSwitchRector' => __DIR__ . '/../..' . '/rules/php52/src/Rector/Switch_/ContinueToBreakInSwitchRector.php',
         'Rector\\Php53\\Rector\\AssignRef\\ClearReturnNewByReferenceRector' => __DIR__ . '/../..' . '/rules/php53/src/Rector/AssignRef/ClearReturnNewByReferenceRector.php',
@@ -4145,9 +4136,9 @@ class ComposerStaticInit802903af46e81fe7fc1bc0f894cea6a3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit802903af46e81fe7fc1bc0f894cea6a3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit802903af46e81fe7fc1bc0f894cea6a3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit802903af46e81fe7fc1bc0f894cea6a3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit90f27c3d1d5fd5713f498ef182005eac::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit90f27c3d1d5fd5713f498ef182005eac::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit90f27c3d1d5fd5713f498ef182005eac::$classMap;
 
         }, null, ClassLoader::class);
     }

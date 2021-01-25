@@ -45,7 +45,6 @@ return array(
     'Rector\\Php54\\' => array($baseDir . '/rules/php54/src'),
     'Rector\\Php53\\' => array($baseDir . '/rules/php53/src'),
     'Rector\\Php52\\' => array($baseDir . '/rules/php52/src'),
-    'Rector\\Phalcon\\' => array($baseDir . '/rules/phalcon/src'),
     'Rector\\Performance\\' => array($baseDir . '/rules/performance/src'),
     'Rector\\PSR4\\' => array($baseDir . '/rules/psr4/src'),
     'Rector\\PHPUnit\\' => array($baseDir . '/rules/phpunit/src'),
