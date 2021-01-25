@@ -12,7 +12,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-final class NodeRemovingRector extends \Rector\PostRector\Rector\AbstractPostRector
+final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
      * @var NodesToRemoveCollector

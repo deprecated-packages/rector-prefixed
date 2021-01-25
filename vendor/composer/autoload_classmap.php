@@ -2963,7 +2963,7 @@ return array(
     'Rector\\PostRector\\Rector\\ClassRenamingPostRector' => $baseDir . '/packages/post-rector/src/Rector/ClassRenamingPostRector.php',
     'Rector\\PostRector\\Rector\\NameImportingPostRector' => $baseDir . '/packages/post-rector/src/Rector/NameImportingPostRector.php',
     'Rector\\PostRector\\Rector\\NodeAddingPostRector' => $baseDir . '/packages/post-rector/src/Rector/NodeAddingPostRector.php',
-    'Rector\\PostRector\\Rector\\NodeRemovingRector' => $baseDir . '/packages/post-rector/src/Rector/NodeRemovingRector.php',
+    'Rector\\PostRector\\Rector\\NodeRemovingPostRector' => $baseDir . '/packages/post-rector/src/Rector/NodeRemovingPostRector.php',
     'Rector\\PostRector\\Rector\\NodeToReplacePostRector' => $baseDir . '/packages/post-rector/src/Rector/NodeToReplacePostRector.php',
     'Rector\\PostRector\\Rector\\PropertyAddingPostRector' => $baseDir . '/packages/post-rector/src/Rector/PropertyAddingPostRector.php',
     'Rector\\PostRector\\Rector\\UseAddingPostRector' => $baseDir . '/packages/post-rector/src/Rector/UseAddingPostRector.php',
