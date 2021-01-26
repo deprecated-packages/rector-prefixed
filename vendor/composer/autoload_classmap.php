@@ -1921,8 +1921,6 @@ return array(
     'Rector\\Composer\\Rector\\AddPackageToRequireComposerRector' => $baseDir . '/rules/composer/src/Rector/AddPackageToRequireComposerRector.php',
     'Rector\\Composer\\Rector\\AddPackageToRequireDevComposerRector' => $baseDir . '/rules/composer/src/Rector/AddPackageToRequireDevComposerRector.php',
     'Rector\\Composer\\Rector\\ChangePackageVersionComposerRector' => $baseDir . '/rules/composer/src/Rector/ChangePackageVersionComposerRector.php',
-    'Rector\\Composer\\Rector\\MovePackageToRequireComposerRector' => $baseDir . '/rules/composer/src/Rector/MovePackageToRequireComposerRector.php',
-    'Rector\\Composer\\Rector\\MovePackageToRequireDevComposerRector' => $baseDir . '/rules/composer/src/Rector/MovePackageToRequireDevComposerRector.php',
     'Rector\\Composer\\Rector\\RemovePackageComposerRector' => $baseDir . '/rules/composer/src/Rector/RemovePackageComposerRector.php',
     'Rector\\Composer\\Rector\\ReplacePackageAndVersionComposerRector' => $baseDir . '/rules/composer/src/Rector/ReplacePackageAndVersionComposerRector.php',
     'Rector\\Composer\\ValueObject\\PackageAndVersion' => $baseDir . '/rules/composer/src/ValueObject/PackageAndVersion.php',
