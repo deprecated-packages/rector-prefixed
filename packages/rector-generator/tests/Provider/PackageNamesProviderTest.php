@@ -21,7 +21,7 @@ final class PackageNamesProviderTest extends \RectorPrefix20210126\Symplify\Pack
     {
         $packageNames = $this->packageNamesProvider->provide();
         $packageNameCount = \count($packageNames);
-        $this->assertGreaterThan(70, $packageNameCount);
+        $this->assertGreaterThan(60, $packageNameCount);
         $this->assertContains('DeadCode', $packageNames);
         $this->assertContains('Symfony5', $packageNames);
     }

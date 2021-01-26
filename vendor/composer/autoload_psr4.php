@@ -15,7 +15,6 @@ return array(
     'Rector\\Testing\\' => array($baseDir . '/packages/testing/src'),
     'Rector\\Symfony\\' => array($baseDir . '/rules/symfony/src'),
     'Rector\\SymfonyPhpConfig\\' => array($baseDir . '/rules/symfony-php-config/src'),
-    'Rector\\SymfonyPHPUnit\\' => array($baseDir . '/rules/symfony-phpunit/src'),
     'Rector\\SymfonyCodeQuality\\' => array($baseDir . '/rules/symfony-code-quality/src'),
     'Rector\\Symfony5\\' => array($baseDir . '/rules/symfony5/src'),
     'Rector\\Symfony4\\' => array($baseDir . '/rules/symfony4/src'),

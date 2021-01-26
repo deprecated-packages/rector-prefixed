@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587
+class ComposerStaticInit0e7dbf9de2a41502da549f69b5b359bc
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -35,7 +35,6 @@ class ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587
             'Rector\\Testing\\' => 15,
             'Rector\\Symfony\\' => 15,
             'Rector\\SymfonyPhpConfig\\' => 24,
-            'Rector\\SymfonyPHPUnit\\' => 22,
             'Rector\\SymfonyCodeQuality\\' => 26,
             'Rector\\Symfony5\\' => 16,
             'Rector\\Symfony4\\' => 16,
@@ -222,10 +221,6 @@ class ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587
         'Rector\\SymfonyPhpConfig\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/symfony-php-config/src',
-        ),
-        'Rector\\SymfonyPHPUnit\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/rules/symfony-phpunit/src',
         ),
         'Rector\\SymfonyCodeQuality\\' => 
         array (
@@ -3551,9 +3546,7 @@ class ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587
         'Rector\\PHPStanStaticTypeMapper\\Utils\\TypeUnwrapper' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/Utils/TypeUnwrapper.php',
         'Rector\\PHPStanStaticTypeMapper\\ValueObject\\UnionTypeAnalysis' => __DIR__ . '/../..' . '/packages/phpstan-static-type-mapper/src/ValueObject/UnionTypeAnalysis.php',
         'Rector\\PHPUnitSymfony\\Rector\\StaticCall\\AddMessageToEqualsResponseCodeRector' => __DIR__ . '/../..' . '/rules/phpunit-symfony/src/Rector/StaticCall/AddMessageToEqualsResponseCodeRector.php',
-        'Rector\\PHPUnit\\Collector\\FormerVariablesByMethodCollector' => __DIR__ . '/../..' . '/rules/phpunit/src/Collector/FormerVariablesByMethodCollector.php',
         'Rector\\PHPUnit\\Composer\\ComposerAutoloadedDirectoryProvider' => __DIR__ . '/../..' . '/rules/phpunit/src/Composer/ComposerAutoloadedDirectoryProvider.php',
-        'Rector\\PHPUnit\\Manipulator\\OnContainerGetCallManipulator' => __DIR__ . '/../..' . '/rules/phpunit/src/Manipulator/OnContainerGetCallManipulator.php',
         'Rector\\PHPUnit\\NodeAnalyzer\\TestsNodeAnalyzer' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeAnalyzer/TestsNodeAnalyzer.php',
         'Rector\\PHPUnit\\NodeFactory\\DataProviderClassMethodFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/DataProviderClassMethodFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionMethodCallFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ExpectExceptionMethodCallFactory.php',
@@ -3572,7 +3565,6 @@ class ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587
         'Rector\\PHPUnit\\Rector\\Class_\\ArrayArgumentInTestToDataProviderRector' => __DIR__ . '/../..' . '/rules/phpunit/src/Rector/Class_/ArrayArgumentInTestToDataProviderRector.php',
         'Rector\\PHPUnit\\Rector\\Class_\\ConstructClassMethodToSetUpTestCaseRector' => __DIR__ . '/../..' . '/rules/phpunit/src/Rector/Class_/ConstructClassMethodToSetUpTestCaseRector.php',
         'Rector\\PHPUnit\\Rector\\Class_\\RemoveDataProviderTestPrefixRector' => __DIR__ . '/../..' . '/rules/phpunit/src/Rector/Class_/RemoveDataProviderTestPrefixRector.php',
-        'Rector\\PHPUnit\\Rector\\Class_\\SelfContainerGetMethodCallFromTestToInjectPropertyRector' => __DIR__ . '/../..' . '/rules/phpunit/src/Rector/Class_/SelfContainerGetMethodCallFromTestToInjectPropertyRector.php',
         'Rector\\PHPUnit\\Rector\\Class_\\TestListenerToHooksRector' => __DIR__ . '/../..' . '/rules/phpunit/src/Rector/Class_/TestListenerToHooksRector.php',
         'Rector\\PHPUnit\\Rector\\Foreach_\\SimplifyForeachInstanceOfRector' => __DIR__ . '/../..' . '/rules/phpunit/src/Rector/Foreach_/SimplifyForeachInstanceOfRector.php',
         'Rector\\PHPUnit\\Rector\\MethodCall\\AssertCompareToSpecificMethodRector' => __DIR__ . '/../..' . '/rules/phpunit/src/Rector/MethodCall/AssertCompareToSpecificMethodRector.php',
@@ -3977,11 +3969,6 @@ class ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587
         'Rector\\SymfonyCodeQuality\\ValueObject\\ClassName' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ValueObject/ClassName.php',
         'Rector\\SymfonyCodeQuality\\ValueObject\\ConstantNameAndValue' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ValueObject/ConstantNameAndValue.php',
         'Rector\\SymfonyCodeQuality\\ValueObject\\EventNameToClassAndConstant' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ValueObject/EventNameToClassAndConstant.php',
-        'Rector\\SymfonyPHPUnit\\Naming\\ServiceNaming' => __DIR__ . '/../..' . '/rules/symfony-phpunit/src/Naming/ServiceNaming.php',
-        'Rector\\SymfonyPHPUnit\\Node\\KernelTestCaseNodeAnalyzer' => __DIR__ . '/../..' . '/rules/symfony-phpunit/src/Node/KernelTestCaseNodeAnalyzer.php',
-        'Rector\\SymfonyPHPUnit\\Node\\KernelTestCaseNodeFactory' => __DIR__ . '/../..' . '/rules/symfony-phpunit/src/Node/KernelTestCaseNodeFactory.php',
-        'Rector\\SymfonyPHPUnit\\Rector\\Class_\\SelfContainerGetMethodCallFromTestToSetUpMethodRector' => __DIR__ . '/../..' . '/rules/symfony-phpunit/src/Rector/Class_/SelfContainerGetMethodCallFromTestToSetUpMethodRector.php',
-        'Rector\\SymfonyPHPUnit\\SelfContainerMethodCallCollector' => __DIR__ . '/../..' . '/rules/symfony-phpunit/src/SelfContainerMethodCallCollector.php',
         'Rector\\SymfonyPhpConfig\\NodeAnalyzer\\SymfonyPhpConfigClosureAnalyzer' => __DIR__ . '/../..' . '/rules/symfony-php-config/src/NodeAnalyzer/SymfonyPhpConfigClosureAnalyzer.php',
         'Rector\\SymfonyPhpConfig\\Rector\\MethodCall\\AutoInPhpSymfonyConfigRector' => __DIR__ . '/../..' . '/rules/symfony-php-config/src/Rector/MethodCall/AutoInPhpSymfonyConfigRector.php',
         'Rector\\Symfony\\Bridge\\NodeAnalyzer\\ControllerMethodAnalyzer' => __DIR__ . '/../..' . '/rules/symfony/src/Bridge/NodeAnalyzer/ControllerMethodAnalyzer.php',
@@ -4161,9 +4148,9 @@ class ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6c1ee1d5c52d2fc7197a7206d4eff587::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0e7dbf9de2a41502da549f69b5b359bc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0e7dbf9de2a41502da549f69b5b359bc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0e7dbf9de2a41502da549f69b5b359bc::$classMap;
 
         }, null, ClassLoader::class);
     }
