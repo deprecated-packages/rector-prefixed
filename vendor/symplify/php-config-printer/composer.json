@@ -7,20 +7,20 @@
         "nette\/utils": "^3.0",
         "nikic\/php-parser": "^4.10.4",
         "symfony\/http-kernel": "^4.4|^5.1",
-        "symplify\/symplify-kernel": "^9.0.44"
+        "symplify\/symplify-kernel": "^9.0.45"
     },
     "require-dev": {
-        "symplify\/easy-testing": "^9.0.44",
+        "symplify\/easy-testing": "^9.0.45",
         "phpunit\/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210125\\Symplify\\PhpConfigPrinter\\": "src"
+            "RectorPrefix20210126\\Symplify\\PhpConfigPrinter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210125\\Symplify\\PhpConfigPrinter\\Tests\\": "tests"
+            "RectorPrefix20210126\\Symplify\\PhpConfigPrinter\\Tests\\": "tests"
         },
         "files": [
             "tests\/Printer\/SmartPhpConfigPrinter\/Source\/custom_inline_objects_function.php",

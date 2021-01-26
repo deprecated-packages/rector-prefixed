@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210125\Symplify\SetConfigResolver\Tests\Bootstrap;
+namespace RectorPrefix20210126\Symplify\SetConfigResolver\Tests\Bootstrap;
 
-use RectorPrefix20210125\PHPUnit\Framework\TestCase;
-use RectorPrefix20210125\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
-use RectorPrefix20210125\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-final class InvalidSetReporterTest extends \RectorPrefix20210125\PHPUnit\Framework\TestCase
+use RectorPrefix20210126\PHPUnit\Framework\TestCase;
+use RectorPrefix20210126\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
+use RectorPrefix20210126\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+final class InvalidSetReporterTest extends \RectorPrefix20210126\PHPUnit\Framework\TestCase
 {
     /**
      * @var InvalidSetReporter
@@ -14,14 +14,14 @@ final class InvalidSetReporterTest extends \RectorPrefix20210125\PHPUnit\Framewo
     private $invalidSetReporter;
     protected function setUp() : void
     {
-        $this->invalidSetReporter = new \RectorPrefix20210125\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
+        $this->invalidSetReporter = new \RectorPrefix20210126\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
     }
     /**
      * @doesNotPerformAssertions
      */
     public function test() : void
     {
-        $setNotFoundException = new \RectorPrefix20210125\Symplify\SetConfigResolver\Exception\SetNotFoundException('not found', 'one', ['two', 'three']);
+        $setNotFoundException = new \RectorPrefix20210126\Symplify\SetConfigResolver\Exception\SetNotFoundException('not found', 'one', ['two', 'three']);
         $this->invalidSetReporter->report($setNotFoundException);
     }
 }

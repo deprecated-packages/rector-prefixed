@@ -6,7 +6,7 @@ namespace Rector\Core\PhpParser\Parser;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Parser;
 use ReflectionFunction;
-use RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210126\Symplify\SmartFileSystem\SmartFileSystem;
 final class FunctionParser
 {
     /**
@@ -17,7 +17,7 @@ final class FunctionParser
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210126\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->parser = $parser;
         $this->smartFileSystem = $smartFileSystem;

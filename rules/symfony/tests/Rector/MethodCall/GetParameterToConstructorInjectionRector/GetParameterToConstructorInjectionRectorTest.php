@@ -6,13 +6,13 @@ namespace Rector\Symfony\Tests\Rector\MethodCall\GetParameterToConstructorInject
 use Iterator;
 use Rector\Symfony\Rector\MethodCall\GetParameterToConstructorInjectionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210126\Symplify\SmartFileSystem\SmartFileInfo;
 final class GetParameterToConstructorInjectionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210125\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210126\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210125;
+namespace RectorPrefix20210126;
 
-use Rector\Composer\Rector\ChangePackageVersionRector;
-use Rector\Composer\Rector\RemovePackageRector;
-use Rector\Composer\Rector\ReplacePackageAndVersionRector;
+use Rector\Composer\Rector\ChangePackageVersionComposerRector;
+use Rector\Composer\Rector\RemovePackageComposerRector;
+use Rector\Composer\Rector\ReplacePackageAndVersionComposerRector;
 use Rector\Composer\ValueObject\PackageAndVersion;
 use Rector\Composer\ValueObject\ReplacePackageAndVersion;
-use RectorPrefix20210125\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210126\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210125\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210126\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Composer\Rector\ChangePackageVersionRector::class)->call('configure', [[\Rector\Composer\Rector\ChangePackageVersionRector::PACKAGES_AND_VERSIONS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\Rector\Composer\Rector\ChangePackageVersionComposerRector::class)->call('configure', [[\Rector\Composer\Rector\ChangePackageVersionComposerRector::PACKAGES_AND_VERSIONS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         new \Rector\Composer\ValueObject\PackageAndVersion('nette/nette', '^3.0'),
         // https://github.com/nette/nette/blob/v2.4.0/composer.json vs https://github.com/nette/nette/blob/v3.0.0/composer.json
         // older versions have security issues
@@ -41,8 +41,8 @@ return static function (\RectorPrefix20210125\Symfony\Component\DependencyInject
         // other packages
         new \Rector\Composer\ValueObject\PackageAndVersion('radekdostal/nette-datetimepicker', '^3.0'),
     ])]]);
-    $services->set(\Rector\Composer\Rector\RemovePackageRector::class)->call('configure', [[\Rector\Composer\Rector\RemovePackageRector::PACKAGE_NAMES => ['nette/deprecated', 'nette/reflection']]]);
-    $services->set(\Rector\Composer\Rector\ReplacePackageAndVersionRector::class)->call('configure', [[\Rector\Composer\Rector\ReplacePackageAndVersionRector::REPLACE_PACKAGES_AND_VERSIONS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\Rector\Composer\Rector\RemovePackageComposerRector::class)->call('configure', [[\Rector\Composer\Rector\RemovePackageComposerRector::PACKAGE_NAMES => ['nette/deprecated', 'nette/reflection']]]);
+    $services->set(\Rector\Composer\Rector\ReplacePackageAndVersionComposerRector::class)->call('configure', [[\Rector\Composer\Rector\ReplacePackageAndVersionComposerRector::REPLACE_PACKAGES_AND_VERSIONS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // webchemistry to contributte
         new \Rector\Composer\ValueObject\ReplacePackageAndVersion('webchemistry/forms-multiplier', 'contributte/forms-multiplier', '3.1.x-dev'),
     ])]]);

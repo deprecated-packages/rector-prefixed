@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210125\Symplify\AutowireArrayParameter\Tests\Source;
+namespace RectorPrefix20210126\Symplify\AutowireArrayParameter\Tests\Source;
 
-use RectorPrefix20210125\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
-use RectorPrefix20210125\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface;
+use RectorPrefix20210126\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
+use RectorPrefix20210126\Symplify\AutowireArrayParameter\Tests\Source\Contract\SecondCollectedInterface;
 final class SomeCollector
 {
     /**

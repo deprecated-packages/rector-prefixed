@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210125\Symplify\PhpConfigPrinter\ValueObject;
+namespace RectorPrefix20210126\Symplify\PhpConfigPrinter\ValueObject;
 
 final class VariableName
 {

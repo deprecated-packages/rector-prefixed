@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210125\Nette\Neon;
+namespace RectorPrefix20210126\Nette\Neon;
 
 /**
  * Simple generator for Nette Object Notation.
@@ -20,8 +20,8 @@ final class Encoder
     {
         if ($var instanceof \DateTimeInterface) {
             return $var->format('Y-m-d H:i:s O');
-        } elseif ($var instanceof \RectorPrefix20210125\Nette\Neon\Entity) {
-            if ($var->value === \RectorPrefix20210125\Nette\Neon\Neon::CHAIN) {
+        } elseif ($var instanceof \RectorPrefix20210126\Nette\Neon\Entity) {
+            if ($var->value === \RectorPrefix20210126\Nette\Neon\Neon::CHAIN) {
                 return \implode('', \array_map([$this, 'encode'], $var->attributes));
             }
             return $this->encode($var->value) . '(' . (\is_array($var->attributes) ? \substr($this->encode($var->attributes), 1, -1) : '') . ')';
@@ -52,12 +52,12 @@ final class Encoder
                 return ($isList ? '[' : '{') . \substr($s, 0, -2) . ($isList ? ']' : '}');
             }
         } elseif (\is_string($var)) {
-            if (!\preg_match('~[\\x00-\\x1F]|^[+-.]?\\d|^(true|false|yes|no|on|off|null)$~Di', $var) && \preg_match('~^' . \RectorPrefix20210125\Nette\Neon\Decoder::PATTERNS[1] . '$~Dx', $var)) {
+            if (!\preg_match('~[\\x00-\\x1F]|^[+-.]?\\d|^(true|false|yes|no|on|off|null)$~Di', $var) && \preg_match('~^' . \RectorPrefix20210126\Nette\Neon\Decoder::PATTERNS[1] . '$~Dx', $var)) {
                 return $var;
             }
             $res = \json_encode($var, \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES);
             if ($res === \false) {
-                throw new \RectorPrefix20210125\Nette\Neon\Exception('Invalid UTF-8 sequence: ' . $var);
+                throw new \RectorPrefix20210126\Nette\Neon\Exception('Invalid UTF-8 sequence: ' . $var);
             }
             if (\strpos($var, "\n") !== \false) {
                 $res = \preg_replace_callback('#[^\\\\]|\\\\(.)#s', function ($m) {

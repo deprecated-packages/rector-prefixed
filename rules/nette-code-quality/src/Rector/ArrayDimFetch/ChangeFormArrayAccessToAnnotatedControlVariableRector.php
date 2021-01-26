@@ -12,7 +12,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210125\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210126\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -30,7 +30,7 @@ final class ChangeFormArrayAccessToAnnotatedControlVariableRector extends \Recto
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver, \RectorPrefix20210125\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    public function __construct(\Rector\NetteCodeQuality\NodeResolver\FormVariableInputNameTypeResolver $formVariableInputNameTypeResolver, \RectorPrefix20210126\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->formVariableInputNameTypeResolver = $formVariableInputNameTypeResolver;
         $this->typeChecker = $typeChecker;

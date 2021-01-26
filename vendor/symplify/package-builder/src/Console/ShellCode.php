@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210125\Symplify\PackageBuilder\Console;
+namespace RectorPrefix20210126\Symplify\PackageBuilder\Console;
 
 final class ShellCode
 {

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210125;
+namespace RectorPrefix20210126;
 
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\UnionType;
-use Rector\Composer\Rector\ChangePackageVersionRector;
-use Rector\Composer\Rector\RemovePackageRector;
+use Rector\Composer\Rector\ChangePackageVersionComposerRector;
+use Rector\Composer\Rector\RemovePackageComposerRector;
 use Rector\Composer\ValueObject\PackageAndVersion;
 use Rector\Generic\Rector\Assign\DimFetchAssignToMethodCallRector;
 use Rector\Generic\ValueObject\DimFetchAssignToMethodCall;
@@ -19,9 +19,9 @@ use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
-use RectorPrefix20210125\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210126\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210125\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210126\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
         'Nette\\Bridges\\ApplicationLatte\\Template' => 'Nette\\Bridges\\ApplicationLatte\\DefaultTemplate',
@@ -84,7 +84,7 @@ return static function (\RectorPrefix20210125\Symfony\Component\DependencyInject
     $services->set(\Rector\Generic\Rector\Assign\DimFetchAssignToMethodCallRector::class)->call('configure', [[\Rector\Generic\Rector\Assign\DimFetchAssignToMethodCallRector::DIM_FETCH_ASSIGN_TO_METHOD_CALL => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\DimFetchAssignToMethodCall('Nette\\Application\\Routers\\RouteList', 'Nette\\Application\\Routers\\Route', 'addRoute')])]]);
     $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Nette\\Application\\UI\\Presenter', 'sendTemplate', 0, new \PHPStan\Type\UnionType([new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Template'), new \PHPStan\Type\NullType()]))])]]);
     $services->set(\Rector\Nette\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector::class);
-    $services->set(\Rector\Composer\Rector\ChangePackageVersionRector::class)->call('configure', [[\Rector\Composer\Rector\ChangePackageVersionRector::PACKAGES_AND_VERSIONS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\Rector\Composer\Rector\ChangePackageVersionComposerRector::class)->call('configure', [[\Rector\Composer\Rector\ChangePackageVersionComposerRector::PACKAGES_AND_VERSIONS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // meta package
         new \Rector\Composer\ValueObject\PackageAndVersion('nette/nette', '^3.1'),
         // https://github.com/nette/nette/blob/v3.0.0/composer.json vs https://github.com/nette/nette/blob/v3.1.0/composer.json
@@ -113,5 +113,5 @@ return static function (\RectorPrefix20210125\Symfony\Component\DependencyInject
         new \Rector\Composer\ValueObject\PackageAndVersion('nettrine/annotations', '^0.7'),
         new \Rector\Composer\ValueObject\PackageAndVersion('nettrine/cache', '^0.3'),
     ])]]);
-    $services->set(\Rector\Composer\Rector\RemovePackageRector::class)->call('configure', [[\Rector\Composer\Rector\RemovePackageRector::PACKAGE_NAMES => ['nette/component-model', 'nette/neon']]]);
+    $services->set(\Rector\Composer\Rector\RemovePackageComposerRector::class)->call('configure', [[\Rector\Composer\Rector\RemovePackageComposerRector::PACKAGE_NAMES => ['nette/component-model', 'nette/neon']]]);
 };
