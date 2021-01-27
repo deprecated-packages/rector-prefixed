@@ -127,7 +127,7 @@ trait TesterTrait
                 $this->output->setVerbosity($options['verbosity']);
             }
         } else {
-            $this->output = new \RectorPrefix20210127\Symfony\Component\Console\Output\ConsoleOutput(isset($options['verbosity']) ? $options['verbosity'] : \RectorPrefix20210127\Symfony\Component\Console\Output\ConsoleOutput::VERBOSITY_NORMAL, isset($options['decorated']) ? $options['decorated'] : null);
+            $this->output = new \RectorPrefix20210127\Symfony\Component\Console\Output\ConsoleOutput($options['verbosity'] ?? \RectorPrefix20210127\Symfony\Component\Console\Output\ConsoleOutput::VERBOSITY_NORMAL, $options['decorated'] ?? null);
             $errorOutput = new \RectorPrefix20210127\Symfony\Component\Console\Output\StreamOutput(\fopen('php://memory', 'w', \false));
             $errorOutput->setFormatter($this->output->getFormatter());
             $errorOutput->setVerbosity($this->output->getVerbosity());

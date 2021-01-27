@@ -244,7 +244,7 @@ EOLUA;
         }
         foreach ($this->getHosts() as $host) {
             $info = $host->info('Memory');
-            $info = isset($info['Memory']) ? $info['Memory'] : $info;
+            $info = $info['Memory'] ?? $info;
             return $this->redisEvictionPolicy = $info['maxmemory_policy'];
         }
         return $this->redisEvictionPolicy = '';

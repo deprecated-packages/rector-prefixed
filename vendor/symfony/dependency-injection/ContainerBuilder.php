@@ -107,11 +107,11 @@ class ContainerBuilder extends \RectorPrefix20210127\Symfony\Component\Dependenc
     private $autoconfiguredInstanceof = [];
     private $removedIds = [];
     private $removedBindingIds = [];
-    private static $internalTypes = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
+    private const INTERNAL_TYPES = ['int' => \true, 'float' => \true, 'string' => \true, 'bool' => \true, 'resource' => \true, 'object' => \true, 'array' => \true, 'null' => \true, 'callable' => \true, 'iterable' => \true, 'mixed' => \true];
     public function __construct(\RectorPrefix20210127\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag = null)
     {
         parent::__construct($parameterBag);
-        $this->trackResources = \interface_exists('RectorPrefix20210127\\Symfony\\Component\\Config\\Resource\\ResourceInterface');
+        $this->trackResources = \interface_exists(\RectorPrefix20210127\Symfony\Component\Config\Resource\ResourceInterface::class);
         $this->setDefinition('service_container', (new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Definition(\RectorPrefix20210127\Symfony\Component\DependencyInjection\ContainerInterface::class))->setSynthetic(\true)->setPublic(\true));
         $this->setAlias(\RectorPrefix20210127\Psr\Container\ContainerInterface::class, new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Alias('service_container', \false))->setDeprecated('symfony/dependency-injection', '5.1', $deprecationMessage = 'The "%alias_id%" autowiring alias is deprecated. Define it explicitly in your app if you want to keep using it.');
         $this->setAlias(\RectorPrefix20210127\Symfony\Component\DependencyInjection\ContainerInterface::class, new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Alias('service_container', \false))->setDeprecated('symfony/dependency-injection', '5.1', $deprecationMessage);
@@ -276,7 +276,7 @@ class ContainerBuilder extends \RectorPrefix20210127\Symfony\Component\Dependenc
         if (!($class = $this->getParameterBag()->resolveValue($class))) {
             return null;
         }
-        if (isset(self::$internalTypes[$class])) {
+        if (isset(self::INTERNAL_TYPES[$class])) {
             return null;
         }
         $resource = $classReflector = null;
@@ -1353,7 +1353,7 @@ class ContainerBuilder extends \RectorPrefix20210127\Symfony\Component\Dependenc
     private function getExpressionLanguage() : \RectorPrefix20210127\Symfony\Component\DependencyInjection\ExpressionLanguage
     {
         if (null === $this->expressionLanguage) {
-            if (!\class_exists('RectorPrefix20210127\\Symfony\\Component\\ExpressionLanguage\\ExpressionLanguage')) {
+            if (!\class_exists(\RectorPrefix20210127\Symfony\Component\ExpressionLanguage\ExpressionLanguage::class)) {
                 throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
             }
             $this->expressionLanguage = new \RectorPrefix20210127\Symfony\Component\DependencyInjection\ExpressionLanguage(null, $this->expressionLanguageProviders);

@@ -37,10 +37,10 @@ use RectorPrefix20210127\Symfony\Component\Yaml\Yaml;
  */
 class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyInjection\Loader\FileLoader
 {
-    private static $serviceKeywords = ['alias' => 'alias', 'parent' => 'parent', 'class' => 'class', 'shared' => 'shared', 'synthetic' => 'synthetic', 'lazy' => 'lazy', 'public' => 'public', 'abstract' => 'abstract', 'deprecated' => 'deprecated', 'factory' => 'factory', 'file' => 'file', 'arguments' => 'arguments', 'properties' => 'properties', 'configurator' => 'configurator', 'calls' => 'calls', 'tags' => 'tags', 'decorates' => 'decorates', 'decoration_inner_name' => 'decoration_inner_name', 'decoration_priority' => 'decoration_priority', 'decoration_on_invalid' => 'decoration_on_invalid', 'autowire' => 'autowire', 'autoconfigure' => 'autoconfigure', 'bind' => 'bind'];
-    private static $prototypeKeywords = ['resource' => 'resource', 'namespace' => 'namespace', 'exclude' => 'exclude', 'parent' => 'parent', 'shared' => 'shared', 'lazy' => 'lazy', 'public' => 'public', 'abstract' => 'abstract', 'deprecated' => 'deprecated', 'factory' => 'factory', 'arguments' => 'arguments', 'properties' => 'properties', 'configurator' => 'configurator', 'calls' => 'calls', 'tags' => 'tags', 'autowire' => 'autowire', 'autoconfigure' => 'autoconfigure', 'bind' => 'bind'];
-    private static $instanceofKeywords = ['shared' => 'shared', 'lazy' => 'lazy', 'public' => 'public', 'properties' => 'properties', 'configurator' => 'configurator', 'calls' => 'calls', 'tags' => 'tags', 'autowire' => 'autowire', 'bind' => 'bind'];
-    private static $defaultsKeywords = ['public' => 'public', 'tags' => 'tags', 'autowire' => 'autowire', 'autoconfigure' => 'autoconfigure', 'bind' => 'bind'];
+    private const SERVICE_KEYWORDS = ['alias' => 'alias', 'parent' => 'parent', 'class' => 'class', 'shared' => 'shared', 'synthetic' => 'synthetic', 'lazy' => 'lazy', 'public' => 'public', 'abstract' => 'abstract', 'deprecated' => 'deprecated', 'factory' => 'factory', 'file' => 'file', 'arguments' => 'arguments', 'properties' => 'properties', 'configurator' => 'configurator', 'calls' => 'calls', 'tags' => 'tags', 'decorates' => 'decorates', 'decoration_inner_name' => 'decoration_inner_name', 'decoration_priority' => 'decoration_priority', 'decoration_on_invalid' => 'decoration_on_invalid', 'autowire' => 'autowire', 'autoconfigure' => 'autoconfigure', 'bind' => 'bind'];
+    private const PROTOTYPE_KEYWORDS = ['resource' => 'resource', 'namespace' => 'namespace', 'exclude' => 'exclude', 'parent' => 'parent', 'shared' => 'shared', 'lazy' => 'lazy', 'public' => 'public', 'abstract' => 'abstract', 'deprecated' => 'deprecated', 'factory' => 'factory', 'arguments' => 'arguments', 'properties' => 'properties', 'configurator' => 'configurator', 'calls' => 'calls', 'tags' => 'tags', 'autowire' => 'autowire', 'autoconfigure' => 'autoconfigure', 'bind' => 'bind'];
+    private const INSTANCEOF_KEYWORDS = ['shared' => 'shared', 'lazy' => 'lazy', 'public' => 'public', 'properties' => 'properties', 'configurator' => 'configurator', 'calls' => 'calls', 'tags' => 'tags', 'autowire' => 'autowire', 'bind' => 'bind'];
+    private const DEFAULTS_KEYWORDS = ['public' => 'public', 'tags' => 'tags', 'autowire' => 'autowire', 'autoconfigure' => 'autoconfigure', 'bind' => 'bind'];
     private $yamlParser;
     private $anonymousServicesCount;
     private $anonymousServicesSuffix;
@@ -160,8 +160,8 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
             throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service "_defaults" key must be an array, "%s" given in "%s".', \get_debug_type($defaults), $file));
         }
         foreach ($defaults as $key => $default) {
-            if (!isset(self::$defaultsKeywords[$key])) {
-                throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The configuration key "%s" cannot be used to define a default value in "%s". Allowed keys are "%s".', $key, $file, \implode('", "', self::$defaultsKeywords)));
+            if (!isset(self::DEFAULTS_KEYWORDS[$key])) {
+                throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The configuration key "%s" cannot be used to define a default value in "%s". Allowed keys are "%s".', $key, $file, \implode('", "', self::DEFAULTS_KEYWORDS)));
             }
         }
         if (isset($defaults['tags'])) {
@@ -214,7 +214,7 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
     /**
      * Parses a definition.
      *
-     * @param array|string $service
+     * @param array|string|null $service
      *
      * @throws InvalidArgumentException When tags are invalid
      */
@@ -245,7 +245,7 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
             }
             $stack = [];
             foreach ($service['stack'] as $k => $frame) {
-                if (\is_array($frame) && 1 === \count($frame) && !isset(self::$serviceKeywords[\key($frame)])) {
+                if (\is_array($frame) && 1 === \count($frame) && !isset(self::SERVICE_KEYWORDS[\key($frame)])) {
                     $frame = ['class' => \key($frame), 'arguments' => \current($frame)];
                 }
                 if (\is_array($frame) && isset($frame['stack'])) {
@@ -396,7 +396,7 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
                 $definition->addMethodCall($method, $args, $returnsClone);
             }
         }
-        $tags = isset($service['tags']) ? $service['tags'] : [];
+        $tags = $service['tags'] ?? [];
         if (!\is_array($tags)) {
             throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Parameter "tags" must be an array for service "%s" in "%s". Check your YAML syntax.', $id, $file));
         }
@@ -443,8 +443,8 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
             } else {
                 throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid value "%s" for attribute "decoration_on_invalid" on service "%s". Did you mean "exception", "ignore" or null in "%s"?', $decorationOnInvalid, $id, $file));
             }
-            $renameId = isset($service['decoration_inner_name']) ? $service['decoration_inner_name'] : null;
-            $priority = isset($service['decoration_priority']) ? $service['decoration_priority'] : 0;
+            $renameId = $service['decoration_inner_name'] ?? null;
+            $priority = $service['decoration_priority'] ?? 0;
             $definition->setDecoratedService($decorates, $renameId, $priority, $invalidBehavior);
         }
         if (isset($service['autowire'])) {
@@ -483,8 +483,8 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
             if (!\is_string($service['resource'])) {
                 throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A "resource" attribute must be of type string for service "%s" in "%s". Check your YAML syntax.', $id, $file));
             }
-            $exclude = isset($service['exclude']) ? $service['exclude'] : null;
-            $namespace = isset($service['namespace']) ? $service['namespace'] : $id;
+            $exclude = $service['exclude'] ?? null;
+            $namespace = $service['namespace'] ?? $id;
             $this->registerClasses($definition, $namespace, $service['resource'], $exclude);
         } else {
             $this->setDefinition($id, $definition);
@@ -532,7 +532,7 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
      */
     protected function loadFile($file)
     {
-        if (!\class_exists('RectorPrefix20210127\\Symfony\\Component\\Yaml\\Parser')) {
+        if (!\class_exists(\RectorPrefix20210127\Symfony\Component\Yaml\Parser::class)) {
             throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\RuntimeException('Unable to load YAML config files as the Symfony Yaml Component is not installed.');
         }
         if (!\stream_is_local($file)) {
@@ -633,7 +633,7 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
                 $this->isLoadingInstanceof = \false;
                 $instanceof = $this->instanceof;
                 $this->instanceof = [];
-                $id = \sprintf('.%d_%s', ++$this->anonymousServicesCount, \preg_replace('/^.*\\\\/', '', isset($argument['class']) ? $argument['class'] : '') . $this->anonymousServicesSuffix);
+                $id = \sprintf('.%d_%s', ++$this->anonymousServicesCount, \preg_replace('/^.*\\\\/', '', $argument['class'] ?? '') . $this->anonymousServicesSuffix);
                 $this->parseDefinition($id, $argument, $file, []);
                 if (!$this->container->hasDefinition($id)) {
                     throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Creating an alias using the tag "!service" is not allowed in "%s".', $file));
@@ -654,7 +654,7 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
             }
         } elseif (\is_string($value) && 0 === \strpos($value, '@=')) {
             if (!\class_exists(\RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Expression::class)) {
-                throw new \LogicException(\sprintf('The "@=" expression syntax cannot be used without the ExpressionLanguage component. Try running "composer require symfony/expression-language".'));
+                throw new \LogicException('The "@=" expression syntax cannot be used without the ExpressionLanguage component. Try running "composer require symfony/expression-language".');
             }
             return new \RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Expression(\substr($value, 2));
         } elseif (\is_string($value) && 0 === \strpos($value, '@')) {
@@ -698,11 +698,11 @@ class YamlFileLoader extends \RectorPrefix20210127\Symfony\Component\DependencyI
     private function checkDefinition(string $id, array $definition, string $file)
     {
         if ($this->isLoadingInstanceof) {
-            $keywords = self::$instanceofKeywords;
+            $keywords = self::INSTANCEOF_KEYWORDS;
         } elseif (isset($definition['resource']) || isset($definition['namespace'])) {
-            $keywords = self::$prototypeKeywords;
+            $keywords = self::PROTOTYPE_KEYWORDS;
         } else {
-            $keywords = self::$serviceKeywords;
+            $keywords = self::SERVICE_KEYWORDS;
         }
         foreach ($definition as $key => $value) {
             if (!isset($keywords[$key])) {

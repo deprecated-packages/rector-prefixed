@@ -18,14 +18,14 @@ use RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Compiler;
  */
 class UnaryNode extends \RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Node\Node
 {
-    private static $operators = ['!' => '!', 'not' => '!', '+' => '+', '-' => '-'];
+    private const OPERATORS = ['!' => '!', 'not' => '!', '+' => '+', '-' => '-'];
     public function __construct(string $operator, \RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Node\Node $node)
     {
         parent::__construct(['node' => $node], ['operator' => $operator]);
     }
     public function compile(\RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Compiler $compiler)
     {
-        $compiler->raw('(')->raw(self::$operators[$this->attributes['operator']])->compile($this->nodes['node'])->raw(')');
+        $compiler->raw('(')->raw(self::OPERATORS[$this->attributes['operator']])->compile($this->nodes['node'])->raw(')');
     }
     public function evaluate(array $functions, array $values)
     {

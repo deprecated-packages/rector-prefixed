@@ -50,7 +50,7 @@ class SymfonyQuestionHelper extends \RectorPrefix20210127\Symfony\Component\Cons
                 break;
             case $question instanceof \RectorPrefix20210127\Symfony\Component\Console\Question\ChoiceQuestion:
                 $choices = $question->getChoices();
-                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, \RectorPrefix20210127\Symfony\Component\Console\Formatter\OutputFormatter::escape(isset($choices[$default]) ? $choices[$default] : $default));
+                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, \RectorPrefix20210127\Symfony\Component\Console\Formatter\OutputFormatter::escape($choices[$default] ?? $default));
                 break;
             default:
                 $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, \RectorPrefix20210127\Symfony\Component\Console\Formatter\OutputFormatter::escape($default));

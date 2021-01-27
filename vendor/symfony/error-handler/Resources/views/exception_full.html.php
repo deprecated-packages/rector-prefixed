@@ -32,7 +32,7 @@ echo $this->include('assets/css/exception_full.css');
         </script>
 
         <?php 
-if (\class_exists('RectorPrefix20210127\\Symfony\\Component\\HttpKernel\\Kernel')) {
+if (\class_exists(\RectorPrefix20210127\Symfony\Component\HttpKernel\Kernel::class)) {
     ?>
             <header>
                 <div class="container">

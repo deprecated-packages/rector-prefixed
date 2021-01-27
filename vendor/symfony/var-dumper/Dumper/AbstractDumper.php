@@ -63,7 +63,7 @@ abstract class AbstractDumper implements \RectorPrefix20210127\Symfony\Component
             $this->lineDumper = $output;
         } else {
             if (\is_string($output)) {
-                $output = \fopen($output, 'wb');
+                $output = \fopen($output, 'w');
             }
             $this->outputStream = $output;
             $this->lineDumper = [$this, 'echoLine'];
@@ -111,7 +111,7 @@ abstract class AbstractDumper implements \RectorPrefix20210127\Symfony\Component
             \setlocale(\LC_NUMERIC, 'C');
         }
         if ($returnDump = \true === $output) {
-            $output = \fopen('php://memory', 'r+b');
+            $output = \fopen('php://memory', 'r+');
         }
         if ($output) {
             $prevOutput = $this->setOutput($output);

@@ -64,11 +64,11 @@ abstract class AbstractSurrogateFragmentRenderer extends \RectorPrefix20210127\S
         if ($uri instanceof \RectorPrefix20210127\Symfony\Component\HttpKernel\Controller\ControllerReference) {
             $uri = $this->generateSignedFragmentUri($uri, $request);
         }
-        $alt = isset($options['alt']) ? $options['alt'] : null;
+        $alt = $options['alt'] ?? null;
         if ($alt instanceof \RectorPrefix20210127\Symfony\Component\HttpKernel\Controller\ControllerReference) {
             $alt = $this->generateSignedFragmentUri($alt, $request);
         }
-        $tag = $this->surrogate->renderIncludeTag($uri, $alt, isset($options['ignore_errors']) ? $options['ignore_errors'] : \false, isset($options['comment']) ? $options['comment'] : '');
+        $tag = $this->surrogate->renderIncludeTag($uri, $alt, $options['ignore_errors'] ?? \false, $options['comment'] ?? '');
         return new \RectorPrefix20210127\Symfony\Component\HttpFoundation\Response($tag);
     }
     private function generateSignedFragmentUri(\RectorPrefix20210127\Symfony\Component\HttpKernel\Controller\ControllerReference $uri, \RectorPrefix20210127\Symfony\Component\HttpFoundation\Request $request) : string

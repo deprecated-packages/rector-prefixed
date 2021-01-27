@@ -112,7 +112,7 @@ class MarkdownDescriptor extends \RectorPrefix20210127\Symfony\Component\Console
      */
     protected function describeApplication(\RectorPrefix20210127\Symfony\Component\Console\Application $application, array $options = [])
     {
-        $describedNamespace = isset($options['namespace']) ? $options['namespace'] : null;
+        $describedNamespace = $options['namespace'] ?? null;
         $description = new \RectorPrefix20210127\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);
         $title = $this->getApplicationTitle($application);
         $this->write($title . "\n" . \str_repeat('=', \RectorPrefix20210127\Symfony\Component\Console\Helper\Helper::strlen($title)));

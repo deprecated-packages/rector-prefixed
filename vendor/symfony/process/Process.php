@@ -179,6 +179,14 @@ class Process implements \IteratorAggregate
         $process->commandline = $command;
         return $process;
     }
+    public function __sleep()
+    {
+        throw new \BadMethodCallException('Cannot serialize ' . __CLASS__);
+    }
+    public function __wakeup()
+    {
+        throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
+    }
     public function __destruct()
     {
         if ($this->options['create_new_console'] ?? \false) {
@@ -662,7 +670,7 @@ class Process implements \IteratorAggregate
         if (null === ($exitcode = $this->getExitCode())) {
             return null;
         }
-        return isset(self::$exitCodes[$exitcode]) ? self::$exitCodes[$exitcode] : 'Unknown error';
+        return self::$exitCodes[$exitcode] ?? 'Unknown error';
     }
     /**
      * Checks if the process ended successfully.
@@ -1280,8 +1288,8 @@ class Process implements \IteratorAggregate
         $this->exitcode = null;
         $this->fallbackStatus = [];
         $this->processInformation = null;
-        $this->stdout = \fopen('php://temp/maxmemory:' . 1024 * 1024, 'w+b');
-        $this->stderr = \fopen('php://temp/maxmemory:' . 1024 * 1024, 'w+b');
+        $this->stdout = \fopen('php://temp/maxmemory:' . 1024 * 1024, 'w+');
+        $this->stderr = \fopen('php://temp/maxmemory:' . 1024 * 1024, 'w+');
         $this->process = null;
         $this->latestSignal = null;
         $this->status = self::STATUS_READY;

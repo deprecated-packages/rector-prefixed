@@ -205,7 +205,7 @@ class MockArraySessionStorage implements \RectorPrefix20210127\Symfony\Component
         $bags = \array_merge($this->bags, [$this->metadataBag]);
         foreach ($bags as $bag) {
             $key = $bag->getStorageKey();
-            $this->data[$key] = isset($this->data[$key]) ? $this->data[$key] : [];
+            $this->data[$key] = $this->data[$key] ?? [];
             $bag->initialize($this->data[$key]);
         }
         $this->started = \true;

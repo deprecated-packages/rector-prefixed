@@ -52,8 +52,11 @@ class ResolveReferencesToAliasesPass extends \RectorPrefix20210127\Symfony\Compo
         }
         $alias = $container->getAlias($id);
         if ($alias->isDeprecated()) {
-            $deprecation = $alias->getDeprecation($id);
-            trigger_deprecation($deprecation['package'], $deprecation['version'], \rtrim($deprecation['message'], '. ') . '. It is being referenced by the "%s" ' . ($container->hasDefinition($this->currentId) ? 'service.' : 'alias.'), $this->currentId);
+            $referencingDefinition = $container->hasDefinition($this->currentId) ? $container->getDefinition($this->currentId) : $container->getAlias($this->currentId);
+            if (!$referencingDefinition->isDeprecated()) {
+                $deprecation = $alias->getDeprecation($id);
+                trigger_deprecation($deprecation['package'], $deprecation['version'], \rtrim($deprecation['message'], '. ') . '. It is being referenced by the "%s" ' . ($container->hasDefinition($this->currentId) ? 'service.' : 'alias.'), $this->currentId);
+            }
         }
         $seen = [];
         do {

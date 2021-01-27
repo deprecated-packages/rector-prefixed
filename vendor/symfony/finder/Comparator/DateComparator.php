@@ -33,7 +33,7 @@ class DateComparator extends \RectorPrefix20210127\Symfony\Component\Finder\Comp
         } catch (\Exception $e) {
             throw new \InvalidArgumentException(\sprintf('"%s" is not a valid date.', $matches[2]));
         }
-        $operator = isset($matches[1]) ? $matches[1] : '==';
+        $operator = $matches[1] ?? '==';
         if ('since' === $operator || 'after' === $operator) {
             $operator = '>';
         }

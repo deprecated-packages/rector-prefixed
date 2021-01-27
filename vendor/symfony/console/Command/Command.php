@@ -27,6 +27,7 @@ use RectorPrefix20210127\Symfony\Component\Console\Output\OutputInterface;
  */
 class Command
 {
+    // see https://tldp.org/LDP/abs/html/exitcodes.html
     public const SUCCESS = 0;
     public const FAILURE = 1;
     /**
@@ -250,7 +251,15 @@ class Command
         if ($code instanceof \Closure) {
             $r = new \ReflectionFunction($code);
             if (null === $r->getClosureThis()) {
-                $code = \Closure::bind($code, $this);
+                \set_error_handler(static function () {
+                });
+                try {
+                    if ($c = \Closure::bind($code, $this)) {
+                        $code = $c;
+                    }
+                } finally {
+                    \restore_error_handler();
+                }
             }
         }
         $this->code = $code;

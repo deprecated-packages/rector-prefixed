@@ -256,8 +256,8 @@ class BinaryFileResponse extends \RectorPrefix20210127\Symfony\Component\HttpFou
         if (0 === $this->maxlen) {
             return $this;
         }
-        $out = \fopen('php://output', 'wb');
-        $file = \fopen($this->file->getPathname(), 'rb');
+        $out = \fopen('php://output', 'w');
+        $file = \fopen($this->file->getPathname(), 'r');
         \stream_copy_to_stream($file, $out, $this->maxlen, $this->offset);
         \fclose($out);
         \fclose($file);

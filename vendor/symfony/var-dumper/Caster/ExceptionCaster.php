@@ -95,7 +95,7 @@ class ExceptionCaster
         for ($j += $trace->numberingOffset - $i++; isset($frames[$i]); ++$i, --$j) {
             $f = $frames[$i];
             $call = isset($f['function']) ? (isset($f['class']) ? $f['class'] . $f['type'] : '') . $f['function'] : '???';
-            $frame = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\FrameStub(['object' => isset($f['object']) ? $f['object'] : null, 'class' => isset($f['class']) ? $f['class'] : null, 'type' => isset($f['type']) ? $f['type'] : null, 'function' => isset($f['function']) ? $f['function'] : null] + $frames[$i - 1], \false, \true);
+            $frame = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\FrameStub(['object' => $f['object'] ?? null, 'class' => $f['class'] ?? null, 'type' => $f['type'] ?? null, 'function' => $f['function'] ?? null] + $frames[$i - 1], \false, \true);
             $f = self::castFrameStub($frame, [], $frame, \true);
             if (isset($f[$prefix . 'src'])) {
                 foreach ($f[$prefix . 'src']->value as $label => $frame) {
@@ -110,7 +110,7 @@ class ExceptionCaster
                 }
                 $f = $frames[$i - 1];
                 if ($trace->keepArgs && !empty($f['args']) && $frame instanceof \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\EnumStub) {
-                    $frame->value['arguments'] = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ArgsStub($f['args'], isset($f['function']) ? $f['function'] : null, isset($f['class']) ? $f['class'] : null);
+                    $frame->value['arguments'] = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ArgsStub($f['args'], $f['function'] ?? null, $f['class'] ?? null);
                 }
             } elseif ('???' !== $lastCall) {
                 $label = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ClassStub($lastCall);
@@ -154,11 +154,11 @@ class ExceptionCaster
                 $srcKey = $f['file'];
                 $ellipsis = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\LinkStub($srcKey, 0);
                 $srcAttr = 'collapse=' . (int) $ellipsis->inVendor;
-                $ellipsisTail = isset($ellipsis->attr['ellipsis-tail']) ? $ellipsis->attr['ellipsis-tail'] : 0;
-                $ellipsis = isset($ellipsis->attr['ellipsis']) ? $ellipsis->attr['ellipsis'] : 0;
+                $ellipsisTail = $ellipsis->attr['ellipsis-tail'] ?? 0;
+                $ellipsis = $ellipsis->attr['ellipsis'] ?? 0;
                 if (\is_file($f['file']) && 0 <= self::$srcContext) {
                     if (!empty($f['class']) && (\is_subclass_of($f['class'], 'RectorPrefix20210127\\Twig\\Template') || \is_subclass_of($f['class'], 'RectorPrefix20210127\\Twig_Template')) && \method_exists($f['class'], 'getDebugInfo')) {
-                        $template = isset($f['object']) ? $f['object'] : \unserialize(\sprintf('O:%d:"%s":0:{}', \strlen($f['class']), $f['class']));
+                        $template = $f['object'] ?? \unserialize(\sprintf('O:%d:"%s":0:{}', \strlen($f['class']), $f['class']));
                         $ellipsis = 0;
                         $templateSrc = \method_exists($template, 'getSourceContext') ? $template->getSourceContext()->getCode() : (\method_exists($template, 'getSource') ? $template->getSource() : '');
                         $templateInfo = $template->getDebugInfo();
@@ -242,7 +242,7 @@ class ExceptionCaster
         $srcLines = \explode("\n", $srcLines);
         $src = [];
         for ($i = $line - 1 - $srcContext; $i <= $line - 1 + $srcContext; ++$i) {
-            $src[] = (isset($srcLines[$i]) ? $srcLines[$i] : '') . "\n";
+            $src[] = ($srcLines[$i] ?? '') . "\n";
         }
         if ($frame['function'] ?? \false) {
             $stub = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\CutStub(new \stdClass());

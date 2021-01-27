@@ -263,7 +263,7 @@ class PhpFilesAdapter extends \RectorPrefix20210127\Symfony\Component\Cache\Adap
     }
     private function getFileKey(string $file) : string
     {
-        if (!($h = @\fopen($file, 'rb'))) {
+        if (!($h = @\fopen($file, 'r'))) {
             return '';
         }
         $encodedKey = \substr(\fgets($h), 8);

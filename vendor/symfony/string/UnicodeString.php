@@ -287,6 +287,9 @@ class UnicodeString extends \RectorPrefix20210127\Symfony\Component\String\Abstr
     }
     public function __wakeup()
     {
+        if (!\is_string($this->string)) {
+            throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
+        }
         \normalizer_is_normalized($this->string) ?: ($this->string = \normalizer_normalize($this->string));
     }
     public function __clone()

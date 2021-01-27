@@ -25,11 +25,11 @@ class ResponseCacheStrategy implements \RectorPrefix20210127\Symfony\Component\H
     /**
      * Cache-Control headers that are sent to the final response if they appear in ANY of the responses.
      */
-    private static $overrideDirectives = ['private', 'no-cache', 'no-store', 'no-transform', 'must-revalidate', 'proxy-revalidate'];
+    private const OVERRIDE_DIRECTIVES = ['private', 'no-cache', 'no-store', 'no-transform', 'must-revalidate', 'proxy-revalidate'];
     /**
      * Cache-Control headers that are sent to the final response if they appear in ALL of the responses.
      */
-    private static $inheritDirectives = ['public', 'immutable'];
+    private const INHERIT_DIRECTIVES = ['public', 'immutable'];
     private $embeddedResponses = 0;
     private $isNotCacheableResponseEmbedded = \false;
     private $age = 0;
@@ -41,12 +41,12 @@ class ResponseCacheStrategy implements \RectorPrefix20210127\Symfony\Component\H
     public function add(\RectorPrefix20210127\Symfony\Component\HttpFoundation\Response $response)
     {
         ++$this->embeddedResponses;
-        foreach (self::$overrideDirectives as $directive) {
+        foreach (self::OVERRIDE_DIRECTIVES as $directive) {
             if ($response->headers->hasCacheControlDirective($directive)) {
                 $this->flagDirectives[$directive] = \true;
             }
         }
-        foreach (self::$inheritDirectives as $directive) {
+        foreach (self::INHERIT_DIRECTIVES as $directive) {
             if (\false !== $this->flagDirectives[$directive]) {
                 $this->flagDirectives[$directive] = $response->headers->hasCacheControlDirective($directive);
             }

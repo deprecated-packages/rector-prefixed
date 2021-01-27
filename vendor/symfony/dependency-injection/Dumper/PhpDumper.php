@@ -20,7 +20,6 @@ use RectorPrefix20210127\Symfony\Component\DependencyInjection\Argument\ServiceL
 use RectorPrefix20210127\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use RectorPrefix20210127\Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass;
 use RectorPrefix20210127\Symfony\Component\DependencyInjection\Compiler\CheckCircularReferencesPass;
-use RectorPrefix20210127\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge;
 use RectorPrefix20210127\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode;
 use RectorPrefix20210127\Symfony\Component\DependencyInjection\Container;
 use RectorPrefix20210127\Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -470,7 +469,7 @@ EOF;
         $proxyClasses = [];
         $alreadyGenerated = [];
         $definitions = $this->container->getDefinitions();
-        $strip = '' === $this->docStar && \method_exists('RectorPrefix20210127\\Symfony\\Component\\HttpKernel\\Kernel', 'stripComments');
+        $strip = '' === $this->docStar && \method_exists(\RectorPrefix20210127\Symfony\Component\HttpKernel\Kernel::class, 'stripComments');
         $proxyDumper = $this->getProxyDumper();
         \ksort($definitions);
         foreach ($definitions as $definition) {
@@ -759,7 +758,7 @@ EOF;
                 }
                 $factoryCode = $asFile ? 'self::do($container, false)' : \sprintf('$this->%s(false)', $methodName);
                 $factoryCode = $this->getProxyDumper()->getProxyFactoryCode($definition, $id, $factoryCode);
-                $code .= $asFile ? \preg_replace('/function \\(([^)]*+)\\) {/', 'function (\\1) use ($container) {', $factoryCode) : $factoryCode;
+                $code .= $asFile ? \preg_replace('/function \\(([^)]*+)\\)( {|:)/', 'function (\\1) use ($container)\\2', $factoryCode) : $factoryCode;
             }
             $c = $this->addServiceInclude($id, $definition);
             if ('' !== $c && $isProxyCandidate && !$definition->isShared()) {
@@ -786,8 +785,7 @@ EOF;
         }
         if ($asFile) {
             $code = \str_replace('$this', '$container', $code);
-            $code = \str_replace('function () {', 'function () use ($container) {', $code);
-            $code = \str_replace('function ($lazyLoad = true) {', 'function ($lazyLoad = true) use ($container) {', $code);
+            $code = \preg_replace('/function \\(([^)]*+)\\)( {|:)/', 'function (\\1) use ($container)\\2', $code);
         }
         $code .= "    }\n";
         $this->definitionVariables = $this->inlinedDefinitions = null;
@@ -1264,6 +1262,9 @@ EOF;
         $parameters = \sprintf("[\n%s\n%s]", \implode("\n", $php), \str_repeat(' ', 8));
         $code = <<<'EOF'
 
+    /**
+     * @return array|bool|float|int|string|null
+     */
     public function getParameter(string $name)
     {
         if (isset($this->buildParameters[$name])) {
@@ -1725,7 +1726,7 @@ EOF;
     private function getExpressionLanguage() : \RectorPrefix20210127\Symfony\Component\DependencyInjection\ExpressionLanguage
     {
         if (null === $this->expressionLanguage) {
-            if (!\class_exists('RectorPrefix20210127\\Symfony\\Component\\ExpressionLanguage\\ExpressionLanguage')) {
+            if (!\class_exists(\RectorPrefix20210127\Symfony\Component\ExpressionLanguage\ExpressionLanguage::class)) {
                 throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
             }
             $providers = $this->container->getExpressionLanguageProviders();

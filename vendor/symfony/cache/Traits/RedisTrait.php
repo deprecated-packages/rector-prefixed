@@ -299,7 +299,7 @@ trait RedisTrait
                 continue;
             }
             $info = $host->info('Server');
-            $info = isset($info['Server']) ? $info['Server'] : $info;
+            $info = $info['Server'] ?? $info;
             if (!\version_compare($info['redis_version'], '2.8', '>=')) {
                 // As documented in Redis documentation (http://redis.io/commands/keys) using KEYS
                 // can hang your server when it is executed against large databases (millions of items).

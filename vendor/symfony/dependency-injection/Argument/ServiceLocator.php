@@ -30,6 +30,8 @@ class ServiceLocator extends \RectorPrefix20210127\Symfony\Component\DependencyI
     }
     /**
      * {@inheritdoc}
+     *
+     * @return mixed
      */
     public function get($id)
     {

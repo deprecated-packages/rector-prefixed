@@ -30,6 +30,14 @@ class UnixPipes extends \RectorPrefix20210127\Symfony\Component\Process\Pipes\Ab
         $this->haveReadSupport = $haveReadSupport;
         parent::__construct($input);
     }
+    public function __sleep()
+    {
+        throw new \BadMethodCallException('Cannot serialize ' . __CLASS__);
+    }
+    public function __wakeup()
+    {
+        throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
+    }
     public function __destruct()
     {
         $this->close();

@@ -67,11 +67,11 @@ abstract class Kernel implements \RectorPrefix20210127\Symfony\Component\HttpKer
     private $requestStackSize = 0;
     private $resetServices = \false;
     private static $freshCache = [];
-    public const VERSION = '5.2.1';
-    public const VERSION_ID = 50201;
+    public const VERSION = '5.2.2';
+    public const VERSION_ID = 50202;
     public const MAJOR_VERSION = 5;
     public const MINOR_VERSION = 2;
-    public const RELEASE_VERSION = 1;
+    public const RELEASE_VERSION = 2;
     public const EXTRA_VERSION = '';
     public const END_OF_MAINTENANCE = '07/2021';
     public const END_OF_LIFE = '07/2021';
@@ -574,7 +574,7 @@ abstract class Kernel implements \RectorPrefix20210127\Symfony\Component\HttpKer
         if ($this instanceof \RectorPrefix20210127\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface) {
             $container->addCompilerPass($this, \RectorPrefix20210127\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, -10000);
         }
-        if (\class_exists('RectorPrefix20210127\\ProxyManager\\Configuration') && \class_exists('RectorPrefix20210127\\Symfony\\Bridge\\ProxyManager\\LazyProxy\\Instantiator\\RuntimeInstantiator')) {
+        if (\class_exists(\RectorPrefix20210127\ProxyManager\Configuration::class) && \class_exists(\RectorPrefix20210127\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator::class)) {
             $container->setProxyInstantiator(new \RectorPrefix20210127\Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator());
         }
         return $container;
@@ -589,7 +589,7 @@ abstract class Kernel implements \RectorPrefix20210127\Symfony\Component\HttpKer
     {
         // cache the container
         $dumper = new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Dumper\PhpDumper($container);
-        if (\class_exists('RectorPrefix20210127\\ProxyManager\\Configuration') && \class_exists('RectorPrefix20210127\\Symfony\\Bridge\\ProxyManager\\LazyProxy\\PhpDumper\\ProxyDumper')) {
+        if (\class_exists(\RectorPrefix20210127\ProxyManager\Configuration::class) && \class_exists(\RectorPrefix20210127\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper::class)) {
             $dumper->setProxyDumper(new \RectorPrefix20210127\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper());
         }
         $content = $dumper->dump(['class' => $class, 'base_class' => $baseClass, 'file' => $cache->getPath(), 'as_files' => \true, 'debug' => $this->debug, 'build_time' => $container->hasParameter('kernel.container_build_time') ? $container->getParameter('kernel.container_build_time') : \time(), 'preload_classes' => \array_map('get_class', $this->bundles)]);
@@ -702,6 +702,9 @@ abstract class Kernel implements \RectorPrefix20210127\Symfony\Component\HttpKer
     }
     public function __wakeup()
     {
+        if (\is_object($this->environment) || \is_object($this->debug)) {
+            throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
+        }
         $this->__construct($this->environment, $this->debug);
     }
 }

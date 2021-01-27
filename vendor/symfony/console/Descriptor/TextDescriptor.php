@@ -36,7 +36,7 @@ class TextDescriptor extends \RectorPrefix20210127\Symfony\Component\Console\Des
         } else {
             $default = '';
         }
-        $totalWidth = isset($options['total_width']) ? $options['total_width'] : \RectorPrefix20210127\Symfony\Component\Console\Helper\Helper::strlen($argument->getName());
+        $totalWidth = $options['total_width'] ?? \RectorPrefix20210127\Symfony\Component\Console\Helper\Helper::strlen($argument->getName());
         $spacingWidth = $totalWidth - \strlen($argument->getName());
         $this->writeText(\sprintf(
             '  <info>%s</info>  %s%s%s',
@@ -64,7 +64,7 @@ class TextDescriptor extends \RectorPrefix20210127\Symfony\Component\Console\Des
                 $value = '[' . $value . ']';
             }
         }
-        $totalWidth = isset($options['total_width']) ? $options['total_width'] : $this->calculateTotalWidthForOptions([$option]);
+        $totalWidth = $options['total_width'] ?? $this->calculateTotalWidthForOptions([$option]);
         $synopsis = \sprintf('%s%s', $option->getShortcut() ? \sprintf('-%s, ', $option->getShortcut()) : '    ', \sprintf('--%s%s', $option->getName(), $value));
         $spacingWidth = $totalWidth - \RectorPrefix20210127\Symfony\Component\Console\Helper\Helper::strlen($synopsis);
         $this->writeText(\sprintf(
@@ -152,7 +152,7 @@ class TextDescriptor extends \RectorPrefix20210127\Symfony\Component\Console\Des
      */
     protected function describeApplication(\RectorPrefix20210127\Symfony\Component\Console\Application $application, array $options = [])
     {
-        $describedNamespace = isset($options['namespace']) ? $options['namespace'] : null;
+        $describedNamespace = $options['namespace'] ?? null;
         $description = new \RectorPrefix20210127\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace);
         if (isset($options['raw_text']) && $options['raw_text']) {
             $width = $this->getColumnWidth($description->getCommands());

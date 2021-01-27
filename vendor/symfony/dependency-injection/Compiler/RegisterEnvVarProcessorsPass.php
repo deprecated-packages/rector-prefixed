@@ -23,7 +23,7 @@ use RectorPrefix20210127\Symfony\Component\DependencyInjection\Reference;
  */
 class RegisterEnvVarProcessorsPass implements \RectorPrefix20210127\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    private static $allowedTypes = ['array', 'bool', 'float', 'int', 'string'];
+    private const ALLOWED_TYPES = ['array', 'bool', 'float', 'int', 'string'];
     public function process(\RectorPrefix20210127\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $bag = $container->getParameterBag();
@@ -56,8 +56,8 @@ class RegisterEnvVarProcessorsPass implements \RectorPrefix20210127\Symfony\Comp
     {
         $types = \explode('|', $types);
         foreach ($types as $type) {
-            if (!\in_array($type, self::$allowedTypes)) {
-                throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid type "%s" returned by "%s::getProvidedTypes()", expected one of "%s".', $type, $class, \implode('", "', self::$allowedTypes)));
+            if (!\in_array($type, self::ALLOWED_TYPES)) {
+                throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid type "%s" returned by "%s::getProvidedTypes()", expected one of "%s".', $type, $class, \implode('", "', self::ALLOWED_TYPES)));
             }
         }
         return $types;

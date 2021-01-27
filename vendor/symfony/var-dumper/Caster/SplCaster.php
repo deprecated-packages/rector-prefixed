@@ -20,7 +20,7 @@ use RectorPrefix20210127\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class SplCaster
 {
-    private static $splFileObjectFlags = [\SplFileObject::DROP_NEW_LINE => 'DROP_NEW_LINE', \SplFileObject::READ_AHEAD => 'READ_AHEAD', \SplFileObject::SKIP_EMPTY => 'SKIP_EMPTY', \SplFileObject::READ_CSV => 'READ_CSV'];
+    private const SPL_FILE_OBJECT_FLAGS = [\SplFileObject::DROP_NEW_LINE => 'DROP_NEW_LINE', \SplFileObject::READ_AHEAD => 'READ_AHEAD', \SplFileObject::SKIP_EMPTY => 'SKIP_EMPTY', \SplFileObject::READ_CSV => 'READ_CSV'];
     public static function castArrayObject(\ArrayObject $c, array $a, \RectorPrefix20210127\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         return self::castSplArray($c, $a, $stub, $isNested);
@@ -103,7 +103,7 @@ class SplCaster
         }
         if (isset($a[$prefix . 'flags'])) {
             $flagsArray = [];
-            foreach (self::$splFileObjectFlags as $value => $name) {
+            foreach (self::SPL_FILE_OBJECT_FLAGS as $value => $name) {
                 if ($a[$prefix . 'flags'] & $value) {
                     $flagsArray[] = $name;
                 }

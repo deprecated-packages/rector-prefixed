@@ -720,11 +720,11 @@ class Application implements \RectorPrefix20210127\Symfony\Contracts\Service\Res
                 $trace = $e->getTrace();
                 \array_unshift($trace, ['function' => '', 'file' => $e->getFile() ?: 'n/a', 'line' => $e->getLine() ?: 'n/a', 'args' => []]);
                 for ($i = 0, $count = \count($trace); $i < $count; ++$i) {
-                    $class = isset($trace[$i]['class']) ? $trace[$i]['class'] : '';
-                    $type = isset($trace[$i]['type']) ? $trace[$i]['type'] : '';
-                    $function = isset($trace[$i]['function']) ? $trace[$i]['function'] : '';
-                    $file = isset($trace[$i]['file']) ? $trace[$i]['file'] : 'n/a';
-                    $line = isset($trace[$i]['line']) ? $trace[$i]['line'] : 'n/a';
+                    $class = $trace[$i]['class'] ?? '';
+                    $type = $trace[$i]['type'] ?? '';
+                    $function = $trace[$i]['function'] ?? '';
+                    $file = $trace[$i]['file'] ?? 'n/a';
+                    $line = $trace[$i]['line'] ?? 'n/a';
                     $output->writeln(\sprintf(' %s%s at <info>%s:%s</info>', $class, $function ? $type . $function . '()' : '', $file, $line), \RectorPrefix20210127\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
                 }
                 $output->writeln('', \RectorPrefix20210127\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);

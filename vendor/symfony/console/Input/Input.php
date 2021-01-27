@@ -96,7 +96,7 @@ abstract class Input implements \RectorPrefix20210127\Symfony\Component\Console\
         if (!$this->definition->hasArgument($name)) {
             throw new \RectorPrefix20210127\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
-        return isset($this->arguments[$name]) ? $this->arguments[$name] : $this->definition->getArgument($name)->getDefault();
+        return $this->arguments[$name] ?? $this->definition->getArgument($name)->getDefault();
     }
     /**
      * {@inheritdoc}

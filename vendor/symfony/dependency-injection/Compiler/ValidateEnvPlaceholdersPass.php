@@ -24,7 +24,7 @@ use RectorPrefix20210127\Symfony\Component\DependencyInjection\ParameterBag\Para
  */
 class ValidateEnvPlaceholdersPass implements \RectorPrefix20210127\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    private static $typeFixtures = ['array' => [], 'bool' => \false, 'float' => 0.0, 'int' => 0, 'string' => ''];
+    private const TYPE_FIXTURES = ['array' => [], 'bool' => \false, 'float' => 0.0, 'int' => 0, 'string' => ''];
     private $extensionConfig = [];
     /**
      * {@inheritdoc}
@@ -45,13 +45,13 @@ class ValidateEnvPlaceholdersPass implements \RectorPrefix20210127\Symfony\Compo
             foreach ($resolvingBag->getEnvPlaceholders() + $resolvingBag->getUnusedEnvPlaceholders() as $env => $placeholders) {
                 $values = [];
                 if (\false === ($i = \strpos($env, ':'))) {
-                    $default = $defaultBag->has("env({$env})") ? $defaultBag->get("env({$env})") : self::$typeFixtures['string'];
+                    $default = $defaultBag->has("env({$env})") ? $defaultBag->get("env({$env})") : self::TYPE_FIXTURES['string'];
                     $defaultType = null !== $default ? \get_debug_type($default) : 'string';
                     $values[$defaultType] = $default;
                 } else {
                     $prefix = \substr($env, 0, $i);
                     foreach ($envTypes[$prefix] ?? ['string'] as $type) {
-                        $values[$type] = self::$typeFixtures[$type] ?? null;
+                        $values[$type] = self::TYPE_FIXTURES[$type] ?? null;
                     }
                 }
                 foreach ($placeholders as $placeholder) {

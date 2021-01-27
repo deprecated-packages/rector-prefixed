@@ -20,10 +20,10 @@ use RectorPrefix20210127\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class PgSqlCaster
 {
-    private static $paramCodes = ['server_encoding', 'client_encoding', 'is_superuser', 'session_authorization', 'DateStyle', 'TimeZone', 'IntervalStyle', 'integer_datetimes', 'application_name', 'standard_conforming_strings'];
-    private static $transactionStatus = [\PGSQL_TRANSACTION_IDLE => 'PGSQL_TRANSACTION_IDLE', \PGSQL_TRANSACTION_ACTIVE => 'PGSQL_TRANSACTION_ACTIVE', \PGSQL_TRANSACTION_INTRANS => 'PGSQL_TRANSACTION_INTRANS', \PGSQL_TRANSACTION_INERROR => 'PGSQL_TRANSACTION_INERROR', \PGSQL_TRANSACTION_UNKNOWN => 'PGSQL_TRANSACTION_UNKNOWN'];
-    private static $resultStatus = [\PGSQL_EMPTY_QUERY => 'PGSQL_EMPTY_QUERY', \PGSQL_COMMAND_OK => 'PGSQL_COMMAND_OK', \PGSQL_TUPLES_OK => 'PGSQL_TUPLES_OK', \PGSQL_COPY_OUT => 'PGSQL_COPY_OUT', \PGSQL_COPY_IN => 'PGSQL_COPY_IN', \PGSQL_BAD_RESPONSE => 'PGSQL_BAD_RESPONSE', \PGSQL_NONFATAL_ERROR => 'PGSQL_NONFATAL_ERROR', \PGSQL_FATAL_ERROR => 'PGSQL_FATAL_ERROR'];
-    private static $diagCodes = ['severity' => \PGSQL_DIAG_SEVERITY, 'sqlstate' => \PGSQL_DIAG_SQLSTATE, 'message' => \PGSQL_DIAG_MESSAGE_PRIMARY, 'detail' => \PGSQL_DIAG_MESSAGE_DETAIL, 'hint' => \PGSQL_DIAG_MESSAGE_HINT, 'statement position' => \PGSQL_DIAG_STATEMENT_POSITION, 'internal position' => \PGSQL_DIAG_INTERNAL_POSITION, 'internal query' => \PGSQL_DIAG_INTERNAL_QUERY, 'context' => \PGSQL_DIAG_CONTEXT, 'file' => \PGSQL_DIAG_SOURCE_FILE, 'line' => \PGSQL_DIAG_SOURCE_LINE, 'function' => \PGSQL_DIAG_SOURCE_FUNCTION];
+    private const PARAM_CODES = ['server_encoding', 'client_encoding', 'is_superuser', 'session_authorization', 'DateStyle', 'TimeZone', 'IntervalStyle', 'integer_datetimes', 'application_name', 'standard_conforming_strings'];
+    private const TRANSACTION_STATUS = [\PGSQL_TRANSACTION_IDLE => 'PGSQL_TRANSACTION_IDLE', \PGSQL_TRANSACTION_ACTIVE => 'PGSQL_TRANSACTION_ACTIVE', \PGSQL_TRANSACTION_INTRANS => 'PGSQL_TRANSACTION_INTRANS', \PGSQL_TRANSACTION_INERROR => 'PGSQL_TRANSACTION_INERROR', \PGSQL_TRANSACTION_UNKNOWN => 'PGSQL_TRANSACTION_UNKNOWN'];
+    private const RESULT_STATUS = [\PGSQL_EMPTY_QUERY => 'PGSQL_EMPTY_QUERY', \PGSQL_COMMAND_OK => 'PGSQL_COMMAND_OK', \PGSQL_TUPLES_OK => 'PGSQL_TUPLES_OK', \PGSQL_COPY_OUT => 'PGSQL_COPY_OUT', \PGSQL_COPY_IN => 'PGSQL_COPY_IN', \PGSQL_BAD_RESPONSE => 'PGSQL_BAD_RESPONSE', \PGSQL_NONFATAL_ERROR => 'PGSQL_NONFATAL_ERROR', \PGSQL_FATAL_ERROR => 'PGSQL_FATAL_ERROR'];
+    private const DIAG_CODES = ['severity' => \PGSQL_DIAG_SEVERITY, 'sqlstate' => \PGSQL_DIAG_SQLSTATE, 'message' => \PGSQL_DIAG_MESSAGE_PRIMARY, 'detail' => \PGSQL_DIAG_MESSAGE_DETAIL, 'hint' => \PGSQL_DIAG_MESSAGE_HINT, 'statement position' => \PGSQL_DIAG_STATEMENT_POSITION, 'internal position' => \PGSQL_DIAG_INTERNAL_POSITION, 'internal query' => \PGSQL_DIAG_INTERNAL_QUERY, 'context' => \PGSQL_DIAG_CONTEXT, 'file' => \PGSQL_DIAG_SOURCE_FILE, 'line' => \PGSQL_DIAG_SOURCE_LINE, 'function' => \PGSQL_DIAG_SOURCE_FUNCTION];
     public static function castLargeObject($lo, array $a, \RectorPrefix20210127\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         $a['seek position'] = \pg_lo_tell($lo);
@@ -35,8 +35,8 @@ class PgSqlCaster
         $a['status'] = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(\PGSQL_CONNECTION_OK === $a['status'] ? 'PGSQL_CONNECTION_OK' : 'PGSQL_CONNECTION_BAD', $a['status']);
         $a['busy'] = \pg_connection_busy($link);
         $a['transaction'] = \pg_transaction_status($link);
-        if (isset(self::$transactionStatus[$a['transaction']])) {
-            $a['transaction'] = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::$transactionStatus[$a['transaction']], $a['transaction']);
+        if (isset(self::TRANSACTION_STATUS[$a['transaction']])) {
+            $a['transaction'] = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::TRANSACTION_STATUS[$a['transaction']], $a['transaction']);
         }
         $a['pid'] = \pg_get_pid($link);
         $a['last error'] = \pg_last_error($link);
@@ -46,7 +46,7 @@ class PgSqlCaster
         $a['dbname'] = \pg_dbname($link);
         $a['options'] = \pg_options($link);
         $a['version'] = \pg_version($link);
-        foreach (self::$paramCodes as $v) {
+        foreach (self::PARAM_CODES as $v) {
             if (\false !== ($s = \pg_parameter_status($link, $v))) {
                 $a['param'][$v] = $s;
             }
@@ -59,12 +59,12 @@ class PgSqlCaster
     {
         $a['num rows'] = \pg_num_rows($result);
         $a['status'] = \pg_result_status($result);
-        if (isset(self::$resultStatus[$a['status']])) {
-            $a['status'] = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::$resultStatus[$a['status']], $a['status']);
+        if (isset(self::RESULT_STATUS[$a['status']])) {
+            $a['status'] = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::RESULT_STATUS[$a['status']], $a['status']);
         }
         $a['command-completion tag'] = \pg_result_status($result, \PGSQL_STATUS_STRING);
         if (-1 === $a['num rows']) {
-            foreach (self::$diagCodes as $k => $v) {
+            foreach (self::DIAG_CODES as $k => $v) {
                 $a['error'][$k] = \pg_result_error_field($result, $v);
             }
         }

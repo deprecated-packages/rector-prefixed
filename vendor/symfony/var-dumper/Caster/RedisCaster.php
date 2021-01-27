@@ -20,14 +20,14 @@ use RectorPrefix20210127\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class RedisCaster
 {
-    private static $serializer = [\Redis::SERIALIZER_NONE => 'NONE', \Redis::SERIALIZER_PHP => 'PHP', 2 => 'IGBINARY'];
-    private static $mode = [\Redis::ATOMIC => 'ATOMIC', \Redis::MULTI => 'MULTI', \Redis::PIPELINE => 'PIPELINE'];
-    private static $compression = [
+    private const SERIALIZERS = [\Redis::SERIALIZER_NONE => 'NONE', \Redis::SERIALIZER_PHP => 'PHP', 2 => 'IGBINARY'];
+    private const MODES = [\Redis::ATOMIC => 'ATOMIC', \Redis::MULTI => 'MULTI', \Redis::PIPELINE => 'PIPELINE'];
+    private const COMPRESSION_MODES = [
         0 => 'NONE',
         // Redis::COMPRESSION_NONE
         1 => 'LZF',
     ];
-    private static $failover = [\RedisCluster::FAILOVER_NONE => 'NONE', \RedisCluster::FAILOVER_ERROR => 'ERROR', \RedisCluster::FAILOVER_DISTRIBUTE => 'DISTRIBUTE', \RedisCluster::FAILOVER_DISTRIBUTE_SLAVES => 'DISTRIBUTE_SLAVES'];
+    private const FAILOVER_OPTIONS = [\RedisCluster::FAILOVER_NONE => 'NONE', \RedisCluster::FAILOVER_ERROR => 'ERROR', \RedisCluster::FAILOVER_DISTRIBUTE => 'DISTRIBUTE', \RedisCluster::FAILOVER_DISTRIBUTE_SLAVES => 'DISTRIBUTE_SLAVES'];
     public static function castRedis(\Redis $c, array $a, \RectorPrefix20210127\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         $prefix = \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
@@ -35,7 +35,7 @@ class RedisCaster
             return $a + [$prefix . 'isConnected' => $connected];
         }
         $mode = $c->getMode();
-        return $a + [$prefix . 'isConnected' => $connected, $prefix . 'host' => $c->getHost(), $prefix . 'port' => $c->getPort(), $prefix . 'auth' => $c->getAuth(), $prefix . 'mode' => isset(self::$mode[$mode]) ? new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::$mode[$mode], $mode) : $mode, $prefix . 'dbNum' => $c->getDbNum(), $prefix . 'timeout' => $c->getTimeout(), $prefix . 'lastError' => $c->getLastError(), $prefix . 'persistentId' => $c->getPersistentID(), $prefix . 'options' => self::getRedisOptions($c)];
+        return $a + [$prefix . 'isConnected' => $connected, $prefix . 'host' => $c->getHost(), $prefix . 'port' => $c->getPort(), $prefix . 'auth' => $c->getAuth(), $prefix . 'mode' => isset(self::MODES[$mode]) ? new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::MODES[$mode], $mode) : $mode, $prefix . 'dbNum' => $c->getDbNum(), $prefix . 'timeout' => $c->getTimeout(), $prefix . 'lastError' => $c->getLastError(), $prefix . 'persistentId' => $c->getPersistentID(), $prefix . 'options' => self::getRedisOptions($c)];
     }
     public static function castRedisArray(\RedisArray $c, array $a, \RectorPrefix20210127\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
@@ -46,7 +46,7 @@ class RedisCaster
     {
         $prefix = \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $failover = $c->getOption(\RedisCluster::OPT_SLAVE_FAILOVER);
-        $a += [$prefix . '_masters' => $c->_masters(), $prefix . '_redir' => $c->_redir(), $prefix . 'mode' => new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub($c->getMode() ? 'MULTI' : 'ATOMIC', $c->getMode()), $prefix . 'lastError' => $c->getLastError(), $prefix . 'options' => self::getRedisOptions($c, ['SLAVE_FAILOVER' => isset(self::$failover[$failover]) ? new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::$failover[$failover], $failover) : $failover])];
+        $a += [$prefix . '_masters' => $c->_masters(), $prefix . '_redir' => $c->_redir(), $prefix . 'mode' => new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub($c->getMode() ? 'MULTI' : 'ATOMIC', $c->getMode()), $prefix . 'lastError' => $c->getLastError(), $prefix . 'options' => self::getRedisOptions($c, ['SLAVE_FAILOVER' => isset(self::FAILOVER_OPTIONS[$failover]) ? new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::FAILOVER_OPTIONS[$failover], $failover) : $failover])];
         return $a;
     }
     /**
@@ -57,22 +57,22 @@ class RedisCaster
         $serializer = $redis->getOption(\Redis::OPT_SERIALIZER);
         if (\is_array($serializer)) {
             foreach ($serializer as &$v) {
-                if (isset(self::$serializer[$v])) {
-                    $v = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::$serializer[$v], $v);
+                if (isset(self::SERIALIZERS[$v])) {
+                    $v = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::SERIALIZERS[$v], $v);
                 }
             }
-        } elseif (isset(self::$serializer[$serializer])) {
-            $serializer = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::$serializer[$serializer], $serializer);
+        } elseif (isset(self::SERIALIZERS[$serializer])) {
+            $serializer = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::SERIALIZERS[$serializer], $serializer);
         }
         $compression = \defined('Redis::OPT_COMPRESSION') ? $redis->getOption(\Redis::OPT_COMPRESSION) : 0;
         if (\is_array($compression)) {
             foreach ($compression as &$v) {
-                if (isset(self::$compression[$v])) {
-                    $v = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::$compression[$v], $v);
+                if (isset(self::COMPRESSION_MODES[$v])) {
+                    $v = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::COMPRESSION_MODES[$v], $v);
                 }
             }
-        } elseif (isset(self::$compression[$compression])) {
-            $compression = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::$compression[$compression], $compression);
+        } elseif (isset(self::COMPRESSION_MODES[$compression])) {
+            $compression = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ConstStub(self::COMPRESSION_MODES[$compression], $compression);
         }
         $retry = \defined('Redis::OPT_SCAN') ? $redis->getOption(\Redis::OPT_SCAN) : 0;
         if (\is_array($retry)) {

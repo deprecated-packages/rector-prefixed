@@ -45,7 +45,7 @@ class MemcachedSessionHandler extends \RectorPrefix20210127\Symfony\Component\Ht
             throw new \InvalidArgumentException(\sprintf('The following options are not supported "%s".', \implode(', ', $diff)));
         }
         $this->ttl = isset($options['expiretime']) ? (int) $options['expiretime'] : 86400;
-        $this->prefix = isset($options['prefix']) ? $options['prefix'] : 'sf2s';
+        $this->prefix = $options['prefix'] ?? 'sf2s';
     }
     /**
      * @return bool

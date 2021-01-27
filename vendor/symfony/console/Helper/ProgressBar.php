@@ -100,7 +100,7 @@ final class ProgressBar
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
         }
-        return isset(self::$formatters[$name]) ? self::$formatters[$name] : null;
+        return self::$formatters[$name] ?? null;
     }
     /**
      * Sets a format for a given name.
@@ -129,7 +129,7 @@ final class ProgressBar
         if (!self::$formats) {
             self::$formats = self::initFormats();
         }
-        return isset(self::$formats[$name]) ? self::$formats[$name] : null;
+        return self::$formats[$name] ?? null;
     }
     /**
      * Associates a text with a named placeholder.

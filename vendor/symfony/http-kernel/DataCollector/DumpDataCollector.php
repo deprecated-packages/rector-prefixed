@@ -145,7 +145,7 @@ class DumpDataCollector extends \RectorPrefix20210127\Symfony\Component\HttpKern
         $charset = \array_pop($this->data);
         $fileLinkFormat = \array_pop($this->data);
         $this->dataCount = \count($this->data);
-        self::__construct($this->stopwatch, $fileLinkFormat, $charset);
+        self::__construct($this->stopwatch, \is_string($fileLinkFormat) || $fileLinkFormat instanceof \RectorPrefix20210127\Symfony\Component\HttpKernel\Debug\FileLinkFormatter ? $fileLinkFormat : null, \is_string($charset) ? $charset : null);
     }
     public function getDumpsCount() : int
     {
@@ -153,7 +153,7 @@ class DumpDataCollector extends \RectorPrefix20210127\Symfony\Component\HttpKern
     }
     public function getDumps($format, $maxDepthLimit = -1, $maxItemsPerDepth = -1) : array
     {
-        $data = \fopen('php://memory', 'r+b');
+        $data = \fopen('php://memory', 'r+');
         if ('html' === $format) {
             $dumper = new \RectorPrefix20210127\Symfony\Component\VarDumper\Dumper\HtmlDumper($data, $this->charset);
             $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);

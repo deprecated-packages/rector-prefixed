@@ -257,7 +257,7 @@ class SymfonyStyle extends \RectorPrefix20210127\Symfony\Component\Console\Style
     {
         if (null !== $default) {
             $values = \array_flip($choices);
-            $default = isset($values[$default]) ? $values[$default] : $default;
+            $default = $values[$default] ?? $default;
         }
         return $this->askQuestion(new \RectorPrefix20210127\Symfony\Component\Console\Question\ChoiceQuestion($question, $choices, $default));
     }

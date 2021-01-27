@@ -94,7 +94,7 @@ abstract class BaseNode implements \RectorPrefix20210127\Symfony\Component\Confi
      */
     public function getAttribute(string $key, $default = null)
     {
-        return isset($this->attributes[$key]) ? $this->attributes[$key] : $default;
+        return $this->attributes[$key] ?? $default;
     }
     /**
      * @return bool

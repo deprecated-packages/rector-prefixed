@@ -166,7 +166,7 @@ class Parser
                     $this->refs[$isRef] = \end($data);
                     \array_pop($this->refsBeingParsed);
                 }
-            } elseif (self::preg_match('#^(?P<key>(?:![^\\s]++\\s++)?(?:' . \RectorPrefix20210127\Symfony\Component\Yaml\Inline::REGEX_QUOTED_STRING . '|(?:!?!php/const:)?[^ \'"\\[\\{!].*?)) *\\:(\\s++(?P<value>.+))?$#u', \rtrim($this->currentLine), $values) && (\false === \strpos($values['key'], ' #') || \in_array($values['key'][0], ['"', "'"]))) {
+            } elseif (self::preg_match('#^(?P<key>(?:![^\\s]++\\s++)?(?:' . \RectorPrefix20210127\Symfony\Component\Yaml\Inline::REGEX_QUOTED_STRING . '|(?:!?!php/const:)?[^ \'"\\[\\{!].*?)) *\\:( ++(?P<value>.+))?$#u', \rtrim($this->currentLine), $values) && (\false === \strpos($values['key'], ' #') || \in_array($values['key'][0], ['"', "'"]))) {
                 if ($context && 'sequence' == $context) {
                     throw new \RectorPrefix20210127\Symfony\Component\Yaml\Exception\ParseException('You cannot define a mapping item when in a sequence.', $this->currentLineNb + 1, $this->currentLine, $this->filename);
                 }
@@ -607,7 +607,7 @@ class Parser
             return $this->refs[$value];
         }
         if (\in_array($value[0], ['!', '|', '>'], \true) && self::preg_match('/^(?:' . self::TAG_PATTERN . ' +)?' . self::BLOCK_SCALAR_HEADER_PATTERN . '$/', $value, $matches)) {
-            $modifiers = isset($matches['modifiers']) ? $matches['modifiers'] : '';
+            $modifiers = $matches['modifiers'] ?? '';
             $data = $this->parseBlockScalar($matches['separator'], \preg_replace('#\\d+#', '', $modifiers), \abs((int) $modifiers));
             if ('' !== $matches['tag'] && '!' !== $matches['tag']) {
                 if ('!!binary' === $matches['tag']) {

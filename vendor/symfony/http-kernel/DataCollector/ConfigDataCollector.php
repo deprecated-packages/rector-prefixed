@@ -38,7 +38,7 @@ class ConfigDataCollector extends \RectorPrefix20210127\Symfony\Component\HttpKe
      */
     public function collect(\RectorPrefix20210127\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210127\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
-        $this->data = ['token' => $response->headers->get('X-Debug-Token'), 'symfony_version' => \RectorPrefix20210127\Symfony\Component\HttpKernel\Kernel::VERSION, 'symfony_state' => 'unknown', 'env' => isset($this->kernel) ? $this->kernel->getEnvironment() : 'n/a', 'debug' => isset($this->kernel) ? $this->kernel->isDebug() : 'n/a', 'php_version' => \PHP_VERSION, 'php_architecture' => \PHP_INT_SIZE * 8, 'php_intl_locale' => \class_exists('Locale', \false) && \Locale::getDefault() ? \Locale::getDefault() : 'n/a', 'php_timezone' => \date_default_timezone_get(), 'xdebug_enabled' => \extension_loaded('xdebug'), 'apcu_enabled' => \extension_loaded('apcu') && \filter_var(\ini_get('apc.enabled'), \FILTER_VALIDATE_BOOLEAN), 'zend_opcache_enabled' => \extension_loaded('Zend OPcache') && \filter_var(\ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN), 'bundles' => [], 'sapi_name' => \PHP_SAPI];
+        $this->data = ['token' => $response->headers->get('X-Debug-Token'), 'symfony_version' => \RectorPrefix20210127\Symfony\Component\HttpKernel\Kernel::VERSION, 'symfony_state' => 'unknown', 'env' => isset($this->kernel) ? $this->kernel->getEnvironment() : 'n/a', 'debug' => isset($this->kernel) ? $this->kernel->isDebug() : 'n/a', 'php_version' => \PHP_VERSION, 'php_architecture' => \PHP_INT_SIZE * 8, 'php_intl_locale' => \class_exists(\Locale::class, \false) && \Locale::getDefault() ? \Locale::getDefault() : 'n/a', 'php_timezone' => \date_default_timezone_get(), 'xdebug_enabled' => \extension_loaded('xdebug'), 'apcu_enabled' => \extension_loaded('apcu') && \filter_var(\ini_get('apc.enabled'), \FILTER_VALIDATE_BOOLEAN), 'zend_opcache_enabled' => \extension_loaded('Zend OPcache') && \filter_var(\ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN), 'bundles' => [], 'sapi_name' => \PHP_SAPI];
         if (isset($this->kernel)) {
             foreach ($this->kernel->getBundles() as $name => $bundle) {
                 $this->data['bundles'][$name] = new \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\ClassStub(\get_class($bundle));
@@ -147,7 +147,7 @@ class ConfigDataCollector extends \RectorPrefix20210127\Symfony\Component\HttpKe
      */
     public function getPhpVersionExtra()
     {
-        return isset($this->data['php_version_extra']) ? $this->data['php_version_extra'] : null;
+        return $this->data['php_version_extra'] ?? null;
     }
     /**
      * @return int The PHP architecture as number of bits (e.g. 32 or 64)

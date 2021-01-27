@@ -53,6 +53,8 @@ class Psr16Cache implements \RectorPrefix20210127\Psr\SimpleCache\CacheInterface
     }
     /**
      * {@inheritdoc}
+     *
+     * @return mixed
      */
     public function get($key, $default = null)
     {

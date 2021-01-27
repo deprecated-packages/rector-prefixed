@@ -38,6 +38,8 @@ final class CacheItem implements \RectorPrefix20210127\Symfony\Contracts\Cache\I
     }
     /**
      * {@inheritdoc}
+     *
+     * @return mixed
      */
     public function get()
     {

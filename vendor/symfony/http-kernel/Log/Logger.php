@@ -20,7 +20,7 @@ use RectorPrefix20210127\Psr\Log\LogLevel;
  */
 class Logger extends \RectorPrefix20210127\Psr\Log\AbstractLogger
 {
-    private static $levels = [\RectorPrefix20210127\Psr\Log\LogLevel::DEBUG => 0, \RectorPrefix20210127\Psr\Log\LogLevel::INFO => 1, \RectorPrefix20210127\Psr\Log\LogLevel::NOTICE => 2, \RectorPrefix20210127\Psr\Log\LogLevel::WARNING => 3, \RectorPrefix20210127\Psr\Log\LogLevel::ERROR => 4, \RectorPrefix20210127\Psr\Log\LogLevel::CRITICAL => 5, \RectorPrefix20210127\Psr\Log\LogLevel::ALERT => 6, \RectorPrefix20210127\Psr\Log\LogLevel::EMERGENCY => 7];
+    private const LEVELS = [\RectorPrefix20210127\Psr\Log\LogLevel::DEBUG => 0, \RectorPrefix20210127\Psr\Log\LogLevel::INFO => 1, \RectorPrefix20210127\Psr\Log\LogLevel::NOTICE => 2, \RectorPrefix20210127\Psr\Log\LogLevel::WARNING => 3, \RectorPrefix20210127\Psr\Log\LogLevel::ERROR => 4, \RectorPrefix20210127\Psr\Log\LogLevel::CRITICAL => 5, \RectorPrefix20210127\Psr\Log\LogLevel::ALERT => 6, \RectorPrefix20210127\Psr\Log\LogLevel::EMERGENCY => 7];
     private $minLevelIndex;
     private $formatter;
     private $handle;
@@ -29,7 +29,7 @@ class Logger extends \RectorPrefix20210127\Psr\Log\AbstractLogger
         if (null === $minLevel) {
             $minLevel = null === $output || 'php://stdout' === $output || 'php://stderr' === $output ? \RectorPrefix20210127\Psr\Log\LogLevel::ERROR : \RectorPrefix20210127\Psr\Log\LogLevel::WARNING;
             if (isset($_ENV['SHELL_VERBOSITY']) || isset($_SERVER['SHELL_VERBOSITY'])) {
-                switch ((int) (isset($_ENV['SHELL_VERBOSITY']) ? $_ENV['SHELL_VERBOSITY'] : $_SERVER['SHELL_VERBOSITY'])) {
+                switch ((int) ($_ENV['SHELL_VERBOSITY'] ?? $_SERVER['SHELL_VERBOSITY'])) {
                     case -1:
                         $minLevel = \RectorPrefix20210127\Psr\Log\LogLevel::ERROR;
                         break;
@@ -45,10 +45,10 @@ class Logger extends \RectorPrefix20210127\Psr\Log\AbstractLogger
                 }
             }
         }
-        if (!isset(self::$levels[$minLevel])) {
+        if (!isset(self::LEVELS[$minLevel])) {
             throw new \RectorPrefix20210127\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $minLevel));
         }
-        $this->minLevelIndex = self::$levels[$minLevel];
+        $this->minLevelIndex = self::LEVELS[$minLevel];
         $this->formatter = $formatter ?: [$this, 'format'];
         if ($output && \false === ($this->handle = \is_resource($output) ? $output : @\fopen($output, 'a'))) {
             throw new \RectorPrefix20210127\Psr\Log\InvalidArgumentException(\sprintf('Unable to open "%s".', $output));
@@ -61,10 +61,10 @@ class Logger extends \RectorPrefix20210127\Psr\Log\AbstractLogger
      */
     public function log($level, $message, array $context = [])
     {
-        if (!isset(self::$levels[$level])) {
+        if (!isset(self::LEVELS[$level])) {
             throw new \RectorPrefix20210127\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
         }
-        if (self::$levels[$level] < $this->minLevelIndex) {
+        if (self::LEVELS[$level] < $this->minLevelIndex) {
             return;
         }
         $formatter = $this->formatter;

@@ -43,7 +43,7 @@ class YamlDumper extends \RectorPrefix20210127\Symfony\Component\DependencyInjec
      */
     public function dump(array $options = [])
     {
-        if (!\class_exists('RectorPrefix20210127\\Symfony\\Component\\Yaml\\Dumper')) {
+        if (!\class_exists(\RectorPrefix20210127\Symfony\Component\Yaml\Dumper::class)) {
             throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to dump the container as the Symfony Yaml Component is not installed.');
         }
         if (null === $this->dumper) {

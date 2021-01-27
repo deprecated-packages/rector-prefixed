@@ -47,7 +47,7 @@ use RectorPrefix20210127\ProxyManager\Proxy\ProxyInterface;
  */
 class DebugClassLoader
 {
-    private const SPECIAL_RETURN_TYPES = ['void' => 'void', 'null' => 'null', 'resource' => 'resource', 'boolean' => 'bool', 'true' => 'bool', 'false' => 'bool', 'integer' => 'int', 'array' => 'array', 'bool' => 'bool', 'callable' => 'callable', 'float' => 'float', 'int' => 'int', 'iterable' => 'iterable', 'object' => 'object', 'string' => 'string', 'self' => 'self', 'parent' => 'parent'] + (\PHP_VERSION_ID >= 80000 ? ['$this' => 'static'] : ['mixed' => 'mixed', 'static' => 'object', '$this' => 'object']);
+    private const SPECIAL_RETURN_TYPES = ['void' => 'void', 'null' => 'null', 'resource' => 'resource', 'boolean' => 'bool', 'true' => 'bool', 'false' => 'bool', 'integer' => 'int', 'array' => 'array', 'bool' => 'bool', 'callable' => 'callable', 'float' => 'float', 'int' => 'int', 'iterable' => 'iterable', 'object' => 'object', 'string' => 'string', 'self' => 'self', 'parent' => 'parent', 'mixed' => 'mixed'] + (\PHP_VERSION_ID >= 80000 ? ['static' => 'static', '$this' => 'static'] : ['static' => 'object', '$this' => 'object']);
     private const BUILTIN_RETURN_TYPES = ['void' => \true, 'array' => \true, 'bool' => \true, 'callable' => \true, 'float' => \true, 'int' => \true, 'iterable' => \true, 'object' => \true, 'string' => \true, 'self' => \true, 'parent' => \true] + (\PHP_VERSION_ID >= 80000 ? ['mixed' => \true, 'static' => \true] : []);
     private const MAGIC_METHODS = ['__set' => 'void', '__isset' => 'bool', '__unset' => 'void', '__sleep' => 'array', '__wakeup' => 'void', '__toString' => 'string', '__clone' => 'void', '__debugInfo' => 'array', '__serialize' => 'array', '__unserialize' => 'void'];
     private const INTERNAL_TYPES = ['ArrayAccess' => ['offsetExists' => 'bool', 'offsetSet' => 'void', 'offsetUnset' => 'void'], 'Countable' => ['count' => 'int'], 'Iterator' => ['next' => 'void', 'valid' => 'bool', 'rewind' => 'void'], 'IteratorAggregate' => ['getIterator' => '\\Traversable'], 'OuterIterator' => ['getInnerIterator' => '\\Iterator'], 'RecursiveIterator' => ['hasChildren' => 'bool'], 'SeekableIterator' => ['seek' => 'void'], 'Serializable' => ['serialize' => 'string', 'unserialize' => 'void'], 'SessionHandlerInterface' => ['open' => 'bool', 'close' => 'bool', 'read' => 'string', 'write' => 'bool', 'destroy' => 'bool', 'gc' => 'bool'], 'SessionIdInterface' => ['create_sid' => 'string'], 'SessionUpdateTimestampHandlerInterface' => ['validateId' => 'bool', 'updateTimestamp' => 'bool'], 'Throwable' => ['getMessage' => 'string', 'getCode' => 'int', 'getFile' => 'string', 'getLine' => 'int', 'getTrace' => 'array', 'getPrevious' => '?\\Throwable', 'getTraceAsString' => 'string']];
@@ -111,8 +111,8 @@ class DebugClassLoader
     public static function enable() : void
     {
         // Ensures we don't hit https://bugs.php.net/42098
-        \class_exists('RectorPrefix20210127\\Symfony\\Component\\ErrorHandler\\ErrorHandler');
-        \class_exists('RectorPrefix20210127\\Psr\\Log\\LogLevel');
+        \class_exists(\RectorPrefix20210127\Symfony\Component\ErrorHandler\ErrorHandler::class);
+        \class_exists(\RectorPrefix20210127\Psr\Log\LogLevel::class);
         if (!\is_array($functions = \spl_autoload_functions())) {
             return;
         }

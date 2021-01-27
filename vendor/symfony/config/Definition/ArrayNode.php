@@ -191,7 +191,7 @@ class ArrayNode extends \RectorPrefix20210127\Symfony\Component\Config\Definitio
                 if ($child->isRequired()) {
                     $message = \sprintf('The child config "%s" under "%s" must be configured', $name, $this->getPath());
                     if ($child->getInfo()) {
-                        $message .= \sprintf(": %s", $child->getInfo());
+                        $message .= \sprintf(': %s', $child->getInfo());
                     } else {
                         $message .= '.';
                     }

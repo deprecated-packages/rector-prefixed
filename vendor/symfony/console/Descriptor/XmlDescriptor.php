@@ -122,7 +122,7 @@ class XmlDescriptor extends \RectorPrefix20210127\Symfony\Component\Console\Desc
      */
     protected function describeApplication(\RectorPrefix20210127\Symfony\Component\Console\Application $application, array $options = [])
     {
-        $this->writeDocument($this->getApplicationDocument($application, isset($options['namespace']) ? $options['namespace'] : null));
+        $this->writeDocument($this->getApplicationDocument($application, $options['namespace'] ?? null));
     }
     /**
      * Appends document children to parent node.

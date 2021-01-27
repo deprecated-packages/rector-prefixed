@@ -17,11 +17,11 @@ use RectorPrefix20210127\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class SymfonyCaster
 {
-    private static $requestGetters = ['pathInfo' => 'getPathInfo', 'requestUri' => 'getRequestUri', 'baseUrl' => 'getBaseUrl', 'basePath' => 'getBasePath', 'method' => 'getMethod', 'format' => 'getRequestFormat'];
+    private const REQUEST_GETTERS = ['pathInfo' => 'getPathInfo', 'requestUri' => 'getRequestUri', 'baseUrl' => 'getBaseUrl', 'basePath' => 'getBasePath', 'method' => 'getMethod', 'format' => 'getRequestFormat'];
     public static function castRequest(\RectorPrefix20210127\Symfony\Component\HttpFoundation\Request $request, array $a, \RectorPrefix20210127\Symfony\Component\VarDumper\Cloner\Stub $stub, bool $isNested)
     {
         $clone = null;
-        foreach (self::$requestGetters as $prop => $getter) {
+        foreach (self::REQUEST_GETTERS as $prop => $getter) {
             $key = \RectorPrefix20210127\Symfony\Component\VarDumper\Caster\Caster::PREFIX_PROTECTED . $prop;
             if (\array_key_exists($key, $a) && null === $a[$key]) {
                 if (null === $clone) {

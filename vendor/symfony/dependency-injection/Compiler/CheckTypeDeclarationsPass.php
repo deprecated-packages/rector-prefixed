@@ -62,7 +62,7 @@ final class CheckTypeDeclarationsPass extends \RectorPrefix20210127\Symfony\Comp
         if (isset($this->skippedIds[$this->currentId])) {
             return $value;
         }
-        if (!$value instanceof \RectorPrefix20210127\Symfony\Component\DependencyInjection\Definition || $value->hasErrors()) {
+        if (!$value instanceof \RectorPrefix20210127\Symfony\Component\DependencyInjection\Definition || $value->hasErrors() || $value->isDeprecated()) {
             return parent::processValue($value, $isRoot);
         }
         if (!$this->autoload && !\class_exists($class = $value->getClass(), \false) && !\interface_exists($class, \false)) {
@@ -219,13 +219,23 @@ final class CheckTypeDeclarationsPass extends \RectorPrefix20210127\Symfony\Comp
         if ('object' === $type && !isset(self::BUILTIN_TYPES[$class])) {
             return;
         }
+        if ('mixed' === $type) {
+            return;
+        }
         if (\is_a($class, $type, \true)) {
             return;
         }
-        $checkFunction = \sprintf('is_%s', $type);
-        if (!$reflectionType->isBuiltin() || !$checkFunction($value)) {
-            throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException($this->currentId, \is_object($value) ? $class : \get_debug_type($value), $parameter);
+        if ('false' === $type) {
+            if (\false === $value) {
+                return;
+            }
+        } elseif ($reflectionType->isBuiltin()) {
+            $checkFunction = \sprintf('is_%s', $type);
+            if ($checkFunction($value)) {
+                return;
+            }
         }
+        throw new \RectorPrefix20210127\Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException($this->currentId, \is_object($value) ? $class : \get_debug_type($value), $parameter);
     }
     private function getExpressionLanguage() : \RectorPrefix20210127\Symfony\Component\DependencyInjection\ExpressionLanguage
     {

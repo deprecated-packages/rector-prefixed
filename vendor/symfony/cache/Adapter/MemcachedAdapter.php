@@ -29,7 +29,7 @@ class MemcachedAdapter extends \RectorPrefix20210127\Symfony\Component\Cache\Ada
     private const RESERVED_MEMCACHED = " \n\r\t\v\f\0";
     private const RESERVED_PSR6 = '@()\\{}/';
     protected $maxIdLength = 250;
-    private static $defaultClientOptions = ['persistent_id' => null, 'username' => null, 'password' => null, \Memcached::OPT_SERIALIZER => \Memcached::SERIALIZER_PHP];
+    private const DEFAULT_CLIENT_OPTIONS = ['persistent_id' => null, 'username' => null, 'password' => null, \Memcached::OPT_SERIALIZER => \Memcached::SERIALIZER_PHP];
     private $marshaller;
     private $client;
     private $lazyClient;
@@ -96,7 +96,7 @@ class MemcachedAdapter extends \RectorPrefix20210127\Symfony\Component\Cache\Ada
             throw new \ErrorException($msg, 0, $type, $file, $line);
         });
         try {
-            $options += static::$defaultClientOptions;
+            $options += static::DEFAULT_CLIENT_OPTIONS;
             $client = new \Memcached($options['persistent_id']);
             $username = $options['username'];
             $password = $options['password'];
@@ -147,7 +147,7 @@ class MemcachedAdapter extends \RectorPrefix20210127\Symfony\Component\Cache\Ada
                     $params['weight'] = $m[1];
                     $params['path'] = \substr($params['path'], 0, -\strlen($m[0]));
                 }
-                $params += ['host' => isset($params['host']) ? $params['host'] : $params['path'], 'port' => isset($params['host']) ? 11211 : null, 'weight' => 0];
+                $params += ['host' => $params['host'] ?? $params['path'], 'port' => isset($params['host']) ? 11211 : null, 'weight' => 0];
                 if ($query) {
                     $params += $query;
                     $options = $query + $options;

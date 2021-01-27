@@ -136,7 +136,7 @@ trait MemcachedTrait
                     $params['weight'] = $m[1];
                     $params['path'] = \substr($params['path'], 0, -\strlen($m[0]));
                 }
-                $params += ['host' => isset($params['host']) ? $params['host'] : $params['path'], 'port' => isset($params['host']) ? 11211 : null, 'weight' => 0];
+                $params += ['host' => $params['host'] ?? $params['path'], 'port' => isset($params['host']) ? 11211 : null, 'weight' => 0];
                 if ($query) {
                     $params += $query;
                     $options = $query + $options;

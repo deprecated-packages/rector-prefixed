@@ -57,7 +57,7 @@ class JsonDescriptor extends \RectorPrefix20210127\Symfony\Component\Console\Des
      */
     protected function describeApplication(\RectorPrefix20210127\Symfony\Component\Console\Application $application, array $options = [])
     {
-        $describedNamespace = isset($options['namespace']) ? $options['namespace'] : null;
+        $describedNamespace = $options['namespace'] ?? null;
         $description = new \RectorPrefix20210127\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $describedNamespace, \true);
         $commands = [];
         foreach ($description->getCommands() as $command) {
@@ -83,7 +83,7 @@ class JsonDescriptor extends \RectorPrefix20210127\Symfony\Component\Console\Des
      */
     private function writeData(array $data, array $options)
     {
-        $flags = isset($options['json_encoding']) ? $options['json_encoding'] : 0;
+        $flags = $options['json_encoding'] ?? 0;
         $this->write(\json_encode($data, $flags));
     }
     private function getInputArgumentData(\RectorPrefix20210127\Symfony\Component\Console\Input\InputArgument $argument) : array

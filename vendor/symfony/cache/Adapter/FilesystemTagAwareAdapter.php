@@ -119,7 +119,7 @@ class FilesystemTagAwareAdapter extends \RectorPrefix20210127\Symfony\Component\
     {
         foreach ($ids as $id) {
             $file = $this->getFile($id);
-            if (!\is_file($file) || !($h = @\fopen($file, 'rb'))) {
+            if (!\is_file($file) || !($h = @\fopen($file, 'r'))) {
                 continue;
             }
             if ((\PHP_VERSION_ID >= 70300 || '\\' !== \DIRECTORY_SEPARATOR) && !@\unlink($file)) {

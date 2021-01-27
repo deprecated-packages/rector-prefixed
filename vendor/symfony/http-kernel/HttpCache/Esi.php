@@ -78,7 +78,7 @@ class Esi extends \RectorPrefix20210127\Symfony\Component\HttpKernel\HttpCache\A
             if (!isset($options['src'])) {
                 throw new \RuntimeException('Unable to process an ESI tag without a "src" attribute.');
             }
-            $chunks[$i] = \sprintf('<?php echo $this->surrogate->handle($this, %s, %s, %s) ?>' . "\n", \var_export($options['src'], \true), \var_export(isset($options['alt']) ? $options['alt'] : '', \true), isset($options['onerror']) && 'continue' === $options['onerror'] ? 'true' : 'false');
+            $chunks[$i] = \sprintf('<?php echo $this->surrogate->handle($this, %s, %s, %s) ?>' . "\n", \var_export($options['src'], \true), \var_export($options['alt'] ?? '', \true), isset($options['onerror']) && 'continue' === $options['onerror'] ? 'true' : 'false');
             ++$i;
             $chunks[$i] = \str_replace($this->phpEscapeMap[0], $this->phpEscapeMap[1], $chunks[$i]);
             ++$i;

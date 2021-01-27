@@ -547,7 +547,11 @@ class Finder implements \IteratorAggregate, \Countable
             throw new \LogicException('You must call one of in() or append() methods before iterating over a Finder.');
         }
         if (1 === \count($this->dirs) && 0 === \count($this->iterators)) {
-            return $this->searchInDirectory($this->dirs[0]);
+            $iterator = $this->searchInDirectory($this->dirs[0]);
+            if ($this->sort || $this->reverseSorting) {
+                $iterator = (new \RectorPrefix20210127\Symfony\Component\Finder\Iterator\SortableIterator($iterator, $this->sort, $this->reverseSorting))->getIterator();
+            }
+            return $iterator;
         }
         $iterator = new \AppendIterator();
         foreach ($this->dirs as $dir) {
@@ -555,6 +559,9 @@ class Finder implements \IteratorAggregate, \Countable
         }
         foreach ($this->iterators as $it) {
             $iterator->append($it);
+        }
+        if ($this->sort || $this->reverseSorting) {
+            $iterator = (new \RectorPrefix20210127\Symfony\Component\Finder\Iterator\SortableIterator($iterator, $this->sort, $this->reverseSorting))->getIterator();
         }
         return $iterator;
     }
@@ -674,10 +681,6 @@ class Finder implements \IteratorAggregate, \Countable
         }
         if ($this->paths || $notPaths) {
             $iterator = new \RectorPrefix20210127\Symfony\Component\Finder\Iterator\PathFilterIterator($iterator, $this->paths, $notPaths);
-        }
-        if ($this->sort || $this->reverseSorting) {
-            $iteratorAggregate = new \RectorPrefix20210127\Symfony\Component\Finder\Iterator\SortableIterator($iterator, $this->sort, $this->reverseSorting);
-            $iterator = $iteratorAggregate->getIterator();
         }
         return $iterator;
     }

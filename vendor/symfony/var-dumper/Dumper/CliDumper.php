@@ -344,7 +344,7 @@ class CliDumper extends \RectorPrefix20210127\Symfony\Component\VarDumper\Dumper
                                 $this->expandNextHash = \true;
                             }
                         }
-                        $this->line .= $bin . $this->style($style, $key[1], $attr) . (isset($attr['separator']) ? $attr['separator'] : ': ');
+                        $this->line .= $bin . $this->style($style, $key[1], $attr) . ($attr['separator'] ?? ': ');
                     } else {
                         // This case should not happen
                         $this->line .= '-' . $bin . '"' . $this->style('private', $key, ['class' => '']) . '": ';
@@ -394,7 +394,7 @@ class CliDumper extends \RectorPrefix20210127\Symfony\Component\VarDumper\Dumper
             $s = $startCchr;
             $c = $c[$i = 0];
             do {
-                $s .= isset($map[$c[$i]]) ? $map[$c[$i]] : \sprintf('\\x%02X', \ord($c[$i]));
+                $s .= $map[$c[$i]] ?? \sprintf('\\x%02X', \ord($c[$i]));
             } while (isset($c[++$i]));
             return $s . $endCchr;
         }, $value, -1, $cchrCount);
@@ -412,7 +412,7 @@ class CliDumper extends \RectorPrefix20210127\Symfony\Component\VarDumper\Dumper
         }
         href:
         if ($this->colors && $this->handlesHrefGracefully) {
-            if (isset($attr['file']) && ($href = $this->getSourceLink($attr['file'], isset($attr['line']) ? $attr['line'] : 0))) {
+            if (isset($attr['file']) && ($href = $this->getSourceLink($attr['file'], $attr['line'] ?? 0))) {
                 if ('note' === $style) {
                     $value .= "\33]8;;{$href}\33\\^\33]8;;\33\\";
                 } else {
@@ -462,7 +462,7 @@ class CliDumper extends \RectorPrefix20210127\Symfony\Component\VarDumper\Dumper
             }
         }
         $h = \stream_get_meta_data($this->outputStream) + ['wrapper_type' => null];
-        $h = 'Output' === $h['stream_type'] && 'PHP' === $h['wrapper_type'] ? \fopen('php://stdout', 'wb') : $this->outputStream;
+        $h = 'Output' === $h['stream_type'] && 'PHP' === $h['wrapper_type'] ? \fopen('php://stdout', 'w') : $this->outputStream;
         return static::$defaultColors = $this->hasColorSupport($h);
     }
     /**

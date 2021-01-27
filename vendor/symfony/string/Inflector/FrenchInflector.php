@@ -22,7 +22,7 @@ final class FrenchInflector implements \RectorPrefix20210127\Symfony\Component\S
      *
      * @see https://la-conjugaison.nouvelobs.com/regles/grammaire/le-pluriel-des-noms-121.php
      */
-    private static $pluralizeRegexp = [
+    private const PLURALIZE_REGEXP = [
         // First entry: regexp
         // Second entry: replacement
         // Words finishing with "s", "x" or "z" are invariables
@@ -56,7 +56,7 @@ final class FrenchInflector implements \RectorPrefix20210127\Symfony\Component\S
     /**
      * A list of all rules for singularize.
      */
-    private static $singularizeRegexp = [
+    private const SINGULARIZE_REGEXP = [
         // First entry: regexp
         // Second entry: replacement
         // Aspirail, bail, corail, émail, fermail, soupirail, travail, vantail et vitrail font leur pluriel en -aux
@@ -88,7 +88,7 @@ final class FrenchInflector implements \RectorPrefix20210127\Symfony\Component\S
      * A list of words which should not be inflected.
      * This list is only used by singularize.
      */
-    private static $uninflected = '/^(abcès|accès|abus|albatros|anchois|anglais|autobus|bois|brebis|carquois|cas|chas|colis|concours|corps|cours|cyprès|décès|devis|discours|dos|embarras|engrais|entrelacs|excès|fils|fois|gâchis|gars|glas|héros|intrus|jars|jus|kermès|lacis|legs|lilas|marais|mars|matelas|mépris|mets|mois|mors|obus|os|palais|paradis|parcours|pardessus|pays|plusieurs|poids|pois|pouls|printemps|processus|progrès|puits|pus|rabais|radis|recors|recours|refus|relais|remords|remous|rictus|rhinocéros|repas|rubis|sas|secours|sens|souris|succès|talus|tapis|tas|taudis|temps|tiers|univers|velours|verglas|vernis|virus)$/i';
+    private const UNINFLECTED = '/^(abcès|accès|abus|albatros|anchois|anglais|autobus|bois|brebis|carquois|cas|chas|colis|concours|corps|cours|cyprès|décès|devis|discours|dos|embarras|engrais|entrelacs|excès|fils|fois|gâchis|gars|glas|héros|intrus|jars|jus|kermès|lacis|legs|lilas|marais|mars|matelas|mépris|mets|mois|mors|obus|os|palais|paradis|parcours|pardessus|pays|plusieurs|poids|pois|pouls|printemps|processus|progrès|puits|pus|rabais|radis|recors|recours|refus|relais|remords|remous|rictus|rhinocéros|repas|rubis|sas|secours|sens|souris|succès|talus|tapis|tas|taudis|temps|tiers|univers|velours|verglas|vernis|virus)$/i';
     /**
      * {@inheritdoc}
      */
@@ -97,7 +97,7 @@ final class FrenchInflector implements \RectorPrefix20210127\Symfony\Component\S
         if ($this->isInflectedWord($plural)) {
             return [$plural];
         }
-        foreach (self::$singularizeRegexp as $rule) {
+        foreach (self::SINGULARIZE_REGEXP as $rule) {
             [$regexp, $replace] = $rule;
             if (1 === \preg_match($regexp, $plural)) {
                 return [\preg_replace($regexp, $replace, $plural)];
@@ -113,7 +113,7 @@ final class FrenchInflector implements \RectorPrefix20210127\Symfony\Component\S
         if ($this->isInflectedWord($singular)) {
             return [$singular];
         }
-        foreach (self::$pluralizeRegexp as $rule) {
+        foreach (self::PLURALIZE_REGEXP as $rule) {
             [$regexp, $replace] = $rule;
             if (1 === \preg_match($regexp, $singular)) {
                 return [\preg_replace($regexp, $replace, $singular)];
@@ -123,6 +123,6 @@ final class FrenchInflector implements \RectorPrefix20210127\Symfony\Component\S
     }
     private function isInflectedWord(string $word) : bool
     {
-        return 1 === \preg_match(self::$uninflected, $word);
+        return 1 === \preg_match(self::UNINFLECTED, $word);
     }
 }
