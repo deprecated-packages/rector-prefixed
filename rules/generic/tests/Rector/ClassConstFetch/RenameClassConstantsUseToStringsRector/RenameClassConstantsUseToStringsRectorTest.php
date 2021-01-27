@@ -6,6 +6,7 @@ namespace Rector\Generic\Tests\Rector\ClassConstFetch\RenameClassConstantsUseToS
 use Iterator;
 use Rector\Generic\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector;
 use Rector\Generic\Tests\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector\Source\OldClassWithConstants;
+use Rector\Generic\ValueObject\ClassConstFetchToValue;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210127\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameClassConstantsUseToStringsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -26,6 +27,6 @@ final class RenameClassConstantsUseToStringsRectorTest extends \Rector\Testing\P
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector::class => [\Rector\Generic\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector::OLD_CONSTANTS_TO_NEW_VALUES_BY_TYPE => [\Rector\Generic\Tests\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector\Source\OldClassWithConstants::class => ['DEVELOPMENT' => 'development', 'PRODUCTION' => 'production']]]];
+        return [\Rector\Generic\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector::class => [\Rector\Generic\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector::CLASS_CONST_FETCHES_TO_VALUES => [new \Rector\Generic\ValueObject\ClassConstFetchToValue(\Rector\Generic\Tests\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector\Source\OldClassWithConstants::class, 'DEVELOPMENT', 'development'), new \Rector\Generic\ValueObject\ClassConstFetchToValue(\Rector\Generic\Tests\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector\Source\OldClassWithConstants::class, 'PRODUCTION', 'production')]]];
     }
 }

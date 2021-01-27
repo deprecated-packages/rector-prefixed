@@ -3,33 +3,34 @@
 declare (strict_types=1);
 namespace Rector\Renaming\Rector\ClassConstFetch;
 
-use RectorPrefix20210127\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Renaming\ValueObject\RenameClassConstant;
+use Rector\Renaming\Contract\RenameClassConstFetchInterface;
+use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
+use Rector\Renaming\ValueObject\RenameClassConstFetch;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210127\Webmozart\Assert\Assert;
 /**
- * @see \Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstantRector\RenameClassConstantRectorTest
+ * @see \Rector\Renaming\Tests\Rector\ClassConstFetch\RenameClassConstFetchRector\RenameClassConstFetchRectorTest
  */
-final class RenameClassConstantRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class RenameClassConstFetchRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
      */
     public const CLASS_CONSTANT_RENAME = 'constant_rename';
     /**
-     * @var RenameClassConstant[]
+     * @var RenameClassConstFetchInterface[]
      */
-    private $classConstantRenames = [];
+    private $renameClassConstFetches = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        $configuration = [self::CLASS_CONSTANT_RENAME => [new \Rector\Renaming\ValueObject\RenameClassConstant('SomeClass', 'OLD_CONSTANT', 'NEW_CONSTANT'), new \Rector\Renaming\ValueObject\RenameClassConstant('SomeClass', 'OTHER_OLD_CONSTANT', 'DifferentClass::NEW_CONSTANT')]];
+        $configuration = [self::CLASS_CONSTANT_RENAME => [new \Rector\Renaming\ValueObject\RenameClassConstFetch('SomeClass', 'OLD_CONSTANT', 'NEW_CONSTANT'), new \Rector\Renaming\ValueObject\RenameClassAndConstFetch('SomeClass', 'OTHER_OLD_CONSTANT', 'DifferentClass', 'NEW_CONSTANT')]];
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces defined class constants in their calls.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 $value = SomeClass::OLD_CONSTANT;
 $value = SomeClass::OTHER_OLD_CONSTANT;
@@ -52,15 +53,15 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->classConstantRenames as $classConstantRename) {
+        foreach ($this->renameClassConstFetches as $classConstantRename) {
             if (!$this->isObjectType($node, $classConstantRename->getOldClass())) {
                 continue;
             }
             if (!$this->isName($node->name, $classConstantRename->getOldConstant())) {
                 continue;
             }
-            if (\RectorPrefix20210127\Nette\Utils\Strings::contains($classConstantRename->getNewConstant(), '::')) {
-                return $this->createClassConstantFetchNodeFromDoubleColonFormat($classConstantRename->getNewConstant());
+            if ($classConstantRename instanceof \Rector\Renaming\ValueObject\RenameClassAndConstFetch) {
+                return $this->createClassAndConstFetch($classConstantRename);
             }
             $node->name = new \PhpParser\Node\Identifier($classConstantRename->getNewConstant());
             return $node;
@@ -68,17 +69,16 @@ CODE_SAMPLE
         return $node;
     }
     /**
-     * @param mixed[] $configuration
+     * @param array<string, RenameClassConstFetchInterface[]> $configuration
      */
     public function configure(array $configuration) : void
     {
-        $classConstantRenames = $configuration[self::CLASS_CONSTANT_RENAME] ?? [];
-        \RectorPrefix20210127\Webmozart\Assert\Assert::allIsInstanceOf($classConstantRenames, \Rector\Renaming\ValueObject\RenameClassConstant::class);
-        $this->classConstantRenames = $classConstantRenames;
+        $renameClassConstFetches = $configuration[self::CLASS_CONSTANT_RENAME] ?? [];
+        \RectorPrefix20210127\Webmozart\Assert\Assert::allIsInstanceOf($renameClassConstFetches, \Rector\Renaming\Contract\RenameClassConstFetchInterface::class);
+        $this->renameClassConstFetches = $renameClassConstFetches;
     }
-    private function createClassConstantFetchNodeFromDoubleColonFormat(string $constant) : \PhpParser\Node\Expr\ClassConstFetch
+    private function createClassAndConstFetch(\Rector\Renaming\ValueObject\RenameClassAndConstFetch $renameClassAndConstFetch) : \PhpParser\Node\Expr\ClassConstFetch
     {
-        [$constantClass, $constantName] = \explode('::', $constant);
-        return new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name\FullyQualified($constantClass), new \PhpParser\Node\Identifier($constantName));
+        return new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name\FullyQualified($renameClassAndConstFetch->getNewClass()), new \PhpParser\Node\Identifier($renameClassAndConstFetch->getNewConstant()));
     }
 }

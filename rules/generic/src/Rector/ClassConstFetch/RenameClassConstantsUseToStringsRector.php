@@ -3,13 +3,15 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\ClassConstFetch;
 
+use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Scalar\String_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Generic\ValueObject\ClassConstFetchToValue;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20210127\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassConstFetch\RenameClassConstantsUseToStringsRector\RenameClassConstantsUseToStringsRectorTest
  */
@@ -18,14 +20,15 @@ final class RenameClassConstantsUseToStringsRector extends \Rector\Core\Rector\A
     /**
      * @var string
      */
-    public const OLD_CONSTANTS_TO_NEW_VALUES_BY_TYPE = '$oldConstantsToNewValuesByType';
+    public const CLASS_CONST_FETCHES_TO_VALUES = 'old_constants_to_new_valuesByType';
     /**
-     * @var string[][]
+     * @var ClassConstFetchToValue[]
      */
-    private $oldConstantsToNewValuesByType = [];
+    private $classConstFetchesToValues = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces constant by value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('$value === Nette\\Configurator::DEVELOPMENT', '$value === "development"', [self::OLD_CONSTANTS_TO_NEW_VALUES_BY_TYPE => ['Nette\\Configurator' => ['DEVELOPMENT' => 'development', 'PRODUCTION' => 'production']]])]);
+        $configuration = [self::CLASS_CONST_FETCHES_TO_VALUES => [new \Rector\Generic\ValueObject\ClassConstFetchToValue('Nette\\Configurator', 'DEVELOPMENT', 'development'), new \Rector\Generic\ValueObject\ClassConstFetchToValue('Nette\\Configurator', 'PRODUCTION', 'production')]];
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replaces constant by value', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample('$value === Nette\\Configurator::DEVELOPMENT', '$value === "development"', $configuration)]);
     }
     /**
      * @return string[]
@@ -39,21 +42,24 @@ final class RenameClassConstantsUseToStringsRector extends \Rector\Core\Rector\A
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        foreach ($this->oldConstantsToNewValuesByType as $type => $oldConstantsToNewValues) {
-            if (!$this->isObjectType($node->class, $type)) {
+        foreach ($this->classConstFetchesToValues as $classConstFetchToValue) {
+            if (!$this->isObjectType($node->class, $classConstFetchToValue->getClass())) {
                 continue;
             }
-            foreach ($oldConstantsToNewValues as $oldConstant => $newValue) {
-                if (!$this->isName($node->name, $oldConstant)) {
-                    continue;
-                }
-                return new \PhpParser\Node\Scalar\String_($newValue);
+            if (!$this->isName($node->name, $classConstFetchToValue->getConstant())) {
+                continue;
             }
+            return \PhpParser\BuilderHelpers::normalizeValue($classConstFetchToValue->getValue());
         }
         return $node;
     }
+    /**
+     * @param array<string, ClassConstFetchToValue[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
-        $this->oldConstantsToNewValuesByType = $configuration[self::OLD_CONSTANTS_TO_NEW_VALUES_BY_TYPE] ?? [];
+        $classConstFetchesToValues = $configuration[self::CLASS_CONST_FETCHES_TO_VALUES] ?? [];
+        \RectorPrefix20210127\Webmozart\Assert\Assert::allIsInstanceOf($classConstFetchesToValues, \Rector\Generic\ValueObject\ClassConstFetchToValue::class);
+        $this->classConstFetchesToValues = $classConstFetchesToValues;
     }
 }
