@@ -3074,6 +3074,7 @@ return array(
     'Rector\\Renaming\\Rector\\Namespace_\\RenameNamespaceRector' => $baseDir . '/rules/renaming/src/Rector/Namespace_/RenameNamespaceRector.php',
     'Rector\\Renaming\\Rector\\PropertyFetch\\RenamePropertyRector' => $baseDir . '/rules/renaming/src/Rector/PropertyFetch/RenamePropertyRector.php',
     'Rector\\Renaming\\Rector\\StaticCall\\RenameStaticMethodRector' => $baseDir . '/rules/renaming/src/Rector/StaticCall/RenameStaticMethodRector.php',
+    'Rector\\Renaming\\Rector\\String_\\RenameStringRector' => $baseDir . '/rules/renaming/src/Rector/String_/RenameStringRector.php',
     'Rector\\Renaming\\ValueObject\\MethodCallRename' => $baseDir . '/rules/renaming/src/ValueObject/MethodCallRename.php',
     'Rector\\Renaming\\ValueObject\\MethodCallRenameWithArrayKey' => $baseDir . '/rules/renaming/src/ValueObject/MethodCallRenameWithArrayKey.php',
     'Rector\\Renaming\\ValueObject\\RenameAnnotation' => $baseDir . '/rules/renaming/src/ValueObject/RenameAnnotation.php',

@@ -8,6 +8,7 @@ use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Renaming\Rector\String_\RenameStringRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Transform\Rector\New_\NewArgToMethodCallRector;
@@ -36,8 +37,9 @@ return static function (\RectorPrefix20210127\Symfony\Component\DependencyInject
         // see https://github.com/symfony/symfony/pull/36943
         \Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Symfony\\Bundle\\FrameworkBundle\\Kernel\\MicroKernelTrait', 'configureRoutes', 0, new \PHPStan\Type\ObjectType('Symfony\\Component\\Routing\\Loader\\Configurator\\RoutingConfigurator'))]),
     ]]);
-    $services->set(\Rector\Transform\Rector\StaticCall\StaticCallToNewRector::class)->call('configure', [[
-        // see https://github.com/symfony/symfony/pull/36943
-        \Rector\Transform\Rector\StaticCall\StaticCallToNewRector::STATIC_CALLS_TO_NEWS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\StaticCallToNew('Symfony\\Component\\HttpFoundation\\Response', 'create'), new \Rector\Transform\ValueObject\StaticCallToNew('Symfony\\Component\\HttpFoundation\\JsonResponse', 'create'), new \Rector\Transform\ValueObject\StaticCallToNew('Symfony\\Component\\HttpFoundation\\RedirectResponse', 'create'), new \Rector\Transform\ValueObject\StaticCallToNew('Symfony\\Component\\HttpFoundation\\StreamedResponse', 'create')]),
+    $services->set(\Rector\Transform\Rector\StaticCall\StaticCallToNewRector::class)->call('configure', [[\Rector\Transform\Rector\StaticCall\StaticCallToNewRector::STATIC_CALLS_TO_NEWS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\StaticCallToNew('Symfony\\Component\\HttpFoundation\\Response', 'create'), new \Rector\Transform\ValueObject\StaticCallToNew('Symfony\\Component\\HttpFoundation\\JsonResponse', 'create'), new \Rector\Transform\ValueObject\StaticCallToNew('Symfony\\Component\\HttpFoundation\\RedirectResponse', 'create'), new \Rector\Transform\ValueObject\StaticCallToNew('Symfony\\Component\\HttpFoundation\\StreamedResponse', 'create')])]]);
+    $services->set(\Rector\Renaming\Rector\String_\RenameStringRector::class)->call('configure', [[
+        // @see https://github.com/symfony/symfony/pull/35858
+        \Rector\Renaming\Rector\String_\RenameStringRector::STRING_CHANGES => ['ROLE_PREVIOUS_ADMIN' => 'IS_IMPERSONATOR'],
     ]]);
 };

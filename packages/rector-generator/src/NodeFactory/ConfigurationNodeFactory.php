@@ -112,6 +112,7 @@ final class ConfigurationNodeFactory
     }
     private function createConstantInConfigurationCoalesce(string $constantName, \PhpParser\Node\Expr\Variable $configurationVariable) : \PhpParser\Node\Expr\BinaryOp\Coalesce
     {
+        $constantName = \strtoupper($constantName);
         $classConstFetch = new \PhpParser\Node\Expr\ClassConstFetch(new \PhpParser\Node\Name('self'), $constantName);
         $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($configurationVariable, $classConstFetch);
         $emptyArray = new \PhpParser\Node\Expr\Array_([]);
