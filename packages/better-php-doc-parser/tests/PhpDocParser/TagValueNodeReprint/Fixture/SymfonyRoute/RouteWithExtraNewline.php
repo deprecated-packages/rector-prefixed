@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SymfonyRoute;
 
-use RectorPrefix20210126\Symfony\Component\Routing\Annotation\Route;
+use RectorPrefix20210127\Symfony\Component\Routing\Annotation\Route;
 final class RouteWithExtraNewline
 {
     /**

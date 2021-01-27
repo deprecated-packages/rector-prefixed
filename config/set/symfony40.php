@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210126;
+namespace RectorPrefix20210127;
 
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Symfony4\Rector\ConstFetch\ConstraintUrlOptionRector;
@@ -10,8 +10,8 @@ use Rector\Symfony4\Rector\MethodCall\FormIsValidRector;
 use Rector\Symfony4\Rector\MethodCall\ProcessBuilderGetProcessRector;
 use Rector\Symfony4\Rector\MethodCall\VarDumperTestTraitMethodArgsRector;
 use Rector\Symfony4\Rector\StaticCall\ProcessBuilderInstanceRector;
-use RectorPrefix20210126\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210126\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210127\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210127\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Symfony4\Rector\ConstFetch\ConstraintUrlOptionRector::class);
     $services->set(\Rector\Symfony4\Rector\MethodCall\FormIsValidRector::class);

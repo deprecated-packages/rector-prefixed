@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210126;
+namespace RectorPrefix20210127;
 
 use Symplify\RuleDocGenerator\HttpKernel\RuleDocGeneratorKernel;
-use RectorPrefix20210126\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
+use RectorPrefix20210127\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
 # 1. autoload
 $possibleAutoloadPaths = [
     // after split package
@@ -25,5 +25,5 @@ $extraConfig = \getcwd() . '/rule-doc-generator.php';
 if (\file_exists($extraConfig)) {
     $extraConfigs[] = $extraConfig;
 }
-$kernelBootAndApplicationRun = new \RectorPrefix20210126\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\Symplify\RuleDocGenerator\HttpKernel\RuleDocGeneratorKernel::class, $extraConfigs);
+$kernelBootAndApplicationRun = new \RectorPrefix20210127\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\Symplify\RuleDocGenerator\HttpKernel\RuleDocGeneratorKernel::class, $extraConfigs);
 $kernelBootAndApplicationRun->run();

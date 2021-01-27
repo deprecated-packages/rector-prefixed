@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210126\Symfony\Component\ExpressionLanguage\Node;
+namespace RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Node;
 
-use RectorPrefix20210126\Symfony\Component\ExpressionLanguage\Compiler;
+use RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Compiler;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */
-class UnaryNode extends \RectorPrefix20210126\Symfony\Component\ExpressionLanguage\Node\Node
+class UnaryNode extends \RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Node\Node
 {
     private static $operators = ['!' => '!', 'not' => '!', '+' => '+', '-' => '-'];
-    public function __construct(string $operator, \RectorPrefix20210126\Symfony\Component\ExpressionLanguage\Node\Node $node)
+    public function __construct(string $operator, \RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Node\Node $node)
     {
         parent::__construct(['node' => $node], ['operator' => $operator]);
     }
-    public function compile(\RectorPrefix20210126\Symfony\Component\ExpressionLanguage\Compiler $compiler)
+    public function compile(\RectorPrefix20210127\Symfony\Component\ExpressionLanguage\Compiler $compiler)
     {
         $compiler->raw('(')->raw(self::$operators[$this->attributes['operator']])->compile($this->nodes['node'])->raw(')');
     }
