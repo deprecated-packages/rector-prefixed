@@ -3159,6 +3159,7 @@ return array(
     'Rector\\Symfony4\\Rector\\New_\\RootNodeTreeBuilderRector' => $baseDir . '/rules/symfony4/src/Rector/New_/RootNodeTreeBuilderRector.php',
     'Rector\\Symfony4\\Rector\\New_\\StringToArrayArgumentProcessRector' => $baseDir . '/rules/symfony4/src/Rector/New_/StringToArrayArgumentProcessRector.php',
     'Rector\\Symfony4\\Rector\\StaticCall\\ProcessBuilderInstanceRector' => $baseDir . '/rules/symfony4/src/Rector/StaticCall/ProcessBuilderInstanceRector.php',
+    'Rector\\Symfony5\\Rector\\MethodCall\\DefinitionAliasSetPrivateToSetPublicRector' => $baseDir . '/rules/symfony5/src/Rector/MethodCall/DefinitionAliasSetPrivateToSetPublicRector.php',
     'Rector\\Symfony5\\Rector\\MethodCall\\ReflectionExtractorEnableMagicCallExtractorRector' => $baseDir . '/rules/symfony5/src/Rector/MethodCall/ReflectionExtractorEnableMagicCallExtractorRector.php',
     'Rector\\Symfony5\\Rector\\New_\\PropertyAccessorCreationBooleanToFlagsRector' => $baseDir . '/rules/symfony5/src/Rector/New_/PropertyAccessorCreationBooleanToFlagsRector.php',
     'Rector\\Symfony5\\Rector\\New_\\PropertyPathMapperToDataMapperRector' => $baseDir . '/rules/symfony5/src/Rector/New_/PropertyPathMapperToDataMapperRector.php',
