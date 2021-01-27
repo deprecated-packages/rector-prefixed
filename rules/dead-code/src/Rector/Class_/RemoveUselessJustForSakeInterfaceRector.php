@@ -58,7 +58,7 @@ final class RemoveUselessJustForSakeInterfaceRector extends \Rector\Core\Rector\
                 continue;
             }
             // 1. replace current interface with one more parent or remove it
-            $this->removeOrReplaceImlementedInterface($implementedInterfaceName, $node, $key);
+            $this->removeOrReplaceImplementedInterface($implementedInterfaceName, $node, $key);
             // 2. remove file if not in /vendor
             $classFileLocation = $this->resolveClassFileLocation($implementedInterfaceName);
             $this->removeInterfaceFile($implementedInterfaceName, $classFileLocation);
@@ -125,7 +125,7 @@ CODE_SAMPLE
             return \in_array($interfaceName, $classImplements, \true);
         });
     }
-    private function removeOrReplaceImlementedInterface(string $implementedInterfaceName, \PhpParser\Node\Stmt\Class_ $class, int $key) : void
+    private function removeOrReplaceImplementedInterface(string $implementedInterfaceName, \PhpParser\Node\Stmt\Class_ $class, int $key) : void
     {
         $parentInterface = $this->getParentInterfaceIfFound($implementedInterfaceName);
         if ($parentInterface !== null) {
