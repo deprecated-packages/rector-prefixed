@@ -10,8 +10,6 @@ use PhpParser\NodeTraverser;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
@@ -26,17 +24,6 @@ final class NodeRemovingPostRector extends \Rector\PostRector\Rector\AbstractPos
     {
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
         $this->nodeFactory = $nodeFactory;
-    }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-    {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('PostRector that removes nodes', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-$value = 1000;
-$string = new String_(...);
-CODE_SAMPLE
-, <<<'CODE_SAMPLE'
-$value = 1000;
-CODE_SAMPLE
-)]);
     }
     public function getPriority() : int
     {

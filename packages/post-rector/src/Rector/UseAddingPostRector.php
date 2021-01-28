@@ -15,8 +15,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo;
 final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
@@ -96,18 +94,6 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
     {
         // must be after name importing
         return 500;
-    }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-    {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds use statements', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-$someClass = new SomeClass();
-CODE_SAMPLE
-, <<<'CODE_SAMPLE'
-use App\SomeClass;
-
-$someClass = new SomeClass();
-CODE_SAMPLE
-)]);
     }
     /**
      * @param Node[] $nodes

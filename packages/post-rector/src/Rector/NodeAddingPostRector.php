@@ -5,8 +5,6 @@ namespace Rector\PostRector\Rector;
 
 use PhpParser\Node;
 use Rector\PostRector\Collector\NodesToAddCollector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * This class collects all to-be-added expresssions (= 1 line in code)
  * and then adds new expressions to list of $nodes
@@ -52,16 +50,5 @@ final class NodeAddingPostRector extends \Rector\PostRector\Rector\AbstractPostR
             return $node;
         }
         return $newNodes;
-    }
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
-    {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Post Rector that adds nodes', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
-$value = 1000;
-CODE_SAMPLE
-, <<<'CODE_SAMPLE'
-$string = new String_(...);
-$value = 1000;
-CODE_SAMPLE
-)]);
     }
 }

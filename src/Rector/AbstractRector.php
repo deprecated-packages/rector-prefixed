@@ -19,7 +19,7 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeVisitorAbstract;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Configuration\Option;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
+use Rector\Core\Contract\Rector\CorePhpRectorInterface;
 use Rector\Core\Exclusion\ExclusionManager;
 use Rector\Core\Logging\CurrentRectorProvider;
 use Rector\Core\NodeAnalyzer\ClassNodeAnalyzer;
@@ -32,7 +32,7 @@ use RectorPrefix20210128\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210128\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use RectorPrefix20210128\Symplify\Skipper\Skipper\Skipper;
 use RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements \Rector\Core\Contract\Rector\PhpRectorInterface
+abstract class AbstractRector extends \PhpParser\NodeVisitorAbstract implements \Rector\Core\Contract\Rector\CorePhpRectorInterface
 {
     use AbstractRectorTrait;
     /**
