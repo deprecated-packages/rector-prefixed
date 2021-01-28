@@ -23,7 +23,7 @@ final class WhateverRector extends \Rector\Core\Rector\AbstractRector implements
     private $classTypeToMethodName = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $service->arg(...) to $service->call(...)', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'PHP'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $service->arg(...) to $service->call(...)', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -32,8 +32,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SomeClass::class)
         ->arg('$key', 'value');
 }
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -44,7 +44,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             '$key' => 'value'
         ]]);
 }
-PHP
+CODE_SAMPLE
 , [self::CLASS_TYPE_TO_METHOD_NAME => ['SomeClass' => 'configure']])]);
     }
     /**

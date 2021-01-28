@@ -86,14 +86,7 @@ final class ListeningClassMethodArgumentManipulator
             $classMethod->setAttribute(self::EVENT_PARAMETER_REPLACED, \true);
         }
     }
-    private function changeClassParamToEventClass(string $eventClass, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
-    {
-        $paramName = $this->classNaming->getVariableName($eventClass);
-        $eventVariable = new \PhpParser\Node\Expr\Variable($paramName);
-        $param = new \PhpParser\Node\Param($eventVariable, null, new \PhpParser\Node\Name\FullyQualified($eventClass));
-        $classMethod->params = [$param];
-    }
-    private function isParamUsedInClassMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : bool
+    public function isParamUsedInClassMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) use($param) : bool {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
@@ -101,6 +94,13 @@ final class ListeningClassMethodArgumentManipulator
             }
             return $this->betterStandardPrinter->areNodesEqual($node, $param->var);
         });
+    }
+    private function changeClassParamToEventClass(string $eventClass, \PhpParser\Node\Stmt\ClassMethod $classMethod) : void
+    {
+        $paramName = $this->classNaming->getVariableName($eventClass);
+        $eventVariable = new \PhpParser\Node\Expr\Variable($paramName);
+        $param = new \PhpParser\Node\Param($eventVariable, null, new \PhpParser\Node\Name\FullyQualified($eventClass));
+        $classMethod->params = [$param];
     }
     private function createEventGetterToVariableMethodCall(string $eventClass, \PhpParser\Node\Param $param, ?\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : \PhpParser\Node\Expr\Assign
     {

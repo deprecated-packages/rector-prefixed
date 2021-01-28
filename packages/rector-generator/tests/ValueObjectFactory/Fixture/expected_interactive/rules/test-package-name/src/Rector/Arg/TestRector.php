@@ -14,7 +14,7 @@ final class TestRector extends \Rector\Core\Rector\AbstractRector
 {
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Description', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'PHP'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Description', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -22,8 +22,8 @@ class SomeClass
         $this->something();
     }
 }
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function run()
@@ -31,7 +31,7 @@ class SomeClass
         $this->somethingElse();
     }
 }
-PHP
+CODE_SAMPLE
 )]);
     }
     /**

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6821098c56e65896b26b1f63658947b5
+class ComposerStaticInitbcb16160d82988e1ce8f2e3d5c0ee1a5
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3958,6 +3958,8 @@ class ComposerStaticInit6821098c56e65896b26b1f63658947b5
         'Rector\\Symfony4\\Rector\\New_\\RootNodeTreeBuilderRector' => __DIR__ . '/../..' . '/rules/symfony4/src/Rector/New_/RootNodeTreeBuilderRector.php',
         'Rector\\Symfony4\\Rector\\New_\\StringToArrayArgumentProcessRector' => __DIR__ . '/../..' . '/rules/symfony4/src/Rector/New_/StringToArrayArgumentProcessRector.php',
         'Rector\\Symfony4\\Rector\\StaticCall\\ProcessBuilderInstanceRector' => __DIR__ . '/../..' . '/rules/symfony4/src/Rector/StaticCall/ProcessBuilderInstanceRector.php',
+        'Rector\\Symfony5\\NodeFactory\\OnLogoutClassMethodFactory' => __DIR__ . '/../..' . '/rules/symfony5/src/NodeFactory/OnLogoutClassMethodFactory.php',
+        'Rector\\Symfony5\\Rector\\Class_\\LogoutHandlerToLogoutEventSubscriberRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/Class_/LogoutHandlerToLogoutEventSubscriberRector.php',
         'Rector\\Symfony5\\Rector\\MethodCall\\DefinitionAliasSetPrivateToSetPublicRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/MethodCall/DefinitionAliasSetPrivateToSetPublicRector.php',
         'Rector\\Symfony5\\Rector\\MethodCall\\FormBuilderSetDataMapperRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/MethodCall/FormBuilderSetDataMapperRector.php',
         'Rector\\Symfony5\\Rector\\MethodCall\\ReflectionExtractorEnableMagicCallExtractorRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/MethodCall/ReflectionExtractorEnableMagicCallExtractorRector.php',
@@ -3968,13 +3970,15 @@ class ComposerStaticInit6821098c56e65896b26b1f63658947b5
         'Rector\\SymfonyCodeQuality\\Composer\\ComposerNamespaceMatcher' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/Composer/ComposerNamespaceMatcher.php',
         'Rector\\SymfonyCodeQuality\\ConstantNameAndValueMatcher' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ConstantNameAndValueMatcher.php',
         'Rector\\SymfonyCodeQuality\\ConstantNameAndValueResolver' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ConstantNameAndValueResolver.php',
-        'Rector\\SymfonyCodeQuality\\NodeFactory\\GetSubscriberEventsClassMethodFactory' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/NodeFactory/GetSubscriberEventsClassMethodFactory.php',
+        'Rector\\SymfonyCodeQuality\\NodeFactory\\EventReferenceFactory' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/NodeFactory/EventReferenceFactory.php',
+        'Rector\\SymfonyCodeQuality\\NodeFactory\\GetSubscribedEventsClassMethodFactory' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/NodeFactory/GetSubscribedEventsClassMethodFactory.php',
         'Rector\\SymfonyCodeQuality\\NodeFactory\\RouteNameClassFactory' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/NodeFactory/RouteNameClassFactory.php',
         'Rector\\SymfonyCodeQuality\\Rector\\Attribute\\ExtractAttributeRouteNameConstantsRector' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/Rector/Attribute/ExtractAttributeRouteNameConstantsRector.php',
         'Rector\\SymfonyCodeQuality\\Rector\\Class_\\EventListenerToEventSubscriberRector' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/Rector/Class_/EventListenerToEventSubscriberRector.php',
         'Rector\\SymfonyCodeQuality\\ValueObject\\ClassName' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ValueObject/ClassName.php',
         'Rector\\SymfonyCodeQuality\\ValueObject\\ConstantNameAndValue' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ValueObject/ConstantNameAndValue.php',
         'Rector\\SymfonyCodeQuality\\ValueObject\\EventNameToClassAndConstant' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ValueObject/EventNameToClassAndConstant.php',
+        'Rector\\SymfonyCodeQuality\\ValueObject\\EventReferenceToMethodName' => __DIR__ . '/../..' . '/rules/symfony-code-quality/src/ValueObject/EventReferenceToMethodName.php',
         'Rector\\SymfonyPhpConfig\\NodeAnalyzer\\SymfonyPhpConfigClosureAnalyzer' => __DIR__ . '/../..' . '/rules/symfony-php-config/src/NodeAnalyzer/SymfonyPhpConfigClosureAnalyzer.php',
         'Rector\\SymfonyPhpConfig\\Rector\\MethodCall\\AutoInPhpSymfonyConfigRector' => __DIR__ . '/../..' . '/rules/symfony-php-config/src/Rector/MethodCall/AutoInPhpSymfonyConfigRector.php',
         'Rector\\Symfony\\Bridge\\NodeAnalyzer\\ControllerMethodAnalyzer' => __DIR__ . '/../..' . '/rules/symfony/src/Bridge/NodeAnalyzer/ControllerMethodAnalyzer.php',
@@ -4158,9 +4162,9 @@ class ComposerStaticInit6821098c56e65896b26b1f63658947b5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6821098c56e65896b26b1f63658947b5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6821098c56e65896b26b1f63658947b5::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6821098c56e65896b26b1f63658947b5::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbcb16160d82988e1ce8f2e3d5c0ee1a5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbcb16160d82988e1ce8f2e3d5c0ee1a5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbcb16160d82988e1ce8f2e3d5c0ee1a5::$classMap;
 
         }, null, ClassLoader::class);
     }

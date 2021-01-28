@@ -88,7 +88,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->isObjectType($methodCall, 'Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor')) {
+        if (!$this->isObjectType($methodCall->var, 'Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor')) {
             return \true;
         }
         if (!$this->isNames($methodCall->name, self::METHODS_WITH_OPTION)) {
@@ -123,11 +123,11 @@ CODE_SAMPLE
     }
     private function prepareEnableMagicMethodsExtractionFlags(bool $enableMagicCallExtractionValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
     {
-        $classConstFetch = $this->createClassConstFetch('Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_GET');
-        $magicSet = $this->createClassConstFetch('Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_SET');
+        $magicGetClassConstFetch = $this->createClassConstFetch('Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_GET');
+        $magicSetClassConstFetch = $this->createClassConstFetch('Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_SET');
         if (!$enableMagicCallExtractionValue) {
-            return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($classConstFetch, $magicSet);
+            return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($magicGetClassConstFetch, $magicSetClassConstFetch);
         }
-        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($this->createClassConstFetch('Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_CALL'), $classConstFetch), $magicSet);
+        return new \PhpParser\Node\Expr\BinaryOp\BitwiseOr(new \PhpParser\Node\Expr\BinaryOp\BitwiseOr($this->createClassConstFetch('Symfony\\Component\\PropertyInfo\\Extractor\\ReflectionExtractor', 'MAGIC_CALL'), $magicGetClassConstFetch), $magicSetClassConstFetch);
     }
 }
