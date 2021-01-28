@@ -156,6 +156,9 @@ CODE_SAMPLE
     {
         $position = $argumentAdder->getPosition();
         $argumentName = $argumentAdder->getArgumentName();
+        if ($argumentName === null) {
+            return \true;
+        }
         if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             // already added?
             if (!isset($node->params[$position])) {

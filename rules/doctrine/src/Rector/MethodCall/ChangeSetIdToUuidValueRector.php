@@ -143,6 +143,9 @@ CODE_SAMPLE
             return null;
         }
         $variableName = $this->getName($methodCall->var);
+        if ($variableName === null) {
+            return null;
+        }
         /** @var ObjectType $variableType */
         $variableType = $this->getStaticType($methodCall->var);
         $methodCall = $this->betterNodeFinder->findFirst($parentNode, function (\PhpParser\Node $node) use($variableName, $variableType) : bool {

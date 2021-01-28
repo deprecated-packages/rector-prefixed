@@ -93,6 +93,9 @@ CODE_SAMPLE
     private function replaceSecondParamInClassMethodBody(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : void
     {
         $paramName = $this->getName($param->var);
+        if ($paramName === null) {
+            return;
+        }
         $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use($paramName) : ?int {
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return null;

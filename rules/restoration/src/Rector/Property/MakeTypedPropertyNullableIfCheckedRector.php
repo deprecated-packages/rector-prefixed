@@ -129,8 +129,7 @@ CODE_SAMPLE
             if (!$this->isName($node->expr->var, 'this')) {
                 return null;
             }
-            $propertyFetchName = $this->getName($node->expr->name);
-            if (!$this->isName($onlyPropertyProperty, $propertyFetchName)) {
+            if (!$this->areNamesEqual($onlyPropertyProperty, $node->expr->name)) {
                 return null;
             }
             $isBooleanNot = \true;

@@ -2080,6 +2080,7 @@ return array(
     'Rector\\Core\\Rector\\AbstractRector\\SimpleCallableNodeTraverserTrait' => $baseDir . '/src/Rector/AbstractRector/SimpleCallableNodeTraverserTrait.php',
     'Rector\\Core\\Rector\\AbstractRector\\ValueResolverTrait' => $baseDir . '/src/Rector/AbstractRector/ValueResolverTrait.php',
     'Rector\\Core\\Rector\\AbstractRector\\VisibilityTrait' => $baseDir . '/src/Rector/AbstractRector/VisibilityTrait.php',
+    'Rector\\Core\\Rector\\AbstractTemporaryRector' => $baseDir . '/src/Rector/AbstractTemporaryRector.php',
     'Rector\\Core\\Reflection\\ClassMethodReflectionFactory' => $baseDir . '/src/Reflection/ClassMethodReflectionFactory.php',
     'Rector\\Core\\Reflection\\ClassMethodReflectionHelper' => $baseDir . '/src/Reflection/ClassMethodReflectionHelper.php',
     'Rector\\Core\\Reflection\\ClassReflectionToAstResolver' => $baseDir . '/src/Reflection/ClassReflectionToAstResolver.php',
