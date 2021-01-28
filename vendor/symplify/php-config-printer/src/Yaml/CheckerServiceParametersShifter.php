@@ -44,6 +44,14 @@ final class CheckerServiceParametersShifter
      */
     private const SERVICES_KEY = 'services';
     /**
+     * @var string
+     */
+    private const SERVICE_KEYWORDS_KEY_STATIC = 'serviceKeywords';
+    /**
+     * @var string
+     */
+    private const SERVICE_KEYWORDS_KEY_CONST = 'SERVICE_KEYWORDS';
+    /**
      * @var string[]
      */
     private $serviceKeywords = [];
@@ -189,10 +197,18 @@ final class CheckerServiceParametersShifter
     private function initializeServiceKeywords() : void
     {
         $reflectionClass = new \ReflectionClass(\RectorPrefix20210128\Symfony\Component\DependencyInjection\Loader\YamlFileLoader::class);
+        /** @var array<string, mixed> $constants */
+        $constants = $reflectionClass->getConstants();
+        if (\array_key_exists(self::SERVICE_KEYWORDS_KEY_CONST, $constants)) {
+            /** @var string[] $serviceKeywordsProperty */
+            $serviceKeywordsProperty = $constants[self::SERVICE_KEYWORDS_KEY_CONST];
+            $this->serviceKeywords = $serviceKeywordsProperty;
+            return;
+        }
         /** @var array<string, mixed> $staticProperties */
         $staticProperties = $reflectionClass->getStaticProperties();
         /** @var string[] $serviceKeywordsProperty */
-        $serviceKeywordsProperty = $staticProperties['serviceKeywords'];
+        $serviceKeywordsProperty = $staticProperties[self::SERVICE_KEYWORDS_KEY_STATIC];
         $this->serviceKeywords = $serviceKeywordsProperty;
     }
 }
