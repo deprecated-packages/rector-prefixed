@@ -66,11 +66,11 @@ trait NodeFactoryTrait
     }
     protected function createFalse() : \PhpParser\Node\Expr\ConstFetch
     {
-        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('false'));
+        return $this->nodeFactory->createFalse();
     }
     protected function createTrue() : \PhpParser\Node\Expr\ConstFetch
     {
-        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('true'));
+        return $this->nodeFactory->createTrue();
     }
     /**
      * @param mixed $argument

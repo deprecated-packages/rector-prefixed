@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symplify\\SymfonyPhpConfig\\' => array($vendorDir . '/symplify/symfony-php-config/src'),
     'Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator/src'),
+    'Rector\\Visibility\\' => array($baseDir . '/rules/visibility/src'),
     'Rector\\VendorLocker\\' => array($baseDir . '/packages/vendor-locker/src'),
     'Rector\\TypeDeclaration\\' => array($baseDir . '/rules/type-declaration/src'),
     'Rector\\Twig\\' => array($baseDir . '/rules/twig/src'),

@@ -429,6 +429,14 @@ final class NodeFactory
         $param->flags = $propertyFlags !== 0 ? $propertyFlags : \PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
         return $param;
     }
+    public function createFalse() : \PhpParser\Node\Expr\ConstFetch
+    {
+        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('false'));
+    }
+    public function createTrue() : \PhpParser\Node\Expr\ConstFetch
+    {
+        return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('true'));
+    }
     private function createClassConstFetchFromName(\PhpParser\Node\Name $className, string $constantName) : \PhpParser\Node\Expr\ClassConstFetch
     {
         $classConstFetch = $this->builderFactory->classConstFetch($className, $constantName);

@@ -15,21 +15,21 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameProperty;
-use Rector\Transform\Rector\Assign\PropertyToMethodRector;
-use Rector\Transform\ValueObject\PropertyToMethod;
+use Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector;
+use Rector\Transform\ValueObject\PropertyFetchToMethodCall;
 use RectorPrefix20210128\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 return static function (\RectorPrefix20210128\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Transform\Rector\Assign\PropertyToMethodRector::class)->call('configure', [[\Rector\Transform\Rector\Assign\PropertyToMethodRector::PROPERTIES_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
+    $services->set(\Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector::class)->call('configure', [[\Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector::PROPERTIES_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // source: https://book.cakephp.org/3.0/en/appendices/3-4-migration-guide.html
-        new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'params', 'getAttribute', null, ['params']),
-        new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'data', 'getData'),
-        new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'query', 'getQueryParams'),
-        new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'cookies', 'getCookie'),
-        new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'base', 'getAttribute', null, ['base']),
-        new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'webroot', 'getAttribute', null, ['webroot']),
-        new \Rector\Transform\ValueObject\PropertyToMethod('Cake\\Network\\Request', 'here', 'getAttribute', null, ['here']),
+        new \Rector\Transform\ValueObject\PropertyFetchToMethodCall('Cake\\Network\\Request', 'params', 'getAttribute', null, ['params']),
+        new \Rector\Transform\ValueObject\PropertyFetchToMethodCall('Cake\\Network\\Request', 'data', 'getData'),
+        new \Rector\Transform\ValueObject\PropertyFetchToMethodCall('Cake\\Network\\Request', 'query', 'getQueryParams'),
+        new \Rector\Transform\ValueObject\PropertyFetchToMethodCall('Cake\\Network\\Request', 'cookies', 'getCookie'),
+        new \Rector\Transform\ValueObject\PropertyFetchToMethodCall('Cake\\Network\\Request', 'base', 'getAttribute', null, ['base']),
+        new \Rector\Transform\ValueObject\PropertyFetchToMethodCall('Cake\\Network\\Request', 'webroot', 'getAttribute', null, ['webroot']),
+        new \Rector\Transform\ValueObject\PropertyFetchToMethodCall('Cake\\Network\\Request', 'here', 'getAttribute', null, ['here']),
     ])]]);
     $services->set(\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::class)->call('configure', [[\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::RENAMED_PROPERTIES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameProperty('Cake\\Network\\Request', '_session', 'session')])]]);
     $services->set(\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::class)->call('configure', [[\Rector\CakePHP\Rector\MethodCall\ModalToGetSetRector::UNPREFIXED_METHODS_TO_GET_SET => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
