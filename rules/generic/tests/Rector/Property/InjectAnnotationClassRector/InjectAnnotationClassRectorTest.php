@@ -3,19 +3,19 @@
 declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\Property\InjectAnnotationClassRector;
 
-use RectorPrefix20210127\DI\Annotation\Inject as PHPDIInject;
+use RectorPrefix20210128\DI\Annotation\Inject as PHPDIInject;
 use Iterator;
-use RectorPrefix20210127\JMS\DiExtraBundle\Annotation\Inject;
+use RectorPrefix20210128\JMS\DiExtraBundle\Annotation\Inject;
 use Rector\Core\Configuration\Option;
 use Rector\Generic\Rector\Property\InjectAnnotationClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210127\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo;
 final class InjectAnnotationClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210127\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->setParameter(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/../../../../../symfony/tests/Rector/MethodCall/GetToConstructorInjectionRector/xml/services.xml');
         $this->doTestFileInfo($fileInfo);
@@ -29,6 +29,6 @@ final class InjectAnnotationClassRectorTest extends \Rector\Testing\PHPUnit\Abst
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::class => [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::ANNOTATION_CLASSES => [\RectorPrefix20210127\JMS\DiExtraBundle\Annotation\Inject::class, \RectorPrefix20210127\DI\Annotation\Inject::class]]];
+        return [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::class => [\Rector\Generic\Rector\Property\InjectAnnotationClassRector::ANNOTATION_CLASSES => [\RectorPrefix20210128\JMS\DiExtraBundle\Annotation\Inject::class, \RectorPrefix20210128\DI\Annotation\Inject::class]]];
     }
 }

@@ -6,13 +6,13 @@ namespace Rector\DoctrineCodeQuality\Tests\Rector\Property\RemoveRedundantDefaul
 use Iterator;
 use Rector\DoctrineCodeQuality\Rector\Property\RemoveRedundantDefaultPropertyAnnotationValuesRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210127\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveRedundantDefaultPropertyAnnotationValuesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210127\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -1,5 +1,5 @@
 <?php
 
-namespace RectorPrefix20210127;
+namespace RectorPrefix20210128;
 
 echo 'hi2';

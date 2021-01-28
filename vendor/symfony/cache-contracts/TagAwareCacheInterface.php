@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210127\Symfony\Contracts\Cache;
+namespace RectorPrefix20210128\Symfony\Contracts\Cache;
 
-use RectorPrefix20210127\Psr\Cache\InvalidArgumentException;
+use RectorPrefix20210128\Psr\Cache\InvalidArgumentException;
 /**
  * Allows invalidating cached items using tags.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-interface TagAwareCacheInterface extends \RectorPrefix20210127\Symfony\Contracts\Cache\CacheInterface
+interface TagAwareCacheInterface extends \RectorPrefix20210128\Symfony\Contracts\Cache\CacheInterface
 {
     /**
      * Invalidates cached items using tags.

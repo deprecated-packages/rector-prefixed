@@ -8,13 +8,13 @@ use Rector\Generic\Rector\Class_\AddInterfaceByTraitRector;
 use Rector\Generic\Tests\Rector\Class_\AddInterfaceByTraitRector\Source\SomeInterface;
 use Rector\Generic\Tests\Rector\Class_\AddInterfaceByTraitRector\Source\SomeTrait;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210127\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo;
 final class AddInterfaceByTraitRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210127\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
