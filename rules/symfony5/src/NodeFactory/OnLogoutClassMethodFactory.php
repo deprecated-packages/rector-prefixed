@@ -6,14 +6,10 @@ namespace Rector\Symfony5\NodeFactory;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
-use Rector\Core\Php\PhpVersionProvider;
-use Rector\Core\PhpParser\Node\NodeFactory;
-use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class OnLogoutClassMethodFactory
@@ -23,14 +19,6 @@ final class OnLogoutClassMethodFactory
      */
     private const PARAMETER_TO_GETTER_NAMES = ['request' => 'getRequest', 'response' => 'getResponse', 'token' => 'getToken'];
     /**
-     * @var NodeFactory
-     */
-    private $nodeFactory;
-    /**
-     * @var PhpVersionProvider
-     */
-    private $phpVersionProvider;
-    /**
      * @var ListeningClassMethodArgumentManipulator
      */
     private $listeningClassMethodArgumentManipulator;
@@ -38,18 +26,36 @@ final class OnLogoutClassMethodFactory
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var BareLogoutClassMethodFactory
+     */
+    private $bareLogoutClassMethodFactory;
+    public function __construct(\Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Symfony5\NodeFactory\BareLogoutClassMethodFactory $bareLogoutClassMethodFactory)
     {
-        $this->nodeFactory = $nodeFactory;
-        $this->phpVersionProvider = $phpVersionProvider;
         $this->listeningClassMethodArgumentManipulator = $listeningClassMethodArgumentManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->bareLogoutClassMethodFactory = $bareLogoutClassMethodFactory;
     }
     public function createFromLogoutClassMethod(\PhpParser\Node\Stmt\ClassMethod $logoutClassMethod) : \PhpParser\Node\Stmt\ClassMethod
     {
-        $classMethod = $this->nodeFactory->createPublicMethod('onLogout');
-        $logoutEventVariable = new \PhpParser\Node\Expr\Variable('logoutEvent');
-        $classMethod->params[] = $this->createLogoutEventParam($logoutEventVariable);
+        $classMethod = $this->bareLogoutClassMethodFactory->create();
+        $assignStmts = $this->createAssignStmtFromOldClassMethod($logoutClassMethod);
+        $classMethod->stmts = \array_merge($assignStmts, (array) $logoutClassMethod->stmts);
+        return $classMethod;
+    }
+    /**
+     * @return Stmt[]
+     */
+    private function createAssignStmtFromOldClassMethod(\PhpParser\Node\Stmt\ClassMethod $onLogoutSuccessClassMethod) : array
+    {
+        $usedParams = $this->resolveUsedParams($onLogoutSuccessClassMethod);
+        return $this->createAssignStmts($usedParams);
+    }
+    /**
+     * @return Param[]
+     */
+    private function resolveUsedParams(\PhpParser\Node\Stmt\ClassMethod $logoutClassMethod) : array
+    {
         $usedParams = [];
         foreach ($logoutClassMethod->params as $oldParam) {
             if (!$this->listeningClassMethodArgumentManipulator->isParamUsedInClassMethodBody($logoutClassMethod, $oldParam)) {
@@ -57,25 +63,15 @@ final class OnLogoutClassMethodFactory
             }
             $usedParams[] = $oldParam;
         }
-        if ($this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::VOID_TYPE)) {
-            $classMethod->returnType = new \PhpParser\Node\Identifier('void');
-        }
-        $assignStmts = $this->createAssignStmts($usedParams, $logoutEventVariable);
-        $classMethod->stmts = \array_merge($assignStmts, (array) $logoutClassMethod->stmts);
-        return $classMethod;
-    }
-    private function createLogoutEventParam(\PhpParser\Node\Expr\Variable $logoutEventVariable) : \PhpParser\Node\Param
-    {
-        $param = new \PhpParser\Node\Param($logoutEventVariable);
-        $param->type = new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\Security\\Http\\Event\\LogoutEvent');
-        return $param;
+        return $usedParams;
     }
     /**
      * @param Param[] $params
      * @return Expression[]
      */
-    private function createAssignStmts(array $params, \PhpParser\Node\Expr\Variable $logoutEventVariable) : array
+    private function createAssignStmts(array $params) : array
     {
+        $logoutEventVariable = new \PhpParser\Node\Expr\Variable('logoutEvent');
         $assignStmts = [];
         foreach ($params as $param) {
             foreach (self::PARAMETER_TO_GETTER_NAMES as $parameterName => $getterName) {

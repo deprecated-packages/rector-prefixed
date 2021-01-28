@@ -11,6 +11,8 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\String_\RenameStringRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
+use Rector\Symfony5\Rector\Class_\LogoutHandlerToLogoutEventSubscriberRector;
+use Rector\Symfony5\Rector\Class_\LogoutSuccessHandlerToLogoutEventSubscriberRector;
 use Rector\Transform\Rector\New_\NewArgToMethodCallRector;
 use Rector\Transform\Rector\StaticCall\StaticCallToNewRector;
 use Rector\Transform\ValueObject\NewArgToMethodCall;
@@ -22,6 +24,9 @@ use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # https://github.com/symfony/symfony/blob/5.x/UPGRADE-5.1.md
 return static function (\RectorPrefix20210128\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
+    // see https://github.com/symfony/symfony/pull/36243
+    $services->set(\Rector\Symfony5\Rector\Class_\LogoutHandlerToLogoutEventSubscriberRector::class);
+    $services->set(\Rector\Symfony5\Rector\Class_\LogoutSuccessHandlerToLogoutEventSubscriberRector::class);
     $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
         'Symfony\\Component\\EventDispatcher\\LegacyEventDispatcherProxy' => 'Symfony\\Component\\EventDispatcher\\EventDispatcherInterface',
         'Symfony\\Component\\Form\\Extension\\Validator\\Util\\ServerParams' => 'Symfony\\Component\\Form\\Util\\ServerParams',
