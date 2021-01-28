@@ -20,8 +20,9 @@ use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory;
 use Rector\PHPUnit\NodeManipulator\ParamAndArgFromArrayResolver;
 use Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider;
@@ -35,7 +36,7 @@ use RectorPrefix20210128\Webmozart\Assert\Assert;
  *
  * @see why → https://blog.martinhujer.cz/how-to-use-data-providers-in-phpunit/
  */
-final class ArrayArgumentInTestToDataProviderRector extends \Rector\Core\Rector\AbstractPHPUnitRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class ArrayArgumentInTestToDataProviderRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @api
@@ -58,10 +59,15 @@ final class ArrayArgumentInTestToDataProviderRector extends \Rector\Core\Rector\
      * @var ParamAndArgFromArrayResolver
      */
     private $paramAndArgFromArrayResolver;
-    public function __construct(\Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory $dataProviderClassMethodFactory, \Rector\PHPUnit\NodeManipulator\ParamAndArgFromArrayResolver $paramAndArgFromArrayResolver)
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\PHPUnit\NodeFactory\DataProviderClassMethodFactory $dataProviderClassMethodFactory, \Rector\PHPUnit\NodeManipulator\ParamAndArgFromArrayResolver $paramAndArgFromArrayResolver, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->dataProviderClassMethodFactory = $dataProviderClassMethodFactory;
         $this->paramAndArgFromArrayResolver = $paramAndArgFromArrayResolver;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -111,7 +117,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isInTestClass($node)) {
+        if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
         $this->dataProviderClassMethodRecipes = [];

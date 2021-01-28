@@ -5,14 +5,23 @@ namespace Rector\MockeryToProphecy\Rector\StaticCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
-use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\MockeryToProphecy\Tests\Rector\StaticCall\MockeryToProphecyRector\MockeryToProphecyRectorTest
  */
-final class MockeryCloseRemoveRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class MockeryCloseRemoveRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    {
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
+    }
     /**
      * @return string[]
      */
@@ -25,7 +34,7 @@ final class MockeryCloseRemoveRector extends \Rector\Core\Rector\AbstractPHPUnit
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isInTestClass($node)) {
+        if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
         if (!$this->isStaticCallNamed($node, 'Mockery', 'close')) {

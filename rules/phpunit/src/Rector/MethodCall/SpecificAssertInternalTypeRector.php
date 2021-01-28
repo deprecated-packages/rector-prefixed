@@ -9,7 +9,8 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Php\TypeAnalyzer;
-use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see https://github.com/sebastianbergmann/phpunit/commit/a406c85c51edd76ace29119179d8c21f590c939e
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\SpecificAssertInternalTypeRector\SpecificAssertInternalTypeRectorTest
  */
-final class SpecificAssertInternalTypeRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class SpecificAssertInternalTypeRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[][]
@@ -27,9 +28,14 @@ final class SpecificAssertInternalTypeRector extends \Rector\Core\Rector\Abstrac
      * @var TypeAnalyzer
      */
     private $typeAnalyzer;
-    public function __construct(\Rector\Core\Php\TypeAnalyzer $typeAnalyzer)
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\Core\Php\TypeAnalyzer $typeAnalyzer, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->typeAnalyzer = $typeAnalyzer;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -69,7 +75,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isPHPUnitMethodNames($node, ['assertInternalType', 'assertNotInternalType'])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertInternalType', 'assertNotInternalType'])) {
             return null;
         }
         $typeNode = $node->args[0]->value;

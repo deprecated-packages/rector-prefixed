@@ -7,9 +7,10 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Reflection\ClassMethodReflectionFactory;
 use Rector\FileSystemRector\Parser\FileInfoParser;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use ReflectionMethod;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -20,7 +21,7 @@ use RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo;
  *
  * @see \Rector\PHPUnit\Tests\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector\AddDoesNotPerformAssertionToNonAssertingTestRectorTest
  */
-final class AddDoesNotPerformAssertionToNonAssertingTestRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class AddDoesNotPerformAssertionToNonAssertingTestRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var int
@@ -56,10 +57,15 @@ final class AddDoesNotPerformAssertionToNonAssertingTestRector extends \Rector\C
      * @var ClassMethod[][]|null[][]
      */
     private $analyzedMethodsInFileName = [];
-    public function __construct(\Rector\Core\Reflection\ClassMethodReflectionFactory $classMethodReflectionFactory, \Rector\FileSystemRector\Parser\FileInfoParser $fileInfoParser)
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer, \Rector\Core\Reflection\ClassMethodReflectionFactory $classMethodReflectionFactory, \Rector\FileSystemRector\Parser\FileInfoParser $fileInfoParser)
     {
         $this->fileInfoParser = $fileInfoParser;
         $this->classMethodReflectionFactory = $classMethodReflectionFactory;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -111,10 +117,10 @@ CODE_SAMPLE
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
-        if (!$this->isInTestClass($classMethod)) {
+        if (!$this->testsNodeAnalyzer->isInTestClass($classMethod)) {
             return \true;
         }
-        if (!$this->isTestClassMethod($classMethod)) {
+        if (!$this->testsNodeAnalyzer->isTestClassMethod($classMethod)) {
             return \true;
         }
         if ($this->hasTagByName($classMethod, self::DOES_NOT_PERFORM_ASSERTION_TAG)) {

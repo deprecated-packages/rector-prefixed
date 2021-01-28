@@ -6,7 +6,9 @@ namespace Rector\PHPUnit\Rector\MethodCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
-use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
+use Rector\PHPUnit\NodeFactory\AssertCallFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -15,12 +17,25 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\ExplicitPhpErrorApiRector\ExplicitPhpErrorApiRectorTest
  */
-final class ExplicitPhpErrorApiRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class ExplicitPhpErrorApiRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
      */
     private const REPLACEMENTS = ['PHPUnit\\Framework\\TestCase\\Notice' => 'expectNotice', 'PHPUnit\\Framework\\TestCase\\Deprecated' => 'expectDeprecation', 'PHPUnit\\Framework\\TestCase\\Error' => 'expectError', 'PHPUnit\\Framework\\TestCase\\Warning' => 'expectWarning'];
+    /**
+     * @var AssertCallFactory
+     */
+    private $assertCallFactory;
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\PHPUnit\NodeFactory\AssertCallFactory $assertCallFactory, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    {
+        $this->assertCallFactory = $assertCallFactory;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Use explicit API for expecting PHP errors, warnings, and notices', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -61,7 +76,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isPHPUnitMethodNames($node, ['expectException'])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['expectException'])) {
             return null;
         }
         foreach (self::REPLACEMENTS as $class => $method) {
@@ -83,6 +98,6 @@ CODE_SAMPLE
         if (!$this->isClassConstReference($node->args[0]->value, $exceptionClass)) {
             return null;
         }
-        return $this->createPHPUnitCallWithName($node, $explicitMethod);
+        return $this->assertCallFactory->createCallWithName($node, $explicitMethod);
     }
 }

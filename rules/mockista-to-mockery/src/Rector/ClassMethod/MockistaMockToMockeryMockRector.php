@@ -11,9 +11,10 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\Core\Rector\AbstractRector;
 use Rector\MockeryToProphecy\Collector\MockVariableCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use ReflectionMethod;
 use RectorPrefix20210128\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -21,7 +22,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\MockistaToMockery\Tests\Rector\ClassMethod\MockistaMockToMockeryMockRector\MockistaMockToMockeryMockRectorTest
  */
-final class MockistaMockToMockeryMockRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class MockistaMockToMockeryMockRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var string[]
@@ -35,9 +36,14 @@ final class MockistaMockToMockeryMockRector extends \Rector\Core\Rector\Abstract
      * @var MockVariableCollector
      */
     private $mockVariableCollector;
-    public function __construct(\Rector\MockeryToProphecy\Collector\MockVariableCollector $mockVariableCollector)
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\MockeryToProphecy\Collector\MockVariableCollector $mockVariableCollector, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->mockVariableCollector = $mockVariableCollector;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -76,7 +82,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isInTestClass($node)) {
+        if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
         $this->replaceMockWithMockerMockAndCollectMockVariableName($node);

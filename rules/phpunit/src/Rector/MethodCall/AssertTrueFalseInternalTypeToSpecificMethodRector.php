@@ -10,13 +10,14 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
-use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertTrueFalseInternalTypeToSpecificMethodRector\AssertTrueFalseInternalTypeToSpecificMethodRectorTest
  */
-final class AssertTrueFalseInternalTypeToSpecificMethodRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertTrueFalseInternalTypeToSpecificMethodRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
@@ -30,9 +31,14 @@ final class AssertTrueFalseInternalTypeToSpecificMethodRector extends \Rector\Co
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->identifierManipulator = $identifierManipulator;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -51,7 +57,7 @@ final class AssertTrueFalseInternalTypeToSpecificMethodRector extends \Rector\Co
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $oldMethods = \array_keys(self::RENAME_METHODS_MAP);
-        if (!$this->isPHPUnitMethodNames($node, $oldMethods)) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, $oldMethods)) {
             return null;
         }
         /** @var FuncCall|Node $firstArgumentValue */

@@ -8,13 +8,14 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
-use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertFalseStrposToContainsRector\AssertFalseStrposToContainsRectorTest
  */
-final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var array<string, string>
@@ -24,9 +25,14 @@ final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\Abstra
      * @var IdentifierManipulator
      */
     private $identifierManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator)
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->identifierManipulator = $identifierManipulator;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -45,7 +51,7 @@ final class AssertFalseStrposToContainsRector extends \Rector\Core\Rector\Abstra
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $oldMethodName = \array_keys(self::RENAME_METHODS_MAP);
-        if (!$this->isPHPUnitMethodNames($node, $oldMethodName)) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, $oldMethodName)) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;

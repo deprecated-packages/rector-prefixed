@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3d44b94b6f65f3a704aaa51a07041f6b
+class ComposerStaticInita1db35fd073ec4360e2480d086eca2df
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2860,7 +2860,6 @@ class ComposerStaticInit3d44b94b6f65f3a704aaa51a07041f6b
         'Rector\\Core\\Php\\Regex\\RegexPatternArgumentManipulator' => __DIR__ . '/../..' . '/src/Php/Regex/RegexPatternArgumentManipulator.php',
         'Rector\\Core\\Php\\ReservedKeywordAnalyzer' => __DIR__ . '/../..' . '/src/Php/ReservedKeywordAnalyzer.php',
         'Rector\\Core\\Php\\TypeAnalyzer' => __DIR__ . '/../..' . '/src/Php/TypeAnalyzer.php',
-        'Rector\\Core\\Rector\\AbstractPHPUnitRector' => __DIR__ . '/../..' . '/src/Rector/AbstractPHPUnitRector.php',
         'Rector\\Core\\Rector\\AbstractRector' => __DIR__ . '/../..' . '/src/Rector/AbstractRector.php',
         'Rector\\Core\\Rector\\AbstractRector\\AbstractRectorTrait' => __DIR__ . '/../..' . '/src/Rector/AbstractRector/AbstractRectorTrait.php',
         'Rector\\Core\\Rector\\AbstractRector\\BetterStandardPrinterTrait' => __DIR__ . '/../..' . '/src/Rector/AbstractRector/BetterStandardPrinterTrait.php',
@@ -3553,6 +3552,7 @@ class ComposerStaticInit3d44b94b6f65f3a704aaa51a07041f6b
         'Rector\\PHPUnitSymfony\\Rector\\StaticCall\\AddMessageToEqualsResponseCodeRector' => __DIR__ . '/../..' . '/rules/phpunit-symfony/src/Rector/StaticCall/AddMessageToEqualsResponseCodeRector.php',
         'Rector\\PHPUnit\\Composer\\ComposerAutoloadedDirectoryProvider' => __DIR__ . '/../..' . '/rules/phpunit/src/Composer/ComposerAutoloadedDirectoryProvider.php',
         'Rector\\PHPUnit\\NodeAnalyzer\\TestsNodeAnalyzer' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeAnalyzer/TestsNodeAnalyzer.php',
+        'Rector\\PHPUnit\\NodeFactory\\AssertCallFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/AssertCallFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\DataProviderClassMethodFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/DataProviderClassMethodFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionMethodCallFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ExpectExceptionMethodCallFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\SetUpClassMethodFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/SetUpClassMethodFactory.php',
@@ -4171,9 +4171,9 @@ class ComposerStaticInit3d44b94b6f65f3a704aaa51a07041f6b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit3d44b94b6f65f3a704aaa51a07041f6b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit3d44b94b6f65f3a704aaa51a07041f6b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit3d44b94b6f65f3a704aaa51a07041f6b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita1db35fd073ec4360e2480d086eca2df::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita1db35fd073ec4360e2480d086eca2df::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita1db35fd073ec4360e2480d086eca2df::$classMap;
 
         }, null, ClassLoader::class);
     }

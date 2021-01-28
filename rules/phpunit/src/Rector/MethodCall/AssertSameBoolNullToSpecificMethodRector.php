@@ -8,7 +8,8 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator;
-use Rector\Core\Rector\AbstractPHPUnitRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
 use Rector\PHPUnit\NodeManipulator\ArgumentMover;
 use Rector\PHPUnit\ValueObject\ConstantWithAssertMethods;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -16,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Rector\PHPUnit\Tests\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector\AssertSameBoolNullToSpecificMethodRectorTest
  */
-final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector\AbstractPHPUnitRector
+final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
      * @var ConstantWithAssertMethods[]
@@ -30,11 +31,16 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
      * @var ArgumentMover
      */
     private $argumentMover;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeManipulator\ArgumentMover $argumentMover)
+    /**
+     * @var TestsNodeAnalyzer
+     */
+    private $testsNodeAnalyzer;
+    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IdentifierManipulator $identifierManipulator, \Rector\PHPUnit\NodeManipulator\ArgumentMover $argumentMover, \Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
     {
         $this->identifierManipulator = $identifierManipulator;
         $this->constantWithAssertMethods = [new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('null', 'assertNull', 'assertNotNull'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('true', 'assertTrue', 'assertNotTrue'), new \Rector\PHPUnit\ValueObject\ConstantWithAssertMethods('false', 'assertFalse', 'assertNotFalse')];
         $this->argumentMover = $argumentMover;
+        $this->testsNodeAnalyzer = $testsNodeAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -52,7 +58,7 @@ final class AssertSameBoolNullToSpecificMethodRector extends \Rector\Core\Rector
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isPHPUnitMethodNames($node, ['assertSame', 'assertNotSame'])) {
+        if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertSame', 'assertNotSame'])) {
             return null;
         }
         $firstArgumentValue = $node->args[0]->value;
