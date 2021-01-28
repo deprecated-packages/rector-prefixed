@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace RectorPrefix20210128;
 
 use Rector\Php74\Rector\Assign\NullCoalescingOperatorRector;
-use Rector\Php74\Rector\Class_\ClassConstantToSelfClassRector;
 use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
 use Rector\Php74\Rector\Double\RealToFloatTypeCastRector;
 use Rector\Php74\Rector\FuncCall\ArrayKeyExistsOnPropertyRector;
@@ -34,7 +33,6 @@ return static function (\RectorPrefix20210128\Symfony\Component\DependencyInject
     $services->set(\Rector\Php74\Rector\FuncCall\ArrayKeyExistsOnPropertyRector::class);
     $services->set(\Rector\Php74\Rector\FuncCall\FilterVarToAddSlashesRector::class);
     $services->set(\Rector\Php74\Rector\StaticCall\ExportToReflectionFunctionRector::class);
-    $services->set(\Rector\Php74\Rector\Class_\ClassConstantToSelfClassRector::class);
     $services->set(\Rector\Php74\Rector\FuncCall\GetCalledClassToStaticClassRector::class);
     $services->set(\Rector\Php74\Rector\FuncCall\MbStrrposEncodingArgumentPositionRector::class);
     $services->set(\Rector\Php74\Rector\Double\RealToFloatTypeCastRector::class);

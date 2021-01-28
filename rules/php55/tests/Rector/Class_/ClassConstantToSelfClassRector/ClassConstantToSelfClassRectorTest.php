@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php74\Tests\Rector\Class_\ClassConstantToSelfClassRector;
+namespace Rector\Php55\Tests\Rector\Class_\ClassConstantToSelfClassRector;
 
 use Iterator;
-use Rector\Php74\Rector\Class_\ClassConstantToSelfClassRector;
+use Rector\Php55\Rector\Class_\ClassConstantToSelfClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassConstantToSelfClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -22,6 +22,6 @@ final class ClassConstantToSelfClassRectorTest extends \Rector\Testing\PHPUnit\A
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php74\Rector\Class_\ClassConstantToSelfClassRector::class;
+        return \Rector\Php55\Rector\Class_\ClassConstantToSelfClassRector::class;
     }
 }

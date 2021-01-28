@@ -5,7 +5,9 @@ namespace RectorPrefix20210128;
 
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use RectorPrefix20210128\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Php55\Rector\Class_\ClassConstantToSelfClassRector;
 return static function (\RectorPrefix20210128\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Php55\Rector\String_\StringClassNameToClassConstantRector::class);
+    $services->set(\Rector\Php55\Rector\Class_\ClassConstantToSelfClassRector::class);
 };
