@@ -68,7 +68,8 @@ final class ExtendsTemplateTypeMapFallbackFactory
         if (!$parentClassReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return [];
         }
-        return \array_keys($parentClassReflection->getTemplateTypeMap()->getTypes());
+        $templateTypeMap = $parentClassReflection->getTemplateTypeMap();
+        return \array_keys($templateTypeMap->getTypes());
     }
     private function createTemplateObjectType(\PHPStan\Type\Generic\TemplateTypeScope $templateTypeScope, string $parentGenericTypeName, \PHPStan\Type\TypeWithClassName $typeWithClassName) : \PHPStan\Type\Generic\TemplateObjectType
     {
