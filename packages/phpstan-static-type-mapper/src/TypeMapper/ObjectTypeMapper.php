@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
+use RectorPrefix20210129\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -44,7 +45,12 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
             return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
         }
         if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
-            $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode('\\' . $type->getClassName());
+            if (\RectorPrefix20210129\Nette\Utils\Strings::contains($type->getClassName(), '\\')) {
+                $name = '\\' . $type->getClassName();
+            } else {
+                $name = $type->getClassName();
+            }
+            $identifierTypeNode = new \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode($name);
             $genericTypeNodes = [];
             foreach ($type->getTypes() as $genericType) {
                 $typeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($genericType);

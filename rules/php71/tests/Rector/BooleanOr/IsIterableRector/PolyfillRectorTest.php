@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php73\Tests\Rector\BinaryOp\IsCountableRector;
+namespace Rector\Php71\Tests\Rector\BooleanOr\IsIterableRector;
 
 use Iterator;
 use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\Php73\Rector\BinaryOp\IsCountableRector;
+use Rector\Php71\Rector\BooleanOr\IsIterableRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
 final class PolyfillRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -19,14 +19,14 @@ final class PolyfillRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTes
     }
     public function provideData() : \Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureWithPolyfill');
-    }
-    protected function getPhpVersion() : int
-    {
-        return \Rector\Core\ValueObject\PhpVersionFeature::IS_COUNTABLE - 1;
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php73\Rector\BinaryOp\IsCountableRector::class;
+        return \Rector\Php71\Rector\BooleanOr\IsIterableRector::class;
+    }
+    protected function getPhpVersion() : int
+    {
+        return \Rector\Core\ValueObject\PhpVersionFeature::ITERABLE_TYPE;
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210129;
 
-use Rector\Php73\Rector\BinaryOp\IsCountableRector;
+use Rector\Php73\Rector\BooleanOr\IsCountableRector;
 use Rector\Php73\Rector\ConstFetch\SensitiveConstantNameRector;
 use Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector;
 use Rector\Php73\Rector\FuncCall\JsonThrowOnErrorRector;
@@ -16,7 +16,7 @@ use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 return static function (\RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(\Rector\Php73\Rector\BinaryOp\IsCountableRector::class);
+    $services->set(\Rector\Php73\Rector\BooleanOr\IsCountableRector::class);
     $services->set(\Rector\Php73\Rector\FuncCall\ArrayKeyFirstLastRector::class);
     $services->set(\Rector\Php73\Rector\FuncCall\SensitiveDefineRector::class);
     $services->set(\Rector\Php73\Rector\ConstFetch\SensitiveConstantNameRector::class);

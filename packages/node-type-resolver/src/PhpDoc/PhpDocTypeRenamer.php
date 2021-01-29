@@ -10,7 +10,7 @@ use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\Generic\ValueObject\PseudoNamespaceToNamespace;
+use Rector\Renaming\ValueObject\PseudoNamespaceToNamespace;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use RectorPrefix20210129\Symplify\SimplePhpDocParser\PhpDocNodeTraverser;
 final class PhpDocTypeRenamer
@@ -28,7 +28,7 @@ final class PhpDocTypeRenamer
         $this->phpDocNodeTraverser = $phpDocNodeTraverser;
         $this->staticTypeMapper = $staticTypeMapper;
     }
-    public function changeUnderscoreType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $node, \Rector\Generic\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : void
+    public function changeUnderscoreType(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node $node, \Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : void
     {
         $attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
         $phpParserNode = $node;
@@ -51,7 +51,7 @@ final class PhpDocTypeRenamer
             return $node;
         });
     }
-    private function shouldSkip(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $phpParserNode, \Rector\Generic\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : bool
+    private function shouldSkip(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $phpParserNode, \Rector\Renaming\ValueObject\PseudoNamespaceToNamespace $pseudoNamespaceToNamespace) : bool
     {
         if (!$typeNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return \true;

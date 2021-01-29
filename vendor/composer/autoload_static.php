@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7
+class ComposerStaticInitae757b5f3e189f47bce6911362f005ea
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -90,6 +90,7 @@ class ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7
             'Rector\\MagicDisclosure\\' => 23,
             'Rector\\Legacy\\' => 14,
             'Rector\\Laravel\\' => 15,
+            'Rector\\Generics\\' => 16,
             'Rector\\Generic\\' => 15,
             'Rector\\FileSystemRector\\' => 24,
             'Rector\\FamilyTree\\' => 18,
@@ -446,6 +447,10 @@ class ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7
         'Rector\\Laravel\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/laravel/src',
+        ),
+        'Rector\\Generics\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/rules/generics/src',
         ),
         'Rector\\Generic\\' => 
         array (
@@ -3150,9 +3155,7 @@ class ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7
         'Rector\\FileSystemRector\\ValueObject\\AddedFileWithContent' => __DIR__ . '/../..' . '/packages/file-system-rector/src/ValueObject/AddedFileWithContent.php',
         'Rector\\FileSystemRector\\ValueObject\\MovedFileWithContent' => __DIR__ . '/../..' . '/packages/file-system-rector/src/ValueObject/MovedFileWithContent.php',
         'Rector\\FileSystemRector\\ValueObject\\MovedFileWithNodes' => __DIR__ . '/../..' . '/packages/file-system-rector/src/ValueObject/MovedFileWithNodes.php',
-        'Rector\\Generic\\Contract\\IsAbleFuncCallInterface' => __DIR__ . '/../..' . '/rules/generic/src/Contract/IsAbleFuncCallInterface.php',
         'Rector\\Generic\\NodeAnalyzer\\ArgumentAddingScope' => __DIR__ . '/../..' . '/rules/generic/src/NodeAnalyzer/ArgumentAddingScope.php',
-        'Rector\\Generic\\Rector\\AbstractIsAbleFunCallRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/AbstractIsAbleFunCallRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\AddMethodParentCallRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/AddMethodParentCallRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\ArgumentAdderRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/ArgumentAdderRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\ArgumentDefaultValueReplacerRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/ArgumentDefaultValueReplacerRector.php',
@@ -3169,10 +3172,13 @@ class ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7
         'Rector\\Generic\\ValueObject\\ArgumentAdder' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentAdder.php',
         'Rector\\Generic\\ValueObject\\ArgumentDefaultValueReplacer' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentDefaultValueReplacer.php',
         'Rector\\Generic\\ValueObject\\NormalToFluent' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/NormalToFluent.php',
-        'Rector\\Generic\\ValueObject\\PseudoNamespaceToNamespace' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/PseudoNamespaceToNamespace.php',
         'Rector\\Generic\\ValueObject\\SingleToManyMethod' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SingleToManyMethod.php',
         'Rector\\Generic\\ValueObject\\SwapFuncCallArguments' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SwapFuncCallArguments.php',
         'Rector\\Generic\\ValueObject\\WrapReturn' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/WrapReturn.php',
+        'Rector\\Generics\\Rector\\Class_\\GenericsPHPStormMethodAnnotationRector' => __DIR__ . '/../..' . '/rules/generics/src/Rector/Class_/GenericsPHPStormMethodAnnotationRector.php',
+        'Rector\\Generics\\Reflection\\ClassGenericMethodResolver' => __DIR__ . '/../..' . '/rules/generics/src/Reflection/ClassGenericMethodResolver.php',
+        'Rector\\Generics\\TagValueNodeFactory\\MethodTagValueNodeFactory' => __DIR__ . '/../..' . '/rules/generics/src/TagValueNodeFactory/MethodTagValueNodeFactory.php',
+        'Rector\\Generics\\TagValueNodeFactory\\MethodTagValueParameterNodeFactory' => __DIR__ . '/../..' . '/rules/generics/src/TagValueNodeFactory/MethodTagValueParameterNodeFactory.php',
         'Rector\\Laravel\\NodeFactory\\AppAssignFactory' => __DIR__ . '/../..' . '/rules/laravel/src/NodeFactory/AppAssignFactory.php',
         'Rector\\Laravel\\Rector\\Assign\\CallOnAppArrayAccessToStandaloneAssignRector' => __DIR__ . '/../..' . '/rules/laravel/src/Rector/Assign/CallOnAppArrayAccessToStandaloneAssignRector.php',
         'Rector\\Laravel\\Rector\\ClassMethod\\AddParentBootToModelClassMethodRector' => __DIR__ . '/../..' . '/rules/laravel/src/Rector/ClassMethod/AddParentBootToModelClassMethodRector.php',
@@ -3635,7 +3641,7 @@ class ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7
         'Rector\\Php71\\NodeFinder\\EmptyStringDefaultPropertyFinder' => __DIR__ . '/../..' . '/rules/php71/src/NodeFinder/EmptyStringDefaultPropertyFinder.php',
         'Rector\\Php71\\Rector\\Assign\\AssignArrayToStringRector' => __DIR__ . '/../..' . '/rules/php71/src/Rector/Assign/AssignArrayToStringRector.php',
         'Rector\\Php71\\Rector\\BinaryOp\\BinaryOpBetweenNumberAndStringRector' => __DIR__ . '/../..' . '/rules/php71/src/Rector/BinaryOp/BinaryOpBetweenNumberAndStringRector.php',
-        'Rector\\Php71\\Rector\\BinaryOp\\IsIterableRector' => __DIR__ . '/../..' . '/rules/php71/src/Rector/BinaryOp/IsIterableRector.php',
+        'Rector\\Php71\\Rector\\BooleanOr\\IsIterableRector' => __DIR__ . '/../..' . '/rules/php71/src/Rector/BooleanOr/IsIterableRector.php',
         'Rector\\Php71\\Rector\\ClassConst\\PublicConstantVisibilityRector' => __DIR__ . '/../..' . '/rules/php71/src/Rector/ClassConst/PublicConstantVisibilityRector.php',
         'Rector\\Php71\\Rector\\FuncCall\\CountOnNullRector' => __DIR__ . '/../..' . '/rules/php71/src/Rector/FuncCall/CountOnNullRector.php',
         'Rector\\Php71\\Rector\\FuncCall\\RemoveExtraParametersRector' => __DIR__ . '/../..' . '/rules/php71/src/Rector/FuncCall/RemoveExtraParametersRector.php',
@@ -3656,7 +3662,7 @@ class ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7
         'Rector\\Php72\\Rector\\Unset_\\UnsetCastRector' => __DIR__ . '/../..' . '/rules/php72/src/Rector/Unset_/UnsetCastRector.php',
         'Rector\\Php72\\Rector\\While_\\WhileEachToForeachRector' => __DIR__ . '/../..' . '/rules/php72/src/Rector/While_/WhileEachToForeachRector.php',
         'Rector\\Php73\\NodeTypeAnalyzer\\NodeTypeAnalyzer' => __DIR__ . '/../..' . '/rules/php73/src/NodeTypeAnalyzer/NodeTypeAnalyzer.php',
-        'Rector\\Php73\\Rector\\BinaryOp\\IsCountableRector' => __DIR__ . '/../..' . '/rules/php73/src/Rector/BinaryOp/IsCountableRector.php',
+        'Rector\\Php73\\Rector\\BooleanOr\\IsCountableRector' => __DIR__ . '/../..' . '/rules/php73/src/Rector/BooleanOr/IsCountableRector.php',
         'Rector\\Php73\\Rector\\ConstFetch\\SensitiveConstantNameRector' => __DIR__ . '/../..' . '/rules/php73/src/Rector/ConstFetch/SensitiveConstantNameRector.php',
         'Rector\\Php73\\Rector\\FuncCall\\ArrayKeyFirstLastRector' => __DIR__ . '/../..' . '/rules/php73/src/Rector/FuncCall/ArrayKeyFirstLastRector.php',
         'Rector\\Php73\\Rector\\FuncCall\\JsonThrowOnErrorRector' => __DIR__ . '/../..' . '/rules/php73/src/Rector/FuncCall/JsonThrowOnErrorRector.php',
@@ -3860,6 +3866,7 @@ class ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7
         'Rector\\Renaming\\Rector\\String_\\RenameStringRector' => __DIR__ . '/../..' . '/rules/renaming/src/Rector/String_/RenameStringRector.php',
         'Rector\\Renaming\\ValueObject\\MethodCallRename' => __DIR__ . '/../..' . '/rules/renaming/src/ValueObject/MethodCallRename.php',
         'Rector\\Renaming\\ValueObject\\MethodCallRenameWithArrayKey' => __DIR__ . '/../..' . '/rules/renaming/src/ValueObject/MethodCallRenameWithArrayKey.php',
+        'Rector\\Renaming\\ValueObject\\PseudoNamespaceToNamespace' => __DIR__ . '/../..' . '/rules/renaming/src/ValueObject/PseudoNamespaceToNamespace.php',
         'Rector\\Renaming\\ValueObject\\RenameAnnotation' => __DIR__ . '/../..' . '/rules/renaming/src/ValueObject/RenameAnnotation.php',
         'Rector\\Renaming\\ValueObject\\RenameClassAndConstFetch' => __DIR__ . '/../..' . '/rules/renaming/src/ValueObject/RenameClassAndConstFetch.php',
         'Rector\\Renaming\\ValueObject\\RenameClassConstFetch' => __DIR__ . '/../..' . '/rules/renaming/src/ValueObject/RenameClassConstFetch.php',
@@ -4179,9 +4186,9 @@ class ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdf77a01b5f07d9e6719a7996f62b0bd7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitae757b5f3e189f47bce6911362f005ea::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitae757b5f3e189f47bce6911362f005ea::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitae757b5f3e189f47bce6911362f005ea::$classMap;
 
         }, null, ClassLoader::class);
     }

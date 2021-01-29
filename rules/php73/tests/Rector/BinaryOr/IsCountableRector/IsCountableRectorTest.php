@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php73\Tests\Rector\BinaryOp\IsCountableRector;
+namespace Rector\Php73\Tests\Rector\BinaryOr\IsCountableRector;
 
 use Iterator;
-use Rector\Php73\Rector\BinaryOp\IsCountableRector;
+use Rector\Php73\Rector\BooleanOr\IsCountableRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
 final class IsCountableRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -23,6 +23,6 @@ final class IsCountableRectorTest extends \Rector\Testing\PHPUnit\AbstractRector
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php73\Rector\BinaryOp\IsCountableRector::class;
+        return \Rector\Php73\Rector\BooleanOr\IsCountableRector::class;
     }
 }

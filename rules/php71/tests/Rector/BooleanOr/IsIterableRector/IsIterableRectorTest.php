@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Php71\Tests\Rector\BinaryOp\IsIterableRector;
+namespace Rector\Php71\Tests\Rector\BooleanOr\IsIterableRector;
 
 use Iterator;
-use Rector\Php71\Rector\BinaryOp\IsIterableRector;
+use Rector\Php71\Rector\BooleanOr\IsIterableRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
 final class IsIterableRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -22,6 +22,6 @@ final class IsIterableRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorT
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Php71\Rector\BinaryOp\IsIterableRector::class;
+        return \Rector\Php71\Rector\BooleanOr\IsIterableRector::class;
     }
 }
