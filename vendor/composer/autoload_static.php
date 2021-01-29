@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit280a3d4203d7ad8fecebdc8c7a881e05
+class ComposerStaticInit5dfae48b851a9f2611c17e863adfcbf6
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3175,10 +3175,14 @@ class ComposerStaticInit280a3d4203d7ad8fecebdc8c7a881e05
         'Rector\\Generic\\ValueObject\\SingleToManyMethod' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SingleToManyMethod.php',
         'Rector\\Generic\\ValueObject\\SwapFuncCallArguments' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SwapFuncCallArguments.php',
         'Rector\\Generic\\ValueObject\\WrapReturn' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/WrapReturn.php',
+        'Rector\\Generics\\NodeType\\ExtendsTemplateTypeMapFallbackFactory' => __DIR__ . '/../..' . '/rules/generics/src/NodeType/ExtendsTemplateTypeMapFallbackFactory.php',
+        'Rector\\Generics\\NodeType\\GenericTypeSpecifier' => __DIR__ . '/../..' . '/rules/generics/src/NodeType/GenericTypeSpecifier.php',
         'Rector\\Generics\\Rector\\Class_\\GenericsPHPStormMethodAnnotationRector' => __DIR__ . '/../..' . '/rules/generics/src/Rector/Class_/GenericsPHPStormMethodAnnotationRector.php',
         'Rector\\Generics\\Reflection\\ClassGenericMethodResolver' => __DIR__ . '/../..' . '/rules/generics/src/Reflection/ClassGenericMethodResolver.php',
+        'Rector\\Generics\\Reflection\\GenericClassReflectionAnalyzer' => __DIR__ . '/../..' . '/rules/generics/src/Reflection/GenericClassReflectionAnalyzer.php',
         'Rector\\Generics\\TagValueNodeFactory\\MethodTagValueNodeFactory' => __DIR__ . '/../..' . '/rules/generics/src/TagValueNodeFactory/MethodTagValueNodeFactory.php',
         'Rector\\Generics\\TagValueNodeFactory\\MethodTagValueParameterNodeFactory' => __DIR__ . '/../..' . '/rules/generics/src/TagValueNodeFactory/MethodTagValueParameterNodeFactory.php',
+        'Rector\\Generics\\ValueObject\\GenericChildParentClassReflections' => __DIR__ . '/../..' . '/rules/generics/src/ValueObject/GenericChildParentClassReflections.php',
         'Rector\\Laravel\\NodeFactory\\AppAssignFactory' => __DIR__ . '/../..' . '/rules/laravel/src/NodeFactory/AppAssignFactory.php',
         'Rector\\Laravel\\Rector\\Assign\\CallOnAppArrayAccessToStandaloneAssignRector' => __DIR__ . '/../..' . '/rules/laravel/src/Rector/Assign/CallOnAppArrayAccessToStandaloneAssignRector.php',
         'Rector\\Laravel\\Rector\\ClassMethod\\AddParentBootToModelClassMethodRector' => __DIR__ . '/../..' . '/rules/laravel/src/Rector/ClassMethod/AddParentBootToModelClassMethodRector.php',
@@ -4186,9 +4190,9 @@ class ComposerStaticInit280a3d4203d7ad8fecebdc8c7a881e05
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit280a3d4203d7ad8fecebdc8c7a881e05::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit280a3d4203d7ad8fecebdc8c7a881e05::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit280a3d4203d7ad8fecebdc8c7a881e05::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5dfae48b851a9f2611c17e863adfcbf6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5dfae48b851a9f2611c17e863adfcbf6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5dfae48b851a9f2611c17e863adfcbf6::$classMap;
 
         }, null, ClassLoader::class);
     }
