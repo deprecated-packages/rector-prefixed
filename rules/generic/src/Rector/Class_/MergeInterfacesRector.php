@@ -23,7 +23,7 @@ final class MergeInterfacesRector extends \Rector\Core\Rector\AbstractRector imp
      * @api
      * @var string
      */
-    public const OLD_TO_NEW_INTERFACES = '$oldToNewInterfaces';
+    public const OLD_TO_NEW_INTERFACES = 'old_to_new_interfaces';
     /**
      * @var string[]
      */

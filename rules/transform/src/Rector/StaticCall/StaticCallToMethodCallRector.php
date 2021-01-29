@@ -11,8 +11,8 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Generic\Rector\AbstractToMethodCallRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Transform\Rector\AbstractToMethodCallRector;
 use Rector\Transform\ValueObject\StaticCallToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -20,7 +20,7 @@ use RectorPrefix20210129\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\StaticCall\StaticCallToMethodCallRector\StaticCallToMethodCallRectorTest
  */
-final class StaticCallToMethodCallRector extends \Rector\Generic\Rector\AbstractToMethodCallRector
+final class StaticCallToMethodCallRector extends \Rector\Transform\Rector\AbstractToMethodCallRector
 {
     /**
      * @api

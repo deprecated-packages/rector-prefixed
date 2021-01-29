@@ -11,7 +11,7 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Generic\ValueObject\DimFetchAssignToMethodCall;
+use Rector\Transform\ValueObject\DimFetchAssignToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210129\Webmozart\Assert\Assert;
@@ -55,7 +55,7 @@ class RouterFactory
     }
 }
 CODE_SAMPLE
-, [self::DIM_FETCH_ASSIGN_TO_METHOD_CALL => [new \Rector\Generic\ValueObject\DimFetchAssignToMethodCall('Nette\\Application\\Routers\\RouteList', 'Nette\\Application\\Routers\\Route', 'addRoute')]])]);
+, [self::DIM_FETCH_ASSIGN_TO_METHOD_CALL => [new \Rector\Transform\ValueObject\DimFetchAssignToMethodCall('Nette\\Application\\Routers\\RouteList', 'Nette\\Application\\Routers\\Route', 'addRoute')]])]);
     }
     /**
      * @return string[]
@@ -80,7 +80,7 @@ CODE_SAMPLE
             return null;
         }
         $dimFetchAssignToMethodCall = $this->findDimFetchAssignToMethodCall($node);
-        if (!$dimFetchAssignToMethodCall instanceof \Rector\Generic\ValueObject\DimFetchAssignToMethodCall) {
+        if (!$dimFetchAssignToMethodCall instanceof \Rector\Transform\ValueObject\DimFetchAssignToMethodCall) {
             return null;
         }
         return new \PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, $dimFetchAssignToMethodCall->getAddMethod(), $node->expr->args);
@@ -88,10 +88,10 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $dimFetchAssignToMethodCalls = $configuration[self::DIM_FETCH_ASSIGN_TO_METHOD_CALL] ?? [];
-        \RectorPrefix20210129\Webmozart\Assert\Assert::allIsInstanceOf($dimFetchAssignToMethodCalls, \Rector\Generic\ValueObject\DimFetchAssignToMethodCall::class);
+        \RectorPrefix20210129\Webmozart\Assert\Assert::allIsInstanceOf($dimFetchAssignToMethodCalls, \Rector\Transform\ValueObject\DimFetchAssignToMethodCall::class);
         $this->dimFetchAssignToMethodCalls = $dimFetchAssignToMethodCalls;
     }
-    private function findDimFetchAssignToMethodCall(\PhpParser\Node\Expr\Assign $assign) : ?\Rector\Generic\ValueObject\DimFetchAssignToMethodCall
+    private function findDimFetchAssignToMethodCall(\PhpParser\Node\Expr\Assign $assign) : ?\Rector\Transform\ValueObject\DimFetchAssignToMethodCall
     {
         /** @var ArrayDimFetch $arrayDimFetch */
         $arrayDimFetch = $assign->var;

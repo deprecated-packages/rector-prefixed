@@ -5,6 +5,7 @@ namespace RectorPrefix20210129;
 
 use PHPStan\Type\MixedType;
 use PHPStan\Type\VoidType;
+use Rector\Core\ValueObject\MethodName;
 use Rector\PHPUnit\Rector\MethodCall\AssertEqualsParameterToSpecificMethodsTypeRector;
 use Rector\PHPUnit\Rector\MethodCall\ReplaceAssertArraySubsetWithDmsPolyfillRector;
 use Rector\PHPUnit\Rector\MethodCall\SpecificAssertContainsRector;
@@ -21,7 +22,7 @@ return static function (\RectorPrefix20210129\Symfony\Component\DependencyInject
     $services = $containerConfigurator->services();
     $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // https://github.com/rectorphp/rector/issues/1024 - no type, $dataName
-        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('PHPUnit\\Framework\\TestCase', '__construct', 2, new \PHPStan\Type\MixedType()),
+        new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('PHPUnit\\Framework\\TestCase', \Rector\Core\ValueObject\MethodName::CONSTRUCT, 2, new \PHPStan\Type\MixedType()),
     ])]]);
     $services->set(\Rector\PHPUnit\Rector\MethodCall\SpecificAssertContainsRector::class);
     $services->set(\Rector\PHPUnit\Rector\MethodCall\SpecificAssertInternalTypeRector::class);

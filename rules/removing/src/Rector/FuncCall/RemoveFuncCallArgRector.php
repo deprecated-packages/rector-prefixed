@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Generic\ValueObject\RemoveFuncCallArg;
+use Rector\Removing\ValueObject\RemoveFuncCallArg;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210129\Webmozart\Assert\Assert;
@@ -34,7 +34,7 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 remove_last_arg(1);
 CODE_SAMPLE
-, [self::REMOVED_FUNCTION_ARGUMENTS => [new \Rector\Generic\ValueObject\RemoveFuncCallArg('remove_last_arg', 1)]])]);
+, [self::REMOVED_FUNCTION_ARGUMENTS => [new \Rector\Removing\ValueObject\RemoveFuncCallArg('remove_last_arg', 1)]])]);
     }
     /**
      * @return string[]
@@ -64,7 +64,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $removedFunctionArguments = $configuration[self::REMOVED_FUNCTION_ARGUMENTS] ?? [];
-        \RectorPrefix20210129\Webmozart\Assert\Assert::allIsInstanceOf($removedFunctionArguments, \Rector\Generic\ValueObject\RemoveFuncCallArg::class);
+        \RectorPrefix20210129\Webmozart\Assert\Assert::allIsInstanceOf($removedFunctionArguments, \Rector\Removing\ValueObject\RemoveFuncCallArg::class);
         $this->removedFunctionArguments = $removedFunctionArguments;
     }
 }

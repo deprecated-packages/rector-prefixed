@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
+class ComposerStaticInit61efd6a4e32f1b5c08a34aca1146aaa4
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3152,10 +3152,7 @@ class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
         'Rector\\FileSystemRector\\ValueObject\\MovedFileWithNodes' => __DIR__ . '/../..' . '/packages/file-system-rector/src/ValueObject/MovedFileWithNodes.php',
         'Rector\\Generic\\Contract\\IsAbleFuncCallInterface' => __DIR__ . '/../..' . '/rules/generic/src/Contract/IsAbleFuncCallInterface.php',
         'Rector\\Generic\\NodeAnalyzer\\ArgumentAddingScope' => __DIR__ . '/../..' . '/rules/generic/src/NodeAnalyzer/ArgumentAddingScope.php',
-        'Rector\\Generic\\NodeTypeAnalyzer\\CallTypeAnalyzer' => __DIR__ . '/../..' . '/rules/generic/src/NodeTypeAnalyzer/CallTypeAnalyzer.php',
-        'Rector\\Generic\\NodeTypeAnalyzer\\TypeProvidingExprFromClassResolver' => __DIR__ . '/../..' . '/rules/generic/src/NodeTypeAnalyzer/TypeProvidingExprFromClassResolver.php',
         'Rector\\Generic\\Rector\\AbstractIsAbleFunCallRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/AbstractIsAbleFunCallRector.php',
-        'Rector\\Generic\\Rector\\AbstractToMethodCallRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/AbstractToMethodCallRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\AddMethodParentCallRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/AddMethodParentCallRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\ArgumentAdderRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/ArgumentAdderRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\ArgumentDefaultValueReplacerRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/ArgumentDefaultValueReplacerRector.php',
@@ -3165,21 +3162,15 @@ class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
         'Rector\\Generic\\Rector\\Class_\\AddInterfaceByTraitRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/AddInterfaceByTraitRector.php',
         'Rector\\Generic\\Rector\\Class_\\AddPropertyByParentRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/AddPropertyByParentRector.php',
         'Rector\\Generic\\Rector\\Class_\\MergeInterfacesRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/MergeInterfacesRector.php',
-        'Rector\\Generic\\Rector\\FuncCall\\RemoveIniGetSetFuncCallRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/FuncCall/RemoveIniGetSetFuncCallRector.php',
         'Rector\\Generic\\Rector\\FuncCall\\SwapFuncCallArgumentsRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/FuncCall/SwapFuncCallArgumentsRector.php',
-        'Rector\\Generic\\Rector\\MethodCall\\FormerNullableArgumentToScalarTypedRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/MethodCall/FormerNullableArgumentToScalarTypedRector.php',
         'Rector\\Generic\\Rector\\Property\\AnnotatedPropertyInjectToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Property/AnnotatedPropertyInjectToConstructorInjectionRector.php',
         'Rector\\Generic\\Rector\\Property\\InjectAnnotationClassRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Property/InjectAnnotationClassRector.php',
         'Rector\\Generic\\ValueObject\\AddPropertyByParent' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/AddPropertyByParent.php',
         'Rector\\Generic\\ValueObject\\ArgumentAdder' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentAdder.php',
         'Rector\\Generic\\ValueObject\\ArgumentDefaultValueReplacer' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentDefaultValueReplacer.php',
-        'Rector\\Generic\\ValueObject\\ArgumentRemover' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentRemover.php',
-        'Rector\\Generic\\ValueObject\\DimFetchAssignToMethodCall' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/DimFetchAssignToMethodCall.php',
         'Rector\\Generic\\ValueObject\\NormalToFluent' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/NormalToFluent.php',
         'Rector\\Generic\\ValueObject\\PseudoNamespaceToNamespace' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/PseudoNamespaceToNamespace.php',
-        'Rector\\Generic\\ValueObject\\RemoveFuncCallArg' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/RemoveFuncCallArg.php',
         'Rector\\Generic\\ValueObject\\SingleToManyMethod' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SingleToManyMethod.php',
-        'Rector\\Generic\\ValueObject\\SwapClassMethodArguments' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SwapClassMethodArguments.php',
         'Rector\\Generic\\ValueObject\\SwapFuncCallArguments' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SwapFuncCallArguments.php',
         'Rector\\Generic\\ValueObject\\WrapReturn' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/WrapReturn.php',
         'Rector\\Laravel\\NodeFactory\\AppAssignFactory' => __DIR__ . '/../..' . '/rules/laravel/src/NodeFactory/AppAssignFactory.php',
@@ -3848,6 +3839,10 @@ class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
         'Rector\\Removing\\Rector\\Class_\\RemoveParentRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/Class_/RemoveParentRector.php',
         'Rector\\Removing\\Rector\\Class_\\RemoveTraitRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/Class_/RemoveTraitRector.php',
         'Rector\\Removing\\Rector\\FuncCall\\RemoveFuncCallArgRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/FuncCall/RemoveFuncCallArgRector.php',
+        'Rector\\Removing\\Rector\\FuncCall\\RemoveFuncCallRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/FuncCall/RemoveFuncCallRector.php',
+        'Rector\\Removing\\ValueObject\\ArgumentRemover' => __DIR__ . '/../..' . '/rules/removing/src/ValueObject/ArgumentRemover.php',
+        'Rector\\Removing\\ValueObject\\RemoveFuncCall' => __DIR__ . '/../..' . '/rules/removing/src/ValueObject/RemoveFuncCall.php',
+        'Rector\\Removing\\ValueObject\\RemoveFuncCallArg' => __DIR__ . '/../..' . '/rules/removing/src/ValueObject/RemoveFuncCallArg.php',
         'Rector\\Renaming\\Contract\\MethodCallRenameInterface' => __DIR__ . '/../..' . '/rules/renaming/src/Contract/MethodCallRenameInterface.php',
         'Rector\\Renaming\\Contract\\RenameClassConstFetchInterface' => __DIR__ . '/../..' . '/rules/renaming/src/Contract/RenameClassConstFetchInterface.php',
         'Rector\\Renaming\\NodeManipulator\\ClassRenamer' => __DIR__ . '/../..' . '/rules/renaming/src/NodeManipulator/ClassRenamer.php',
@@ -4017,6 +4012,8 @@ class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
         'Rector\\Testing\\TestingParser\\TestingParser' => __DIR__ . '/../..' . '/packages/testing/src/TestingParser/TestingParser.php',
         'Rector\\Testing\\ValueObject\\InputFilePathWithExpectedFile' => __DIR__ . '/../..' . '/packages/testing/src/ValueObject/InputFilePathWithExpectedFile.php',
         'Rector\\Transform\\NodeFactory\\PropertyFetchFactory' => __DIR__ . '/../..' . '/rules/transform/src/NodeFactory/PropertyFetchFactory.php',
+        'Rector\\Transform\\NodeTypeAnalyzer\\TypeProvidingExprFromClassResolver' => __DIR__ . '/../..' . '/rules/transform/src/NodeTypeAnalyzer/TypeProvidingExprFromClassResolver.php',
+        'Rector\\Transform\\Rector\\AbstractToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/AbstractToMethodCallRector.php',
         'Rector\\Transform\\Rector\\Assign\\DimFetchAssignToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Assign/DimFetchAssignToMethodCallRector.php',
         'Rector\\Transform\\Rector\\Assign\\PropertyAssignToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Assign/PropertyAssignToMethodCallRector.php',
         'Rector\\Transform\\Rector\\Assign\\PropertyFetchToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Assign/PropertyFetchToMethodCallRector.php',
@@ -4044,6 +4041,7 @@ class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
         'Rector\\Transform\\ValueObject\\ArgumentFuncCallToMethodCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/ArgumentFuncCallToMethodCall.php',
         'Rector\\Transform\\ValueObject\\ArrayFuncCallToMethodCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/ArrayFuncCallToMethodCall.php',
         'Rector\\Transform\\ValueObject\\ClassConstFetchToValue' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/ClassConstFetchToValue.php',
+        'Rector\\Transform\\ValueObject\\DimFetchAssignToMethodCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/DimFetchAssignToMethodCall.php',
         'Rector\\Transform\\ValueObject\\FuncCallToStaticCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/FuncCallToStaticCall.php',
         'Rector\\Transform\\ValueObject\\FuncNameToMethodCallName' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/FuncNameToMethodCallName.php',
         'Rector\\Transform\\ValueObject\\MethodCallToAnotherMethodCallWithArguments' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/MethodCallToAnotherMethodCallWithArguments.php',
@@ -4078,6 +4076,7 @@ class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
         'Rector\\TypeDeclaration\\FunctionLikeReturnTypeResolver' => __DIR__ . '/../..' . '/rules/type-declaration/src/FunctionLikeReturnTypeResolver.php',
         'Rector\\TypeDeclaration\\Matcher\\PropertyAssignMatcher' => __DIR__ . '/../..' . '/rules/type-declaration/src/Matcher/PropertyAssignMatcher.php',
         'Rector\\TypeDeclaration\\NodeAnalyzer\\ClassMethodAndPropertyAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeAnalyzer/ClassMethodAndPropertyAnalyzer.php',
+        'Rector\\TypeDeclaration\\NodeTypeAnalyzer\\CallTypeAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeTypeAnalyzer/CallTypeAnalyzer.php',
         'Rector\\TypeDeclaration\\OverrideGuard\\ClassMethodReturnTypeOverrideGuard' => __DIR__ . '/../..' . '/rules/type-declaration/src/OverrideGuard/ClassMethodReturnTypeOverrideGuard.php',
         'Rector\\TypeDeclaration\\PHPStan\\Type\\ObjectTypeSpecifier' => __DIR__ . '/../..' . '/rules/type-declaration/src/PHPStan/Type/ObjectTypeSpecifier.php',
         'Rector\\TypeDeclaration\\PhpDocParser\\NonInformativeReturnTagRemover' => __DIR__ . '/../..' . '/rules/type-declaration/src/PhpDocParser/NonInformativeReturnTagRemover.php',
@@ -4092,6 +4091,7 @@ class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
         'Rector\\TypeDeclaration\\Rector\\FunctionLike\\AbstractTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/FunctionLike/AbstractTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ParamTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/FunctionLike/ParamTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ReturnTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/FunctionLike/ReturnTypeDeclarationRector.php',
+        'Rector\\TypeDeclaration\\Rector\\MethodCall\\FormerNullableArgumentToScalarTypedRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/MethodCall/FormerNullableArgumentToScalarTypedRector.php',
         'Rector\\TypeDeclaration\\Rector\\Property\\CompleteVarDocTypePropertyRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Property/CompleteVarDocTypePropertyRector.php',
         'Rector\\TypeDeclaration\\Rector\\Property\\PropertyTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Property/PropertyTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\TypeAlreadyAddedChecker\\ReturnTypeAlreadyAddedChecker' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeAlreadyAddedChecker/ReturnTypeAlreadyAddedChecker.php',
@@ -4179,9 +4179,9 @@ class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit507ead375ba5d2f2060009c8b1761a95::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit507ead375ba5d2f2060009c8b1761a95::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit507ead375ba5d2f2060009c8b1761a95::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit61efd6a4e32f1b5c08a34aca1146aaa4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit61efd6a4e32f1b5c08a34aca1146aaa4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit61efd6a4e32f1b5c08a34aca1146aaa4::$classMap;
 
         }, null, ClassLoader::class);
     }

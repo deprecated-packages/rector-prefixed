@@ -5,7 +5,6 @@ namespace RectorPrefix20210129;
 
 use Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
-use Rector\Generic\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector;
 use Rector\Generic\ValueObject\ArgumentDefaultValueReplacer;
 use Rector\Nette\Rector\Class_\MoveFinalGetUserToCheckRequirementsClassMethodRector;
 use Rector\Nette\Rector\ClassMethod\RemoveParentAndNameFromComponentConstructorRector;
@@ -22,6 +21,7 @@ use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameClassConstFetch;
 use Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector;
 use Rector\Transform\ValueObject\StaticCallToMethodCall;
+use Rector\TypeDeclaration\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector;
 use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 return static function (\RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
@@ -36,7 +36,7 @@ return static function (\RectorPrefix20210129\Symfony\Component\DependencyInject
     // Control class has remove __construct(), e.g. https://github.com/Pixidos/GPWebPay/pull/16/files#diff-fdc8251950f85c5467c63c249df05786
     $services->set(\Rector\DeadCode\Rector\StaticCall\RemoveParentCallWithoutParentRector::class);
     // https://github.com/nette/utils/commit/d0041ba59f5d8bf1f5b3795fd76d43fb13ea2e15
-    $services->set(\Rector\Generic\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector::class);
+    $services->set(\Rector\TypeDeclaration\Rector\MethodCall\FormerNullableArgumentToScalarTypedRector::class);
     $services->set(\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::class)->call('configure', [[\Rector\Transform\Rector\StaticCall\StaticCallToMethodCallRector::STATIC_CALLS_TO_METHOD_CALLS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\StaticCallToMethodCall('Nette\\Security\\Passwords', 'hash', 'Nette\\Security\\Passwords', 'hash'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('Nette\\Security\\Passwords', 'verify', 'Nette\\Security\\Passwords', 'verify'), new \Rector\Transform\ValueObject\StaticCallToMethodCall('Nette\\Security\\Passwords', 'needsRehash', 'Nette\\Security\\Passwords', 'needsRehash')])]]);
     // https://github.com/contributte/event-dispatcher-extra/tree/v0.4.3 and higher
     $services->set(\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector::class)->call('configure', [[\Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector::CLASS_CONSTANT_RENAME => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Renaming\ValueObject\RenameClassConstFetch('Contributte\\Events\\Extra\\Event\\Security\\LoggedInEvent', 'NAME', 'class'), new \Rector\Renaming\ValueObject\RenameClassConstFetch('Contributte\\Events\\Extra\\Event\\Security\\LoggedOutEvent', 'NAME', 'class'), new \Rector\Renaming\ValueObject\RenameClassConstFetch('Contributte\\Events\\Extra\\Event\\Application\\ShutdownEvent', 'NAME', 'class')])]]);

@@ -9,7 +9,6 @@ use PHPStan\Type\UnionType;
 use Rector\Composer\Rector\ChangePackageVersionComposerRector;
 use Rector\Composer\Rector\RemovePackageComposerRector;
 use Rector\Composer\ValueObject\PackageAndVersion;
-use Rector\Generic\ValueObject\DimFetchAssignToMethodCall;
 use Rector\Nette\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
@@ -17,6 +16,7 @@ use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector;
+use Rector\Transform\ValueObject\DimFetchAssignToMethodCall;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
 use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -81,7 +81,7 @@ return static function (\RectorPrefix20210129\Symfony\Component\DependencyInject
         // https://github.com/nette/utils/commit/8a4b795acd00f3f6754c28a73a7e776b60350c34
         new \Rector\Renaming\ValueObject\RenameStaticMethod('Nette\\Utils\\Callback', 'closure', 'Closure', 'fromCallable'),
     ])]]);
-    $services->set(\Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector::class)->call('configure', [[\Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector::DIM_FETCH_ASSIGN_TO_METHOD_CALL => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\DimFetchAssignToMethodCall('Nette\\Application\\Routers\\RouteList', 'Nette\\Application\\Routers\\Route', 'addRoute')])]]);
+    $services->set(\Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector::class)->call('configure', [[\Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector::DIM_FETCH_ASSIGN_TO_METHOD_CALL => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Transform\ValueObject\DimFetchAssignToMethodCall('Nette\\Application\\Routers\\RouteList', 'Nette\\Application\\Routers\\Route', 'addRoute')])]]);
     $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Nette\\Application\\UI\\Presenter', 'sendTemplate', 0, new \PHPStan\Type\UnionType([new \PHPStan\Type\ObjectType('Nette\\Application\\UI\\Template'), new \PHPStan\Type\NullType()]))])]]);
     $services->set(\Rector\Nette\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector::class);
     $services->set(\Rector\Composer\Rector\ChangePackageVersionComposerRector::class)->call('configure', [[\Rector\Composer\Rector\ChangePackageVersionComposerRector::PACKAGES_AND_VERSIONS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([

@@ -103,7 +103,8 @@ final class RectorsFinder
             return \true;
         }
         if (!\class_exists($class)) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException($class);
+            $message = \sprintf('Class "%s" was not found', $class);
+            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
         }
         $reflectionClass = new \ReflectionClass($class);
         return $reflectionClass->isAbstract();

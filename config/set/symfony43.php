@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210129;
 
+use Rector\Core\ValueObject\MethodName;
 use Rector\Generic\Rector\ClassMethod\AddMethodParentCallRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Generic\ValueObject\ArgumentAdder;
@@ -66,5 +67,5 @@ return static function (\RectorPrefix20210129\Symfony\Component\DependencyInject
     ]]]);
     # https://github.com/symfony/symfony/blob/4.4/UPGRADE-4.3.md#workflow
     $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentAdderRector::ADDED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentAdder('Symfony\\Component\\Workflow\\MarkingStore\\MarkingStoreInterface', 'setMarking', 2, 'context', [])])]]);
-    $services->set(\Rector\Generic\Rector\ClassMethod\AddMethodParentCallRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\AddMethodParentCallRector::METHODS_BY_PARENT_TYPES => ['Symfony\\Component\\EventDispatcher\\EventDispatcher' => '__construct']]]);
+    $services->set(\Rector\Generic\Rector\ClassMethod\AddMethodParentCallRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\AddMethodParentCallRector::METHODS_BY_PARENT_TYPES => ['Symfony\\Component\\EventDispatcher\\EventDispatcher' => \Rector\Core\ValueObject\MethodName::CONSTRUCT]]]);
 };

@@ -4,9 +4,9 @@ declare (strict_types=1);
 namespace Rector\Transform\Tests\Rector\Assign\DimFetchAssignToMethodCallRector;
 
 use Iterator;
-use Rector\Generic\ValueObject\DimFetchAssignToMethodCall;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector;
+use Rector\Transform\ValueObject\DimFetchAssignToMethodCall;
 use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
 final class DimFetchAssignToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -26,6 +26,6 @@ final class DimFetchAssignToMethodCallRectorTest extends \Rector\Testing\PHPUnit
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector::class => [\Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector::DIM_FETCH_ASSIGN_TO_METHOD_CALL => [new \Rector\Generic\ValueObject\DimFetchAssignToMethodCall('Nette\\Application\\Routers\\RouteList', 'Nette\\Application\\Routers\\Route', 'addRoute')]]];
+        return [\Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector::class => [\Rector\Transform\Rector\Assign\DimFetchAssignToMethodCallRector::DIM_FETCH_ASSIGN_TO_METHOD_CALL => [new \Rector\Transform\ValueObject\DimFetchAssignToMethodCall('Nette\\Application\\Routers\\RouteList', 'Nette\\Application\\Routers\\Route', 'addRoute')]]];
     }
 }

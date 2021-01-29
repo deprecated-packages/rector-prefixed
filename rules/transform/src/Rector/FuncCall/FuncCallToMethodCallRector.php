@@ -7,8 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
-use Rector\Generic\Rector\AbstractToMethodCallRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Transform\Rector\AbstractToMethodCallRector;
 use Rector\Transform\ValueObject\FuncNameToMethodCallName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -16,7 +16,7 @@ use RectorPrefix20210129\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\FuncCallToMethodCallRectorTest
  */
-final class FuncCallToMethodCallRector extends \Rector\Generic\Rector\AbstractToMethodCallRector
+final class FuncCallToMethodCallRector extends \Rector\Transform\Rector\AbstractToMethodCallRector
 {
     /**
      * @var string

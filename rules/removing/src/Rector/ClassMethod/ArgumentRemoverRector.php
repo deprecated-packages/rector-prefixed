@@ -10,7 +10,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Generic\ValueObject\ArgumentRemover;
+use Rector\Removing\ValueObject\ArgumentRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210129\Webmozart\Assert\Assert;
@@ -37,7 +37,7 @@ CODE_SAMPLE
 $someObject = new SomeClass;
 $someObject->someMethod();'
 CODE_SAMPLE
-, [self::REMOVED_ARGUMENTS => [new \Rector\Generic\ValueObject\ArgumentRemover('ExampleClass', 'someMethod', 0, 'true')]])]);
+, [self::REMOVED_ARGUMENTS => [new \Rector\Removing\ValueObject\ArgumentRemover('ExampleClass', 'someMethod', 0, 'true')]])]);
     }
     /**
      * @return string[]
@@ -65,13 +65,13 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $removedArguments = $configuration[self::REMOVED_ARGUMENTS] ?? [];
-        \RectorPrefix20210129\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Generic\ValueObject\ArgumentRemover::class);
+        \RectorPrefix20210129\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Removing\ValueObject\ArgumentRemover::class);
         $this->removedArguments = $removedArguments;
     }
     /**
      * @param ClassMethod|StaticCall|MethodCall $node
      */
-    private function processPosition(\PhpParser\Node $node, \Rector\Generic\ValueObject\ArgumentRemover $argumentRemover) : void
+    private function processPosition(\PhpParser\Node $node, \Rector\Removing\ValueObject\ArgumentRemover $argumentRemover) : void
     {
         if ($argumentRemover->getValue() === null) {
             if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {

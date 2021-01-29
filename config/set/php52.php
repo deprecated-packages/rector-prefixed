@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace RectorPrefix20210129;
 
-use Rector\Generic\ValueObject\RemoveFuncCallArg;
 use Rector\Php52\Rector\Property\VarToPublicPropertyRector;
 use Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector;
 use Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector;
+use Rector\Removing\ValueObject\RemoveFuncCallArg;
 use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 return static function (\RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
@@ -15,6 +15,6 @@ return static function (\RectorPrefix20210129\Symfony\Component\DependencyInject
     $services->set(\Rector\Php52\Rector\Switch_\ContinueToBreakInSwitchRector::class);
     $services->set(\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::class)->call('configure', [[\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         // see https://www.php.net/manual/en/function.ldap-first-attribute.php
-        new \Rector\Generic\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2),
+        new \Rector\Removing\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2),
     ])]]);
 };

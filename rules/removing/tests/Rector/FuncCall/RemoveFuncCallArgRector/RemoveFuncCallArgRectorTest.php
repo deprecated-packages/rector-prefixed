@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\Removing\Tests\Rector\FuncCall\RemoveFuncCallArgRector;
 
 use Iterator;
-use Rector\Generic\ValueObject\RemoveFuncCallArg;
 use Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector;
+use Rector\Removing\ValueObject\RemoveFuncCallArg;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
 use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
@@ -30,6 +30,6 @@ final class RemoveFuncCallArgRectorTest extends \Rector\Testing\PHPUnit\Abstract
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::class => [\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => [new \Rector\Generic\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2)]]];
+        return [\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::class => [\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => [new \Rector\Removing\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2)]]];
     }
 }
