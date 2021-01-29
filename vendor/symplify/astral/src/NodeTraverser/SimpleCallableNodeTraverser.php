@@ -4,6 +4,9 @@ declare (strict_types=1);
 namespace RectorPrefix20210129\Symplify\Astral\NodeTraverser;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Stmt;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitorAbstract;
@@ -45,8 +48,14 @@ final class SimpleCallableNodeTraverser
              */
             public function enterNode(\PhpParser\Node $node)
             {
+                $originalNode = $node;
                 $callable = $this->callable;
-                return $callable($node);
+                /** @var int|Node|null $newNode */
+                $newNode = $callable($node);
+                if ($originalNode instanceof \PhpParser\Node\Stmt && $newNode instanceof \PhpParser\Node\Expr) {
+                    return new \PhpParser\Node\Stmt\Expression($newNode);
+                }
+                return $newNode;
             }
         };
     }
