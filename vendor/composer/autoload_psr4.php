@@ -26,6 +26,7 @@ return array(
     'Rector\\Sensio\\' => array($baseDir . '/rules/sensio/src'),
     'Rector\\Restoration\\' => array($baseDir . '/rules/restoration/src'),
     'Rector\\Renaming\\' => array($baseDir . '/rules/renaming/src'),
+    'Rector\\Removing\\' => array($baseDir . '/rules/removing/src'),
     'Rector\\RemovingStatic\\' => array($baseDir . '/rules/removing-static/src'),
     'Rector\\RectorGenerator\\' => array($baseDir . '/packages/rector-generator/src'),
     'Rector\\ReadWrite\\' => array($baseDir . '/packages/read-write/src'),

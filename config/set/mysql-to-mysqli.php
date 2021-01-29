@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace RectorPrefix20210129;
 
-use Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector;
 use Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector;
 use Rector\Generic\ValueObject\RemoveFuncCallArg;
 use Rector\Generic\ValueObject\SwapFuncCallArguments;
@@ -11,6 +10,7 @@ use Rector\MysqlToMysqli\Rector\Assign\MysqlAssignToMysqliRector;
 use Rector\MysqlToMysqli\Rector\FuncCall\MysqlFuncCallToMysqliRector;
 use Rector\MysqlToMysqli\Rector\FuncCall\MysqlPConnectToMysqliConnectRector;
 use Rector\MysqlToMysqli\Rector\FuncCall\MysqlQueryMysqlErrorWithLinkRector;
+use Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector;
 use Rector\Renaming\Rector\ConstFetch\RenameConstantRector;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -22,7 +22,7 @@ return static function (\RectorPrefix20210129\Symfony\Component\DependencyInject
     # https://www.phpclasses.org/blog/package/9199/post/3-Smoothly-Migrate-your-PHP-Code-using-the-Old-MySQL-extension-to-MySQLi.html
     $services->set(\Rector\MysqlToMysqli\Rector\Assign\MysqlAssignToMysqliRector::class);
     $services->set(\Rector\MysqlToMysqli\Rector\FuncCall\MysqlFuncCallToMysqliRector::class);
-    $services->set(\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::class)->call('configure', [[\Rector\Generic\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\RemoveFuncCallArg('mysql_pconnect', 3), new \Rector\Generic\ValueObject\RemoveFuncCallArg('mysql_connect', 3), new \Rector\Generic\ValueObject\RemoveFuncCallArg('mysql_connect', 4)])]]);
+    $services->set(\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::class)->call('configure', [[\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\RemoveFuncCallArg('mysql_pconnect', 3), new \Rector\Generic\ValueObject\RemoveFuncCallArg('mysql_connect', 3), new \Rector\Generic\ValueObject\RemoveFuncCallArg('mysql_connect', 4)])]]);
     $services->set(\Rector\MysqlToMysqli\Rector\FuncCall\MysqlPConnectToMysqliConnectRector::class);
     # first swap arguments, then rename
     $services->set(\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::class)->call('configure', [[\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::FUNCTION_ARGUMENT_SWAPS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\SwapFuncCallArguments('mysql_query', [1, 0]), new \Rector\Generic\ValueObject\SwapFuncCallArguments('mysql_real_escape_string', [1, 0]), new \Rector\Generic\ValueObject\SwapFuncCallArguments('mysql_select_db', [1, 0]), new \Rector\Generic\ValueObject\SwapFuncCallArguments('mysql_set_charset', [1, 0])])]]);

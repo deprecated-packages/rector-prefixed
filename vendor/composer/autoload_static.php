@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
+class ComposerStaticInit507ead375ba5d2f2060009c8b1761a95
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -17,7 +17,6 @@ class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '3723632d98fc07164cc21d70a0808697' => __DIR__ . '/../..' . '/rules/restoration/tests/Rector/Use_/RestoreFullyQualifiedNameRector/Source/ShortClassOnly.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -46,6 +45,7 @@ class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
             'Rector\\Sensio\\' => 14,
             'Rector\\Restoration\\' => 19,
             'Rector\\Renaming\\' => 16,
+            'Rector\\Removing\\' => 16,
             'Rector\\RemovingStatic\\' => 22,
             'Rector\\RectorGenerator\\' => 23,
             'Rector\\ReadWrite\\' => 17,
@@ -266,6 +266,10 @@ class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
         'Rector\\Renaming\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/renaming/src',
+        ),
+        'Rector\\Removing\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/rules/removing/src',
         ),
         'Rector\\RemovingStatic\\' => 
         array (
@@ -3155,18 +3159,12 @@ class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
         'Rector\\Generic\\Rector\\ClassMethod\\AddMethodParentCallRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/AddMethodParentCallRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\ArgumentAdderRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/ArgumentAdderRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\ArgumentDefaultValueReplacerRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/ArgumentDefaultValueReplacerRector.php',
-        'Rector\\Generic\\Rector\\ClassMethod\\ArgumentRemoverRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/ArgumentRemoverRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\NormalToFluentRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/NormalToFluentRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\SingleToManyMethodRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/SingleToManyMethodRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\WrapReturnRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/WrapReturnRector.php',
         'Rector\\Generic\\Rector\\Class_\\AddInterfaceByTraitRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/AddInterfaceByTraitRector.php',
         'Rector\\Generic\\Rector\\Class_\\AddPropertyByParentRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/AddPropertyByParentRector.php',
         'Rector\\Generic\\Rector\\Class_\\MergeInterfacesRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/MergeInterfacesRector.php',
-        'Rector\\Generic\\Rector\\Class_\\ParentClassToTraitsRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/ParentClassToTraitsRector.php',
-        'Rector\\Generic\\Rector\\Class_\\RemoveInterfacesRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/RemoveInterfacesRector.php',
-        'Rector\\Generic\\Rector\\Class_\\RemoveParentRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/RemoveParentRector.php',
-        'Rector\\Generic\\Rector\\Class_\\RemoveTraitRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/RemoveTraitRector.php',
-        'Rector\\Generic\\Rector\\FuncCall\\RemoveFuncCallArgRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/FuncCall/RemoveFuncCallArgRector.php',
         'Rector\\Generic\\Rector\\FuncCall\\RemoveIniGetSetFuncCallRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/FuncCall/RemoveIniGetSetFuncCallRector.php',
         'Rector\\Generic\\Rector\\FuncCall\\SwapFuncCallArgumentsRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/FuncCall/SwapFuncCallArgumentsRector.php',
         'Rector\\Generic\\Rector\\MethodCall\\FormerNullableArgumentToScalarTypedRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/MethodCall/FormerNullableArgumentToScalarTypedRector.php',
@@ -3178,7 +3176,6 @@ class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
         'Rector\\Generic\\ValueObject\\ArgumentRemover' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentRemover.php',
         'Rector\\Generic\\ValueObject\\DimFetchAssignToMethodCall' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/DimFetchAssignToMethodCall.php',
         'Rector\\Generic\\ValueObject\\NormalToFluent' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/NormalToFluent.php',
-        'Rector\\Generic\\ValueObject\\ParentClassToTraits' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ParentClassToTraits.php',
         'Rector\\Generic\\ValueObject\\PseudoNamespaceToNamespace' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/PseudoNamespaceToNamespace.php',
         'Rector\\Generic\\ValueObject\\RemoveFuncCallArg' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/RemoveFuncCallArg.php',
         'Rector\\Generic\\ValueObject\\SingleToManyMethod' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/SingleToManyMethod.php',
@@ -3846,6 +3843,11 @@ class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
         'Rector\\RemovingStatic\\UniqueObjectFactoryFactory' => __DIR__ . '/../..' . '/rules/removing-static/src/UniqueObjectFactoryFactory.php',
         'Rector\\RemovingStatic\\UniqueObjectOrServiceDetector' => __DIR__ . '/../..' . '/rules/removing-static/src/UniqueObjectOrServiceDetector.php',
         'Rector\\RemovingStatic\\ValueObject\\PHPUnitClass' => __DIR__ . '/../..' . '/rules/removing-static/src/ValueObject/PHPUnitClass.php',
+        'Rector\\Removing\\Rector\\ClassMethod\\ArgumentRemoverRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/ClassMethod/ArgumentRemoverRector.php',
+        'Rector\\Removing\\Rector\\Class_\\RemoveInterfacesRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/Class_/RemoveInterfacesRector.php',
+        'Rector\\Removing\\Rector\\Class_\\RemoveParentRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/Class_/RemoveParentRector.php',
+        'Rector\\Removing\\Rector\\Class_\\RemoveTraitRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/Class_/RemoveTraitRector.php',
+        'Rector\\Removing\\Rector\\FuncCall\\RemoveFuncCallArgRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/FuncCall/RemoveFuncCallArgRector.php',
         'Rector\\Renaming\\Contract\\MethodCallRenameInterface' => __DIR__ . '/../..' . '/rules/renaming/src/Contract/MethodCallRenameInterface.php',
         'Rector\\Renaming\\Contract\\RenameClassConstFetchInterface' => __DIR__ . '/../..' . '/rules/renaming/src/Contract/RenameClassConstFetchInterface.php',
         'Rector\\Renaming\\NodeManipulator\\ClassRenamer' => __DIR__ . '/../..' . '/rules/renaming/src/NodeManipulator/ClassRenamer.php',
@@ -4019,6 +4021,7 @@ class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
         'Rector\\Transform\\Rector\\Assign\\PropertyAssignToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Assign/PropertyAssignToMethodCallRector.php',
         'Rector\\Transform\\Rector\\Assign\\PropertyFetchToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Assign/PropertyFetchToMethodCallRector.php',
         'Rector\\Transform\\Rector\\ClassConstFetch\\ClassConstFetchToStringRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/ClassConstFetch/ClassConstFetchToStringRector.php',
+        'Rector\\Transform\\Rector\\Class_\\ParentClassToTraitsRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/ParentClassToTraitsRector.php',
         'Rector\\Transform\\Rector\\Expression\\MethodCallToReturnRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Expression/MethodCallToReturnRector.php',
         'Rector\\Transform\\Rector\\FuncCall\\ArgumentFuncCallToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/FuncCall/ArgumentFuncCallToMethodCallRector.php',
         'Rector\\Transform\\Rector\\FuncCall\\FuncCallToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/FuncCall/FuncCallToMethodCallRector.php',
@@ -4049,6 +4052,7 @@ class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
         'Rector\\Transform\\ValueObject\\NewArgToMethodCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/NewArgToMethodCall.php',
         'Rector\\Transform\\ValueObject\\NewToMethodCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/NewToMethodCall.php',
         'Rector\\Transform\\ValueObject\\NewToStaticCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/NewToStaticCall.php',
+        'Rector\\Transform\\ValueObject\\ParentClassToTraits' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/ParentClassToTraits.php',
         'Rector\\Transform\\ValueObject\\PropertyAssignToMethodCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/PropertyAssignToMethodCall.php',
         'Rector\\Transform\\ValueObject\\PropertyFetchToMethodCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/PropertyFetchToMethodCall.php',
         'Rector\\Transform\\ValueObject\\ReplaceParentCallByPropertyCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/ReplaceParentCallByPropertyCall.php',
@@ -4175,9 +4179,9 @@ class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit087075077b23c7328815f6fa251f9e6b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit087075077b23c7328815f6fa251f9e6b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit087075077b23c7328815f6fa251f9e6b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit507ead375ba5d2f2060009c8b1761a95::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit507ead375ba5d2f2060009c8b1761a95::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit507ead375ba5d2f2060009c8b1761a95::$classMap;
 
         }, null, ClassLoader::class);
     }

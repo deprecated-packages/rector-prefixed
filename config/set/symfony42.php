@@ -9,12 +9,12 @@ use Rector\Core\ValueObject\Visibility;
 use Rector\Generic\NodeAnalyzer\ArgumentAddingScope;
 use Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
-use Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector;
 use Rector\Generic\Rector\ClassMethod\WrapReturnRector;
 use Rector\Generic\ValueObject\ArgumentAdder;
 use Rector\Generic\ValueObject\ArgumentDefaultValueReplacer;
 use Rector\Generic\ValueObject\ArgumentRemover;
 use Rector\Generic\ValueObject\WrapReturn;
+use Rector\Removing\Rector\ClassMethod\ArgumentRemoverRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
@@ -67,8 +67,8 @@ return static function (\RectorPrefix20210129\Symfony\Component\DependencyInject
         // https://github.com/symfony/symfony/commit/9493cfd5f2366dab19bbdde0d0291d0575454567
         \Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::REPLACED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('Symfony\\Component\\HttpFoundation\\Cookie', '__construct', 5, \false, null), new \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer('Symfony\\Component\\HttpFoundation\\Cookie', '__construct', 8, null, 'lax')]),
     ]]);
-    $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::class)->call('configure', [[
+    $services->set(\Rector\Removing\Rector\ClassMethod\ArgumentRemoverRector::class)->call('configure', [[
         # https://github.com/symfony/symfony/commit/f5c355e1ba399a1b3512367647d902148bdaf09f
-        \Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector::REMOVED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentRemover('Symfony\\Component\\HttpKernel\\DataCollector\\ConfigDataCollector', '__construct', 0, null), new \Rector\Generic\ValueObject\ArgumentRemover('Symfony\\Component\\HttpKernel\\DataCollector\\ConfigDataCollector', '__construct', 1, null)]),
+        \Rector\Removing\Rector\ClassMethod\ArgumentRemoverRector::REMOVED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\Generic\ValueObject\ArgumentRemover('Symfony\\Component\\HttpKernel\\DataCollector\\ConfigDataCollector', '__construct', 0, null), new \Rector\Generic\ValueObject\ArgumentRemover('Symfony\\Component\\HttpKernel\\DataCollector\\ConfigDataCollector', '__construct', 1, null)]),
     ]]);
 };
