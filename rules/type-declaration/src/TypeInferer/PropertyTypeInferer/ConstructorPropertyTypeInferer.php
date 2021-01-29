@@ -15,6 +15,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\NodeTraverser;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
@@ -69,7 +71,7 @@ final class ConstructorPropertyTypeInferer extends \Rector\TypeDeclaration\TypeI
         }
         $types = [];
         // it's an array - annotation → make type more precise, if possible
-        if ($type instanceof \PHPStan\Type\ArrayType) {
+        if ($type instanceof \PHPStan\Type\ArrayType || $param->variadic) {
             $types[] = $this->getResolveParamStaticTypeAsPHPStanType($classMethod, $propertyName);
         } else {
             $types[] = $type;
