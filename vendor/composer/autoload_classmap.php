@@ -2370,6 +2370,7 @@ return array(
     'Rector\\Generics\\NodeType\\GenericTypeSpecifier' => $baseDir . '/rules/generics/src/NodeType/GenericTypeSpecifier.php',
     'Rector\\Generics\\Rector\\Class_\\GenericsPHPStormMethodAnnotationRector' => $baseDir . '/rules/generics/src/Rector/Class_/GenericsPHPStormMethodAnnotationRector.php',
     'Rector\\Generics\\Reflection\\ClassGenericMethodResolver' => $baseDir . '/rules/generics/src/Reflection/ClassGenericMethodResolver.php',
+    'Rector\\Generics\\Reflection\\ClassMethodAnalyzer' => $baseDir . '/rules/generics/src/Reflection/ClassMethodAnalyzer.php',
     'Rector\\Generics\\Reflection\\GenericClassReflectionAnalyzer' => $baseDir . '/rules/generics/src/Reflection/GenericClassReflectionAnalyzer.php',
     'Rector\\Generics\\TagValueNodeFactory\\MethodTagValueNodeFactory' => $baseDir . '/rules/generics/src/TagValueNodeFactory/MethodTagValueNodeFactory.php',
     'Rector\\Generics\\TagValueNodeFactory\\MethodTagValueParameterNodeFactory' => $baseDir . '/rules/generics/src/TagValueNodeFactory/MethodTagValueParameterNodeFactory.php',

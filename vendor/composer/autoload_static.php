@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit952272e801cbe2eae456740ab2c3d533
+class ComposerStaticInitb83b617fb07151bb29d16dd50e09f0e0
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3179,6 +3179,7 @@ class ComposerStaticInit952272e801cbe2eae456740ab2c3d533
         'Rector\\Generics\\NodeType\\GenericTypeSpecifier' => __DIR__ . '/../..' . '/rules/generics/src/NodeType/GenericTypeSpecifier.php',
         'Rector\\Generics\\Rector\\Class_\\GenericsPHPStormMethodAnnotationRector' => __DIR__ . '/../..' . '/rules/generics/src/Rector/Class_/GenericsPHPStormMethodAnnotationRector.php',
         'Rector\\Generics\\Reflection\\ClassGenericMethodResolver' => __DIR__ . '/../..' . '/rules/generics/src/Reflection/ClassGenericMethodResolver.php',
+        'Rector\\Generics\\Reflection\\ClassMethodAnalyzer' => __DIR__ . '/../..' . '/rules/generics/src/Reflection/ClassMethodAnalyzer.php',
         'Rector\\Generics\\Reflection\\GenericClassReflectionAnalyzer' => __DIR__ . '/../..' . '/rules/generics/src/Reflection/GenericClassReflectionAnalyzer.php',
         'Rector\\Generics\\TagValueNodeFactory\\MethodTagValueNodeFactory' => __DIR__ . '/../..' . '/rules/generics/src/TagValueNodeFactory/MethodTagValueNodeFactory.php',
         'Rector\\Generics\\TagValueNodeFactory\\MethodTagValueParameterNodeFactory' => __DIR__ . '/../..' . '/rules/generics/src/TagValueNodeFactory/MethodTagValueParameterNodeFactory.php',
@@ -4190,9 +4191,9 @@ class ComposerStaticInit952272e801cbe2eae456740ab2c3d533
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit952272e801cbe2eae456740ab2c3d533::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit952272e801cbe2eae456740ab2c3d533::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit952272e801cbe2eae456740ab2c3d533::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb83b617fb07151bb29d16dd50e09f0e0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb83b617fb07151bb29d16dd50e09f0e0::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb83b617fb07151bb29d16dd50e09f0e0::$classMap;
 
         }, null, ClassLoader::class);
     }
