@@ -6,13 +6,13 @@ namespace Rector\Nette\Tests\Rector\Identical\EndsWithFunctionToNetteUtilsString
 use Iterator;
 use Rector\Nette\Rector\Identical\EndsWithFunctionToNetteUtilsStringsRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
 final class EndsWithFunctionToNetteUtilsStringsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

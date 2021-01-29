@@ -6,13 +6,13 @@ namespace Rector\DoctrineGedmoToKnplabs\Tests\Rector\Class_\SluggableBehaviorRec
 use Iterator;
 use Rector\DoctrineGedmoToKnplabs\Rector\Class_\SluggableBehaviorRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
 final class SluggableBehaviorRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210128\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

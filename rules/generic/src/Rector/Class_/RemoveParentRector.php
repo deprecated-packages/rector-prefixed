@@ -19,7 +19,7 @@ final class RemoveParentRector extends \Rector\Core\Rector\AbstractRector implem
      * @api
      * @var string
      */
-    public const PARENT_TYPES_TO_REMOVE = '$parentsToRemove';
+    public const PARENT_TYPES_TO_REMOVE = 'parents_to_remove';
     /**
      * @var string[]
      */

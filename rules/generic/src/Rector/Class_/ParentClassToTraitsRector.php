@@ -8,8 +8,10 @@ use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Generic\ValueObject\ParentClassToTraits;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use RectorPrefix20210129\Webmozart\Assert\Assert;
 /**
  * Can handle cases like:
  * - https://doc.nette.org/en/2.4/migration-2-4#toc-nette-smartobject
@@ -22,9 +24,9 @@ final class ParentClassToTraitsRector extends \Rector\Core\Rector\AbstractRector
     /**
      * @var string
      */
-    public const PARENT_CLASS_TO_TRAITS = '$parentClassToTraits';
+    public const PARENT_CLASS_TO_TRAITS = 'parent_class_to_traits';
     /**
-     * @var string[][] { parent class => [ traits ] }
+     * @var ParentClassToTraits[]
      */
     private $parentClassToTraits = [];
     /**
@@ -68,22 +70,26 @@ CODE_SAMPLE
         if ($node->isAnonymous()) {
             return null;
         }
-        $nodeParentClassName = $this->getName($node->extends);
-        if (!isset($this->parentClassToTraits[$nodeParentClassName])) {
-            return null;
+        foreach ($this->parentClassToTraits as $parentClassToTrait) {
+            if (!$this->isObjectType($node, $parentClassToTrait->getParentType())) {
+                continue;
+            }
+            foreach ($parentClassToTrait->getTraitNames() as $traitName) {
+                $this->classInsertManipulator->addAsFirstTrait($node, $traitName);
+            }
+            $this->removeParentClass($node);
+            return $node;
         }
-        $traitNames = $this->parentClassToTraits[$nodeParentClassName];
-        // keep the Trait order the way it is in config
-        $traitNames = \array_reverse($traitNames);
-        foreach ($traitNames as $traitName) {
-            $this->classInsertManipulator->addAsFirstTrait($node, $traitName);
-        }
-        $this->removeParentClass($node);
-        return $node;
+        return null;
     }
+    /**
+     * @param array<string, ParentClassToTraits[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
-        $this->parentClassToTraits = $configuration[self::PARENT_CLASS_TO_TRAITS] ?? [];
+        $parentClassToTraits = $configuration[self::PARENT_CLASS_TO_TRAITS] ?? [];
+        \RectorPrefix20210129\Webmozart\Assert\Assert::allIsInstanceOf($parentClassToTraits, \Rector\Generic\ValueObject\ParentClassToTraits::class);
+        $this->parentClassToTraits = $parentClassToTraits;
     }
     private function removeParentClass(\PhpParser\Node\Stmt\Class_ $class) : void
     {

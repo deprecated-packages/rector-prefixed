@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210128\Nette;
+namespace RectorPrefix20210129\Nette;
 
 /**
  * Static class.
@@ -24,6 +24,6 @@ trait StaticClass
      */
     public static function __callStatic(string $name, array $args)
     {
-        \RectorPrefix20210128\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
+        \RectorPrefix20210129\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
     }
 }
