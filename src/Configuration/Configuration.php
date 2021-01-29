@@ -69,6 +69,10 @@ final class Configuration
      * @var SmartFileInfo|null
      */
     private $configFileInfo;
+    /**
+     * @var bool
+     */
+    private $showDiffs = \true;
     public function __construct(\RectorPrefix20210129\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->isCacheEnabled = (bool) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::ENABLE_CACHE);
@@ -85,6 +89,7 @@ final class Configuration
         $this->shouldClearCache = (bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_CLEAR_CACHE);
         $this->mustMatchGitDiff = (bool) $input->getOption(\Rector\Core\Configuration\Option::MATCH_GIT_DIFF);
         $this->showProgressBar = $this->canShowProgressBar($input);
+        $this->showDiffs = !(bool) $input->getOption(\Rector\Core\Configuration\Option::OPTION_NO_DIFFS);
         $this->isCacheDebug = (bool) $input->getOption(\Rector\Core\Configuration\Option::CACHE_DEBUG);
         /** @var string|null $outputFileOption */
         $outputFileOption = $input->getOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE);
@@ -214,6 +219,10 @@ final class Configuration
             return \true;
         }
         return $this->outputFormat === \Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME;
+    }
+    public function shouldShowDiffs() : bool
+    {
+        return $this->showDiffs;
     }
     private function canShowProgressBar(\RectorPrefix20210129\Symfony\Component\Console\Input\InputInterface $input) : bool
     {

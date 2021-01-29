@@ -49,17 +49,15 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
             $message = \sprintf('Option "--%s" can be used only with "--%s %s"', \Rector\Core\Configuration\Option::OPTION_OUTPUT_FILE, \Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'json');
             $this->symfonyStyle->error($message);
         }
-        $this->reportFileDiffs($errorAndDiffCollector->getFileDiffs());
+        if ($this->configuration->shouldShowDiffs()) {
+            $this->reportFileDiffs($errorAndDiffCollector->getFileDiffs());
+        }
         $this->reportErrors($errorAndDiffCollector->getErrors());
         $this->reportRemovedFilesAndNodes($errorAndDiffCollector);
         if ($errorAndDiffCollector->getErrors() !== []) {
             return;
         }
-        $changeCount = $errorAndDiffCollector->getFileDiffsCount() + $errorAndDiffCollector->getRemovedAndAddedFilesCount();
-        $message = 'Rector is done!';
-        if ($changeCount > 0) {
-            $message .= \sprintf(' %d file%s %s.', $changeCount, $changeCount > 1 ? 's' : '', $this->configuration->isDryRun() ? 'would have changed (dry-run)' : ($changeCount === 1 ? 'has' : 'have') . ' been changed');
-        }
+        $message = $this->createSuccessMessage($errorAndDiffCollector);
         $this->symfonyStyle->success($message);
     }
     public function getName() : string
@@ -153,5 +151,13 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
     private function colorTextToRed(string $text) : string
     {
         return '<fg=red>' . $text . '</fg=red>';
+    }
+    private function createSuccessMessage(\Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector) : string
+    {
+        $changeCount = $errorAndDiffCollector->getFileDiffsCount() + $errorAndDiffCollector->getRemovedAndAddedFilesCount();
+        if ($changeCount === 0) {
+            return 'Rector is done!';
+        }
+        return \sprintf('Rector changed %d file%s %s.', $changeCount, $changeCount > 1 ? 's' : '', $this->configuration->isDryRun() ? 'would have changed (dry-run)' : ($changeCount === 1 ? 'has' : 'have') . ' been changed');
     }
 }

@@ -122,4 +122,8 @@ final class Option
      * @var string
      */
     public const TYPES_TO_REMOVE_STATIC_FROM = 'types_to_remove_static_from';
+    /**
+     * @var string
+     */
+    public const OPTION_NO_DIFFS = 'no-diffs';
 }
