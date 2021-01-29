@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit98f16c8ec5e25cec91e8a23a382cd423
+class ComposerStaticInit06915cd9a95b51359e4027fdd37b0d75
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2740,7 +2740,6 @@ class ComposerStaticInit98f16c8ec5e25cec91e8a23a382cd423
         'Rector\\Core\\Bootstrap\\NoRectorsLoadedReporter' => __DIR__ . '/../..' . '/src/Bootstrap/NoRectorsLoadedReporter.php',
         'Rector\\Core\\Bootstrap\\RectorConfigsResolver' => __DIR__ . '/../..' . '/src/Bootstrap/RectorConfigsResolver.php',
         'Rector\\Core\\Comments\\CommentableNodeResolver' => __DIR__ . '/../..' . '/src/Comments/CommentableNodeResolver.php',
-        'Rector\\Core\\Configuration\\Collector\\VariablesToPropertyFetchCollection' => __DIR__ . '/../..' . '/src/Configuration/Collector/VariablesToPropertyFetchCollection.php',
         'Rector\\Core\\Configuration\\Configuration' => __DIR__ . '/../..' . '/src/Configuration/Configuration.php',
         'Rector\\Core\\Configuration\\CurrentNodeProvider' => __DIR__ . '/../..' . '/src/Configuration/CurrentNodeProvider.php',
         'Rector\\Core\\Configuration\\Option' => __DIR__ . '/../..' . '/src/Configuration/Option.php',
@@ -3160,7 +3159,6 @@ class ComposerStaticInit98f16c8ec5e25cec91e8a23a382cd423
         'Rector\\Generic\\Rector\\ClassMethod\\NormalToFluentRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/NormalToFluentRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\SingleToManyMethodRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/SingleToManyMethodRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\WrapReturnRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/WrapReturnRector.php',
-        'Rector\\Generic\\Rector\\Class_\\ActionInjectionToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/ActionInjectionToConstructorInjectionRector.php',
         'Rector\\Generic\\Rector\\Class_\\AddInterfaceByTraitRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/AddInterfaceByTraitRector.php',
         'Rector\\Generic\\Rector\\Class_\\AddPropertyByParentRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/AddPropertyByParentRector.php',
         'Rector\\Generic\\Rector\\Class_\\MergeInterfacesRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/MergeInterfacesRector.php',
@@ -3174,7 +3172,6 @@ class ComposerStaticInit98f16c8ec5e25cec91e8a23a382cd423
         'Rector\\Generic\\Rector\\MethodCall\\FormerNullableArgumentToScalarTypedRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/MethodCall/FormerNullableArgumentToScalarTypedRector.php',
         'Rector\\Generic\\Rector\\Property\\AnnotatedPropertyInjectToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Property/AnnotatedPropertyInjectToConstructorInjectionRector.php',
         'Rector\\Generic\\Rector\\Property\\InjectAnnotationClassRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Property/InjectAnnotationClassRector.php',
-        'Rector\\Generic\\Rector\\Variable\\ReplaceVariableByPropertyFetchRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Variable/ReplaceVariableByPropertyFetchRector.php',
         'Rector\\Generic\\ValueObject\\AddPropertyByParent' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/AddPropertyByParent.php',
         'Rector\\Generic\\ValueObject\\ArgumentAdder' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentAdder.php',
         'Rector\\Generic\\ValueObject\\ArgumentDefaultValueReplacer' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentDefaultValueReplacer.php',
@@ -4177,9 +4174,9 @@ class ComposerStaticInit98f16c8ec5e25cec91e8a23a382cd423
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit98f16c8ec5e25cec91e8a23a382cd423::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit98f16c8ec5e25cec91e8a23a382cd423::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit98f16c8ec5e25cec91e8a23a382cd423::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit06915cd9a95b51359e4027fdd37b0d75::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit06915cd9a95b51359e4027fdd37b0d75::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit06915cd9a95b51359e4027fdd37b0d75::$classMap;
 
         }, null, ClassLoader::class);
     }

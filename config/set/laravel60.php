@@ -6,7 +6,6 @@ namespace RectorPrefix20210129;
 use Rector\Core\ValueObject\Visibility;
 use Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Generic\ValueObject\ArgumentAdder;
-use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
@@ -16,6 +15,7 @@ use Rector\Transform\Rector\Expression\MethodCallToReturnRector;
 use Rector\Transform\ValueObject\MethodCallToReturn;
 use Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
+use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # see https://laravel.com/docs/6.x/upgrade

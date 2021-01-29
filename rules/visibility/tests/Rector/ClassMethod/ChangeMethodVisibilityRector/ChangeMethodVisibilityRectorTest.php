@@ -5,10 +5,10 @@ namespace Rector\Visibility\Tests\Rector\ClassMethod\ChangeMethodVisibilityRecto
 
 use Iterator;
 use Rector\Core\ValueObject\Visibility;
-use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
 use Rector\Visibility\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject;
+use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
 final class ChangeMethodVisibilityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {

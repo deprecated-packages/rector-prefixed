@@ -8,13 +8,13 @@ use Rector\Generic\Rector\ClassMethod\ArgumentAdderRector;
 use Rector\Generic\Rector\ClassMethod\ArgumentRemoverRector;
 use Rector\Generic\ValueObject\ArgumentAdder;
 use Rector\Generic\ValueObject\ArgumentRemover;
-use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use Rector\Laravel\Rector\Class_\AddMockConsoleOutputFalseToConsoleTestsRector;
 use Rector\Laravel\Rector\ClassMethod\AddParentBootToModelClassMethodRector;
 use Rector\Laravel\Rector\MethodCall\ChangeQueryWhereDateValueWithCarbonRector;
 use Rector\Laravel\Rector\New_\AddGuardToLoginEventRector;
 use Rector\Laravel\Rector\StaticCall\Redirect301ToPermanentRedirectRector;
 use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
+use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # see: https://laravel.com/docs/5.7/upgrade
