@@ -5,14 +5,13 @@ namespace Rector\Generics\Rector\Class_;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
+use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Generics\NodeType\GenericTypeSpecifier;
 use Rector\Generics\Reflection\ClassGenericMethodResolver;
 use Rector\Generics\Reflection\GenericClassReflectionAnalyzer;
 use Rector\Generics\ValueObject\GenericChildParentClassReflections;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -101,42 +100,37 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node->extends === null) {
-            return null;
-        }
-        $genericChildParentClassReflections = $this->resolveGenericChildParentClassReflections($node);
+        $genericChildParentClassReflections = $this->genericClassReflectionAnalyzer->resolveChildParent($node);
         if (!$genericChildParentClassReflections instanceof \Rector\Generics\ValueObject\GenericChildParentClassReflections) {
             return null;
         }
         // resolve generic method from parent
         $methodTagValueNodes = $this->classGenericMethodResolver->resolveFromClass($genericChildParentClassReflections->getParentClassReflection());
-        $this->genericTypeSpecifier->replaceGenericTypesWithSpecificTypes($methodTagValueNodes, $node, $genericChildParentClassReflections->getChildClassReflection());
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $methodTagValueNodes = $this->filterOutExistingMethodTagValuesNodes($methodTagValueNodes, $phpDocInfo);
+        $this->genericTypeSpecifier->replaceGenericTypesWithSpecificTypes($methodTagValueNodes, $node, $genericChildParentClassReflections->getChildClassReflection());
         foreach ($methodTagValueNodes as $methodTagValueNode) {
             $phpDocInfo->addTagValueNode($methodTagValueNode);
         }
         return $node;
     }
-    private function resolveGenericChildParentClassReflections(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\Generics\ValueObject\GenericChildParentClassReflections
+    /**
+     * @param MethodTagValueNode[] $methodTagValueNodes
+     * @return MethodTagValueNode[]
+     */
+    private function filterOutExistingMethodTagValuesNodes(array $methodTagValueNodes, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo) : array
     {
-        $scope = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
-        if (!$scope instanceof \PHPStan\Analyser\Scope) {
-            return null;
+        $methodTagNames = $phpDocInfo->getMethodTagNames();
+        if ($methodTagNames === []) {
+            return $methodTagValueNodes;
         }
-        $classReflection = $scope->getClassReflection();
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
-            return null;
+        $filteredMethodTagValueNodes = [];
+        foreach ($methodTagValueNodes as $methodTagValueNode) {
+            if (\in_array($methodTagValueNode->methodName, $methodTagNames, \true)) {
+                continue;
+            }
+            $filteredMethodTagValueNodes[] = $methodTagValueNode;
         }
-        if (!$this->genericClassReflectionAnalyzer->isGeneric($classReflection)) {
-            return null;
-        }
-        $parentClassReflection = $classReflection->getParentClass();
-        if (!$parentClassReflection instanceof \PHPStan\Reflection\ClassReflection) {
-            return null;
-        }
-        if (!$this->genericClassReflectionAnalyzer->isGeneric($parentClassReflection)) {
-            return null;
-        }
-        return new \Rector\Generics\ValueObject\GenericChildParentClassReflections($classReflection, $parentClassReflection);
+        return $filteredMethodTagValueNodes;
     }
 }

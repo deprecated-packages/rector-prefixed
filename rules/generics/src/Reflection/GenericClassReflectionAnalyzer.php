@@ -3,15 +3,44 @@
 declare (strict_types=1);
 namespace Rector\Generics\Reflection;
 
+use PhpParser\Node\Stmt\Class_;
+use PHPStan\Analyser\Scope;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\Reflection\ClassReflection;
+use Rector\Generics\ValueObject\GenericChildParentClassReflections;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class GenericClassReflectionAnalyzer
 {
+    public function resolveChildParent(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\Generics\ValueObject\GenericChildParentClassReflections
+    {
+        if ($class->extends === null) {
+            return null;
+        }
+        $scope = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return null;
+        }
+        $classReflection = $scope->getClassReflection();
+        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return null;
+        }
+        if (!$this->isGeneric($classReflection)) {
+            return null;
+        }
+        $parentClassReflection = $classReflection->getParentClass();
+        if (!$parentClassReflection instanceof \PHPStan\Reflection\ClassReflection) {
+            return null;
+        }
+        if (!$this->isGeneric($parentClassReflection)) {
+            return null;
+        }
+        return new \Rector\Generics\ValueObject\GenericChildParentClassReflections($classReflection, $parentClassReflection);
+    }
     /**
      * Solve isGeneric() ignores extends and similar tags,
      * so it has to be extended with "@extends" and "@implements"
      */
-    public function isGeneric(\PHPStan\Reflection\ClassReflection $classReflection) : bool
+    private function isGeneric(\PHPStan\Reflection\ClassReflection $classReflection) : bool
     {
         if ($classReflection->isGeneric()) {
             return \true;

@@ -367,6 +367,17 @@ final class PhpDocInfo
         }
         return $this->hasChanged;
     }
+    /**
+     * @return string[]
+     */
+    public function getMethodTagNames() : array
+    {
+        $methodTagNames = [];
+        foreach ($this->phpDocNode->getMethodTagValues() as $methodTagValueNode) {
+            $methodTagNames[] = $methodTagValueNode->methodName;
+        }
+        return $methodTagNames;
+    }
     private function getTypeOrMixed(?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {
         if ($phpDocTagValueNode === null) {
