@@ -3157,6 +3157,7 @@ return array(
     'Rector\\Symfony5\\Rector\\MethodCall\\DefinitionAliasSetPrivateToSetPublicRector' => $baseDir . '/rules/symfony5/src/Rector/MethodCall/DefinitionAliasSetPrivateToSetPublicRector.php',
     'Rector\\Symfony5\\Rector\\MethodCall\\FormBuilderSetDataMapperRector' => $baseDir . '/rules/symfony5/src/Rector/MethodCall/FormBuilderSetDataMapperRector.php',
     'Rector\\Symfony5\\Rector\\MethodCall\\ReflectionExtractorEnableMagicCallExtractorRector' => $baseDir . '/rules/symfony5/src/Rector/MethodCall/ReflectionExtractorEnableMagicCallExtractorRector.php',
+    'Rector\\Symfony5\\Rector\\MethodCall\\ValidatorBuilderEnableAnnotationMappingRector' => $baseDir . '/rules/symfony5/src/Rector/MethodCall/ValidatorBuilderEnableAnnotationMappingRector.php',
     'Rector\\Symfony5\\Rector\\New_\\PropertyAccessorCreationBooleanToFlagsRector' => $baseDir . '/rules/symfony5/src/Rector/New_/PropertyAccessorCreationBooleanToFlagsRector.php',
     'Rector\\Symfony5\\Rector\\New_\\PropertyPathMapperToDataMapperRector' => $baseDir . '/rules/symfony5/src/Rector/New_/PropertyPathMapperToDataMapperRector.php',
     'Rector\\Symfony5\\Rector\\StaticCall\\BinaryFileResponseCreateToNewInstanceRector' => $baseDir . '/rules/symfony5/src/Rector/StaticCall/BinaryFileResponseCreateToNewInstanceRector.php',

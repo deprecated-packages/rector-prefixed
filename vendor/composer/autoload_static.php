@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf6c012e40448f6f18d08fe8047ebe9ec
+class ComposerStaticInit087075077b23c7328815f6fa251f9e6b
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3957,6 +3957,7 @@ class ComposerStaticInitf6c012e40448f6f18d08fe8047ebe9ec
         'Rector\\Symfony5\\Rector\\MethodCall\\DefinitionAliasSetPrivateToSetPublicRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/MethodCall/DefinitionAliasSetPrivateToSetPublicRector.php',
         'Rector\\Symfony5\\Rector\\MethodCall\\FormBuilderSetDataMapperRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/MethodCall/FormBuilderSetDataMapperRector.php',
         'Rector\\Symfony5\\Rector\\MethodCall\\ReflectionExtractorEnableMagicCallExtractorRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/MethodCall/ReflectionExtractorEnableMagicCallExtractorRector.php',
+        'Rector\\Symfony5\\Rector\\MethodCall\\ValidatorBuilderEnableAnnotationMappingRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/MethodCall/ValidatorBuilderEnableAnnotationMappingRector.php',
         'Rector\\Symfony5\\Rector\\New_\\PropertyAccessorCreationBooleanToFlagsRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/New_/PropertyAccessorCreationBooleanToFlagsRector.php',
         'Rector\\Symfony5\\Rector\\New_\\PropertyPathMapperToDataMapperRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/New_/PropertyPathMapperToDataMapperRector.php',
         'Rector\\Symfony5\\Rector\\StaticCall\\BinaryFileResponseCreateToNewInstanceRector' => __DIR__ . '/../..' . '/rules/symfony5/src/Rector/StaticCall/BinaryFileResponseCreateToNewInstanceRector.php',
@@ -4174,9 +4175,9 @@ class ComposerStaticInitf6c012e40448f6f18d08fe8047ebe9ec
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf6c012e40448f6f18d08fe8047ebe9ec::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf6c012e40448f6f18d08fe8047ebe9ec::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf6c012e40448f6f18d08fe8047ebe9ec::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit087075077b23c7328815f6fa251f9e6b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit087075077b23c7328815f6fa251f9e6b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit087075077b23c7328815f6fa251f9e6b::$classMap;
 
         }, null, ClassLoader::class);
     }
