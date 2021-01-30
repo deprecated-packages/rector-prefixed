@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Php73\Rector\FuncCall;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\FuncCall;
@@ -96,14 +97,30 @@ CODE_SAMPLE
     private function unsetUnusedArguments(\PhpParser\Node\Expr\FuncCall $funcCall, \PHPStan\Analyser\Scope $scope) : void
     {
         foreach ($funcCall->args as $key => $arg) {
-            if ($arg->value instanceof \PhpParser\Node\Expr\Array_) {
-                continue;
+            $variablesNames = $this->resolveVariableNames($arg);
+            foreach ($variablesNames as $variablesName) {
+                if (!$scope->hasVariableType($variablesName)->no()) {
+                    continue;
+                }
+                unset($funcCall->args[$key]);
             }
-            $argValue = $this->getValue($arg->value);
-            if (!$scope->hasVariableType($argValue)->no()) {
-                continue;
-            }
-            unset($funcCall->args[$key]);
         }
+        if ($funcCall->args === []) {
+            $this->removeNode($funcCall);
+        }
+    }
+    /**
+     * @return string[]|mixed[]
+     */
+    private function resolveVariableNames(\PhpParser\Node\Arg $arg) : array
+    {
+        $argValue = $this->getValue($arg->value);
+        if (\is_string($argValue)) {
+            return [$argValue];
+        }
+        if (\is_array($argValue)) {
+            return $argValue;
+        }
+        return [];
     }
 }
