@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\Composer\Rector;
 
-use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Rector\Composer\Contract\Rector\CoreComposerRectorInterface;
 use RectorPrefix20210130\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticIniteb2dcb6645d3242732fb4af859bf92a6
+class ComposerStaticInit14e62fdcd8bfdc35e62ec0f04fa80396
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2984,10 +2984,12 @@ class ComposerStaticIniteb2dcb6645d3242732fb4af859bf92a6
         'Rector\\DeadCode\\ValueObject\\VersionCompareCondition' => __DIR__ . '/../..' . '/rules/dead-code/src/ValueObject/VersionCompareCondition.php',
         'Rector\\DeadDocBlock\\DeadParamTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/DeadParamTagValueNodeAnalyzer.php',
         'Rector\\DeadDocBlock\\DeadReturnTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/DeadReturnTagValueNodeAnalyzer.php',
+        'Rector\\DeadDocBlock\\DeadVarTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/DeadVarTagValueNodeAnalyzer.php',
         'Rector\\DeadDocBlock\\Rector\\ClassLike\\RemoveAnnotationRector' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/Rector/ClassLike/RemoveAnnotationRector.php',
         'Rector\\DeadDocBlock\\Rector\\ClassMethod\\RemoveUselessParamTagRector' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/Rector/ClassMethod/RemoveUselessParamTagRector.php',
         'Rector\\DeadDocBlock\\Rector\\ClassMethod\\RemoveUselessReturnTagRector' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/Rector/ClassMethod/RemoveUselessReturnTagRector.php',
         'Rector\\DeadDocBlock\\Rector\\Node\\RemoveNonExistingVarAnnotationRector' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/Rector/Node/RemoveNonExistingVarAnnotationRector.php',
+        'Rector\\DeadDocBlock\\Rector\\Property\\RemoveUselessVarTagRector' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/Rector/Property/RemoveUselessVarTagRector.php',
         'Rector\\DeadDocBlock\\TagRemover\\ParamTagRemover' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/TagRemover/ParamTagRemover.php',
         'Rector\\DeadDocBlock\\TagRemover\\ReturnTagRemover' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/TagRemover/ReturnTagRemover.php',
         'Rector\\DeadDocBlock\\TagRemover\\VarTagRemover' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/TagRemover/VarTagRemover.php',
@@ -4191,9 +4193,9 @@ class ComposerStaticIniteb2dcb6645d3242732fb4af859bf92a6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticIniteb2dcb6645d3242732fb4af859bf92a6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticIniteb2dcb6645d3242732fb4af859bf92a6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticIniteb2dcb6645d3242732fb4af859bf92a6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit14e62fdcd8bfdc35e62ec0f04fa80396::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit14e62fdcd8bfdc35e62ec0f04fa80396::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit14e62fdcd8bfdc35e62ec0f04fa80396::$classMap;
 
         }, null, ClassLoader::class);
     }

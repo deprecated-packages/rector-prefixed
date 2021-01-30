@@ -5,10 +5,12 @@ namespace Rector\DeadCode\Rector\If_;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\If_;
 use Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\FeatureSupport\FunctionSupportResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -69,6 +71,9 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
+        if ($this->shouldSkip($node)) {
+            return null;
+        }
         $match = $this->ifManipulator->isIfOrIfElseWithFunctionCondition($node, 'function_exists');
         if (!$match) {
             return null;
@@ -85,5 +90,14 @@ CODE_SAMPLE
         $this->unwrapStmts($node->stmts, $node);
         $this->removeNode($node);
         return null;
+    }
+    private function shouldSkip(\PhpParser\Node\Stmt\If_ $if) : bool
+    {
+        $classLike = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
+            return \false;
+        }
+        // skip rector rules, as they decided if function exists in that particular projects
+        return $this->isObjectType($classLike, 'Rector\\Core\\Contract\\Rector\\RectorInterface');
     }
 }
