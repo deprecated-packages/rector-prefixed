@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
+class ComposerStaticInit8a573ecf2ba44a16c9afaa260de30510
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -51,7 +51,6 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
             'Rector\\ReadWrite\\' => 17,
             'Rector\\Privatization\\' => 21,
             'Rector\\PostRector\\' => 18,
-            'Rector\\Polyfill\\' => 16,
             'Rector\\PhpSpecToPHPUnit\\' => 24,
             'Rector\\PhpAttribute\\' => 20,
             'Rector\\Php80\\' => 13,
@@ -65,7 +64,6 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
             'Rector\\Php54\\' => 13,
             'Rector\\Php53\\' => 13,
             'Rector\\Php52\\' => 13,
-            'Rector\\Performance\\' => 19,
             'Rector\\PSR4\\' => 12,
             'Rector\\PHPUnit\\' => 15,
             'Rector\\PHPUnitSymfony\\' => 22,
@@ -291,10 +289,6 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
         array (
             0 => __DIR__ . '/../..' . '/packages/post-rector/src',
         ),
-        'Rector\\Polyfill\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/rules/polyfill/src',
-        ),
         'Rector\\PhpSpecToPHPUnit\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src',
@@ -346,10 +340,6 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
         'Rector\\Php52\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/php52/src',
-        ),
-        'Rector\\Performance\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/rules/performance/src',
         ),
         'Rector\\PSR4\\' => 
         array (
@@ -2698,7 +2688,9 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
         'Rector\\CodingStyle\\Rector\\FuncCall\\CallUserFuncCallToVariadicRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/FuncCall/CallUserFuncCallToVariadicRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\ConsistentImplodeRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/FuncCall/ConsistentImplodeRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\ConsistentPregDelimiterRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/FuncCall/ConsistentPregDelimiterRector.php',
+        'Rector\\CodingStyle\\Rector\\FuncCall\\CountArrayToEmptyArrayComparisonRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/FuncCall/CountArrayToEmptyArrayComparisonRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\FunctionCallToConstantRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/FuncCall/FunctionCallToConstantRector.php',
+        'Rector\\CodingStyle\\Rector\\FuncCall\\PreslashSimpleFunctionRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/FuncCall/PreslashSimpleFunctionRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\StrictArraySearchRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/FuncCall/StrictArraySearchRector.php',
         'Rector\\CodingStyle\\Rector\\FuncCall\\VersionCompareFuncCallToConstantRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/FuncCall/VersionCompareFuncCallToConstantRector.php',
         'Rector\\CodingStyle\\Rector\\Function_\\CamelCaseFunctionNamingToUnderscoreRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/Function_/CamelCaseFunctionNamingToUnderscoreRector.php',
@@ -2917,7 +2909,11 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
         'Rector\\DeadCode\\Comparator\\CurrentAndParentClassMethodComparator' => __DIR__ . '/../..' . '/rules/dead-code/src/Comparator/CurrentAndParentClassMethodComparator.php',
         'Rector\\DeadCode\\Comparator\\Parameter\\ParameterDefaultsComparator' => __DIR__ . '/../..' . '/rules/dead-code/src/Comparator/Parameter/ParameterDefaultsComparator.php',
         'Rector\\DeadCode\\Comparator\\Parameter\\ParameterTypeComparator' => __DIR__ . '/../..' . '/rules/dead-code/src/Comparator/Parameter/ParameterTypeComparator.php',
+        'Rector\\DeadCode\\ConditionEvaluator' => __DIR__ . '/../..' . '/rules/dead-code/src/ConditionEvaluator.php',
+        'Rector\\DeadCode\\ConditionResolver' => __DIR__ . '/../..' . '/rules/dead-code/src/ConditionResolver.php',
+        'Rector\\DeadCode\\Contract\\ConditionInterface' => __DIR__ . '/../..' . '/rules/dead-code/src/Contract/ConditionInterface.php',
         'Rector\\DeadCode\\Doctrine\\DoctrineEntityManipulator' => __DIR__ . '/../..' . '/rules/dead-code/src/Doctrine/DoctrineEntityManipulator.php',
+        'Rector\\DeadCode\\FeatureSupport\\FunctionSupportResolver' => __DIR__ . '/../..' . '/rules/dead-code/src/FeatureSupport/FunctionSupportResolver.php',
         'Rector\\DeadCode\\NodeCollector\\ModifiedVariableNamesCollector' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeCollector/ModifiedVariableNamesCollector.php',
         'Rector\\DeadCode\\NodeCollector\\NodeByTypeAndPositionCollector' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeCollector/NodeByTypeAndPositionCollector.php',
         'Rector\\DeadCode\\NodeCollector\\UnusedParameterResolver' => __DIR__ . '/../..' . '/rules/dead-code/src/NodeCollector/UnusedParameterResolver.php',
@@ -2964,6 +2960,8 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
         'Rector\\DeadCode\\Rector\\If_\\RemoveAlwaysTrueIfConditionRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/If_/RemoveAlwaysTrueIfConditionRector.php',
         'Rector\\DeadCode\\Rector\\If_\\RemoveUnusedNonEmptyArrayBeforeForeachRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/If_/RemoveUnusedNonEmptyArrayBeforeForeachRector.php',
         'Rector\\DeadCode\\Rector\\If_\\SimplifyIfElseWithSameContentRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/If_/SimplifyIfElseWithSameContentRector.php',
+        'Rector\\DeadCode\\Rector\\If_\\UnwrapFutureCompatibleIfFunctionExistsRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/If_/UnwrapFutureCompatibleIfFunctionExistsRector.php',
+        'Rector\\DeadCode\\Rector\\If_\\UnwrapFutureCompatibleIfPhpVersionRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/If_/UnwrapFutureCompatibleIfPhpVersionRector.php',
         'Rector\\DeadCode\\Rector\\MethodCall\\RemoveDefaultArgumentValueRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/MethodCall/RemoveDefaultArgumentValueRector.php',
         'Rector\\DeadCode\\Rector\\MethodCall\\RemoveEmptyMethodCallRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/MethodCall/RemoveEmptyMethodCallRector.php',
         'Rector\\DeadCode\\Rector\\Plus\\RemoveDeadZeroAndOneOperationRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/Plus/RemoveDeadZeroAndOneOperationRector.php',
@@ -2981,7 +2979,9 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
         'Rector\\DeadCode\\UnusedNodeResolver\\ClassUnusedPrivateClassMethodResolver' => __DIR__ . '/../..' . '/rules/dead-code/src/UnusedNodeResolver/ClassUnusedPrivateClassMethodResolver.php',
         'Rector\\DeadCode\\UnusedNodeResolver\\UnusedClassResolver' => __DIR__ . '/../..' . '/rules/dead-code/src/UnusedNodeResolver/UnusedClassResolver.php',
         'Rector\\DeadCode\\UselessIfCondBeforeForeachDetector' => __DIR__ . '/../..' . '/rules/dead-code/src/UselessIfCondBeforeForeachDetector.php',
+        'Rector\\DeadCode\\ValueObject\\BinaryToVersionCompareCondition' => __DIR__ . '/../..' . '/rules/dead-code/src/ValueObject/BinaryToVersionCompareCondition.php',
         'Rector\\DeadCode\\ValueObject\\VariableNodeUse' => __DIR__ . '/../..' . '/rules/dead-code/src/ValueObject/VariableNodeUse.php',
+        'Rector\\DeadCode\\ValueObject\\VersionCompareCondition' => __DIR__ . '/../..' . '/rules/dead-code/src/ValueObject/VersionCompareCondition.php',
         'Rector\\DeadDocBlock\\DeadParamTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/DeadParamTagValueNodeAnalyzer.php',
         'Rector\\DeadDocBlock\\DeadReturnTagValueNodeAnalyzer' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/DeadReturnTagValueNodeAnalyzer.php',
         'Rector\\DeadDocBlock\\Rector\\ClassLike\\RemoveAnnotationRector' => __DIR__ . '/../..' . '/rules/dead-doc-block/src/Rector/ClassLike/RemoveAnnotationRector.php',
@@ -3611,8 +3611,6 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
         'Rector\\PSR4\\NodeManipulator\\NamespaceManipulator' => __DIR__ . '/../..' . '/rules/psr4/src/NodeManipulator/NamespaceManipulator.php',
         'Rector\\PSR4\\Rector\\FileWithoutNamespace\\NormalizeNamespaceByPSR4ComposerAutoloadRector' => __DIR__ . '/../..' . '/rules/psr4/src/Rector/FileWithoutNamespace/NormalizeNamespaceByPSR4ComposerAutoloadRector.php',
         'Rector\\PSR4\\Rector\\Namespace_\\MultipleClassFileToPsr4ClassesRector' => __DIR__ . '/../..' . '/rules/psr4/src/Rector/Namespace_/MultipleClassFileToPsr4ClassesRector.php',
-        'Rector\\Performance\\Rector\\FuncCall\\CountArrayToEmptyArrayComparisonRector' => __DIR__ . '/../..' . '/rules/performance/src/Rector/FuncCall/CountArrayToEmptyArrayComparisonRector.php',
-        'Rector\\Performance\\Rector\\FuncCall\\PreslashSimpleFunctionRector' => __DIR__ . '/../..' . '/rules/performance/src/Rector/FuncCall/PreslashSimpleFunctionRector.php',
         'Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector' => __DIR__ . '/../..' . '/rules/php52/src/Rector/Property/VarToPublicPropertyRector.php',
         'Rector\\Php52\\Rector\\Switch_\\ContinueToBreakInSwitchRector' => __DIR__ . '/../..' . '/rules/php52/src/Rector/Switch_/ContinueToBreakInSwitchRector.php',
         'Rector\\Php53\\Rector\\AssignRef\\ClearReturnNewByReferenceRector' => __DIR__ . '/../..' . '/rules/php53/src/Rector/AssignRef/ClearReturnNewByReferenceRector.php',
@@ -3753,14 +3751,6 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
         'Rector\\PhpSpecToPHPUnit\\Rector\\MethodCall\\PhpSpecMocksToPHPUnitMocksRector' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/Rector/MethodCall/PhpSpecMocksToPHPUnitMocksRector.php',
         'Rector\\PhpSpecToPHPUnit\\Rector\\MethodCall\\PhpSpecPromisesToPHPUnitAssertRector' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/Rector/MethodCall/PhpSpecPromisesToPHPUnitAssertRector.php',
         'Rector\\PhpSpecToPHPUnit\\Rector\\Variable\\MockVariableToPropertyFetchRector' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/Rector/Variable/MockVariableToPropertyFetchRector.php',
-        'Rector\\Polyfill\\ConditionEvaluator' => __DIR__ . '/../..' . '/rules/polyfill/src/ConditionEvaluator.php',
-        'Rector\\Polyfill\\ConditionResolver' => __DIR__ . '/../..' . '/rules/polyfill/src/ConditionResolver.php',
-        'Rector\\Polyfill\\Contract\\ConditionInterface' => __DIR__ . '/../..' . '/rules/polyfill/src/Contract/ConditionInterface.php',
-        'Rector\\Polyfill\\FeatureSupport\\FunctionSupportResolver' => __DIR__ . '/../..' . '/rules/polyfill/src/FeatureSupport/FunctionSupportResolver.php',
-        'Rector\\Polyfill\\Rector\\If_\\UnwrapFutureCompatibleIfFunctionExistsRector' => __DIR__ . '/../..' . '/rules/polyfill/src/Rector/If_/UnwrapFutureCompatibleIfFunctionExistsRector.php',
-        'Rector\\Polyfill\\Rector\\If_\\UnwrapFutureCompatibleIfPhpVersionRector' => __DIR__ . '/../..' . '/rules/polyfill/src/Rector/If_/UnwrapFutureCompatibleIfPhpVersionRector.php',
-        'Rector\\Polyfill\\ValueObject\\BinaryToVersionCompareCondition' => __DIR__ . '/../..' . '/rules/polyfill/src/ValueObject/BinaryToVersionCompareCondition.php',
-        'Rector\\Polyfill\\ValueObject\\VersionCompareCondition' => __DIR__ . '/../..' . '/rules/polyfill/src/ValueObject/VersionCompareCondition.php',
         'Rector\\PostRector\\Application\\PostFileProcessor' => __DIR__ . '/../..' . '/packages/post-rector/src/Application/PostFileProcessor.php',
         'Rector\\PostRector\\Collector\\NodesToAddCollector' => __DIR__ . '/../..' . '/packages/post-rector/src/Collector/NodesToAddCollector.php',
         'Rector\\PostRector\\Collector\\NodesToRemoveCollector' => __DIR__ . '/../..' . '/packages/post-rector/src/Collector/NodesToRemoveCollector.php',
@@ -4200,9 +4190,9 @@ class ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit10f1d034b35e78b5b4f8fbc892a0da44::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8a573ecf2ba44a16c9afaa260de30510::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8a573ecf2ba44a16c9afaa260de30510::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8a573ecf2ba44a16c9afaa260de30510::$classMap;
 
         }, null, ClassLoader::class);
     }
