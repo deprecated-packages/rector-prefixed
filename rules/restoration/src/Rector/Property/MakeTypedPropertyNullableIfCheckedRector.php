@@ -77,7 +77,7 @@ CODE_SAMPLE
             return null;
         }
         $node->type = new \PhpParser\Node\NullableType($currentPropertyType);
-        $onlyProperty->default = $this->createNull();
+        $onlyProperty->default = $this->nodeFactory->createNull();
         return $node;
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool

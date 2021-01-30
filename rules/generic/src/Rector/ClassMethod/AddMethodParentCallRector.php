@@ -97,7 +97,7 @@ CODE_SAMPLE
     }
     private function createParentStaticCall(string $method) : \PhpParser\Node\Stmt\Expression
     {
-        $staticCall = $this->createStaticCall('parent', $method);
+        $staticCall = $this->nodeFactory->createStaticCall('parent', $method);
         return new \PhpParser\Node\Stmt\Expression($staticCall);
     }
     /**

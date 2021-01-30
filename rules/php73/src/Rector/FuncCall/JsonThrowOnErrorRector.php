@@ -70,7 +70,7 @@ CODE_SAMPLE
         }
         // set default to inter-args
         if (!isset($funcCall->args[1])) {
-            $funcCall->args[1] = new \PhpParser\Node\Arg($this->createFalse());
+            $funcCall->args[1] = new \PhpParser\Node\Arg($this->nodeFactory->createFalse());
         }
         if (!isset($funcCall->args[2])) {
             $funcCall->args[2] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\LNumber(512));

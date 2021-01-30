@@ -124,6 +124,6 @@ CODE_SAMPLE
         if ($formClass === null) {
             return;
         }
-        $return->expr = $this->createClassConstReference($formClass);
+        $return->expr = $this->nodeFactory->createClassConstReference($formClass);
     }
 }

@@ -89,7 +89,7 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
     }
     private function processVariablePattern(\PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr\Variable $variable, string $functionName) : void
     {
-        $pregQuotePatternNode = $this->createFuncCall('preg_quote', [new \PhpParser\Node\Arg($variable), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_('#'))]);
+        $pregQuotePatternNode = $this->nodeFactory->createFuncCall('preg_quote', [new \PhpParser\Node\Arg($variable), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_('#'))]);
         $startConcat = new \PhpParser\Node\Expr\BinaryOp\Concat(new \PhpParser\Node\Scalar\String_('#'), $pregQuotePatternNode);
         $endDelimiter = $this->isCaseInsensitiveFunction($functionName) ? '#mi' : '#m';
         $concat = new \PhpParser\Node\Expr\BinaryOp\Concat($startConcat, new \PhpParser\Node\Scalar\String_($endDelimiter));
@@ -123,8 +123,8 @@ final class EregToPregMatchRector extends \Rector\Core\Rector\AbstractRector
     private function createTernaryWithStrlenOfFirstMatch(\PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Expr\Ternary
     {
         $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($funcCall->args[2]->value, new \PhpParser\Node\Scalar\LNumber(0));
-        $strlenFuncCall = $this->createFuncCall('strlen', [$arrayDimFetch]);
-        return new \PhpParser\Node\Expr\Ternary($funcCall, $strlenFuncCall, $this->createFalse());
+        $strlenFuncCall = $this->nodeFactory->createFuncCall('strlen', [$arrayDimFetch]);
+        return new \PhpParser\Node\Expr\Ternary($funcCall, $strlenFuncCall, $this->nodeFactory->createFalse());
     }
     private function isCaseInsensitiveFunction(string $functionName) : bool
     {

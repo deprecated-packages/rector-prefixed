@@ -86,7 +86,7 @@ final class AssertPropertyExistsRector extends \Rector\Core\Rector\AbstractRecto
             return null;
         }
         unset($node->args[0]);
-        $newArgs = $this->createArgs([$secondArgument->value->value, $secondArg]);
+        $newArgs = $this->nodeFactory->createArgs([$secondArgument->value->value, $secondArg]);
         $node->args = $this->appendArgs($newArgs, $node->args);
         $this->identifierManipulator->renameNodeWithMap($node, $map);
         return $node;

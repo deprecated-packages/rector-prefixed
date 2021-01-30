@@ -57,7 +57,7 @@ final class ListSwapArrayOrderRector extends \Rector\Core\Rector\AbstractRector
             return null;
         }
         // wrap with array_reverse, to reflect reverse assign order in left
-        $node->expr = $this->createFuncCall('array_reverse', [$node->expr]);
+        $node->expr = $this->nodeFactory->createFuncCall('array_reverse', [$node->expr]);
         return $node;
     }
 }

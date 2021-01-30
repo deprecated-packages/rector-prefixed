@@ -63,7 +63,7 @@ CODE_SAMPLE
             if (!$this->isName($propertyFetchNode, $propertyAssignToMethodCall->getOldPropertyName())) {
                 continue;
             }
-            return $this->createMethodCall($propertyNode, $propertyAssignToMethodCall->getNewMethodName(), [$node->expr]);
+            return $this->nodeFactory->createMethodCall($propertyNode, $propertyAssignToMethodCall->getNewMethodName(), [$node->expr]);
         }
         return $node;
     }

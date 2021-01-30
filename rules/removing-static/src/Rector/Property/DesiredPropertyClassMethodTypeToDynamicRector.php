@@ -67,7 +67,7 @@ CODE_SAMPLE
             if (!$node->isStatic()) {
                 return null;
             }
-            $this->makeNonStatic($node);
+            $this->visibilityManipulator->makeNonStatic($node);
             return $node;
         }
         return null;

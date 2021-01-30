@@ -91,7 +91,7 @@ final class AssertIssetToSpecificMethodRector extends \Rector\Core\Rector\Abstra
         $this->identifierManipulator->renameNodeWithMap($node, [self::ASSERT_TRUE => 'assertObjectHasAttribute', self::ASSERT_FALSE => 'assertObjectNotHasAttribute']);
         $oldArgs = $node->args;
         unset($oldArgs[0]);
-        $newArgs = $this->createArgs([new \PhpParser\Node\Scalar\String_($name), $propertyFetch->var]);
+        $newArgs = $this->nodeFactory->createArgs([new \PhpParser\Node\Scalar\String_($name), $propertyFetch->var]);
         $node->args = $this->appendArgs($newArgs, $oldArgs);
     }
     /**
@@ -102,6 +102,6 @@ final class AssertIssetToSpecificMethodRector extends \Rector\Core\Rector\Abstra
         $this->identifierManipulator->renameNodeWithMap($node, [self::ASSERT_TRUE => 'assertArrayHasKey', self::ASSERT_FALSE => 'assertArrayNotHasKey']);
         $oldArgs = $node->args;
         unset($oldArgs[0]);
-        $node->args = \array_merge($this->createArgs([$arrayDimFetch->dim, $arrayDimFetch->var]), $oldArgs);
+        $node->args = \array_merge($this->nodeFactory->createArgs([$arrayDimFetch->dim, $arrayDimFetch->var]), $oldArgs);
     }
 }

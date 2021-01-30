@@ -111,7 +111,7 @@ CODE_SAMPLE
             $arg->value = new \PhpParser\Node\Scalar\DNumber(0);
         }
         if ($parameterType instanceof \PHPStan\Type\BooleanType) {
-            $arg->value = $this->createFalse();
+            $arg->value = $this->nodeFactory->createFalse();
         }
     }
 }

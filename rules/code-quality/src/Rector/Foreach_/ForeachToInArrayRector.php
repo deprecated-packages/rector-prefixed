@@ -165,11 +165,11 @@ CODE_SAMPLE
      */
     private function createInArrayFunction(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Stmt\Foreach_ $foreach) : \PhpParser\Node\Expr\FuncCall
     {
-        $arguments = $this->createArgs([$expr, $foreach->expr]);
+        $arguments = $this->nodeFactory->createArgs([$expr, $foreach->expr]);
         if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
-            $arguments[] = $this->createArg($this->createTrue());
+            $arguments[] = $this->nodeFactory->createArg($this->nodeFactory->createTrue());
         }
-        return $this->createFuncCall('in_array', $arguments);
+        return $this->nodeFactory->createFuncCall('in_array', $arguments);
     }
     private function createReturn(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Stmt\Return_
     {

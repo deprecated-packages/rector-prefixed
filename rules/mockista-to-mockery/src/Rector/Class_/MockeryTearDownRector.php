@@ -104,7 +104,7 @@ CODE_SAMPLE
     }
     private function createMockeryClose() : \PhpParser\Node\Stmt
     {
-        $staticCall = $this->createStaticCall('Mockery', 'close');
+        $staticCall = $this->nodeFactory->createStaticCall('Mockery', 'close');
         return \PhpParser\BuilderHelpers::normalizeStmt($staticCall);
     }
 }

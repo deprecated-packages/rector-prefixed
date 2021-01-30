@@ -127,7 +127,7 @@ CODE_SAMPLE
                 if (!$this->isName($node, $functionToStaticCall->getFunction())) {
                     continue;
                 }
-                $staticCall = $this->createStaticCall($functionToStaticCall->getClass(), $functionToStaticCall->getMethod());
+                $staticCall = $this->nodeFactory->createStaticCall($functionToStaticCall->getClass(), $functionToStaticCall->getMethod());
                 $staticCall->args = $node->args;
                 return $staticCall;
             }

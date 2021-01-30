@@ -46,7 +46,7 @@ CODE_SAMPLE
             if ($node->expr instanceof \PhpParser\Node\Expr\Cast\Unset_) {
                 $unset = $node->expr;
                 if ($this->areNodesEqual($node->var, $unset->expr)) {
-                    return $this->createFuncCall('unset', [$node->var]);
+                    return $this->nodeFactory->createFuncCall('unset', [$node->var]);
                 }
             }
             return null;
@@ -56,6 +56,6 @@ CODE_SAMPLE
             $this->removeNode($node);
             return null;
         }
-        return $this->createNull();
+        return $this->nodeFactory->createNull();
     }
 }

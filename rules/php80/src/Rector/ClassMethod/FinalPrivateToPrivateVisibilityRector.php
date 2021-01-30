@@ -48,7 +48,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $this->makeNonFinal($node);
+        $this->visibilityManipulator->makeNonFinal($node);
         return $node;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

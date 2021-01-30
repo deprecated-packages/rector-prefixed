@@ -86,7 +86,7 @@ CODE_SAMPLE
             return $this->castToArray($countedNode, $node);
         }
         if ($this->isNullableType($countedNode) || $this->isStaticType($countedNode, \PHPStan\Type\NullType::class)) {
-            $identical = new \PhpParser\Node\Expr\BinaryOp\Identical($countedNode, $this->createNull());
+            $identical = new \PhpParser\Node\Expr\BinaryOp\Identical($countedNode, $this->nodeFactory->createNull());
             $ternary = new \PhpParser\Node\Expr\Ternary($identical, new \PhpParser\Node\Scalar\LNumber(0), $node);
             // prevent infinity loop re-resolution
             $node->setAttribute(self::ALREADY_CHANGED_ON_COUNT, \true);
@@ -96,7 +96,7 @@ CODE_SAMPLE
             $conditionNode = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_countable'), [new \PhpParser\Node\Arg($countedNode)]);
         } else {
             $instanceof = new \PhpParser\Node\Expr\Instanceof_($countedNode, new \PhpParser\Node\Name\FullyQualified('Countable'));
-            $conditionNode = new \PhpParser\Node\Expr\BinaryOp\BooleanOr($this->createFuncCall('is_array', [new \PhpParser\Node\Arg($countedNode)]), $instanceof);
+            $conditionNode = new \PhpParser\Node\Expr\BinaryOp\BooleanOr($this->nodeFactory->createFuncCall('is_array', [new \PhpParser\Node\Arg($countedNode)]), $instanceof);
         }
         // prevent infinity loop re-resolution
         $node->setAttribute(self::ALREADY_CHANGED_ON_COUNT, \true);

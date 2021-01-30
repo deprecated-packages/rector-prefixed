@@ -239,7 +239,7 @@ CODE_SAMPLE
     }
     private function createParentSetUpStaticCall() : \PhpParser\Node\Stmt\Expression
     {
-        $parentSetupStaticCall = $this->createStaticCall('parent', \Rector\Core\ValueObject\MethodName::SET_UP);
+        $parentSetupStaticCall = $this->nodeFactory->createStaticCall('parent', \Rector\Core\ValueObject\MethodName::SET_UP);
         return new \PhpParser\Node\Stmt\Expression($parentSetupStaticCall);
     }
     private function createContainerGetTypeToPropertyAssign(\PHPStan\Type\ObjectType $objectType) : \PhpParser\Node\Stmt\Expression

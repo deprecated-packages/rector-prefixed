@@ -128,7 +128,7 @@ CODE_SAMPLE
     {
         $classMethod = $this->nodeFactory->createPublicMethod('getSluggableFields');
         $classMethod->returnType = new \PhpParser\Node\Identifier('array');
-        $classMethod->stmts[] = new \PhpParser\Node\Stmt\Return_($this->createArray($slugFields));
+        $classMethod->stmts[] = new \PhpParser\Node\Stmt\Return_($this->nodeFactory->createArray($slugFields));
         $returnType = new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\StringType());
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         $this->phpDocTypeChanger->changeReturnType($phpDocInfo, $returnType);

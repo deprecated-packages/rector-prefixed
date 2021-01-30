@@ -108,7 +108,7 @@ CODE_SAMPLE
         // class constants → turn string to composite
         if (\is_string($value) && \RectorPrefix20210130\Nette\Utils\Strings::contains($value, '::')) {
             [$class, $constant] = \explode('::', $value);
-            $classConstFetch = $this->createClassConstFetch($class, $constant);
+            $classConstFetch = $this->nodeFactory->createClassConstFetch($class, $constant);
             return new \PhpParser\Node\Arg($classConstFetch);
         }
         return new \PhpParser\Node\Arg(\PhpParser\BuilderHelpers::normalizeValue($value));

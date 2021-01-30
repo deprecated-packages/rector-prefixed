@@ -115,7 +115,7 @@ CODE_SAMPLE
                 return null;
             }
         }
-        $methodCall->args[$position]->value = $this->createClassConstReference($argValue->class->toString());
+        $methodCall->args[$position]->value = $this->nodeFactory->createClassConstReference($argValue->class->toString());
         return $methodCall;
     }
     private function refactorCollectionOptions(\PhpParser\Node\Expr\MethodCall $methodCall) : void
@@ -141,7 +141,7 @@ CODE_SAMPLE
             if (!$newClass instanceof \PhpParser\Node\Name) {
                 continue;
             }
-            $arrayItem->value = $this->createClassConstReference($newClass->toString());
+            $arrayItem->value = $this->nodeFactory->createClassConstReference($newClass->toString());
         }
     }
     /**
@@ -152,7 +152,7 @@ CODE_SAMPLE
         $namesToArgs = $this->resolveNamesToArgs($className, $argNodes);
         // set default data in between
         if ($position + 1 !== $optionsPosition && !isset($methodCall->args[$position + 1])) {
-            $methodCall->args[$position + 1] = new \PhpParser\Node\Arg($this->createNull());
+            $methodCall->args[$position + 1] = new \PhpParser\Node\Arg($this->nodeFactory->createNull());
         }
         // @todo decopule and name, so I know what it is
         if (!isset($methodCall->args[$optionsPosition])) {

@@ -46,6 +46,6 @@ final class ConstraintUrlOptionRector extends \Rector\Core\Rector\AbstractRector
         if ($prevNode->value !== 'checkDNS') {
             return null;
         }
-        return $this->createClassConstFetch(self::URL_CONSTRAINT_CLASS, 'CHECK_DNS_TYPE_ANY');
+        return $this->nodeFactory->createClassConstFetch(self::URL_CONSTRAINT_CLASS, 'CHECK_DNS_TYPE_ANY');
     }
 }

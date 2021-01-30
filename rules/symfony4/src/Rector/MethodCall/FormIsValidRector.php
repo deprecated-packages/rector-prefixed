@@ -59,7 +59,7 @@ CODE_SAMPLE
         }
         /** @var string $variableName */
         $variableName = $this->getName($node->var);
-        return new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($this->createMethodCall($variableName, 'isSubmitted'), $this->createMethodCall($variableName, 'isValid'));
+        return new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($this->nodeFactory->createMethodCall($variableName, 'isSubmitted'), $this->nodeFactory->createMethodCall($variableName, 'isValid'));
     }
     private function shouldSkipMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {

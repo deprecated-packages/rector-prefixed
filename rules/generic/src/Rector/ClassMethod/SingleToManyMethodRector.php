@@ -123,7 +123,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
                 return null;
             }
-            $node->expr = $this->createArray([$node->expr]);
+            $node->expr = $this->nodeFactory->createArray([$node->expr]);
             return null;
         });
     }

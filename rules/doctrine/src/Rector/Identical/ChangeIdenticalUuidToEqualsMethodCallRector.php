@@ -71,8 +71,8 @@ CODE_SAMPLE
         }
         $entityMethodCall = $twoNodeMatch->getFirstExpr();
         $comparedVariable = $twoNodeMatch->getSecondExpr();
-        $staticCall = $this->createStaticCall(\RectorPrefix20210130\Ramsey\Uuid\Uuid::class, 'fromString', [$comparedVariable]);
-        return $this->createMethodCall($entityMethodCall, 'equals', [$staticCall]);
+        $staticCall = $this->nodeFactory->createStaticCall(\RectorPrefix20210130\Ramsey\Uuid\Uuid::class, 'fromString', [$comparedVariable]);
+        return $this->nodeFactory->createMethodCall($entityMethodCall, 'equals', [$staticCall]);
     }
     private function matchEntityCallAndComparedVariable(\PhpParser\Node\Expr\BinaryOp\Identical $identical) : ?\Rector\Php71\ValueObject\TwoNodeMatch
     {

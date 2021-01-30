@@ -45,7 +45,7 @@ CODE_SAMPLE
         if ($node->flags !== 0) {
             return null;
         }
-        $this->makePublic($node);
+        $this->visibilityManipulator->makePublic($node);
         return $node;
     }
 }

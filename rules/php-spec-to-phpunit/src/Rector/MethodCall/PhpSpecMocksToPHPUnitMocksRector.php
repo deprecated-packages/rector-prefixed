@@ -97,7 +97,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
             }
             $expectedArg = $methodCall->var->args[0]->value ?? null;
             $methodCall->var->name = new \PhpParser\Node\Identifier('expects');
-            $thisOnceMethodCall = $this->createLocalMethodCall('atLeastOnce');
+            $thisOnceMethodCall = $this->nodeFactory->createLocalMethodCall('atLeastOnce');
             $methodCall->var->args = [new \PhpParser\Node\Arg($thisOnceMethodCall)];
             $methodCall->name = new \PhpParser\Node\Identifier('method');
             $methodCall->args = [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($mockMethodName))];
@@ -144,7 +144,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
                 }
             }
         } else {
-            $newExpr = $this->createLocalMethodCall('equalTo');
+            $newExpr = $this->nodeFactory->createLocalMethodCall('equalTo');
             $newExpr->args = [new \PhpParser\Node\Arg($expr)];
             $expr = $newExpr;
         }
@@ -153,7 +153,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
     }
     private function createNewMockVariableAssign(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : \PhpParser\Node\Stmt\Expression
     {
-        $methodCall = $this->createLocalMethodCall('createMock');
+        $methodCall = $this->nodeFactory->createLocalMethodCall('createMock');
         $methodCall->args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ClassConstFetch($name, 'class'));
         $assign = new \PhpParser\Node\Expr\Assign($param->var, $methodCall);
         $assignExpression = new \PhpParser\Node\Stmt\Expression($assign);
@@ -169,7 +169,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $variable);
-        $methodCall = $this->createLocalMethodCall('createMock');
+        $methodCall = $this->nodeFactory->createLocalMethodCall('createMock');
         $methodCall->args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Expr\ClassConstFetch($name, 'class'));
         $assign = new \PhpParser\Node\Expr\Assign($propertyFetch, $methodCall);
         return new \PhpParser\Node\Stmt\Expression($assign);
@@ -178,7 +178,7 @@ final class PhpSpecMocksToPHPUnitMocksRector extends \Rector\PhpSpecToPHPUnit\Re
     {
         $type = $this->getValue($staticCall->args[0]->value);
         $name = $this->typeAnalyzer->isPhpReservedType($type) ? 'isType' : 'isInstanceOf';
-        return $this->createLocalMethodCall($name, $staticCall->args);
+        return $this->nodeFactory->createLocalMethodCall($name, $staticCall->args);
     }
     private function createMockVarDoc(\PhpParser\Node\Param $param, \PhpParser\Node\Name $name) : string
     {

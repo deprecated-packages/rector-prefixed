@@ -118,7 +118,7 @@ CODE_SAMPLE
         // split into chunks of X parameters
         $valueChunks = \array_chunk($values, $numberOfParameters);
         foreach ($valueChunks as $valueChunk) {
-            $node->args[] = new \PhpParser\Node\Arg($this->createArray($valueChunk));
+            $node->args[] = new \PhpParser\Node\Arg($this->nodeFactory->createArray($valueChunk));
         }
         return $node;
     }

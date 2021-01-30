@@ -209,7 +209,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
                 continue;
             }
             // 1. assign callable to variable
-            $thisGetMatchers = $this->createMethodCall(self::THIS, 'getMatchers');
+            $thisGetMatchers = $this->nodeFactory->createMethodCall(self::THIS, 'getMatchers');
             $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($thisGetMatchers, new \PhpParser\Node\Scalar\String_($matcherKey));
             $matcherCallableVariable = new \PhpParser\Node\Expr\Variable('matcherCallable');
             $assign = new \PhpParser\Node\Expr\Assign($matcherCallableVariable, $arrayDimFetch);

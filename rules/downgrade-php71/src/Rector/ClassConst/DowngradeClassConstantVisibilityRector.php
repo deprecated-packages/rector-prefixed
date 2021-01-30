@@ -45,7 +45,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $this->removeVisibility($node);
+        $this->visibilityManipulator->removeVisibility($node);
         return $node;
     }
 }

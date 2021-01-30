@@ -144,15 +144,15 @@ CODE_SAMPLE
     private function changeClassMethodVisibilityBasedOnReflectionMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \ReflectionMethod $reflectionMethod) : void
     {
         if ($reflectionMethod->isPublic()) {
-            $this->makePublic($classMethod);
+            $this->visibilityManipulator->makePublic($classMethod);
             return;
         }
         if ($reflectionMethod->isProtected()) {
-            $this->makeProtected($classMethod);
+            $this->visibilityManipulator->makeProtected($classMethod);
             return;
         }
         if ($reflectionMethod->isPrivate()) {
-            $this->makePrivate($classMethod);
+            $this->visibilityManipulator->makePrivate($classMethod);
             return;
         }
     }

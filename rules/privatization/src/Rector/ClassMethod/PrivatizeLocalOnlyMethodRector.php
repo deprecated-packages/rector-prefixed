@@ -106,7 +106,7 @@ CODE_SAMPLE
         if ($this->classMethodExternalCallNodeAnalyzer->hasExternalCall($node)) {
             return null;
         }
-        $this->makePrivate($node);
+        $this->visibilityManipulator->makePrivate($node);
         return $node;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

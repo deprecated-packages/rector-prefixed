@@ -59,7 +59,7 @@ CODE_SAMPLE
         if (!$firstArgumentStaticType instanceof \PHPStan\Type\StringType) {
             return null;
         }
-        $node->args[2] = new \PhpParser\Node\Arg($this->createTrue());
+        $node->args[2] = new \PhpParser\Node\Arg($this->nodeFactory->createTrue());
         return $node;
     }
 }

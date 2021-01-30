@@ -116,7 +116,7 @@ CODE_SAMPLE
         if ($name === null) {
             return null;
         }
-        return $this->createStaticCall(self::SELF, $name, $node->args);
+        return $this->nodeFactory->createStaticCall(self::SELF, $name, $node->args);
     }
     /**
      * @param MethodCall|StaticCall $node
@@ -133,7 +133,7 @@ CODE_SAMPLE
         if ($name === null) {
             return null;
         }
-        return $this->createMethodCall('this', $name, $node->args);
+        return $this->nodeFactory->createMethodCall('this', $name, $node->args);
     }
     private function ensurePreferenceIsValid(string $preference) : void
     {

@@ -66,7 +66,7 @@ CODE_SAMPLE
             if (!$this->isObjectType($string, $type)) {
                 continue;
             }
-            return $this->createMethodCall($string->expr, $methodName);
+            return $this->nodeFactory->createMethodCall($string->expr, $methodName);
         }
         return null;
     }

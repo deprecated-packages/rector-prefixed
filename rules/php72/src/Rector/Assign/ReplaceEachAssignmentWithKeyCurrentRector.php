@@ -92,7 +92,7 @@ CODE_SAMPLE
         $newNodes[] = $this->createDimFetchAssignWithFuncCall($assignVariable, $eachedVariable, 'value', 'current');
         $newNodes[] = $this->createDimFetchAssignWithFuncCall($assignVariable, $eachedVariable, 0, self::KEY);
         $newNodes[] = $this->createDimFetchAssignWithFuncCall($assignVariable, $eachedVariable, self::KEY, self::KEY);
-        $newNodes[] = $this->createFuncCall('next', [new \PhpParser\Node\Arg($eachedVariable)]);
+        $newNodes[] = $this->nodeFactory->createFuncCall('next', [new \PhpParser\Node\Arg($eachedVariable)]);
         return $newNodes;
     }
     /**
@@ -102,6 +102,6 @@ CODE_SAMPLE
     {
         $dim = \PhpParser\BuilderHelpers::normalizeValue($dimValue);
         $arrayDimFetch = new \PhpParser\Node\Expr\ArrayDimFetch($assignVariable, $dim);
-        return new \PhpParser\Node\Expr\Assign($arrayDimFetch, $this->createFuncCall($functionName, [new \PhpParser\Node\Arg($eachedVariable)]));
+        return new \PhpParser\Node\Expr\Assign($arrayDimFetch, $this->nodeFactory->createFuncCall($functionName, [new \PhpParser\Node\Arg($eachedVariable)]));
     }
 }

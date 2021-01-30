@@ -63,7 +63,7 @@ final class VisibilityManipulator
      *
      * @param ClassMethod|Property|ClassConst $node
      */
-    public function removeOriginalVisibilityFromFlags(\PhpParser\Node $node) : void
+    public function removeVisibility(\PhpParser\Node $node) : void
     {
         $this->ensureIsClassMethodOrProperty($node, __METHOD__);
         // no modifier
@@ -133,10 +133,10 @@ final class VisibilityManipulator
     {
         $isStatic = $node instanceof \PhpParser\Node\Stmt\ClassMethod && $node->isStatic();
         if ($isStatic) {
-            $this->removeOriginalVisibilityFromFlags($node);
+            $this->removeVisibility($node);
         }
         if ($visibility !== \Rector\Core\ValueObject\Visibility::STATIC && $visibility !== \Rector\Core\ValueObject\Visibility::ABSTRACT && $visibility !== \Rector\Core\ValueObject\Visibility::FINAL) {
-            $this->removeOriginalVisibilityFromFlags($node);
+            $this->removeVisibility($node);
         }
         $this->addVisibilityFlag($node, $visibility);
         if ($isStatic) {

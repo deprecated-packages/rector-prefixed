@@ -93,7 +93,7 @@ CODE_SAMPLE
             if (\in_array($undefinedVariable, $this->definedVariables, \true)) {
                 continue;
             }
-            $value = $this->isArray($undefinedVariable, (array) $node->stmts) ? new \PhpParser\Node\Expr\Array_([]) : $this->createNull();
+            $value = $this->isArray($undefinedVariable, (array) $node->stmts) ? new \PhpParser\Node\Expr\Array_([]) : $this->nodeFactory->createNull();
             $variablesInitiation[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable($undefinedVariable), $value));
         }
         $node->stmts = \array_merge($variablesInitiation, (array) $node->stmts);

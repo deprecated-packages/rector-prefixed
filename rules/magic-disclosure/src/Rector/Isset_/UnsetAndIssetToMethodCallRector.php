@@ -87,13 +87,13 @@ CODE_SAMPLE
             if ($issetUnsetToMethodCall->getIssetMethodCall() === '') {
                 return null;
             }
-            return $this->createMethodCall($arrayDimFetch->var, $issetUnsetToMethodCall->getIssetMethodCall(), [$arrayDimFetch->dim]);
+            return $this->nodeFactory->createMethodCall($arrayDimFetch->var, $issetUnsetToMethodCall->getIssetMethodCall(), [$arrayDimFetch->dim]);
         }
         if ($node instanceof \PhpParser\Node\Stmt\Unset_) {
             if ($issetUnsetToMethodCall->getUnsedMethodCall() === '') {
                 return null;
             }
-            return $this->createMethodCall($arrayDimFetch->var, $issetUnsetToMethodCall->getUnsedMethodCall(), [$arrayDimFetch->dim]);
+            return $this->nodeFactory->createMethodCall($arrayDimFetch->var, $issetUnsetToMethodCall->getUnsedMethodCall(), [$arrayDimFetch->dim]);
         }
         return null;
     }

@@ -120,9 +120,9 @@ CODE_SAMPLE
         if (!$entityObjectType instanceof \PHPStan\Type\TypeWithClassName) {
             throw new \Rector\Core\Exception\Bridge\RectorProviderException(\sprintf('An entity was not found for "%s" repository.', $repositoryClassName));
         }
-        $classConstFetch = $this->createClassConstReference($entityObjectType->getClassName());
+        $classConstFetch = $this->nodeFactory->createClassConstReference($entityObjectType->getClassName());
         $methodCall = $this->builderFactory->methodCall(new \PhpParser\Node\Expr\Variable('entityManager'), 'getRepository', [$classConstFetch]);
         $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, $repositoryClassName);
-        return $this->createPropertyAssignmentWithExpr('repository', $methodCall);
+        return $this->nodeFactory->createPropertyAssignmentWithExpr('repository', $methodCall);
     }
 }

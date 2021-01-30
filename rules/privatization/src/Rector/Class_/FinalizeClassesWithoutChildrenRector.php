@@ -79,7 +79,7 @@ CODE_SAMPLE
         if ($this->nodeRepository->hasClassChildren($node)) {
             return null;
         }
-        $this->makeFinal($node);
+        $this->visibilityManipulator->makeFinal($node);
         return $node;
     }
 }

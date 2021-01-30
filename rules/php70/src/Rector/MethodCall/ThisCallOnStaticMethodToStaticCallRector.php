@@ -95,7 +95,7 @@ CODE_SAMPLE
             return null;
         }
         $classReference = $this->resolveClassSelf($node);
-        return $this->createStaticCall($classReference, $methodName, $node->args);
+        return $this->nodeFactory->createStaticCall($classReference, $methodName, $node->args);
     }
     private function resolveClassSelf(\PhpParser\Node\Expr\MethodCall $methodCall) : string
     {

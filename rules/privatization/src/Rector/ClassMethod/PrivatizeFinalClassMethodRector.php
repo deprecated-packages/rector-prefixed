@@ -72,7 +72,7 @@ CODE_SAMPLE
         if ($this->classMethodVisibilityGuard->isClassMethodVisibilityGuardedByTrait($node)) {
             return null;
         }
-        $this->makePrivate($node);
+        $this->visibilityManipulator->makePrivate($node);
         return $node;
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

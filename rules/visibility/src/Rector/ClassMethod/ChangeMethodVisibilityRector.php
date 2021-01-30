@@ -84,7 +84,7 @@ CODE_SAMPLE
             if (!$this->isName($node, $methodVisibility->getMethod())) {
                 continue;
             }
-            $this->changeNodeVisibility($node, $methodVisibility->getVisibility());
+            $this->visibilityManipulator->changeNodeVisibility($node, $methodVisibility->getVisibility());
             return $node;
         }
         return $node;

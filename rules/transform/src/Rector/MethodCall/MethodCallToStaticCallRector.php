@@ -79,7 +79,7 @@ CODE_SAMPLE
             if (!$this->isName($node->name, $methodCallToStaticCall->getOldMethod())) {
                 continue;
             }
-            return $this->createStaticCall($methodCallToStaticCall->getNewClass(), $methodCallToStaticCall->getNewMethod(), $node->args);
+            return $this->nodeFactory->createStaticCall($methodCallToStaticCall->getNewClass(), $methodCallToStaticCall->getNewMethod(), $node->args);
         }
         return null;
     }

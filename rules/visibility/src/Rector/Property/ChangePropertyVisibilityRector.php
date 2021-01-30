@@ -75,7 +75,7 @@ CODE_SAMPLE
                 if (!$this->isName($node, $property)) {
                     continue;
                 }
-                $this->changeNodeVisibility($node, $visibility);
+                $this->visibilityManipulator->changeNodeVisibility($node, $visibility);
                 return $node;
             }
         }

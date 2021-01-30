@@ -116,6 +116,6 @@ CODE_SAMPLE
     private function createAssign() : \PhpParser\Node\Expr\Assign
     {
         $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), 'mockConsoleOutput');
-        return new \PhpParser\Node\Expr\Assign($propertyFetch, $this->createFalse());
+        return new \PhpParser\Node\Expr\Assign($propertyFetch, $this->nodeFactory->createFalse());
     }
 }

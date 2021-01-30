@@ -52,7 +52,7 @@ final class SimplifyArraySearchRector extends \Rector\Core\Rector\AbstractRector
         }
         /** @var FuncCall $arraySearchFuncCall */
         $arraySearchFuncCall = $twoNodeMatch->getFirstExpr();
-        $inArrayFuncCall = $this->createFuncCall('in_array', $arraySearchFuncCall->args);
+        $inArrayFuncCall = $this->nodeFactory->createFuncCall('in_array', $arraySearchFuncCall->args);
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return new \PhpParser\Node\Expr\BooleanNot($inArrayFuncCall);
         }

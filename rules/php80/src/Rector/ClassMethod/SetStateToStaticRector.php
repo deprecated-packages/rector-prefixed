@@ -49,7 +49,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $this->makeStatic($node);
+        $this->visibilityManipulator->makeStatic($node);
         return $node;
     }
     private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

@@ -44,7 +44,7 @@ final class FuncCallToStaticCallRector extends \Rector\Core\Rector\AbstractRecto
             if (!$this->isName($node, $funcCallsToStaticCall->getOldFuncName())) {
                 continue;
             }
-            return $this->createStaticCall($funcCallsToStaticCall->getNewClassName(), $funcCallsToStaticCall->getNewMethodName(), $node->args);
+            return $this->nodeFactory->createStaticCall($funcCallsToStaticCall->getNewClassName(), $funcCallsToStaticCall->getNewMethodName(), $node->args);
         }
         return null;
     }

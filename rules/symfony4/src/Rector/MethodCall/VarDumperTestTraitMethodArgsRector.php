@@ -45,7 +45,7 @@ final class VarDumperTestTraitMethodArgsRector extends \Rector\Core\Rector\Abstr
         }
         if ($node->args[2]->value instanceof \PhpParser\Node\Scalar\String_) {
             $node->args[3] = $node->args[2];
-            $node->args[2] = $this->createArg(0);
+            $node->args[2] = $this->nodeFactory->createArg(0);
             return $node;
         }
         return null;

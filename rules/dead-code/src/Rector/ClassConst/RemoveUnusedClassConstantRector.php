@@ -71,7 +71,7 @@ CODE_SAMPLE
         $nodeRepositoryFindInterface = $this->nodeRepository->findInterface($class);
         // 0. constants declared in interfaces have to be public
         if ($nodeRepositoryFindInterface !== null) {
-            $this->makePublic($node);
+            $this->visibilityManipulator->makePublic($node);
             return $node;
         }
         /** @var string $constant */

@@ -74,6 +74,6 @@ CODE_SAMPLE
     private function createGuardAssign(\PhpParser\Node\Expr\Variable $guardVariable) : \PhpParser\Node\Expr\Assign
     {
         $string = new \PhpParser\Node\Scalar\String_('auth.defaults.guard');
-        return new \PhpParser\Node\Expr\Assign($guardVariable, $this->createFuncCall('config', [$string]));
+        return new \PhpParser\Node\Expr\Assign($guardVariable, $this->nodeFactory->createFuncCall('config', [$string]));
     }
 }

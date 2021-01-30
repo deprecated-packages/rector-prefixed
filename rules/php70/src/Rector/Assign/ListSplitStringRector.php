@@ -40,7 +40,7 @@ final class ListSplitStringRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->isStaticType($node->expr, \PHPStan\Type\StringType::class)) {
             return null;
         }
-        $node->expr = $this->createFuncCall('str_split', [$node->expr]);
+        $node->expr = $this->nodeFactory->createFuncCall('str_split', [$node->expr]);
         return $node;
     }
 }

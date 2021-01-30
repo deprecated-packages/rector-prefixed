@@ -86,7 +86,7 @@ CODE_SAMPLE
                 continue;
             }
             $expr = $this->matchTypeProvidingExpr($classLike, $classMethod, $funcNameToMethodCallName->getNewClassName());
-            return $this->createMethodCall($expr, $funcNameToMethodCallName->getNewMethodName(), $node->args);
+            return $this->nodeFactory->createMethodCall($expr, $funcNameToMethodCallName->getNewMethodName(), $node->args);
         }
         return null;
     }

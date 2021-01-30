@@ -62,7 +62,7 @@ CODE_SAMPLE
             if (!$this->isObjectType($node->class, $typeToStaticCall->getType())) {
                 continue;
             }
-            return $this->createStaticCall($typeToStaticCall->getStaticCallClass(), $typeToStaticCall->getStaticCallMethod(), $node->args);
+            return $this->nodeFactory->createStaticCall($typeToStaticCall->getStaticCallClass(), $typeToStaticCall->getStaticCallMethod(), $node->args);
         }
         return null;
     }

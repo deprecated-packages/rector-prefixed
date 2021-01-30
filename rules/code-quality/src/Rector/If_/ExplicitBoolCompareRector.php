@@ -182,7 +182,7 @@ CODE_SAMPLE
      */
     private function resolveNullable(bool $isNegated, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\BinaryOp
     {
-        $constFetch = $this->createNull();
+        $constFetch = $this->nodeFactory->createNull();
         if ($isNegated) {
             return new \PhpParser\Node\Expr\BinaryOp\Identical($expr, $constFetch);
         }

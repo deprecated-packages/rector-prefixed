@@ -68,6 +68,6 @@ CODE_SAMPLE
         }
         $getConfigMethodCall = new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), 'getConfig');
         $firstArgValue = $node->args[0]->value;
-        return $this->createFuncCall('array_merge', [$firstArgValue, $getConfigMethodCall]);
+        return $this->nodeFactory->createFuncCall('array_merge', [$firstArgValue, $getConfigMethodCall]);
     }
 }

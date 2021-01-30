@@ -112,7 +112,7 @@ CODE_SAMPLE
             if (!$constantNameAndValue instanceof \Rector\SymfonyCodeQuality\ValueObject\ConstantNameAndValue) {
                 continue;
             }
-            $arg->value = $this->createClassConstFetch(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_CLASS_NAME, $constantNameAndValue->getName());
+            $arg->value = $this->nodeFactory->createClassConstFetch(\Rector\SymfonyCodeQuality\ValueObject\ClassName::ROUTE_CLASS_NAME, $constantNameAndValue->getName());
         }
         return $node;
     }

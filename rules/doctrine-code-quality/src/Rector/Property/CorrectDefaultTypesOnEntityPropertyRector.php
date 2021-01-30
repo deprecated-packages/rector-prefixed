@@ -91,7 +91,7 @@ CODE_SAMPLE
         }
         $defaultExpr = $propertyProperty->default;
         if ($defaultExpr instanceof \PhpParser\Node\Scalar\String_) {
-            $propertyProperty->default = \boolval($defaultExpr->value) ? $this->createTrue() : $this->createFalse();
+            $propertyProperty->default = \boolval($defaultExpr->value) ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
             return $property;
         }
         if ($defaultExpr instanceof \PhpParser\Node\Expr\ConstFetch) {

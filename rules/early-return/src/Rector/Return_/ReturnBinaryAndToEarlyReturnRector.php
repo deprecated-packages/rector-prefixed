@@ -130,6 +130,6 @@ CODE_SAMPLE
         } else {
             $expr = new \PhpParser\Node\Expr\BooleanNot($expr);
         }
-        return new \PhpParser\Node\Stmt\If_($expr, ['stmts' => [new \PhpParser\Node\Stmt\Return_($this->createFalse())]]);
+        return new \PhpParser\Node\Stmt\If_($expr, ['stmts' => [new \PhpParser\Node\Stmt\Return_($this->nodeFactory->createFalse())]]);
     }
 }

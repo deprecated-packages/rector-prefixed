@@ -70,7 +70,7 @@ CODE_SAMPLE
         if ($node->isAbstract()) {
             return null;
         }
-        $this->makeAbstract($node);
+        $this->visibilityManipulator->makeAbstract($node);
         return $node;
     }
 }

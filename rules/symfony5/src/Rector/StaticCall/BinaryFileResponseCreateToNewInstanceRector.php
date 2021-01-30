@@ -65,7 +65,7 @@ CODE_SAMPLE
         }
         $args = $node->args;
         if ($args === []) {
-            $args[] = $this->createArg($this->createNull());
+            $args[] = $this->nodeFactory->createArg($this->nodeFactory->createNull());
         }
         return new \PhpParser\Node\Expr\New_($node->class, $args);
     }

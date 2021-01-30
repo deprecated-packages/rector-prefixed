@@ -62,7 +62,7 @@ CODE_SAMPLE
             if (!$this->isValue($node, $stringToClassConstant->getString())) {
                 continue;
             }
-            return $this->createClassConstFetch($stringToClassConstant->getClass(), $stringToClassConstant->getConstant());
+            return $this->nodeFactory->createClassConstFetch($stringToClassConstant->getClass(), $stringToClassConstant->getConstant());
         }
         return $node;
     }

@@ -178,6 +178,6 @@ CODE_SAMPLE
         if ($onlyProperty->default !== null) {
             return;
         }
-        $onlyProperty->default = $this->createNull();
+        $onlyProperty->default = $this->nodeFactory->createNull();
     }
 }

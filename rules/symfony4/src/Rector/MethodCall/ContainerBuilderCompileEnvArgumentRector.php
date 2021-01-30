@@ -50,7 +50,7 @@ CODE_SAMPLE
         if (\count($node->args) === 1) {
             return null;
         }
-        $node->args = $this->createArgs([$this->createTrue()]);
+        $node->args = $this->nodeFactory->createArgs([$this->nodeFactory->createTrue()]);
         return $node;
     }
 }

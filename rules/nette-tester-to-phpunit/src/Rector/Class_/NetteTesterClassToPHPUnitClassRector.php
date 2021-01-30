@@ -107,7 +107,7 @@ CODE_SAMPLE
     {
         foreach ($class->getMethods() as $classMethod) {
             if ($this->isNames($classMethod, [\Rector\Core\ValueObject\MethodName::SET_UP, \Rector\Core\ValueObject\MethodName::TEAR_DOWN])) {
-                $this->makeProtected($classMethod);
+                $this->visibilityManipulator->makeProtected($classMethod);
             }
         }
     }

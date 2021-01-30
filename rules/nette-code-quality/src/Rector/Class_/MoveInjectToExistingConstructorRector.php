@@ -120,9 +120,9 @@ CODE_SAMPLE
     private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty) : void
     {
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($injectProperty)) {
-            $this->makeProtected($injectProperty);
+            $this->visibilityManipulator->makeProtected($injectProperty);
         } else {
-            $this->makePrivate($injectProperty);
+            $this->visibilityManipulator->makePrivate($injectProperty);
         }
     }
     private function isInjectProperty(\PhpParser\Node\Stmt\Property $property) : bool

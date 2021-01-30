@@ -66,7 +66,7 @@ CODE_SAMPLE
         if (!$this->isNames($node->name, self::ENTITY_REPOSITORY_PUBLIC_METHODS)) {
             return null;
         }
-        $node->var = $this->createPropertyFetch('this', 'repository');
+        $node->var = $this->nodeFactory->createPropertyFetch('this', 'repository');
         return $node;
     }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool

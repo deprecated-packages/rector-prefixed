@@ -67,6 +67,6 @@ CODE_SAMPLE
         if (!$this->fluentChainMethodCallNodeAnalyzer->isTypeAndChainCalls($node, new \PHPStan\Type\ObjectType(\RectorPrefix20210130\Symfony\Component\HttpFoundation\Request::class), ['getSession', 'getFlashBag', 'add'])) {
             return null;
         }
-        return $this->createMethodCall('this', 'addFlash', $node->args);
+        return $this->nodeFactory->createMethodCall('this', 'addFlash', $node->args);
     }
 }

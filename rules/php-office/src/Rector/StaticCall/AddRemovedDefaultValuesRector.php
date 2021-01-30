@@ -85,10 +85,10 @@ CODE_SAMPLE
             }
             if (\is_string($defaultValue) && \RectorPrefix20210130\Nette\Utils\Strings::contains($defaultValue, '::')) {
                 [$className, $constant] = \explode('::', $defaultValue);
-                $classConstant = $this->createClassConstFetch($className, $constant);
+                $classConstant = $this->nodeFactory->createClassConstFetch($className, $constant);
                 $arg = new \PhpParser\Node\Arg($classConstant);
             } else {
-                $arg = $this->createArg($defaultValue);
+                $arg = $this->nodeFactory->createArg($defaultValue);
             }
             $node->args[$position] = $arg;
         }

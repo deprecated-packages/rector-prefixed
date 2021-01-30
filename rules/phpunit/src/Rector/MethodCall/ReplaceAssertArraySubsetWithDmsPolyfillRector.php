@@ -71,6 +71,6 @@ CODE_SAMPLE
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodName($node, 'assertArraySubset')) {
             return null;
         }
-        return $this->createStaticCall('DMS\\PHPUnitExtensions\\ArraySubset\\Assert', 'assertArraySubset', $node->args);
+        return $this->nodeFactory->createStaticCall('DMS\\PHPUnitExtensions\\ArraySubset\\Assert', 'assertArraySubset', $node->args);
     }
 }

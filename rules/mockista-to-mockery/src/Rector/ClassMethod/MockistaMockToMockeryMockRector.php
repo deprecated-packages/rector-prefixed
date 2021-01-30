@@ -101,7 +101,7 @@ CODE_SAMPLE
             /** @var FuncCall $node */
             $collectedVariableTypesByNames = $this->mockVariableCollector->collectMockVariableName($node);
             $this->mockVariableTypesByNames = \array_merge($this->mockVariableTypesByNames, $collectedVariableTypesByNames);
-            return $this->createStaticCall('Mockery', 'mock', $node->args);
+            return $this->nodeFactory->createStaticCall('Mockery', 'mock', $node->args);
         });
     }
     /**

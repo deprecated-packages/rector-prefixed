@@ -77,9 +77,9 @@ CODE_SAMPLE
         if (!$this->isNullableType($firstArgValue) && !$this->isStaticType($firstArgValue, \PHPStan\Type\NullType::class)) {
             return null;
         }
-        $notIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($firstArgValue, $this->createNull());
+        $notIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($firstArgValue, $this->nodeFactory->createNull());
         $funcCall = $this->createGetClassFuncCall($node);
-        $selfClassConstFetch = $this->createClassConstReference('self');
+        $selfClassConstFetch = $this->nodeFactory->createClassConstReference('self');
         return new \PhpParser\Node\Expr\Ternary($notIdentical, $funcCall, $selfClassConstFetch);
     }
     private function shouldSkip(\PhpParser\Node\Expr\FuncCall $funcCall) : bool

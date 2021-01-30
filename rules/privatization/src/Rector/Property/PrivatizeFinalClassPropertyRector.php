@@ -54,13 +54,13 @@ CODE_SAMPLE
             return null;
         }
         if ($classLike->extends === null) {
-            $this->makePrivate($node);
+            $this->visibilityManipulator->makePrivate($node);
             return $node;
         }
         if ($this->isPropertyVisibilityGuardedByParent($node, $classLike)) {
             return null;
         }
-        $this->makePrivate($node);
+        $this->visibilityManipulator->makePrivate($node);
         return $node;
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool

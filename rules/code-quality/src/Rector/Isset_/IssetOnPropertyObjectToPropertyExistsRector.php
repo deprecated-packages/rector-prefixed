@@ -82,7 +82,7 @@ CODE_SAMPLE
                 continue;
             }
             if ($type instanceof \PHPStan\Type\ThisType) {
-                $newNodes[] = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->createNull());
+                $newNodes[] = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->nodeFactory->createNull());
                 continue;
             }
             $property = $name->toString();
@@ -91,7 +91,7 @@ CODE_SAMPLE
                 $className = $type->getClassName();
                 $isPropertyAlwaysExists = \property_exists($className, $property);
                 if ($isPropertyAlwaysExists) {
-                    $newNodes[] = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->createNull());
+                    $newNodes[] = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->nodeFactory->createNull());
                     continue;
                 }
             }
@@ -111,7 +111,7 @@ CODE_SAMPLE
     {
         $args = [new \PhpParser\Node\Arg($expr), new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_($property))];
         $propertyExistsFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('property_exists'), $args);
-        return new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($propertyExistsFuncCall, new \PhpParser\Node\Expr\BinaryOp\NotIdentical($propertyFetch, $this->createNull()));
+        return new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($propertyExistsFuncCall, new \PhpParser\Node\Expr\BinaryOp\NotIdentical($propertyFetch, $this->nodeFactory->createNull()));
     }
     /**
      * @param NotIdentical[]|BooleanAnd[] $newNodes

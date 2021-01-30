@@ -149,7 +149,7 @@ CODE_SAMPLE
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->addConstructorDependencyToClass($class, $fullyQualifiedObjectType, $expectedName->getName());
-        $propertyFetchNode = $this->createPropertyFetch('this', $expectedName->getName());
+        $propertyFetchNode = $this->nodeFactory->createPropertyFetch('this', $expectedName->getName());
         if ($funcCall->args === []) {
             return $this->refactorEmptyFuncCallArgs($argumentFuncCallToMethodCall, $propertyFetchNode);
         }
@@ -168,7 +168,7 @@ CODE_SAMPLE
     private function refactorArrayFunctionToMethodCall(\Rector\Transform\ValueObject\ArrayFuncCallToMethodCall $arrayFuncCallToMethodCall, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node
     {
         $propertyName = $this->propertyNaming->fqnToVariableName($arrayFuncCallToMethodCall->getClass());
-        $propertyFetch = $this->createPropertyFetch('this', $propertyName);
+        $propertyFetch = $this->nodeFactory->createPropertyFetch('this', $propertyName);
         $fullyQualifiedObjectType = new \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType($arrayFuncCallToMethodCall->getClass());
         $this->addConstructorDependencyToClass($class, $fullyQualifiedObjectType, $propertyName);
         return $this->createMethodCallArrayFunctionToMethodCall($funcCall, $arrayFuncCallToMethodCall, $propertyFetch);

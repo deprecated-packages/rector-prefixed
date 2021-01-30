@@ -64,7 +64,7 @@ CODE_SAMPLE
             if (!$this->isName($node->name, $parentCallToProperty->getMethod())) {
                 continue;
             }
-            $node->var = $this->createPropertyFetch('this', $parentCallToProperty->getProperty());
+            $node->var = $this->nodeFactory->createPropertyFetch('this', $parentCallToProperty->getProperty());
             return $node;
         }
         return null;

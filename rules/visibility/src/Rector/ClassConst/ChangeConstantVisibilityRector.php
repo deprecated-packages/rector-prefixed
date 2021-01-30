@@ -70,7 +70,7 @@ CODE_SAMPLE
             if (!$this->isName($node, $classConstantVisibilityChange->getConstant())) {
                 continue;
             }
-            $this->changeNodeVisibility($node, $classConstantVisibilityChange->getVisibility());
+            $this->visibilityManipulator->changeNodeVisibility($node, $classConstantVisibilityChange->getVisibility());
             return $node;
         }
         return null;

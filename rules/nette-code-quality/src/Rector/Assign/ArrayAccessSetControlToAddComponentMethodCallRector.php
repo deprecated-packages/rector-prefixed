@@ -68,7 +68,7 @@ CODE_SAMPLE
         /** @var ArrayDimFetch $arrayDimFetch */
         $arrayDimFetch = $node->var;
         $arguments = [$node->expr, $arrayDimFetch->dim];
-        $arg = $this->createArgs($arguments);
+        $arg = $this->nodeFactory->createArgs($arguments);
         return new \PhpParser\Node\Expr\MethodCall($arrayDimFetch->var, 'addComponent', $arg);
     }
     private function isAssignOfControlToPresenterDimFetch(\PhpParser\Node\Expr\Assign $assign) : bool

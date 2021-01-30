@@ -232,6 +232,14 @@ final class NodeFactory
         return $property;
     }
     /**
+     * @param mixed[] $arguments
+     */
+    public function createLocalMethodCall(string $method, array $arguments = []) : \PhpParser\Node\Expr\MethodCall
+    {
+        $variable = new \PhpParser\Node\Expr\Variable('this');
+        return $this->createMethodCall($variable, $method, $arguments);
+    }
+    /**
      * @param string|Expr $variable
      * @param mixed[] $arguments
      */
@@ -379,6 +387,16 @@ final class NodeFactory
      */
     public function createStaticCall(string $class, string $method, array $args = []) : \PhpParser\Node\Expr\StaticCall
     {
+        //
+        //        $args = $this->wrapToArg($args);
+        //
+        //        if (in_array($class, ['self', 'parent', 'static'], true)) {
+        //            $class = new Name($class);
+        //        } else {
+        //            $class = new FullyQualified($class);
+        //        }
+        //
+        //        return new StaticCall($class, $method, $args);
         $class = $this->createClassPart($class);
         $staticCall = new \PhpParser\Node\Expr\StaticCall($class, $method);
         $staticCall->args = $this->createArgs($args);
@@ -387,7 +405,7 @@ final class NodeFactory
     /**
      * @param mixed[] $arguments
      */
-    public function createFuncCall(string $name, array $arguments) : \PhpParser\Node\Expr\FuncCall
+    public function createFuncCall(string $name, array $arguments = []) : \PhpParser\Node\Expr\FuncCall
     {
         $arguments = $this->createArgs($arguments);
         return new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name($name), $arguments);

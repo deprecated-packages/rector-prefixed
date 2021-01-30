@@ -47,7 +47,7 @@ abstract class AbstractToConstructorInjectionRector extends \Rector\Core\Rector\
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->addConstructorDependencyToClass($classLike, $serviceType, $propertyName);
-        return $this->createPropertyFetch('this', $propertyName);
+        return $this->nodeFactory->createPropertyFetch('this', $propertyName);
     }
     private function getServiceTypeFromMethodCallArgument(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PHPStan\Type\Type
     {

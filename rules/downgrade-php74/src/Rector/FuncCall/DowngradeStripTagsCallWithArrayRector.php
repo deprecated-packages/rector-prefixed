@@ -148,7 +148,7 @@ CODE_SAMPLE
     private function createIsArrayTernaryFromExpression(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\Ternary
     {
         $isArrayFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('is_array'), [new \PhpParser\Node\Arg($expr)]);
-        $nullNotIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->createNull());
+        $nullNotIdentical = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr, $this->nodeFactory->createNull());
         $booleanAnd = new \PhpParser\Node\Expr\BinaryOp\BooleanAnd($nullNotIdentical, $isArrayFuncCall);
         return new \PhpParser\Node\Expr\Ternary($booleanAnd, $this->createArrayFromString($expr), $expr);
     }

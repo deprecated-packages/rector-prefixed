@@ -84,6 +84,6 @@ CODE_SAMPLE
             return null;
         }
         $this->addConstructorDependencyToClass($classLike, new \PHPStan\Type\StringType(), $propertyName);
-        return $this->createPropertyFetch('this', $propertyName);
+        return $this->nodeFactory->createPropertyFetch('this', $propertyName);
     }
 }

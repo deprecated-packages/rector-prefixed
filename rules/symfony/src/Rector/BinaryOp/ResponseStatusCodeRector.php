@@ -85,7 +85,7 @@ CODE_SAMPLE
         if (!isset(self::CODE_TO_CONST[$statusCode->value])) {
             return null;
         }
-        $classConstFetch = $this->createClassConstFetch(self::RESPONSE_CLASS, self::CODE_TO_CONST[$statusCode->value]);
+        $classConstFetch = $this->nodeFactory->createClassConstFetch(self::RESPONSE_CLASS, self::CODE_TO_CONST[$statusCode->value]);
         $methodCall->args[0] = new \PhpParser\Node\Arg($classConstFetch);
         return $methodCall;
     }
@@ -122,6 +122,6 @@ CODE_SAMPLE
         if (!isset(self::CODE_TO_CONST[$lNumber->value])) {
             return $lNumber;
         }
-        return $this->createClassConstFetch(self::RESPONSE_CLASS, self::CODE_TO_CONST[$lNumber->value]);
+        return $this->nodeFactory->createClassConstFetch(self::RESPONSE_CLASS, self::CODE_TO_CONST[$lNumber->value]);
     }
 }

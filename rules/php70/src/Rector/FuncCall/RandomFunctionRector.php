@@ -46,7 +46,7 @@ final class RandomFunctionRector extends \Rector\Core\Rector\AbstractRector
                 // special case: random_int(); → random_int(0, getrandmax());
                 if ($newFunctionName === 'random_int' && $node->args === []) {
                     $node->args[0] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\LNumber(0));
-                    $node->args[1] = new \PhpParser\Node\Arg($this->createFuncCall('mt_getrandmax'));
+                    $node->args[1] = new \PhpParser\Node\Arg($this->nodeFactory->createFuncCall('mt_getrandmax'));
                 }
                 return $node;
             }

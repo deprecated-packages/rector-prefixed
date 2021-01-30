@@ -64,7 +64,7 @@ CODE_SAMPLE
         }
         /** @var UnaryMinus $dim */
         $dim = $parentOfNextNode->dim;
-        $strlenFuncCall = $this->createFuncCall('strlen', [$string]);
+        $strlenFuncCall = $this->nodeFactory->createFuncCall('strlen', [$string]);
         $parentOfNextNode->dim = new \PhpParser\Node\Expr\BinaryOp\Minus($strlenFuncCall, $dim->expr);
         return $string;
     }
@@ -81,7 +81,7 @@ CODE_SAMPLE
         if (!$args[2]->value instanceof \PhpParser\Node\Expr\UnaryMinus) {
             return null;
         }
-        $strlenFuncCall = $this->createFuncCall('strlen', [$args[0]]);
+        $strlenFuncCall = $this->nodeFactory->createFuncCall('strlen', [$args[0]]);
         $funcCall->args[2]->value = new \PhpParser\Node\Expr\BinaryOp\Minus($strlenFuncCall, $args[2]->value->expr);
         return $funcCall;
     }

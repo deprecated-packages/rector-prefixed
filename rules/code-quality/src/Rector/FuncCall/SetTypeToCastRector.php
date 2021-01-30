@@ -93,7 +93,7 @@ CODE_SAMPLE
             return $castNode;
         }
         if ($typeNode === 'null') {
-            return new \PhpParser\Node\Expr\Assign($varNode, $this->createNull());
+            return new \PhpParser\Node\Expr\Assign($varNode, $this->nodeFactory->createNull());
         }
         return $node;
     }

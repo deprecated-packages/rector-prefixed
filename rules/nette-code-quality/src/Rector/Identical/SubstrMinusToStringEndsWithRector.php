@@ -64,7 +64,7 @@ CODE_SAMPLE
         if ($string instanceof \PhpParser\Node\Scalar\String_ && \strlen($string->value) !== $wordLength) {
             return null;
         }
-        $staticCall = $this->createStaticCall(\RectorPrefix20210130\Nette\Utils\Strings::class, 'endsWith', [$substr->args[0]->value, $string]);
+        $staticCall = $this->nodeFactory->createStaticCall(\RectorPrefix20210130\Nette\Utils\Strings::class, 'endsWith', [$substr->args[0]->value, $string]);
         if ($node instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
             return $staticCall;
         }

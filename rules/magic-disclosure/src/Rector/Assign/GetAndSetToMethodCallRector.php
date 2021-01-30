@@ -126,12 +126,12 @@ CODE_SAMPLE
     {
         /** @var Variable $variableNode */
         $variableNode = $propertyFetch->var;
-        return $this->createMethodCall($variableNode, $method, [$this->getName($propertyFetch), $expr]);
+        return $this->nodeFactory->createMethodCall($variableNode, $method, [$this->getName($propertyFetch), $expr]);
     }
     private function createMethodCallNodeFromPropertyFetchNode(\PhpParser\Node\Expr\PropertyFetch $propertyFetch, string $method) : \PhpParser\Node\Expr\MethodCall
     {
         /** @var Variable $variableNode */
         $variableNode = $propertyFetch->var;
-        return $this->createMethodCall($variableNode, $method, [$this->getName($propertyFetch)]);
+        return $this->nodeFactory->createMethodCall($variableNode, $method, [$this->getName($propertyFetch)]);
     }
 }

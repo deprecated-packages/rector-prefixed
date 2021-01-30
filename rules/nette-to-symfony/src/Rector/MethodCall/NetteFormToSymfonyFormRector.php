@@ -128,7 +128,7 @@ CODE_SAMPLE
         if (!$this->isName($new->class, 'Nette\\Application\\UI\\Form')) {
             return null;
         }
-        return $this->createMethodCall('this', 'createFormBuilder');
+        return $this->nodeFactory->createMethodCall('this', 'createFormBuilder');
     }
     private function processAddMethod(\PhpParser\Node\Expr\MethodCall $methodCall, string $method, string $classType) : void
     {
@@ -144,7 +144,7 @@ CODE_SAMPLE
         }
         $this->addChoiceTypeOptions($method, $optionsArray);
         $this->addMultiFileTypeOptions($method, $optionsArray);
-        $methodCall->args[1] = new \PhpParser\Node\Arg($this->createClassConstReference($classType));
+        $methodCall->args[1] = new \PhpParser\Node\Arg($this->nodeFactory->createClassConstReference($classType));
         if ($optionsArray->items !== []) {
             $methodCall->args[2] = new \PhpParser\Node\Arg($optionsArray);
         }
@@ -166,14 +166,14 @@ CODE_SAMPLE
         } else {
             return;
         }
-        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($expanded ? $this->createTrue() : $this->createFalse(), new \PhpParser\Node\Scalar\String_('expanded'));
-        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multiple ? $this->createTrue() : $this->createFalse(), new \PhpParser\Node\Scalar\String_('multiple'));
+        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($expanded ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('expanded'));
+        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($multiple ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse(), new \PhpParser\Node\Scalar\String_('multiple'));
     }
     private function addMultiFileTypeOptions(string $method, \PhpParser\Node\Expr\Array_ $optionsArray) : void
     {
         if ($method !== 'addMultiUpload') {
             return;
         }
-        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($this->createTrue(), new \PhpParser\Node\Scalar\String_('multiple'));
+        $optionsArray->items[] = new \PhpParser\Node\Expr\ArrayItem($this->nodeFactory->createTrue(), new \PhpParser\Node\Scalar\String_('multiple'));
     }
 }

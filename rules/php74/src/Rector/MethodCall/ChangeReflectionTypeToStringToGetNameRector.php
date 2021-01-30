@@ -89,7 +89,7 @@ CODE_SAMPLE
                 return $this->refactorIfHasReturnTypeWasCalled($node->expr);
             }
             if ($node->expr instanceof \PhpParser\Node\Expr\Variable && $this->isObjectType($node->expr, 'ReflectionType')) {
-                return $this->createMethodCall($node->expr, self::GET_NAME);
+                return $this->nodeFactory->createMethodCall($node->expr, self::GET_NAME);
             }
         }
         return null;
@@ -117,7 +117,7 @@ CODE_SAMPLE
         $callsByVariable = $this->callsByVariable[$variableName] ?? [];
         // we already know it has return type
         if (\in_array('hasReturnType', $callsByVariable, \true)) {
-            return $this->createMethodCall($methodCall, self::GET_NAME);
+            return $this->nodeFactory->createMethodCall($methodCall, self::GET_NAME);
         }
         return null;
     }
@@ -160,8 +160,8 @@ CODE_SAMPLE
     }
     private function refactorReflectionParameterGetName(\PhpParser\Node\Expr\MethodCall $methodCall) : \PhpParser\Node\Expr\Ternary
     {
-        $getNameMethodCall = $this->createMethodCall($methodCall, self::GET_NAME);
-        $ternary = new \PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->createNull());
+        $getNameMethodCall = $this->nodeFactory->createMethodCall($methodCall, self::GET_NAME);
+        $ternary = new \PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->nodeFactory->createNull());
         // to prevent looping
         $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $ternary);
         return $ternary;
@@ -179,8 +179,8 @@ CODE_SAMPLE
         if ($refactoredMethodCall !== null) {
             return $refactoredMethodCall;
         }
-        $getNameMethodCall = $this->createMethodCall($methodCall, self::GET_NAME);
-        $ternary = new \PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->createNull());
+        $getNameMethodCall = $this->nodeFactory->createMethodCall($methodCall, self::GET_NAME);
+        $ternary = new \PhpParser\Node\Expr\Ternary($methodCall, $getNameMethodCall, $this->nodeFactory->createNull());
         // to prevent looping
         $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $ternary);
         return $ternary;

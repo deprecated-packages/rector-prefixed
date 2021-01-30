@@ -7,20 +7,15 @@ use RectorPrefix20210130\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\ChangesReporting\Rector\AbstractRector\NotifyingRemovingNodeTrait;
-use Rector\FileSystemRector\Behavior\FileSystemRectorTrait;
 use Rector\PostRector\Rector\AbstractRector\NodeCommandersTrait;
 trait AbstractRectorTrait
 {
-    use FileSystemRectorTrait;
-    use PhpDocTrait;
     use RemovedAndAddedFilesTrait;
     use NodeTypeResolverTrait;
     use NameResolverTrait;
     use ConstFetchAnalyzerTrait;
     use BetterStandardPrinterTrait;
     use NodeCommandersTrait;
-    use NodeFactoryTrait;
-    use VisibilityTrait;
     use ValueResolverTrait;
     use SimpleCallableNodeTraverserTrait;
     use ComplexRemovalTrait;

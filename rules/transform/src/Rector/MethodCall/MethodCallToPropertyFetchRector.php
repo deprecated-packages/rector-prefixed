@@ -61,7 +61,7 @@ CODE_SAMPLE
             if (!$this->isName($node->name, $methodName)) {
                 continue;
             }
-            return $this->createPropertyFetch('this', $propertyName);
+            return $this->nodeFactory->createPropertyFetch('this', $propertyName);
         }
         return null;
     }
