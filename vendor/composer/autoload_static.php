@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita3c85b15e34b4cb781757ded0a022618
+class ComposerStaticInit77dde9be4ffd30be7f2485de047ba555
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -124,7 +124,6 @@ class ComposerStaticInita3c85b15e34b4cb781757ded0a022618
             'Rector\\BetterPhpDocParser\\' => 26,
             'Rector\\Autodiscovery\\' => 21,
             'Rector\\AttributeAwarePhpDoc\\' => 28,
-            'Rector\\Architecture\\' => 20,
             'RectorPrefix20210130\\Webmozart\\Assert\\' => 38,
             'RectorPrefix20210130\\Symplify\\SymplifyKernel\\' => 45,
             'RectorPrefix20210130\\Symplify\\SmartFileSystem\\' => 46,
@@ -583,10 +582,6 @@ class ComposerStaticInita3c85b15e34b4cb781757ded0a022618
         'Rector\\AttributeAwarePhpDoc\\' => 
         array (
             0 => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src',
-        ),
-        'Rector\\Architecture\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/rules/architecture/src',
         ),
         'RectorPrefix20210130\\Webmozart\\Assert\\' => 
         array (
@@ -2354,8 +2349,6 @@ class ComposerStaticInita3c85b15e34b4cb781757ded0a022618
         'RectorPrefix20210130\\ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'RectorPrefix20210130\\Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'RectorPrefix20210130\\Webmozart\\Assert\\Mixin' => __DIR__ . '/..' . '/webmozart/assert/src/Mixin.php',
-        'Rector\\Architecture\\Rector\\MethodCall\\ReplaceParentRepositoryCallsByRepositoryPropertyRector' => __DIR__ . '/../..' . '/rules/architecture/src/Rector/MethodCall/ReplaceParentRepositoryCallsByRepositoryPropertyRector.php',
-        'Rector\\Architecture\\Rector\\MethodCall\\ServiceLocatorToDIRector' => __DIR__ . '/../..' . '/rules/architecture/src/Rector/MethodCall/ServiceLocatorToDIRector.php',
         'Rector\\AttributeAwarePhpDoc\\Ast\\PhpDoc\\AttributeAwareDeprecatedTagValueNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/PhpDoc/AttributeAwareDeprecatedTagValueNode.php',
         'Rector\\AttributeAwarePhpDoc\\Ast\\PhpDoc\\AttributeAwareExtendsTagValueNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/PhpDoc/AttributeAwareExtendsTagValueNode.php',
         'Rector\\AttributeAwarePhpDoc\\Ast\\PhpDoc\\AttributeAwareGenericTagValueNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/PhpDoc/AttributeAwareGenericTagValueNode.php',
@@ -3028,6 +3021,7 @@ class ComposerStaticInita3c85b15e34b4cb781757ded0a022618
         'Rector\\DoctrineAnnotationGenerated\\DataCollector\\ResolvedConstantStaticCollector' => __DIR__ . '/../..' . '/packages/doctrine-annotation-generated/src/DataCollector/ResolvedConstantStaticCollector.php',
         'Rector\\DoctrineAnnotationGenerated\\PhpDocNode\\ConstantReferenceIdentifierRestorer' => __DIR__ . '/../..' . '/packages/doctrine-annotation-generated/src/PhpDocNode/ConstantReferenceIdentifierRestorer.php',
         'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\ConstructorAssignPropertyAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/ConstructorAssignPropertyAnalyzer.php',
+        'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\EntityObjectTypeResolver' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/EntityObjectTypeResolver.php',
         'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\SetterClassMethodAnalyzer' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeAnalyzer/SetterClassMethodAnalyzer.php',
         'Rector\\DoctrineCodeQuality\\NodeFactory\\ValueAssignFactory' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeFactory/ValueAssignFactory.php',
         'Rector\\DoctrineCodeQuality\\NodeManipulator\\ColumnDatetimePropertyManipulator' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/NodeManipulator/ColumnDatetimePropertyManipulator.php',
@@ -3048,6 +3042,7 @@ class ComposerStaticInita3c85b15e34b4cb781757ded0a022618
         'Rector\\DoctrineCodeQuality\\Rector\\Property\\CorrectDefaultTypesOnEntityPropertyRector' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/Rector/Property/CorrectDefaultTypesOnEntityPropertyRector.php',
         'Rector\\DoctrineCodeQuality\\Rector\\Property\\ImproveDoctrineCollectionDocTypeInEntityRector' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/Rector/Property/ImproveDoctrineCollectionDocTypeInEntityRector.php',
         'Rector\\DoctrineCodeQuality\\Rector\\Property\\RemoveRedundantDefaultPropertyAnnotationValuesRector' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/Rector/Property/RemoveRedundantDefaultPropertyAnnotationValuesRector.php',
+        'Rector\\DoctrineCodeQuality\\TypeAnalyzer\\TypeFinder' => __DIR__ . '/../..' . '/rules/doctrine-code-quality/src/TypeAnalyzer/TypeFinder.php',
         'Rector\\DoctrineGedmoToKnplabs\\NodeFactory\\TranslationClassNodeFactory' => __DIR__ . '/../..' . '/rules/doctrine-gedmo-to-knplabs/src/NodeFactory/TranslationClassNodeFactory.php',
         'Rector\\DoctrineGedmoToKnplabs\\Rector\\Class_\\BlameableBehaviorRector' => __DIR__ . '/../..' . '/rules/doctrine-gedmo-to-knplabs/src/Rector/Class_/BlameableBehaviorRector.php',
         'Rector\\DoctrineGedmoToKnplabs\\Rector\\Class_\\LoggableBehaviorRector' => __DIR__ . '/../..' . '/rules/doctrine-gedmo-to-knplabs/src/Rector/Class_/LoggableBehaviorRector.php',
@@ -3057,8 +3052,6 @@ class ComposerStaticInita3c85b15e34b4cb781757ded0a022618
         'Rector\\DoctrineGedmoToKnplabs\\Rector\\Class_\\TranslationBehaviorRector' => __DIR__ . '/../..' . '/rules/doctrine-gedmo-to-knplabs/src/Rector/Class_/TranslationBehaviorRector.php',
         'Rector\\DoctrineGedmoToKnplabs\\Rector\\Class_\\TreeBehaviorRector' => __DIR__ . '/../..' . '/rules/doctrine-gedmo-to-knplabs/src/Rector/Class_/TreeBehaviorRector.php',
         'Rector\\Doctrine\\Collector\\UuidMigrationDataCollector' => __DIR__ . '/../..' . '/rules/doctrine/src/Collector/UuidMigrationDataCollector.php',
-        'Rector\\Doctrine\\Contract\\Mapper\\DoctrineEntityAndRepositoryMapperInterface' => __DIR__ . '/../..' . '/rules/doctrine/src/Contract/Mapper/DoctrineEntityAndRepositoryMapperInterface.php',
-        'Rector\\Doctrine\\Mapper\\DefaultDoctrineEntityAndRepositoryMapper' => __DIR__ . '/../..' . '/rules/doctrine/src/Mapper/DefaultDoctrineEntityAndRepositoryMapper.php',
         'Rector\\Doctrine\\NodeAnalyzer\\MethodCallNameOnTypeResolver' => __DIR__ . '/../..' . '/rules/doctrine/src/NodeAnalyzer/MethodCallNameOnTypeResolver.php',
         'Rector\\Doctrine\\NodeFactory\\EntityIdNodeFactory' => __DIR__ . '/../..' . '/rules/doctrine/src/NodeFactory/EntityIdNodeFactory.php',
         'Rector\\Doctrine\\NodeFactory\\EntityUuidNodeFactory' => __DIR__ . '/../..' . '/rules/doctrine/src/NodeFactory/EntityUuidNodeFactory.php',
@@ -3082,6 +3075,7 @@ class ComposerStaticInita3c85b15e34b4cb781757ded0a022618
         'Rector\\Doctrine\\Rector\\MethodCall\\ChangeGetUuidMethodCallToGetIdRector' => __DIR__ . '/../..' . '/rules/doctrine/src/Rector/MethodCall/ChangeGetUuidMethodCallToGetIdRector.php',
         'Rector\\Doctrine\\Rector\\MethodCall\\ChangeSetIdToUuidValueRector' => __DIR__ . '/../..' . '/rules/doctrine/src/Rector/MethodCall/ChangeSetIdToUuidValueRector.php',
         'Rector\\Doctrine\\Rector\\MethodCall\\EntityAliasToClassConstantReferenceRector' => __DIR__ . '/../..' . '/rules/doctrine/src/Rector/MethodCall/EntityAliasToClassConstantReferenceRector.php',
+        'Rector\\Doctrine\\Rector\\MethodCall\\ReplaceParentRepositoryCallsByRepositoryPropertyRector' => __DIR__ . '/../..' . '/rules/doctrine/src/Rector/MethodCall/ReplaceParentRepositoryCallsByRepositoryPropertyRector.php',
         'Rector\\Doctrine\\Rector\\Property\\AddUuidAnnotationsToIdPropertyRector' => __DIR__ . '/../..' . '/rules/doctrine/src/Rector/Property/AddUuidAnnotationsToIdPropertyRector.php',
         'Rector\\Doctrine\\Rector\\Property\\RemoveTemporaryUuidColumnPropertyRector' => __DIR__ . '/../..' . '/rules/doctrine/src/Rector/Property/RemoveTemporaryUuidColumnPropertyRector.php',
         'Rector\\Doctrine\\Rector\\Property\\RemoveTemporaryUuidRelationPropertyRector' => __DIR__ . '/../..' . '/rules/doctrine/src/Rector/Property/RemoveTemporaryUuidRelationPropertyRector.php',
@@ -4193,9 +4187,9 @@ class ComposerStaticInita3c85b15e34b4cb781757ded0a022618
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita3c85b15e34b4cb781757ded0a022618::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita3c85b15e34b4cb781757ded0a022618::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita3c85b15e34b4cb781757ded0a022618::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit77dde9be4ffd30be7f2485de047ba555::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit77dde9be4ffd30be7f2485de047ba555::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit77dde9be4ffd30be7f2485de047ba555::$classMap;
 
         }, null, ClassLoader::class);
     }

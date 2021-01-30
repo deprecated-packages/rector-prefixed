@@ -101,9 +101,9 @@ trait NodeFactoryTrait
     {
         return $this->nodeFactory->createFuncCall($name, $arguments);
     }
-    protected function createClassConstReference(string $class) : \PhpParser\Node\Expr\ClassConstFetch
+    protected function createClassConstReference(string $className) : \PhpParser\Node\Expr\ClassConstFetch
     {
-        return $this->nodeFactory->createClassConstReference($class);
+        return $this->nodeFactory->createClassConstReference($className);
     }
     protected function createPropertyAssignmentWithExpr(string $propertyName, \PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr\Assign
     {

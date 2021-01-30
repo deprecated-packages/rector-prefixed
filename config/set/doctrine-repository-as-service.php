@@ -3,11 +3,10 @@
 declare (strict_types=1);
 namespace RectorPrefix20210130;
 
-use Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector;
-use Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector;
 use Rector\DeadDocBlock\Rector\ClassLike\RemoveAnnotationRector;
 use Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector;
 use Rector\Doctrine\Rector\ClassMethod\ServiceEntityRepositoryParentCallToDIRector;
+use Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector;
 use Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector;
 use Rector\Generic\Rector\Class_\AddPropertyByParentRector;
 use Rector\Generic\ValueObject\AddPropertyByParent;
@@ -26,8 +25,7 @@ return static function (\RectorPrefix20210130\Symfony\Component\DependencyInject
     # order matters, this needs to be first to correctly detect parent repository
     // covers "extends EntityRepository"
     $services->set(\Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector::class);
-    $services->set(\Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector::class);
-    $services->set(\Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector::class);
+    $services->set(\Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector::class);
     $services->set(\Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class);
     // covers "extends ServiceEntityRepository"
     // @see https://github.com/doctrine/DoctrineBundle/pull/727/files
@@ -38,5 +36,5 @@ return static function (\RectorPrefix20210130\Symfony\Component\DependencyInject
     $services->set(\Rector\Transform\Rector\MethodCall\MethodCallToPropertyFetchRector::class)->call('configure', [[\Rector\Transform\Rector\MethodCall\MethodCallToPropertyFetchRector::METHOD_CALL_TO_PROPERTY_FETCHES => ['getEntityManager' => 'entityManager']]]);
     $services->set(\Rector\Removing\Rector\Class_\RemoveParentRector::class)->call('configure', [[\Rector\Removing\Rector\Class_\RemoveParentRector::PARENT_TYPES_TO_REMOVE => ['Doctrine\\Bundle\\DoctrineBundle\\Repository\\ServiceEntityRepository']]]);
     $services->set(\Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class);
-    $services->set(\Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector::class);
+    $services->set(\Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector::class);
 };

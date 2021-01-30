@@ -105,7 +105,6 @@ return array(
     'Rector\\BetterPhpDocParser\\' => array($baseDir . '/packages/better-php-doc-parser/src'),
     'Rector\\Autodiscovery\\' => array($baseDir . '/rules/autodiscovery/src'),
     'Rector\\AttributeAwarePhpDoc\\' => array($baseDir . '/packages/attribute-aware-php-doc/src'),
-    'Rector\\Architecture\\' => array($baseDir . '/rules/architecture/src'),
     'RectorPrefix20210130\\Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'RectorPrefix20210130\\Symplify\\SymplifyKernel\\' => array($vendorDir . '/symplify/symplify-kernel/src'),
     'RectorPrefix20210130\\Symplify\\SmartFileSystem\\' => array($vendorDir . '/symplify/smart-file-system/src'),

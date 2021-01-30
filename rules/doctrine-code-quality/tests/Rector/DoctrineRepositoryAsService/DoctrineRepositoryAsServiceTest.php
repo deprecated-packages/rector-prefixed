@@ -4,16 +4,15 @@ declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService;
 
 use Iterator;
-use Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector;
-use Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector;
 use Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector;
+use Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector;
 use Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
 /**
- * @see \Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector
+ * @see \Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector
  * @see \Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector
- * @see \Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector
+ * @see \Rector\Doctrine\Rector\MethodCall\EntityRepositoryServiceLocatorToDIRector
  */
 final class DoctrineRepositoryAsServiceTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -36,8 +35,7 @@ final class DoctrineRepositoryAsServiceTest extends \Rector\Testing\PHPUnit\Abst
         return [
             # order matters, this needs to be first to correctly detect parent repository
             \Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector::class => [],
-            \Rector\Architecture\Rector\MethodCall\ServiceLocatorToDIRector::class => [],
-            \Rector\Architecture\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector::class => [],
+            \Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector::class => [],
             \Rector\Doctrine\Rector\Class_\RemoveRepositoryFromEntityAnnotationRector::class => [],
         ];
     }

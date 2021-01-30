@@ -15,6 +15,10 @@ final class EntityTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Ph
     {
         $this->items[self::REPOSITORY_CLASS] = null;
     }
+    public function hasRepositoryClass() : bool
+    {
+        return $this->items[self::REPOSITORY_CLASS] !== null;
+    }
     public function getShortName() : string
     {
         return '@ORM\\Entity';

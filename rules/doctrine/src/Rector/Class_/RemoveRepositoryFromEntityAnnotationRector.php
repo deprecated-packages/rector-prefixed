@@ -55,6 +55,9 @@ CODE_SAMPLE
         if (!$entityTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode) {
             return null;
         }
+        if (!$entityTagValueNode->hasRepositoryClass()) {
+            return null;
+        }
         $entityTagValueNode->removeRepositoryClass();
         $phpDocInfo->markAsChanged();
         return $node;

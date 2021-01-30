@@ -25,7 +25,7 @@ final class EntityAliasToClassConstantReferenceRector extends \Rector\Core\Recto
      * @api
      * @var string
      */
-    public const ALIASES_TO_NAMESPACES = '$aliasesToNamespaces';
+    public const ALIASES_TO_NAMESPACES = 'aliases_to_namespaces';
     /**
      * @var string[]
      */
