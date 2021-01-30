@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\PhpAttribute\Contract;
 
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
-interface PhpAttributableTagNodeInterface extends \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
+use PHPStan\PhpDocParser\Ast\Node;
+interface PhpAttributableTagNodeInterface extends \PHPStan\PhpDocParser\Ast\Node
 {
     public function getShortName() : string;
     public function getAttributeClassName() : string;

@@ -3,11 +3,20 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocNodeFactory;
 
+use Doctrine\ORM\Mapping\Annotation;
+use Doctrine\ORM\Mapping\Embedded;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OneToOne;
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
-use Rector\BetterPhpDocParser\Contract\GenericPhpDocNodeFactoryInterface;
+use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\AbstractTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddableTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddedTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EntityTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\InheritanceTypeTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
@@ -15,6 +24,10 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\CustomId
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\GeneratedValueTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\BlameableTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\LocaleTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\LoggableTagValueNode;
@@ -40,10 +53,10 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constrain
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertEmailTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertRangeTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\Validator\Constraints\AssertTypeTagValueNode;
-final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\GenericPhpDocNodeFactoryInterface
+final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNodeFactory\AbstractPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\PhpDocNodeFactoryInterface
 {
     /**
-     * @return array<string, string>
+     * @return array<class-string<AbstractTagValueNode>, class-string<Annotation>>
      */
     public function getTagValueNodeClassesToAnnotationClasses() : array
     {
@@ -88,18 +101,43 @@ final class MultiPhpDocNodeFactory extends \Rector\BetterPhpDocParser\PhpDocNode
             \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSServiceValueNode::class => 'JMS\\DiExtraBundle\\Annotation\\Service',
             \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode::class => 'JMS\\Serializer\\Annotation\\Type',
             \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class => 'DI\\Annotation\\Inject',
+            // Doctrine
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode::class => 'Doctrine\\ORM\\Mapping\\OneToOne',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToManyTagValueNode::class => 'Doctrine\\ORM\\Mapping\\OneToMany',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToManyTagValueNode::class => 'Doctrine\\ORM\\Mapping\\ManyToMany',
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ManyToOneTagValueNode::class => 'Doctrine\\ORM\\Mapping\\ManyToOne',
+            // @todo cover with reflection / services to avoid forgetting registering it?
+            \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\EmbeddedTagValueNode::class => 'Doctrine\\ORM\\Mapping\\Embedded',
         ];
     }
     public function createFromNodeAndTokens(\PhpParser\Node $node, \PHPStan\PhpDocParser\Parser\TokenIterator $tokenIterator, string $annotationClass) : ?\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
     {
-        $tagValueNodeClassesToAnnotationClasses = $this->getTagValueNodeClassesToAnnotationClasses();
-        $tagValueNodeClass = \array_search($annotationClass, $tagValueNodeClassesToAnnotationClasses, \true);
         $annotation = $this->nodeAnnotationReader->readAnnotation($node, $annotationClass);
         if ($annotation === null) {
             return null;
         }
+        $tagValueNodeClassesToAnnotationClasses = $this->getTagValueNodeClassesToAnnotationClasses();
+        $tagValueNodeClass = \array_search($annotationClass, $tagValueNodeClassesToAnnotationClasses, \true);
+        if ($tagValueNodeClass === \false) {
+            return null;
+        }
         $items = $this->annotationItemsResolver->resolve($annotation);
         $content = $this->annotationContentResolver->resolveFromTokenIterator($tokenIterator);
+        if (\is_a($tagValueNodeClass, \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface::class, \true)) {
+            /** @var ManyToOne|OneToMany|ManyToMany|OneToOne|Embedded $annotation */
+            $fullyQualifiedTargetEntity = $this->resolveEntityClass($annotation, $node);
+            return new $tagValueNodeClass($items, $content, $fullyQualifiedTargetEntity);
+        }
         return new $tagValueNodeClass($items, $content);
+    }
+    /**
+     * @param ManyToOne|OneToMany|ManyToMany|OneToOne|Embedded $annotation
+     */
+    private function resolveEntityClass(object $annotation, \PhpParser\Node $node) : string
+    {
+        if ($annotation instanceof \Doctrine\ORM\Mapping\Embedded) {
+            return $this->resolveFqnTargetEntity($annotation->class, $node);
+        }
+        return $this->resolveFqnTargetEntity($annotation->targetEntity, $node);
     }
 }

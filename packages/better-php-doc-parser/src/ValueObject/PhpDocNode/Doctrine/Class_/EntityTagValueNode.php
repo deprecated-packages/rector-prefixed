@@ -5,6 +5,7 @@ namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_;
 
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
 use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
+use Rector\PhpAttribute\Printer\PhpAttributeGroupFactory;
 final class EntityTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
 {
     /**
@@ -32,6 +33,6 @@ final class EntityTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\Ph
     }
     public function getAttributeClassName() : string
     {
-        return 'TBA';
+        return \Rector\PhpAttribute\Printer\PhpAttributeGroupFactory::TO_BE_ANNOUNCED;
     }
 }

@@ -7,6 +7,8 @@ use RectorPrefix20210130\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
@@ -132,7 +134,10 @@ CODE_SAMPLE
             return \true;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        return $phpDocInfo->hasByNames([\Rector\PhpAttribute\ValueObject\TagName::API, \Rector\PhpAttribute\ValueObject\TagName::REQUIRED]);
+        if ($phpDocInfo->hasByType(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode::class)) {
+            return \true;
+        }
+        return $phpDocInfo->hasByName(\Rector\PhpAttribute\ValueObject\TagName::API);
     }
     private function shouldSkipClassLike(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
@@ -161,7 +166,7 @@ CODE_SAMPLE
             return \true;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        return $phpDocInfo->hasByName(\Rector\PhpAttribute\ValueObject\TagName::INJECT);
+        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class);
     }
     private function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {

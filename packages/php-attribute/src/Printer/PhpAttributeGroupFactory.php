@@ -12,12 +12,15 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use Rector\PhpAttribute\Contract\ManyPhpAttributableTagNodeInterface;
 use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
-final class PhpAttributteGroupFactory
+final class PhpAttributeGroupFactory
 {
     /**
+     * A dummy placeholder for annotation, that we know will be converted to attributes,
+     * but don't have specific attribute class yet.
+     *
      * @var string
      */
-    public const TBA = 'TBA';
+    public const TO_BE_ANNOUNCED = 'TBA';
     /**
      * @param PhpAttributableTagNodeInterface[] $phpAttributableTagNodes
      * @return AttributeGroup[]
@@ -85,7 +88,7 @@ final class PhpAttributteGroupFactory
     }
     private function resolveAttributeClassName(\Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface $phpAttributableTagNode) : \PhpParser\Node\Name
     {
-        if ($phpAttributableTagNode->getAttributeClassName() !== self::TBA) {
+        if ($phpAttributableTagNode->getAttributeClassName() !== self::TO_BE_ANNOUNCED) {
             return new \PhpParser\Node\Name\FullyQualified($phpAttributableTagNode->getAttributeClassName());
         }
         return new \PhpParser\Node\Name($phpAttributableTagNode->getShortName());

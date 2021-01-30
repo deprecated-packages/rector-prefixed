@@ -44,6 +44,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\NotImplementedException;
 use Rector\Core\Php\PhpVersionProvider;
@@ -51,7 +52,6 @@ use Rector\Core\ValueObject\MethodName;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpAttribute\ValueObject\TagName;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use RectorPrefix20210130\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
@@ -219,7 +219,7 @@ final class NodeFactory
         $this->decorateParentPropertyProperty($property);
         // add @inject
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $phpDocInfo->addBareTag(\Rector\PhpAttribute\ValueObject\TagName::INJECT);
+        $phpDocInfo->addPhpDocTagNode(new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode());
         return $property;
     }
     public function createPrivatePropertyFromNameAndType(string $name, ?\PHPStan\Type\Type $type) : \PhpParser\Node\Stmt\Property

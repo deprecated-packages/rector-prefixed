@@ -7,13 +7,12 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Property;
-use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\FamilyTree\NodeAnalyzer\ClassChildAnalyzer;
 use Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpAttribute\ValueObject\TagName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -35,19 +34,14 @@ final class AnnotatedPropertyInjectToConstructorInjectionRector extends \Rector\
      * @var ClassChildAnalyzer
      */
     private $classChildAnalyzer;
-    /**
-     * @var PhpDocTagRemover
-     */
-    private $phpDocTagRemover;
-    public function __construct(\Rector\FamilyTree\NodeAnalyzer\ClassChildAnalyzer $classChildAnalyzer, \Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
+    public function __construct(\Rector\FamilyTree\NodeAnalyzer\ClassChildAnalyzer $classChildAnalyzer, \Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer)
     {
         $this->propertyUsageAnalyzer = $propertyUsageAnalyzer;
         $this->classChildAnalyzer = $classChildAnalyzer;
-        $this->phpDocTagRemover = $phpDocTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns non-private properties with `@annotation` to private properties and constructor injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns non-private properties with `@inject` to private properties and constructor injection', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 /**
  * @var SomeService
  * @inject
@@ -83,7 +77,7 @@ CODE_SAMPLE
             return null;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $this->phpDocTagRemover->removeByName($phpDocInfo, \Rector\PhpAttribute\ValueObject\TagName::INJECT);
+        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class);
         if ($this->propertyUsageAnalyzer->isPropertyFetchedInChildClass($node)) {
             $this->makeProtected($node);
         } else {
@@ -99,7 +93,7 @@ CODE_SAMPLE
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        if (!$phpDocInfo->hasByName(\Rector\PhpAttribute\ValueObject\TagName::INJECT)) {
+        if (!$phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class)) {
             return \true;
         }
         $classLike = $property->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);

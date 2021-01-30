@@ -70,11 +70,8 @@ CODE_SAMPLE
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         foreach ($this->annotationsToRemove as $annotationToRemove) {
-            if ($phpDocInfo->hasByName($annotationToRemove)) {
-                $this->phpDocTagRemover->removeByName($phpDocInfo, $annotationToRemove);
-                continue;
-            }
-            if (\is_a($annotationToRemove, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \true) && $phpDocInfo->hasByType($annotationToRemove)) {
+            $this->phpDocTagRemover->removeByName($phpDocInfo, $annotationToRemove);
+            if (\is_a($annotationToRemove, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode::class, \true)) {
                 $phpDocInfo->removeByType($annotationToRemove);
             }
         }

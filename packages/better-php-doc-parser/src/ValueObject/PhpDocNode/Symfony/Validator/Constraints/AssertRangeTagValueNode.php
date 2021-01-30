@@ -22,6 +22,6 @@ final class AssertRangeTagValueNode extends \Rector\BetterPhpDocParser\ValueObje
     }
     public function getAttributeClassName() : string
     {
-        return 'TBA';
+        return 'Symfony\\Component\\Validator\\Constraints\\Range';
     }
 }

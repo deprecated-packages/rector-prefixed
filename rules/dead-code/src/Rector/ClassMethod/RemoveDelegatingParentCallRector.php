@@ -10,10 +10,10 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
+use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Comparator\CurrentAndParentClassMethodComparator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpAttribute\ValueObject\TagName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -120,6 +120,6 @@ CODE_SAMPLE
     private function hasRequiredAnnotation(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        return $phpDocInfo->hasByName(\Rector\PhpAttribute\ValueObject\TagName::REQUIRED);
+        return $phpDocInfo->hasByType(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode::class);
     }
 }

@@ -6,6 +6,7 @@ namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\SilentKeyNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
 use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
+use Rector\PhpAttribute\Printer\PhpAttributeGroupFactory;
 /**
  * @see \Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\TagValueNodeReprintTest
  */
@@ -21,6 +22,6 @@ final class GeneratedValueTagValueNode extends \Rector\BetterPhpDocParser\ValueO
     }
     public function getAttributeClassName() : string
     {
-        return 'TBA';
+        return \Rector\PhpAttribute\Printer\PhpAttributeGroupFactory::TO_BE_ANNOUNCED;
     }
 }

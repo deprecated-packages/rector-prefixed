@@ -6,6 +6,7 @@ namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
 use Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface;
+use Rector\PhpAttribute\Printer\PhpAttributeGroupFactory;
 final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\PhpDocNode\TagAwareNodeInterface, \Rector\PhpAttribute\Contract\PhpAttributableTagNodeInterface
 {
     /**
@@ -43,6 +44,6 @@ final class JoinColumnTagValueNode extends \Rector\BetterPhpDocParser\ValueObjec
     }
     public function getAttributeClassName() : string
     {
-        return 'TBA';
+        return \Rector\PhpAttribute\Printer\PhpAttributeGroupFactory::TO_BE_ANNOUNCED;
     }
 }

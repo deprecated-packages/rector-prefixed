@@ -145,8 +145,8 @@ CODE_SAMPLE
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($callee);
         foreach ($this->throwablesToAnnotate as $throwableToAnnotate) {
-            $docComment = $this->throwsFactory->crateDocTagNodeFromClass($throwableToAnnotate);
-            $phpDocInfo->addPhpDocTagNode($docComment);
+            $phpDocTagNode = $this->throwsFactory->crateDocTagNodeFromClass($throwableToAnnotate);
+            $phpDocInfo->addPhpDocTagNode($phpDocTagNode);
         }
     }
     private function analyzeStmtThrow(\PhpParser\Node\Stmt\Throw_ $throw) : int

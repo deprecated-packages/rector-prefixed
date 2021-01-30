@@ -12,7 +12,6 @@ use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInte
 use Rector\BetterPhpDocParser\Contract\Doctrine\ToManyTagNodeInterface;
 use Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\OneToOneTagValueNode;
 use Rector\Core\Rector\AbstractRector;
@@ -38,18 +37,13 @@ final class AddUuidMirrorForRelationPropertyRector extends \Rector\Core\Rector\A
      */
     private $uuidMigrationDataCollector;
     /**
-     * @var PhpDocTagRemover
-     */
-    private $phpDocTagRemover;
-    /**
      * @var DoctrineDocBlockResolver
      */
     private $doctrineDocBlockResolver;
-    public function __construct(\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
+    public function __construct(\Rector\Doctrine\PhpDocParser\Ast\PhpDoc\PhpDocTagNodeFactory $phpDocTagNodeFactory, \Rector\Doctrine\Collector\UuidMigrationDataCollector $uuidMigrationDataCollector, \Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver)
     {
         $this->phpDocTagNodeFactory = $phpDocTagNodeFactory;
         $this->uuidMigrationDataCollector = $uuidMigrationDataCollector;
-        $this->phpDocTagRemover = $phpDocTagRemover;
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -225,11 +219,8 @@ CODE_SAMPLE
     }
     private function refactorToManyPropertyPhpDocInfo(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PhpParser\Node\Stmt\Property $property) : void
     {
-        $doctrineJoinColumnTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
-        if ($doctrineJoinColumnTagValueNode !== null) {
-            // replace @ORM\JoinColumn with @ORM\JoinTable
-            $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineJoinColumnTagValueNode);
-        }
+        // replace @ORM\JoinColumn with @ORM\JoinTable
+        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\JoinColumnTagValueNode::class);
         $joinTableTagNode = $this->phpDocTagNodeFactory->createJoinTableTagNode($property);
         $phpDocInfo->addPhpDocTagNode($joinTableTagNode);
     }

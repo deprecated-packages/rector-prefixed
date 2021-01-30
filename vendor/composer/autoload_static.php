@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit77dde9be4ffd30be7f2485de047ba555
+class ComposerStaticInit58b205f1787c0a6cb05ea092c4b582c9
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2368,7 +2368,7 @@ class ComposerStaticInit77dde9be4ffd30be7f2485de047ba555
         'Rector\\AttributeAwarePhpDoc\\Ast\\PhpDoc\\AttributeAwareUsesTagValueNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/PhpDoc/AttributeAwareUsesTagValueNode.php',
         'Rector\\AttributeAwarePhpDoc\\Ast\\PhpDoc\\AttributeAwareVarTagValueNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/PhpDoc/AttributeAwareVarTagValueNode.php',
         'Rector\\AttributeAwarePhpDoc\\Ast\\PhpDoc\\DataProviderTagValueNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/PhpDoc/DataProviderTagValueNode.php',
-        'Rector\\AttributeAwarePhpDoc\\Ast\\PhpDoc\\RequiredTagValueNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/PhpDoc/RequiredTagValueNode.php',
+        'Rector\\AttributeAwarePhpDoc\\Ast\\PhpDoc\\SymfonyRequiredTagNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/PhpDoc/SymfonyRequiredTagNode.php',
         'Rector\\AttributeAwarePhpDoc\\Ast\\Type\\AttributeAwareArrayShapeItemNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/Type/AttributeAwareArrayShapeItemNode.php',
         'Rector\\AttributeAwarePhpDoc\\Ast\\Type\\AttributeAwareArrayShapeNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/Type/AttributeAwareArrayShapeNode.php',
         'Rector\\AttributeAwarePhpDoc\\Ast\\Type\\AttributeAwareArrayTypeNode' => __DIR__ . '/../..' . '/packages/attribute-aware-php-doc/src/Ast/Type/AttributeAwareArrayTypeNode.php',
@@ -2438,14 +2438,15 @@ class ComposerStaticInit77dde9be4ffd30be7f2485de047ba555
         'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\MappedByNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/Doctrine/MappedByNodeInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\ToManyTagNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/Doctrine/ToManyTagNodeInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\ToOneTagNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/Doctrine/ToOneTagNodeInterface.php',
-        'Rector\\BetterPhpDocParser\\Contract\\GenericPhpDocNodeFactoryInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/GenericPhpDocNodeFactoryInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNodeFactoryInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNodeFactoryInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\AttributeAwareNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/AttributeAwareNodeInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\ShortNameAwareTagInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/ShortNameAwareTagInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\SilentKeyNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/SilentKeyNodeInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\TagAwareNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/TagAwareNodeInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\TypeAwareTagValueNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/TypeAwareTagValueNodeInterface.php',
+        'Rector\\BetterPhpDocParser\\Contract\\PhpDocParserAwareInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocParserAwareInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\SpecificPhpDocNodeFactoryInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/SpecificPhpDocNodeFactoryInterface.php',
+        'Rector\\BetterPhpDocParser\\Contract\\StringTagMatchingPhpDocNodeFactoryInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/StringTagMatchingPhpDocNodeFactoryInterface.php',
         'Rector\\BetterPhpDocParser\\PartPhpDocTagPrinter\\Behavior\\ArrayPartPhpDocTagPrinterTrait' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PartPhpDocTagPrinter/Behavior/ArrayPartPhpDocTagPrinterTrait.php',
         'Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfo' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocInfo/PhpDocInfo.php',
         'Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfoFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocInfo/PhpDocInfoFactory.php',
@@ -2458,12 +2459,14 @@ class ComposerStaticInit77dde9be4ffd30be7f2485de047ba555
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\Doctrine\\Class_\\IndexPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/Doctrine/Class_/IndexPhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\Doctrine\\Class_\\TablePhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/Doctrine/Class_/TablePhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\Doctrine\\Class_\\UniqueConstraintPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/Doctrine/Class_/UniqueConstraintPhpDocNodeFactory.php',
-        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\Doctrine\\Property_\\DoctrineEmbeddedPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/Doctrine/Property_/DoctrineEmbeddedPhpDocNodeFactory.php',
-        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\Doctrine\\Property_\\DoctrineTargetEntityPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/Doctrine/Property_/DoctrineTargetEntityPhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\Doctrine\\Property_\\JoinTablePhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/Doctrine/Property_/JoinTablePhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\JMS\\JMSInjectPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/JMS/JMSInjectPhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\MultiPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/MultiPhpDocNodeFactory.php',
-        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\PHPUnitDataProviderDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/PHPUnitDataProviderDocNodeFactory.php',
+        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\NetteCrossOriginPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/NetteCrossOriginPhpDocNodeFactory.php',
+        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\NetteInjectPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/NetteInjectPhpDocNodeFactory.php',
+        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\NettePersistentPhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/NettePersistentPhpDocNodeFactory.php',
+        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\PHPUnitDataProviderDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/PHPUnitDataProviderDocNodeFactory.php',
+        'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\SymfonyRequirePhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/SymfonyRequirePhpDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNode\\PrintTagValueNodeTrait' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNode/PrintTagValueNodeTrait.php',
         'Rector\\BetterPhpDocParser\\PhpDocParser\\AnnotationContentResolver' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocParser/AnnotationContentResolver.php',
         'Rector\\BetterPhpDocParser\\PhpDocParser\\BetterPhpDocParser' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocParser/BetterPhpDocParser.php',
@@ -2515,7 +2518,11 @@ class ComposerStaticInit77dde9be4ffd30be7f2485de047ba555
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\JMS\\JMSInjectTagValueNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/JMS/JMSInjectTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\JMS\\JMSServiceValueNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/JMS/JMSServiceValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\JMS\\SerializerTypeTagValueNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/JMS/SerializerTypeTagValueNode.php',
+        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Nette\\NetteCrossOriginTagNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/Nette/NetteCrossOriginTagNode.php',
+        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Nette\\NetteInjectTagNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/Nette/NetteInjectTagNode.php',
+        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Nette\\NettePersistentTagNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/Nette/NettePersistentTagNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\PHPDI\\PHPDIInjectTagValueNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/PHPDI/PHPDIInjectTagValueNode.php',
+        'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\PHPUnit\\PHPUnitDataProviderTagValueNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/PHPUnit/PHPUnitDataProviderTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Sensio\\SensioMethodTagValueNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/Sensio/SensioMethodTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Sensio\\SensioRouteTagValueNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/Sensio/SensioRouteTagValueNode.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\Sensio\\SensioTemplateTagValueNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/Sensio/SensioTemplateTagValueNode.php',
@@ -3722,7 +3729,7 @@ class ComposerStaticInit77dde9be4ffd30be7f2485de047ba555
         'Rector\\PhpAttribute\\AnnotationToAttributeConverter' => __DIR__ . '/../..' . '/packages/php-attribute/src/AnnotationToAttributeConverter.php',
         'Rector\\PhpAttribute\\Contract\\ManyPhpAttributableTagNodeInterface' => __DIR__ . '/../..' . '/packages/php-attribute/src/Contract/ManyPhpAttributableTagNodeInterface.php',
         'Rector\\PhpAttribute\\Contract\\PhpAttributableTagNodeInterface' => __DIR__ . '/../..' . '/packages/php-attribute/src/Contract/PhpAttributableTagNodeInterface.php',
-        'Rector\\PhpAttribute\\Printer\\PhpAttributteGroupFactory' => __DIR__ . '/../..' . '/packages/php-attribute/src/Printer/PhpAttributteGroupFactory.php',
+        'Rector\\PhpAttribute\\Printer\\PhpAttributeGroupFactory' => __DIR__ . '/../..' . '/packages/php-attribute/src/Printer/PhpAttributeGroupFactory.php',
         'Rector\\PhpAttribute\\ValueObject\\TagName' => __DIR__ . '/../..' . '/packages/php-attribute/src/ValueObject/TagName.php',
         'Rector\\PhpSpecToPHPUnit\\LetManipulator' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/LetManipulator.php',
         'Rector\\PhpSpecToPHPUnit\\MatchersManipulator' => __DIR__ . '/../..' . '/rules/php-spec-to-phpunit/src/MatchersManipulator.php',
@@ -4187,9 +4194,9 @@ class ComposerStaticInit77dde9be4ffd30be7f2485de047ba555
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit77dde9be4ffd30be7f2485de047ba555::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit77dde9be4ffd30be7f2485de047ba555::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit77dde9be4ffd30be7f2485de047ba555::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit58b205f1787c0a6cb05ea092c4b582c9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit58b205f1787c0a6cb05ea092c4b582c9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit58b205f1787c0a6cb05ea092c4b582c9::$classMap;
 
         }, null, ClassLoader::class);
     }

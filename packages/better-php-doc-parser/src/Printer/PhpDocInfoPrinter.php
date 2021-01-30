@@ -13,7 +13,6 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocNode;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
 use Rector\BetterPhpDocParser\Attributes\Attribute\Attribute;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
@@ -233,7 +232,6 @@ final class PhpDocInfoPrinter
         if ($nodeOutput && $tagSpaceSeparator !== '') {
             $output .= $tagSpaceSeparator;
         }
-        /** @var AttributeAwarePhpDocTagNode $phpDocTagNode */
         if ($this->hasDescription($phpDocTagNode)) {
             $quotedDescription = \preg_quote($phpDocTagNode->value->description, '#');
             $pattern = \RectorPrefix20210130\Nette\Utils\Strings::replace($quotedDescription, '#[\\s]+#', '\\s+');
@@ -306,16 +304,19 @@ final class PhpDocInfoPrinter
         }
         return '';
     }
-    private function hasDescription(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode $attributeAwarePhpDocTagNode) : bool
+    /**
+     * @param AttributeAwareNodeInterface&PhpDocTagNode $phpDocTagNode
+     */
+    private function hasDescription(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode $phpDocTagNode) : bool
     {
-        $hasDescriptionWithOriginalSpaces = $attributeAwarePhpDocTagNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::HAS_DESCRIPTION_WITH_ORIGINAL_SPACES);
+        $hasDescriptionWithOriginalSpaces = $phpDocTagNode->getAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::HAS_DESCRIPTION_WITH_ORIGINAL_SPACES);
         if (!$hasDescriptionWithOriginalSpaces) {
             return \false;
         }
-        if (!\property_exists($attributeAwarePhpDocTagNode->value, 'description')) {
+        if (!\property_exists($phpDocTagNode->value, 'description')) {
             return \false;
         }
-        return (bool) $attributeAwarePhpDocTagNode->value->description;
+        return (bool) $phpDocTagNode->value->description;
     }
     private function explodeAndImplode(string $content, string $explodeChar, string $implodeChar) : string
     {

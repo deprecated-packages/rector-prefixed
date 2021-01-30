@@ -3,8 +3,9 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_;
 
+use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
-final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode
+final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface
 {
     /**
      * @var string
@@ -19,16 +20,20 @@ final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
     {
         return '@ORM\\Embedded';
     }
-    public function getClass() : string
-    {
-        return $this->items['class'];
-    }
-    public function getFullyQualifiedClassName() : string
-    {
-        return $this->fullyQualifiedClassName;
-    }
     public function getColumnPrefix() : ?string
     {
         return $this->items['columnPrefix'];
+    }
+    public function getTargetEntity() : ?string
+    {
+        return $this->items['class'];
+    }
+    public function getFullyQualifiedTargetEntity() : string
+    {
+        return $this->fullyQualifiedClassName;
+    }
+    public function changeTargetEntity(string $targetEntity) : void
+    {
+        $this->items['class'] = $targetEntity;
     }
 }

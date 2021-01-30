@@ -7,12 +7,11 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
-use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer;
-use Rector\PhpAttribute\ValueObject\TagName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -26,14 +25,9 @@ final class MoveInjectToExistingConstructorRector extends \Rector\Core\Rector\Ab
      * @var PropertyUsageAnalyzer
      */
     private $propertyUsageAnalyzer;
-    /**
-     * @var PhpDocTagRemover
-     */
-    private $phpDocTagRemover;
-    public function __construct(\Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover $phpDocTagRemover)
+    public function __construct(\Rector\FamilyTree\NodeAnalyzer\PropertyUsageAnalyzer $propertyUsageAnalyzer)
     {
         $this->propertyUsageAnalyzer = $propertyUsageAnalyzer;
-        $this->phpDocTagRemover = $phpDocTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -121,7 +115,7 @@ CODE_SAMPLE
     private function removeInjectAnnotation(\PhpParser\Node\Stmt\Property $property) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        $this->phpDocTagRemover->removeByName($phpDocInfo, \Rector\PhpAttribute\ValueObject\TagName::INJECT);
+        $phpDocInfo->removeByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class);
     }
     private function changePropertyVisibility(\PhpParser\Node\Stmt\Property $injectProperty) : void
     {
@@ -137,6 +131,6 @@ CODE_SAMPLE
             return \false;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-        return $phpDocInfo->hasByName(\Rector\PhpAttribute\ValueObject\TagName::INJECT);
+        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode::class);
     }
 }

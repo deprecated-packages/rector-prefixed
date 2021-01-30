@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\PhpDocManipulator;
 
+use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 final class PhpDocTagRemover
 {
@@ -22,14 +22,19 @@ final class PhpDocTagRemover
             $phpDocInfo->markAsChanged();
         }
     }
-    public function removeTagValueFromNode(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : void
+    public function removeTagValueFromNode(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo $phpDocInfo, \PHPStan\PhpDocParser\Ast\Node $desiredNode) : void
     {
         $attributeAwarePhpDocNode = $phpDocInfo->getPhpDocNode();
         foreach ($attributeAwarePhpDocNode->children as $key => $phpDocChildNode) {
+            if ($phpDocChildNode === $desiredNode) {
+                unset($attributeAwarePhpDocNode->children[$key]);
+                $phpDocInfo->markAsChanged();
+                continue;
+            }
             if (!$phpDocChildNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode) {
                 continue;
             }
-            if ($phpDocChildNode->value !== $phpDocTagValueNode) {
+            if ($phpDocChildNode->value !== $desiredNode) {
                 continue;
             }
             unset($attributeAwarePhpDocNode->children[$key]);

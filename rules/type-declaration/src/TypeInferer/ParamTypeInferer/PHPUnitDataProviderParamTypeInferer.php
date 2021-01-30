@@ -12,9 +12,9 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -70,15 +70,15 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
     private function resolveDataProviderClassMethod(\PhpParser\Node\Param $param) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $phpDocInfo = $this->getFunctionLikePhpDocInfo($param);
-        $attributeAwareDataProviderTagValueNode = $phpDocInfo->getByType(\Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode::class);
-        if (!$attributeAwareDataProviderTagValueNode instanceof \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\DataProviderTagValueNode) {
+        $phpUnitDataProviderTagValueNode = $phpDocInfo->getByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode::class);
+        if (!$phpUnitDataProviderTagValueNode instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDataProviderTagValueNode) {
             return null;
         }
         $classLike = $param->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        return $classLike->getMethod($attributeAwareDataProviderTagValueNode->getMethodName());
+        return $classLike->getMethod($phpUnitDataProviderTagValueNode->getMethodName());
     }
     /**
      * @param Return_[] $returns
