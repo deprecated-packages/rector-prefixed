@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210129\Symplify\ConsolePackageBuilder\Tests\HttpKernel;
+namespace RectorPrefix20210130\Symplify\ConsolePackageBuilder\Tests\HttpKernel;
 
-use RectorPrefix20210129\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix20210129\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use RectorPrefix20210129\Symfony\Component\HttpKernel\Kernel;
-use RectorPrefix20210129\Symplify\ConsolePackageBuilder\Bundle\NamelessConsoleCommandBundle;
-use RectorPrefix20210129\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-final class ConsolePackageBuilderKernel extends \RectorPrefix20210129\Symfony\Component\HttpKernel\Kernel implements \RectorPrefix20210129\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
+use RectorPrefix20210130\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20210130\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use RectorPrefix20210130\Symfony\Component\HttpKernel\Kernel;
+use RectorPrefix20210130\Symplify\ConsolePackageBuilder\Bundle\NamelessConsoleCommandBundle;
+use RectorPrefix20210130\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
+final class ConsolePackageBuilderKernel extends \RectorPrefix20210130\Symfony\Component\HttpKernel\Kernel implements \RectorPrefix20210130\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
 {
     /**
      * @var string[]
@@ -19,9 +19,9 @@ final class ConsolePackageBuilderKernel extends \RectorPrefix20210129\Symfony\Co
      */
     public function registerBundles() : iterable
     {
-        return [new \RectorPrefix20210129\Symplify\ConsolePackageBuilder\Bundle\NamelessConsoleCommandBundle()];
+        return [new \RectorPrefix20210130\Symplify\ConsolePackageBuilder\Bundle\NamelessConsoleCommandBundle()];
     }
-    public function registerContainerConfiguration(\RectorPrefix20210129\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20210130\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         foreach ($this->configs as $config) {
             $loader->load($config);

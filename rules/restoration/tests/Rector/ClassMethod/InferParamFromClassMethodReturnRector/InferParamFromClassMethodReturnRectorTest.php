@@ -5,13 +5,13 @@ namespace Rector\Restoration\Tests\Rector\ClassMethod\InferParamFromClassMethodR
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
 final class InferParamFromClassMethodReturnRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -19,8 +19,8 @@ final class InferParamFromClassMethodReturnRectorTest extends \Rector\Testing\PH
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
+        return new \RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

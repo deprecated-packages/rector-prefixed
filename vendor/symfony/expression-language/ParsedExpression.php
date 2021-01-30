@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210129\Symfony\Component\ExpressionLanguage;
+namespace RectorPrefix20210130\Symfony\Component\ExpressionLanguage;
 
-use RectorPrefix20210129\Symfony\Component\ExpressionLanguage\Node\Node;
+use RectorPrefix20210130\Symfony\Component\ExpressionLanguage\Node\Node;
 /**
  * Represents an already parsed expression.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ParsedExpression extends \RectorPrefix20210129\Symfony\Component\ExpressionLanguage\Expression
+class ParsedExpression extends \RectorPrefix20210130\Symfony\Component\ExpressionLanguage\Expression
 {
     private $nodes;
-    public function __construct(string $expression, \RectorPrefix20210129\Symfony\Component\ExpressionLanguage\Node\Node $nodes)
+    public function __construct(string $expression, \RectorPrefix20210130\Symfony\Component\ExpressionLanguage\Node\Node $nodes)
     {
         parent::__construct($expression);
         $this->nodes = $nodes;

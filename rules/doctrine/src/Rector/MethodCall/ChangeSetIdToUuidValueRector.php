@@ -12,7 +12,7 @@ use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
-use RectorPrefix20210129\Ramsey\Uuid\Uuid;
+use RectorPrefix20210130\Ramsey\Uuid\Uuid;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\Doctrine\DoctrineEntityManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -114,11 +114,11 @@ CODE_SAMPLE
             }
             // update constant value
             $classConst->consts[0]->value = $this->createUuidStringNode();
-            $node->args[0]->value = $this->createStaticCall(\RectorPrefix20210129\Ramsey\Uuid\Uuid::class, 'fromString', [$argumentValue]);
+            $node->args[0]->value = $this->createStaticCall(\RectorPrefix20210130\Ramsey\Uuid\Uuid::class, 'fromString', [$argumentValue]);
             return $node;
         }
         // C. set uuid from string with generated string
-        $value = $this->createStaticCall(\RectorPrefix20210129\Ramsey\Uuid\Uuid::class, 'fromString', [$this->createUuidStringNode()]);
+        $value = $this->createStaticCall(\RectorPrefix20210130\Ramsey\Uuid\Uuid::class, 'fromString', [$this->createUuidStringNode()]);
         $node->args[0]->value = $value;
         return $node;
     }
@@ -167,7 +167,7 @@ CODE_SAMPLE
     }
     private function createUuidStringNode() : \PhpParser\Node\Scalar\String_
     {
-        $uuidValue = \RectorPrefix20210129\Ramsey\Uuid\Uuid::uuid4();
+        $uuidValue = \RectorPrefix20210130\Ramsey\Uuid\Uuid::uuid4();
         $uuidValueString = $uuidValue->toString();
         return new \PhpParser\Node\Scalar\String_($uuidValueString);
     }
@@ -178,6 +178,6 @@ CODE_SAMPLE
         if (!$argumentStaticType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
-        return $argumentStaticType->getClassName() === \RectorPrefix20210129\Ramsey\Uuid\Uuid::class;
+        return $argumentStaticType->getClassName() === \RectorPrefix20210130\Ramsey\Uuid\Uuid::class;
     }
 }

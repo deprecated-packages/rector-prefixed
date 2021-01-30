@@ -15,7 +15,7 @@ use Rector\PhpAttribute\ValueObject\TagName;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\DeadCode\Tests\Rector\Class_\RemoveUnusedClassesRector\RemoveUnusedClassesRectorTest
  */
@@ -90,7 +90,7 @@ CODE_SAMPLE
             $this->removeNode($node);
         } else {
             $smartFileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-            if (!$smartFileInfo instanceof \RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo) {
+            if (!$smartFileInfo instanceof \RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
             }
             $this->removeFile($smartFileInfo);

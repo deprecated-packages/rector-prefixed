@@ -7,11 +7,11 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\Reflection\ClassReflection;
-use Rector\Generics\ValueObject\GenericChildParentClassReflections;
+use Rector\Generics\ValueObject\ChildParentClassReflections;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class GenericClassReflectionAnalyzer
 {
-    public function resolveChildParent(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\Generics\ValueObject\GenericChildParentClassReflections
+    public function resolveChildParent(\PhpParser\Node\Stmt\Class_ $class) : ?\Rector\Generics\ValueObject\ChildParentClassReflections
     {
         if ($class->extends === null) {
             return null;
@@ -34,7 +34,7 @@ final class GenericClassReflectionAnalyzer
         if (!$this->isGeneric($parentClassReflection)) {
             return null;
         }
-        return new \Rector\Generics\ValueObject\GenericChildParentClassReflections($classReflection, $parentClassReflection);
+        return new \Rector\Generics\ValueObject\ChildParentClassReflections($classReflection, $parentClassReflection);
     }
     /**
      * Solve isGeneric() ignores extends and similar tags,

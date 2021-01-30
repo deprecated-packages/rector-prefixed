@@ -6,13 +6,13 @@ namespace Rector\Polyfill\Tests\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRec
 use Iterator;
 use Rector\Polyfill\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
 final class UnwrapFutureCompatibleIfPhpVersionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

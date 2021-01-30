@@ -6,9 +6,9 @@ namespace Rector\Core\NonPhpFile;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\PSR4\Collector\RenamedClassesCollector;
-use RectorPrefix20210129\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210130\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Rector\Renaming\Tests\Rector\Name\RenameClassRector\RenameNonPhpTest
  */
@@ -38,7 +38,7 @@ final class NonPhpFileProcessor
      * @var NonPhpFileClassRenamer
      */
     private $nonPhpFileClassRenamer;
-    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Core\Configuration\Configuration $configuration, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210129\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer)
+    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Core\Configuration\Configuration $configuration, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210130\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer)
     {
         $this->configuration = $configuration;
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
@@ -56,7 +56,7 @@ final class NonPhpFileProcessor
             $this->processFileInfo($nonPhpFileInfo);
         }
     }
-    public function processFileInfo(\RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    public function processFileInfo(\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $oldContents = $smartFileInfo->getContents();
         $classRenames = \array_merge($this->renamedClassesDataCollector->getOldToNewClasses(), $this->renamedClassesCollector->getOldToNewClasses());
@@ -68,7 +68,7 @@ final class NonPhpFileProcessor
         $this->reportFileContentChange($smartFileInfo, $newContents);
         return $newContents;
     }
-    private function reportFileContentChange(\RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent) : void
+    private function reportFileContentChange(\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent) : void
     {
         $relativeFilePathFromCwd = $smartFileInfo->getRelativeFilePathFromCwd();
         if ($this->configuration->isDryRun()) {

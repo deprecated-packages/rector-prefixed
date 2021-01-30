@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210129\Symplify\PackageBuilder\Tests\Reflection\Source;
+namespace RectorPrefix20210130\Symplify\PackageBuilder\Tests\Reflection\Source;
 
 abstract class AbstractPrivateProperty
 {

@@ -4,15 +4,15 @@ declare (strict_types=1);
 namespace Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner;
 
 use Iterator;
-use RectorPrefix20210129\PHPUnit\Framework\TestCase;
-use RectorPrefix20210129\Symfony\Component\Config\FileLocator;
-use RectorPrefix20210129\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
-use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
-use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use RectorPrefix20210130\PHPUnit\Framework\TestCase;
+use RectorPrefix20210130\Symfony\Component\Config\FileLocator;
+use RectorPrefix20210130\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator;
+use RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
+use RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\SomeValueObject;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-final class InlineSingleObjectTest extends \RectorPrefix20210129\PHPUnit\Framework\TestCase
+final class InlineSingleObjectTest extends \RectorPrefix20210130\PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider provideData()
@@ -21,7 +21,7 @@ final class InlineSingleObjectTest extends \RectorPrefix20210129\PHPUnit\Framewo
     {
         $servicesConfigurator = $this->createServiceConfigurator();
         $referenceConfigurator = \Symplify\SymfonyPhpConfig\ValueObjectInliner::inlineArgumentObject($valueObject, $servicesConfigurator);
-        $this->assertInstanceOf(\RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator::class, $referenceConfigurator);
+        $this->assertInstanceOf(\RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator::class, $referenceConfigurator);
         $id = (string) $referenceConfigurator;
         $this->assertSame($expectedType, $id);
     }
@@ -29,11 +29,11 @@ final class InlineSingleObjectTest extends \RectorPrefix20210129\PHPUnit\Framewo
     {
         (yield [new \Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\SomeValueObject('Rector'), \Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\SomeValueObject::class]);
     }
-    private function createServiceConfigurator() : \RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator
+    private function createServiceConfigurator() : \RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator
     {
-        $containerBuilder = new \RectorPrefix20210129\Symfony\Component\DependencyInjection\ContainerBuilder();
-        $phpFileLoader = new \RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210129\Symfony\Component\Config\FileLocator());
+        $containerBuilder = new \RectorPrefix20210130\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $phpFileLoader = new \RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210130\Symfony\Component\Config\FileLocator());
         $instanceOf = [];
-        return new \RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator($containerBuilder, $phpFileLoader, $instanceOf);
+        return new \RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator($containerBuilder, $phpFileLoader, $instanceOf);
     }
 }

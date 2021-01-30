@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210129\Symplify\ComposerJsonManipulator\Tests\ComposerJsonFactory;
+namespace RectorPrefix20210130\Symplify\ComposerJsonManipulator\Tests\ComposerJsonFactory;
 
-use RectorPrefix20210129\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use RectorPrefix20210129\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
-use RectorPrefix20210129\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel;
-use RectorPrefix20210129\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
-final class ComposerJsonFactoryTest extends \RectorPrefix20210129\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210130\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use RectorPrefix20210130\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
+use RectorPrefix20210130\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel;
+use RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
+final class ComposerJsonFactoryTest extends \RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var string
@@ -24,15 +24,15 @@ final class ComposerJsonFactoryTest extends \RectorPrefix20210129\Symplify\Packa
     private $jsonFileManager;
     protected function setUp() : void
     {
-        $this->bootKernel(\RectorPrefix20210129\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel::class);
-        $this->composerJsonFactory = $this->getService(\RectorPrefix20210129\Symplify\ComposerJsonManipulator\ComposerJsonFactory::class);
-        $this->jsonFileManager = $this->getService(\RectorPrefix20210129\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager::class);
+        $this->bootKernel(\RectorPrefix20210130\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel::class);
+        $this->composerJsonFactory = $this->getService(\RectorPrefix20210130\Symplify\ComposerJsonManipulator\ComposerJsonFactory::class);
+        $this->jsonFileManager = $this->getService(\RectorPrefix20210130\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager::class);
     }
     public function test() : void
     {
         $composerJson = $this->composerJsonFactory->createFromFilePath(__DIR__ . '/Source/some_composer.json');
         $fileInfo = $composerJson->getFileInfo();
-        $this->assertInstanceOf(\RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo::class, $fileInfo);
+        $this->assertInstanceOf(\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo::class, $fileInfo);
         /** @var SmartFileInfo $fileInfo */
         $this->assertCount(2, $composerJson->getAllClassmaps());
         $this->assertSame(['directory', 'src'], $composerJson->getPsr4AndClassmapDirectories());

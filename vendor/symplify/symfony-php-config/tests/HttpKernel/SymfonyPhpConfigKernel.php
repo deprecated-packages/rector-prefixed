@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Symplify\SymfonyPhpConfig\Tests\HttpKernel;
 
-use RectorPrefix20210129\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class SymfonyPhpConfigKernel extends \RectorPrefix20210129\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use RectorPrefix20210130\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class SymfonyPhpConfigKernel extends \RectorPrefix20210130\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
 }

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210129\Symplify\PackageBuilder\Tests\Reflection;
+namespace RectorPrefix20210130\Symplify\PackageBuilder\Tests\Reflection;
 
 use Iterator;
-use RectorPrefix20210129\PHPUnit\Framework\TestCase;
-use RectorPrefix20210129\Symplify\PackageBuilder\Reflection\PrivatesCaller;
-use RectorPrefix20210129\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods;
-final class PrivatesCallerTest extends \RectorPrefix20210129\PHPUnit\Framework\TestCase
+use RectorPrefix20210130\PHPUnit\Framework\TestCase;
+use RectorPrefix20210130\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210130\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods;
+final class PrivatesCallerTest extends \RectorPrefix20210130\PHPUnit\Framework\TestCase
 {
     /**
      * @var PrivatesCaller
@@ -15,7 +15,7 @@ final class PrivatesCallerTest extends \RectorPrefix20210129\PHPUnit\Framework\T
     private $privatesCaller;
     protected function setUp() : void
     {
-        $this->privatesCaller = new \RectorPrefix20210129\Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $this->privatesCaller = new \RectorPrefix20210130\Symplify\PackageBuilder\Reflection\PrivatesCaller();
     }
     /**
      * @dataProvider provideData()
@@ -27,9 +27,9 @@ final class PrivatesCallerTest extends \RectorPrefix20210129\PHPUnit\Framework\T
     }
     public function provideData() : \Iterator
     {
-        (yield [\RectorPrefix20210129\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods::class, 'getNumber', [], 5]);
-        (yield [new \RectorPrefix20210129\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods(), 'getNumber', [], 5]);
-        (yield [new \RectorPrefix20210129\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods(), 'plus10', [30], 40]);
+        (yield [\RectorPrefix20210130\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods::class, 'getNumber', [], 5]);
+        (yield [new \RectorPrefix20210130\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods(), 'getNumber', [], 5]);
+        (yield [new \RectorPrefix20210130\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods(), 'plus10', [30], 40]);
     }
     /**
      * @dataProvider provideDataReference()
@@ -41,6 +41,6 @@ final class PrivatesCallerTest extends \RectorPrefix20210129\PHPUnit\Framework\T
     }
     public function provideDataReference() : \Iterator
     {
-        (yield [new \RectorPrefix20210129\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods(), 'multipleByTwo', 10, 20]);
+        (yield [new \RectorPrefix20210130\Symplify\PackageBuilder\Tests\Reflection\Source\SomeClassWithPrivateMethods(), 'multipleByTwo', 10, 20]);
     }
 }

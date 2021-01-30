@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210129\Symplify\MarkdownDiff\Tests\Differ;
+namespace RectorPrefix20210130\Symplify\MarkdownDiff\Tests\Differ;
 
-use RectorPrefix20210129\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
-use RectorPrefix20210129\Symplify\MarkdownDiff\Tests\HttpKernel\MarkdownDiffKernel;
-use RectorPrefix20210129\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class MarkdownDifferTest extends \RectorPrefix20210129\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210130\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
+use RectorPrefix20210130\Symplify\MarkdownDiff\Tests\HttpKernel\MarkdownDiffKernel;
+use RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class MarkdownDifferTest extends \RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var MarkdownDiffer
@@ -14,8 +14,8 @@ final class MarkdownDifferTest extends \RectorPrefix20210129\Symplify\PackageBui
     private $markdownDiffer;
     protected function setUp() : void
     {
-        $this->bootKernel(\RectorPrefix20210129\Symplify\MarkdownDiff\Tests\HttpKernel\MarkdownDiffKernel::class);
-        $this->markdownDiffer = $this->getService(\RectorPrefix20210129\Symplify\MarkdownDiff\Differ\MarkdownDiffer::class);
+        $this->bootKernel(\RectorPrefix20210130\Symplify\MarkdownDiff\Tests\HttpKernel\MarkdownDiffKernel::class);
+        $this->markdownDiffer = $this->getService(\RectorPrefix20210130\Symplify\MarkdownDiff\Differ\MarkdownDiffer::class);
     }
     public function test() : void
     {

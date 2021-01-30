@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\PhpDoc\PhpDocTagsFinder;
-use Rector\Core\PhpParser\Parser\FunctionParser;
+use Rector\Core\PhpParser\Parser\FunctionLikeParser;
 use ReflectionFunction;
 final class FunctionAnnotationResolver
 {
@@ -17,16 +17,16 @@ final class FunctionAnnotationResolver
      */
     private $classNaming;
     /**
-     * @var FunctionParser
+     * @var FunctionLikeParser
      */
-    private $functionParser;
+    private $functionLikeParser;
     /**
      * @var PhpDocTagsFinder
      */
     private $phpDocTagsFinder;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Core\PhpParser\Parser\FunctionParser $functionParser, \Rector\Core\PhpDoc\PhpDocTagsFinder $phpDocTagsFinder)
+    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\Core\PhpParser\Parser\FunctionLikeParser $functionLikeParser, \Rector\Core\PhpDoc\PhpDocTagsFinder $phpDocTagsFinder)
     {
-        $this->functionParser = $functionParser;
+        $this->functionLikeParser = $functionLikeParser;
         $this->classNaming = $classNaming;
         $this->phpDocTagsFinder = $phpDocTagsFinder;
     }
@@ -48,7 +48,7 @@ final class FunctionAnnotationResolver
      */
     private function expandAnnotatedClasses(\ReflectionFunction $reflectionFunction, array $classNames) : array
     {
-        $namespace = $this->functionParser->parseFunction($reflectionFunction);
+        $namespace = $this->functionLikeParser->parseFunction($reflectionFunction);
         if (!$namespace instanceof \PhpParser\Node\Stmt\Namespace_) {
             return [];
         }

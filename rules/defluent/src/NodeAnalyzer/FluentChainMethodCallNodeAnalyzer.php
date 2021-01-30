@@ -8,10 +8,14 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Return_;
+use PhpParser\NodeFinder;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use Rector\Core\Util\StaticInstanceOf;
+use Rector\Defluent\Reflection\MethodCallToClassMethodParser;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
@@ -36,10 +40,20 @@ final class FluentChainMethodCallNodeAnalyzer
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @var NodeFinder
+     */
+    private $nodeFinder;
+    /**
+     * @var MethodCallToClassMethodParser
+     */
+    private $methodCallToClassMethodParser;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PhpParser\NodeFinder $nodeFinder, \Rector\Defluent\Reflection\MethodCallToClassMethodParser $methodCallToClassMethodParser)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->nodeFinder = $nodeFinder;
+        $this->methodCallToClassMethodParser = $methodCallToClassMethodParser;
     }
     /**
      * Checks that in:
@@ -73,7 +87,7 @@ final class FluentChainMethodCallNodeAnalyzer
                 }
             }
         }
-        return \true;
+        return !$this->isMethodCallCreatingNewInstance($methodCall);
     }
     public function isLastChainMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
@@ -179,5 +193,24 @@ final class FluentChainMethodCallNodeAnalyzer
     private function isCall(\PhpParser\Node\Expr $expr) : bool
     {
         return \Rector\Core\Util\StaticInstanceOf::isOneOf($expr, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class]);
+    }
+    private function isMethodCallCreatingNewInstance(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
+    {
+        $classMethod = $this->methodCallToClassMethodParser->parseMethodCall($methodCall);
+        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return \false;
+        }
+        /** @var Return_[] $returns */
+        $returns = $this->nodeFinder->findInstanceOf($classMethod, \PhpParser\Node\Stmt\Return_::class);
+        foreach ($returns as $return) {
+            if (!$return->expr instanceof \PhpParser\Node\Expr\New_) {
+                continue;
+            }
+            $new = $return->expr;
+            if ($this->nodeNameResolver->isName($new->class, 'self')) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

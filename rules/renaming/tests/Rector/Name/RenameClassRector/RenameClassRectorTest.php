@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\Renaming\Tests\Rector\Name\RenameClassRector;
 
 use Iterator;
-use RectorPrefix20210129\Manual\Twig\TwigFilter;
-use RectorPrefix20210129\Manual_Twig_Filter;
+use RectorPrefix20210130\Manual\Twig\TwigFilter;
+use RectorPrefix20210130\Manual_Twig_Filter;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture\DuplicatedClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension;
@@ -14,13 +14,13 @@ use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClassWithoutTy
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClassWithTypo;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -33,7 +33,7 @@ final class RenameClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRector
      */
     public function testClassNameDuplication() : void
     {
-        $fixtureFileInfo = new \RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/FixtureDuplication/skip_duplicated_class.php.inc');
+        $fixtureFileInfo = new \RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/FixtureDuplication/skip_duplicated_class.php.inc');
         $this->doTestFileInfo($fixtureFileInfo);
     }
     /**
@@ -47,7 +47,7 @@ final class RenameClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRector
             \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClassWithTypo::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClassWithoutTypo::class,
             'DateTime' => 'DateTimeInterface',
             'Countable' => 'stdClass',
-            \RectorPrefix20210129\Manual_Twig_Filter::class => \RectorPrefix20210129\Manual\Twig\TwigFilter::class,
+            \RectorPrefix20210130\Manual_Twig_Filter::class => \RectorPrefix20210130\Manual\Twig\TwigFilter::class,
             'Twig_AbstractManualExtension' => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension::class,
             'Twig_Extension_Sandbox' => 'Twig\\Extension\\SandboxExtension',
             // Renaming class itself and its namespace

@@ -15,6 +15,7 @@ use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Generics\ValueObject\ChildParentClassReflections;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 final class MethodTagValueNodeFactory
 {
@@ -31,13 +32,12 @@ final class MethodTagValueNodeFactory
         $this->methodTagValueParameterNodeFactory = $methodTagValueParameterNodeFactory;
         $this->staticTypeMapper = $staticTypeMapper;
     }
-    public function createFromMethodReflectionAndReturnTagValueNode(\PHPStan\Reflection\MethodReflection $methodReflection, \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode $returnTagValueNode) : \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode
+    public function createFromMethodReflectionAndReturnTagValueNode(\PHPStan\Reflection\MethodReflection $methodReflection, \PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode $returnTagValueNode, \Rector\Generics\ValueObject\ChildParentClassReflections $childParentClassReflections) : \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode
     {
+        $templateTypeMap = $childParentClassReflections->getTemplateTypeMap();
+        $returnTagTypeNode = $this->resolveReturnTagTypeNode($returnTagValueNode, $templateTypeMap);
         $parameterReflections = $methodReflection->getVariants()[0]->getParameters();
         $stringParameters = $this->resolveStringParameters($parameterReflections);
-        $classReflection = $methodReflection->getDeclaringClass();
-        $templateTypeMap = $classReflection->getTemplateTypeMap();
-        $returnTagTypeNode = $this->resolveReturnTagTypeNode($returnTagValueNode, $templateTypeMap);
         return new \PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode(\false, $returnTagTypeNode, $methodReflection->getName(), $stringParameters, '');
     }
     /**
@@ -84,8 +84,7 @@ final class MethodTagValueNodeFactory
         $typeName = $identifierTypeNode->name;
         $genericType = $templateTypeMap->getType($typeName);
         if ($genericType instanceof \PHPStan\Type\Type) {
-            $returnTagType = $genericType;
-            return $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($returnTagType);
+            return $this->staticTypeMapper->mapPHPStanTypeToPHPStanPhpDocTypeNode($genericType);
         }
         return $fallbackTypeNode;
     }

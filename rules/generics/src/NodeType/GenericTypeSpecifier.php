@@ -29,7 +29,7 @@ final class GenericTypeSpecifier
      */
     public function replaceGenericTypesWithSpecificTypes(array $methodTagValueNodes, \PhpParser\Node $node, \PHPStan\Reflection\ClassReflection $classReflection) : void
     {
-        $templateTypeMap = $this->resolveAvailableTempalteTypeMap($classReflection);
+        $templateTypeMap = $this->resolveAvailableTemplateTypeMap($classReflection);
         foreach ($methodTagValueNodes as $methodTagValueNode) {
             if ($methodTagValueNode->returnType === null) {
                 continue;
@@ -40,7 +40,7 @@ final class GenericTypeSpecifier
             $methodTagValueNode->returnType = $resolvedTypeNode;
         }
     }
-    private function resolveAvailableTempalteTypeMap(\PHPStan\Reflection\ClassReflection $classReflection) : \PHPStan\Type\Generic\TemplateTypeMap
+    private function resolveAvailableTemplateTypeMap(\PHPStan\Reflection\ClassReflection $classReflection) : \PHPStan\Type\Generic\TemplateTypeMap
     {
         $templateTypeMap = $classReflection->getTemplateTypeMap();
         // add template map from extends

@@ -5,11 +5,11 @@ namespace Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\config;
 
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
-use RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\ServiceWithValueObject;
 use Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\WithType;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210129\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $withType = new \Symplify\SymfonyPhpConfig\Tests\ValueObjectInliner\Source\WithType(new \PHPStan\Type\IntegerType());

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210129\Symplify\ComposerJsonManipulator\Tests\ComposerJsonSchemaValidation;
+namespace RectorPrefix20210130\Symplify\ComposerJsonManipulator\Tests\ComposerJsonSchemaValidation;
 
-use RectorPrefix20210129\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
-use RectorPrefix20210129\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel;
-use RectorPrefix20210129\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileSystem;
-final class ComposerJsonSchemaValidationTest extends \RectorPrefix20210129\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210130\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
+use RectorPrefix20210130\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel;
+use RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileSystem;
+final class ComposerJsonSchemaValidationTest extends \RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var JsonFileManager
@@ -19,9 +19,9 @@ final class ComposerJsonSchemaValidationTest extends \RectorPrefix20210129\Sympl
     private $smartFileSystem;
     protected function setUp() : void
     {
-        $this->bootKernel(\RectorPrefix20210129\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel::class);
-        $this->jsonFileManager = $this->getService(\RectorPrefix20210129\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager::class);
-        $this->smartFileSystem = new \RectorPrefix20210129\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->bootKernel(\RectorPrefix20210130\Symplify\ComposerJsonManipulator\Tests\HttpKernel\ComposerJsonManipulatorKernel::class);
+        $this->jsonFileManager = $this->getService(\RectorPrefix20210130\Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager::class);
+        $this->smartFileSystem = new \RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileSystem();
     }
     public function testCheckEmptyKeysAreRemoved() : void
     {
