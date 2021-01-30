@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\Core\Rector\AbstractRector;
 
-use PhpParser\Node;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
@@ -21,10 +20,5 @@ trait PhpDocTrait
     public function autowirePhpDocTrait(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory) : void
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
-    }
-    protected function hasTagByName(\PhpParser\Node $node, string $tagName) : bool
-    {
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        return $phpDocInfo->hasByName($tagName);
     }
 }

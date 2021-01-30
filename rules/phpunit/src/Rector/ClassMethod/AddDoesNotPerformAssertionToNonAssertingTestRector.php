@@ -7,6 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDoesNotPerformAssertionTagNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Reflection\ClassMethodReflectionFactory;
 use Rector\FileSystemRector\Parser\FileInfoParser;
@@ -27,14 +29,6 @@ final class AddDoesNotPerformAssertionToNonAssertingTestRector extends \Rector\C
      * @var int
      */
     private const MAX_LOOKING_FOR_ASSERT_METHOD_CALL_NESTING_LEVEL = 3;
-    /**
-     * @var string
-     */
-    private const DOES_NOT_PERFORM_ASSERTION_TAG = 'doesNotPerformAssertions';
-    /**
-     * @var string
-     */
-    private const EXPECTED_EXCEPTION_TAG = 'expectedException';
     /**
      * This should prevent segfaults while going too deep into to parsed code.
      * Without it, it might end-up with segfault
@@ -123,10 +117,8 @@ CODE_SAMPLE
         if (!$this->testsNodeAnalyzer->isTestClassMethod($classMethod)) {
             return \true;
         }
-        if ($this->hasTagByName($classMethod, self::DOES_NOT_PERFORM_ASSERTION_TAG)) {
-            return \true;
-        }
-        if ($this->hasTagByName($classMethod, self::EXPECTED_EXCEPTION_TAG)) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
+        if ($phpDocInfo->hasByTypes([\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDoesNotPerformAssertionTagNode::class, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode::class])) {
             return \true;
         }
         return $this->containsAssertCall($classMethod);
@@ -134,7 +126,7 @@ CODE_SAMPLE
     private function addDoesNotPerformAssertions(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        $phpDocInfo->addBareTag('@' . self::DOES_NOT_PERFORM_ASSERTION_TAG);
+        $phpDocInfo->addPhpDocTagNode(new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitDoesNotPerformAssertionTagNode());
     }
     private function containsAssertCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {

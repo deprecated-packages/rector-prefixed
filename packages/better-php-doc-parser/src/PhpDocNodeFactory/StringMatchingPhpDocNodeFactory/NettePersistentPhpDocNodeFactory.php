@@ -6,7 +6,6 @@ namespace Rector\BetterPhpDocParser\PhpDocNodeFactory\StringMatchingPhpDocNodeFa
 use PHPStan\PhpDocParser\Ast\Node;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteCrossOriginTagNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NettePersistentTagNode;
 final class NettePersistentPhpDocNodeFactory implements \Rector\BetterPhpDocParser\Contract\StringTagMatchingPhpDocNodeFactoryInterface
 {

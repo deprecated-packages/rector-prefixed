@@ -6,11 +6,11 @@ namespace Rector\DeadCode\Rector\ClassConst;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassLike;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpAttribute\ValueObject\TagName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -98,12 +98,14 @@ CODE_SAMPLE
         if ($this->classConstManipulator->isEnum($classConst)) {
             return \true;
         }
-        if ($this->hasTagByName($classConst, \Rector\PhpAttribute\ValueObject\TagName::API)) {
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classConst);
+        if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode::class)) {
             return \true;
         }
         $classLike = $classConst->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
-            return $this->hasTagByName($classLike, \Rector\PhpAttribute\ValueObject\TagName::API);
+            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classLike);
+            return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode::class);
         }
         return \false;
     }

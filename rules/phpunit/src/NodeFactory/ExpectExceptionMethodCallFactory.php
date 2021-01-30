@@ -3,14 +3,22 @@
 declare (strict_types=1);
 namespace Rector\PHPUnit\NodeFactory;
 
+use PhpParser\BuilderHelpers;
+use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode;
+use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\PHPUnit\PhpDoc\PhpDocValueToNodeMapper;
+use Rector\StaticTypeMapper\StaticTypeMapper;
 final class ExpectExceptionMethodCallFactory
 {
     /**
@@ -21,10 +29,20 @@ final class ExpectExceptionMethodCallFactory
      * @var PhpDocValueToNodeMapper
      */
     private $phpDocValueToNodeMapper;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\PHPUnit\PhpDoc\PhpDocValueToNodeMapper $phpDocValueToNodeMapper)
+    /**
+     * @var StaticTypeMapper
+     */
+    private $staticTypeMapper;
+    /**
+     * @var CurrentNodeProvider
+     */
+    private $currentNodeProvider;
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\PHPUnit\PhpDoc\PhpDocValueToNodeMapper $phpDocValueToNodeMapper, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider)
     {
         $this->nodeFactory = $nodeFactory;
         $this->phpDocValueToNodeMapper = $phpDocValueToNodeMapper;
+        $this->staticTypeMapper = $staticTypeMapper;
+        $this->currentNodeProvider = $currentNodeProvider;
     }
     /**
      * @param PhpDocTagNode[] $phpDocTagNodes
@@ -41,10 +59,34 @@ final class ExpectExceptionMethodCallFactory
     }
     private function createMethodCall(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode $phpDocTagNode, string $methodName) : \PhpParser\Node\Expr\MethodCall
     {
+        if ($phpDocTagNode->value instanceof \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode) {
+            $value = $this->resolveExpectedValue($phpDocTagNode->value);
+            $methodCall = $this->nodeFactory->createMethodCall('this', $methodName);
+            $methodCall->args[] = new \PhpParser\Node\Arg($value);
+            return $methodCall;
+        }
         if (!$phpDocTagNode->value instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $node = $this->phpDocValueToNodeMapper->mapGenericTagValueNode($phpDocTagNode->value);
         return $this->nodeFactory->createMethodCall('this', $methodName, [new \PhpParser\Node\Arg($node)]);
+    }
+    private function resolveExpectedValue(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPUnit\PHPUnitExpectedExceptionTagValueNode $phpUnitExpectedExceptionTagValueNode) : \PhpParser\Node\Expr
+    {
+        $expectedTypeNode = $phpUnitExpectedExceptionTagValueNode->getTypeNode();
+        $currentNode = $this->currentNodeProvider->getNode();
+        if (!$currentNode instanceof \PhpParser\Node) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        $expectedType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($expectedTypeNode, $currentNode);
+        $expectedNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($expectedType);
+        if ($expectedNode instanceof \PhpParser\Node\Name) {
+            return $this->nodeFactory->createClassConstFetchFromName($expectedNode, 'class');
+        }
+        if ($expectedTypeNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
+            $className = \ltrim($expectedTypeNode->name, '\\');
+            return \PhpParser\BuilderHelpers::normalizeValue($className);
+        }
+        throw new \Rector\Core\Exception\ShouldNotHappenException();
     }
 }

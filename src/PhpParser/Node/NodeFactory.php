@@ -437,7 +437,7 @@ final class NodeFactory
     {
         return new \PhpParser\Node\Expr\ConstFetch(new \PhpParser\Node\Name('true'));
     }
-    private function createClassConstFetchFromName(\PhpParser\Node\Name $className, string $constantName) : \PhpParser\Node\Expr\ClassConstFetch
+    public function createClassConstFetchFromName(\PhpParser\Node\Name $className, string $constantName) : \PhpParser\Node\Expr\ClassConstFetch
     {
         $classConstFetch = $this->builderFactory->classConstFetch($className, $constantName);
         $classNameString = $className->toString();

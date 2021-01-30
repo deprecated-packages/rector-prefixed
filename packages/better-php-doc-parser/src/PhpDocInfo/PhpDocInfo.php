@@ -5,7 +5,6 @@ namespace Rector\BetterPhpDocParser\PhpDocInfo;
 
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\Node as PhpDocNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\MethodTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocChildNode;
@@ -192,8 +191,7 @@ final class PhpDocInfo
         return (bool) $this->getByType($type);
     }
     /**
-     * @template T as \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
-     * @param class-string<T>[] $types
+     * @param class-string<\PHPStan\PhpDocParser\Ast\Node>[] $types
      */
     public function hasByTypes(array $types) : bool
     {
@@ -299,15 +297,6 @@ final class PhpDocInfo
             $paramTypesByName[$parameterName] = $this->staticTypeMapper->mapPHPStanPhpDocTypeToPHPStanType($paramTagValueNode, $this->node);
         }
         return $paramTypesByName;
-    }
-    /**
-     * @todo remove to keep united API, just 1 usage
-     */
-    public function addBareTag(string $tag) : void
-    {
-        $tag = '@' . \ltrim($tag, '@');
-        $attributeAwarePhpDocTagNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode($tag, new \PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode(''));
-        $this->addPhpDocTagNode($attributeAwarePhpDocTagNode);
     }
     public function addTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : void
     {
