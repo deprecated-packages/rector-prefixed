@@ -32,6 +32,8 @@ use Rector\DeadCode\Rector\FunctionLike\RemoveDuplicatedIfReturnRector;
 use Rector\DeadCode\Rector\FunctionLike\RemoveOverriddenValuesRector;
 use Rector\DeadCode\Rector\If_\RemoveUnusedNonEmptyArrayBeforeForeachRector;
 use Rector\DeadCode\Rector\If_\SimplifyIfElseWithSameContentRector;
+use Rector\DeadCode\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector;
+use Rector\DeadCode\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRector;
 use Rector\DeadCode\Rector\MethodCall\RemoveDefaultArgumentValueRector;
 use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
 use Rector\DeadCode\Rector\Property\RemoveSetterOnlyPropertyAndMethodCallRector;
@@ -47,6 +49,8 @@ use Rector\PHPUnit\Rector\ClassMethod\RemoveEmptyTestMethodRector;
 use RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 return static function (\RectorPrefix20210130\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
+    $services->set(\Rector\DeadCode\Rector\If_\UnwrapFutureCompatibleIfFunctionExistsRector::class);
+    $services->set(\Rector\DeadCode\Rector\If_\UnwrapFutureCompatibleIfPhpVersionRector::class);
     $services->set(\Rector\DeadCode\Rector\Cast\RecastingRemovalRector::class);
     $services->set(\Rector\DeadCode\Rector\Expression\RemoveDeadStmtRector::class);
     $services->set(\Rector\DeadCode\Rector\Array_\RemoveDuplicatedArrayKeyRector::class);

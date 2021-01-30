@@ -9,15 +9,13 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Interface_;
-use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\DeadDocBlock\TagRemover\ParamTagRemover;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 use Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator;
+use Rector\TypeDeclaration\NodeTypeAnalyzer\TraitTypeAnalyzer;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use Rector\TypeDeclaration\ValueObject\NewType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -36,19 +34,19 @@ final class ParamTypeDeclarationRector extends \Rector\TypeDeclaration\Rector\Fu
      */
     private $childParamPopulator;
     /**
-     * @var NodeTypeResolver
+     * @var TraitTypeAnalyzer
      */
-    private $nodeTypeResolver;
+    private $traitTypeAnalyzer;
     /**
-     * @var ReflectionProvider
+     * @var ParamTagRemover
      */
-    private $reflectionProvider;
-    public function __construct(\Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator $childParamPopulator, \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider)
+    private $paramTagRemover;
+    public function __construct(\Rector\TypeDeclaration\ChildPopulator\ChildParamPopulator $childParamPopulator, \Rector\TypeDeclaration\TypeInferer\ParamTypeInferer $paramTypeInferer, \Rector\TypeDeclaration\NodeTypeAnalyzer\TraitTypeAnalyzer $traitTypeAnalyzer, \Rector\DeadDocBlock\TagRemover\ParamTagRemover $paramTagRemover)
     {
         $this->paramTypeInferer = $paramTypeInferer;
         $this->childParamPopulator = $childParamPopulator;
-        $this->nodeTypeResolver = $nodeTypeResolver;
-        $this->reflectionProvider = $reflectionProvider;
+        $this->traitTypeAnalyzer = $traitTypeAnalyzer;
+        $this->paramTagRemover = $paramTagRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -100,9 +98,6 @@ final class ChildClass extends ParentClass
     {
     }
 
-    /**
-     * @param int $number
-     */
     public function change(int $number)
     {
     }
@@ -116,9 +111,6 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
-            return null;
-        }
-        if ($node->params === null) {
             return null;
         }
         if ($node->params === []) {
@@ -141,7 +133,7 @@ CODE_SAMPLE
         if ($inferedType instanceof \PHPStan\Type\MixedType) {
             return;
         }
-        if ($this->isTraitType($inferedType)) {
+        if ($this->traitTypeAnalyzer->isTraitType($inferedType)) {
             return;
         }
         $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper::KIND_PARAM);
@@ -153,6 +145,8 @@ CODE_SAMPLE
             return;
         }
         $param->type = $paramTypeNode;
+        $functionLikePhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($functionLike);
+        $this->paramTagRemover->removeParamTagsIfUseless($functionLikePhpDocInfo, $functionLike);
         $this->childParamPopulator->populateChildClassMethod($functionLike, $position, $inferedType);
     }
     private function shouldSkipParam(\PhpParser\Node\Param $param, \PhpParser\Node\FunctionLike $functionLike, int $position) : bool
@@ -169,14 +163,5 @@ CODE_SAMPLE
         }
         // already set → skip
         return !$param->type->getAttribute(\Rector\TypeDeclaration\ValueObject\NewType::HAS_NEW_INHERITED_TYPE, \false);
-    }
-    private function isTraitType(\PHPStan\Type\Type $type) : bool
-    {
-        if (!$type instanceof \PHPStan\Type\TypeWithClassName) {
-            return \false;
-        }
-        $fullyQualifiedName = $this->nodeTypeResolver->getFullyQualifiedClassName($type);
-        $classReflection = $this->reflectionProvider->getClass($fullyQualifiedName);
-        return $classReflection->isTrait();
     }
 }
