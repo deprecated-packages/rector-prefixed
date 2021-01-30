@@ -64,7 +64,7 @@ CODE_SAMPLE
         if (!$this->areArrayKeysExistsArgsMatchingDimFetch($node->cond, $node->if)) {
             return null;
         }
-        if (!$this->isNull($node->else)) {
+        if (!$this->valueResolver->isNull($node->else)) {
             return null;
         }
         return new \PhpParser\Node\Expr\BinaryOp\Coalesce($node->if, $node->else);

@@ -147,7 +147,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Scalar\String_) {
                 return null;
             }
-            if (!$this->isValues($node, $stringsToReplace)) {
+            if (!$this->valueResolver->isValues($node, $stringsToReplace)) {
                 return null;
             }
             $constantName = $this->createConstName($node->value);

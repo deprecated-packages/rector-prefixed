@@ -77,10 +77,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isNull($node->left) && !$this->isNull($node->right)) {
+        if (!$this->valueResolver->isNull($node->left) && !$this->valueResolver->isNull($node->right)) {
             return null;
         }
-        $variable = $this->isNull($node->left) ? $node->right : $node->left;
+        $variable = $this->valueResolver->isNull($node->left) ? $node->right : $node->left;
         $assign = $this->getVariableAssign($node, $variable);
         if (!$assign instanceof \PhpParser\Node\Expr\Assign) {
             return null;

@@ -55,7 +55,7 @@ CODE_SAMPLE
             if (!$this->isName($node->left, 'strlen')) {
                 return null;
             }
-            if (!$this->isValue($node->right, 0)) {
+            if (!$this->valueResolver->isValue($node->right, 0)) {
                 return null;
             }
             $variable = $node->left->args[0]->value;
@@ -63,7 +63,7 @@ CODE_SAMPLE
             if (!$this->isName($node->right, 'strlen')) {
                 return null;
             }
-            if (!$this->isValue($node->left, 0)) {
+            if (!$this->valueResolver->isValue($node->left, 0)) {
                 return null;
             }
             $variable = $node->right->args[0]->value;

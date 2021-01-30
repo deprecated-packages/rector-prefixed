@@ -73,7 +73,7 @@ CODE_SAMPLE
             if ($onlyProperty->default === null) {
                 return null;
             }
-            if ($this->isTrue($onlyProperty->default)) {
+            if ($this->valueResolver->isTrue($onlyProperty->default)) {
                 return $property;
             }
         }

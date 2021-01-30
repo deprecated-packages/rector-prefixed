@@ -69,13 +69,13 @@ CODE_SAMPLE
      */
     private function matchNotIdenticalToFalse(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical) : ?\PhpParser\Node\Expr
     {
-        if ($this->isFalse($notIdentical->left)) {
-            if (!$this->isFuncCallNames($notIdentical->right, self::OLD_STR_NAMES)) {
+        if ($this->valueResolver->isFalse($notIdentical->left)) {
+            if (!$this->nodeNameResolver->isFuncCallNames($notIdentical->right, self::OLD_STR_NAMES)) {
                 return null;
             }
             return $notIdentical->right;
         }
-        if ($this->isFalse($notIdentical->right)) {
+        if ($this->valueResolver->isFalse($notIdentical->right)) {
             if (!$this->isFuncCallNames($notIdentical->left, self::OLD_STR_NAMES)) {
                 return null;
             }

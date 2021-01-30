@@ -88,7 +88,7 @@ final class AssertRegExpRector extends \Rector\Core\Rector\AbstractRector
             return $expr->value;
         }
         if ($expr instanceof \PhpParser\Node\Expr\ConstFetch) {
-            return $this->isTrue($expr) ? 1 : 0;
+            return $this->valueResolver->isTrue($expr) ? 1 : 0;
         }
         throw new \Rector\Core\Exception\ShouldNotHappenException();
     }

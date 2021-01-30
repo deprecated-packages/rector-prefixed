@@ -86,7 +86,7 @@ CODE_SAMPLE
             if ($optionsArrayItem === null || $optionsArrayItem->key === null) {
                 continue;
             }
-            if (!$this->isValues($optionsArrayItem->key, ['type', 'entry_type'])) {
+            if (!$this->valueResolver->isValues($optionsArrayItem->key, ['type', 'entry_type'])) {
                 continue;
             }
             // already ::class reference

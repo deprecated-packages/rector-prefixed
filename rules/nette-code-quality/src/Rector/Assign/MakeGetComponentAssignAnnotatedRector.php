@@ -185,7 +185,7 @@ CODE_SAMPLE
     }
     private function resolveTypeFromShortControlNameAndVariable(\PhpParser\Node\Scalar\String_ $shortControlString, \PHPStan\Analyser\Scope $scope, \PhpParser\Node\Expr $expr) : \PHPStan\Type\Type
     {
-        $componentName = $this->getValue($shortControlString);
+        $componentName = $this->valueResolver->getValue($shortControlString);
         $componentName = \ucfirst($componentName);
         $methodName = \sprintf('createComponent%s', $componentName);
         $calledOnType = $scope->getType($expr);

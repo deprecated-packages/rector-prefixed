@@ -62,7 +62,7 @@ CODE_SAMPLE
             if ($nextNode->expr === null) {
                 return null;
             }
-            if (!$this->isNull($nextNode->expr)) {
+            if (!$this->valueResolver->isNull($nextNode->expr)) {
                 return null;
             }
             $this->removeNode($nextNode);

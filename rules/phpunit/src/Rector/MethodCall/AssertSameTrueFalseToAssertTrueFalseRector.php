@@ -72,12 +72,12 @@ CODE_SAMPLE
         if (!$this->testsNodeAnalyzer->isPHPUnitMethodNames($node, ['assertSame', 'assertEqual', 'assertNotSame', 'assertNotEqual'])) {
             return null;
         }
-        if ($this->isTrue($node->args[0]->value)) {
+        if ($this->valueResolver->isTrue($node->args[0]->value)) {
             $this->argumentMover->removeFirst($node);
             $node->name = new \PhpParser\Node\Identifier('assertTrue');
             return $node;
         }
-        if ($this->isFalse($node->args[0]->value)) {
+        if ($this->valueResolver->isFalse($node->args[0]->value)) {
             $this->argumentMover->removeFirst($node);
             $node->name = new \PhpParser\Node\Identifier('assertFalse');
             return $node;

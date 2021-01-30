@@ -60,13 +60,13 @@ CODE_SAMPLE
         $parentNode = $identical->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($identical->left instanceof \PhpParser\Node\Expr\FuncCall) {
             $refactoredFuncCall = $this->refactorFuncCall($identical->left);
-            if ($refactoredFuncCall !== null && $this->isValue($identical->right, 1)) {
+            if ($refactoredFuncCall !== null && $this->valueResolver->isValue($identical->right, 1)) {
                 return $this->createBoolCast($parentNode, $refactoredFuncCall);
             }
         }
         if ($identical->right instanceof \PhpParser\Node\Expr\FuncCall) {
             $refactoredFuncCall = $this->refactorFuncCall($identical->right);
-            if ($refactoredFuncCall !== null && $this->isValue($identical->left, 1)) {
+            if ($refactoredFuncCall !== null && $this->valueResolver->isValue($identical->left, 1)) {
                 return $this->createBoolCast($parentNode, $refactoredFuncCall);
             }
         }

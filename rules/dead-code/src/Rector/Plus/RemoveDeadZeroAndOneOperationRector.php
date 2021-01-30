@@ -89,7 +89,7 @@ CODE_SAMPLE
     {
         // +=, -=
         if ($node instanceof \PhpParser\Node\Expr\AssignOp\Plus || $node instanceof \PhpParser\Node\Expr\AssignOp\Minus) {
-            if (!$this->isValue($node->expr, 0)) {
+            if (!$this->valueResolver->isValue($node->expr, 0)) {
                 return null;
             }
             if ($this->isNumberType($node->var)) {
@@ -98,7 +98,7 @@ CODE_SAMPLE
         }
         // *, /
         if ($node instanceof \PhpParser\Node\Expr\AssignOp\Mul || $node instanceof \PhpParser\Node\Expr\AssignOp\Div) {
-            if (!$this->isValue($node->expr, 1)) {
+            if (!$this->valueResolver->isValue($node->expr, 1)) {
                 return null;
             }
             if ($this->isNumberType($node->var)) {
@@ -127,13 +127,13 @@ CODE_SAMPLE
      */
     private function processBinaryPlusAndMinus(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr
     {
-        if ($this->isValue($binaryOp->left, 0) && $this->isNumberType($binaryOp->right)) {
+        if ($this->valueResolver->isValue($binaryOp->left, 0) && $this->isNumberType($binaryOp->right)) {
             if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Minus) {
                 return new \PhpParser\Node\Expr\UnaryMinus($binaryOp->right);
             }
             return $binaryOp->right;
         }
-        if ($this->isValue($binaryOp->right, 0) && $this->isNumberType($binaryOp->left)) {
+        if ($this->valueResolver->isValue($binaryOp->right, 0) && $this->isNumberType($binaryOp->left)) {
             return $binaryOp->left;
         }
         return null;
@@ -143,10 +143,10 @@ CODE_SAMPLE
      */
     private function processBinaryMulAndDiv(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr
     {
-        if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Mul && $this->isValue($binaryOp->left, 1) && $this->isNumberType($binaryOp->right)) {
+        if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Mul && $this->valueResolver->isValue($binaryOp->left, 1) && $this->isNumberType($binaryOp->right)) {
             return $binaryOp->right;
         }
-        if ($this->isValue($binaryOp->right, 1) && $this->isNumberType($binaryOp->left)) {
+        if ($this->valueResolver->isValue($binaryOp->right, 1) && $this->isNumberType($binaryOp->left)) {
             return $binaryOp->left;
         }
         return null;

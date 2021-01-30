@@ -57,7 +57,7 @@ CODE_SAMPLE
         if (!$this->isStaticCallsNamed($node, 'PHPExcel_IOFactory', ['createReader', 'createWriter', 'identify'])) {
             return null;
         }
-        $firstArgumentValue = $this->getValue($node->args[0]->value);
+        $firstArgumentValue = $this->valueResolver->getValue($node->args[0]->value);
         $newValue = self::OLD_TO_NEW_TYPE[$firstArgumentValue] ?? null;
         if ($newValue === null) {
             return null;

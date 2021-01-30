@@ -118,11 +118,11 @@ CODE_SAMPLE
             $return->expr = new \PhpParser\Node\Scalar\LNumber(0);
             return;
         }
-        if ($this->isNull($return->expr)) {
+        if ($this->valueResolver->isNull($return->expr)) {
             $return->expr = new \PhpParser\Node\Scalar\LNumber(0);
             return;
         }
-        if ($return->expr instanceof \PhpParser\Node\Expr\BinaryOp\Coalesce && $this->isNull($return->expr->right)) {
+        if ($return->expr instanceof \PhpParser\Node\Expr\BinaryOp\Coalesce && $this->valueResolver->isNull($return->expr->right)) {
             $return->expr->right = new \PhpParser\Node\Scalar\LNumber(0);
             return;
         }
@@ -141,11 +141,11 @@ CODE_SAMPLE
     private function isSuccessfulRefactorTernaryReturn(\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
         $hasChanged = \false;
-        if ($ternary->if && $this->isNull($ternary->if)) {
+        if ($ternary->if && $this->valueResolver->isNull($ternary->if)) {
             $ternary->if = new \PhpParser\Node\Scalar\LNumber(0);
             $hasChanged = \true;
         }
-        if ($this->isNull($ternary->else)) {
+        if ($this->valueResolver->isNull($ternary->else)) {
             $ternary->else = new \PhpParser\Node\Scalar\LNumber(0);
             $hasChanged = \true;
         }

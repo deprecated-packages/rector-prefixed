@@ -96,7 +96,7 @@ CODE_SAMPLE
     {
         $classConstConstsByValue = [];
         foreach ($numericClassConstsByKey as $position => $numericClassConst) {
-            $constantValue = $this->getValue($numericClassConst->consts[0]->value);
+            $constantValue = $this->valueResolver->getValue($numericClassConst->consts[0]->value);
             $classConstConstsByValue[$position] = $constantValue;
         }
         $arrayCountValue = \array_count_values($classConstConstsByValue);

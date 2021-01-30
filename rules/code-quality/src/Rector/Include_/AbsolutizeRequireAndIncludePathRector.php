@@ -61,7 +61,7 @@ CODE_SAMPLE
             return null;
         }
         /** @var string $includeValue */
-        $includeValue = $this->getValue($node->expr);
+        $includeValue = $this->valueResolver->getValue($node->expr);
         // skip phar
         if (\RectorPrefix20210130\Nette\Utils\Strings::startsWith($includeValue, 'phar://')) {
             return null;

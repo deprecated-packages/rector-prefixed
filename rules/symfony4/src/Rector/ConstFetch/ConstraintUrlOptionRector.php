@@ -36,7 +36,7 @@ final class ConstraintUrlOptionRector extends \Rector\Core\Rector\AbstractRector
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isTrue($node)) {
+        if (!$this->valueResolver->isTrue($node)) {
             return null;
         }
         $prevNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);

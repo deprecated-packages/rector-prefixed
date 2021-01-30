@@ -53,10 +53,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->isStaticType($node->left, \PHPStan\Type\BooleanType::class) && !$this->isBool($node->left)) {
+        if ($this->isStaticType($node->left, \PHPStan\Type\BooleanType::class) && !$this->valueResolver->isTrueOrFalse($node->left)) {
             return $this->processBoolTypeToNotBool($node, $node->left, $node->right);
         }
-        if ($this->isStaticType($node->right, \PHPStan\Type\BooleanType::class) && !$this->isBool($node->right)) {
+        if ($this->isStaticType($node->right, \PHPStan\Type\BooleanType::class) && !$this->valueResolver->isTrueOrFalse($node->right)) {
             return $this->processBoolTypeToNotBool($node, $node->right, $node->left);
         }
         return null;
@@ -73,10 +73,10 @@ CODE_SAMPLE
     }
     private function refactorIdentical(\PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr) : ?\PhpParser\Node\Expr
     {
-        if ($this->isTrue($rightExpr)) {
+        if ($this->valueResolver->isTrue($rightExpr)) {
             return $leftExpr;
         }
-        if ($this->isFalse($rightExpr)) {
+        if ($this->valueResolver->isFalse($rightExpr)) {
             // prevent !!
             if ($leftExpr instanceof \PhpParser\Node\Expr\BooleanNot) {
                 return $leftExpr->expr;
@@ -87,10 +87,10 @@ CODE_SAMPLE
     }
     private function refactorNotIdentical(\PhpParser\Node\Expr $leftExpr, \PhpParser\Node\Expr $rightExpr) : ?\PhpParser\Node\Expr
     {
-        if ($this->isFalse($rightExpr)) {
+        if ($this->valueResolver->isFalse($rightExpr)) {
             return $leftExpr;
         }
-        if ($this->isTrue($rightExpr)) {
+        if ($this->valueResolver->isTrue($rightExpr)) {
             return new \PhpParser\Node\Expr\BooleanNot($leftExpr);
         }
         return null;

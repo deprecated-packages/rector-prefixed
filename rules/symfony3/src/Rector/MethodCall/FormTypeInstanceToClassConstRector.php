@@ -131,7 +131,7 @@ CODE_SAMPLE
             if ($arrayItem->key === null) {
                 continue;
             }
-            if (!$this->isValues($arrayItem->key, ['entry', 'entry_type'])) {
+            if (!$this->valueResolver->isValues($arrayItem->key, ['entry', 'entry_type'])) {
                 continue;
             }
             if (!$arrayItem->value instanceof \PhpParser\Node\Expr\New_) {

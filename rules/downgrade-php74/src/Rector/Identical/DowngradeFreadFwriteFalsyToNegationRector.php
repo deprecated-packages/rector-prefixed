@@ -48,7 +48,7 @@ CODE_SAMPLE
         if (!$compareValue instanceof \PhpParser\Node\Expr) {
             return null;
         }
-        if (!$this->isFalse($compareValue)) {
+        if (!$this->valueResolver->isFalse($compareValue)) {
             return null;
         }
         return new \PhpParser\Node\Expr\BooleanNot($this->getFunction($node));

@@ -92,7 +92,7 @@ CODE_SAMPLE
                 continue;
             }
             $firstArgValue = $node->args[0]->value;
-            if (!$this->isValue($firstArgValue, $variableMethodCallsToServiceCalls->getArgumentValue())) {
+            if (!$this->valueResolver->isValue($firstArgValue, $variableMethodCallsToServiceCalls->getArgumentValue())) {
                 continue;
             }
             $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);

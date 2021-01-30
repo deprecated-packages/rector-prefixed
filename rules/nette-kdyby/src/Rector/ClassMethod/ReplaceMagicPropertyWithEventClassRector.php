@@ -114,7 +114,7 @@ CODE_SAMPLE
             if (!$arrayKey instanceof \PhpParser\Node\Expr) {
                 return null;
             }
-            $eventPropertyReferenceName = $this->getValue($arrayKey);
+            $eventPropertyReferenceName = $this->valueResolver->getValue($arrayKey);
             // is property?
             if (!\RectorPrefix20210130\Nette\Utils\Strings::contains($eventPropertyReferenceName, '::')) {
                 return null;

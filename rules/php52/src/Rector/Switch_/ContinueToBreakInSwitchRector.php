@@ -79,7 +79,8 @@ CODE_SAMPLE
             return new \PhpParser\Node\Stmt\Break_();
         }
         if ($continue->num instanceof \PhpParser\Node\Scalar\LNumber) {
-            if ($this->getValue($continue->num) <= 1) {
+            $continueNumber = $this->valueResolver->getValue($continue->num);
+            if ($continueNumber <= 1) {
                 return new \PhpParser\Node\Stmt\Break_();
             }
         } elseif ($continue->num instanceof \PhpParser\Node\Expr\Variable) {

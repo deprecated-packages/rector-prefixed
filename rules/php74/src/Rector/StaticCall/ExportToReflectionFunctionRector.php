@@ -50,7 +50,7 @@ CODE_SAMPLE
             return null;
         }
         $new = new \PhpParser\Node\Expr\New_($node->class, [new \PhpParser\Node\Arg($node->args[0]->value)]);
-        if (isset($node->args[1]) && $this->isTrue($node->args[1]->value)) {
+        if (isset($node->args[1]) && $this->valueResolver->isTrue($node->args[1]->value)) {
             return new \PhpParser\Node\Expr\Cast\String_($new);
         }
         return $new;

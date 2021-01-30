@@ -5,6 +5,7 @@ namespace Rector\Core\PhpParser\Node\Value;
 
 use PhpParser\ConstExprEvaluationException;
 use PhpParser\ConstExprEvaluator;
+use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -15,6 +16,7 @@ use PhpParser\Node\Stmt\ClassConst;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\ConstantScalarType;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\NodeAnalyzer\ConstFetchAnalyzer;
 use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -41,11 +43,16 @@ final class ValueResolver
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    /**
+     * @var ConstFetchAnalyzer
+     */
+    private $constFetchAnalyzer;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->parsedNodeCollector = $parsedNodeCollector;
         $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->constFetchAnalyzer = $constFetchAnalyzer;
     }
     /**
      * @param mixed $value
@@ -91,6 +98,34 @@ final class ValueResolver
             return $nodeStaticType->getValue();
         }
         return null;
+    }
+    /**
+     * @param mixed[] $expectedValues
+     */
+    public function isValues(\PhpParser\Node\Expr $expr, array $expectedValues) : bool
+    {
+        foreach ($expectedValues as $expectedValue) {
+            if ($this->isValue($expr, $expectedValue)) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    public function isFalse(\PhpParser\Node $node) : bool
+    {
+        return $this->constFetchAnalyzer->isFalse($node);
+    }
+    public function isTrueOrFalse(\PhpParser\Node $node) : bool
+    {
+        return $this->constFetchAnalyzer->isTrueOrFalse($node);
+    }
+    public function isTrue(\PhpParser\Node $node) : bool
+    {
+        return $this->constFetchAnalyzer->isTrue($node);
+    }
+    public function isNull(\PhpParser\Node $node) : bool
+    {
+        return $this->constFetchAnalyzer->isNull($node);
     }
     private function processConcat(\PhpParser\Node\Expr\BinaryOp\Concat $concat, bool $resolvedClassReference) : string
     {

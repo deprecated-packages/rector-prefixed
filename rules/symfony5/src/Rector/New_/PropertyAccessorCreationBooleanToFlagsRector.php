@@ -53,7 +53,7 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $isTrue = $this->isTrue($node->args[0]->value);
+        $isTrue = $this->valueResolver->isTrue($node->args[0]->value);
         $bitwiseOr = $this->prepareFlags($isTrue);
         $node->args[0] = $this->nodeFactory->createArg($bitwiseOr);
         return $node;
@@ -66,7 +66,7 @@ CODE_SAMPLE
         if (!$this->isName($new->class, 'Symfony\\Component\\PropertyAccess\\PropertyAccessor')) {
             return \true;
         }
-        return !$this->isBool($new->args[0]->value);
+        return !$this->valueResolver->isTrueOrFalse($new->args[0]->value);
     }
     private function prepareFlags(bool $currentValue) : \PhpParser\Node\Expr\BinaryOp\BitwiseOr
     {

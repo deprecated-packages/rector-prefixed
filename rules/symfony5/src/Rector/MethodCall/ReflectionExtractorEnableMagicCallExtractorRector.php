@@ -116,7 +116,7 @@ CODE_SAMPLE
             if ($arrayItem->key->value !== self::OLD_OPTION_NAME) {
                 continue;
             }
-            $contextOptionValue = $this->isTrue($arrayItem->value);
+            $contextOptionValue = $this->valueResolver->isTrue($arrayItem->value);
             unset($contextOptions->items[$index]);
         }
         return $contextOptionValue;

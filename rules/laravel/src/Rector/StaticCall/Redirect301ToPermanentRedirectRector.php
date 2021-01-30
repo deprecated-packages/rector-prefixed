@@ -59,7 +59,8 @@ CODE_SAMPLE
         if (!isset($node->args[2])) {
             return null;
         }
-        if ($this->getValue($node->args[2]->value) !== 301) {
+        $is301 = $this->valueResolver->isValue($node->args[2]->value, 301);
+        if (!$is301) {
             return null;
         }
         unset($node->args[2]);

@@ -90,7 +90,7 @@ CODE_SAMPLE
     private function processArgs(\PhpParser\Node $node, \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer $argumentDefaultValueReplacer) : void
     {
         $position = $argumentDefaultValueReplacer->getPosition();
-        $argValue = $this->getValue($node->args[$position]->value);
+        $argValue = $this->valueResolver->getValue($node->args[$position]->value);
         if (\is_scalar($argumentDefaultValueReplacer->getValueBefore()) && $argValue === $argumentDefaultValueReplacer->getValueBefore()) {
             $node->args[$position] = $this->normalizeValueToArgument($argumentDefaultValueReplacer->getValueAfter());
         } elseif (\is_array($argumentDefaultValueReplacer->getValueBefore())) {
@@ -148,7 +148,7 @@ CODE_SAMPLE
                 continue;
             }
             $nextArg = $argumentNodes[$argumentDefaultValueReplacer->getPosition() + $i];
-            $argumentValues[] = $this->getValue($nextArg->value);
+            $argumentValues[] = $this->valueResolver->getValue($nextArg->value);
         }
         return $argumentValues;
     }

@@ -106,7 +106,7 @@ CODE_SAMPLE
         if ($this->isStaticCallNamed($argValue, 'Carbon\\Carbon', 'today')) {
             return null;
         }
-        if ($this->isValues($methodCall->args[1]->value, ['>=', '<='])) {
+        if ($this->valueResolver->isValues($methodCall->args[1]->value, ['>=', '<='])) {
             return null;
         }
         return $argValue;

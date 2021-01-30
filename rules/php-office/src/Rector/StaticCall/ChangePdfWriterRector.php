@@ -66,7 +66,7 @@ CODE_SAMPLE
             if (!isset($node->args[1])) {
                 return null;
             }
-            $secondArgValue = $this->getValue($node->args[1]->value);
+            $secondArgValue = $this->valueResolver->getValue($node->args[1]->value);
             if (\RectorPrefix20210130\Nette\Utils\Strings::match($secondArgValue, '#pdf#i')) {
                 return new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified('PhpOffice\\PhpSpreadsheet\\Writer\\Pdf\\Mpdf'), [$node->args[0]]);
             }

@@ -87,7 +87,7 @@ CODE_SAMPLE
             return null;
         }
         // must be empty array, otherwise it will false override
-        $defaultValue = $this->getValue($previousDeclarationParentNode->expr);
+        $defaultValue = $this->valueResolver->getValue($previousDeclarationParentNode->expr);
         if ($defaultValue !== []) {
             return null;
         }

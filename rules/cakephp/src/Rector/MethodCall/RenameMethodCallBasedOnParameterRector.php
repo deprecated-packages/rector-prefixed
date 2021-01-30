@@ -83,7 +83,7 @@ CODE_SAMPLE
             if (!$this->isName($methodCall->name, $callWithParamRename->getOldMethod())) {
                 continue;
             }
-            if (!$this->isValue($firstArgValue, $callWithParamRename->getParameterName())) {
+            if (!$this->valueResolver->isValue($firstArgValue, $callWithParamRename->getParameterName())) {
                 continue;
             }
             return $callWithParamRename;

@@ -59,7 +59,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->stringsToClassConstants as $stringToClassConstant) {
-            if (!$this->isValue($node, $stringToClassConstant->getString())) {
+            if (!$this->valueResolver->isValue($node, $stringToClassConstant->getString())) {
                 continue;
             }
             return $this->nodeFactory->createClassConstFetch($stringToClassConstant->getClass(), $stringToClassConstant->getConstant());

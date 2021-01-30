@@ -60,7 +60,7 @@ CODE_SAMPLE
         if (!$funcCall instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;
         }
-        if (isset($funcCall->args[2]) && !$this->isValue($funcCall->args[2]->value, 0)) {
+        if (isset($funcCall->args[2]) && !$this->valueResolver->isValue($funcCall->args[2]->value, 0)) {
             return null;
         }
         $containsStaticCall = $this->nodeFactory->createStaticCall('Nette\\Utils\\Strings', 'contains');
@@ -73,7 +73,7 @@ CODE_SAMPLE
     }
     private function matchStrposInComparisonToFalse(\PhpParser\Node\Expr\BinaryOp $binaryOp) : ?\PhpParser\Node\Expr\FuncCall
     {
-        if ($this->isFalse($binaryOp->left)) {
+        if ($this->valueResolver->isFalse($binaryOp->left)) {
             if (!$binaryOp->right instanceof \PhpParser\Node\Expr\FuncCall) {
                 return null;
             }
@@ -81,7 +81,7 @@ CODE_SAMPLE
                 return $binaryOp->right;
             }
         }
-        if ($this->isFalse($binaryOp->right)) {
+        if ($this->valueResolver->isFalse($binaryOp->right)) {
             if (!$binaryOp->left instanceof \PhpParser\Node\Expr\FuncCall) {
                 return null;
             }

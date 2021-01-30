@@ -261,20 +261,15 @@ final class TokenManipulator
     {
         $parentNode = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if ($parentNode instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
-            if ($parentNode->left === $funcCall && $this->isTrueConstant($parentNode->right)) {
+            $isRightValueTrue = $this->valueResolver->isValue($parentNode->right, \true);
+            if ($parentNode->left === $funcCall && $isRightValueTrue) {
                 return $parentNode;
             }
-            if ($parentNode->right === $funcCall && $this->isTrueConstant($parentNode->left)) {
+            $isLeftValueTrue = $this->valueResolver->isValue($parentNode->left, \true);
+            if ($parentNode->right === $funcCall && $isLeftValueTrue) {
                 return $parentNode;
             }
         }
         return $funcCall;
-    }
-    private function isTrueConstant(\PhpParser\Node\Expr $expr) : bool
-    {
-        if (!$expr instanceof \PhpParser\Node\Expr\ConstFetch) {
-            return \false;
-        }
-        return $expr->name->toLowerString() === 'true';
     }
 }

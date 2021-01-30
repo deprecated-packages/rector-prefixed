@@ -108,7 +108,7 @@ CODE_SAMPLE
         if (!$methodCall->args[1]->value instanceof \PhpParser\Node\Expr\ClassConstFetch) {
             return \false;
         }
-        $classConst = $this->getValue($methodCall->args[1]->value);
+        $classConst = $this->valueResolver->getValue($methodCall->args[1]->value);
         $eventStaticType = $this->getStaticType($methodCall->args[0]->value);
         if (!$eventStaticType instanceof \PHPStan\Type\ObjectType) {
             return \false;

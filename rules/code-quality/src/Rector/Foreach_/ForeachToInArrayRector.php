@@ -92,7 +92,7 @@ CODE_SAMPLE
         if ($returnToRemove->expr === null) {
             return null;
         }
-        if (!$this->isBool($returnToRemove->expr)) {
+        if (!$this->valueResolver->isTrueOrFalse($returnToRemove->expr)) {
             return null;
         }
         if ($return->expr === null) {
@@ -126,7 +126,7 @@ CODE_SAMPLE
         if (!$returnExpression instanceof \PhpParser\Node\Expr) {
             return \true;
         }
-        if (!$this->isBool($returnExpression)) {
+        if (!$this->valueResolver->isTrueOrFalse($returnExpression)) {
             return \true;
         }
         $foreachValueStaticType = $this->getStaticType($foreach->expr);
@@ -158,7 +158,7 @@ CODE_SAMPLE
         if ($ifStatment->expr === null) {
             return \false;
         }
-        return $this->isBool($ifStatment->expr);
+        return $this->valueResolver->isTrueOrFalse($ifStatment->expr);
     }
     /**
      * @param Identical|Equal $binaryOp
@@ -173,7 +173,7 @@ CODE_SAMPLE
     }
     private function createReturn(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\FuncCall $funcCall) : \PhpParser\Node\Stmt\Return_
     {
-        $expr = $this->isFalse($expr) ? new \PhpParser\Node\Expr\BooleanNot($funcCall) : $funcCall;
+        $expr = $this->valueResolver->isFalse($expr) ? new \PhpParser\Node\Expr\BooleanNot($funcCall) : $funcCall;
         return new \PhpParser\Node\Stmt\Return_($expr);
     }
 }

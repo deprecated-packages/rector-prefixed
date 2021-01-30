@@ -82,7 +82,7 @@ CODE_SAMPLE
                 if (!$item instanceof \PhpParser\Node\Expr\ArrayItem) {
                     continue;
                 }
-                $value = $this->getValue($item->value);
+                $value = $this->valueResolver->getValue($item->value);
                 if ($scope->hasVariableType($value)->yes()) {
                     continue;
                 }
@@ -114,7 +114,7 @@ CODE_SAMPLE
      */
     private function resolveVariableNames(\PhpParser\Node\Arg $arg) : array
     {
-        $argValue = $this->getValue($arg->value);
+        $argValue = $this->valueResolver->getValue($arg->value);
         if (\is_string($argValue)) {
             return [$argValue];
         }

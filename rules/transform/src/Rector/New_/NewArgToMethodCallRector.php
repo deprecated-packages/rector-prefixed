@@ -70,7 +70,7 @@ CODE_SAMPLE
                 return null;
             }
             $firstArgValue = $node->args[0]->value;
-            if (!$this->isValue($firstArgValue, $newArgToMethodCall->getValue())) {
+            if (!$this->valueResolver->isValue($firstArgValue, $newArgToMethodCall->getValue())) {
                 continue;
             }
             unset($node->args[0]);

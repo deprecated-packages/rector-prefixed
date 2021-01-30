@@ -68,7 +68,7 @@ CODE_SAMPLE
         if (!$this->isName($node->name, 'enableAnnotationMapping')) {
             return null;
         }
-        if ($this->isBool($node->args[0]->value)) {
+        if ($this->valueResolver->isTrueOrFalse($node->args[0]->value)) {
             return null;
         }
         if (!$this->isObjectType($node->args[0]->value, self::ARG_OLD_TYPE)) {

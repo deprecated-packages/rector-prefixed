@@ -115,6 +115,6 @@ CODE_SAMPLE
         if ($expr instanceof \PhpParser\Node\Scalar) {
             return \false;
         }
-        return !$this->isBool($expr);
+        return !$this->valueResolver->isTrueOrFalse($expr);
     }
 }

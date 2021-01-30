@@ -108,7 +108,7 @@ CODE_SAMPLE
                 if (!$this->propertyFetchAnalyzer->isLocalPropertyFetchName($node->var, 'mockConsoleOutput')) {
                     return \false;
                 }
-                return $this->isFalse($node->expr);
+                return $this->valueResolver->isFalse($node->expr);
             }
             return \false;
         });

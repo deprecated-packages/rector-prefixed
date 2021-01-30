@@ -82,7 +82,7 @@ CODE_SAMPLE
     }
     private function createNegationConsFetch(\PhpParser\Node\Expr\ConstFetch $constFetch) : \PhpParser\Node\Expr\ConstFetch
     {
-        if ($this->isFalse($constFetch)) {
+        if ($this->valueResolver->isFalse($constFetch)) {
             return $this->nodeFactory->createTrue();
         }
         return $this->nodeFactory->createFalse();

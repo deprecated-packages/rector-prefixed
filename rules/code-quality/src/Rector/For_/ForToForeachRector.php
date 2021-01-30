@@ -167,7 +167,7 @@ CODE_SAMPLE
             if (!$initExpr instanceof \PhpParser\Node\Expr\Assign) {
                 continue;
             }
-            if ($this->isValue($initExpr->expr, 0)) {
+            if ($this->valueResolver->isValue($initExpr->expr, 0)) {
                 $this->keyValueName = $this->getName($initExpr->var);
             }
             if ($this->isFuncCallName($initExpr->expr, self::COUNT)) {

@@ -53,7 +53,7 @@ CODE_SAMPLE
         if (!$this->isName($node, 'call_user_func_array')) {
             return null;
         }
-        $functionName = $this->getValue($node->args[0]->value);
+        $functionName = $this->valueResolver->getValue($node->args[0]->value);
         if (!\is_string($functionName)) {
             return null;
         }

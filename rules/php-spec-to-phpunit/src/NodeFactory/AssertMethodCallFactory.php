@@ -8,8 +8,8 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
-use Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator;
 use Rector\Core\PhpParser\Node\NodeFactory;
+use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class AssertMethodCallFactory
 {
@@ -18,10 +18,6 @@ final class AssertMethodCallFactory
      */
     private $nodeFactory;
     /**
-     * @var ConstFetchManipulator
-     */
-    private $constFetchManipulator;
-    /**
      * @var bool
      */
     private $isBoolAssert = \false;
@@ -29,11 +25,15 @@ final class AssertMethodCallFactory
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator $constFetchManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var ValueResolver
+     */
+    private $valueResolver;
+    public function __construct(\Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->nodeFactory = $nodeFactory;
-        $this->constFetchManipulator = $constFetchManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->valueResolver = $valueResolver;
     }
     public function createAssertMethod(string $name, \PhpParser\Node\Expr $value, ?\PhpParser\Node\Expr $expected, \PhpParser\Node\Expr\PropertyFetch $testedObjectPropertyFetch) : \PhpParser\Node\Expr\MethodCall
     {
@@ -51,16 +51,17 @@ final class AssertMethodCallFactory
     }
     private function resolveBoolMethodName(string $name, \PhpParser\Node\Expr $expr) : string
     {
-        if (!$this->constFetchManipulator->isBool($expr)) {
+        if (!$this->valueResolver->isTrueOrFalse($expr)) {
             return $name;
         }
+        $isFalse = $this->valueResolver->isFalse($expr);
         if ($name === 'assertSame') {
             $this->isBoolAssert = \true;
-            return $this->constFetchManipulator->isFalse($expr) ? 'assertFalse' : 'assertTrue';
+            return $isFalse ? 'assertFalse' : 'assertTrue';
         }
         if ($name === 'assertNotSame') {
             $this->isBoolAssert = \true;
-            return $this->constFetchManipulator->isFalse($expr) ? 'assertNotFalse' : 'assertNotTrue';
+            return $isFalse ? 'assertNotFalse' : 'assertNotTrue';
         }
         return $name;
     }

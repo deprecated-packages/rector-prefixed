@@ -110,7 +110,7 @@ CODE_SAMPLE
                 continue;
             }
             /** @var If_ $stmt */
-            $hash = $this->printWithoutComments($stmt);
+            $hash = $this->betterStandardPrinter->printWithoutComments($stmt);
             $ifWithOnlyReturnsByHash[$hash][] = $stmt;
         }
         return $this->filterOutSingleItemStmts($ifWithOnlyReturnsByHash);

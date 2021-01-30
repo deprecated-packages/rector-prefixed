@@ -146,9 +146,9 @@ CODE_SAMPLE
         if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\Identical && !$node instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return null;
         }
-        if ($node->left instanceof \PhpParser\Node\Expr\PropertyFetch && $this->isNull($node->right)) {
+        if ($node->left instanceof \PhpParser\Node\Expr\PropertyFetch && $this->valueResolver->isNull($node->right)) {
             $propertyFetch = $node->left;
-        } elseif ($node->right instanceof \PhpParser\Node\Expr\PropertyFetch && $this->isNull($node->left)) {
+        } elseif ($node->right instanceof \PhpParser\Node\Expr\PropertyFetch && $this->valueResolver->isNull($node->left)) {
             $propertyFetch = $node->right;
         } else {
             return null;

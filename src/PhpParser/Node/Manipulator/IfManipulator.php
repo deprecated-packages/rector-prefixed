@@ -18,6 +18,7 @@ use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
+use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class IfManipulator
@@ -26,10 +27,6 @@ final class IfManipulator
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    /**
-     * @var ConstFetchManipulator
-     */
-    private $constFetchManipulator;
     /**
      * @var StmtsManipulator
      */
@@ -42,13 +39,17 @@ final class IfManipulator
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\Node\Manipulator\ConstFetchManipulator $constFetchManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator $stmtsManipulator)
+    /**
+     * @var ValueResolver
+     */
+    private $valueResolver;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator $stmtsManipulator, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
-        $this->constFetchManipulator = $constFetchManipulator;
         $this->stmtsManipulator = $stmtsManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->valueResolver = $valueResolver;
     }
     /**
      * Matches:
@@ -273,13 +274,13 @@ final class IfManipulator
     }
     private function matchComparedAndReturnedNode(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical, \PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr
     {
-        if ($this->betterStandardPrinter->areNodesEqual($notIdentical->left, $return->expr) && $this->constFetchManipulator->isNull($notIdentical->right)) {
+        if ($this->betterStandardPrinter->areNodesEqual($notIdentical->left, $return->expr) && $this->valueResolver->isNull($notIdentical->right)) {
             return $notIdentical->left;
         }
         if (!$this->betterStandardPrinter->areNodesEqual($notIdentical->right, $return->expr)) {
             return null;
         }
-        if ($this->constFetchManipulator->isNull($notIdentical->left)) {
+        if ($this->valueResolver->isNull($notIdentical->left)) {
             return $notIdentical->right;
         }
         return null;
@@ -289,7 +290,7 @@ final class IfManipulator
         if ($this->betterStandardPrinter->areNodesEqual($notIdentical->left, $notIdentical->right)) {
             return \false;
         }
-        return $this->constFetchManipulator->isNull($notIdentical->right) || $this->constFetchManipulator->isNull($notIdentical->left);
+        return $this->valueResolver->isNull($notIdentical->right) || $this->valueResolver->isNull($notIdentical->left);
     }
     private function isIfWithOnlyStmtIf(\PhpParser\Node\Stmt\If_ $if) : bool
     {
@@ -317,6 +318,6 @@ final class IfManipulator
     {
         /** @var Identical|NotIdentical $ifCond */
         $ifCond = $if->cond;
-        return $this->constFetchManipulator->isNull($ifCond->left) ? $ifCond->right : $ifCond->left;
+        return $this->valueResolver->isNull($ifCond->left) ? $ifCond->right : $ifCond->left;
     }
 }

@@ -110,7 +110,7 @@ CODE_SAMPLE
             if (!$this->arrayManipulator->hasKeyName($arrayItem, 'cascade_validation')) {
                 continue;
             }
-            if (!$this->isTrue($arrayItem->value)) {
+            if (!$this->valueResolver->isTrue($arrayItem->value)) {
                 continue;
             }
             unset($optionsArrayNode->items[$key]);

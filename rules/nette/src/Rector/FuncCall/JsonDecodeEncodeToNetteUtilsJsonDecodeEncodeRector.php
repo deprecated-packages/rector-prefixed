@@ -96,9 +96,9 @@ CODE_SAMPLE
         $args = $funcCall->args;
         if (isset($args[1])) {
             $secondArgumentValue = $args[1]->value;
-            if ($this->isFalse($secondArgumentValue)) {
+            if ($this->valueResolver->isFalse($secondArgumentValue)) {
                 unset($args[1]);
-            } elseif ($this->isTrue($secondArgumentValue)) {
+            } elseif ($this->valueResolver->isTrue($secondArgumentValue)) {
                 $classConstFetch = $this->nodeFactory->createClassConstFetch('Nette\\Utils\\Json', 'FORCE_ARRAY');
                 $args[1] = new \PhpParser\Node\Arg($classConstFetch);
             }

@@ -69,7 +69,7 @@ final class SimplifyConditionsRector extends \Rector\Core\Rector\AbstractRector
         $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($identical, function (\PhpParser\Node $binaryOp) : bool {
             return $binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Identical || $binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical;
         }, function (\PhpParser\Node $binaryOp) : bool {
-            return $this->isBool($binaryOp);
+            return $this->valueResolver->isTrueOrFalse($binaryOp);
         });
         if (!$twoNodeMatch instanceof \Rector\Php71\ValueObject\TwoNodeMatch) {
             return $twoNodeMatch;
@@ -77,7 +77,7 @@ final class SimplifyConditionsRector extends \Rector\Core\Rector\AbstractRector
         /** @var Identical|NotIdentical $subBinaryOp */
         $subBinaryOp = $twoNodeMatch->getFirstExpr();
         $otherNode = $twoNodeMatch->getSecondExpr();
-        if ($this->isFalse($otherNode)) {
+        if ($this->valueResolver->isFalse($otherNode)) {
             return $this->createInversedBooleanOp($subBinaryOp);
         }
         return $subBinaryOp;

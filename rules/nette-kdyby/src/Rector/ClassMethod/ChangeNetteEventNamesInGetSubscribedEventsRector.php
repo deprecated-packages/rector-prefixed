@@ -142,7 +142,7 @@ CODE_SAMPLE
     }
     private function resolveMethodNameFromKdybyEventName(\PhpParser\Node\Expr $expr) : string
     {
-        $kdybyEventName = $this->getValue($expr);
+        $kdybyEventName = $this->valueResolver->getValue($expr);
         if (\RectorPrefix20210130\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
             return (string) \RectorPrefix20210130\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
         }

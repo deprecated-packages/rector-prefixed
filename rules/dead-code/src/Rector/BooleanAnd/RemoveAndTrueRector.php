@@ -57,7 +57,7 @@ CODE_SAMPLE
     }
     private function isTrueOrBooleanAndTrues(\PhpParser\Node $node) : bool
     {
-        if ($this->isTrue($node)) {
+        if ($this->valueResolver->isTrue($node)) {
             return \true;
         }
         if (!$node instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {

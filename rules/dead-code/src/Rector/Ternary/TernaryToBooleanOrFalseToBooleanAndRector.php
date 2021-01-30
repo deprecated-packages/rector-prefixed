@@ -62,10 +62,10 @@ CODE_SAMPLE
         if ($node->if === null) {
             return null;
         }
-        if (!$this->isFalse($node->else)) {
+        if (!$this->valueResolver->isFalse($node->else)) {
             return null;
         }
-        if ($this->isTrue($node->if)) {
+        if ($this->valueResolver->isTrue($node->if)) {
             return null;
         }
         $ifType = $this->getStaticType($node->if);

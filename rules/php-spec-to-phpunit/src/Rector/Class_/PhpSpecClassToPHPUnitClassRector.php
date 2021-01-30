@@ -116,7 +116,7 @@ final class PhpSpecClassToPHPUnitClassRector extends \Rector\PhpSpecToPHPUnit\Re
                 continue;
             }
             // not the tested type
-            if (!$this->isValue($innerClassMethodStmt->args[0]->value, $this->testedObjectType->getClassName())) {
+            if (!$this->valueResolver->isValue($innerClassMethodStmt->args[0]->value, $this->testedObjectType->getClassName())) {
                 continue;
             }
             // remove it

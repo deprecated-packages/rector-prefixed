@@ -130,7 +130,7 @@ CODE_SAMPLE
         if (!$this->areNodesEqual($methodCall->args[1]->value, $this->getStatusCodeMethodCall)) {
             return null;
         }
-        $statusCode = $this->getValue($methodCall->args[0]->value);
+        $statusCode = $this->valueResolver->getValue($methodCall->args[0]->value);
         // handled by another methods
         if (\in_array($statusCode, [200, 301], \true)) {
             return null;

@@ -125,7 +125,7 @@ CODE_SAMPLE
             if (!$node->expr instanceof \PhpParser\Node\Scalar\String_) {
                 return \false;
             }
-            return $this->isValue($node->expr, '');
+            return $this->valueResolver->isValue($node->expr, '');
         });
         if ($variableAssign instanceof \PhpParser\Node\Expr\Assign) {
             $variableAssign->expr = new \PhpParser\Node\Expr\Array_();

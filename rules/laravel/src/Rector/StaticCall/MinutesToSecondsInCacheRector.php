@@ -132,7 +132,7 @@ CODE_SAMPLE
     }
     private function mulByNumber(\PhpParser\Node\Expr $argExpr, int $value) : \PhpParser\Node\Expr
     {
-        if ($this->isValue($argExpr, 1)) {
+        if ($this->valueResolver->isValue($argExpr, 1)) {
             return new \PhpParser\Node\Scalar\LNumber($value);
         }
         return new \PhpParser\Node\Expr\BinaryOp\Mul($argExpr, new \PhpParser\Node\Scalar\LNumber($value));

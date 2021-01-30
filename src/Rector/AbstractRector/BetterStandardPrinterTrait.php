@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Core\Rector\AbstractRector;
 
 use PhpParser\Node;
-use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
@@ -13,20 +12,15 @@ use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 trait BetterStandardPrinterTrait
 {
     /**
-     * @var BetterNodeFinder
-     */
-    protected $betterNodeFinder;
-    /**
      * @var BetterStandardPrinter
      */
     protected $betterStandardPrinter;
     /**
      * @required
      */
-    public function autowireBetterStandardPrinterTrait(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder) : void
+    public function autowireBetterStandardPrinterTrait(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter) : void
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
-        $this->betterNodeFinder = $betterNodeFinder;
     }
     /**
      * @param Node|Node[]|null $node
@@ -34,13 +28,6 @@ trait BetterStandardPrinterTrait
     public function print($node) : string
     {
         return $this->betterStandardPrinter->print($node);
-    }
-    /**
-     * @param Node|Node[]|null $node
-     */
-    public function printWithoutComments($node) : string
-    {
-        return $this->betterStandardPrinter->printWithoutComments($node);
     }
     /**
      * Removes all comments from both nodes

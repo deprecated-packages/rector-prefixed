@@ -65,7 +65,7 @@ final class GetClassToInstanceOfRector extends \Rector\Core\Rector\AbstractRecto
         $funcCall = $twoNodeMatch->getSecondExpr();
         $varNode = $funcCall->args[0]->value;
         if ($firstExpr instanceof \PhpParser\Node\Scalar\String_) {
-            $className = $this->getValue($firstExpr);
+            $className = $this->valueResolver->getValue($firstExpr);
         } else {
             $className = $this->getName($firstExpr->class);
         }

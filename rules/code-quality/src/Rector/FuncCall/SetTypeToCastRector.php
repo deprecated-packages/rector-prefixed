@@ -72,7 +72,7 @@ CODE_SAMPLE
         if (!$this->isName($node, 'settype')) {
             return null;
         }
-        $typeNode = $this->getValue($node->args[1]->value);
+        $typeNode = $this->valueResolver->getValue($node->args[1]->value);
         if ($typeNode === null) {
             return null;
         }

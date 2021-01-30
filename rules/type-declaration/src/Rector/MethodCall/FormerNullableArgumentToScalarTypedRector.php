@@ -84,7 +84,7 @@ CODE_SAMPLE
             return null;
         }
         foreach ($node->args as $key => $arg) {
-            if (!$this->isNull($arg->value)) {
+            if (!$this->valueResolver->isNull($arg->value)) {
                 continue;
             }
             /** @var int $key */

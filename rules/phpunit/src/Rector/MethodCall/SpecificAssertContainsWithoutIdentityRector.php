@@ -83,7 +83,7 @@ CODE_SAMPLE
             return null;
         }
         //when 5th argument check identity is true: do nothing
-        if ($this->isValue($node->args[4]->value, \true)) {
+        if ($this->valueResolver->isValue($node->args[4]->value, \true)) {
             return null;
         }
         /* here we search for element of array without identity check  and we can replace functions */

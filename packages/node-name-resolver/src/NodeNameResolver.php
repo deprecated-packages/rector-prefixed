@@ -189,6 +189,41 @@ final class NodeNameResolver
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
         return (bool) \RectorPrefix20210130\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
+    public function isLocalMethodCallNamed(\PhpParser\Node $node, string $name) : bool
+    {
+        if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
+        }
+        if ($node->var instanceof \PhpParser\Node\Expr\StaticCall) {
+            return \false;
+        }
+        if ($node->var instanceof \PhpParser\Node\Expr\MethodCall) {
+            return \false;
+        }
+        if (!$this->isName($node->var, 'this')) {
+            return \false;
+        }
+        return $this->isName($node->name, $name);
+    }
+    /**
+     * @param string[] $names
+     */
+    public function isLocalMethodCallsNamed(\PhpParser\Node $node, array $names) : bool
+    {
+        foreach ($names as $name) {
+            if ($this->isLocalMethodCallNamed($node, $name)) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    public function isFuncCallName(\PhpParser\Node $node, string $name) : bool
+    {
+        if (!$node instanceof \PhpParser\Node\Expr\FuncCall) {
+            return \false;
+        }
+        return $this->isName($node, $name);
+    }
     private function isCallOrIdentifier(\PhpParser\Node $node) : bool
     {
         return \Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Identifier::class]);

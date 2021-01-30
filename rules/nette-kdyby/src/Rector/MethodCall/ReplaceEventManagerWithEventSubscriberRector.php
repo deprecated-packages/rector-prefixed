@@ -106,7 +106,7 @@ CODE_SAMPLE
         $oldArgs = $node->args;
         $node->args = [];
         $eventReference = $oldArgs[0]->value;
-        $classAndStaticProperty = $this->getValue($eventReference, \true);
+        $classAndStaticProperty = $this->valueResolver->getValue($eventReference, \true);
         $eventClassName = $this->eventClassNaming->createEventClassNameFromClassPropertyReference($classAndStaticProperty);
         $args = $this->createNewArgs($oldArgs);
         $new = new \PhpParser\Node\Expr\New_(new \PhpParser\Node\Name\FullyQualified($eventClassName), $args);

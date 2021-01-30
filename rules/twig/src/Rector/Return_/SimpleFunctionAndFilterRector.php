@@ -120,7 +120,7 @@ CODE_SAMPLE
                 continue;
             }
             // match!
-            $filterName = $this->getValue($arrayItem->key);
+            $filterName = $this->valueResolver->getValue($arrayItem->key);
             $arrayItem->key = null;
             $arrayItem->value->class = new \PhpParser\Node\Name\FullyQualified($newClass);
             $oldArguments = $arrayItem->value->args;

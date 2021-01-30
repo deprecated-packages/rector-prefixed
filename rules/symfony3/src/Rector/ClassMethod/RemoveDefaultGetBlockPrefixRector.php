@@ -63,7 +63,7 @@ CODE_SAMPLE
         if (!$returnedExpr instanceof \PhpParser\Node\Expr) {
             return null;
         }
-        $returnedValue = $this->getValue($returnedExpr);
+        $returnedValue = $this->valueResolver->getValue($returnedExpr);
         $classShortName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME);
         if (\RectorPrefix20210130\Nette\Utils\Strings::endsWith($classShortName, 'Type')) {
             $classShortName = \RectorPrefix20210130\Nette\Utils\Strings::before($classShortName, 'Type');

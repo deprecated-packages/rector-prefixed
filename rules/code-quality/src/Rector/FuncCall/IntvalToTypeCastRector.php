@@ -55,7 +55,7 @@ CODE_SAMPLE
             return null;
         }
         if (isset($node->args[1])) {
-            $secondArgumentValue = $this->getValue($node->args[1]->value);
+            $secondArgumentValue = $this->valueResolver->getValue($node->args[1]->value);
             // default value
             if ($secondArgumentValue !== 10) {
                 return null;
