@@ -6,13 +6,14 @@ namespace Rector\PHPUnit\Composer;
 use RectorPrefix20210131\Nette\Utils\Arrays;
 use RectorPrefix20210131\Nette\Utils\Json;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use RectorPrefix20210131\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
 use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileSystem;
 final class ComposerAutoloadedDirectoryProvider
 {
     /**
      * @var string[]
      */
-    private const AUTOLOAD_SECTIONS = ['autoload', 'autoload-dev'];
+    private const AUTOLOAD_SECTIONS = [\RectorPrefix20210131\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD, \RectorPrefix20210131\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV];
     /**
      * @var string
      */

@@ -6,6 +6,7 @@ namespace Rector\RectorGenerator\Composer;
 use Rector\RectorGenerator\ValueObject\Package;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
 use RectorPrefix20210131\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210131\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
 use RectorPrefix20210131\Symplify\SmartFileSystem\Json\JsonFileSystem;
 final class ComposerPackageAutoloadUpdater
 {
@@ -66,7 +67,7 @@ final class ComposerPackageAutoloadUpdater
      */
     private function isPackageAlreadyLoaded(array $composerJson, \Rector\RectorGenerator\ValueObject\Package $package) : bool
     {
-        foreach (['autoload', self::AUTOLOAD_DEV] as $autoloadSection) {
+        foreach ([\RectorPrefix20210131\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD, \RectorPrefix20210131\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV] as $autoloadSection) {
             if (isset($composerJson[$autoloadSection][self::PSR_4][$package->getSrcNamespace()])) {
                 return \true;
             }
