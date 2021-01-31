@@ -2557,6 +2557,7 @@ return array(
     'Rector\\NetteUtilsCodeQuality\\Rector\\LNumber\\ReplaceTimeNumberWithDateTimeConstantRector' => $baseDir . '/rules/nette-utils-code-quality/src/Rector/LNumber/ReplaceTimeNumberWithDateTimeConstantRector.php',
     'Rector\\Nette\\Contract\\PregToNetteUtilsStringInterface' => $baseDir . '/rules/nette/src/Contract/PregToNetteUtilsStringInterface.php',
     'Rector\\Nette\\Contract\\WithFunctionToNetteUtilsStringsRectorInterface' => $baseDir . '/rules/nette/src/Contract/WithFunctionToNetteUtilsStringsRectorInterface.php',
+    'Rector\\Nette\\NodeAnalyzer\\RenderMethodAnalyzer' => $baseDir . '/rules/nette/src/NodeAnalyzer/RenderMethodAnalyzer.php',
     'Rector\\Nette\\NodeAnalyzer\\StaticCallAnalyzer' => $baseDir . '/rules/nette/src/NodeAnalyzer/StaticCallAnalyzer.php',
     'Rector\\Nette\\NodeFactory\\ActionRenderFactory' => $baseDir . '/rules/nette/src/NodeFactory/ActionRenderFactory.php',
     'Rector\\Nette\\NodeFactory\\CheckRequirementsClassMethodFactory' => $baseDir . '/rules/nette/src/NodeFactory/CheckRequirementsClassMethodFactory.php',

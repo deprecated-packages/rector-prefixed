@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\MethodName;
+use Rector\Nette\NodeAnalyzer\RenderMethodAnalyzer;
 use Rector\Nette\NodeFactory\ActionRenderFactory;
 use Rector\Nette\TemplatePropertyAssignCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -28,14 +28,19 @@ final class TemplateMagicAssignToExplicitVariableArrayRector extends \Rector\Cor
      * @var ActionRenderFactory
      */
     private $actionRenderFactory;
-    public function __construct(\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector)
+    /**
+     * @var RenderMethodAnalyzer
+     */
+    private $renderMethodAnalyzer;
+    public function __construct(\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector, \Rector\Nette\NodeAnalyzer\RenderMethodAnalyzer $renderMethodAnalyzer)
     {
         $this->templatePropertyAssignCollector = $templatePropertyAssignCollector;
         $this->actionRenderFactory = $actionRenderFactory;
+        $this->renderMethodAnalyzer = $renderMethodAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change `$this->templates->{magic}` to `$this->template->render(..., $values)`', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change `$this->templates->{magic}` to `$this->template->render(..., $values)` in components', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Nette\Application\UI\Control;
 
 class SomeControl extends Control
@@ -90,13 +95,16 @@ CODE_SAMPLE
         if (!$this->isObjectType($classLike, 'Nette\\Application\\UI\\Control')) {
             return \true;
         }
-        if (!$this->isNames($classMethod, ['render', 'render*', 'action*'])) {
+        if ($this->isObjectType($classLike, 'Nette\\Application\\UI\\Presenter')) {
+            return \true;
+        }
+        if (!$this->isName($classMethod, 'render')) {
             return \true;
         }
         $hasReturn = (bool) $this->betterNodeFinder->findInstanceOf($classLike, \PhpParser\Node\Stmt\Return_::class);
         if ($hasReturn) {
             return \true;
         }
-        return !$classMethod->isPublic();
+        return $this->renderMethodAnalyzer->hasConditionalTemplateAssigns($classMethod);
     }
 }
