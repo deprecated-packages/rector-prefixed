@@ -4,15 +4,14 @@ declare (strict_types=1);
 namespace Rector\Nette\Rector\ClassMethod;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Nette\NodeFactory\ActionRenderFactory;
 use Rector\Nette\TemplatePropertyAssignCollector;
-use Rector\Nette\ValueObject\MagicTemplatePropertyCalls;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -76,8 +75,8 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $magicTemplatePropertyCalls = $this->templatePropertyAssignCollector->collectTemplateFileNameVariablesAndNodesToRemove($node);
-        $renderMethodCall = $this->createRenderMethodCall($node, $magicTemplatePropertyCalls);
+        $magicTemplatePropertyCalls = $this->templatePropertyAssignCollector->collectMagicTemplatePropertyCalls($node);
+        $renderMethodCall = $this->actionRenderFactory->createThisTemplateRenderMethodCall($magicTemplatePropertyCalls);
         $node->stmts = \array_merge((array) $node->stmts, [new \PhpParser\Node\Stmt\Expression($renderMethodCall)]);
         $this->removeNodes($magicTemplatePropertyCalls->getNodesToRemove());
         return $node;
@@ -91,13 +90,13 @@ CODE_SAMPLE
         if (!$this->isObjectType($classLike, 'Nette\\Application\\UI\\Control')) {
             return \true;
         }
-        if ($this->isName($classMethod, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+        if (!$this->isNames($classMethod, ['render', 'render*', 'action*'])) {
+            return \true;
+        }
+        $hasReturn = (bool) $this->betterNodeFinder->findInstanceOf($classLike, \PhpParser\Node\Stmt\Return_::class);
+        if ($hasReturn) {
             return \true;
         }
         return !$classMethod->isPublic();
-    }
-    private function createRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Nette\ValueObject\MagicTemplatePropertyCalls $magicTemplatePropertyCalls) : \PhpParser\Node\Expr\MethodCall
-    {
-        return $this->actionRenderFactory->createThisTemplateRenderMethodCall($magicTemplatePropertyCalls);
     }
 }

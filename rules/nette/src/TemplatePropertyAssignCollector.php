@@ -40,7 +40,7 @@ final class TemplatePropertyAssignCollector
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
     }
-    public function collectTemplateFileNameVariablesAndNodesToRemove(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \Rector\Nette\ValueObject\MagicTemplatePropertyCalls
+    public function collectMagicTemplatePropertyCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \Rector\Nette\ValueObject\MagicTemplatePropertyCalls
     {
         $this->templateFileExpr = null;
         $this->templateVariables = [];
