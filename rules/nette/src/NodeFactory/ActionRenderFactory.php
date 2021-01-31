@@ -38,8 +38,8 @@ final class ActionRenderFactory
     }
     private function addArguments(\Rector\Nette\ValueObject\MagicTemplatePropertyCalls $magicTemplatePropertyCalls, \PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
-        if ($magicTemplatePropertyCalls->getTemplateFileExpr() !== null) {
-            $methodCall->args[0] = new \PhpParser\Node\Arg($magicTemplatePropertyCalls->getTemplateFileExpr());
+        if ($magicTemplatePropertyCalls->getFirstTemplateFileExpr() !== null) {
+            $methodCall->args[0] = new \PhpParser\Node\Arg($magicTemplatePropertyCalls->getFirstTemplateFileExpr());
         }
         if ($magicTemplatePropertyCalls->getTemplateVariables() !== []) {
             $templateVariablesArray = $this->createTemplateVariablesArray($magicTemplatePropertyCalls->getTemplateVariables());

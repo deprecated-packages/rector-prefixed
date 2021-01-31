@@ -32,9 +32,9 @@ final class TemplatePropertyAssignCollector
      */
     private $nodeNameResolver;
     /**
-     * @var Expr|null
+     * @var Expr[]
      */
-    private $templateFileExpr;
+    private $templateFileExprs = [];
     public function __construct(\RectorPrefix20210131\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
@@ -42,7 +42,7 @@ final class TemplatePropertyAssignCollector
     }
     public function collectMagicTemplatePropertyCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : \Rector\Nette\ValueObject\MagicTemplatePropertyCalls
     {
-        $this->templateFileExpr = null;
+        $this->templateFileExprs = [];
         $this->templateVariables = [];
         $this->nodesToRemove = [];
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) : void {
@@ -53,19 +53,16 @@ final class TemplatePropertyAssignCollector
                 $this->collectVariableFromAssign($node);
             }
         });
-        return new \Rector\Nette\ValueObject\MagicTemplatePropertyCalls($this->templateFileExpr, $this->templateVariables, $this->nodesToRemove);
+        return new \Rector\Nette\ValueObject\MagicTemplatePropertyCalls($this->templateFileExprs, $this->templateVariables, $this->nodesToRemove);
     }
     private function collectTemplateFileExpr(\PhpParser\Node\Expr\MethodCall $methodCall) : void
     {
-        if ($this->nodeNameResolver->isName($methodCall->name, 'render')) {
-            if (isset($methodCall->args[0])) {
-                $this->templateFileExpr = $methodCall->args[0]->value;
+        if ($this->nodeNameResolver->isNames($methodCall->name, ['render', 'setFile'])) {
+            $this->nodesToRemove[] = $methodCall;
+            if (!isset($methodCall->args[0])) {
+                return;
             }
-            $this->nodesToRemove[] = $methodCall;
-        }
-        if ($this->nodeNameResolver->isName($methodCall->name, 'setFile')) {
-            $this->templateFileExpr = $methodCall->args[0]->value;
-            $this->nodesToRemove[] = $methodCall;
+            $this->templateFileExprs[] = $methodCall->args[0]->value;
         }
     }
     private function collectVariableFromAssign(\PhpParser\Node\Expr\Assign $assign) : void
