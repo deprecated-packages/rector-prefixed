@@ -98,7 +98,7 @@ CODE_SAMPLE
         if ($this->isObjectType($classLike, 'Nette\\Application\\UI\\Presenter')) {
             return \true;
         }
-        if (!$this->isName($classMethod, 'render')) {
+        if (!$this->isNames($classMethod, ['render', 'render*'])) {
             return \true;
         }
         $hasReturn = (bool) $this->betterNodeFinder->findInstanceOf($classLike, \PhpParser\Node\Stmt\Return_::class);
