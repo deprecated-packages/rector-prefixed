@@ -17,7 +17,7 @@ use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use Rector\Core\Exception\NotImplementedException;
+use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 use Rector\StaticTypeMapper\Mapper\PhpParserNodeMapper;
@@ -85,7 +85,7 @@ final class StaticTypeMapper
         if (\Rector\Core\Util\StaticInstanceOf::isOneOf($phpDocTagValueNode, [\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class, \PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode::class, \PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class, \PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode::class])) {
             return $this->mapPHPStanPhpDocTypeNodeToPHPStanType($phpDocTagValueNode->type, $node);
         }
-        throw new \Rector\Core\Exception\NotImplementedException(__METHOD__ . ' for ' . \get_class($phpDocTagValueNode));
+        throw new \Rector\Core\Exception\NotImplementedYetException(__METHOD__ . ' for ' . \get_class($phpDocTagValueNode));
     }
     public function mapPHPStanPhpDocTypeNodeToPhpDocString(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node) : string
     {

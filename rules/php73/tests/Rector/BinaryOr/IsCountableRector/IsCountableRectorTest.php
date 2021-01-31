@@ -6,14 +6,14 @@ namespace Rector\Php73\Tests\Rector\BinaryOr\IsCountableRector;
 use Iterator;
 use Rector\Php73\Rector\BooleanOr\IsCountableRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
 final class IsCountableRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.3
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

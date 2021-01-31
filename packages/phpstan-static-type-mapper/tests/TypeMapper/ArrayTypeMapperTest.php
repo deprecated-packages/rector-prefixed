@@ -11,8 +11,8 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\PHPStanStaticTypeMapper\TypeMapper\ArrayTypeMapper;
-use RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class ArrayTypeMapperTest extends \RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210131\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class ArrayTypeMapperTest extends \RectorPrefix20210131\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var ArrayTypeMapper

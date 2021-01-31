@@ -12,7 +12,7 @@ use Rector\Core\Error\ExceptionCorrector;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
-use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 final class ErrorAndDiffCollector
 {
@@ -82,7 +82,7 @@ final class ErrorAndDiffCollector
     {
         return $this->nodesToRemoveCollector->getNodesToRemove();
     }
-    public function addFileDiff(\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent, string $oldContent) : void
+    public function addFileDiff(\RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent, string $oldContent) : void
     {
         if ($newContent === $oldContent) {
             return;
@@ -113,16 +113,16 @@ final class ErrorAndDiffCollector
     {
         return \count($this->fileDiffs);
     }
-    public function addAutoloadError(\PHPStan\AnalysedCodeException $analysedCodeException, \RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function addAutoloadError(\PHPStan\AnalysedCodeException $analysedCodeException, \RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $message = $this->exceptionCorrector->getAutoloadExceptionMessageAndAddLocation($analysedCodeException);
         $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($fileInfo, $message);
     }
-    public function addErrorWithRectorClassMessageAndFileInfo(string $rectorClass, string $message, \RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function addErrorWithRectorClassMessageAndFileInfo(string $rectorClass, string $message, \RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($smartFileInfo, $message, null, $rectorClass);
     }
-    public function addThrowableWithFileInfo(\Throwable $throwable, \RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function addThrowableWithFileInfo(\Throwable $throwable, \RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $rectorClass = $this->exceptionCorrector->matchRectorClass($throwable);
         if ($rectorClass) {

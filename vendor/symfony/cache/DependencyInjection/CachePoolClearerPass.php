@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210130\Symfony\Component\Cache\DependencyInjection;
+namespace RectorPrefix20210131\Symfony\Component\Cache\DependencyInjection;
 
-use RectorPrefix20210130\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use RectorPrefix20210130\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210130\Symfony\Component\DependencyInjection\Reference;
+use RectorPrefix20210131\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use RectorPrefix20210131\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210131\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class CachePoolClearerPass implements \RectorPrefix20210130\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class CachePoolClearerPass implements \RectorPrefix20210131\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $cachePoolClearerTag;
     public function __construct(string $cachePoolClearerTag = 'cache.pool.clearer')
@@ -26,7 +26,7 @@ class CachePoolClearerPass implements \RectorPrefix20210130\Symfony\Component\De
     /**
      * {@inheritdoc}
      */
-    public function process(\RectorPrefix20210130\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\RectorPrefix20210131\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $container->getParameterBag()->remove('cache.prefix.seed');
         foreach ($container->findTaggedServiceIds($this->cachePoolClearerTag) as $id => $attr) {
@@ -34,7 +34,7 @@ class CachePoolClearerPass implements \RectorPrefix20210130\Symfony\Component\De
             $pools = [];
             foreach ($clearer->getArgument(0) as $name => $ref) {
                 if ($container->hasDefinition($ref)) {
-                    $pools[$name] = new \RectorPrefix20210130\Symfony\Component\DependencyInjection\Reference($ref);
+                    $pools[$name] = new \RectorPrefix20210131\Symfony\Component\DependencyInjection\Reference($ref);
                 }
             }
             $clearer->replaceArgument(0, $pools);

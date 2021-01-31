@@ -2,7 +2,7 @@
 
 namespace Rector\NetteKdyby\Tests\Rector\MethodCall\ReplaceMagicPropertyEventWithEventClassRector\Fixture\Event;
 
-final class DuplicatedEventParamsUploadEvent extends \RectorPrefix20210130\Symfony\Contracts\EventDispatcher\Event
+final class DuplicatedEventParamsUploadEvent extends \RectorPrefix20210131\Symfony\Contracts\EventDispatcher\Event
 {
     /**
      * @var mixed

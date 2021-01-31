@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Naming;
 
-use RectorPrefix20210130\Nette\Utils\Strings;
+use RectorPrefix20210131\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -23,7 +23,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use Rector\CodingStyle\Naming\ClassNaming;
-use Rector\Core\Exception\NotImplementedException;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\Util\StaticInstanceOf;
@@ -82,8 +81,8 @@ final class VariableNaming
         if ($name === null) {
             $name = $fallbackName;
         }
-        if (\RectorPrefix20210130\Nette\Utils\Strings::contains($name, '\\')) {
-            $name = (string) \RectorPrefix20210130\Nette\Utils\Strings::after($name, '\\', -1);
+        if (\RectorPrefix20210131\Nette\Utils\Strings::contains($name, '\\')) {
+            $name = (string) \RectorPrefix20210131\Nette\Utils\Strings::after($name, '\\', -1);
         }
         $countedValueName = $this->createCountedValueName($name, $scope);
         return \lcfirst($countedValueName);
@@ -130,7 +129,7 @@ final class VariableNaming
             return $this->resolveFromNode($node->name);
         }
         if (!$node instanceof \PhpParser\Node) {
-            throw new \Rector\Core\Exception\NotImplementedException();
+            throw new \Rector\Core\Exception\NotImplementedYetException();
         }
         $paramName = $this->nodeNameResolver->getName($node);
         if ($paramName !== null) {
@@ -184,11 +183,11 @@ final class VariableNaming
     {
         $varName = $this->nodeNameResolver->getName($propertyFetch->var);
         if (!\is_string($varName)) {
-            throw new \Rector\Core\Exception\NotImplementedException();
+            throw new \Rector\Core\Exception\NotImplementedYetException();
         }
         $propertyName = $this->nodeNameResolver->getName($propertyFetch->name);
         if (!\is_string($propertyName)) {
-            throw new \Rector\Core\Exception\NotImplementedException();
+            throw new \Rector\Core\Exception\NotImplementedYetException();
         }
         if ($varName === 'this') {
             return $propertyName;

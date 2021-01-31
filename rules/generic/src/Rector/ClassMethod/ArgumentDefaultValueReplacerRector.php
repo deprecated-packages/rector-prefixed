@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\ClassMethod;
 
-use RectorPrefix20210130\Nette\Utils\Strings;
+use RectorPrefix20210131\Nette\Utils\Strings;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
@@ -15,7 +15,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Generic\ValueObject\ArgumentDefaultValueReplacer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210130\Webmozart\Assert\Assert;
+use RectorPrefix20210131\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Generic\Tests\Rector\ClassMethod\ArgumentDefaultValueReplacerRector\ArgumentDefaultValueReplacerRectorTest
  */
@@ -67,7 +67,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $replacedArguments = $configuration[self::REPLACED_ARGUMENTS] ?? [];
-        \RectorPrefix20210130\Webmozart\Assert\Assert::allIsInstanceOf($replacedArguments, \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer::class);
+        \RectorPrefix20210131\Webmozart\Assert\Assert::allIsInstanceOf($replacedArguments, \Rector\Generic\ValueObject\ArgumentDefaultValueReplacer::class);
         $this->replacedArguments = $replacedArguments;
     }
     /**
@@ -106,7 +106,7 @@ CODE_SAMPLE
     private function normalizeValueToArgument($value) : \PhpParser\Node\Arg
     {
         // class constants → turn string to composite
-        if (\is_string($value) && \RectorPrefix20210130\Nette\Utils\Strings::contains($value, '::')) {
+        if (\is_string($value) && \RectorPrefix20210131\Nette\Utils\Strings::contains($value, '::')) {
             [$class, $constant] = \explode('::', $value);
             $classConstFetch = $this->nodeFactory->createClassConstFetch($class, $constant);
             return new \PhpParser\Node\Arg($classConstFetch);

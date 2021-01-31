@@ -7,11 +7,11 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
-use Rector\Core\Context\ContextAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\NodeCollector\NodeByTypeAndPositionCollector;
 use Rector\DeadCode\NodeFinder\VariableUseFinder;
 use Rector\DeadCode\ValueObject\VariableNodeUse;
+use Rector\NodeNestingScope\ContextAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -32,7 +32,7 @@ final class RemoveOverriddenValuesRector extends \Rector\Core\Rector\AbstractRec
      * @var VariableUseFinder
      */
     private $variableUseFinder;
-    public function __construct(\Rector\Core\Context\ContextAnalyzer $contextAnalyzer, \Rector\DeadCode\NodeCollector\NodeByTypeAndPositionCollector $nodeByTypeAndPositionCollector, \Rector\DeadCode\NodeFinder\VariableUseFinder $variableUseFinder)
+    public function __construct(\Rector\NodeNestingScope\ContextAnalyzer $contextAnalyzer, \Rector\DeadCode\NodeCollector\NodeByTypeAndPositionCollector $nodeByTypeAndPositionCollector, \Rector\DeadCode\NodeFinder\VariableUseFinder $variableUseFinder)
     {
         $this->contextAnalyzer = $contextAnalyzer;
         $this->nodeByTypeAndPositionCollector = $nodeByTypeAndPositionCollector;

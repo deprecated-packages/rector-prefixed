@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\Generic\Rector\Property;
 
-use RectorPrefix20210130\DI\Annotation\Inject as PHPDIInject;
-use RectorPrefix20210130\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
-use RectorPrefix20210130\Nette\Utils\Strings;
+use RectorPrefix20210131\DI\Annotation\Inject as PHPDIInject;
+use RectorPrefix20210131\JMS\DiExtraBundle\Annotation\Inject as JMSInject;
+use RectorPrefix20210131\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
@@ -18,7 +18,7 @@ use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Exception\NotImplementedException;
+use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
@@ -26,7 +26,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Symfony\ServiceMapProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://jmsyst.com/bundles/JMSDiExtraBundle/master/annotations#inject
  *
@@ -41,7 +41,7 @@ final class InjectAnnotationClassRector extends \Rector\Core\Rector\AbstractRect
     /**
      * @var array<string, string>
      */
-    private const ANNOTATION_TO_TAG_CLASS = [\RectorPrefix20210130\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \RectorPrefix20210130\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
+    private const ANNOTATION_TO_TAG_CLASS = [\RectorPrefix20210131\DI\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\PHPDI\PHPDIInjectTagValueNode::class, \RectorPrefix20210131\JMS\DiExtraBundle\Annotation\Inject::class => \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectTagValueNode::class];
     /**
      * @var string
      * @see https://regex101.com/r/pjusUN/1
@@ -98,7 +98,7 @@ class SomeController
     }
 }
 CODE_SAMPLE
-, [self::ANNOTATION_CLASSES => [\RectorPrefix20210130\DI\Annotation\Inject::class, \RectorPrefix20210130\JMS\DiExtraBundle\Annotation\Inject::class]])]);
+, [self::ANNOTATION_CLASSES => [\RectorPrefix20210131\DI\Annotation\Inject::class, \RectorPrefix20210131\JMS\DiExtraBundle\Annotation\Inject::class]])]);
     }
     /**
      * @return string[]
@@ -139,7 +139,7 @@ CODE_SAMPLE
         }
         $availableAnnotations = \array_keys(self::ANNOTATION_TO_TAG_CLASS);
         $errorMessage = \sprintf('Annotation class "%s" is not implemented yet. Use one of "%s" or add custom tag for it to Rector.', $annotationClass, \implode('", "', $availableAnnotations));
-        throw new \Rector\Core\Exception\NotImplementedException($errorMessage);
+        throw new \Rector\Core\Exception\NotImplementedYetException($errorMessage);
     }
     private function isParameterInject(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : bool
     {
@@ -150,7 +150,7 @@ CODE_SAMPLE
         if ($serviceName === null) {
             return \false;
         }
-        return (bool) \RectorPrefix20210130\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
+        return (bool) \RectorPrefix20210131\Nette\Utils\Strings::match($serviceName, self::BETWEEN_PERCENT_CHARS_REGEX);
     }
     private function resolveType(\PhpParser\Node\Stmt\Property $property, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : \PHPStan\Type\Type
     {

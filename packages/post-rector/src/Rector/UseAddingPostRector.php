@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PostRector\Rector;
 
-use RectorPrefix20210130\Nette\Utils\Strings;
+use RectorPrefix20210131\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Namespace_;
@@ -15,7 +15,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
 final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
 {
     /**
@@ -57,7 +57,7 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
             return $nodes;
         }
         $smartFileInfo = $this->getSmartFileInfo($nodes);
-        if (!$smartFileInfo instanceof \RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$smartFileInfo instanceof \RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo) {
             return $nodes;
         }
         $useImportTypes = $this->useNodesToAddCollector->getObjectImportsByFileInfo($smartFileInfo);
@@ -98,7 +98,7 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
     /**
      * @param Node[] $nodes
      */
-    private function getSmartFileInfo(array $nodes) : ?\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo
+    private function getSmartFileInfo(array $nodes) : ?\RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo
     {
         foreach ($nodes as $node) {
             /** @var SmartFileInfo|null $smartFileInfo */
@@ -118,7 +118,7 @@ final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRe
     {
         $namespacedUseImportTypes = [];
         foreach ($useImportTypes as $useImportType) {
-            if (!\RectorPrefix20210130\Nette\Utils\Strings::contains($useImportType->getClassName(), '\\')) {
+            if (!\RectorPrefix20210131\Nette\Utils\Strings::contains($useImportType->getClassName(), '\\')) {
                 continue;
             }
             $namespacedUseImportTypes[] = $useImportType;

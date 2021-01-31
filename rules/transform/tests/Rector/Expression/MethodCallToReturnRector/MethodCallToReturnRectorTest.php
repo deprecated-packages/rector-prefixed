@@ -8,13 +8,13 @@ use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\Expression\MethodCallToReturnRector;
 use Rector\Transform\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny;
 use Rector\Transform\ValueObject\MethodCallToReturn;
-use RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
 final class MethodCallToReturnRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210130\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

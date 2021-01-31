@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210130\Symplify\EasyTesting\Tests\MissingSkipPrefixResolver;
+namespace RectorPrefix20210131\Symplify\EasyTesting\Tests\MissingSkipPrefixResolver;
 
-use RectorPrefix20210130\Symplify\EasyTesting\Finder\FixtureFinder;
-use RectorPrefix20210130\Symplify\EasyTesting\HttpKernel\EasyTestingKernel;
-use RectorPrefix20210130\Symplify\EasyTesting\MissplacedSkipPrefixResolver;
-use RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class MissingSkipPrefixResolverTest extends \RectorPrefix20210130\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210131\Symplify\EasyTesting\Finder\FixtureFinder;
+use RectorPrefix20210131\Symplify\EasyTesting\HttpKernel\EasyTestingKernel;
+use RectorPrefix20210131\Symplify\EasyTesting\MissplacedSkipPrefixResolver;
+use RectorPrefix20210131\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class MissingSkipPrefixResolverTest extends \RectorPrefix20210131\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var MissplacedSkipPrefixResolver
@@ -19,9 +19,9 @@ final class MissingSkipPrefixResolverTest extends \RectorPrefix20210130\Symplify
     private $fixtureFinder;
     protected function setUp() : void
     {
-        $this->bootKernel(\RectorPrefix20210130\Symplify\EasyTesting\HttpKernel\EasyTestingKernel::class);
-        $this->missplacedSkipPrefixResolver = $this->getService(\RectorPrefix20210130\Symplify\EasyTesting\MissplacedSkipPrefixResolver::class);
-        $this->fixtureFinder = $this->getService(\RectorPrefix20210130\Symplify\EasyTesting\Finder\FixtureFinder::class);
+        $this->bootKernel(\RectorPrefix20210131\Symplify\EasyTesting\HttpKernel\EasyTestingKernel::class);
+        $this->missplacedSkipPrefixResolver = $this->getService(\RectorPrefix20210131\Symplify\EasyTesting\MissplacedSkipPrefixResolver::class);
+        $this->fixtureFinder = $this->getService(\RectorPrefix20210131\Symplify\EasyTesting\Finder\FixtureFinder::class);
     }
     public function test() : void
     {

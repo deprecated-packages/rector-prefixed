@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Core\Reflection;
 
-use RectorPrefix20210130\Nette\Utils\Reflection;
-use Rector\Core\PhpDoc\PhpDocTagsFinder;
+use RectorPrefix20210131\Nette\Utils\Reflection;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagsFinder;
 use ReflectionMethod;
 final class ClassMethodReflectionHelper
 {
@@ -16,7 +16,7 @@ final class ClassMethodReflectionHelper
      * @var PhpDocTagsFinder
      */
     private $phpDocTagsFinder;
-    public function __construct(\Rector\Core\Reflection\ClassMethodReflectionFactory $classMethodReflectionFactory, \Rector\Core\PhpDoc\PhpDocTagsFinder $phpDocTagsFinder)
+    public function __construct(\Rector\Core\Reflection\ClassMethodReflectionFactory $classMethodReflectionFactory, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagsFinder $phpDocTagsFinder)
     {
         $this->classMethodReflectionFactory = $classMethodReflectionFactory;
         $this->phpDocTagsFinder = $phpDocTagsFinder;
@@ -38,7 +38,7 @@ final class ClassMethodReflectionHelper
         $classes = [];
         foreach ($throwsTypes as $returnTag) {
             /** @var class-string $className */
-            $className = \RectorPrefix20210130\Nette\Utils\Reflection::expandClassName($returnTag, $reflectedMethod->getDeclaringClass());
+            $className = \RectorPrefix20210131\Nette\Utils\Reflection::expandClassName($returnTag, $reflectedMethod->getDeclaringClass());
             $classes[] = $className;
         }
         return $classes;

@@ -3,18 +3,15 @@
 declare (strict_types=1);
 namespace Rector\Removing\Rector\FuncCall;
 
-use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
-use Rector\Core\Comments\CommentableNodeResolver;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeRemoval\BreakingRemovalGuard;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Removing\ValueObject\RemoveFuncCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210130\Webmozart\Assert\Assert;
+use RectorPrefix20210131\Webmozart\Assert\Assert;
 /**
  * @sponsor Thanks https://twitter.com/afilina & Zenika (CAN) for sponsoring this rule - visit them on https://zenika.ca/en/en
  *
@@ -35,14 +32,9 @@ final class RemoveFuncCallRector extends \Rector\Core\Rector\AbstractRector impl
      * @var BreakingRemovalGuard
      */
     private $breakingRemovalGuard;
-    /**
-     * @var CommentableNodeResolver
-     */
-    private $commentableNodeResolver;
-    public function __construct(\Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard, \Rector\Core\Comments\CommentableNodeResolver $commentableNodeResolver)
+    public function __construct(\Rector\NodeRemoval\BreakingRemovalGuard $breakingRemovalGuard)
     {
         $this->breakingRemovalGuard = $breakingRemovalGuard;
-        $this->commentableNodeResolver = $commentableNodeResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -86,7 +78,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $removeFuncCalls = $configuration[self::REMOVE_FUNC_CALLS] ?? [];
-        \RectorPrefix20210130\Webmozart\Assert\Assert::allIsInstanceOf($removeFuncCalls, \Rector\Removing\ValueObject\RemoveFuncCall::class);
+        \RectorPrefix20210131\Webmozart\Assert\Assert::allIsInstanceOf($removeFuncCalls, \Rector\Removing\ValueObject\RemoveFuncCall::class);
         $this->removeFuncCalls = $removeFuncCalls;
     }
     private function refactorFuncCallsWithPositions(\PhpParser\Node\Expr\FuncCall $funcCall, \Rector\Removing\ValueObject\RemoveFuncCall $removeFuncCall) : void
@@ -97,9 +89,6 @@ CODE_SAMPLE
             }
             if ($this->breakingRemovalGuard->isLegalNodeRemoval($funcCall)) {
                 $this->removeNode($funcCall);
-            } else {
-                $commentableNode = $this->commentableNodeResolver->resolve($funcCall);
-                $commentableNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, [new \PhpParser\Comment('// @fixme')]);
             }
         }
     }

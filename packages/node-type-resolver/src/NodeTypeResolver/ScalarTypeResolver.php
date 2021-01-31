@@ -15,7 +15,7 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use Rector\Core\Exception\NotImplementedException;
+use Rector\Core\Exception\NotImplementedYetException;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 final class ScalarTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
@@ -43,6 +43,6 @@ final class ScalarTypeResolver implements \Rector\NodeTypeResolver\Contract\Node
         if ($node instanceof \PhpParser\Node\Scalar\Encapsed) {
             return new \PHPStan\Type\MixedType();
         }
-        throw new \Rector\Core\Exception\NotImplementedException();
+        throw new \Rector\Core\Exception\NotImplementedYetException();
     }
 }

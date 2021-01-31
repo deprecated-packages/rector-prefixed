@@ -3,14 +3,14 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Rector\ClassMethod;
 
-use RectorPrefix20210130\Nette\Utils\Strings;
+use RectorPrefix20210131\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
-use Rector\Core\Exception\NotImplementedException;
+use Rector\Core\Exception\NotImplementedYetException;
 use Rector\NetteKdyby\NodeManipulator\GetSubscribedEventsArrayManipulator;
 use Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator;
 use Rector\NetteKdyby\NodeResolver\ListeningMethodsCollector;
@@ -143,9 +143,9 @@ CODE_SAMPLE
     private function resolveMethodNameFromKdybyEventName(\PhpParser\Node\Expr $expr) : string
     {
         $kdybyEventName = $this->valueResolver->getValue($expr);
-        if (\RectorPrefix20210130\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
-            return (string) \RectorPrefix20210130\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
+        if (\RectorPrefix20210131\Nette\Utils\Strings::contains($kdybyEventName, '::')) {
+            return (string) \RectorPrefix20210131\Nette\Utils\Strings::after($kdybyEventName, '::', -1);
         }
-        throw new \Rector\Core\Exception\NotImplementedException($kdybyEventName);
+        throw new \Rector\Core\Exception\NotImplementedYetException($kdybyEventName);
     }
 }
