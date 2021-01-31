@@ -98,9 +98,6 @@ CODE_SAMPLE
     }
     private function createRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Nette\ValueObject\MagicTemplatePropertyCalls $magicTemplatePropertyCalls) : \PhpParser\Node\Expr\MethodCall
     {
-        if ($this->isObjectType($classMethod, 'Nette\\Application\\UI\\Presenter')) {
-            return $this->actionRenderFactory->createThisTemplateRenderMethodCall($magicTemplatePropertyCalls);
-        }
-        return $this->actionRenderFactory->createThisRenderMethodCall($magicTemplatePropertyCalls);
+        return $this->actionRenderFactory->createThisTemplateRenderMethodCall($magicTemplatePropertyCalls);
     }
 }
