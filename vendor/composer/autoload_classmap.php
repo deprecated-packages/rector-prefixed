@@ -2864,7 +2864,6 @@ return array(
     'Rector\\Php73\\Rector\\FuncCall\\ArrayKeyFirstLastRector' => $baseDir . '/rules/php73/src/Rector/FuncCall/ArrayKeyFirstLastRector.php',
     'Rector\\Php73\\Rector\\FuncCall\\JsonThrowOnErrorRector' => $baseDir . '/rules/php73/src/Rector/FuncCall/JsonThrowOnErrorRector.php',
     'Rector\\Php73\\Rector\\FuncCall\\RegexDashEscapeRector' => $baseDir . '/rules/php73/src/Rector/FuncCall/RegexDashEscapeRector.php',
-    'Rector\\Php73\\Rector\\FuncCall\\RemoveMissingCompactVariableRector' => $baseDir . '/rules/php73/src/Rector/FuncCall/RemoveMissingCompactVariableRector.php',
     'Rector\\Php73\\Rector\\FuncCall\\SensitiveDefineRector' => $baseDir . '/rules/php73/src/Rector/FuncCall/SensitiveDefineRector.php',
     'Rector\\Php73\\Rector\\FuncCall\\SetCookieRector' => $baseDir . '/rules/php73/src/Rector/FuncCall/SetCookieRector.php',
     'Rector\\Php73\\Rector\\FuncCall\\StringifyStrNeedlesRector' => $baseDir . '/rules/php73/src/Rector/FuncCall/StringifyStrNeedlesRector.php',
