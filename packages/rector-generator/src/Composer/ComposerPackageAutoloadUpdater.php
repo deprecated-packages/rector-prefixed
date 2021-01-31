@@ -15,14 +15,6 @@ final class ComposerPackageAutoloadUpdater
      */
     private const PSR_4 = 'psr-4';
     /**
-     * @var string
-     */
-    private const AUTOLOAD = 'autoload';
-    /**
-     * @var string
-     */
-    private const AUTOLOAD_DEV = 'autoload-dev';
-    /**
      * @var JsonFileSystem
      */
     private $jsonFileSystem;
@@ -49,9 +41,9 @@ final class ComposerPackageAutoloadUpdater
         if (!$isConfirmed) {
             return;
         }
-        $srcAutoload = $rectorRecipe->isRectorRepository() ? self::AUTOLOAD : self::AUTOLOAD_DEV;
+        $srcAutoload = $rectorRecipe->isRectorRepository() ? \RectorPrefix20210131\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD : \RectorPrefix20210131\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV;
         $composerJson[$srcAutoload][self::PSR_4][$package->getSrcNamespace()] = $package->getSrcDirectory();
-        $composerJson[self::AUTOLOAD_DEV][self::PSR_4][$package->getTestsNamespace()] = $package->getTestsDirectory();
+        $composerJson[\RectorPrefix20210131\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV][self::PSR_4][$package->getTestsNamespace()] = $package->getTestsDirectory();
         $this->jsonFileSystem->writeJsonToFilePath($composerJson, $composerJsonFilePath);
         $this->rebuildAutoload();
     }
