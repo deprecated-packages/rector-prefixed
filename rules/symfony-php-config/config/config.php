@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210131;
+namespace RectorPrefix20210201;
 
-use RectorPrefix20210131\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210131\Symfony\Component\Yaml\Parser;
-use RectorPrefix20210131\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter;
-use RectorPrefix20210131\Symplify\PhpConfigPrinter\YamlToPhpConverter;
-return static function (\RectorPrefix20210131\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210201\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210201\Symfony\Component\Yaml\Parser;
+use RectorPrefix20210201\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter;
+use RectorPrefix20210201\Symplify\PhpConfigPrinter\YamlToPhpConverter;
+return static function (\RectorPrefix20210201\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
     $services->load('Rector\\SymfonyPhpConfig\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Rector']);
-    $services->set(\RectorPrefix20210131\Symplify\PhpConfigPrinter\YamlToPhpConverter::class);
-    $services->set(\RectorPrefix20210131\Symfony\Component\Yaml\Parser::class);
-    $services->set(\RectorPrefix20210131\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter::class);
+    $services->set(\RectorPrefix20210201\Symplify\PhpConfigPrinter\YamlToPhpConverter::class);
+    $services->set(\RectorPrefix20210201\Symfony\Component\Yaml\Parser::class);
+    $services->set(\RectorPrefix20210201\Symplify\PhpConfigPrinter\Printer\PhpParserPhpConfigPrinter::class);
 };

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210131\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer;
+namespace RectorPrefix20210201\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer;
 
-use RectorPrefix20210131\Nette\Utils\Strings;
+use RectorPrefix20210201\Nette\Utils\Strings;
 final class ServiceOptionAnalyzer
 {
     public function hasNamedArguments(array $data) : bool
@@ -12,7 +12,7 @@ final class ServiceOptionAnalyzer
             return \false;
         }
         foreach (\array_keys($data) as $key) {
-            if (!\RectorPrefix20210131\Nette\Utils\Strings::startsWith((string) $key, '$')) {
+            if (!\RectorPrefix20210201\Nette\Utils\Strings::startsWith((string) $key, '$')) {
                 return \false;
             }
         }

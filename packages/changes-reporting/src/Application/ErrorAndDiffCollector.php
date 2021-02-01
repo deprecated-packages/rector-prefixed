@@ -6,13 +6,14 @@ namespace Rector\ChangesReporting\Application;
 use PhpParser\Node;
 use PHPStan\AnalysedCodeException;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
-use Rector\ConsoleDiffer\DifferAndFormatter;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
+use Rector\Core\Differ\DefaultDiffer;
 use Rector\Core\Error\ExceptionCorrector;
 use Rector\Core\ValueObject\Application\RectorError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
-use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210201\Symplify\ConsoleColorDiff\Console\Output\ConsoleDiffer;
+use RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 final class ErrorAndDiffCollector
 {
@@ -24,10 +25,6 @@ final class ErrorAndDiffCollector
      * @var FileDiff[]
      */
     private $fileDiffs = [];
-    /**
-     * @var DifferAndFormatter
-     */
-    private $differAndFormatter;
     /**
      * @var RectorChangeCollector
      */
@@ -44,13 +41,22 @@ final class ErrorAndDiffCollector
      * @var NodesToRemoveCollector
      */
     private $nodesToRemoveCollector;
-    public function __construct(\Rector\ConsoleDiffer\DifferAndFormatter $differAndFormatter, \Rector\Core\Error\ExceptionCorrector $exceptionCorrector, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector)
+    /**
+     * @var ConsoleDiffer
+     */
+    private $consoleDiffer;
+    /**
+     * @var DefaultDiffer
+     */
+    private $defaultDiffer;
+    public function __construct(\Rector\Core\Error\ExceptionCorrector $exceptionCorrector, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \RectorPrefix20210201\Symplify\ConsoleColorDiff\Console\Output\ConsoleDiffer $consoleDiffer, \Rector\Core\Differ\DefaultDiffer $defaultDiffer)
     {
-        $this->differAndFormatter = $differAndFormatter;
         $this->rectorChangeCollector = $rectorChangeCollector;
         $this->exceptionCorrector = $exceptionCorrector;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
+        $this->consoleDiffer = $consoleDiffer;
+        $this->defaultDiffer = $defaultDiffer;
     }
     /**
      * @return RectorError[]
@@ -82,14 +88,15 @@ final class ErrorAndDiffCollector
     {
         return $this->nodesToRemoveCollector->getNodesToRemove();
     }
-    public function addFileDiff(\RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent, string $oldContent) : void
+    public function addFileDiff(\RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $newContent, string $oldContent) : void
     {
         if ($newContent === $oldContent) {
             return;
         }
         $rectorChanges = $this->rectorChangeCollector->getRectorChangesByFileInfo($smartFileInfo);
         // always keep the most recent diff
-        $this->fileDiffs[$smartFileInfo->getRealPath()] = new \Rector\Core\ValueObject\Reporting\FileDiff($smartFileInfo, $this->differAndFormatter->diff($oldContent, $newContent), $this->differAndFormatter->diffAndFormat($oldContent, $newContent), $rectorChanges);
+        $fileDiff = new \Rector\Core\ValueObject\Reporting\FileDiff($smartFileInfo, $this->defaultDiffer->diff($oldContent, $newContent), $this->consoleDiffer->diff($oldContent, $newContent), $rectorChanges);
+        $this->fileDiffs[$smartFileInfo->getRealPath()] = $fileDiff;
     }
     /**
      * @return FileDiff[]
@@ -113,16 +120,16 @@ final class ErrorAndDiffCollector
     {
         return \count($this->fileDiffs);
     }
-    public function addAutoloadError(\PHPStan\AnalysedCodeException $analysedCodeException, \RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function addAutoloadError(\PHPStan\AnalysedCodeException $analysedCodeException, \RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $message = $this->exceptionCorrector->getAutoloadExceptionMessageAndAddLocation($analysedCodeException);
         $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($fileInfo, $message);
     }
-    public function addErrorWithRectorClassMessageAndFileInfo(string $rectorClass, string $message, \RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function addErrorWithRectorClassMessageAndFileInfo(string $rectorClass, string $message, \RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->errors[] = new \Rector\Core\ValueObject\Application\RectorError($smartFileInfo, $message, null, $rectorClass);
     }
-    public function addThrowableWithFileInfo(\Throwable $throwable, \RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function addThrowableWithFileInfo(\Throwable $throwable, \RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $rectorClass = $this->exceptionCorrector->matchRectorClass($throwable);
         if ($rectorClass) {

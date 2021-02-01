@@ -89,16 +89,16 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20210131;
+namespace RectorPrefix20210201;
 
-use RectorPrefix20210131\Symfony\Component\Form\AbstractType;
-use RectorPrefix20210131\Symfony\Component\Form\Extension\Core\Type\TextType;
-use RectorPrefix20210131\Symfony\Component\Form\FormBuilderInterface;
-class SomeFormType extends \RectorPrefix20210131\Symfony\Component\Form\AbstractType
+use RectorPrefix20210201\Symfony\Component\Form\AbstractType;
+use RectorPrefix20210201\Symfony\Component\Form\Extension\Core\Type\TextType;
+use RectorPrefix20210201\Symfony\Component\Form\FormBuilderInterface;
+class SomeFormType extends \RectorPrefix20210201\Symfony\Component\Form\AbstractType
 {
-    public function buildForm(\RectorPrefix20210131\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
+    public function buildForm(\RectorPrefix20210201\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
     {
-        $formBuilder->add('name', \RectorPrefix20210131\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
+        $formBuilder->add('name', \RectorPrefix20210201\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
     }
 }
 \class_alias('SomeFormType', 'SomeFormType', \false);

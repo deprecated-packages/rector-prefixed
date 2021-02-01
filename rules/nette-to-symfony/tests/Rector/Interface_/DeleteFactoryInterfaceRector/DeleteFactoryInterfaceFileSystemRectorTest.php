@@ -6,13 +6,13 @@ namespace Rector\NetteToSymfony\Tests\Rector\Interface_\DeleteFactoryInterfaceRe
 use Iterator;
 use Rector\NetteToSymfony\Rector\Interface_\DeleteFactoryInterfaceRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo;
 final class DeleteFactoryInterfaceFileSystemRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function test(\RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
         $this->assertFileWasRemoved($this->originalTempFileInfo);

@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Nette\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo;
 final class ContextGetByTypeToConstructorInjectionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

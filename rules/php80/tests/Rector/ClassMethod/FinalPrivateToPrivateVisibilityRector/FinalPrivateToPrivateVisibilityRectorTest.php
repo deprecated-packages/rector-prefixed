@@ -6,14 +6,14 @@ namespace Rector\Php80\Tests\Rector\ClassMethod\FinalPrivateToPrivateVisibilityR
 use Iterator;
 use Rector\Php80\Rector\ClassMethod\FinalPrivateToPrivateVisibilityRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo;
 final class FinalPrivateToPrivateVisibilityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      * @requires PHP < 8.0
      */
-    public function test(\RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

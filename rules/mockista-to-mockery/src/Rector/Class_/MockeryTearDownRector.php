@@ -12,7 +12,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\MockistaToMockery\MockistaDetector;
-use RectorPrefix20210131\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use RectorPrefix20210201\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -83,7 +83,7 @@ CODE_SAMPLE
     }
     private function createTearDownMethodWithMockeryClose() : \PhpParser\Node\Stmt\ClassMethod
     {
-        $methodBuilder = new \RectorPrefix20210131\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
+        $methodBuilder = new \RectorPrefix20210201\Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder(\Rector\Core\ValueObject\MethodName::TEAR_DOWN);
         $methodBuilder->setReturnType('void');
         $methodBuilder->makeProtected();
         $staticCall = $this->createMockeryClose();

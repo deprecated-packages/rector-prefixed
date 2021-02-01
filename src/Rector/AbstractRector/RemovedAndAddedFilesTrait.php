@@ -10,7 +10,7 @@ use Rector\FileSystemRector\Contract\MovedFileInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
 use Rector\PSR4\Collector\RenamedClassesCollector;
-use RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * This could be part of @see AbstractRector, but decopuling to trait
  * makes clear what code has 1 purpose.
@@ -50,7 +50,7 @@ trait RemovedAndAddedFilesTrait
         }
         $this->removedAndAddedFilesCollector->addMovedFile($movedFile);
     }
-    protected function removeFile(\RectorPrefix20210131\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    protected function removeFile(\RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->removedAndAddedFilesCollector->removeFile($smartFileInfo);
     }

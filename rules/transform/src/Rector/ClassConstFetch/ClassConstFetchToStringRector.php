@@ -11,7 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Transform\ValueObject\ClassConstFetchToValue;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210131\Webmozart\Assert\Assert;
+use RectorPrefix20210201\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\ClassConstFetch\ClassConstFetchToStringRector\ClassConstFetchToStringRectorTest
  */
@@ -59,7 +59,7 @@ final class ClassConstFetchToStringRector extends \Rector\Core\Rector\AbstractRe
     public function configure(array $configuration) : void
     {
         $classConstFetchesToValues = $configuration[self::CLASS_CONST_FETCHES_TO_VALUES] ?? [];
-        \RectorPrefix20210131\Webmozart\Assert\Assert::allIsInstanceOf($classConstFetchesToValues, \Rector\Transform\ValueObject\ClassConstFetchToValue::class);
+        \RectorPrefix20210201\Webmozart\Assert\Assert::allIsInstanceOf($classConstFetchesToValues, \Rector\Transform\ValueObject\ClassConstFetchToValue::class);
         $this->classConstFetchesToValues = $classConstFetchesToValues;
     }
 }

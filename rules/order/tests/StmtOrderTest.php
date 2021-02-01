@@ -10,8 +10,8 @@ use PhpParser\Node\Stmt\PropertyProperty;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\Order\StmtOrder;
-use RectorPrefix20210131\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class StmtOrderTest extends \RectorPrefix20210131\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210201\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class StmtOrderTest extends \RectorPrefix20210201\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var int[]
