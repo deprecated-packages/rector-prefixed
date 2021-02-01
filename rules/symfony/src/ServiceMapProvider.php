@@ -183,6 +183,10 @@ final class ServiceMapProvider
     {
         $tagValueObjects = [];
         foreach ($tagsData as $key => $tag) {
+            if (\is_string($tag)) {
+                $tagValueObjects[$key] = new \Rector\Symfony\ValueObject\Tag($tag);
+                continue;
+            }
             $data = $tag;
             $name = $data['name'] ?? '';
             if ($name === 'kernel.event_listener') {

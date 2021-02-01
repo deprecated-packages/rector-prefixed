@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
@@ -128,7 +129,7 @@ CODE_SAMPLE
         if (!$next instanceof \PhpParser\Node) {
             return null;
         }
-        if ($this->hasStaticCall($next)) {
+        if ($this->hasCall($next)) {
             return null;
         }
         $countFound = $this->getCountFound($next, $variable);
@@ -202,10 +203,10 @@ CODE_SAMPLE
         }
         return \false;
     }
-    private function hasStaticCall(\PhpParser\Node $node) : bool
+    private function hasCall(\PhpParser\Node $node) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($node, function (\PhpParser\Node $n) : bool {
-            return $n instanceof \PhpParser\Node\Expr\StaticCall;
+            return $n instanceof \PhpParser\Node\Expr\StaticCall || $n instanceof \PhpParser\Node\Expr\MethodCall;
         });
     }
     private function getCountFound(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : int
