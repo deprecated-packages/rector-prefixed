@@ -98,7 +98,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->shouldSkip($node)) {
+        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod && $this->shouldSkip($node)) {
             return null;
         }
         $inferedType = $this->returnTypeInferer->inferFunctionLikeWithExcludedInferers($node, [\Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer\ReturnTypeDeclarationReturnTypeInferer::class]);
@@ -108,6 +108,13 @@ CODE_SAMPLE
         if ($this->returnTypeAlreadyAddedChecker->isSameOrBetterReturnTypeAlreadyAdded($node, $inferedType)) {
             return null;
         }
+        return $this->processType($node, $inferedType);
+    }
+    /**
+     * @param ClassMethod|Function_ $node
+     */
+    private function processType(\PhpParser\Node $node, \PHPStan\Type\Type $inferedType) : ?\PhpParser\Node
+    {
         $inferredReturnNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, \Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper::KIND_RETURN);
         // nothing to change in PHP code
         if ($inferredReturnNode === null) {
@@ -128,27 +135,21 @@ CODE_SAMPLE
         }
         return $node;
     }
-    /**
-     * @param ClassMethod|Function_ $functionLike
-     */
-    private function shouldSkip(\PhpParser\Node\FunctionLike $functionLike) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         if (!$this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             return \true;
         }
-        if (!$this->overrideExistingReturnTypes && $functionLike->returnType !== null) {
+        if ($this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethod($classMethod)) {
             return \true;
         }
-        if (!$functionLike instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return \false;
-        }
-        if ($this->classMethodReturnTypeOverrideGuard->shouldSkipClassMethod($functionLike)) {
+        if (!$this->overrideExistingReturnTypes && $classMethod->returnType !== null) {
             return \true;
         }
-        if ($this->isNames($functionLike, self::EXCLUDED_METHOD_NAMES)) {
+        if ($this->isNames($classMethod, self::EXCLUDED_METHOD_NAMES)) {
             return \true;
         }
-        return $this->vendorLockResolver->isReturnChangeVendorLockedIn($functionLike);
+        return $this->vendorLockResolver->isReturnChangeVendorLockedIn($classMethod);
     }
     /**
      * @param ClassMethod|Function_ $functionLike
@@ -184,16 +185,19 @@ CODE_SAMPLE
      */
     private function addReturnType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node $inferredReturnNode) : void
     {
-        if ($functionLike->returnType !== null) {
-            $isSubtype = $this->phpParserTypeAnalyzer->isSubtypeOf($inferredReturnNode, $functionLike->returnType);
-            if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::COVARIANT_RETURN) && $isSubtype) {
-                $functionLike->returnType = $inferredReturnNode;
-            } elseif (!$isSubtype) {
-                // type override with correct one
-                $functionLike->returnType = $inferredReturnNode;
-            }
-        } else {
+        if ($functionLike->returnType === null) {
             $functionLike->returnType = $inferredReturnNode;
+            return;
+        }
+        $isSubtype = $this->phpParserTypeAnalyzer->isSubtypeOf($inferredReturnNode, $functionLike->returnType);
+        if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::COVARIANT_RETURN) && $isSubtype) {
+            $functionLike->returnType = $inferredReturnNode;
+            return;
+        }
+        if (!$isSubtype) {
+            // type override with correct one
+            $functionLike->returnType = $inferredReturnNode;
+            return;
         }
     }
     /**
