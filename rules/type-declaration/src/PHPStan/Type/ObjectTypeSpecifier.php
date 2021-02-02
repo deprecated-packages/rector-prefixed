@@ -5,6 +5,8 @@ namespace Rector\TypeDeclaration\PHPStan\Type;
 
 use RectorPrefix20210202\Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use PHPStan\Type\MixedType;
@@ -53,6 +55,8 @@ final class ObjectTypeSpecifier
         if ($uses === null) {
             return null;
         }
+        $className = $objectType->getClassName();
+        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         foreach ($uses as $use) {
             foreach ($use->uses as $useUse) {
                 if ($useUse->alias === null) {
@@ -61,15 +65,27 @@ final class ObjectTypeSpecifier
                 $useName = $useUse->name->toString();
                 $alias = $useUse->alias->toString();
                 $fullyQualifiedName = $useUse->name->toString();
-                // A. is alias in use statement matching this class alias
-                if ($useUse->alias->toString() === $objectType->getClassName()) {
-                    return new \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType($alias, $fullyQualifiedName);
-                }
-                // B. is aliased classes matching the class name
-                if ($useName === $objectType->getClassName()) {
-                    return new \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType($alias, $fullyQualifiedName);
+                $processAliasedObject = $this->processAliasedObject($alias, $className, $useName, $parentNode, $fullyQualifiedName);
+                if ($processAliasedObject instanceof \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType) {
+                    return $processAliasedObject;
                 }
             }
+        }
+        return null;
+    }
+    private function processAliasedObject(string $alias, string $className, string $useName, ?\PhpParser\Node $parentNode, string $fullyQualifiedName) : ?\Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType
+    {
+        // A. is alias in use statement matching this class alias
+        if ($alias === $className) {
+            return new \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType($alias, $fullyQualifiedName);
+        }
+        // B. is aliased classes matching the class name and parent node is MethodCall/StaticCall
+        if ($useName === $className && ($parentNode instanceof \PhpParser\Node\Expr\MethodCall || $parentNode instanceof \PhpParser\Node\Expr\StaticCall)) {
+            return new \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType($useName, $fullyQualifiedName);
+        }
+        // C. is aliased classes matching the class name
+        if ($useName === $className) {
+            return new \Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType($alias, $fullyQualifiedName);
         }
         return null;
     }
