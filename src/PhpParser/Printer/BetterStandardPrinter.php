@@ -8,12 +8,14 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Yield_;
+use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\EncapsedStringPart;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\Expression;
@@ -309,14 +311,15 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     protected function pScalar_String(\PhpParser\Node\Scalar\String_ $string) : string
     {
         $isRegularPattern = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::IS_REGULAR_PATTERN);
-        if ($isRegularPattern) {
-            $kind = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND, \PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED);
-            if ($kind === \PhpParser\Node\Scalar\String_::KIND_DOUBLE_QUOTED) {
-                return $this->wrapValueWith($string, '"');
-            }
-            if ($kind === \PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED) {
-                return $this->wrapValueWith($string, "'");
-            }
+        if (!$isRegularPattern) {
+            return parent::pScalar_String($string);
+        }
+        $kind = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::KIND, \PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED);
+        if ($kind === \PhpParser\Node\Scalar\String_::KIND_DOUBLE_QUOTED) {
+            return $this->wrapValueWith($string, '"');
+        }
+        if ($kind === \PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED) {
+            return $this->wrapValueWith($string, "'");
         }
         return parent::pScalar_String($string);
     }
@@ -404,10 +407,23 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      */
     private function resolveNewStmts(array $stmts) : array
     {
-        if (\count($stmts) === 1) {
-            $onlyStmt = $stmts[0];
-            if ($onlyStmt instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
-                return $onlyStmt->stmts;
+        if (\count($stmts) === 1 && $stmts[0] instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
+            return $this->cleanUpStmts($stmts[0]->stmts);
+        }
+        return $this->cleanUpStmts($stmts);
+    }
+    /**
+     * @param Node[] $stmts
+     * @return Node[]|mixed[]
+     */
+    private function cleanUpStmts(array $stmts) : array
+    {
+        foreach ($stmts as $key => $stmt) {
+            if (!$stmt instanceof \PhpParser\Node\Stmt\ClassLike && !$stmt instanceof \PhpParser\Node\FunctionLike) {
+                continue;
+            }
+            if (isset($stmts[$key - 1]) && $this->areNodesEqual($stmt, $stmts[$key - 1])) {
+                unset($stmts[$key]);
             }
         }
         return $stmts;
