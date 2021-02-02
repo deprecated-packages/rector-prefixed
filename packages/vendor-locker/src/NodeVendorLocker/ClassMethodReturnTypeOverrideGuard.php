@@ -3,6 +3,8 @@
 declare (strict_types=1);
 namespace Rector\VendorLocker\NodeVendorLocker;
 
+use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
@@ -12,6 +14,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -34,11 +37,16 @@ final class ClassMethodReturnTypeOverrideGuard
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    /**
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeRepository = $nodeRepository;
+        $this->betterNodeFinder = $betterNodeFinder;
     }
     public function shouldSkipClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
@@ -53,11 +61,16 @@ final class ClassMethodReturnTypeOverrideGuard
         // 3. skip has children and current has no return
         $class = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         $hasChildren = $class instanceof \PhpParser\Node\Stmt\Class_ && $this->nodeRepository->hasClassChildren($class);
-        $lastStmt = $classMethod->stmts[\count((array) $classMethod->stmts) - 1] ?? null;
         if (!$hasChildren) {
             return \false;
         }
-        if ($lastStmt instanceof \PhpParser\Node\Stmt\Return_) {
+        $hasReturn = (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
+            if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
+                return \false;
+            }
+            return $node->expr instanceof \PhpParser\Node\Expr;
+        });
+        if ($hasReturn) {
             return \false;
         }
         return $classMethod->returnType === null;
