@@ -3,8 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Nette\Tests\Rector\ClassMethod\RemoveParentAndNameFromComponentConstructorRector\Source;
 
-use RectorPrefix20210201\Nette\Application\UI\Control;
-final class SomeControlWithoutConstructorParentAndName extends \RectorPrefix20210201\Nette\Application\UI\Control
+use RectorPrefix20210202\Nette\Application\UI\Control;
+final class SomeControlWithoutConstructorParentAndName extends \RectorPrefix20210202\Nette\Application\UI\Control
 {
     private $key;
     private $value;

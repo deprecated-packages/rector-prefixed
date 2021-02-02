@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210201\Symplify\AutowireArrayParameter\Tests\DocBlock;
+namespace RectorPrefix20210202\Symplify\AutowireArrayParameter\Tests\DocBlock;
 
 use Iterator;
-use RectorPrefix20210201\PHPUnit\Framework\TestCase;
-use RectorPrefix20210201\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
-final class ParamTypeDocBlockResolverTest extends \RectorPrefix20210201\PHPUnit\Framework\TestCase
+use RectorPrefix20210202\PHPUnit\Framework\TestCase;
+use RectorPrefix20210202\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
+final class ParamTypeDocBlockResolverTest extends \RectorPrefix20210202\PHPUnit\Framework\TestCase
 {
     /**
      * @var ParamTypeDocBlockResolver
@@ -14,7 +14,7 @@ final class ParamTypeDocBlockResolverTest extends \RectorPrefix20210201\PHPUnit\
     private $paramTypeDocBlockResolver;
     protected function setUp() : void
     {
-        $this->paramTypeDocBlockResolver = new \RectorPrefix20210201\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
+        $this->paramTypeDocBlockResolver = new \RectorPrefix20210202\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
     }
     /**
      * @dataProvider provideData()

@@ -6,13 +6,13 @@ namespace Rector\NetteToSymfony\Tests\Rector\MethodCall\NetteFormToSymfonyFormRe
 use Iterator;
 use Rector\NetteToSymfony\Rector\MethodCall\NetteFormToSymfonyFormRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo;
 final class NetteFormToSymfonyFormRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

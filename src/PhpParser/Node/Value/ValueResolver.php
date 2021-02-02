@@ -21,7 +21,7 @@ use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Core\Tests\PhpParser\Node\Value\ValueResolverTest
  */
@@ -180,7 +180,7 @@ final class ValueResolver
     private function resolveDirConstant(\PhpParser\Node\Scalar\MagicConst\Dir $dir) : string
     {
         $fileInfo = $dir->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $fileInfo->getPath();
@@ -188,7 +188,7 @@ final class ValueResolver
     private function resolveFileConstant(\PhpParser\Node\Scalar\MagicConst\File $file) : string
     {
         $fileInfo = $file->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $fileInfo->getPathname();

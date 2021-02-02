@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210201;
+namespace RectorPrefix20210202;
 
 final class EventDispatcher
 {

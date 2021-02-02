@@ -7,14 +7,14 @@ use Iterator;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\DeadCode\Rector\PropertyProperty\RemoveNullPropertyInitializationRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo;
 final class TypedPropertiesRemoveNullPropertyInitializationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      * @requires PHP 7.4
      */
-    public function test(\RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210201\Symplify\Skipper\Tests\Skipper\Only\Source;
+namespace RectorPrefix20210202\Symplify\Skipper\Tests\Skipper\Only\Source;
 
 final class IncludeThisClass
 {

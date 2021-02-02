@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source;
 
-use RectorPrefix20210201\Doctrine\ORM\Mapping as ORM;
-use RectorPrefix20210201\JMS\Serializer\Annotation as Serializer;
-use RectorPrefix20210201\Symfony\Component\Validator\Constraints as Assert;
+use RectorPrefix20210202\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210202\JMS\Serializer\Annotation as Serializer;
+use RectorPrefix20210202\Symfony\Component\Validator\Constraints as Assert;
 final class ManyToPropertyClass
 {
     /**

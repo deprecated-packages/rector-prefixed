@@ -17,7 +17,7 @@ use Rector\Legacy\NodeFactory\StaticMethodClassFactory;
 use Rector\Legacy\ValueObject\FunctionToStaticCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector\FunctionToStaticMethodRectorTest
  */
@@ -79,7 +79,7 @@ CODE_SAMPLE
         if ($functions === []) {
             return null;
         }
-        $smartFileInfo = $node->getAttribute(\RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $node->getAttribute(\RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }
@@ -138,7 +138,7 @@ CODE_SAMPLE
     /**
      * @param Namespace_|FileWithoutNamespace $node
      */
-    private function printStaticMethodClass(\RectorPrefix20210201\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : void
+    private function printStaticMethodClass(\RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $classFileDestination = $smartFileInfo->getPath() . \DIRECTORY_SEPARATOR . $shortClassName . '.php';
         $nodesToPrint = [$this->resolveNodeToPrint($node, $class)];
