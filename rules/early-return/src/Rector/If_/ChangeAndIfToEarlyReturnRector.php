@@ -147,11 +147,7 @@ CODE_SAMPLE
     }
     private function getIfReturn(\PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt
     {
-        $ifStmt = \end($if->stmts);
-        if ($ifStmt === \false) {
-            return null;
-        }
-        return $ifStmt;
+        return \end($if->stmts) ?: null;
     }
     /**
      * @return Expr[]
@@ -181,11 +177,7 @@ CODE_SAMPLE
         foreach ($conditions as $condition) {
             $invertedCondition = $this->conditionInverter->createInvertedCondition($condition);
             $if = new \PhpParser\Node\Stmt\If_($invertedCondition);
-            if ($isIfInLoop && $this->getIfNextReturn($node) === null) {
-                $if->stmts = [new \PhpParser\Node\Stmt\Continue_()];
-            } else {
-                $if->stmts = [new \PhpParser\Node\Stmt\Return_()];
-            }
+            $if->stmts = $isIfInLoop && $this->getIfNextReturn($node) === null ? [new \PhpParser\Node\Stmt\Continue_()] : [new \PhpParser\Node\Stmt\Return_()];
             $ifs[] = $if;
         }
         return $ifs;
@@ -225,17 +217,12 @@ CODE_SAMPLE
         if (!$functionLike instanceof \PhpParser\Node\FunctionLike) {
             return \true;
         }
-        if ($functionLike->getStmts() === null) {
-            return \true;
-        }
-        $returns = $this->betterNodeFinder->findInstanceOf($functionLike->getStmts(), \PhpParser\Node\Stmt\Return_::class);
-        if ($returns === []) {
-            return \true;
-        }
-        $nonVoidReturns = \array_filter($returns, function (\PhpParser\Node\Stmt\Return_ $return) : bool {
-            return $return->expr !== null;
+        return !(bool) $this->betterNodeFinder->findFirst((array) $functionLike->getStmts(), function (\PhpParser\Node $node) : bool {
+            if (!$node instanceof \PhpParser\Node\Stmt\Return_) {
+                return \false;
+            }
+            return $node->expr instanceof \PhpParser\Node\Expr;
         });
-        return $nonVoidReturns === [];
     }
     private function isNestedIfInLoop(\PhpParser\Node\Stmt\If_ $if) : bool
     {
@@ -247,9 +234,13 @@ CODE_SAMPLE
     private function isLastIfOrBeforeLastReturn(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         $nextNode = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if (!$nextNode instanceof \PhpParser\Node) {
-            return \true;
+        if ($nextNode instanceof \PhpParser\Node) {
+            return $nextNode instanceof \PhpParser\Node\Stmt\Return_;
         }
-        return $nextNode instanceof \PhpParser\Node\Stmt\Return_;
+        $parent = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node\Stmt\If_) {
+            return $this->isLastIfOrBeforeLastReturn($parent);
+        }
+        return \true;
     }
 }
