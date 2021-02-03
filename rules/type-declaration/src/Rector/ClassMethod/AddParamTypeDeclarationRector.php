@@ -28,7 +28,7 @@ final class AddParamTypeDeclarationRector extends \Rector\Core\Rector\AbstractRe
     /**
      * @var string
      */
-    public const PARAMETER_TYPEHINTS = 'parameter_typehintgs';
+    public const PARAMETER_TYPEHINTS = 'parameter_typehints';
     /**
      * @var AddParamTypeDeclaration[]
      */

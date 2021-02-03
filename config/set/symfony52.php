@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210203;
 
+use PHPStan\Type\ObjectType;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
@@ -14,6 +15,8 @@ use Rector\Symfony5\Rector\MethodCall\ValidatorBuilderEnableAnnotationMappingRec
 use Rector\Symfony5\Rector\New_\PropertyAccessorCreationBooleanToFlagsRector;
 use Rector\Symfony5\Rector\New_\PropertyPathMapperToDataMapperRector;
 use Rector\Symfony5\Rector\StaticCall\BinaryFileResponseCreateToNewInstanceRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
+use Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
 use RectorPrefix20210203\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 # https://github.com/symfony/symfony/blob/5.x/UPGRADE-5.2.md
@@ -39,4 +42,6 @@ return static function (\RectorPrefix20210203\Symfony\Component\DependencyInject
     $services->set(\Rector\Symfony5\Rector\MethodCall\FormBuilderSetDataMapperRector::class);
     # https://github.com/symfony/symfony/blob/5.x/UPGRADE-5.2.md#validator
     $services->set(\Rector\Symfony5\Rector\MethodCall\ValidatorBuilderEnableAnnotationMappingRector::class);
+    # https://github.com/symfony/symfony/blob/5.x/UPGRADE-5.2.md#notifier
+    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::class)->call('configure', [[\Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector::PARAMETER_TYPEHINTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Symfony\\Component\\Notifier\\NotifierInterface', 'send', 1, new \PHPStan\Type\ObjectType('Symfony\\Component\\Notifier\\Recipient\\RecipientInterface')), new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Symfony\\Component\\Notifier\\Notifier', 'getChannels', 1, new \PHPStan\Type\ObjectType('Symfony\\Component\\Notifier\\Recipient\\RecipientInterface')), new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Symfony\\Component\\Notifier\\Channel\\ChannelInterface', 'notify', 1, new \PHPStan\Type\ObjectType('Symfony\\Component\\Notifier\\Recipient\\RecipientInterface')), new \Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration('Symfony\\Component\\Notifier\\Channel\\ChannelInterface', 'supports', 1, new \PHPStan\Type\ObjectType('Symfony\\Component\\Notifier\\Recipient\\RecipientInterface'))])]]);
 };
