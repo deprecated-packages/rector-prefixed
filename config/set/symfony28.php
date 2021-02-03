@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210202;
+namespace RectorPrefix20210203;
 
 use Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector;
 use Rector\Generic\ValueObject\ArgumentDefaultValueReplacer;
 use Rector\Symfony2\Rector\StaticCall\ParseFileRector;
-use RectorPrefix20210202\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210203\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210202\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210203\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Symfony2\Rector\StaticCall\ParseFileRector::class);
     $services->set(\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::class)->call('configure', [[\Rector\Generic\Rector\ClassMethod\ArgumentDefaultValueReplacerRector::REPLACED_ARGUMENTS => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([

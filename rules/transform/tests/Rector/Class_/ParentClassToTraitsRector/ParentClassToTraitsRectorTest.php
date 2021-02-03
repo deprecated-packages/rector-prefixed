@@ -11,13 +11,13 @@ use Rector\Transform\Tests\Rector\Class_\ParentClassToTraitsRector\Source\Parent
 use Rector\Transform\Tests\Rector\Class_\ParentClassToTraitsRector\Source\SecondTrait;
 use Rector\Transform\Tests\Rector\Class_\ParentClassToTraitsRector\Source\SomeTrait;
 use Rector\Transform\ValueObject\ParentClassToTraits;
-use RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo;
 final class ParentClassToTraitsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

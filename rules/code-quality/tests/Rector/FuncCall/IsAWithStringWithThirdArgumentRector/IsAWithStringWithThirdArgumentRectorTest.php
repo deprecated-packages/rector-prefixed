@@ -6,13 +6,13 @@ namespace Rector\CodeQuality\Tests\Rector\FuncCall\IsAWithStringWithThirdArgumen
 use Iterator;
 use Rector\CodeQuality\Rector\FuncCall\IsAWithStringWithThirdArgumentRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo;
 final class IsAWithStringWithThirdArgumentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -12,7 +12,7 @@ use Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
 use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210202\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210203\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -27,7 +27,7 @@ final class FluentChainMethodCallToNormalMethodCallRector extends \Rector\Deflue
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\RectorPrefix20210202\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    public function __construct(\RectorPrefix20210203\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->typeChecker = $typeChecker;
     }

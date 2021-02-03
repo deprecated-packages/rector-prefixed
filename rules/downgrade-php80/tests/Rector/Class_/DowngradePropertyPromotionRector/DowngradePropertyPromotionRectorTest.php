@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp80\Tests\Rector\Class_\DowngradePropertyPromotionRe
 use Iterator;
 use Rector\DowngradePhp80\Rector\Class_\DowngradePropertyPromotionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradePropertyPromotionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 8.0
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

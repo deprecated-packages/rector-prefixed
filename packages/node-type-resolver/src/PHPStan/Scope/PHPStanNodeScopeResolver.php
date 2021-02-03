@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\PHPStan\Scope;
 
-use RectorPrefix20210202\Nette\Utils\Strings;
+use RectorPrefix20210203\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
@@ -24,8 +24,8 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector;
 use Rector\NodeTypeResolver\PHPStan\Scope\NodeVisitor\RemoveDeepChainMethodCallNodeVisitor;
-use RectorPrefix20210202\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210203\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @inspired by https://github.com/silverstripe/silverstripe-upgrader/blob/532182b23e854d02e0b27e68ebc394f436de0682/src/UpgradeRule/PHP/Visitor/PHPStanScopeVisitor.php
  * - https://github.com/silverstripe/silverstripe-upgrader/pull/57/commits/e5c7cfa166ad940d9d4ff69537d9f7608e992359#diff-5e0807bb3dc03d6a8d8b6ad049abd774
@@ -77,7 +77,7 @@ final class PHPStanNodeScopeResolver
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\Caching\FileSystem\DependencyResolver $dependencyResolver, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeTypeResolver\PHPStan\Scope\NodeVisitor\RemoveDeepChainMethodCallNodeVisitor $removeDeepChainMethodCallNodeVisitor, \Rector\NodeTypeResolver\PHPStan\Scope\ScopeFactory $scopeFactory, \RectorPrefix20210202\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector)
+    public function __construct(\Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \Rector\Core\Configuration\Configuration $configuration, \Rector\Caching\FileSystem\DependencyResolver $dependencyResolver, \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver, \PHPStan\Reflection\ReflectionProvider $reflectionProvider, \Rector\NodeTypeResolver\PHPStan\Scope\NodeVisitor\RemoveDeepChainMethodCallNodeVisitor $removeDeepChainMethodCallNodeVisitor, \Rector\NodeTypeResolver\PHPStan\Scope\ScopeFactory $scopeFactory, \RectorPrefix20210203\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector)
     {
         $this->scopeFactory = $scopeFactory;
         $this->nodeScopeResolver = $nodeScopeResolver;
@@ -93,7 +93,7 @@ final class PHPStanNodeScopeResolver
      * @param Node[] $nodes
      * @return Node[]
      */
-    public function processNodes(array $nodes, \RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
+    public function processNodes(array $nodes, \RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : array
     {
         $this->removeDeepChainMethodCallNodes($nodes);
         $scope = $this->scopeFactory->createFromFile($smartFileInfo);
@@ -147,7 +147,7 @@ final class PHPStanNodeScopeResolver
     {
         $className = $this->resolveClassName($classLike);
         // is anonymous class? - not possible to enter it since PHPStan 0.12.33, see https://github.com/phpstan/phpstan-src/commit/e87fb0ec26f9c8552bbeef26a868b1e5d8185e91
-        if ($classLike instanceof \PhpParser\Node\Stmt\Class_ && \RectorPrefix20210202\Nette\Utils\Strings::match($className, self::ANONYMOUS_CLASS_START_REGEX)) {
+        if ($classLike instanceof \PhpParser\Node\Stmt\Class_ && \RectorPrefix20210203\Nette\Utils\Strings::match($className, self::ANONYMOUS_CLASS_START_REGEX)) {
             $classReflection = $this->reflectionProvider->getAnonymousClassReflection($classLike, $scope);
         } else {
             $classReflection = $this->reflectionProvider->getClass($className);
@@ -172,7 +172,7 @@ final class PHPStanNodeScopeResolver
     /**
      * @param string[] $dependentFiles
      */
-    private function reportCacheDebugAndSaveDependentFiles(\RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
+    private function reportCacheDebugAndSaveDependentFiles(\RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
     {
         if (!$this->configuration->isCacheEnabled()) {
             return;
@@ -197,7 +197,7 @@ final class PHPStanNodeScopeResolver
     /**
      * @param string[] $dependentFiles
      */
-    private function reportCacheDebug(\RectorPrefix20210202\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
+    private function reportCacheDebug(\RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $dependentFiles) : void
     {
         if (!$this->configuration->isCacheDebug()) {
             return;

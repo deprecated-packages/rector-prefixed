@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20210202\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210203\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -20,7 +20,7 @@ final class DesiredPropertyClassMethodTypeToDynamicRector extends \Rector\Core\R
      * @var class-string[]
      */
     private $classTypes = [];
-    public function __construct(\RectorPrefix20210202\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\RectorPrefix20210203\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->classTypes = $parameterProvider->provideArrayParameter(\Rector\Core\Configuration\Option::TYPES_TO_REMOVE_STATIC_FROM);
     }

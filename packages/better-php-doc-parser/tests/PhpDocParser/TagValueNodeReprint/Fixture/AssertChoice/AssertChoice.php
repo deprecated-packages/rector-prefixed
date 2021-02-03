@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\AssertChoice;
 
-use RectorPrefix20210202\Symfony\Component\Validator\Constraints as Assert;
+use RectorPrefix20210203\Symfony\Component\Validator\Constraints as Assert;
 class AssertChoice
 {
     public const RATINGS_DISCRIMINATOR_MAP = ['5star' => 'App\\Entity\\Rating\\FiveStar', '4star' => 'App\\Entity\\Rating\\FourStar'];

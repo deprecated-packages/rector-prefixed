@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210202;
+namespace RectorPrefix20210203;
 
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TypeParser;
-use RectorPrefix20210202\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210202\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210203\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210203\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('RectorPrefix20210202\Symplify\\SimplePhpDocParser\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
+    $services->load('RectorPrefix20210203\Symplify\\SimplePhpDocParser\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
     $services->set(\PHPStan\PhpDocParser\Parser\PhpDocParser::class);
     $services->set(\PHPStan\PhpDocParser\Lexer\Lexer::class);
     $services->set(\PHPStan\PhpDocParser\Parser\TypeParser::class);

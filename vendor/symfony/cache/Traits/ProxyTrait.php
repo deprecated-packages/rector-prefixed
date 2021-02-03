@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210202\Symfony\Component\Cache\Traits;
+namespace RectorPrefix20210203\Symfony\Component\Cache\Traits;
 
-use RectorPrefix20210202\Symfony\Component\Cache\PruneableInterface;
-use RectorPrefix20210202\Symfony\Contracts\Service\ResetInterface;
+use RectorPrefix20210203\Symfony\Component\Cache\PruneableInterface;
+use RectorPrefix20210203\Symfony\Contracts\Service\ResetInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -25,14 +25,14 @@ trait ProxyTrait
      */
     public function prune()
     {
-        return $this->pool instanceof \RectorPrefix20210202\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
+        return $this->pool instanceof \RectorPrefix20210203\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
     }
     /**
      * {@inheritdoc}
      */
     public function reset()
     {
-        if ($this->pool instanceof \RectorPrefix20210202\Symfony\Contracts\Service\ResetInterface) {
+        if ($this->pool instanceof \RectorPrefix20210203\Symfony\Contracts\Service\ResetInterface) {
             $this->pool->reset();
         }
     }
