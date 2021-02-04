@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210203;
+namespace RectorPrefix20210204;
 
 if (\PHP_VERSION_ID < 80000) {
     interface Stringable

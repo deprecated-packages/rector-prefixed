@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Removing\Rector\Class_\RemoveTraitRector;
 use Rector\Removing\Tests\Rector\Class_\RemoveTraitRector\Source\TraitToBeRemoved;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveTraitRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

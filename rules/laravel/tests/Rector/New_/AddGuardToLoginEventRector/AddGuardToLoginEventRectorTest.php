@@ -6,13 +6,13 @@ namespace Rector\Laravel\Tests\Rector\New_\AddGuardToLoginEventRector;
 use Iterator;
 use Rector\Laravel\Rector\New_\AddGuardToLoginEventRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo;
 final class AddGuardToLoginEventRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

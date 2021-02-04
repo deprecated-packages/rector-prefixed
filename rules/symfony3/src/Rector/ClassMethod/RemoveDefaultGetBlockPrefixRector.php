@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Symfony3\Rector\ClassMethod;
 
-use RectorPrefix20210203\Nette\Utils\Strings;
+use RectorPrefix20210204\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt\Class_;
@@ -65,8 +65,8 @@ CODE_SAMPLE
         }
         $returnedValue = $this->valueResolver->getValue($returnedExpr);
         $classShortName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME);
-        if (\RectorPrefix20210203\Nette\Utils\Strings::endsWith($classShortName, 'Type')) {
-            $classShortName = \RectorPrefix20210203\Nette\Utils\Strings::before($classShortName, 'Type');
+        if (\RectorPrefix20210204\Nette\Utils\Strings::endsWith($classShortName, 'Type')) {
+            $classShortName = \RectorPrefix20210204\Nette\Utils\Strings::before($classShortName, 'Type');
         }
         $underscoredClassShortName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($classShortName);
         if ($underscoredClassShortName !== $returnedValue) {

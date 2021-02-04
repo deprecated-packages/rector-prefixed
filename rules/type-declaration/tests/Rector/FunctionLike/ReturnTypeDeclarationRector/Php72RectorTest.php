@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector;
-use RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo;
 final class Php72RectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210203\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

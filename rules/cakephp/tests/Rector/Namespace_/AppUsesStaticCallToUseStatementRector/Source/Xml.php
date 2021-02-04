@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210203\Cake\Utility;
+namespace RectorPrefix20210204\Cake\Utility;
 
 final class Xml
 {

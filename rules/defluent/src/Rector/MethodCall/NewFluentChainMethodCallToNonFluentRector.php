@@ -11,7 +11,7 @@ use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
 use Rector\Defluent\ValueObject\AssignAndRootExprAndNodesToAdd;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210203\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210204\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -27,7 +27,7 @@ final class NewFluentChainMethodCallToNonFluentRector extends \Rector\Defluent\R
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\RectorPrefix20210203\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    public function __construct(\RectorPrefix20210204\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->typeChecker = $typeChecker;
     }
