@@ -146,11 +146,53 @@ CODE_SAMPLE
         if ($this->isArrayWithKeyValueNameUnsetted($node)) {
             return null;
         }
-        $iteratedVariableSingle = $this->inflector->singularize($iteratedVariable);
-        $foreach = $this->createForeach($node, $iteratedVariableSingle);
-        $this->mirrorComments($foreach, $node);
+        return $this->processForToForeach($node, $iteratedVariable);
+    }
+    private function processForToForeach(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariable) : ?\PhpParser\Node\Stmt\Foreach_
+    {
+        $originalVariableSingle = $this->inflector->singularize($iteratedVariable);
+        $iteratedVariableSingle = $originalVariableSingle;
+        if ($iteratedVariableSingle === $iteratedVariable) {
+            $iteratedVariableSingle = 'single' . \ucfirst($iteratedVariableSingle);
+        }
+        if (!$this->isValueVarUsedNext($for, $iteratedVariableSingle)) {
+            return $this->createForeachFromForWithIteratedVariableSingle($for, $iteratedVariableSingle);
+        }
+        if ($iteratedVariableSingle === $originalVariableSingle) {
+            return null;
+        }
+        if (!$this->isValueVarUsedNext($for, $originalVariableSingle)) {
+            return $this->createForeachFromForWithIteratedVariableSingle($for, $originalVariableSingle);
+        }
+        return null;
+    }
+    private function createForeachFromForWithIteratedVariableSingle(\PhpParser\Node\Stmt\For_ $for, string $iteratedVariableSingle) : \PhpParser\Node\Stmt\Foreach_
+    {
+        $foreach = $this->createForeach($for, $iteratedVariableSingle);
+        $this->mirrorComments($foreach, $for);
         $this->useForeachVariableInStmts($foreach->expr, $foreach->valueVar, $foreach->stmts);
         return $foreach;
+    }
+    private function isValueVarUsedNext(\PhpParser\Node $node, string $iteratedVariableSingle) : bool
+    {
+        $next = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        if ($next instanceof \PhpParser\Node) {
+            $isFound = (bool) $this->betterNodeFinder->findFirst($next, function (\PhpParser\Node $node) use($iteratedVariableSingle) : bool {
+                if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+                    return \false;
+                }
+                return $this->isName($node, $iteratedVariableSingle);
+            });
+            if ($isFound) {
+                return \true;
+            }
+            return $this->isValueVarUsedNext($next, $iteratedVariableSingle);
+        }
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node) {
+            return $this->isValueVarUsedNext($parent, $iteratedVariableSingle);
+        }
+        return \false;
     }
     private function reset() : void
     {
