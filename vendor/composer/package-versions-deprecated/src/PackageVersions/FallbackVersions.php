@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210204\PackageVersions;
+namespace RectorPrefix20210205\PackageVersions;
 
 use Generator;
 use OutOfBoundsException;

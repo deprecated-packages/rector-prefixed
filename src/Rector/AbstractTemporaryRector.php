@@ -34,10 +34,10 @@ use Rector\Core\ValueObject\ProjectType;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix20210204\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210204\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210204\Symplify\Skipper\Skipper\Skipper;
-use RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210205\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210205\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210205\Symplify\Skipper\Skipper\Skipper;
+use RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract implements \Rector\Core\Contract\Rector\PhpRectorInterface
 {
     use AbstractRectorTrait;
@@ -116,7 +116,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     /**
      * @required
      */
-    public function autowireAbstractTemporaryRector(\Rector\Core\PhpParser\Node\Manipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210204\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \PhpParser\BuilderFactory $builderFactory, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210204\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210204\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder) : void
+    public function autowireAbstractTemporaryRector(\Rector\Core\PhpParser\Node\Manipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210205\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \PhpParser\BuilderFactory $builderFactory, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210205\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210205\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder) : void
     {
         $this->visibilityManipulator = $visibilityManipulator;
         $this->nodeFactory = $nodeFactory;
@@ -305,7 +305,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
             return \true;
         }
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo) {
             return \false;
         }
         return $this->skipper->shouldSkipElementAndFileInfo($this, $fileInfo);
@@ -349,7 +349,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     private function keepFileInfoAttribute(\PhpParser\Node $node, \PhpParser\Node $originalNode) : void
     {
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if ($fileInfo instanceof \RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo) {
+        if ($fileInfo instanceof \RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo) {
             return;
         }
         $fileInfo = $originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);

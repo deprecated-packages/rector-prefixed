@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210204\Doctrine\Common\Annotations;
+namespace RectorPrefix20210205\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use ReflectionMethod;

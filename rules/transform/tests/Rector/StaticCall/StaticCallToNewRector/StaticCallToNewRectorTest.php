@@ -8,13 +8,13 @@ use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\StaticCall\StaticCallToNewRector;
 use Rector\Transform\Tests\Rector\StaticCall\StaticCallToNewRector\Source\SomeJsonResponse;
 use Rector\Transform\ValueObject\StaticCallToNew;
-use RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo;
 final class StaticCallToNewRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210204\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

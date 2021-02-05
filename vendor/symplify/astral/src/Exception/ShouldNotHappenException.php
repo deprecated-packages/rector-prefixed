@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210204\Symplify\Astral\Exception;
+namespace RectorPrefix20210205\Symplify\Astral\Exception;
 
 use Exception;
 final class ShouldNotHappenException extends \Exception
