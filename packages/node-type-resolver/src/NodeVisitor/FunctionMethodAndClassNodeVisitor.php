@@ -11,17 +11,9 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\NodeVisitorAbstract;
-use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-/**
- * @see \Rector\NodeTypeResolver\Tests\NodeVisitor\FunctionMethodAndClassNodeVisitor\FunctionMethodAndClassNodeVisitorTest
- */
 final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
-    /**
-     * @var ClassNaming
-     */
-    private $classNaming;
     /**
      * @var string|null
      */
@@ -30,10 +22,6 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
      * @var string|null
      */
     private $className;
-    /**
-     * @var string|null
-     */
-    private $classShortName;
     /**
      * @var ClassLike[]|null[]
      */
@@ -58,10 +46,6 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
      * @var Closure|null
      */
     private $closure;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming)
-    {
-        $this->classNaming = $classNaming;
-    }
     /**
      * @param Node[] $nodes
      * @return Node[]|null
@@ -107,7 +91,6 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
         }
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, $this->classLike);
         $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME, $this->className);
-        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME, $this->classShortName);
         if ($this->classLike instanceof \PhpParser\Node\Stmt\Class_) {
             $this->setParentClassName($this->classLike, $node);
         }
@@ -143,10 +126,8 @@ final class FunctionMethodAndClassNodeVisitor extends \PhpParser\NodeVisitorAbst
             $this->className = null;
         } elseif (\property_exists($classLike, 'namespacedName')) {
             $this->className = $classLike->namespacedName->toString();
-            $this->classShortName = $this->classNaming->getShortName($this->className);
         } else {
             $this->className = (string) $classLike->name;
-            $this->classShortName = $this->classNaming->getShortName($this->className);
         }
     }
     private function setParentClassName(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node $node) : void

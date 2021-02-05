@@ -9,6 +9,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
+use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticRectorStrings;
@@ -22,6 +23,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveDefaultGetBlockPrefixRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var ClassNaming
+     */
+    private $classNaming;
+    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming)
+    {
+        $this->classNaming = $classNaming;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename `getBlockPrefix()` if it returns the default value - class to underscore, e.g. UserFormType = user_form', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -64,11 +73,15 @@ CODE_SAMPLE
             return null;
         }
         $returnedValue = $this->valueResolver->getValue($returnedExpr);
-        $classShortName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME);
-        if (\RectorPrefix20210205\Nette\Utils\Strings::endsWith($classShortName, 'Type')) {
-            $classShortName = \RectorPrefix20210205\Nette\Utils\Strings::before($classShortName, 'Type');
+        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        if (!\is_string($className)) {
+            return null;
         }
-        $underscoredClassShortName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($classShortName);
+        $shortClassName = $this->classNaming->getShortName($className);
+        if (\RectorPrefix20210205\Nette\Utils\Strings::endsWith($shortClassName, 'Type')) {
+            $shortClassName = (string) \RectorPrefix20210205\Nette\Utils\Strings::before($shortClassName, 'Type');
+        }
+        $underscoredClassShortName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($shortClassName);
         if ($underscoredClassShortName !== $returnedValue) {
             return null;
         }

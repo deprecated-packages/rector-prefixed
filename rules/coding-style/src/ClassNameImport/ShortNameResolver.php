@@ -18,6 +18,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ThrowsTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210205\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
@@ -45,11 +46,16 @@ final class ShortNameResolver
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\RectorPrefix20210205\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @var ClassNaming
+     */
+    private $classNaming;
+    public function __construct(\RectorPrefix20210205\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\CodingStyle\Naming\ClassNaming $classNaming)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->classNaming = $classNaming;
     }
     /**
      * @return string[]
@@ -85,9 +91,10 @@ final class ShortNameResolver
             if ($node->name === null) {
                 return null;
             }
-            /** @var string $classShortName */
-            $classShortName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_SHORT_NAME);
-            $shortClassLikeNames[] = $classShortName;
+            $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+            if (\is_string($className)) {
+                $shortClassLikeNames[] = $this->classNaming->getShortName($className);
+            }
         });
         return \array_unique($shortClassLikeNames);
     }
