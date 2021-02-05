@@ -285,6 +285,22 @@ final class BetterNodeFinder
             return $this->typeChecker->isInstanceOf($node, $types);
         });
     }
+    public function findFirstNext(\PhpParser\Node $node, callable $filter) : ?\PhpParser\Node
+    {
+        $next = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
+        if ($next instanceof \PhpParser\Node) {
+            $found = $this->findFirst($next, $filter);
+            if ($found instanceof \PhpParser\Node) {
+                return $found;
+            }
+            return $this->findFirstNext($next, $filter);
+        }
+        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if ($parent instanceof \PhpParser\Node) {
+            return $this->findFirstNext($parent, $filter);
+        }
+        return null;
+    }
     /**
      * @param Node|Node[] $nodes
      * @param class-string<T> $type
@@ -299,22 +315,6 @@ final class BetterNodeFinder
                 continue;
             }
             return $foundInstance;
-        }
-        return null;
-    }
-    public function findFirstNext(\PhpParser\Node $node, callable $filter) : ?\PhpParser\Node
-    {
-        $next = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::NEXT_NODE);
-        if ($next instanceof \PhpParser\Node) {
-            $found = $this->findFirst($next, $filter);
-            if ($found instanceof \PhpParser\Node) {
-                return $found;
-            }
-            return $this->findFirstNext($next, $filter);
-        }
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parent instanceof \PhpParser\Node) {
-            return $this->findFirstNext($parent, $filter);
         }
         return null;
     }
