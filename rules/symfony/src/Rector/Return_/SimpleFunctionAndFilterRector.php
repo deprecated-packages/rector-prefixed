@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Twig\Rector\Return_;
+namespace Rector\Symfony\Rector\Return_;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
@@ -21,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * Covers https://twig.symfony.com/doc/1.x/deprecated.html#function
  *
- * @see \Rector\Twig\Tests\Rector\Return_\SimpleFunctionAndFilterRector\SimpleFunctionAndFilterRectorTest
+ * @see \Rector\Symfony\Tests\Rector\Return_\SimpleFunctionAndFilterRector\SimpleFunctionAndFilterRectorTest
  */
 final class SimpleFunctionAndFilterRector extends \Rector\Core\Rector\AbstractRector
 {

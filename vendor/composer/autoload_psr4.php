@@ -11,7 +11,6 @@ return array(
     'Rector\\Visibility\\' => array($baseDir . '/rules/visibility/src'),
     'Rector\\VendorLocker\\' => array($baseDir . '/packages/vendor-locker/src'),
     'Rector\\TypeDeclaration\\' => array($baseDir . '/rules/type-declaration/src'),
-    'Rector\\Twig\\' => array($baseDir . '/rules/twig/src'),
     'Rector\\Transform\\' => array($baseDir . '/rules/transform/src'),
     'Rector\\Testing\\' => array($baseDir . '/packages/testing/src'),
     'Rector\\Symfony\\' => array($baseDir . '/rules/symfony/src'),

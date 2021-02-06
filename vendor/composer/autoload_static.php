@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334
+class ComposerStaticInitfd65f877c7f17bda99789ef9e05747fa
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -30,7 +30,6 @@ class ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334
             'Rector\\Visibility\\' => 18,
             'Rector\\VendorLocker\\' => 20,
             'Rector\\TypeDeclaration\\' => 23,
-            'Rector\\Twig\\' => 12,
             'Rector\\Transform\\' => 17,
             'Rector\\Testing\\' => 15,
             'Rector\\Symfony\\' => 15,
@@ -202,10 +201,6 @@ class ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334
         'Rector\\TypeDeclaration\\' => 
         array (
             0 => __DIR__ . '/../..' . '/rules/type-declaration/src',
-        ),
-        'Rector\\Twig\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/rules/twig/src',
         ),
         'Rector\\Transform\\' => 
         array (
@@ -3972,6 +3967,7 @@ class ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334
         'Rector\\Symfony\\Rector\\MethodCall\\AbstractToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/MethodCall/AbstractToConstructorInjectionRector.php',
         'Rector\\Symfony\\Rector\\MethodCall\\GetParameterToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/MethodCall/GetParameterToConstructorInjectionRector.php',
         'Rector\\Symfony\\Rector\\MethodCall\\GetToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/MethodCall/GetToConstructorInjectionRector.php',
+        'Rector\\Symfony\\Rector\\Return_\\SimpleFunctionAndFilterRector' => __DIR__ . '/../..' . '/rules/symfony/src/Rector/Return_/SimpleFunctionAndFilterRector.php',
         'Rector\\Symfony\\ServiceMapProvider' => __DIR__ . '/../..' . '/rules/symfony/src/ServiceMapProvider.php',
         'Rector\\Symfony\\ValueObject\\ServiceDefinition' => __DIR__ . '/../..' . '/rules/symfony/src/ValueObject/ServiceDefinition.php',
         'Rector\\Symfony\\ValueObject\\ServiceMap\\ServiceMap' => __DIR__ . '/../..' . '/rules/symfony/src/ValueObject/ServiceMap/ServiceMap.php',
@@ -4052,7 +4048,6 @@ class ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334
         'Rector\\Transform\\ValueObject\\StaticCallToNew' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/StaticCallToNew.php',
         'Rector\\Transform\\ValueObject\\StringToClassConstant' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/StringToClassConstant.php',
         'Rector\\Transform\\ValueObject\\VariableMethodCallToServiceCall' => __DIR__ . '/../..' . '/rules/transform/src/ValueObject/VariableMethodCallToServiceCall.php',
-        'Rector\\Twig\\Rector\\Return_\\SimpleFunctionAndFilterRector' => __DIR__ . '/../..' . '/rules/twig/src/Rector/Return_/SimpleFunctionAndFilterRector.php',
         'Rector\\TypeDeclaration\\AlreadyAssignDetector\\AbstractAssignDetector' => __DIR__ . '/../..' . '/rules/type-declaration/src/AlreadyAssignDetector/AbstractAssignDetector.php',
         'Rector\\TypeDeclaration\\AlreadyAssignDetector\\ConstructorAssignDetector' => __DIR__ . '/../..' . '/rules/type-declaration/src/AlreadyAssignDetector/ConstructorAssignDetector.php',
         'Rector\\TypeDeclaration\\AlreadyAssignDetector\\NullTypeAssignDetector' => __DIR__ . '/../..' . '/rules/type-declaration/src/AlreadyAssignDetector/NullTypeAssignDetector.php',
@@ -4174,9 +4169,9 @@ class ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfd65f877c7f17bda99789ef9e05747fa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfd65f877c7f17bda99789ef9e05747fa::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfd65f877c7f17bda99789ef9e05747fa::$classMap;
 
         }, null, ClassLoader::class);
     }

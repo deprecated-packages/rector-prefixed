@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Twig\Tests\Rector\Return_\SimpleFunctionAndFilterRector;
+namespace Rector\Symfony\Tests\Rector\Return_\SimpleFunctionAndFilterRector;
 
 use Iterator;
+use Rector\Symfony\Rector\Return_\SimpleFunctionAndFilterRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Twig\Rector\Return_\SimpleFunctionAndFilterRector;
 use RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo;
 final class SimpleFunctionAndFilterRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -22,6 +22,6 @@ final class SimpleFunctionAndFilterRectorTest extends \Rector\Testing\PHPUnit\Ab
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Twig\Rector\Return_\SimpleFunctionAndFilterRector::class;
+        return \Rector\Symfony\Rector\Return_\SimpleFunctionAndFilterRector::class;
     }
 }
