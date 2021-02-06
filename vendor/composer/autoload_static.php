@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit964adf5299ad94541173172a991d4b3b
+class ComposerStaticInitb5dc3b9daaf029f4c1615db9c8e1436d
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3753,6 +3753,7 @@ class ComposerStaticInit964adf5299ad94541173172a991d4b3b
         'Rector\\Privatization\\NodeReplacer\\PropertyFetchWithVariableReplacer' => __DIR__ . '/../..' . '/rules/privatization/src/NodeReplacer/PropertyFetchWithVariableReplacer.php',
         'Rector\\Privatization\\Rector\\ClassConst\\PrivatizeLocalClassConstantRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/ClassConst/PrivatizeLocalClassConstantRector.php',
         'Rector\\Privatization\\Rector\\ClassMethod\\ChangeGlobalVariablesToPropertiesRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/ClassMethod/ChangeGlobalVariablesToPropertiesRector.php',
+        'Rector\\Privatization\\Rector\\ClassMethod\\MakeOnlyUsedByChildrenProtectedRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/ClassMethod/MakeOnlyUsedByChildrenProtectedRector.php',
         'Rector\\Privatization\\Rector\\ClassMethod\\PrivatizeFinalClassMethodRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/ClassMethod/PrivatizeFinalClassMethodRector.php',
         'Rector\\Privatization\\Rector\\ClassMethod\\PrivatizeLocalOnlyMethodRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/ClassMethod/PrivatizeLocalOnlyMethodRector.php',
         'Rector\\Privatization\\Rector\\Class_\\ChangeLocalPropertyToVariableRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/Class_/ChangeLocalPropertyToVariableRector.php',
@@ -4172,9 +4173,9 @@ class ComposerStaticInit964adf5299ad94541173172a991d4b3b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit964adf5299ad94541173172a991d4b3b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit964adf5299ad94541173172a991d4b3b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit964adf5299ad94541173172a991d4b3b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb5dc3b9daaf029f4c1615db9c8e1436d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb5dc3b9daaf029f4c1615db9c8e1436d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb5dc3b9daaf029f4c1615db9c8e1436d::$classMap;
 
         }, null, ClassLoader::class);
     }

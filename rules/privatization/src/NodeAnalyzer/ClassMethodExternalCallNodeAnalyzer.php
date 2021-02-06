@@ -50,8 +50,20 @@ final class ClassMethodExternalCallNodeAnalyzer
         if ($this->isEventSubscriberMethod($classMethod, $methodName)) {
             return \true;
         }
-        // remove static calls and [$this, 'call']
-        /** @var MethodCall[] $methodCalls */
+        return $this->getExternalCalls($classMethod, $methodCalls) !== [];
+    }
+    /**
+     * @param MethodCall[]|StaticCall[]|ArrayCallable[] $methodCalls
+     * @return MethodCall[]
+     */
+    public function getExternalCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod, array $methodCalls = []) : array
+    {
+        /** @var MethodCall[]|StaticCall[]|ArrayCallable[] $methodCalls */
+        $methodCalls = $methodCalls ?: $this->nodeRepository->findCallsByClassMethod($classMethod);
+        /**
+         * remove static calls and [$this, 'call']
+         * @var MethodCall[] $methodCalls
+         */
         $methodCalls = \array_filter($methodCalls, function (object $node) : bool {
             return $node instanceof \PhpParser\Node\Expr\MethodCall;
         });
@@ -59,12 +71,12 @@ final class ClassMethodExternalCallNodeAnalyzer
             $callerType = $this->nodeTypeResolver->resolve($methodCall->var);
             if (!$callerType instanceof \PHPStan\Type\TypeWithClassName) {
                 // unable to handle reliably
-                return \true;
+                return $methodCalls;
             }
             // external call
             $nodeClassName = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
             if ($nodeClassName !== $callerType->getClassName()) {
-                return \true;
+                return $methodCalls;
             }
             /** @var string $methodName */
             $methodName = $this->nodeNameResolver->getName($classMethod);
@@ -72,10 +84,10 @@ final class ClassMethodExternalCallNodeAnalyzer
             // parent class name, must be at least protected
             $reflectionClass = $reflectionMethod->getDeclaringClass();
             if ($reflectionClass->getName() !== $nodeClassName) {
-                return \true;
+                return $methodCalls;
             }
         }
-        return \false;
+        return [];
     }
     /**
      * @param StaticCall[]|MethodCall[]|ArrayCallable[] $methodCalls

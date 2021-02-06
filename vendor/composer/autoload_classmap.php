@@ -2969,6 +2969,7 @@ return array(
     'Rector\\Privatization\\NodeReplacer\\PropertyFetchWithVariableReplacer' => $baseDir . '/rules/privatization/src/NodeReplacer/PropertyFetchWithVariableReplacer.php',
     'Rector\\Privatization\\Rector\\ClassConst\\PrivatizeLocalClassConstantRector' => $baseDir . '/rules/privatization/src/Rector/ClassConst/PrivatizeLocalClassConstantRector.php',
     'Rector\\Privatization\\Rector\\ClassMethod\\ChangeGlobalVariablesToPropertiesRector' => $baseDir . '/rules/privatization/src/Rector/ClassMethod/ChangeGlobalVariablesToPropertiesRector.php',
+    'Rector\\Privatization\\Rector\\ClassMethod\\MakeOnlyUsedByChildrenProtectedRector' => $baseDir . '/rules/privatization/src/Rector/ClassMethod/MakeOnlyUsedByChildrenProtectedRector.php',
     'Rector\\Privatization\\Rector\\ClassMethod\\PrivatizeFinalClassMethodRector' => $baseDir . '/rules/privatization/src/Rector/ClassMethod/PrivatizeFinalClassMethodRector.php',
     'Rector\\Privatization\\Rector\\ClassMethod\\PrivatizeLocalOnlyMethodRector' => $baseDir . '/rules/privatization/src/Rector/ClassMethod/PrivatizeLocalOnlyMethodRector.php',
     'Rector\\Privatization\\Rector\\Class_\\ChangeLocalPropertyToVariableRector' => $baseDir . '/rules/privatization/src/Rector/Class_/ChangeLocalPropertyToVariableRector.php',
