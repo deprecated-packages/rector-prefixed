@@ -32,7 +32,7 @@ abstract class AbstractRootExpr implements \Rector\Defluent\Contract\ValueObject
         }
         return $this->createAssign($this->assignExpr, $this->rootExpr);
     }
-    public function createAssign(\PhpParser\Node\Expr $assignVar, \PhpParser\Node\Expr $assignExpr) : \PhpParser\Node\Expr\Assign
+    protected function createAssign(\PhpParser\Node\Expr $assignVar, \PhpParser\Node\Expr $assignExpr) : \PhpParser\Node\Expr\Assign
     {
         if ($assignVar === $assignExpr) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();

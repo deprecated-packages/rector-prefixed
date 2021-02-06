@@ -42,7 +42,7 @@ abstract class AbstractPropertyConflictingNameGuard implements \Rector\Naming\Co
      * @param ClassLike $node
      * @return string[]
      */
-    public function resolve(\PhpParser\Node $node) : array
+    protected function resolve(\PhpParser\Node $node) : array
     {
         $expectedNames = [];
         foreach ($node->getProperties() as $property) {

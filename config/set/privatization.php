@@ -10,6 +10,7 @@ use Rector\Privatization\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRect
 use Rector\Privatization\Rector\Class_\RepeatedLiteralToClassConstantRector;
 use Rector\Privatization\Rector\ClassConst\PrivatizeLocalClassConstantRector;
 use Rector\Privatization\Rector\ClassMethod\ChangeGlobalVariablesToPropertiesRector;
+use Rector\Privatization\Rector\ClassMethod\MakeOnlyUsedByChildrenProtectedRector;
 use Rector\Privatization\Rector\ClassMethod\PrivatizeFinalClassMethodRector;
 use Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
 use Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector;
@@ -32,4 +33,5 @@ return static function (\RectorPrefix20210206\Symfony\Component\DependencyInject
     $services->set(\Rector\Privatization\Rector\ClassConst\PrivatizeLocalClassConstantRector::class);
     $services->set(\Rector\Privatization\Rector\Property\PrivatizeFinalClassPropertyRector::class);
     $services->set(\Rector\Privatization\Rector\ClassMethod\PrivatizeFinalClassMethodRector::class);
+    $services->set(\Rector\Privatization\Rector\ClassMethod\MakeOnlyUsedByChildrenProtectedRector::class);
 };

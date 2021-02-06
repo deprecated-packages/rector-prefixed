@@ -77,7 +77,7 @@ abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\Rename
         $this->renamePropertyFetchesInClass($renameValueObject);
         return $renameValueObject->getProperty();
     }
-    public function renamePropertyFetchesInClass(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : void
+    protected function renamePropertyFetchesInClass(\Rector\Naming\ValueObject\PropertyRename $propertyRename) : void
     {
         $this->propertyFetchRenamer->renamePropertyFetchesInClass($propertyRename->getClassLike(), $propertyRename->getCurrentName(), $propertyRename->getExpectedName());
     }

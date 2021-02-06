@@ -111,6 +111,9 @@ CODE_SAMPLE
         if (!$currentClass instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
+        if ($currentClass->isFinal()) {
+            return \true;
+        }
         if ($currentClass->extends instanceof \PhpParser\Node\Name\FullyQualified) {
             return \true;
         }
