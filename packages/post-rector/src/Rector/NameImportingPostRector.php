@@ -64,6 +64,9 @@ final class NameImportingPostRector extends \Rector\PostRector\Rector\AbstractPo
     }
     private function processNodeName(\PhpParser\Node\Name $name) : ?\PhpParser\Node
     {
+        if ($name->isSpecialClassName()) {
+            return $name;
+        }
         $importName = $this->getName($name);
         if (!\is_callable($importName)) {
             return $this->nameImporter->importName($name);
