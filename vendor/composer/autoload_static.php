@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit587f6bddaac637921177a2a12862e1a3
+class ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3669,7 +3669,6 @@ class ComposerStaticInit587f6bddaac637921177a2a12862e1a3
         'Rector\\Php74\\Rector\\LNumber\\AddLiteralSeparatorToNumberRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/LNumber/AddLiteralSeparatorToNumberRector.php',
         'Rector\\Php74\\Rector\\MethodCall\\ChangeReflectionTypeToStringToGetNameRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/MethodCall/ChangeReflectionTypeToStringToGetNameRector.php',
         'Rector\\Php74\\Rector\\Property\\RestoreDefaultNullToNullableTypePropertyRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/Property/RestoreDefaultNullToNullableTypePropertyRector.php',
-        'Rector\\Php74\\Rector\\Property\\TypedPropertyFromStrictConstructorRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/Property/TypedPropertyFromStrictConstructorRector.php',
         'Rector\\Php74\\Rector\\Property\\TypedPropertyRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/Property/TypedPropertyRector.php',
         'Rector\\Php74\\Rector\\StaticCall\\ExportToReflectionFunctionRector' => __DIR__ . '/../..' . '/rules/php74/src/Rector/StaticCall/ExportToReflectionFunctionRector.php',
         'Rector\\Php80\\Contract\\StrStartWithMatchAndRefactorInterface' => __DIR__ . '/../..' . '/rules/php80/src/Contract/StrStartWithMatchAndRefactorInterface.php',
@@ -4080,6 +4079,7 @@ class ComposerStaticInit587f6bddaac637921177a2a12862e1a3
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddMethodCallBasedParamTypeRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/AddMethodCallBasedParamTypeRector.php',
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddParamTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/AddParamTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddReturnTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/AddReturnTypeDeclarationRector.php',
+        'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnTypeFromStrictTypedPropertyRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/ReturnTypeFromStrictTypedPropertyRector.php',
         'Rector\\TypeDeclaration\\Rector\\Closure\\AddClosureReturnTypeRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Closure/AddClosureReturnTypeRector.php',
         'Rector\\TypeDeclaration\\Rector\\FunctionLike\\AbstractTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/FunctionLike/AbstractTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\Rector\\FunctionLike\\ParamTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/FunctionLike/ParamTypeDeclarationRector.php',
@@ -4087,6 +4087,7 @@ class ComposerStaticInit587f6bddaac637921177a2a12862e1a3
         'Rector\\TypeDeclaration\\Rector\\MethodCall\\FormerNullableArgumentToScalarTypedRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/MethodCall/FormerNullableArgumentToScalarTypedRector.php',
         'Rector\\TypeDeclaration\\Rector\\Property\\CompleteVarDocTypePropertyRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Property/CompleteVarDocTypePropertyRector.php',
         'Rector\\TypeDeclaration\\Rector\\Property\\PropertyTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Property/PropertyTypeDeclarationRector.php',
+        'Rector\\TypeDeclaration\\Rector\\Property\\TypedPropertyFromStrictConstructorRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Property/TypedPropertyFromStrictConstructorRector.php',
         'Rector\\TypeDeclaration\\TypeAlreadyAddedChecker\\ReturnTypeAlreadyAddedChecker' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeAlreadyAddedChecker/ReturnTypeAlreadyAddedChecker.php',
         'Rector\\TypeDeclaration\\TypeAnalyzer\\AdvancedArrayAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeAnalyzer/AdvancedArrayAnalyzer.php',
         'Rector\\TypeDeclaration\\TypeInferer\\AbstractPriorityAwareTypeInferer' => __DIR__ . '/../..' . '/rules/type-declaration/src/TypeInferer/AbstractPriorityAwareTypeInferer.php',
@@ -4173,9 +4174,9 @@ class ComposerStaticInit587f6bddaac637921177a2a12862e1a3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit587f6bddaac637921177a2a12862e1a3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit587f6bddaac637921177a2a12862e1a3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit587f6bddaac637921177a2a12862e1a3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitdaa0b60fa23c2818c4288998f7ee6334::$classMap;
 
         }, null, ClassLoader::class);
     }

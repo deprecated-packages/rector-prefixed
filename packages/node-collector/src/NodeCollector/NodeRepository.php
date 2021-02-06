@@ -38,7 +38,6 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
-use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use ReflectionMethod;
 /**
  * @rector-doc
@@ -271,11 +270,7 @@ final class NodeRepository
         if (!$propertyFetcheeType instanceof \PHPStan\Type\TypeWithClassName) {
             return [];
         }
-        if ($propertyFetcheeType instanceof \Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType) {
-            $className = $propertyFetcheeType->getFullyQualifiedName();
-        } else {
-            $className = $propertyFetcheeType->getClassName();
-        }
+        $className = $this->nodeTypeResolver->getFullyQualifiedClassName($propertyFetcheeType);
         /** @var string $propertyName */
         $propertyName = $this->nodeNameResolver->getName($propertyFetch);
         return $this->parsedPropertyFetchNodeCollector->findPropertyFetchesByTypeAndName($className, $propertyName);
@@ -438,6 +433,23 @@ final class NodeRepository
             return null;
         }
         return $constructorClassMethod;
+    }
+    public function findPropertyByPropertyFetch(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node\Stmt\Property
+    {
+        $propertyCallerType = $this->nodeTypeResolver->getStaticType($propertyFetch->var);
+        if (!$propertyCallerType instanceof \PHPStan\Type\TypeWithClassName) {
+            return null;
+        }
+        $className = $this->nodeTypeResolver->getFullyQualifiedClassName($propertyCallerType);
+        $class = $this->findClass($className);
+        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
+            return null;
+        }
+        $propertyName = $this->nodeNameResolver->getName($propertyFetch->name);
+        if ($propertyName === null) {
+            return null;
+        }
+        return $class->getProperty($propertyName);
     }
     private function addMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
