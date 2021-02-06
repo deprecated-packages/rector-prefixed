@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210205\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210206\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20210205\Psr\SimpleCache\CacheInterface;
-use RectorPrefix20210205\Symfony\Component\Cache\PruneableInterface;
-use RectorPrefix20210205\Symfony\Component\Cache\ResettableInterface;
-use RectorPrefix20210205\Symfony\Component\Cache\Traits\ProxyTrait;
+use RectorPrefix20210206\Psr\SimpleCache\CacheInterface;
+use RectorPrefix20210206\Symfony\Component\Cache\PruneableInterface;
+use RectorPrefix20210206\Symfony\Component\Cache\ResettableInterface;
+use RectorPrefix20210206\Symfony\Component\Cache\Traits\ProxyTrait;
 /**
  * Turns a PSR-16 cache into a PSR-6 one.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class Psr16Adapter extends \RectorPrefix20210205\Symfony\Component\Cache\Adapter\AbstractAdapter implements \RectorPrefix20210205\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20210205\Symfony\Component\Cache\ResettableInterface
+class Psr16Adapter extends \RectorPrefix20210206\Symfony\Component\Cache\Adapter\AbstractAdapter implements \RectorPrefix20210206\Symfony\Component\Cache\PruneableInterface, \RectorPrefix20210206\Symfony\Component\Cache\ResettableInterface
 {
     /**
      * @internal
@@ -27,7 +27,7 @@ class Psr16Adapter extends \RectorPrefix20210205\Symfony\Component\Cache\Adapter
     protected const NS_SEPARATOR = '_';
     use ProxyTrait;
     private $miss;
-    public function __construct(\RectorPrefix20210205\Psr\SimpleCache\CacheInterface $pool, string $namespace = '', int $defaultLifetime = 0)
+    public function __construct(\RectorPrefix20210206\Psr\SimpleCache\CacheInterface $pool, string $namespace = '', int $defaultLifetime = 0)
     {
         parent::__construct($namespace, $defaultLifetime);
         $this->pool = $pool;

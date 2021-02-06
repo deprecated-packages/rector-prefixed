@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210205\Symplify\PhpConfigPrinter\CaseConverter;
+namespace RectorPrefix20210206\Symplify\PhpConfigPrinter\CaseConverter;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
-use RectorPrefix20210205\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use RectorPrefix20210205\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use RectorPrefix20210205\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
-use RectorPrefix20210205\Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider;
-use RectorPrefix20210205\Symplify\PhpConfigPrinter\ValueObject\MethodName;
-use RectorPrefix20210205\Symplify\PhpConfigPrinter\ValueObject\VariableName;
-use RectorPrefix20210205\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use RectorPrefix20210206\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use RectorPrefix20210206\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210206\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
+use RectorPrefix20210206\Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider;
+use RectorPrefix20210206\Symplify\PhpConfigPrinter\ValueObject\MethodName;
+use RectorPrefix20210206\Symplify\PhpConfigPrinter\ValueObject\VariableName;
+use RectorPrefix20210206\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 /**
  * Handles this part:
  *
  * parameters: <---
  */
-final class ParameterCaseConverter implements \RectorPrefix20210205\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
+final class ParameterCaseConverter implements \RectorPrefix20210206\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
      * @var ArgsNodeFactory
@@ -33,7 +33,7 @@ final class ParameterCaseConverter implements \RectorPrefix20210205\Symplify\Php
      * @var CommonNodeFactory
      */
     private $commonNodeFactory;
-    public function __construct(\RectorPrefix20210205\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210205\Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider $currentFilePathProvider, \RectorPrefix20210205\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
+    public function __construct(\RectorPrefix20210206\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210206\Symplify\PhpConfigPrinter\Provider\CurrentFilePathProvider $currentFilePathProvider, \RectorPrefix20210206\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->currentFilePathProvider = $currentFilePathProvider;
@@ -41,7 +41,7 @@ final class ParameterCaseConverter implements \RectorPrefix20210205\Symplify\Php
     }
     public function match(string $rootKey, $key, $values) : bool
     {
-        return $rootKey === \RectorPrefix20210205\Symplify\PhpConfigPrinter\ValueObject\YamlKey::PARAMETERS;
+        return $rootKey === \RectorPrefix20210206\Symplify\PhpConfigPrinter\ValueObject\YamlKey::PARAMETERS;
     }
     public function convertToMethodCall($key, $values) : \PhpParser\Node\Stmt\Expression
     {
@@ -57,8 +57,8 @@ final class ParameterCaseConverter implements \RectorPrefix20210205\Symplify\Php
             }
         }
         $args = $this->argsNodeFactory->createFromValues([$key, $values]);
-        $parametersVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210205\Symplify\PhpConfigPrinter\ValueObject\VariableName::PARAMETERS);
-        $methodCall = new \PhpParser\Node\Expr\MethodCall($parametersVariable, \RectorPrefix20210205\Symplify\PhpConfigPrinter\ValueObject\MethodName::SET, $args);
+        $parametersVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210206\Symplify\PhpConfigPrinter\ValueObject\VariableName::PARAMETERS);
+        $methodCall = new \PhpParser\Node\Expr\MethodCall($parametersVariable, \RectorPrefix20210206\Symplify\PhpConfigPrinter\ValueObject\MethodName::SET, $args);
         return new \PhpParser\Node\Stmt\Expression($methodCall);
     }
     /**

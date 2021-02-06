@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210205\Symplify\PackageBuilder\Console\Command;
+namespace RectorPrefix20210206\Symplify\PackageBuilder\Console\Command;
 
-use RectorPrefix20210205\Symfony\Component\Console\Command\Command;
-use RectorPrefix20210205\Symfony\Component\Console\Input\InputOption;
-use RectorPrefix20210205\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210205\Symplify\PackageBuilder\ValueObject\Option;
-use RectorPrefix20210205\Symplify\SmartFileSystem\FileSystemGuard;
-use RectorPrefix20210205\Symplify\SmartFileSystem\Finder\SmartFinder;
-use RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileSystem;
-abstract class AbstractSymplifyCommand extends \RectorPrefix20210205\Symfony\Component\Console\Command\Command
+use RectorPrefix20210206\Symfony\Component\Console\Command\Command;
+use RectorPrefix20210206\Symfony\Component\Console\Input\InputOption;
+use RectorPrefix20210206\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210206\Symplify\PackageBuilder\ValueObject\Option;
+use RectorPrefix20210206\Symplify\SmartFileSystem\FileSystemGuard;
+use RectorPrefix20210206\Symplify\SmartFileSystem\Finder\SmartFinder;
+use RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileSystem;
+abstract class AbstractSymplifyCommand extends \RectorPrefix20210206\Symfony\Component\Console\Command\Command
 {
     /**
      * @var SymfonyStyle
@@ -31,12 +31,12 @@ abstract class AbstractSymplifyCommand extends \RectorPrefix20210205\Symfony\Com
     public function __construct()
     {
         parent::__construct();
-        $this->addOption(\RectorPrefix20210205\Symplify\PackageBuilder\ValueObject\Option::CONFIG, 'c', \RectorPrefix20210205\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file');
+        $this->addOption(\RectorPrefix20210206\Symplify\PackageBuilder\ValueObject\Option::CONFIG, 'c', \RectorPrefix20210206\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Path to config file');
     }
     /**
      * @required
      */
-    public function autowireAbstractSymplifyCommand(\RectorPrefix20210205\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210205\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \RectorPrefix20210205\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard) : void
+    public function autowireAbstractSymplifyCommand(\RectorPrefix20210206\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210206\Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder, \RectorPrefix20210206\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard) : void
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->smartFileSystem = $smartFileSystem;

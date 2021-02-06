@@ -6,13 +6,13 @@ namespace Rector\Nette\Tests\Rector\MethodCall\RequestGetCookieDefaultArgumentTo
 use Iterator;
 use Rector\Nette\Rector\MethodCall\RequestGetCookieDefaultArgumentToCoalesceRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo;
 final class RequestGetCookieDefaultArgumentToCoalesceRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

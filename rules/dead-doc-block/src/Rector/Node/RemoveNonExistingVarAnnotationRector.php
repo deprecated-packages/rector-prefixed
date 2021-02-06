@@ -20,7 +20,7 @@ use PhpParser\Node\Stmt\Throw_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use Rector\Core\Rector\AbstractRector;
-use RectorPrefix20210205\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210206\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -38,7 +38,7 @@ final class RemoveNonExistingVarAnnotationRector extends \Rector\Core\Rector\Abs
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\RectorPrefix20210205\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    public function __construct(\RectorPrefix20210206\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->typeChecker = $typeChecker;
     }

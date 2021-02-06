@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210205\Symplify\SetConfigResolver\Config;
+namespace RectorPrefix20210206\Symplify\SetConfigResolver\Config;
 
-use RectorPrefix20210205\Symfony\Component\Config\FileLocator;
-use RectorPrefix20210205\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210205\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use RectorPrefix20210205\Symfony\Component\Yaml\Yaml;
-use RectorPrefix20210205\Symplify\SetConfigResolver\SetResolver;
-use RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210206\Symfony\Component\Config\FileLocator;
+use RectorPrefix20210206\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210206\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use RectorPrefix20210206\Symfony\Component\Yaml\Yaml;
+use RectorPrefix20210206\Symplify\SetConfigResolver\SetResolver;
+use RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetsParameterResolver
 {
     /**
@@ -19,7 +19,7 @@ final class SetsParameterResolver
      * @var SetResolver
      */
     private $setResolver;
-    public function __construct(\RectorPrefix20210205\Symplify\SetConfigResolver\SetResolver $setResolver)
+    public function __construct(\RectorPrefix20210206\Symplify\SetConfigResolver\SetResolver $setResolver)
     {
         $this->setResolver = $setResolver;
     }
@@ -41,7 +41,7 @@ final class SetsParameterResolver
     /**
      * @return string[]
      */
-    private function resolveSetsFromFileInfo(\RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    private function resolveSetsFromFileInfo(\RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         if ($configFileInfo->hasSuffixes(['yml', 'yaml'])) {
             return $this->resolveSetsParameterFromYamlFileInfo($configFileInfo);
@@ -51,19 +51,19 @@ final class SetsParameterResolver
     /**
      * @return string[]
      */
-    private function resolveSetsParameterFromYamlFileInfo(\RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    private function resolveSetsParameterFromYamlFileInfo(\RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
-        $configContent = \RectorPrefix20210205\Symfony\Component\Yaml\Yaml::parse($configFileInfo->getContents());
+        $configContent = \RectorPrefix20210206\Symfony\Component\Yaml\Yaml::parse($configFileInfo->getContents());
         return (array) ($configContent['parameters'][self::SETS] ?? []);
     }
     /**
      * @return string[]
      */
-    private function resolveSetsParameterFromPhpFileInfo(\RectorPrefix20210205\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
+    private function resolveSetsParameterFromPhpFileInfo(\RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo) : array
     {
         // php file loader
-        $containerBuilder = new \RectorPrefix20210205\Symfony\Component\DependencyInjection\ContainerBuilder();
-        $phpFileLoader = new \RectorPrefix20210205\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210205\Symfony\Component\Config\FileLocator());
+        $containerBuilder = new \RectorPrefix20210206\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $phpFileLoader = new \RectorPrefix20210206\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \RectorPrefix20210206\Symfony\Component\Config\FileLocator());
         $phpFileLoader->load($configFileInfo->getRealPath());
         if (!$containerBuilder->hasParameter(self::SETS)) {
             return [];

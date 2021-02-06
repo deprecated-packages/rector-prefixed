@@ -5,9 +5,9 @@ namespace Rector\RectorGenerator\Composer;
 
 use Rector\RectorGenerator\ValueObject\Package;
 use Rector\RectorGenerator\ValueObject\RectorRecipe;
-use RectorPrefix20210205\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210205\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
-use RectorPrefix20210205\Symplify\SmartFileSystem\Json\JsonFileSystem;
+use RectorPrefix20210206\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210206\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
+use RectorPrefix20210206\Symplify\SmartFileSystem\Json\JsonFileSystem;
 final class ComposerPackageAutoloadUpdater
 {
     /**
@@ -22,7 +22,7 @@ final class ComposerPackageAutoloadUpdater
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\RectorPrefix20210205\Symplify\SmartFileSystem\Json\JsonFileSystem $jsonFileSystem, \RectorPrefix20210205\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\RectorPrefix20210206\Symplify\SmartFileSystem\Json\JsonFileSystem $jsonFileSystem, \RectorPrefix20210206\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->jsonFileSystem = $jsonFileSystem;
         $this->symfonyStyle = $symfonyStyle;
@@ -41,9 +41,9 @@ final class ComposerPackageAutoloadUpdater
         if (!$isConfirmed) {
             return;
         }
-        $srcAutoload = $rectorRecipe->isRectorRepository() ? \RectorPrefix20210205\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD : \RectorPrefix20210205\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV;
+        $srcAutoload = $rectorRecipe->isRectorRepository() ? \RectorPrefix20210206\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD : \RectorPrefix20210206\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV;
         $composerJson[$srcAutoload][self::PSR_4][$package->getSrcNamespace()] = $package->getSrcDirectory();
-        $composerJson[\RectorPrefix20210205\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV][self::PSR_4][$package->getTestsNamespace()] = $package->getTestsDirectory();
+        $composerJson[\RectorPrefix20210206\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV][self::PSR_4][$package->getTestsNamespace()] = $package->getTestsDirectory();
         $this->jsonFileSystem->writeJsonToFilePath($composerJson, $composerJsonFilePath);
         $this->rebuildAutoload();
     }
@@ -59,7 +59,7 @@ final class ComposerPackageAutoloadUpdater
      */
     private function isPackageAlreadyLoaded(array $composerJson, \Rector\RectorGenerator\ValueObject\Package $package) : bool
     {
-        foreach ([\RectorPrefix20210205\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD, \RectorPrefix20210205\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV] as $autoloadSection) {
+        foreach ([\RectorPrefix20210206\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD, \RectorPrefix20210206\Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection::AUTOLOAD_DEV] as $autoloadSection) {
             if (isset($composerJson[$autoloadSection][self::PSR_4][$package->getSrcNamespace()])) {
                 return \true;
             }

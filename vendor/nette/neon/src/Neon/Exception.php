@@ -5,7 +5,7 @@
  * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 declare (strict_types=1);
-namespace RectorPrefix20210205\Nette\Neon;
+namespace RectorPrefix20210206\Nette\Neon;
 
 /**
  * The exception that indicates error of NEON processing.

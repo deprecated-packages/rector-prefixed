@@ -5,15 +5,14 @@
     "require": {
         "php": ">=7.3",
         "nette\/utils": "^3.0",
-        "nette\/finder": "^2.5",
         "symfony\/config": "^4.4|^5.1",
         "symfony\/console": "^4.4|^5.1",
         "symfony\/dependency-injection": "^5.1",
         "symfony\/finder": "^4.4|^5.1",
         "symfony\/http-kernel": "^4.4|^5.1",
         "symfony\/yaml": "^4.4|^5.1",
-        "symplify\/symplify-kernel": "^9.0.50",
-        "symplify\/easy-testing": "^9.0.50",
+        "symplify\/symplify-kernel": "^9.1",
+        "symplify\/easy-testing": "^9.1",
         "nette\/neon": "^3.2"
     },
     "require-dev": {
@@ -21,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210205\\Symplify\\PackageBuilder\\": "src"
+            "RectorPrefix20210206\\Symplify\\PackageBuilder\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210205\\Symplify\\PackageBuilder\\Tests\\": "tests"
+            "RectorPrefix20210206\\Symplify\\PackageBuilder\\Tests\\": "tests"
         }
     },
     "extra": {

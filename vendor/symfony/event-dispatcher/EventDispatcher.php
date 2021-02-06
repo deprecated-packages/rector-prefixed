@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210205\Symfony\Component\EventDispatcher;
+namespace RectorPrefix20210206\Symfony\Component\EventDispatcher;
 
-use RectorPrefix20210205\Psr\EventDispatcher\StoppableEventInterface;
-use RectorPrefix20210205\Symfony\Component\EventDispatcher\Debug\WrappedListener;
+use RectorPrefix20210206\Psr\EventDispatcher\StoppableEventInterface;
+use RectorPrefix20210206\Symfony\Component\EventDispatcher\Debug\WrappedListener;
 /**
  * The EventDispatcherInterface is the central point of Symfony's event listener system.
  *
@@ -27,7 +27,7 @@ use RectorPrefix20210205\Symfony\Component\EventDispatcher\Debug\WrappedListener
  * @author Jordan Alliot <jordan.alliot@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class EventDispatcher implements \RectorPrefix20210205\Symfony\Component\EventDispatcher\EventDispatcherInterface
+class EventDispatcher implements \RectorPrefix20210206\Symfony\Component\EventDispatcher\EventDispatcherInterface
 {
     private $listeners = [];
     private $sorted = [];
@@ -153,7 +153,7 @@ class EventDispatcher implements \RectorPrefix20210205\Symfony\Component\EventDi
     /**
      * {@inheritdoc}
      */
-    public function addSubscriber(\RectorPrefix20210205\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
+    public function addSubscriber(\RectorPrefix20210206\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
             if (\is_string($params)) {
@@ -170,7 +170,7 @@ class EventDispatcher implements \RectorPrefix20210205\Symfony\Component\EventDi
     /**
      * {@inheritdoc}
      */
-    public function removeSubscriber(\RectorPrefix20210205\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
+    public function removeSubscriber(\RectorPrefix20210206\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
             if (\is_array($params) && \is_array($params[0])) {
@@ -194,7 +194,7 @@ class EventDispatcher implements \RectorPrefix20210205\Symfony\Component\EventDi
      */
     protected function callListeners(iterable $listeners, string $eventName, object $event)
     {
-        $stoppable = $event instanceof \RectorPrefix20210205\Psr\EventDispatcher\StoppableEventInterface;
+        $stoppable = $event instanceof \RectorPrefix20210206\Psr\EventDispatcher\StoppableEventInterface;
         foreach ($listeners as $listener) {
             if ($stoppable && $event->isPropagationStopped()) {
                 break;
@@ -238,7 +238,7 @@ class EventDispatcher implements \RectorPrefix20210205\Symfony\Component\EventDi
                         ($closure = \Closure::fromCallable($listener))(...$args);
                     };
                 } else {
-                    $closure = $listener instanceof \Closure || $listener instanceof \RectorPrefix20210205\Symfony\Component\EventDispatcher\Debug\WrappedListener ? $listener : \Closure::fromCallable($listener);
+                    $closure = $listener instanceof \Closure || $listener instanceof \RectorPrefix20210206\Symfony\Component\EventDispatcher\Debug\WrappedListener ? $listener : \Closure::fromCallable($listener);
                 }
             }
         }
