@@ -10,9 +10,10 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\Constant\ConstantArrayType;
+use PHPStan\Type\MixedType;
 use Rector\CodeQuality\CompactConverter;
 use Rector\CodeQuality\NodeAnalyzer\ArrayCompacter;
-use Rector\CodeQuality\NodeAnalyzer\CompactFuncCallAnalyzer;
+use Rector\CodeQuality\NodeAnalyzer\ArrayItemsAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -29,17 +30,17 @@ final class CompactToVariablesRector extends \Rector\Core\Rector\AbstractRector
      */
     private $compactConverter;
     /**
-     * @var CompactFuncCallAnalyzer
+     * @var ArrayItemsAnalyzer
      */
-    private $compactFuncCallAnalyzer;
+    private $arrayItemsAnalyzer;
     /**
      * @var ArrayCompacter
      */
     private $arrayCompacter;
-    public function __construct(\Rector\CodeQuality\CompactConverter $compactConverter, \Rector\CodeQuality\NodeAnalyzer\CompactFuncCallAnalyzer $compactFuncCallAnalyzer, \Rector\CodeQuality\NodeAnalyzer\ArrayCompacter $arrayCompacter)
+    public function __construct(\Rector\CodeQuality\CompactConverter $compactConverter, \Rector\CodeQuality\NodeAnalyzer\ArrayItemsAnalyzer $arrayItemsAnalyzer, \Rector\CodeQuality\NodeAnalyzer\ArrayCompacter $arrayCompacter)
     {
         $this->compactConverter = $compactConverter;
-        $this->compactFuncCallAnalyzer = $compactFuncCallAnalyzer;
+        $this->arrayItemsAnalyzer = $arrayItemsAnalyzer;
         $this->arrayCompacter = $arrayCompacter;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -90,24 +91,32 @@ CODE_SAMPLE
         }
         $firstValue = $node->args[0]->value;
         $firstValueStaticType = $this->getStaticType($firstValue);
-        if ($firstValueStaticType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+        if ($firstValueStaticType instanceof \PHPStan\Type\Constant\ConstantArrayType && !$firstValueStaticType->getItemType() instanceof \PHPStan\Type\MixedType) {
             return $this->refactorAssignArray($firstValue, $node);
         }
         return null;
     }
-    private function refactorAssignedArray(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall) : void
+    private function refactorAssignedArray(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
     {
         if (!$assign->expr instanceof \PhpParser\Node\Expr\Array_) {
-            return;
+            return null;
         }
         $array = $assign->expr;
         $assignScope = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if (!$assignScope instanceof \PHPStan\Analyser\Scope) {
-            return;
+            return null;
         }
-        if ($this->compactFuncCallAnalyzer->hasArrayDefinedVariableNames($array, $assignScope)) {
-            $this->arrayCompacter->compactStringToVariableArray($array);
-            return;
+        $isCompactOfUndefinedVariables = $this->arrayItemsAnalyzer->hasArrayExclusiveDefinedVariableNames($array, $assignScope);
+        if ($isCompactOfUndefinedVariables) {
+            $funcCallScope = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+            if (!$funcCallScope instanceof \PHPStan\Analyser\Scope) {
+                return null;
+            }
+            $isCompactOfDefinedVariables = $this->arrayItemsAnalyzer->hasArrayExclusiveUndefinedVariableNames($array, $funcCallScope);
+            if ($isCompactOfDefinedVariables) {
+                $this->arrayCompacter->compactStringToVariableArray($array);
+                return $expr;
+            }
         }
         $this->removeNode($assign);
         $this->arrayCompacter->compactStringToVariableArray($array);
@@ -115,6 +124,7 @@ CODE_SAMPLE
         $preAssign = new \PhpParser\Node\Expr\Assign($assignVariable, $array);
         $currentStatement = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CURRENT_STATEMENT);
         $this->addNodeBeforeNode($preAssign, $currentStatement);
+        return $expr;
     }
     private function refactorAssignArray(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Expr
     {
@@ -122,7 +132,6 @@ CODE_SAMPLE
         if (!$previousAssign instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
-        $this->refactorAssignedArray($previousAssign, $funcCall);
-        return $expr;
+        return $this->refactorAssignedArray($previousAssign, $funcCall, $expr);
     }
 }
