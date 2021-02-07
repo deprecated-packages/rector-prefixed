@@ -6,13 +6,13 @@ namespace Rector\Defluent\Tests\Rector\Return_\DefluentReturnMethodCallRector;
 use Iterator;
 use Rector\Defluent\Rector\Return_\DefluentReturnMethodCallRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
 final class DefluentReturnMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

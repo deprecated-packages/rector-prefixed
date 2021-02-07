@@ -6,13 +6,13 @@ namespace Rector\Php53\Tests\Rector\Ternary\TernaryToElvisRector;
 use Iterator;
 use Rector\Php53\Rector\Ternary\TernaryToElvisRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
 final class TernaryToElvisRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

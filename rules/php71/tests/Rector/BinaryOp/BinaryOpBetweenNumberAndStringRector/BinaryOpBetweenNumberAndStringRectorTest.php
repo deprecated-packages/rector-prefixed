@@ -6,13 +6,13 @@ namespace Rector\Php71\Tests\Rector\BinaryOp\BinaryOpBetweenNumberAndStringRecto
 use Iterator;
 use Rector\Php71\Rector\BinaryOp\BinaryOpBetweenNumberAndStringRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
 final class BinaryOpBetweenNumberAndStringRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

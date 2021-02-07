@@ -6,13 +6,13 @@ namespace Rector\MockistaToMockery\Tests\Rector\ClassMethod\MockistaMockToMocker
 use Iterator;
 use Rector\MockistaToMockery\Rector\ClassMethod\MockistaMockToMockeryMockRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
 final class MockistaMockToMockeryMockRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210206\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
