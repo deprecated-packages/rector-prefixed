@@ -34,6 +34,7 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 /**
+ * @template TNode as \PHPStan\PhpDocParser\Ast\Node
  * @see \Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfo\PhpDocInfoTest
  */
 final class PhpDocInfo
@@ -183,20 +184,19 @@ final class PhpDocInfo
         return $this->getTypeOrMixed($this->getReturnTagValue());
     }
     /**
-     * @template T as \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode
-     * @param class-string<T> $type
+     * @param class-string<TNode> $type
      */
     public function hasByType(string $type) : bool
     {
         return (bool) $this->getByType($type);
     }
     /**
-     * @param class-string<\PHPStan\PhpDocParser\Ast\Node>[] $types
+     * @param class-string<TNode>[] $types
      */
     public function hasByTypes(array $types) : bool
     {
         foreach ($types as $type) {
-            if ($this->getByType($type)) {
+            if ($this->hasByType($type)) {
                 return \true;
             }
         }

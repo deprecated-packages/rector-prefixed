@@ -43,7 +43,7 @@ abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210207\Symplify\Pac
         $this->phpDocInfoFactory = $this->getService(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory::class);
     }
     /**
-     * @param class-string $tagValueNodeType
+     * @param class-string<\PHPStan\PhpDocParser\Ast\Node> $tagValueNodeType
      */
     protected function doTestPrintedPhpDocInfo(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, string $tagValueNodeType) : void
     {
@@ -93,9 +93,13 @@ abstract class AbstractPhpDocInfoTest extends \RectorPrefix20210207\Symplify\Pac
     {
         return 'Caused by: ' . $fileInfo->getRelativeFilePathFromCwd() . \PHP_EOL;
     }
+    /**
+     * @param class-string<\PHPStan\PhpDocParser\Ast\Node> $tagValueNodeType
+     */
     private function doTestContainsTagValueNodeType(\PhpParser\Node $node, string $tagValueNodeType, \RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        $this->assertTrue($phpDocInfo->hasByType($tagValueNodeType), $fileInfo->getRelativeFilePathFromCwd());
+        $hasByType = $phpDocInfo->hasByType($tagValueNodeType);
+        $this->assertTrue($hasByType, $fileInfo->getRelativeFilePathFromCwd());
     }
 }
