@@ -21,6 +21,7 @@ use PhpParser\NodeTraverser;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\TypeWithClassName;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Sensio\NodeFactory\ThisRenderFactory;
@@ -172,6 +173,17 @@ CODE_SAMPLE
             return \false;
         }
         return $this->isReturnOfObjectType($lastReturn, self::RESPONSE_CLASS);
+    }
+    private function isReturnOfObjectType(\PhpParser\Node\Stmt\Return_ $return, string $objectType) : bool
+    {
+        if ($return->expr === null) {
+            return \false;
+        }
+        $returnType = $this->getStaticType($return->expr);
+        if (!$returnType instanceof \PHPStan\Type\TypeWithClassName) {
+            return \false;
+        }
+        return \is_a($returnType->getClassName(), $objectType, \true);
     }
     private function refactorReturn(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioTemplateTagValueNode $sensioTemplateTagValueNode, bool $hasThisRenderOrReturnsResponse) : void
     {

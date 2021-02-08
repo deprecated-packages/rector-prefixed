@@ -124,7 +124,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return null;
         }
-        if (!$this->isNonAnonymousClass($classLike)) {
+        if ($this->classNodeAnalyzer->isAnonymousClass($classLike)) {
             return null;
         }
         foreach ($this->methodCallToServices as $methodCallToService) {

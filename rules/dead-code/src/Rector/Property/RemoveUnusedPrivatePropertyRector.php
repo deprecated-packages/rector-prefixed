@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt\Trait_;
 use Rector\Core\NodeManipulator\PropertyManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Removing\NodeManipulator\ComplexNodeRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -22,9 +23,14 @@ final class RemoveUnusedPrivatePropertyRector extends \Rector\Core\Rector\Abstra
      * @var PropertyManipulator
      */
     private $propertyManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator)
+    /**
+     * @var ComplexNodeRemover
+     */
+    private $complexNodeRemover;
+    public function __construct(\Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator, \Rector\Removing\NodeManipulator\ComplexNodeRemover $complexNodeRemover)
     {
         $this->propertyManipulator = $propertyManipulator;
+        $this->complexNodeRemover = $complexNodeRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -59,7 +65,7 @@ CODE_SAMPLE
         if ($this->propertyManipulator->isPropertyUsedInReadContext($node)) {
             return null;
         }
-        $this->removePropertyAndUsages($node);
+        $this->complexNodeRemover->removePropertyAndUsages($node);
         return $node;
     }
     private function shouldSkipProperty(\PhpParser\Node\Stmt\Property $property) : bool

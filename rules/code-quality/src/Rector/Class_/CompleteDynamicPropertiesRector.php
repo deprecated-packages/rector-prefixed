@@ -95,7 +95,7 @@ CODE_SAMPLE
     }
     private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if (!$this->isNonAnonymousClass($class)) {
+        if ($this->classNodeAnalyzer->isAnonymousClass($class)) {
             return \true;
         }
         $className = $this->getName($class);

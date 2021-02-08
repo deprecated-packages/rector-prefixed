@@ -29,7 +29,7 @@ final class NewUniqueObjectToEntityFactoryRector extends \Rector\Core\Rector\Abs
      * @api
      * @var string
      */
-    public const TYPES_TO_SERVICES = '$typesToServices';
+    public const TYPES_TO_SERVICES = 'types_to_services';
     /**
      * @var string
      */
@@ -159,7 +159,7 @@ CODE_SAMPLE
             return $this->classesUsingTypes;
         }
         // temporary
-        $classes = $this->parsedNodeCollector->getClasses();
+        $classes = $this->nodeRepository->getClasses();
         if ($classes === []) {
             return [];
         }

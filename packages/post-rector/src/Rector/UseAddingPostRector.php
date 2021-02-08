@@ -7,6 +7,7 @@ use RectorPrefix20210208\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Namespace_;
+use PhpParser\NodeVisitorAbstract;
 use Rector\CodingStyle\Application\UseImportsAdder;
 use Rector\CodingStyle\Application\UseImportsRemover;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
@@ -14,9 +15,10 @@ use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PHPStan\Type\TypeFactory;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
+use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
-final class UseAddingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
+final class UseAddingPostRector extends \PhpParser\NodeVisitorAbstract implements \Rector\PostRector\Contract\Rector\PostRectorInterface
 {
     /**
      * @var UseImportsAdder

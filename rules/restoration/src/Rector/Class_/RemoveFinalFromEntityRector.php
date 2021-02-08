@@ -64,7 +64,7 @@ CODE_SAMPLE
         if (!$node->isFinal()) {
             return null;
         }
-        $this->removeFinal($node);
+        $this->visibilityManipulator->removeFinal($node);
         return $node;
     }
 }

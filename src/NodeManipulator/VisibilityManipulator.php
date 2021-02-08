@@ -109,6 +109,10 @@ final class VisibilityManipulator
     {
         $this->replaceVisibilityFlag($node, \Rector\Core\ValueObject\Visibility::PRIVATE);
     }
+    public function removeFinal(\PhpParser\Node\Stmt\Class_ $class) : void
+    {
+        $class->flags -= \PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
+    }
     /**
      * @param Class_|ClassMethod|Property|ClassConst $node
      */

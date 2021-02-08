@@ -16,6 +16,7 @@ use Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Removing\NodeManipulator\ComplexNodeRemover;
 use Rector\VendorLocker\VendorLockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -38,11 +39,16 @@ final class RemoveSetterOnlyPropertyAndMethodCallRector extends \Rector\Core\Rec
      * @var PropertyFetchFinder
      */
     private $propertyFetchFinder;
-    public function __construct(\Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder)
+    /**
+     * @var ComplexNodeRemover
+     */
+    private $complexNodeRemover;
+    public function __construct(\Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator, \Rector\VendorLocker\VendorLockResolver $vendorLockResolver, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder, \Rector\Removing\NodeManipulator\ComplexNodeRemover $complexNodeRemover)
     {
         $this->propertyManipulator = $propertyManipulator;
         $this->vendorLockResolver = $vendorLockResolver;
         $this->propertyFetchFinder = $propertyFetchFinder;
+        $this->complexNodeRemover = $complexNodeRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -99,7 +105,7 @@ CODE_SAMPLE
         $propertyFetches = $this->propertyFetchFinder->findPrivatePropertyFetches($node);
         $classMethodsToCheck = $this->collectClassMethodsToCheck($propertyFetches);
         $vendorLockedClassMethodNames = $this->getVendorLockedClassMethodNames($classMethodsToCheck);
-        $this->removePropertyAndUsages($node, $vendorLockedClassMethodNames);
+        $this->complexNodeRemover->removePropertyAndUsages($node, $vendorLockedClassMethodNames);
         /** @var ClassMethod $method */
         foreach ($classMethodsToCheck as $method) {
             if (!$this->hasMethodSomeStmtsLeft($method)) {
@@ -109,7 +115,7 @@ CODE_SAMPLE
             if (\in_array($classMethodName, $vendorLockedClassMethodNames, \true)) {
                 continue;
             }
-            $this->removeClassMethodAndUsages($method);
+            $this->complexNodeRemover->removeClassMethodAndUsages($method);
         }
         return $node;
     }

@@ -10,7 +10,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\IdTagValueNode;
 use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class EntityWithMissingUuidProvider
 {
@@ -24,10 +24,6 @@ final class EntityWithMissingUuidProvider
      */
     private $entitiesWithMissingUuidProperty = [];
     /**
-     * @var ParsedNodeCollector
-     */
-    private $parsedNodeCollector;
-    /**
      * @var DoctrineDocBlockResolver
      */
     private $doctrineDocBlockResolver;
@@ -39,12 +35,16 @@ final class EntityWithMissingUuidProvider
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @var NodeRepository
+     */
+    private $nodeRepository;
+    public function __construct(\Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver $doctrineDocBlockResolver, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
-        $this->parsedNodeCollector = $parsedNodeCollector;
         $this->doctrineDocBlockResolver = $doctrineDocBlockResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->nodeRepository = $nodeRepository;
     }
     /**
      * @return Class_[]
@@ -55,7 +55,7 @@ final class EntityWithMissingUuidProvider
             return $this->entitiesWithMissingUuidProperty;
         }
         $entitiesWithMissingUuidProperty = [];
-        foreach ($this->parsedNodeCollector->getClasses() as $class) {
+        foreach ($this->nodeRepository->getClasses() as $class) {
             if (!$this->doctrineDocBlockResolver->isDoctrineEntityClassWithIdProperty($class)) {
                 continue;
             }

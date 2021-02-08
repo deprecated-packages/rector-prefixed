@@ -8,6 +8,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -17,6 +18,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class ConsistentImplodeRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var StringTypeAnalyzer
+     */
+    private $stringTypeAnalyzer;
+    public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\StringTypeAnalyzer $stringTypeAnalyzer)
+    {
+        $this->stringTypeAnalyzer = $stringTypeAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes various implode forms to consistent one', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -70,7 +79,7 @@ CODE_SAMPLE
         if ($firstArgumentValue instanceof \PhpParser\Node\Scalar\String_) {
             return null;
         }
-        if (\count($node->args) === 2 && $this->isStringOrUnionStringOnlyType($node->args[1]->value)) {
+        if (\count($node->args) === 2 && $this->stringTypeAnalyzer->isStringOrUnionStringOnlyType($node->args[1]->value)) {
             $node->args = \array_reverse($node->args);
         }
         return $node;

@@ -9,7 +9,7 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Exception\NotImplementedYetException;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 final class UnusedClassResolver
@@ -23,13 +23,13 @@ final class UnusedClassResolver
      */
     private $nodeNameResolver;
     /**
-     * @var ParsedNodeCollector
+     * @var NodeRepository
      */
-    private $parsedNodeCollector;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    private $nodeRepository;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->parsedNodeCollector = $parsedNodeCollector;
+        $this->nodeRepository = $nodeRepository;
     }
     public function isClassWithoutInterfaceAndNotController(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
@@ -68,7 +68,7 @@ final class UnusedClassResolver
     private function getParamNodesClassNames() : array
     {
         $classNames = [];
-        foreach ($this->parsedNodeCollector->getParams() as $param) {
+        foreach ($this->nodeRepository->getParams() as $param) {
             if ($param->type === null) {
                 continue;
             }
@@ -94,7 +94,7 @@ final class UnusedClassResolver
     private function getNewNodesClassNames() : array
     {
         $classNames = [];
-        foreach ($this->parsedNodeCollector->getNews() as $newNode) {
+        foreach ($this->nodeRepository->getNews() as $newNode) {
             $newClassName = $this->nodeNameResolver->getName($newNode->class);
             if (!\is_string($newClassName)) {
                 continue;
@@ -109,7 +109,7 @@ final class UnusedClassResolver
     private function getStaticCallClassNames() : array
     {
         $classNames = [];
-        foreach ($this->parsedNodeCollector->getStaticCalls() as $staticCallNode) {
+        foreach ($this->nodeRepository->getStaticCalls() as $staticCallNode) {
             $staticClassName = $this->nodeNameResolver->getName($staticCallNode->class);
             if (!\is_string($staticClassName)) {
                 continue;
@@ -123,7 +123,7 @@ final class UnusedClassResolver
      */
     private function getClassConstantFetchNames() : array
     {
-        $classConstFetches = $this->parsedNodeCollector->getClassConstFetches();
+        $classConstFetches = $this->nodeRepository->getClassConstFetches();
         $classNames = [];
         foreach ($classConstFetches as $classConstFetch) {
             $className = $this->nodeNameResolver->getName($classConstFetch->class);

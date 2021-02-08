@@ -4,8 +4,10 @@ declare (strict_types=1);
 namespace Rector\PostRector\Rector;
 
 use PhpParser\Node;
+use PhpParser\NodeVisitorAbstract;
 use Rector\PostRector\Collector\NodesToReplaceCollector;
-final class NodeToReplacePostRector extends \Rector\PostRector\Rector\AbstractPostRector
+use Rector\PostRector\Contract\Rector\PostRectorInterface;
+final class NodeToReplacePostRector extends \PhpParser\NodeVisitorAbstract implements \Rector\PostRector\Contract\Rector\PostRectorInterface
 {
     /**
      * @var NodesToReplaceCollector

@@ -36,7 +36,7 @@ final class ClassMethodParamVendorLockResolver extends \Rector\VendorLocker\Node
     }
     private function isParentClassVendorLocking(int $paramPosition, string $parentClassName, string $methodName) : ?bool
     {
-        $parentClass = $this->parsedNodeCollector->findClass($parentClassName);
+        $parentClass = $this->nodeRepository->findClass($parentClassName);
         if ($parentClass !== null) {
             $parentClassMethod = $parentClass->getMethod($methodName);
             // parent class method in local scope → it's ok

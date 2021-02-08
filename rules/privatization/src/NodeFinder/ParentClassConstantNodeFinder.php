@@ -5,21 +5,21 @@ namespace Rector\Privatization\NodeFinder;
 
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ParentClassConstantNodeFinder
 {
     /**
-     * @var ParsedNodeCollector
+     * @var NodeRepository
      */
-    private $parsedNodeCollector;
-    public function __construct(\Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector)
+    private $nodeRepository;
+    public function __construct(\Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
-        $this->parsedNodeCollector = $parsedNodeCollector;
+        $this->nodeRepository = $nodeRepository;
     }
     public function find(string $class, string $constant) : ?\PhpParser\Node\Stmt\ClassConst
     {
-        $classNode = $this->parsedNodeCollector->findClass($class);
+        $classNode = $this->nodeRepository->findClass($class);
         if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
@@ -28,6 +28,6 @@ final class ParentClassConstantNodeFinder
         if ($parentClassName === null) {
             return null;
         }
-        return $this->parsedNodeCollector->findClassConstant($parentClassName, $constant);
+        return $this->nodeRepository->findClassConstant($parentClassName, $constant);
     }
 }

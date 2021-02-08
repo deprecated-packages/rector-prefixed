@@ -17,6 +17,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -26,6 +27,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class ArraySpreadInsteadOfArrayMergeRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var ArrayTypeAnalyzer
+     */
+    private $arrayTypeAnalyzer;
+    public function __construct(\Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer $arrayTypeAnalyzer)
+    {
+        $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change array_merge() to spread operator, except values with possible string key values', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -97,7 +106,7 @@ CODE_SAMPLE
     private function shouldSkipArrayForInvalidTypeOrKeys(\PhpParser\Node\Expr $expr) : bool
     {
         // we have no idea what it is → cannot change it
-        if (!$this->isArrayType($expr)) {
+        if (!$this->arrayTypeAnalyzer->isArrayType($expr)) {
             return \true;
         }
         $arrayStaticType = $this->getStaticType($expr);

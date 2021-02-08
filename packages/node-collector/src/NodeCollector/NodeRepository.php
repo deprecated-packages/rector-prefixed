@@ -15,6 +15,7 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassLike;
@@ -450,6 +451,60 @@ final class NodeRepository
             return null;
         }
         return $class->getProperty($propertyName);
+    }
+    /**
+     * @return Class_[]
+     */
+    public function getClasses() : array
+    {
+        return $this->parsedNodeCollector->getClasses();
+    }
+    /**
+     * @return New_[]
+     */
+    public function findNewsByClass(string $className) : array
+    {
+        return $this->parsedNodeCollector->findNewsByClass($className);
+    }
+    public function findClassConstant(string $className, string $constantName) : ?\PhpParser\Node\Stmt\ClassConst
+    {
+        return $this->parsedNodeCollector->findClassConstant($className, $constantName);
+    }
+    public function findTrait(string $name) : ?\PhpParser\Node\Stmt\Trait_
+    {
+        return $this->parsedNodeCollector->findTrait($name);
+    }
+    public function findByShortName(string $shortName) : ?\PhpParser\Node\Stmt\Class_
+    {
+        return $this->parsedNodeCollector->findByShortName($shortName);
+    }
+    /**
+     * @return Param[]
+     */
+    public function getParams() : array
+    {
+        return $this->parsedNodeCollector->getParams();
+    }
+    /**
+     * @return New_[]
+     */
+    public function getNews() : array
+    {
+        return $this->parsedNodeCollector->getNews();
+    }
+    /**
+     * @return StaticCall[]
+     */
+    public function getStaticCalls() : array
+    {
+        return $this->parsedNodeCollector->getStaticCalls();
+    }
+    /**
+     * @return ClassConstFetch[]
+     */
+    public function getClassConstFetches() : array
+    {
+        return $this->parsedNodeCollector->getClassConstFetches();
     }
     private function addMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {

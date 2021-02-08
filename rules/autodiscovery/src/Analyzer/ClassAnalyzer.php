@@ -9,7 +9,7 @@ use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\SerializerTypeTagValueNode;
 use Rector\Core\ValueObject\MethodName;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ClassAnalyzer
@@ -27,19 +27,19 @@ final class ClassAnalyzer
      */
     private $nodeTypeResolver;
     /**
-     * @var ParsedNodeCollector
-     */
-    private $parsedNodeCollector;
-    /**
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory)
+    /**
+     * @var NodeRepository
+     */
+    private $nodeRepository;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->parsedNodeCollector = $parsedNodeCollector;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->nodeRepository = $nodeRepository;
     }
     public function isValueObjectClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
@@ -63,7 +63,7 @@ final class ClassAnalyzer
             }
             // awesome!
             // is it services or value object?
-            $paramTypeClass = $this->parsedNodeCollector->findClass($paramType->getClassName());
+            $paramTypeClass = $this->nodeRepository->findClass($paramType->getClassName());
             if (!$paramTypeClass instanceof \PhpParser\Node\Stmt\Class_) {
                 // not sure :/
                 continue;

@@ -12,7 +12,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\NetteToSymfony\ValueObject\RouteInfo;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class RouteInfoFactory
 {
@@ -25,14 +25,14 @@ final class RouteInfoFactory
      */
     private $valueResolver;
     /**
-     * @var ParsedNodeCollector
+     * @var NodeRepository
      */
-    private $parsedNodeCollector;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    private $nodeRepository;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;
-        $this->parsedNodeCollector = $parsedNodeCollector;
+        $this->nodeRepository = $nodeRepository;
     }
     public function createFromNode(\PhpParser\Node $node) : ?\Rector\NetteToSymfony\ValueObject\RouteInfo
     {
@@ -132,15 +132,15 @@ final class RouteInfoFactory
         [$controller, $method] = \explode(':', $targetValue);
         // detect class by controller name?
         // foreach all instance and try to match a name $controller . 'Presenter/Controller'
-        $classNode = $this->parsedNodeCollector->findByShortName($controller . 'Presenter');
-        if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
-            $classNode = $this->parsedNodeCollector->findByShortName($controller . 'Controller');
+        $class = $this->nodeRepository->findByShortName($controller . 'Presenter');
+        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
+            $class = $this->nodeRepository->findByShortName($controller . 'Controller');
         }
         // unable to find here
-        if (!$classNode instanceof \PhpParser\Node\Stmt\Class_) {
+        if (!$class instanceof \PhpParser\Node\Stmt\Class_) {
             return null;
         }
-        $controllerClass = $this->nodeNameResolver->getName($classNode);
+        $controllerClass = $this->nodeNameResolver->getName($class);
         if ($controllerClass === null) {
             return null;
         }

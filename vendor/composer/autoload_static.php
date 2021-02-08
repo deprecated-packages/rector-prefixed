@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8ed9a170e22ef0587b029274d8249369
+class ComposerStaticInit7c979086cfb097ce946a8a6d3bacbf1b
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2840,12 +2840,7 @@ class ComposerStaticInit8ed9a170e22ef0587b029274d8249369
         'Rector\\Core\\Php\\TypeAnalyzer' => __DIR__ . '/../..' . '/src/Php/TypeAnalyzer.php',
         'Rector\\Core\\Rector\\AbstractRector' => __DIR__ . '/../..' . '/src/Rector/AbstractRector.php',
         'Rector\\Core\\Rector\\AbstractRector\\AbstractRectorTrait' => __DIR__ . '/../..' . '/src/Rector/AbstractRector/AbstractRectorTrait.php',
-        'Rector\\Core\\Rector\\AbstractRector\\BetterStandardPrinterTrait' => __DIR__ . '/../..' . '/src/Rector/AbstractRector/BetterStandardPrinterTrait.php',
-        'Rector\\Core\\Rector\\AbstractRector\\ComplexRemovalTrait' => __DIR__ . '/../..' . '/src/Rector/AbstractRector/ComplexRemovalTrait.php',
-        'Rector\\Core\\Rector\\AbstractRector\\NameResolverTrait' => __DIR__ . '/../..' . '/src/Rector/AbstractRector/NameResolverTrait.php',
-        'Rector\\Core\\Rector\\AbstractRector\\NodeTypeResolverTrait' => __DIR__ . '/../..' . '/src/Rector/AbstractRector/NodeTypeResolverTrait.php',
         'Rector\\Core\\Rector\\AbstractRector\\RemovedAndAddedFilesTrait' => __DIR__ . '/../..' . '/src/Rector/AbstractRector/RemovedAndAddedFilesTrait.php',
-        'Rector\\Core\\Rector\\AbstractRector\\SimpleCallableNodeTraverserTrait' => __DIR__ . '/../..' . '/src/Rector/AbstractRector/SimpleCallableNodeTraverserTrait.php',
         'Rector\\Core\\Rector\\AbstractTemporaryRector' => __DIR__ . '/../..' . '/src/Rector/AbstractTemporaryRector.php',
         'Rector\\Core\\Reflection\\ClassMethodReflectionFactory' => __DIR__ . '/../..' . '/src/Reflection/ClassMethodReflectionFactory.php',
         'Rector\\Core\\Reflection\\ClassMethodReflectionHelper' => __DIR__ . '/../..' . '/src/Reflection/ClassMethodReflectionHelper.php',
@@ -3718,7 +3713,6 @@ class ComposerStaticInit8ed9a170e22ef0587b029274d8249369
         'Rector\\PostRector\\Contract\\Collector\\NodeCollectorInterface' => __DIR__ . '/../..' . '/packages/post-rector/src/Contract/Collector/NodeCollectorInterface.php',
         'Rector\\PostRector\\Contract\\Rector\\PostRectorInterface' => __DIR__ . '/../..' . '/packages/post-rector/src/Contract/Rector/PostRectorInterface.php',
         'Rector\\PostRector\\NodeAnalyzer\\NetteInjectDetector' => __DIR__ . '/../..' . '/packages/post-rector/src/NodeAnalyzer/NetteInjectDetector.php',
-        'Rector\\PostRector\\Rector\\AbstractPostRector' => __DIR__ . '/../..' . '/packages/post-rector/src/Rector/AbstractPostRector.php',
         'Rector\\PostRector\\Rector\\AbstractRector\\NodeCommandersTrait' => __DIR__ . '/../..' . '/packages/post-rector/src/Rector/AbstractRector/NodeCommandersTrait.php',
         'Rector\\PostRector\\Rector\\ClassRenamingPostRector' => __DIR__ . '/../..' . '/packages/post-rector/src/Rector/ClassRenamingPostRector.php',
         'Rector\\PostRector\\Rector\\NameImportingPostRector' => __DIR__ . '/../..' . '/packages/post-rector/src/Rector/NameImportingPostRector.php',
@@ -3805,6 +3799,7 @@ class ComposerStaticInit8ed9a170e22ef0587b029274d8249369
         'Rector\\RemovingStatic\\UniqueObjectFactoryFactory' => __DIR__ . '/../..' . '/rules/removing-static/src/UniqueObjectFactoryFactory.php',
         'Rector\\RemovingStatic\\UniqueObjectOrServiceDetector' => __DIR__ . '/../..' . '/rules/removing-static/src/UniqueObjectOrServiceDetector.php',
         'Rector\\RemovingStatic\\ValueObject\\PHPUnitClass' => __DIR__ . '/../..' . '/rules/removing-static/src/ValueObject/PHPUnitClass.php',
+        'Rector\\Removing\\NodeManipulator\\ComplexNodeRemover' => __DIR__ . '/../..' . '/rules/removing/src/NodeManipulator/ComplexNodeRemover.php',
         'Rector\\Removing\\Rector\\ClassMethod\\ArgumentRemoverRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/ClassMethod/ArgumentRemoverRector.php',
         'Rector\\Removing\\Rector\\Class_\\RemoveInterfacesRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/Class_/RemoveInterfacesRector.php',
         'Rector\\Removing\\Rector\\Class_\\RemoveParentRector' => __DIR__ . '/../..' . '/rules/removing/src/Rector/Class_/RemoveParentRector.php',
@@ -4162,9 +4157,9 @@ class ComposerStaticInit8ed9a170e22ef0587b029274d8249369
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8ed9a170e22ef0587b029274d8249369::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8ed9a170e22ef0587b029274d8249369::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit8ed9a170e22ef0587b029274d8249369::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7c979086cfb097ce946a8a6d3bacbf1b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7c979086cfb097ce946a8a6d3bacbf1b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7c979086cfb097ce946a8a6d3bacbf1b::$classMap;
 
         }, null, ClassLoader::class);
     }

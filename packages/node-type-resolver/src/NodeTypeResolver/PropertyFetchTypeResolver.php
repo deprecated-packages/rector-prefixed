@@ -22,7 +22,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
+use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -35,10 +35,6 @@ use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileSystem;
  */
 final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface
 {
-    /**
-     * @var ParsedNodeCollector
-     */
-    private $parsedNodeCollector;
     /**
      * @var NodeTypeResolver
      */
@@ -67,15 +63,19 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
      * @var Parser
      */
     private $parser;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector, \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \PhpParser\Parser $parser)
+    /**
+     * @var NodeRepository
+     */
+    private $nodeRepository;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\PHPStan\Collector\TraitNodeScopeCollector $traitNodeScopeCollector, \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \PhpParser\Parser $parser, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
     {
-        $this->parsedNodeCollector = $parsedNodeCollector;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->traitNodeScopeCollector = $traitNodeScopeCollector;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->smartFileSystem = $smartFileSystem;
         $this->parser = $parser;
+        $this->nodeRepository = $nodeRepository;
     }
     /**
      * @required
@@ -129,7 +129,7 @@ final class PropertyFetchTypeResolver implements \Rector\NodeTypeResolver\Contra
         if (!$varObjectType instanceof \PHPStan\Type\TypeWithClassName) {
             return new \PHPStan\Type\MixedType();
         }
-        $class = $this->parsedNodeCollector->findClass($varObjectType->getClassName());
+        $class = $this->nodeRepository->findClass($varObjectType->getClassName());
         if ($class !== null) {
             return new \PHPStan\Type\MixedType();
         }

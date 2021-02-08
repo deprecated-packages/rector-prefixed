@@ -12,12 +12,10 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Scalar\MagicConst\Dir;
 use PhpParser\Node\Scalar\MagicConst\File;
-use PhpParser\Node\Stmt\ClassConst;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\ConstantScalarType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeAnalyzer\ConstFetchAnalyzer;
-use Rector\NodeCollector\NodeCollector\ParsedNodeCollector;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
@@ -36,10 +34,6 @@ final class ValueResolver
      */
     private $constExprEvaluator;
     /**
-     * @var ParsedNodeCollector
-     */
-    private $parsedNodeCollector;
-    /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
@@ -47,10 +41,9 @@ final class ValueResolver
      * @var ConstFetchAnalyzer
      */
     private $constFetchAnalyzer;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->parsedNodeCollector = $parsedNodeCollector;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->constFetchAnalyzer = $constFetchAnalyzer;
     }
@@ -212,11 +205,11 @@ final class ValueResolver
         if ($constant === 'class') {
             return $class;
         }
-        $classConstNode = $this->parsedNodeCollector->findClassConstant($class, $constant);
-        if (!$classConstNode instanceof \PhpParser\Node\Stmt\ClassConst) {
-            // fallback to the name
-            return $class . '::' . $constant;
+        $classConstantReference = $class . '::' . $constant;
+        if (\defined($classConstantReference)) {
+            return \constant($classConstantReference);
         }
-        return $this->constExprEvaluator->evaluateDirectly($classConstNode->consts[0]->value);
+        // fallback to constant reference itself, to avoid fatal error
+        return $classConstantReference;
     }
 }

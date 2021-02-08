@@ -4,9 +4,11 @@ declare (strict_types=1);
 namespace Rector\PostRector\Rector;
 
 use PhpParser\Node;
+use PhpParser\NodeVisitorAbstract;
+use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use Rector\PSR4\Collector\RenamedClassesCollector;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
-final class ClassRenamingPostRector extends \Rector\PostRector\Rector\AbstractPostRector
+final class ClassRenamingPostRector extends \PhpParser\NodeVisitorAbstract implements \Rector\PostRector\Contract\Rector\PostRectorInterface
 {
     /**
      * @var RenamedClassesCollector
