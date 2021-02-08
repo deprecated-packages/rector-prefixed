@@ -70,7 +70,7 @@ CODE_SAMPLE
     {
         // A. remove local fetch
         foreach ($this->classTypes as $classType) {
-            if (!$this->isInClassNamed($node, $classType)) {
+            if (!$this->nodeNameResolver->isInClassNamed($node, $classType)) {
                 continue;
             }
             return new \PhpParser\Node\Expr\PropertyFetch(new \PhpParser\Node\Expr\Variable('this'), $node->name);

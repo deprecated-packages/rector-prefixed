@@ -79,7 +79,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->typeToPreference as $type => $preference) {
-            if (!$this->isMethodStaticCallOrClassMethodObjectType($node, $type)) {
+            if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $type)) {
                 continue;
             }
             if ($preference === self::PREFER_SELF) {

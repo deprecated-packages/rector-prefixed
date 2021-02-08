@@ -52,7 +52,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->removedArguments as $removedArgument) {
-            if (!$this->isMethodStaticCallOrClassMethodObjectType($node, $removedArgument->getClass())) {
+            if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $removedArgument->getClass())) {
                 continue;
             }
             if (!$this->isName($node->name, $removedArgument->getMethod())) {
@@ -108,12 +108,13 @@ CODE_SAMPLE
             }
             return;
         }
-        if ($node instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            if (isset($node->params[$position]) && $this->isName($node->params[$position], $name)) {
-                $this->removeParam($node, $position);
-            }
+        if (!$node instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return;
         }
+        if (!(isset($node->params[$position]) && $this->isName($node->params[$position], $name))) {
+            return;
+        }
+        $this->removeParam($node, $position);
     }
     /**
      * @param mixed[] $values

@@ -86,6 +86,15 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
         $objectHash = \spl_object_hash($node);
         unset($this->nodesToAddBefore[$objectHash]);
     }
+    /**
+     * @param Node[] $newNodes
+     */
+    public function addNodesBeforeNode(array $newNodes, \PhpParser\Node $positionNode) : void
+    {
+        foreach ($newNodes as $newNode) {
+            $this->addNodeBeforeNode($newNode, $positionNode);
+        }
+    }
     private function resolveNearestExpressionPosition(\PhpParser\Node $node) : string
     {
         if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Stmt\Expression::class, \PhpParser\Node\Stmt::class])) {

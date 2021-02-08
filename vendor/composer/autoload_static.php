@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf007b06a05c8a062847055882cb935dd
+class ComposerStaticInitf09e2f9943d48a5cde34da8bff19ca62
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2418,6 +2418,7 @@ class ComposerStaticInitf007b06a05c8a062847055882cb935dd
         'Rector\\BetterPhpDocParser\\Contract\\Doctrine\\ToOneTagNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/Doctrine/ToOneTagNodeInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNodeFactoryInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNodeFactoryInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\AttributeAwareNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/AttributeAwareNodeInterface.php',
+        'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\ClassNameAwareTagInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/ClassNameAwareTagInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\ShortNameAwareTagInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/ShortNameAwareTagInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\SilentKeyNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/SilentKeyNodeInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocNode\\TagAwareNodeInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocNode/TagAwareNodeInterface.php',
@@ -3501,8 +3502,13 @@ class ComposerStaticInitf007b06a05c8a062847055882cb935dd
         'Rector\\PHPUnitSymfony\\Rector\\StaticCall\\AddMessageToEqualsResponseCodeRector' => __DIR__ . '/../..' . '/rules/phpunit-symfony/src/Rector/StaticCall/AddMessageToEqualsResponseCodeRector.php',
         'Rector\\PHPUnit\\Composer\\ComposerAutoloadedDirectoryProvider' => __DIR__ . '/../..' . '/rules/phpunit/src/Composer/ComposerAutoloadedDirectoryProvider.php',
         'Rector\\PHPUnit\\NodeAnalyzer\\TestsNodeAnalyzer' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeAnalyzer/TestsNodeAnalyzer.php',
+        'Rector\\PHPUnit\\NodeFactory\\ArgumentShiftingFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ArgumentShiftingFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\AssertCallFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/AssertCallFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\DataProviderClassMethodFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/DataProviderClassMethodFactory.php',
+        'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionCodeFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ExpectExceptionCodeFactory.php',
+        'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ExpectExceptionFactory.php',
+        'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionMessageFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ExpectExceptionMessageFactory.php',
+        'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionMessageRegExpFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ExpectExceptionMessageRegExpFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\ExpectExceptionMethodCallFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/ExpectExceptionMethodCallFactory.php',
         'Rector\\PHPUnit\\NodeFactory\\SetUpClassMethodFactory' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeFactory/SetUpClassMethodFactory.php',
         'Rector\\PHPUnit\\NodeManipulator\\ArgumentMover' => __DIR__ . '/../..' . '/rules/phpunit/src/NodeManipulator/ArgumentMover.php',
@@ -3712,6 +3718,7 @@ class ComposerStaticInitf007b06a05c8a062847055882cb935dd
         'Rector\\PostRector\\Collector\\UseNodesToAddCollector' => __DIR__ . '/../..' . '/packages/post-rector/src/Collector/UseNodesToAddCollector.php',
         'Rector\\PostRector\\Contract\\Collector\\NodeCollectorInterface' => __DIR__ . '/../..' . '/packages/post-rector/src/Contract/Collector/NodeCollectorInterface.php',
         'Rector\\PostRector\\Contract\\Rector\\PostRectorInterface' => __DIR__ . '/../..' . '/packages/post-rector/src/Contract/Rector/PostRectorInterface.php',
+        'Rector\\PostRector\\DependencyInjection\\PropertyAdder' => __DIR__ . '/../..' . '/packages/post-rector/src/DependencyInjection/PropertyAdder.php',
         'Rector\\PostRector\\NodeAnalyzer\\NetteInjectDetector' => __DIR__ . '/../..' . '/packages/post-rector/src/NodeAnalyzer/NetteInjectDetector.php',
         'Rector\\PostRector\\Rector\\AbstractRector\\NodeCommandersTrait' => __DIR__ . '/../..' . '/packages/post-rector/src/Rector/AbstractRector/NodeCommandersTrait.php',
         'Rector\\PostRector\\Rector\\ClassRenamingPostRector' => __DIR__ . '/../..' . '/packages/post-rector/src/Rector/ClassRenamingPostRector.php',
@@ -4157,9 +4164,9 @@ class ComposerStaticInitf007b06a05c8a062847055882cb935dd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf007b06a05c8a062847055882cb935dd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf007b06a05c8a062847055882cb935dd::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf007b06a05c8a062847055882cb935dd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf09e2f9943d48a5cde34da8bff19ca62::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf09e2f9943d48a5cde34da8bff19ca62::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf09e2f9943d48a5cde34da8bff19ca62::$classMap;
 
         }, null, ClassLoader::class);
     }

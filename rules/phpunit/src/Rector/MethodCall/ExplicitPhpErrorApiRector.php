@@ -4,6 +4,8 @@ declare (strict_types=1);
 namespace Rector\PHPUnit\Rector\MethodCall;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
@@ -99,5 +101,18 @@ CODE_SAMPLE
             return null;
         }
         return $this->assertCallFactory->createCallWithName($node, $explicitMethod);
+    }
+    /**
+     * Detects "SomeClass::class"
+     */
+    private function isClassConstReference(\PhpParser\Node\Expr $expr, string $className) : bool
+    {
+        if (!$expr instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+            return \false;
+        }
+        if (!$this->isName($expr->name, 'class')) {
+            return \false;
+        }
+        return $this->isName($expr->class, $className);
     }
 }

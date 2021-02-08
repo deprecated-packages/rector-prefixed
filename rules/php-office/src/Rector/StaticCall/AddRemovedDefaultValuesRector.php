@@ -60,7 +60,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach (self::METHOD_NAMES_BY_TYPE_WITH_VALUE as $type => $defaultValuesByMethodName) {
-            if (!$this->isMethodStaticCallOrClassMethodObjectType($node, $type)) {
+            if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $type)) {
                 continue;
             }
             foreach ($defaultValuesByMethodName as $methodName => $defaultValuesByPosition) {

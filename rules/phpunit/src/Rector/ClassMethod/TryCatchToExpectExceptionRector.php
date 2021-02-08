@@ -6,13 +6,15 @@ namespace Rector\PHPUnit\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\TryCatch;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
+use Rector\PHPUnit\NodeFactory\ExpectExceptionCodeFactory;
+use Rector\PHPUnit\NodeFactory\ExpectExceptionFactory;
+use Rector\PHPUnit\NodeFactory\ExpectExceptionMessageFactory;
+use Rector\PHPUnit\NodeFactory\ExpectExceptionMessageRegExpFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -21,16 +23,32 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class TryCatchToExpectExceptionRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var Expression[]
-     */
-    private $newExpressions = [];
-    /**
      * @var TestsNodeAnalyzer
      */
     private $testsNodeAnalyzer;
-    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer)
+    /**
+     * @var ExpectExceptionCodeFactory
+     */
+    private $expectExceptionCodeFactory;
+    /**
+     * @var ExpectExceptionMessageRegExpFactory
+     */
+    private $expectExceptionMessageRegExpFactory;
+    /**
+     * @var ExpectExceptionFactory
+     */
+    private $expectExceptionFactory;
+    /**
+     * @var ExpectExceptionMessageFactory
+     */
+    private $expectExceptionMessageFactory;
+    public function __construct(\Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer $testsNodeAnalyzer, \Rector\PHPUnit\NodeFactory\ExpectExceptionCodeFactory $expectExceptionCodeFactory, \Rector\PHPUnit\NodeFactory\ExpectExceptionMessageRegExpFactory $expectExceptionMessageRegExpFactory, \Rector\PHPUnit\NodeFactory\ExpectExceptionFactory $expectExceptionFactory, \Rector\PHPUnit\NodeFactory\ExpectExceptionMessageFactory $expectExceptionMessageFactory)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
+        $this->expectExceptionCodeFactory = $expectExceptionCodeFactory;
+        $this->expectExceptionMessageRegExpFactory = $expectExceptionMessageRegExpFactory;
+        $this->expectExceptionFactory = $expectExceptionFactory;
+        $this->expectExceptionMessageFactory = $expectExceptionMessageFactory;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -64,7 +82,7 @@ CODE_SAMPLE
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
-        if (!$node->stmts) {
+        if ($node->stmts === null) {
             return null;
         }
         $proccesed = [];
@@ -87,11 +105,7 @@ CODE_SAMPLE
      */
     private function processTryCatch(\PhpParser\Node\Stmt\TryCatch $tryCatch) : ?array
     {
-        if (\count($tryCatch->catches) !== 1) {
-            return null;
-        }
-        $this->newExpressions = [];
-        $exceptionVariable = $tryCatch->catches[0]->var;
+        $exceptionVariable = $this->matchSingleExceptionVariable($tryCatch);
         if (!$exceptionVariable instanceof \PhpParser\Node\Expr\Variable) {
             return null;
         }
@@ -99,6 +113,7 @@ CODE_SAMPLE
         // - instance of $exceptionVariableName
         // - assert same string to $exceptionVariableName->getMessage()
         // - assert same string to $exceptionVariableName->getCode()
+        $newMethodCalls = [];
         foreach ($tryCatch->catches[0]->stmts as $catchedStmt) {
             // not a match
             if (!$catchedStmt instanceof \PhpParser\Node\Stmt\Expression) {
@@ -108,107 +123,39 @@ CODE_SAMPLE
                 continue;
             }
             $methodCallNode = $catchedStmt->expr;
-            $this->processAssertInstanceOf($methodCallNode, $exceptionVariable);
-            $this->processExceptionMessage($methodCallNode, $exceptionVariable);
-            $this->processExceptionCode($methodCallNode, $exceptionVariable);
-            $this->processExceptionMessageContains($methodCallNode, $exceptionVariable);
+            $newMethodCalls[] = $this->expectExceptionMessageFactory->create($methodCallNode, $exceptionVariable);
+            $newMethodCalls[] = $this->expectExceptionFactory->create($methodCallNode, $exceptionVariable);
+            $newMethodCalls[] = $this->expectExceptionCodeFactory->create($methodCallNode, $exceptionVariable);
+            $newMethodCalls[] = $this->expectExceptionMessageRegExpFactory->create($methodCallNode, $exceptionVariable);
         }
+        $newMethodCalls = \array_filter($newMethodCalls);
+        $newExpressions = $this->wrapInExpressions($newMethodCalls);
         // return all statements
         foreach ($tryCatch->stmts as $stmt) {
             if (!$stmt instanceof \PhpParser\Node\Stmt\Expression) {
                 return null;
             }
-            $this->newExpressions[] = $stmt;
+            $newExpressions[] = $stmt;
         }
-        return $this->newExpressions;
+        return $newExpressions;
     }
-    private function processAssertInstanceOf(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $variable) : void
+    private function matchSingleExceptionVariable(\PhpParser\Node\Stmt\TryCatch $tryCatch) : ?\PhpParser\Node\Expr\Variable
     {
-        if (!$this->isLocalMethodCallNamed($methodCall, 'assertInstanceOf')) {
-            return;
+        if (\count($tryCatch->catches) !== 1) {
+            return null;
         }
-        $argumentVariableName = $this->getName($methodCall->args[1]->value);
-        if ($argumentVariableName === null) {
-            return;
-        }
-        // is na exception variable
-        if (!$this->isName($variable, $argumentVariableName)) {
-            return;
-        }
-        $this->newExpressions[] = new \PhpParser\Node\Stmt\Expression(new \PhpParser\Node\Expr\MethodCall($methodCall->var, 'expectException', [$methodCall->args[0]]));
+        return $tryCatch->catches[0]->var;
     }
-    private function processExceptionMessage(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable) : void
+    /**
+     * @param MethodCall[] $methodCalls
+     * @return Expression[]
+     */
+    private function wrapInExpressions(array $methodCalls) : array
     {
-        if (!$this->isLocalMethodCallsNamed($methodCall, ['assertSame', 'assertEquals'])) {
-            return;
+        $expressions = [];
+        foreach ($methodCalls as $methodCall) {
+            $expressions[] = new \PhpParser\Node\Stmt\Expression($methodCall);
         }
-        $secondArgument = $methodCall->args[1]->value;
-        if (!$secondArgument instanceof \PhpParser\Node\Expr\MethodCall) {
-            return;
-        }
-        if (!$this->areNodesEqual($secondArgument->var, $exceptionVariable)) {
-            return;
-        }
-        if (!$this->isName($secondArgument->name, 'getMessage')) {
-            return;
-        }
-        $this->newExpressions[] = $this->renameMethodCallAndKeepFirstArgument($methodCall, 'expectExceptionMessage');
-    }
-    private function processExceptionCode(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable) : void
-    {
-        if (!$this->isLocalMethodCallsNamed($methodCall, ['assertSame', 'assertEquals'])) {
-            return;
-        }
-        $secondArgument = $methodCall->args[1]->value;
-        if (!$secondArgument instanceof \PhpParser\Node\Expr\MethodCall) {
-            return;
-        }
-        // looking for "$exception->getMessage()"
-        if (!$this->areNamesEqual($secondArgument->var, $exceptionVariable)) {
-            return;
-        }
-        if (!$this->isName($secondArgument->name, 'getCode')) {
-            return;
-        }
-        $this->newExpressions[] = $this->renameMethodCallAndKeepFirstArgument($methodCall, 'expectExceptionCode');
-    }
-    private function processExceptionMessageContains(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable) : void
-    {
-        if (!$this->isLocalMethodCallNamed($methodCall, 'assertContains')) {
-            return;
-        }
-        $secondArgument = $methodCall->args[1]->value;
-        if (!$secondArgument instanceof \PhpParser\Node\Expr\MethodCall) {
-            return;
-        }
-        // looking for "$exception->getMessage()"
-        if (!$this->areNodesEqual($secondArgument->var, $exceptionVariable)) {
-            return;
-        }
-        if (!$this->isName($secondArgument->name, 'getMessage')) {
-            return;
-        }
-        $expression = $this->renameMethodCallAndKeepFirstArgument($methodCall, 'expectExceptionMessageRegExp');
-        /** @var MethodCall $methodCall */
-        $methodCall = $expression->expr;
-        // put regex between "#...#" to create match
-        if ($methodCall->args[0]->value instanceof \PhpParser\Node\Scalar\String_) {
-            /** @var String_ $oldString */
-            $oldString = $methodCall->args[0]->value;
-            $methodCall->args[0]->value = new \PhpParser\Node\Scalar\String_('#' . \preg_quote($oldString->value, '#') . '#');
-        }
-        $this->newExpressions[] = $expression;
-    }
-    private function renameMethodCallAndKeepFirstArgument(\PhpParser\Node\Expr\MethodCall $methodCall, string $methodName) : \PhpParser\Node\Stmt\Expression
-    {
-        $methodCall->name = new \PhpParser\Node\Identifier($methodName);
-        foreach (\array_keys($methodCall->args) as $i) {
-            // keep first arg
-            if ($i === 0) {
-                continue;
-            }
-            unset($methodCall->args[$i]);
-        }
-        return new \PhpParser\Node\Stmt\Expression($methodCall);
+        return $expressions;
     }
 }

@@ -54,7 +54,7 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->replacedArguments as $replacedArgument) {
-            if (!$this->isMethodStaticCallOrClassMethodObjectType($node, $replacedArgument->getClass())) {
+            if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $replacedArgument->getClass())) {
                 continue;
             }
             if (!$this->isName($node->name, $replacedArgument->getMethod())) {

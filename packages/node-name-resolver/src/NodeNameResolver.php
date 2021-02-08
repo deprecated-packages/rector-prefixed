@@ -8,9 +8,11 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\StaticPropertyFetch;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use Rector\Core\Contract\Rector\RectorInterface;
@@ -20,6 +22,7 @@ use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeNameResolver\Regex\RegexPatternDetector;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodeNameResolver
 {
@@ -65,32 +68,18 @@ final class NodeNameResolver
         }
         return \false;
     }
-    public function isName(\PhpParser\Node $node, string $name) : bool
+    /**
+     * @param Node|Node[] $node
+     */
+    public function isName($node, string $name) : bool
     {
-        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
-            // method call cannot have a name, only the variable or method name
-            return \false;
+        $nodes = \is_array($node) ? $node : [$node];
+        foreach ($nodes as $node) {
+            if ($this->isSingleName($node, $name)) {
+                return \true;
+            }
         }
-        $resolvedName = $this->getName($node);
-        if ($resolvedName === null) {
-            return \false;
-        }
-        if ($name === '') {
-            return \false;
-        }
-        // is probably regex pattern
-        if ($this->regexPatternDetector->isRegexPattern($name)) {
-            return (bool) \RectorPrefix20210208\Nette\Utils\Strings::match($resolvedName, $name);
-        }
-        // is probably fnmatch
-        if (\RectorPrefix20210208\Nette\Utils\Strings::contains($name, '*')) {
-            return \fnmatch($name, $resolvedName, \FNM_NOESCAPE);
-        }
-        // special case
-        if ($name === 'Object') {
-            return $name === $resolvedName;
-        }
-        return \strtolower($resolvedName) === \strtolower($name);
+        return \false;
     }
     public function getName(\PhpParser\Node $node) : ?string
     {
@@ -224,6 +213,63 @@ final class NodeNameResolver
         }
         return $this->isName($node, $name);
     }
+    public function isStaticCallNamed(\PhpParser\Node $node, string $className, string $methodName) : bool
+    {
+        if (!$node instanceof \PhpParser\Node\Expr\StaticCall) {
+            return \false;
+        }
+        if ($node->class instanceof \PhpParser\Node\Expr\New_) {
+            if (!$this->isName($node->class->class, $className)) {
+                return \false;
+            }
+        } elseif (!$this->isName($node->class, $className)) {
+            return \false;
+        }
+        return $this->isName($node->name, $methodName);
+    }
+    /**
+     * @param string[] $methodNames
+     */
+    public function isStaticCallsNamed(\PhpParser\Node $node, string $className, array $methodNames) : bool
+    {
+        foreach ($methodNames as $methodName) {
+            if ($this->isStaticCallNamed($node, $className, $methodName)) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    public function isVariableName(\PhpParser\Node $node, string $name) : bool
+    {
+        if (!$node instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
+        }
+        return $this->isName($node, $name);
+    }
+    /**
+     * @param string[] $desiredClassNames
+     */
+    public function isInClassNames(\PhpParser\Node $node, array $desiredClassNames) : bool
+    {
+        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        if ($className === null) {
+            return \false;
+        }
+        foreach ($desiredClassNames as $desiredClassName) {
+            if (\is_a($className, $desiredClassName, \true)) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    public function isInClassNamed(\PhpParser\Node $node, string $desiredClassName) : bool
+    {
+        $className = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        if ($className === null) {
+            return \false;
+        }
+        return \is_a($className, $desiredClassName, \true);
+    }
     private function isCallOrIdentifier(\PhpParser\Node $node) : bool
     {
         return \Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Expr\MethodCall::class, \PhpParser\Node\Expr\StaticCall::class, \PhpParser\Node\Identifier::class]);
@@ -271,5 +317,32 @@ final class NodeNameResolver
             return $singleTrace;
         }
         return $backtrace[1] ?? null;
+    }
+    private function isSingleName(\PhpParser\Node $node, string $name) : bool
+    {
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+            // method call cannot have a name, only the variable or method name
+            return \false;
+        }
+        $resolvedName = $this->getName($node);
+        if ($resolvedName === null) {
+            return \false;
+        }
+        if ($name === '') {
+            return \false;
+        }
+        // is probably regex pattern
+        if ($this->regexPatternDetector->isRegexPattern($name)) {
+            return (bool) \RectorPrefix20210208\Nette\Utils\Strings::match($resolvedName, $name);
+        }
+        // is probably fnmatch
+        if (\RectorPrefix20210208\Nette\Utils\Strings::contains($name, '*')) {
+            return \fnmatch($name, $resolvedName, \FNM_NOESCAPE);
+        }
+        // special case
+        if ($name === 'Object') {
+            return $name === $resolvedName;
+        }
+        return \strtolower($resolvedName) === \strtolower($name);
     }
 }

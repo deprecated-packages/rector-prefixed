@@ -112,12 +112,12 @@ final class ClassManipulator
     }
     public function hasInterface(\PhpParser\Node\Stmt\Class_ $class, string $desiredInterface) : bool
     {
-        return $this->nodeNameResolver->haveName($class->implements, $desiredInterface);
+        return $this->nodeNameResolver->isName($class->implements, $desiredInterface);
     }
     public function hasTrait(\PhpParser\Node\Stmt\Class_ $class, string $desiredTrait) : bool
     {
         foreach ($class->getTraitUses() as $traitUse) {
-            if (!$this->nodeNameResolver->haveName($traitUse->traits, $desiredTrait)) {
+            if (!$this->nodeNameResolver->isName($traitUse->traits, $desiredTrait)) {
                 continue;
             }
             return \true;

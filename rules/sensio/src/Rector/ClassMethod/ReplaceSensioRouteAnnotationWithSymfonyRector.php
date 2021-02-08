@@ -4,10 +4,8 @@ declare (strict_types=1);
 namespace Rector\Sensio\Rector\ClassMethod;
 
 use PhpParser\Node;
-use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Use_;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Sensio\SensioRouteTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\Core\Rector\AbstractRector;
@@ -56,16 +54,13 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Class_::class, \PhpParser\Node\Stmt\Use_::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Class_::class];
     }
     /**
-     * @param ClassMethod|Class_|Use_ $node
+     * @param ClassMethod|Class_ $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($node instanceof \PhpParser\Node\Stmt\Use_) {
-            return $this->refactorUse($node);
-        }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class)) {
             return null;
@@ -79,20 +74,7 @@ CODE_SAMPLE
         $items = $sensioRouteTagValueNode->getItems();
         $symfonyRouteTagValueNode = new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode($items);
         $symfonyRouteTagValueNode->mimicTagValueNodeConfiguration($sensioRouteTagValueNode);
-        $phpDocInfo->addTagValueNodeWithShortName($symfonyRouteTagValueNode);
+        $phpDocInfo->addTagValueNode($symfonyRouteTagValueNode);
         return $node;
-    }
-    private function refactorUse(\PhpParser\Node\Stmt\Use_ $use) : ?\PhpParser\Node\Stmt\Use_
-    {
-        if ($use->type !== \PhpParser\Node\Stmt\Use_::TYPE_NORMAL) {
-            return null;
-        }
-        foreach ($use->uses as $useUse) {
-            if (!$this->isName($useUse->name, 'Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\Route')) {
-                continue;
-            }
-            $useUse->name = new \PhpParser\Node\Name('Symfony\\Component\\Routing\\Annotation\\Route');
-        }
-        return $use;
     }
 }

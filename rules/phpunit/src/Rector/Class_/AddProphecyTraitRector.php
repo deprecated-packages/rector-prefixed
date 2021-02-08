@@ -102,8 +102,8 @@ CODE_SAMPLE
     }
     private function hasProphesizeMethodCall(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        return (bool) $this->betterNodeFinder->findFirst($class, function (\PhpParser\Node $class) : bool {
-            return $this->isMethodCall($class, 'this', 'prophesize');
+        return (bool) $this->betterNodeFinder->findFirst($class, function (\PhpParser\Node $node) : bool {
+            return $this->nodeNameResolver->isLocalMethodCallNamed($node, 'prophesize');
         });
     }
 }

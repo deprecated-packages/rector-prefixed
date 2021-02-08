@@ -76,7 +76,7 @@ CODE_SAMPLE
             return $notIdentical->right;
         }
         if ($this->valueResolver->isFalse($notIdentical->right)) {
-            if (!$this->isFuncCallNames($notIdentical->left, self::OLD_STR_NAMES)) {
+            if (!$this->nodeNameResolver->isFuncCallNames($notIdentical->left, self::OLD_STR_NAMES)) {
                 return null;
             }
             return $notIdentical->left;

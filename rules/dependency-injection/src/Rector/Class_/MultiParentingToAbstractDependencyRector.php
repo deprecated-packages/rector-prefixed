@@ -188,7 +188,7 @@ CODE_SAMPLE
             if (!$paramType instanceof \PHPStan\Type\ObjectType) {
                 continue;
             }
-            if (!$this->isSameObjectTypes($paramType, $abstractClassConstructorParamTypes)) {
+            if (!$this->nodeTypeResolver->isSameObjectTypes($paramType, $abstractClassConstructorParamTypes)) {
                 continue;
             }
             unset($classMethod->params[$key]);

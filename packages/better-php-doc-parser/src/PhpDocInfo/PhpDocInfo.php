@@ -22,6 +22,7 @@ use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareReturnTagValueNode;
 use Rector\BetterPhpDocParser\Annotation\AnnotationNaming;
 use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\AttributeAwareNodeInterface;
+use Rector\BetterPhpDocParser\Contract\PhpDocNode\ClassNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\ShortNameAwareTagInterface;
 use Rector\BetterPhpDocParser\Contract\PhpDocNode\TypeAwareTagValueNodeInterface;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
@@ -300,8 +301,10 @@ final class PhpDocInfo
     }
     public function addTagValueNode(\PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode $phpDocTagValueNode) : void
     {
-        if (\is_a($phpDocTagValueNode, \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode::class)) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        if ($phpDocTagValueNode instanceof \Rector\BetterPhpDocParser\Contract\PhpDocNode\ClassNameAwareTagInterface) {
+            $spacelessPhpDocTagNode = new \Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\SpacelessPhpDocTagNode('@\\' . $phpDocTagValueNode->getClassName(), $phpDocTagValueNode);
+            $this->addPhpDocTagNode($spacelessPhpDocTagNode);
+            return;
         }
         $name = $this->resolveNameForPhpDocTagValueNode($phpDocTagValueNode);
         $attributeAwarePhpDocTagNode = new \Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode($name, $phpDocTagValueNode);

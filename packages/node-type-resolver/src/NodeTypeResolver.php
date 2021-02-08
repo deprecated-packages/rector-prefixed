@@ -9,6 +9,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt\Class_;
@@ -250,6 +251,33 @@ final class NodeTypeResolver
             return $typeWithClassName->getFullyQualifiedName();
         }
         return $typeWithClassName->getClassName();
+    }
+    /**
+     * @param Type[] $desiredTypes
+     */
+    public function isSameObjectTypes(\PHPStan\Type\ObjectType $objectType, array $desiredTypes) : bool
+    {
+        foreach ($desiredTypes as $abstractClassConstructorParamType) {
+            if ($abstractClassConstructorParamType->equals($objectType)) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    public function isMethodStaticCallOrClassMethodObjectType(\PhpParser\Node $node, string $type) : bool
+    {
+        if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+            // method call is variable return
+            return $this->isObjectType($node->var, $type);
+        }
+        if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
+            return $this->isObjectType($node->class, $type);
+        }
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
+            return \false;
+        }
+        return $this->isObjectType($classLike, $type);
     }
     private function addNodeTypeResolver(\Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface $nodeTypeResolver) : void
     {

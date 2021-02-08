@@ -8,7 +8,6 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\FileSystemRector\Contract\MovedFileInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
-use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
 use Rector\PSR4\Collector\RenamedClassesCollector;
 use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
 /**
@@ -45,9 +44,6 @@ trait RemovedAndAddedFilesTrait
     }
     protected function addMovedFile(\Rector\FileSystemRector\Contract\MovedFileInterface $movedFile) : void
     {
-        if ($movedFile instanceof \Rector\FileSystemRector\ValueObject\MovedFileWithNodes && $movedFile->hasClassRename()) {
-            $this->renamedClassesCollector->addClassRename($movedFile->getOldClassName(), $movedFile->getNewClassName());
-        }
         $this->removedAndAddedFilesCollector->addMovedFile($movedFile);
     }
     protected function removeFile(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
