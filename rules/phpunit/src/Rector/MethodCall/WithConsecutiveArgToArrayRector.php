@@ -14,7 +14,7 @@ use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator;
 use Rector\Core\Rector\AbstractRector;
 use ReflectionMethod;
-use RectorPrefix20210207\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use RectorPrefix20210208\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**

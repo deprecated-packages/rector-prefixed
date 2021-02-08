@@ -42,6 +42,7 @@ final class AnonymousFunctionFactory
      */
     public function create(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node $node) : \PhpParser\Node\Expr\Closure
     {
+        /** @var Return_[] $classMethodReturns */
         $classMethodReturns = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Stmt\Return_::class);
         $anonymousFunction = new \PhpParser\Node\Expr\Closure();
         $newParams = $this->copyParams($classMethod->params);

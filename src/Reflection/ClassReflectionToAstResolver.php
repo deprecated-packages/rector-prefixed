@@ -9,7 +9,7 @@ use PhpParser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileSystem;
 final class ClassReflectionToAstResolver
 {
     /**
@@ -24,7 +24,7 @@ final class ClassReflectionToAstResolver
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\PhpParser\Parser $parser, \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->parser = $parser;
         $this->smartFileSystem = $smartFileSystem;
@@ -39,7 +39,7 @@ final class ClassReflectionToAstResolver
         $className = $objectType->getClassName();
         return $this->getClass($classReflection, $className);
     }
-    public function getClass(\PHPStan\Reflection\ClassReflection $classReflection, string $className) : ?\PhpParser\Node\Stmt\Class_
+    private function getClass(\PHPStan\Reflection\ClassReflection $classReflection, string $className) : ?\PhpParser\Node\Stmt\Class_
     {
         if ($classReflection->isBuiltin()) {
             return null;
@@ -48,6 +48,7 @@ final class ClassReflectionToAstResolver
         $fileName = $classReflection->getFileName();
         /** @var Node[] $contentNodes */
         $contentNodes = $this->parser->parse($this->smartFileSystem->readFile($fileName));
+        /** @var Class_[] $classes */
         $classes = $this->betterNodeFinder->findInstanceOf($contentNodes, \PhpParser\Node\Stmt\Class_::class);
         if ($classes === []) {
             return null;

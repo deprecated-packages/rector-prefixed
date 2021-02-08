@@ -14,7 +14,7 @@ use PHPStan\File\FileHelper;
 use PHPStan\PhpDoc\TypeNodeResolver;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Configuration\Option;
-use RectorPrefix20210207\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210208\Symplify\PackageBuilder\Parameter\ParameterProvider;
 /**
  * Factory so Symfony app can use services from PHPStan container
  * @see packages/NodeTypeResolver/config/config.yaml:17
@@ -25,16 +25,11 @@ final class PHPStanServicesFactory
      * @var Container
      */
     private $container;
-    public function __construct(\RectorPrefix20210207\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\RectorPrefix20210208\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $containerFactory = new \PHPStan\DependencyInjection\ContainerFactory(\getcwd());
         $additionalConfigFiles = [];
         $additionalConfigFiles[] = $parameterProvider->provideStringParameter(\Rector\Core\Configuration\Option::PHPSTAN_FOR_RECTOR_PATH);
-        $additionalConfigFiles[] = \getcwd() . '/vendor/phpstan/phpstan-phpunit/extension.neon';
-        // enable type inferring from constructor
-        $additionalConfigFiles[] = __DIR__ . '/../../config/phpstan/better-infer.neon';
-        // symplify phpstan extensions
-        $additionalConfigFiles[] = \getcwd() . '/vendor/symplify/phpstan-extensions/config/config.neon';
         $existingAdditionalConfigFiles = \array_filter($additionalConfigFiles, 'file_exists');
         $this->container = $containerFactory->create(\sys_get_temp_dir(), $existingAdditionalConfigFiles, []);
     }

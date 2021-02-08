@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210207\Symplify\SetConfigResolver\Tests\ConfigResolver;
+namespace RectorPrefix20210208\Symplify\SetConfigResolver\Tests\ConfigResolver;
 
 use Iterator;
-use RectorPrefix20210207\PHPUnit\Framework\TestCase;
-use RectorPrefix20210207\Symfony\Component\Console\Input\ArrayInput;
-use RectorPrefix20210207\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use RectorPrefix20210207\Symplify\SetConfigResolver\SetAwareConfigResolver;
-use RectorPrefix20210207\Symplify\SetConfigResolver\Tests\ConfigResolver\Source\DummySetProvider;
-use RectorPrefix20210207\Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
-final class SetAwareConfigResolverTest extends \RectorPrefix20210207\PHPUnit\Framework\TestCase
+use RectorPrefix20210208\PHPUnit\Framework\TestCase;
+use RectorPrefix20210208\Symfony\Component\Console\Input\ArrayInput;
+use RectorPrefix20210208\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20210208\Symplify\SetConfigResolver\SetAwareConfigResolver;
+use RectorPrefix20210208\Symplify\SetConfigResolver\Tests\ConfigResolver\Source\DummySetProvider;
+use RectorPrefix20210208\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
+final class SetAwareConfigResolverTest extends \RectorPrefix20210208\PHPUnit\Framework\TestCase
 {
     /**
      * @var SetAwareConfigResolver
@@ -19,7 +19,7 @@ final class SetAwareConfigResolverTest extends \RectorPrefix20210207\PHPUnit\Fra
     private $setAwareConfigResolver;
     protected function setUp() : void
     {
-        $this->setAwareConfigResolver = new \RectorPrefix20210207\Symplify\SetConfigResolver\SetAwareConfigResolver(new \RectorPrefix20210207\Symplify\SetConfigResolver\Tests\ConfigResolver\Source\DummySetProvider());
+        $this->setAwareConfigResolver = new \RectorPrefix20210208\Symplify\SetConfigResolver\SetAwareConfigResolver(new \RectorPrefix20210208\Symplify\SetConfigResolver\Tests\ConfigResolver\Source\DummySetProvider());
     }
     /**
      * @dataProvider provideOptionsAndExpectedConfig()
@@ -27,7 +27,7 @@ final class SetAwareConfigResolverTest extends \RectorPrefix20210207\PHPUnit\Fra
      */
     public function testDetectFromInputAndProvideWithAbsolutePath(array $options, ?string $expectedConfig) : void
     {
-        $resolvedConfigFileInfo = $this->setAwareConfigResolver->resolveFromInput(new \RectorPrefix20210207\Symfony\Component\Console\Input\ArrayInput($options));
+        $resolvedConfigFileInfo = $this->setAwareConfigResolver->resolveFromInput(new \RectorPrefix20210208\Symfony\Component\Console\Input\ArrayInput($options));
         if ($expectedConfig === null) {
             $this->assertNull($resolvedConfigFileInfo);
         } else {
@@ -44,23 +44,23 @@ final class SetAwareConfigResolverTest extends \RectorPrefix20210207\PHPUnit\Fra
     }
     public function testSetsNotFound() : void
     {
-        $this->expectException(\RectorPrefix20210207\Symplify\SetConfigResolver\Exception\SetNotFoundException::class);
-        $basicConfigFileInfo = new \RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/missing_set_config.php');
+        $this->expectException(\RectorPrefix20210208\Symplify\SetConfigResolver\Exception\SetNotFoundException::class);
+        $basicConfigFileInfo = new \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/missing_set_config.php');
         $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles([$basicConfigFileInfo]);
     }
     public function testPhpSetsFileInfos() : void
     {
-        $basicConfigFileInfo = new \RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/php_config_with_sets.php');
+        $basicConfigFileInfo = new \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Fixture/php_config_with_sets.php');
         $setFileInfos = $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles([$basicConfigFileInfo]);
         $this->assertCount(1, $setFileInfos);
         $setFileInfo = $setFileInfos[0];
-        $expectedSetFileInfo = new \RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/some_php_set.php');
+        $expectedSetFileInfo = new \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/some_php_set.php');
         $this->assertEquals($expectedSetFileInfo, $setFileInfo);
     }
     public function testMissingFileInInput() : void
     {
-        $this->expectException(\RectorPrefix20210207\Symplify\SmartFileSystem\Exception\FileNotFoundException::class);
-        $arrayInput = new \RectorPrefix20210207\Symfony\Component\Console\Input\ArrayInput(['--config' => 'someFile.yml']);
+        $this->expectException(\RectorPrefix20210208\Symplify\SmartFileSystem\Exception\FileNotFoundException::class);
+        $arrayInput = new \RectorPrefix20210208\Symfony\Component\Console\Input\ArrayInput(['--config' => 'someFile.yml']);
         $this->setAwareConfigResolver->resolveFromInput($arrayInput);
     }
 }

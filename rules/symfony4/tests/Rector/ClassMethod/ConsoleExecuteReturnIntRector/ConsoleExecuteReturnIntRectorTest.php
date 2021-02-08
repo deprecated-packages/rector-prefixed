@@ -6,13 +6,13 @@ namespace Rector\Symfony4\Tests\Rector\ClassMethod\ConsoleExecuteReturnIntRector
 use Iterator;
 use Rector\Symfony4\Rector\ClassMethod\ConsoleExecuteReturnIntRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
 final class ConsoleExecuteReturnIntRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

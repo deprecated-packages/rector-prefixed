@@ -44,7 +44,7 @@ final class PropertyFetchTypeResolverTest extends \Rector\NodeTypeResolver\Tests
             (yield [$file, 5, new \PHPStan\Type\UnionType([new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver\Source\Abc::class), new \PHPStan\Type\NullType()])]);
             (yield [$file, 6, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver\Source\Abc::class)]);
             (yield [$file, 7, new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver\Source\IDontExist::class)]);
-            (yield [$file, 8, new \PHPStan\Type\ObjectType(\RectorPrefix20210207\A\B\C\IDontExist::class)]);
+            (yield [$file, 8, new \PHPStan\Type\ObjectType(\RectorPrefix20210208\A\B\C\IDontExist::class)]);
             (yield [$file, 9, new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType())]);
             (yield [$file, 10, new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver\Source\Abc::class))]);
             (yield [$file, 11, new \PHPStan\Type\MixedType()]);

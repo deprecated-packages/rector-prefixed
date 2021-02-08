@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210207\Symplify\SetConfigResolver\Bootstrap;
+namespace RectorPrefix20210208\Symplify\SetConfigResolver\Bootstrap;
 
-use RectorPrefix20210207\Nette\Utils\ObjectHelpers;
-use RectorPrefix20210207\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210207\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use RectorPrefix20210207\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20210208\Nette\Utils\ObjectHelpers;
+use RectorPrefix20210208\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210208\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use RectorPrefix20210208\Symplify\SetConfigResolver\Exception\SetNotFoundException;
 /**
  * @see \Symplify\SetConfigResolver\Tests\Bootstrap\InvalidSetReporterTest
  */
@@ -18,13 +18,13 @@ final class InvalidSetReporter
     private $symfonyStyle;
     public function __construct()
     {
-        $symfonyStyleFactory = new \RectorPrefix20210207\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+        $symfonyStyleFactory = new \RectorPrefix20210208\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
         $this->symfonyStyle = $symfonyStyleFactory->create();
     }
-    public function report(\RectorPrefix20210207\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) : void
+    public function report(\RectorPrefix20210208\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) : void
     {
         $message = $setNotFoundException->getMessage();
-        $suggestedSet = \RectorPrefix20210207\Nette\Utils\ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());
+        $suggestedSet = \RectorPrefix20210208\Nette\Utils\ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());
         if ($suggestedSet !== null) {
             $message .= \sprintf('. Did you mean "%s"?', $suggestedSet);
             $this->symfonyStyle->error($message);

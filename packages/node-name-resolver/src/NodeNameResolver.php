@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeNameResolver;
 
-use RectorPrefix20210207\Nette\Utils\Strings;
+use RectorPrefix20210208\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\FuncCall;
@@ -20,7 +20,7 @@ use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\Contract\NodeNameResolverInterface;
 use Rector\NodeNameResolver\Regex\RegexPatternDetector;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
-use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodeNameResolver
 {
     /**
@@ -80,10 +80,10 @@ final class NodeNameResolver
         }
         // is probably regex pattern
         if ($this->regexPatternDetector->isRegexPattern($name)) {
-            return (bool) \RectorPrefix20210207\Nette\Utils\Strings::match($resolvedName, $name);
+            return (bool) \RectorPrefix20210208\Nette\Utils\Strings::match($resolvedName, $name);
         }
         // is probably fnmatch
-        if (\RectorPrefix20210207\Nette\Utils\Strings::contains($name, '*')) {
+        if (\RectorPrefix20210208\Nette\Utils\Strings::contains($name, '*')) {
             return \fnmatch($name, $resolvedName, \FNM_NOESCAPE);
         }
         // special case
@@ -187,7 +187,7 @@ final class NodeNameResolver
     public function endsWith(string $currentName, string $expectedName) : bool
     {
         $suffixNamePattern = '#\\w+' . \ucfirst($expectedName) . '#';
-        return (bool) \RectorPrefix20210207\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
+        return (bool) \RectorPrefix20210208\Nette\Utils\Strings::match($currentName, $suffixNamePattern);
     }
     public function isLocalMethodCallNamed(\PhpParser\Node $node, string $name) : bool
     {
@@ -235,7 +235,7 @@ final class NodeNameResolver
     {
         $message = \sprintf('Pick more specific node than "%s", e.g. "$node->name"', \get_class($node));
         $fileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-        if ($fileInfo instanceof \RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo) {
+        if ($fileInfo instanceof \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo) {
             $message .= \PHP_EOL . \PHP_EOL;
             $message .= \sprintf('Caused in "%s" file on line %d on code "%s"', $fileInfo->getRelativeFilePathFromCwd(), $node->getStartLine(), $this->betterStandardPrinter->print($node));
         }
@@ -244,7 +244,7 @@ final class NodeNameResolver
         if ($rectorBacktrace) {
             // issues to find the file in prefixed
             if (\file_exists($rectorBacktrace[self::FILE])) {
-                $fileInfo = new \RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo($rectorBacktrace[self::FILE]);
+                $fileInfo = new \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo($rectorBacktrace[self::FILE]);
                 $fileAndLine = $fileInfo->getRelativeFilePathFromCwd() . ':' . $rectorBacktrace['line'];
             } else {
                 $fileAndLine = $rectorBacktrace[self::FILE] . ':' . $rectorBacktrace['line'];

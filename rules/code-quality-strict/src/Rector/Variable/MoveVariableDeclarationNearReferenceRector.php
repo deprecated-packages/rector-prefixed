@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQualityStrict\Rector\Variable;
 
-use RectorPrefix20210207\Nette\Utils\Strings;
+use RectorPrefix20210208\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -157,6 +157,7 @@ CODE_SAMPLE
         if (!$node instanceof \PhpParser\Node) {
             return \false;
         }
+        /** @var ArrayDimFetch[] $arrayDimFetches */
         $arrayDimFetches = $this->betterNodeFinder->findInstanceOf($node, \PhpParser\Node\Expr\ArrayDimFetch::class);
         foreach ($arrayDimFetches as $arrayDimFetch) {
             /** @var Node|null $dim */
@@ -221,7 +222,7 @@ CODE_SAMPLE
             if ($funcName === null) {
                 return \false;
             }
-            return \RectorPrefix20210207\Nette\Utils\Strings::startsWith($funcName, 'ob_');
+            return \RectorPrefix20210208\Nette\Utils\Strings::startsWith($funcName, 'ob_');
         });
     }
     private function getCountFound(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : int

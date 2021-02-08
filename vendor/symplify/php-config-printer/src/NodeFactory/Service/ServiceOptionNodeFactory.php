@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210207\Symplify\PhpConfigPrinter\NodeFactory\Service;
+namespace RectorPrefix20210208\Symplify\PhpConfigPrinter\NodeFactory\Service;
 
-use RectorPrefix20210207\Nette\Utils\Strings;
+use RectorPrefix20210208\Nette\Utils\Strings;
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20210207\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20210207\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer;
-use RectorPrefix20210207\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+use RectorPrefix20210208\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210208\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer;
+use RectorPrefix20210208\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
 final class ServiceOptionNodeFactory
 {
     /**
@@ -21,7 +21,7 @@ final class ServiceOptionNodeFactory
     /**
      * @param ServiceOptionsKeyYamlToPhpFactoryInterface[] $serviceOptionKeyYamlToPhpFactories
      */
-    public function __construct(\RectorPrefix20210207\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer, array $serviceOptionKeyYamlToPhpFactories)
+    public function __construct(\RectorPrefix20210208\Symplify\PhpConfigPrinter\ServiceOptionAnalyzer\ServiceOptionAnalyzer $serviceOptionAnalyzer, array $serviceOptionKeyYamlToPhpFactories)
     {
         $this->serviceOptionKeyYamlToPhpFactories = $serviceOptionKeyYamlToPhpFactories;
         $this->serviceOptionAnalyzer = $serviceOptionAnalyzer;
@@ -31,7 +31,7 @@ final class ServiceOptionNodeFactory
         $servicesValues = $this->unNestArguments($servicesValues);
         foreach ($servicesValues as $key => $value) {
             // options started by decoration_<option> are used as options of the method decorate().
-            if (\RectorPrefix20210207\Nette\Utils\Strings::startsWith($key, 'decoration_') || $key === 'alias') {
+            if (\RectorPrefix20210208\Nette\Utils\Strings::startsWith($key, 'decoration_') || $key === 'alias') {
                 continue;
             }
             foreach ($this->serviceOptionKeyYamlToPhpFactories as $serviceOptionKeyYamlToPhpFactory) {
@@ -52,6 +52,6 @@ final class ServiceOptionNodeFactory
         if (!$this->serviceOptionAnalyzer->hasNamedArguments($servicesValues)) {
             return $servicesValues;
         }
-        return [\RectorPrefix20210207\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS => $servicesValues];
+        return [\RectorPrefix20210208\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::ARGUMENTS => $servicesValues];
     }
 }

@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210207\Symfony\Component\ErrorHandler\ErrorEnhancer;
+namespace RectorPrefix20210208\Symfony\Component\ErrorHandler\ErrorEnhancer;
 
-use RectorPrefix20210207\Symfony\Component\ErrorHandler\Error\FatalError;
-use RectorPrefix20210207\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError;
+use RectorPrefix20210208\Symfony\Component\ErrorHandler\Error\FatalError;
+use RectorPrefix20210208\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class UndefinedFunctionErrorEnhancer implements \RectorPrefix20210207\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface
+class UndefinedFunctionErrorEnhancer implements \RectorPrefix20210208\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface
 {
     /**
      * {@inheritdoc}
      */
     public function enhance(\Throwable $error) : ?\Throwable
     {
-        if ($error instanceof \RectorPrefix20210207\Symfony\Component\ErrorHandler\Error\FatalError) {
+        if ($error instanceof \RectorPrefix20210208\Symfony\Component\ErrorHandler\Error\FatalError) {
             return null;
         }
         $message = $error->getMessage();
@@ -72,6 +72,6 @@ class UndefinedFunctionErrorEnhancer implements \RectorPrefix20210207\Symfony\Co
             }
             $message .= "\nDid you mean to call " . $candidates;
         }
-        return new \RectorPrefix20210207\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError($message, $error);
+        return new \RectorPrefix20210208\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError($message, $error);
     }
 }

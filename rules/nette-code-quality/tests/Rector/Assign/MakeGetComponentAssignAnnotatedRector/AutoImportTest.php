@@ -7,13 +7,13 @@ use Iterator;
 use Rector\Core\Configuration\Option;
 use Rector\NetteCodeQuality\Rector\Assign\MakeGetComponentAssignAnnotatedRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
 final class AutoImportTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
         $this->setParameter(\Rector\Core\Configuration\Option::IMPORT_DOC_BLOCKS, \true);

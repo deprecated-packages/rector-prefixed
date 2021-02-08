@@ -29,7 +29,7 @@ use Rector\Core\PHPStan\Reflection\CallReflectionResolver;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210207\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210208\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ClassMethodAssignManipulator
 {
     /**
@@ -60,7 +60,7 @@ final class ClassMethodAssignManipulator
      * @var CallReflectionResolver
      */
     private $callReflectionResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210207\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Manipulator\VariableManipulator $variableManipulator, \Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210208\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Manipulator\VariableManipulator $variableManipulator, \Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver)
     {
         $this->variableManipulator = $variableManipulator;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;

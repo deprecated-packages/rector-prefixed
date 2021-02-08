@@ -6,14 +6,15 @@ namespace Rector\Transform\Tests\Rector\MethodCall\MethodCallToStaticCallRector;
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
+use Rector\Transform\Tests\Rector\MethodCall\MethodCallToStaticCallRector\Source\AnotherDependency;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
-use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
 final class MethodCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -26,6 +27,6 @@ final class MethodCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\Abs
      */
     protected function getRectorsWithConfiguration() : array
     {
-        return [\Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector::class => [\Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\MethodCallToStaticCall(\Rector\Transform\Tests\Rector\MethodCall\MethodCallToStaticCallRector\AnotherDependency::class, 'process', 'StaticCaller', 'anotherMethod')]]];
+        return [\Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector::class => [\Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\MethodCallToStaticCall(\Rector\Transform\Tests\Rector\MethodCall\MethodCallToStaticCallRector\Source\AnotherDependency::class, 'process', 'StaticCaller', 'anotherMethod')]]];
     }
 }

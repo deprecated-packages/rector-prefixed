@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210207\Symfony\Component\ExpressionLanguage\Node;
+namespace RectorPrefix20210208\Symfony\Component\ExpressionLanguage\Node;
 
-use RectorPrefix20210207\Symfony\Component\ExpressionLanguage\Compiler;
+use RectorPrefix20210208\Symfony\Component\ExpressionLanguage\Compiler;
 /**
  * Represents a node in the AST.
  *
@@ -51,7 +51,7 @@ class Node
         }
         return \implode("\n", $repr);
     }
-    public function compile(\RectorPrefix20210207\Symfony\Component\ExpressionLanguage\Compiler $compiler)
+    public function compile(\RectorPrefix20210208\Symfony\Component\ExpressionLanguage\Compiler $compiler)
     {
         foreach ($this->nodes as $node) {
             $node->compile($compiler);

@@ -14,7 +14,7 @@ class ClassWithNativeProps
     public ?\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver\Source\Abc $abcNullable;
     public \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver\Source\Abc $abcFQ;
     public \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver\Source\IDontExist $nonexistent;
-    public \RectorPrefix20210207\A\B\C\IDontExist $nonexistentFQ;
+    public \RectorPrefix20210208\A\B\C\IDontExist $nonexistentFQ;
     public array $array;
     /** @var array<Abc> */
     public array $arrayOfAbcs;

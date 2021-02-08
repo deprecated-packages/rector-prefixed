@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\If_;
 
-use RectorPrefix20210207\Nette\Utils\Strings;
+use RectorPrefix20210208\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\BinaryOp;
@@ -113,7 +113,7 @@ CODE_SAMPLE
             return \true;
         }
         // negate + negate → skip for now
-        if ($this->valueResolver->isFalse($returnedExpr) && \RectorPrefix20210207\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
+        if ($this->valueResolver->isFalse($returnedExpr) && \RectorPrefix20210208\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
             return \true;
         }
         return !$this->valueResolver->isTrueOrFalse($nextNode->expr);

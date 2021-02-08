@@ -6,24 +6,24 @@
         "php": ">=7.3",
         "nette\/utils": "^3.0",
         "symfony\/dependency-injection": "^5.1",
-        "symplify\/package-builder": "^9.1"
+        "symplify\/package-builder": "^9.1.1"
     },
     "require-dev": {
         "phpunit\/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210207\\Symplify\\AutowireArrayParameter\\": "src"
+            "RectorPrefix20210208\\Symplify\\AutowireArrayParameter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210207\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
+            "RectorPrefix20210208\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "9.1-dev"
+            "dev-master": "9.2-dev"
         }
     },
     "minimum-stability": "dev",

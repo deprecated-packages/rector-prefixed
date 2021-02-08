@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp74\Tests\Rector\ClassMethod\DowngradeReturnSelfType
 use Iterator;
 use Rector\DowngradePhp74\Rector\ClassMethod\DowngradeReturnSelfTypeDeclarationRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradeReturnSelfTypeDeclarationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -6,13 +6,13 @@ namespace Rector\PHPUnit\Tests\Rector\MethodCall\SpecificAssertContainsWithoutId
 use Iterator;
 use Rector\PHPUnit\Rector\MethodCall\SpecificAssertContainsWithoutIdentityRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
 final class SpecificAssertContainsWithoutIdentityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210207\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SensioMethod;
 
-use RectorPrefix20210207\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use RectorPrefix20210208\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 final class SensioMethodSingle
 {
     /**
