@@ -27,16 +27,15 @@ final class ClassResolver
     }
     public function getClassFromMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node\Name\FullyQualified
     {
-        $class = null;
         $previousExpression = $methodCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_STATEMENT);
         // [PhpParser\Node\Expr\Assign] $variable = new Class()
         if ($previousExpression instanceof \PhpParser\Node\Stmt\Expression) {
-            $class = $this->resolveFromExpression($previousExpression);
+            return $this->resolveFromExpression($previousExpression);
         }
         if ($previousExpression instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            $class = $this->resolveFromClassMethod($previousExpression, $methodCall);
+            return $this->resolveFromClassMethod($previousExpression, $methodCall);
         }
-        return $class;
+        return null;
     }
     private function resolveFromExpression(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node\Name\FullyQualified
     {

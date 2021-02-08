@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46
+class ComposerStaticInit2fe26be558649eef01f07f4a47894d65
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2765,31 +2765,46 @@ class ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46
         'Rector\\Core\\Error\\ExceptionCorrector' => __DIR__ . '/../..' . '/src/Error/ExceptionCorrector.php',
         'Rector\\Core\\Exception\\Application\\FileProcessingException' => __DIR__ . '/../..' . '/src/Exception/Application/FileProcessingException.php',
         'Rector\\Core\\Exception\\Configuration\\InvalidConfigurationException' => __DIR__ . '/../..' . '/src/Exception/Configuration/InvalidConfigurationException.php',
-        'Rector\\Core\\Exception\\Console\\Output\\MissingOutputFormatterException' => __DIR__ . '/../..' . '/src/Exception/Console/Output/MissingOutputFormatterException.php',
-        'Rector\\Core\\Exception\\FileSystem\\DirectoryNotFoundException' => __DIR__ . '/../..' . '/src/Exception/FileSystem/DirectoryNotFoundException.php',
-        'Rector\\Core\\Exception\\FileSystem\\FileNotFoundException' => __DIR__ . '/../..' . '/src/Exception/FileSystem/FileNotFoundException.php',
         'Rector\\Core\\Exception\\InvalidNodeTypeException' => __DIR__ . '/../..' . '/src/Exception/InvalidNodeTypeException.php',
         'Rector\\Core\\Exception\\NoRectorsLoadedException' => __DIR__ . '/../..' . '/src/Exception/NoRectorsLoadedException.php',
-        'Rector\\Core\\Exception\\NodeChanger\\NodeMissingIdentifierException' => __DIR__ . '/../..' . '/src/Exception/NodeChanger/NodeMissingIdentifierException.php',
         'Rector\\Core\\Exception\\Node\\MissingParentNodeException' => __DIR__ . '/../..' . '/src/Exception/Node/MissingParentNodeException.php',
         'Rector\\Core\\Exception\\NotImplementedYetException' => __DIR__ . '/../..' . '/src/Exception/NotImplementedYetException.php',
-        'Rector\\Core\\Exception\\Rector\\InvalidRectorConfigurationException' => __DIR__ . '/../..' . '/src/Exception/Rector/InvalidRectorConfigurationException.php',
         'Rector\\Core\\Exception\\ShouldNotHappenException' => __DIR__ . '/../..' . '/src/Exception/ShouldNotHappenException.php',
         'Rector\\Core\\Exception\\Testing\\SuperfluousAfterContentFixtureException' => __DIR__ . '/../..' . '/src/Exception/Testing/SuperfluousAfterContentFixtureException.php',
         'Rector\\Core\\Exclusion\\ExclusionManager' => __DIR__ . '/../..' . '/src/Exclusion/ExclusionManager.php',
-        'Rector\\Core\\FileSystem\\FileGuard' => __DIR__ . '/../..' . '/src/FileSystem/FileGuard.php',
         'Rector\\Core\\FileSystem\\FilesFinder' => __DIR__ . '/../..' . '/src/FileSystem/FilesFinder.php',
         'Rector\\Core\\FileSystem\\FilesystemTweaker' => __DIR__ . '/../..' . '/src/FileSystem/FilesystemTweaker.php',
         'Rector\\Core\\Guard\\RectorGuard' => __DIR__ . '/../..' . '/src/Guard/RectorGuard.php',
         'Rector\\Core\\HttpKernel\\RectorKernel' => __DIR__ . '/../..' . '/src/HttpKernel/RectorKernel.php',
         'Rector\\Core\\Logging\\CurrentRectorProvider' => __DIR__ . '/../..' . '/src/Logging/CurrentRectorProvider.php',
-        'Rector\\Core\\NodeAnalyzer\\ClassNodeAnalyzer' => __DIR__ . '/../..' . '/src/NodeAnalyzer/ClassNodeAnalyzer.php',
+        'Rector\\Core\\NodeAnalyzer\\ClassAnalyzer' => __DIR__ . '/../..' . '/src/NodeAnalyzer/ClassAnalyzer.php',
         'Rector\\Core\\NodeAnalyzer\\ConstFetchAnalyzer' => __DIR__ . '/../..' . '/src/NodeAnalyzer/ConstFetchAnalyzer.php',
         'Rector\\Core\\NodeAnalyzer\\PromotedPropertyParamCleaner' => __DIR__ . '/../..' . '/src/NodeAnalyzer/PromotedPropertyParamCleaner.php',
-        'Rector\\Core\\NodeAnalyzer\\PromotedPropertyResolver' => __DIR__ . '/../..' . '/src/NodeAnalyzer/PromotedPropertyResolver.php',
         'Rector\\Core\\NodeAnalyzer\\PropertyFetchAnalyzer' => __DIR__ . '/../..' . '/src/NodeAnalyzer/PropertyFetchAnalyzer.php',
         'Rector\\Core\\NodeAnalyzer\\PropertyPresenceChecker' => __DIR__ . '/../..' . '/src/NodeAnalyzer/PropertyPresenceChecker.php',
-        'Rector\\Core\\NodeFinder\\NodeUsageFinder' => __DIR__ . '/../..' . '/src/NodeFinder/NodeUsageFinder.php',
+        'Rector\\Core\\NodeManipulator\\ArrayManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ArrayManipulator.php',
+        'Rector\\Core\\NodeManipulator\\AssignManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/AssignManipulator.php',
+        'Rector\\Core\\NodeManipulator\\BinaryOpManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/BinaryOpManipulator.php',
+        'Rector\\Core\\NodeManipulator\\ChildAndParentClassManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ChildAndParentClassManipulator.php',
+        'Rector\\Core\\NodeManipulator\\ClassConstManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ClassConstManipulator.php',
+        'Rector\\Core\\NodeManipulator\\ClassDependencyManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ClassDependencyManipulator.php',
+        'Rector\\Core\\NodeManipulator\\ClassInsertManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ClassInsertManipulator.php',
+        'Rector\\Core\\NodeManipulator\\ClassManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ClassManipulator.php',
+        'Rector\\Core\\NodeManipulator\\ClassMethodAssignManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ClassMethodAssignManipulator.php',
+        'Rector\\Core\\NodeManipulator\\ClassMethodManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ClassMethodManipulator.php',
+        'Rector\\Core\\NodeManipulator\\ClassMethodPropertyFetchManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ClassMethodPropertyFetchManipulator.php',
+        'Rector\\Core\\NodeManipulator\\ForeachManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/ForeachManipulator.php',
+        'Rector\\Core\\NodeManipulator\\FuncCallManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/FuncCallManipulator.php',
+        'Rector\\Core\\NodeManipulator\\FunctionLikeManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/FunctionLikeManipulator.php',
+        'Rector\\Core\\NodeManipulator\\IfManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/IfManipulator.php',
+        'Rector\\Core\\NodeManipulator\\MethodCallManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/MethodCallManipulator.php',
+        'Rector\\Core\\NodeManipulator\\NullsafeManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/NullsafeManipulator.php',
+        'Rector\\Core\\NodeManipulator\\PropertyFetchAssignManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/PropertyFetchAssignManipulator.php',
+        'Rector\\Core\\NodeManipulator\\PropertyFetchManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/PropertyFetchManipulator.php',
+        'Rector\\Core\\NodeManipulator\\PropertyManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/PropertyManipulator.php',
+        'Rector\\Core\\NodeManipulator\\StmtsManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/StmtsManipulator.php',
+        'Rector\\Core\\NodeManipulator\\VariableManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/VariableManipulator.php',
+        'Rector\\Core\\NodeManipulator\\VisibilityManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/VisibilityManipulator.php',
         'Rector\\Core\\NonPhpFile\\NonPhpFileClassRenamer' => __DIR__ . '/../..' . '/src/NonPhpFile/NonPhpFileClassRenamer.php',
         'Rector\\Core\\NonPhpFile\\NonPhpFileProcessor' => __DIR__ . '/../..' . '/src/NonPhpFile/NonPhpFileProcessor.php',
         'Rector\\Core\\PHPStan\\Reflection\\CallReflectionResolver' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/CallReflectionResolver.php',
@@ -2805,30 +2820,6 @@ class ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46
         'Rector\\Core\\PhpParser\\Node\\BetterNodeFinder' => __DIR__ . '/../..' . '/src/PhpParser/Node/BetterNodeFinder.php',
         'Rector\\Core\\PhpParser\\Node\\CustomNode\\FileNode' => __DIR__ . '/../..' . '/src/PhpParser/Node/CustomNode/FileNode.php',
         'Rector\\Core\\PhpParser\\Node\\CustomNode\\FileWithoutNamespace' => __DIR__ . '/../..' . '/src/PhpParser/Node/CustomNode/FileWithoutNamespace.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ArrayManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ArrayManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\AssignManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/AssignManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\BinaryOpManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/BinaryOpManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ChildAndParentClassManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ChildAndParentClassManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ClassConstManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ClassConstManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ClassDependencyManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ClassDependencyManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ClassInsertManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ClassInsertManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ClassManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ClassManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ClassMethodAssignManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ClassMethodAssignManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ClassMethodManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ClassMethodManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ClassMethodPropertyFetchManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ClassMethodPropertyFetchManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\ForeachManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/ForeachManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\FuncCallManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/FuncCallManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\FunctionLikeManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/FunctionLikeManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\IdentifierManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/IdentifierManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\IfManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/IfManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\MethodCallManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/MethodCallManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\NullsafeManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/NullsafeManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\PropertyFetchAssignManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/PropertyFetchAssignManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\PropertyFetchManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/PropertyFetchManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\PropertyManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/PropertyManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\StmtsManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/StmtsManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\VariableManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/VariableManipulator.php',
-        'Rector\\Core\\PhpParser\\Node\\Manipulator\\VisibilityManipulator' => __DIR__ . '/../..' . '/src/PhpParser/Node/Manipulator/VisibilityManipulator.php',
         'Rector\\Core\\PhpParser\\Node\\NodeFactory' => __DIR__ . '/../..' . '/src/PhpParser/Node/NodeFactory.php',
         'Rector\\Core\\PhpParser\\Node\\Value\\ClassResolver' => __DIR__ . '/../..' . '/src/PhpParser/Node/Value/ClassResolver.php',
         'Rector\\Core\\PhpParser\\Node\\Value\\ValueResolver' => __DIR__ . '/../..' . '/src/PhpParser/Node/Value/ValueResolver.php',
@@ -3671,6 +3662,7 @@ class ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46
         'Rector\\Php80\\MatchAndRefactor\\StrStartsWithMatchAndRefactor\\StrncmpMatchAndRefactor' => __DIR__ . '/../..' . '/rules/php80/src/MatchAndRefactor/StrStartsWithMatchAndRefactor/StrncmpMatchAndRefactor.php',
         'Rector\\Php80\\MatchAndRefactor\\StrStartsWithMatchAndRefactor\\StrposMatchAndRefactor' => __DIR__ . '/../..' . '/rules/php80/src/MatchAndRefactor/StrStartsWithMatchAndRefactor/StrposMatchAndRefactor.php',
         'Rector\\Php80\\MatchAndRefactor\\StrStartsWithMatchAndRefactor\\SubstrMatchAndRefactor' => __DIR__ . '/../..' . '/rules/php80/src/MatchAndRefactor/StrStartsWithMatchAndRefactor/SubstrMatchAndRefactor.php',
+        'Rector\\Php80\\NodeAnalyzer\\PromotedPropertyResolver' => __DIR__ . '/../..' . '/rules/php80/src/NodeAnalyzer/PromotedPropertyResolver.php',
         'Rector\\Php80\\NodeAnalyzer\\SwitchAnalyzer' => __DIR__ . '/../..' . '/rules/php80/src/NodeAnalyzer/SwitchAnalyzer.php',
         'Rector\\Php80\\NodeManipulator\\TokenManipulator' => __DIR__ . '/../..' . '/rules/php80/src/NodeManipulator/TokenManipulator.php',
         'Rector\\Php80\\NodeResolver\\ArgumentSorter' => __DIR__ . '/../..' . '/rules/php80/src/NodeResolver/ArgumentSorter.php',
@@ -3770,6 +3762,7 @@ class ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46
         'Rector\\ReadWrite\\Guard\\VariableToConstantGuard' => __DIR__ . '/../..' . '/packages/read-write/src/Guard/VariableToConstantGuard.php',
         'Rector\\ReadWrite\\NodeAnalyzer\\ReadExprAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/NodeAnalyzer/ReadExprAnalyzer.php',
         'Rector\\ReadWrite\\NodeAnalyzer\\ReadWritePropertyAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/NodeAnalyzer/ReadWritePropertyAnalyzer.php',
+        'Rector\\ReadWrite\\NodeFinder\\NodeUsageFinder' => __DIR__ . '/../..' . '/packages/read-write/src/NodeFinder/NodeUsageFinder.php',
         'Rector\\ReadWrite\\ReadNodeAnalyzer\\AbstractReadNodeAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/ReadNodeAnalyzer/AbstractReadNodeAnalyzer.php',
         'Rector\\ReadWrite\\ReadNodeAnalyzer\\PropertyFetchReadNodeAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/ReadNodeAnalyzer/PropertyFetchReadNodeAnalyzer.php',
         'Rector\\ReadWrite\\ReadNodeAnalyzer\\VariableReadNodeAnalyzer' => __DIR__ . '/../..' . '/packages/read-write/src/ReadNodeAnalyzer/VariableReadNodeAnalyzer.php',
@@ -3825,6 +3818,7 @@ class ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46
         'Rector\\Renaming\\Contract\\MethodCallRenameInterface' => __DIR__ . '/../..' . '/rules/renaming/src/Contract/MethodCallRenameInterface.php',
         'Rector\\Renaming\\Contract\\RenameClassConstFetchInterface' => __DIR__ . '/../..' . '/rules/renaming/src/Contract/RenameClassConstFetchInterface.php',
         'Rector\\Renaming\\NodeManipulator\\ClassRenamer' => __DIR__ . '/../..' . '/rules/renaming/src/NodeManipulator/ClassRenamer.php',
+        'Rector\\Renaming\\NodeManipulator\\IdentifierManipulator' => __DIR__ . '/../..' . '/rules/renaming/src/NodeManipulator/IdentifierManipulator.php',
         'Rector\\Renaming\\NodeManipulator\\SwitchManipulator' => __DIR__ . '/../..' . '/rules/renaming/src/NodeManipulator/SwitchManipulator.php',
         'Rector\\Renaming\\Rector\\ClassConstFetch\\RenameClassConstFetchRector' => __DIR__ . '/../..' . '/rules/renaming/src/Rector/ClassConstFetch/RenameClassConstFetchRector.php',
         'Rector\\Renaming\\Rector\\ClassMethod\\RenameAnnotationRector' => __DIR__ . '/../..' . '/rules/renaming/src/Rector/ClassMethod/RenameAnnotationRector.php',
@@ -4169,9 +4163,9 @@ class ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdd0780c8d363759ad1bd88b6a5779a46::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2fe26be558649eef01f07f4a47894d65::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2fe26be558649eef01f07f4a47894d65::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2fe26be558649eef01f07f4a47894d65::$classMap;
 
         }, null, ClassLoader::class);
     }

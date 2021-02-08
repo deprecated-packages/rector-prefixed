@@ -8,9 +8,9 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Foreach_;
 use Rector\CodeQuality\NodeAnalyzer\ForeachNodeAnalyzer;
-use Rector\Core\NodeFinder\NodeUsageFinder;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\ReadWrite\NodeFinder\NodeUsageFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -26,7 +26,7 @@ final class ForeachItemsAssignToEmptyArrayToAssignRector extends \Rector\Core\Re
      * @var ForeachNodeAnalyzer
      */
     private $foreachNodeAnalyzer;
-    public function __construct(\Rector\Core\NodeFinder\NodeUsageFinder $nodeUsageFinder, \Rector\CodeQuality\NodeAnalyzer\ForeachNodeAnalyzer $foreachNodeAnalyzer)
+    public function __construct(\Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder, \Rector\CodeQuality\NodeAnalyzer\ForeachNodeAnalyzer $foreachNodeAnalyzer)
     {
         $this->nodeUsageFinder = $nodeUsageFinder;
         $this->foreachNodeAnalyzer = $foreachNodeAnalyzer;

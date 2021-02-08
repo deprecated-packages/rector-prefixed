@@ -8,7 +8,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Trait_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -34,7 +34,7 @@ final class RemoveTraitRector extends \Rector\Core\Rector\AbstractRector impleme
      * @var ClassManipulator
      */
     private $classManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)
     {
         $this->classManipulator = $classManipulator;
     }

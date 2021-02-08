@@ -16,7 +16,7 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\Comment\CommentsMerger;
-use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
+use Rector\Core\NodeManipulator\BinaryOpManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Php71\ValueObject\TwoNodeMatch;
@@ -35,7 +35,7 @@ final class ForeachToInArrayRector extends \Rector\Core\Rector\AbstractRector
      * @var CommentsMerger
      */
     private $commentsMerger;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator, \Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger)
+    public function __construct(\Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator, \Rector\BetterPhpDocParser\Comment\CommentsMerger $commentsMerger)
     {
         $this->binaryOpManipulator = $binaryOpManipulator;
         $this->commentsMerger = $commentsMerger;

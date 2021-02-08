@@ -8,14 +8,14 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use Rector\Core\PhpParser\Node\Manipulator\FuncCallManipulator;
+use Rector\Core\NodeManipulator\FuncCallManipulator;
 final class ArrayFromCompactFactory
 {
     /**
      * @var FuncCallManipulator
      */
     private $funcCallManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\FuncCallManipulator $funcCallManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\FuncCallManipulator $funcCallManipulator)
     {
         $this->funcCallManipulator = $funcCallManipulator;
     }

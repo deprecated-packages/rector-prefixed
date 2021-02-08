@@ -13,8 +13,8 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
-use Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
-use Rector\Core\PhpParser\Node\Manipulator\NullsafeManipulator;
+use Rector\Core\NodeManipulator\IfManipulator;
+use Rector\Core\NodeManipulator\NullsafeManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -37,7 +37,7 @@ final class NullsafeOperatorRector extends \Rector\Core\Rector\AbstractRector
      * @var NullsafeManipulator
      */
     private $nullsafeManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator, \Rector\Core\PhpParser\Node\Manipulator\NullsafeManipulator $nullsafeManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\Core\NodeManipulator\NullsafeManipulator $nullsafeManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->nullsafeManipulator = $nullsafeManipulator;

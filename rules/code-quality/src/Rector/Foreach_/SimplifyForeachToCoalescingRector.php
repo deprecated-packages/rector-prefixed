@@ -12,7 +12,7 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
-use Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator;
+use Rector\Core\NodeManipulator\ForeachManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\Core\ValueObject\PhpVersionFeature;
@@ -34,7 +34,7 @@ final class SimplifyForeachToCoalescingRector extends \Rector\Core\Rector\Abstra
      * @var Return_|null
      */
     private $return;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator $foreachManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ForeachManipulator $foreachManipulator)
     {
         $this->foreachManipulator = $foreachManipulator;
     }

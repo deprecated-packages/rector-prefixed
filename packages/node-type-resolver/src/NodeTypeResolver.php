@@ -29,7 +29,7 @@ use PHPStan\Type\TypeUtils;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\NodeAnalyzer\ClassNodeAnalyzer;
+use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -63,13 +63,13 @@ final class NodeTypeResolver
      */
     private $typeUnwrapper;
     /**
-     * @var ClassNodeAnalyzer
+     * @var ClassAnalyzer
      */
-    private $classNodeAnalyzer;
+    private $classAnalyzer;
     /**
      * @param NodeTypeResolverInterface[] $nodeTypeResolvers
      */
-    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\NodeTypeResolver\NodeTypeCorrector\ParentClassLikeTypeCorrector $parentClassLikeTypeCorrector, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, array $nodeTypeResolvers)
+    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\NodeTypeResolver\NodeTypeCorrector\ParentClassLikeTypeCorrector $parentClassLikeTypeCorrector, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, array $nodeTypeResolvers)
     {
         foreach ($nodeTypeResolvers as $nodeTypeResolver) {
             $this->addNodeTypeResolver($nodeTypeResolver);
@@ -77,7 +77,7 @@ final class NodeTypeResolver
         $this->objectTypeSpecifier = $objectTypeSpecifier;
         $this->parentClassLikeTypeCorrector = $parentClassLikeTypeCorrector;
         $this->typeUnwrapper = $typeUnwrapper;
-        $this->classNodeAnalyzer = $classNodeAnalyzer;
+        $this->classAnalyzer = $classAnalyzer;
     }
     /**
      * Prevents circular dependency
@@ -164,8 +164,11 @@ final class NodeTypeResolver
         if (!$nodeScope instanceof \PHPStan\Analyser\Scope) {
             return new \PHPStan\Type\MixedType();
         }
-        if ($node instanceof \PhpParser\Node\Expr\New_ && $this->classNodeAnalyzer->isAnonymousClass($node->class)) {
-            return $this->resolveAnonymousClassType($node);
+        if ($node instanceof \PhpParser\Node\Expr\New_) {
+            $isAnonymousClass = $this->classAnalyzer->isAnonymousClass($node->class);
+            if ($isAnonymousClass) {
+                return $this->resolveAnonymousClassType($node);
+            }
         }
         $staticType = $nodeScope->getType($node);
         if (!$staticType instanceof \PHPStan\Type\ObjectType) {
@@ -307,8 +310,11 @@ final class NodeTypeResolver
             return new \PHPStan\Type\MixedType();
         }
         // skip anonymous classes, ref https://github.com/rectorphp/rector/issues/1574
-        if ($node instanceof \PhpParser\Node\Expr\New_ && $this->classNodeAnalyzer->isAnonymousClass($node->class)) {
-            return new \PHPStan\Type\ObjectWithoutClassType();
+        if ($node instanceof \PhpParser\Node\Expr\New_) {
+            $isAnonymousClass = $this->classAnalyzer->isAnonymousClass($node->class);
+            if ($isAnonymousClass) {
+                return new \PHPStan\Type\ObjectWithoutClassType();
+            }
         }
         $type = $nodeScope->getType($node);
         // hot fix for phpstan not resolving chain method calls

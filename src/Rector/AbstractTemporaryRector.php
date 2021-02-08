@@ -23,10 +23,10 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Exclusion\ExclusionManager;
 use Rector\Core\Logging\CurrentRectorProvider;
-use Rector\Core\NodeAnalyzer\ClassNodeAnalyzer;
+use Rector\Core\NodeAnalyzer\ClassAnalyzer;
+use Rector\Core\NodeManipulator\VisibilityManipulator;
 use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Node\Manipulator\VisibilityManipulator;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\Rector\AbstractRector\AbstractRectorTrait;
@@ -86,6 +86,10 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
      */
     protected $betterNodeFinder;
     /**
+     * @var ClassAnalyzer
+     */
+    protected $classNodeAnalyzer;
+    /**
      * @var SymfonyStyle
      */
     private $symfonyStyle;
@@ -97,10 +101,6 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
      * @var CurrentRectorProvider
      */
     private $currentRectorProvider;
-    /**
-     * @var ClassNodeAnalyzer
-     */
-    private $classNodeAnalyzer;
     /**
      * @var CurrentNodeProvider
      */
@@ -116,7 +116,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     /**
      * @required
      */
-    public function autowireAbstractTemporaryRector(\Rector\Core\PhpParser\Node\Manipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210208\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \PhpParser\BuilderFactory $builderFactory, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210208\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassNodeAnalyzer $classNodeAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210208\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder) : void
+    public function autowireAbstractTemporaryRector(\Rector\Core\NodeManipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210208\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \PhpParser\BuilderFactory $builderFactory, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210208\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210208\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder) : void
     {
         $this->visibilityManipulator = $visibilityManipulator;
         $this->nodeFactory = $nodeFactory;
@@ -128,7 +128,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
         $this->staticTypeMapper = $staticTypeMapper;
         $this->parameterProvider = $parameterProvider;
         $this->currentRectorProvider = $currentRectorProvider;
-        $this->classNodeAnalyzer = $classNodeAnalyzer;
+        $this->classNodeAnalyzer = $classAnalyzer;
         $this->currentNodeProvider = $currentNodeProvider;
         $this->skipper = $skipper;
         $this->valueResolver = $valueResolver;
@@ -206,10 +206,6 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     protected function isAtLeastPhpVersion(int $version) : bool
     {
         return $this->phpVersionProvider->isAtLeastPhpVersion($version);
-    }
-    protected function isAnonymousClass(\PhpParser\Node $node) : bool
-    {
-        return $this->classNodeAnalyzer->isAnonymousClass($node);
     }
     protected function mirrorComments(\PhpParser\Node $newNode, \PhpParser\Node $oldNode) : void
     {

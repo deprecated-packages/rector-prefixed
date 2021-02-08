@@ -120,7 +120,7 @@ CODE_SAMPLE
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \true;
         }
-        if ($this->isAnonymousClass($classLike)) {
+        if ($this->classNodeAnalyzer->isAnonymousClass($classLike)) {
             return \true;
         }
         return $this->isObjectTypes($classLike, ['PHPUnit\\Framework\\TestCase', 'PHP_CodeSniffer\\Sniffs\\Sniff']);

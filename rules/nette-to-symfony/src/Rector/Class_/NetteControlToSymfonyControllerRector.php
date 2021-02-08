@@ -101,7 +101,7 @@ CODE_SAMPLE
     }
     private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if ($this->isAnonymousClass($class)) {
+        if ($this->classNodeAnalyzer->isAnonymousClass($class)) {
             return \true;
         }
         // skip presenter

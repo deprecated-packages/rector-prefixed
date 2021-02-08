@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\If_;
-use Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
+use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DeadCode\FeatureSupport\FunctionSupportResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -26,7 +26,7 @@ final class UnwrapFutureCompatibleIfFunctionExistsRector extends \Rector\Core\Re
      * @var FunctionSupportResolver
      */
     private $functionSupportResolver;
-    public function __construct(\Rector\DeadCode\FeatureSupport\FunctionSupportResolver $functionSupportResolver, \Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator)
+    public function __construct(\Rector\DeadCode\FeatureSupport\FunctionSupportResolver $functionSupportResolver, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->functionSupportResolver = $functionSupportResolver;

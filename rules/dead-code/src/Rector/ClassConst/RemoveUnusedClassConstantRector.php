@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassLike;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
-use Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator;
+use Rector\Core\NodeManipulator\ClassConstManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -22,7 +22,7 @@ final class RemoveUnusedClassConstantRector extends \Rector\Core\Rector\Abstract
      * @var ClassConstManipulator
      */
     private $classConstManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassConstManipulator $classConstManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ClassConstManipulator $classConstManipulator)
     {
         $this->classConstManipulator = $classConstManipulator;
     }

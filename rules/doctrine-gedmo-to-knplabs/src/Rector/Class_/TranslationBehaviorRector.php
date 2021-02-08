@@ -11,8 +11,8 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\LocaleTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Gedmo\TranslatableTagValueNode;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
-use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use Rector\Core\NodeManipulator\ClassInsertManipulator;
+use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\DoctrineGedmoToKnplabs\NodeFactory\TranslationClassNodeFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -41,7 +41,7 @@ final class TranslationBehaviorRector extends \Rector\Core\Rector\AbstractRector
      * @var TranslationClassNodeFactory
      */
     private $translationClassNodeFactory;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\PhpParser\Node\Manipulator\ClassManipulator $classManipulator, \Rector\DoctrineGedmoToKnplabs\NodeFactory\TranslationClassNodeFactory $translationClassNodeFactory)
+    public function __construct(\Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\DoctrineGedmoToKnplabs\NodeFactory\TranslationClassNodeFactory $translationClassNodeFactory)
     {
         $this->classManipulator = $classManipulator;
         $this->classInsertManipulator = $classInsertManipulator;

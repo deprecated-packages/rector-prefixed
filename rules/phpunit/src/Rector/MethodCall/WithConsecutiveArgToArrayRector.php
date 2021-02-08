@@ -11,7 +11,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ArrayType;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator;
+use Rector\Core\NodeManipulator\MethodCallManipulator;
 use Rector\Core\Rector\AbstractRector;
 use ReflectionMethod;
 use RectorPrefix20210208\Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -29,7 +29,7 @@ final class WithConsecutiveArgToArrayRector extends \Rector\Core\Rector\Abstract
      * @var MethodCallManipulator
      */
     private $methodCallManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\MethodCallManipulator $methodCallManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\MethodCallManipulator $methodCallManipulator)
     {
         $this->methodCallManipulator = $methodCallManipulator;
     }

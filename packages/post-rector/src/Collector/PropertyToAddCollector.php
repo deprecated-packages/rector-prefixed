@@ -12,7 +12,7 @@ use Rector\PostRector\ValueObject\PropertyMetadata;
 final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**
-     * @var ClassConst[][]
+     * @var array<string, array<string, ClassConst>>
      */
     private $constantsByClass = [];
     /**
@@ -56,7 +56,6 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
         $this->propertiesWithoutConstructorByClass[\spl_object_hash($class)][$propertyName] = $propertyType;
     }
     /**
-     * @var ClassConst[]
      * @return ClassConst[]
      */
     public function getConstantsByClass(\PhpParser\Node\Stmt\Class_ $class) : array

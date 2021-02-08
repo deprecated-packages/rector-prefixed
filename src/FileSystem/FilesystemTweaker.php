@@ -4,9 +4,17 @@ declare (strict_types=1);
 namespace Rector\Core\FileSystem;
 
 use RectorPrefix20210208\Nette\Utils\Strings;
-use Rector\Core\Exception\FileSystem\DirectoryNotFoundException;
+use RectorPrefix20210208\Symplify\SmartFileSystem\FileSystemGuard;
 final class FilesystemTweaker
 {
+    /**
+     * @var FileSystemGuard
+     */
+    private $fileSystemGuard;
+    public function __construct(\RectorPrefix20210208\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
+    {
+        $this->fileSystemGuard = $fileSystemGuard;
+    }
     /**
      * This will turn paths like "src/Symfony/Component/*\/Tests" to existing directory paths
      *
@@ -23,7 +31,7 @@ final class FilesystemTweaker
                 $absoluteDirectories = \array_merge($absoluteDirectories, $foundDirectories);
             } else {
                 // is classic directory
-                $this->ensureDirectoryExists($directory);
+                $this->fileSystemGuard->ensureDirectoryExists($directory);
                 $absoluteDirectories[] = $directory;
             }
         }
@@ -42,12 +50,5 @@ final class FilesystemTweaker
             $foundDirectories[] = $foundDirectory;
         }
         return $foundDirectories;
-    }
-    private function ensureDirectoryExists(string $directory) : void
-    {
-        if (\file_exists($directory)) {
-            return;
-        }
-        throw new \Rector\Core\Exception\FileSystem\DirectoryNotFoundException(\sprintf('Directory "%s" was not found.', $directory));
     }
 }

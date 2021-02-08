@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Foreach_;
-use Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator;
+use Rector\Core\NodeManipulator\ForeachManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -22,7 +22,7 @@ final class SimplifyForeachInstanceOfRector extends \Rector\Core\Rector\Abstract
      * @var ForeachManipulator
      */
     private $foreachManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ForeachManipulator $foreachManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ForeachManipulator $foreachManipulator)
     {
         $this->foreachManipulator = $foreachManipulator;
     }

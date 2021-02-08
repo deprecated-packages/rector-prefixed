@@ -9,8 +9,8 @@ use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use PhpParser\Node\Expr\BooleanNot;
+use Rector\Core\NodeManipulator\BinaryOpManipulator;
 use Rector\Core\PhpParser\Node\AssignAndBinaryMap;
-use Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Php71\ValueObject\TwoNodeMatch;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -28,7 +28,7 @@ final class SimplifyConditionsRector extends \Rector\Core\Rector\AbstractRector
      * @var BinaryOpManipulator
      */
     private $binaryOpManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap, \Rector\Core\PhpParser\Node\Manipulator\BinaryOpManipulator $binaryOpManipulator)
+    public function __construct(\Rector\Core\PhpParser\Node\AssignAndBinaryMap $assignAndBinaryMap, \Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator)
     {
         $this->assignAndBinaryMap = $assignAndBinaryMap;
         $this->binaryOpManipulator = $binaryOpManipulator;

@@ -16,7 +16,7 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PHPStan\Type\Type;
 use Rector\CodingStyle\TypeAnalyzer\IterableTypeAnalyzer;
-use Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator;
+use Rector\Core\NodeManipulator\PropertyFetchManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -37,7 +37,7 @@ final class AddArrayDefaultToArrayPropertyRector extends \Rector\Core\Rector\Abs
      * @var IterableTypeAnalyzer
      */
     private $iterableTypeAnalyzer;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyFetchManipulator $propertyFetchManipulator, \Rector\CodingStyle\TypeAnalyzer\IterableTypeAnalyzer $iterableTypeAnalyzer)
+    public function __construct(\Rector\Core\NodeManipulator\PropertyFetchManipulator $propertyFetchManipulator, \Rector\CodingStyle\TypeAnalyzer\IterableTypeAnalyzer $iterableTypeAnalyzer)
     {
         $this->propertyFetchManipulator = $propertyFetchManipulator;
         $this->iterableTypeAnalyzer = $iterableTypeAnalyzer;

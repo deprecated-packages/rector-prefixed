@@ -140,7 +140,7 @@ CODE_SAMPLE
     }
     private function shouldSkipClassLike(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
-        if ($this->isAnonymousClass($class)) {
+        if ($this->classNodeAnalyzer->isAnonymousClass($class)) {
             return \true;
         }
         if ($this->doctrineDocBlockResolver->isDoctrineEntityClass($class)) {

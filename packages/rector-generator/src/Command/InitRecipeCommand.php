@@ -22,7 +22,6 @@ final class InitRecipeCommand extends \RectorPrefix20210208\Symfony\Component\Co
     protected function configure() : void
     {
         $this->setDescription('[DEV] Initialize "rector-recipe.php" config');
-        $this->setAliases(['recipe-init']);
     }
     protected function execute(\RectorPrefix20210208\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210208\Symfony\Component\Console\Output\OutputInterface $output) : int
     {

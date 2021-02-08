@@ -10,7 +10,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\List_;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Node\Manipulator\AssignManipulator;
+use Rector\Core\NodeManipulator\AssignManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -26,7 +26,7 @@ final class ListEachRector extends \Rector\Core\Rector\AbstractRector
      * @var AssignManipulator
      */
     private $assignManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\AssignManipulator $assignManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\AssignManipulator $assignManipulator)
     {
         $this->assignManipulator = $assignManipulator;
     }

@@ -5,11 +5,11 @@ namespace Rector\Core\Autoloading;
 
 use RectorPrefix20210208\Nette\Loaders\RobotLoader;
 use Rector\Core\Configuration\Option;
-use Rector\Core\FileSystem\FileGuard;
 use RectorPrefix20210208\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210208\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use RectorPrefix20210208\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver;
 use RectorPrefix20210208\Symplify\SmartFileSystem\FileSystemFilter;
+use RectorPrefix20210208\Symplify\SmartFileSystem\FileSystemGuard;
 /**
  * Should it pass autoload files/directories to PHPStan analyzer?
  */
@@ -20,10 +20,6 @@ final class AdditionalAutoloader
      */
     private $autoloadPaths = [];
     /**
-     * @var FileGuard
-     */
-    private $fileGuard;
-    /**
      * @var FileSystemFilter
      */
     private $fileSystemFilter;
@@ -31,12 +27,16 @@ final class AdditionalAutoloader
      * @var SkippedPathsResolver
      */
     private $skippedPathsResolver;
-    public function __construct(\Rector\Core\FileSystem\FileGuard $fileGuard, \RectorPrefix20210208\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \RectorPrefix20210208\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210208\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver)
+    /**
+     * @var FileSystemGuard
+     */
+    private $fileSystemGuard;
+    public function __construct(\RectorPrefix20210208\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter, \RectorPrefix20210208\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210208\Symplify\Skipper\SkipCriteriaResolver\SkippedPathsResolver $skippedPathsResolver, \RectorPrefix20210208\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard)
     {
-        $this->fileGuard = $fileGuard;
         $this->autoloadPaths = (array) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::AUTOLOAD_PATHS);
         $this->fileSystemFilter = $fileSystemFilter;
         $this->skippedPathsResolver = $skippedPathsResolver;
+        $this->fileSystemGuard = $fileSystemGuard;
     }
     /**
      * @param string[] $source
@@ -94,7 +94,7 @@ final class AdditionalAutoloader
     private function autoloadFiles(array $files) : void
     {
         foreach ($files as $file) {
-            $this->fileGuard->ensureFileExists($file, 'Extra autoload');
+            $this->fileSystemGuard->ensureFileExists($file, 'Extra autoload');
             require_once $file;
         }
     }

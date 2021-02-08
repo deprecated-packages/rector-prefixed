@@ -7,7 +7,7 @@ use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use Rector\Core\PhpParser\Node\Manipulator\FunctionLikeManipulator;
+use Rector\Core\NodeManipulator\FunctionLikeManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\TypeDeclaration\Contract\TypeInferer\ReturnTypeInfererInterface;
 use Rector\TypeDeclaration\TypeInferer\AbstractTypeInferer;
@@ -22,7 +22,7 @@ final class SetterNodeReturnTypeInferer extends \Rector\TypeDeclaration\TypeInfe
      * @var AssignToPropertyTypeInferer
      */
     private $assignToPropertyTypeInferer;
-    public function __construct(\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer $assignToPropertyTypeInferer, \Rector\Core\PhpParser\Node\Manipulator\FunctionLikeManipulator $functionLikeManipulator)
+    public function __construct(\Rector\TypeDeclaration\TypeInferer\AssignToPropertyTypeInferer $assignToPropertyTypeInferer, \Rector\Core\NodeManipulator\FunctionLikeManipulator $functionLikeManipulator)
     {
         $this->functionLikeManipulator = $functionLikeManipulator;
         $this->assignToPropertyTypeInferer = $assignToPropertyTypeInferer;

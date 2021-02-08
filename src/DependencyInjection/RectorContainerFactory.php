@@ -17,8 +17,8 @@ final class RectorContainerFactory
     public function createFromConfigs(array $configFileInfos) : \RectorPrefix20210208\Psr\Container\ContainerInterface
     {
         // to override the configs without clearing cache
-        $environment = 'prod' . \random_int(1, 10000000);
         $isDebug = \RectorPrefix20210208\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug();
+        $environment = $this->createEnvironment($configFileInfos);
         $rectorKernel = new \Rector\Core\HttpKernel\RectorKernel($environment, $isDebug);
         if ($configFileInfos !== []) {
             $configFilePaths = $this->unpackRealPathsFromFileInfos($configFileInfos);
@@ -41,5 +41,17 @@ final class RectorContainerFactory
             $configFilePaths[] = $configFileInfo->getRealPath() ?: $configFileInfo->getPathname();
         }
         return $configFilePaths;
+    }
+    /**
+     * @param SmartFileInfo[] $configFileInfos
+     */
+    private function createEnvironment(array $configFileInfos) : string
+    {
+        $configHashes = [];
+        foreach ($configFileInfos as $configFileInfo) {
+            $configHashes[] = \md5_file($configFileInfo->getRealPath());
+        }
+        $configHashString = \implode('', $configHashes);
+        return \sha1($configHashString);
     }
 }

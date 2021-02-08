@@ -16,8 +16,8 @@ use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\While_;
-use Rector\Core\PhpParser\Node\Manipulator\IfManipulator;
-use Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator;
+use Rector\Core\NodeManipulator\IfManipulator;
+use Rector\Core\NodeManipulator\StmtsManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\EarlyReturn\NodeTransformer\ConditionInverter;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -44,7 +44,7 @@ final class ChangeAndIfToEarlyReturnRector extends \Rector\Core\Rector\AbstractR
      * @var StmtsManipulator
      */
     private $stmtsManipulator;
-    public function __construct(\Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter, \Rector\Core\PhpParser\Node\Manipulator\IfManipulator $ifManipulator, \Rector\Core\PhpParser\Node\Manipulator\StmtsManipulator $stmtsManipulator)
+    public function __construct(\Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter, \Rector\Core\NodeManipulator\IfManipulator $ifManipulator, \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator)
     {
         $this->ifManipulator = $ifManipulator;
         $this->conditionInverter = $conditionInverter;

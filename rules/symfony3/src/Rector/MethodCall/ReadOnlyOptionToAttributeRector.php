@@ -8,7 +8,7 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
-use Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator;
+use Rector\Core\NodeManipulator\ArrayManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -20,7 +20,7 @@ final class ReadOnlyOptionToAttributeRector extends \Rector\Symfony3\Rector\Meth
      * @var ArrayManipulator
      */
     private $arrayManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\ArrayManipulator $arrayManipulator)
+    public function __construct(\Rector\Core\NodeManipulator\ArrayManipulator $arrayManipulator)
     {
         $this->arrayManipulator = $arrayManipulator;
     }

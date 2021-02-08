@@ -78,7 +78,7 @@ CODE_SAMPLE
         if (\Rector\Core\Util\StaticInstanceOf::isOneOf($classLike, [\PhpParser\Node\Stmt\Trait_::class, \PhpParser\Node\Stmt\Interface_::class])) {
             return \true;
         }
-        if ($this->isAnonymousClass($classLike)) {
+        if ($this->classNodeAnalyzer->isAnonymousClass($classLike)) {
             return \true;
         }
         // skips interfaces by default too

@@ -10,9 +10,9 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Exception\NotImplementedYetException;
-use Rector\Core\NodeFinder\NodeUsageFinder;
 use Rector\NodeNestingScope\ParentScopeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\ReadWrite\NodeFinder\NodeUsageFinder;
 abstract class AbstractReadNodeAnalyzer
 {
     /**
@@ -26,7 +26,7 @@ abstract class AbstractReadNodeAnalyzer
     /**
      * @required
      */
-    public function autowireAbstractReadNodeAnalyzer(\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder, \Rector\Core\NodeFinder\NodeUsageFinder $nodeUsageFinder) : void
+    public function autowireAbstractReadNodeAnalyzer(\Rector\NodeNestingScope\ParentScopeFinder $parentScopeFinder, \Rector\ReadWrite\NodeFinder\NodeUsageFinder $nodeUsageFinder) : void
     {
         $this->parentScopeFinder = $parentScopeFinder;
         $this->nodeUsageFinder = $nodeUsageFinder;

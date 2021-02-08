@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
-use Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator;
+use Rector\Core\NodeManipulator\PropertyManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Privatization\NodeFactory\ClassConstantFactory;
@@ -31,7 +31,7 @@ final class ChangeReadOnlyPropertyWithDefaultValueToConstantRector extends \Rect
      * @var PropertyFetchWithConstFetchReplacer
      */
     private $propertyFetchWithConstFetchReplacer;
-    public function __construct(\Rector\Core\PhpParser\Node\Manipulator\PropertyManipulator $propertyManipulator, \Rector\Privatization\NodeFactory\ClassConstantFactory $classConstantFactory, \Rector\Privatization\NodeReplacer\PropertyFetchWithConstFetchReplacer $propertyFetchWithConstFetchReplacer)
+    public function __construct(\Rector\Core\NodeManipulator\PropertyManipulator $propertyManipulator, \Rector\Privatization\NodeFactory\ClassConstantFactory $classConstantFactory, \Rector\Privatization\NodeReplacer\PropertyFetchWithConstFetchReplacer $propertyFetchWithConstFetchReplacer)
     {
         $this->propertyManipulator = $propertyManipulator;
         $this->classConstantFactory = $classConstantFactory;
