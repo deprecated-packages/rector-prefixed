@@ -20,7 +20,7 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 final class ParsedPropertyFetchNodeCollector
 {
     /**
-     * @var PropertyFetch[][][]
+     * @var array<string, array<string, PropertyFetch[]>>
      */
     private $propertyFetchesByTypeAndName = [];
     /**
