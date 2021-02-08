@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver\Source;
 
-class ClassWithNativeProps
+final class ClassWithTypedPropertyTypes
 {
     public $implicitMixed;
     public string $text;

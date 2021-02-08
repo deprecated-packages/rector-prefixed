@@ -18,6 +18,7 @@ final class PhpVersionFeature
      */
     public const DATE_TIME_INTERFACE = \Rector\Core\ValueObject\PhpVersion::PHP_55;
     /**
+     * @see https://wiki.php.net/rfc/class_name_scalars
      * @var int
      */
     public const CLASSNAME_CONSTANT = \Rector\Core\ValueObject\PhpVersion::PHP_55;

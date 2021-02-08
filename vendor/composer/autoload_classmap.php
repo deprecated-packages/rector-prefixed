@@ -2341,7 +2341,6 @@ return array(
     'Rector\\FamilyTree\\Reflection\\FamilyRelationsAnalyzer' => $baseDir . '/packages/family-tree/src/Reflection/FamilyRelationsAnalyzer.php',
     'Rector\\FileSystemRector\\Contract\\MovedFileInterface' => $baseDir . '/packages/file-system-rector/src/Contract/MovedFileInterface.php',
     'Rector\\FileSystemRector\\Parser\\FileInfoParser' => $baseDir . '/packages/file-system-rector/src/Parser/FileInfoParser.php',
-    'Rector\\FileSystemRector\\Rector\\FileNode\\RemoveProjectFileRector' => $baseDir . '/packages/file-system-rector/src/Rector/FileNode/RemoveProjectFileRector.php',
     'Rector\\FileSystemRector\\ValueObjectFactory\\MovedFileWithNodesFactory' => $baseDir . '/packages/file-system-rector/src/ValueObjectFactory/MovedFileWithNodesFactory.php',
     'Rector\\FileSystemRector\\ValueObject\\AddedFileWithContent' => $baseDir . '/packages/file-system-rector/src/ValueObject/AddedFileWithContent.php',
     'Rector\\FileSystemRector\\ValueObject\\MovedFileWithContent' => $baseDir . '/packages/file-system-rector/src/ValueObject/MovedFileWithContent.php',
