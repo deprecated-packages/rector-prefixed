@@ -5,8 +5,6 @@ namespace Rector\Transform\Tests\Rector\FuncCall\FuncCallToStaticCallRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector;
-use Rector\Transform\ValueObject\FuncCallToStaticCall;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class FuncCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -21,11 +19,8 @@ final class FuncCallToStaticCallRectorTest extends \Rector\Testing\PHPUnit\Abstr
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector::class => [\Rector\Transform\Rector\FuncCall\FuncCallToStaticCallRector::FUNC_CALLS_TO_STATIC_CALLS => [new \Rector\Transform\ValueObject\FuncCallToStaticCall('view', 'SomeStaticClass', 'render'), new \Rector\Transform\ValueObject\FuncCallToStaticCall('SomeNamespaced\\view', 'AnotherStaticClass', 'render')]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

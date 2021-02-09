@@ -5,9 +5,6 @@ namespace Rector\Transform\Tests\Rector\StaticCall\StaticCallToNewRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\StaticCall\StaticCallToNewRector;
-use Rector\Transform\Tests\Rector\StaticCall\StaticCallToNewRector\Source\SomeJsonResponse;
-use Rector\Transform\ValueObject\StaticCallToNew;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class StaticCallToNewRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -22,11 +19,8 @@ final class StaticCallToNewRectorTest extends \Rector\Testing\PHPUnit\AbstractRe
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return mixed[]
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\StaticCall\StaticCallToNewRector::class => [\Rector\Transform\Rector\StaticCall\StaticCallToNewRector::STATIC_CALLS_TO_NEWS => [new \Rector\Transform\ValueObject\StaticCallToNew(\Rector\Transform\Tests\Rector\StaticCall\StaticCallToNewRector\Source\SomeJsonResponse::class, 'create')]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

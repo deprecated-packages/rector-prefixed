@@ -4,9 +4,6 @@ declare (strict_types=1);
 namespace Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector;
 
 use Iterator;
-use Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector;
-use Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory;
-use Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class StaticTypeToSetterInjectionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -22,15 +19,8 @@ final class StaticTypeToSetterInjectionRectorTest extends \Rector\Testing\PHPUni
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::class => [\Rector\RemovingStatic\Rector\Class_\StaticTypeToSetterInjectionRector::STATIC_TYPES => [
-            \Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactory::class,
-            // with adding a parent interface to the class
-            'ParentSetterEnforcingInterface' => \Rector\RemovingStatic\Tests\Rector\Class_\StaticTypeToSetterInjectionRector\Source\GenericEntityFactoryWithInterface::class,
-        ]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

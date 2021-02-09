@@ -5,10 +5,6 @@ namespace Rector\Transform\Tests\Rector\New_\NewToMethodCallRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\New_\NewToMethodCallRector;
-use Rector\Transform\Tests\Rector\New_\NewToMethodCallRector\Source\MyClass;
-use Rector\Transform\Tests\Rector\New_\NewToMethodCallRector\Source\MyClassFactory;
-use Rector\Transform\ValueObject\NewToMethodCall;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class NewToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -23,11 +19,8 @@ final class NewToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRe
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\New_\NewToMethodCallRector::class => [\Rector\Transform\Rector\New_\NewToMethodCallRector::NEWS_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\NewToMethodCall(\Rector\Transform\Tests\Rector\New_\NewToMethodCallRector\Source\MyClass::class, \Rector\Transform\Tests\Rector\New_\NewToMethodCallRector\Source\MyClassFactory::class, 'create')]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

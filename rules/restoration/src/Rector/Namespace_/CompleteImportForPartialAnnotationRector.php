@@ -11,7 +11,7 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Restoration\ValueObject\UseWithAlias;
+use Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation;
 use RectorPrefix20210209\Symplify\Astral\ValueObject\NodeBuilder\UseBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -26,7 +26,7 @@ final class CompleteImportForPartialAnnotationRector extends \Rector\Core\Rector
      */
     public const USE_IMPORTS_TO_RESTORE = '$useImportsToRestore';
     /**
-     * @var UseWithAlias[]
+     * @var CompleteImportForPartialAnnotation[]
      */
     private $useImportsToRestore = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -51,7 +51,7 @@ class SomeClass
     public $id;
 }
 CODE_SAMPLE
-, [self::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\UseWithAlias('Doctrine\\ORM\\Mapping', 'ORM')]])]);
+, [self::USE_IMPORTS_TO_RESTORE => [new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('Doctrine\\ORM\\Mapping', 'ORM')]])]);
     }
     /**
      * @return string[]
@@ -79,14 +79,14 @@ CODE_SAMPLE
         return $node;
     }
     /**
-     * @param UseWithAlias[][] $configuration
+     * @param CompleteImportForPartialAnnotation[][] $configuration
      */
     public function configure(array $configuration) : void
     {
-        $default = [new \Rector\Restoration\ValueObject\UseWithAlias('Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\UseWithAlias('Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\UseWithAlias('JMS\\Serializer\\Annotation', 'Serializer')];
+        $default = [new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('Doctrine\\ORM\\Mapping', 'ORM'), new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('Symfony\\Component\\Validator\\Constraints', 'Assert'), new \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation('JMS\\Serializer\\Annotation', 'Serializer')];
         $this->useImportsToRestore = \array_merge($configuration[self::USE_IMPORTS_TO_RESTORE] ?? [], $default);
     }
-    private function addImportToNamespaceIfMissing(\PhpParser\Node\Stmt\Namespace_ $namespace, \Rector\Restoration\ValueObject\UseWithAlias $useWithAlias) : \PhpParser\Node\Stmt\Namespace_
+    private function addImportToNamespaceIfMissing(\PhpParser\Node\Stmt\Namespace_ $namespace, \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation $completeImportForPartialAnnotation) : \PhpParser\Node\Stmt\Namespace_
     {
         foreach ($namespace->stmts as $stmt) {
             if (!$stmt instanceof \PhpParser\Node\Stmt\Use_) {
@@ -94,17 +94,17 @@ CODE_SAMPLE
             }
             $useUse = $stmt->uses[0];
             // already there
-            if ($this->isName($useUse->name, $useWithAlias->getUse()) && (string) $useUse->alias === $useWithAlias->getAlias()) {
+            if ($this->isName($useUse->name, $completeImportForPartialAnnotation->getUse()) && (string) $useUse->alias === $completeImportForPartialAnnotation->getAlias()) {
                 return $namespace;
             }
         }
-        return $this->addImportToNamespace($namespace, $useWithAlias);
+        return $this->addImportToNamespace($namespace, $completeImportForPartialAnnotation);
     }
-    private function addImportToNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace, \Rector\Restoration\ValueObject\UseWithAlias $useWithAlias) : \PhpParser\Node\Stmt\Namespace_
+    private function addImportToNamespace(\PhpParser\Node\Stmt\Namespace_ $namespace, \Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation $completeImportForPartialAnnotation) : \PhpParser\Node\Stmt\Namespace_
     {
-        $useBuilder = new \RectorPrefix20210209\Symplify\Astral\ValueObject\NodeBuilder\UseBuilder($useWithAlias->getUse());
-        if ($useWithAlias->getAlias() !== '') {
-            $useBuilder->as($useWithAlias->getAlias());
+        $useBuilder = new \RectorPrefix20210209\Symplify\Astral\ValueObject\NodeBuilder\UseBuilder($completeImportForPartialAnnotation->getUse());
+        if ($completeImportForPartialAnnotation->getAlias() !== '') {
+            $useBuilder->as($completeImportForPartialAnnotation->getAlias());
         }
         /** @var Stmt $use */
         $use = $useBuilder->getNode();

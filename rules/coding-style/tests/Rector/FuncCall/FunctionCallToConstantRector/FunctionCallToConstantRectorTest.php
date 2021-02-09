@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\CodingStyle\Tests\Rector\FuncCall\FunctionCallToConstantRector;
 
 use Iterator;
-use Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class FunctionCallToConstantRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -20,11 +19,8 @@ final class FunctionCallToConstantRectorTest extends \Rector\Testing\PHPUnit\Abs
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector::class => [\Rector\CodingStyle\Rector\FuncCall\FunctionCallToConstantRector::FUNCTIONS_TO_CONSTANTS => ['php_sapi_name' => 'PHP_SAPI', 'pi' => 'M_PI']]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

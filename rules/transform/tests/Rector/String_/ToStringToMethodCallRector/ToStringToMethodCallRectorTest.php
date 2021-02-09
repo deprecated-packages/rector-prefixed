@@ -5,8 +5,6 @@ namespace Rector\Transform\Tests\Rector\String_\ToStringToMethodCallRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\String_\ToStringToMethodCallRector;
-use RectorPrefix20210209\Symfony\Component\Config\ConfigCache;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class ToStringToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -21,11 +19,8 @@ final class ToStringToMethodCallRectorTest extends \Rector\Testing\PHPUnit\Abstr
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\String_\ToStringToMethodCallRector::class => [\Rector\Transform\Rector\String_\ToStringToMethodCallRector::METHOD_NAMES_BY_TYPE => [\RectorPrefix20210209\Symfony\Component\Config\ConfigCache::class => 'getPath']]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

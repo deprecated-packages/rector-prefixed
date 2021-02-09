@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Php74\Tests\Rector\LNumber\AddLiteralSeparatorToNumberRector;
 
 use Iterator;
-use Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class AddLiteralSeparatorToNumberRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -20,11 +19,8 @@ final class AddLiteralSeparatorToNumberRectorTest extends \Rector\Testing\PHPUni
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector::class => [\Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector::LIMIT_VALUE => 1000000]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

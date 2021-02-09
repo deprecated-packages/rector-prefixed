@@ -5,9 +5,6 @@ namespace Rector\Transform\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\Isset_\UnsetAndIssetToMethodCallRector;
-use Rector\Transform\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector\Source\LocalContainer;
-use Rector\Transform\ValueObject\IssetUnsetToMethodCall;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class UnsetAndIssetToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -22,11 +19,8 @@ final class UnsetAndIssetToMethodCallRectorTest extends \Rector\Testing\PHPUnit\
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\Isset_\UnsetAndIssetToMethodCallRector::class => [\Rector\Transform\Rector\Isset_\UnsetAndIssetToMethodCallRector::ISSET_UNSET_TO_METHOD_CALL => [new \Rector\Transform\ValueObject\IssetUnsetToMethodCall(\Rector\Transform\Tests\Rector\Isset_\UnsetAndIssetToMethodCallRector\Source\LocalContainer::class, 'hasService', 'removeService')]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

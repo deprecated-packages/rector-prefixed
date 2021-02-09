@@ -4,9 +4,6 @@ declare (strict_types=1);
 namespace Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector;
 
 use Iterator;
-use Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector;
-use Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\Source\ClassWithProperties;
-use Rector\Renaming\ValueObject\RenameProperty;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenamePropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -22,11 +19,8 @@ final class RenamePropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRec
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::class => [\Rector\Renaming\Rector\PropertyFetch\RenamePropertyRector::RENAMED_PROPERTIES => [new \Rector\Renaming\ValueObject\RenameProperty(\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\Source\ClassWithProperties::class, 'oldProperty', 'newProperty'), new \Rector\Renaming\ValueObject\RenameProperty(\Rector\Renaming\Tests\Rector\PropertyFetch\RenamePropertyRector\Source\ClassWithProperties::class, 'anotherOldProperty', 'anotherNewProperty')]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

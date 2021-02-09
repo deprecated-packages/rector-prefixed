@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Symfony\Tests\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector;
 
 use Iterator;
-use Rector\Symfony\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class ChangeFileLoaderInExtensionAndKernelRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -20,11 +19,8 @@ final class ChangeFileLoaderInExtensionAndKernelRectorTest extends \Rector\Testi
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Symfony\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector::class => [\Rector\Symfony\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector::FROM => 'xml', \Rector\Symfony\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector::TO => 'yaml']];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

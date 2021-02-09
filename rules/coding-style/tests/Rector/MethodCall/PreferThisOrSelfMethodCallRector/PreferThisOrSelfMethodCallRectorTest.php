@@ -4,10 +4,6 @@ declare (strict_types=1);
 namespace Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 
 use Iterator;
-use RectorPrefix20210209\PHPUnit\Framework\TestCase;
-use Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
-use Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\AbstractTestCase;
-use Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\BeLocalClass;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class PreferThisOrSelfMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -23,11 +19,8 @@ final class PreferThisOrSelfMethodCallRectorTest extends \Rector\Testing\PHPUnit
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::class => [\Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector::TYPE_TO_PREFERENCE => [\Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\AbstractTestCase::class => 'self', \Rector\CodingStyle\Tests\Rector\MethodCall\PreferThisOrSelfMethodCallRector\Source\BeLocalClass::class => 'this', \RectorPrefix20210209\PHPUnit\Framework\TestCase::class => 'self']]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

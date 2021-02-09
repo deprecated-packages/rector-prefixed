@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\Removing\Tests\Rector\Class_\RemoveParentRector;
 
 use Iterator;
-use Rector\Removing\Rector\Class_\RemoveParentRector;
-use Rector\Removing\Tests\Rector\Class_\RemoveParentRector\Source\ParentTypeToBeRemoved;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveParentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -21,11 +19,8 @@ final class RemoveParentRectorTest extends \Rector\Testing\PHPUnit\AbstractRecto
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Removing\Rector\Class_\RemoveParentRector::class => [\Rector\Removing\Rector\Class_\RemoveParentRector::PARENT_TYPES_TO_REMOVE => [\Rector\Removing\Tests\Rector\Class_\RemoveParentRector\Source\ParentTypeToBeRemoved::class]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

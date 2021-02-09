@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Legacy\Tests\Rector\FileWithoutNamespace\AddTopIncludeRector;
 
 use Iterator;
-use Rector\Legacy\Rector\FileWithoutNamespace\AddTopIncludeRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class AddTopIncludeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -20,11 +19,8 @@ final class AddTopIncludeRectorTest extends \Rector\Testing\PHPUnit\AbstractRect
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Legacy\Rector\FileWithoutNamespace\AddTopIncludeRector::class => [\Rector\Legacy\Rector\FileWithoutNamespace\AddTopIncludeRector::AUTOLOAD_FILE_PATH => '/../autoloader.php']];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

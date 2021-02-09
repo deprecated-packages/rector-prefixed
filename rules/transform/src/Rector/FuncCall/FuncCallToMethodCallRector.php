@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Transform\Rector\AbstractToMethodCallRector;
-use Rector\Transform\ValueObject\FuncNameToMethodCallName;
+use Rector\Transform\ValueObject\FuncCallToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210209\Webmozart\Assert\Assert;
@@ -23,7 +23,7 @@ final class FuncCallToMethodCallRector extends \Rector\Transform\Rector\Abstract
      */
     public const FUNC_CALL_TO_CLASS_METHOD_CALL = 'function_to_class_to_method_call';
     /**
-     * @var FuncNameToMethodCallName[]
+     * @var FuncCallToMethodCall[]
      */
     private $funcNameToMethodCallNames = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -56,7 +56,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \Rector\Transform\ValueObject\FuncNameToMethodCallName('view', 'Namespaced\\SomeRenderer', 'render')]])]);
+, [self::FUNC_CALL_TO_CLASS_METHOD_CALL => [new \Rector\Transform\ValueObject\FuncCallToMethodCall('view', 'Namespaced\\SomeRenderer', 'render')]])]);
     }
     /**
      * @return string[]
@@ -93,7 +93,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $funcCallsToClassMethodCalls = $configuration[self::FUNC_CALL_TO_CLASS_METHOD_CALL] ?? [];
-        \RectorPrefix20210209\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \Rector\Transform\ValueObject\FuncNameToMethodCallName::class);
+        \RectorPrefix20210209\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \Rector\Transform\ValueObject\FuncCallToMethodCall::class);
         $this->funcNameToMethodCallNames = $funcCallsToClassMethodCalls;
     }
 }

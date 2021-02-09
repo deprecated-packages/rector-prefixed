@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\Restoration\Tests\Rector\New_\CompleteMissingDependencyInNewRector;
 
 use Iterator;
-use Rector\Restoration\Rector\New_\CompleteMissingDependencyInNewRector;
-use Rector\Restoration\Tests\Rector\New_\CompleteMissingDependencyInNewRector\Source\RandomDependency;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class CompleteMissingDependencyInNewRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -21,11 +19,8 @@ final class CompleteMissingDependencyInNewRectorTest extends \Rector\Testing\PHP
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Restoration\Rector\New_\CompleteMissingDependencyInNewRector::class => [\Rector\Restoration\Rector\New_\CompleteMissingDependencyInNewRector::CLASS_TO_INSTANTIATE_BY_TYPE => [\Rector\Restoration\Tests\Rector\New_\CompleteMissingDependencyInNewRector\Source\RandomDependency::class => \Rector\Restoration\Tests\Rector\New_\CompleteMissingDependencyInNewRector\Source\RandomDependency::class]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

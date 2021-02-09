@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\DeadDocBlock\Tests\Rector\ClassLike\RemoveAnnotationRector;
 
 use Iterator;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectParamsTagValueNode;
-use Rector\DeadDocBlock\Rector\ClassLike\RemoveAnnotationRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveAnnotationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -21,11 +19,8 @@ final class RemoveAnnotationRectorTest extends \Rector\Testing\PHPUnit\AbstractR
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\DeadDocBlock\Rector\ClassLike\RemoveAnnotationRector::class => [\Rector\DeadDocBlock\Rector\ClassLike\RemoveAnnotationRector::ANNOTATIONS_TO_REMOVE => ['method', \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\JMS\JMSInjectParamsTagValueNode::class]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

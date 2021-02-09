@@ -5,8 +5,6 @@ namespace Rector\Transform\Tests\Rector\MethodCall\VariableMethodCallToServiceCa
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\MethodCall\VariableMethodCallToServiceCallRector;
-use Rector\Transform\ValueObject\VariableMethodCallToServiceCall;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class VariableMethodCallToServiceCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -21,11 +19,8 @@ final class VariableMethodCallToServiceCallRectorTest extends \Rector\Testing\PH
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return mixed[]
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\MethodCall\VariableMethodCallToServiceCallRector::class => [\Rector\Transform\Rector\MethodCall\VariableMethodCallToServiceCallRector::VARIABLE_METHOD_CALLS_TO_SERVICE_CALLS => [new \Rector\Transform\ValueObject\VariableMethodCallToServiceCall('PhpParser\\Node', 'getAttribute', 'php_doc_info', 'Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfoFactory', 'createFromNodeOrEmpty')]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

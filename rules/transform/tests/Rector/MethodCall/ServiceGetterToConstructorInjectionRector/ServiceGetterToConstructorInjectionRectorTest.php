@@ -6,10 +6,6 @@ namespace Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInj
 use Iterator;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\MethodCall\ServiceGetterToConstructorInjectionRector;
-use Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\Source\AnotherService;
-use Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\Source\FirstService;
-use Rector\Transform\ValueObject\ServiceGetterToConstructorInjection;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class ServiceGetterToConstructorInjectionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -28,11 +24,8 @@ final class ServiceGetterToConstructorInjectionRectorTest extends \Rector\Testin
     {
         return \Rector\Core\ValueObject\PhpVersionFeature::TYPED_PROPERTIES - 1;
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\MethodCall\ServiceGetterToConstructorInjectionRector::class => [\Rector\Transform\Rector\MethodCall\ServiceGetterToConstructorInjectionRector::METHOD_CALL_TO_SERVICES => [new \Rector\Transform\ValueObject\ServiceGetterToConstructorInjection(\Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\Source\FirstService::class, 'getAnotherService', \Rector\Transform\Tests\Rector\MethodCall\ServiceGetterToConstructorInjectionRector\Source\AnotherService::class)]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

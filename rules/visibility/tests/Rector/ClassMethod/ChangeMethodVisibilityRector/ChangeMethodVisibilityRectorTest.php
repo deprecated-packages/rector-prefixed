@@ -4,11 +4,7 @@ declare (strict_types=1);
 namespace Rector\Visibility\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector;
 
 use Iterator;
-use Rector\Core\ValueObject\Visibility;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector;
-use Rector\Visibility\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject;
-use Rector\Visibility\ValueObject\ChangeMethodVisibility;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class ChangeMethodVisibilityRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -23,11 +19,8 @@ final class ChangeMethodVisibilityRectorTest extends \Rector\Testing\PHPUnit\Abs
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector::class => [\Rector\Visibility\Rector\ClassMethod\ChangeMethodVisibilityRector::METHOD_VISIBILITIES => [new \Rector\Visibility\ValueObject\ChangeMethodVisibility(\Rector\Visibility\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBePublicMethod', \Rector\Core\ValueObject\Visibility::PUBLIC), new \Rector\Visibility\ValueObject\ChangeMethodVisibility(\Rector\Visibility\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBeProtectedMethod', \Rector\Core\ValueObject\Visibility::PROTECTED), new \Rector\Visibility\ValueObject\ChangeMethodVisibility(\Rector\Visibility\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBePrivateMethod', \Rector\Core\ValueObject\Visibility::PRIVATE), new \Rector\Visibility\ValueObject\ChangeMethodVisibility(\Rector\Visibility\Tests\Rector\ClassMethod\ChangeMethodVisibilityRector\Source\ParentObject::class, 'toBePublicStaticMethod', \Rector\Core\ValueObject\Visibility::PUBLIC)]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

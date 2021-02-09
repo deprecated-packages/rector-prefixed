@@ -5,9 +5,6 @@ namespace Rector\Renaming\Tests\Rector\Name\RenameClassRector;
 
 use Iterator;
 use Rector\Core\Configuration\Option;
-use Rector\Renaming\Rector\Name\RenameClassRector;
-use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass;
-use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 /**
@@ -27,11 +24,8 @@ final class FunctionAutoImportNamesParameterTest extends \Rector\Testing\PHPUnit
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureAutoImportNamesFunction');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Renaming\Rector\Name\RenameClassRector::class => [\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [\Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass::class]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

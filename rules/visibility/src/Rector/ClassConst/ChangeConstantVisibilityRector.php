@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\ClassConst;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\Visibility;
-use Rector\Visibility\ValueObject\ClassConstantVisibilityChange;
+use Rector\Visibility\ValueObject\ChangeConstantVisibility;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210209\Webmozart\Assert\Assert;
@@ -22,7 +22,7 @@ final class ChangeConstantVisibilityRector extends \Rector\Core\Rector\AbstractR
      */
     public const CLASS_CONSTANT_VISIBILITY_CHANGES = 'class_constant_visibility_changes';
     /**
-     * @var ClassConstantVisibilityChange[]
+     * @var ChangeConstantVisibility[]
      */
     private $classConstantVisibilityChanges = [];
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -49,7 +49,7 @@ class MyClass extends FrameworkClass
     protected const SOME_CONSTANT = 1;
 }
 CODE_SAMPLE
-, [self::CLASS_CONSTANT_VISIBILITY_CHANGES => [new \Rector\Visibility\ValueObject\ClassConstantVisibilityChange('ParentObject', 'SOME_CONSTANT', \Rector\Core\ValueObject\Visibility::PROTECTED)]])]);
+, [self::CLASS_CONSTANT_VISIBILITY_CHANGES => [new \Rector\Visibility\ValueObject\ChangeConstantVisibility('ParentObject', 'SOME_CONSTANT', \Rector\Core\ValueObject\Visibility::PROTECTED)]])]);
     }
     /**
      * @return string[]
@@ -78,7 +78,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $classConstantVisibilityChanges = $configuration[self::CLASS_CONSTANT_VISIBILITY_CHANGES] ?? [];
-        \RectorPrefix20210209\Webmozart\Assert\Assert::allIsInstanceOf($classConstantVisibilityChanges, \Rector\Visibility\ValueObject\ClassConstantVisibilityChange::class);
+        \RectorPrefix20210209\Webmozart\Assert\Assert::allIsInstanceOf($classConstantVisibilityChanges, \Rector\Visibility\ValueObject\ChangeConstantVisibility::class);
         $this->classConstantVisibilityChanges = $classConstantVisibilityChanges;
     }
 }

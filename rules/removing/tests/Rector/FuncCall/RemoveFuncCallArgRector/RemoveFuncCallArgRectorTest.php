@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\Removing\Tests\Rector\FuncCall\RemoveFuncCallArgRector;
 
 use Iterator;
-use Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector;
-use Rector\Removing\ValueObject\RemoveFuncCallArg;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
@@ -25,11 +23,8 @@ final class RemoveFuncCallArgRectorTest extends \Rector\Testing\PHPUnit\Abstract
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::class => [\Rector\Removing\Rector\FuncCall\RemoveFuncCallArgRector::REMOVED_FUNCTION_ARGUMENTS => [new \Rector\Removing\ValueObject\RemoveFuncCallArg('ldap_first_attribute', 2)]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

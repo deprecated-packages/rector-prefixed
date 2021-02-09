@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Php74\Tests\Rector\Property\TypedPropertyRector;
 
 use Iterator;
-use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassLikeTypesOnlyTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -20,11 +19,8 @@ final class ClassLikeTypesOnlyTest extends \Rector\Testing\PHPUnit\AbstractRecto
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureClassLikeTypeOnly');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Php74\Rector\Property\TypedPropertyRector::class => [\Rector\Php74\Rector\Property\TypedPropertyRector::CLASS_LIKE_TYPE_ONLY => \true]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/class_types_only.php');
     }
 }

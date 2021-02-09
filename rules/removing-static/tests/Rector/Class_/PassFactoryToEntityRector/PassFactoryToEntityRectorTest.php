@@ -4,9 +4,6 @@ declare (strict_types=1);
 namespace Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector;
 
 use Iterator;
-use Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector;
-use Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector;
-use Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\EasyTesting\StaticFixtureSplitter;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
@@ -26,12 +23,8 @@ final class PassFactoryToEntityRectorTest extends \Rector\Testing\PHPUnit\Abstra
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureWithMultipleArguments');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $typesToServices = [\Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService::class];
-        return [\Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector::class => [\Rector\RemovingStatic\Rector\Class_\PassFactoryToUniqueObjectRector::TYPES_TO_SERVICES => $typesToServices], \Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector::class => [\Rector\RemovingStatic\Rector\Class_\NewUniqueObjectToEntityFactoryRector::TYPES_TO_SERVICES => $typesToServices]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

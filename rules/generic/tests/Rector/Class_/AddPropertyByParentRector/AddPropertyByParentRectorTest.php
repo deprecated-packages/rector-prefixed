@@ -4,9 +4,6 @@ declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\Class_\AddPropertyByParentRector;
 
 use Iterator;
-use Rector\Generic\Rector\Class_\AddPropertyByParentRector;
-use Rector\Generic\Tests\Rector\Class_\AddPropertyByParentRector\Source\SomeParentClassToAddDependencyBy;
-use Rector\Generic\ValueObject\AddPropertyByParent;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class AddPropertyByParentRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -22,11 +19,8 @@ final class AddPropertyByParentRectorTest extends \Rector\Testing\PHPUnit\Abstra
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Generic\Rector\Class_\AddPropertyByParentRector::class => [\Rector\Generic\Rector\Class_\AddPropertyByParentRector::PARENT_DEPENDENCIES => [new \Rector\Generic\ValueObject\AddPropertyByParent(\Rector\Generic\Tests\Rector\Class_\AddPropertyByParentRector\Source\SomeParentClassToAddDependencyBy::class, 'SomeDependency')]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

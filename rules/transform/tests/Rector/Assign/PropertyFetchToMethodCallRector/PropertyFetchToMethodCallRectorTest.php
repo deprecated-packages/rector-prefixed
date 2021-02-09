@@ -5,9 +5,6 @@ namespace Rector\Transform\Tests\Rector\Assign\PropertyFetchToMethodCallRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector;
-use Rector\Transform\Tests\Rector\Assign\PropertyFetchToMethodCallRector\Source\Translator;
-use Rector\Transform\ValueObject\PropertyFetchToMethodCall;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class PropertyFetchToMethodCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -22,11 +19,8 @@ final class PropertyFetchToMethodCallRectorTest extends \Rector\Testing\PHPUnit\
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector::class => [\Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector::PROPERTIES_TO_METHOD_CALLS => [new \Rector\Transform\ValueObject\PropertyFetchToMethodCall(\Rector\Transform\Tests\Rector\Assign\PropertyFetchToMethodCallRector\Source\Translator::class, 'locale', 'getLocale', 'setLocale'), new \Rector\Transform\ValueObject\PropertyFetchToMethodCall('Rector\\Transform\\Tests\\Rector\\Assign\\PropertyFetchToMethodCallRector\\Fixture\\Fixture2', 'parameter', 'getConfig', null, ['parameter'])]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

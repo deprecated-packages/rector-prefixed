@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\FuncCall\SwapFuncCallArgumentsRector;
 
 use Iterator;
-use Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector;
-use Rector\Generic\ValueObject\SwapFuncCallArguments;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class SwapFuncCallArgumentsRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -21,11 +19,8 @@ final class SwapFuncCallArgumentsRectorTest extends \Rector\Testing\PHPUnit\Abst
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::class => [\Rector\Generic\Rector\FuncCall\SwapFuncCallArgumentsRector::FUNCTION_ARGUMENT_SWAPS => [new \Rector\Generic\ValueObject\SwapFuncCallArguments('some_function', [1, 0])]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

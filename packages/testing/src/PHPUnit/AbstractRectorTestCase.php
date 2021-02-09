@@ -19,7 +19,6 @@ use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\Stubs\StubLoader;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
-use Rector\Naming\Tests\Rector\Class_\RenamePropertyToMatchTypeRector\Source\ContainerInterface;
 use Rector\Testing\Application\EnabledRectorsProvider;
 use Rector\Testing\Contract\RunnableInterface;
 use Rector\Testing\Finder\RectorsFinder;
@@ -30,8 +29,6 @@ use Rector\Testing\PHPUnit\Behavior\RunnableTestTrait;
 use Rector\Testing\ValueObject\InputFilePathWithExpectedFile;
 use RectorPrefix20210209\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210209\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210209\Symfony\Component\DependencyInjection\Container;
-use RectorPrefix20210209\Symfony\Component\HttpKernel\KernelInterface;
 use RectorPrefix20210209\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210209\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use RectorPrefix20210209\Symplify\EasyTesting\StaticFixtureSplitter;
@@ -84,7 +81,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
      */
     protected $originalTempFileInfo;
     /**
-     * @var Container|ContainerInterface|null
+     * @var SmartFileInfo
      */
     protected static $allRectorContainer;
     /**
@@ -106,7 +103,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
         $this->fixtureGuard = new \Rector\Testing\Guard\FixtureGuard();
         if ($this->provideConfigFileInfo() !== null) {
             $configFileInfos = $this->resolveConfigs($this->provideConfigFileInfo());
-            $this->bootKernelWithConfigInfos(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
+            $this->bootKernelWithConfigs(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
             $enabledRectorsProvider = $this->getService(\Rector\Testing\Application\EnabledRectorsProvider::class);
             $enabledRectorsProvider->reset();
         } else {
@@ -165,27 +162,10 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
         return null;
     }
     /**
-     * @deprecated Use config instead, just to narrow 2 ways to add configured config to just 1. Now
-     * with PHP its easy pick.
-     *
-     * @return mixed[]
-     */
-    protected function getRectorsWithConfiguration() : array
-    {
-        // can be implemented, has the highest priority
-        return [];
-    }
-    /**
-     * @return mixed[]
+     * @return array<string, null>
      */
     protected function getCurrentTestRectorClassesWithConfiguration() : array
     {
-        if ($this->getRectorsWithConfiguration() !== []) {
-            foreach (\array_keys($this->getRectorsWithConfiguration()) as $rectorClass) {
-                $this->ensureRectorClassIsValid($rectorClass, 'getRectorsWithConfiguration');
-            }
-            return $this->getRectorsWithConfiguration();
-        }
         $rectorClass = $this->getRectorClass();
         $this->ensureRectorClassIsValid($rectorClass, 'getRectorClass');
         return [$rectorClass => null];
@@ -206,32 +186,10 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
         }
         $parameterProvider->changeParameter($name, $value);
     }
-    /**
-     * @deprecated Will be supported in Symplify 9
-     * @param SmartFileInfo[] $configFileInfos
-     */
-    protected function bootKernelWithConfigInfos(string $class, array $configFileInfos) : \RectorPrefix20210209\Symfony\Component\HttpKernel\KernelInterface
-    {
-        $configFiles = [];
-        foreach ($configFileInfos as $configFileInfo) {
-            $configFiles[] = $configFileInfo->getRealPath();
-        }
-        return $this->bootKernelWithConfigs($class, $configFiles);
-    }
     protected function getPhpVersion() : int
     {
         // to be implemented
         return self::PHP_VERSION_UNDEFINED;
-    }
-    protected function assertFileMissing(string $temporaryFilePath) : void
-    {
-        // PHPUnit 9.0 ready
-        if (\method_exists($this, 'assertFileDoesNotExist')) {
-            $this->assertFileDoesNotExist($temporaryFilePath);
-        } else {
-            // PHPUnit 8.0 ready
-            $this->assertFileNotExists($temporaryFilePath);
-        }
     }
     protected function doTestFileInfoWithoutAutoload(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {

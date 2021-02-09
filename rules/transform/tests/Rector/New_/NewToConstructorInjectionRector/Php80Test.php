@@ -6,8 +6,6 @@ namespace Rector\Transform\Tests\Rector\New_\NewToConstructorInjectionRector;
 use Iterator;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\New_\NewToConstructorInjectionRector;
-use Rector\Transform\Tests\Rector\New_\NewToConstructorInjectionRector\Source\DummyValidator;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class Php80Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -26,11 +24,8 @@ final class Php80Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
     {
         return \Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION;
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\New_\NewToConstructorInjectionRector::class => [\Rector\Transform\Rector\New_\NewToConstructorInjectionRector::TYPES_TO_CONSTRUCTOR_INJECTION => [\Rector\Transform\Tests\Rector\New_\NewToConstructorInjectionRector\Source\DummyValidator::class]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

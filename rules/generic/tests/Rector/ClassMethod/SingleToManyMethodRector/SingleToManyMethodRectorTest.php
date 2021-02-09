@@ -4,9 +4,6 @@ declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\ClassMethod\SingleToManyMethodRector;
 
 use Iterator;
-use Rector\Generic\Rector\ClassMethod\SingleToManyMethodRector;
-use Rector\Generic\Tests\Rector\ClassMethod\SingleToManyMethodRector\Source\OneToManyInterface;
-use Rector\Generic\ValueObject\SingleToManyMethod;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleToManyMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -22,11 +19,8 @@ final class SingleToManyMethodRectorTest extends \Rector\Testing\PHPUnit\Abstrac
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Generic\Rector\ClassMethod\SingleToManyMethodRector::class => [\Rector\Generic\Rector\ClassMethod\SingleToManyMethodRector::SINGLES_TO_MANY_METHODS => [new \Rector\Generic\ValueObject\SingleToManyMethod(\Rector\Generic\Tests\Rector\ClassMethod\SingleToManyMethodRector\Source\OneToManyInterface::class, 'getNode', 'getNodes')]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Php74\Tests\Rector\Function_\ReservedFnFunctionRector;
 
 use Iterator;
-use Rector\Php74\Rector\Function_\ReservedFnFunctionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class ReservedFnFunctionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -20,14 +19,8 @@ final class ReservedFnFunctionRectorTest extends \Rector\Testing\PHPUnit\Abstrac
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Php74\Rector\Function_\ReservedFnFunctionRector::class => [\Rector\Php74\Rector\Function_\ReservedFnFunctionRector::RESERVED_NAMES_TO_NEW_ONES => [
-            // for testing purposes of "fn" even on PHP 7.3-
-            'reservedFn' => 'f',
-        ]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

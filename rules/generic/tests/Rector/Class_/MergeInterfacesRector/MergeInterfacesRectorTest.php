@@ -4,9 +4,6 @@ declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector;
 
 use Iterator;
-use Rector\Generic\Rector\Class_\MergeInterfacesRector;
-use Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeInterface;
-use Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeOldInterface;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class MergeInterfacesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -22,11 +19,8 @@ final class MergeInterfacesRectorTest extends \Rector\Testing\PHPUnit\AbstractRe
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Generic\Rector\Class_\MergeInterfacesRector::class => [\Rector\Generic\Rector\Class_\MergeInterfacesRector::OLD_TO_NEW_INTERFACES => [\Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeOldInterface::class => \Rector\Generic\Tests\Rector\Class_\MergeInterfacesRector\Source\SomeInterface::class]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

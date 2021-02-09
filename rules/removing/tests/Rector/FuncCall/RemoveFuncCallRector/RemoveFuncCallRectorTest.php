@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\Removing\Tests\Rector\FuncCall\RemoveFuncCallRector;
 
 use Iterator;
-use Rector\Removing\Rector\FuncCall\RemoveFuncCallRector;
-use Rector\Removing\ValueObject\RemoveFuncCall;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
@@ -25,11 +23,8 @@ final class RemoveFuncCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRec
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Removing\Rector\FuncCall\RemoveFuncCallRector::class => [\Rector\Removing\Rector\FuncCall\RemoveFuncCallRector::REMOVE_FUNC_CALLS => [new \Rector\Removing\ValueObject\RemoveFuncCall('ini_get', [0 => ['y2k_compliance', 'safe_mode', 'magic_quotes_runtime']]), new \Rector\Removing\ValueObject\RemoveFuncCall('ini_set', [0 => ['y2k_compliance', 'safe_mode', 'magic_quotes_runtime']])]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

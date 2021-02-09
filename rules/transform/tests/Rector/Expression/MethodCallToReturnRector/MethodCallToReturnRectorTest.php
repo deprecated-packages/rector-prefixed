@@ -5,9 +5,6 @@ namespace Rector\Transform\Tests\Rector\Expression\MethodCallToReturnRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\Transform\Rector\Expression\MethodCallToReturnRector;
-use Rector\Transform\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny;
-use Rector\Transform\ValueObject\MethodCallToReturn;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class MethodCallToReturnRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -22,11 +19,8 @@ final class MethodCallToReturnRectorTest extends \Rector\Testing\PHPUnit\Abstrac
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\Transform\Rector\Expression\MethodCallToReturnRector::class => [\Rector\Transform\Rector\Expression\MethodCallToReturnRector::METHOD_CALL_WRAPS => [new \Rector\Transform\ValueObject\MethodCallToReturn(\Rector\Transform\Tests\Rector\Expression\MethodCallToReturnRector\Source\ReturnDeny::class, 'deny')]]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

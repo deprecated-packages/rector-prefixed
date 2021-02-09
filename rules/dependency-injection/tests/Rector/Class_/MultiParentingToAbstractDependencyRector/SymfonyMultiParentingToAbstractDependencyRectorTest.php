@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\DependencyInjection\Tests\Rector\Class_\MultiParentingToAbstractDependencyRector;
 
 use Iterator;
-use Rector\Core\ValueObject\FrameworkName;
-use Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class SymfonyMultiParentingToAbstractDependencyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -21,11 +19,8 @@ final class SymfonyMultiParentingToAbstractDependencyRectorTest extends \Rector\
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureSymfony');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return [\Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector::class => [\Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector::FRAMEWORK => \Rector\Core\ValueObject\FrameworkName::SYMFONY]];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/symfony_config.php');
     }
 }

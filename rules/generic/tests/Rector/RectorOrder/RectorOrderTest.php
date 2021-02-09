@@ -4,9 +4,6 @@ declare (strict_types=1);
 namespace Rector\Generic\Tests\Rector\RectorOrder;
 
 use Iterator;
-use Rector\PHPUnit\Rector\MethodCall\AssertComparisonToSpecificMethodRector;
-use Rector\PHPUnit\Rector\MethodCall\AssertFalseStrposToContainsRector;
-use Rector\PHPUnit\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 /**
@@ -25,12 +22,8 @@ final class RectorOrderTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCa
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration() : array
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        // order matters
-        return [\Rector\PHPUnit\Rector\MethodCall\AssertComparisonToSpecificMethodRector::class => [], \Rector\PHPUnit\Rector\MethodCall\AssertSameBoolNullToSpecificMethodRector::class => [], \Rector\PHPUnit\Rector\MethodCall\AssertFalseStrposToContainsRector::class => []];
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }
