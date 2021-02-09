@@ -109,7 +109,7 @@ CODE_SAMPLE
         }
         /** @var MethodCall[] $getMethodCalls */
         $getMethodCalls = $this->betterNodeFinder->find($classMethod, function (\PhpParser\Node $node) : bool {
-            return $this->isLocalMethodCallNamed($node, 'get');
+            return $this->nodeNameResolver->isLocalMethodCallNamed($node, 'get');
         });
         foreach ($getMethodCalls as $getMethodCall) {
             if ($this->isGetMethodCallWithRequestParameters($getMethodCall)) {
@@ -142,7 +142,7 @@ CODE_SAMPLE
     private function containsGetRequestMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
-            return $this->isLocalMethodCallNamed($node, 'getRequest');
+            return $this->nodeNameResolver->isLocalMethodCallNamed($node, 'getRequest');
         });
     }
     private function isGetMethodCallWithRequestParameters(\PhpParser\Node\Expr\MethodCall $methodCall) : bool

@@ -6,6 +6,7 @@ namespace Rector\PostRector\Collector;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
 use PHPStan\Type\Type;
+use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
 use Rector\PostRector\ValueObject\PropertyMetadata;
@@ -24,12 +25,17 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
      */
     private $propertiesByClass = [];
     /**
-     * @var Type[][]|null[][]
+     * @var array<string, array<string, Type>>
      */
     private $propertiesWithoutConstructorByClass = [];
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    /**
+     * @var RectorChangeCollector
+     */
+    private $rectorChangeCollector;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
     {
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->rectorChangeCollector = $rectorChangeCollector;
     }
     public function isActive() : bool
     {
@@ -50,10 +56,12 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
     {
         $constantName = $this->nodeNameResolver->getName($classConst);
         $this->constantsByClass[\spl_object_hash($class)][$constantName] = $classConst;
+        $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
     public function addPropertyWithoutConstructorToClass(string $propertyName, ?\PHPStan\Type\Type $propertyType, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $this->propertiesWithoutConstructorByClass[\spl_object_hash($class)][$propertyName] = $propertyType;
+        $this->rectorChangeCollector->notifyNodeFileInfo($class);
     }
     /**
      * @return ClassConst[]
@@ -72,7 +80,7 @@ final class PropertyToAddCollector implements \Rector\PostRector\Contract\Collec
         return $this->propertiesByClass[$classHash] ?? [];
     }
     /**
-     * @return Type[]|null[]
+     * @return array<string, Type>
      */
     public function getPropertiesWithoutConstructorByClass(\PhpParser\Node\Stmt\Class_ $class) : array
     {

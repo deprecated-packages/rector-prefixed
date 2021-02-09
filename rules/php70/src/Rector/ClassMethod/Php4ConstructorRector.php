@@ -77,7 +77,7 @@ CODE_SAMPLE
         if (\count($node->stmts) === 1) {
             /** @var Expression $stmt */
             $stmt = $node->stmts[0];
-            if ($this->isLocalMethodCallNamed($stmt->expr, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+            if ($this->nodeNameResolver->isLocalMethodCallNamed($stmt->expr, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
                 $this->removeNode($node);
                 return null;
             }

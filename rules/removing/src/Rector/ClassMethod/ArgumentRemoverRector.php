@@ -13,7 +13,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Removing\ValueObject\ArgumentRemover;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210208\Webmozart\Assert\Assert;
+use RectorPrefix20210209\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Removing\Tests\Rector\ClassMethod\ArgumentRemoverRector\ArgumentRemoverRectorTest
  */
@@ -65,7 +65,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $removedArguments = $configuration[self::REMOVED_ARGUMENTS] ?? [];
-        \RectorPrefix20210208\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Removing\ValueObject\ArgumentRemover::class);
+        \RectorPrefix20210209\Webmozart\Assert\Assert::allIsInstanceOf($removedArguments, \Rector\Removing\ValueObject\ArgumentRemover::class);
         $this->removedArguments = $removedArguments;
     }
     /**
@@ -104,7 +104,7 @@ CODE_SAMPLE
     {
         if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
             if (isset($node->args[$position]) && $this->isName($node->args[$position], $name)) {
-                $this->removeArg($node, $position);
+                $this->nodeRemover->removeArg($node, $position);
             }
             return;
         }
@@ -114,7 +114,7 @@ CODE_SAMPLE
         if (!(isset($node->params[$position]) && $this->isName($node->params[$position], $name))) {
             return;
         }
-        $this->removeParam($node, $position);
+        $this->nodeRemover->removeParam($node, $position);
     }
     /**
      * @param mixed[] $values

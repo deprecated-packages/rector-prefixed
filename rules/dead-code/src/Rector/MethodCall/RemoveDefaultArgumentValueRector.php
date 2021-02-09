@@ -92,7 +92,7 @@ CODE_SAMPLE
             return null;
         }
         foreach ($keysToRemove as $keyToRemove) {
-            $this->removeArg($node, $keyToRemove);
+            $this->nodeRemover->removeArg($node, $keyToRemove);
         }
         return $node;
     }

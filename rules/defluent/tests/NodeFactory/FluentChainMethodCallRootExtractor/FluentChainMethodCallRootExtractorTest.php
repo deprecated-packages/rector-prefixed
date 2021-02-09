@@ -10,8 +10,8 @@ use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallRootExtractor;
 use Rector\Defluent\ValueObject\AssignAndRootExpr;
 use Rector\Defluent\ValueObject\FluentCallsKind;
 use Rector\Testing\TestingParser\TestingParser;
-use RectorPrefix20210208\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class FluentChainMethodCallRootExtractorTest extends \RectorPrefix20210208\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210209\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class FluentChainMethodCallRootExtractorTest extends \RectorPrefix20210209\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var FluentChainMethodCallRootExtractor

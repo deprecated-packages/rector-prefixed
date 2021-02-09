@@ -12,12 +12,13 @@ use PhpParser\Node\Stmt\Namespace_;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
+use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\Legacy\Naming\FullyQualifiedNameResolver;
 use Rector\Legacy\NodeFactory\StaticMethodClassFactory;
 use Rector\Legacy\ValueObject\FunctionToStaticCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector\FunctionToStaticMethodRectorTest
  */
@@ -79,7 +80,7 @@ CODE_SAMPLE
         if ($functions === []) {
             return null;
         }
-        $smartFileInfo = $node->getAttribute(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $node->getAttribute(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }
@@ -138,11 +139,12 @@ CODE_SAMPLE
     /**
      * @param Namespace_|FileWithoutNamespace $node
      */
-    private function printStaticMethodClass(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : void
+    private function printStaticMethodClass(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, string $shortClassName, \PhpParser\Node $node, \PhpParser\Node\Stmt\Class_ $class) : void
     {
         $classFileDestination = $smartFileInfo->getPath() . \DIRECTORY_SEPARATOR . $shortClassName . '.php';
         $nodesToPrint = [$this->resolveNodeToPrint($node, $class)];
-        $this->printNodesToFilePath($nodesToPrint, $classFileDestination);
+        $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes($classFileDestination, $nodesToPrint);
+        $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
     }
     /**
      * @param Namespace_|FileWithoutNamespace $node

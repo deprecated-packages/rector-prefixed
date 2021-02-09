@@ -19,7 +19,7 @@ use Rector\Core\NodeAnalyzer\ConstFetchAnalyzer;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Core\Tests\PhpParser\Node\Value\ValueResolverTest
  */
@@ -120,6 +120,20 @@ final class ValueResolver
     {
         return $this->constFetchAnalyzer->isNull($node);
     }
+    /**
+     * @param Expr[]|null[] $nodes
+     * @param mixed[] $expectedValues
+     */
+    public function areValues(array $nodes, array $expectedValues) : bool
+    {
+        foreach ($nodes as $i => $node) {
+            if ($node !== null && $this->isValue($node, $expectedValues[$i])) {
+                continue;
+            }
+            return \false;
+        }
+        return \true;
+    }
     private function processConcat(\PhpParser\Node\Expr\BinaryOp\Concat $concat, bool $resolvedClassReference) : string
     {
         return $this->getValue($concat->left, $resolvedClassReference) . $this->getValue($concat->right, $resolvedClassReference);
@@ -173,7 +187,7 @@ final class ValueResolver
     private function resolveDirConstant(\PhpParser\Node\Scalar\MagicConst\Dir $dir) : string
     {
         $fileInfo = $dir->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $fileInfo->getPath();
@@ -181,7 +195,7 @@ final class ValueResolver
     private function resolveFileConstant(\PhpParser\Node\Scalar\MagicConst\File $file) : string
     {
         $fileInfo = $file->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $fileInfo->getPathname();

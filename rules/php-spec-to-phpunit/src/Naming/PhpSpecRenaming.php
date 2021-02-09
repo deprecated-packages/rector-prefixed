@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PhpSpecToPHPUnit\Naming;
 
-use RectorPrefix20210208\Nette\Utils\Strings;
+use RectorPrefix20210209\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -11,12 +11,11 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
-use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210208\Symplify\PackageBuilder\Strings\StringFormatConverter;
+use RectorPrefix20210209\Symplify\PackageBuilder\Strings\StringFormatConverter;
 final class PhpSpecRenaming
 {
     /**
@@ -31,15 +30,10 @@ final class PhpSpecRenaming
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    /**
-     * @var ClassNaming
-     */
-    private $classNaming;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210208\Symplify\PackageBuilder\Strings\StringFormatConverter $stringFormatConverter, \Rector\CodingStyle\Naming\ClassNaming $classNaming)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210209\Symplify\PackageBuilder\Strings\StringFormatConverter $stringFormatConverter)
     {
         $this->stringFormatConverter = $stringFormatConverter;
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->classNaming = $classNaming;
     }
     public function renameMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
@@ -51,7 +45,7 @@ final class PhpSpecRenaming
         // from PhpSpec to PHPUnit method naming convention
         $classMethodName = $this->stringFormatConverter->underscoreAndHyphenToCamelCase($classMethodName);
         // add "test", so PHPUnit runs the method
-        if (!\RectorPrefix20210208\Nette\Utils\Strings::startsWith($classMethodName, 'test')) {
+        if (!\RectorPrefix20210209\Nette\Utils\Strings::startsWith($classMethodName, 'test')) {
             $classMethodName = 'test' . \ucfirst($classMethodName);
         }
         $classMethod->name = new \PhpParser\Node\Identifier($classMethodName);
@@ -75,7 +69,7 @@ final class PhpSpecRenaming
     }
     public function renameClass(\PhpParser\Node\Stmt\Class_ $class) : void
     {
-        $classShortName = $this->classNaming->getShortName($class);
+        $classShortName = $this->nodeNameResolver->getShortName($class);
         // anonymous class?
         if ($classShortName === '') {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
@@ -91,7 +85,7 @@ final class PhpSpecRenaming
         if ($class->name === null) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
-        $shortClassName = $this->classNaming->getShortName($class);
+        $shortClassName = $this->nodeNameResolver->getShortName($class);
         $bareClassName = \Rector\Core\Util\StaticRectorStrings::removeSuffixes($shortClassName, [self::SPEC, 'Test']);
         return \lcfirst($bareClassName);
     }

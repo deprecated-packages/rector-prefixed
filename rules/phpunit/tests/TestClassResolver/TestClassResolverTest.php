@@ -12,8 +12,8 @@ use Rector\Php74\Tests\Rector\Property\TypedPropertyRector\TypedPropertyRectorTe
 use Rector\PHPUnit\TestClassResolver\TestClassResolver;
 use Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClass;
 use Rector\PHPUnit\Tests\TestClassResolver\Source\SeeSomeClassTest;
-use RectorPrefix20210208\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class TestClassResolverTest extends \RectorPrefix20210208\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210209\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class TestClassResolverTest extends \RectorPrefix20210209\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var TestClassResolver

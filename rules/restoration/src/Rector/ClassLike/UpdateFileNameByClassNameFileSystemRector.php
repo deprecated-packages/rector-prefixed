@@ -5,12 +5,11 @@ namespace Rector\Restoration\Rector\ClassLike;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassLike;
-use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\MovedFileWithContent;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @sponsor Thanks https://amateri.com for sponsoring this rule - visit them on https://www.startupjobs.cz/startup/scrumworks-s-r-o
  *
@@ -18,14 +17,6 @@ use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
  */
 final class UpdateFileNameByClassNameFileSystemRector extends \Rector\Core\Rector\AbstractRector
 {
-    /**
-     * @var ClassNaming
-     */
-    private $classNaming;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming)
-    {
-        $this->classNaming = $classNaming;
-    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename file to respect class name', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -58,8 +49,8 @@ CODE_SAMPLE
         if ($className === null) {
             return null;
         }
-        $classShortName = $this->classNaming->getShortName($className);
-        $smartFileInfo = $node->getAttribute(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $classShortName = $this->nodeNameResolver->getShortName($className);
+        $smartFileInfo = $node->getAttribute(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }
@@ -69,7 +60,7 @@ CODE_SAMPLE
         }
         // no match → rename file
         $newFileLocation = $smartFileInfo->getPath() . \DIRECTORY_SEPARATOR . $classShortName . '.php';
-        $this->addMovedFile(new \Rector\FileSystemRector\ValueObject\MovedFileWithContent($smartFileInfo, $newFileLocation));
+        $this->removedAndAddedFilesCollector->addMovedFile(new \Rector\FileSystemRector\ValueObject\MovedFileWithContent($smartFileInfo, $newFileLocation));
         return null;
     }
 }

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Catch_;
 
-use RectorPrefix20210208\Nette\Utils\Strings;
+use RectorPrefix20210209\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Catch_;
@@ -73,8 +73,8 @@ CODE_SAMPLE
             return null;
         }
         $type = $node->types[0];
-        $typeShortName = $this->getShortName($type);
-        $newVariableName = \RectorPrefix20210208\Nette\Utils\Strings::replace(\lcfirst($typeShortName), self::STARTS_WITH_ABBREVIATION_REGEX, function (array $matches) : string {
+        $typeShortName = $this->nodeNameResolver->getShortName($type);
+        $newVariableName = \RectorPrefix20210209\Nette\Utils\Strings::replace(\lcfirst($typeShortName), self::STARTS_WITH_ABBREVIATION_REGEX, function (array $matches) : string {
             $output = '';
             $output .= isset($matches[1]) ? \strtolower($matches[1]) : '';
             $output .= $matches[2] ?? '';

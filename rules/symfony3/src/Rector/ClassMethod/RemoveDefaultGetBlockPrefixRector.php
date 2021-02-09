@@ -3,13 +3,12 @@
 declare (strict_types=1);
 namespace Rector\Symfony3\Rector\ClassMethod;
 
-use RectorPrefix20210208\Nette\Utils\Strings;
+use RectorPrefix20210209\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
-use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticRectorStrings;
@@ -23,14 +22,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveDefaultGetBlockPrefixRector extends \Rector\Core\Rector\AbstractRector
 {
-    /**
-     * @var ClassNaming
-     */
-    private $classNaming;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming)
-    {
-        $this->classNaming = $classNaming;
-    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Rename `getBlockPrefix()` if it returns the default value - class to underscore, e.g. UserFormType = user_form', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -77,9 +68,9 @@ CODE_SAMPLE
         if (!\is_string($className)) {
             return null;
         }
-        $shortClassName = $this->classNaming->getShortName($className);
-        if (\RectorPrefix20210208\Nette\Utils\Strings::endsWith($shortClassName, 'Type')) {
-            $shortClassName = (string) \RectorPrefix20210208\Nette\Utils\Strings::before($shortClassName, 'Type');
+        $shortClassName = $this->nodeNameResolver->getShortName($className);
+        if (\RectorPrefix20210209\Nette\Utils\Strings::endsWith($shortClassName, 'Type')) {
+            $shortClassName = (string) \RectorPrefix20210209\Nette\Utils\Strings::before($shortClassName, 'Type');
         }
         $underscoredClassShortName = \Rector\Core\Util\StaticRectorStrings::camelCaseToUnderscore($shortClassName);
         if ($underscoredClassShortName !== $returnedValue) {

@@ -15,7 +15,7 @@ use Rector\PSR4\FileInfoAnalyzer\FileInfoDeletionAnalyzer;
 use Rector\PSR4\NodeManipulator\NamespaceManipulator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PSR4\Tests\Rector\Namespace_\MultipleClassFileToPsr4ClassesRector\MultipleClassFileToPsr4ClassesRectorTest
  */
@@ -99,7 +99,7 @@ CODE_SAMPLE
         /** @var SmartFileInfo $smartFileInfo */
         $smartFileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
         // 2. nothing to return - remove the file
-        $this->removeFile($smartFileInfo);
+        $this->removedAndAddedFilesCollector->removeFile($smartFileInfo);
         return null;
     }
     private function hasAtLeastTwoClassLikes(\PhpParser\Node $node) : bool
@@ -158,9 +158,9 @@ CODE_SAMPLE
         }
         $fileDestination = $this->createClassLikeFileDestination($classLike, $smartFileInfo);
         $movedFileWithNodes = new \Rector\FileSystemRector\ValueObject\MovedFileWithNodes($nodesToPrint, $fileDestination, $smartFileInfo);
-        $this->addMovedFile($movedFileWithNodes);
+        $this->removedAndAddedFilesCollector->addMovedFile($movedFileWithNodes);
     }
-    private function createClassLikeFileDestination(\PhpParser\Node\Stmt\ClassLike $classLike, \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
+    private function createClassLikeFileDestination(\PhpParser\Node\Stmt\ClassLike $classLike, \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : string
     {
         $currentDirectory = \dirname($smartFileInfo->getRealPath());
         return $currentDirectory . \DIRECTORY_SEPARATOR . $classLike->name . '.php';

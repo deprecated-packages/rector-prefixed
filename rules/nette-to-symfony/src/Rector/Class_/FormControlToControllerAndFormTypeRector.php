@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Rector\NetteToSymfony\Collector\OnFormVariableMethodCallsCollector;
 use Rector\NetteToSymfony\NodeFactory\BuildFormClassMethodFactory;
 use Rector\NetteToSymfony\NodeFactory\SymfonyControllerFactory;
@@ -89,16 +90,16 @@ CODE_SAMPLE
 , <<<'CODE_SAMPLE'
 <?php
 
-namespace RectorPrefix20210208;
+namespace RectorPrefix20210209;
 
-use RectorPrefix20210208\Symfony\Component\Form\AbstractType;
-use RectorPrefix20210208\Symfony\Component\Form\Extension\Core\Type\TextType;
-use RectorPrefix20210208\Symfony\Component\Form\FormBuilderInterface;
-class SomeFormType extends \RectorPrefix20210208\Symfony\Component\Form\AbstractType
+use RectorPrefix20210209\Symfony\Component\Form\AbstractType;
+use RectorPrefix20210209\Symfony\Component\Form\Extension\Core\Type\TextType;
+use RectorPrefix20210209\Symfony\Component\Form\FormBuilderInterface;
+class SomeFormType extends \RectorPrefix20210209\Symfony\Component\Form\AbstractType
 {
-    public function buildForm(\RectorPrefix20210208\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
+    public function buildForm(\RectorPrefix20210209\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
     {
-        $formBuilder->add('name', \RectorPrefix20210208\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
+        $formBuilder->add('name', \RectorPrefix20210209\Symfony\Component\Form\Extension\Core\Type\TextType::class, ['label' => 'Your name']);
     }
 }
 \class_alias('SomeFormType', 'SomeFormType', \false);
@@ -132,7 +133,8 @@ CODE_SAMPLE
             if (!$symfonyControllerNamespace instanceof \PhpParser\Node\Stmt\Namespace_) {
                 continue;
             }
-            $this->printNodesToFilePath([$symfonyControllerNamespace], 'src/Controller/SomeFormController.php');
+            $addedFileWithNodes = new \Rector\FileSystemRector\ValueObject\AddedFileWithNodes('src/Controller/SomeFormController.php', [$symfonyControllerNamespace]);
+            $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
             return $formTypeClass;
         }
         return $node;

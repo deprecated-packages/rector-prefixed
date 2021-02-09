@@ -25,6 +25,6 @@
             <tag name="kernel.event_listener" event="single_event" method="singles"/>
         </service>
 
-        <service id="event_dispatcher" class="RectorPrefix20210208\Symfony\Component\EventDispatcher\EventDispatcher"/>
+        <service id="event_dispatcher" class="RectorPrefix20210209\Symfony\Component\EventDispatcher\EventDispatcher"/>
     </services>
 </container>

@@ -7,6 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Expression;
+use Rector\ChangesReporting\Collector\RectorChangeCollector;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\Util\StaticInstanceOf;
@@ -26,9 +27,14 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    /**
+     * @var RectorChangeCollector
+     */
+    private $rectorChangeCollector;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
     {
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->rectorChangeCollector = $rectorChangeCollector;
     }
     public function isActive() : bool
     {
@@ -42,6 +48,7 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
         }
         $position = $this->resolveNearestExpressionPosition($positionNode);
         $this->nodesToAddBefore[$position][] = $this->wrapToExpression($addedNode);
+        $this->rectorChangeCollector->notifyNodeFileInfo($positionNode);
     }
     /**
      * @param Node[] $addedNodes
@@ -54,11 +61,13 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
             $addedNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE, null);
             $this->nodesToAddAfter[$position][] = $this->wrapToExpression($addedNode);
         }
+        $this->rectorChangeCollector->notifyNodeFileInfo($positionNode);
     }
     public function addNodeAfterNode(\PhpParser\Node $addedNode, \PhpParser\Node $positionNode) : void
     {
         $position = $this->resolveNearestExpressionPosition($positionNode);
         $this->nodesToAddAfter[$position][] = $this->wrapToExpression($addedNode);
+        $this->rectorChangeCollector->notifyNodeFileInfo($positionNode);
     }
     /**
      * @return Stmt[]
@@ -94,6 +103,7 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
         foreach ($newNodes as $newNode) {
             $this->addNodeBeforeNode($newNode, $positionNode);
         }
+        $this->rectorChangeCollector->notifyNodeFileInfo($positionNode);
     }
     private function resolveNearestExpressionPosition(\PhpParser\Node $node) : string
     {

@@ -62,11 +62,10 @@ CODE_SAMPLE
                 if ($node->stmts[$key] instanceof \PhpParser\Node\Stmt\Nop) {
                     continue;
                 }
-                $this->removeStmt($node, $key);
+                $this->nodeRemover->removeStmt($node, $key);
             }
             if ($stmt instanceof \PhpParser\Node\Stmt\Return_) {
                 $isDeadAfterReturn = \true;
-                continue;
             }
         }
         return null;

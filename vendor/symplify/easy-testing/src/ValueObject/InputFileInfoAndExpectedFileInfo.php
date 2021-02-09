@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210208\Symplify\EasyTesting\ValueObject;
+namespace RectorPrefix20210209\Symplify\EasyTesting\ValueObject;
 
-use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class InputFileInfoAndExpectedFileInfo
 {
     /**
@@ -14,16 +14,16 @@ final class InputFileInfoAndExpectedFileInfo
      * @var SmartFileInfo
      */
     private $expectedFileInfo;
-    public function __construct(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo)
+    public function __construct(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo)
     {
         $this->inputFileInfo = $inputFileInfo;
         $this->expectedFileInfo = $expectedFileInfo;
     }
-    public function getInputFileInfo() : \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo
+    public function getInputFileInfo() : \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->inputFileInfo;
     }
-    public function getExpectedFileInfo() : \RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileInfo
+    public function getExpectedFileInfo() : \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->expectedFileInfo;
     }

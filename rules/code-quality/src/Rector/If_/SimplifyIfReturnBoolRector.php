@@ -3,24 +3,18 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\If_;
 
-use RectorPrefix20210208\Nette\Utils\Strings;
+use RectorPrefix20210209\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use PhpParser\Node\Expr\BooleanNot;
-use PhpParser\Node\Expr\Cast\Bool_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
 use Rector\BetterPhpDocParser\Comment\CommentsMerger;
 use Rector\CodeQuality\NodeManipulator\ExprBoolCaster;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\PHPStan\Type\StaticTypeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -113,7 +107,7 @@ CODE_SAMPLE
             return \true;
         }
         // negate + negate → skip for now
-        if ($this->valueResolver->isFalse($returnedExpr) && \RectorPrefix20210208\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
+        if ($this->valueResolver->isFalse($returnedExpr) && \RectorPrefix20210209\Nette\Utils\Strings::contains($this->print($if->cond), '!=')) {
             return \true;
         }
         return !$this->valueResolver->isTrueOrFalse($nextNode->expr);
@@ -171,37 +165,4 @@ CODE_SAMPLE
         // return must have value
         return $ifInnerNode->expr !== null;
     }
-    //    private function boolCastOrNullCompareIfNeeded(Expr $expr): Expr
-    //    {
-    //        if ($this->isNullableType($expr)) {
-    //            $exprStaticType = $this->getStaticType($expr);
-    //            // if we remove null type, still has to be trueable
-    //            if ($exprStaticType instanceof UnionType) {
-    //                $unionTypeWithoutNullType = $this->typeUnwrapper->removeNullTypeFromUnionType($exprStaticType);
-    //                if ($this->staticTypeAnalyzer->isAlwaysTruableType($unionTypeWithoutNullType)) {
-    //                    return new NotIdentical($expr, $this->nodeFactory->createNull());
-    //                }
-    //            } elseif ($this->staticTypeAnalyzer->isAlwaysTruableType($exprStaticType)) {
-    //                return new NotIdentical($expr, $this->nodeFactory->createNull());
-    //            }
-    //        }
-    //
-    //        if (! $this->isBoolCastNeeded($expr)) {
-    //            return $expr;
-    //        }
-    //
-    //        return new Bool_($expr);
-    //    }
-    //    private function isBoolCastNeeded(Expr $expr): bool
-    //    {
-    //        if ($expr instanceof BooleanNot) {
-    //            return false;
-    //        }
-    //
-    //        if ($this->isStaticType($expr, BooleanType::class)) {
-    //            return false;
-    //        }
-    //
-    //        return ! $expr instanceof BinaryOp;
-    //    }
 }

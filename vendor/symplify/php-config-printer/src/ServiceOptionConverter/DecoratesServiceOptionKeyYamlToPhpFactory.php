@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210208\Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace RectorPrefix20210209\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20210208\Symfony\Component\DependencyInjection\ContainerInterface;
-use RectorPrefix20210208\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20210208\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
-use RectorPrefix20210208\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
-use RectorPrefix20210208\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter;
-use RectorPrefix20210208\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
-final class DecoratesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210208\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use RectorPrefix20210209\Symfony\Component\DependencyInjection\ContainerInterface;
+use RectorPrefix20210209\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210209\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory;
+use RectorPrefix20210209\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory;
+use RectorPrefix20210209\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter;
+use RectorPrefix20210209\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+final class DecoratesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210209\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var string
@@ -36,7 +36,7 @@ final class DecoratesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
      * @var CommonNodeFactory
      */
     private $commonNodeFactory;
-    public function __construct(\RectorPrefix20210208\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210208\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter $yamlArgumentSorter, \RectorPrefix20210208\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
+    public function __construct(\RectorPrefix20210209\Symplify\PhpConfigPrinter\NodeFactory\ArgsNodeFactory $argsNodeFactory, \RectorPrefix20210209\Symplify\PhpConfigPrinter\Sorter\YamlArgumentSorter $yamlArgumentSorter, \RectorPrefix20210209\Symplify\PhpConfigPrinter\NodeFactory\CommonNodeFactory $commonNodeFactory)
     {
         $this->argsNodeFactory = $argsNodeFactory;
         $this->yamlArgumentSorter = $yamlArgumentSorter;
@@ -46,7 +46,7 @@ final class DecoratesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
     {
         $arguments = $this->yamlArgumentSorter->sortArgumentsByKeyIfExists($values, [self::DECORATION_INNER_NAME => null, self::DECORATION_PRIORITY => 0, self::DECORATION_ON_INVALID => null]);
         if (isset($arguments[self::DECORATION_ON_INVALID])) {
-            $arguments[self::DECORATION_ON_INVALID] = $arguments[self::DECORATION_ON_INVALID] === 'exception' ? $this->commonNodeFactory->createConstFetch(\RectorPrefix20210208\Symfony\Component\DependencyInjection\ContainerInterface::class, 'EXCEPTION_ON_INVALID_REFERENCE') : $this->commonNodeFactory->createConstFetch(\RectorPrefix20210208\Symfony\Component\DependencyInjection\ContainerInterface::class, 'IGNORE_ON_INVALID_REFERENCE');
+            $arguments[self::DECORATION_ON_INVALID] = $arguments[self::DECORATION_ON_INVALID] === 'exception' ? $this->commonNodeFactory->createConstFetch(\RectorPrefix20210209\Symfony\Component\DependencyInjection\ContainerInterface::class, 'EXCEPTION_ON_INVALID_REFERENCE') : $this->commonNodeFactory->createConstFetch(\RectorPrefix20210209\Symfony\Component\DependencyInjection\ContainerInterface::class, 'IGNORE_ON_INVALID_REFERENCE');
         }
         // Don't write the next arguments if they are null.
         if ($arguments[self::DECORATION_ON_INVALID] === null && $arguments[self::DECORATION_PRIORITY] === 0) {
@@ -61,6 +61,6 @@ final class DecoratesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20
     }
     public function isMatch($key, $values) : bool
     {
-        return $key === \RectorPrefix20210208\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::DECORATES;
+        return $key === \RectorPrefix20210209\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::DECORATES;
     }
 }

@@ -7,9 +7,9 @@ use PhpParser\Node\Stmt\Nop;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagsFinder;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\HttpKernel\RectorKernel;
-use RectorPrefix20210208\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileSystem;
-final class PhpDocTagsFinderTest extends \RectorPrefix20210208\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210209\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileSystem;
+final class PhpDocTagsFinderTest extends \RectorPrefix20210209\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PhpDocTagsFinder
@@ -27,7 +27,7 @@ final class PhpDocTagsFinderTest extends \RectorPrefix20210208\Symplify\PackageB
     {
         $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
         $this->phpDocTagsFinder = $this->getService(\Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagsFinder::class);
-        $this->smartFileSystem = $this->getService(\RectorPrefix20210208\Symplify\SmartFileSystem\SmartFileSystem::class);
+        $this->smartFileSystem = $this->getService(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileSystem::class);
         // required for parser
         $this->currentNodeProvider = $this->getService(\Rector\Core\Configuration\CurrentNodeProvider::class);
         $this->currentNodeProvider->setNode(new \PhpParser\Node\Stmt\Nop());

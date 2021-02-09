@@ -21,6 +21,7 @@ use Rector\Naming\PhpDoc\VarTagValueNodeRenamer;
 use Rector\Naming\ValueObject\VariableAndCallAssign;
 use Rector\Naming\VariableRenamer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -60,7 +61,11 @@ final class RenameVariableToMatchMethodCallReturnTypeRector extends \Rector\Core
      * @var VarTagValueNodeRenamer
      */
     private $varTagValueNodeRenamer;
-    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer, \Rector\Naming\Matcher\VariableAndCallAssignMatcher $variableAndCallAssignMatcher, \Rector\Naming\VariableRenamer $variableRenamer)
+    /**
+     * @var TypeUnwrapper
+     */
+    private $typeUnwrapper;
+    public function __construct(\Rector\Naming\Guard\BreakingVariableRenameGuard $breakingVariableRenameGuard, \Rector\Naming\Naming\ExpectedNameResolver $expectedNameResolver, \Rector\FamilyTree\Reflection\FamilyRelationsAnalyzer $familyRelationsAnalyzer, \Rector\Naming\NamingConvention\NamingConventionAnalyzer $namingConventionAnalyzer, \Rector\Naming\PhpDoc\VarTagValueNodeRenamer $varTagValueNodeRenamer, \Rector\Naming\Matcher\VariableAndCallAssignMatcher $variableAndCallAssignMatcher, \Rector\Naming\VariableRenamer $variableRenamer, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)
     {
         $this->expectedNameResolver = $expectedNameResolver;
         $this->variableRenamer = $variableRenamer;
@@ -69,6 +74,7 @@ final class RenameVariableToMatchMethodCallReturnTypeRector extends \Rector\Core
         $this->variableAndCallAssignMatcher = $variableAndCallAssignMatcher;
         $this->namingConventionAnalyzer = $namingConventionAnalyzer;
         $this->varTagValueNodeRenamer = $varTagValueNodeRenamer;
+        $this->typeUnwrapper = $typeUnwrapper;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -136,27 +142,27 @@ CODE_SAMPLE
         return $node;
     }
     /**
-     * @param FuncCall|StaticCall|MethodCall $node
+     * @param FuncCall|StaticCall|MethodCall $callNode
      */
-    private function isMultipleCall(\PhpParser\Node $node) : bool
+    private function isMultipleCall(\PhpParser\Node $callNode) : bool
     {
-        $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parentNode = $callNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         while ($parentNode) {
-            $countUsed = \count($this->betterNodeFinder->find($parentNode, function (\PhpParser\Node $n) use($node) : bool {
-                if (\get_class($node) !== \get_class($n)) {
+            $usedNodes = $this->betterNodeFinder->find($parentNode, function (\PhpParser\Node $node) use($callNode) : bool {
+                if (\get_class($callNode) !== \get_class($node)) {
                     return \false;
                 }
-                /** @var FuncCall|StaticCall|MethodCall $n */
-                $passedNode = clone $n;
                 /** @var FuncCall|StaticCall|MethodCall $node */
-                $usedNode = clone $node;
+                $passedNode = clone $node;
+                /** @var FuncCall|StaticCall|MethodCall $callNode */
+                $usedNode = clone $callNode;
                 /** @var FuncCall|StaticCall|MethodCall $passedNode */
                 $passedNode->args = [];
                 /** @var FuncCall|StaticCall|MethodCall $usedNode */
                 $usedNode->args = [];
                 return $this->areNodesEqual($passedNode, $usedNode);
-            }));
-            if ($countUsed > 1) {
+            });
+            if (\count($usedNodes) > 1) {
                 return \true;
             }
             $parentNode = $parentNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteKdyby\Naming;
 
-use RectorPrefix20210208\Nette\Utils\Strings;
+use RectorPrefix20210209\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -22,7 +22,6 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
-use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Exception\NotImplementedYetException;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\Util\StaticInstanceOf;
@@ -43,18 +42,13 @@ final class VariableNaming
      */
     private $valueResolver;
     /**
-     * @var ClassNaming
-     */
-    private $classNaming;
-    /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;
-        $this->classNaming = $classNaming;
         $this->nodeTypeResolver = $nodeTypeResolver;
     }
     public function resolveFromNode(\PhpParser\Node $node) : ?string
@@ -70,7 +64,7 @@ final class VariableNaming
         }
         // adjust static to specific class
         if ($variableName === 'this' && $type instanceof \PHPStan\Type\ThisType) {
-            $shortClassName = $this->classNaming->getShortName($type->getClassName());
+            $shortClassName = $this->nodeNameResolver->getShortName($type->getClassName());
             $variableName = \lcfirst($shortClassName);
         }
         return \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($variableName);
@@ -81,8 +75,8 @@ final class VariableNaming
         if ($name === null) {
             $name = $fallbackName;
         }
-        if (\RectorPrefix20210208\Nette\Utils\Strings::contains($name, '\\')) {
-            $name = (string) \RectorPrefix20210208\Nette\Utils\Strings::after($name, '\\', -1);
+        if (\RectorPrefix20210209\Nette\Utils\Strings::contains($name, '\\')) {
+            $name = (string) \RectorPrefix20210209\Nette\Utils\Strings::after($name, '\\', -1);
         }
         $countedValueName = $this->createCountedValueName($name, $scope);
         return \lcfirst($countedValueName);
@@ -222,7 +216,7 @@ final class VariableNaming
     {
         if ($new->class instanceof \PhpParser\Node\Name) {
             $className = $this->nodeNameResolver->getName($new->class);
-            return $this->classNaming->getShortName($className);
+            return $this->nodeNameResolver->getShortName($className);
         }
         throw new \Rector\Core\Exception\NotImplementedYetException();
     }
