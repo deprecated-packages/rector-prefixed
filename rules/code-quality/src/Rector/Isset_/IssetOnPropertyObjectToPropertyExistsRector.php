@@ -78,13 +78,14 @@ CODE_SAMPLE
             $type = $this->getType($object);
             /** @var Identifier|Variable $name */
             $name = $issetVar->name;
-            if ($type === null || !$name instanceof \PhpParser\Node\Identifier) {
+            if ($this->isTypeNullOrNameNotIdentifier($type, $name)) {
                 continue;
             }
             if ($type instanceof \PHPStan\Type\ThisType) {
                 $newNodes[] = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($issetVar, $this->nodeFactory->createNull());
                 continue;
             }
+            /** @var Identifier $name */
             $property = $name->toString();
             if ($type instanceof \PHPStan\Type\ObjectType) {
                 /** @var string $className */
@@ -98,6 +99,13 @@ CODE_SAMPLE
             $newNodes[] = $this->replaceToPropertyExistsWithNullCheck($object, $property, $issetVar);
         }
         return $this->createReturnNodes($newNodes);
+    }
+    private function isTypeNullOrNameNotIdentifier(?\PHPStan\Type\Type $type, \PhpParser\Node $node) : bool
+    {
+        if ($type === null) {
+            return \true;
+        }
+        return !$node instanceof \PhpParser\Node\Identifier;
     }
     private function getType(\PhpParser\Node\Expr $expr) : ?\PHPStan\Type\Type
     {

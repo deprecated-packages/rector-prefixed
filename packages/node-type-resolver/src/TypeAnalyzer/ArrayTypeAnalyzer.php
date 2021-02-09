@@ -69,7 +69,13 @@ final class ArrayTypeAnalyzer
             return \false;
         }
         foreach ($nodeType->getTypes() as $intersectionNodeType) {
-            if ($intersectionNodeType instanceof \PHPStan\Type\ArrayType || $intersectionNodeType instanceof \PHPStan\Type\Accessory\HasOffsetType || $intersectionNodeType instanceof \PHPStan\Type\Accessory\NonEmptyArrayType) {
+            if ($intersectionNodeType instanceof \PHPStan\Type\ArrayType) {
+                continue;
+            }
+            if ($intersectionNodeType instanceof \PHPStan\Type\Accessory\HasOffsetType) {
+                continue;
+            }
+            if ($intersectionNodeType instanceof \PHPStan\Type\Accessory\NonEmptyArrayType) {
                 continue;
             }
             return \false;

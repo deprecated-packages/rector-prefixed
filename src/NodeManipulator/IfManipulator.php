@@ -281,6 +281,10 @@ final class IfManipulator
         $expr = $this->conditionInverter->createInvertedCondition($expr);
         return new \PhpParser\Node\Stmt\If_($expr, ['stmts' => [$stmt]]);
     }
+    public function createIfExpr(\PhpParser\Node\Expr $expr, \PhpParser\Node\Stmt $stmt) : \PhpParser\Node\Stmt\If_
+    {
+        return new \PhpParser\Node\Stmt\If_($expr, ['stmts' => [$stmt]]);
+    }
     private function matchComparedAndReturnedNode(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical, \PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr
     {
         if ($this->betterStandardPrinter->areNodesEqual($notIdentical->left, $return->expr) && $this->valueResolver->isNull($notIdentical->right)) {

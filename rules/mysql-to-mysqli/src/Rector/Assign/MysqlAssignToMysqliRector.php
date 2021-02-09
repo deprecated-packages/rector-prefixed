@@ -133,7 +133,10 @@ CODE_SAMPLE
         foreach (self::FIELD_TO_FIELD_DIRECT as $funcName => $property) {
             if ($this->isName($funcCall, $funcName)) {
                 $parentNode = $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-                if ($parentNode instanceof \PhpParser\Node\Expr\PropertyFetch || $parentNode instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
+                if ($parentNode instanceof \PhpParser\Node\Expr\PropertyFetch) {
+                    continue;
+                }
+                if ($parentNode instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
                     continue;
                 }
                 $funcCall->name = new \PhpParser\Node\Name('mysqli_fetch_field_direct');

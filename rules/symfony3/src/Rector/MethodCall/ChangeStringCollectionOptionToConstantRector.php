@@ -82,8 +82,15 @@ CODE_SAMPLE
         if (!$optionsArray instanceof \PhpParser\Node\Expr\Array_) {
             return null;
         }
+        return $this->processChangeToConstant($optionsArray, $node);
+    }
+    private function processChangeToConstant(\PhpParser\Node\Expr\Array_ $optionsArray, \PhpParser\Node\Expr\MethodCall $methodCall) : ?\PhpParser\Node
+    {
         foreach ($optionsArray->items as $optionsArrayItem) {
-            if ($optionsArrayItem === null || $optionsArrayItem->key === null) {
+            if ($optionsArrayItem === null) {
+                continue;
+            }
+            if ($optionsArrayItem->key === null) {
                 continue;
             }
             if (!$this->valueResolver->isValues($optionsArrayItem->key, ['type', 'entry_type'])) {
@@ -100,6 +107,6 @@ CODE_SAMPLE
             }
             $optionsArrayItem->value = $this->nodeFactory->createClassConstReference($formClass);
         }
-        return $node;
+        return $methodCall;
     }
 }

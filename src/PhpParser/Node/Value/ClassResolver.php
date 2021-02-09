@@ -76,7 +76,10 @@ final class ClassResolver
         foreach ($params as $param) {
             $paramVar = $param->var;
             $methodCallVar = $methodCall->var;
-            if (!$paramVar instanceof \PhpParser\Node\Expr\Variable || !$methodCallVar instanceof \PhpParser\Node\Expr\Variable) {
+            if (!$paramVar instanceof \PhpParser\Node\Expr\Variable) {
+                continue;
+            }
+            if (!$methodCallVar instanceof \PhpParser\Node\Expr\Variable) {
                 continue;
             }
             if ($paramVar->name === $methodCallVar->name) {

@@ -52,7 +52,10 @@ final class PropertyTypeInferer extends \Rector\TypeDeclaration\TypeInferer\Abst
         $resolvedTypes = [];
         foreach ($this->propertyTypeInferers as $propertyTypeInferer) {
             $type = $propertyTypeInferer->inferProperty($property);
-            if ($type instanceof \PHPStan\Type\VoidType || $type instanceof \PHPStan\Type\MixedType) {
+            if ($type instanceof \PHPStan\Type\VoidType) {
+                continue;
+            }
+            if ($type instanceof \PHPStan\Type\MixedType) {
                 continue;
             }
             $resolvedTypes[] = $type;

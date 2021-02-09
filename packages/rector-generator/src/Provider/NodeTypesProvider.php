@@ -32,7 +32,10 @@ final class NodeTypesProvider
             /** @var SplFileInfo $fileInfo */
             $name = \str_replace(['.php', '/'], ['', '\\'], $fileInfo->getRelativePathname());
             $reflectionClass = new \ReflectionClass(self::PHP_PARSER_NAMESPACE . $name);
-            if ($reflectionClass->isAbstract() || $reflectionClass->isInterface()) {
+            if ($reflectionClass->isAbstract()) {
+                continue;
+            }
+            if ($reflectionClass->isInterface()) {
                 continue;
             }
             $nodeTypes[$name] = $name;

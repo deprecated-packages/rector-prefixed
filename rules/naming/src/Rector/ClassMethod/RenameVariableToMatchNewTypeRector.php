@@ -79,7 +79,10 @@ CODE_SAMPLE
             $expectedName = $this->expectedNameResolver->resolveForAssignNew($assign);
             /** @var Variable $variable */
             $variable = $assign->var;
-            if ($expectedName === null || $this->isName($variable, $expectedName)) {
+            if ($expectedName === null) {
+                continue;
+            }
+            if ($this->isName($variable, $expectedName)) {
                 continue;
             }
             $currentName = $this->getName($variable);

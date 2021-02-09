@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit454ab37e0fdf9ebda474ae84103bb4d5
+class ComposerStaticInit3321bc79d8ffed56547e07bc23f5f65a
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3107,10 +3107,10 @@ class ComposerStaticInit454ab37e0fdf9ebda474ae84103bb4d5
         'Rector\\DowngradePhp80\\Rector\\Property\\DowngradeUnionTypeTypedPropertyRector' => __DIR__ . '/../..' . '/rules/downgrade-php80/src/Rector/Property/DowngradeUnionTypeTypedPropertyRector.php',
         'Rector\\EarlyReturn\\NodeTransformer\\ConditionInverter' => __DIR__ . '/../..' . '/rules/early-return/src/NodeTransformer/ConditionInverter.php',
         'Rector\\EarlyReturn\\Rector\\Foreach_\\ChangeNestedForeachIfsToEarlyContinueRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/Foreach_/ChangeNestedForeachIfsToEarlyContinueRector.php',
-        'Rector\\EarlyReturn\\Rector\\If_\\ChangeAndIfContinueToMultiContinueRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/If_/ChangeAndIfContinueToMultiContinueRector.php',
         'Rector\\EarlyReturn\\Rector\\If_\\ChangeAndIfToEarlyReturnRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/If_/ChangeAndIfToEarlyReturnRector.php',
         'Rector\\EarlyReturn\\Rector\\If_\\ChangeIfElseValueAssignToEarlyReturnRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/If_/ChangeIfElseValueAssignToEarlyReturnRector.php',
         'Rector\\EarlyReturn\\Rector\\If_\\ChangeNestedIfsToEarlyReturnRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/If_/ChangeNestedIfsToEarlyReturnRector.php',
+        'Rector\\EarlyReturn\\Rector\\If_\\ChangeOrIfContinueToMultiContinueRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/If_/ChangeOrIfContinueToMultiContinueRector.php',
         'Rector\\EarlyReturn\\Rector\\If_\\ChangeOrIfReturnToEarlyReturnRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/If_/ChangeOrIfReturnToEarlyReturnRector.php',
         'Rector\\EarlyReturn\\Rector\\If_\\RemoveAlwaysElseRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/If_/RemoveAlwaysElseRector.php',
         'Rector\\EarlyReturn\\Rector\\Return_\\ReturnBinaryAndToEarlyReturnRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/Return_/ReturnBinaryAndToEarlyReturnRector.php',
@@ -4170,9 +4170,9 @@ class ComposerStaticInit454ab37e0fdf9ebda474ae84103bb4d5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit454ab37e0fdf9ebda474ae84103bb4d5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit454ab37e0fdf9ebda474ae84103bb4d5::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit454ab37e0fdf9ebda474ae84103bb4d5::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3321bc79d8ffed56547e07bc23f5f65a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3321bc79d8ffed56547e07bc23f5f65a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3321bc79d8ffed56547e07bc23f5f65a::$classMap;
 
         }, null, ClassLoader::class);
     }

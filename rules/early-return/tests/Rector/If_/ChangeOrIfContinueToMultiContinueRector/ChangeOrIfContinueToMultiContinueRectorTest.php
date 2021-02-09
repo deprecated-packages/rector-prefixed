@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\EarlyReturn\Tests\Rector\If_\ChangeAndIfContinueToMultiContinueRector;
+namespace Rector\EarlyReturn\Tests\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 
 use Iterator;
-use Rector\EarlyReturn\Rector\If_\ChangeAndIfContinueToMultiContinueRector;
+use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
-final class ChangeAndIfContinueToMultiContinueRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class ChangeOrIfContinueToMultiContinueRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -22,6 +22,6 @@ final class ChangeAndIfContinueToMultiContinueRectorTest extends \Rector\Testing
     }
     protected function getRectorClass() : string
     {
-        return \Rector\EarlyReturn\Rector\If_\ChangeAndIfContinueToMultiContinueRector::class;
+        return \Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector::class;
     }
 }
