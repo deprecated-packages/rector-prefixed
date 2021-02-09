@@ -2133,6 +2133,7 @@ return array(
     'Rector\\DeadCode\\Rector\\FunctionLike\\RemoveOverriddenValuesRector' => $baseDir . '/rules/dead-code/src/Rector/FunctionLike/RemoveOverriddenValuesRector.php',
     'Rector\\DeadCode\\Rector\\Function_\\RemoveUnusedFunctionRector' => $baseDir . '/rules/dead-code/src/Rector/Function_/RemoveUnusedFunctionRector.php',
     'Rector\\DeadCode\\Rector\\If_\\RemoveAlwaysTrueIfConditionRector' => $baseDir . '/rules/dead-code/src/Rector/If_/RemoveAlwaysTrueIfConditionRector.php',
+    'Rector\\DeadCode\\Rector\\If_\\RemoveDeadInstanceOfRector' => $baseDir . '/rules/dead-code/src/Rector/If_/RemoveDeadInstanceOfRector.php',
     'Rector\\DeadCode\\Rector\\If_\\RemoveUnusedNonEmptyArrayBeforeForeachRector' => $baseDir . '/rules/dead-code/src/Rector/If_/RemoveUnusedNonEmptyArrayBeforeForeachRector.php',
     'Rector\\DeadCode\\Rector\\If_\\SimplifyIfElseWithSameContentRector' => $baseDir . '/rules/dead-code/src/Rector/If_/SimplifyIfElseWithSameContentRector.php',
     'Rector\\DeadCode\\Rector\\If_\\UnwrapFutureCompatibleIfFunctionExistsRector' => $baseDir . '/rules/dead-code/src/Rector/If_/UnwrapFutureCompatibleIfFunctionExistsRector.php',

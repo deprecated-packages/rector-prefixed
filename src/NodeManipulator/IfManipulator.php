@@ -307,7 +307,7 @@ final class IfManipulator
         }
         return \is_a($stmts[0], $desiredType);
     }
-    private function isIfWithoutElseAndElseIfs(\PhpParser\Node\Stmt\If_ $if) : bool
+    public function isIfWithoutElseAndElseIfs(\PhpParser\Node\Stmt\If_ $if) : bool
     {
         if ($if->else !== null) {
             return \false;
