@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\If_;
+use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
 use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
@@ -101,7 +102,7 @@ CODE_SAMPLE
         $ifWithOnlyReturnsByHash = [];
         $modifiedVariableNames = [];
         foreach ((array) $functionLike->getStmts() as $stmt) {
-            if (!$this->ifManipulator->isIfWithOnlyReturn($stmt)) {
+            if (!$this->ifManipulator->isIfWithOnly($stmt, \PhpParser\Node\Stmt\Return_::class)) {
                 // variable modification
                 $modifiedVariableNames = \array_merge($modifiedVariableNames, $this->modifiedVariableNamesCollector->collectModifiedVariableNames($stmt));
                 continue;

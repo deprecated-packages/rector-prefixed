@@ -84,7 +84,7 @@ CODE_SAMPLE
     }
     private function isUselessBeforeForeachCheck(\PhpParser\Node\Stmt\If_ $if) : bool
     {
-        if (!$this->ifManipulator->isIfWithOnlyForeach($if)) {
+        if (!$this->ifManipulator->isIfWithOnly($if, \PhpParser\Node\Stmt\Foreach_::class)) {
             return \false;
         }
         /** @var Foreach_ $foreach */

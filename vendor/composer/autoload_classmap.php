@@ -2328,6 +2328,7 @@ return array(
     'Rector\\DowngradePhp80\\Rector\\Property\\DowngradeUnionTypeTypedPropertyRector' => $baseDir . '/rules/downgrade-php80/src/Rector/Property/DowngradeUnionTypeTypedPropertyRector.php',
     'Rector\\EarlyReturn\\NodeTransformer\\ConditionInverter' => $baseDir . '/rules/early-return/src/NodeTransformer/ConditionInverter.php',
     'Rector\\EarlyReturn\\Rector\\Foreach_\\ChangeNestedForeachIfsToEarlyContinueRector' => $baseDir . '/rules/early-return/src/Rector/Foreach_/ChangeNestedForeachIfsToEarlyContinueRector.php',
+    'Rector\\EarlyReturn\\Rector\\If_\\ChangeAndIfContinueToMultiContinueRector' => $baseDir . '/rules/early-return/src/Rector/If_/ChangeAndIfContinueToMultiContinueRector.php',
     'Rector\\EarlyReturn\\Rector\\If_\\ChangeAndIfToEarlyReturnRector' => $baseDir . '/rules/early-return/src/Rector/If_/ChangeAndIfToEarlyReturnRector.php',
     'Rector\\EarlyReturn\\Rector\\If_\\ChangeIfElseValueAssignToEarlyReturnRector' => $baseDir . '/rules/early-return/src/Rector/If_/ChangeIfElseValueAssignToEarlyReturnRector.php',
     'Rector\\EarlyReturn\\Rector\\If_\\ChangeNestedIfsToEarlyReturnRector' => $baseDir . '/rules/early-return/src/Rector/If_/ChangeNestedIfsToEarlyReturnRector.php',

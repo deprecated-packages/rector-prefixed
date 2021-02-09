@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
@@ -20,6 +21,7 @@ use PhpParser\Node\Stmt\Return_;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\EarlyReturn\NodeTransformer\ConditionInverter;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class IfManipulator
 {
@@ -43,13 +45,18 @@ final class IfManipulator
      * @var ValueResolver
      */
     private $valueResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver)
+    /**
+     * @var ConditionInverter
+     */
+    private $conditionInverter;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\EarlyReturn\NodeTransformer\ConditionInverter $conditionInverter)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->stmtsManipulator = $stmtsManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->valueResolver = $valueResolver;
+        $this->conditionInverter = $conditionInverter;
     }
     /**
      * Matches:
@@ -228,7 +235,7 @@ final class IfManipulator
         $ifs[] = $currentIf;
         return $ifs;
     }
-    public function isIfWithOnlyReturn(\PhpParser\Node $node) : bool
+    public function isIfWithOnly(\PhpParser\Node $node, string $className) : bool
     {
         if (!$node instanceof \PhpParser\Node\Stmt\If_) {
             return \false;
@@ -236,17 +243,7 @@ final class IfManipulator
         if (!$this->isIfWithoutElseAndElseIfs($node)) {
             return \false;
         }
-        return $this->hasOnlyStmtOfType($node, \PhpParser\Node\Stmt\Return_::class);
-    }
-    public function isIfWithOnlyForeach(\PhpParser\Node $node) : bool
-    {
-        if (!$node instanceof \PhpParser\Node\Stmt\If_) {
-            return \false;
-        }
-        if (!$this->isIfWithoutElseAndElseIfs($node)) {
-            return \false;
-        }
-        return $this->hasOnlyStmtOfType($node, \PhpParser\Node\Stmt\Foreach_::class);
+        return $this->hasOnlyStmtOfType($node, $className);
     }
     public function isIfWithOnlyOneStmt(\PhpParser\Node\Stmt\If_ $if) : bool
     {
@@ -278,6 +275,11 @@ final class IfManipulator
             return \false;
         }
         return !(bool) $if->elseifs;
+    }
+    public function createIfNegation(\PhpParser\Node\Expr $expr, \PhpParser\Node\Stmt $stmt) : \PhpParser\Node\Stmt\If_
+    {
+        $expr = $this->conditionInverter->createInvertedCondition($expr);
+        return new \PhpParser\Node\Stmt\If_($expr, ['stmts' => [$stmt]]);
     }
     private function matchComparedAndReturnedNode(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical, \PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr
     {

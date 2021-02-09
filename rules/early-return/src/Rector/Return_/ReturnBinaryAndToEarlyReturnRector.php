@@ -18,11 +18,20 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\Core\NodeManipulator\IfManipulator;
 /**
  * @see \Rector\EarlyReturn\Tests\Rector\Return_\ReturnBinaryAndToEarlyReturnRector\ReturnBinaryAndToEarlyReturnRectorTest
  */
 final class ReturnBinaryAndToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var IfManipulator
+     */
+    private $ifManipulator;
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
+    {
+        $this->ifManipulator = $ifManipulator;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Changes Single return of && && to early returns', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -84,10 +93,10 @@ CODE_SAMPLE
     {
         while ($expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
             $ifNegations = \array_merge($ifNegations, $this->collectLeftBooleanAndToIfs($expr, $return, $ifNegations));
-            $ifNegations[] = $this->createIfNegation($expr->right);
+            $ifNegations[] = $this->ifManipulator->createIfNegation($expr->right, new \PhpParser\Node\Stmt\Return_($this->nodeFactory->createFalse()));
             $expr = $expr->right;
         }
-        return $ifNegations + [$this->createIfNegation($expr)];
+        return $ifNegations + [$this->ifManipulator->createIfNegation($expr, new \PhpParser\Node\Stmt\Return_($this->nodeFactory->createFalse()))];
     }
     private function getLastReturnExpr(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
     {
@@ -115,21 +124,8 @@ CODE_SAMPLE
     {
         $left = $booleanAnd->left;
         if (!$left instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
-            return [$this->createIfNegation($left)];
+            return [$this->ifManipulator->createIfNegation($left, new \PhpParser\Node\Stmt\Return_($this->nodeFactory->createFalse()))];
         }
         return $this->createMultipleIfsNegation($left, $return, $ifNegations);
-    }
-    private function createIfNegation(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Stmt\If_
-    {
-        if ($expr instanceof \PhpParser\Node\Expr\BinaryOp\Identical) {
-            $expr = new \PhpParser\Node\Expr\BinaryOp\NotIdentical($expr->left, $expr->right);
-        } elseif ($expr instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
-            $expr = new \PhpParser\Node\Expr\BinaryOp\Identical($expr->left, $expr->right);
-        } elseif ($expr instanceof \PhpParser\Node\Expr\BooleanNot) {
-            $expr = $expr->expr;
-        } else {
-            $expr = new \PhpParser\Node\Expr\BooleanNot($expr);
-        }
-        return new \PhpParser\Node\Stmt\If_($expr, ['stmts' => [new \PhpParser\Node\Stmt\Return_($this->nodeFactory->createFalse())]]);
     }
 }

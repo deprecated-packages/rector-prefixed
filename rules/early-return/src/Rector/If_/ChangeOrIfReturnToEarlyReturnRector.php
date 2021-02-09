@@ -70,7 +70,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->ifManipulator->isIfWithOnlyReturn($node)) {
+        if (!$this->ifManipulator->isIfWithOnly($node, \PhpParser\Node\Stmt\Return_::class)) {
             return null;
         }
         if (!$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
