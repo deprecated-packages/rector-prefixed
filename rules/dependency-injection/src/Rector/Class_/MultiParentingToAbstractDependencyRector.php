@@ -191,7 +191,7 @@ CODE_SAMPLE
             if (!$this->nodeTypeResolver->isSameObjectTypes($paramType, $abstractClassConstructorParamTypes)) {
                 continue;
             }
-            unset($classMethod->params[$key]);
+            $this->nodeRemover->removeParam($classMethod, $key);
             $this->classMethodNodeRemover->removeParamFromMethodBody($classMethod, $param);
             $this->objectTypesToInject[] = $paramType;
         }

@@ -10,7 +10,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
-use Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator;
+use Rector\NetteKdyby\NodeManipulator\ParamAnalyzer;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class OnLogoutClassMethodFactory
 {
@@ -19,10 +19,6 @@ final class OnLogoutClassMethodFactory
      */
     private const PARAMETER_TO_GETTER_NAMES = ['request' => 'getRequest', 'response' => 'getResponse', 'token' => 'getToken'];
     /**
-     * @var ListeningClassMethodArgumentManipulator
-     */
-    private $listeningClassMethodArgumentManipulator;
-    /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
@@ -30,11 +26,15 @@ final class OnLogoutClassMethodFactory
      * @var BareLogoutClassMethodFactory
      */
     private $bareLogoutClassMethodFactory;
-    public function __construct(\Rector\NetteKdyby\NodeManipulator\ListeningClassMethodArgumentManipulator $listeningClassMethodArgumentManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Symfony5\NodeFactory\BareLogoutClassMethodFactory $bareLogoutClassMethodFactory)
+    /**
+     * @var ParamAnalyzer
+     */
+    private $paramAnalyzer;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Symfony5\NodeFactory\BareLogoutClassMethodFactory $bareLogoutClassMethodFactory, \Rector\NetteKdyby\NodeManipulator\ParamAnalyzer $paramAnalyzer)
     {
-        $this->listeningClassMethodArgumentManipulator = $listeningClassMethodArgumentManipulator;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->bareLogoutClassMethodFactory = $bareLogoutClassMethodFactory;
+        $this->paramAnalyzer = $paramAnalyzer;
     }
     public function createFromLogoutClassMethod(\PhpParser\Node\Stmt\ClassMethod $logoutClassMethod) : \PhpParser\Node\Stmt\ClassMethod
     {
@@ -58,7 +58,7 @@ final class OnLogoutClassMethodFactory
     {
         $usedParams = [];
         foreach ($logoutClassMethod->params as $oldParam) {
-            if (!$this->listeningClassMethodArgumentManipulator->isParamUsedInClassMethodBody($logoutClassMethod, $oldParam)) {
+            if (!$this->paramAnalyzer->isParamUsedInClassMethod($logoutClassMethod, $oldParam)) {
                 continue;
             }
             $usedParams[] = $oldParam;

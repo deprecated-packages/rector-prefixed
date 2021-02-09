@@ -56,7 +56,7 @@ CODE_SAMPLE
                 if ($removedFunctionArgument->getArgumentPosition() !== $position) {
                     continue;
                 }
-                unset($node->args[$position]);
+                $this->nodeRemover->removeArg($node, $position);
             }
         }
         return $node;

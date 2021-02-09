@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5a8212d1775f43f0ea15ffa7cdb470ed
+class ComposerStaticInit6c975fd107aee032e8d160cc906bebc9
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2894,6 +2894,7 @@ class ComposerStaticInit5a8212d1775f43f0ea15ffa7cdb470ed
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDeadRecursiveClassMethodRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/ClassMethod/RemoveDeadRecursiveClassMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveDelegatingParentCallRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/ClassMethod/RemoveDelegatingParentCallRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveEmptyClassMethodRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/ClassMethod/RemoveEmptyClassMethodRector.php',
+        'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedConstructorParamRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/ClassMethod/RemoveUnusedConstructorParamRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedParameterRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/ClassMethod/RemoveUnusedParameterRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPrivateMethodRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php',
         'Rector\\DeadCode\\Rector\\ClassMethod\\RemoveUnusedPublicMethodRector' => __DIR__ . '/../..' . '/rules/dead-code/src/Rector/ClassMethod/RemoveUnusedPublicMethodRector.php',
@@ -3287,6 +3288,7 @@ class ComposerStaticInit5a8212d1775f43f0ea15ffa7cdb470ed
         'Rector\\NetteKdyby\\NodeFactory\\EventValueObjectClassFactory' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/NodeFactory/EventValueObjectClassFactory.php',
         'Rector\\NetteKdyby\\NodeManipulator\\GetSubscribedEventsArrayManipulator' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/NodeManipulator/GetSubscribedEventsArrayManipulator.php',
         'Rector\\NetteKdyby\\NodeManipulator\\ListeningClassMethodArgumentManipulator' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/NodeManipulator/ListeningClassMethodArgumentManipulator.php',
+        'Rector\\NetteKdyby\\NodeManipulator\\ParamAnalyzer' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/NodeManipulator/ParamAnalyzer.php',
         'Rector\\NetteKdyby\\NodeResolver\\ListeningMethodsCollector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/NodeResolver/ListeningMethodsCollector.php',
         'Rector\\NetteKdyby\\Rector\\ClassMethod\\AbstractKdybyEventSubscriberRector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/Rector/ClassMethod/AbstractKdybyEventSubscriberRector.php',
         'Rector\\NetteKdyby\\Rector\\ClassMethod\\ChangeNetteEventNamesInGetSubscribedEventsRector' => __DIR__ . '/../..' . '/rules/nette-kdyby/src/Rector/ClassMethod/ChangeNetteEventNamesInGetSubscribedEventsRector.php',
@@ -4162,9 +4164,9 @@ class ComposerStaticInit5a8212d1775f43f0ea15ffa7cdb470ed
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5a8212d1775f43f0ea15ffa7cdb470ed::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5a8212d1775f43f0ea15ffa7cdb470ed::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5a8212d1775f43f0ea15ffa7cdb470ed::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6c975fd107aee032e8d160cc906bebc9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6c975fd107aee032e8d160cc906bebc9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6c975fd107aee032e8d160cc906bebc9::$classMap;
 
         }, null, ClassLoader::class);
     }
