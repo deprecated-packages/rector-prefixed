@@ -5,6 +5,8 @@ namespace Rector\BetterPhpDocParser\PhpDocNodeFactory\Doctrine\Class_;
 
 use RectorPrefix20210209\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
+use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
+use Rector\BetterPhpDocParser\Printer\TagValueNodePrinter;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\IndexTagValueNode;
 final class IndexPhpDocNodeFactory
 {
@@ -17,9 +19,19 @@ final class IndexPhpDocNodeFactory
      * @var AnnotationItemsResolver
      */
     private $annotationItemsResolver;
-    public function __construct(\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver)
+    /**
+     * @var ArrayPartPhpDocTagPrinter
+     */
+    private $arrayPartPhpDocTagPrinter;
+    /**
+     * @var TagValueNodePrinter
+     */
+    private $tagValueNodePrinter;
+    public function __construct(\Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter)
     {
         $this->annotationItemsResolver = $annotationItemsResolver;
+        $this->arrayPartPhpDocTagPrinter = $arrayPartPhpDocTagPrinter;
+        $this->tagValueNodePrinter = $tagValueNodePrinter;
     }
     /**
      * @param mixed[]|null $indexes
@@ -35,7 +47,7 @@ final class IndexPhpDocNodeFactory
         foreach ($indexes as $key => $index) {
             $currentContent = $indexContents[$key];
             $items = $this->annotationItemsResolver->resolve($index);
-            $indexTagValueNodes[] = new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\IndexTagValueNode($items, $currentContent['content'], $currentContent['tag']);
+            $indexTagValueNodes[] = new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_\IndexTagValueNode($this->arrayPartPhpDocTagPrinter, $this->tagValueNodePrinter, $items, $currentContent['content'], $currentContent['tag']);
         }
         return $indexTagValueNodes;
     }

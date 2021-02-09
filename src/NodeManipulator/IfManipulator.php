@@ -272,6 +272,13 @@ final class IfManipulator
         }
         return !$this->betterStandardPrinter->areNodesEqual($this->getIfCondVar($if), $node->var);
     }
+    public function isIfWithoutElseAndElseIfs(\PhpParser\Node\Stmt\If_ $if) : bool
+    {
+        if ($if->else !== null) {
+            return \false;
+        }
+        return !(bool) $if->elseifs;
+    }
     private function matchComparedAndReturnedNode(\PhpParser\Node\Expr\BinaryOp\NotIdentical $notIdentical, \PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node\Expr
     {
         if ($this->betterStandardPrinter->areNodesEqual($notIdentical->left, $return->expr) && $this->valueResolver->isNull($notIdentical->right)) {
@@ -306,13 +313,6 @@ final class IfManipulator
             return \false;
         }
         return \is_a($stmts[0], $desiredType);
-    }
-    public function isIfWithoutElseAndElseIfs(\PhpParser\Node\Stmt\If_ $if) : bool
-    {
-        if ($if->else !== null) {
-            return \false;
-        }
-        return !(bool) $if->elseifs;
     }
     private function getIfCondVar(\PhpParser\Node\Stmt\If_ $if) : \PhpParser\Node
     {

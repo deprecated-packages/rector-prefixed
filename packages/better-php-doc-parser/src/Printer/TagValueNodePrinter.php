@@ -1,23 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\PhpDocNode;
+namespace Rector\BetterPhpDocParser\Printer;
 
 use RectorPrefix20210209\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
-/**
- * @property TagValueNodeConfiguration $tagValueNodeConfiguration
- */
-trait PrintTagValueNodeTrait
+final class TagValueNodePrinter
 {
+    /**
+     * @var string
+     * @see https://regex101.com/r/Krp6Jz/1
+     */
+    private const CONSTANT_REFERENCE_REGEX = '#\\w+::\\w+#';
     /**
      * @param mixed[] $items
      * @return mixed[]
      */
-    protected function makeKeysExplicit(array $items) : array
+    public function makeKeysExplicit(array $items, \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : array
     {
         foreach ($items as $key => $contentItem) {
-            if ($this->shouldSkipFromExplicitKey($contentItem, $key)) {
+            if ($this->shouldSkipFromExplicitKey($contentItem, $key, $tagValueNodeConfiguration)) {
                 continue;
             }
             // boolish keys
@@ -33,7 +35,7 @@ trait PrintTagValueNodeTrait
      * @param string[] $skipKeys
      * @return mixed[]
      */
-    protected function completeItemsQuotes(array $items, array $skipKeys = []) : array
+    public function completeItemsQuotes(\Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration, array $items, array $skipKeys = []) : array
     {
         foreach ($items as $key => $item) {
             if (!\is_string($item)) {
@@ -43,11 +45,11 @@ trait PrintTagValueNodeTrait
                 continue;
             }
             // do not quote constant references... unless twig template
-            if (\RectorPrefix20210209\Nette\Utils\Strings::match($item, '#\\w+::\\w+#') && !\RectorPrefix20210209\Nette\Utils\Strings::endsWith($item, '.twig')) {
+            if (\RectorPrefix20210209\Nette\Utils\Strings::match($item, self::CONSTANT_REFERENCE_REGEX) && !\RectorPrefix20210209\Nette\Utils\Strings::endsWith($item, '.twig')) {
                 continue;
             }
             // no original quoting
-            $keysByQuotedStatus = $this->tagValueNodeConfiguration->getKeysByQuotedStatus();
+            $keysByQuotedStatus = $tagValueNodeConfiguration->getKeysByQuotedStatus();
             if (isset($keysByQuotedStatus[$key]) && !$keysByQuotedStatus[$key]) {
                 continue;
             }
@@ -58,7 +60,7 @@ trait PrintTagValueNodeTrait
     /**
      * @param mixed $contentItem
      */
-    private function shouldSkipFromExplicitKey($contentItem, string $key) : bool
+    private function shouldSkipFromExplicitKey($contentItem, string $key, \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration $tagValueNodeConfiguration) : bool
     {
         if (\is_array($contentItem)) {
             return \true;
@@ -66,6 +68,6 @@ trait PrintTagValueNodeTrait
         if ($contentItem === null) {
             return \true;
         }
-        return $this->tagValueNodeConfiguration->isSilentKeyAndImplicit($key);
+        return $tagValueNodeConfiguration->isSilentKeyAndImplicit($key);
     }
 }

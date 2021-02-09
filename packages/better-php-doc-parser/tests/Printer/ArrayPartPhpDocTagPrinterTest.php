@@ -1,24 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior;
+namespace Rector\BetterPhpDocParser\Tests\Printer;
 
 use Iterator;
 use RectorPrefix20210209\PHPUnit\Framework\TestCase;
-use Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\Source\PhpDocTagNodeWithArrayPrinter;
+use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
-/**
- * @see \Rector\BetterPhpDocParser\PartPhpDocTagPrinter\Behavior\ArrayPartPhpDocTagPrinterTrait
- */
 final class ArrayPartPhpDocTagPrinterTest extends \RectorPrefix20210209\PHPUnit\Framework\TestCase
 {
     /**
-     * @var PhpDocTagNodeWithArrayPrinter
+     * @var ArrayPartPhpDocTagPrinter
      */
-    private $phpDocTagNodeWithArrayPrinter;
+    private $arrayPartPhpDocTagPrinter;
     protected function setUp() : void
     {
-        $this->phpDocTagNodeWithArrayPrinter = new \Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\Source\PhpDocTagNodeWithArrayPrinter();
+        $this->arrayPartPhpDocTagPrinter = new \Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter();
     }
     /**
      * @param mixed[] $items
@@ -27,7 +24,7 @@ final class ArrayPartPhpDocTagPrinterTest extends \RectorPrefix20210209\PHPUnit\
     public function test(array $items, string $key, string $expectedContent) : void
     {
         $tagValueNodeConfiguration = new \Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration();
-        $output = $this->phpDocTagNodeWithArrayPrinter->printArrayItem($items, $key, $tagValueNodeConfiguration);
+        $output = $this->arrayPartPhpDocTagPrinter->printArrayItem($items, $key, $tagValueNodeConfiguration);
         $this->assertSame($expectedContent, $output);
     }
     public function provideData() : \Iterator

@@ -4,6 +4,8 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Class_;
 
 use Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface;
+use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
+use Rector\BetterPhpDocParser\Printer\TagValueNodePrinter;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
 final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\Doctrine\DoctrineRelationTagValueNodeInterface
 {
@@ -11,9 +13,9 @@ final class EmbeddedTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\
      * @var string
      */
     private $fullyQualifiedClassName;
-    public function __construct(array $items, ?string $originalContent, string $fullyQualifiedClassName)
+    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items, ?string $originalContent, string $fullyQualifiedClassName)
     {
-        parent::__construct($items, $originalContent);
+        parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $originalContent);
         $this->fullyQualifiedClassName = $fullyQualifiedClassName;
     }
     public function getShortName() : string

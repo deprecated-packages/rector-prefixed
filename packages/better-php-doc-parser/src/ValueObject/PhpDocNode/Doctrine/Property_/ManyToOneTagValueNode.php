@@ -5,6 +5,8 @@ namespace Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_;
 
 use Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface;
 use Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface;
+use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
+use Rector\BetterPhpDocParser\Printer\TagValueNodePrinter;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode;
 final class ManyToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\AbstractDoctrineTagValueNode implements \Rector\BetterPhpDocParser\Contract\Doctrine\ToOneTagNodeInterface, \Rector\BetterPhpDocParser\Contract\Doctrine\InversedByNodeInterface
 {
@@ -12,10 +14,10 @@ final class ManyToOneTagValueNode extends \Rector\BetterPhpDocParser\ValueObject
      * @var string
      */
     private $fullyQualifiedTargetEntity;
-    public function __construct(array $items, ?string $content, string $fullyQualifiedTargetEntity)
+    public function __construct(\Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter $arrayPartPhpDocTagPrinter, \Rector\BetterPhpDocParser\Printer\TagValueNodePrinter $tagValueNodePrinter, array $items, ?string $content, string $fullyQualifiedTargetEntity)
     {
         $this->fullyQualifiedTargetEntity = $fullyQualifiedTargetEntity;
-        parent::__construct($items, $content);
+        parent::__construct($arrayPartPhpDocTagPrinter, $tagValueNodePrinter, $items, $content);
     }
     public function getTargetEntity() : ?string
     {

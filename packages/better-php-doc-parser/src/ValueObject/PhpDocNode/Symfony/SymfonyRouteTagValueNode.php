@@ -59,7 +59,7 @@ final class SymfonyRouteTagValueNode extends \Rector\BetterPhpDocParser\ValueObj
     }
     public function getAttributeClassName() : string
     {
-        return 'Symfony\\Component\\Routing\\Annotation\\Route';
+        return self::CLASS_NAME;
     }
     public function getClassName() : string
     {

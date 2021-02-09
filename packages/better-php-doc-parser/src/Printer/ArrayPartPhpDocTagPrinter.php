@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\BetterPhpDocParser\PartPhpDocTagPrinter\Behavior;
+namespace Rector\BetterPhpDocParser\Printer;
 
 use RectorPrefix20210209\Nette\Utils\Json;
 use RectorPrefix20210209\Nette\Utils\Strings;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
 /**
- * @see \Rector\BetterPhpDocParser\Tests\PartPhpDocTagPrinter\Behavior\ArrayPartPhpDocTagPrinterTest
+ * @see \Rector\BetterPhpDocParser\Tests\Printer\ArrayPartPhpDocTagPrinterTest
  */
-trait ArrayPartPhpDocTagPrinterTrait
+final class ArrayPartPhpDocTagPrinter
 {
     /**
      * @param mixed[] $item

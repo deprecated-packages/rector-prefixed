@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd08c27c1f33e8c696e8cd744b3f81779
+class ComposerStaticInit0479997e3ad721532ff6aadff4d59a40
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2426,7 +2426,6 @@ class ComposerStaticInitd08c27c1f33e8c696e8cd744b3f81779
         'Rector\\BetterPhpDocParser\\Contract\\PhpDocParserAwareInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/PhpDocParserAwareInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\SpecificPhpDocNodeFactoryInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/SpecificPhpDocNodeFactoryInterface.php',
         'Rector\\BetterPhpDocParser\\Contract\\StringTagMatchingPhpDocNodeFactoryInterface' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Contract/StringTagMatchingPhpDocNodeFactoryInterface.php',
-        'Rector\\BetterPhpDocParser\\PartPhpDocTagPrinter\\Behavior\\ArrayPartPhpDocTagPrinterTrait' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PartPhpDocTagPrinter/Behavior/ArrayPartPhpDocTagPrinterTrait.php',
         'Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfo' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocInfo/PhpDocInfo.php',
         'Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfoFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocInfo/PhpDocInfoFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocInfo\\TokenIteratorFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocInfo/TokenIteratorFactory.php',
@@ -2451,19 +2450,25 @@ class ComposerStaticInitd08c27c1f33e8c696e8cd744b3f81779
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\PHPUnitDataProviderDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/PHPUnitDataProviderDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\PHPUnitExpectedExceptionDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/PHPUnitExpectedExceptionDocNodeFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocNodeFactory\\StringMatchingPhpDocNodeFactory\\SymfonyRequirePhpDocNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNodeFactory/StringMatchingPhpDocNodeFactory/SymfonyRequirePhpDocNodeFactory.php',
-        'Rector\\BetterPhpDocParser\\PhpDocNode\\PrintTagValueNodeTrait' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocNode/PrintTagValueNodeTrait.php',
         'Rector\\BetterPhpDocParser\\PhpDocParser\\AnnotationContentResolver' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocParser/AnnotationContentResolver.php',
         'Rector\\BetterPhpDocParser\\PhpDocParser\\BetterPhpDocParser' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocParser/BetterPhpDocParser.php',
         'Rector\\BetterPhpDocParser\\PhpDocParser\\ClassAnnotationMatcher' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocParser/ClassAnnotationMatcher.php',
         'Rector\\BetterPhpDocParser\\PhpDocParser\\TypeNodeAnalyzer' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocParser/TypeNodeAnalyzer.php',
+        'Rector\\BetterPhpDocParser\\Printer\\ArrayPartPhpDocTagPrinter' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/ArrayPartPhpDocTagPrinter.php',
         'Rector\\BetterPhpDocParser\\Printer\\DocBlockInliner' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/DocBlockInliner.php',
         'Rector\\BetterPhpDocParser\\Printer\\EmptyPhpDocDetector' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/EmptyPhpDocDetector.php',
         'Rector\\BetterPhpDocParser\\Printer\\MultilineSpaceFormatPreserver' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/MultilineSpaceFormatPreserver.php',
         'Rector\\BetterPhpDocParser\\Printer\\OriginalSpacingRestorer' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/OriginalSpacingRestorer.php',
         'Rector\\BetterPhpDocParser\\Printer\\PhpDocInfoPrinter' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/PhpDocInfoPrinter.php',
         'Rector\\BetterPhpDocParser\\Printer\\SpacePatternFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/SpacePatternFactory.php',
+        'Rector\\BetterPhpDocParser\\Printer\\TagValueNodePrinter' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/TagValueNodePrinter.php',
         'Rector\\BetterPhpDocParser\\Printer\\WhitespaceDetector' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Printer/WhitespaceDetector.php',
         'Rector\\BetterPhpDocParser\\Utils\\ArrayItemStaticHelper' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/Utils/ArrayItemStaticHelper.php',
+        'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\AbstractTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/PhpDocNode/AbstractTagValueNodeFactory.php',
+        'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\ColumnTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/PhpDocNode/Doctrine/ColumnTagValueNodeFactory.php',
+        'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\EntityTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/PhpDocNode/Doctrine/EntityTagValueNodeFactory.php',
+        'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Doctrine\\JoinColumnTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/PhpDocNode/Doctrine/JoinColumnTagValueNodeFactory.php',
+        'Rector\\BetterPhpDocParser\\ValueObjectFactory\\PhpDocNode\\Symfony\\SymfonyRouteTagValueNodeFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/PhpDocNode/Symfony/SymfonyRouteTagValueNodeFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObjectFactory\\TagValueNodeConfigurationFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObjectFactory/TagValueNodeConfigurationFactory.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\AroundSpaces' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/AroundSpaces.php',
         'Rector\\BetterPhpDocParser\\ValueObject\\PhpDocNode\\AbstractTagValueNode' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/ValueObject/PhpDocNode/AbstractTagValueNode.php',
@@ -4165,9 +4170,9 @@ class ComposerStaticInitd08c27c1f33e8c696e8cd744b3f81779
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd08c27c1f33e8c696e8cd744b3f81779::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd08c27c1f33e8c696e8cd744b3f81779::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd08c27c1f33e8c696e8cd744b3f81779::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0479997e3ad721532ff6aadff4d59a40::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0479997e3ad721532ff6aadff4d59a40::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0479997e3ad721532ff6aadff4d59a40::$classMap;
 
         }, null, ClassLoader::class);
     }

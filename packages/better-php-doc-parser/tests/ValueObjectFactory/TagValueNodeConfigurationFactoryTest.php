@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\ValueObjectFactory;
 
 use Iterator;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode;
-use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
+use Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Doctrine\ColumnTagValueNodeFactory;
+use Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory;
 use Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory;
 use Rector\Core\HttpKernel\RectorKernel;
 use RectorPrefix20210209\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
@@ -15,14 +15,25 @@ final class TagValueNodeConfigurationFactoryTest extends \RectorPrefix20210209\S
      * @var TagValueNodeConfigurationFactory
      */
     private $tagValueNodeConfigurationFactory;
+    /**
+     * @var SymfonyRouteTagValueNodeFactory
+     */
+    private $symfonyRouteTagValueNodeFactory;
+    /**
+     * @var ColumnTagValueNodeFactory
+     */
+    private $columnTagValueNodeFactory;
     protected function setUp() : void
     {
         $this->bootKernel(\Rector\Core\HttpKernel\RectorKernel::class);
         $this->tagValueNodeConfigurationFactory = $this->getService(\Rector\BetterPhpDocParser\ValueObjectFactory\TagValueNodeConfigurationFactory::class);
+        $this->symfonyRouteTagValueNodeFactory = $this->getService(\Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Symfony\SymfonyRouteTagValueNodeFactory::class);
+        $this->columnTagValueNodeFactory = $this->getService(\Rector\BetterPhpDocParser\ValueObjectFactory\PhpDocNode\Doctrine\ColumnTagValueNodeFactory::class);
     }
     public function test() : void
     {
-        $tagValueNodeConfiguration = $this->tagValueNodeConfigurationFactory->createFromOriginalContent('...', new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode([]));
+        $symfonyRouteTagValueNode = $this->symfonyRouteTagValueNodeFactory->create();
+        $tagValueNodeConfiguration = $this->tagValueNodeConfigurationFactory->createFromOriginalContent('...', $symfonyRouteTagValueNode);
         $this->assertSame('=', $tagValueNodeConfiguration->getArrayEqualSign());
     }
     /**
@@ -30,7 +41,7 @@ final class TagValueNodeConfigurationFactoryTest extends \RectorPrefix20210209\S
      */
     public function testArrayColonIsNotChangedToEqual(string $originalContent) : void
     {
-        $tagValueNodeConfiguration = $this->tagValueNodeConfigurationFactory->createFromOriginalContent($originalContent, new \Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Doctrine\Property_\ColumnTagValueNode([]));
+        $tagValueNodeConfiguration = $this->tagValueNodeConfigurationFactory->createFromOriginalContent($originalContent, $this->columnTagValueNodeFactory->create());
         $this->assertSame(':', $tagValueNodeConfiguration->getArrayEqualSign());
     }
     public function provideData() : \Iterator
