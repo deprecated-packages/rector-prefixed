@@ -102,10 +102,6 @@ CODE_SAMPLE
         if (!isset($classMethod->stmts[$i - 1])) {
             return \true;
         }
-        // we look for 2 methods calls in a row
-        if (!$expression instanceof \PhpParser\Node\Stmt\Expression) {
-            return \true;
-        }
         $prevStmt = $classMethod->stmts[$i - 1];
         return !$prevStmt instanceof \PhpParser\Node\Stmt\Expression;
     }

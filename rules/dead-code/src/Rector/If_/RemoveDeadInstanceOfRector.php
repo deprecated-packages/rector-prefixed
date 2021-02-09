@@ -4,11 +4,17 @@ declare (strict_types=1);
 namespace Rector\DeadCode\Rector\If_;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Instanceof_;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\If_;
+use PHPStan\Type\ObjectType;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -75,6 +81,9 @@ CODE_SAMPLE
     private function processMayDeadInstanceOf(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\Instanceof_ $instanceof) : ?\PhpParser\Node
     {
         $previousVar = $this->betterNodeFinder->findFirstPrevious($if, function (\PhpParser\Node $node) use($instanceof) : bool {
+            if ($node === $instanceof->expr) {
+                return \false;
+            }
             return $this->areNodesEqual($node, $instanceof->expr);
         });
         if (!$previousVar instanceof \PhpParser\Node) {
@@ -84,7 +93,7 @@ CODE_SAMPLE
         if ($name === null) {
             return null;
         }
-        $isSameObject = $this->isObjectType($previousVar, $name);
+        $isSameObject = $this->isSameObject($previousVar, $name);
         if (!$isSameObject) {
             return null;
         }
@@ -95,5 +104,31 @@ CODE_SAMPLE
         }
         $this->removeNode($if);
         return $if;
+    }
+    private function isSameObject(\PhpParser\Node $node, string $name) : bool
+    {
+        $objectType = $this->getObjectType($node);
+        $parentPreviousVar = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentPreviousVar instanceof \PhpParser\Node\Param) {
+            $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
+            if ($phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
+                return \false;
+            }
+            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+            if (!$parentNode instanceof \PhpParser\Node\Expr\Assign) {
+                return \false;
+            }
+            $objectType = $this->getObjectType($parentNode->expr);
+            if (!$objectType instanceof \PHPStan\Type\ObjectType) {
+                return \false;
+            }
+            return \is_a($objectType, $name, \true);
+        }
+        $type = $parentPreviousVar->type;
+        if ($type instanceof \PhpParser\Node\Name\FullyQualified) {
+            $type = $type->toString();
+            return \is_a($type, $name, \true);
+        }
+        return \false;
     }
 }

@@ -85,9 +85,6 @@ final class NodeRemovingPostRector extends \PhpParser\NodeVisitorAbstract implem
     }
     private function isChainMethodCallNodeToBeRemoved(\PhpParser\Node\Expr\MethodCall $mainMethodCall, \PhpParser\Node\Expr\MethodCall $toBeRemovedMethodCall) : bool
     {
-        if (!$mainMethodCall instanceof \PhpParser\Node\Expr\MethodCall) {
-            return \false;
-        }
         if (!$mainMethodCall->var instanceof \PhpParser\Node\Expr\MethodCall) {
             return \false;
         }

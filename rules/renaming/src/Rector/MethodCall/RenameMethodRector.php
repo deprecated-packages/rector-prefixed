@@ -96,9 +96,6 @@ CODE_SAMPLE
     }
     private function shouldSkipForAlreadyExistingClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Renaming\Contract\MethodCallRenameInterface $methodCallRename) : bool
     {
-        if (!$classMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
-            return \false;
-        }
         $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
             return \false;
