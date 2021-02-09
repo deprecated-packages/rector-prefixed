@@ -29,7 +29,7 @@ final class InferParamFromClassMethodReturnRector extends \Rector\Core\Rector\Ab
     /**
      * @var string
      */
-    public const INFER_PARAMS_FROM_CLASS_METHOD_RETURNS = 'infer_params_from_class_method_returns';
+    public const PARAM_FROM_CLASS_METHOD_RETURNS = 'param_from_class_method_returns';
     /**
      * @var InferParamFromClassMethodReturn[]
      */
@@ -83,7 +83,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS => [new \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn('SomeClass', 'process', 'getNodeTypes')]])]);
+, [self::PARAM_FROM_CLASS_METHOD_RETURNS => [new \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn('SomeClass', 'process', 'getNodeTypes')]])]);
     }
     /**
      * @return string[]
@@ -127,7 +127,7 @@ CODE_SAMPLE
      */
     public function configure(array $configuration) : void
     {
-        $inferParamsFromClassMethodReturns = $configuration[self::INFER_PARAMS_FROM_CLASS_METHOD_RETURNS] ?? [];
+        $inferParamsFromClassMethodReturns = $configuration[self::PARAM_FROM_CLASS_METHOD_RETURNS] ?? [];
         \RectorPrefix20210209\Webmozart\Assert\Assert::allIsInstanceOf($inferParamsFromClassMethodReturns, \Rector\Restoration\ValueObject\InferParamFromClassMethodReturn::class);
         $this->inferParamFromClassMethodReturn = $inferParamsFromClassMethodReturns;
     }

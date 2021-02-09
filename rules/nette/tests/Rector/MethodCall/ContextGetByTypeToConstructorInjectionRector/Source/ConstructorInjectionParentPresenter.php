@@ -6,7 +6,7 @@ namespace Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInje
 use RectorPrefix20210209\Nette\Application\IPresenter;
 use RectorPrefix20210209\Nette\Application\IResponse;
 use RectorPrefix20210209\Nette\Application\Request;
-class ConstructorInjectionParentPresenter implements \RectorPrefix20210209\Nette\Application\IPresenter
+abstract class ConstructorInjectionParentPresenter implements \RectorPrefix20210209\Nette\Application\IPresenter
 {
     /**
      * @var SomeTypeToInject

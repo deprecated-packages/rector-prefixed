@@ -17,6 +17,7 @@ use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\ValueObject\MethodName;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 final class ClassDependencyManipulator
@@ -49,7 +50,11 @@ final class ClassDependencyManipulator
      * @var PropertyPresenceChecker
      */
     private $propertyPresenceChecker;
-    public function __construct(\Rector\Core\NodeManipulator\ChildAndParentClassManipulator $childAndParentClassManipulator, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\NodeManipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\NodeAnalyzer\PropertyPresenceChecker $propertyPresenceChecker)
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+    public function __construct(\Rector\Core\NodeManipulator\ChildAndParentClassManipulator $childAndParentClassManipulator, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\Core\NodeManipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\Core\NodeManipulator\StmtsManipulator $stmtsManipulator, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\NodeAnalyzer\PropertyPresenceChecker $propertyPresenceChecker, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->classMethodAssignManipulator = $classMethodAssignManipulator;
         $this->nodeFactory = $nodeFactory;
@@ -58,10 +63,11 @@ final class ClassDependencyManipulator
         $this->classInsertManipulator = $classInsertManipulator;
         $this->phpVersionProvider = $phpVersionProvider;
         $this->propertyPresenceChecker = $propertyPresenceChecker;
+        $this->nodeNameResolver = $nodeNameResolver;
     }
     public function addConstructorDependency(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : void
     {
-        if ($this->propertyPresenceChecker->hasClassContextPropertyByName($class, $propertyMetadata->getName())) {
+        if ($this->hasClassPropertyAndDependency($class, $propertyMetadata)) {
             return;
         }
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION)) {
@@ -144,5 +150,25 @@ final class ClassDependencyManipulator
     {
         $staticCall = new \PhpParser\Node\Expr\StaticCall(new \PhpParser\Node\Name('parent'), $methodName);
         return new \PhpParser\Node\Stmt\Expression($staticCall);
+    }
+    private function isParamInConstructor(\PhpParser\Node\Stmt\Class_ $class, string $propertyName) : bool
+    {
+        $constructClassMethod = $class->getMethod(\Rector\Core\ValueObject\MethodName::CONSTRUCT);
+        if (!$constructClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return \false;
+        }
+        foreach ($constructClassMethod->params as $param) {
+            if ($this->nodeNameResolver->isName($param, $propertyName)) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    private function hasClassPropertyAndDependency(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : bool
+    {
+        if (!$this->propertyPresenceChecker->hasClassContextPropertyByName($class, $propertyMetadata->getName())) {
+            return \false;
+        }
+        return $this->isParamInConstructor($class, $propertyMetadata->getName());
     }
 }

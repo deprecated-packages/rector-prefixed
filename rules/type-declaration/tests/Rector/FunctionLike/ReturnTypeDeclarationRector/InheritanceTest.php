@@ -4,9 +4,7 @@ declare (strict_types=1);
 namespace Rector\TypeDeclaration\Tests\Rector\FunctionLike\ReturnTypeDeclarationRector;
 
 use Iterator;
-use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class InheritanceTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -21,12 +19,8 @@ final class InheritanceTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCa
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureInheritance');
     }
-    protected function getPhpVersion() : int
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return \Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES;
-    }
-    protected function getRectorClass() : string
-    {
-        return \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class;
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/scalar_types.php');
     }
 }

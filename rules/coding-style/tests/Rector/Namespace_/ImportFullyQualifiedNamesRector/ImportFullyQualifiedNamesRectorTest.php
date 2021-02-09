@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\CodingStyle\Tests\Rector\Namespace_\ImportFullyQualifiedNamesRector;
 
 use Iterator;
-use Rector\Core\Configuration\Option;
-use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 /**
@@ -20,7 +18,6 @@ final class ImportFullyQualifiedNamesRectorTest extends \Rector\Testing\PHPUnit\
      */
     public function test(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
@@ -35,8 +32,8 @@ final class ImportFullyQualifiedNamesRectorTest extends \Rector\Testing\PHPUnit\
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureGeneric');
     }
-    protected function getRectorClass() : string
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return \Rector\Renaming\Rector\Name\RenameClassRector::class;
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/import_config.php');
     }
 }

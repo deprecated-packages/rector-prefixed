@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\Php55\Tests\Rector\String_\StringClassNameToClassConstantRector;
 
 use Iterator;
-use Rector\Core\Configuration\Option;
-use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class ImportClassNameRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -15,15 +13,14 @@ final class ImportClassNameRectorTest extends \Rector\Testing\PHPUnit\AbstractRe
      */
     public function test(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
-        $this->setParameter(\Rector\Core\Configuration\Option::AUTO_IMPORT_NAMES, \true);
         $this->doTestFileInfo($fileInfo);
     }
     public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureImport');
     }
-    protected function getRectorClass() : string
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return \Rector\Php55\Rector\String_\StringClassNameToClassConstantRector::class;
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/import_config.php');
     }
 }

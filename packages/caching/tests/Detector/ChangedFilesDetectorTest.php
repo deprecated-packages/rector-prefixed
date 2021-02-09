@@ -20,7 +20,6 @@ final class ChangedFilesDetectorTest extends \Rector\Testing\PHPUnit\AbstractRec
     }
     protected function tearDown() : void
     {
-        parent::tearDown();
         $this->changedFilesDetector->clear();
     }
     public function testHasFileChanged() : void

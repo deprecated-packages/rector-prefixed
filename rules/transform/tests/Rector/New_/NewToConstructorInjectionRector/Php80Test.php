@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Transform\Tests\Rector\New_\NewToConstructorInjectionRector;
 
 use Iterator;
-use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class Php80Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -19,10 +18,6 @@ final class Php80Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
     public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixturePhp80');
-    }
-    protected function getPhpVersion() : int
-    {
-        return \Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION;
     }
     protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {

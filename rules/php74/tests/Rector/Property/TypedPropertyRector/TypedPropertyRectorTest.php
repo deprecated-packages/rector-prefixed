@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Php74\Tests\Rector\Property\TypedPropertyRector;
 
 use Iterator;
-use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class TypedPropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -19,10 +18,6 @@ final class TypedPropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRect
     public function provideData() : \Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
-    }
-    protected function getPhpVersion() : int
-    {
-        return \Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES - 1;
     }
     protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {

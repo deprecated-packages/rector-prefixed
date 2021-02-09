@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0479997e3ad721532ff6aadff4d59a40
+class ComposerStaticInit67918a6fcaf81de6b90be57c3a4d8c80
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2808,7 +2808,6 @@ class ComposerStaticInit0479997e3ad721532ff6aadff4d59a40
         'Rector\\Core\\NodeManipulator\\PropertyManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/PropertyManipulator.php',
         'Rector\\Core\\NodeManipulator\\StmtsManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/StmtsManipulator.php',
         'Rector\\Core\\NodeManipulator\\VariableManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/VariableManipulator.php',
-        'Rector\\Core\\NodeManipulator\\VisibilityManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/VisibilityManipulator.php',
         'Rector\\Core\\NonPhpFile\\NonPhpFileClassRenamer' => __DIR__ . '/../..' . '/src/NonPhpFile/NonPhpFileClassRenamer.php',
         'Rector\\Core\\NonPhpFile\\NonPhpFileProcessor' => __DIR__ . '/../..' . '/src/NonPhpFile/NonPhpFileProcessor.php',
         'Rector\\Core\\PHPStan\\Reflection\\CallReflectionResolver' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/CallReflectionResolver.php',
@@ -3741,6 +3740,7 @@ class ComposerStaticInit0479997e3ad721532ff6aadff4d59a40
         'Rector\\Privatization\\NodeFactory\\ClassConstantFactory' => __DIR__ . '/../..' . '/rules/privatization/src/NodeFactory/ClassConstantFactory.php',
         'Rector\\Privatization\\NodeFactory\\ClassConstantFetchValueFactory' => __DIR__ . '/../..' . '/rules/privatization/src/NodeFactory/ClassConstantFetchValueFactory.php',
         'Rector\\Privatization\\NodeFinder\\ParentClassConstantNodeFinder' => __DIR__ . '/../..' . '/rules/privatization/src/NodeFinder/ParentClassConstantNodeFinder.php',
+        'Rector\\Privatization\\NodeManipulator\\VisibilityManipulator' => __DIR__ . '/../..' . '/rules/privatization/src/NodeManipulator/VisibilityManipulator.php',
         'Rector\\Privatization\\NodeReplacer\\PropertyFetchWithConstFetchReplacer' => __DIR__ . '/../..' . '/rules/privatization/src/NodeReplacer/PropertyFetchWithConstFetchReplacer.php',
         'Rector\\Privatization\\NodeReplacer\\PropertyFetchWithVariableReplacer' => __DIR__ . '/../..' . '/rules/privatization/src/NodeReplacer/PropertyFetchWithVariableReplacer.php',
         'Rector\\Privatization\\Rector\\ClassConst\\PrivatizeLocalClassConstantRector' => __DIR__ . '/../..' . '/rules/privatization/src/Rector/ClassConst/PrivatizeLocalClassConstantRector.php',
@@ -3981,7 +3981,6 @@ class ComposerStaticInit0479997e3ad721532ff6aadff4d59a40
         'Rector\\Testing\\Guard\\FixtureGuard' => __DIR__ . '/../..' . '/packages/testing/src/Guard/FixtureGuard.php',
         'Rector\\Testing\\PHPUnit\\AbstractRectorTestCase' => __DIR__ . '/../..' . '/packages/testing/src/PHPUnit/AbstractRectorTestCase.php',
         'Rector\\Testing\\PHPUnit\\Behavior\\MovingFilesTrait' => __DIR__ . '/../..' . '/packages/testing/src/PHPUnit/Behavior/MovingFilesTrait.php',
-        'Rector\\Testing\\PHPUnit\\Behavior\\RunnableTestTrait' => __DIR__ . '/../..' . '/packages/testing/src/PHPUnit/Behavior/RunnableTestTrait.php',
         'Rector\\Testing\\PHPUnit\\RunnableRectorFactory' => __DIR__ . '/../..' . '/packages/testing/src/PHPUnit/RunnableRectorFactory.php',
         'Rector\\Testing\\PHPUnit\\Runnable\\ClassLikeNamesSuffixer' => __DIR__ . '/../..' . '/packages/testing/src/PHPUnit/Runnable/ClassLikeNamesSuffixer.php',
         'Rector\\Testing\\PHPUnit\\Runnable\\NodeVisitor\\ClassLikeNameCollectingNodeVisitor' => __DIR__ . '/../..' . '/packages/testing/src/PHPUnit/Runnable/NodeVisitor/ClassLikeNameCollectingNodeVisitor.php',
@@ -4170,9 +4169,9 @@ class ComposerStaticInit0479997e3ad721532ff6aadff4d59a40
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0479997e3ad721532ff6aadff4d59a40::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0479997e3ad721532ff6aadff4d59a40::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0479997e3ad721532ff6aadff4d59a40::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit67918a6fcaf81de6b90be57c3a4d8c80::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit67918a6fcaf81de6b90be57c3a4d8c80::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit67918a6fcaf81de6b90be57c3a4d8c80::$classMap;
 
         }, null, ClassLoader::class);
     }

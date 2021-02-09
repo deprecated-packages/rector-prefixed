@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Php74\Tests\Rector\Property\TypedPropertyRector;
 
 use Iterator;
-use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class DoctrineTypedPropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -23,9 +22,5 @@ final class DoctrineTypedPropertyRectorTest extends \Rector\Testing\PHPUnit\Abst
     protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
         return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
-    }
-    protected function getPhpVersion() : int
-    {
-        return \Rector\Core\ValueObject\PhpVersionFeature::UNION_TYPES - 1;
     }
 }

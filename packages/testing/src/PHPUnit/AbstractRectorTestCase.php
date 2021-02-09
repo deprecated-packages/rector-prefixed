@@ -17,7 +17,6 @@ use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\NonPhpFile\NonPhpFileProcessor;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\Stubs\StubLoader;
-use Rector\Core\ValueObject\PhpVersion;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use Rector\Testing\Application\EnabledRectorsProvider;
 use Rector\Testing\Contract\RunnableInterface;
@@ -25,7 +24,6 @@ use Rector\Testing\Finder\RectorsFinder;
 use Rector\Testing\Guard\FixtureGuard;
 use Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
 use Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
-use Rector\Testing\PHPUnit\Behavior\RunnableTestTrait;
 use Rector\Testing\ValueObject\InputFilePathWithExpectedFile;
 use RectorPrefix20210209\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210209\Symfony\Component\Console\Style\SymfonyStyle;
@@ -39,11 +37,6 @@ use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileSystem;
 abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     use MovingFilesTrait;
-    use RunnableTestTrait;
-    /**
-     * @var int
-     */
-    private const PHP_VERSION_UNDEFINED = 0;
     /**
      * @var FileProcessor
      */
@@ -65,10 +58,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
      */
     protected $runnableRectorFactory;
     /**
-     * @var NodeScopeResolver
-     */
-    protected $nodeScopeResolver;
-    /**
      * @var FixtureGuard
      */
     protected $fixtureGuard;
@@ -88,10 +77,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
      * @var bool
      */
     private $autoloadTestFixture = \true;
-    /**
-     * @var mixed[]
-     */
-    private $oldParameterValues = [];
     /**
      * @var BetterStandardPrinter
      */
@@ -138,18 +123,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
         $this->betterStandardPrinter = $this->getService(\Rector\Core\PhpParser\Printer\BetterStandardPrinter::class);
         $this->removedAndAddedFilesCollector = $this->getService(\Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
-        // needed for PHPStan, because the analyzed file is just create in /temp
-        $this->nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
-        $this->configurePhpVersionFeatures();
-        $this->oldParameterValues = [];
-    }
-    protected function tearDown() : void
-    {
-        $this->restoreOldParameterValues();
-        // restore PHP version if changed
-        if ($this->getPhpVersion() !== self::PHP_VERSION_UNDEFINED) {
-            $this->setParameter(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, \Rector\Core\ValueObject\PhpVersion::PHP_10);
-        }
     }
     protected function getRectorClass() : string
     {
@@ -174,23 +147,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
     {
         return \RectorPrefix20210209\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
     }
-    /**
-     * @param mixed $value
-     */
-    protected function setParameter(string $name, $value) : void
-    {
-        $parameterProvider = $this->getService(\RectorPrefix20210209\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
-        if ($name !== \Rector\Core\Configuration\Option::PHP_VERSION_FEATURES) {
-            $oldParameterValue = $parameterProvider->provideParameter($name);
-            $this->oldParameterValues[$name] = $oldParameterValue;
-        }
-        $parameterProvider->changeParameter($name, $value);
-    }
-    protected function getPhpVersion() : int
-    {
-        // to be implemented
-        return self::PHP_VERSION_UNDEFINED;
-    }
     protected function doTestFileInfoWithoutAutoload(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->autoloadTestFixture = \false;
@@ -205,7 +161,10 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
         $this->fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($fixtureFileInfo);
         $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210209\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, $this->autoloadTestFixture);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
-        $this->nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
+        // needed for PHPStan, because the analyzed file is just create in /temp
+        /** @var NodeScopeResolver $nodeScopeResolver */
+        $nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
+        $nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
         $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo, $extraFiles);
         $this->originalTempFileInfo = $inputFileInfo;
@@ -255,6 +214,14 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
     {
         return \sys_get_temp_dir() . '/_temp_fixture_easy_testing';
     }
+    protected function assertOriginalAndFixedFileResultEquals(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo) : void
+    {
+        $runnable = $this->runnableRectorFactory->createRunnableClass($originalFileInfo);
+        $expectedInstance = $this->runnableRectorFactory->createRunnableClass($expectedFileInfo);
+        $actualResult = $runnable->run();
+        $expectedResult = $expectedInstance->run();
+        $this->assertSame($expectedResult, $actualResult);
+    }
     /**
      * @return SmartFileInfo[]
      */
@@ -288,23 +255,6 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
             $enabledRectorsProvider->addEnabledRector($rectorClass, (array) $configuration);
         }
     }
-    private function configurePhpVersionFeatures() : void
-    {
-        if ($this->getPhpVersion() === self::PHP_VERSION_UNDEFINED) {
-            return;
-        }
-        $this->setParameter(\Rector\Core\Configuration\Option::PHP_VERSION_FEATURES, $this->getPhpVersion());
-    }
-    private function restoreOldParameterValues() : void
-    {
-        if ($this->oldParameterValues === []) {
-            return;
-        }
-        $parameterProvider = $this->getService(\RectorPrefix20210209\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
-        foreach ($this->oldParameterValues as $name => $oldParameterValue) {
-            $parameterProvider->changeParameter($name, $oldParameterValue);
-        }
-    }
     private function ensureRectorClassIsValid(string $rectorClass, string $methodName) : void
     {
         if (\is_a($rectorClass, \Rector\Core\Contract\Rector\PhpRectorInterface::class, \true)) {
@@ -317,7 +267,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210209\Symplify\Pac
      */
     private function doTestFileMatchesExpectedContent(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
     {
-        $this->setParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
+        $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
         if (!\RectorPrefix20210209\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
             if ($extraFiles === []) {
                 $this->fileProcessor->parseFileInfoToLocalCache($originalFileInfo);

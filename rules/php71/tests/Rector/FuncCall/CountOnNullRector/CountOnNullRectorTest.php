@@ -4,8 +4,6 @@ declare (strict_types=1);
 namespace Rector\Php71\Tests\Rector\FuncCall\CountOnNullRector;
 
 use Iterator;
-use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\Php71\Rector\FuncCall\CountOnNullRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
 final class CountOnNullRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
@@ -21,12 +19,8 @@ final class CountOnNullRectorTest extends \Rector\Testing\PHPUnit\AbstractRector
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    protected function getRectorClass() : string
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return \Rector\Php71\Rector\FuncCall\CountOnNullRector::class;
-    }
-    protected function getPhpVersion() : int
-    {
-        return \Rector\Core\ValueObject\PhpVersionFeature::COUNT_ON_NULL;
+        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/php_71.php');
     }
 }

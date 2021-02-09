@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace RectorPrefix20210209;
 
 use Rector\Transform\Rector\MethodCall\MethodCallToAnotherMethodCallWithArgumentsRector;
