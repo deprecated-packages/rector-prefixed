@@ -30,6 +30,11 @@ abstract class AbstractKernelTestCase extends \RectorPrefix20210209\PHPUnit\Fram
      */
     protected static $container;
     /**
+     * @var array<string, KernelInterface>
+     */
+    private static $kernelsByHash = [];
+    /**
+     * @param class-string<KernelInterface> $kernelClass
      * @param string[]|SmartFileInfo[] $configs
      */
     protected function bootKernelWithConfigs(string $kernelClass, array $configs) : \RectorPrefix20210209\Symfony\Component\HttpKernel\KernelInterface
@@ -38,14 +43,27 @@ abstract class AbstractKernelTestCase extends \RectorPrefix20210209\PHPUnit\Fram
         $configFilePaths = $this->resolveConfigFilePaths($configs);
         $configsHash = $this->resolveConfigsHash($configFilePaths);
         $this->ensureKernelShutdown();
-        $kernel = new $kernelClass('test_' . $configsHash, \true);
-        if (!$kernel instanceof \RectorPrefix20210209\Symfony\Component\HttpKernel\KernelInterface) {
-            throw new \RectorPrefix20210209\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        $bootedKernel = $this->createBootedKernelFromConfigs($kernelClass, $configsHash, $configFilePaths);
+        static::$kernel = $bootedKernel;
+        return $bootedKernel;
+    }
+    /**
+     * @param class-string<KernelInterface> $kernelClass
+     * @param string[]|SmartFileInfo[] $configs
+     */
+    protected function bootKernelWithConfigsAndStaticCache(string $kernelClass, array $configs) : \RectorPrefix20210209\Symfony\Component\HttpKernel\KernelInterface
+    {
+        // unwrap file infos to real paths
+        $configFilePaths = $this->resolveConfigFilePaths($configs);
+        $configsHash = $this->resolveConfigsHash($configFilePaths);
+        if (isset(self::$kernelsByHash[$configsHash])) {
+            static::$kernel = self::$kernelsByHash[$configsHash];
+            self::$container = static::$kernel->getContainer();
+        } else {
+            $bootedKernel = $this->createBootedKernelFromConfigs($kernelClass, $configsHash, $configFilePaths);
+            static::$kernel = $bootedKernel;
+            self::$kernelsByHash[$configsHash] = $bootedKernel;
         }
-        $this->ensureIsConfigAwareKernel($kernel);
-        /** @var ExtraConfigAwareKernelInterface $kernel */
-        $kernel->setConfigs($configFilePaths);
-        static::$kernel = $this->bootAndReturnKernel($kernel);
         return static::$kernel;
     }
     /**
@@ -96,13 +114,25 @@ abstract class AbstractKernelTestCase extends \RectorPrefix20210209\PHPUnit\Fram
     /**
      * @param string[] $configs
      */
-    private function resolveConfigsHash(array $configs) : string
+    protected function resolveConfigsHash(array $configs) : string
     {
         $configsHash = '';
         foreach ($configs as $config) {
             $configsHash .= \md5_file($config);
         }
         return \md5($configsHash);
+    }
+    /**
+     * @param string[]|SmartFileInfo[] $configs
+     * @return string[]
+     */
+    protected function resolveConfigFilePaths(array $configs) : array
+    {
+        $configFilePaths = [];
+        foreach ($configs as $config) {
+            $configFilePaths[] = $config instanceof \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo ? $config->getRealPath() : $config;
+        }
+        return $configFilePaths;
     }
     private function ensureIsConfigAwareKernel(\RectorPrefix20210209\Symfony\Component\HttpKernel\KernelInterface $kernel) : void
     {
@@ -131,15 +161,14 @@ abstract class AbstractKernelTestCase extends \RectorPrefix20210209\PHPUnit\Fram
         return $kernel;
     }
     /**
-     * @param string[]|SmartFileInfo[] $configs
-     * @return string[]
+     * @param string[] $configFilePaths
      */
-    private function resolveConfigFilePaths(array $configs) : array
+    private function createBootedKernelFromConfigs(string $kernelClass, string $configsHash, array $configFilePaths) : \RectorPrefix20210209\Symfony\Component\HttpKernel\KernelInterface
     {
-        $configFilePaths = [];
-        foreach ($configs as $config) {
-            $configFilePaths[] = $config instanceof \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo ? $config->getRealPath() : $config;
-        }
-        return $configFilePaths;
+        $kernel = new $kernelClass('test_' . $configsHash, \true);
+        $this->ensureIsConfigAwareKernel($kernel);
+        /** @var ExtraConfigAwareKernelInterface $kernel */
+        $kernel->setConfigs($configFilePaths);
+        return $this->bootAndReturnKernel($kernel);
     }
 }

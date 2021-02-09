@@ -1965,7 +1965,6 @@ return array(
     'Rector\\Core\\Configuration\\Configuration' => $baseDir . '/src/Configuration/Configuration.php',
     'Rector\\Core\\Configuration\\CurrentNodeProvider' => $baseDir . '/src/Configuration/CurrentNodeProvider.php',
     'Rector\\Core\\Configuration\\Option' => $baseDir . '/src/Configuration/Option.php',
-    'Rector\\Core\\Configuration\\RectorClassesProvider' => $baseDir . '/src/Configuration/RectorClassesProvider.php',
     'Rector\\Core\\Configuration\\RenamedClassesDataCollector' => $baseDir . '/src/Configuration/RenamedClassesDataCollector.php',
     'Rector\\Core\\Console\\Command\\AbstractCommand' => $baseDir . '/src/Console/Command/AbstractCommand.php',
     'Rector\\Core\\Console\\Command\\InitCommand' => $baseDir . '/src/Console/Command/InitCommand.php',

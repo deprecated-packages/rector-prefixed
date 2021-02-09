@@ -17,9 +17,9 @@ final class DifferentBundleNameRectorTest extends \Rector\Testing\PHPUnit\Abstra
         // prepare bundle path
         $originalBundleFilePath = __DIR__ . '/FixtureDifferentBundleName/SomeActionBundle/DifferentNameBundle.php';
         $temporaryBundleFilePath = $this->getTempPath() . '/DifferentNameBundle.php';
-        $this->smartFileSystem->copy($originalBundleFilePath, $temporaryBundleFilePath, \true);
+        self::$smartFileSystem->copy($originalBundleFilePath, $temporaryBundleFilePath, \true);
         $this->doTestFileInfo($fileInfo);
-        $this->smartFileSystem->remove($temporaryBundleFilePath);
+        self::$smartFileSystem->remove($temporaryBundleFilePath);
     }
     public function provideData() : \Iterator
     {

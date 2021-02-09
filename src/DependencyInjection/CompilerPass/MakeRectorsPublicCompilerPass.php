@@ -6,9 +6,6 @@ namespace Rector\Core\DependencyInjection\CompilerPass;
 use Rector\Core\Contract\Rector\RectorInterface;
 use RectorPrefix20210209\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use RectorPrefix20210209\Symfony\Component\DependencyInjection\ContainerBuilder;
-/**
- * Needed for @see \Rector\Core\Configuration\RectorClassesProvider
- */
 final class MakeRectorsPublicCompilerPass implements \RectorPrefix20210209\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     public function process(\RectorPrefix20210209\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void

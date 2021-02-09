@@ -18,7 +18,8 @@ final class ConfiguredCodeSample extends \Symplify\RuleDocGenerator\ValueObject\
     public function __construct(string $badCode, string $goodCode, array $configuration)
     {
         if ($configuration === []) {
-            throw new \Rector\Core\Exception\Configuration\InvalidConfigurationException('Configuration cannot be empty');
+            $message = \sprintf('Configuration cannot be empty. Look for "%s"', $badCode);
+            throw new \Rector\Core\Exception\Configuration\InvalidConfigurationException($message);
         }
         $this->configuration = $configuration;
         parent::__construct($badCode, $goodCode);

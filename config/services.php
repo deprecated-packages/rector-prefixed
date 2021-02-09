@@ -13,7 +13,6 @@ use PhpParser\NodeVisitor\CloningVisitor;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
 use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
-use Rector\Core\Configuration\RectorClassesProvider;
 use Rector\Core\Console\ConsoleApplication;
 use Rector\Core\PhpParser\Parser\NikicPhpParserFactory;
 use Rector\Core\PhpParser\Parser\PhpParserLexerFactory;
@@ -54,9 +53,7 @@ return static function (\RectorPrefix20210209\Symfony\Component\DependencyInject
     $services->set(\RectorPrefix20210209\Symplify\PackageBuilder\Reflection\PrivatesCaller::class);
     $services->set(\RectorPrefix20210209\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
     $services->set(\RectorPrefix20210209\Symplify\SmartFileSystem\FileSystemFilter::class);
-    $services->set(\RectorPrefix20210209\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
     $services->set(\RectorPrefix20210209\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->arg('$container', \RectorPrefix20210209\Symfony\Component\DependencyInjection\Loader\Configurator\service('service_container'));
-    $services->set(\Rector\Core\Configuration\RectorClassesProvider::class)->arg('$container', \RectorPrefix20210209\Symfony\Component\DependencyInjection\Loader\Configurator\service('service_container'));
     $services->set(\RectorPrefix20210209\Symplify\PackageBuilder\Console\Command\CommandNaming::class);
     $services->set(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileSystem::class);
     $services->set(\RectorPrefix20210209\Symplify\PackageBuilder\Strings\StringFormatConverter::class);
