@@ -47,7 +47,7 @@ abstract class AbstractCommunityRectorTestCase extends \RectorPrefix20210210\Sym
         $this->fileProcessor = $this->getService(\Rector\Core\Application\FileProcessor::class);
         $this->parameterProvider = $this->getService(\RectorPrefix20210210\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
     }
-    protected function doTestFileInfo(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fixturaeFileInfo, bool $shouldAutoload = \true) : void
+    protected function doTestFileInfo(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, bool $shouldAutoload = \true) : void
     {
         self::$fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($fixtureFileInfo);
         $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210210\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, $shouldAutoload);
