@@ -6,13 +6,13 @@ namespace Rector\CodeQuality\Tests\Rector\If_\SimplifyIfElseToTernaryRector;
 use Iterator;
 use Rector\CodeQuality\Rector\If_\SimplifyIfElseToTernaryRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo;
 final class SimplifyIfElseToTernaryRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

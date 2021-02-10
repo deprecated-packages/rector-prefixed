@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210209\Symplify\EasyTesting\ValueObject;
+namespace RectorPrefix20210210\Symplify\EasyTesting\ValueObject;
 
 final class Option
 {

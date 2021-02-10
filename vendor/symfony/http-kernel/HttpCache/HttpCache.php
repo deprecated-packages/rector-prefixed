@@ -12,18 +12,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210209\Symfony\Component\HttpKernel\HttpCache;
+namespace RectorPrefix20210210\Symfony\Component\HttpKernel\HttpCache;
 
-use RectorPrefix20210209\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210209\Symfony\Component\HttpFoundation\Response;
-use RectorPrefix20210209\Symfony\Component\HttpKernel\HttpKernelInterface;
-use RectorPrefix20210209\Symfony\Component\HttpKernel\TerminableInterface;
+use RectorPrefix20210210\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210210\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix20210210\Symfony\Component\HttpKernel\HttpKernelInterface;
+use RectorPrefix20210210\Symfony\Component\HttpKernel\TerminableInterface;
 /**
  * Cache provides HTTP caching.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\HttpKernelInterface, \RectorPrefix20210209\Symfony\Component\HttpKernel\TerminableInterface
+class HttpCache implements \RectorPrefix20210210\Symfony\Component\HttpKernel\HttpKernelInterface, \RectorPrefix20210210\Symfony\Component\HttpKernel\TerminableInterface
 {
     private $kernel;
     private $store;
@@ -74,7 +74,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *                            This setting is overridden by the stale-if-error HTTP Cache-Control extension
      *                            (see RFC 5861).
      */
-    public function __construct(\RectorPrefix20210209\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20210209\Symfony\Component\HttpKernel\HttpCache\StoreInterface $store, \RectorPrefix20210209\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate = null, array $options = [])
+    public function __construct(\RectorPrefix20210210\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \RectorPrefix20210210\Symfony\Component\HttpKernel\HttpCache\StoreInterface $store, \RectorPrefix20210210\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate = null, array $options = [])
     {
         $this->store = $store;
         $this->kernel = $kernel;
@@ -104,7 +104,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
     {
         return $this->traces;
     }
-    private function addTraces(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $response)
+    private function addTraces(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $response)
     {
         $traceString = null;
         if ('full' === $this->options['trace_level']) {
@@ -162,10 +162,10 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
     /**
      * {@inheritdoc}
      */
-    public function handle(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, int $type = \RectorPrefix20210209\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true)
+    public function handle(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, int $type = \RectorPrefix20210210\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, bool $catch = \true)
     {
         // FIXME: catch exceptions and implement a 500 error page here? -> in Varnish, there is a built-in error page mechanism
-        if (\RectorPrefix20210209\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $type) {
+        if (\RectorPrefix20210210\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $type) {
             $this->traces = [];
             // Keep a clone of the original request for surrogates so they can access it.
             // We must clone here to get a separate instance because the application will modify the request during
@@ -192,11 +192,11 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
             $response = $this->lookup($request, $catch);
         }
         $this->restoreResponseBody($request, $response);
-        if (\RectorPrefix20210209\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $type) {
+        if (\RectorPrefix20210210\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $type) {
             $this->addTraces($response);
         }
         if (null !== $this->surrogate) {
-            if (\RectorPrefix20210209\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $type) {
+            if (\RectorPrefix20210210\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $type) {
                 $this->surrogateCacheStrategy->update($response);
             } else {
                 $this->surrogateCacheStrategy->add($response);
@@ -209,9 +209,9 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
     /**
      * {@inheritdoc}
      */
-    public function terminate(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $response)
+    public function terminate(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $response)
     {
-        if ($this->getKernel() instanceof \RectorPrefix20210209\Symfony\Component\HttpKernel\TerminableInterface) {
+        if ($this->getKernel() instanceof \RectorPrefix20210210\Symfony\Component\HttpKernel\TerminableInterface) {
             $this->getKernel()->terminate($request, $response);
         }
     }
@@ -222,7 +222,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *
      * @return Response A Response instance
      */
-    protected function pass(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
+    protected function pass(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
     {
         $this->record($request, 'pass');
         return $this->forward($request, $catch);
@@ -238,7 +238,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *
      * @see RFC2616 13.10
      */
-    protected function invalidate(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
+    protected function invalidate(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
     {
         $response = $this->pass($request, $catch);
         // invalidate only when the response is successful
@@ -248,7 +248,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
                 // As per the RFC, invalidate Location and Content-Location URLs if present
                 foreach (['Location', 'Content-Location'] as $header) {
                     if ($uri = $response->headers->get($header)) {
-                        $subRequest = \RectorPrefix20210209\Symfony\Component\HttpFoundation\Request::create($uri, 'get', [], [], [], $request->server->all());
+                        $subRequest = \RectorPrefix20210210\Symfony\Component\HttpFoundation\Request::create($uri, 'get', [], [], [], $request->server->all());
                         $this->store->invalidate($subRequest);
                     }
                 }
@@ -277,7 +277,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *
      * @throws \Exception
      */
-    protected function lookup(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
+    protected function lookup(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
     {
         try {
             $entry = $this->store->lookup($request);
@@ -313,7 +313,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *
      * @return Response A Response instance
      */
-    protected function validate(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $entry, bool $catch = \false)
+    protected function validate(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $entry, bool $catch = \false)
     {
         $subRequest = clone $request;
         // send no head requests because we want content
@@ -364,7 +364,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *
      * @return Response A Response instance
      */
-    protected function fetch(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
+    protected function fetch(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false)
     {
         $subRequest = clone $request;
         // send no head requests because we want content
@@ -391,13 +391,13 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *
      * @return Response A Response instance
      */
-    protected function forward(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false, \RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $entry = null)
+    protected function forward(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, bool $catch = \false, \RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $entry = null)
     {
         if ($this->surrogate) {
             $this->surrogate->addSurrogateCapability($request);
         }
         // always a "master" request (as the real master request can be in cache)
-        $response = \RectorPrefix20210209\Symfony\Component\HttpKernel\HttpCache\SubRequestHandler::handle($this->kernel, $request, \RectorPrefix20210209\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch);
+        $response = \RectorPrefix20210210\Symfony\Component\HttpKernel\HttpCache\SubRequestHandler::handle($this->kernel, $request, \RectorPrefix20210210\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch);
         /*
          * Support stale-if-error given on Responses or as a config option.
          * RFC 7234 summarizes in Section 4.2.4 (but also mentions with the individual
@@ -451,7 +451,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *
      * @return bool true if the cache entry if fresh enough, false otherwise
      */
-    protected function isFreshEnough(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $entry)
+    protected function isFreshEnough(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $entry)
     {
         if (!$entry->isFresh()) {
             return $this->lock($request, $entry);
@@ -466,7 +466,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *
      * @return bool true if the cache entry can be returned even if it is staled, false otherwise
      */
-    protected function lock(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $entry)
+    protected function lock(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $entry)
     {
         // try to acquire a lock to call the backend
         $lock = $this->store->lock($request);
@@ -504,7 +504,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      *
      * @throws \Exception
      */
-    protected function store(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $response)
+    protected function store(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $response)
     {
         try {
             $this->store->write($request, $response);
@@ -522,7 +522,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
     /**
      * Restores the Response body.
      */
-    private function restoreResponseBody(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $response)
+    private function restoreResponseBody(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $response)
     {
         if ($response->headers->has('X-Body-Eval')) {
             \ob_start();
@@ -547,7 +547,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
         }
         $response->headers->remove('X-Body-File');
     }
-    protected function processResponseBody(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $response)
+    protected function processResponseBody(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, \RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $response)
     {
         if (null !== $this->surrogate && $this->surrogate->needsParsing($response)) {
             $this->surrogate->process($request, $response);
@@ -557,7 +557,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      * Checks if the Request includes authorization or other sensitive information
      * that should cause the Response to be considered private by default.
      */
-    private function isPrivateRequest(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request) : bool
+    private function isPrivateRequest(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request) : bool
     {
         foreach ($this->options['private_headers'] as $key) {
             $key = \strtolower(\str_replace('HTTP_', '', $key));
@@ -574,14 +574,14 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
     /**
      * Records that an event took place.
      */
-    private function record(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request, string $event)
+    private function record(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request, string $event)
     {
         $this->traces[$this->getTraceKey($request)][] = $event;
     }
     /**
      * Calculates the key we use in the "trace" array for a given request.
      */
-    private function getTraceKey(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request) : string
+    private function getTraceKey(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request) : string
     {
         $path = $request->getPathInfo();
         if ($qs = $request->getQueryString()) {
@@ -593,7 +593,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
      * Checks whether the given (cached) response may be served as "stale" when a revalidation
      * is currently in progress.
      */
-    private function mayServeStaleWhileRevalidate(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Response $entry) : bool
+    private function mayServeStaleWhileRevalidate(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Response $entry) : bool
     {
         $timeout = $entry->headers->getCacheControlDirective('stale-while-revalidate');
         if (null === $timeout) {
@@ -604,7 +604,7 @@ class HttpCache implements \RectorPrefix20210209\Symfony\Component\HttpKernel\Ht
     /**
      * Waits for the store to release a locked entry.
      */
-    private function waitForLock(\RectorPrefix20210209\Symfony\Component\HttpFoundation\Request $request) : bool
+    private function waitForLock(\RectorPrefix20210210\Symfony\Component\HttpFoundation\Request $request) : bool
     {
         $wait = 0;
         while ($this->store->isLocked($request) && $wait < 100) {

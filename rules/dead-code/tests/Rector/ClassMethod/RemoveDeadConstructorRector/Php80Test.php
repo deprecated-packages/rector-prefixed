@@ -5,14 +5,14 @@ namespace Rector\DeadCode\Tests\Rector\ClassMethod\RemoveDeadConstructorRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo;
 final class Php80Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 8.0
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -20,8 +20,8 @@ final class Php80Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixturePhp80');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/property_promotion.php');
+        return new \RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/property_promotion.php');
     }
 }

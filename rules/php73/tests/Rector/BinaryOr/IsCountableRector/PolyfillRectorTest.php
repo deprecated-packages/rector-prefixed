@@ -5,13 +5,13 @@ namespace Rector\Php73\Tests\Rector\BinaryOr\IsCountableRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo;
 final class PolyfillRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -19,8 +19,8 @@ final class PolyfillRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTes
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureWithPolyfill');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/polyfill_config.php');
+        return new \RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/polyfill_config.php');
     }
 }

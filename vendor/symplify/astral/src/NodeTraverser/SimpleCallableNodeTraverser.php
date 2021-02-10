@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210209\Symplify\Astral\NodeTraverser;
+namespace RectorPrefix20210210\Symplify\Astral\NodeTraverser;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;

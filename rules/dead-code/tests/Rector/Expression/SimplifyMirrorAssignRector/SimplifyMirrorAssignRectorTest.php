@@ -6,13 +6,13 @@ namespace Rector\DeadCode\Tests\Rector\Expression\SimplifyMirrorAssignRector;
 use Iterator;
 use Rector\DeadCode\Rector\Expression\SimplifyMirrorAssignRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo;
 final class SimplifyMirrorAssignRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

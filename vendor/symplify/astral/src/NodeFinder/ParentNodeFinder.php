@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210209\Symplify\Astral\NodeFinder;
+namespace RectorPrefix20210210\Symplify\Astral\NodeFinder;
 
 use PhpParser\Node;
-use RectorPrefix20210209\Symplify\Astral\ValueObject\CommonAttributeKey;
-use RectorPrefix20210209\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210210\Symplify\Astral\ValueObject\CommonAttributeKey;
+use RectorPrefix20210210\Symplify\PackageBuilder\Php\TypeChecker;
 final class ParentNodeFinder
 {
     /**
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\RectorPrefix20210209\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    public function __construct(\RectorPrefix20210210\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->typeChecker = $typeChecker;
     }
@@ -25,12 +25,12 @@ final class ParentNodeFinder
      */
     public function getFirstParentByType(\PhpParser\Node $node, string $nodeClass) : ?\PhpParser\Node
     {
-        $node = $node->getAttribute(\RectorPrefix20210209\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
+        $node = $node->getAttribute(\RectorPrefix20210210\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
         while ($node) {
             if (\is_a($node, $nodeClass, \true)) {
                 return $node;
             }
-            $node = $node->getAttribute(\RectorPrefix20210209\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
+            $node = $node->getAttribute(\RectorPrefix20210210\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
         }
         return null;
     }
@@ -41,12 +41,12 @@ final class ParentNodeFinder
      */
     public function getFirstParentByTypes(\PhpParser\Node $node, array $nodeTypes) : ?\PhpParser\Node
     {
-        $node = $node->getAttribute(\RectorPrefix20210209\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
+        $node = $node->getAttribute(\RectorPrefix20210210\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
         while ($node) {
             if ($this->typeChecker->isInstanceOf($node, $nodeTypes)) {
                 return $node;
             }
-            $node = $node->getAttribute(\RectorPrefix20210209\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
+            $node = $node->getAttribute(\RectorPrefix20210210\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
         }
         return null;
     }

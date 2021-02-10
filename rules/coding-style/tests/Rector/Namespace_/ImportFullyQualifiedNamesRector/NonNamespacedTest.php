@@ -5,7 +5,7 @@ namespace Rector\CodingStyle\Tests\Rector\Namespace_\ImportFullyQualifiedNamesRe
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PostRector\Rector\NameImportingPostRector
  */
@@ -14,7 +14,7 @@ final class NonNamespacedTest extends \Rector\Testing\PHPUnit\AbstractRectorTest
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,8 +22,8 @@ final class NonNamespacedTest extends \Rector\Testing\PHPUnit\AbstractRectorTest
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureNonNamespaced');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/import_config.php');
+        return new \RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/import_config.php');
     }
 }

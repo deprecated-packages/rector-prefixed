@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver;
 
-use RectorPrefix20210209\Nette\Utils\Strings;
+use RectorPrefix20210210\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -106,7 +106,7 @@ final class NodeTypeResolver
     public function isObjectType(\PhpParser\Node $node, $requiredType) : bool
     {
         $this->ensureRequiredTypeIsStringOrObjectType($requiredType, __METHOD__);
-        if (\is_string($requiredType) && \RectorPrefix20210209\Nette\Utils\Strings::contains($requiredType, '*')) {
+        if (\is_string($requiredType) && \RectorPrefix20210210\Nette\Utils\Strings::contains($requiredType, '*')) {
             return $this->isFnMatch($node, $requiredType);
         }
         $resolvedType = $this->resolve($node);

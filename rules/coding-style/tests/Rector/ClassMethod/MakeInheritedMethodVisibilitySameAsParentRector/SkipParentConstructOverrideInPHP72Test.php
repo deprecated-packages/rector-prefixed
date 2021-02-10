@@ -5,7 +5,7 @@ namespace Rector\CodingStyle\Tests\Rector\ClassMethod\MakeInheritedMethodVisibil
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo;
 final class SkipParentConstructOverrideInPHP72Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
@@ -14,7 +14,7 @@ final class SkipParentConstructOverrideInPHP72Test extends \Rector\Testing\PHPUn
      *
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -22,8 +22,8 @@ final class SkipParentConstructOverrideInPHP72Test extends \Rector\Testing\PHPUn
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureForPhp72');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210209\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/php_72.php');
+        return new \RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/php_72.php');
     }
 }
