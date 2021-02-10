@@ -19,6 +19,8 @@ use Rector\Core\NodeAnalyzer\ConstFetchAnalyzer;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
+use ReflectionClass;
+use RectorPrefix20210210\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Core\Tests\PhpParser\Node\Value\ValueResolverTest
@@ -41,11 +43,16 @@ final class ValueResolver
      * @var ConstFetchAnalyzer
      */
     private $constFetchAnalyzer;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer)
+    /**
+     * @var ClassLikeExistenceChecker
+     */
+    private $classLikeExistenceChecker;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer, \RectorPrefix20210210\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->constFetchAnalyzer = $constFetchAnalyzer;
+        $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }
     /**
      * @param mixed $value
@@ -222,6 +229,13 @@ final class ValueResolver
         $classConstantReference = $class . '::' . $constant;
         if (\defined($classConstantReference)) {
             return \constant($classConstantReference);
+        }
+        if ($this->classLikeExistenceChecker->doesClassLikeExist($class)) {
+            $reflectionClass = new \ReflectionClass($class);
+            $reflectionClassHasConstant = $reflectionClass->hasConstant($constant);
+            if ($reflectionClassHasConstant) {
+                return $reflectionClass->getConstant($constant);
+            }
         }
         // fallback to constant reference itself, to avoid fatal error
         return $classConstantReference;
