@@ -3198,7 +3198,7 @@ return array(
     'Rector\\Symfony\\ValueObject\\ServiceMap\\ServiceMap' => $baseDir . '/rules/symfony/src/ValueObject/ServiceMap/ServiceMap.php',
     'Rector\\Symfony\\ValueObject\\Tag' => $baseDir . '/rules/symfony/src/ValueObject/Tag.php',
     'Rector\\Symfony\\ValueObject\\Tag\\EventListenerTag' => $baseDir . '/rules/symfony/src/ValueObject/Tag/EventListenerTag.php',
-    'Rector\\Testing\\Application\\EnabledRectorsProvider' => $baseDir . '/packages/testing/src/Application/EnabledRectorsProvider.php',
+    'Rector\\Testing\\Application\\EnabledRectorProvider' => $baseDir . '/packages/testing/src/Application/EnabledRectorProvider.php',
     'Rector\\Testing\\Contract\\NodeTraversableInterface' => $baseDir . '/packages/testing/src/Contract/NodeTraversableInterface.php',
     'Rector\\Testing\\Contract\\RunnableInterface' => $baseDir . '/packages/testing/src/Contract/RunnableInterface.php',
     'Rector\\Testing\\Finder\\RectorsFinder' => $baseDir . '/packages/testing/src/Finder/RectorsFinder.php',

@@ -10,15 +10,12 @@ use PhpParser\NodeTraverser;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Application\ActiveRectorsProvider;
 use Rector\Core\Configuration\Configuration;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Testing\Application\EnabledRectorsProvider;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use Rector\Testing\Application\EnabledRectorProvider;
 final class RectorNodeTraverser extends \PhpParser\NodeTraverser
 {
     /**
@@ -26,9 +23,9 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      */
     private $allPhpRectors = [];
     /**
-     * @var EnabledRectorsProvider
+     * @var EnabledRectorProvider
      */
-    private $enabledRectorsProvider;
+    private $enabledRectorProvider;
     /**
      * @var NodeFinder
      */
@@ -37,12 +34,12 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      * @var CurrentFileInfoProvider
      */
     private $currentFileInfoProvider;
-    public function __construct(\Rector\Testing\Application\EnabledRectorsProvider $enabledRectorsProvider, \Rector\Core\Configuration\Configuration $configuration, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
+    public function __construct(\Rector\Testing\Application\EnabledRectorProvider $enabledRectorProvider, \Rector\Core\Configuration\Configuration $configuration, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
     {
         /** @var PhpRectorInterface[] $phpRectors */
         $phpRectors = $activeRectorsProvider->provideByType(\Rector\Core\Contract\Rector\PhpRectorInterface::class);
         $this->allPhpRectors = $phpRectors;
-        $this->enabledRectorsProvider = $enabledRectorsProvider;
+        $this->enabledRectorProvider = $enabledRectorProvider;
         foreach ($phpRectors as $phpRector) {
             if ($configuration->isCacheEnabled() && !$configuration->shouldClearCache() && $phpRector instanceof \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface) {
                 continue;
@@ -57,8 +54,8 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      */
     public function traverseFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : array
     {
-        if ($this->enabledRectorsProvider->isConfigured()) {
-            $this->configureEnabledRectorsOnly();
+        if ($this->enabledRectorProvider->isConfigured()) {
+            $this->configureEnabledRectorOnly();
         }
         if (!$this->hasFileNodeRectorsEnabled()) {
             return [];
@@ -75,8 +72,8 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      */
     public function traverse(array $nodes) : array
     {
-        if ($this->enabledRectorsProvider->isConfigured()) {
-            $this->configureEnabledRectorsOnly();
+        if ($this->enabledRectorProvider->isConfigured()) {
+            $this->configureEnabledRectorOnly();
         }
         $hasNamespace = (bool) $this->nodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
         if (!$hasNamespace && $nodes !== []) {
@@ -106,19 +103,16 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     /**
      * Mostly used for testing
      */
-    private function configureEnabledRectorsOnly() : void
+    private function configureEnabledRectorOnly() : void
     {
         $this->visitors = [];
-        $enabledRectors = $this->enabledRectorsProvider->getEnabledRectors();
-        foreach ($enabledRectors as $enabledRector => $configuration) {
-            foreach ($this->allPhpRectors as $phpRector) {
-                if (!\is_a($phpRector, $enabledRector, \true)) {
-                    continue;
-                }
-                $this->configureTestedRector($phpRector, $configuration);
-                $this->addVisitor($phpRector);
-                continue 2;
+        $enabledRector = $this->enabledRectorProvider->getEnabledRector();
+        foreach ($this->allPhpRectors as $phpRector) {
+            if (!\is_a($phpRector, $enabledRector, \true)) {
+                continue;
             }
+            $this->addVisitor($phpRector);
+            break;
         }
     }
     private function hasFileNodeRectorsEnabled() : bool
@@ -133,24 +127,5 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
             return \true;
         }
         return \false;
-    }
-    /**
-     * @param mixed[] $configuration
-     */
-    private function configureTestedRector(\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector, array $configuration) : void
-    {
-        if (!\Rector\Testing\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            if ($phpRector instanceof \Rector\Core\Contract\Rector\ConfigurableRectorInterface && $configuration === []) {
-                $message = \sprintf('Rule "%s" is running without any configuration, is that on purpose?', \get_class($phpRector));
-                throw new \Rector\Core\Exception\ShouldNotHappenException($message);
-            }
-            return;
-        }
-        if ($phpRector instanceof \Rector\Core\Contract\Rector\ConfigurableRectorInterface) {
-            $phpRector->configure($configuration);
-        } elseif ($configuration !== []) {
-            $message = \sprintf('Rule "%s" with configuration must implement "%s"', \get_class($phpRector), \Rector\Core\Contract\Rector\ConfigurableRectorInterface::class);
-            throw new \Rector\Core\Exception\ShouldNotHappenException($message);
-        }
     }
 }
