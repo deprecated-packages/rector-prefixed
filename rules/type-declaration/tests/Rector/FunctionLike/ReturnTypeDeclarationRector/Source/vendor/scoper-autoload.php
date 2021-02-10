@@ -72,8 +72,8 @@ if (!class_exists('Twig_Extension_Sandbox', false) && !interface_exists('Twig_Ex
 if (!class_exists('EventDispatcher', false) && !interface_exists('EventDispatcher', false) && !trait_exists('EventDispatcher', false)) {
     spl_autoload_call('RectorPrefix20210210\EventDispatcher');
 }
-if (!class_exists('ComposerAutoloaderInitca1b949fa612c1d061b2ea642249a212', false) && !interface_exists('ComposerAutoloaderInitca1b949fa612c1d061b2ea642249a212', false) && !trait_exists('ComposerAutoloaderInitca1b949fa612c1d061b2ea642249a212', false)) {
-    spl_autoload_call('RectorPrefix20210210\ComposerAutoloaderInitca1b949fa612c1d061b2ea642249a212');
+if (!class_exists('ComposerAutoloaderInite541aca9a3351b9b69a4811c04864fc6', false) && !interface_exists('ComposerAutoloaderInite541aca9a3351b9b69a4811c04864fc6', false) && !trait_exists('ComposerAutoloaderInite541aca9a3351b9b69a4811c04864fc6', false)) {
+    spl_autoload_call('RectorPrefix20210210\ComposerAutoloaderInite541aca9a3351b9b69a4811c04864fc6');
 }
 if (!class_exists('Doctrine\Inflector\Inflector', false) && !interface_exists('Doctrine\Inflector\Inflector', false) && !trait_exists('Doctrine\Inflector\Inflector', false)) {
     spl_autoload_call('RectorPrefix20210210\Doctrine\Inflector\Inflector');
@@ -105,9 +105,9 @@ if (!class_exists('ValueError', false) && !interface_exists('ValueError', false)
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequireca1b949fa612c1d061b2ea642249a212')) {
-    function composerRequireca1b949fa612c1d061b2ea642249a212() {
-        return \RectorPrefix20210210\composerRequireca1b949fa612c1d061b2ea642249a212(...func_get_args());
+if (!function_exists('composerRequiree541aca9a3351b9b69a4811c04864fc6')) {
+    function composerRequiree541aca9a3351b9b69a4811c04864fc6() {
+        return \RectorPrefix20210210\composerRequiree541aca9a3351b9b69a4811c04864fc6(...func_get_args());
     }
 }
 if (!function_exists('parseArgs')) {

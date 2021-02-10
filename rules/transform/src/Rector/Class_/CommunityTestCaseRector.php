@@ -14,7 +14,6 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\Transform\NodeFactory\ProvideConfigFilePathClassMethodFactory;
 use RectorPrefix20210210\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -79,7 +78,7 @@ CODE_SAMPLE
         if ($node->extends === null) {
             return null;
         }
-        if (!$this->isName($node->extends, \Rector\Testing\PHPUnit\AbstractRectorTestCase::class)) {
+        if (!$this->isName($node->extends, 'Rector\\Testing\\PHPUnit\\AbstractRectorTestCase')) {
             return null;
         }
         $getRectorClassMethod = $node->getMethod('getRectorClass');
