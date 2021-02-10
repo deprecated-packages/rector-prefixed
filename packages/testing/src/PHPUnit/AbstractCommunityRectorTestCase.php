@@ -47,10 +47,10 @@ abstract class AbstractCommunityRectorTestCase extends \RectorPrefix20210210\Sym
         $this->fileProcessor = $this->getService(\Rector\Core\Application\FileProcessor::class);
         $this->parameterProvider = $this->getService(\RectorPrefix20210210\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
     }
-    protected function doTestFileInfo(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    protected function doTestFileInfo(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fixturaeFileInfo, bool $shouldAutoload = \true) : void
     {
         self::$fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($fixtureFileInfo);
-        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210210\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo);
+        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210210\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, $shouldAutoload);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
         // needed for PHPStan, because the analyzed file is just create in /temp
         /** @var NodeScopeResolver $nodeScopeResolver */
