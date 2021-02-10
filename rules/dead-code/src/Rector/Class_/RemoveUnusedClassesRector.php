@@ -117,7 +117,10 @@ CODE_SAMPLE
         if ($phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode::class)) {
             return \true;
         }
-        return $class->isAbstract();
+        if ($class->isAbstract()) {
+            return \true;
+        }
+        return $this->nodeRepository->hasClassChildren($class);
     }
     private function hasMethodWithApiAnnotation(\PhpParser\Node\Stmt\Class_ $class) : bool
     {
