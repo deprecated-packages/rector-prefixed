@@ -104,6 +104,12 @@ CODE_SAMPLE
     }
     private function shouldSkipForExactClassMethodForClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $type) : bool
     {
+        $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
+        $methodCalls = $this->nodeRepository->findMethodCallsOnClass($className);
+        $name = $this->getName($classMethod->name);
+        if (isset($methodCalls[$name])) {
+            return \false;
+        }
         return $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME) === $type;
     }
 }
