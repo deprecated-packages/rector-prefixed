@@ -43,6 +43,7 @@ final class RectorContainerFactory
         return $configFilePaths;
     }
     /**
+     * @see https://symfony.com/doc/current/components/dependency_injection/compilation.html#dumping-the-configuration-for-performance
      * @param SmartFileInfo[] $configFileInfos
      */
     private function createEnvironment(array $configFileInfos) : string

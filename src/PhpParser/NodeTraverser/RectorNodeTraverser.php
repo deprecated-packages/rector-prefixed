@@ -15,7 +15,7 @@ use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Testing\Application\EnabledRectorProvider;
+use Rector\Testing\Application\EnabledRectorClassProvider;
 final class RectorNodeTraverser extends \PhpParser\NodeTraverser
 {
     /**
@@ -23,9 +23,9 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      */
     private $allPhpRectors = [];
     /**
-     * @var EnabledRectorProvider
+     * @var EnabledRectorClassProvider
      */
-    private $enabledRectorProvider;
+    private $enabledRectorClassProvider;
     /**
      * @var NodeFinder
      */
@@ -34,12 +34,12 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      * @var CurrentFileInfoProvider
      */
     private $currentFileInfoProvider;
-    public function __construct(\Rector\Testing\Application\EnabledRectorProvider $enabledRectorProvider, \Rector\Core\Configuration\Configuration $configuration, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
+    public function __construct(\Rector\Testing\Application\EnabledRectorClassProvider $enabledRectorClassProvider, \Rector\Core\Configuration\Configuration $configuration, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
     {
         /** @var PhpRectorInterface[] $phpRectors */
         $phpRectors = $activeRectorsProvider->provideByType(\Rector\Core\Contract\Rector\PhpRectorInterface::class);
         $this->allPhpRectors = $phpRectors;
-        $this->enabledRectorProvider = $enabledRectorProvider;
+        $this->enabledRectorClassProvider = $enabledRectorClassProvider;
         foreach ($phpRectors as $phpRector) {
             if ($configuration->isCacheEnabled() && !$configuration->shouldClearCache() && $phpRector instanceof \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface) {
                 continue;
@@ -54,8 +54,8 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      */
     public function traverseFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : array
     {
-        if ($this->enabledRectorProvider->isConfigured()) {
-            $this->configureEnabledRectorOnly();
+        if ($this->enabledRectorClassProvider->isConfigured()) {
+            $this->activateEnabledRectorOnly();
         }
         if (!$this->hasFileNodeRectorsEnabled()) {
             return [];
@@ -72,8 +72,8 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      */
     public function traverse(array $nodes) : array
     {
-        if ($this->enabledRectorProvider->isConfigured()) {
-            $this->configureEnabledRectorOnly();
+        if ($this->enabledRectorClassProvider->isConfigured()) {
+            $this->activateEnabledRectorOnly();
         }
         $hasNamespace = (bool) $this->nodeFinder->findFirstInstanceOf($nodes, \PhpParser\Node\Stmt\Namespace_::class);
         if (!$hasNamespace && $nodes !== []) {
@@ -103,12 +103,12 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     /**
      * Mostly used for testing
      */
-    private function configureEnabledRectorOnly() : void
+    private function activateEnabledRectorOnly() : void
     {
         $this->visitors = [];
-        $enabledRector = $this->enabledRectorProvider->getEnabledRector();
+        $enabledRectorClass = $this->enabledRectorClassProvider->getEnabledRectorClass();
         foreach ($this->allPhpRectors as $phpRector) {
-            if (!\is_a($phpRector, $enabledRector, \true)) {
+            if (!\is_a($phpRector, $enabledRectorClass, \true)) {
                 continue;
             }
             $this->addVisitor($phpRector);
@@ -121,10 +121,9 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
             if (!$visitor instanceof \Rector\Core\Contract\Rector\PhpRectorInterface) {
                 continue;
             }
-            if (!\in_array(\Rector\Core\PhpParser\Node\CustomNode\FileNode::class, $visitor->getNodeTypes(), \true)) {
-                continue;
+            if (\in_array(\Rector\Core\PhpParser\Node\CustomNode\FileNode::class, $visitor->getNodeTypes(), \true)) {
+                return \true;
             }
-            return \true;
         }
         return \false;
     }
