@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Transform\Rector\New_;
 
-use RectorPrefix20210210\Nette\Utils\Strings;
+use RectorPrefix20210211\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -18,7 +18,7 @@ use Rector\Transform\ValueObject\NewToMethodCall;
 use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210210\Webmozart\Assert\Assert;
+use RectorPrefix20210211\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\New_\NewToMethodCallRector\NewToMethodCallRectorTest
  */
@@ -97,7 +97,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $newsToMethodCalls = $configuration[self::NEWS_TO_METHOD_CALLS] ?? [];
-        \RectorPrefix20210210\Webmozart\Assert\Assert::allIsInstanceOf($newsToMethodCalls, \Rector\Transform\ValueObject\NewToMethodCall::class);
+        \RectorPrefix20210211\Webmozart\Assert\Assert::allIsInstanceOf($newsToMethodCalls, \Rector\Transform\ValueObject\NewToMethodCall::class);
         $this->newsToMethodCalls = $newsToMethodCalls;
     }
     private function getExistingFactoryPropertyName(\PhpParser\Node\Stmt\Class_ $class, string $factoryClass) : ?string
@@ -114,6 +114,6 @@ CODE_SAMPLE
     {
         $reflectionClass = new \ReflectionClass($factoryFullQualifiedName);
         $shortName = $reflectionClass->getShortName();
-        return \RectorPrefix20210210\Nette\Utils\Strings::firstLower($shortName);
+        return \RectorPrefix20210211\Nette\Utils\Strings::firstLower($shortName);
     }
 }

@@ -11,12 +11,13 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Testing\Contract\CommunityRectorTestCaseInterface;
 use Rector\Testing\Guard\FixtureGuard;
-use RectorPrefix20210210\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use RectorPrefix20210210\Symplify\EasyTesting\StaticFixtureSplitter;
-use RectorPrefix20210210\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210210\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-use RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo;
-abstract class AbstractCommunityRectorTestCase extends \RectorPrefix20210210\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\CommunityRectorTestCaseInterface
+use RectorPrefix20210211\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use RectorPrefix20210211\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
+use RectorPrefix20210211\Symplify\EasyTesting\StaticFixtureSplitter;
+use RectorPrefix20210211\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210211\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo;
+abstract class AbstractCommunityRectorTestCase extends \RectorPrefix20210211\Symplify\PackageBuilder\Testing\AbstractKernelTestCase implements \Rector\Testing\Contract\CommunityRectorTestCaseInterface
 {
     /**
      * @var FileProcessor
@@ -41,16 +42,16 @@ abstract class AbstractCommunityRectorTestCase extends \RectorPrefix20210210\Sym
     protected function setUp() : void
     {
         $this->initializeDependencies();
-        $smartFileInfo = new \RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
+        $smartFileInfo = new \RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
         $configFileInfos = self::$rectorConfigsResolver->resolveFromConfigFileInfo($smartFileInfo);
         $this->bootKernelWithConfigs(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
         $this->fileProcessor = $this->getService(\Rector\Core\Application\FileProcessor::class);
-        $this->parameterProvider = $this->getService(\RectorPrefix20210210\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
+        $this->parameterProvider = $this->getService(\RectorPrefix20210211\Symplify\PackageBuilder\Parameter\ParameterProvider::class);
     }
-    protected function doTestFileInfo(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, bool $shouldAutoload = \true) : void
+    protected function doTestFileInfo(\RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, bool $shouldAutoload = \true) : void
     {
         self::$fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($fixtureFileInfo);
-        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210210\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, $shouldAutoload);
+        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210211\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, $shouldAutoload);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
         // needed for PHPStan, because the analyzed file is just create in /temp
         /** @var NodeScopeResolver $nodeScopeResolver */
@@ -61,9 +62,9 @@ abstract class AbstractCommunityRectorTestCase extends \RectorPrefix20210210\Sym
     }
     protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php.inc') : \Iterator
     {
-        return \RectorPrefix20210210\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
+        return \RectorPrefix20210211\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory($directory, $suffix);
     }
-    private function doTestFileMatchesExpectedContent(\RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    private function doTestFileMatchesExpectedContent(\RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
         $this->fileProcessor->parseFileInfoToLocalCache($originalFileInfo);
@@ -72,6 +73,9 @@ abstract class AbstractCommunityRectorTestCase extends \RectorPrefix20210210\Sym
         // mimic post-rectors
         $changedContent = $this->fileProcessor->printToString($originalFileInfo);
         $relativeFilePathFromCwd = $fixtureFileInfo->getRelativeFilePathFromCwd();
+        if (\getenv('UPDATE_TESTS') || \getenv('UT')) {
+            \RectorPrefix20210211\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater::updateFixtureContent($originalFileInfo, $changedContent, $fixtureFileInfo);
+        }
         $this->assertStringEqualsFile($expectedFileInfo->getRealPath(), $changedContent, $relativeFilePathFromCwd);
     }
     private function initializeDependencies() : void

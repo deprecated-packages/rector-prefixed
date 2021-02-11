@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210210\Symfony\Component\ExpressionLanguage;
+namespace RectorPrefix20210211\Symfony\Component\ExpressionLanguage;
 
-use RectorPrefix20210210\Symfony\Contracts\Service\ResetInterface;
+use RectorPrefix20210211\Symfony\Contracts\Service\ResetInterface;
 /**
  * Compiles a node to PHP code.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Compiler implements \RectorPrefix20210210\Symfony\Contracts\Service\ResetInterface
+class Compiler implements \RectorPrefix20210211\Symfony\Contracts\Service\ResetInterface
 {
     private $source;
     private $functions;
@@ -47,12 +47,12 @@ class Compiler implements \RectorPrefix20210210\Symfony\Contracts\Service\ResetI
      *
      * @return $this
      */
-    public function compile(\RectorPrefix20210210\Symfony\Component\ExpressionLanguage\Node\Node $node)
+    public function compile(\RectorPrefix20210211\Symfony\Component\ExpressionLanguage\Node\Node $node)
     {
         $node->compile($this);
         return $this;
     }
-    public function subcompile(\RectorPrefix20210210\Symfony\Component\ExpressionLanguage\Node\Node $node)
+    public function subcompile(\RectorPrefix20210211\Symfony\Component\ExpressionLanguage\Node\Node $node)
     {
         $current = $this->source;
         $this->source = '';

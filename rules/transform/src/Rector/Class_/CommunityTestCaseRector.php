@@ -15,15 +15,19 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
 use Rector\Transform\NodeFactory\ProvideConfigFilePathClassMethodFactory;
-use RectorPrefix20210210\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
+use RectorPrefix20210211\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Transform\Tests\Rector\Class_\CommunityTestCaseRector\CommunityTestCaseRectorTest
  */
 final class CommunityTestCaseRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var string
+     */
+    private const ABSTRACT_COMMUNITY_TEST_CLASS = 'Rector\\Testing\\PHPUnit\\AbstractCommunityRectorTestCase';
     /**
      * @var ProvideConfigFilePathClassMethodFactory
      */
@@ -78,14 +82,14 @@ CODE_SAMPLE
         if ($node->extends === null) {
             return null;
         }
-        if (!$this->isName($node->extends, 'Rector\\Testing\\PHPUnit\\AbstractRectorTestCase')) {
+        if (!$this->isNames($node->extends, [self::ABSTRACT_COMMUNITY_TEST_CLASS, 'Rector\\Testing\\PHPUnit\\AbstractRectorTestCase'])) {
             return null;
         }
         $getRectorClassMethod = $node->getMethod('getRectorClass');
         if (!$getRectorClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
             return null;
         }
-        $node->extends = new \PhpParser\Node\Name\FullyQualified('Rector\\Testing\\PHPUnit\\AbstractCommunityRectorTestCase');
+        $node->extends = new \PhpParser\Node\Name\FullyQualified(self::ABSTRACT_COMMUNITY_TEST_CLASS);
         $this->removeNode($getRectorClassMethod);
         $node->stmts[] = $this->provideConfigFilePathClassMethodFactory->create();
         $this->createConfigFile($getRectorClassMethod);
@@ -106,7 +110,7 @@ CODE_SAMPLE
         }
         $phpConfigFileContent = $this->smartPhpConfigPrinter->printConfiguredServices([$rectorClass => null]);
         $fileInfo = $getRectorClassMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210210\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $configFilePath = \dirname($fileInfo->getRealPath()) . '/config/configured_rule.php';

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Doctrine\Tests\Rector\MethodCall\ChangeSetIdToUuidValueRector\Source;
 
-use RectorPrefix20210210\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210211\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */

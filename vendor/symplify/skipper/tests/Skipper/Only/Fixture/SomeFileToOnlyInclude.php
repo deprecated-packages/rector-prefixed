@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210210\Symplify\Skipper\Tests\Skipper\Fixture\Source;
+namespace RectorPrefix20210211\Symplify\Skipper\Tests\Skipper\Fixture\Source;
 
 class SomeFileToOnlyInclude
 {

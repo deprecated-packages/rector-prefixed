@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210210\Psr\SimpleCache;
+namespace RectorPrefix20210211\Psr\SimpleCache;
 
 /**
  * Interface used for all types of exceptions thrown by the implementing library.

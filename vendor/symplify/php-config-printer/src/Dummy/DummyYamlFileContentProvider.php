@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210210\Symplify\PhpConfigPrinter\Dummy;
+namespace RectorPrefix20210211\Symplify\PhpConfigPrinter\Dummy;
 
-use RectorPrefix20210210\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
-final class DummyYamlFileContentProvider implements \RectorPrefix20210210\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface
+use RectorPrefix20210211\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface;
+final class DummyYamlFileContentProvider implements \RectorPrefix20210211\Symplify\PhpConfigPrinter\Contract\YamlFileContentProviderInterface
 {
     public function setContent(string $yamlContent) : void
     {
