@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Php55\Rector\String_;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
@@ -102,6 +103,9 @@ CODE_SAMPLE
         if (\Rector\Core\Util\StaticRectorStrings::isInArrayInsensitive($classLikeName, $this->classesToSkip)) {
             return null;
         }
+        if ($this->isPartOfIsAFuncCall($node)) {
+            return null;
+        }
         $fullyQualified = new \PhpParser\Node\Name\FullyQualified($classLikeName);
         /** @see \Rector\PostRector\Collector\UseNodesToAddCollector::isShortImported() */
         $fullyQualified->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO));
@@ -132,5 +136,17 @@ CODE_SAMPLE
         }
         $this->sensitiveExistingClasses[] = $classLikeName;
         return \true;
+    }
+    private function isPartOfIsAFuncCall(\PhpParser\Node\Scalar\String_ $string) : bool
+    {
+        $parent = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\Arg) {
+            return \false;
+        }
+        $parentParent = $parent->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parentParent instanceof \PhpParser\Node) {
+            return \false;
+        }
+        return $this->isFuncCallName($parentParent, 'is_a');
     }
 }
