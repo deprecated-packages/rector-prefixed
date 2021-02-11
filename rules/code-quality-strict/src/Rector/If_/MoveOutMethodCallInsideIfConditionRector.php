@@ -101,6 +101,10 @@ CODE_SAMPLE
     }
     private function moveOutMethodCall(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Stmt\If_ $if) : ?\PhpParser\Node\Stmt\If_
     {
+        $hasParentAssign = (bool) $this->betterNodeFinder->findParentType($methodCall, \PhpParser\Node\Expr\Assign::class);
+        if ($hasParentAssign) {
+            return null;
+        }
         $variableName = $this->methodCallToVariableNameResolver->resolveVariableName($methodCall);
         if ($variableName === null) {
             return null;
