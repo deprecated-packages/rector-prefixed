@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
-use Rector\Core\Exception\NotImplementedYetException;
 use Rector\NodeNestingScope\ParentScopeFinder;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\ReadWrite\NodeFinder\NodeUsageFinder;
@@ -47,9 +46,7 @@ abstract class AbstractReadNodeAnalyzer
             }
             return $parentParent->var !== $parent;
         }
-        if ($parent instanceof \PhpParser\Node\Stmt\Expression) {
-            return \false;
-        }
-        throw new \Rector\Core\Exception\NotImplementedYetException();
+        // assume it's used by default
+        return !$parent instanceof \PhpParser\Node\Stmt\Expression;
     }
 }
