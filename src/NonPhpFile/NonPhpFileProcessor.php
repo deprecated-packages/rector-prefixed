@@ -7,7 +7,6 @@ use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\PSR4\Collector\RenamedClassesCollector;
-use RectorPrefix20210211\Symfony\Component\Console\Style\SymfonyStyle;
 use RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo;
 use RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileSystem;
 /**
@@ -24,10 +23,6 @@ final class NonPhpFileProcessor
      */
     private $renamedClassesDataCollector;
     /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-    /**
      * @var RenamedClassesCollector
      */
     private $renamedClassesCollector;
@@ -43,11 +38,10 @@ final class NonPhpFileProcessor
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
-    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Core\Configuration\Configuration $configuration, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \RectorPrefix20210211\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector)
+    public function __construct(\Rector\Core\Configuration\RenamedClassesDataCollector $renamedClassesDataCollector, \Rector\Core\Configuration\Configuration $configuration, \Rector\PSR4\Collector\RenamedClassesCollector $renamedClassesCollector, \RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\Core\NonPhpFile\NonPhpFileClassRenamer $nonPhpFileClassRenamer, \Rector\ChangesReporting\Application\ErrorAndDiffCollector $errorAndDiffCollector)
     {
         $this->configuration = $configuration;
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
-        $this->symfonyStyle = $symfonyStyle;
         $this->renamedClassesCollector = $renamedClassesCollector;
         $this->smartFileSystem = $smartFileSystem;
         $this->nonPhpFileClassRenamer = $nonPhpFileClassRenamer;
