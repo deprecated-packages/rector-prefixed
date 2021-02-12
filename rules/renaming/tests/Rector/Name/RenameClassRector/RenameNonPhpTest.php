@@ -6,13 +6,13 @@ namespace Rector\Renaming\Tests\Rector\Name\RenameClassRector;
 use Iterator;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameNonPhpTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfoWithoutAutoload($fileInfo);
     }
@@ -20,8 +20,8 @@ final class RenameNonPhpTest extends \Rector\Testing\PHPUnit\AbstractRectorTestC
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureRenameNonPhp', \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern());
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/non_php_config.php');
+        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/non_php_config.php');
     }
 }

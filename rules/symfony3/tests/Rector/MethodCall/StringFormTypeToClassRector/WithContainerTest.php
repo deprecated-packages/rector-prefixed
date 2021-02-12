@@ -5,13 +5,13 @@ namespace Rector\Symfony3\Tests\Rector\MethodCall\StringFormTypeToClassRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo;
 final class WithContainerTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -19,8 +19,8 @@ final class WithContainerTest extends \Rector\Testing\PHPUnit\AbstractRectorTest
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureWithContainer');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/xml_path_config.php');
+        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/xml_path_config.php');
     }
 }

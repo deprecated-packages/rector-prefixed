@@ -6,13 +6,13 @@ namespace Rector\CodingStyle\Tests\Rector\Throw_\AnnotateThrowablesRector;
 use Iterator;
 use Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo;
 final class AnnotateThrowablesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

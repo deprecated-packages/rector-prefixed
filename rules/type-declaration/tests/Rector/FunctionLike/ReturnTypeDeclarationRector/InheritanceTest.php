@@ -5,13 +5,13 @@ namespace Rector\TypeDeclaration\Tests\Rector\FunctionLike\ReturnTypeDeclaration
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo;
 final class InheritanceTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
@@ -19,8 +19,8 @@ final class InheritanceTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCa
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureInheritance');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
     {
-        return new \RectorPrefix20210211\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/scalar_types.php');
+        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/scalar_types.php');
     }
 }

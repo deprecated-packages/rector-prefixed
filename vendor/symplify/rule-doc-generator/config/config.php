@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210211;
+namespace RectorPrefix20210212;
 
-use RectorPrefix20210211\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210211\Symplify\PackageBuilder\Neon\NeonPrinter;
-use RectorPrefix20210211\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-return static function (\RectorPrefix20210211\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210212\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210212\Symplify\PackageBuilder\Neon\NeonPrinter;
+use RectorPrefix20210212\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+return static function (\RectorPrefix20210212\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('RectorPrefix20210211\Symplify\\RuleDocGenerator\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
-    $services->set(\RectorPrefix20210211\Symplify\PackageBuilder\Neon\NeonPrinter::class);
-    $services->set(\RectorPrefix20210211\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker::class);
+    $services->load('RectorPrefix20210212\Symplify\\RuleDocGenerator\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
+    $services->set(\RectorPrefix20210212\Symplify\PackageBuilder\Neon\NeonPrinter::class);
+    $services->set(\RectorPrefix20210212\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker::class);
 };

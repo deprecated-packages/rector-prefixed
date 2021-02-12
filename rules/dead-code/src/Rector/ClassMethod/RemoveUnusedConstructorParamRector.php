@@ -5,9 +5,11 @@ namespace Rector\DeadCode\Rector\ClassMethod;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Interface_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NetteKdyby\NodeManipulator\ParamAnalyzer;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -65,6 +67,13 @@ CODE_SAMPLE
             return null;
         }
         if ($node->params === []) {
+            return null;
+        }
+        $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
+        if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
+            return null;
+        }
+        if ($node->isAbstract()) {
             return null;
         }
         foreach ($node->params as $param) {

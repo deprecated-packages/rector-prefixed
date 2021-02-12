@@ -14,8 +14,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use Rector\Core\PhpParser\Node\NodeFactory;
-use RectorPrefix20210211\Symfony\Component\HttpFoundation\Request;
-use RectorPrefix20210211\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix20210212\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210212\Symfony\Component\HttpFoundation\Response;
 final class ActionWithFormProcessClassMethodFactory
 {
     /**
@@ -30,8 +30,8 @@ final class ActionWithFormProcessClassMethodFactory
     {
         $classMethod = $this->nodeFactory->createPublicMethod('actionSomeForm');
         $requestVariable = new \PhpParser\Node\Expr\Variable('request');
-        $classMethod->params[] = new \PhpParser\Node\Param($requestVariable, null, new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210211\Symfony\Component\HttpFoundation\Request::class));
-        $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210211\Symfony\Component\HttpFoundation\Response::class);
+        $classMethod->params[] = new \PhpParser\Node\Param($requestVariable, null, new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210212\Symfony\Component\HttpFoundation\Request::class));
+        $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210212\Symfony\Component\HttpFoundation\Response::class);
         $formVariable = new \PhpParser\Node\Expr\Variable('form');
         $assign = $this->createFormInstanceAssign($formTypeClass, $formVariable);
         $classMethod->stmts[] = new \PhpParser\Node\Stmt\Expression($assign);

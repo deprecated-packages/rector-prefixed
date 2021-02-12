@@ -17,7 +17,7 @@ use Rector\Naming\Guard\RamseyUuidInterfaceGuard;
 use Rector\Naming\RenameGuard\PropertyRenameGuard;
 use Rector\Naming\ValueObject\PropertyRename;
 use Rector\NodeNameResolver\NodeNameResolver;
-use RectorPrefix20210211\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210212\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\RenamerInterface
 {
     /**
@@ -51,7 +51,7 @@ abstract class AbstractPropertyRenamer implements \Rector\Naming\Contract\Rename
     /**
      * @required
      */
-    public function autowireAbstractPropertyRenamer(\RectorPrefix20210211\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer) : void
+    public function autowireAbstractPropertyRenamer(\RectorPrefix20210212\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Naming\Guard\NotPrivatePropertyGuard $notPrivatePropertyGuard, \Rector\Naming\Guard\RamseyUuidInterfaceGuard $ramseyUuidInterfaceGuard, \Rector\Naming\Guard\DateTimeAtNamingConventionGuard $dateTimeAtNamingConventionGuard, \Rector\Naming\RenameGuard\PropertyRenameGuard $propertyRenameGuard, \Rector\Naming\Guard\HasMagicGetSetGuard $hasMagicGetSetGuard, \Rector\Naming\PropertyRenamer\PropertyFetchRenamer $propertyFetchRenamer) : void
     {
         $this->notPrivatePropertyGuard = $notPrivatePropertyGuard;
         $this->ramseyUuidInterfaceGuard = $ramseyUuidInterfaceGuard;
