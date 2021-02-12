@@ -117,6 +117,9 @@ CODE_SAMPLE
         if ($currentClass->extends instanceof \PhpParser\Node\Name\FullyQualified) {
             return \true;
         }
+        if ($currentClass->isAbstract() && $this->isOpenSourceProjectType()) {
+            return \true;
+        }
         $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className === null) {
             return \true;
