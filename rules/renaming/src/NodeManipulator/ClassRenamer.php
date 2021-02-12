@@ -24,6 +24,7 @@ use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use ReflectionClass;
 use RectorPrefix20210212\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ClassRenamer
 {
@@ -121,10 +122,11 @@ final class ClassRenamer
         $parentNode = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // no need to preslash "use \SomeNamespace" of imported namespace
         if ($parentNode instanceof \PhpParser\Node\Stmt\UseUse && ($parentNode->type === \PhpParser\Node\Stmt\Use_::TYPE_NORMAL || $parentNode->type === \PhpParser\Node\Stmt\Use_::TYPE_UNKNOWN)) {
-            $name = new \PhpParser\Node\Name($newName);
-        } else {
-            $name = new \PhpParser\Node\Name\FullyQualified($newName);
+            // no need to rename imports, they will be handled by autoimport and coding standard
+            // also they might cause some rename
+            return null;
         }
+        $name = new \PhpParser\Node\Name\FullyQualified($newName);
         $name->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE, $parentNode);
         return $name;
     }
@@ -278,10 +280,22 @@ final class ClassRenamer
     }
     private function isValidClassNameChange(\PhpParser\Node\Name $name, string $newName, \PhpParser\Node\Stmt\Class_ $class) : bool
     {
+        // is class to interface?
         if ($class->extends === $name && \interface_exists($newName)) {
             return \false;
         }
-        return !(\in_array($name, $class->implements, \true) && \class_exists($newName));
+        // is interface to class?
+        if (\in_array($name, $class->implements, \true) && \class_exists($newName)) {
+            return \false;
+        }
+        if ($class->extends === $name && \class_exists($newName)) {
+            // is final class?
+            $reflectionClass = new \ReflectionClass($newName);
+            if ($reflectionClass->isFinal()) {
+                return \false;
+            }
+        }
+        return \true;
     }
     private function isValidUseImportChange(string $newName, \PhpParser\Node\Stmt\UseUse $useUse) : bool
     {

@@ -11,6 +11,8 @@ use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClassWithoutTypo;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClassWithTypo;
+use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeFinalClass;
+use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeNonFinalClass;
 use RectorPrefix20210212\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 return static function (\RectorPrefix20210212\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
@@ -36,5 +38,6 @@ return static function (\RectorPrefix20210212\Symfony\Component\DependencyInject
         'MyFooInterface' => 'MyBazInterface',
         'MyBarInterface' => 'MyBazInterface',
         \RectorPrefix20210212\Acme\Foo\DoNotUpdateExistingTargetNamespace::class => \RectorPrefix20210212\Acme\Bar\DoNotUpdateExistingTargetNamespace::class,
+        \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeNonFinalClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeFinalClass::class,
     ]]]);
 };
