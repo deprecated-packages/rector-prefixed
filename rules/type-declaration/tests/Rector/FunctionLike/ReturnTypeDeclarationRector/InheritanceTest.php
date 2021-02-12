@@ -19,8 +19,8 @@ final class InheritanceTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCa
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureInheritance');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/scalar_types.php');
+        return __DIR__ . '/config/scalar_types.php';
     }
 }

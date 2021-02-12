@@ -19,8 +19,8 @@ final class CorrectionTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCas
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/before_union_types.php');
+        return __DIR__ . '/config/before_union_types.php';
     }
 }

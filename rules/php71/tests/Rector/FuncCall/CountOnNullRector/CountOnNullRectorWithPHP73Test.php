@@ -19,8 +19,8 @@ final class CountOnNullRectorWithPHP73Test extends \Rector\Testing\PHPUnit\Abstr
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureForPhp73');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/is_countable.php');
+        return __DIR__ . '/config/is_countable.php';
     }
 }

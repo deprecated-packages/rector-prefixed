@@ -90,8 +90,9 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210212\Symplify\Pac
     protected function setUp() : void
     {
         $this->initializeDependencies();
-        if ($this->provideConfigFileInfo() !== null) {
-            $configFileInfos = self::$rectorConfigsResolver->resolveFromConfigFileInfo($this->provideConfigFileInfo());
+        if ($this->provideConfigFilePath() !== '') {
+            $configFileInfo = new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo($this->provideConfigFilePath());
+            $configFileInfos = self::$rectorConfigsResolver->resolveFromConfigFileInfo($configFileInfo);
             $this->bootKernelWithConfigsAndStaticCache(\Rector\Core\HttpKernel\RectorKernel::class, $configFileInfos);
             /** @var EnabledRectorClassProvider $enabledRectorsProvider */
             $enabledRectorsProvider = $this->getService(\Rector\Testing\Application\EnabledRectorClassProvider::class);
@@ -119,10 +120,10 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210212\Symplify\Pac
         // can be implemented
         return '';
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
         // can be implemented
-        return null;
+        return '';
     }
     protected function yieldFilesFromDirectory(string $directory, string $suffix = '*.php.inc') : \Iterator
     {

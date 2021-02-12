@@ -19,8 +19,8 @@ final class ClassLikeTypesOnlyTest extends \Rector\Testing\PHPUnit\AbstractRecto
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureClassLikeTypeOnly');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/class_types_only.php');
+        return __DIR__ . '/config/class_types_only.php';
     }
 }

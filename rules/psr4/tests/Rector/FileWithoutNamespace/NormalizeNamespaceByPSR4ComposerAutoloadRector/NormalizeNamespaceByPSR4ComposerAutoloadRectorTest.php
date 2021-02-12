@@ -19,8 +19,8 @@ final class NormalizeNamespaceByPSR4ComposerAutoloadRectorTest extends \Rector\T
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
-    protected function provideConfigFileInfo() : \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/normalize_namespace_without_namespace_config.php');
+        return __DIR__ . '/config/normalize_namespace_without_namespace_config.php';
     }
 }

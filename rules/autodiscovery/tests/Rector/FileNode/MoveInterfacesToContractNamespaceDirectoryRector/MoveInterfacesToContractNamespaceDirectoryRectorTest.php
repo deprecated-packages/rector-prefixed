@@ -49,8 +49,8 @@ final class MoveInterfacesToContractNamespaceDirectoryRectorTest extends \Rector
         // skip already in correct location
         (yield [new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/Contract/Foo/KeepThisSomeInterface.php'), null]);
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/some_config.php');
+        return __DIR__ . '/config/some_config.php';
     }
 }

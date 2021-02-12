@@ -22,8 +22,8 @@ final class Symfony28Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureSymfony28');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/../../../../../../config/set/symfony28.php');
+        return __DIR__ . '/../../../../../../config/set/symfony28.php';
     }
 }

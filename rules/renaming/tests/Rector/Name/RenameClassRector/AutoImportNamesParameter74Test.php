@@ -23,8 +23,8 @@ final class AutoImportNamesParameter74Test extends \Rector\Testing\PHPUnit\Abstr
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureAutoImportNames74');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/auto_import_names.php');
+        return __DIR__ . '/config/auto_import_names.php';
     }
 }

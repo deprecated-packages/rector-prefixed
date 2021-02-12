@@ -22,8 +22,8 @@ final class DocBlockRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTes
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureDocBlock');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/import_doc_block_config.php');
+        return __DIR__ . '/config/import_doc_block_config.php';
     }
 }

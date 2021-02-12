@@ -20,8 +20,8 @@ final class Php80Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixturePhp80');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/property_promotion.php');
+        return __DIR__ . '/config/property_promotion.php';
     }
 }

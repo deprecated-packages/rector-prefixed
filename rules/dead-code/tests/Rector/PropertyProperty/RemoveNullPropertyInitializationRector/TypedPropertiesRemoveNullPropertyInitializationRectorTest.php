@@ -20,8 +20,8 @@ final class TypedPropertiesRemoveNullPropertyInitializationRectorTest extends \R
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureTypedProperties');
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/typed_properties.php');
+        return __DIR__ . '/config/typed_properties.php';
     }
 }

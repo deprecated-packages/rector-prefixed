@@ -27,8 +27,8 @@ final class RenameClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRector
         $fixtureFileInfo = new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/FixtureDuplication/skip_duplicated_class.php.inc');
         $this->doTestFileInfo($fixtureFileInfo);
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/configured_rule.php');
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

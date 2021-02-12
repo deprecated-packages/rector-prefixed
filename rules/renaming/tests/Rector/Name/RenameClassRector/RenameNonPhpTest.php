@@ -20,8 +20,8 @@ final class RenameNonPhpTest extends \Rector\Testing\PHPUnit\AbstractRectorTestC
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureRenameNonPhp', \Rector\Core\ValueObject\StaticNonPhpFileSuffixes::getSuffixRegexPattern());
     }
-    protected function provideConfigFileInfo() : ?\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo
+    protected function provideConfigFilePath() : string
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/config/non_php_config.php');
+        return __DIR__ . '/config/non_php_config.php';
     }
 }
