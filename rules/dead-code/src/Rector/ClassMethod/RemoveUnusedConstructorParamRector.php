@@ -69,6 +69,9 @@ CODE_SAMPLE
         if ($node->params === []) {
             return null;
         }
+        if ($this->paramAnalyzer->hasPropertyPromotion($node->params)) {
+            return null;
+        }
         $classLike = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
         if ($classLike instanceof \PhpParser\Node\Stmt\Interface_) {
             return null;

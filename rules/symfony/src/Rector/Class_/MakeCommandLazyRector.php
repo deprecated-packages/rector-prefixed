@@ -14,6 +14,7 @@ use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\MethodName;
+use Rector\NetteKdyby\NodeManipulator\ParamAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -24,6 +25,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MakeCommandLazyRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var ParamAnalyzer
+     */
+    private $paramAnalyzer;
+    public function __construct(\Rector\NetteKdyby\NodeManipulator\ParamAnalyzer $paramAnalyzer)
+    {
+        $this->paramAnalyzer = $paramAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Make Symfony commands lazy', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -137,7 +146,7 @@ CODE_SAMPLE
             return;
         }
         $params = $constructClassMethod->getParams();
-        if ($params !== [] && $this->hasPropertyPromotion($params)) {
+        if ($this->paramAnalyzer->hasPropertyPromotion($params)) {
             return;
         }
         $onlyNode = $stmts[0];
@@ -158,18 +167,6 @@ CODE_SAMPLE
             return;
         }
         $this->removeNode($constructClassMethod);
-    }
-    /**
-     * @param Param[] $params
-     */
-    private function hasPropertyPromotion(array $params) : bool
-    {
-        foreach ($params as $param) {
-            if ($param->flags !== 0) {
-                return \true;
-            }
-        }
-        return \false;
     }
     private function matchCommandNameNodeInConstruct(\PhpParser\Node\Expr\StaticCall $staticCall) : ?\PhpParser\Node\Expr
     {
