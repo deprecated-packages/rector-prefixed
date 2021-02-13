@@ -42,7 +42,7 @@ final class RenderMethodAnalyzer
             if (!$this->isThisTemplatePropertyFetch($node->var)) {
                 return null;
             }
-            if ($this->scopeNestingComparator->isNodeConditionallyScoped($node)) {
+            if ($this->scopeNestingComparator->isNodeConditionallyScoped($node->var)) {
                 $hasConditionalAssigns = \true;
                 return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
             }

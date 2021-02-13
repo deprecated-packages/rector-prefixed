@@ -4,7 +4,6 @@ declare (strict_types=1);
 namespace Rector\Nette\NodeFactory;
 
 use PhpParser\Node\Arg;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\MethodCall;
@@ -41,19 +40,20 @@ final class ActionRenderFactory
         if ($magicTemplatePropertyCalls->getFirstTemplateFileExpr() !== null) {
             $methodCall->args[0] = new \PhpParser\Node\Arg($magicTemplatePropertyCalls->getFirstTemplateFileExpr());
         }
-        if ($magicTemplatePropertyCalls->getTemplateVariables() !== []) {
-            $templateVariablesArray = $this->createTemplateVariablesArray($magicTemplatePropertyCalls->getTemplateVariables());
-            $methodCall->args[1] = new \PhpParser\Node\Arg($templateVariablesArray);
+        $templateVariablesArray = $this->createTemplateVariablesArray($magicTemplatePropertyCalls);
+        if ($templateVariablesArray->items === []) {
+            return;
         }
+        $methodCall->args[1] = new \PhpParser\Node\Arg($templateVariablesArray);
     }
-    /**
-     * @param Expr[] $templateVariables
-     */
-    private function createTemplateVariablesArray(array $templateVariables) : \PhpParser\Node\Expr\Array_
+    private function createTemplateVariablesArray(\Rector\Nette\ValueObject\MagicTemplatePropertyCalls $magicTemplatePropertyCalls) : \PhpParser\Node\Expr\Array_
     {
         $array = new \PhpParser\Node\Expr\Array_();
-        foreach ($templateVariables as $name => $node) {
-            $array->items[] = new \PhpParser\Node\Expr\ArrayItem($node, new \PhpParser\Node\Scalar\String_($name));
+        foreach ($magicTemplatePropertyCalls->getTemplateVariables() as $name => $expr) {
+            $array->items[] = new \PhpParser\Node\Expr\ArrayItem($expr, new \PhpParser\Node\Scalar\String_($name));
+        }
+        foreach ($magicTemplatePropertyCalls->getConditionalVariableNames() as $variableName) {
+            $array->items[] = new \PhpParser\Node\Expr\ArrayItem(new \PhpParser\Node\Expr\Variable($variableName), new \PhpParser\Node\Scalar\String_($variableName));
         }
         return $array;
     }

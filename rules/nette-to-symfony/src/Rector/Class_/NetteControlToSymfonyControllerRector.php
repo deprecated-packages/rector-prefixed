@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\Class_;
 
-use RectorPrefix20210213\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -13,9 +12,11 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
+use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\Nette\NodeAnalyzer\NetteClassAnalyzer;
 use Rector\Nette\NodeFactory\ActionRenderFactory;
 use Rector\Nette\TemplatePropertyAssignCollector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -40,10 +41,20 @@ final class NetteControlToSymfonyControllerRector extends \Rector\Core\Rector\Ab
      * @var ActionRenderFactory
      */
     private $actionRenderFactory;
-    public function __construct(\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector)
+    /**
+     * @var NetteClassAnalyzer
+     */
+    private $netteClassAnalyzer;
+    /**
+     * @var ClassNaming
+     */
+    private $classNaming;
+    public function __construct(\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector, \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer, \Rector\CodingStyle\Naming\ClassNaming $classNaming)
     {
         $this->templatePropertyAssignCollector = $templatePropertyAssignCollector;
         $this->actionRenderFactory = $actionRenderFactory;
+        $this->netteClassAnalyzer = $netteClassAnalyzer;
+        $this->classNaming = $classNaming;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -85,11 +96,11 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->shouldSkipClass($node)) {
+        if (!$this->netteClassAnalyzer->isInComponent($node)) {
             return null;
         }
         $shortClassName = $this->nodeNameResolver->getShortName($node);
-        $shortClassName = $this->removeSuffix($shortClassName, 'Control');
+        $shortClassName = $this->classNaming->removeSuffix($shortClassName, 'Control');
         $shortClassName .= 'Controller';
         $node->name = new \PhpParser\Node\Identifier($shortClassName);
         $node->extends = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210213\Symfony\Bundle\FrameworkBundle\Controller\AbstractController::class);
@@ -98,24 +109,6 @@ CODE_SAMPLE
             $this->processRenderMethod($classMethod);
         }
         return $node;
-    }
-    private function shouldSkipClass(\PhpParser\Node\Stmt\Class_ $class) : bool
-    {
-        if ($this->classNodeAnalyzer->isAnonymousClass($class)) {
-            return \true;
-        }
-        // skip presenter
-        if ($this->isName($class, '*Presenter')) {
-            return \true;
-        }
-        return !$this->isObjectType($class, 'Nette\\Application\\UI\\Control');
-    }
-    private function removeSuffix(string $content, string $suffix) : string
-    {
-        if (!\RectorPrefix20210213\Nette\Utils\Strings::endsWith($content, $suffix)) {
-            return $content;
-        }
-        return \RectorPrefix20210213\Nette\Utils\Strings::substring($content, 0, -\RectorPrefix20210213\Nette\Utils\Strings::length($suffix));
     }
     private function processRenderMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {

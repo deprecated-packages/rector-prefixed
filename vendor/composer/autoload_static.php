@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4448104a6ada05c98b9b9d81d8d2b9bd
+class ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3337,8 +3337,10 @@ class ComposerStaticInit4448104a6ada05c98b9b9d81d8d2b9bd
         'Rector\\NetteUtilsCodeQuality\\Rector\\LNumber\\ReplaceTimeNumberWithDateTimeConstantRector' => __DIR__ . '/../..' . '/rules/nette-utils-code-quality/src/Rector/LNumber/ReplaceTimeNumberWithDateTimeConstantRector.php',
         'Rector\\Nette\\Contract\\PregToNetteUtilsStringInterface' => __DIR__ . '/../..' . '/rules/nette/src/Contract/PregToNetteUtilsStringInterface.php',
         'Rector\\Nette\\Contract\\WithFunctionToNetteUtilsStringsRectorInterface' => __DIR__ . '/../..' . '/rules/nette/src/Contract/WithFunctionToNetteUtilsStringsRectorInterface.php',
+        'Rector\\Nette\\NodeAnalyzer\\NetteClassAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/NetteClassAnalyzer.php',
         'Rector\\Nette\\NodeAnalyzer\\RenderMethodAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/RenderMethodAnalyzer.php',
         'Rector\\Nette\\NodeAnalyzer\\StaticCallAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/StaticCallAnalyzer.php',
+        'Rector\\Nette\\NodeAnalyzer\\ThisTemplatePropertyFetchAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/ThisTemplatePropertyFetchAnalyzer.php',
         'Rector\\Nette\\NodeFactory\\ActionRenderFactory' => __DIR__ . '/../..' . '/rules/nette/src/NodeFactory/ActionRenderFactory.php',
         'Rector\\Nette\\NodeFactory\\CheckRequirementsClassMethodFactory' => __DIR__ . '/../..' . '/rules/nette/src/NodeFactory/CheckRequirementsClassMethodFactory.php',
         'Rector\\Nette\\NodeFactory\\ParentGetterStmtsToExternalStmtsFactory' => __DIR__ . '/../..' . '/rules/nette/src/NodeFactory/ParentGetterStmtsToExternalStmtsFactory.php',
@@ -4178,9 +4180,9 @@ class ComposerStaticInit4448104a6ada05c98b9b9d81d8d2b9bd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4448104a6ada05c98b9b9d81d8d2b9bd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4448104a6ada05c98b9b9d81d8d2b9bd::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4448104a6ada05c98b9b9d81d8d2b9bd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad::$classMap;
 
         }, null, ClassLoader::class);
     }

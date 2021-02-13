@@ -6,10 +6,9 @@ namespace Rector\NetteCodeQuality\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Nette\NodeAnalyzer\NetteClassAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -17,6 +16,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MergeTemplateSetFileToTemplateRenderRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var NetteClassAnalyzer
+     */
+    private $netteClassAnalyzer;
+    public function __construct(\Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer)
+    {
+        $this->netteClassAnalyzer = $netteClassAnalyzer;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change $this->template->setFile() $this->template->render()', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -56,7 +63,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->shouldSkip($node)) {
+        if (!$this->netteClassAnalyzer->isInComponent($node)) {
             return null;
         }
         /** @var MethodCall[] $methodCalls */
@@ -77,17 +84,6 @@ CODE_SAMPLE
             return $node;
         }
         return null;
-    }
-    private function shouldSkip(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
-    {
-        $classLike = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classLike instanceof \PhpParser\Node\Stmt\ClassLike) {
-            return \true;
-        }
-        if ($this->isObjectType($classMethod, 'Nette\\Application\\UI\\Presenter')) {
-            return \true;
-        }
-        return !$this->isObjectType($classMethod, 'Nette\\Application\\UI\\Control');
     }
     /**
      * @param MethodCall[] $methodCalls

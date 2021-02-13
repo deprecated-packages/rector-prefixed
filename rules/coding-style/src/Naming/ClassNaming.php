@@ -65,4 +65,11 @@ final class ClassNaming
         $functionName = (string) $function->name;
         return \Rector\Core\Util\StaticRectorStrings::underscoreToCamelCase($functionName);
     }
+    public function removeSuffix(string $content, string $suffix) : string
+    {
+        if (!\RectorPrefix20210213\Nette\Utils\Strings::endsWith($content, $suffix)) {
+            return $content;
+        }
+        return \RectorPrefix20210213\Nette\Utils\Strings::substring($content, 0, -\RectorPrefix20210213\Nette\Utils\Strings::length($suffix));
+    }
 }

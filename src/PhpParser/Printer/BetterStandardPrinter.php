@@ -103,7 +103,6 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         // detect per print
         $this->tabOrSpaceIndentCharacter = $this->indentCharacterDetector->detect($newStmts);
         $content = parent::printFormatPreserving($newStmts, $origStmts, $origTokens);
-        $contentOriginal = $this->print($origStmts);
         // add new line in case of added stmts
         if (\count($stmts) !== \count($origStmts) && !(bool) \RectorPrefix20210213\Nette\Utils\Strings::match($content, self::NEWLINE_END_REGEX)) {
             $content .= $this->nl;
@@ -111,6 +110,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         return $content;
     }
     /**
+     * Removes all comments from both nodes
      * @param Node|Node[]|null $node
      */
     public function printWithoutComments($node) : string
@@ -133,8 +133,6 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         return $this->prettyPrint($node);
     }
     /**
-     * Removes all comments from both nodes
-     *
      * @param Node|Node[]|null $firstNode
      * @param Node|Node[]|null $secondNode
      */
@@ -143,7 +141,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         return $this->printWithoutComments($firstNode) === $this->printWithoutComments($secondNode);
     }
     /**
-     * @param Node[] $stmts Array of statements
+     * @param Node[] $stmts
      */
     public function prettyPrintFile(array $stmts) : string
     {
