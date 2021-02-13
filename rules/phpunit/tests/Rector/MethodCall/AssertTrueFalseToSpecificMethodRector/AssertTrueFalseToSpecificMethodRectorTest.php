@@ -6,13 +6,13 @@ namespace Rector\PHPUnit\Tests\Rector\MethodCall\AssertTrueFalseToSpecificMethod
 use Iterator;
 use Rector\PHPUnit\Rector\MethodCall\AssertTrueFalseToSpecificMethodRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo;
 final class AssertTrueFalseToSpecificMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

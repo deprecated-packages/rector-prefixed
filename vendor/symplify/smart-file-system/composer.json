@@ -4,9 +4,9 @@
     "license": "MIT",
     "require": {
         "php": ">=7.3",
-        "nette\/utils": "^3.0",
-        "symfony\/finder": "^4.4|^5.1",
-        "symfony\/filesystem": "^4.4|^5.1"
+        "nette\/utils": "^3.2",
+        "symfony\/finder": "^4.4|^5.2",
+        "symfony\/filesystem": "^4.4|^5.2"
     },
     "require-dev": {
         "nette\/finder": "^2.5",
@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210212\\Symplify\\SmartFileSystem\\": "src"
+            "RectorPrefix20210213\\Symplify\\SmartFileSystem\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210212\\Symplify\\SmartFileSystem\\Tests\\": "tests"
+            "RectorPrefix20210213\\Symplify\\SmartFileSystem\\Tests\\": "tests"
         }
     },
     "extra": {

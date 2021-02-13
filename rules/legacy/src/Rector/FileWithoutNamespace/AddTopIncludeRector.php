@@ -17,7 +17,7 @@ use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://github.com/rectorphp/rector/issues/3679
  *
@@ -29,12 +29,12 @@ final class AddTopIncludeRector extends \Rector\Core\Rector\AbstractRector imple
      * @api
      * @var string
      */
-    public const PATTERNS = '$patterns';
+    public const PATTERNS = 'patterns';
     /**
      * @api
      * @var string
      */
-    public const AUTOLOAD_FILE_PATH = '$autoloadFilePath';
+    public const AUTOLOAD_FILE_PATH = 'autoload_file_path';
     /**
      * @var string
      */
@@ -71,7 +71,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $smartFileInfo = $node->getAttribute(\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $node->getAttribute(\RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }

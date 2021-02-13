@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\FileSystemRector\ValueObject;
 
 use Rector\FileSystemRector\Contract\MovedFileInterface;
-use RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo;
 final class MovedFileWithContent implements \Rector\FileSystemRector\Contract\MovedFileInterface
 {
     /**
@@ -19,7 +19,7 @@ final class MovedFileWithContent implements \Rector\FileSystemRector\Contract\Mo
      * @var SmartFileInfo
      */
     private $oldFileInfo;
-    public function __construct(\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, string $newPathname)
+    public function __construct(\RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo $oldFileInfo, string $newPathname)
     {
         $this->oldFileInfo = $oldFileInfo;
         $this->newPathname = $newPathname;

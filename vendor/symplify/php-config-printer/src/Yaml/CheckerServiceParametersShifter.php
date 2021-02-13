@@ -1,13 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210212\Symplify\PhpConfigPrinter\Yaml;
+namespace RectorPrefix20210213\Symplify\PhpConfigPrinter\Yaml;
 
-use RectorPrefix20210212\Nette\Utils\Strings;
-use RectorPrefix20210212\PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
+use RectorPrefix20210213\Nette\Utils\Strings;
 use ReflectionClass;
-use RectorPrefix20210212\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use RectorPrefix20210212\Symplify\PackageBuilder\Strings\StringFormatConverter;
+use RectorPrefix20210213\Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use RectorPrefix20210213\Symplify\PackageBuilder\Strings\StringFormatConverter;
 /**
  * @copy of https://github.com/symplify/symplify/blob/d4beda1b1af847599aa035ead755e03db81c7247/packages/easy-coding-standard/src/Yaml/CheckerServiceParametersShifter.php
  *
@@ -38,10 +37,6 @@ final class CheckerServiceParametersShifter
     /**
      * @var string
      */
-    private const HEADER = 'header';
-    /**
-     * @var string
-     */
     private const SERVICES_KEY = 'services';
     /**
      * @var string
@@ -61,7 +56,7 @@ final class CheckerServiceParametersShifter
     private $stringFormatConverter;
     public function __construct()
     {
-        $this->stringFormatConverter = new \RectorPrefix20210212\Symplify\PackageBuilder\Strings\StringFormatConverter();
+        $this->stringFormatConverter = new \RectorPrefix20210213\Symplify\PackageBuilder\Strings\StringFormatConverter();
         $this->initializeServiceKeywords();
     }
     /**
@@ -86,13 +81,19 @@ final class CheckerServiceParametersShifter
     private function processServices(array $services) : array
     {
         foreach ($services as $serviceName => $serviceDefinition) {
-            if (!$this->isCheckerClass($serviceName) || $serviceDefinition === null || $serviceDefinition === []) {
+            if (!$this->isCheckerClass($serviceName)) {
                 continue;
             }
-            if (\RectorPrefix20210212\Nette\Utils\Strings::endsWith($serviceName, 'Fixer')) {
+            if ($serviceDefinition === null) {
+                continue;
+            }
+            if ($serviceDefinition === []) {
+                continue;
+            }
+            if (\RectorPrefix20210213\Nette\Utils\Strings::endsWith($serviceName, 'Fixer')) {
                 $services = $this->processFixer($services, $serviceName, $serviceDefinition);
             }
-            if (\RectorPrefix20210212\Nette\Utils\Strings::endsWith($serviceName, 'Sniff')) {
+            if (\RectorPrefix20210213\Nette\Utils\Strings::endsWith($serviceName, 'Sniff')) {
                 $services = $this->processSniff($services, $serviceName, $serviceDefinition);
             }
             // cleanup parameters
@@ -102,7 +103,7 @@ final class CheckerServiceParametersShifter
     }
     private function isCheckerClass(string $checker) : bool
     {
-        return \RectorPrefix20210212\Nette\Utils\Strings::endsWith($checker, 'Fixer') || \RectorPrefix20210212\Nette\Utils\Strings::endsWith($checker, 'Sniff');
+        return \RectorPrefix20210213\Nette\Utils\Strings::endsWith($checker, 'Fixer') || \RectorPrefix20210213\Nette\Utils\Strings::endsWith($checker, 'Sniff');
     }
     /**
      * @param mixed[] $services
@@ -115,7 +116,6 @@ final class CheckerServiceParametersShifter
             if ($this->isReservedKey($key)) {
                 continue;
             }
-            $serviceDefinition = $this->correctHeader($checker, $serviceDefinition);
             $serviceDefinition = $this->stringFormatConverter->camelCaseToUnderscoreInArrayKeys($serviceDefinition);
             $services[$checker]['calls'] = [['configure', [$serviceDefinition]]];
         }
@@ -164,21 +164,6 @@ final class CheckerServiceParametersShifter
         return \in_array($key, $this->serviceKeywords, \true);
     }
     /**
-     * @param mixed[] $serviceDefinition
-     * @return mixed[]
-     */
-    private function correctHeader(string $checker, array $serviceDefinition) : array
-    {
-        // fixes comment extra bottom space
-        if ($checker !== \RectorPrefix20210212\PhpCsFixer\Fixer\Comment\HeaderCommentFixer::class) {
-            return $serviceDefinition;
-        }
-        if (isset($serviceDefinition[self::HEADER])) {
-            $serviceDefinition[self::HEADER] = \trim($serviceDefinition[self::HEADER]);
-        }
-        return $serviceDefinition;
-    }
-    /**
      * @return mixed|mixed[]|string
      */
     private function escapeValue($value)
@@ -192,11 +177,11 @@ final class CheckerServiceParametersShifter
             }
             return $value;
         }
-        return \RectorPrefix20210212\Nette\Utils\Strings::replace($value, '#^@#', '@@');
+        return \RectorPrefix20210213\Nette\Utils\Strings::replace($value, '#^@#', '@@');
     }
     private function initializeServiceKeywords() : void
     {
-        $reflectionClass = new \ReflectionClass(\RectorPrefix20210212\Symfony\Component\DependencyInjection\Loader\YamlFileLoader::class);
+        $reflectionClass = new \ReflectionClass(\RectorPrefix20210213\Symfony\Component\DependencyInjection\Loader\YamlFileLoader::class);
         /** @var array<string, mixed> $constants */
         $constants = $reflectionClass->getConstants();
         if (\array_key_exists(self::SERVICE_KEYWORDS_KEY_CONST, $constants)) {

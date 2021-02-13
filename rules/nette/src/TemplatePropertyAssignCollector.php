@@ -12,7 +12,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Nette\ValueObject\MagicTemplatePropertyCalls;
 use Rector\NodeNameResolver\NodeNameResolver;
-use RectorPrefix20210212\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210213\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class TemplatePropertyAssignCollector
 {
     /**
@@ -35,7 +35,7 @@ final class TemplatePropertyAssignCollector
      * @var Expr[]
      */
     private $templateFileExprs = [];
-    public function __construct(\RectorPrefix20210212\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
+    public function __construct(\RectorPrefix20210213\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;

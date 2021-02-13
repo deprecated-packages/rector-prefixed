@@ -6,7 +6,7 @@ namespace Rector\DoctrineAnnotationGenerated\PhpDocNode;
 use Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver;
 use Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector;
 use Rector\DoctrineAnnotationGenerated\DataCollector\ResolvedConstantStaticCollector;
-use RectorPrefix20210212\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210213\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 /**
  * @see https://github.com/rectorphp/rector/pull/3275/files
  */
@@ -24,7 +24,7 @@ final class ConstantReferenceIdentifierRestorer
      * @var AnnotationVisibilityDetector
      */
     private $annotationVisibilityDetector;
-    public function __construct(\RectorPrefix20210212\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
+    public function __construct(\RectorPrefix20210213\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor, \Rector\BetterPhpDocParser\Annotation\AnnotationItemsResolver $annotationItemsResolver, \Rector\BetterPhpDocParser\Annotation\AnnotationVisibilityDetector $annotationVisibilityDetector)
     {
         $this->privatesAccessor = $privatesAccessor;
         $this->annotationItemsResolver = $annotationItemsResolver;

@@ -4,14 +4,10 @@ declare (strict_types=1);
 namespace Rector\DeadCode\Rector\If_;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Instanceof_;
-use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\If_;
-use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -40,6 +36,7 @@ final class SomeClass
         if (! $stdClass instanceof stdClass) {
             return false;
         }
+
         return true;
     }
 }
@@ -78,7 +75,7 @@ CODE_SAMPLE
         }
         return $node;
     }
-    private function processMayDeadInstanceOf(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\Instanceof_ $instanceof) : ?\PhpParser\Node
+    private function processMayDeadInstanceOf(\PhpParser\Node\Stmt\If_ $if, \PhpParser\Node\Expr\Instanceof_ $instanceof) : ?\PhpParser\Node\Stmt\If_
     {
         $previousVar = $this->betterNodeFinder->findFirstPrevious($if, function (\PhpParser\Node $node) use($instanceof) : bool {
             if ($node === $instanceof->expr) {
@@ -107,28 +104,17 @@ CODE_SAMPLE
     }
     private function isSameObject(\PhpParser\Node $node, string $name) : bool
     {
-        $objectType = $this->getObjectType($node);
         $parentPreviousVar = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parentPreviousVar instanceof \PhpParser\Node\Param) {
-            $phpDocInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO);
-            if ($phpDocInfo instanceof \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo) {
-                return \false;
-            }
-            $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$parentNode instanceof \PhpParser\Node\Expr\Assign) {
-                return \false;
-            }
-            $objectType = $this->getObjectType($parentNode->expr);
-            if (!$objectType instanceof \PHPStan\Type\ObjectType) {
-                return \false;
-            }
-            return \is_a($objectType, $name, \true);
+            return \false;
         }
-        $type = $parentPreviousVar->type;
-        if ($type instanceof \PhpParser\Node\Name\FullyQualified) {
-            $type = $type->toString();
-            return \is_a($type, $name, \true);
+        if ($parentPreviousVar->type === null) {
+            return \false;
         }
-        return \false;
+        $paramName = $this->getName($parentPreviousVar->type);
+        if ($paramName === null) {
+            return \false;
+        }
+        return \is_a($paramName, $name, \true);
     }
 }

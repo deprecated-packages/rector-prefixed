@@ -5,25 +5,25 @@
     "type": "symfony-bundle",
     "require": {
         "php": ">=7.3",
-        "nette\/utils": "^3.0",
-        "symfony\/config": "^4.4|^5.1",
-        "symfony\/dependency-injection": "^5.1",
-        "symfony\/filesystem": "^4.4|^5.1",
-        "symfony\/http-kernel": "^4.4|^5.1",
-        "symplify\/package-builder": "^9.1.5",
-        "symplify\/smart-file-system": "^9.1.5"
+        "nette\/utils": "^3.2",
+        "symfony\/config": "^4.4|^5.2",
+        "symfony\/dependency-injection": "^5.2",
+        "symfony\/filesystem": "^4.4|^5.2",
+        "symfony\/http-kernel": "^4.4|^5.2",
+        "symplify\/package-builder": "^9.1.7",
+        "symplify\/smart-file-system": "^9.1.7"
     },
     "require-dev": {
         "phpunit\/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210212\\Symplify\\ComposerJsonManipulator\\": "src"
+            "RectorPrefix20210213\\Symplify\\ComposerJsonManipulator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210212\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
+            "RectorPrefix20210213\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
         }
     },
     "extra": {

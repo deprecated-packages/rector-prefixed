@@ -49,7 +49,7 @@ final class MagicNetteFactoryInterfaceFormControlTypeResolver implements \Rector
             return [];
         }
         // skip constructor, handled elsewhere
-        if ($this->nodeNameResolver->isName($node, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
+        if ($this->nodeNameResolver->isName($node->name, \Rector\Core\ValueObject\MethodName::CONSTRUCT)) {
             return [];
         }
         $classMethod = $this->nodeRepository->findClassMethodByMethodCall($node);

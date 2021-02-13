@@ -4,25 +4,25 @@
     "license": "MIT",
     "require": {
         "php": ">=7.3",
-        "nette\/utils": "^3.0",
-        "symfony\/dependency-injection": "^5.1",
-        "symplify\/autowire-array-parameter": "^9.1.5",
-        "symfony\/http-kernel": "^4.4|^5.1",
+        "nette\/utils": "^3.2",
+        "symfony\/dependency-injection": "^5.2",
+        "symplify\/autowire-array-parameter": "^9.1.7",
+        "symfony\/http-kernel": "^4.4|^5.2",
         "nikic\/php-parser": "^4.10.4",
-        "symplify\/package-builder": "^9.1.5"
+        "symplify\/package-builder": "^9.1.7"
     },
     "require-dev": {
-        "symplify\/easy-testing": "^9.1.5",
+        "symplify\/easy-testing": "^9.1.7",
         "phpunit\/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210212\\Symplify\\Astral\\": "src"
+            "RectorPrefix20210213\\Symplify\\Astral\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "RectorPrefix20210212\\Symplify\\Astral\\Tests\\": "tests"
+            "RectorPrefix20210213\\Symplify\\Astral\\Tests\\": "tests"
         }
     },
     "extra": {

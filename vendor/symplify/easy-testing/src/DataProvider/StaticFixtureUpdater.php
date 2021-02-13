@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210212\Symplify\EasyTesting\DataProvider;
+namespace RectorPrefix20210213\Symplify\EasyTesting\DataProvider;
 
-use RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileSystem;
 final class StaticFixtureUpdater
 {
-    public static function updateFixtureContent(\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    public static function updateFixtureContent(\RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent, \RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
@@ -15,18 +15,18 @@ final class StaticFixtureUpdater
         $newOriginalContent = self::resolveNewFixtureContent($originalFileInfo, $changedContent);
         self::getSmartFileSystem()->dumpFile($fixtureFileInfo->getRealPath(), $newOriginalContent);
     }
-    public static function updateExpectedFixtureContent(string $newOriginalContent, \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo) : void
+    public static function updateExpectedFixtureContent(string $newOriginalContent, \RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo) : void
     {
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
         }
         self::getSmartFileSystem()->dumpFile($expectedFixtureFileInfo->getRealPath(), $newOriginalContent);
     }
-    private static function getSmartFileSystem() : \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileSystem
+    private static function getSmartFileSystem() : \RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileSystem
     {
-        return new \RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileSystem();
+        return new \RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileSystem();
     }
-    private static function resolveNewFixtureContent(\RectorPrefix20210212\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent) : string
+    private static function resolveNewFixtureContent(\RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, string $changedContent) : string
     {
         if ($originalFileInfo->getContents() === $changedContent) {
             return $originalFileInfo->getContents();
