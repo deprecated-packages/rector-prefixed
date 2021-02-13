@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit54263baa198fb7920901fb35481f066b
+class ComposerStaticInit7cd9fe8ea75951472f0e3c80d599d229
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3130,12 +3130,10 @@ class ComposerStaticInit54263baa198fb7920901fb35481f066b
         'Rector\\Generic\\Rector\\ClassMethod\\SingleToManyMethodRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/SingleToManyMethodRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\WrapReturnRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/WrapReturnRector.php',
         'Rector\\Generic\\Rector\\Class_\\AddInterfaceByTraitRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/AddInterfaceByTraitRector.php',
-        'Rector\\Generic\\Rector\\Class_\\AddPropertyByParentRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/AddPropertyByParentRector.php',
         'Rector\\Generic\\Rector\\Class_\\MergeInterfacesRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/MergeInterfacesRector.php',
         'Rector\\Generic\\Rector\\FuncCall\\SwapFuncCallArgumentsRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/FuncCall/SwapFuncCallArgumentsRector.php',
         'Rector\\Generic\\Rector\\Property\\AnnotatedPropertyInjectToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Property/AnnotatedPropertyInjectToConstructorInjectionRector.php',
         'Rector\\Generic\\Rector\\Property\\InjectAnnotationClassRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Property/InjectAnnotationClassRector.php',
-        'Rector\\Generic\\ValueObject\\AddPropertyByParent' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/AddPropertyByParent.php',
         'Rector\\Generic\\ValueObject\\ArgumentAdder' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentAdder.php',
         'Rector\\Generic\\ValueObject\\ArgumentDefaultValueReplacer' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentDefaultValueReplacer.php',
         'Rector\\Generic\\ValueObject\\NormalToFluent' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/NormalToFluent.php',
@@ -4180,9 +4178,9 @@ class ComposerStaticInit54263baa198fb7920901fb35481f066b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit54263baa198fb7920901fb35481f066b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit54263baa198fb7920901fb35481f066b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit54263baa198fb7920901fb35481f066b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7cd9fe8ea75951472f0e3c80d599d229::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7cd9fe8ea75951472f0e3c80d599d229::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7cd9fe8ea75951472f0e3c80d599d229::$classMap;
 
         }, null, ClassLoader::class);
     }
