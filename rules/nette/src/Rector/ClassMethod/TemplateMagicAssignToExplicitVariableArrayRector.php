@@ -113,9 +113,6 @@ CODE_SAMPLE
         if (!$this->isNames($classMethod, ['render', 'render*'])) {
             return \true;
         }
-        if (!$this->netteClassAnalyzer->isInComponent($classMethod)) {
-            return \true;
-        }
-        return $this->renderMethodAnalyzer->hasConditionalTemplateAssigns($classMethod);
+        return !$this->netteClassAnalyzer->isInComponent($classMethod);
     }
 }
