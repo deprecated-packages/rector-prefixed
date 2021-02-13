@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad
+class ComposerStaticInit6e09f7728f37e39d1544887c3c704373
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2431,7 +2431,6 @@ class ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad
         'Rector\\BetterPhpDocParser\\PhpDocInfo\\TokenIteratorFactory' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocInfo/TokenIteratorFactory.php',
         'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PhpDocClassRenamer' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocManipulator/PhpDocClassRenamer.php',
         'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PhpDocTagRemover' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocManipulator/PhpDocTagRemover.php',
-        'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PhpDocTagsFinder' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocManipulator/PhpDocTagsFinder.php',
         'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PhpDocTypeChanger' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocManipulator/PhpDocTypeChanger.php',
         'Rector\\BetterPhpDocParser\\PhpDocManipulator\\PropertyDocBlockManipulator' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocManipulator/PropertyDocBlockManipulator.php',
         'Rector\\BetterPhpDocParser\\PhpDocManipulator\\VarAnnotationManipulator' => __DIR__ . '/../..' . '/packages/better-php-doc-parser/src/PhpDocManipulator/VarAnnotationManipulator.php',
@@ -2654,12 +2653,10 @@ class ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad
         'Rector\\CodingStyle\\ClassNameImport\\UseImportsTraverser' => __DIR__ . '/../..' . '/rules/coding-style/src/ClassNameImport/UseImportsTraverser.php',
         'Rector\\CodingStyle\\ClassNameImport\\UsedImportsResolver' => __DIR__ . '/../..' . '/rules/coding-style/src/ClassNameImport/UsedImportsResolver.php',
         'Rector\\CodingStyle\\Contract\\ClassNameImport\\ClassNameImportSkipVoterInterface' => __DIR__ . '/../..' . '/rules/coding-style/src/Contract/ClassNameImport/ClassNameImportSkipVoterInterface.php',
-        'Rector\\CodingStyle\\DocBlock\\ThrowsFactory' => __DIR__ . '/../..' . '/rules/coding-style/src/DocBlock/ThrowsFactory.php',
         'Rector\\CodingStyle\\Naming\\ClassNaming' => __DIR__ . '/../..' . '/rules/coding-style/src/Naming/ClassNaming.php',
         'Rector\\CodingStyle\\Naming\\NameRenamer' => __DIR__ . '/../..' . '/rules/coding-style/src/Naming/NameRenamer.php',
         'Rector\\CodingStyle\\NodeAnalyzer\\ImplodeAnalyzer' => __DIR__ . '/../..' . '/rules/coding-style/src/NodeAnalyzer/ImplodeAnalyzer.php',
         'Rector\\CodingStyle\\NodeAnalyzer\\SpreadVariablesCollector' => __DIR__ . '/../..' . '/rules/coding-style/src/NodeAnalyzer/SpreadVariablesCollector.php',
-        'Rector\\CodingStyle\\NodeAnalyzer\\ThrowAnalyzer' => __DIR__ . '/../..' . '/rules/coding-style/src/NodeAnalyzer/ThrowAnalyzer.php',
         'Rector\\CodingStyle\\NodeFactory\\JsonArrayFactory' => __DIR__ . '/../..' . '/rules/coding-style/src/NodeFactory/JsonArrayFactory.php',
         'Rector\\CodingStyle\\NodeFactory\\JsonEncodeStaticCallFactory' => __DIR__ . '/../..' . '/rules/coding-style/src/NodeFactory/JsonEncodeStaticCallFactory.php',
         'Rector\\CodingStyle\\Node\\ConcatJoiner' => __DIR__ . '/../..' . '/rules/coding-style/src/Node/ConcatJoiner.php',
@@ -2704,7 +2701,6 @@ class ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad
         'Rector\\CodingStyle\\Rector\\String_\\UseClassKeywordForClassNameResolutionRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/String_/UseClassKeywordForClassNameResolutionRector.php',
         'Rector\\CodingStyle\\Rector\\Switch_\\BinarySwitchToIfElseRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/Switch_/BinarySwitchToIfElseRector.php',
         'Rector\\CodingStyle\\Rector\\Ternary\\TernaryConditionVariableAssignmentRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/Ternary/TernaryConditionVariableAssignmentRector.php',
-        'Rector\\CodingStyle\\Rector\\Throw_\\AnnotateThrowablesRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/Throw_/AnnotateThrowablesRector.php',
         'Rector\\CodingStyle\\Rector\\Use_\\RemoveUnusedAliasRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/Use_/RemoveUnusedAliasRector.php',
         'Rector\\CodingStyle\\Rector\\Use_\\SplitGroupedUseImportsRector' => __DIR__ . '/../..' . '/rules/coding-style/src/Rector/Use_/SplitGroupedUseImportsRector.php',
         'Rector\\CodingStyle\\TypeAnalyzer\\IterableTypeAnalyzer' => __DIR__ . '/../..' . '/rules/coding-style/src/TypeAnalyzer/IterableTypeAnalyzer.php',
@@ -2843,9 +2839,7 @@ class ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad
         'Rector\\Core\\Rector\\AbstractRector' => __DIR__ . '/../..' . '/src/Rector/AbstractRector.php',
         'Rector\\Core\\Rector\\AbstractTemporaryRector' => __DIR__ . '/../..' . '/src/Rector/AbstractTemporaryRector.php',
         'Rector\\Core\\Reflection\\ClassMethodReflectionFactory' => __DIR__ . '/../..' . '/src/Reflection/ClassMethodReflectionFactory.php',
-        'Rector\\Core\\Reflection\\ClassMethodReflectionHelper' => __DIR__ . '/../..' . '/src/Reflection/ClassMethodReflectionHelper.php',
         'Rector\\Core\\Reflection\\ClassReflectionToAstResolver' => __DIR__ . '/../..' . '/src/Reflection/ClassReflectionToAstResolver.php',
-        'Rector\\Core\\Reflection\\FunctionAnnotationResolver' => __DIR__ . '/../..' . '/src/Reflection/FunctionAnnotationResolver.php',
         'Rector\\Core\\Stubs\\StubLoader' => __DIR__ . '/../..' . '/src/Stubs/StubLoader.php',
         'Rector\\Core\\Util\\PhpVersionFactory' => __DIR__ . '/../..' . '/src/Util/PhpVersionFactory.php',
         'Rector\\Core\\Util\\StaticInstanceOf' => __DIR__ . '/../..' . '/src/Util/StaticInstanceOf.php',
@@ -4180,9 +4174,9 @@ class ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitcb1c0f84d04ed63d5542e2617ece68ad::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6e09f7728f37e39d1544887c3c704373::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6e09f7728f37e39d1544887c3c704373::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6e09f7728f37e39d1544887c3c704373::$classMap;
 
         }, null, ClassLoader::class);
     }
