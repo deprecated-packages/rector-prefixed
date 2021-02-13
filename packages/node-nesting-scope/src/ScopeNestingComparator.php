@@ -8,6 +8,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\If_;
+use PhpParser\Node\Stmt\Return_;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNestingScope\ValueObject\ControlStructure;
@@ -29,6 +30,11 @@ final class ScopeNestingComparator
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->betterStandardPrinter = $betterStandardPrinter;
+    }
+    public function areReturnScopeNested(\PhpParser\Node\Stmt\Return_ $return, \PhpParser\Node $secondNodeScopeNode) : bool
+    {
+        $firstNodeScopeNode = $this->betterNodeFinder->findParentTypes($return, \Rector\NodeNestingScope\ValueObject\ControlStructure::RETURN_ISOLATING_SCOPE_NODE_TYPES);
+        return $this->betterStandardPrinter->areNodesEqual($firstNodeScopeNode, $secondNodeScopeNode);
     }
     public function areScopeNestingEqual(\PhpParser\Node $firstNode, \PhpParser\Node $secondNode) : bool
     {

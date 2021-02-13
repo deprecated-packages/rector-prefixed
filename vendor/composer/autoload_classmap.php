@@ -2558,6 +2558,7 @@ return array(
     'Rector\\Nette\\NodeAnalyzer\\ConditionalTemplateAssignReplacer' => $baseDir . '/rules/nette/src/NodeAnalyzer/ConditionalTemplateAssignReplacer.php',
     'Rector\\Nette\\NodeAnalyzer\\NetteClassAnalyzer' => $baseDir . '/rules/nette/src/NodeAnalyzer/NetteClassAnalyzer.php',
     'Rector\\Nette\\NodeAnalyzer\\RenderMethodAnalyzer' => $baseDir . '/rules/nette/src/NodeAnalyzer/RenderMethodAnalyzer.php',
+    'Rector\\Nette\\NodeAnalyzer\\ReturnAnalyzer' => $baseDir . '/rules/nette/src/NodeAnalyzer/ReturnAnalyzer.php',
     'Rector\\Nette\\NodeAnalyzer\\StaticCallAnalyzer' => $baseDir . '/rules/nette/src/NodeAnalyzer/StaticCallAnalyzer.php',
     'Rector\\Nette\\NodeAnalyzer\\TemplatePropertyAssignCollector' => $baseDir . '/rules/nette/src/NodeAnalyzer/TemplatePropertyAssignCollector.php',
     'Rector\\Nette\\NodeAnalyzer\\ThisTemplatePropertyFetchAnalyzer' => $baseDir . '/rules/nette/src/NodeAnalyzer/ThisTemplatePropertyFetchAnalyzer.php',

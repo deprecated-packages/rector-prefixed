@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfc994346eac7bd0364ad51ad95150d8f
+class ComposerStaticInit0b7c7ca459be78ff62a12b1ff3fce924
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3337,6 +3337,7 @@ class ComposerStaticInitfc994346eac7bd0364ad51ad95150d8f
         'Rector\\Nette\\NodeAnalyzer\\ConditionalTemplateAssignReplacer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/ConditionalTemplateAssignReplacer.php',
         'Rector\\Nette\\NodeAnalyzer\\NetteClassAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/NetteClassAnalyzer.php',
         'Rector\\Nette\\NodeAnalyzer\\RenderMethodAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/RenderMethodAnalyzer.php',
+        'Rector\\Nette\\NodeAnalyzer\\ReturnAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/ReturnAnalyzer.php',
         'Rector\\Nette\\NodeAnalyzer\\StaticCallAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/StaticCallAnalyzer.php',
         'Rector\\Nette\\NodeAnalyzer\\TemplatePropertyAssignCollector' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/TemplatePropertyAssignCollector.php',
         'Rector\\Nette\\NodeAnalyzer\\ThisTemplatePropertyFetchAnalyzer' => __DIR__ . '/../..' . '/rules/nette/src/NodeAnalyzer/ThisTemplatePropertyFetchAnalyzer.php',
@@ -4179,9 +4180,9 @@ class ComposerStaticInitfc994346eac7bd0364ad51ad95150d8f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfc994346eac7bd0364ad51ad95150d8f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfc994346eac7bd0364ad51ad95150d8f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfc994346eac7bd0364ad51ad95150d8f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0b7c7ca459be78ff62a12b1ff3fce924::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0b7c7ca459be78ff62a12b1ff3fce924::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0b7c7ca459be78ff62a12b1ff3fce924::$classMap;
 
         }, null, ClassLoader::class);
     }
