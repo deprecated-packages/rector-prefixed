@@ -18,7 +18,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Nette\NodeAnalyzer\NetteClassAnalyzer;
 use Rector\Nette\NodeFactory\ActionRenderFactory;
-use Rector\Nette\TemplatePropertyAssignCollector;
+use Rector\NetteToSymfony\NodeAnalyzer\ClassMethodRenderAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use RectorPrefix20210213\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,10 +34,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NetteControlToSymfonyControllerRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var TemplatePropertyAssignCollector
-     */
-    private $templatePropertyAssignCollector;
-    /**
      * @var ActionRenderFactory
      */
     private $actionRenderFactory;
@@ -49,12 +45,16 @@ final class NetteControlToSymfonyControllerRector extends \Rector\Core\Rector\Ab
      * @var ClassNaming
      */
     private $classNaming;
-    public function __construct(\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector, \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer, \Rector\CodingStyle\Naming\ClassNaming $classNaming)
+    /**
+     * @var ClassMethodRenderAnalyzer
+     */
+    private $classMethodRenderAnalyzer;
+    public function __construct(\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NetteToSymfony\NodeAnalyzer\ClassMethodRenderAnalyzer $classMethodRenderAnalyzer)
     {
-        $this->templatePropertyAssignCollector = $templatePropertyAssignCollector;
         $this->actionRenderFactory = $actionRenderFactory;
         $this->netteClassAnalyzer = $netteClassAnalyzer;
         $this->classNaming = $classNaming;
+        $this->classMethodRenderAnalyzer = $classMethodRenderAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -100,8 +100,7 @@ CODE_SAMPLE
             return null;
         }
         $shortClassName = $this->nodeNameResolver->getShortName($node);
-        $shortClassName = $this->classNaming->removeSuffix($shortClassName, 'Control');
-        $shortClassName .= 'Controller';
+        $shortClassName = $this->classNaming->replaceSuffix($shortClassName, 'Control', 'Controller');
         $node->name = new \PhpParser\Node\Identifier($shortClassName);
         $node->extends = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210213\Symfony\Bundle\FrameworkBundle\Controller\AbstractController::class);
         $classMethod = $node->getMethod('render');
@@ -114,15 +113,15 @@ CODE_SAMPLE
     {
         $this->processGetPresenterGetSessionMethodCall($classMethod);
         $classMethod->name = new \PhpParser\Node\Identifier('action');
-        $magicTemplatePropertyCalls = $this->templatePropertyAssignCollector->collectMagicTemplatePropertyCalls($classMethod);
-        $methodCall = $this->actionRenderFactory->createThisRenderMethodCall($magicTemplatePropertyCalls);
+        $classMethodRender = $this->classMethodRenderAnalyzer->collectFromClassMethod($classMethod);
+        $methodCall = $this->actionRenderFactory->createThisRenderMethodCall($classMethodRender);
         // add return in the end
         $return = new \PhpParser\Node\Stmt\Return_($methodCall);
         $classMethod->stmts[] = $return;
         if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
             $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210213\Symfony\Component\HttpFoundation\Response::class);
         }
-        $this->removeNodes($magicTemplatePropertyCalls->getNodesToRemove());
+        $this->removeNodes($classMethodRender->getNodesToRemove());
     }
     private function processGetPresenterGetSessionMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {

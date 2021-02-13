@@ -6,9 +6,11 @@ namespace Rector\Nette\NodeAnalyzer;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
+use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeNestingScope\ScopeNestingComparator;
 use RectorPrefix20210213\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
@@ -26,11 +28,27 @@ final class RenderMethodAnalyzer
      * @var ScopeNestingComparator
      */
     private $scopeNestingComparator;
-    public function __construct(\RectorPrefix20210213\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator)
+    /**
+     * @var BetterNodeFinder
+     */
+    private $betterNodeFinder;
+    public function __construct(\RectorPrefix20210213\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeNestingScope\ScopeNestingComparator $scopeNestingComparator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->scopeNestingComparator = $scopeNestingComparator;
+        $this->betterNodeFinder = $betterNodeFinder;
+    }
+    public function machRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\MethodCall
+    {
+        /** @var MethodCall[] $methodsCalls */
+        $methodsCalls = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Expr\MethodCall::class);
+        foreach ($methodsCalls as $methodCall) {
+            if ($this->nodeNameResolver->isName($methodCall->name, 'render')) {
+                return $methodCall;
+            }
+        }
+        return null;
     }
     public function hasConditionalTemplateAssigns(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {

@@ -6,7 +6,7 @@ namespace Rector\NetteToSymfony\Rector\Interface_;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Interface_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NetteToSymfony\Analyzer\NetteControlFactoryInterfaceAnalyzer;
+use Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo;
@@ -19,7 +19,7 @@ final class DeleteFactoryInterfaceRector extends \Rector\Core\Rector\AbstractRec
      * @var NetteControlFactoryInterfaceAnalyzer
      */
     private $netteControlFactoryInterfaceAnalyzer;
-    public function __construct(\Rector\NetteToSymfony\Analyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer)
+    public function __construct(\Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer)
     {
         $this->netteControlFactoryInterfaceAnalyzer = $netteControlFactoryInterfaceAnalyzer;
     }

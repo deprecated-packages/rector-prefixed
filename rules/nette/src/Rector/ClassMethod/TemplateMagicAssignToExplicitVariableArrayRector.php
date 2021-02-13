@@ -4,16 +4,16 @@ declare (strict_types=1);
 namespace Rector\Nette\Rector\ClassMethod;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Nette\NodeAnalyzer\ConditionalTemplateAssignReplacer;
 use Rector\Nette\NodeAnalyzer\NetteClassAnalyzer;
 use Rector\Nette\NodeAnalyzer\RenderMethodAnalyzer;
-use Rector\Nette\NodeFactory\ActionRenderFactory;
-use Rector\Nette\TemplatePropertyAssignCollector;
-use Rector\Nette\ValueObject\MagicTemplatePropertyCalls;
+use Rector\Nette\NodeAnalyzer\TemplatePropertyAssignCollector;
+use Rector\Nette\NodeFactory\RenderParameterArrayFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -26,10 +26,6 @@ final class TemplateMagicAssignToExplicitVariableArrayRector extends \Rector\Cor
      */
     private $templatePropertyAssignCollector;
     /**
-     * @var ActionRenderFactory
-     */
-    private $actionRenderFactory;
-    /**
      * @var RenderMethodAnalyzer
      */
     private $renderMethodAnalyzer;
@@ -37,12 +33,21 @@ final class TemplateMagicAssignToExplicitVariableArrayRector extends \Rector\Cor
      * @var NetteClassAnalyzer
      */
     private $netteClassAnalyzer;
-    public function __construct(\Rector\Nette\NodeFactory\ActionRenderFactory $actionRenderFactory, \Rector\Nette\TemplatePropertyAssignCollector $templatePropertyAssignCollector, \Rector\Nette\NodeAnalyzer\RenderMethodAnalyzer $renderMethodAnalyzer, \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer)
+    /**
+     * @var RenderParameterArrayFactory
+     */
+    private $renderParameterArrayFactory;
+    /**
+     * @var ConditionalTemplateAssignReplacer
+     */
+    private $conditionalTemplateAssignReplacer;
+    public function __construct(\Rector\Nette\NodeAnalyzer\TemplatePropertyAssignCollector $templatePropertyAssignCollector, \Rector\Nette\NodeAnalyzer\RenderMethodAnalyzer $renderMethodAnalyzer, \Rector\Nette\NodeAnalyzer\NetteClassAnalyzer $netteClassAnalyzer, \Rector\Nette\NodeFactory\RenderParameterArrayFactory $renderParameterArrayFactory, \Rector\Nette\NodeAnalyzer\ConditionalTemplateAssignReplacer $conditionalTemplateAssignReplacer)
     {
         $this->templatePropertyAssignCollector = $templatePropertyAssignCollector;
-        $this->actionRenderFactory = $actionRenderFactory;
         $this->renderMethodAnalyzer = $renderMethodAnalyzer;
         $this->netteClassAnalyzer = $netteClassAnalyzer;
+        $this->renderParameterArrayFactory = $renderParameterArrayFactory;
+        $this->conditionalTemplateAssignReplacer = $conditionalTemplateAssignReplacer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -86,13 +91,20 @@ CODE_SAMPLE
         if ($this->shouldSkip($node)) {
             return null;
         }
-        $magicTemplatePropertyCalls = $this->templatePropertyAssignCollector->collectMagicTemplatePropertyCalls($node);
-        if ($magicTemplatePropertyCalls->hasMultipleTemplateFileExprs()) {
+        $renderMethodCall = $this->renderMethodAnalyzer->machRenderMethodCall($node);
+        if (!$renderMethodCall instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-        $this->replaceConditionalAssignsWithVariables($node, $magicTemplatePropertyCalls);
-        $renderMethodCall = $this->actionRenderFactory->createThisTemplateRenderMethodCall($magicTemplatePropertyCalls);
-        $node->stmts = \array_merge((array) $node->stmts, [new \PhpParser\Node\Stmt\Expression($renderMethodCall)]);
+        if (!isset($renderMethodCall->args[0])) {
+            return null;
+        }
+        $magicTemplatePropertyCalls = $this->templatePropertyAssignCollector->collectMagicTemplatePropertyCalls($node);
+        $array = $this->renderParameterArrayFactory->createArray($magicTemplatePropertyCalls);
+        if (!$array instanceof \PhpParser\Node\Expr\Array_) {
+            return null;
+        }
+        $this->conditionalTemplateAssignReplacer->processClassMethod($node, $magicTemplatePropertyCalls);
+        $renderMethodCall->args[1] = new \PhpParser\Node\Arg($array);
         $this->removeNodes($magicTemplatePropertyCalls->getNodesToRemove());
         return $node;
     }
@@ -105,31 +117,5 @@ CODE_SAMPLE
             return \true;
         }
         return $this->renderMethodAnalyzer->hasConditionalTemplateAssigns($classMethod);
-    }
-    private function replaceConditionalAssignsWithVariables(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Nette\ValueObject\MagicTemplatePropertyCalls $magicTemplatePropertyCalls) : void
-    {
-        $this->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use($magicTemplatePropertyCalls) : ?Assign {
-            if (!$node instanceof \PhpParser\Node\Expr\Assign) {
-                return null;
-            }
-            $variableName = $this->matchConditionalAssignVariableName($node, $magicTemplatePropertyCalls->getConditionalAssigns());
-            if ($variableName === null) {
-                return null;
-            }
-            return new \PhpParser\Node\Expr\Assign(new \PhpParser\Node\Expr\Variable($variableName), $node->expr);
-        });
-    }
-    /**
-     * @param array<string, Assign[]> $condtionalAssignsByName
-     */
-    private function matchConditionalAssignVariableName(\PhpParser\Node\Expr\Assign $assign, array $condtionalAssignsByName) : ?string
-    {
-        foreach ($condtionalAssignsByName as $name => $condtionalAssigns) {
-            if (!$this->betterStandardPrinter->isNodeEqual($assign, $condtionalAssigns)) {
-                continue;
-            }
-            return $name;
-        }
-        return null;
     }
 }

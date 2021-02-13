@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Nette\ValueObject;
+namespace Rector\NetteToSymfony\ValueObject;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use Rector\Nette\Contract\ValueObject\ParameterArrayInterface;
-final class MagicTemplatePropertyCalls implements \Rector\Nette\Contract\ValueObject\ParameterArrayInterface
+final class ClassMethodRender implements \Rector\Nette\Contract\ValueObject\ParameterArrayInterface
 {
     /**
      * @var Node[]
@@ -22,15 +22,21 @@ final class MagicTemplatePropertyCalls implements \Rector\Nette\Contract\ValueOb
      */
     private $conditionalAssigns = [];
     /**
+     * @var Expr[]
+     */
+    private $templateFileExprs = [];
+    /**
+     * @param Expr[] $templateFileExprs
      * @param array<string, Expr> $templateVariables
      * @param Node[] $nodesToRemove
      * @param array<string, Assign[]> $conditionalAssigns
      */
-    public function __construct(array $templateVariables, array $nodesToRemove, array $conditionalAssigns)
+    public function __construct(array $templateFileExprs, array $templateVariables, array $nodesToRemove, array $conditionalAssigns)
     {
         $this->templateVariables = $templateVariables;
         $this->nodesToRemove = $nodesToRemove;
         $this->conditionalAssigns = $conditionalAssigns;
+        $this->templateFileExprs = $templateFileExprs;
     }
     /**
      * @return array<string, Expr>
@@ -38,13 +44,6 @@ final class MagicTemplatePropertyCalls implements \Rector\Nette\Contract\ValueOb
     public function getTemplateVariables() : array
     {
         return $this->templateVariables;
-    }
-    /**
-     * @return array<string, Assign[]>
-     */
-    public function getConditionalAssigns() : array
-    {
-        return $this->conditionalAssigns;
     }
     /**
      * @return string[]
@@ -59,5 +58,9 @@ final class MagicTemplatePropertyCalls implements \Rector\Nette\Contract\ValueOb
     public function getNodesToRemove() : array
     {
         return $this->nodesToRemove;
+    }
+    public function getFirstTemplateFileExpr() : ?\PhpParser\Node\Expr
+    {
+        return $this->templateFileExprs[0] ?? null;
     }
 }

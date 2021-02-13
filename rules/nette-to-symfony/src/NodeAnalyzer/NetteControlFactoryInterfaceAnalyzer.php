@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NetteToSymfony\Analyzer;
+namespace Rector\NetteToSymfony\NodeAnalyzer;
 
 use PhpParser\Node\Stmt\Interface_;
 use PHPStan\Type\TypeWithClassName;

@@ -9,7 +9,7 @@ use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\MovedFileWithNodes;
 use Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory;
-use Rector\NetteToSymfony\Analyzer\NetteControlFactoryInterfaceAnalyzer;
+use Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -29,7 +29,7 @@ final class MoveInterfacesToContractNamespaceDirectoryRector extends \Rector\Cor
      * @var MovedFileWithNodesFactory
      */
     private $movedFileWithNodesFactory;
-    public function __construct(\Rector\NetteToSymfony\Analyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer, \Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory)
+    public function __construct(\Rector\NetteToSymfony\NodeAnalyzer\NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer, \Rector\FileSystemRector\ValueObjectFactory\MovedFileWithNodesFactory $movedFileWithNodesFactory)
     {
         $this->netteControlFactoryInterfaceAnalyzer = $netteControlFactoryInterfaceAnalyzer;
         $this->movedFileWithNodesFactory = $movedFileWithNodesFactory;
