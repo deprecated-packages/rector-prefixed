@@ -7,13 +7,13 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\AbstractNodeTypeResolverTest;
-use RectorPrefix20210213\Symplify\EasyTesting\StaticFixtureSplitter;
-use RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210214\Symplify\EasyTesting\StaticFixtureSplitter;
+use RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractPropertyFetchTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\AbstractNodeTypeResolverTest
 {
-    protected function doTestFileInfo(\RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    protected function doTestFileInfo(\RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
-        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210213\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($smartFileInfo);
+        $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210214\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($smartFileInfo);
         $inputFileInfo = $inputFileInfoAndExpectedFileInfo->getInputFileInfo();
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
         $propertyFetchNodes = $this->getNodesForFileOfType($inputFileInfo->getRealPath(), \PhpParser\Node\Expr\PropertyFetch::class);

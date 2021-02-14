@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Nette\ValueObject\MagicTemplatePropertyCalls;
-use RectorPrefix20210213\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210214\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 /**
  * Replaces:
  *
@@ -37,7 +37,7 @@ final class ConditionalTemplateAssignReplacer
      * @var BetterStandardPrinter
      */
     private $betterStandardPrinter;
-    public function __construct(\RectorPrefix20210213\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\RectorPrefix20210214\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->betterStandardPrinter = $betterStandardPrinter;

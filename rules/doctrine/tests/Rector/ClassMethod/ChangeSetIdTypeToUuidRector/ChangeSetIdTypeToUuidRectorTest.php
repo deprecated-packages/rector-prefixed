@@ -6,13 +6,13 @@ namespace Rector\Doctrine\Tests\Rector\ClassMethod\ChangeSetIdTypeToUuidRector;
 use Iterator;
 use Rector\Doctrine\Rector\ClassMethod\ChangeSetIdTypeToUuidRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo;
 final class ChangeSetIdTypeToUuidRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

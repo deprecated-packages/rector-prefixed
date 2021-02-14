@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210213\Symplify\SmartFileSystem\Tests\Finder\SmartFinder;
+namespace RectorPrefix20210214\Symplify\SmartFileSystem\Tests\Finder\SmartFinder;
 
 use Iterator;
-use RectorPrefix20210213\PHPUnit\Framework\TestCase;
-use RectorPrefix20210213\Symplify\SmartFileSystem\FileSystemFilter;
-use RectorPrefix20210213\Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use RectorPrefix20210213\Symplify\SmartFileSystem\Finder\SmartFinder;
-final class SmartFinderTest extends \RectorPrefix20210213\PHPUnit\Framework\TestCase
+use RectorPrefix20210214\PHPUnit\Framework\TestCase;
+use RectorPrefix20210214\Symplify\SmartFileSystem\FileSystemFilter;
+use RectorPrefix20210214\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use RectorPrefix20210214\Symplify\SmartFileSystem\Finder\SmartFinder;
+final class SmartFinderTest extends \RectorPrefix20210214\PHPUnit\Framework\TestCase
 {
     /**
      * @var SmartFinder
@@ -16,7 +16,7 @@ final class SmartFinderTest extends \RectorPrefix20210213\PHPUnit\Framework\Test
     private $smartFinder;
     protected function setUp() : void
     {
-        $this->smartFinder = new \RectorPrefix20210213\Symplify\SmartFileSystem\Finder\SmartFinder(new \RectorPrefix20210213\Symplify\SmartFileSystem\Finder\FinderSanitizer(), new \RectorPrefix20210213\Symplify\SmartFileSystem\FileSystemFilter());
+        $this->smartFinder = new \RectorPrefix20210214\Symplify\SmartFileSystem\Finder\SmartFinder(new \RectorPrefix20210214\Symplify\SmartFileSystem\Finder\FinderSanitizer(), new \RectorPrefix20210214\Symplify\SmartFileSystem\FileSystemFilter());
     }
     /**
      * @dataProvider provideData()

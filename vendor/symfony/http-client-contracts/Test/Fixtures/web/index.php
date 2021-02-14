@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210213;
+namespace RectorPrefix20210214;
 
 if ('cli-server' !== \PHP_SAPI) {
     // safe guard against unwanted execution

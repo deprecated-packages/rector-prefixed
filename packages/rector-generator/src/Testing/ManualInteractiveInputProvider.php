@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator\Testing;
 
-use RectorPrefix20210213\Symfony\Component\Console\Input\ArrayInput;
-use RectorPrefix20210213\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210213\Symfony\Component\Console\Tester\CommandTester;
-use RectorPrefix20210213\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use RectorPrefix20210213\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210214\Symfony\Component\Console\Input\ArrayInput;
+use RectorPrefix20210214\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210214\Symfony\Component\Console\Tester\CommandTester;
+use RectorPrefix20210214\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use RectorPrefix20210214\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class ManualInteractiveInputProvider
 {
     /**
@@ -22,7 +22,7 @@ final class ManualInteractiveInputProvider
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\RectorPrefix20210213\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210213\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller, \RectorPrefix20210213\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+    public function __construct(\RectorPrefix20210214\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \RectorPrefix20210214\Symplify\PackageBuilder\Reflection\PrivatesCaller $privatesCaller, \RectorPrefix20210214\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->symfonyStyle = $symfonyStyle;
         $this->privatesCaller = $privatesCaller;
@@ -34,7 +34,7 @@ final class ManualInteractiveInputProvider
      */
     public function setInput(array $manualInteractiveInput) : void
     {
-        $arrayInput = new \RectorPrefix20210213\Symfony\Component\Console\Input\ArrayInput([]);
+        $arrayInput = new \RectorPrefix20210214\Symfony\Component\Console\Input\ArrayInput([]);
         $inputStream = $this->createInputStream($manualInteractiveInput);
         $arrayInput->setStream($inputStream);
         // use stream input as input for SymfonyStyle
@@ -47,6 +47,6 @@ final class ManualInteractiveInputProvider
     private function createInputStream(array $manualInteractiveInput)
     {
         // mimics CommandTester, only with DI approach
-        return $this->privatesCaller->callPrivateMethod(\RectorPrefix20210213\Symfony\Component\Console\Tester\CommandTester::class, 'createStream', [$manualInteractiveInput]);
+        return $this->privatesCaller->callPrivateMethod(\RectorPrefix20210214\Symfony\Component\Console\Tester\CommandTester::class, 'createStream', [$manualInteractiveInput]);
     }
 }

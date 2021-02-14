@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210213\Psr\EventDispatcher;
+namespace RectorPrefix20210214\Psr\EventDispatcher;
 
 /**
  * Mapper from an event to the listeners that are applicable to that event.

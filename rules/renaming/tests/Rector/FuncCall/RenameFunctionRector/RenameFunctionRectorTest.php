@@ -5,13 +5,13 @@ namespace Rector\Renaming\Tests\Rector\FuncCall\RenameFunctionRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameFunctionRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210213\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

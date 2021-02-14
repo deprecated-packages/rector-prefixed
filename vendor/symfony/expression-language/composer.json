@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "RectorPrefix20210213\\Symfony\\Component\\ExpressionLanguage\\": ""
+            "RectorPrefix20210214\\Symfony\\Component\\ExpressionLanguage\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

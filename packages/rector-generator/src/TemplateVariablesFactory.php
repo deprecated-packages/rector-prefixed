@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\RectorGenerator;
 
-use RectorPrefix20210213\Nette\Utils\Strings;
+use RectorPrefix20210214\Nette\Utils\Strings;
 use PhpParser\BuilderHelpers;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -77,7 +77,7 @@ final class TemplateVariablesFactory
     }
     private function createCodeForDefinition(string $code) : string
     {
-        if (\RectorPrefix20210213\Nette\Utils\Strings::contains($code, \PHP_EOL)) {
+        if (\RectorPrefix20210214\Nette\Utils\Strings::contains($code, \PHP_EOL)) {
             // multi lines
             return \sprintf("<<<'CODE_SAMPLE'%s%s%sCODE_SAMPLE%s", \PHP_EOL, $code, \PHP_EOL, \PHP_EOL);
         }

@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210213\Symplify\SetConfigResolver\Exception;
+namespace RectorPrefix20210214\Symplify\SetConfigResolver\Exception;
 
 use Exception;
 final class SetNotFoundException extends \Exception
