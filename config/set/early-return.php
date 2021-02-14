@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace RectorPrefix20210214;
 
 use Rector\EarlyReturn\Rector\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector;
+use Rector\EarlyReturn\Rector\Foreach_\ReturnAfterToEarlyOnBreakRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\If_\ChangeIfElseValueAssignToEarlyReturnRector;
 use Rector\EarlyReturn\Rector\If_\ChangeNestedIfsToEarlyReturnRector;
@@ -22,4 +23,5 @@ return static function (\RectorPrefix20210214\Symfony\Component\DependencyInject
     $services->set(\Rector\EarlyReturn\Rector\Return_\ReturnBinaryAndToEarlyReturnRector::class);
     $services->set(\Rector\EarlyReturn\Rector\If_\ChangeOrIfReturnToEarlyReturnRector::class);
     $services->set(\Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector::class);
+    $services->set(\Rector\EarlyReturn\Rector\Foreach_\ReturnAfterToEarlyOnBreakRector::class);
 };
