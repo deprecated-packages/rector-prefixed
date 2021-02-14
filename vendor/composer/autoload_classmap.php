@@ -2214,6 +2214,7 @@ return array(
     'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\ConstructorAssignPropertyAnalyzer' => $baseDir . '/rules/doctrine-code-quality/src/NodeAnalyzer/ConstructorAssignPropertyAnalyzer.php',
     'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\EntityObjectTypeResolver' => $baseDir . '/rules/doctrine-code-quality/src/NodeAnalyzer/EntityObjectTypeResolver.php',
     'Rector\\DoctrineCodeQuality\\NodeAnalyzer\\SetterClassMethodAnalyzer' => $baseDir . '/rules/doctrine-code-quality/src/NodeAnalyzer/SetterClassMethodAnalyzer.php',
+    'Rector\\DoctrineCodeQuality\\NodeFactory\\RepositoryAssignFactory' => $baseDir . '/rules/doctrine-code-quality/src/NodeFactory/RepositoryAssignFactory.php',
     'Rector\\DoctrineCodeQuality\\NodeFactory\\ValueAssignFactory' => $baseDir . '/rules/doctrine-code-quality/src/NodeFactory/ValueAssignFactory.php',
     'Rector\\DoctrineCodeQuality\\NodeManipulator\\ColumnDatetimePropertyManipulator' => $baseDir . '/rules/doctrine-code-quality/src/NodeManipulator/ColumnDatetimePropertyManipulator.php',
     'Rector\\DoctrineCodeQuality\\NodeManipulator\\ConstructorManipulator' => $baseDir . '/rules/doctrine-code-quality/src/NodeManipulator/ConstructorManipulator.php',

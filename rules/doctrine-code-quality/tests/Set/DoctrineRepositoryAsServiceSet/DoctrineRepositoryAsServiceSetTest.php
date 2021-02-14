@@ -1,16 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\DoctrineCodeQuality\Tests\Rector\DoctrineRepositoryAsService;
+namespace Rector\DoctrineCodeQuality\Tests\Set\DoctrineRepositoryAsServiceSet;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo;
-/**
- * @see \Rector\Doctrine\Rector\MethodCall\ReplaceParentRepositoryCallsByRepositoryPropertyRector
- * @see \Rector\DoctrineCodeQuality\Rector\Class_\MoveRepositoryFromParentToConstructorRector
- */
-final class DoctrineRepositoryAsServiceTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class DoctrineRepositoryAsServiceSetTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -25,6 +21,6 @@ final class DoctrineRepositoryAsServiceTest extends \Rector\Testing\PHPUnit\Abst
     }
     protected function provideConfigFilePath() : string
     {
-        return __DIR__ . '/config/configured_rule.php';
+        return __DIR__ . '/config/configured_set.php';
     }
 }

@@ -4,12 +4,17 @@ declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\TypeAnalyzer;
 
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\CompoundType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 final class TypeFinder
 {
+    /**
+     * @template TType as Type
+     * @param class-string<TType> $desiredTypeClass
+     */
     public function find(\PHPStan\Type\Type $type, string $desiredTypeClass) : \PHPStan\Type\Type
     {
         if (\is_a($type, $desiredTypeClass, \true)) {
@@ -27,11 +32,12 @@ final class TypeFinder
         return new \PHPStan\Type\MixedType();
     }
     /**
-     * @param UnionType|IntersectionType $type
+     * @param UnionType|IntersectionType $compoundType
+     * @param class-string<Type> $desiredTypeClass
      */
-    private function findInJoinedType(\PHPStan\Type\Type $type, string $desiredTypeClass) : \PHPStan\Type\Type
+    private function findInJoinedType(\PHPStan\Type\CompoundType $compoundType, string $desiredTypeClass) : \PHPStan\Type\Type
     {
-        foreach ($type->getTypes() as $joinedType) {
+        foreach ($compoundType->getTypes() as $joinedType) {
             $foundType = $this->find($joinedType, $desiredTypeClass);
             if (!$foundType instanceof \PHPStan\Type\MixedType) {
                 return $foundType;

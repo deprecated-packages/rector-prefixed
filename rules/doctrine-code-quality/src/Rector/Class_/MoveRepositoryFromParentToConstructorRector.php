@@ -3,19 +3,17 @@
 declare (strict_types=1);
 namespace Rector\DoctrineCodeQuality\Rector\Class_;
 
-use RectorPrefix20210214\Doctrine\ORM\EntityManager;
+use RectorPrefix20210214\Doctrine\ORM\EntityManagerInterface;
 use RectorPrefix20210214\Doctrine\ORM\EntityRepository;
 use RectorPrefix20210214\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\TypeWithClassName;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\DoctrineCodeQuality\NodeAnalyzer\EntityObjectTypeResolver;
+use Rector\DoctrineCodeQuality\NodeFactory\RepositoryAssignFactory;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -33,14 +31,14 @@ final class MoveRepositoryFromParentToConstructorRector extends \Rector\Core\Rec
      */
     private $classInsertManipulator;
     /**
-     * @var EntityObjectTypeResolver
+     * @var RepositoryAssignFactory
      */
-    private $entityObjectTypeResolver;
-    public function __construct(\Rector\Core\NodeManipulator\ClassDependencyManipulator $classDependencyManipulator, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\DoctrineCodeQuality\NodeAnalyzer\EntityObjectTypeResolver $entityObjectTypeResolver)
+    private $repositoryAssignFactory;
+    public function __construct(\Rector\Core\NodeManipulator\ClassDependencyManipulator $classDependencyManipulator, \Rector\Core\NodeManipulator\ClassInsertManipulator $classInsertManipulator, \Rector\DoctrineCodeQuality\NodeFactory\RepositoryAssignFactory $repositoryAssignFactory)
     {
         $this->classDependencyManipulator = $classDependencyManipulator;
         $this->classInsertManipulator = $classInsertManipulator;
-        $this->entityObjectTypeResolver = $entityObjectTypeResolver;
+        $this->repositoryAssignFactory = $repositoryAssignFactory;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -58,16 +56,15 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class PostRepository
 {
-    /**
-     * @var \Doctrine\ORM\EntityRepository
-     */
-    private $repository;
-    public function __construct(\Doctrine\ORM\EntityManager $entityManager)
+    private EntityRepository $repository;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->repository = $entityManager->getRepository(\App\Entity\Post::class);
+        $this->repository = $entityManager->getRepository(Post::class);
     }
 }
 CODE_SAMPLE
@@ -105,23 +102,8 @@ CODE_SAMPLE
         // add $repository property
         $this->classInsertManipulator->addPropertyToClass($node, 'repository', new \PHPStan\Type\ObjectType(\RectorPrefix20210214\Doctrine\ORM\EntityRepository::class));
         // add $entityManager and assign to constuctor
-        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \PHPStan\Type\ObjectType(\RectorPrefix20210214\Doctrine\ORM\EntityManager::class), $this->createRepositoryAssign($node));
+        $repositoryAssign = $this->repositoryAssignFactory->create($node);
+        $this->classDependencyManipulator->addConstructorDependencyWithCustomAssign($node, 'entityManager', new \PHPStan\Type\ObjectType(\RectorPrefix20210214\Doctrine\ORM\EntityManagerInterface::class), $repositoryAssign);
         return $node;
-    }
-    /**
-     * Creates:
-     * "$this->repository = $entityManager->getRepository(SomeEntityClass::class)"
-     */
-    private function createRepositoryAssign(\PhpParser\Node\Stmt\Class_ $repositoryClass) : \PhpParser\Node\Expr\Assign
-    {
-        $entityObjectType = $this->entityObjectTypeResolver->resolveFromRepositoryClass($repositoryClass);
-        $repositoryClassName = (string) $repositoryClass->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if (!$entityObjectType instanceof \PHPStan\Type\TypeWithClassName) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('An entity was not found for "%s" repository.', $repositoryClassName));
-        }
-        $classConstFetch = $this->nodeFactory->createClassConstReference($entityObjectType->getClassName());
-        $methodCall = $this->nodeFactory->createMethodCall('entityManager', 'getRepository', [$classConstFetch]);
-        $methodCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE, $repositoryClassName);
-        return $this->nodeFactory->createPropertyAssignmentWithExpr('repository', $methodCall);
     }
 }
