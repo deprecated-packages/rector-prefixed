@@ -140,7 +140,7 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
         $originalTokenIterator = clone $tokenIterator;
         $docContent = $this->annotationContentResolver->resolveFromTokenIterator($originalTokenIterator);
         // fallback to original parser
-        if ($tagValueNode === null) {
+        if (!$tagValueNode instanceof \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagValueNode) {
             $tagValueNode = parent::parseTagValue($tokenIterator, $tag);
         }
         return $this->attributeAwareNodeFactory->createFromNode($tagValueNode, $docContent);

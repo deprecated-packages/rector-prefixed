@@ -110,9 +110,8 @@ final class NodesToAddCollector implements \Rector\PostRector\Contract\Collector
         if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Stmt\Expression::class, \PhpParser\Node\Stmt::class])) {
             return \spl_object_hash($node);
         }
-        /** @var Expression|null $foundNode */
         $foundNode = $this->betterNodeFinder->findFirstAncestorInstanceOf($node, \PhpParser\Node\Stmt\Expression::class);
-        if ($foundNode === null) {
+        if (!$foundNode instanceof \PhpParser\Node\Stmt\Expression) {
             $foundNode = $node;
         }
         return \spl_object_hash($foundNode);
