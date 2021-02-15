@@ -10,7 +10,6 @@ use RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveDefaultArgumentValueRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
-     * @requires PHP 8.0
      * @dataProvider provideData()
      */
     public function test(\RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
