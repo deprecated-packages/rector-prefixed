@@ -8,7 +8,7 @@ use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\TypeDeclaration\Rector\Property\CompleteVarDocTypePropertyRector;
 use RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo;
 /**
- * @requires PHP < 8.0
+ * @requires PHP 8.0
  */
 final class CompleteVarDocTypePropertyRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {

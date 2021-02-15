@@ -4,17 +4,22 @@ declare (strict_types=1);
 namespace Rector\TypeDeclaration\Rector\ClassMethod;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\ArrowFunction;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\FunctionLike;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\UnionType;
 use PhpParser\NodeTraverser;
 use PHPStan\Type\Type;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
+use Rector\TypeDeclaration\Reflection\ReflectionTypeResolver;
 use RectorPrefix20210215\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -27,9 +32,14 @@ final class ParamTypeFromStrictTypedPropertyRector extends \Rector\Core\Rector\A
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
-    public function __construct(\RectorPrefix20210215\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser)
+    /**
+     * @var ReflectionTypeResolver
+     */
+    private $reflectionTypeResolver;
+    public function __construct(\RectorPrefix20210215\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\TypeDeclaration\Reflection\ReflectionTypeResolver $reflectionTypeResolver)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
+        $this->reflectionTypeResolver = $reflectionTypeResolver;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -62,10 +72,10 @@ CODE_SAMPLE
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Stmt\ClassMethod::class];
+        return [\PhpParser\Node\Stmt\ClassMethod::class, \PhpParser\Node\Stmt\Function_::class, \PhpParser\Node\Expr\Closure::class, \PhpParser\Node\Expr\ArrowFunction::class];
     }
     /**
-     * @param ClassMethod $node
+     * @param ClassMethod|Function_|Closure|ArrowFunction $node
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
@@ -77,12 +87,15 @@ CODE_SAMPLE
         }
         return $node;
     }
-    public function decorateParamWithType(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : void
+    /**
+     * @param ClassMethod|Function_|Closure|ArrowFunction $functionLike
+     */
+    public function decorateParamWithType(\PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Param $param) : void
     {
         if ($param->type !== null) {
             return;
         }
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, function (\PhpParser\Node $node) use($param) : ?int {
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $functionLike->getStmts(), function (\PhpParser\Node $node) use($param) : ?int {
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }
@@ -92,19 +105,25 @@ CODE_SAMPLE
             if (!$node->var instanceof \PhpParser\Node\Expr\PropertyFetch) {
                 return null;
             }
-            $property = $this->matchPropertyWithSingleType($node->var);
-            if (!$property instanceof \PhpParser\Node\Stmt\Property) {
+            $singlePropertyTypeNode = $this->matchPropertySingleTypeNode($node->var);
+            if (!$singlePropertyTypeNode instanceof \PhpParser\Node) {
                 return null;
             }
-            $param->type = $property->type;
+            $this->rectorChangeCollector->notifyNodeFileInfo($node);
+            $param->type = $singlePropertyTypeNode;
             return \PhpParser\NodeTraverser::STOP_TRAVERSAL;
         });
     }
-    private function matchPropertyWithSingleType(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node\Stmt\Property
+    private function matchPropertySingleTypeNode(\PhpParser\Node\Expr\PropertyFetch $propertyFetch) : ?\PhpParser\Node
     {
         $property = $this->nodeRepository->findPropertyByPropertyFetch($propertyFetch);
         if (!$property instanceof \PhpParser\Node\Stmt\Property) {
-            return null;
+            // code from /vendor
+            $propertyFetchType = $this->reflectionTypeResolver->resolvePropertyFetchType($propertyFetch);
+            if (!$propertyFetchType instanceof \PHPStan\Type\Type) {
+                return null;
+            }
+            return $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($propertyFetchType);
         }
         if ($property->type === null) {
             return null;
@@ -116,6 +135,6 @@ CODE_SAMPLE
         if ($property->type instanceof \PhpParser\Node\NullableType) {
             return null;
         }
-        return $property;
+        return $property->type;
     }
 }

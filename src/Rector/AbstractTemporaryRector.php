@@ -124,6 +124,10 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
      */
     protected $nodeRemover;
     /**
+     * @var RectorChangeCollector
+     */
+    protected $rectorChangeCollector;
+    /**
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
@@ -163,10 +167,6 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
      * @var PropertyToAddCollector
      */
     private $propertyToAddCollector;
-    /**
-     * @var RectorChangeCollector
-     */
-    private $rectorChangeCollector;
     /**
      * @var PropertyAdder
      */
