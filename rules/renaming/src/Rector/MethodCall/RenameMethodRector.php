@@ -12,6 +12,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\NodeManipulator\ClassManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Renaming\Contract\MethodCallRenameInterface;
@@ -33,6 +34,14 @@ final class RenameMethodRector extends \Rector\Core\Rector\AbstractRector implem
      * @var MethodCallRenameInterface[]
      */
     private $methodCallRenames = [];
+    /**
+     * @var ClassManipulator
+     */
+    private $classManipulator;
+    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator)
+    {
+        $this->classManipulator = $classManipulator;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Turns method names to new ones.', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -58,6 +67,10 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         foreach ($this->methodCallRenames as $methodCallRename) {
+            $implementsInterface = $this->classManipulator->hasParentMethodOrInterface($methodCallRename->getOldClass(), $methodCallRename->getOldMethod());
+            if ($implementsInterface) {
+                continue;
+            }
             if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, $methodCallRename->getOldClass())) {
                 continue;
             }
