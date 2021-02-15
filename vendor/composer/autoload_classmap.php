@@ -3310,6 +3310,7 @@ return array(
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddMethodCallBasedParamTypeRector' => $baseDir . '/rules/type-declaration/src/Rector/ClassMethod/AddMethodCallBasedParamTypeRector.php',
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddParamTypeDeclarationRector' => $baseDir . '/rules/type-declaration/src/Rector/ClassMethod/AddParamTypeDeclarationRector.php',
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddReturnTypeDeclarationRector' => $baseDir . '/rules/type-declaration/src/Rector/ClassMethod/AddReturnTypeDeclarationRector.php',
+    'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ParamTypeFromStrictTypedPropertyRector' => $baseDir . '/rules/type-declaration/src/Rector/ClassMethod/ParamTypeFromStrictTypedPropertyRector.php',
     'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnTypeFromStrictTypedPropertyRector' => $baseDir . '/rules/type-declaration/src/Rector/ClassMethod/ReturnTypeFromStrictTypedPropertyRector.php',
     'Rector\\TypeDeclaration\\Rector\\Closure\\AddClosureReturnTypeRector' => $baseDir . '/rules/type-declaration/src/Rector/Closure/AddClosureReturnTypeRector.php',
     'Rector\\TypeDeclaration\\Rector\\FunctionLike\\AbstractTypeDeclarationRector' => $baseDir . '/rules/type-declaration/src/Rector/FunctionLike/AbstractTypeDeclarationRector.php',
