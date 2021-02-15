@@ -64,7 +64,8 @@ final class ClassInsertManipulator
     }
     public function addPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, string $name, ?\PHPStan\Type\Type $type) : void
     {
-        if ($this->hasClassProperty($class, $name)) {
+        $existingProperty = $class->getProperty($name);
+        if ($existingProperty instanceof \PhpParser\Node\Stmt\Property) {
             return;
         }
         $property = $this->nodeFactory->createPrivatePropertyFromNameAndType($name, $type);
@@ -72,11 +73,12 @@ final class ClassInsertManipulator
     }
     public function addInjectPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, \Rector\PostRector\ValueObject\PropertyMetadata $propertyMetadata) : void
     {
-        if ($this->hasClassProperty($class, $propertyMetadata->getName())) {
+        $existingProperty = $class->getProperty($propertyMetadata->getName());
+        if ($existingProperty instanceof \PhpParser\Node\Stmt\Property) {
             return;
         }
-        $propertyNode = $this->nodeFactory->createPublicInjectPropertyFromNameAndType($propertyMetadata->getName(), $propertyMetadata->getType());
-        $this->addAsFirstMethod($class, $propertyNode);
+        $property = $this->nodeFactory->createPublicInjectPropertyFromNameAndType($propertyMetadata->getName(), $propertyMetadata->getType());
+        $this->addAsFirstMethod($class, $property);
     }
     public function addAsFirstTrait(\PhpParser\Node\Stmt\Class_ $class, string $traitName) : void
     {
@@ -123,10 +125,6 @@ final class ClassInsertManipulator
             }
         }
         return \false;
-    }
-    private function hasClassProperty(\PhpParser\Node\Stmt\Class_ $class, string $name) : bool
-    {
-        return $class->getProperty($name) instanceof \PhpParser\Node\Stmt\Property;
     }
     private function addTraitUse(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\TraitUse $traitUse) : void
     {
