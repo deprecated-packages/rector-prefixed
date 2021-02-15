@@ -6,7 +6,6 @@ namespace Rector\Core\Console;
 use RectorPrefix20210215\Composer\XdebugHandler\XdebugHandler;
 use OutOfBoundsException;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
-use Rector\ChangesReporting\Output\JsonOutputFormatter;
 use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
