@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd4c3132b69125fa74b452f9b3af8473a
+class ComposerStaticInit4755a6456942ec4c5cd61d67734bfc35
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2550,11 +2550,9 @@ class ComposerStaticInitd4c3132b69125fa74b452f9b3af8473a
         'Rector\\ChangesReporting\\Collector\\AffectedFilesCollector' => __DIR__ . '/../..' . '/packages/changes-reporting/src/Collector/AffectedFilesCollector.php',
         'Rector\\ChangesReporting\\Collector\\RectorChangeCollector' => __DIR__ . '/../..' . '/packages/changes-reporting/src/Collector/RectorChangeCollector.php',
         'Rector\\ChangesReporting\\Contract\\Output\\OutputFormatterInterface' => __DIR__ . '/../..' . '/packages/changes-reporting/src/Contract/Output/OutputFormatterInterface.php',
-        'Rector\\ChangesReporting\\Output\\CheckstyleOutputFormatter' => __DIR__ . '/../..' . '/packages/changes-reporting/src/Output/CheckstyleOutputFormatter.php',
         'Rector\\ChangesReporting\\Output\\ConsoleOutputFormatter' => __DIR__ . '/../..' . '/packages/changes-reporting/src/Output/ConsoleOutputFormatter.php',
         'Rector\\ChangesReporting\\Output\\JsonOutputFormatter' => __DIR__ . '/../..' . '/packages/changes-reporting/src/Output/JsonOutputFormatter.php',
         'Rector\\ChangesReporting\\ValueObject\\RectorWithFileAndLineChange' => __DIR__ . '/../..' . '/packages/changes-reporting/src/ValueObject/RectorWithFileAndLineChange.php',
-        'Rector\\ChangesReporting\\Xml\\CheckstyleDOMElementFactory' => __DIR__ . '/../..' . '/packages/changes-reporting/src/Xml/CheckstyleDOMElementFactory.php',
         'Rector\\CodeQualityStrict\\NodeFactory\\ClassConstFetchFactory' => __DIR__ . '/../..' . '/rules/code-quality-strict/src/NodeFactory/ClassConstFetchFactory.php',
         'Rector\\CodeQualityStrict\\Rector\\ClassMethod\\ParamTypeToAssertTypeRector' => __DIR__ . '/../..' . '/rules/code-quality-strict/src/Rector/ClassMethod/ParamTypeToAssertTypeRector.php',
         'Rector\\CodeQualityStrict\\Rector\\If_\\MoveOutMethodCallInsideIfConditionRector' => __DIR__ . '/../..' . '/rules/code-quality-strict/src/Rector/If_/MoveOutMethodCallInsideIfConditionRector.php',
@@ -4186,9 +4184,9 @@ class ComposerStaticInitd4c3132b69125fa74b452f9b3af8473a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd4c3132b69125fa74b452f9b3af8473a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd4c3132b69125fa74b452f9b3af8473a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd4c3132b69125fa74b452f9b3af8473a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4755a6456942ec4c5cd61d67734bfc35::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4755a6456942ec4c5cd61d67734bfc35::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4755a6456942ec4c5cd61d67734bfc35::$classMap;
 
         }, null, ClassLoader::class);
     }

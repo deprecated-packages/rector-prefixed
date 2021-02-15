@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Core\Configuration;
 
 use RectorPrefix20210215\Jean85\PrettyVersions;
-use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
+use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
@@ -215,10 +215,7 @@ final class Configuration
     }
     public function shouldHideClutter() : bool
     {
-        if ($this->outputFormat === \Rector\ChangesReporting\Output\JsonOutputFormatter::NAME) {
-            return \true;
-        }
-        return $this->outputFormat === \Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME;
+        return $this->outputFormat !== \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME;
     }
     public function shouldShowDiffs() : bool
     {
@@ -231,10 +228,7 @@ final class Configuration
             return \false;
         }
         $optionOutputFormat = $input->getOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT);
-        if ($optionOutputFormat === \Rector\ChangesReporting\Output\JsonOutputFormatter::NAME) {
-            return \false;
-        }
-        return $input->getOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT) !== \Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME;
+        return $optionOutputFormat === \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME;
     }
     private function sanitizeOutputFileValue(?string $outputFileOption) : ?string
     {

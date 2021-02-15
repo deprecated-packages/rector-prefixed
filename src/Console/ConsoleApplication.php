@@ -5,7 +5,7 @@ namespace Rector\Core\Console;
 
 use RectorPrefix20210215\Composer\XdebugHandler\XdebugHandler;
 use OutOfBoundsException;
-use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
+use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;
 use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
 use Rector\Core\Configuration\Configuration;
@@ -123,7 +123,7 @@ final class ConsoleApplication extends \RectorPrefix20210215\Symfony\Component\C
             return \false;
         }
         $outputFormat = $input->getParameterOption(['-o', '--output-format']);
-        return !\in_array($outputFormat, [\Rector\ChangesReporting\Output\JsonOutputFormatter::NAME, \Rector\ChangesReporting\Output\CheckstyleOutputFormatter::NAME], \true);
+        return $outputFormat === \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME;
     }
     private function removeUnusedOptions(\RectorPrefix20210215\Symfony\Component\Console\Input\InputDefinition $inputDefinition) : void
     {
