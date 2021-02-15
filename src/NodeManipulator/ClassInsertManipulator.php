@@ -124,18 +124,9 @@ final class ClassInsertManipulator
         }
         return \false;
     }
-    /**
-     * Waits on https://github.com/nikic/PHP-Parser/pull/646
-     */
     private function hasClassProperty(\PhpParser\Node\Stmt\Class_ $class, string $name) : bool
     {
-        foreach ($class->getProperties() as $property) {
-            if (!$this->nodeNameResolver->isName($property, $name)) {
-                continue;
-            }
-            return \true;
-        }
-        return \false;
+        return $class->getProperty($name) instanceof \PhpParser\Node\Stmt\Property;
     }
     private function addTraitUse(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\TraitUse $traitUse) : void
     {
