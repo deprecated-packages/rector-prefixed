@@ -5,13 +5,13 @@ namespace Rector\Legacy\Tests\Rector\FileWithoutNamespace\AddTopIncludeRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo;
 final class AddTopIncludeRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
+    public function test(\RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
         $this->doTestFileInfo($fixtureFileInfo);
     }

@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\Nette\Tests\Rector\MethodCall\ContextGetByTypeToConstructorInjectionRector\Source;
 
-use RectorPrefix20210214\Nette\Application\IPresenter;
-use RectorPrefix20210214\Nette\Application\IResponse;
-use RectorPrefix20210214\Nette\Application\Request;
-abstract class ConstructorInjectionParentPresenter implements \RectorPrefix20210214\Nette\Application\IPresenter
+use RectorPrefix20210215\Nette\Application\IPresenter;
+use RectorPrefix20210215\Nette\Application\IResponse;
+use RectorPrefix20210215\Nette\Application\Request;
+abstract class ConstructorInjectionParentPresenter implements \RectorPrefix20210215\Nette\Application\IPresenter
 {
     /**
      * @var SomeTypeToInject
@@ -16,7 +16,7 @@ abstract class ConstructorInjectionParentPresenter implements \RectorPrefix20210
     {
         $this->someTypeToInject = $someTypeToInject;
     }
-    function run(\RectorPrefix20210214\Nette\Application\Request $request) : \RectorPrefix20210214\Nette\Application\IResponse
+    function run(\RectorPrefix20210215\Nette\Application\Request $request) : \RectorPrefix20210215\Nette\Application\IResponse
     {
     }
 }

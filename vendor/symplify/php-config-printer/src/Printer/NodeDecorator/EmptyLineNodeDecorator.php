@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210214\Symplify\PhpConfigPrinter\Printer\NodeDecorator;
+namespace RectorPrefix20210215\Symplify\PhpConfigPrinter\Printer\NodeDecorator;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
@@ -11,7 +11,7 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\NodeFinder;
-use RectorPrefix20210214\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use RectorPrefix20210215\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class EmptyLineNodeDecorator
 {
     /**
@@ -29,7 +29,7 @@ final class EmptyLineNodeDecorator
     {
         $closure = $this->nodeFinder->findFirstInstanceOf($stmts, \PhpParser\Node\Expr\Closure::class);
         if (!$closure instanceof \PhpParser\Node\Expr\Closure) {
-            throw new \RectorPrefix20210214\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \RectorPrefix20210215\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $newStmts = [];
         foreach ($closure->stmts as $key => $closureStmt) {

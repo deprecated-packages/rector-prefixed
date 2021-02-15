@@ -22,15 +22,19 @@ final class RenderMethodAnalyzer
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
     }
-    public function machRenderMethodCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : ?\PhpParser\Node\Expr\MethodCall
+    /**
+     * @return MethodCall[]
+     */
+    public function machRenderMethodCalls(\PhpParser\Node\Stmt\ClassMethod $classMethod) : array
     {
         /** @var MethodCall[] $methodsCalls */
         $methodsCalls = $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, \PhpParser\Node\Expr\MethodCall::class);
+        $renderMethodCalls = [];
         foreach ($methodsCalls as $methodCall) {
             if ($this->nodeNameResolver->isName($methodCall->name, 'render')) {
-                return $methodCall;
+                $renderMethodCalls[] = $methodCall;
             }
         }
-        return null;
+        return $renderMethodCalls;
     }
 }

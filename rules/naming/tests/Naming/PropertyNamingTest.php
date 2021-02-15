@@ -7,8 +7,8 @@ use Iterator;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\Naming\ValueObject\ExpectedName;
-use RectorPrefix20210214\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class PropertyNamingTest extends \RectorPrefix20210214\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210215\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class PropertyNamingTest extends \RectorPrefix20210215\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PropertyNaming

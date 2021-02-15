@@ -6,13 +6,13 @@ namespace Rector\CodeQuality\Tests\Rector\Foreach_\UnusedForeachValueToArrayKeys
 use Iterator;
 use Rector\CodeQuality\Rector\Foreach_\UnusedForeachValueToArrayKeysRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo;
 final class UnusedForeachValueToArrayKeysRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

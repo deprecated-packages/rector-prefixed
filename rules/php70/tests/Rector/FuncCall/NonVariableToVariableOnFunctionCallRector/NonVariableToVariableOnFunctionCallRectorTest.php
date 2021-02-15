@@ -6,13 +6,13 @@ namespace Rector\Php70\Tests\Rector\FuncCall\NonVariableToVariableOnFunctionCall
 use Iterator;
 use Rector\Php70\Rector\FuncCall\NonVariableToVariableOnFunctionCallRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo;
 final class NonVariableToVariableOnFunctionCallRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210214\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }
