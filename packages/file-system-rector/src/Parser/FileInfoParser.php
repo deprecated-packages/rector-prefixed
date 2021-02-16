@@ -6,7 +6,7 @@ namespace Rector\FileSystemRector\Parser;
 use PhpParser\Node;
 use Rector\Core\PhpParser\Parser\Parser;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
-use RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoParser
 {
     /**
@@ -25,7 +25,7 @@ final class FileInfoParser
     /**
      * @return Node[]
      */
-    public function parseFileInfoToNodesAndDecorate(\RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
+    public function parseFileInfoToNodesAndDecorate(\RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
     {
         $oldStmts = $this->parser->parseFileInfo($fileInfo);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($oldStmts, $fileInfo);
@@ -33,7 +33,7 @@ final class FileInfoParser
     /**
      * @return Node[]
      */
-    public function parseFileInfoToNodesAndDecorateWithScope(\RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
+    public function parseFileInfoToNodesAndDecorateWithScope(\RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : array
     {
         $oldStmts = $this->parser->parseFileInfo($fileInfo);
         return $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($oldStmts, $fileInfo, \true);

@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210215\Symplify\PhpConfigPrinter\CaseConverter;
+namespace RectorPrefix20210216\Symplify\PhpConfigPrinter\CaseConverter;
 
 use PhpParser\Node\Stmt\Expression;
-use RectorPrefix20210215\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
-use RectorPrefix20210215\Symplify\PhpConfigPrinter\NodeFactory\Service\ServicesPhpNodeFactory;
-use RectorPrefix20210215\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
+use RectorPrefix20210216\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface;
+use RectorPrefix20210216\Symplify\PhpConfigPrinter\NodeFactory\Service\ServicesPhpNodeFactory;
+use RectorPrefix20210216\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
 /**
  * Handles this part:
  *
@@ -14,13 +14,13 @@ use RectorPrefix20210215\Symplify\PhpConfigPrinter\ValueObject\YamlKey;
  *     App\\: <--
  *          source: '../src'
  */
-final class ResourceCaseConverter implements \RectorPrefix20210215\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
+final class ResourceCaseConverter implements \RectorPrefix20210216\Symplify\PhpConfigPrinter\Contract\CaseConverterInterface
 {
     /**
      * @var ServicesPhpNodeFactory
      */
     private $servicesPhpNodeFactory;
-    public function __construct(\RectorPrefix20210215\Symplify\PhpConfigPrinter\NodeFactory\Service\ServicesPhpNodeFactory $servicesPhpNodeFactory)
+    public function __construct(\RectorPrefix20210216\Symplify\PhpConfigPrinter\NodeFactory\Service\ServicesPhpNodeFactory $servicesPhpNodeFactory)
     {
         $this->servicesPhpNodeFactory = $servicesPhpNodeFactory;
     }
@@ -35,6 +35,6 @@ final class ResourceCaseConverter implements \RectorPrefix20210215\Symplify\PhpC
     }
     public function match(string $rootKey, $key, $values) : bool
     {
-        return isset($values[\RectorPrefix20210215\Symplify\PhpConfigPrinter\ValueObject\YamlKey::RESOURCE]);
+        return isset($values[\RectorPrefix20210216\Symplify\PhpConfigPrinter\ValueObject\YamlKey::RESOURCE]);
     }
 }

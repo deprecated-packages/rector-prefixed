@@ -12,7 +12,7 @@ use Rector\Transform\Rector\AbstractToMethodCallRector;
 use Rector\Transform\ValueObject\FuncCallToMethodCall;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210215\Webmozart\Assert\Assert;
+use RectorPrefix20210216\Webmozart\Assert\Assert;
 /**
  * @see \Rector\Transform\Tests\Rector\FuncCall\FuncCallToMethodCallRector\FuncCallToMethodCallRectorTest
  */
@@ -93,7 +93,7 @@ CODE_SAMPLE
     public function configure(array $configuration) : void
     {
         $funcCallsToClassMethodCalls = $configuration[self::FUNC_CALL_TO_CLASS_METHOD_CALL] ?? [];
-        \RectorPrefix20210215\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \Rector\Transform\ValueObject\FuncCallToMethodCall::class);
+        \RectorPrefix20210216\Webmozart\Assert\Assert::allIsInstanceOf($funcCallsToClassMethodCalls, \Rector\Transform\ValueObject\FuncCallToMethodCall::class);
         $this->funcNameToMethodCallNames = $funcCallsToClassMethodCalls;
     }
 }

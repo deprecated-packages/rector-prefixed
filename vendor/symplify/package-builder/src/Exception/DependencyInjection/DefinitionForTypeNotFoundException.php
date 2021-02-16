@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210215\Symplify\PackageBuilder\Exception\DependencyInjection;
+namespace RectorPrefix20210216\Symplify\PackageBuilder\Exception\DependencyInjection;
 
 use Exception;
 final class DefinitionForTypeNotFoundException extends \Exception

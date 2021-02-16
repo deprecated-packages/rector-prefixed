@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210215\Symplify\Astral\Tests\NodeValue;
+namespace RectorPrefix20210216\Symplify\Astral\Tests\NodeValue;
 
 use Iterator;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Scalar\String_;
-use RectorPrefix20210215\PHPUnit\Framework\TestCase;
-use RectorPrefix20210215\Symplify\Astral\NodeFinder\ParentNodeFinder;
-use RectorPrefix20210215\Symplify\Astral\NodeValue\NodeValueResolver;
-use RectorPrefix20210215\Symplify\Astral\StaticFactory\SimpleNameResolverStaticFactory;
-use RectorPrefix20210215\Symplify\PackageBuilder\Php\TypeChecker;
-final class NodeValueResolverTest extends \RectorPrefix20210215\PHPUnit\Framework\TestCase
+use RectorPrefix20210216\PHPUnit\Framework\TestCase;
+use RectorPrefix20210216\Symplify\Astral\NodeFinder\ParentNodeFinder;
+use RectorPrefix20210216\Symplify\Astral\NodeValue\NodeValueResolver;
+use RectorPrefix20210216\Symplify\Astral\StaticFactory\SimpleNameResolverStaticFactory;
+use RectorPrefix20210216\Symplify\PackageBuilder\Php\TypeChecker;
+final class NodeValueResolverTest extends \RectorPrefix20210216\PHPUnit\Framework\TestCase
 {
     /**
      * @var NodeValueResolver
@@ -19,9 +19,9 @@ final class NodeValueResolverTest extends \RectorPrefix20210215\PHPUnit\Framewor
     private $nodeValueResolver;
     protected function setUp() : void
     {
-        $simpleNameResolver = \RectorPrefix20210215\Symplify\Astral\StaticFactory\SimpleNameResolverStaticFactory::create();
-        $parentNodeFinder = new \RectorPrefix20210215\Symplify\Astral\NodeFinder\ParentNodeFinder(new \RectorPrefix20210215\Symplify\PackageBuilder\Php\TypeChecker());
-        $this->nodeValueResolver = new \RectorPrefix20210215\Symplify\Astral\NodeValue\NodeValueResolver($simpleNameResolver, new \RectorPrefix20210215\Symplify\PackageBuilder\Php\TypeChecker(), $parentNodeFinder);
+        $simpleNameResolver = \RectorPrefix20210216\Symplify\Astral\StaticFactory\SimpleNameResolverStaticFactory::create();
+        $parentNodeFinder = new \RectorPrefix20210216\Symplify\Astral\NodeFinder\ParentNodeFinder(new \RectorPrefix20210216\Symplify\PackageBuilder\Php\TypeChecker());
+        $this->nodeValueResolver = new \RectorPrefix20210216\Symplify\Astral\NodeValue\NodeValueResolver($simpleNameResolver, new \RectorPrefix20210216\Symplify\PackageBuilder\Php\TypeChecker(), $parentNodeFinder);
     }
     /**
      * @dataProvider provideData()

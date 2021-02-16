@@ -6,7 +6,7 @@ namespace Rector\TypeDeclaration\Tests\Rector\Property\TypedPropertyFromStrictCo
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictConstructorRector;
-use RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @requires PHP 7.4
  */
@@ -15,7 +15,7 @@ final class TypedPropertyFromStrictConstructorRectorTest extends \Rector\Testing
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210215\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

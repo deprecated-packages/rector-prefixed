@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210215\Symplify\Astral\NodeNameResolver;
+namespace RectorPrefix20210216\Symplify\Astral\NodeNameResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Param;
-use RectorPrefix20210215\Symplify\Astral\Contract\NodeNameResolverInterface;
-final class ParamNodeNameResolver implements \RectorPrefix20210215\Symplify\Astral\Contract\NodeNameResolverInterface
+use RectorPrefix20210216\Symplify\Astral\Contract\NodeNameResolverInterface;
+final class ParamNodeNameResolver implements \RectorPrefix20210216\Symplify\Astral\Contract\NodeNameResolverInterface
 {
     public function match(\PhpParser\Node $node) : bool
     {

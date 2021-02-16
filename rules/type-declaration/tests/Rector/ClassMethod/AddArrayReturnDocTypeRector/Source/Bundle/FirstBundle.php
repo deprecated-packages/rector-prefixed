@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddArrayReturnDocTypeRector\Source\Bundle;
 
-use RectorPrefix20210215\Symfony\Component\DependencyInjection\ContainerBuilder;
-use RectorPrefix20210215\Symfony\Component\DependencyInjection\ContainerInterface;
-use RectorPrefix20210215\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-final class FirstBundle implements \RectorPrefix20210215\Symfony\Component\HttpKernel\Bundle\BundleInterface
+use RectorPrefix20210216\Symfony\Component\DependencyInjection\ContainerBuilder;
+use RectorPrefix20210216\Symfony\Component\DependencyInjection\ContainerInterface;
+use RectorPrefix20210216\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+final class FirstBundle implements \RectorPrefix20210216\Symfony\Component\HttpKernel\Bundle\BundleInterface
 {
     public function boot()
     {
@@ -14,7 +14,7 @@ final class FirstBundle implements \RectorPrefix20210215\Symfony\Component\HttpK
     public function shutdown()
     {
     }
-    public function build(\RectorPrefix20210215\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function build(\RectorPrefix20210216\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
     }
     public function getContainerExtension()
@@ -29,7 +29,7 @@ final class FirstBundle implements \RectorPrefix20210215\Symfony\Component\HttpK
     public function getPath()
     {
     }
-    public function setContainer(\RectorPrefix20210215\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
+    public function setContainer(\RectorPrefix20210216\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
     {
     }
 }

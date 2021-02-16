@@ -1,13 +1,13 @@
 <?php
 
-namespace RectorPrefix20210215;
+namespace RectorPrefix20210216;
 
 use Rector\Core\Configuration\Option;
 use Rector\Symfony\Rector\MethodCall\GetToConstructorInjectionRector;
 use Rector\Symfony\Tests\Rector\MethodCall\GetToConstructorInjectionRector\Source\GetTrait;
 use Rector\Symfony\Tests\Rector\Source\SymfonyController;
-use RectorPrefix20210215\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210215\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210216\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210216\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\Rector\Core\Configuration\Option::SYMFONY_CONTAINER_XML_PATH_PARAMETER, __DIR__ . '/../xml/services.xml');
     $services = $containerConfigurator->services();

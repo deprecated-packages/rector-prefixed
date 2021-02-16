@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\EarlyReturn\Rector\Foreach_;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Stmt\Break_;
 use PhpParser\Node\Stmt\Expression;
@@ -85,6 +86,7 @@ CODE_SAMPLE
             return null;
         }
         $assignVariable = $assign->var;
+        /** @var Expr $variablePrevious */
         $variablePrevious = $this->betterNodeFinder->findFirstPreviousOfNode($node, function (\PhpParser\Node $node) use($assignVariable) : bool {
             $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
             if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
@@ -92,10 +94,7 @@ CODE_SAMPLE
             }
             return $this->areNodesEqual($node, $assignVariable);
         });
-        if (!$variablePrevious instanceof \PhpParser\Node) {
-            return null;
-        }
-        if (!$this->areNodesEqual($nextForeach->expr, $variablePrevious)) {
+        if ($this->shouldSkipNextPrev($nextForeach, $variablePrevious)) {
             return null;
         }
         // ensure the variable only used once in foreach
@@ -105,13 +104,24 @@ CODE_SAMPLE
         if (\count($usedVariable) > 1) {
             return null;
         }
+        /** @var Assign $assignPreviousVariable */
+        $assignPreviousVariable = $variablePrevious->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parent = $assignPreviousVariable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        if (!$parent instanceof \PhpParser\Node\Stmt\Expression) {
+            return null;
+        }
         $this->removeNode($beforeBreak);
         $this->addNodeBeforeNode(new \PhpParser\Node\Stmt\Return_($assign->expr), $breaks[0]);
         $this->removeNode($breaks[0]);
-        /** @var Assign $assignPreviousVariable */
-        $assignPreviousVariable = $variablePrevious->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         $nextForeach->expr = $assignPreviousVariable->expr;
         $this->removeNode($assignPreviousVariable);
         return $node;
+    }
+    private function shouldSkipNextPrev(\PhpParser\Node\Stmt\Return_ $return, ?\PhpParser\Node\Expr $expr = null) : bool
+    {
+        if (!$expr instanceof \PhpParser\Node\Expr) {
+            return \true;
+        }
+        return !$this->areNodesEqual($return->expr, $expr);
     }
 }
