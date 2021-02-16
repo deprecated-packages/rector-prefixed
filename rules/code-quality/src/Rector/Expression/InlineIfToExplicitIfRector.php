@@ -4,11 +4,14 @@ declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Expression;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
+use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\BooleanType;
+use Rector\Core\NodeManipulator\BinaryOpManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -19,6 +22,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class InlineIfToExplicitIfRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var BinaryOpManipulator
+     */
+    private $binaryOpManipulator;
+    public function __construct(\Rector\Core\NodeManipulator\BinaryOpManipulator $binaryOpManipulator)
+    {
+        $this->binaryOpManipulator = $binaryOpManipulator;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change inline if to explicit if', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -59,19 +70,26 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+        if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd && !$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
             return null;
         }
-        $booleanAnd = $node->expr;
-        $leftStaticType = $this->getStaticType($booleanAnd->left);
+        return $this->processExplicitIf($node);
+    }
+    private function processExplicitIf(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node
+    {
+        /** @var BooleanAnd|BooleanOr $booleanExpr */
+        $booleanExpr = $expression->expr;
+        $leftStaticType = $this->getStaticType($booleanExpr->left);
         if (!$leftStaticType instanceof \PHPStan\Type\BooleanType) {
             return null;
         }
-        if (!$booleanAnd->right instanceof \PhpParser\Node\Expr\Assign) {
+        if (!$booleanExpr->right instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
-        $if = new \PhpParser\Node\Stmt\If_($booleanAnd->left);
-        $if->stmts[] = new \PhpParser\Node\Stmt\Expression($booleanAnd->right);
+        /** @var Expr $expr */
+        $expr = $booleanExpr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd ? $booleanExpr->left : $this->binaryOpManipulator->inverseNode($booleanExpr->left);
+        $if = new \PhpParser\Node\Stmt\If_($expr);
+        $if->stmts[] = new \PhpParser\Node\Stmt\Expression($booleanExpr->right);
         return $if;
     }
 }

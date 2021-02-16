@@ -111,7 +111,7 @@ final class BinaryOpManipulator
         }
         return null;
     }
-    private function inverseNode(\PhpParser\Node\Expr $expr) : \PhpParser\Node
+    public function inverseNode(\PhpParser\Node\Expr $expr) : \PhpParser\Node
     {
         if ($expr instanceof \PhpParser\Node\Expr\BinaryOp) {
             $inversedBinaryOp = $this->assignAndBinaryMap->getInversed($expr);
