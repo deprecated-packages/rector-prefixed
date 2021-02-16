@@ -155,6 +155,14 @@ final class NodeRepository
     {
         return $this->functionsByName[$name] ?? null;
     }
+    public function findFunctionByFuncCall(\PhpParser\Node\Expr\FuncCall $funcCall) : ?\PhpParser\Node\Stmt\Function_
+    {
+        $functionName = $this->nodeNameResolver->getName($funcCall);
+        if ($functionName === null) {
+            return null;
+        }
+        return $this->findFunction($functionName);
+    }
     /**
      * @return MethodCall[][]|StaticCall[][]
      */
