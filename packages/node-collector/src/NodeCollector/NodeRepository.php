@@ -15,6 +15,7 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
@@ -100,6 +101,10 @@ final class NodeRepository
      * @var array<string, Attribute[]>
      */
     private $attributes = [];
+    /**
+     * @var array<string, Name[]>
+     */
+    private $names = [];
     public function __construct(\Rector\NodeCollector\NodeAnalyzer\ArrayCallableMethodReferenceAnalyzer $arrayCallableMethodReferenceAnalyzer, \Rector\NodeCollector\NodeCollector\ParsedPropertyFetchNodeCollector $parsedPropertyFetchNodeCollector, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\ParsedClassConstFetchNodeCollector $parsedClassConstFetchNodeCollector, \Rector\NodeCollector\NodeCollector\ParsedNodeCollector $parsedNodeCollector, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper)
     {
         $this->nodeNameResolver = $nodeNameResolver;
@@ -125,14 +130,7 @@ final class NodeRepository
         }
         // array callable - [$this, 'someCall']
         if ($node instanceof \PhpParser\Node\Expr\Array_) {
-            $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($node);
-            if (!$arrayCallable instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
-                return;
-            }
-            if (!$arrayCallable->isExistingMethod()) {
-                return;
-            }
-            $this->arrayCallablesByTypeAndMethod[$arrayCallable->getClass()][$arrayCallable->getMethod()][] = $arrayCallable;
+            $this->collectArray($node);
             return;
         }
         if ($node instanceof \PhpParser\Node\Expr\MethodCall || $node instanceof \PhpParser\Node\Expr\StaticCall) {
@@ -149,6 +147,10 @@ final class NodeRepository
         if ($node instanceof \PhpParser\Node\Attribute) {
             $attributeClass = $this->nodeNameResolver->getName($node->name);
             $this->attributes[$attributeClass][] = $node;
+        }
+        if ($node instanceof \PhpParser\Node\Name) {
+            $name = $this->nodeNameResolver->getName($node);
+            $this->names[$name][] = $node;
         }
     }
     public function findFunction(string $name) : ?\PhpParser\Node\Stmt\Function_
@@ -428,6 +430,13 @@ final class NodeRepository
     {
         return $this->attributes[$class] ?? [];
     }
+    /**
+     * @return Name[]
+     */
+    public function findNames(string $name) : array
+    {
+        return $this->names[$name] ?? [];
+    }
     public function findClassMethodConstructorByNew(\PhpParser\Node\Expr\New_ $new) : ?\PhpParser\Node\Stmt\ClassMethod
     {
         $className = $this->nodeTypeResolver->resolve($new->class);
@@ -513,6 +522,17 @@ final class NodeRepository
     public function getClassConstFetches() : array
     {
         return $this->parsedNodeCollector->getClassConstFetches();
+    }
+    private function collectArray(\PhpParser\Node\Expr\Array_ $array) : void
+    {
+        $arrayCallable = $this->arrayCallableMethodReferenceAnalyzer->match($array);
+        if (!$arrayCallable instanceof \Rector\NodeCollector\ValueObject\ArrayCallable) {
+            return;
+        }
+        if (!$arrayCallable->isExistingMethod()) {
+            return;
+        }
+        $this->arrayCallablesByTypeAndMethod[$arrayCallable->getClass()][$arrayCallable->getMethod()][] = $arrayCallable;
     }
     private function addMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
