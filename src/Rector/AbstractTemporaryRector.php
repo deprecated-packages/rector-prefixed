@@ -451,7 +451,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     {
         $this->propertyAdder->addServiceConstructorDependencyToClass($class, $className);
     }
-    protected function addConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, ?\PHPStan\Type\Type $propertyType, string $propertyName, int $propertyFlags = 0) : void
+    protected function addConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\Type $propertyType, string $propertyName, int $propertyFlags = 0) : void
     {
         $this->propertyAdder->addConstructorDependencyToClass($class, $propertyType, $propertyName, $propertyFlags);
     }

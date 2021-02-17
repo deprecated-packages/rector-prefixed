@@ -12,6 +12,7 @@ use PhpParser\Node\UnionType as PhpParserUnionType;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
@@ -26,6 +27,7 @@ use Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\BoolUnionTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer;
+use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower;
 use Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis;
 final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface
 {
@@ -49,12 +51,17 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
      * @var BoolUnionTypeAnalyzer
      */
     private $boolUnionTypeAnalyzer;
-    public function __construct(\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer $unionTypeAnalyzer, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\BoolUnionTypeAnalyzer $boolUnionTypeAnalyzer)
+    /**
+     * @var UnionTypeCommonTypeNarrower
+     */
+    private $unionTypeCommonTypeNarrower;
+    public function __construct(\Rector\PHPStanStaticTypeMapper\DoctrineTypeAnalyzer $doctrineTypeAnalyzer, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer $unionTypeAnalyzer, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\BoolUnionTypeAnalyzer $boolUnionTypeAnalyzer, \Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower $unionTypeCommonTypeNarrower)
     {
         $this->phpVersionProvider = $phpVersionProvider;
         $this->unionTypeAnalyzer = $unionTypeAnalyzer;
         $this->doctrineTypeAnalyzer = $doctrineTypeAnalyzer;
         $this->boolUnionTypeAnalyzer = $boolUnionTypeAnalyzer;
+        $this->unionTypeCommonTypeNarrower = $unionTypeCommonTypeNarrower;
     }
     /**
      * @required
@@ -192,11 +199,11 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
             return new \PhpParser\Node\Name('bool');
         }
         // the type should be compatible with all other types, e.g. A extends B, B
-        $compatibleObjectCandidate = $this->resolveCompatibleObjectCandidate($unionType);
-        if ($compatibleObjectCandidate === null) {
+        $compatibleObjectType = $this->resolveCompatibleObjectCandidate($unionType);
+        if (!$compatibleObjectType instanceof \PHPStan\Type\ObjectType) {
             return null;
         }
-        return new \PhpParser\Node\Name\FullyQualified($compatibleObjectCandidate);
+        return new \PhpParser\Node\Name\FullyQualified($compatibleObjectType->getClassName());
     }
     private function matchPhpParserUnionType(\PHPStan\Type\UnionType $unionType) : ?\PhpParser\Node\UnionType
     {
@@ -218,23 +225,22 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
         }
         return new \PhpParser\Node\UnionType($phpParserUnionedTypes);
     }
-    private function resolveCompatibleObjectCandidate(\PHPStan\Type\UnionType $unionType) : ?string
+    private function resolveCompatibleObjectCandidate(\PHPStan\Type\UnionType $unionType) : ?\PHPStan\Type\TypeWithClassName
     {
         if ($this->doctrineTypeAnalyzer->isDoctrineCollectionWithIterableUnionType($unionType)) {
-            return 'Doctrine\\Common\\Collections\\Collection';
+            return new \PHPStan\Type\ObjectType('Doctrine\\Common\\Collections\\Collection');
         }
         if (!$this->unionTypeAnalyzer->hasTypeClassNameOnly($unionType)) {
             return null;
         }
-        /** @var TypeWithClassName $unionedType */
-        foreach ($unionType->getTypes() as $unionedType) {
-            /** @var TypeWithClassName $nestedUnionedType */
-            foreach ($unionType->getTypes() as $nestedUnionedType) {
-                if (!$this->areTypeWithClassNamesRelated($unionedType, $nestedUnionedType)) {
-                    continue 2;
-                }
-            }
-            return $unionedType->getClassName();
+        $sharedTypeWithClassName = $this->matchTwoObjectTypes($unionType);
+        if ($sharedTypeWithClassName instanceof \PHPStan\Type\TypeWithClassName) {
+            return $sharedTypeWithClassName;
+        }
+        // find least common denominator
+        $sharedObjectType = $this->unionTypeCommonTypeNarrower->narrowToSharedObjectType($unionType);
+        if ($sharedObjectType instanceof \PHPStan\Type\ObjectType) {
+            return $sharedObjectType;
         }
         return null;
     }
@@ -244,5 +250,19 @@ final class UnionTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract\
             return \true;
         }
         return \is_a($secondType->getClassName(), $firstType->getClassName(), \true);
+    }
+    private function matchTwoObjectTypes(\PHPStan\Type\UnionType $unionType) : ?\PHPStan\Type\TypeWithClassName
+    {
+        /** @var TypeWithClassName $unionedType */
+        foreach ($unionType->getTypes() as $unionedType) {
+            /** @var TypeWithClassName $nestedUnionedType */
+            foreach ($unionType->getTypes() as $nestedUnionedType) {
+                if (!$this->areTypeWithClassNamesRelated($unionedType, $nestedUnionedType)) {
+                    continue 2;
+                }
+            }
+            return $unionedType;
+        }
+        return null;
     }
 }

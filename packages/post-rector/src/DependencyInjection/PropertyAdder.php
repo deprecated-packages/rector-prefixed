@@ -58,7 +58,7 @@ final class PropertyAdder
         $propertyName = $this->nodeNameResolver->getName($property);
         $this->addConstructorDependencyToClass($classNode, $propertyType, $propertyName, $property->flags);
     }
-    public function addConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, ?\PHPStan\Type\Type $propertyType, string $propertyName, int $propertyFlags = 0) : void
+    public function addConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\Type $propertyType, string $propertyName, int $propertyFlags = 0) : void
     {
         $this->propertyToAddCollector->addPropertyToClass($class, $propertyName, $propertyType, $propertyFlags);
         $this->rectorChangeCollector->notifyNodeFileInfo($class);

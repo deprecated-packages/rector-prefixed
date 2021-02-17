@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\Assign;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\Assign;
@@ -99,12 +100,11 @@ CODE_SAMPLE
         return $standaloneAssigns;
     }
     /**
-     * @param Array_|List_ $firstArray
-     * @param Array_|List_ $secondArray
+     * @param Array_|List_ $expr
      */
-    private function isValueSwap($firstArray, $secondArray) : bool
+    private function isValueSwap(\PhpParser\Node\Expr $expr, \PhpParser\Node\Expr\Array_ $secondArray) : bool
     {
-        $firstArrayItemsHash = $this->getArrayItemsHash($firstArray);
+        $firstArrayItemsHash = $this->getArrayItemsHash($expr);
         $secondArrayItemsHash = $this->getArrayItemsHash($secondArray);
         return $firstArrayItemsHash === $secondArrayItemsHash;
     }

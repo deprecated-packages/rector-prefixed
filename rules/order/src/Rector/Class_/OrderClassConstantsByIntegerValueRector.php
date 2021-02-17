@@ -104,7 +104,6 @@ CODE_SAMPLE
         foreach ($classConstConstsByValue as $position => $constantValue) {
             if ($arrayCountValue[$constantValue] > 1) {
                 unset($classConstConstsByValue[$position]);
-                continue;
             }
         }
         return $classConstConstsByValue;
