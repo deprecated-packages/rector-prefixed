@@ -102,7 +102,7 @@ CODE_SAMPLE
         $shortClassName = $this->nodeNameResolver->getShortName($node);
         $shortClassName = $this->classNaming->replaceSuffix($shortClassName, 'Control', 'Controller');
         $node->name = new \PhpParser\Node\Identifier($shortClassName);
-        $node->extends = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210217\Symfony\Bundle\FrameworkBundle\Controller\AbstractController::class);
+        $node->extends = new \PhpParser\Node\Name\FullyQualified('Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController');
         $classMethod = $node->getMethod('render');
         if ($classMethod !== null) {
             $this->processRenderMethod($classMethod);

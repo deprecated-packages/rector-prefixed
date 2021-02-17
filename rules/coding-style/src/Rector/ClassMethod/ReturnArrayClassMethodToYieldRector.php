@@ -140,7 +140,7 @@ CODE_SAMPLE
         }
         $this->removeReturnTag($classMethod);
         // change return typehint
-        $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\Iterator::class);
+        $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified('Iterator');
         foreach ((array) $classMethod->stmts as $key => $classMethodStmt) {
             if (!$classMethodStmt instanceof \PhpParser\Node\Stmt\Return_) {
                 continue;

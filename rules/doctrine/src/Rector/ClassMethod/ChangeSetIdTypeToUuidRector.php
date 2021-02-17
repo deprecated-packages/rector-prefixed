@@ -89,7 +89,7 @@ CODE_SAMPLE
                 return null;
             }
         }
-        $node->params[0]->type = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210217\Ramsey\Uuid\UuidInterface::class);
+        $node->params[0]->type = new \PhpParser\Node\Name\FullyQualified('Ramsey\\Uuid\\UuidInterface');
         return $node;
     }
     private function renameUuidVariableToId(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void

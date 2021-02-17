@@ -79,7 +79,7 @@ CODE_SAMPLE
         if ($this->hasUuidReturnType($node)) {
             return null;
         }
-        $node->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210217\Ramsey\Uuid\UuidInterface::class);
+        $node->returnType = new \PhpParser\Node\Name\FullyQualified('Ramsey\\Uuid\\UuidInterface');
         return $node;
     }
     private function hasUuidReturnType(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

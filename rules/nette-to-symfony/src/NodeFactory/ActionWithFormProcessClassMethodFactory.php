@@ -30,7 +30,7 @@ final class ActionWithFormProcessClassMethodFactory
     {
         $classMethod = $this->nodeFactory->createPublicMethod('actionSomeForm');
         $requestVariable = new \PhpParser\Node\Expr\Variable('request');
-        $classMethod->params[] = new \PhpParser\Node\Param($requestVariable, null, new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210217\Symfony\Component\HttpFoundation\Request::class));
+        $classMethod->params[] = new \PhpParser\Node\Param($requestVariable, null, new \PhpParser\Node\Name\FullyQualified('Symfony\\Component\\HttpFoundation\\Request'));
         $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210217\Symfony\Component\HttpFoundation\Response::class);
         $formVariable = new \PhpParser\Node\Expr\Variable('form');
         $assign = $this->createFormInstanceAssign($formTypeClass, $formVariable);

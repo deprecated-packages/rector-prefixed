@@ -103,7 +103,7 @@ CODE_SAMPLE
     }
     private function refactorParamTypeHint(\PhpParser\Node\Param $param) : void
     {
-        $fullyQualified = new \PhpParser\Node\Name\FullyQualified(\DateTimeInterface::class);
+        $fullyQualified = new \PhpParser\Node\Name\FullyQualified('DateTimeInterface');
         if ($param->type instanceof \PhpParser\Node\NullableType) {
             $param->type = new \PhpParser\Node\NullableType($fullyQualified);
             return;
