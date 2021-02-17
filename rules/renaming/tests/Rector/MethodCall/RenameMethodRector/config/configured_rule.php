@@ -17,6 +17,8 @@ return static function (\RectorPrefix20210217\Symfony\Component\DependencyInject
         new \Rector\Renaming\ValueObject\MethodCallRename('Rector\\Renaming\\Tests\\Rector\\MethodCall\\RenameMethodRector\\Fixture\\DemoFile', 'notify', '__invoke'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Rector\\Renaming\\Tests\\Rector\\MethodCall\\RenameMethodRector\\Fixture\\SomeSubscriber', 'old', 'new'),
         new \Rector\Renaming\ValueObject\MethodCallRename('*Presenter', 'run', '__invoke'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('*SkipPrivateToInvoke', 'run', '__invoke'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('*SkipProtectedToInvoke', 'run', '__invoke'),
         new \Rector\Renaming\ValueObject\MethodCallRename(\Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Fixture\SkipSelfMethodRename::class, 'preventPHPStormRefactoring', 'gone'),
         // with array key
         new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey(\RectorPrefix20210217\Nette\Utils\Html::class, 'addToArray', 'addToHtmlArray', 'hey'),

@@ -105,7 +105,7 @@ CODE_SAMPLE
         if ($this->shouldSkipForAlreadyExistingClassMethod($node, $methodCallRename)) {
             return \true;
         }
-        return $this->shouldSkipForExactClassMethodForClassMethod($node, $methodCallRename->getOldClass());
+        return $this->shouldSkipForExactClassMethodForClassMethodOrTargetInvokePrivate($node, $methodCallRename->getOldClass(), $methodCallRename->getNewMethod());
     }
     private function shouldSkipForAlreadyExistingClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \Rector\Renaming\Contract\MethodCallRenameInterface $methodCallRename) : bool
     {
@@ -115,7 +115,7 @@ CODE_SAMPLE
         }
         return (bool) $classLike->getMethod($methodCallRename->getNewMethod());
     }
-    private function shouldSkipForExactClassMethodForClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $type) : bool
+    private function shouldSkipForExactClassMethodForClassMethodOrTargetInvokePrivate(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $type, string $newMethodName) : bool
     {
         $className = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         $methodCalls = $this->nodeRepository->findMethodCallsOnClass($className);
@@ -123,6 +123,15 @@ CODE_SAMPLE
         if (isset($methodCalls[$name])) {
             return \false;
         }
-        return $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME) === $type;
+        $isExactClassMethodForClasssMethod = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME) === $type;
+        if ($isExactClassMethodForClasssMethod) {
+            return \true;
+        }
+        if ($classMethod->isPublic()) {
+            return \false;
+        }
+        $newClassMethod = clone $classMethod;
+        $newClassMethod->name = new \PhpParser\Node\Identifier($newMethodName);
+        return $newClassMethod->isMagic();
     }
 }
