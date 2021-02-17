@@ -19,7 +19,7 @@ use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeRemoval\BreakingRemovalGuard;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Contract\Collector\NodeCollectorInterface;
-use RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo;
 final class NodesToRemoveCollector implements \Rector\PostRector\Contract\Collector\NodeCollectorInterface
 {
     /**

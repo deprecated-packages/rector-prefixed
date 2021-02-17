@@ -6,13 +6,13 @@ namespace Rector\Php80\Tests\Rector\FunctionLike\UnionTypesRector;
 use Iterator;
 use Rector\Php80\Rector\FunctionLike\UnionTypesRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo;
 final class UnionTypesRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

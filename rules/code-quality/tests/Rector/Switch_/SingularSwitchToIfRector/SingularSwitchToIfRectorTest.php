@@ -6,13 +6,13 @@ namespace Rector\CodeQuality\Tests\Rector\Switch_\SingularSwitchToIfRector;
 use Iterator;
 use Rector\CodeQuality\Rector\Switch_\SingularSwitchToIfRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingularSwitchToIfRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

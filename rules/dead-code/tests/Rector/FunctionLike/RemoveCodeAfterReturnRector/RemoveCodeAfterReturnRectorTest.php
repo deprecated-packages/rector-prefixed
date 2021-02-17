@@ -6,13 +6,13 @@ namespace Rector\DeadCode\Tests\Rector\FunctionLike\RemoveCodeAfterReturnRector;
 use Iterator;
 use Rector\DeadCode\Rector\FunctionLike\RemoveCodeAfterReturnRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveCodeAfterReturnRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

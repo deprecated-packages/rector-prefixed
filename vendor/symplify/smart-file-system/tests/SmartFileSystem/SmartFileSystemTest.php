@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210216\Symplify\SmartFileSystem\Tests\SmartFileSystem;
+namespace RectorPrefix20210217\Symplify\SmartFileSystem\Tests\SmartFileSystem;
 
-use RectorPrefix20210216\PHPUnit\Framework\TestCase;
-use RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo;
-use RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileSystem;
-final class SmartFileSystemTest extends \RectorPrefix20210216\PHPUnit\Framework\TestCase
+use RectorPrefix20210217\PHPUnit\Framework\TestCase;
+use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileSystem;
+final class SmartFileSystemTest extends \RectorPrefix20210217\PHPUnit\Framework\TestCase
 {
     /**
      * @var SmartFileSystem
@@ -14,11 +14,11 @@ final class SmartFileSystemTest extends \RectorPrefix20210216\PHPUnit\Framework\
     private $smartFileSystem;
     protected function setUp() : void
     {
-        $this->smartFileSystem = new \RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileSystem();
+        $this->smartFileSystem = new \RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileSystem();
     }
     public function testReadFileToSmartFileInfo() : void
     {
         $readFileToSmartFileInfo = $this->smartFileSystem->readFileToSmartFileInfo(__DIR__ . '/Source/file.txt');
-        $this->assertInstanceof(\RectorPrefix20210216\Symplify\SmartFileSystem\SmartFileInfo::class, $readFileToSmartFileInfo);
+        $this->assertInstanceof(\RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo::class, $readFileToSmartFileInfo);
     }
 }

@@ -4,10 +4,10 @@ declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\Printer;
 
 use Iterator;
-use RectorPrefix20210216\PHPUnit\Framework\TestCase;
+use RectorPrefix20210217\PHPUnit\Framework\TestCase;
 use Rector\BetterPhpDocParser\Printer\ArrayPartPhpDocTagPrinter;
 use Rector\BetterPhpDocParser\ValueObject\TagValueNodeConfiguration;
-final class ArrayPartPhpDocTagPrinterTest extends \RectorPrefix20210216\PHPUnit\Framework\TestCase
+final class ArrayPartPhpDocTagPrinterTest extends \RectorPrefix20210217\PHPUnit\Framework\TestCase
 {
     /**
      * @var ArrayPartPhpDocTagPrinter
