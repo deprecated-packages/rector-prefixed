@@ -9,7 +9,6 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
-use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -113,9 +112,9 @@ final class VarTagRemover
     {
         return $varTagValueNode->type instanceof \PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
     }
-    private function isArrayOfExistingClassNode(\PhpParser\Node $node, \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode $type) : bool
+    private function isArrayOfExistingClassNode(\PhpParser\Node $node, \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareArrayTypeNode $attributeAwareArrayTypeNode) : bool
     {
-        $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($type, $node);
+        $staticType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($attributeAwareArrayTypeNode, $node);
         if (!$staticType instanceof \PHPStan\Type\ArrayType) {
             return \false;
         }
@@ -123,7 +122,7 @@ final class VarTagRemover
         if (!$itemType instanceof \PHPStan\Type\ObjectType) {
             return \false;
         }
-        $classLike = $itemType->getClassName();
-        return $this->classLikeExistenceChecker->doesClassLikeExist($classLike);
+        $className = $itemType->getClassName();
+        return $this->classLikeExistenceChecker->doesClassLikeExist($className);
     }
 }

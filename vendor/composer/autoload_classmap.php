@@ -2394,7 +2394,6 @@ return array(
     'Rector\\Legacy\\NodeFactory\\StaticMethodClassFactory' => $baseDir . '/rules/legacy/src/NodeFactory/StaticMethodClassFactory.php',
     'Rector\\Legacy\\Rector\\Class_\\ChangeSingletonToServiceRector' => $baseDir . '/rules/legacy/src/Rector/Class_/ChangeSingletonToServiceRector.php',
     'Rector\\Legacy\\Rector\\FileWithoutNamespace\\FunctionToStaticMethodRector' => $baseDir . '/rules/legacy/src/Rector/FileWithoutNamespace/FunctionToStaticMethodRector.php',
-    'Rector\\Legacy\\Rector\\Include_\\RemoveIncludeRector' => $baseDir . '/rules/legacy/src/Rector/Include_/RemoveIncludeRector.php',
     'Rector\\Legacy\\ValueObject\\FunctionToStaticCall' => $baseDir . '/rules/legacy/src/ValueObject/FunctionToStaticCall.php',
     'Rector\\Legacy\\ValueObject\\PropertyAndClassMethodName' => $baseDir . '/rules/legacy/src/ValueObject/PropertyAndClassMethodName.php',
     'Rector\\MockeryToProphecy\\Collector\\MockVariableCollector' => $baseDir . '/rules/mockery-to-prophecy/src/Collector/MockVariableCollector.php',

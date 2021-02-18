@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf57e7eff00d8d546f4f4f1e9cf9c3c10
+class ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3173,7 +3173,6 @@ class ComposerStaticInitf57e7eff00d8d546f4f4f1e9cf9c3c10
         'Rector\\Legacy\\NodeFactory\\StaticMethodClassFactory' => __DIR__ . '/../..' . '/rules/legacy/src/NodeFactory/StaticMethodClassFactory.php',
         'Rector\\Legacy\\Rector\\Class_\\ChangeSingletonToServiceRector' => __DIR__ . '/../..' . '/rules/legacy/src/Rector/Class_/ChangeSingletonToServiceRector.php',
         'Rector\\Legacy\\Rector\\FileWithoutNamespace\\FunctionToStaticMethodRector' => __DIR__ . '/../..' . '/rules/legacy/src/Rector/FileWithoutNamespace/FunctionToStaticMethodRector.php',
-        'Rector\\Legacy\\Rector\\Include_\\RemoveIncludeRector' => __DIR__ . '/../..' . '/rules/legacy/src/Rector/Include_/RemoveIncludeRector.php',
         'Rector\\Legacy\\ValueObject\\FunctionToStaticCall' => __DIR__ . '/../..' . '/rules/legacy/src/ValueObject/FunctionToStaticCall.php',
         'Rector\\Legacy\\ValueObject\\PropertyAndClassMethodName' => __DIR__ . '/../..' . '/rules/legacy/src/ValueObject/PropertyAndClassMethodName.php',
         'Rector\\MockeryToProphecy\\Collector\\MockVariableCollector' => __DIR__ . '/../..' . '/rules/mockery-to-prophecy/src/Collector/MockVariableCollector.php',
@@ -4190,9 +4189,9 @@ class ComposerStaticInitf57e7eff00d8d546f4f4f1e9cf9c3c10
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf57e7eff00d8d546f4f4f1e9cf9c3c10::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf57e7eff00d8d546f4f4f1e9cf9c3c10::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf57e7eff00d8d546f4f4f1e9cf9c3c10::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2::$classMap;
 
         }, null, ClassLoader::class);
     }
