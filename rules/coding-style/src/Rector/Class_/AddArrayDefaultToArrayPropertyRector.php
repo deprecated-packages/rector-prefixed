@@ -16,7 +16,7 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PHPStan\Type\Type;
 use Rector\CodingStyle\TypeAnalyzer\IterableTypeAnalyzer;
-use Rector\Core\NodeManipulator\PropertyFetchManipulator;
+use Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -30,16 +30,16 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class AddArrayDefaultToArrayPropertyRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var PropertyFetchManipulator
+     * @var PropertyFetchAnalyzer
      */
-    private $propertyFetchManipulator;
+    private $propertyFetchAnalyzer;
     /**
      * @var IterableTypeAnalyzer
      */
     private $iterableTypeAnalyzer;
-    public function __construct(\Rector\Core\NodeManipulator\PropertyFetchManipulator $propertyFetchManipulator, \Rector\CodingStyle\TypeAnalyzer\IterableTypeAnalyzer $iterableTypeAnalyzer)
+    public function __construct(\Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\CodingStyle\TypeAnalyzer\IterableTypeAnalyzer $iterableTypeAnalyzer)
     {
-        $this->propertyFetchManipulator = $propertyFetchManipulator;
+        $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
         $this->iterableTypeAnalyzer = $iterableTypeAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -179,10 +179,10 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\BinaryOp) {
                 return null;
             }
-            if ($this->propertyFetchManipulator->isLocalPropertyOfNames($node->left, $propertyNames) && $this->valueResolver->isNull($node->right)) {
+            if ($this->propertyFetchAnalyzer->isLocalPropertyOfNames($node->left, $propertyNames) && $this->valueResolver->isNull($node->right)) {
                 $node->right = new \PhpParser\Node\Expr\Array_();
             }
-            if ($this->propertyFetchManipulator->isLocalPropertyOfNames($node->right, $propertyNames) && $this->valueResolver->isNull($node->left)) {
+            if ($this->propertyFetchAnalyzer->isLocalPropertyOfNames($node->right, $propertyNames) && $this->valueResolver->isNull($node->left)) {
                 $node->left = new \PhpParser\Node\Expr\Array_();
             }
             return $node;
@@ -203,10 +203,10 @@ CODE_SAMPLE
         if (!$expr instanceof \PhpParser\Node\Expr\BinaryOp\NotIdentical) {
             return \false;
         }
-        if ($this->propertyFetchManipulator->isLocalPropertyOfNames($expr->left, $propertyNames) && $this->valueResolver->isNull($expr->right)) {
+        if ($this->propertyFetchAnalyzer->isLocalPropertyOfNames($expr->left, $propertyNames) && $this->valueResolver->isNull($expr->right)) {
             return \true;
         }
-        if (!$this->propertyFetchManipulator->isLocalPropertyOfNames($expr->right, $propertyNames)) {
+        if (!$this->propertyFetchAnalyzer->isLocalPropertyOfNames($expr->right, $propertyNames)) {
             return \false;
         }
         return $this->valueResolver->isNull($expr->left);

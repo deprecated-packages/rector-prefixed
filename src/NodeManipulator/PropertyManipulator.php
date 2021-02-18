@@ -105,11 +105,11 @@ final class PropertyManipulator
         return \false;
     }
     /**
-     * @param PropertyFetch|StaticPropertyFetch $node
+     * @param PropertyFetch|StaticPropertyFetch $expr
      */
-    private function isChangeableContext(\PhpParser\Node $node) : bool
+    private function isChangeableContext(\PhpParser\Node\Expr $expr) : bool
     {
-        $parent = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
+        $parent = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         if (!$parent instanceof \PhpParser\Node) {
             return \false;
         }
@@ -125,6 +125,6 @@ final class PropertyManipulator
                 return \true;
             }
         }
-        return $this->assignManipulator->isLeftPartOfAssign($node);
+        return $this->assignManipulator->isLeftPartOfAssign($expr);
     }
 }

@@ -13,8 +13,8 @@ use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\While_;
 use PhpParser\NodeTraverser;
+use Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer;
 use Rector\Core\NodeManipulator\ClassManipulator;
-use Rector\Core\NodeManipulator\PropertyFetchManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -35,17 +35,17 @@ final class ChangeLocalPropertyToVariableRector extends \Rector\Core\Rector\Abst
      */
     private $classManipulator;
     /**
-     * @var PropertyFetchManipulator
+     * @var PropertyFetchAnalyzer
      */
-    private $propertyFetchManipulator;
+    private $propertyFetchAnalyzer;
     /**
      * @var PropertyFetchWithVariableReplacer
      */
     private $propertyFetchWithVariableReplacer;
-    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\Core\NodeManipulator\PropertyFetchManipulator $propertyFetchManipulator, \Rector\Privatization\NodeReplacer\PropertyFetchWithVariableReplacer $propertyFetchWithVariableReplacer)
+    public function __construct(\Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \Rector\Privatization\NodeReplacer\PropertyFetchWithVariableReplacer $propertyFetchWithVariableReplacer)
     {
         $this->classManipulator = $classManipulator;
-        $this->propertyFetchManipulator = $propertyFetchManipulator;
+        $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
         $this->propertyFetchWithVariableReplacer = $propertyFetchWithVariableReplacer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
@@ -146,7 +146,7 @@ CODE_SAMPLE
         $isIfFollowedByAssign = \false;
         $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (\PhpParser\Node $node) use(&$isPropertyChanging, $privatePropertyName, &$isPropertyReadInIf, &$isIfFollowedByAssign) : ?int {
             if ($isPropertyReadInIf) {
-                if (!$this->propertyFetchManipulator->isLocalPropertyOfNames($node, [$privatePropertyName])) {
+                if (!$this->propertyFetchAnalyzer->isLocalPropertyOfNames($node, [$privatePropertyName])) {
                     return null;
                 }
                 $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -175,7 +175,7 @@ CODE_SAMPLE
     private function refactorIf(\PhpParser\Node\Stmt\If_ $if, string $privatePropertyName) : ?bool
     {
         $this->traverseNodesWithCallable($if->cond, function (\PhpParser\Node $node) use($privatePropertyName, &$isPropertyReadInIf) : ?int {
-            if (!$this->propertyFetchManipulator->isLocalPropertyOfNames($node, [$privatePropertyName])) {
+            if (!$this->propertyFetchAnalyzer->isLocalPropertyOfNames($node, [$privatePropertyName])) {
                 return null;
             }
             $isPropertyReadInIf = \true;

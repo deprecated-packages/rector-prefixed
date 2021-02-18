@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc56d3e7d074ef9deecb8b69bdbf72802
+class ComposerStaticInit6557880b8687471eb3b8a3275c25c072
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2794,10 +2794,10 @@ class ComposerStaticInitc56d3e7d074ef9deecb8b69bdbf72802
         'Rector\\Core\\NodeManipulator\\FuncCallManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/FuncCallManipulator.php',
         'Rector\\Core\\NodeManipulator\\FunctionLikeManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/FunctionLikeManipulator.php',
         'Rector\\Core\\NodeManipulator\\IfManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/IfManipulator.php',
+        'Rector\\Core\\NodeManipulator\\MagicPropertyFetchAnalyzer' => __DIR__ . '/../..' . '/src/NodeManipulator/MagicPropertyFetchAnalyzer.php',
         'Rector\\Core\\NodeManipulator\\MethodCallManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/MethodCallManipulator.php',
         'Rector\\Core\\NodeManipulator\\NullsafeManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/NullsafeManipulator.php',
         'Rector\\Core\\NodeManipulator\\PropertyFetchAssignManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/PropertyFetchAssignManipulator.php',
-        'Rector\\Core\\NodeManipulator\\PropertyFetchManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/PropertyFetchManipulator.php',
         'Rector\\Core\\NodeManipulator\\PropertyManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/PropertyManipulator.php',
         'Rector\\Core\\NodeManipulator\\StmtsManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/StmtsManipulator.php',
         'Rector\\Core\\NodeManipulator\\VariableManipulator' => __DIR__ . '/../..' . '/src/NodeManipulator/VariableManipulator.php',
@@ -4082,7 +4082,6 @@ class ComposerStaticInitc56d3e7d074ef9deecb8b69bdbf72802
         'Rector\\TypeDeclaration\\NodeAnalyzer\\ClassMethodAndPropertyAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeAnalyzer/ClassMethodAndPropertyAnalyzer.php',
         'Rector\\TypeDeclaration\\NodeAnalyzer\\TypeNodeUnwrapper' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeAnalyzer/TypeNodeUnwrapper.php',
         'Rector\\TypeDeclaration\\NodeTypeAnalyzer\\CallTypeAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeTypeAnalyzer/CallTypeAnalyzer.php',
-        'Rector\\TypeDeclaration\\NodeTypeAnalyzer\\ParamTypeCompatibilityChecker' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeTypeAnalyzer/ParamTypeCompatibilityChecker.php',
         'Rector\\TypeDeclaration\\NodeTypeAnalyzer\\TraitTypeAnalyzer' => __DIR__ . '/../..' . '/rules/type-declaration/src/NodeTypeAnalyzer/TraitTypeAnalyzer.php',
         'Rector\\TypeDeclaration\\PHPStan\\Type\\ObjectTypeSpecifier' => __DIR__ . '/../..' . '/rules/type-declaration/src/PHPStan/Type/ObjectTypeSpecifier.php',
         'Rector\\TypeDeclaration\\PhpDocParser\\NonInformativeReturnTagRemover' => __DIR__ . '/../..' . '/rules/type-declaration/src/PhpDocParser/NonInformativeReturnTagRemover.php',
@@ -4192,9 +4191,9 @@ class ComposerStaticInitc56d3e7d074ef9deecb8b69bdbf72802
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc56d3e7d074ef9deecb8b69bdbf72802::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc56d3e7d074ef9deecb8b69bdbf72802::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc56d3e7d074ef9deecb8b69bdbf72802::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6557880b8687471eb3b8a3275c25c072::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6557880b8687471eb3b8a3275c25c072::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6557880b8687471eb3b8a3275c25c072::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -9,11 +9,10 @@ use RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\PostRector\Rector\NameImportingPostRector
  */
-final class AutoImportNamesParameter74Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
+final class AutoImportNamesTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
-     * @requires PHP 7.4
      */
     public function test(\RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
@@ -21,7 +20,7 @@ final class AutoImportNamesParameter74Test extends \Rector\Testing\PHPUnit\Abstr
     }
     public function provideData() : \Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureAutoImportNames74');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/FixtureAutoImportNames');
     }
     protected function provideConfigFilePath() : string
     {

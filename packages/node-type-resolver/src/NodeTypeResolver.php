@@ -142,6 +142,14 @@ final class NodeTypeResolver
         }
         return $nodeType->isSuperTypeOf(new \PHPStan\Type\NullType())->yes();
     }
+    public function getNativeType(\PhpParser\Node\Expr $expr) : \PHPStan\Type\Type
+    {
+        $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return new \PHPStan\Type\MixedType();
+        }
+        return $scope->getNativeType($expr);
+    }
     /**
      * @deprecated
      * Use @see NodeTypeResolver::resolve() instead
