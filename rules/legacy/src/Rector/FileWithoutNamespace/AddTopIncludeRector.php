@@ -17,7 +17,7 @@ use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://github.com/rectorphp/rector/issues/3679
  *
@@ -71,7 +71,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        $smartFileInfo = $node->getAttribute(\RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $node->getAttribute(\RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo::class);
         if ($smartFileInfo === null) {
             return null;
         }

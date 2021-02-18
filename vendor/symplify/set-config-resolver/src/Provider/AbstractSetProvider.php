@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210217\Symplify\SetConfigResolver\Provider;
+namespace RectorPrefix20210218\Symplify\SetConfigResolver\Provider;
 
-use RectorPrefix20210217\Nette\Utils\Strings;
-use RectorPrefix20210217\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use RectorPrefix20210217\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use RectorPrefix20210217\Symplify\SetConfigResolver\ValueObject\Set;
-use RectorPrefix20210217\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-abstract class AbstractSetProvider implements \RectorPrefix20210217\Symplify\SetConfigResolver\Contract\SetProviderInterface
+use RectorPrefix20210218\Nette\Utils\Strings;
+use RectorPrefix20210218\Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use RectorPrefix20210218\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20210218\Symplify\SetConfigResolver\ValueObject\Set;
+use RectorPrefix20210218\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+abstract class AbstractSetProvider implements \RectorPrefix20210218\Symplify\SetConfigResolver\Contract\SetProviderInterface
 {
     /**
      * @return string[]
@@ -22,7 +22,7 @@ abstract class AbstractSetProvider implements \RectorPrefix20210217\Symplify\Set
         }
         return $setNames;
     }
-    public function provideByName(string $desiredSetName) : ?\RectorPrefix20210217\Symplify\SetConfigResolver\ValueObject\Set
+    public function provideByName(string $desiredSetName) : ?\RectorPrefix20210218\Symplify\SetConfigResolver\ValueObject\Set
     {
         // 1. name-based approach
         $sets = $this->provide();
@@ -45,16 +45,16 @@ abstract class AbstractSetProvider implements \RectorPrefix20210217\Symplify\Set
                 }
                 return $set;
             }
-        } catch (\RectorPrefix20210217\Symplify\SymplifyKernel\Exception\ShouldNotHappenException $shouldNotHappenException) {
+        } catch (\RectorPrefix20210218\Symplify\SymplifyKernel\Exception\ShouldNotHappenException $shouldNotHappenException) {
         }
         $message = \sprintf('Set "%s" was not found', $desiredSetName);
-        throw new \RectorPrefix20210217\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
+        throw new \RectorPrefix20210218\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
     }
     private function resolveSetUniquePathId(string $setPath) : string
     {
-        $setPath = \RectorPrefix20210217\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
+        $setPath = \RectorPrefix20210218\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
         if ($setPath === null) {
-            throw new \RectorPrefix20210217\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \RectorPrefix20210218\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $setPath;
     }

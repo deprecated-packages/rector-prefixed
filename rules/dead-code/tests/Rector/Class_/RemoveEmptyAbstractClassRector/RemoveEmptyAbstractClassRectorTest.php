@@ -6,13 +6,13 @@ namespace Rector\DeadCode\Tests\Rector\Class_\RemoveEmptyAbstractClassRector;
 use Iterator;
 use Rector\DeadCode\Rector\Class_\RemoveEmptyAbstractClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveEmptyAbstractClassRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

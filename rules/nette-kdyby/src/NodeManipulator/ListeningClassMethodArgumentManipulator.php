@@ -14,7 +14,7 @@ use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\NetteKdyby\ContributeEventClassResolver;
 use Rector\NetteKdyby\ValueObject\EventAndListenerTree;
 use Rector\NetteKdyby\ValueObject\EventClassAndClassMethod;
-use RectorPrefix20210217\Symfony\Contracts\EventDispatcher\Event;
+use RectorPrefix20210218\Symfony\Contracts\EventDispatcher\Event;
 final class ListeningClassMethodArgumentManipulator
 {
     /**

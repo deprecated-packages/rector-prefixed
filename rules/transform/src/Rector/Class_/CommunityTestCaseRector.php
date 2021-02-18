@@ -15,10 +15,10 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Testing\PhpConfigPrinter\PhpConfigPrinterFactory;
 use Rector\Transform\NodeFactory\ProvideConfigFilePathClassMethodFactory;
-use RectorPrefix20210217\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
+use RectorPrefix20210218\Symplify\PhpConfigPrinter\Printer\SmartPhpConfigPrinter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Transform\Tests\Rector\Class_\CommunityTestCaseRector\CommunityTestCaseRectorTest
  */
@@ -110,7 +110,7 @@ CODE_SAMPLE
         }
         $phpConfigFileContent = $this->smartPhpConfigPrinter->printConfiguredServices([$rectorClass => null]);
         $fileInfo = $getRectorClassMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $configFilePath = \dirname($fileInfo->getRealPath()) . '/config/configured_rule.php';

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\NodeManipulator;
 
-use RectorPrefix20210217\Nette\Utils\Strings;
+use RectorPrefix20210218\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Array_;
@@ -17,7 +17,7 @@ use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\ReadWrite\Guard\VariableToConstantGuard;
-use RectorPrefix20210217\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210218\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class VariableManipulator
 {
     /**
@@ -48,7 +48,7 @@ final class VariableManipulator
      * @var VariableToConstantGuard
      */
     private $variableToConstantGuard;
-    public function __construct(\Rector\Core\NodeManipulator\ArrayManipulator $arrayManipulator, \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210217\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard)
+    public function __construct(\Rector\Core\NodeManipulator\ArrayManipulator $arrayManipulator, \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210218\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\ReadWrite\Guard\VariableToConstantGuard $variableToConstantGuard)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->assignManipulator = $assignManipulator;
@@ -103,7 +103,7 @@ final class VariableManipulator
     {
         /** @var string $className */
         $className = $variable->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        if (!\RectorPrefix20210217\Nette\Utils\Strings::endsWith($className, 'Test')) {
+        if (!\RectorPrefix20210218\Nette\Utils\Strings::endsWith($className, 'Test')) {
             return \false;
         }
         return $this->nodeNameResolver->isName($variable, 'expect*');

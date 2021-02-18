@@ -6,7 +6,7 @@ namespace Rector\Doctrine\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
-use RectorPrefix20210217\Ramsey\Uuid\UuidInterface;
+use RectorPrefix20210218\Ramsey\Uuid\UuidInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -87,6 +87,6 @@ CODE_SAMPLE
         if ($classMethod->returnType === null) {
             return \false;
         }
-        return $this->isName($classMethod->returnType, \RectorPrefix20210217\Ramsey\Uuid\UuidInterface::class);
+        return $this->isName($classMethod->returnType, \RectorPrefix20210218\Ramsey\Uuid\UuidInterface::class);
     }
 }

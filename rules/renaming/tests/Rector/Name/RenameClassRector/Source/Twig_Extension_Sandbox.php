@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210217;
+namespace RectorPrefix20210218;
 
 final class Twig_Extension_Sandbox
 {

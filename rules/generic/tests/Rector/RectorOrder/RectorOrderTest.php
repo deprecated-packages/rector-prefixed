@@ -5,7 +5,7 @@ namespace Rector\Generic\Tests\Rector\RectorOrder;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Covers https://github.com/rectorphp/rector/pull/266#issuecomment-355725764
  */
@@ -14,7 +14,7 @@ final class RectorOrderTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCa
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210217\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

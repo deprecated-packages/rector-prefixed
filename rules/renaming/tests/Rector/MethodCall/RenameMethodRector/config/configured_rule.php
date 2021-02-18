@@ -1,19 +1,19 @@
 <?php
 
-namespace RectorPrefix20210217;
+namespace RectorPrefix20210218;
 
-use RectorPrefix20210217\Nette\Utils\Html;
+use RectorPrefix20210218\Nette\Utils\Html;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Source\AbstractType;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey;
-use RectorPrefix20210217\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210218\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-return static function (\RectorPrefix20210217\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+return static function (\RectorPrefix20210218\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Renaming\Rector\MethodCall\RenameMethodRector::class)->call('configure', [[\Rector\Renaming\Rector\MethodCall\RenameMethodRector::METHOD_CALL_RENAMES => \Symplify\SymfonyPhpConfig\ValueObjectInliner::inline([
         new \Rector\Renaming\ValueObject\MethodCallRename(\Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Source\AbstractType::class, 'setDefaultOptions', 'configureOptions'),
-        new \Rector\Renaming\ValueObject\MethodCallRename(\RectorPrefix20210217\Nette\Utils\Html::class, 'add', 'addHtml'),
+        new \Rector\Renaming\ValueObject\MethodCallRename(\RectorPrefix20210218\Nette\Utils\Html::class, 'add', 'addHtml'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Rector\\Renaming\\Tests\\Rector\\MethodCall\\RenameMethodRector\\Fixture\\DemoFile', 'notify', '__invoke'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Rector\\Renaming\\Tests\\Rector\\MethodCall\\RenameMethodRector\\Fixture\\SomeSubscriber', 'old', 'new'),
         new \Rector\Renaming\ValueObject\MethodCallRename('*Presenter', 'run', '__invoke'),
@@ -21,6 +21,6 @@ return static function (\RectorPrefix20210217\Symfony\Component\DependencyInject
         new \Rector\Renaming\ValueObject\MethodCallRename('*SkipProtectedToInvoke', 'run', '__invoke'),
         new \Rector\Renaming\ValueObject\MethodCallRename(\Rector\Renaming\Tests\Rector\MethodCall\RenameMethodRector\Fixture\SkipSelfMethodRename::class, 'preventPHPStormRefactoring', 'gone'),
         // with array key
-        new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey(\RectorPrefix20210217\Nette\Utils\Html::class, 'addToArray', 'addToHtmlArray', 'hey'),
+        new \Rector\Renaming\ValueObject\MethodCallRenameWithArrayKey(\RectorPrefix20210218\Nette\Utils\Html::class, 'addToArray', 'addToHtmlArray', 'hey'),
     ])]]);
 };

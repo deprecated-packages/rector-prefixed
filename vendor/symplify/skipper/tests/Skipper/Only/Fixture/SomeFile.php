@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210217\Symplify\Skipper\Tests\Skipper\Fixture\Source;
+namespace RectorPrefix20210218\Symplify\Skipper\Tests\Skipper\Fixture\Source;
 
 class SomeFile
 {

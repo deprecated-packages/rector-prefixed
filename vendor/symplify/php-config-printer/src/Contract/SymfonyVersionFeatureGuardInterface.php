@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210217\Symplify\PhpConfigPrinter\Contract;
+namespace RectorPrefix20210218\Symplify\PhpConfigPrinter\Contract;
 
 interface SymfonyVersionFeatureGuardInterface
 {
