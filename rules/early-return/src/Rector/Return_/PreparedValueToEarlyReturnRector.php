@@ -76,6 +76,9 @@ CODE_SAMPLE
         if ($this->shouldSkip($ifsBefore, $node->expr)) {
             return null;
         }
+        if ($this->isAssignVarUsedInIfCond($ifsBefore, $node->expr)) {
+            return null;
+        }
         /** @var Expr $returnExpr */
         $returnExpr = $node->expr;
         /** @var Expression $previousFirstExpression */
@@ -96,6 +99,21 @@ CODE_SAMPLE
     /**
      * @param If_[] $ifsBefore
      */
+    private function isAssignVarUsedInIfCond(array $ifsBefore, ?\PhpParser\Node\Expr $expr) : bool
+    {
+        foreach ($ifsBefore as $ifBefore) {
+            $isUsedInIfCond = (bool) $this->betterNodeFinder->findFirst($ifBefore->cond, function (\PhpParser\Node $node) use($expr) : bool {
+                return $this->areNodesEqual($node, $expr);
+            });
+            if ($isUsedInIfCond) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    /**
+     * @param If_[] $ifsBefore
+     */
     private function shouldSkip(array $ifsBefore, ?\PhpParser\Node\Expr $returnExpr) : bool
     {
         if ($ifsBefore === []) {
@@ -103,14 +121,17 @@ CODE_SAMPLE
         }
         return !(bool) $this->getPreviousIfLinearEquals($ifsBefore[0], $returnExpr);
     }
-    private function getPreviousIfLinearEquals(\PhpParser\Node\Stmt\If_ $if, ?\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Stmt\Expression
+    private function getPreviousIfLinearEquals(?\PhpParser\Node $node, ?\PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Stmt\Expression
     {
+        if (!$node instanceof \PhpParser\Node) {
+            return null;
+        }
         if (!$expr instanceof \PhpParser\Node\Expr) {
             return null;
         }
-        $previous = $if->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
+        $previous = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PREVIOUS_NODE);
         if (!$previous instanceof \PhpParser\Node\Stmt\Expression) {
-            return null;
+            return $this->getPreviousIfLinearEquals($previous, $expr);
         }
         if (!$previous->expr instanceof \PhpParser\Node\Expr\Assign) {
             return null;
