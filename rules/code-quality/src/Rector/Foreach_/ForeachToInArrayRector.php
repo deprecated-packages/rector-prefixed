@@ -51,7 +51,10 @@ foreach ($items as $item) {
 
 return false;
 CODE_SAMPLE
-, 'in_array("something", $items, true);')]);
+, <<<'CODE_SAMPLE'
+return in_array('something', $items, true);
+CODE_SAMPLE
+)]);
     }
     /**
      * @return string[]

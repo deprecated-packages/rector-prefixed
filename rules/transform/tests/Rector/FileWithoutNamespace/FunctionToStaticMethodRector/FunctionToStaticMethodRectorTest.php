@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector;
+namespace Rector\Transform\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector;
 
 use Iterator;
-use Rector\Legacy\Rector\FileWithoutNamespace\FunctionToStaticMethodRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Transform\Rector\FileWithoutNamespace\FunctionToStaticMethodRector;
 use RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo;
 final class FunctionToStaticMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
@@ -23,6 +23,6 @@ final class FunctionToStaticMethodRectorTest extends \Rector\Testing\PHPUnit\Abs
     }
     protected function getRectorClass() : string
     {
-        return \Rector\Legacy\Rector\FileWithoutNamespace\FunctionToStaticMethodRector::class;
+        return \Rector\Transform\Rector\FileWithoutNamespace\FunctionToStaticMethodRector::class;
     }
 }

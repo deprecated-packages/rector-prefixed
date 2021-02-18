@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\Legacy\Rector\FileWithoutNamespace;
+namespace Rector\Transform\Rector\FileWithoutNamespace;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
@@ -20,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo;
 /**
- * @see \Rector\Legacy\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector\FunctionToStaticMethodRectorTest
+ * @see \Rector\Transform\Tests\Rector\FileWithoutNamespace\FunctionToStaticMethodRector\FunctionToStaticMethodRectorTest
  */
 final class FunctionToStaticMethodRector extends \Rector\Core\Rector\AbstractRector
 {

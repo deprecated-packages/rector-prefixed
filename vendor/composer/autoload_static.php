@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2
+class ComposerStaticInit0ddbf880c27dfc1685746c7de80f8ee2
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -3172,7 +3172,6 @@ class ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2
         'Rector\\Legacy\\NodeFactory\\ClassMethodFactory' => __DIR__ . '/../..' . '/rules/legacy/src/NodeFactory/ClassMethodFactory.php',
         'Rector\\Legacy\\NodeFactory\\StaticMethodClassFactory' => __DIR__ . '/../..' . '/rules/legacy/src/NodeFactory/StaticMethodClassFactory.php',
         'Rector\\Legacy\\Rector\\Class_\\ChangeSingletonToServiceRector' => __DIR__ . '/../..' . '/rules/legacy/src/Rector/Class_/ChangeSingletonToServiceRector.php',
-        'Rector\\Legacy\\Rector\\FileWithoutNamespace\\FunctionToStaticMethodRector' => __DIR__ . '/../..' . '/rules/legacy/src/Rector/FileWithoutNamespace/FunctionToStaticMethodRector.php',
         'Rector\\Legacy\\ValueObject\\FunctionToStaticCall' => __DIR__ . '/../..' . '/rules/legacy/src/ValueObject/FunctionToStaticCall.php',
         'Rector\\Legacy\\ValueObject\\PropertyAndClassMethodName' => __DIR__ . '/../..' . '/rules/legacy/src/ValueObject/PropertyAndClassMethodName.php',
         'Rector\\MockeryToProphecy\\Collector\\MockVariableCollector' => __DIR__ . '/../..' . '/rules/mockery-to-prophecy/src/Collector/MockVariableCollector.php',
@@ -4018,6 +4017,7 @@ class ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2
         'Rector\\Transform\\Rector\\Class_\\CommunityTestCaseRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/CommunityTestCaseRector.php',
         'Rector\\Transform\\Rector\\Class_\\ParentClassToTraitsRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/ParentClassToTraitsRector.php',
         'Rector\\Transform\\Rector\\Expression\\MethodCallToReturnRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Expression/MethodCallToReturnRector.php',
+        'Rector\\Transform\\Rector\\FileWithoutNamespace\\FunctionToStaticMethodRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/FileWithoutNamespace/FunctionToStaticMethodRector.php',
         'Rector\\Transform\\Rector\\FuncCall\\ArgumentFuncCallToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/FuncCall/ArgumentFuncCallToMethodCallRector.php',
         'Rector\\Transform\\Rector\\FuncCall\\FuncCallToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/FuncCall/FuncCallToMethodCallRector.php',
         'Rector\\Transform\\Rector\\FuncCall\\FuncCallToNewRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/FuncCall/FuncCallToNewRector.php',
@@ -4189,9 +4189,9 @@ class ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit43cd101ee34771753d7c8713bdaa99e2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0ddbf880c27dfc1685746c7de80f8ee2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0ddbf880c27dfc1685746c7de80f8ee2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0ddbf880c27dfc1685746c7de80f8ee2::$classMap;
 
         }, null, ClassLoader::class);
     }
