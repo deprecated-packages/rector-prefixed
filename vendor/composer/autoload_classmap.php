@@ -2332,6 +2332,7 @@ return array(
     'Rector\\EarlyReturn\\Rector\\If_\\ChangeOrIfContinueToMultiContinueRector' => $baseDir . '/rules/early-return/src/Rector/If_/ChangeOrIfContinueToMultiContinueRector.php',
     'Rector\\EarlyReturn\\Rector\\If_\\ChangeOrIfReturnToEarlyReturnRector' => $baseDir . '/rules/early-return/src/Rector/If_/ChangeOrIfReturnToEarlyReturnRector.php',
     'Rector\\EarlyReturn\\Rector\\If_\\RemoveAlwaysElseRector' => $baseDir . '/rules/early-return/src/Rector/If_/RemoveAlwaysElseRector.php',
+    'Rector\\EarlyReturn\\Rector\\Return_\\PreparedValueToEarlyReturnRector' => $baseDir . '/rules/early-return/src/Rector/Return_/PreparedValueToEarlyReturnRector.php',
     'Rector\\EarlyReturn\\Rector\\Return_\\ReturnBinaryAndToEarlyReturnRector' => $baseDir . '/rules/early-return/src/Rector/Return_/ReturnBinaryAndToEarlyReturnRector.php',
     'Rector\\FamilyTree\\NodeAnalyzer\\ClassChildAnalyzer' => $baseDir . '/packages/family-tree/src/NodeAnalyzer/ClassChildAnalyzer.php',
     'Rector\\FamilyTree\\NodeAnalyzer\\PropertyUsageAnalyzer' => $baseDir . '/packages/family-tree/src/NodeAnalyzer/PropertyUsageAnalyzer.php',
