@@ -5,7 +5,6 @@ namespace Rector\CodeQuality\Rector\ClassMethod;
 
 use DateTime;
 use DateTimeImmutable;
-use DateTimeInterface;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Assign;

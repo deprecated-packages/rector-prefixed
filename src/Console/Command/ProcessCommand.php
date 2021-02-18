@@ -106,7 +106,6 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
         $this->addArgument(\Rector\Core\Configuration\Option::SOURCE, \RectorPrefix20210218\Symfony\Component\Console\Input\InputArgument::OPTIONAL | \RectorPrefix20210218\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'Files or directories to be upgraded.');
         $this->addOption(\Rector\Core\Configuration\Option::OPTION_DRY_RUN, 'n', \RectorPrefix20210218\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'See diff of changes, do not save them to files.');
         $this->addOption(\Rector\Core\Configuration\Option::OPTION_AUTOLOAD_FILE, 'a', \RectorPrefix20210218\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'File with extra autoload');
-        $this->addOption(\Rector\Core\Configuration\Option::MATCH_GIT_DIFF, null, \RectorPrefix20210218\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Execute only on file(s) matching the git diff.');
         $names = $this->outputFormatterCollector->getNames();
         $description = \sprintf('Select output format: "%s".', \implode('", "', $names));
         $this->addOption(\Rector\Core\Configuration\Option::OPTION_OUTPUT_FORMAT, 'o', \RectorPrefix20210218\Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, $description, \Rector\ChangesReporting\Output\ConsoleOutputFormatter::NAME);
@@ -161,7 +160,7 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractCommand
      */
     private function findPhpFileInfos(array $paths) : array
     {
-        $phpFileInfos = $this->filesFinder->findInDirectoriesAndFiles($paths, $this->configuration->getFileExtensions(), $this->configuration->mustMatchGitDiff());
+        $phpFileInfos = $this->filesFinder->findInDirectoriesAndFiles($paths, $this->configuration->getFileExtensions());
         // filter out non-PHP php files, e.g. blade templates in Laravel
         $phpFileInfos = \array_filter($phpFileInfos, function (\RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool {
             return !\RectorPrefix20210218\Nette\Utils\Strings::endsWith($smartFileInfo->getPathname(), '.blade.php');

@@ -57,9 +57,9 @@ final class FilesFinder
      * @param string[] $suffixes
      * @return SmartFileInfo[]
      */
-    public function findInDirectoriesAndFiles(array $source, array $suffixes, bool $matchDiff = \false) : array
+    public function findInDirectoriesAndFiles(array $source, array $suffixes) : array
     {
-        $cacheKey = \md5(\serialize($source) . \serialize($suffixes) . (int) $matchDiff);
+        $cacheKey = \md5(\serialize($source) . \serialize($suffixes));
         if (isset($this->fileInfosBySourceAndSuffixes[$cacheKey])) {
             return $this->fileInfosBySourceAndSuffixes[$cacheKey];
         }
@@ -70,13 +70,6 @@ final class FilesFinder
             $smartFileInfos[] = new \RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo($file);
         }
         $smartFileInfos = \array_merge($smartFileInfos, $this->findInDirectories($directories, $suffixes));
-        if ($matchDiff) {
-            $gitDiffFiles = $this->getGitDiff();
-            $smartFileInfos = \array_filter($smartFileInfos, function (\RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) use($gitDiffFiles) : bool {
-                return \in_array($fileInfo->getRealPath(), $gitDiffFiles, \true);
-            });
-            $smartFileInfos = \array_values($smartFileInfos);
-        }
         return $this->fileInfosBySourceAndSuffixes[$cacheKey] = $smartFileInfos;
     }
     /**
@@ -97,23 +90,6 @@ final class FilesFinder
         $finder = \RectorPrefix20210218\Symfony\Component\Finder\Finder::create()->followLinks()->files()->size('> 0')->in($absoluteDirectories)->name($suffixesPattern)->sortByName();
         $this->addFilterWithExcludedPaths($finder);
         return $this->finderSanitizer->sanitize($finder);
-    }
-    /**
-     * @return string[] The absolute path to the file matching the git diff shell command.
-     */
-    private function getGitDiff() : array
-    {
-        $plainDiff = \shell_exec('git diff --name-only') ?: '';
-        $relativePaths = \explode(\PHP_EOL, \trim($plainDiff));
-        $realPaths = [];
-        foreach ($relativePaths as $relativePath) {
-            $realPath = \realpath($relativePath);
-            if ($realPath === \false) {
-                continue;
-            }
-            $realPaths[] = $realPath;
-        }
-        return $realPaths;
     }
     /**
      * @param string[] $suffixes
