@@ -99,7 +99,7 @@ CODE_SAMPLE
     private function isVariableUsedInForeach(\PhpParser\Node\Expr\Variable $variable, \PhpParser\Node\Stmt\Foreach_ $foreach) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($foreach->stmts, function (\PhpParser\Node $node) use($variable) : bool {
-            return $this->areNodesEqual($node, $variable);
+            return $this->nodeComparator->areNodesEqual($node, $variable);
         });
     }
     private function removeForeachValueAndUseArrayKeys(\PhpParser\Node\Stmt\Foreach_ $foreach) : void

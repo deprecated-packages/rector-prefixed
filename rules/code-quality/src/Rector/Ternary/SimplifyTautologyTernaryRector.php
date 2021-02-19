@@ -45,9 +45,9 @@ final class SimplifyTautologyTernaryRector extends \Rector\Core\Rector\AbstractR
             return null;
         }
         $twoNodeMatch = $this->binaryOpManipulator->matchFirstAndSecondConditionNode($node->cond, function (\PhpParser\Node $leftNode) use($node) : bool {
-            return $this->areNodesEqual($leftNode, $node->if);
+            return $this->nodeComparator->areNodesEqual($leftNode, $node->if);
         }, function (\PhpParser\Node $leftNode) use($node) : bool {
-            return $this->areNodesEqual($leftNode, $node->else);
+            return $this->nodeComparator->areNodesEqual($leftNode, $node->else);
         });
         if (!$twoNodeMatch instanceof \Rector\Php71\ValueObject\TwoNodeMatch) {
             return null;

@@ -80,7 +80,7 @@ CODE_SAMPLE
         }
         // return $newValue;
         // we don't return the node value
-        if (!$this->areNodesEqual($node->valueVar, $returnOrAssignNode->expr)) {
+        if (!$this->nodeComparator->areNodesEqual($node->valueVar, $returnOrAssignNode->expr)) {
             return null;
         }
         if ($returnOrAssignNode instanceof \PhpParser\Node\Stmt\Return_) {
@@ -112,16 +112,16 @@ CODE_SAMPLE
     }
     private function processForeachNodeWithReturnInside(\PhpParser\Node\Stmt\Foreach_ $foreach, \PhpParser\Node\Stmt\Return_ $return) : ?\PhpParser\Node
     {
-        if (!$this->areNodesEqual($foreach->valueVar, $return->expr)) {
+        if (!$this->nodeComparator->areNodesEqual($foreach->valueVar, $return->expr)) {
             return null;
         }
         /** @var If_ $ifNode */
         $ifNode = $foreach->stmts[0];
         /** @var Identical $identicalNode */
         $identicalNode = $ifNode->cond;
-        if ($this->areNodesEqual($identicalNode->left, $foreach->keyVar)) {
+        if ($this->nodeComparator->areNodesEqual($identicalNode->left, $foreach->keyVar)) {
             $checkedNode = $identicalNode->right;
-        } elseif ($this->areNodesEqual($identicalNode->right, $foreach->keyVar)) {
+        } elseif ($this->nodeComparator->areNodesEqual($identicalNode->right, $foreach->keyVar)) {
             $checkedNode = $identicalNode->left;
         } else {
             return null;
@@ -144,10 +144,10 @@ CODE_SAMPLE
         $ifNode = $foreach->stmts[0];
         /** @var Identical $identicalNode */
         $identicalNode = $ifNode->cond;
-        if ($this->areNodesEqual($identicalNode->left, $foreach->keyVar)) {
+        if ($this->nodeComparator->areNodesEqual($identicalNode->left, $foreach->keyVar)) {
             $checkedNode = $assign->var;
             $keyNode = $identicalNode->right;
-        } elseif ($this->areNodesEqual($identicalNode->right, $foreach->keyVar)) {
+        } elseif ($this->nodeComparator->areNodesEqual($identicalNode->right, $foreach->keyVar)) {
             $checkedNode = $assign->var;
             $keyNode = $identicalNode->left;
         } else {

@@ -8,16 +8,16 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 final class TypeNodeUnwrapper
 {
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    private $nodeComparator;
+    public function __construct(\Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @param array<UnionType|NullableType|Name|Identifier> $typeNodes
@@ -46,7 +46,7 @@ final class TypeNodeUnwrapper
     {
         $uniqueNodes = [];
         foreach ($nodes as $node) {
-            $uniqueHash = $this->betterStandardPrinter->printWithoutComments($node);
+            $uniqueHash = $this->nodeComparator->printWithoutComments($node);
             $uniqueNodes[$uniqueHash] = $node;
         }
         // reset keys from 0, for further compatibility

@@ -89,7 +89,7 @@ CODE_SAMPLE
                 return \PhpParser\NodeTraverser::DONT_TRAVERSE_CHILDREN;
             }
             $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($parentNode instanceof \PhpParser\Node\Stmt\Return_ && $this->areNodesEqual($parentNode->expr, $node) && $node instanceof \PhpParser\Node\Expr\Cast\Int_) {
+            if ($parentNode instanceof \PhpParser\Node\Stmt\Return_ && $this->nodeComparator->areNodesEqual($parentNode->expr, $node) && $node instanceof \PhpParser\Node\Expr\Cast\Int_) {
                 $hasReturn = \true;
                 return null;
             }
@@ -101,7 +101,7 @@ CODE_SAMPLE
             }
             // is there return without nesting?
             $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if ($this->areNodesEqual($parentNode, $classMethod)) {
+            if ($this->nodeComparator->areNodesEqual($parentNode, $classMethod)) {
                 $hasReturn = \true;
             }
             $this->setReturnTo0InsteadOfNull($node);

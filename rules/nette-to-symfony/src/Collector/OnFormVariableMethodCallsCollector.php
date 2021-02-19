@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class OnFormVariableMethodCallsCollector
@@ -23,14 +23,14 @@ final class OnFormVariableMethodCallsCollector
      */
     private $nodeTypeResolver;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    private $nodeComparator;
+    public function __construct(\RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeTypeResolver = $nodeTypeResolver;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @return MethodCall[]
@@ -72,7 +72,7 @@ final class OnFormVariableMethodCallsCollector
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
-            if (!$this->betterStandardPrinter->areNodesEqual($node->var, $expr)) {
+            if (!$this->nodeComparator->areNodesEqual($node->var, $expr)) {
                 return null;
             }
             $onFormVariableMethodCalls[] = $node;

@@ -8,8 +8,8 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Trait_;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -24,9 +24,9 @@ final class ClassConstManipulator
      */
     private $betterNodeFinder;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
+    private $nodeComparator;
     /**
      * @var ClassManipulator
      */
@@ -35,13 +35,13 @@ final class ClassConstManipulator
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeManipulator\ClassManipulator $classManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->classManipulator = $classManipulator;
         $this->nodeRepository = $nodeRepository;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @return ClassConstFetch[]
@@ -63,7 +63,7 @@ final class ClassConstManipulator
         }
         return $this->betterNodeFinder->find($searchInNodes, function (\PhpParser\Node $node) use($classConst) : bool {
             // itself
-            if ($this->betterStandardPrinter->areNodesEqual($node, $classConst)) {
+            if ($this->nodeComparator->areNodesEqual($node, $classConst)) {
                 return \false;
             }
             // property + static fetch

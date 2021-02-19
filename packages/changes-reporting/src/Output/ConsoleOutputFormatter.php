@@ -30,13 +30,13 @@ final class ConsoleOutputFormatter implements \Rector\ChangesReporting\Contract\
      */
     private $symfonyStyle;
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var Configuration
      */
     private $configuration;
+    /**
+     * @var BetterStandardPrinter
+     */
+    private $betterStandardPrinter;
     public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\Configuration\Configuration $configuration, \RectorPrefix20210219\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;

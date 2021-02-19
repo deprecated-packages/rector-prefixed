@@ -6,8 +6,8 @@ namespace Rector\Nette\NodeFinder;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Param;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ParamFinder
 {
@@ -16,13 +16,13 @@ final class ParamFinder
      */
     private $betterNodeFinder;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    private $nodeComparator;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @param Node|Node[] $nodeHaystack
@@ -35,7 +35,7 @@ final class ParamFinder
             if (!$parent instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
-            return $this->betterStandardPrinter->areNodesEqual($node, $variable);
+            return $this->nodeComparator->areNodesEqual($node, $variable);
         });
     }
 }

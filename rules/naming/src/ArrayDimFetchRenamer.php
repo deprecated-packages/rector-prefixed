@@ -11,7 +11,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\NodeTraverser;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ArrayDimFetchRenamer
 {
@@ -20,13 +20,13 @@ final class ArrayDimFetchRenamer
      */
     private $simpleCallableNodeTraverser;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    private $nodeComparator;
+    public function __construct(\RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @see \Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::renameVariableInClassMethod
@@ -41,7 +41,7 @@ final class ArrayDimFetchRenamer
             if ($this->isScopeNesting($node)) {
                 return \PhpParser\NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
             }
-            if (!$this->betterStandardPrinter->areNodesEqual($node, $arrayDimFetch)) {
+            if (!$this->nodeComparator->areNodesEqual($node, $arrayDimFetch)) {
                 return null;
             }
             return new \PhpParser\Node\Expr\Variable($variableName);

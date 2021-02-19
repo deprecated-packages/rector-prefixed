@@ -20,7 +20,7 @@ use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\StaticTypeMapper;
@@ -35,18 +35,18 @@ final class ReturnTypeAlreadyAddedChecker
      */
     private $staticTypeMapper;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
+    private $nodeComparator;
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->staticTypeMapper = $staticTypeMapper;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @param ClassMethod|Function_ $functionLike
@@ -59,7 +59,7 @@ final class ReturnTypeAlreadyAddedChecker
             return \false;
         }
         $returnNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($returnType);
-        if ($this->betterStandardPrinter->areNodesEqual($nodeReturnType, $returnNode)) {
+        if ($this->nodeComparator->areNodesEqual($nodeReturnType, $returnNode)) {
             return \true;
         }
         // is array <=> iterable <=> Iterator co-type? → skip
@@ -81,7 +81,7 @@ final class ReturnTypeAlreadyAddedChecker
             return \false;
         }
         $className = $functionLike->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
-        return \ltrim($this->betterStandardPrinter->printWithoutComments($returnNode), '\\') === $className;
+        return \ltrim($this->nodeComparator->printWithoutComments($returnNode), '\\') === $className;
     }
     /**
      * @param Identifier|Name|NullableType|PhpParserUnionType $returnTypeNode

@@ -160,7 +160,7 @@ CODE_SAMPLE
                 $passedNode->args = [];
                 /** @var FuncCall|StaticCall|MethodCall $usedNode */
                 $usedNode->args = [];
-                return $this->areNodesEqual($passedNode, $usedNode);
+                return $this->nodeComparator->areNodesEqual($passedNode, $usedNode);
             });
             if (\count($usedNodes) > 1) {
                 return \true;

@@ -73,7 +73,7 @@ CODE_SAMPLE
             $changedNode = $this->processBinaryOp($node);
         }
         // recurse nested combinations
-        while ($changedNode !== null && !$this->areNodesEqual($previousNode, $changedNode)) {
+        while ($changedNode !== null && !$this->nodeComparator->areNodesEqual($previousNode, $changedNode)) {
             $previousNode = $changedNode;
             if ($changedNode instanceof \PhpParser\Node\Expr\BinaryOp || $changedNode instanceof \PhpParser\Node\Expr\AssignOp) {
                 $changedNode = $this->refactor($changedNode);

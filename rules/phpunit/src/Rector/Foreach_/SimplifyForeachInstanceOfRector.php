@@ -55,7 +55,7 @@ CODE_SAMPLE
             if (!$this->isName($node->name, 'assertInstanceOf')) {
                 return null;
             }
-            if (!$this->areNodesEqual($foreachNode->valueVar, $node->args[1]->value)) {
+            if (!$this->nodeComparator->areNodesEqual($foreachNode->valueVar, $node->args[1]->value)) {
                 return null;
             }
             return $node;

@@ -11,8 +11,8 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\Php80\ValueObject\PropertyPromotionCandidate;
@@ -23,18 +23,18 @@ final class PromotedPropertyResolver
      */
     private $nodeNameResolver;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
+    private $nodeComparator;
     /**
      * @var BetterNodeFinder
      */
     private $betterNodeFinder;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @return PropertyPromotionCandidate[]
@@ -117,7 +117,7 @@ final class PromotedPropertyResolver
     private function matchClassMethodParamByAssignedVariable(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\Variable $variable) : ?\PhpParser\Node\Param
     {
         foreach ($classMethod->params as $param) {
-            if (!$this->betterStandardPrinter->areNodesEqual($variable, $param->var)) {
+            if (!$this->nodeComparator->areNodesEqual($variable, $param->var)) {
                 continue;
             }
             return $param;

@@ -33,13 +33,13 @@ final class ConfigFilesystem
      */
     private $addNewServiceToSymfonyPhpConfigRector;
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
+    /**
+     * @var BetterStandardPrinter
+     */
+    private $betterStandardPrinter;
     public function __construct(\Rector\RectorGenerator\Rector\Closure\AddNewServiceToSymfonyPhpConfigRector $addNewServiceToSymfonyPhpConfigRector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\PhpParser\Parser\Parser $parser, \RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\RectorGenerator\TemplateFactory $templateFactory)
     {
         $this->templateFactory = $templateFactory;

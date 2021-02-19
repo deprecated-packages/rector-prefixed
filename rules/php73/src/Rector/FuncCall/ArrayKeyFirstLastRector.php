@@ -76,7 +76,7 @@ CODE_SAMPLE
             if (!$this->isName($node, 'key')) {
                 return \false;
             }
-            return $this->areNodesEqual($resetOrEndFuncCall->args[0], $node->args[0]);
+            return $this->nodeComparator->areNodesEqual($resetOrEndFuncCall->args[0], $node->args[0]);
         });
         if (!$keyFuncCall instanceof \PhpParser\Node\Expr\FuncCall) {
             return null;

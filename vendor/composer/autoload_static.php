@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6d9bb2a06e5b16d09712cb4e180ab077
+class ComposerStaticInit0080c0f0460ae757201c9d2c19a0f0a1
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2809,6 +2809,7 @@ class ComposerStaticInit6d9bb2a06e5b16d09712cb4e180ab077
         'Rector\\Core\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\ConstantStringTypeToCallReflectionResolver' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/TypeToCallReflectionResolver/ConstantStringTypeToCallReflectionResolver.php',
         'Rector\\Core\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\ObjectTypeToCallReflectionResolver' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/TypeToCallReflectionResolver/ObjectTypeToCallReflectionResolver.php',
         'Rector\\Core\\PHPStan\\Reflection\\TypeToCallReflectionResolver\\TypeToCallReflectionResolverRegistry' => __DIR__ . '/../..' . '/src/PHPStan/Reflection/TypeToCallReflectionResolver/TypeToCallReflectionResolverRegistry.php',
+        'Rector\\Core\\PhpParser\\Comparing\\NodeComparator' => __DIR__ . '/../..' . '/src/PhpParser/Comparing/NodeComparator.php',
         'Rector\\Core\\PhpParser\\NodeFinder\\PropertyFetchFinder' => __DIR__ . '/../..' . '/src/PhpParser/NodeFinder/PropertyFetchFinder.php',
         'Rector\\Core\\PhpParser\\NodeTransformer' => __DIR__ . '/../..' . '/src/PhpParser/NodeTransformer.php',
         'Rector\\Core\\PhpParser\\NodeTraverser\\RectorNodeTraverser' => __DIR__ . '/../..' . '/src/PhpParser/NodeTraverser/RectorNodeTraverser.php',
@@ -4088,6 +4089,7 @@ class ComposerStaticInit6d9bb2a06e5b16d09712cb4e180ab077
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddReturnTypeDeclarationRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/AddReturnTypeDeclarationRector.php',
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\AddVoidReturnTypeWhereNoReturnRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/AddVoidReturnTypeWhereNoReturnRector.php',
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ParamTypeFromStrictTypedPropertyRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/ParamTypeFromStrictTypedPropertyRector.php',
+        'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnTypeFromReturnNewRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/ReturnTypeFromReturnNewRector.php',
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnTypeFromStrictTypedCallRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/ReturnTypeFromStrictTypedCallRector.php',
         'Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnTypeFromStrictTypedPropertyRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/ClassMethod/ReturnTypeFromStrictTypedPropertyRector.php',
         'Rector\\TypeDeclaration\\Rector\\Closure\\AddClosureReturnTypeRector' => __DIR__ . '/../..' . '/rules/type-declaration/src/Rector/Closure/AddClosureReturnTypeRector.php',
@@ -4185,9 +4187,9 @@ class ComposerStaticInit6d9bb2a06e5b16d09712cb4e180ab077
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6d9bb2a06e5b16d09712cb4e180ab077::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6d9bb2a06e5b16d09712cb4e180ab077::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6d9bb2a06e5b16d09712cb4e180ab077::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0080c0f0460ae757201c9d2c19a0f0a1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0080c0f0460ae757201c9d2c19a0f0a1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0080c0f0460ae757201c9d2c19a0f0a1::$classMap;
 
         }, null, ClassLoader::class);
     }

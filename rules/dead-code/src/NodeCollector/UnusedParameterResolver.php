@@ -7,7 +7,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\NodeManipulator\ClassMethodManipulator;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class UnusedParameterResolver
@@ -17,18 +17,18 @@ final class UnusedParameterResolver
      */
     private $classMethodManipulator;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
+    private $nodeComparator;
     /**
      * @var NodeNameResolver
      */
     private $nodeNameResolver;
-    public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    public function __construct(\Rector\Core\NodeManipulator\ClassMethodManipulator $classMethodManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->classMethodManipulator = $classMethodManipulator;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeNameResolver = $nodeNameResolver;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @param Class_[] $childrenOfClass
@@ -80,7 +80,7 @@ final class UnusedParameterResolver
     private function getParameterOverlap(array $parameters1, array $parameters2) : array
     {
         return \array_uintersect($parameters1, $parameters2, function (\PhpParser\Node\Param $firstParam, \PhpParser\Node\Param $secondParam) : int {
-            return $this->betterStandardPrinter->areNodesEqual($firstParam, $secondParam) ? 0 : 1;
+            return $this->nodeComparator->areNodesEqual($firstParam, $secondParam) ? 0 : 1;
         });
     }
 }

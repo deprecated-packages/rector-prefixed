@@ -10,7 +10,7 @@ use PhpParser\Node\Param;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\NetteKdyby\Naming\VariableNaming;
 use Rector\NetteKdyby\ValueObject\EventAndListenerTree;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -51,15 +51,15 @@ final class ContributeEventClassResolver
      */
     private $staticTypeMapper;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NetteKdyby\Naming\VariableNaming $variableNaming)
+    private $nodeComparator;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NetteKdyby\Naming\VariableNaming $variableNaming, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->variableNaming = $variableNaming;
         $this->staticTypeMapper = $staticTypeMapper;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     public function resolveGetterMethodByEventClassAndParam(string $eventClass, \PhpParser\Node\Param $param, ?\Rector\NetteKdyby\ValueObject\EventAndListenerTree $eventAndListenerTree = null) : string
     {
@@ -75,7 +75,7 @@ final class ContributeEventClassResolver
                 if (!$getterMethodBlueprint->getReturnTypeNode() instanceof \PhpParser\Node\Name) {
                     continue;
                 }
-                if ($this->betterStandardPrinter->areNodesEqual($getterMethodBlueprint->getReturnTypeNode(), $paramType)) {
+                if ($this->nodeComparator->areNodesEqual($getterMethodBlueprint->getReturnTypeNode(), $paramType)) {
                     return $getterMethodBlueprint->getMethodName();
                 }
             }

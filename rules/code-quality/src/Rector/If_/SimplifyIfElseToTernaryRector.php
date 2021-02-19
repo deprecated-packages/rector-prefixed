@@ -74,7 +74,7 @@ CODE_SAMPLE
         if (!$elseAssignVar instanceof \PhpParser\Node\Expr) {
             return null;
         }
-        if (!$this->areNodesEqual($ifAssignVar, $elseAssignVar)) {
+        if (!$this->nodeComparator->areNodesEqual($ifAssignVar, $elseAssignVar)) {
             return null;
         }
         $ternaryIf = $this->resolveOnlyStmtAssignExpr($node->stmts);

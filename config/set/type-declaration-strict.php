@@ -6,6 +6,7 @@ namespace RectorPrefix20210219;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddMethodCallBasedStrictParamTypeRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\ParamTypeFromStrictTypedPropertyRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromReturnNewRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictTypedCallRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictTypedPropertyRector;
 use Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector;
@@ -20,4 +21,5 @@ return static function (\RectorPrefix20210219\Symfony\Component\DependencyInject
     $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictTypedCallRector::class);
     $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector::class);
     // $services->set(AddMethodCallBasedStrictParamTypeRector::class);
+    $services->set(\Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromReturnNewRector::class);
 };

@@ -6,7 +6,7 @@ namespace Rector\PHPUnit\NodeFactory;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class ExpectExceptionMessageRegExpFactory
 {
@@ -19,14 +19,14 @@ final class ExpectExceptionMessageRegExpFactory
      */
     private $argumentShiftingFactory;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PHPUnit\NodeFactory\ArgumentShiftingFactory $argumentShiftingFactory, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    private $nodeComparator;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\PHPUnit\NodeFactory\ArgumentShiftingFactory $argumentShiftingFactory, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->argumentShiftingFactory = $argumentShiftingFactory;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     public function create(\PhpParser\Node\Expr\MethodCall $methodCall, \PhpParser\Node\Expr\Variable $exceptionVariable) : ?\PhpParser\Node\Expr\MethodCall
     {
@@ -38,7 +38,7 @@ final class ExpectExceptionMessageRegExpFactory
             return null;
         }
         // looking for "$exception->getMessage()"
-        if (!$this->betterStandardPrinter->areNodesEqual($secondArgument->var, $exceptionVariable)) {
+        if (!$this->nodeComparator->areNodesEqual($secondArgument->var, $exceptionVariable)) {
             return null;
         }
         if (!$this->nodeNameResolver->isName($secondArgument->name, 'getMessage')) {

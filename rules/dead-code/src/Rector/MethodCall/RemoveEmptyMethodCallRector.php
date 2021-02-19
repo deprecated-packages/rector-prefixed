@@ -92,7 +92,7 @@ CODE_SAMPLE
         if ($parent instanceof \PhpParser\Node\Expr\Assign) {
             return $this->nodeFactory->createFalse();
         }
-        if ($parent instanceof \PhpParser\Node\Expr\ArrowFunction && $this->areNodesEqual($parent->expr, $node)) {
+        if ($parent instanceof \PhpParser\Node\Expr\ArrowFunction && $this->nodeComparator->areNodesEqual($parent->expr, $node)) {
             return $this->processArrowFunction($parent, $node);
         }
         $this->removeNode($node);

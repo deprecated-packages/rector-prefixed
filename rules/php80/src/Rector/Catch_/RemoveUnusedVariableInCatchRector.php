@@ -73,7 +73,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return \false;
             }
-            return $this->areNodesEqual($node, $variable);
+            return $this->nodeComparator->areNodesEqual($node, $variable);
         });
     }
 }

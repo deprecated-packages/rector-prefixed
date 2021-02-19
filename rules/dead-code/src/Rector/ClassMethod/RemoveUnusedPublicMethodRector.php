@@ -91,7 +91,7 @@ CODE_SAMPLE
         $calls = $this->calls;
         foreach ($calls as $call) {
             $classMethod = $this->betterNodeFinder->findParentType($call, \PhpParser\Node\Stmt\ClassMethod::class);
-            if ($this->areNodesEqual($classMethod, $node)) {
+            if ($this->nodeComparator->areNodesEqual($classMethod, $node)) {
                 return null;
             }
         }

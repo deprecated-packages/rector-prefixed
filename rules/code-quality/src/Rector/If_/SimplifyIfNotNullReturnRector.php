@@ -74,7 +74,7 @@ CODE_SAMPLE
             if (!$nextNode instanceof \PhpParser\Node\Stmt\Return_) {
                 return null;
             }
-            if (!$this->areNodesEqual($comparedNode, $nextNode->expr)) {
+            if (!$this->nodeComparator->areNodesEqual($comparedNode, $nextNode->expr)) {
                 return null;
             }
             $this->removeNode($nextNode);

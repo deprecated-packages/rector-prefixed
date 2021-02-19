@@ -12,9 +12,9 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeRemoval\AssignRemover;
@@ -25,9 +25,9 @@ use Rector\PostRector\Collector\NodesToRemoveCollector;
 final class ComplexNodeRemover
 {
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
+    private $nodeComparator;
     /**
      * @var ClassMethodRemover
      */
@@ -56,9 +56,8 @@ final class ComplexNodeRemover
      * @var NodesToRemoveCollector
      */
     private $nodesToRemoveCollector;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeRemoval\ClassMethodRemover $classMethodRemover, \Rector\NodeRemoval\AssignRemover $assignRemover, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector)
+    public function __construct(\Rector\NodeRemoval\ClassMethodRemover $classMethodRemover, \Rector\NodeRemoval\AssignRemover $assignRemover, \Rector\Core\PhpParser\NodeFinder\PropertyFetchFinder $propertyFetchFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->classMethodRemover = $classMethodRemover;
         $this->assignRemover = $assignRemover;
         $this->propertyFetchFinder = $propertyFetchFinder;
@@ -66,6 +65,7 @@ final class ComplexNodeRemover
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeRemover = $nodeRemover;
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
+        $this->nodeComparator = $nodeComparator;
     }
     public function removeClassMethodAndUsages(\PhpParser\Node\Stmt\ClassMethod $classMethod) : void
     {
@@ -146,7 +146,7 @@ final class ComplexNodeRemover
         $constructClassMethodStmts = $constructClassMethod->stmts;
         foreach ($constructClassMethod->getParams() as $param) {
             $variable = $this->betterNodeFinder->findFirst($constructClassMethodStmts, function (\PhpParser\Node $node) use($param) : bool {
-                return $this->betterStandardPrinter->areNodesEqual($param->var, $node);
+                return $this->nodeComparator->areNodesEqual($param->var, $node);
             });
             if (!$variable instanceof \PhpParser\Node) {
                 continue;
@@ -154,7 +154,7 @@ final class ComplexNodeRemover
             if ($this->isExpressionVariableNotAssign($variable)) {
                 continue;
             }
-            if (!$this->betterStandardPrinter->areNodesEqual($param->var, $assign->expr)) {
+            if (!$this->nodeComparator->areNodesEqual($param->var, $assign->expr)) {
                 continue;
             }
             $this->nodeRemover->removeNode($param);

@@ -82,7 +82,7 @@ CODE_SAMPLE
     }
     private function areSwitchStmtsEqualsAndWithBreak(\PhpParser\Node\Stmt\Case_ $currentCase, \PhpParser\Node\Stmt\Case_ $previousCase) : bool
     {
-        if (!$this->areNodesEqual($currentCase->stmts, $previousCase->stmts)) {
+        if (!$this->nodeComparator->areNodesEqual($currentCase->stmts, $previousCase->stmts)) {
             return \false;
         }
         foreach ($currentCase->stmts as $stmt) {

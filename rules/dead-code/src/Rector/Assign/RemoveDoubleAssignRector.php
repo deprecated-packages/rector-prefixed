@@ -62,7 +62,7 @@ CODE_SAMPLE
         if (!$previousStatement->expr instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
-        if (!$this->areNodesEqual($previousStatement->expr->var, $node->var)) {
+        if (!$this->nodeComparator->areNodesEqual($previousStatement->expr->var, $node->var)) {
             return null;
         }
         if ($this->isCall($previousStatement->expr->expr)) {
@@ -92,11 +92,11 @@ CODE_SAMPLE
     private function isSelfReferencing(\PhpParser\Node\Expr\Assign $assign) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($assign->expr, function (\PhpParser\Node $subNode) use($assign) : bool {
-            return $this->areNodesEqual($assign->var, $subNode);
+            return $this->nodeComparator->areNodesEqual($assign->var, $subNode);
         });
     }
     private function areInSameClassMethod(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Stmt\Expression $previousExpression) : bool
     {
-        return $this->areNodesEqual($assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE), $previousExpression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE));
+        return $this->nodeComparator->areNodesEqual($assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE), $previousExpression->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::METHOD_NODE));
     }
 }

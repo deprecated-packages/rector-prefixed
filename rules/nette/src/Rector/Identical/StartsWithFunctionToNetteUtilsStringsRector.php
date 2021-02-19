@@ -66,7 +66,7 @@ CODE_SAMPLE
         }
         /** @var FuncCall $strlenFuncCall */
         $strlenFuncCall = $node->args[2]->value;
-        if ($this->areNodesEqual($strlenFuncCall->args[0]->value, $variable)) {
+        if ($this->nodeComparator->areNodesEqual($strlenFuncCall->args[0]->value, $variable)) {
             return new \Rector\Nette\ValueObject\ContentExprAndNeedleExpr($node->args[0]->value, $strlenFuncCall->args[0]->value);
         }
         return null;

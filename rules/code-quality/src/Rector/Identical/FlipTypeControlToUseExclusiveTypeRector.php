@@ -110,7 +110,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
-            return $this->areNodesEqual($node->var, $expr);
+            return $this->nodeComparator->areNodesEqual($node->var, $expr);
         });
     }
     /**

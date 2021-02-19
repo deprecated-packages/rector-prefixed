@@ -85,9 +85,9 @@ CODE_SAMPLE
         /** @var FuncCall $gettypeFuncCall */
         $gettypeFuncCall = $ternary->else;
         $thirdExpr = $gettypeFuncCall->args[0]->value;
-        if (!$this->areNodesEqual($firstExpr, $secondExpr)) {
+        if (!$this->nodeComparator->areNodesEqual($firstExpr, $secondExpr)) {
             return \false;
         }
-        return $this->areNodesEqual($firstExpr, $thirdExpr);
+        return $this->nodeComparator->areNodesEqual($firstExpr, $thirdExpr);
     }
 }

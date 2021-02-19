@@ -73,7 +73,7 @@ CODE_SAMPLE
         }
         $haystack = $substrFuncCall->args[0]->value;
         $needle = $this->matchUnaryMinusStrlenFuncCallArgValue($substrFuncCall->args[1]->value);
-        if (!$this->areNodesEqual($needle, $comparedNeedleExpr)) {
+        if (!$this->nodeComparator->areNodesEqual($needle, $comparedNeedleExpr)) {
             return null;
         }
         return $this->nodeFactory->createFuncCall('str_ends_with', [$haystack, $needle]);
@@ -96,7 +96,7 @@ CODE_SAMPLE
         $haystack = $substrCompareFuncCall->args[0]->value;
         $needle = $substrCompareFuncCall->args[1]->value;
         $comparedNeedleExpr = $this->matchUnaryMinusStrlenFuncCallArgValue($substrCompareFuncCall->args[2]->value);
-        if (!$this->areNodesEqual($needle, $comparedNeedleExpr)) {
+        if (!$this->nodeComparator->areNodesEqual($needle, $comparedNeedleExpr)) {
             return null;
         }
         return $this->nodeFactory->createFuncCall('str_ends_with', [$haystack, $needle]);

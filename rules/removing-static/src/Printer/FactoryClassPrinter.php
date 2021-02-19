@@ -19,13 +19,13 @@ final class FactoryClassPrinter
      */
     private $nodeNameResolver;
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
+    /**
+     * @var BetterStandardPrinter
+     */
+    private $betterStandardPrinter;
     public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver)
     {
         $this->nodeNameResolver = $nodeNameResolver;

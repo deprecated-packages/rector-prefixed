@@ -17,8 +17,8 @@ use PhpParser\Node\Stmt\For_;
 use PhpParser\Node\Stmt\Unset_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\NodeManipulator\AssignManipulator;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -37,19 +37,19 @@ final class ForNodeAnalyzer
      */
     private $betterNodeFinder;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
+    private $nodeComparator;
     /**
      * @var AssignManipulator
      */
     private $assignManipulator;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeManipulator\AssignManipulator $assignManipulator, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->assignManipulator = $assignManipulator;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @param Expr[] $condExprs
@@ -94,7 +94,7 @@ final class ForNodeAnalyzer
     public function isCountValueVariableUsedInsideForStatements(\PhpParser\Node\Stmt\For_ $for, ?\PhpParser\Node\Expr $expr) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst($for->stmts, function (\PhpParser\Node $node) use($expr) : bool {
-            return $this->betterStandardPrinter->areNodesEqual($node, $expr);
+            return $this->nodeComparator->areNodesEqual($node, $expr);
         });
     }
     public function isArrayWithKeyValueNameUnsetted(\PhpParser\Node\Stmt\For_ $for) : bool

@@ -22,7 +22,6 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\ChangesReporting\Collector\RectorChangeCollector;
-use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Configuration\CurrentNodeProvider;
 use Rector\Core\Configuration\Option;
@@ -31,6 +30,7 @@ use Rector\Core\Exclusion\ExclusionManager;
 use Rector\Core\Logging\CurrentRectorProvider;
 use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\Core\Php\PhpVersionProvider;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
@@ -128,6 +128,10 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
      */
     protected $rectorChangeCollector;
     /**
+     * @var NodeComparator
+     */
+    protected $nodeComparator;
+    /**
      * @var SimpleCallableNodeTraverser
      */
     private $simpleCallableNodeTraverser;
@@ -174,7 +178,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     /**
      * @required
      */
-    public function autowireAbstractTemporaryRector(\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\DependencyInjection\PropertyAdder $propertyAdder, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\CodingStyle\Naming\ClassNaming $classNaming, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Privatization\NodeManipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210219\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210219\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210219\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder) : void
+    public function autowireAbstractTemporaryRector(\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\DependencyInjection\PropertyAdder $propertyAdder, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Privatization\NodeManipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210219\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210219\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210219\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator) : void
     {
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
         $this->propertyToAddCollector = $propertyToAddCollector;
@@ -203,6 +207,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
         $this->valueResolver = $valueResolver;
         $this->nodeRepository = $nodeRepository;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @return Node[]|null
@@ -333,7 +338,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
      */
     protected function areNodesEqual($firstNode, $secondNode) : bool
     {
-        return $this->betterStandardPrinter->areNodesEqual($firstNode, $secondNode);
+        return $this->nodeComparator->areNodesEqual($firstNode, $secondNode);
     }
     protected function getNextExpression(\PhpParser\Node $node) : ?\PhpParser\Node
     {
@@ -513,7 +518,7 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
         if ($this->isNameIdentical($node, $originalNode)) {
             return \false;
         }
-        return !$this->areNodesEqual($originalNode, $node);
+        return !$this->nodeComparator->areNodesEqual($originalNode, $node);
     }
     private function mirrorAttributes(\PhpParser\Node $oldNode, \PhpParser\Node $newNode) : void
     {
@@ -551,6 +556,6 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
             return \false;
         }
         // names are the same
-        return $this->areNodesEqual($originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME), $node);
+        return $this->nodeComparator->areNodesEqual($originalNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NAME), $node);
     }
 }

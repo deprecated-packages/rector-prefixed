@@ -8,14 +8,12 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Yield_;
-use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\EncapsedStringPart;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\Expression;
@@ -23,7 +21,6 @@ use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\TraitUse;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\PrettyPrinter\Standard;
-use Rector\Comments\CommentRemover;
 use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Core\PhpParser\Node\CustomNode\FileNode;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
@@ -70,17 +67,13 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
      */
     private $docBlockUpdater;
     /**
-     * @var CommentRemover
-     */
-    private $commentRemover;
-    /**
      * @var IndentCharacterDetector
      */
     private $indentCharacterDetector;
     /**
      * @param mixed[] $options
      */
-    public function __construct(\Rector\Comments\CommentRemover $commentRemover, \Rector\Core\PhpParser\Printer\Whitespace\IndentCharacterDetector $indentCharacterDetector, \Rector\Comments\NodeDocBlock\DocBlockUpdater $docBlockUpdater, array $options = [])
+    public function __construct(\Rector\Core\PhpParser\Printer\Whitespace\IndentCharacterDetector $indentCharacterDetector, \Rector\Comments\NodeDocBlock\DocBlockUpdater $docBlockUpdater, array $options = [])
     {
         parent::__construct($options);
         // print return type double colon right after the bracket "function(): string"
@@ -88,7 +81,6 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         $this->insertionMap['Stmt_ClassMethod->returnType'] = [')', \false, ': ', null];
         $this->insertionMap['Stmt_Function->returnType'] = [')', \false, ': ', null];
         $this->insertionMap['Expr_Closure->returnType'] = [')', \false, ': ', null];
-        $this->commentRemover = $commentRemover;
         $this->indentCharacterDetector = $indentCharacterDetector;
         $this->docBlockUpdater = $docBlockUpdater;
     }
@@ -110,16 +102,6 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
         return $content;
     }
     /**
-     * Removes all comments from both nodes
-     * @param Node|Node[]|null $node
-     */
-    public function printWithoutComments($node) : string
-    {
-        $node = $this->commentRemover->removeFromNode($node);
-        $content = $this->print($node);
-        return \trim($content);
-    }
-    /**
      * @param Node|Node[]|null $node
      */
     public function print($node) : string
@@ -131,14 +113,6 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
             $node = [$node];
         }
         return $this->prettyPrint($node);
-    }
-    /**
-     * @param Node|Node[]|null $firstNode
-     * @param Node|Node[]|null $secondNode
-     */
-    public function areNodesEqual($firstNode, $secondNode) : bool
-    {
-        return $this->printWithoutComments($firstNode) === $this->printWithoutComments($secondNode);
     }
     /**
      * @param Node[] $stmts
@@ -157,40 +131,6 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     public function pFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : string
     {
         return $this->pStmts($fileNode->stmts);
-    }
-    /**
-     * @param Node[] $availableNodes
-     */
-    public function isNodeEqual(\PhpParser\Node $singleNode, array $availableNodes) : bool
-    {
-        // remove comments, only content is relevant
-        $singleNode = clone $singleNode;
-        $singleNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
-        foreach ($availableNodes as $availableNode) {
-            // remove comments, only content is relevant
-            $availableNode = clone $availableNode;
-            $availableNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
-            if ($this->areNodesEqual($singleNode, $availableNode)) {
-                return \true;
-            }
-        }
-        return \false;
-    }
-    /**
-     * Checks even clone nodes
-     */
-    public function areSameNode(\PhpParser\Node $firstNode, \PhpParser\Node $secondNode) : bool
-    {
-        if ($firstNode === $secondNode) {
-            return \true;
-        }
-        if ($firstNode->getStartTokenPos() !== $secondNode->getStartTokenPos()) {
-            return \false;
-        }
-        if ($firstNode->getEndTokenPos() !== $secondNode->getEndTokenPos()) {
-            return \false;
-        }
-        return \get_class($firstNode) === \get_class($secondNode);
     }
     /**
      * This allows to use both spaces and tabs vs. original space-only
@@ -406,23 +346,7 @@ final class BetterStandardPrinter extends \PhpParser\PrettyPrinter\Standard
     private function resolveNewStmts(array $stmts) : array
     {
         if (\count($stmts) === 1 && $stmts[0] instanceof \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace) {
-            return $this->cleanUpStmts($stmts[0]->stmts);
-        }
-        return $this->cleanUpStmts($stmts);
-    }
-    /**
-     * @param Node[] $stmts
-     * @return Node[]|mixed[]
-     */
-    private function cleanUpStmts(array $stmts) : array
-    {
-        foreach ($stmts as $key => $stmt) {
-            if (!$stmt instanceof \PhpParser\Node\Stmt\ClassLike && !$stmt instanceof \PhpParser\Node\FunctionLike) {
-                continue;
-            }
-            if (isset($stmts[$key - 1]) && $this->areNodesEqual($stmt, $stmts[$key - 1])) {
-                unset($stmts[$key]);
-            }
+            return $stmts[0]->stmts;
         }
         return $stmts;
     }

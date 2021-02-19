@@ -44,7 +44,7 @@ final class CombinedAssignRector extends \Rector\Core\Rector\AbstractRector
         }
         /** @var BinaryOp $binaryNode */
         $binaryNode = $node->expr;
-        if (!$this->areNodesEqual($node->var, $binaryNode->left)) {
+        if (!$this->nodeComparator->areNodesEqual($node->var, $binaryNode->left)) {
             return null;
         }
         $assignClass = $this->assignAndBinaryMap->getAlternative($binaryNode);

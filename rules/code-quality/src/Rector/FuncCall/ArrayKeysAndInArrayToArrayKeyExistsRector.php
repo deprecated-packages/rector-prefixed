@@ -64,7 +64,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
-            if (!$this->areNodesEqual($arrayVariable, $node->var)) {
+            if (!$this->nodeComparator->areNodesEqual($arrayVariable, $node->var)) {
                 return \false;
             }
             return $this->isFuncCallName($node->expr, 'array_keys');

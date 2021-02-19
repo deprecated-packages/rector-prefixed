@@ -103,7 +103,7 @@ CODE_SAMPLE
     {
         foreach ($ifsBefore as $ifBefore) {
             $isUsedInIfCond = (bool) $this->betterNodeFinder->findFirst($ifBefore->cond, function (\PhpParser\Node $node) use($expr) : bool {
-                return $this->areNodesEqual($node, $expr);
+                return $this->nodeComparator->areNodesEqual($node, $expr);
             });
             if ($isUsedInIfCond) {
                 return \true;
@@ -136,7 +136,7 @@ CODE_SAMPLE
         if (!$previous->expr instanceof \PhpParser\Node\Expr\Assign) {
             return null;
         }
-        if ($this->areNodesEqual($previous->expr->var, $expr)) {
+        if ($this->nodeComparator->areNodesEqual($previous->expr->var, $expr)) {
             return $previous;
         }
         return null;
@@ -187,7 +187,7 @@ CODE_SAMPLE
                 return [];
             }
             $assign = $expression->expr;
-            if (!$this->areNodesEqual($assign->var, $return->expr)) {
+            if (!$this->nodeComparator->areNodesEqual($assign->var, $return->expr)) {
                 return [];
             }
         }

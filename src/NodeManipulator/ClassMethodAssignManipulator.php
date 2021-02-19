@@ -22,9 +22,9 @@ use PHPStan\Reflection\ObjectTypeMethodReflection;
 use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\Type;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Node\NodeFactory;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\PHPStan\Reflection\CallReflectionResolver;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -53,22 +53,22 @@ final class ClassMethodAssignManipulator
      */
     private $betterNodeFinder;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
+    private $nodeComparator;
     /**
      * @var CallReflectionResolver
      */
     private $callReflectionResolver;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\NodeManipulator\VariableManipulator $variableManipulator, \Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\NodeManipulator\VariableManipulator $variableManipulator, \Rector\Core\PHPStan\Reflection\CallReflectionResolver $callReflectionResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->variableManipulator = $variableManipulator;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeFactory = $nodeFactory;
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->callReflectionResolver = $callReflectionResolver;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @return Assign[]
@@ -157,11 +157,11 @@ final class ClassMethodAssignManipulator
             if (!$foreach instanceof \PhpParser\Node\Stmt\Foreach_) {
                 continue;
             }
-            if ($this->betterStandardPrinter->areNodesEqual($foreach->valueVar, $variableAssign->var)) {
+            if ($this->nodeComparator->areNodesEqual($foreach->valueVar, $variableAssign->var)) {
                 unset($variableAssigns[$key]);
                 continue;
             }
-            if ($this->betterStandardPrinter->areNodesEqual($foreach->keyVar, $variableAssign->var)) {
+            if ($this->nodeComparator->areNodesEqual($foreach->keyVar, $variableAssign->var)) {
                 unset($variableAssigns[$key]);
             }
         }

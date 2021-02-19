@@ -5,8 +5,8 @@ namespace Rector\DeadCode\NodeFinder;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 final class PreviousVariableAssignNodeFinder
 {
@@ -19,14 +19,14 @@ final class PreviousVariableAssignNodeFinder
      */
     private $nodeNameResolver;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    private $nodeComparator;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     public function find(\PhpParser\Node\Expr\Assign $assign) : ?\PhpParser\Node
     {
@@ -37,7 +37,7 @@ final class PreviousVariableAssignNodeFinder
                 return \false;
             }
             // skip self
-            if ($this->betterStandardPrinter->areSameNode($node, $currentAssign)) {
+            if ($this->nodeComparator->areSameNode($node, $currentAssign)) {
                 return \false;
             }
             return $this->nodeNameResolver->isName($node->var, $variableName);

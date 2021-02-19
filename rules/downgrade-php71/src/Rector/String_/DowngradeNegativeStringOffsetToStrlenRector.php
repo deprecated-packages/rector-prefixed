@@ -59,7 +59,7 @@ CODE_SAMPLE
         if (!$parentOfNextNode instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
-        if (!$this->areNodesEqual($parentOfNextNode->dim, $nextNode)) {
+        if (!$this->nodeComparator->areNodesEqual($parentOfNextNode->dim, $nextNode)) {
             return null;
         }
         /** @var UnaryMinus $dim */

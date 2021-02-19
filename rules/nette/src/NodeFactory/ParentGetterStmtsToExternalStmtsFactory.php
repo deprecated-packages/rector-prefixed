@@ -10,7 +10,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class ParentGetterStmtsToExternalStmtsFactory
@@ -24,14 +24,14 @@ final class ParentGetterStmtsToExternalStmtsFactory
      */
     private $simpleCallableNodeTraverser;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    private $nodeComparator;
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210219\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @param Node[] $getUserStmts
@@ -64,7 +64,7 @@ final class ParentGetterStmtsToExternalStmtsFactory
         }
         // stmts without assign
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($getUserStmts, function (\PhpParser\Node $node) use($userExpression) : ?MethodCall {
-            if (!$this->betterStandardPrinter->areNodesEqual($node, $userExpression)) {
+            if (!$this->nodeComparator->areNodesEqual($node, $userExpression)) {
                 return null;
             }
             return new \PhpParser\Node\Expr\MethodCall(new \PhpParser\Node\Expr\Variable('this'), 'getUser');

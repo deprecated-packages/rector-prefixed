@@ -105,7 +105,7 @@ CODE_SAMPLE
             return \true;
         }
         // is the same variable
-        if (!$this->areNodesEqual($previousNode->var, $variableNode)) {
+        if (!$this->nodeComparator->areNodesEqual($previousNode->var, $variableNode)) {
             return \true;
         }
         return $this->isPreviousExpressionVisuallySimilar($previousExpression, $previousNode);
@@ -134,6 +134,6 @@ CODE_SAMPLE
         if (!$prePreviousExpression->expr instanceof \PhpParser\Node\Expr\AssignOp) {
             return \false;
         }
-        return $this->areNodesEqual($prePreviousExpression->expr->var, $previousNode->var);
+        return $this->nodeComparator->areNodesEqual($prePreviousExpression->expr->var, $previousNode->var);
     }
 }

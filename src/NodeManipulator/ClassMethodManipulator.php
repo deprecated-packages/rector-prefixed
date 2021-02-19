@@ -11,8 +11,8 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\ValueObject\MethodName;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -24,9 +24,9 @@ final class ClassMethodManipulator
      */
     private $betterNodeFinder;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
+    private $nodeComparator;
     /**
      * @var NodeTypeResolver
      */
@@ -39,18 +39,18 @@ final class ClassMethodManipulator
      * @var FuncCallManipulator
      */
     private $funcCallManipulator;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\Core\NodeManipulator\FuncCallManipulator $funcCallManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeManipulator\FuncCallManipulator $funcCallManipulator, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->funcCallManipulator = $funcCallManipulator;
+        $this->nodeComparator = $nodeComparator;
     }
     public function isParameterUsedInClassMethod(\PhpParser\Node\Param $param, \PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         $isUsedDirectly = (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) use($param) : bool {
-            return $this->betterStandardPrinter->areNodesEqual($node, $param->var);
+            return $this->nodeComparator->areNodesEqual($node, $param->var);
         });
         if ($isUsedDirectly) {
             return \true;

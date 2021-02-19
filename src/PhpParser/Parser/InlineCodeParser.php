@@ -34,13 +34,13 @@ final class InlineCodeParser
      */
     private $parser;
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var NodeScopeAndMetadataDecorator
      */
     private $nodeScopeAndMetadataDecorator;
+    /**
+     * @var BetterStandardPrinter
+     */
+    private $betterStandardPrinter;
     public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator, \PhpParser\Parser $parser)
     {
         $this->parser = $parser;

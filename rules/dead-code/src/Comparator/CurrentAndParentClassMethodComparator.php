@@ -10,7 +10,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\DeadCode\Comparator\Parameter\ParameterDefaultsComparator;
 use Rector\DeadCode\Comparator\Parameter\ParameterTypeComparator;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
@@ -24,9 +24,9 @@ final class CurrentAndParentClassMethodComparator
      */
     private $nodeNameResolver;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
+    private $nodeComparator;
     /**
      * @var NodeRepository
      */
@@ -43,14 +43,14 @@ final class CurrentAndParentClassMethodComparator
      * @var ParameterTypeComparator
      */
     private $parameterTypeComparator;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider, \Rector\DeadCode\Comparator\Parameter\ParameterDefaultsComparator $parameterDefaultsComparator, \Rector\DeadCode\Comparator\Parameter\ParameterTypeComparator $parameterTypeComparator)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeCollector\Reflection\MethodReflectionProvider $methodReflectionProvider, \Rector\DeadCode\Comparator\Parameter\ParameterDefaultsComparator $parameterDefaultsComparator, \Rector\DeadCode\Comparator\Parameter\ParameterTypeComparator $parameterTypeComparator, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeRepository = $nodeRepository;
         $this->methodReflectionProvider = $methodReflectionProvider;
         $this->parameterDefaultsComparator = $parameterDefaultsComparator;
         $this->parameterTypeComparator = $parameterTypeComparator;
+        $this->nodeComparator = $nodeComparator;
     }
     public function isParentCallMatching(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Expr\StaticCall $staticCall) : bool
     {
@@ -90,7 +90,7 @@ final class CurrentAndParentClassMethodComparator
             }
             // this only compares variable name, but those can be differnt, so its kinda useless
             $param = $currentClassMethodParams[$key];
-            if (!$this->betterStandardPrinter->areNodesEqual($param->var, $arg->value)) {
+            if (!$this->nodeComparator->areNodesEqual($param->var, $arg->value)) {
                 return \false;
             }
         }

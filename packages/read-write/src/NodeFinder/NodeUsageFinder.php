@@ -8,8 +8,8 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Foreach_;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder;
@@ -32,16 +32,16 @@ final class NodeUsageFinder
      */
     private $scopeAwareNodeFinder;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    private $nodeComparator;
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\NodeNestingScope\NodeFinder\ScopeAwareNodeFinder $scopeAwareNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeRepository = $nodeRepository;
         $this->scopeAwareNodeFinder = $scopeAwareNodeFinder;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @param Node[] $nodes
@@ -82,7 +82,7 @@ final class NodeUsageFinder
             if ($node === $expr) {
                 return \false;
             }
-            return $this->betterStandardPrinter->areNodesEqual($node, $expr);
+            return $this->nodeComparator->areNodesEqual($node, $expr);
         }, [\PhpParser\Node\Stmt\Foreach_::class]);
     }
 }

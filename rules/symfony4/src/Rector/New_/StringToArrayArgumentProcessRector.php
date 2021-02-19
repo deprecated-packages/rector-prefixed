@@ -139,7 +139,7 @@ CODE_SAMPLE
             if (!$checkedNode instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }
-            if (!$this->areNodesEqual($checkedNode->var, $firstArgumentExpr)) {
+            if (!$this->nodeComparator->areNodesEqual($checkedNode->var, $firstArgumentExpr)) {
                 return null;
             }
             return $checkedNode;

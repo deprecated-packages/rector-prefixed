@@ -226,7 +226,7 @@ CODE_SAMPLE
                 return null;
             }
             // must be the same as foreach value
-            if (!$this->areNodesEqual($node->var, $foreachedValue)) {
+            if (!$this->nodeComparator->areNodesEqual($node->var, $foreachedValue)) {
                 return null;
             }
             if ($this->forNodeAnalyzer->isArrayDimFetchPartOfAssignOrArgParentCount($node)) {

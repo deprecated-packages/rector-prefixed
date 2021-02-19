@@ -152,7 +152,7 @@ CODE_SAMPLE
     private function getParameterOverlap(array $parameters1, array $parameters2) : array
     {
         return \array_uintersect($parameters1, $parameters2, function (\PhpParser\Node\Param $firstParam, \PhpParser\Node\Param $secondParam) : int {
-            return $this->betterStandardPrinter->areNodesEqual($firstParam, $secondParam) ? 0 : 1;
+            return $this->nodeComparator->areNodesEqual($firstParam, $secondParam) ? 0 : 1;
         });
     }
     /**

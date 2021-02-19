@@ -13,7 +13,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -34,19 +34,19 @@ final class BetterNodeFinder
      */
     private $nodeNameResolver;
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210219\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    /**
+     * @var NodeComparator
+     */
+    private $nodeComparator;
+    public function __construct(\PhpParser\NodeFinder $nodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \RectorPrefix20210219\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeFinder = $nodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->typeChecker = $typeChecker;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @param class-string<T> $type
@@ -251,7 +251,7 @@ final class BetterNodeFinder
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return \false;
             }
-            return $this->betterStandardPrinter->areNodesEqual($node->var, $expr);
+            return $this->nodeComparator->areNodesEqual($node->var, $expr);
         });
     }
     public function findFirstPreviousOfNode(\PhpParser\Node $node, callable $filter) : ?\PhpParser\Node

@@ -36,7 +36,8 @@ class TypeParser
                 return $this->tryParseArray($tokens, $type);
             }
             return $type;
-        } elseif ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_THIS_VARIABLE)) {
+        }
+        if ($tokens->tryConsumeTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_THIS_VARIABLE)) {
             $type = new \PHPStan\PhpDocParser\Ast\Type\ThisTypeNode();
             if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_OPEN_SQUARE_BRACKET)) {
                 return $this->tryParseArray($tokens, $type);

@@ -193,7 +193,7 @@ CODE_SAMPLE
         /** @var Assign $assignNode */
         $assignNode = $nodeByTypeAndPosition->getParentNode();
         $isVariableAssigned = (bool) $this->betterNodeFinder->findFirst($assignNode->expr, function (\PhpParser\Node $node) use($nodeByTypeAndPosition) : bool {
-            return $this->areNodesEqual($node, $nodeByTypeAndPosition->getVariableNode());
+            return $this->nodeComparator->areNodesEqual($node, $nodeByTypeAndPosition->getVariableNode());
         });
         return !$isVariableAssigned;
     }

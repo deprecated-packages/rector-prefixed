@@ -47,7 +47,7 @@ CODE_SAMPLE
         if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\Coalesce) {
             return null;
         }
-        if (!$this->areNodesEqual($node->var, $node->expr->left)) {
+        if (!$this->nodeComparator->areNodesEqual($node->var, $node->expr->left)) {
             return null;
         }
         return new \PhpParser\Node\Expr\AssignOp\Coalesce($node->var, $node->expr->right);

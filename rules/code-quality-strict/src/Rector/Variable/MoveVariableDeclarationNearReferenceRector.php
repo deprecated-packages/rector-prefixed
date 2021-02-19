@@ -166,7 +166,7 @@ CODE_SAMPLE
                 continue;
             }
             $isFoundInKey = (bool) $this->betterNodeFinder->findFirst($dim, function (\PhpParser\Node $node) use($variable) : bool {
-                return $this->areNodesEqual($node, $variable);
+                return $this->nodeComparator->areNodesEqual($node, $variable);
             });
             if ($isFoundInKey) {
                 return \true;

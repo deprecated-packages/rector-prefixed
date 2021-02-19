@@ -6,8 +6,8 @@ namespace Rector\DeadCode\NodeFinder;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 final class VariableUseFinder
@@ -21,14 +21,14 @@ final class VariableUseFinder
      */
     private $nodeNameResolver;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    private $nodeComparator;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->betterNodeFinder = $betterNodeFinder;
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @param Variable[] $assignedVariables
@@ -50,7 +50,7 @@ final class VariableUseFinder
             if ($nodeNameResolverGetName === null) {
                 return \false;
             }
-            return $this->betterStandardPrinter->isNodeEqual($node, $assignedVariables);
+            return $this->nodeComparator->isNodeEqual($node, $assignedVariables);
         });
     }
 }

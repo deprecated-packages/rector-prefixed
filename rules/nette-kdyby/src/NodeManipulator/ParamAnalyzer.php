@@ -7,8 +7,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 final class ParamAnalyzer
 {
     /**
@@ -16,13 +16,13 @@ final class ParamAnalyzer
      */
     private $betterNodeFinder;
     /**
-     * @var BetterStandardPrinter
+     * @var NodeComparator
      */
-    private $betterStandardPrinter;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter)
+    private $nodeComparator;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->nodeComparator = $nodeComparator;
     }
     public function isParamUsedInClassMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : bool
     {
@@ -30,7 +30,7 @@ final class ParamAnalyzer
             if (!$node instanceof \PhpParser\Node\Expr\Variable) {
                 return \false;
             }
-            return $this->betterStandardPrinter->areNodesEqual($node, $param->var);
+            return $this->nodeComparator->areNodesEqual($node, $param->var);
         });
     }
     /**

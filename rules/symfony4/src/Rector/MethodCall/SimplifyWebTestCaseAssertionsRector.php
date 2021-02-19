@@ -99,7 +99,7 @@ CODE_SAMPLE
         $args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\LNumber(200));
         $args[] = new \PhpParser\Node\Arg($this->getStatusCodeMethodCall);
         $methodCall = $this->nodeFactory->createLocalMethodCall(self::ASSERT_SAME, $args);
-        if ($this->areNodesEqual($node, $methodCall)) {
+        if ($this->nodeComparator->areNodesEqual($node, $methodCall)) {
             return $this->nodeFactory->createLocalMethodCall('assertResponseIsSuccessful');
         }
         // assertResponseStatusCodeSame
@@ -127,7 +127,7 @@ CODE_SAMPLE
         if (!$this->isName($methodCall->name, self::ASSERT_SAME)) {
             return null;
         }
-        if (!$this->areNodesEqual($methodCall->args[1]->value, $this->getStatusCodeMethodCall)) {
+        if (!$this->nodeComparator->areNodesEqual($methodCall->args[1]->value, $this->getStatusCodeMethodCall)) {
             return null;
         }
         $statusCode = $this->valueResolver->getValue($methodCall->args[0]->value);
@@ -178,14 +178,14 @@ CODE_SAMPLE
         $args[] = new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\LNumber(301));
         $args[] = new \PhpParser\Node\Arg($this->getStatusCodeMethodCall);
         $match = $this->nodeFactory->createLocalMethodCall(self::ASSERT_SAME, $args);
-        if ($this->areNodesEqual($previousNode, $match)) {
+        if ($this->nodeComparator->areNodesEqual($previousNode, $match)) {
             $getResponseMethodCall = $this->nodeFactory->createMethodCall('client', 'getResponse');
             $propertyFetch = new \PhpParser\Node\Expr\PropertyFetch($getResponseMethodCall, 'headers');
             $clientGetLocation = $this->nodeFactory->createMethodCall($propertyFetch, 'get', [new \PhpParser\Node\Arg(new \PhpParser\Node\Scalar\String_('Location'))]);
             if (!isset($methodCall->args[1])) {
                 return null;
             }
-            if ($this->areNodesEqual($methodCall->args[1]->value, $clientGetLocation)) {
+            if ($this->nodeComparator->areNodesEqual($methodCall->args[1]->value, $clientGetLocation)) {
                 $args = [];
                 $args[] = $methodCall->args[0];
                 $args[] = $previousNode->args[0];

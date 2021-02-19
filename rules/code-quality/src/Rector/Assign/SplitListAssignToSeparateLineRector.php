@@ -115,7 +115,7 @@ CODE_SAMPLE
     {
         $arrayItemsHashes = [];
         foreach ($node->items as $arrayItem) {
-            $arrayItemsHashes[] = $this->betterStandardPrinter->printWithoutComments($arrayItem);
+            $arrayItemsHashes[] = $this->nodeComparator->printWithoutComments($arrayItem);
         }
         \sort($arrayItemsHashes);
         $arrayItemsHash = \implode('', $arrayItemsHashes);

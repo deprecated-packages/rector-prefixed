@@ -14,8 +14,8 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassMethod;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeCollector\NodeCollector\NodeRepository;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -43,20 +43,20 @@ final class RegexPatternArgumentManipulator
      */
     private $betterNodeFinder;
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var NodeRepository
      */
     private $nodeRepository;
-    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository)
+    /**
+     * @var NodeComparator
+     */
+    private $nodeComparator;
+    public function __construct(\Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterNodeFinder = $betterNodeFinder;
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeRepository = $nodeRepository;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * @return String_[]
@@ -144,7 +144,7 @@ final class RegexPatternArgumentManipulator
             if (!$node instanceof \PhpParser\Node\Expr\Assign) {
                 return null;
             }
-            if (!$this->betterStandardPrinter->areNodesEqual($node->var, $variable)) {
+            if (!$this->nodeComparator->areNodesEqual($node->var, $variable)) {
                 return null;
             }
             return $node;

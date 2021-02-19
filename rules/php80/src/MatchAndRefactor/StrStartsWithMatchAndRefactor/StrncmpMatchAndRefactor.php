@@ -40,7 +40,7 @@ final class StrncmpMatchAndRefactor extends \Rector\Php80\MatchAndRefactor\StrSt
         /** @var FuncCall $strlenFuncCall */
         $strlenFuncCall = $strncmpFuncCall->args[2]->value;
         $strlenArgumentValue = $strlenFuncCall->args[0]->value;
-        if (!$this->betterStandardPrinter->areNodesEqual($needleExpr, $strlenArgumentValue)) {
+        if (!$this->nodeComparator->areNodesEqual($needleExpr, $strlenArgumentValue)) {
             return null;
         }
         return $this->createStrStartsWith($strStartsWith);

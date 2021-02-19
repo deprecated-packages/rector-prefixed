@@ -102,7 +102,7 @@ CODE_SAMPLE
             return null;
         }
         // cannot be "return true;" + "return true;"
-        if ($this->areNodesEqual($return, $returnToRemove)) {
+        if ($this->nodeComparator->areNodesEqual($return, $returnToRemove)) {
             return null;
         }
         $this->removeNode($returnToRemove);
@@ -149,7 +149,7 @@ CODE_SAMPLE
     private function matchNodes(\PhpParser\Node\Expr\BinaryOp $binaryOp, \PhpParser\Node\Expr $expr) : ?\Rector\Php71\ValueObject\TwoNodeMatch
     {
         return $this->binaryOpManipulator->matchFirstAndSecondConditionNode($binaryOp, \PhpParser\Node\Expr\Variable::class, function (\PhpParser\Node $node, \PhpParser\Node $otherNode) use($expr) : bool {
-            return $this->areNodesEqual($otherNode, $expr);
+            return $this->nodeComparator->areNodesEqual($otherNode, $expr);
         });
     }
     private function isIfBodyABoolReturnNode(\PhpParser\Node\Stmt\If_ $if) : bool

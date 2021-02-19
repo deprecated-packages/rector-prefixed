@@ -13,11 +13,13 @@ class ConstExprParser
             $value = $tokens->currentTokenValue();
             $tokens->next();
             return new \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprFloatNode($value);
-        } elseif ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTEGER)) {
+        }
+        if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_INTEGER)) {
             $value = $tokens->currentTokenValue();
             $tokens->next();
             return new \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode($value);
-        } elseif ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_SINGLE_QUOTED_STRING)) {
+        }
+        if ($tokens->isCurrentTokenType(\PHPStan\PhpDocParser\Lexer\Lexer::TOKEN_SINGLE_QUOTED_STRING)) {
             $value = $tokens->currentTokenValue();
             if ($trimStrings) {
                 $value = \trim($tokens->currentTokenValue(), "'");

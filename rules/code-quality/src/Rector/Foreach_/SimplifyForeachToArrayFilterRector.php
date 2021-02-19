@@ -63,7 +63,7 @@ CODE_SAMPLE
         if (\count($funcCallNode->args) !== 1) {
             return null;
         }
-        if (!$this->areNodesEqual($funcCallNode->args[0], $node->valueVar)) {
+        if (!$this->nodeComparator->areNodesEqual($funcCallNode->args[0], $node->valueVar)) {
             return null;
         }
         if (!$ifNode->stmts[0] instanceof \PhpParser\Node\Stmt\Expression) {
@@ -76,7 +76,7 @@ CODE_SAMPLE
         if (!$onlyNodeInIf->var instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
             return null;
         }
-        if (!$this->areNodesEqual($onlyNodeInIf->expr, $node->valueVar)) {
+        if (!$this->nodeComparator->areNodesEqual($onlyNodeInIf->expr, $node->valueVar)) {
             return null;
         }
         $name = $this->getName($funcCallNode);

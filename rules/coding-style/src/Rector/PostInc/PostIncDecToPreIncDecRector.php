@@ -61,10 +61,10 @@ CODE_SAMPLE
         if ($this->isAnExpression($parentNode)) {
             return $this->processPrePost($node);
         }
-        if ($parentNode instanceof \PhpParser\Node\Expr\ArrayDimFetch && $this->areNodesEqual($parentNode->dim, $node)) {
+        if ($parentNode instanceof \PhpParser\Node\Expr\ArrayDimFetch && $this->nodeComparator->areNodesEqual($parentNode->dim, $node)) {
             return $this->processPreArray($node, $parentNode);
         }
-        if ($parentNode instanceof \PhpParser\Node\Stmt\For_ && \count($parentNode->loop) === 1 && $this->areNodesEqual($parentNode->loop[0], $node)) {
+        if ($parentNode instanceof \PhpParser\Node\Stmt\For_ && \count($parentNode->loop) === 1 && $this->nodeComparator->areNodesEqual($parentNode->loop[0], $node)) {
             return $this->processPreFor($node, $parentNode);
         }
         return null;

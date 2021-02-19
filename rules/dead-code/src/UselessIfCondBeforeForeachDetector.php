@@ -12,22 +12,22 @@ use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Empty_;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\MixedType;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 final class UselessIfCondBeforeForeachDetector
 {
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @var NodeComparator
+     */
+    private $nodeComparator;
+    public function __construct(\Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
-        $this->betterStandardPrinter = $betterStandardPrinter;
         $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->nodeComparator = $nodeComparator;
     }
     /**
      * Matches:
@@ -44,7 +44,7 @@ final class UselessIfCondBeforeForeachDetector
         }
         /** @var Empty_ $empty */
         $empty = $cond->expr;
-        if (!$this->betterStandardPrinter->areNodesEqual($empty->expr, $foreachExpr)) {
+        if (!$this->nodeComparator->areNodesEqual($empty->expr, $foreachExpr)) {
             return \false;
         }
         // is array though?
@@ -82,7 +82,7 @@ final class UselessIfCondBeforeForeachDetector
         if (!$this->isEmptyArray($leftExpr)) {
             return \false;
         }
-        return $this->betterStandardPrinter->areNodesEqual($foreachExpr, $rightExpr);
+        return $this->nodeComparator->areNodesEqual($foreachExpr, $rightExpr);
     }
     private function isEmptyArray(\PhpParser\Node\Expr $expr) : bool
     {

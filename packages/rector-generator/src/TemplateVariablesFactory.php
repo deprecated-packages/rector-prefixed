@@ -30,10 +30,6 @@ final class TemplateVariablesFactory
      */
     private const VARIABLE_PACKAGE_LOWERCASE = '__package__';
     /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-    /**
      * @var NodeFactory
      */
     private $nodeFactory;
@@ -45,6 +41,10 @@ final class TemplateVariablesFactory
      * @var TemplateFactory
      */
     private $templateFactory;
+    /**
+     * @var BetterStandardPrinter
+     */
+    private $betterStandardPrinter;
     public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\RectorGenerator\NodeFactory\ConfigurationNodeFactory $configurationNodeFactory, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\RectorGenerator\TemplateFactory $templateFactory)
     {
         $this->betterStandardPrinter = $betterStandardPrinter;

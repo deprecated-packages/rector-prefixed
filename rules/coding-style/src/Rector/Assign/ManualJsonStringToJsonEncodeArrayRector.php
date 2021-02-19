@@ -207,7 +207,7 @@ CODE_SAMPLE
         $nextExpressionNode = $nextExpression->expr;
         if ($nextExpressionNode instanceof \PhpParser\Node\Expr\AssignOp\Concat) {
             // is assign to same variable?
-            if (!$this->areNodesEqual($expr, $nextExpressionNode->var)) {
+            if (!$this->nodeComparator->areNodesEqual($expr, $nextExpressionNode->var)) {
                 return null;
             }
             return new \Rector\CodingStyle\ValueObject\NodeToRemoveAndConcatItem($nextExpressionNode, $nextExpressionNode->expr);
@@ -218,12 +218,12 @@ CODE_SAMPLE
                 return null;
             }
             // is assign to same variable?
-            if (!$this->areNodesEqual($expr, $nextExpressionNode->var)) {
+            if (!$this->nodeComparator->areNodesEqual($expr, $nextExpressionNode->var)) {
                 return null;
             }
             $firstConcatItem = $this->concatManipulator->getFirstConcatItem($nextExpressionNode->expr);
             // is the first concat the same variable
-            if (!$this->areNodesEqual($expr, $firstConcatItem)) {
+            if (!$this->nodeComparator->areNodesEqual($expr, $firstConcatItem)) {
                 return null;
             }
             // return all but first node

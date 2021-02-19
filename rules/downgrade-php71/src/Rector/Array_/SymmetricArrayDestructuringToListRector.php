@@ -37,10 +37,10 @@ final class SymmetricArrayDestructuringToListRector extends \Rector\Core\Rector\
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $this->areNodesEqual($node, $parentNode->var)) {
+        if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $this->nodeComparator->areNodesEqual($node, $parentNode->var)) {
             return $this->processToList($node);
         }
-        if ($parentNode instanceof \PhpParser\Node\Stmt\Foreach_ && $this->areNodesEqual($node, $parentNode->valueVar)) {
+        if ($parentNode instanceof \PhpParser\Node\Stmt\Foreach_ && $this->nodeComparator->areNodesEqual($node, $parentNode->valueVar)) {
             return $this->processToList($node);
         }
         return null;

@@ -45,7 +45,7 @@ final class SubstrMatchAndRefactor extends \Rector\Php80\MatchAndRefactor\StrSta
         $strlenFuncCall = $substrFuncCall->args[2]->value;
         $needleExpr = $strlenFuncCall->args[0]->value;
         $comparedNeedleExpr = $strStartsWith->getNeedleExpr();
-        if (!$this->betterStandardPrinter->areNodesEqual($needleExpr, $comparedNeedleExpr)) {
+        if (!$this->nodeComparator->areNodesEqual($needleExpr, $comparedNeedleExpr)) {
             return null;
         }
         return $this->createStrStartsWith($strStartsWith);

@@ -7,6 +7,9 @@ use RectorPrefix20210219\Manual\Twig\TwigFilter;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture\DuplicatedClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension;
+use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\FirstInterface;
+use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\SecondInterface;
+use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\ThirdInterface;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClassWithoutTypo;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass;
@@ -35,8 +38,8 @@ return static function (\RectorPrefix20210219\Symfony\Component\DependencyInject
         // test duplicated class - @see https://github.com/rectorphp/rector/issues/1438
         'Rector\\Renaming\\Tests\\Rector\\Name\\RenameClassRector\\Fixture\\SingularClass' => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture\DuplicatedClass::class,
         // test duplicated class - @see https://github.com/rectorphp/rector/issues/5389
-        'MyFooInterface' => 'MyBazInterface',
-        'MyBarInterface' => 'MyBazInterface',
+        \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\FirstInterface::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\ThirdInterface::class,
+        \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\SecondInterface::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\ThirdInterface::class,
         \RectorPrefix20210219\Acme\Foo\DoNotUpdateExistingTargetNamespace::class => \RectorPrefix20210219\Acme\Bar\DoNotUpdateExistingTargetNamespace::class,
         \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeNonFinalClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeFinalClass::class,
     ]]]);

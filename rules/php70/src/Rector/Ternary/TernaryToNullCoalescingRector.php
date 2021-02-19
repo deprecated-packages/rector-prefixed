@@ -81,7 +81,7 @@ final class TernaryToNullCoalescingRector extends \Rector\Core\Rector\AbstractRe
         if (\count($issetNode->vars) > 1) {
             return null;
         }
-        if ($this->areNodesEqual($ternary->if, $issetNode->vars[0])) {
+        if ($this->nodeComparator->areNodesEqual($ternary->if, $issetNode->vars[0])) {
             return new \PhpParser\Node\Expr\BinaryOp\Coalesce($ternary->if, $ternary->else);
         }
         return null;
@@ -91,6 +91,6 @@ final class TernaryToNullCoalescingRector extends \Rector\Core\Rector\AbstractRe
         if (!$this->valueResolver->isNull($possibleNullExpr)) {
             return \false;
         }
-        return $this->areNodesEqual($firstNode, $secondNode);
+        return $this->nodeComparator->areNodesEqual($firstNode, $secondNode);
     }
 }
