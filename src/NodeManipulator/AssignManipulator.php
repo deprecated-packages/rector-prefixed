@@ -21,12 +21,13 @@ use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use RectorPrefix20210219\Symplify\PackageBuilder\Php\TypeChecker;
 final class AssignManipulator
 {
     /**
-     * @var string[]
+     * @var array<class-string<Node>>
      */
-    private const MODIFYING_NODES = [\PhpParser\Node\Expr\AssignOp::class, \PhpParser\Node\Expr\PreDec::class, \PhpParser\Node\Expr\PostDec::class, \PhpParser\Node\Expr\PreInc::class, \PhpParser\Node\Expr\PostInc::class];
+    private const MODIFYING_NODE_TYPES = [\PhpParser\Node\Expr\AssignOp::class, \PhpParser\Node\Expr\PreDec::class, \PhpParser\Node\Expr\PostDec::class, \PhpParser\Node\Expr\PreInc::class, \PhpParser\Node\Expr\PostInc::class];
     /**
      * @var NodeNameResolver
      */
@@ -43,12 +44,17 @@ final class AssignManipulator
      * @var PropertyFetchAnalyzer
      */
     private $propertyFetchAnalyzer;
-    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer)
+    /**
+     * @var TypeChecker
+     */
+    private $typeChecker;
+    public function __construct(\Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\NodeAnalyzer\PropertyFetchAnalyzer $propertyFetchAnalyzer, \RectorPrefix20210219\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->betterNodeFinder = $betterNodeFinder;
         $this->propertyFetchAnalyzer = $propertyFetchAnalyzer;
+        $this->typeChecker = $typeChecker;
     }
     /**
      * Matches:
@@ -70,7 +76,7 @@ final class AssignManipulator
         if ($parent instanceof \PhpParser\Node\Expr\Assign && $this->betterStandardPrinter->areNodesEqual($parent->var, $node)) {
             return \true;
         }
-        if ($parent !== null && $this->isValueModifyingNode($parent)) {
+        if ($parent !== null && $this->typeChecker->isInstanceOf($parent, self::MODIFYING_NODE_TYPES)) {
             return \true;
         }
         // traverse up to array dim fetches
@@ -110,15 +116,5 @@ final class AssignManipulator
             }
             return $this->isLeftPartOfAssign($node);
         });
-    }
-    private function isValueModifyingNode(\PhpParser\Node $node) : bool
-    {
-        foreach (self::MODIFYING_NODES as $modifyingNode) {
-            if (!\is_a($node, $modifyingNode)) {
-                continue;
-            }
-            return \true;
-        }
-        return \false;
     }
 }
