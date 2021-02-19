@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210218\Psr\Log;
+namespace RectorPrefix20210219\Psr\Log;
 
 /**
  * Describes log levels.

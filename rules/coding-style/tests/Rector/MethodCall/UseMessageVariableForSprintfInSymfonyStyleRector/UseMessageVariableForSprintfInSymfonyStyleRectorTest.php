@@ -6,13 +6,13 @@ namespace Rector\CodingStyle\Tests\Rector\MethodCall\UseMessageVariableForSprint
 use Iterator;
 use Rector\CodingStyle\Rector\MethodCall\UseMessageVariableForSprintfInSymfonyStyleRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo;
 final class UseMessageVariableForSprintfInSymfonyStyleRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

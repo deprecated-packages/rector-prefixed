@@ -6,7 +6,6 @@ namespace Rector\DeadCode\Rector\ClassMethod;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\CodingStyle\ValueObject\ObjectMagicMethods;

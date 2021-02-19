@@ -83,19 +83,31 @@ CODE_SAMPLE
      */
     private function processSmallerThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
     {
-        if ($node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Smaller && $nestedTernary->cond instanceof \PhpParser\Node\Expr\BinaryOp\Greater && $this->areValues([$node->if, $nestedTernary->if, $nestedTernary->else], [-1, 1, 0])) {
-            return new \PhpParser\Node\Expr\BinaryOp\Spaceship($node->cond->left, $node->cond->right);
+        if (!$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Smaller) {
+            return null;
         }
-        return null;
+        if (!$nestedTernary->cond instanceof \PhpParser\Node\Expr\BinaryOp\Greater) {
+            return null;
+        }
+        if (!$this->valueResolver->areValues([$node->if, $nestedTernary->if, $nestedTernary->else], [-1, 1, 0])) {
+            return null;
+        }
+        return new \PhpParser\Node\Expr\BinaryOp\Spaceship($node->cond->left, $node->cond->right);
     }
     /**
      * Matches "$a > $b ? -1 : ($a < $b ? 1 : 0)"
      */
     private function processGreaterThanTernary(\PhpParser\Node\Expr\Ternary $node, \PhpParser\Node\Expr\Ternary $nestedTernary) : ?\PhpParser\Node\Expr\BinaryOp\Spaceship
     {
-        if ($node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Greater && $nestedTernary->cond instanceof \PhpParser\Node\Expr\BinaryOp\Smaller && $this->areValues([$node->if, $nestedTernary->if, $nestedTernary->else], [-1, 1, 0])) {
-            return new \PhpParser\Node\Expr\BinaryOp\Spaceship($node->cond->right, $node->cond->left);
+        if (!$node->cond instanceof \PhpParser\Node\Expr\BinaryOp\Greater) {
+            return null;
         }
-        return null;
+        if (!$nestedTernary->cond instanceof \PhpParser\Node\Expr\BinaryOp\Smaller) {
+            return null;
+        }
+        if (!$this->valueResolver->areValues([$node->if, $nestedTernary->if, $nestedTernary->else], [-1, 1, 0])) {
+            return null;
+        }
+        return new \PhpParser\Node\Expr\BinaryOp\Spaceship($node->cond->right, $node->cond->left);
     }
 }

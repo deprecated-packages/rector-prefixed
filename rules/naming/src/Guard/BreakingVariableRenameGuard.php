@@ -4,7 +4,7 @@ declare (strict_types=1);
 namespace Rector\Naming\Guard;
 
 use DateTimeInterface;
-use RectorPrefix20210218\Nette\Utils\Strings;
+use RectorPrefix20210219\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Variable;
@@ -16,7 +16,7 @@ use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\TypeWithClassName;
-use RectorPrefix20210218\Ramsey\Uuid\UuidInterface;
+use RectorPrefix20210219\Ramsey\Uuid\UuidInterface;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\Naming\Naming\ConflictingNameResolver;
 use Rector\Naming\Naming\OverridenExistingNamesResolver;
@@ -73,7 +73,7 @@ final class BreakingVariableRenameGuard
     public function shouldSkipVariable(string $currentName, string $expectedName, \PhpParser\Node\FunctionLike $functionLike, \PhpParser\Node\Expr\Variable $variable) : bool
     {
         // is the suffix? → also accepted
-        if (\RectorPrefix20210218\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
+        if (\RectorPrefix20210219\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
             return \true;
         }
         if ($this->conflictingNameResolver->checkNameIsInFunctionLike($expectedName, $functionLike)) {
@@ -99,7 +99,7 @@ final class BreakingVariableRenameGuard
     public function shouldSkipParam(string $currentName, string $expectedName, \PhpParser\Node\Stmt\ClassMethod $classMethod, \PhpParser\Node\Param $param) : bool
     {
         // is the suffix? → also accepted
-        if (\RectorPrefix20210218\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
+        if (\RectorPrefix20210219\Nette\Utils\Strings::endsWith($currentName, \ucfirst($expectedName))) {
             return \true;
         }
         $conflictingNames = $this->conflictingNameResolver->resolveConflictingVariableNamesForParam($classMethod);
@@ -201,7 +201,7 @@ final class BreakingVariableRenameGuard
      */
     private function isRamseyUuidInterface(\PhpParser\Node\Param $param) : bool
     {
-        return $this->nodeTypeResolver->isObjectType($param, \RectorPrefix20210218\Ramsey\Uuid\UuidInterface::class);
+        return $this->nodeTypeResolver->isObjectType($param, \RectorPrefix20210219\Ramsey\Uuid\UuidInterface::class);
     }
     /**
      * @TODO Remove once ParamRenamer created
@@ -218,6 +218,6 @@ final class BreakingVariableRenameGuard
         }
         /** @var string $currentName */
         $currentName = $this->nodeNameResolver->getName($param);
-        return (bool) \RectorPrefix20210218\Nette\Utils\Strings::match($currentName, self::AT_NAMING_REGEX . '');
+        return (bool) \RectorPrefix20210219\Nette\Utils\Strings::match($currentName, self::AT_NAMING_REGEX . '');
     }
 }

@@ -34,26 +34,30 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      * @var CurrentFileInfoProvider
      */
     private $currentFileInfoProvider;
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+    /**
+     * @var bool
+     */
+    private $areNodeVisitorsPrepared = \false;
     public function __construct(\Rector\Testing\Application\EnabledRectorClassProvider $enabledRectorClassProvider, \Rector\Core\Configuration\Configuration $configuration, \Rector\Core\Application\ActiveRectorsProvider $activeRectorsProvider, \PhpParser\NodeFinder $nodeFinder, \Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider $currentFileInfoProvider)
     {
         /** @var PhpRectorInterface[] $phpRectors */
         $phpRectors = $activeRectorsProvider->provideByType(\Rector\Core\Contract\Rector\PhpRectorInterface::class);
         $this->allPhpRectors = $phpRectors;
         $this->enabledRectorClassProvider = $enabledRectorClassProvider;
-        foreach ($phpRectors as $phpRector) {
-            if ($configuration->isCacheEnabled() && !$configuration->shouldClearCache() && $phpRector instanceof \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface) {
-                continue;
-            }
-            $this->addVisitor($phpRector);
-        }
         $this->nodeFinder = $nodeFinder;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
+        $this->configuration = $configuration;
     }
     /**
      * @return Node[]
      */
     public function traverseFileNode(\Rector\Core\PhpParser\Node\CustomNode\FileNode $fileNode) : array
     {
+        $this->prepareNodeVisitors();
         if ($this->enabledRectorClassProvider->isConfigured()) {
             $this->activateEnabledRectorOnly();
         }
@@ -72,6 +76,7 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
      */
     public function traverse(array $nodes) : array
     {
+        $this->prepareNodeVisitors();
         if ($this->enabledRectorClassProvider->isConfigured()) {
             $this->activateEnabledRectorOnly();
         }
@@ -87,14 +92,17 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
     }
     public function getPhpRectorCount() : int
     {
+        $this->prepareNodeVisitors();
         return \count($this->visitors);
     }
     public function hasZeroCacheRectors() : bool
     {
+        $this->prepareNodeVisitors();
         return (bool) $this->getZeroCacheRectorCount();
     }
     public function getZeroCacheRectorCount() : int
     {
+        $this->prepareNodeVisitors();
         $zeroCacheRectors = \array_filter($this->allPhpRectors, function (\Rector\Core\Contract\Rector\PhpRectorInterface $phpRector) : bool {
             return $phpRector instanceof \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
         });
@@ -126,5 +134,24 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
             }
         }
         return \false;
+    }
+    /**
+     * This must happen after $this->configuration is set after ProcessCommand::execute() is run,
+     * otherwise we get default false positives.
+     *
+     * This hack should be removed after https://github.com/rectorphp/rector/issues/5584 is resolved
+     */
+    private function prepareNodeVisitors() : void
+    {
+        if ($this->areNodeVisitorsPrepared) {
+            return;
+        }
+        foreach ($this->allPhpRectors as $phpRector) {
+            if ($this->configuration->isCacheEnabled() && !$this->configuration->shouldClearCache() && $phpRector instanceof \Rector\Caching\Contract\Rector\ZeroCacheRectorInterface) {
+                continue;
+            }
+            $this->addVisitor($phpRector);
+        }
+        $this->areNodeVisitorsPrepared = \true;
     }
 }

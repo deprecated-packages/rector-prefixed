@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\PSR4\FileInfoAnalyzer;
 
-use RectorPrefix20210218\Nette\Utils\Strings;
+use RectorPrefix20210219\Nette\Utils\Strings;
 use PhpParser\Node\Stmt\ClassLike;
 use Rector\CodingStyle\Naming\ClassNaming;
 use Rector\NodeNameResolver\NodeNameResolver;
-use RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileInfoDeletionAnalyzer
 {
     /**
@@ -35,13 +35,13 @@ final class FileInfoDeletionAnalyzer
             return \false;
         }
         /** @var SmartFileInfo $smartFileInfo */
-        $smartFileInfo = $classLike->getAttribute(\RectorPrefix20210218\Symplify\SmartFileSystem\SmartFileInfo::class);
+        $smartFileInfo = $classLike->getAttribute(\RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo::class);
         $baseFileName = $this->clearNameFromTestingPrefix($smartFileInfo->getBasenameWithoutSuffix());
         $classShortName = $this->classNaming->getShortName($className);
         return $baseFileName === $classShortName;
     }
     public function clearNameFromTestingPrefix(string $name) : string
     {
-        return \RectorPrefix20210218\Nette\Utils\Strings::replace($name, self::TESTING_PREFIX_REGEX, '');
+        return \RectorPrefix20210219\Nette\Utils\Strings::replace($name, self::TESTING_PREFIX_REGEX, '');
     }
 }

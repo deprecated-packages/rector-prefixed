@@ -21,7 +21,7 @@ use Rector\Nette\NodeFactory\ActionRenderFactory;
 use Rector\NetteToSymfony\NodeAnalyzer\ClassMethodRenderAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use RectorPrefix20210218\Symfony\Component\HttpFoundation\Response;
+use RectorPrefix20210219\Symfony\Component\HttpFoundation\Response;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -118,7 +118,7 @@ CODE_SAMPLE
         $return = new \PhpParser\Node\Stmt\Return_($methodCall);
         $classMethod->stmts[] = $return;
         if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::SCALAR_TYPES)) {
-            $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210218\Symfony\Component\HttpFoundation\Response::class);
+            $classMethod->returnType = new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210219\Symfony\Component\HttpFoundation\Response::class);
         }
         $this->removeNodes($classMethodRender->getNodesToRemove());
     }

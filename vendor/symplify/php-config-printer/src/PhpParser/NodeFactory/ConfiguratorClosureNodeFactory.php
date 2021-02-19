@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210218\Symplify\PhpConfigPrinter\PhpParser\NodeFactory;
+namespace RectorPrefix20210219\Symplify\PhpConfigPrinter\PhpParser\NodeFactory;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Closure;
@@ -9,9 +9,9 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
-use RectorPrefix20210218\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210218\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
-use RectorPrefix20210218\Symplify\PhpConfigPrinter\ValueObject\VariableName;
+use RectorPrefix20210219\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210219\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use RectorPrefix20210219\Symplify\PhpConfigPrinter\ValueObject\VariableName;
 final class ConfiguratorClosureNodeFactory
 {
     /**
@@ -32,13 +32,13 @@ final class ConfiguratorClosureNodeFactory
     }
     private function createContainerConfiguratorParam() : \PhpParser\Node\Param
     {
-        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210218\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
-        return new \PhpParser\Node\Param($containerConfiguratorVariable, null, new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210218\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator::class));
+        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210219\Symplify\PhpConfigPrinter\ValueObject\VariableName::CONTAINER_CONFIGURATOR);
+        return new \PhpParser\Node\Param($containerConfiguratorVariable, null, new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210219\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator::class));
     }
     private function createRoutingConfiguratorParam() : \PhpParser\Node\Param
     {
-        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210218\Symplify\PhpConfigPrinter\ValueObject\VariableName::ROUTING_CONFIGURATOR);
-        return new \PhpParser\Node\Param($containerConfiguratorVariable, null, new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210218\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator::class));
+        $containerConfiguratorVariable = new \PhpParser\Node\Expr\Variable(\RectorPrefix20210219\Symplify\PhpConfigPrinter\ValueObject\VariableName::ROUTING_CONFIGURATOR);
+        return new \PhpParser\Node\Param($containerConfiguratorVariable, null, new \PhpParser\Node\Name\FullyQualified(\RectorPrefix20210219\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator::class));
     }
     private function createClosureFromParamAndStmts(\PhpParser\Node\Param $param, array $stmts) : \PhpParser\Node\Expr\Closure
     {

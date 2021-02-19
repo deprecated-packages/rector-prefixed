@@ -104,6 +104,10 @@ CODE_SAMPLE
         if ($node->type !== null) {
             return null;
         }
+        // skip multiple properties
+        if (\count($node->props) > 1) {
+            return null;
+        }
         $varType = $this->propertyTypeInferer->inferProperty($node);
         if ($varType instanceof \PHPStan\Type\MixedType) {
             return null;
