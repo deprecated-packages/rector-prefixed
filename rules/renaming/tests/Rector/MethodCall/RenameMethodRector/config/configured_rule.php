@@ -16,6 +16,7 @@ return static function (\RectorPrefix20210219\Symfony\Component\DependencyInject
         new \Rector\Renaming\ValueObject\MethodCallRename(\RectorPrefix20210219\Nette\Utils\Html::class, 'add', 'addHtml'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Rector\\Renaming\\Tests\\Rector\\MethodCall\\RenameMethodRector\\Fixture\\DemoFile', 'notify', '__invoke'),
         new \Rector\Renaming\ValueObject\MethodCallRename('Rector\\Renaming\\Tests\\Rector\\MethodCall\\RenameMethodRector\\Fixture\\SomeSubscriber', 'old', 'new'),
+        new \Rector\Renaming\ValueObject\MethodCallRename('Rector\\Renaming\\Tests\\Rector\\MethodCall\\RenameMethodRector\\Fixture\\*WildcardSubscriber', 'old', 'new'),
         new \Rector\Renaming\ValueObject\MethodCallRename('*Presenter', 'run', '__invoke'),
         new \Rector\Renaming\ValueObject\MethodCallRename('*SkipPrivateToInvoke', 'run', '__invoke'),
         new \Rector\Renaming\ValueObject\MethodCallRename('*SkipProtectedToInvoke', 'run', '__invoke'),
