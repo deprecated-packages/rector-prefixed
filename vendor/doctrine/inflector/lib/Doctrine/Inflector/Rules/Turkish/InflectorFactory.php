@@ -1,18 +1,18 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210219\Doctrine\Inflector\Rules\Turkish;
+namespace RectorPrefix20210220\Doctrine\Inflector\Rules\Turkish;
 
-use RectorPrefix20210219\Doctrine\Inflector\GenericLanguageInflectorFactory;
-use RectorPrefix20210219\Doctrine\Inflector\Rules\Ruleset;
-final class InflectorFactory extends \RectorPrefix20210219\Doctrine\Inflector\GenericLanguageInflectorFactory
+use RectorPrefix20210220\Doctrine\Inflector\GenericLanguageInflectorFactory;
+use RectorPrefix20210220\Doctrine\Inflector\Rules\Ruleset;
+final class InflectorFactory extends \RectorPrefix20210220\Doctrine\Inflector\GenericLanguageInflectorFactory
 {
-    protected function getSingularRuleset() : \RectorPrefix20210219\Doctrine\Inflector\Rules\Ruleset
+    protected function getSingularRuleset() : \RectorPrefix20210220\Doctrine\Inflector\Rules\Ruleset
     {
-        return \RectorPrefix20210219\Doctrine\Inflector\Rules\Turkish\Rules::getSingularRuleset();
+        return \RectorPrefix20210220\Doctrine\Inflector\Rules\Turkish\Rules::getSingularRuleset();
     }
-    protected function getPluralRuleset() : \RectorPrefix20210219\Doctrine\Inflector\Rules\Ruleset
+    protected function getPluralRuleset() : \RectorPrefix20210220\Doctrine\Inflector\Rules\Ruleset
     {
-        return \RectorPrefix20210219\Doctrine\Inflector\Rules\Turkish\Rules::getPluralRuleset();
+        return \RectorPrefix20210220\Doctrine\Inflector\Rules\Turkish\Rules::getPluralRuleset();
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210219;
+namespace RectorPrefix20210220;
 
 use Rector\Order\Rector\Class_\OrderClassConstantsByIntegerValueRector;
 use Rector\Order\Rector\Class_\OrderConstantsByVisibilityRector;
 use Rector\Order\Rector\Class_\OrderMethodsByVisibilityRector;
 use Rector\Order\Rector\Class_\OrderPrivateMethodsByUseRector;
 use Rector\Order\Rector\Class_\OrderPropertiesByVisibilityRector;
-use RectorPrefix20210219\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210219\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210220\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210220\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Order\Rector\Class_\OrderPrivateMethodsByUseRector::class);
     $services->set(\Rector\Order\Rector\Class_\OrderClassConstantsByIntegerValueRector::class);

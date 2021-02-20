@@ -6,14 +6,14 @@ namespace Rector\DowngradePhp72\Tests\Rector\FunctionLike\DowngradeReturnObjectT
 use Iterator;
 use Rector\DowngradePhp72\Rector\FunctionLike\DowngradeReturnObjectTypeDeclarationRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo;
 final class DowngradeReturnObjectTypeDeclarationRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.2
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -11,6 +11,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
+use PHPStan\Type\VerbosityLevel;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
@@ -24,7 +25,11 @@ final class TypeHasher
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
     }
-    public function createTypeHash(\PHPStan\Type\Type $type) : string
+    public function areTypesEqual(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
+    {
+        return $this->createTypeHash($firstType) === $this->createTypeHash($secondType);
+    }
+    private function createTypeHash(\PHPStan\Type\Type $type) : string
     {
         if ($type instanceof \PHPStan\Type\MixedType) {
             return \serialize($type) . $type->isExplicitMixed();
@@ -33,7 +38,8 @@ final class TypeHasher
             return $this->createTypeHash($type->getItemType()) . '[]';
         }
         if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
-            return $this->phpStanStaticTypeMapper->mapToDocString($type);
+            return $type->describe(\PHPStan\Type\VerbosityLevel::precise());
+            // return $this->phpStanStaticTypeMapper->mapToDocString($type);
         }
         if ($type instanceof \PHPStan\Type\TypeWithClassName) {
             return $this->resolveUniqueTypeWithClassNameHash($type);
@@ -48,10 +54,6 @@ final class TypeHasher
             return $this->createUnionTypeHash($type);
         }
         return $this->phpStanStaticTypeMapper->mapToDocString($type);
-    }
-    public function areTypesEqual(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
-    {
-        return $this->createTypeHash($firstType) === $this->createTypeHash($secondType);
     }
     private function resolveUniqueTypeWithClassNameHash(\PHPStan\Type\TypeWithClassName $typeWithClassName) : string
     {

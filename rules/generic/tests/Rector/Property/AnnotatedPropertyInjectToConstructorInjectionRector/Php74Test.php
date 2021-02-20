@@ -6,14 +6,14 @@ namespace Rector\Generic\Tests\Rector\Property\AnnotatedPropertyInjectToConstruc
 use Iterator;
 use Rector\Generic\Rector\Property\AnnotatedPropertyInjectToConstructorInjectionRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo;
 final class Php74Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @requires PHP 7.4
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

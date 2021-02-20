@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210219\Symfony\Component\ExpressionLanguage\Node;
+namespace RectorPrefix20210220\Symfony\Component\ExpressionLanguage\Node;
 
-use RectorPrefix20210219\Symfony\Component\ExpressionLanguage\Compiler;
+use RectorPrefix20210220\Symfony\Component\ExpressionLanguage\Compiler;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */
-class NameNode extends \RectorPrefix20210219\Symfony\Component\ExpressionLanguage\Node\Node
+class NameNode extends \RectorPrefix20210220\Symfony\Component\ExpressionLanguage\Node\Node
 {
     public function __construct(string $name)
     {
         parent::__construct([], ['name' => $name]);
     }
-    public function compile(\RectorPrefix20210219\Symfony\Component\ExpressionLanguage\Compiler $compiler)
+    public function compile(\RectorPrefix20210220\Symfony\Component\ExpressionLanguage\Compiler $compiler)
     {
         $compiler->raw('$' . $this->attributes['name']);
     }

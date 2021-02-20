@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\DoctrineColumn;
 
-use RectorPrefix20210219\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210220\Doctrine\ORM\Mapping as ORM;
 final class PropertyWithName
 {
     /**

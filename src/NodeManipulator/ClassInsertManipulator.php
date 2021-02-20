@@ -17,7 +17,7 @@ use Rector\PostRector\ValueObject\PropertyMetadata;
 final class ClassInsertManipulator
 {
     /**
-     * @var string[]
+     * @var array<class-string<Stmt>>
      */
     private const BEFORE_TRAIT_TYPES = [\PhpParser\Node\Stmt\TraitUse::class, \PhpParser\Node\Stmt\Property::class, \PhpParser\Node\Stmt\ClassMethod::class];
     /**

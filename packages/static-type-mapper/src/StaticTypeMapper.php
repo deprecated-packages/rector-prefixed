@@ -87,11 +87,6 @@ final class StaticTypeMapper
         }
         throw new \Rector\Core\Exception\NotImplementedYetException(__METHOD__ . ' for ' . \get_class($phpDocTagValueNode));
     }
-    public function mapPHPStanPhpDocTypeNodeToPhpDocString(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node) : string
-    {
-        $phpStanType = $this->mapPHPStanPhpDocTypeNodeToPHPStanType($typeNode, $node);
-        return $this->mapPHPStanTypeToDocString($phpStanType);
-    }
     public function mapPHPStanPhpDocTypeNodeToPHPStanType(\PHPStan\PhpDocParser\Ast\Type\TypeNode $typeNode, \PhpParser\Node $node) : \PHPStan\Type\Type
     {
         $nameScope = $this->nameScopeFactory->createNameScopeFromNode($node);

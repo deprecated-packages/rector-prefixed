@@ -33,7 +33,7 @@ final class AssertEqualsToSameRector extends \Rector\Core\Rector\AbstractRector
      * - bool because this is taken care of AssertEqualsParameterToSpecificMethodsTypeRector
      * - null because this is taken care of AssertEqualsParameterToSpecificMethodsTypeRector
      *
-     * @var string[]
+     * @var array<class-string<Type>>
      */
     private const SCALAR_TYPES = [\PHPStan\Type\FloatType::class, \PHPStan\Type\IntegerType::class, \PHPStan\Type\StringType::class];
     /**

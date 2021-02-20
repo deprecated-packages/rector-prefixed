@@ -5,12 +5,10 @@ namespace Rector\NodeTypeResolver\Node;
 
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Namespace_;
 use PHPStan\Analyser\Scope;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo;
 final class AttributeKey
 {
     /**
@@ -56,11 +54,11 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const METHOD_NODE = \PhpParser\Node\Stmt\ClassMethod::class;
+    public const METHOD_NODE = 'methodNode';
     /**
      * @var string
      */
-    public const FUNCTION_NODE = \PhpParser\Node\Stmt\Function_::class;
+    public const FUNCTION_NODE = 'functionNode';
     /**
      * @var string
      */
@@ -122,7 +120,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const FILE_INFO = \RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo::class;
+    public const FILE_INFO = \RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo::class;
     /**
      * Internal php-parser name.
      * Do not change this even if you want!

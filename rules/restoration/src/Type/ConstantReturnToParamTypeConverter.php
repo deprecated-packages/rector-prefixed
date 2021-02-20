@@ -5,6 +5,8 @@ namespace Rector\Restoration\Type;
 
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Generic\GenericClassStringType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
@@ -19,14 +21,14 @@ final class ConstantReturnToParamTypeConverter
     {
         $this->typeFactory = $typeFactory;
     }
-    public function convert(\PHPStan\Type\Type $type) : ?\PHPStan\Type\Type
+    public function convert(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
     {
         if (!$type instanceof \PHPStan\Type\Constant\ConstantStringType && !$type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-            return null;
+            return new \PHPStan\Type\MixedType();
         }
         return $this->unwrapConstantTypeToObjectType($type);
     }
-    private function unwrapConstantTypeToObjectType(\PHPStan\Type\Type $type) : ?\PHPStan\Type\Type
+    private function unwrapConstantTypeToObjectType(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
     {
         if ($type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
             return $this->unwrapConstantTypeToObjectType($type->getItemType());
@@ -34,16 +36,23 @@ final class ConstantReturnToParamTypeConverter
         if ($type instanceof \PHPStan\Type\Constant\ConstantStringType) {
             return new \PHPStan\Type\ObjectType($type->getValue());
         }
-        if ($type instanceof \PHPStan\Type\UnionType) {
-            $types = [];
-            foreach ($type->getTypes() as $unionedType) {
-                $type = $this->unwrapConstantTypeToObjectType($unionedType);
-                if ($type !== null) {
-                    $types[] = $type;
-                }
-            }
-            return $this->typeFactory->createMixedPassedOrUnionType($types);
+        if ($type instanceof \PHPStan\Type\Generic\GenericClassStringType && $type->getGenericType() instanceof \PHPStan\Type\ObjectType) {
+            return $type->getGenericType();
         }
-        return null;
+        if ($type instanceof \PHPStan\Type\UnionType) {
+            return $this->unwrapUnionType($type);
+        }
+        return new \PHPStan\Type\MixedType();
+    }
+    private function unwrapUnionType(\PHPStan\Type\UnionType $unionType) : \PHPStan\Type\Type
+    {
+        $types = [];
+        foreach ($unionType->getTypes() as $unionedType) {
+            $unionType = $this->unwrapConstantTypeToObjectType($unionedType);
+            if ($unionType !== null) {
+                $types[] = $unionType;
+            }
+        }
+        return $this->typeFactory->createMixedPassedOrUnionType($types);
     }
 }

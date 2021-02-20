@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210219\Symplify\PackageBuilder\Reflection;
+namespace RectorPrefix20210220\Symplify\PackageBuilder\Reflection;
 
 final class ClassLikeExistenceChecker
 {

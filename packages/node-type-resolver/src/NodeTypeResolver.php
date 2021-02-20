@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver;
 
-use RectorPrefix20210219\Nette\Utils\Strings;
+use RectorPrefix20210220\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -34,6 +34,7 @@ use Rector\Core\NodeAnalyzer\ClassAnalyzer;
 use Rector\Core\Util\StaticInstanceOf;
 use Rector\NodeTypeResolver\Contract\NodeTypeResolverInterface;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector;
 use Rector\NodeTypeResolver\NodeTypeCorrector\ParentClassLikeTypeCorrector;
 use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper;
@@ -68,9 +69,13 @@ final class NodeTypeResolver
      */
     private $classAnalyzer;
     /**
+     * @var GenericClassStringTypeCorrector
+     */
+    private $genericClassStringTypeCorrector;
+    /**
      * @param NodeTypeResolverInterface[] $nodeTypeResolvers
      */
-    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\NodeTypeResolver\NodeTypeCorrector\ParentClassLikeTypeCorrector $parentClassLikeTypeCorrector, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, array $nodeTypeResolvers)
+    public function __construct(\Rector\TypeDeclaration\PHPStan\Type\ObjectTypeSpecifier $objectTypeSpecifier, \Rector\NodeTypeResolver\NodeTypeCorrector\ParentClassLikeTypeCorrector $parentClassLikeTypeCorrector, \Rector\PHPStanStaticTypeMapper\Utils\TypeUnwrapper $typeUnwrapper, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\NodeTypeResolver\NodeTypeCorrector\GenericClassStringTypeCorrector $genericClassStringTypeCorrector, array $nodeTypeResolvers)
     {
         foreach ($nodeTypeResolvers as $nodeTypeResolver) {
             $this->addNodeTypeResolver($nodeTypeResolver);
@@ -79,6 +84,7 @@ final class NodeTypeResolver
         $this->parentClassLikeTypeCorrector = $parentClassLikeTypeCorrector;
         $this->typeUnwrapper = $typeUnwrapper;
         $this->classAnalyzer = $classAnalyzer;
+        $this->genericClassStringTypeCorrector = $genericClassStringTypeCorrector;
     }
     /**
      * Prevents circular dependency
@@ -106,7 +112,7 @@ final class NodeTypeResolver
     public function isObjectType(\PhpParser\Node $node, $requiredType) : bool
     {
         $this->ensureRequiredTypeIsStringOrObjectType($requiredType, __METHOD__);
-        if (\is_string($requiredType) && \RectorPrefix20210219\Nette\Utils\Strings::contains($requiredType, '*')) {
+        if (\is_string($requiredType) && \RectorPrefix20210220\Nette\Utils\Strings::contains($requiredType, '*')) {
             return $this->isFnMatch($node, $requiredType);
         }
         $resolvedType = $this->resolve($node);
@@ -161,7 +167,7 @@ final class NodeTypeResolver
             return $this->resolveArrayType($node);
         }
         if ($node instanceof \PhpParser\Node\Arg) {
-            $node = $node->value;
+            throw new \Rector\Core\Exception\ShouldNotHappenException('Arg cannot have type, use $arg->value instead');
         }
         if (\Rector\Core\Util\StaticInstanceOf::isOneOf($node, [\PhpParser\Node\Param::class, \PhpParser\Node\Scalar::class])) {
             return $this->resolve($node);
@@ -375,6 +381,7 @@ final class NodeTypeResolver
         $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
         if ($scope instanceof \PHPStan\Analyser\Scope) {
             $arrayType = $scope->getType($expr);
+            $arrayType = $this->genericClassStringTypeCorrector->correct($arrayType);
             return $this->removeNonEmptyArrayFromIntersectionWithArrayType($arrayType);
         }
         return new \PHPStan\Type\ArrayType(new \PHPStan\Type\MixedType(), new \PHPStan\Type\MixedType());

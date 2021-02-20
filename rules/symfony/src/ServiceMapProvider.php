@@ -3,16 +3,16 @@
 declare (strict_types=1);
 namespace Rector\Symfony;
 
-use RectorPrefix20210219\Nette\Utils\Json;
-use RectorPrefix20210219\Nette\Utils\Strings;
+use RectorPrefix20210220\Nette\Utils\Json;
+use RectorPrefix20210220\Nette\Utils\Strings;
 use Rector\Symfony\Exception\XmlContainerNotExistsException;
 use Rector\Symfony\ValueObject\ServiceDefinition;
 use Rector\Symfony\ValueObject\ServiceMap\ServiceMap;
 use Rector\Symfony\ValueObject\Tag;
 use Rector\Symfony\ValueObject\Tag\EventListenerTag;
 use SimpleXMLElement;
-use RectorPrefix20210219\Symplify\PackageBuilder\Parameter\ParameterProvider;
-use RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210220\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * Inspired by https://github.com/phpstan/phpstan-symfony/tree/master/src/Symfony
  */
@@ -34,7 +34,7 @@ final class ServiceMapProvider
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\RectorPrefix20210219\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\RectorPrefix20210220\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
@@ -86,7 +86,7 @@ final class ServiceMapProvider
      */
     private function convertXmlToArray(\SimpleXMLElement $simpleXMLElement) : array
     {
-        $data = \RectorPrefix20210219\Nette\Utils\Json::decode(\RectorPrefix20210219\Nette\Utils\Json::encode((array) $simpleXMLElement), \RectorPrefix20210219\Nette\Utils\Json::FORCE_ARRAY);
+        $data = \RectorPrefix20210220\Nette\Utils\Json::decode(\RectorPrefix20210220\Nette\Utils\Json::encode((array) $simpleXMLElement), \RectorPrefix20210220\Nette\Utils\Json::FORCE_ARRAY);
         $data = $this->unWrapAttributes($data);
         foreach ($data as $key => $value) {
             if (\is_array($value)) {
@@ -122,7 +122,7 @@ final class ServiceMapProvider
     private function createServiceFromXmlAndTagsData(\SimpleXMLElement $attrs, array $tags) : \Rector\Symfony\ValueObject\ServiceDefinition
     {
         $tags = $this->createTagsFromData($tags);
-        return new \Rector\Symfony\ValueObject\ServiceDefinition(\strpos((string) $attrs->id, '.') === 0 ? \RectorPrefix20210219\Nette\Utils\Strings::substring((string) $attrs->id, 1) : (string) $attrs->id, \property_exists($attrs, 'class') && $attrs->class !== null ? (string) $attrs->class : null, !(\property_exists($attrs, 'public') && $attrs->public !== null) || (string) $attrs->public !== 'false', \property_exists($attrs, 'synthetic') && $attrs->synthetic !== null && (string) $attrs->synthetic === 'true', \property_exists($attrs, 'alias') && $attrs->alias !== null ? (string) $attrs->alias : null, $tags);
+        return new \Rector\Symfony\ValueObject\ServiceDefinition(\strpos((string) $attrs->id, '.') === 0 ? \RectorPrefix20210220\Nette\Utils\Strings::substring((string) $attrs->id, 1) : (string) $attrs->id, \property_exists($attrs, 'class') && $attrs->class !== null ? (string) $attrs->class : null, !(\property_exists($attrs, 'public') && $attrs->public !== null) || (string) $attrs->public !== 'false', \property_exists($attrs, 'synthetic') && $attrs->synthetic !== null && (string) $attrs->synthetic === 'true', \property_exists($attrs, 'alias') && $attrs->alias !== null ? (string) $attrs->alias : null, $tags);
     }
     /**
      * @param ServiceDefinition[] $aliases

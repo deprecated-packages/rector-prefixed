@@ -5,7 +5,7 @@ namespace Rector\RectorGenerator\Provider;
 
 use Rector\Core\Util\StaticRectorStrings;
 use SplFileInfo;
-use RectorPrefix20210219\Symfony\Component\Finder\Finder;
+use RectorPrefix20210220\Symfony\Component\Finder\Finder;
 /**
  * @see \Rector\RectorGenerator\Tests\Provider\PackageNamesProviderTest
  */
@@ -16,7 +16,7 @@ final class PackageNamesProvider
      */
     public function provide() : array
     {
-        $finder = new \RectorPrefix20210219\Symfony\Component\Finder\Finder();
+        $finder = new \RectorPrefix20210220\Symfony\Component\Finder\Finder();
         $finder = $finder->directories()->depth(0)->in(__DIR__ . '/../../../../rules')->sortByName();
         $fileInfos = \iterator_to_array($finder->getIterator());
         $packageNames = [];

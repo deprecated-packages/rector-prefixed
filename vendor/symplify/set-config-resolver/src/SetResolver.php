@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210219\Symplify\SetConfigResolver;
+namespace RectorPrefix20210220\Symplify\SetConfigResolver;
 
-use RectorPrefix20210219\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix20210219\Symplify\SetConfigResolver\Console\Option\OptionName;
-use RectorPrefix20210219\Symplify\SetConfigResolver\Console\OptionValueResolver;
-use RectorPrefix20210219\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use RectorPrefix20210219\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use RectorPrefix20210219\Symplify\SetConfigResolver\ValueObject\Set;
-use RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210220\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix20210220\Symplify\SetConfigResolver\Console\Option\OptionName;
+use RectorPrefix20210220\Symplify\SetConfigResolver\Console\OptionValueResolver;
+use RectorPrefix20210220\Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use RectorPrefix20210220\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20210220\Symplify\SetConfigResolver\ValueObject\Set;
+use RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetResolver
 {
     /**
@@ -20,23 +20,23 @@ final class SetResolver
      * @var SetProviderInterface
      */
     private $setProvider;
-    public function __construct(\RectorPrefix20210219\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
+    public function __construct(\RectorPrefix20210220\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
     {
-        $this->optionValueResolver = new \RectorPrefix20210219\Symplify\SetConfigResolver\Console\OptionValueResolver();
+        $this->optionValueResolver = new \RectorPrefix20210220\Symplify\SetConfigResolver\Console\OptionValueResolver();
         $this->setProvider = $setProvider;
     }
-    public function detectFromInput(\RectorPrefix20210219\Symfony\Component\Console\Input\InputInterface $input) : ?\RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo
+    public function detectFromInput(\RectorPrefix20210220\Symfony\Component\Console\Input\InputInterface $input) : ?\RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $setName = $this->optionValueResolver->getOptionValue($input, \RectorPrefix20210219\Symplify\SetConfigResolver\Console\Option\OptionName::SET);
+        $setName = $this->optionValueResolver->getOptionValue($input, \RectorPrefix20210220\Symplify\SetConfigResolver\Console\Option\OptionName::SET);
         if ($setName === null) {
             return null;
         }
         return $this->detectFromName($setName);
     }
-    public function detectFromName(string $setName) : \RectorPrefix20210219\Symplify\SmartFileSystem\SmartFileInfo
+    public function detectFromName(string $setName) : \RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo
     {
         $set = $this->setProvider->provideByName($setName);
-        if (!$set instanceof \RectorPrefix20210219\Symplify\SetConfigResolver\ValueObject\Set) {
+        if (!$set instanceof \RectorPrefix20210220\Symplify\SetConfigResolver\ValueObject\Set) {
             $this->reportSetNotFound($setName);
         }
         return $set->getSetFileInfo();
@@ -44,6 +44,6 @@ final class SetResolver
     private function reportSetNotFound(string $setName) : void
     {
         $message = \sprintf('Set "%s" was not found', $setName);
-        throw new \RectorPrefix20210219\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
+        throw new \RectorPrefix20210220\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
     }
 }

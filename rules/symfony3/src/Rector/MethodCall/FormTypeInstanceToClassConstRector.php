@@ -19,6 +19,8 @@ use Rector\Symfony3\NodeFactory\BuilderFormNodeFactory;
 use Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory;
 use ReflectionClass;
 use ReflectionMethod;
+use RectorPrefix20210220\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use RectorPrefix20210220\Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -34,7 +36,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class FormTypeInstanceToClassConstRector extends \Rector\Symfony3\Rector\MethodCall\AbstractFormAddRector
 {
     /**
-     * @var string[]
+     * @var class-string<AbstractController>[]|class-string<Controller>[]
      */
     private const CONTROLLER_TYPES = ['Symfony\\Bundle\\FrameworkBundle\\Controller\\Controller', 'Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController'];
     /**
