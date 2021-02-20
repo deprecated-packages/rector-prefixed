@@ -90,13 +90,11 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
             if (!$classMethodReturn->expr instanceof \PhpParser\Node\Expr\Array_) {
                 continue;
             }
-            $arrayTypes = $this->nodeTypeResolver->resolve($classMethodReturn->expr);
-            // impossible to resolve
-            if (!$arrayTypes instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-                return new \PHPStan\Type\MixedType();
+            $type = $this->getTypeFromClassMethodReturn($classMethodReturn->expr);
+            if (!$type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+                return $type;
             }
-            // nest to 1 item
-            foreach ($arrayTypes->getValueTypes() as $position => $valueType) {
+            foreach ($type->getValueTypes() as $position => $valueType) {
                 if ($position !== $parameterPosition) {
                     continue;
                 }
@@ -106,7 +104,23 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
         if ($paramOnPositionTypes === []) {
             return new \PHPStan\Type\MixedType();
         }
-        return $this->typeFactory->createMixedPassedOrUnionType($paramOnPositionTypes);
+        $p = $this->typeFactory->createMixedPassedOrUnionType($paramOnPositionTypes);
+        return $p;
+    }
+    private function getTypeFromClassMethodReturn(\PhpParser\Node\Expr\Array_ $classMethodReturnArrayNode) : \PHPStan\Type\Type
+    {
+        $arrayTypes = $this->nodeTypeResolver->resolve($classMethodReturnArrayNode);
+        // impossible to resolve
+        if (!$arrayTypes instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+            return new \PHPStan\Type\MixedType();
+        }
+        // nest to 1 item
+        $arrayTypes = $arrayTypes->getValueTypes()[0];
+        // impossible to resolve
+        if (!$arrayTypes instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+            return new \PHPStan\Type\MixedType();
+        }
+        return $arrayTypes;
     }
     private function getFunctionLikePhpDocInfo(\PhpParser\Node\Param $param) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
