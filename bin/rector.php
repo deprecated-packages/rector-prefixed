@@ -3,10 +3,7 @@
 declare (strict_types=1);
 namespace RectorPrefix20210220;
 
-use Rector\Caching\Detector\ChangedFilesDetector;
-use Rector\Core\Bootstrap\ConfigShifter;
 use Rector\Core\Bootstrap\RectorConfigsResolver;
-use Rector\Core\Configuration\Configuration;
 use Rector\Core\Console\ConsoleApplication;
 use Rector\Core\Console\Style\SymfonyStyleFactory;
 use Rector\Core\DependencyInjection\RectorContainerFactory;
@@ -31,27 +28,11 @@ $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
 $symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210220\Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
+$rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
 try {
-    $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
-    $configFileInfos = $rectorConfigsResolver->provide();
-    // Build DI container
+    $bootstrapConfigs = $rectorConfigsResolver->provide();
     $rectorContainerFactory = new \Rector\Core\DependencyInjection\RectorContainerFactory();
-    // shift configs as last so parameters with main config have higher priority
-    $configShifter = new \Rector\Core\Bootstrap\ConfigShifter();
-    $firstResolvedConfig = $rectorConfigsResolver->getFirstResolvedConfig();
-    if ($firstResolvedConfig !== null) {
-        $configFileInfos = $configShifter->shiftInputConfigAsLast($configFileInfos, $firstResolvedConfig);
-    }
-    $container = $rectorContainerFactory->createFromConfigs($configFileInfos);
-    $firstResolvedConfig = $rectorConfigsResolver->getFirstResolvedConfig();
-    if ($firstResolvedConfig) {
-        /** @var Configuration $configuration */
-        $configuration = $container->get(\Rector\Core\Configuration\Configuration::class);
-        $configuration->setFirstResolverConfigFileInfo($firstResolvedConfig);
-        /** @var ChangedFilesDetector $changedFilesDetector */
-        $changedFilesDetector = $container->get(\Rector\Caching\Detector\ChangedFilesDetector::class);
-        $changedFilesDetector->setFirstResolvedConfigFileInfo($firstResolvedConfig);
-    }
+    $container = $rectorContainerFactory->createFromBootstrapConfigs($bootstrapConfigs);
 } catch (\RectorPrefix20210220\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) {
     $invalidSetReporter = new \RectorPrefix20210220\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
     $invalidSetReporter->report($setNotFoundException);

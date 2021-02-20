@@ -6,6 +6,7 @@ namespace Rector\Core\Configuration;
 use RectorPrefix20210220\Jean85\PrettyVersions;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
+use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use RectorPrefix20210220\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210220\Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -61,13 +62,13 @@ final class Configuration
      */
     private $outputFile;
     /**
-     * @var SmartFileInfo|null
-     */
-    private $configFileInfo;
-    /**
      * @var bool
      */
     private $showDiffs = \true;
+    /**
+     * @var BootstrapConfigs|null
+     */
+    private $bootstrapConfigs;
     public function __construct(\RectorPrefix20210220\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->isCacheEnabled = (bool) $parameterProvider->provideParameter(\Rector\Core\Configuration\Option::ENABLE_CACHE);
@@ -94,20 +95,6 @@ final class Configuration
         if ($commandLinePaths !== []) {
             $this->paths = $commandLinePaths;
         }
-    }
-    /**
-     * @api
-     */
-    public function setFirstResolverConfigFileInfo(\RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo $firstResolvedConfigFileInfo) : void
-    {
-        $this->configFileInfo = $firstResolvedConfigFileInfo;
-    }
-    public function getConfigFilePath() : ?string
-    {
-        if ($this->configFileInfo === null) {
-            return null;
-        }
-        return $this->configFileInfo->getRealPath();
     }
     public function getPrettyVersion() : string
     {
@@ -210,6 +197,21 @@ final class Configuration
     public function shouldShowDiffs() : bool
     {
         return $this->showDiffs;
+    }
+    public function setBootstrapConfigs(\Rector\Core\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs) : void
+    {
+        $this->bootstrapConfigs = $bootstrapConfigs;
+    }
+    public function getMainConfigFilePath() : ?string
+    {
+        if ($this->bootstrapConfigs === null) {
+            return null;
+        }
+        $mainConfigFileInfo = $this->bootstrapConfigs->getMainConfigFileInfo();
+        if (!$mainConfigFileInfo instanceof \RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo) {
+            return null;
+        }
+        return $mainConfigFileInfo->getRelativeFilePathFromCwd();
     }
     private function canShowProgressBar(\RectorPrefix20210220\Symfony\Component\Console\Input\InputInterface $input) : bool
     {

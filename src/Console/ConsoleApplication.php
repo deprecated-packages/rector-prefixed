@@ -18,7 +18,6 @@ use RectorPrefix20210220\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210220\Symfony\Component\Console\Input\InputOption;
 use RectorPrefix20210220\Symfony\Component\Console\Output\OutputInterface;
 use RectorPrefix20210220\Symplify\PackageBuilder\Console\Command\CommandNaming;
-use RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 final class ConsoleApplication extends \RectorPrefix20210220\Symfony\Component\Console\Application
 {
@@ -26,10 +25,6 @@ final class ConsoleApplication extends \RectorPrefix20210220\Symfony\Component\C
      * @var string
      */
     private const NAME = 'Rector';
-    /**
-     * @var Configuration
-     */
-    private $configuration;
     /**
      * @var NoRectorsLoadedReporter
      */
@@ -50,7 +45,6 @@ final class ConsoleApplication extends \RectorPrefix20210220\Symfony\Component\C
             $command->setName($commandName);
         }
         $this->addCommands($commands);
-        $this->configuration = $configuration;
         $this->noRectorsLoadedReporter = $noRectorsLoadedReporter;
     }
     public function doRun(\RectorPrefix20210220\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210220\Symfony\Component\Console\Output\OutputInterface $output) : int
@@ -74,13 +68,6 @@ final class ConsoleApplication extends \RectorPrefix20210220\Symfony\Component\C
         if ($this->shouldPrintMetaInformation($input)) {
             $output->writeln($this->getLongVersion());
             $shouldFollowByNewline = \true;
-            $configFilePath = $this->configuration->getConfigFilePath();
-            if ($configFilePath) {
-                $configFileInfo = new \RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo($configFilePath);
-                $relativeConfigPath = $configFileInfo->getRelativeFilePathFromDirectory(\getcwd());
-                $output->writeln('Config file: ' . $relativeConfigPath);
-                $shouldFollowByNewline = \true;
-            }
         }
         if ($shouldFollowByNewline) {
             $output->write(\PHP_EOL);
