@@ -333,6 +333,7 @@ return array(
     'RectorPrefix20210220\\Doctrine\\Common\\Annotations\\Annotation\\Attributes' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation/Attributes.php',
     'RectorPrefix20210220\\Doctrine\\Common\\Annotations\\Annotation\\Enum' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation/Enum.php',
     'RectorPrefix20210220\\Doctrine\\Common\\Annotations\\Annotation\\IgnoreAnnotation' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation/IgnoreAnnotation.php',
+    'RectorPrefix20210220\\Doctrine\\Common\\Annotations\\Annotation\\NamedArgumentConstructor' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation/NamedArgumentConstructor.php',
     'RectorPrefix20210220\\Doctrine\\Common\\Annotations\\Annotation\\Required' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation/Required.php',
     'RectorPrefix20210220\\Doctrine\\Common\\Annotations\\Annotation\\Target' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation/Target.php',
     'RectorPrefix20210220\\Doctrine\\Common\\Annotations\\CachedReader' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/CachedReader.php',

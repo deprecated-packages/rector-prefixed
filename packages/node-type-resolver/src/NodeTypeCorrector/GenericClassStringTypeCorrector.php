@@ -22,7 +22,7 @@ final class GenericClassStringTypeCorrector
     public function correct(\PHPStan\Type\Type $mainType) : \PHPStan\Type\Type
     {
         // inspired from https://github.com/phpstan/phpstan-src/blob/94e3443b2d21404a821e05b901dd4b57fcbd4e7f/src/Type/Generic/TemplateTypeHelper.php#L18
-        return \PHPStan\Type\TypeTraverser::map($mainType, function (\PHPStan\Type\Type $type, callable $traverse) {
+        return \PHPStan\Type\TypeTraverser::map($mainType, function (\PHPStan\Type\Type $type, callable $traverse) : Type {
             if (!$type instanceof \PHPStan\Type\Constant\ConstantStringType) {
                 return $traverse($type);
             }

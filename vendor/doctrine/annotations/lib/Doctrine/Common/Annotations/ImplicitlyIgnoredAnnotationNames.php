@@ -62,7 +62,9 @@ final class ImplicitlyIgnoredAnnotationNames
     private const PhpCodeSniffer = ['codingStandardsIgnoreStart' => \true, 'codingStandardsIgnoreEnd' => \true];
     private const SlevomatCodingStandard = ['phpcsSuppress' => \true];
     private const PhpStan = ['extends' => \true, 'implements' => \true, 'template' => \true, 'use' => \true];
-    public const LIST = self::Reserved + self::WidelyUsedNonStandard + self::PhpDocumentor1 + self::PhpDocumentor2 + self::PHPUnit + self::PhpCheckStyle + self::PhpStorm + self::PEAR + self::PlainUML + self::Symfony + self::SlevomatCodingStandard + self::PhpCodeSniffer + self::PhpStan;
+    private const Phan = ['suppress' => \true];
+    private const Rector = ['noRector' => \true];
+    public const LIST = self::Reserved + self::WidelyUsedNonStandard + self::PhpDocumentor1 + self::PhpDocumentor2 + self::PHPUnit + self::PhpCheckStyle + self::PhpStorm + self::PEAR + self::PlainUML + self::Symfony + self::SlevomatCodingStandard + self::PhpCodeSniffer + self::PhpStan + self::Phan + self::Rector;
     private function __construct()
     {
     }
