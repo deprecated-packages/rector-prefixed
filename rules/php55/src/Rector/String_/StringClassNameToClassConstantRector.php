@@ -8,13 +8,14 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\ClassConst;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
+use RectorPrefix20210220\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -29,7 +30,7 @@ final class StringClassNameToClassConstantRector extends \Rector\Core\Rector\Abs
      * @api
      * @var string
      */
-    public const CLASSES_TO_SKIP = '$classesToSkip';
+    public const CLASSES_TO_SKIP = 'classes_to_skip';
     /**
      * @var string[]
      */
@@ -46,6 +47,14 @@ final class StringClassNameToClassConstantRector extends \Rector\Core\Rector\Abs
      * @var string[]
      */
     private $sensitiveNonExistingClasses = [];
+    /**
+     * @var ClassLikeExistenceChecker
+     */
+    private $classLikeExistenceChecker;
+    public function __construct(\RectorPrefix20210220\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
+    {
+        $this->classLikeExistenceChecker = $classLikeExistenceChecker;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace string class names by <class>::class constant', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
@@ -97,13 +106,7 @@ CODE_SAMPLE
         if ($classLikeName === '') {
             return null;
         }
-        if (!$this->classLikeSensitiveExists($classLikeName)) {
-            return null;
-        }
-        if (\Rector\Core\Util\StaticRectorStrings::isInArrayInsensitive($classLikeName, $this->classesToSkip)) {
-            return null;
-        }
-        if ($this->isPartOfIsAFuncCall($node)) {
+        if ($this->shouldSkip($classLikeName, $node)) {
             return null;
         }
         $fullyQualified = new \PhpParser\Node\Name\FullyQualified($classLikeName);
@@ -111,15 +114,19 @@ CODE_SAMPLE
         $fullyQualified->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO));
         return new \PhpParser\Node\Expr\ClassConstFetch($fullyQualified, 'class');
     }
+    /**
+     * @param array<string, string[]> $configuration
+     */
     public function configure(array $configuration) : void
     {
-        if (isset($configuration[self::CLASSES_TO_SKIP])) {
-            $this->classesToSkip = $configuration[self::CLASSES_TO_SKIP];
+        if (!isset($configuration[self::CLASSES_TO_SKIP])) {
+            return;
         }
+        $this->classesToSkip = $configuration[self::CLASSES_TO_SKIP];
     }
     private function classLikeSensitiveExists(string $classLikeName) : bool
     {
-        if (!\Rector\NodeTypeResolver\ClassExistenceStaticHelper::doesClassLikeExist($classLikeName)) {
+        if (!$this->classLikeExistenceChecker->doesClassLikeExist($classLikeName)) {
             return \false;
         }
         // already known values
@@ -148,5 +155,20 @@ CODE_SAMPLE
             return \false;
         }
         return $this->isFuncCallName($parentParent, 'is_a');
+    }
+    private function shouldSkip(string $classLikeName, \PhpParser\Node\Scalar\String_ $string) : bool
+    {
+        if (!$this->classLikeSensitiveExists($classLikeName)) {
+            return \true;
+        }
+        if (\Rector\Core\Util\StaticRectorStrings::isInArrayInsensitive($classLikeName, $this->classesToSkip)) {
+            return \true;
+        }
+        if ($this->isPartOfIsAFuncCall($string)) {
+            return \true;
+        }
+        // allow class strings to be part of class const arrays, as probably on purpose
+        $parentClassConst = $this->betterNodeFinder->findParentType($string, \PhpParser\Node\Stmt\ClassConst::class);
+        return $parentClassConst instanceof \PhpParser\Node\Stmt\ClassConst;
     }
 }
