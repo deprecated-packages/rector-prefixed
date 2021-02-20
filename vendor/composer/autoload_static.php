@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit573f04433c10a390ae46b43017d1b396
+class ComposerStaticInitcab9a223756559cec6122ed9c490d71e
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2979,11 +2979,16 @@ class ComposerStaticInit573f04433c10a390ae46b43017d1b396
         'Rector\\Defluent\\ValueObject\\FluentCallsKind' => __DIR__ . '/../..' . '/rules/defluent/src/ValueObject/FluentCallsKind.php',
         'Rector\\Defluent\\ValueObject\\FluentMethodCalls' => __DIR__ . '/../..' . '/rules/defluent/src/ValueObject/FluentMethodCalls.php',
         'Rector\\DependencyInjection\\Collector\\VariablesToPropertyFetchCollection' => __DIR__ . '/../..' . '/rules/dependency-injection/src/Collector/VariablesToPropertyFetchCollection.php',
+        'Rector\\DependencyInjection\\NodeAnalyzer\\NetteInjectPropertyAnalyzer' => __DIR__ . '/../..' . '/rules/dependency-injection/src/NodeAnalyzer/NetteInjectPropertyAnalyzer.php',
         'Rector\\DependencyInjection\\NodeFactory\\InjectMethodFactory' => __DIR__ . '/../..' . '/rules/dependency-injection/src/NodeFactory/InjectMethodFactory.php',
         'Rector\\DependencyInjection\\NodeRemover\\ClassMethodNodeRemover' => __DIR__ . '/../..' . '/rules/dependency-injection/src/NodeRemover/ClassMethodNodeRemover.php',
         'Rector\\DependencyInjection\\Rector\\Class_\\ActionInjectionToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/dependency-injection/src/Rector/Class_/ActionInjectionToConstructorInjectionRector.php',
         'Rector\\DependencyInjection\\Rector\\Class_\\MultiParentingToAbstractDependencyRector' => __DIR__ . '/../..' . '/rules/dependency-injection/src/Rector/Class_/MultiParentingToAbstractDependencyRector.php',
+        'Rector\\DependencyInjection\\Rector\\Property\\AnnotatedPropertyInjectToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/dependency-injection/src/Rector/Property/AnnotatedPropertyInjectToConstructorInjectionRector.php',
         'Rector\\DependencyInjection\\Rector\\Variable\\ReplaceVariableByPropertyFetchRector' => __DIR__ . '/../..' . '/rules/dependency-injection/src/Rector/Variable/ReplaceVariableByPropertyFetchRector.php',
+        'Rector\\DependencyInjection\\TypeAnalyzer\\InjectParameterAnalyzer' => __DIR__ . '/../..' . '/rules/dependency-injection/src/TypeAnalyzer/InjectParameterAnalyzer.php',
+        'Rector\\DependencyInjection\\TypeAnalyzer\\InjectTagValueNodeToServiceTypeResolver' => __DIR__ . '/../..' . '/rules/dependency-injection/src/TypeAnalyzer/InjectTagValueNodeToServiceTypeResolver.php',
+        'Rector\\DependencyInjection\\TypeAnalyzer\\JMSDITypeResolver' => __DIR__ . '/../..' . '/rules/dependency-injection/src/TypeAnalyzer/JMSDITypeResolver.php',
         'Rector\\DoctrineAnnotationGenerated\\ConstantPreservingAnnotationReader' => __DIR__ . '/../..' . '/packages/doctrine-annotation-generated/src/ConstantPreservingAnnotationReader.php',
         'Rector\\DoctrineAnnotationGenerated\\ConstantPreservingDocParser' => __DIR__ . '/../..' . '/packages/doctrine-annotation-generated/src/ConstantPreservingDocParser.php',
         'Rector\\DoctrineAnnotationGenerated\\DataCollector\\ResolvedConstantStaticCollector' => __DIR__ . '/../..' . '/packages/doctrine-annotation-generated/src/DataCollector/ResolvedConstantStaticCollector.php',
@@ -3130,11 +3135,7 @@ class ComposerStaticInit573f04433c10a390ae46b43017d1b396
         'Rector\\Generic\\Rector\\ClassMethod\\NormalToFluentRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/NormalToFluentRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\SingleToManyMethodRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/SingleToManyMethodRector.php',
         'Rector\\Generic\\Rector\\ClassMethod\\WrapReturnRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/ClassMethod/WrapReturnRector.php',
-        'Rector\\Generic\\Rector\\Class_\\AddInterfaceByTraitRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/AddInterfaceByTraitRector.php',
-        'Rector\\Generic\\Rector\\Class_\\MergeInterfacesRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Class_/MergeInterfacesRector.php',
         'Rector\\Generic\\Rector\\FuncCall\\SwapFuncCallArgumentsRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/FuncCall/SwapFuncCallArgumentsRector.php',
-        'Rector\\Generic\\Rector\\Property\\AnnotatedPropertyInjectToConstructorInjectionRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Property/AnnotatedPropertyInjectToConstructorInjectionRector.php',
-        'Rector\\Generic\\Rector\\Property\\InjectAnnotationClassRector' => __DIR__ . '/../..' . '/rules/generic/src/Rector/Property/InjectAnnotationClassRector.php',
         'Rector\\Generic\\ValueObject\\ArgumentAdder' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentAdder.php',
         'Rector\\Generic\\ValueObject\\ArgumentDefaultValueReplacer' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/ArgumentDefaultValueReplacer.php',
         'Rector\\Generic\\ValueObject\\NormalToFluent' => __DIR__ . '/../..' . '/rules/generic/src/ValueObject/NormalToFluent.php',
@@ -4014,7 +4015,9 @@ class ComposerStaticInit573f04433c10a390ae46b43017d1b396
         'Rector\\Transform\\Rector\\Assign\\PropertyAssignToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Assign/PropertyAssignToMethodCallRector.php',
         'Rector\\Transform\\Rector\\Assign\\PropertyFetchToMethodCallRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Assign/PropertyFetchToMethodCallRector.php',
         'Rector\\Transform\\Rector\\ClassConstFetch\\ClassConstFetchToValueRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/ClassConstFetch/ClassConstFetchToValueRector.php',
+        'Rector\\Transform\\Rector\\Class_\\AddInterfaceByTraitRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/AddInterfaceByTraitRector.php',
         'Rector\\Transform\\Rector\\Class_\\CommunityTestCaseRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/CommunityTestCaseRector.php',
+        'Rector\\Transform\\Rector\\Class_\\MergeInterfacesRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/MergeInterfacesRector.php',
         'Rector\\Transform\\Rector\\Class_\\ParentClassToTraitsRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Class_/ParentClassToTraitsRector.php',
         'Rector\\Transform\\Rector\\Expression\\MethodCallToReturnRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/Expression/MethodCallToReturnRector.php',
         'Rector\\Transform\\Rector\\FileWithoutNamespace\\FunctionToStaticMethodRector' => __DIR__ . '/../..' . '/rules/transform/src/Rector/FileWithoutNamespace/FunctionToStaticMethodRector.php',
@@ -4190,9 +4193,9 @@ class ComposerStaticInit573f04433c10a390ae46b43017d1b396
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit573f04433c10a390ae46b43017d1b396::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit573f04433c10a390ae46b43017d1b396::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit573f04433c10a390ae46b43017d1b396::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcab9a223756559cec6122ed9c490d71e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcab9a223756559cec6122ed9c490d71e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcab9a223756559cec6122ed9c490d71e::$classMap;
 
         }, null, ClassLoader::class);
     }

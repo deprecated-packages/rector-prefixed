@@ -51,6 +51,10 @@ final class PhpDocInfoFactory
      * @var RectorChangeCollector
      */
     private $rectorChangeCollector;
+    /**
+     * @var array<string, PhpDocInfo>
+     */
+    private $phpDocInfosByObjectHash = [];
     public function __construct(\Rector\BetterPhpDocParser\Attributes\Ast\AttributeAwareNodeFactory $attributeAwareNodeFactory, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \PHPStan\PhpDocParser\Lexer\Lexer $lexer, \Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser $betterPhpDocParser, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\BetterPhpDocParser\Annotation\AnnotationNaming $annotationNaming, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector)
     {
         $this->betterPhpDocParser = $betterPhpDocParser;
@@ -76,6 +80,10 @@ final class PhpDocInfoFactory
     }
     public function createFromNode(\PhpParser\Node $node) : ?\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
+        $objectHash = \spl_object_hash($node);
+        if (isset($this->phpDocInfosByObjectHash[$objectHash])) {
+            return $this->phpDocInfosByObjectHash[$objectHash];
+        }
         /** needed for @see PhpDocNodeFactoryInterface */
         $this->currentNodeProvider->setNode($node);
         $docComment = $node->getDocComment();
@@ -97,7 +105,9 @@ final class PhpDocInfoFactory
             }
             $this->setPositionOfLastToken($phpDocNode);
         }
-        return $this->createFromPhpDocNode($phpDocNode, $content, $tokens, $node);
+        $phpDocInfo = $this->createFromPhpDocNode($phpDocNode, $content, $tokens, $node);
+        $this->phpDocInfosByObjectHash[$objectHash] = $phpDocInfo;
+        return $phpDocInfo;
     }
     public function createEmpty(\PhpParser\Node $node) : \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo
     {
