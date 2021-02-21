@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\CodingStyle\Rector\FuncCall;
+namespace Rector\Transform\Rector\FuncCall;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
@@ -12,9 +12,9 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
- * @see \Rector\CodingStyle\Tests\Rector\FuncCall\FunctionCallToConstantRector\FunctionCallToConstantRectorTest
+ * @see \Rector\Transform\Tests\Rector\FuncCall\FuncCallToConstFetchRector\FunctionCallToConstantRectorTest
  */
-final class FunctionCallToConstantRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
+final class FuncCallToConstFetchRector extends \Rector\Core\Rector\AbstractRector implements \Rector\Core\Contract\Rector\ConfigurableRectorInterface
 {
     /**
      * @var string
@@ -44,25 +44,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-, [self::FUNCTIONS_TO_CONSTANTS => ['php_sapi_name' => 'PHP_SAPI']]), new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
-class SomeClass
-{
-    public function run()
-    {
-        $value = pi();
-    }
-}
-CODE_SAMPLE
-, <<<'CODE_SAMPLE'
-class SomeClass
-{
-    public function run()
-    {
-        $value = M_PI;
-    }
-}
-CODE_SAMPLE
-, [self::FUNCTIONS_TO_CONSTANTS => ['pi' => 'M_PI']])]);
+, [self::FUNCTIONS_TO_CONSTANTS => ['php_sapi_name' => 'PHP_SAPI']])]);
     }
     /**
      * @return string[]

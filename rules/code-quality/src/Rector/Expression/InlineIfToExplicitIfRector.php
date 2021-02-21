@@ -94,6 +94,7 @@ CODE_SAMPLE
         $expr = $booleanExpr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd ? $booleanExpr->left : $this->binaryOpManipulator->inverseNode($booleanExpr->left);
         $if = new \PhpParser\Node\Stmt\If_($expr);
         $if->stmts[] = new \PhpParser\Node\Stmt\Expression($booleanExpr->right);
+        $this->mirrorComments($if, $expression);
         return $if;
     }
 }
