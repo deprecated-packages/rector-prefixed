@@ -1,20 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210220\Symplify\PhpConfigPrinter\HttpKernel;
+namespace RectorPrefix20210221\Symplify\PhpConfigPrinter\HttpKernel;
 
-use RectorPrefix20210220\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix20210220\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use RectorPrefix20210220\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-use RectorPrefix20210220\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
-use RectorPrefix20210220\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class PhpConfigPrinterKernel extends \RectorPrefix20210220\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel implements \RectorPrefix20210220\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
+use RectorPrefix20210221\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20210221\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use RectorPrefix20210221\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
+use RectorPrefix20210221\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
+use RectorPrefix20210221\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class PhpConfigPrinterKernel extends \RectorPrefix20210221\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel implements \RectorPrefix20210221\Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
 {
     /**
      * @var string[]
      */
     private $configs = [];
-    public function registerContainerConfiguration(\RectorPrefix20210220\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20210221\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         foreach ($this->configs as $config) {
@@ -26,7 +26,7 @@ final class PhpConfigPrinterKernel extends \RectorPrefix20210220\Symplify\Sympli
      */
     public function registerBundles() : iterable
     {
-        return [new \RectorPrefix20210220\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
+        return [new \RectorPrefix20210221\Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle()];
     }
     /**
      * @param string[] $configs

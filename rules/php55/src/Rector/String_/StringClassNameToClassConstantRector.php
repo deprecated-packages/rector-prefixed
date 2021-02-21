@@ -15,7 +15,7 @@ use Rector\Core\Util\StaticRectorStrings;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use ReflectionClass;
-use RectorPrefix20210220\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use RectorPrefix20210221\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -51,7 +51,7 @@ final class StringClassNameToClassConstantRector extends \Rector\Core\Rector\Abs
      * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
-    public function __construct(\RectorPrefix20210220\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
+    public function __construct(\RectorPrefix20210221\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
     {
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }

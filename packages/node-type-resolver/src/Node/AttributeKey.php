@@ -8,7 +8,7 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Namespace_;
 use PHPStan\Analyser\Scope;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
-use RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo;
 final class AttributeKey
 {
     /**
@@ -120,7 +120,7 @@ final class AttributeKey
     /**
      * @var string
      */
-    public const FILE_INFO = \RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo::class;
+    public const FILE_INFO = \RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo::class;
     /**
      * Internal php-parser name.
      * Do not change this even if you want!

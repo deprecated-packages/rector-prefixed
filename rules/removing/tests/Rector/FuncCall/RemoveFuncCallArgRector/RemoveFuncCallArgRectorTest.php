@@ -6,13 +6,13 @@ namespace Rector\Removing\Tests\Rector\FuncCall\RemoveFuncCallArgRector;
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use SplFileInfo;
-use RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveFuncCallArgRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

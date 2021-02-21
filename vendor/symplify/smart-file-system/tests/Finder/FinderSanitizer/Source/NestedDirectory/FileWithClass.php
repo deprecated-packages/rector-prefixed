@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210220\Symplify\SmartFileSystem\Tests\Finder\FinderSanitizer\Source\NestedDirectory;
+namespace RectorPrefix20210221\Symplify\SmartFileSystem\Tests\Finder\FinderSanitizer\Source\NestedDirectory;
 
 final class FileWithClass
 {

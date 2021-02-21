@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Rector\Transform\Tests\Rector\StaticCall\StaticCallToMethodCallRector\Source;
 
-use RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileSystem;
+use RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileSystem;
 abstract class ClassWithFileSystemMethod
 {
-    public function getSmartFileSystem() : \RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileSystem
+    public function getSmartFileSystem() : \RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileSystem
     {
-        return new \RectorPrefix20210220\Symplify\SmartFileSystem\SmartFileSystem();
+        return new \RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileSystem();
     }
 }

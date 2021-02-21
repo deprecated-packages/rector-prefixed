@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210220\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210221\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20210220\Psr\Cache\CacheItemPoolInterface;
-use RectorPrefix20210220\Symfony\Component\Cache\CacheItem;
+use RectorPrefix20210221\Psr\Cache\CacheItemPoolInterface;
+use RectorPrefix20210221\Symfony\Component\Cache\CacheItem;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\RectorPrefix20210220\Symfony\Component\Cache\CacheItem::class);
+\class_exists(\RectorPrefix20210221\Symfony\Component\Cache\CacheItem::class);
 /**
  * Interface for adapters managing instances of Symfony's CacheItem.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-interface AdapterInterface extends \RectorPrefix20210220\Psr\Cache\CacheItemPoolInterface
+interface AdapterInterface extends \RectorPrefix20210221\Psr\Cache\CacheItemPoolInterface
 {
     /**
      * {@inheritdoc}

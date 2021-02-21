@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Rector\Variable;
 
-use RectorPrefix20210220\Nette\Utils\Strings;
+use RectorPrefix20210221\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Param;
@@ -83,7 +83,7 @@ CODE_SAMPLE
         if ($nodeName === null) {
             return null;
         }
-        if (!\RectorPrefix20210220\Nette\Utils\Strings::contains($nodeName, '_')) {
+        if (!\RectorPrefix20210221\Nette\Utils\Strings::contains($nodeName, '_')) {
             return null;
         }
         if ($this->reservedKeywordAnalyzer->isNativeVariable($nodeName)) {
@@ -103,6 +103,9 @@ CODE_SAMPLE
         if ($parent instanceof \PhpParser\Node\Param) {
             return $this->renameParam($parent);
         }
+        if ($this->isName($node, $camelCaseName)) {
+            return null;
+        }
         $node->name = $camelCaseName;
         return $node;
     }
@@ -116,8 +119,9 @@ CODE_SAMPLE
         if (!$renamedParam instanceof \PhpParser\Node\Param) {
             return null;
         }
-        /** @var Variable $variable */
-        $variable = $renamedParam->var;
-        return $variable;
+        if (!$renamedParam->var instanceof \PhpParser\Node\Expr\Variable) {
+            return null;
+        }
+        return $renamedParam->var;
     }
 }
