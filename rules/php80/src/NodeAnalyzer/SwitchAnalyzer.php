@@ -10,15 +10,22 @@ final class SwitchAnalyzer
 {
     public function hasEachCaseBreak(\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
-        foreach ($switch->cases as $case) {
-            foreach ($case->stmts as $caseStmt) {
-                if (!$caseStmt instanceof \PhpParser\Node\Stmt\Break_) {
-                    continue;
-                }
+        $totalCases = \count($switch->cases);
+        if ($totalCases === 1) {
+            return \false;
+        }
+        foreach ($switch->cases as $key => $case) {
+            if ($key === $totalCases - 1) {
                 return \true;
             }
+            foreach ($case->stmts as $caseStmt) {
+                if ($caseStmt instanceof \PhpParser\Node\Stmt\Break_) {
+                    continue 2;
+                }
+            }
+            return \false;
         }
-        return \false;
+        return \true;
     }
     public function hasEachCaseSingleStmt(\PhpParser\Node\Stmt\Switch_ $switch) : bool
     {
