@@ -27,10 +27,13 @@ final class ClassMethodReturnVendorLockResolver extends \Rector\VendorLocker\Nod
             return $this->isVendorLockedByParentClass($parentClassName, $methodName);
         }
         $classNode = $classMethod->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NODE);
-        if (!$classNode instanceof \PhpParser\Node\Stmt\Class_ && !$classNode instanceof \PhpParser\Node\Stmt\Interface_) {
-            return \false;
+        if ($classNode instanceof \PhpParser\Node\Stmt\Class_) {
+            return $this->isMethodVendorLockedByInterface($classNode, $methodName);
         }
-        return $this->isMethodVendorLockedByInterface($classNode, $methodName);
+        if ($classNode instanceof \PhpParser\Node\Stmt\Interface_) {
+            return $this->isMethodVendorLockedByInterface($classNode, $methodName);
+        }
+        return \false;
     }
     private function isVendorLockedByParentClass(string $parentClassName, string $methodName) : bool
     {

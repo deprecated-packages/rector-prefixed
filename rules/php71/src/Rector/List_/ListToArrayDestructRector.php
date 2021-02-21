@@ -69,9 +69,12 @@ CODE_SAMPLE
         if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $parentNode->var === $node) {
             return new \PhpParser\Node\Expr\Array_($node->items);
         }
-        if ($parentNode instanceof \PhpParser\Node\Stmt\Foreach_ && $parentNode->valueVar === $node) {
-            return new \PhpParser\Node\Expr\Array_($node->items);
+        if (!$parentNode instanceof \PhpParser\Node\Stmt\Foreach_) {
+            return null;
         }
-        return null;
+        if ($parentNode->valueVar !== $node) {
+            return null;
+        }
+        return new \PhpParser\Node\Expr\Array_($node->items);
     }
 }

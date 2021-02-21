@@ -23,10 +23,13 @@ final class ConstantReturnToParamTypeConverter
     }
     public function convert(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
     {
-        if (!$type instanceof \PHPStan\Type\Constant\ConstantStringType && !$type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-            return new \PHPStan\Type\MixedType();
+        if ($type instanceof \PHPStan\Type\Constant\ConstantStringType) {
+            return $this->unwrapConstantTypeToObjectType($type);
         }
-        return $this->unwrapConstantTypeToObjectType($type);
+        if ($type instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+            return $this->unwrapConstantTypeToObjectType($type);
+        }
+        return new \PHPStan\Type\MixedType();
     }
     private function unwrapConstantTypeToObjectType(\PHPStan\Type\Type $type) : \PHPStan\Type\Type
     {

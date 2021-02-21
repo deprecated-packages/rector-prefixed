@@ -91,10 +91,13 @@ CODE_SAMPLE
         }
         $firstValue = $node->args[0]->value;
         $firstValueStaticType = $this->getStaticType($firstValue);
-        if ($firstValueStaticType instanceof \PHPStan\Type\Constant\ConstantArrayType && !$firstValueStaticType->getItemType() instanceof \PHPStan\Type\MixedType) {
-            return $this->refactorAssignArray($firstValue, $node);
+        if (!$firstValueStaticType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+            return null;
         }
-        return null;
+        if ($firstValueStaticType->getItemType() instanceof \PHPStan\Type\MixedType) {
+            return null;
+        }
+        return $this->refactorAssignArray($firstValue, $node);
     }
     private function refactorAssignedArray(\PhpParser\Node\Expr\Assign $assign, \PhpParser\Node\Expr\FuncCall $funcCall, \PhpParser\Node\Expr $expr) : ?\PhpParser\Node\Expr
     {

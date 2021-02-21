@@ -96,10 +96,13 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node $node) : bool
     {
-        if ($node instanceof \PhpParser\Node\Stmt\Nop && \count($node->getComments()) > 1) {
-            return \true;
+        if (!$node instanceof \PhpParser\Node\Stmt\Nop) {
+            return !$this->typeChecker->isInstanceOf($node, self::NODES_TO_MATCH);
         }
-        return !$this->typeChecker->isInstanceOf($node, self::NODES_TO_MATCH);
+        if (\count($node->getComments()) <= 1) {
+            return !$this->typeChecker->isInstanceOf($node, self::NODES_TO_MATCH);
+        }
+        return \true;
     }
     private function hasVariableName(\PhpParser\Node $node, string $variableName) : bool
     {

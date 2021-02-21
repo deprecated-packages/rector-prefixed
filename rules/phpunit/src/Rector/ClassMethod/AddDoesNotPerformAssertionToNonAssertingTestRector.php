@@ -153,16 +153,25 @@ CODE_SAMPLE
     private function hasDirectAssertCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool
     {
         return (bool) $this->betterNodeFinder->findFirst((array) $classMethod->stmts, function (\PhpParser\Node $node) : bool {
-            if (!$node instanceof \PhpParser\Node\Expr\MethodCall && !$node instanceof \PhpParser\Node\Expr\StaticCall) {
-                return \false;
+            if ($node instanceof \PhpParser\Node\Expr\MethodCall) {
+                return $this->isNames($node->name, [
+                    // phpunit
+                    '*assert',
+                    'assert*',
+                    'expectException*',
+                    'setExpectedException*',
+                ]);
             }
-            return $this->isNames($node->name, [
-                // phpunit
-                '*assert',
-                'assert*',
-                'expectException*',
-                'setExpectedException*',
-            ]);
+            if ($node instanceof \PhpParser\Node\Expr\StaticCall) {
+                return $this->isNames($node->name, [
+                    // phpunit
+                    '*assert',
+                    'assert*',
+                    'expectException*',
+                    'setExpectedException*',
+                ]);
+            }
+            return \false;
         });
     }
     private function hasNestedAssertCall(\PhpParser\Node\Stmt\ClassMethod $classMethod) : bool

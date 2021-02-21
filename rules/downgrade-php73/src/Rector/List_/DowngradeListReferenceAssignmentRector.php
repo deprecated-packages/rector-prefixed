@@ -125,10 +125,16 @@ CODE_SAMPLE
     {
         $parentNode = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
         // Check it follows `list(...) = $foo`
-        if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $parentNode->var === $node && $parentNode->expr instanceof \PhpParser\Node\Expr\Variable) {
-            return $this->hasAnyItemByRef($node->items);
+        if (!$parentNode instanceof \PhpParser\Node\Expr\Assign) {
+            return \false;
         }
-        return \false;
+        if ($parentNode->var !== $node) {
+            return \false;
+        }
+        if (!$parentNode->expr instanceof \PhpParser\Node\Expr\Variable) {
+            return \false;
+        }
+        return $this->hasAnyItemByRef($node->items);
     }
     /**
      * Count the number of params by reference placed at the end
@@ -229,7 +235,10 @@ CODE_SAMPLE
      */
     private function getArrayItemKey(\PhpParser\Node\Expr\ArrayItem $arrayItem, $position)
     {
-        if ($arrayItem->key !== null && ($arrayItem->key instanceof \PhpParser\Node\Scalar\String_ || $arrayItem->key instanceof \PhpParser\Node\Scalar\LNumber)) {
+        if ($arrayItem->key instanceof \PhpParser\Node\Scalar\String_) {
+            return $arrayItem->key->value;
+        }
+        if ($arrayItem->key instanceof \PhpParser\Node\Scalar\LNumber) {
             return $arrayItem->key->value;
         }
         return $position;

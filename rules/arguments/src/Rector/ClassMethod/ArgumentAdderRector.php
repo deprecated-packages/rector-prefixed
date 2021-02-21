@@ -167,11 +167,15 @@ CODE_SAMPLE
             return $this->isName($node->params[$position], $argumentName);
         }
         // already added?
-        if (isset($node->args[$position]) && $this->isName($node->args[$position], $argumentName)) {
-            return \true;
+        if (!isset($node->args[$position])) {
+            // is correct scope?
+            return !$this->argumentAddingScope->isInCorrectScope($node, $argumentAdder);
         }
-        // is correct scope?
-        return !$this->argumentAddingScope->isInCorrectScope($node, $argumentAdder);
+        if (!$this->isName($node->args[$position], $argumentName)) {
+            // is correct scope?
+            return !$this->argumentAddingScope->isInCorrectScope($node, $argumentAdder);
+        }
+        return \true;
     }
     /**
      * @param mixed $defaultValue

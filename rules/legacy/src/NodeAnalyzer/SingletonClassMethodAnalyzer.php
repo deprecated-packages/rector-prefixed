@@ -94,9 +94,12 @@ final class SingletonClassMethodAnalyzer
             }
         }
         // matching: "! self::$static"
-        if ($expr instanceof \PhpParser\Node\Expr\BooleanNot && $expr->expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
-            return $expr->expr;
+        if (!$expr instanceof \PhpParser\Node\Expr\BooleanNot) {
+            return null;
         }
-        return null;
+        if (!$expr->expr instanceof \PhpParser\Node\Expr\StaticPropertyFetch) {
+            return null;
+        }
+        return $expr->expr;
     }
 }

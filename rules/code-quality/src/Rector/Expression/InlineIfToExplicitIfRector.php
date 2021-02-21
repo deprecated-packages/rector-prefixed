@@ -71,10 +71,13 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd && !$node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
-            return null;
+        if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanAnd) {
+            return $this->processExplicitIf($node);
         }
-        return $this->processExplicitIf($node);
+        if ($node->expr instanceof \PhpParser\Node\Expr\BinaryOp\BooleanOr) {
+            return $this->processExplicitIf($node);
+        }
+        return null;
     }
     private function processExplicitIf(\PhpParser\Node\Stmt\Expression $expression) : ?\PhpParser\Node
     {

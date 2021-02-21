@@ -40,10 +40,13 @@ final class SymmetricArrayDestructuringToListRector extends \Rector\Core\Rector\
         if ($parentNode instanceof \PhpParser\Node\Expr\Assign && $this->nodeComparator->areNodesEqual($node, $parentNode->var)) {
             return $this->processToList($node);
         }
-        if ($parentNode instanceof \PhpParser\Node\Stmt\Foreach_ && $this->nodeComparator->areNodesEqual($node, $parentNode->valueVar)) {
-            return $this->processToList($node);
+        if (!$parentNode instanceof \PhpParser\Node\Stmt\Foreach_) {
+            return null;
         }
-        return null;
+        if (!$this->nodeComparator->areNodesEqual($node, $parentNode->valueVar)) {
+            return null;
+        }
+        return $this->processToList($node);
     }
     private function processToList(\PhpParser\Node\Expr\Array_ $array) : \PhpParser\Node\Expr\FuncCall
     {

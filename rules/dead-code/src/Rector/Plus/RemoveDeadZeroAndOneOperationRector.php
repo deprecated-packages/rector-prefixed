@@ -133,10 +133,13 @@ CODE_SAMPLE
             }
             return $binaryOp->right;
         }
-        if ($this->valueResolver->isValue($binaryOp->right, 0) && $this->isNumberType($binaryOp->left)) {
-            return $binaryOp->left;
+        if (!$this->valueResolver->isValue($binaryOp->right, 0)) {
+            return null;
         }
-        return null;
+        if (!$this->isNumberType($binaryOp->left)) {
+            return null;
+        }
+        return $binaryOp->left;
     }
     /**
      * @param Mul|Div $binaryOp
@@ -146,9 +149,12 @@ CODE_SAMPLE
         if ($binaryOp instanceof \PhpParser\Node\Expr\BinaryOp\Mul && $this->valueResolver->isValue($binaryOp->left, 1) && $this->isNumberType($binaryOp->right)) {
             return $binaryOp->right;
         }
-        if ($this->valueResolver->isValue($binaryOp->right, 1) && $this->isNumberType($binaryOp->left)) {
-            return $binaryOp->left;
+        if (!$this->valueResolver->isValue($binaryOp->right, 1)) {
+            return null;
         }
-        return null;
+        if (!$this->isNumberType($binaryOp->left)) {
+            return null;
+        }
+        return $binaryOp->left;
     }
 }

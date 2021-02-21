@@ -107,10 +107,16 @@ final class CurrentAndParentClassMethodComparator
         /** @var string $methodName */
         $methodName = $this->nodeNameResolver->getName($staticCall->name);
         $parentClassMethod = $this->nodeRepository->findClassMethod($parentClassName, $methodName);
-        if ($parentClassMethod !== null && $parentClassMethod->isProtected() && $classMethod->isPublic()) {
-            return \true;
+        if (!$parentClassMethod instanceof \PhpParser\Node\Stmt\ClassMethod) {
+            return $this->checkOverrideUsingReflection($classMethod, $parentClassName, $methodName);
         }
-        return $this->checkOverrideUsingReflection($classMethod, $parentClassName, $methodName);
+        if (!$parentClassMethod->isProtected()) {
+            return $this->checkOverrideUsingReflection($classMethod, $parentClassName, $methodName);
+        }
+        if (!$classMethod->isPublic()) {
+            return $this->checkOverrideUsingReflection($classMethod, $parentClassName, $methodName);
+        }
+        return \true;
     }
     private function checkOverrideUsingReflection(\PhpParser\Node\Stmt\ClassMethod $classMethod, string $parentClassName, string $methodName) : bool
     {

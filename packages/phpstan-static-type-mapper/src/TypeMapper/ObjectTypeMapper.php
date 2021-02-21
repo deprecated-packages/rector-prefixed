@@ -77,11 +77,15 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
         if ($type instanceof \Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType) {
             return new \PhpParser\Node\Name\FullyQualified($type->getClassName());
         }
-        if ($type instanceof \PHPStan\Type\Generic\GenericObjectType && $type->getClassName() === 'object') {
-            return new \PhpParser\Node\Name('object');
+        if (!$type instanceof \PHPStan\Type\Generic\GenericObjectType) {
+            // fallback
+            return new \PhpParser\Node\Name\FullyQualified($type->getClassName());
         }
-        // fallback
-        return new \PhpParser\Node\Name\FullyQualified($type->getClassName());
+        if ($type->getClassName() !== 'object') {
+            // fallback
+            return new \PhpParser\Node\Name\FullyQualified($type->getClassName());
+        }
+        return new \PhpParser\Node\Name('object');
     }
     /**
      * @param ObjectType $type

@@ -79,9 +79,15 @@ final class NameImportingPostRector extends \PhpParser\NodeVisitorAbstract imple
         if (!\is_callable($importName)) {
             return $this->nameImporter->importName($name);
         }
-        if (\substr_count($name->toCodeString(), '\\') > 1 && $this->classNameImportSkipper->isFoundInUse($name) && !\function_exists($name->getLast())) {
-            return null;
+        if (\substr_count($name->toCodeString(), '\\') <= 1) {
+            return $this->nameImporter->importName($name);
         }
-        return $this->nameImporter->importName($name);
+        if (!$this->classNameImportSkipper->isFoundInUse($name)) {
+            return $this->nameImporter->importName($name);
+        }
+        if (\function_exists($name->getLast())) {
+            return $this->nameImporter->importName($name);
+        }
+        return null;
     }
 }
