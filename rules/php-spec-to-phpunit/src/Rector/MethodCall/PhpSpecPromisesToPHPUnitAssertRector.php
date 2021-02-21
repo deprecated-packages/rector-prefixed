@@ -227,7 +227,7 @@ final class PhpSpecPromisesToPHPUnitAssertRector extends \Rector\PhpSpecToPHPUni
     }
     private function shouldSkip(\PhpParser\Node\Expr\MethodCall $methodCall) : bool
     {
-        if (!$this->isVariableName($methodCall->var, self::THIS)) {
+        if (!$this->nodeNameResolver->isVariableName($methodCall->var, self::THIS)) {
             return \true;
         }
         // skip "createMock" method

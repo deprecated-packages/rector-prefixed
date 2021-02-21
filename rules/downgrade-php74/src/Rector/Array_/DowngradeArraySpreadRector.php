@@ -17,6 +17,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NetteKdyby\Naming\VariableNaming;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -122,8 +123,6 @@ CODE_SAMPLE
                 // Spread operator found
                 if (!$item->value instanceof \PhpParser\Node\Expr\Variable) {
                     // If it is a not variable, transform it to a variable
-                    // Keep the original type, will be needed later
-                    $item->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_TYPE, $nodeScope->getType($item->value));
                     $item->value = $this->createVariableFromNonVariable($array, $item, $position);
                 }
                 if ($accumulatedItems !== []) {
@@ -185,7 +184,7 @@ CODE_SAMPLE
         return $newVariable;
     }
     /**
-     * @param (ArrayItem|null)[] $items
+     * @param array<ArrayItem|null> $items
      */
     private function createArrayItem(array $items) : \PhpParser\Node\Expr\ArrayItem
     {
@@ -199,7 +198,16 @@ CODE_SAMPLE
         $variableName = $this->getName($variable) ?? '';
         // If the variable is not in scope, it's one we just added.
         // Then get the type from the attribute
-        $type = $nodeScope->hasVariableType($variableName)->yes() ? $nodeScope->getVariableType($variableName) : $arrayItem->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_TYPE);
+        if ($nodeScope->hasVariableType($variableName)->yes()) {
+            $type = $nodeScope->getVariableType($variableName);
+        } else {
+            $originalNode = $arrayItem->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::ORIGINAL_NODE);
+            if ($originalNode instanceof \PhpParser\Node\Expr\ArrayItem) {
+                $type = $nodeScope->getType($originalNode->value);
+            } else {
+                throw new \Rector\Core\Exception\ShouldNotHappenException();
+            }
+        }
         $iteratorToArrayFuncCall = new \PhpParser\Node\Expr\FuncCall(new \PhpParser\Node\Name('iterator_to_array'), [new \PhpParser\Node\Arg($arrayItem)]);
         if ($type !== null) {
             // If we know it is an array, then print it directly

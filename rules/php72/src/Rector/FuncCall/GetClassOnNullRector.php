@@ -84,7 +84,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\FuncCall $funcCall) : bool
     {
-        $isJustAdded = (bool) $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::JUST_ADDED);
+        $isJustAdded = (bool) $funcCall->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DO_NOT_CHANGE);
         if ($isJustAdded) {
             return \true;
         }
@@ -104,7 +104,7 @@ CODE_SAMPLE
     private function createGetClassFuncCall(\PhpParser\Node\Expr\FuncCall $oldFuncCall) : \PhpParser\Node\Expr\FuncCall
     {
         $funcCall = new \PhpParser\Node\Expr\FuncCall($oldFuncCall->name, $oldFuncCall->args);
-        $funcCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::JUST_ADDED, \true);
+        $funcCall->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DO_NOT_CHANGE, \true);
         return $funcCall;
     }
     /**

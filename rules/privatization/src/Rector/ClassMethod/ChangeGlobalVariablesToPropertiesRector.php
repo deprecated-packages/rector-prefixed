@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Global_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PostRector\Collector\PropertyToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -25,6 +26,14 @@ final class ChangeGlobalVariablesToPropertiesRector extends \Rector\Core\Rector\
      * @var string[]
      */
     private $globalVariableNames = [];
+    /**
+     * @var PropertyToAddCollector
+     */
+    private $propertyToAddCollector;
+    public function __construct(\Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector)
+    {
+        $this->propertyToAddCollector = $propertyToAddCollector;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Change global $variables to private properties', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -81,7 +90,7 @@ CODE_SAMPLE
             return null;
         }
         foreach ($this->globalVariableNames as $globalVariableName) {
-            $this->addPropertyToClass($classLike, null, $globalVariableName);
+            $this->propertyToAddCollector->addPropertyWithoutConstructorToClass($globalVariableName, null, $classLike);
         }
         return $node;
     }

@@ -80,7 +80,7 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isFuncCallName($node, 'token_get_all')) {
+        if (!$this->nodeNameResolver->isFuncCallName($node, 'token_get_all')) {
             return null;
         }
         $this->refactorTokensVariable($node);

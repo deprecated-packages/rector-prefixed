@@ -114,7 +114,7 @@ CODE_SAMPLE
     private function resolveNewConditionNode(\PhpParser\Node\Expr $expr, bool $isNegated) : ?\PhpParser\Node\Expr\BinaryOp
     {
         // various cases
-        if ($this->isFuncCallName($expr, 'count')) {
+        if ($this->nodeNameResolver->isFuncCallName($expr, 'count')) {
             return $this->resolveCount($isNegated, $expr);
         }
         if ($this->arrayTypeAnalyzer->isArrayType($expr)) {

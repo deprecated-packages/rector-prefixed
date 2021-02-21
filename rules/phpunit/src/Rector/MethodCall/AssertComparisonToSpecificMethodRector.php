@@ -117,6 +117,6 @@ final class AssertComparisonToSpecificMethodRector extends \Rector\Core\Rector\A
         if (\is_subclass_of($expr, \PhpParser\Node\Scalar::class)) {
             return \true;
         }
-        return $this->isVariableName($expr, 'exp*');
+        return $this->nodeNameResolver->isVariableName($expr, 'exp*');
     }
 }

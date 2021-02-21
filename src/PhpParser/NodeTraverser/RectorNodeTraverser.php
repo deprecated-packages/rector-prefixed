@@ -84,8 +84,6 @@ final class RectorNodeTraverser extends \PhpParser\NodeTraverser
         if (!$hasNamespace && $nodes !== []) {
             $fileWithoutNamespace = new \Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace($nodes);
             $fileWithoutNamespace->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO, $this->currentFileInfoProvider->getSmartFileInfo());
-            $firstNode = $nodes[0];
-            $fileWithoutNamespace->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES, $firstNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::DECLARES));
             return parent::traverse([$fileWithoutNamespace]);
         }
         return parent::traverse($nodes);

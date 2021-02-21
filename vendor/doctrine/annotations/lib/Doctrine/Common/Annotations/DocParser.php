@@ -14,6 +14,7 @@ use RuntimeException;
 use stdClass;
 use function array_keys;
 use function array_map;
+use function array_pop;
 use function array_values;
 use function class_exists;
 use function constant;
@@ -1008,7 +1009,7 @@ EXCEPTION
         } else {
             if (\count($positionalArguments) > 0 && !isset($values['value'])) {
                 if (\count($positionalArguments) === 1) {
-                    $value = $positionalArguments[0];
+                    $value = \array_pop($positionalArguments);
                 } else {
                     $value = \array_values($positionalArguments);
                 }

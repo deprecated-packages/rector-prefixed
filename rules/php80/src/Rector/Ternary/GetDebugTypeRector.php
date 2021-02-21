@@ -63,16 +63,16 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\Ternary $ternary) : bool
     {
-        if (!$this->isFuncCallName($ternary->cond, 'is_object')) {
+        if (!$this->nodeNameResolver->isFuncCallName($ternary->cond, 'is_object')) {
             return \true;
         }
         if ($ternary->if === null) {
             return \true;
         }
-        if (!$this->isFuncCallName($ternary->if, 'get_class')) {
+        if (!$this->nodeNameResolver->isFuncCallName($ternary->if, 'get_class')) {
             return \true;
         }
-        return !$this->isFuncCallName($ternary->else, 'gettype');
+        return !$this->nodeNameResolver->isFuncCallName($ternary->else, 'gettype');
     }
     private function areValuesIdentical(\PhpParser\Node\Expr\Ternary $ternary) : bool
     {

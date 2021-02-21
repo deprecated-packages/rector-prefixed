@@ -114,7 +114,7 @@ CODE_SAMPLE
             if (!$node instanceof \PhpParser\Node\Expr\MethodCall) {
                 return null;
             }
-            if (!$this->isVariableName($node->var, 'this')) {
+            if (!$this->nodeNameResolver->isVariableName($node->var, 'this')) {
                 return null;
             }
             $methodName = $this->getName($node->name);

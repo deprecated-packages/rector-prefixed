@@ -54,15 +54,15 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if ($this->isStaticCallNamed($node, 'PHPExcel_Settings', 'setPdfRendererName')) {
+        if ($this->nodeNameResolver->isStaticCallNamed($node, 'PHPExcel_Settings', 'setPdfRendererName')) {
             $this->removeNode($node);
             return null;
         }
-        if ($this->isStaticCallNamed($node, 'PHPExcel_Settings', 'setPdfRenderer')) {
+        if ($this->nodeNameResolver->isStaticCallNamed($node, 'PHPExcel_Settings', 'setPdfRenderer')) {
             $this->removeNode($node);
             return null;
         }
-        if ($this->isStaticCallNamed($node, 'PHPExcel_IOFactory', 'createWriter')) {
+        if ($this->nodeNameResolver->isStaticCallNamed($node, 'PHPExcel_IOFactory', 'createWriter')) {
             if (!isset($node->args[1])) {
                 return null;
             }

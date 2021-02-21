@@ -104,7 +104,7 @@ CODE_SAMPLE
         if ($return->expr === null) {
             return null;
         }
-        if (!$this->isVariableName($return->expr, 'this')) {
+        if (!$this->nodeNameResolver->isVariableName($return->expr, 'this')) {
             return null;
         }
         $parentNode = $return->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

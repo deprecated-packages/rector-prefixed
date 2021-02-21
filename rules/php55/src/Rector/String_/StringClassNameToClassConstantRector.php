@@ -154,7 +154,7 @@ CODE_SAMPLE
         if (!$parentParent instanceof \PhpParser\Node) {
             return \false;
         }
-        return $this->isFuncCallName($parentParent, 'is_a');
+        return $this->nodeNameResolver->isFuncCallName($parentParent, 'is_a');
     }
     private function shouldSkip(string $classLikeName, \PhpParser\Node\Scalar\String_ $string) : bool
     {

@@ -19,6 +19,7 @@ use PhpParser\Node\Stmt\Switch_;
 use PhpParser\Node\Stmt\Throw_;
 use PhpParser\Node\Stmt\While_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
+use Rector\Comments\CommentRemover;
 use Rector\Core\Rector\AbstractRector;
 use RectorPrefix20210221\Symplify\PackageBuilder\Php\TypeChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -31,16 +32,21 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveNonExistingVarAnnotationRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var class-string[]
+     * @var array<class-string<Node>>
      */
     private const NODES_TO_MATCH = [\PhpParser\Node\Expr\Assign::class, \PhpParser\Node\Expr\AssignRef::class, \PhpParser\Node\Stmt\Foreach_::class, \PhpParser\Node\Stmt\Static_::class, \PhpParser\Node\Stmt\Echo_::class, \PhpParser\Node\Stmt\Return_::class, \PhpParser\Node\Stmt\Expression::class, \PhpParser\Node\Stmt\Throw_::class, \PhpParser\Node\Stmt\If_::class, \PhpParser\Node\Stmt\While_::class, \PhpParser\Node\Stmt\Switch_::class, \PhpParser\Node\Stmt\Nop::class];
     /**
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\RectorPrefix20210221\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    /**
+     * @var CommentRemover
+     */
+    private $commentRemover;
+    public function __construct(\RectorPrefix20210221\Symplify\PackageBuilder\Php\TypeChecker $typeChecker, \Rector\Comments\CommentRemover $commentRemover)
     {
         $this->typeChecker = $typeChecker;
+        $this->commentRemover = $commentRemover;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -88,7 +94,7 @@ CODE_SAMPLE
         }
         $comments = $node->getComments();
         if (isset($comments[1]) && $comments[1] instanceof \PhpParser\Comment) {
-            $this->rollbackComments($node, $comments[1]);
+            $this->commentRemover->rollbackComments($node, $comments[1]);
             return $node;
         }
         $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode::class);

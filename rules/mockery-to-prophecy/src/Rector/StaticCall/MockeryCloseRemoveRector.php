@@ -37,7 +37,7 @@ final class MockeryCloseRemoveRector extends \Rector\Core\Rector\AbstractRector
         if (!$this->testsNodeAnalyzer->isInTestClass($node)) {
             return null;
         }
-        if (!$this->isStaticCallNamed($node, 'Mockery', 'close')) {
+        if (!$this->nodeNameResolver->isStaticCallNamed($node, 'Mockery', 'close')) {
             return null;
         }
         $this->removeNode($node);

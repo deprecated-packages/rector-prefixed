@@ -127,7 +127,7 @@ CODE_SAMPLE
             return \false;
         }
         // must be $this->getRequest() in controller
-        if (!$this->isVariableName($node->var, 'this')) {
+        if (!$this->nodeNameResolver->isVariableName($node->var, 'this')) {
             return \false;
         }
         if (!$this->isName($node->name, 'getRequest') && !$this->isGetMethodCallWithRequestParameters($node)) {

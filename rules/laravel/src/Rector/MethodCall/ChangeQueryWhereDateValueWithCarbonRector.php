@@ -103,7 +103,7 @@ CODE_SAMPLE
             return null;
         }
         // nothing to change
-        if ($this->isStaticCallNamed($argValue, 'Carbon\\Carbon', 'today')) {
+        if ($this->nodeNameResolver->isStaticCallNamed($argValue, 'Carbon\\Carbon', 'today')) {
             return null;
         }
         if ($this->valueResolver->isValues($methodCall->args[1]->value, ['>=', '<='])) {

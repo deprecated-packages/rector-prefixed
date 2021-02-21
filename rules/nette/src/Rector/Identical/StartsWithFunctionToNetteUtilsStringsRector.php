@@ -48,7 +48,7 @@ CODE_SAMPLE
     }
     public function matchContentAndNeedleOfSubstrOfVariableLength(\PhpParser\Node $node, \PhpParser\Node\Expr\Variable $variable) : ?\Rector\Nette\ValueObject\ContentExprAndNeedleExpr
     {
-        if (!$this->isFuncCallName($node, 'substr')) {
+        if (!$this->nodeNameResolver->isFuncCallName($node, 'substr')) {
             return null;
         }
         /** @var FuncCall $node */

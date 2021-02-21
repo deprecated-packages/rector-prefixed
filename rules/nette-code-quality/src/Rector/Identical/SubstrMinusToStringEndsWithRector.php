@@ -47,10 +47,10 @@ CODE_SAMPLE
      */
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
-        if (!$this->isFuncCallName($node->left, self::SUBSTR) && !$this->isFuncCallName($node->right, self::SUBSTR)) {
+        if (!$this->nodeNameResolver->isFuncCallName($node->left, self::SUBSTR) && !$this->nodeNameResolver->isFuncCallName($node->right, self::SUBSTR)) {
             return null;
         }
-        $substr = $this->isFuncCallName($node->left, self::SUBSTR) ? $node->left : $node->right;
+        $substr = $this->nodeNameResolver->isFuncCallName($node->left, self::SUBSTR) ? $node->left : $node->right;
         if (!$substr->args[1]->value instanceof \PhpParser\Node\Expr\UnaryMinus) {
             return null;
         }
@@ -59,7 +59,7 @@ CODE_SAMPLE
         if (!$unaryMinus->expr instanceof \PhpParser\Node\Scalar\LNumber) {
             return null;
         }
-        $string = $this->isFuncCallName($node->left, self::SUBSTR) ? $node->right : $node->left;
+        $string = $this->nodeNameResolver->isFuncCallName($node->left, self::SUBSTR) ? $node->right : $node->left;
         $wordLength = $unaryMinus->expr->value;
         if ($string instanceof \PhpParser\Node\Scalar\String_ && \strlen($string->value) !== $wordLength) {
             return null;

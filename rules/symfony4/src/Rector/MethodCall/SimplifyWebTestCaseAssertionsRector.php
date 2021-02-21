@@ -152,7 +152,7 @@ CODE_SAMPLE
         if (!$comparedNode->var instanceof \PhpParser\Node\Expr\MethodCall) {
             return null;
         }
-        if (!$this->isVariableName($comparedNode->var->var, 'crawler')) {
+        if (!$this->nodeNameResolver->isVariableName($comparedNode->var->var, 'crawler')) {
             return null;
         }
         if (!$this->isName($comparedNode->name, 'text')) {

@@ -20,6 +20,7 @@ use Rector\Core\NodeManipulator\ClassMethodAssignManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PostRector\Collector\PropertyToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -35,10 +36,15 @@ final class ChangeReadOnlyVariableWithDefaultValueToConstantRector extends \Rect
      * @var VarAnnotationManipulator
      */
     private $varAnnotationManipulator;
-    public function __construct(\Rector\Core\NodeManipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator)
+    /**
+     * @var PropertyToAddCollector
+     */
+    private $propertyToAddCollector;
+    public function __construct(\Rector\Core\NodeManipulator\ClassMethodAssignManipulator $classMethodAssignManipulator, \Rector\BetterPhpDocParser\PhpDocManipulator\VarAnnotationManipulator $varAnnotationManipulator, \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector)
     {
         $this->classMethodAssignManipulator = $classMethodAssignManipulator;
         $this->varAnnotationManipulator = $varAnnotationManipulator;
+        $this->propertyToAddCollector = $propertyToAddCollector;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -158,7 +164,7 @@ CODE_SAMPLE
             }
             $classConst = $this->createPrivateClassConst($variable, $readOnlyVariableAssign->expr);
             // replace $variable usage in the code with constant
-            $this->addConstantToClass($class, $classConst);
+            $this->propertyToAddCollector->addConstantToClass($class, $classConst);
             $variableName = $this->getName($variable);
             if ($variableName === null) {
                 throw new \Rector\Core\Exception\ShouldNotHappenException();
@@ -194,7 +200,7 @@ CODE_SAMPLE
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         $this->traverseNodesWithCallable($classMethod, function (\PhpParser\Node $node) use($variableName, $constantName) : ?ClassConstFetch {
-            if (!$this->isVariableName($node, $variableName)) {
+            if (!$this->nodeNameResolver->isVariableName($node, $variableName)) {
                 return null;
             }
             // replace with constant fetch

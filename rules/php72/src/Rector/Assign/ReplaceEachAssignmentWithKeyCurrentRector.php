@@ -69,7 +69,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(\PhpParser\Node\Expr\Assign $assign) : bool
     {
-        if (!$this->isFuncCallName($assign->expr, 'each')) {
+        if (!$this->nodeNameResolver->isFuncCallName($assign->expr, 'each')) {
             return \true;
         }
         $parentNode = $assign->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);

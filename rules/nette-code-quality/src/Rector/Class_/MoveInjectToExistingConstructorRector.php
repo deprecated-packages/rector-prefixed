@@ -96,7 +96,7 @@ CODE_SAMPLE
         foreach ($injectProperties as $injectProperty) {
             $this->removeInjectAnnotation($injectProperty);
             $this->changePropertyVisibility($injectProperty);
-            $this->addPropertyToCollector($injectProperty);
+            $this->propertyAdder->addPropertyToCollector($injectProperty);
             if ($this->isAtLeastPhpVersion(\Rector\Core\ValueObject\PhpVersionFeature::PROPERTY_PROMOTION)) {
                 $this->removeNode($injectProperty);
             }

@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace Rector\Core\Rector;
 
-use PhpParser\Comment;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
@@ -12,11 +11,9 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\Stmt\Property;
 use PhpParser\NodeVisitorAbstract;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -43,8 +40,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\PostRector\Collector\NodesToAddCollector;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
-use Rector\PostRector\Collector\PropertyToAddCollector;
-use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\PostRector\DependencyInjection\PropertyAdder;
 use Rector\Privatization\NodeManipulator\VisibilityManipulator;
 use Rector\StaticTypeMapper\StaticTypeMapper;
@@ -116,10 +111,6 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
      */
     protected $classNodeAnalyzer;
     /**
-     * @var UseNodesToAddCollector
-     */
-    protected $useNodesToAddCollector;
-    /**
      * @var NodeRemover
      */
     protected $nodeRemover;
@@ -131,6 +122,10 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
      * @var NodeComparator
      */
     protected $nodeComparator;
+    /**
+     * @var PropertyAdder
+     */
+    protected $propertyAdder;
     /**
      * @var SimpleCallableNodeTraverser
      */
@@ -168,21 +163,11 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
      */
     private $nodesToAddCollector;
     /**
-     * @var PropertyToAddCollector
-     */
-    private $propertyToAddCollector;
-    /**
-     * @var PropertyAdder
-     */
-    private $propertyAdder;
-    /**
      * @required
      */
-    public function autowireAbstractTemporaryRector(\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\PostRector\Collector\PropertyToAddCollector $propertyToAddCollector, \Rector\PostRector\Collector\UseNodesToAddCollector $useNodesToAddCollector, \Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\DependencyInjection\PropertyAdder $propertyAdder, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210221\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Privatization\NodeManipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210221\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210221\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210221\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator) : void
+    public function autowireAbstractTemporaryRector(\Rector\PostRector\Collector\NodesToRemoveCollector $nodesToRemoveCollector, \Rector\PostRector\Collector\NodesToAddCollector $nodesToAddCollector, \Rector\ChangesReporting\Collector\RectorChangeCollector $rectorChangeCollector, \Rector\NodeRemoval\NodeRemover $nodeRemover, \Rector\PostRector\DependencyInjection\PropertyAdder $propertyAdder, \Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, \Rector\Core\PhpParser\Printer\BetterStandardPrinter $betterStandardPrinter, \Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \RectorPrefix20210221\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\Privatization\NodeManipulator\VisibilityManipulator $visibilityManipulator, \Rector\Core\PhpParser\Node\NodeFactory $nodeFactory, \Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210221\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Core\Php\PhpVersionProvider $phpVersionProvider, \Rector\Core\Exclusion\ExclusionManager $exclusionManager, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \RectorPrefix20210221\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Rector\Core\Logging\CurrentRectorProvider $currentRectorProvider, \Rector\Core\NodeAnalyzer\ClassAnalyzer $classAnalyzer, \Rector\Core\Configuration\CurrentNodeProvider $currentNodeProvider, \RectorPrefix20210221\Symplify\Skipper\Skipper\Skipper $skipper, \Rector\Core\PhpParser\Node\Value\ValueResolver $valueResolver, \Rector\NodeCollector\NodeCollector\NodeRepository $nodeRepository, \Rector\Core\PhpParser\Node\BetterNodeFinder $betterNodeFinder, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator) : void
     {
         $this->nodesToRemoveCollector = $nodesToRemoveCollector;
-        $this->propertyToAddCollector = $propertyToAddCollector;
-        $this->useNodesToAddCollector = $useNodesToAddCollector;
         $this->nodesToAddCollector = $nodesToAddCollector;
         $this->rectorChangeCollector = $rectorChangeCollector;
         $this->nodeRemover = $nodeRemover;
@@ -274,18 +259,6 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     {
         return $this->nodeNameResolver->getName($node);
     }
-    protected function isFuncCallName(\PhpParser\Node $node, string $name) : bool
-    {
-        return $this->nodeNameResolver->isFuncCallName($node, $name);
-    }
-    protected function isStaticCallNamed(\PhpParser\Node $node, string $className, string $methodName) : bool
-    {
-        return $this->nodeNameResolver->isStaticCallNamed($node, $className, $methodName);
-    }
-    protected function isVariableName(\PhpParser\Node $node, string $name) : bool
-    {
-        return $this->nodeNameResolver->isVariableName($node, $name);
-    }
     /**
      * @param ObjectType|string $type
      */
@@ -356,12 +329,6 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     {
         $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, $oldNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO));
         $newNode->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, $oldNode->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS));
-    }
-    protected function rollbackComments(\PhpParser\Node $node, \PhpParser\Comment $comment) : void
-    {
-        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::COMMENTS, null);
-        $node->setDocComment(new \PhpParser\Comment\Doc($comment->getText()));
-        $node->setAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PHP_DOC_INFO, null);
     }
     /**
      * @param Stmt[] $stmts
@@ -435,25 +402,9 @@ abstract class AbstractTemporaryRector extends \PhpParser\NodeVisitorAbstract im
     {
         $this->nodesToAddCollector->addNodeBeforeNode($newNode, $positionNode);
     }
-    protected function addPropertyToCollector(\PhpParser\Node\Stmt\Property $property) : void
-    {
-        $this->propertyAdder->addPropertyToCollector($property);
-    }
-    protected function addServiceConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, string $className) : void
-    {
-        $this->propertyAdder->addServiceConstructorDependencyToClass($class, $className);
-    }
     protected function addConstructorDependencyToClass(\PhpParser\Node\Stmt\Class_ $class, \PHPStan\Type\Type $propertyType, string $propertyName, int $propertyFlags = 0) : void
     {
         $this->propertyAdder->addConstructorDependencyToClass($class, $propertyType, $propertyName, $propertyFlags);
-    }
-    protected function addConstantToClass(\PhpParser\Node\Stmt\Class_ $class, \PhpParser\Node\Stmt\ClassConst $classConst) : void
-    {
-        $this->propertyToAddCollector->addConstantToClass($class, $classConst);
-    }
-    protected function addPropertyToClass(\PhpParser\Node\Stmt\Class_ $class, ?\PHPStan\Type\Type $propertyType, string $propertyName) : void
-    {
-        $this->propertyToAddCollector->addPropertyWithoutConstructorToClass($propertyName, $propertyType, $class);
     }
     protected function removeNode(\PhpParser\Node $node) : void
     {

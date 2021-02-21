@@ -77,7 +77,7 @@ CODE_SAMPLE
             return;
         }
         $this->traverseNodesWithCallable($classMethod->stmts, function (\PhpParser\Node $node) : ?MethodCall {
-            if (!$this->isStaticCallNamed($node, 'Mockery', 'mock')) {
+            if (!$this->nodeNameResolver->isStaticCallNamed($node, 'Mockery', 'mock')) {
                 return null;
             }
             /** @var StaticCall $node */

@@ -283,7 +283,7 @@ CODE_SAMPLE
             if ($methodStmt instanceof \PhpParser\Node\Stmt\Expression) {
                 $methodStmt = $methodStmt->expr;
             }
-            if (!$this->isStaticCallNamed($methodStmt, 'parent', \Rector\Core\ValueObject\MethodName::SET_UP)) {
+            if (!$this->nodeNameResolver->isStaticCallNamed($methodStmt, 'parent', \Rector\Core\ValueObject\MethodName::SET_UP)) {
                 continue;
             }
             return $position;
