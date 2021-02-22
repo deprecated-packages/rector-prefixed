@@ -21,10 +21,13 @@ final class ParametersMerger
                 return $this->merge($leftValue, $rightValue);
             });
         }
-        if ($left === null && \is_array($right)) {
-            return $right;
+        if ($left !== null) {
+            return $left;
         }
-        return $left;
+        if (!\is_array($right)) {
+            return $left;
+        }
+        return $right;
     }
     /**
      * The same as above, just with the case if both values being non-array, it will combined them to array:

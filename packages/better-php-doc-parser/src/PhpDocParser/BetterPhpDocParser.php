@@ -38,6 +38,11 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
      */
     private const TAG_REGEX = '#@(var|param|return|throws|property|deprecated)#';
     /**
+     * @see https://regex101.com/r/iCJqCv/1
+     * @var string
+     */
+    private const SPACE_REGEX = '#\\s+#';
+    /**
      * @var PhpDocNodeFactoryInterface[]
      */
     private $phpDocNodeFactories = [];
@@ -172,11 +177,11 @@ final class BetterPhpDocParser extends \PHPStan\PhpDocParser\Parser\PhpDocParser
             // add original text, for keeping trimmed spaces
             $originalContent = $this->getOriginalContentFromTokenIterator($tokenIterator);
             // we try to match original content without trimmed spaces
-            $currentTextPattern = '#' . \preg_quote($possibleMultilineText, '#') . '#s';
-            $currentTextPattern = \RectorPrefix20210222\Nette\Utils\Strings::replace($currentTextPattern, '#(\\s)+#', '\\s+');
+            $currentTextPattern = '#(?<line>' . \preg_quote($possibleMultilineText, '#') . ')#s';
+            $currentTextPattern = \RectorPrefix20210222\Nette\Utils\Strings::replace($currentTextPattern, self::SPACE_REGEX, '\\s+');
             $match = \RectorPrefix20210222\Nette\Utils\Strings::match($originalContent, $currentTextPattern);
-            if (isset($match[0])) {
-                $attributeAwareNode->setAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::ORIGINAL_CONTENT, $match[0]);
+            if (isset($match['line'])) {
+                $attributeAwareNode->setAttribute(\Rector\BetterPhpDocParser\Attributes\Attribute\Attribute::ORIGINAL_CONTENT, $match['line']);
             }
         }
         return $attributeAwareNode;

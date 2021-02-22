@@ -60,9 +60,13 @@ final class PathNormalizer
             }
             /** @var string $removedPart */
             $removedPart = \array_pop($normalizedPathParts);
-            if ($scheme === 'phar' && \substr($removedPart, -5) === '.phar') {
-                $scheme = self::SCHEME_UNDEFINED;
+            if ($scheme !== 'phar') {
+                continue;
             }
+            if (!\RectorPrefix20210222\Nette\Utils\Strings::endsWith($removedPart, '.phar')) {
+                continue;
+            }
+            $scheme = self::SCHEME_UNDEFINED;
         }
         return $normalizedPathParts;
     }
