@@ -6,7 +6,7 @@ namespace Rector\Caching\Tests\Detector;
 use Iterator;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo;
 final class ChangedFilesDetectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
@@ -24,7 +24,7 @@ final class ChangedFilesDetectorTest extends \Rector\Testing\PHPUnit\AbstractRec
     }
     public function testHasFileChanged() : void
     {
-        $smartFileInfo = new \RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file.php');
+        $smartFileInfo = new \RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/Source/file.php');
         $this->assertTrue($this->changedFilesDetector->hasFileChanged($smartFileInfo));
         $this->changedFilesDetector->addFileWithDependencies($smartFileInfo, []);
         $this->assertFalse($this->changedFilesDetector->hasFileChanged($smartFileInfo));
@@ -37,7 +37,7 @@ final class ChangedFilesDetectorTest extends \Rector\Testing\PHPUnit\AbstractRec
      */
     public function testGetDependentFileInfos(string $filePathName, array $dependantFiles) : void
     {
-        $smartFileInfo = new \RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo($filePathName);
+        $smartFileInfo = new \RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo($filePathName);
         $this->changedFilesDetector->addFileWithDependencies($smartFileInfo, $dependantFiles);
         $dependantSmartFileInfos = $this->changedFilesDetector->getDependentFileInfos($smartFileInfo);
         $dependantFilesCount = \count($dependantFiles);

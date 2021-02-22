@@ -13,8 +13,8 @@ use PHPStan\Type\ArrayType;
 use Rector\Core\HttpKernel\RectorKernel;
 use Rector\StaticTypeMapper\Naming\NameScopeFactory;
 use Rector\StaticTypeMapper\PhpDoc\PhpDocTypeMapper;
-use RectorPrefix20210221\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class PhpDocTypeMapperTest extends \RectorPrefix20210221\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
+use RectorPrefix20210222\Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+final class PhpDocTypeMapperTest extends \RectorPrefix20210222\Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PhpDocTypeMapper

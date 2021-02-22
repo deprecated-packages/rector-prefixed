@@ -9,7 +9,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Namespace_;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo;
 final class SymfonyControllerFactory
 {
     /**
@@ -28,7 +28,7 @@ final class SymfonyControllerFactory
     public function createNamespace(\PhpParser\Node\Stmt\Class_ $node, \PhpParser\Node\Stmt\Class_ $formTypeClass) : ?\PhpParser\Node\Stmt\Namespace_
     {
         $fileInfo = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo) {
             return null;
         }
         /** @var string $namespaceName */

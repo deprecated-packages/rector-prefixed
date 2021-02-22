@@ -6,13 +6,13 @@ namespace Rector\CodeQuality\Tests\Rector\Foreach_\ForeachItemsAssignToEmptyArra
 use Iterator;
 use Rector\CodeQuality\Rector\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo;
 final class ForeachItemsAssignToEmptyArrayToAssignRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

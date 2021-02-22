@@ -6,13 +6,13 @@ namespace Rector\Sensio\Tests\Rector\ClassMethod\RemoveServiceFromSensioRouteRec
 use Iterator;
 use Rector\Sensio\Rector\ClassMethod\RemoveServiceFromSensioRouteRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveServiceFromSensioRouteRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210221\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

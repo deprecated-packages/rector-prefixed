@@ -107,12 +107,20 @@ CODE_SAMPLE
             $propertyName = $this->getName($property);
             $param->var->name = $propertyName;
             $param->flags = $property->flags;
+            $this->processNullableType($property, $param);
             // rename also following calls
             $propertyName = $this->getName($property->props[0]);
             $this->variableRenamer->renameVariableInFunctionLike($constructClassMethod, null, $oldName, $propertyName);
             $this->removeClassMethodParam($constructClassMethod, $oldName);
         }
         return $node;
+    }
+    private function processNullableType(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Param $param) : void
+    {
+        if ($this->nodeTypeResolver->isNullableType($property)) {
+            $objectType = $this->getObjectType($property);
+            $param->type = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($objectType);
+        }
     }
     private function decorateParamWithPropertyPhpDocInfo(\PhpParser\Node\Stmt\Property $property, \PhpParser\Node\Param $param) : void
     {

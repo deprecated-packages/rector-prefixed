@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
-use RectorPrefix20210221\Nette\Utils\Strings;
+use RectorPrefix20210222\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
@@ -45,7 +45,7 @@ final class ObjectTypeMapper implements \Rector\PHPStanStaticTypeMapper\Contract
             return new \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareIdentifierTypeNode($type->getClassName());
         }
         if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
-            if (\RectorPrefix20210221\Nette\Utils\Strings::contains($type->getClassName(), '\\')) {
+            if (\RectorPrefix20210222\Nette\Utils\Strings::contains($type->getClassName(), '\\')) {
                 $name = '\\' . $type->getClassName();
             } else {
                 $name = $type->getClassName();
