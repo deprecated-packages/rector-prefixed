@@ -7,10 +7,10 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\FunctionLike;
-use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
+use Rector\Core\NodeManipulator\IfManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -20,6 +20,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class PreparedValueToEarlyReturnRector extends \Rector\Core\Rector\AbstractRector
 {
+    /**
+     * @var IfManipulator
+     */
+    private $ifManipulator;
+    public function __construct(\Rector\Core\NodeManipulator\IfManipulator $ifManipulator)
+    {
+        $this->ifManipulator = $ifManipulator;
+    }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
         return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Return early prepared value in ifs', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
@@ -83,6 +91,11 @@ CODE_SAMPLE
         $returnExpr = $node->expr;
         /** @var Expression $previousFirstExpression */
         $previousFirstExpression = $this->getPreviousIfLinearEquals($ifsBefore[0], $returnExpr);
+        /** @var Assign $previousAssign */
+        $previousAssign = $previousFirstExpression->expr;
+        if ($this->isPreviousVarUsedInAssignExpr($ifsBefore, $previousAssign->var)) {
+            return null;
+        }
         foreach ($ifsBefore as $ifBefore) {
             /** @var Expression $expressionIf */
             $expressionIf = $ifBefore->stmts[0];
@@ -106,6 +119,25 @@ CODE_SAMPLE
                 return $this->nodeComparator->areNodesEqual($node, $expr);
             });
             if ($isUsedInIfCond) {
+                return \true;
+            }
+        }
+        return \false;
+    }
+    /**
+     * @param If_[] $ifsBefore
+     */
+    private function isPreviousVarUsedInAssignExpr(array $ifsBefore, \PhpParser\Node\Expr $expr) : bool
+    {
+        foreach ($ifsBefore as $ifBefore) {
+            /** @var Expression $expression */
+            $expression = $ifBefore->stmts[0];
+            /** @var Assign $assign */
+            $assign = $expression->expr;
+            $isUsedInAssignExpr = (bool) $this->betterNodeFinder->findFirst($assign->expr, function (\PhpParser\Node $node) use($expr) : bool {
+                return $this->nodeComparator->areNodesEqual($node, $expr);
+            });
+            if ($isUsedInAssignExpr) {
                 return \true;
             }
         }
@@ -169,10 +201,7 @@ CODE_SAMPLE
         /** Skip entirely if found skipped ifs */
         foreach ($ifs as $if) {
             /** @var If_ $if */
-            if ($if->else instanceof \PhpParser\Node\Stmt\Else_) {
-                return [];
-            }
-            if ($if->elseifs !== []) {
+            if (!$this->ifManipulator->isIfWithoutElseAndElseIfs($if)) {
                 return [];
             }
             $stmts = $if->stmts;
