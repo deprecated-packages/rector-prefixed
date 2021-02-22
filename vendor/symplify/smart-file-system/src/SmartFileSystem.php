@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace RectorPrefix20210222\Symplify\SmartFileSystem;
 
-use RectorPrefix20210222\Nette\Utils\Html;
 use RectorPrefix20210222\Nette\Utils\Strings;
 use RectorPrefix20210222\Symfony\Component\Filesystem\Exception\IOException;
 use RectorPrefix20210222\Symfony\Component\Filesystem\Filesystem;

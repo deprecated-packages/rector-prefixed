@@ -6,7 +6,7 @@ namespace RectorPrefix20210222\Symplify\PackageBuilder\Php;
 final class TypeChecker
 {
     /**
-     * @param string[] $types
+     * @param array<class-string> $types
      */
     public function isInstanceOf($object, array $types) : bool
     {

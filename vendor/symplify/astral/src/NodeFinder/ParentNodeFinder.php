@@ -23,7 +23,7 @@ final class ParentNodeFinder
      * @param class-string<T> $nodeClass
      * @return T|null
      */
-    public function getFirstParentByType(\PhpParser\Node $node, string $nodeClass) : ?\PhpParser\Node
+    public function findFirstParentByType(\PhpParser\Node $node, string $nodeClass) : ?\PhpParser\Node
     {
         $node = $node->getAttribute(\RectorPrefix20210222\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
         while ($node) {
@@ -39,7 +39,7 @@ final class ParentNodeFinder
      * @param class-string<T>[] $nodeTypes
      * @return T|null
      */
-    public function getFirstParentByTypes(\PhpParser\Node $node, array $nodeTypes) : ?\PhpParser\Node
+    public function findFirstParentByTypes(\PhpParser\Node $node, array $nodeTypes) : ?\PhpParser\Node
     {
         $node = $node->getAttribute(\RectorPrefix20210222\Symplify\Astral\ValueObject\CommonAttributeKey::PARENT);
         while ($node) {

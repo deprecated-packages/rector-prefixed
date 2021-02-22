@@ -5,25 +5,27 @@ namespace Symplify\RuleDocGenerator;
 
 use ReflectionClass;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use Symplify\RuleDocGenerator\ValueObject\RuleClassWithFilePath;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use RectorPrefix20210222\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class RuleDefinitionsResolver
 {
     /**
-     * @param string[] $classNames
+     * @param RuleClassWithFilePath[] $classNames
      * @return RuleDefinition[]
      */
     public function resolveFromClassNames(array $classNames) : array
     {
         $ruleDefinitions = [];
-        foreach ($classNames as $className) {
-            $reflectionClass = new \ReflectionClass($className);
+        foreach ($classNames as $rule) {
+            $reflectionClass = new \ReflectionClass($rule->getClass());
             $documentedRule = $reflectionClass->newInstanceWithoutConstructor();
             if (!$documentedRule instanceof \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface) {
                 throw new \RectorPrefix20210222\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
             }
             $ruleDefinition = $documentedRule->getRuleDefinition();
-            $ruleDefinition->setRuleClass($className);
+            $ruleDefinition->setRuleClass($rule->getClass());
+            $ruleDefinition->setRuleFilePath($rule->getPath());
             $ruleDefinitions[] = $ruleDefinition;
         }
         return $this->sortByClassName($ruleDefinitions);

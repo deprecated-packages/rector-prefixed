@@ -25,14 +25,10 @@ final class SetAwareConfigResolverTest extends \RectorPrefix20210222\PHPUnit\Fra
      * @dataProvider provideOptionsAndExpectedConfig()
      * @param mixed[] $options
      */
-    public function testDetectFromInputAndProvideWithAbsolutePath(array $options, ?string $expectedConfig) : void
+    public function testDetectFromInputAndProvideWithAbsolutePath(array $options, string $expectedConfig) : void
     {
         $resolvedConfigFileInfo = $this->setAwareConfigResolver->resolveFromInput(new \RectorPrefix20210222\Symfony\Component\Console\Input\ArrayInput($options));
-        if ($expectedConfig === null) {
-            $this->assertNull($resolvedConfigFileInfo);
-        } else {
-            $this->assertSame($expectedConfig, $resolvedConfigFileInfo->getRealPath());
-        }
+        $this->assertSame($expectedConfig, $resolvedConfigFileInfo->getRealPath());
     }
     public function provideOptionsAndExpectedConfig() : \Iterator
     {
@@ -40,6 +36,18 @@ final class SetAwareConfigResolverTest extends \RectorPrefix20210222\PHPUnit\Fra
         (yield [['-c' => 'README.md'], \getcwd() . '/README.md']);
         (yield [['--config' => \getcwd() . '/README.md'], \getcwd() . '/README.md']);
         (yield [['-c' => \getcwd() . '/README.md'], \getcwd() . '/README.md']);
+    }
+    /**
+     * @dataProvider provideDataForEmptyConfig()
+     * @param mixed[] $options
+     */
+    public function testDetectFromInputAndProvideWithEmptyConfig(array $options) : void
+    {
+        $resolvedConfigFileInfo = $this->setAwareConfigResolver->resolveFromInput(new \RectorPrefix20210222\Symfony\Component\Console\Input\ArrayInput($options));
+        $this->assertNull($resolvedConfigFileInfo);
+    }
+    public function provideDataForEmptyConfig() : \Iterator
+    {
         (yield [['--', 'sh', '-c' => '/bin/true'], null]);
     }
     public function testSetsNotFound() : void

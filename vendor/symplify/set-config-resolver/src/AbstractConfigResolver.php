@@ -11,10 +11,6 @@ use RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractConfigResolver
 {
     /**
-     * @var SmartFileInfo|null
-     */
-    private $firstResolvedConfigFileInfo;
-    /**
      * @var OptionValueResolver
      */
     private $optionValueResolver;
@@ -45,10 +41,6 @@ abstract class AbstractConfigResolver
         }
         return $this->createFallbackFileInfoIfFound($fallbackFiles);
     }
-    public function getFirstResolvedConfigFileInfo() : ?\RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo
-    {
-        return $this->firstResolvedConfigFileInfo;
-    }
     /**
      * @param string[] $fallbackFiles
      */
@@ -64,8 +56,6 @@ abstract class AbstractConfigResolver
     }
     private function createFileInfo(string $configValue) : \RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo
     {
-        $configFileInfo = new \RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo($configValue);
-        $this->firstResolvedConfigFileInfo = $configFileInfo;
-        return $configFileInfo;
+        return new \RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo($configValue);
     }
 }

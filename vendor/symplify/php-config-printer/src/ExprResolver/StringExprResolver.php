@@ -84,7 +84,7 @@ final class StringExprResolver
     /**
      * @return String_|ClassConstFetch
      */
-    private function resolveClassType(bool $skipClassesToConstantReference, string $value)
+    private function resolveClassType(bool $skipClassesToConstantReference, string $value) : \PhpParser\Node\Expr
     {
         if ($skipClassesToConstantReference) {
             return new \PhpParser\Node\Scalar\String_($value);

@@ -32,9 +32,10 @@ final class GenerateCommand extends \RectorPrefix20210222\Symplify\PackageBuilde
     }
     protected function execute(\RectorPrefix20210222\Symfony\Component\Console\Input\InputInterface $input, \RectorPrefix20210222\Symfony\Component\Console\Output\OutputInterface $output) : int
     {
+        $workingDirectory = \getcwd();
         $paths = (array) $input->getArgument(\Symplify\RuleDocGenerator\ValueObject\Option::PATHS);
         $shouldCategorize = (bool) $input->getOption(\Symplify\RuleDocGenerator\ValueObject\Option::CATEGORIZE);
-        $markdownFileContent = $this->directoryToMarkdownPrinter->print($paths, $shouldCategorize);
+        $markdownFileContent = $this->directoryToMarkdownPrinter->print($workingDirectory, $paths, $shouldCategorize);
         // dump markdown file
         $outputFilePath = (string) $input->getOption(\Symplify\RuleDocGenerator\ValueObject\Option::OUTPUT_FILE);
         $this->smartFileSystem->dumpFile($outputFilePath, $markdownFileContent);

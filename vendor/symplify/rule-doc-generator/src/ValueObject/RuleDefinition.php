@@ -19,6 +19,10 @@ final class RuleDefinition
      */
     private $ruleClass;
     /**
+     * @var string
+     */
+    private $ruleFilePath;
+    /**
      * @var CodeSampleInterface[]
      */
     private $codeSamples = [];
@@ -47,6 +51,17 @@ final class RuleDefinition
             throw new \RectorPrefix20210222\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $this->ruleClass;
+    }
+    public function setRuleFilePath(string $ruleFilePath) : void
+    {
+        $this->ruleFilePath = '/' . \ltrim($ruleFilePath, '/');
+    }
+    public function getRuleFilePath() : string
+    {
+        if ($this->ruleFilePath === null) {
+            throw new \RectorPrefix20210222\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        }
+        return $this->ruleFilePath;
     }
     public function getRuleShortClass() : string
     {

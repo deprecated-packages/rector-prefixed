@@ -3,7 +3,6 @@
 declare (strict_types=1);
 namespace RectorPrefix20210222\Symplify\SetConfigResolver;
 
-use RectorPrefix20210222\Symfony\Component\Console\Input\InputInterface;
 use RectorPrefix20210222\Symplify\SetConfigResolver\Config\SetsParameterResolver;
 use RectorPrefix20210222\Symplify\SetConfigResolver\Contract\SetProviderInterface;
 use RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo;
@@ -33,12 +32,5 @@ final class SetAwareConfigResolver extends \RectorPrefix20210222\Symplify\SetCon
     public function resolveFromParameterSetsFromConfigFiles(array $fileInfos) : array
     {
         return $this->setsParameterResolver->resolveFromFileInfos($fileInfos);
-    }
-    /**
-     * @api
-     */
-    public function resolveSetFromInput(\RectorPrefix20210222\Symfony\Component\Console\Input\InputInterface $input) : ?\RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo
-    {
-        return $this->setResolver->detectFromInput($input);
     }
 }
