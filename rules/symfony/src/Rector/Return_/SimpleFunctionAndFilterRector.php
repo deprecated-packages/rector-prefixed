@@ -18,8 +18,8 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use RectorPrefix20210222\Twig_SimpleFilter;
-use RectorPrefix20210222\Twig_SimpleFunction;
+use RectorPrefix20210223\Twig_SimpleFilter;
+use RectorPrefix20210223\Twig_SimpleFunction;
 /**
  * Covers https://twig.symfony.com/doc/1.x/deprecated.html#function
  *

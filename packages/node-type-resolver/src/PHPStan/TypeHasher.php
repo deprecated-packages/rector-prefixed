@@ -35,7 +35,7 @@ final class TypeHasher
             return \serialize($type) . $type->isExplicitMixed();
         }
         if ($type instanceof \PHPStan\Type\ArrayType) {
-            return $this->createTypeHash($type->getItemType()) . '[]';
+            return $this->createTypeHash($type->getItemType()) . $this->createTypeHash($type->getKeyType()) . '[]';
         }
         if ($type instanceof \PHPStan\Type\Generic\GenericObjectType) {
             return $type->describe(\PHPStan\Type\VerbosityLevel::precise());

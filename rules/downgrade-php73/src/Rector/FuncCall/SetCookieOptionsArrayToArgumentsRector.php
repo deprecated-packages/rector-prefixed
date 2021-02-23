@@ -26,7 +26,7 @@ final class SetCookieOptionsArrayToArgumentsRector extends \Rector\Core\Rector\A
     private const ARGUMENT_ORDER = ['expires' => 2, 'path' => 3, 'domain' => 4, 'secure' => 5, 'httponly' => 6];
     /**
      * Conversion table from argument index to options name
-     * @var array<int, bool|int|string>
+     * @var array<int, int|string|bool>
      */
     private const ARGUMENT_DEFAULT_VALUES = [2 => 0, 3 => '', 4 => '', 5 => \false, 6 => \false];
     /**

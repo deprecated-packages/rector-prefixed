@@ -1,20 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Rector\NodeTypeResolver\PHPStan;
+namespace Rector\NodeTypeResolver\TypeComparator;
 
 use PhpParser\Node;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\Constant\ConstantArrayType;
-use PHPStan\Type\FloatType;
-use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use Rector\NodeTypeResolver\NodeTypeResolver;
+use Rector\NodeTypeResolver\PHPStan\TypeHasher;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 use Rector\TypeDeclaration\TypeNormalizer;
@@ -36,16 +32,26 @@ final class TypeComparator
      * @var NodeTypeResolver
      */
     private $nodeTypeResolver;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver)
+    /**
+     * @var ArrayTypeComparator
+     */
+    private $arrayTypeComparator;
+    /**
+     * @var ScalarTypeComparator
+     */
+    private $scalarTypeComparator;
+    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeHasher $typeHasher, \Rector\TypeDeclaration\TypeNormalizer $typeNormalizer, \Rector\StaticTypeMapper\StaticTypeMapper $staticTypeMapper, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\NodeTypeResolver\TypeComparator\ArrayTypeComparator $arrayTypeComparator, \Rector\NodeTypeResolver\TypeComparator\ScalarTypeComparator $scalarTypeComparator)
     {
         $this->typeHasher = $typeHasher;
         $this->typeNormalizer = $typeNormalizer;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->nodeTypeResolver = $nodeTypeResolver;
+        $this->arrayTypeComparator = $arrayTypeComparator;
+        $this->scalarTypeComparator = $scalarTypeComparator;
     }
     public function areTypesEqual(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
     {
-        if ($this->areBothSameScalarType($firstType, $secondType)) {
+        if ($this->scalarTypeComparator->areEqualScalar($firstType, $secondType)) {
             return \true;
         }
         // aliases and types
@@ -73,27 +79,10 @@ final class TypeComparator
         if (!$mainType instanceof \PHPStan\Type\ArrayType) {
             return $mainType->isSuperTypeOf($checkedType)->yes();
         }
-        if (!$checkedType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
+        if (!$checkedType instanceof \PHPStan\Type\ArrayType) {
             return $mainType->isSuperTypeOf($checkedType)->yes();
         }
-        return \false;
-    }
-    private function areBothSameScalarType(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
-    {
-        if ($firstType instanceof \PHPStan\Type\StringType && $secondType instanceof \PHPStan\Type\StringType) {
-            // prevents "class-string" vs "string"
-            return \get_class($firstType) === \get_class($secondType);
-        }
-        if ($firstType instanceof \PHPStan\Type\IntegerType && $secondType instanceof \PHPStan\Type\IntegerType) {
-            return \true;
-        }
-        if ($firstType instanceof \PHPStan\Type\FloatType && $secondType instanceof \PHPStan\Type\FloatType) {
-            return \true;
-        }
-        if (!$firstType instanceof \PHPStan\Type\BooleanType) {
-            return \false;
-        }
-        return $secondType instanceof \PHPStan\Type\BooleanType;
+        return $this->arrayTypeComparator->isSubtype($checkedType, $mainType);
     }
     private function areAliasedObjectMatchingFqnObject(\PHPStan\Type\Type $firstType, \PHPStan\Type\Type $secondType) : bool
     {

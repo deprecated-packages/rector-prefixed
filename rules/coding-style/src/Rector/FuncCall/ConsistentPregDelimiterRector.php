@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\FuncCall;
 
-use RectorPrefix20210222\Nette\Utils\Strings;
+use RectorPrefix20210223\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\FuncCall;
@@ -32,7 +32,7 @@ final class ConsistentPregDelimiterRector extends \Rector\Core\Rector\AbstractRe
     private const INNER_REGEX = '#(?<content>.*?)(?<close>[imsxeADSUXJu]*)$#';
     /**
      * All with pattern as 1st argument
-     * @var int[]
+     * @var array<string, int>
      */
     private const FUNCTIONS_WITH_REGEX_PATTERN = ['preg_match' => 0, 'preg_replace_callback_array' => 0, 'preg_replace_callback' => 0, 'preg_replace' => 0, 'preg_match_all' => 0, 'preg_split' => 0, 'preg_grep' => 0];
     /**
@@ -120,7 +120,7 @@ CODE_SAMPLE
         /** @var String_ $string */
         $string = $arg->value;
         $value = $string->value;
-        $string->value = \RectorPrefix20210222\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
+        $string->value = \RectorPrefix20210223\Nette\Utils\Strings::replace($value, self::INNER_REGEX, function (array $match) : string {
             $innerPattern = $match['content'];
             // change delimiter
             if (\strlen($innerPattern) > 2 && $innerPattern[0] === $innerPattern[\strlen($innerPattern) - 1]) {

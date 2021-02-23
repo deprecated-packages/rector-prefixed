@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210222;
+namespace RectorPrefix20210223;
 
-use RectorPrefix20210222\SebastianBergmann\Diff\Differ;
-use RectorPrefix20210222\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
-use RectorPrefix20210222\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix20210222\Symplify\MarkdownDiff\Diff\Output\CompleteUnifiedDiffOutputBuilderFactory;
-use RectorPrefix20210222\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
-use RectorPrefix20210222\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use function RectorPrefix20210222\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (\RectorPrefix20210222\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210223\SebastianBergmann\Diff\Differ;
+use RectorPrefix20210223\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix20210223\Symplify\MarkdownDiff\Diff\Output\CompleteUnifiedDiffOutputBuilderFactory;
+use RectorPrefix20210223\Symplify\MarkdownDiff\Differ\MarkdownDiffer;
+use RectorPrefix20210223\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use function RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+return static function (\RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('RectorPrefix20210222\Symplify\\MarkdownDiff\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
-    $services->set(\RectorPrefix20210222\SebastianBergmann\Diff\Differ::class);
+    $services->load('RectorPrefix20210223\Symplify\\MarkdownDiff\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
+    $services->set(\RectorPrefix20210223\SebastianBergmann\Diff\Differ::class);
     // markdown
-    $services->set('markdownDiffOutputBuilder', \RectorPrefix20210222\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder::class)->factory([\RectorPrefix20210222\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210222\Symplify\MarkdownDiff\Diff\Output\CompleteUnifiedDiffOutputBuilderFactory::class), 'create']);
-    $services->set('markdownDiffer', \RectorPrefix20210222\SebastianBergmann\Diff\Differ::class)->arg('$outputBuilder', \RectorPrefix20210222\Symfony\Component\DependencyInjection\Loader\Configurator\service('markdownDiffOutputBuilder'));
-    $services->set(\RectorPrefix20210222\Symplify\MarkdownDiff\Differ\MarkdownDiffer::class)->arg('$markdownDiffer', \RectorPrefix20210222\Symfony\Component\DependencyInjection\Loader\Configurator\service('markdownDiffer'));
-    $services->set(\RectorPrefix20210222\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
+    $services->set('markdownDiffOutputBuilder', \RectorPrefix20210223\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder::class)->factory([\RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\service(\RectorPrefix20210223\Symplify\MarkdownDiff\Diff\Output\CompleteUnifiedDiffOutputBuilderFactory::class), 'create']);
+    $services->set('markdownDiffer', \RectorPrefix20210223\SebastianBergmann\Diff\Differ::class)->arg('$outputBuilder', \RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\service('markdownDiffOutputBuilder'));
+    $services->set(\RectorPrefix20210223\Symplify\MarkdownDiff\Differ\MarkdownDiffer::class)->arg('$markdownDiffer', \RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\service('markdownDiffer'));
+    $services->set(\RectorPrefix20210223\Symplify\PackageBuilder\Reflection\PrivatesAccessor::class);
 };

@@ -14,8 +14,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use ReflectionClass;
-use RectorPrefix20210222\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use RectorPrefix20210223\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -40,18 +39,10 @@ final class StringClassNameToClassConstantRector extends \Rector\Core\Rector\Abs
         'Exception',
     ];
     /**
-     * @var string[]
-     */
-    private $sensitiveExistingClasses = [];
-    /**
-     * @var string[]
-     */
-    private $sensitiveNonExistingClasses = [];
-    /**
      * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
-    public function __construct(\RectorPrefix20210222\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
+    public function __construct(\RectorPrefix20210223\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
     {
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
     }
@@ -124,26 +115,6 @@ CODE_SAMPLE
         }
         $this->classesToSkip = $configuration[self::CLASSES_TO_SKIP];
     }
-    private function classLikeSensitiveExists(string $classLikeName) : bool
-    {
-        if (!$this->classLikeExistenceChecker->doesClassLikeExist($classLikeName)) {
-            return \false;
-        }
-        // already known values
-        if (\in_array($classLikeName, $this->sensitiveExistingClasses, \true)) {
-            return \true;
-        }
-        if (\in_array($classLikeName, $this->sensitiveNonExistingClasses, \true)) {
-            return \false;
-        }
-        $reflectionClass = new \ReflectionClass($classLikeName);
-        if ($classLikeName !== $reflectionClass->getName()) {
-            $this->sensitiveNonExistingClasses[] = $classLikeName;
-            return \false;
-        }
-        $this->sensitiveExistingClasses[] = $classLikeName;
-        return \true;
-    }
     private function isPartOfIsAFuncCall(\PhpParser\Node\Scalar\String_ $string) : bool
     {
         $parent = $string->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
@@ -158,7 +129,7 @@ CODE_SAMPLE
     }
     private function shouldSkip(string $classLikeName, \PhpParser\Node\Scalar\String_ $string) : bool
     {
-        if (!$this->classLikeSensitiveExists($classLikeName)) {
+        if (!$this->classLikeExistenceChecker->doesClassLikeInsensitiveExists($classLikeName)) {
             return \true;
         }
         if (\Rector\Core\Util\StaticRectorStrings::isInArrayInsensitive($classLikeName, $this->classesToSkip)) {

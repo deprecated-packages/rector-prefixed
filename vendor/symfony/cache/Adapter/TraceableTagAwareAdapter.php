@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix20210222\Symfony\Component\Cache\Adapter;
+namespace RectorPrefix20210223\Symfony\Component\Cache\Adapter;
 
-use RectorPrefix20210222\Symfony\Contracts\Cache\TagAwareCacheInterface;
+use RectorPrefix20210223\Symfony\Contracts\Cache\TagAwareCacheInterface;
 /**
  * @author Robin Chalas <robin.chalas@gmail.com>
  */
-class TraceableTagAwareAdapter extends \RectorPrefix20210222\Symfony\Component\Cache\Adapter\TraceableAdapter implements \RectorPrefix20210222\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface, \RectorPrefix20210222\Symfony\Contracts\Cache\TagAwareCacheInterface
+class TraceableTagAwareAdapter extends \RectorPrefix20210223\Symfony\Component\Cache\Adapter\TraceableAdapter implements \RectorPrefix20210223\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface, \RectorPrefix20210223\Symfony\Contracts\Cache\TagAwareCacheInterface
 {
-    public function __construct(\RectorPrefix20210222\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $pool)
+    public function __construct(\RectorPrefix20210223\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $pool)
     {
         parent::__construct($pool);
     }

@@ -5,14 +5,14 @@ namespace Rector\DeadDocBlock;
 
 use PhpParser\Node\FunctionLike;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
-use Rector\NodeTypeResolver\PHPStan\TypeComparator;
+use Rector\NodeTypeResolver\TypeComparator\TypeComparator;
 final class DeadReturnTagValueNodeAnalyzer
 {
     /**
      * @var TypeComparator
      */
     private $typeComparator;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator)
+    public function __construct(\Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator)
     {
         $this->typeComparator = $typeComparator;
     }

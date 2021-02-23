@@ -13,7 +13,7 @@ use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\MixedType;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\PHPStan\TypeComparator;
+use Rector\NodeTypeResolver\TypeComparator\TypeComparator;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -22,10 +22,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class VarConstantCommentRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var int
-     */
-    private const ARRAY_LIMIT_TYPES = 3;
-    /**
      * @var TypeComparator
      */
     private $typeComparator;
@@ -33,7 +29,7 @@ final class VarConstantCommentRector extends \Rector\Core\Rector\AbstractRector
      * @var PhpDocTypeChanger
      */
     private $phpDocTypeChanger;
-    public function __construct(\Rector\NodeTypeResolver\PHPStan\TypeComparator $typeComparator, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
+    public function __construct(\Rector\NodeTypeResolver\TypeComparator\TypeComparator $typeComparator, \Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger $phpDocTypeChanger)
     {
         $this->typeComparator = $typeComparator;
         $this->phpDocTypeChanger = $phpDocTypeChanger;
@@ -79,9 +75,6 @@ CODE_SAMPLE
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         // skip big arrays and mixed[] constants
         if ($constType instanceof \PHPStan\Type\Constant\ConstantArrayType) {
-            if (\count($constType->getValueTypes()) > self::ARRAY_LIMIT_TYPES) {
-                return null;
-            }
             $currentVarType = $phpDocInfo->getVarType();
             if ($currentVarType instanceof \PHPStan\Type\ArrayType && $currentVarType->getItemType() instanceof \PHPStan\Type\MixedType) {
                 return null;

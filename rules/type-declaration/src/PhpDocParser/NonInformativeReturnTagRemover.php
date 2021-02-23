@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\PhpDocParser;
 
-use RectorPrefix20210222\Nette\Utils\Strings;
+use RectorPrefix20210223\Nette\Utils\Strings;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
@@ -30,11 +30,11 @@ use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
-use RectorPrefix20210222\Symplify\PackageBuilder\Php\TypeChecker;
+use RectorPrefix20210223\Symplify\PackageBuilder\Php\TypeChecker;
 final class NonInformativeReturnTagRemover
 {
     /**
-     * @var string[][]
+     * @var array<class-string<Type>, string[]>
      */
     private const USELESS_DOC_NAMES_BY_TYPE_CLASS = [\PHPStan\Type\IterableType::class => ['iterable'], \PHPStan\Type\CallableType::class => ['callable'], \PHPStan\Type\VoidType::class => ['void'], \PHPStan\Type\ArrayType::class => ['array'], \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType::class => ['self'], \Rector\StaticTypeMapper\ValueObject\Type\ParentStaticType::class => ['parent'], \PHPStan\Type\BooleanType::class => ['bool', 'boolean'], \PHPStan\Type\ObjectWithoutClassType::class => ['object']];
     /**
@@ -45,7 +45,7 @@ final class NonInformativeReturnTagRemover
      * @var TypeChecker
      */
     private $typeChecker;
-    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210222\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
+    public function __construct(\Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory $phpDocInfoFactory, \RectorPrefix20210223\Symplify\PackageBuilder\Php\TypeChecker $typeChecker)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->typeChecker = $typeChecker;
@@ -114,7 +114,7 @@ final class NonInformativeReturnTagRemover
         if (!$nullabledReturnTagValueNode instanceof \PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode) {
             return;
         }
-        if (!\RectorPrefix20210222\Nette\Utils\Strings::endsWith($nullabledReturnType->getClassName(), $nullabledReturnTagValueNode->name)) {
+        if (!\RectorPrefix20210223\Nette\Utils\Strings::endsWith($nullabledReturnType->getClassName(), $nullabledReturnTagValueNode->name)) {
             return;
         }
         $phpDocInfo->removeByType(\PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode::class);
@@ -186,6 +186,6 @@ final class NonInformativeReturnTagRemover
         if ('\\' . $className === $returnTagValueNodeType) {
             return \true;
         }
-        return \RectorPrefix20210222\Nette\Utils\Strings::endsWith($className, '\\' . $returnTagValueNodeType);
+        return \RectorPrefix20210223\Nette\Utils\Strings::endsWith($className, '\\' . $returnTagValueNodeType);
     }
 }

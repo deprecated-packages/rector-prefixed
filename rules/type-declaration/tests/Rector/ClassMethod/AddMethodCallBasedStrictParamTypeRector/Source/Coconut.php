@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Rector\TypeDeclaration\Tests\Rector\ClassMethod\AddMethodCallBasedStrictParamTypeRector\Source;
 
-use RectorPrefix20210222\Ramsey\Uuid\UuidInterface;
+use RectorPrefix20210223\Ramsey\Uuid\UuidInterface;
 final class Coconut
 {
-    public function getId() : \RectorPrefix20210222\Ramsey\Uuid\UuidInterface
+    public function getId() : \RectorPrefix20210223\Ramsey\Uuid\UuidInterface
     {
     }
 }

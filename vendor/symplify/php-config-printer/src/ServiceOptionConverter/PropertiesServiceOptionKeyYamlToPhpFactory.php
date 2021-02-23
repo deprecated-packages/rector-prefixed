@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210222\Symplify\PhpConfigPrinter\ServiceOptionConverter;
+namespace RectorPrefix20210223\Symplify\PhpConfigPrinter\ServiceOptionConverter;
 
 use PhpParser\Node\Expr\MethodCall;
-use RectorPrefix20210222\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
-use RectorPrefix20210222\Symplify\PhpConfigPrinter\NodeFactory\Service\SingleServicePhpNodeFactory;
-use RectorPrefix20210222\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
-final class PropertiesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210222\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
+use RectorPrefix20210223\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface;
+use RectorPrefix20210223\Symplify\PhpConfigPrinter\NodeFactory\Service\SingleServicePhpNodeFactory;
+use RectorPrefix20210223\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey;
+final class PropertiesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix20210223\Symplify\PhpConfigPrinter\Contract\Converter\ServiceOptionsKeyYamlToPhpFactoryInterface
 {
     /**
      * @var SingleServicePhpNodeFactory
      */
     private $singleServicePhpNodeFactory;
-    public function __construct(\RectorPrefix20210222\Symplify\PhpConfigPrinter\NodeFactory\Service\SingleServicePhpNodeFactory $singleServicePhpNodeFactory)
+    public function __construct(\RectorPrefix20210223\Symplify\PhpConfigPrinter\NodeFactory\Service\SingleServicePhpNodeFactory $singleServicePhpNodeFactory)
     {
         $this->singleServicePhpNodeFactory = $singleServicePhpNodeFactory;
     }
@@ -23,6 +23,6 @@ final class PropertiesServiceOptionKeyYamlToPhpFactory implements \RectorPrefix2
     }
     public function isMatch($key, $values) : bool
     {
-        return $key === \RectorPrefix20210222\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::PROPERTIES;
+        return $key === \RectorPrefix20210223\Symplify\PhpConfigPrinter\ValueObject\YamlServiceKey::PROPERTIES;
     }
 }

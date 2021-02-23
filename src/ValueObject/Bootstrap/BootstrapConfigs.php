@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Core\ValueObject\Bootstrap;
 
-use RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo;
 final class BootstrapConfigs
 {
     /**
@@ -17,12 +17,12 @@ final class BootstrapConfigs
     /**
      * @param SmartFileInfo[] $setConfigFileInfos
      */
-    public function __construct(?\RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo $mainConfigFileInfo, array $setConfigFileInfos)
+    public function __construct(?\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $mainConfigFileInfo, array $setConfigFileInfos)
     {
         $this->mainConfigFileInfo = $mainConfigFileInfo;
         $this->setConfigFileInfos = $setConfigFileInfos;
     }
-    public function getMainConfigFileInfo() : ?\RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo
+    public function getMainConfigFileInfo() : ?\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo
     {
         return $this->mainConfigFileInfo;
     }

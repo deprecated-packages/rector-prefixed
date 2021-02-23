@@ -41,15 +41,15 @@ use PhpParser\Node\Expr\BinaryOp\SmallerOrEqual;
 final class AssignAndBinaryMap
 {
     /**
-     * @var string[]
+     * @var array<class-string<BinaryOp>, class-string<BinaryOp>>
      */
     private const BINARY_OP_TO_INVERSE_CLASSES = [\PhpParser\Node\Expr\BinaryOp\Identical::class => \PhpParser\Node\Expr\BinaryOp\NotIdentical::class, \PhpParser\Node\Expr\BinaryOp\NotIdentical::class => \PhpParser\Node\Expr\BinaryOp\Identical::class, \PhpParser\Node\Expr\BinaryOp\Equal::class => \PhpParser\Node\Expr\BinaryOp\NotEqual::class, \PhpParser\Node\Expr\BinaryOp\NotEqual::class => \PhpParser\Node\Expr\BinaryOp\Equal::class, \PhpParser\Node\Expr\BinaryOp\Greater::class => \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class, \PhpParser\Node\Expr\BinaryOp\Smaller::class => \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class, \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class => \PhpParser\Node\Expr\BinaryOp\Smaller::class, \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class => \PhpParser\Node\Expr\BinaryOp\Greater::class];
     /**
-     * @var class-string[]
+     * @var array<class-string<AssignOp>, class-string<AssignOp>>
      */
     private const ASSIGN_OP_TO_BINARY_OP_CLASSES = [\PhpParser\Node\Expr\AssignOp\BitwiseOr::class => \PhpParser\Node\Expr\BinaryOp\BitwiseOr::class, \PhpParser\Node\Expr\AssignOp\BitwiseAnd::class => \PhpParser\Node\Expr\BinaryOp\BitwiseAnd::class, \PhpParser\Node\Expr\AssignOp\BitwiseXor::class => \PhpParser\Node\Expr\BinaryOp\BitwiseXor::class, \PhpParser\Node\Expr\AssignOp\Plus::class => \PhpParser\Node\Expr\BinaryOp\Plus::class, \PhpParser\Node\Expr\AssignOp\Div::class => \PhpParser\Node\Expr\BinaryOp\Div::class, \PhpParser\Node\Expr\AssignOp\Mul::class => \PhpParser\Node\Expr\BinaryOp\Mul::class, \PhpParser\Node\Expr\AssignOp\Minus::class => \PhpParser\Node\Expr\BinaryOp\Minus::class, \PhpParser\Node\Expr\AssignOp\Concat::class => \PhpParser\Node\Expr\BinaryOp\Concat::class, \PhpParser\Node\Expr\AssignOp\Pow::class => \PhpParser\Node\Expr\BinaryOp\Pow::class, \PhpParser\Node\Expr\AssignOp\Mod::class => \PhpParser\Node\Expr\BinaryOp\Mod::class, \PhpParser\Node\Expr\AssignOp\ShiftLeft::class => \PhpParser\Node\Expr\BinaryOp\ShiftLeft::class, \PhpParser\Node\Expr\AssignOp\ShiftRight::class => \PhpParser\Node\Expr\BinaryOp\ShiftRight::class];
     /**
-     * @var string[]
+     * @var array<class-string<BinaryOp>, class-string<BinaryOp>>
      */
     private $binaryOpToAssignClasses = [];
     public function __construct()

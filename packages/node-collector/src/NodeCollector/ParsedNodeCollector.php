@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NodeCollector\NodeCollector;
 
-use RectorPrefix20210222\Nette\Utils\Strings;
+use RectorPrefix20210223\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -29,7 +29,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 final class ParsedNodeCollector
 {
     /**
-     * @var class-string<Node>[]
+     * @var array<class-string<Node>>
      */
     private const COLLECTABLE_NODE_TYPES = [
         \PhpParser\Node\Stmt\Class_::class,
@@ -120,7 +120,7 @@ final class ParsedNodeCollector
     public function findByShortName(string $shortName) : ?\PhpParser\Node\Stmt\Class_
     {
         foreach ($this->classes as $className => $classNode) {
-            if (\RectorPrefix20210222\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
+            if (\RectorPrefix20210223\Nette\Utils\Strings::endsWith($className, '\\' . $shortName)) {
                 return $classNode;
             }
         }
@@ -128,7 +128,7 @@ final class ParsedNodeCollector
     }
     public function findClassConstant(string $className, string $constantName) : ?\PhpParser\Node\Stmt\ClassConst
     {
-        if (\RectorPrefix20210222\Nette\Utils\Strings::contains($constantName, '\\')) {
+        if (\RectorPrefix20210223\Nette\Utils\Strings::contains($constantName, '\\')) {
             throw new \Rector\Core\Exception\ShouldNotHappenException(\sprintf('Switched arguments in "%s"', __METHOD__));
         }
         return $this->constantsByType[$className][$constantName] ?? null;
@@ -284,6 +284,6 @@ final class ParsedNodeCollector
             return \true;
         }
         // PHPStan polution
-        return \RectorPrefix20210222\Nette\Utils\Strings::startsWith($className, 'AnonymousClass');
+        return \RectorPrefix20210223\Nette\Utils\Strings::startsWith($className, 'AnonymousClass');
     }
 }

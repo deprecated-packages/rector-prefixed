@@ -11,7 +11,7 @@ use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\AbstractNodeTypeResolverTe
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\AnotherType;
 use Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\ThisClass;
 use Rector\NodeTypeResolver\Tests\Source\AnotherClass;
-use Rector\StaticTypeMapper\TypeFactory\TypeFactoryStaticHelper;
+use Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory;
 /**
  * @see \Rector\NodeTypeResolver\NodeTypeResolver\VariableTypeResolver
  */
@@ -28,7 +28,8 @@ final class VariableTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerN
     }
     public function provideData() : \Iterator
     {
-        (yield [__DIR__ . '/Source/ThisClass.php', 0, \Rector\StaticTypeMapper\TypeFactory\TypeFactoryStaticHelper::createUnionObjectType([\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\ThisClass::class, \Rector\NodeTypeResolver\Tests\Source\AnotherClass::class])]);
+        $unionTypeFactory = new \Rector\StaticTypeMapper\TypeFactory\UnionTypeFactory();
+        (yield [__DIR__ . '/Source/ThisClass.php', 0, $unionTypeFactory->createUnionObjectType([\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\ThisClass::class, \Rector\NodeTypeResolver\Tests\Source\AnotherClass::class])]);
         $anotherTypeObjectType = new \PHPStan\Type\ObjectType(\Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\VariableTypeResolver\Source\AnotherType::class);
         (yield [__DIR__ . '/Source/NewClass.php', 1, $anotherTypeObjectType]);
         (yield [__DIR__ . '/Source/NewClass.php', 3, $anotherTypeObjectType]);

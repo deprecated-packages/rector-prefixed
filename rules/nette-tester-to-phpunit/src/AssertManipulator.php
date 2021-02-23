@@ -30,7 +30,8 @@ final class AssertManipulator
      * @see https://github.com/nette/tester/blob/master/src/Framework/Assert.php
      * ↓
      * @see https://github.com/sebastianbergmann/phpunit/blob/master/src/Framework/Assert.php
-     * @var string[]
+     *
+     * @var array<string, string>
      */
     private const ASSERT_METHODS_REMAP = ['same' => 'assertSame', 'notSame' => 'assertNotSame', 'equal' => 'assertEqual', 'notEqual' => 'assertNotEqual', 'true' => 'assertTrue', 'false' => 'assertFalse', 'null' => 'assertNull', 'notNull' => 'assertNotNull', 'count' => 'assertCount', 'match' => 'assertStringMatchesFormat', 'matchFile' => 'assertStringMatchesFormatFile', 'nan' => 'assertIsNumeric'];
     /**

@@ -5,13 +5,13 @@ namespace Rector\CodingStyle\Tests\Rector\ClassMethod\ReturnArrayClassMethodToYi
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo;
 final class ReturnArrayClassMethodToYieldRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210222\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

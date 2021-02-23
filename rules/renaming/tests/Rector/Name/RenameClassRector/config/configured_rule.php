@@ -1,9 +1,9 @@
 <?php
 
-namespace RectorPrefix20210222;
+namespace RectorPrefix20210223;
 
-use RectorPrefix20210222\Acme\Bar\DoNotUpdateExistingTargetNamespace;
-use RectorPrefix20210222\Manual\Twig\TwigFilter;
+use RectorPrefix20210223\Acme\Bar\DoNotUpdateExistingTargetNamespace;
+use RectorPrefix20210223\Manual\Twig\TwigFilter;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Fixture\DuplicatedClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension;
@@ -16,8 +16,8 @@ use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClassWithTypo;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeFinalClass;
 use Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeNonFinalClass;
-use RectorPrefix20210222\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210222\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\Renaming\Rector\Name\RenameClassRector::class)->call('configure', [[\Rector\Renaming\Rector\Name\RenameClassRector::OLD_TO_NEW_CLASSES => [
         'FqnizeNamespaced' => 'Abc\\FqnizeNamespaced',
@@ -25,7 +25,7 @@ return static function (\RectorPrefix20210222\Symfony\Component\DependencyInject
         \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\OldClassWithTypo::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\NewClassWithoutTypo::class,
         'DateTime' => 'DateTimeInterface',
         'Countable' => 'stdClass',
-        \RectorPrefix20210222\Manual_Twig_Filter::class => \RectorPrefix20210222\Manual\Twig\TwigFilter::class,
+        \RectorPrefix20210223\Manual_Twig_Filter::class => \RectorPrefix20210223\Manual\Twig\TwigFilter::class,
         'Twig_AbstractManualExtension' => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\AbstractManualExtension::class,
         'Twig_Extension_Sandbox' => 'Twig\\Extension\\SandboxExtension',
         // Renaming class itself and its namespace
@@ -40,7 +40,7 @@ return static function (\RectorPrefix20210222\Symfony\Component\DependencyInject
         // test duplicated class - @see https://github.com/rectorphp/rector/issues/5389
         \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\FirstInterface::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\ThirdInterface::class,
         \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\SecondInterface::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\Contract\ThirdInterface::class,
-        \RectorPrefix20210222\Acme\Foo\DoNotUpdateExistingTargetNamespace::class => \RectorPrefix20210222\Acme\Bar\DoNotUpdateExistingTargetNamespace::class,
+        \RectorPrefix20210223\Acme\Foo\DoNotUpdateExistingTargetNamespace::class => \RectorPrefix20210223\Acme\Bar\DoNotUpdateExistingTargetNamespace::class,
         \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeNonFinalClass::class => \Rector\Renaming\Tests\Rector\Name\RenameClassRector\Source\SomeFinalClass::class,
     ]]]);
 };

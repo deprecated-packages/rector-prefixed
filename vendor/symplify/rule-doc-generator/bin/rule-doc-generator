@@ -1,5 +1,5 @@
 #!/usr/bin/env php
 <?php 
-namespace RectorPrefix20210222;
+namespace RectorPrefix20210223;
 
 require __DIR__ . '/rule-doc-generator.php';

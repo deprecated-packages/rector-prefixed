@@ -3,7 +3,8 @@
 declare (strict_types=1);
 namespace Rector\Autodiscovery\Rector\FileNode;
 
-use RectorPrefix20210222\Nette\Utils\Strings;
+use RectorPrefix20210223\Controller;
+use RectorPrefix20210223\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Autodiscovery\Analyzer\ClassAnalyzer;
@@ -37,9 +38,9 @@ final class MoveValueObjectsToValueObjectDirectoryRector extends \Rector\Core\Re
      * @api
      * @var string
      */
-    public const ENABLE_VALUE_OBJECT_GUESSING = '$enableValueObjectGuessing';
+    public const ENABLE_VALUE_OBJECT_GUESSING = 'enable_value_object_guessing';
     /**
-     * @var string[]
+     * @var string[]|class-string<Controller>[]
      */
     private const COMMON_SERVICE_SUFFIXES = ['Repository', 'Command', 'Mapper', 'Controller', 'Presenter', 'Factory', 'Test', 'TestCase', 'Service'];
     /**
@@ -165,7 +166,7 @@ CODE_SAMPLE
         $className = $class->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::CLASS_NAME);
         if ($className !== null) {
             foreach ($this->suffixes as $suffix) {
-                if (\RectorPrefix20210222\Nette\Utils\Strings::endsWith($className, $suffix)) {
+                if (\RectorPrefix20210223\Nette\Utils\Strings::endsWith($className, $suffix)) {
                     return \true;
                 }
             }
@@ -175,7 +176,7 @@ CODE_SAMPLE
     private function isKnownServiceType(string $className) : bool
     {
         foreach (self::COMMON_SERVICE_SUFFIXES as $commonServiceSuffix) {
-            if (\RectorPrefix20210222\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
+            if (\RectorPrefix20210223\Nette\Utils\Strings::endsWith($className, $commonServiceSuffix)) {
                 return \true;
             }
         }

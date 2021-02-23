@@ -121,7 +121,7 @@ CODE_SAMPLE
     }
     private function resolveValue(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
     {
-        if ($this->isIteratorToArrayFuncCall($expr)) {
+        if ($expr instanceof \PhpParser\Node\Expr\FuncCall && $this->isIteratorToArrayFuncCall($expr)) {
             /** @var FuncCall $expr */
             $expr = $expr->args[0]->value;
         }

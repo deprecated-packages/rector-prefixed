@@ -29,7 +29,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class NetteFormToSymfonyFormRector extends \Rector\Core\Rector\AbstractRector
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private const ADD_METHOD_TO_FORM_TYPE = [
         'addText' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',

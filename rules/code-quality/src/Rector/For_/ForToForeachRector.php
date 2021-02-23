@@ -3,17 +3,16 @@
 declare (strict_types=1);
 namespace Rector\CodeQuality\Rector\For_;
 
-use RectorPrefix20210222\Doctrine\Inflector\Inflector;
+use RectorPrefix20210223\Doctrine\Inflector\Inflector;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\For_;
 use PhpParser\Node\Stmt\Foreach_;
-use Rector\CodeQuality\NodeAnalyzer\ForNodeAnalyzer;
+use Rector\CodeQuality\NodeAnalyzer\ForAnalyzer;
+use Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer;
 use Rector\CodeQuality\NodeFactory\ForeachFactory;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
@@ -49,18 +48,23 @@ final class ForToForeachRector extends \Rector\Core\Rector\AbstractRector
      */
     private $iteratedExpr;
     /**
-     * @var ForNodeAnalyzer
+     * @var ForAnalyzer
      */
-    private $forNodeAnalyzer;
+    private $forAnalyzer;
     /**
      * @var ForeachFactory
      */
     private $foreachFactory;
-    public function __construct(\RectorPrefix20210222\Doctrine\Inflector\Inflector $inflector, \Rector\CodeQuality\NodeAnalyzer\ForNodeAnalyzer $forNodeAnalyzer, \Rector\CodeQuality\NodeFactory\ForeachFactory $foreachFactory)
+    /**
+     * @var ForeachAnalyzer
+     */
+    private $foreachAnalyzer;
+    public function __construct(\RectorPrefix20210223\Doctrine\Inflector\Inflector $inflector, \Rector\CodeQuality\NodeAnalyzer\ForAnalyzer $forAnalyzer, \Rector\CodeQuality\NodeFactory\ForeachFactory $foreachFactory, \Rector\CodeQuality\NodeAnalyzer\ForeachAnalyzer $foreachAnalyzer)
     {
         $this->inflector = $inflector;
-        $this->forNodeAnalyzer = $forNodeAnalyzer;
+        $this->forAnalyzer = $forAnalyzer;
         $this->foreachFactory = $foreachFactory;
+        $this->foreachAnalyzer = $foreachAnalyzer;
     }
     public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
     {
@@ -109,7 +113,7 @@ CODE_SAMPLE
         if (!$this->isConditionMatch($node->cond)) {
             return null;
         }
-        if (!$this->forNodeAnalyzer->isLoopMatch($node->loop, $this->keyValueName)) {
+        if (!$this->forAnalyzer->isLoopMatch($node->loop, $this->keyValueName)) {
             return null;
         }
         if ($this->iteratedExpr === null) {
@@ -126,13 +130,13 @@ CODE_SAMPLE
         if (\count($init) > 2) {
             return null;
         }
-        if ($this->forNodeAnalyzer->isCountValueVariableUsedInsideForStatements($node, $this->countValueVariable)) {
+        if ($this->forAnalyzer->isCountValueVariableUsedInsideForStatements($node, $this->countValueVariable)) {
             return null;
         }
-        if ($this->forNodeAnalyzer->isAssignmentWithArrayDimFetchAsVariableInsideForStatements($node, $this->keyValueName)) {
+        if ($this->forAnalyzer->isAssignmentWithArrayDimFetchAsVariableInsideForStatements($node, $this->keyValueName)) {
             return null;
         }
-        if ($this->forNodeAnalyzer->isArrayWithKeyValueNameUnsetted($node)) {
+        if ($this->forAnalyzer->isArrayWithKeyValueNameUnsetted($node)) {
             return null;
         }
         return $this->processForToForeach($node, $iteratedVariable);
@@ -144,13 +148,13 @@ CODE_SAMPLE
         if ($iteratedVariableSingle === $iteratedVariable) {
             $iteratedVariableSingle = 'single' . \ucfirst($iteratedVariableSingle);
         }
-        if (!$this->forNodeAnalyzer->isValueVarUsedNext($for, $iteratedVariableSingle)) {
+        if (!$this->forAnalyzer->isValueVarUsedNext($for, $iteratedVariableSingle)) {
             return $this->createForeachFromForWithIteratedVariableSingle($for, $iteratedVariableSingle);
         }
         if ($iteratedVariableSingle === $originalVariableSingle) {
             return null;
         }
-        if (!$this->forNodeAnalyzer->isValueVarUsedNext($for, $originalVariableSingle)) {
+        if (!$this->forAnalyzer->isValueVarUsedNext($for, $originalVariableSingle)) {
             return $this->createForeachFromForWithIteratedVariableSingle($for, $originalVariableSingle);
         }
         return null;
@@ -159,7 +163,10 @@ CODE_SAMPLE
     {
         $foreach = $this->foreachFactory->createFromFor($for, $iteratedVariableSingle, $this->iteratedExpr, $this->keyValueName);
         $this->mirrorComments($foreach, $for);
-        $this->useForeachVariableInStmts($foreach->expr, $foreach->valueVar, $foreach->stmts);
+        if ($this->keyValueName === null) {
+            throw new \Rector\Core\Exception\ShouldNotHappenException();
+        }
+        $this->foreachAnalyzer->useForeachVariableInStmts($foreach->expr, $foreach->valueVar, $foreach->stmts, $this->keyValueName);
         return $foreach;
     }
     private function reset() : void
@@ -181,10 +188,14 @@ CODE_SAMPLE
             if ($this->valueResolver->isValue($initExpr->expr, 0)) {
                 $this->keyValueName = $this->getName($initExpr->var);
             }
-            if ($this->nodeNameResolver->isFuncCallName($initExpr->expr, self::COUNT)) {
+            if (!$initExpr->expr instanceof \PhpParser\Node\Expr\FuncCall) {
+                continue;
+            }
+            $funcCall = $initExpr->expr;
+            if ($this->nodeNameResolver->isFuncCallName($funcCall, self::COUNT)) {
                 $this->countValueVariable = $initExpr->var;
                 $this->countValueName = $this->getName($initExpr->var);
-                $this->iteratedExpr = $initExpr->expr->args[0]->value;
+                $this->iteratedExpr = $funcCall->args[0]->value;
             }
         }
     }
@@ -193,13 +204,13 @@ CODE_SAMPLE
      */
     private function isConditionMatch(array $condExprs) : bool
     {
-        if ($this->forNodeAnalyzer->isCondExprOneOrKeyValueNameNotNull($condExprs, $this->keyValueName)) {
+        if ($this->forAnalyzer->isCondExprOneOrKeyValueNameNotNull($condExprs, $this->keyValueName)) {
             return \false;
         }
         /** @var string $keyValueName */
         $keyValueName = $this->keyValueName;
         if ($this->countValueName !== null) {
-            return $this->forNodeAnalyzer->isCondExprSmallerOrGreater($condExprs, $keyValueName, $this->countValueName);
+            return $this->forAnalyzer->isCondExprSmallerOrGreater($condExprs, $keyValueName, $this->countValueName);
         }
         if (!$condExprs[0] instanceof \PhpParser\Node\Expr\BinaryOp) {
             return \false;
@@ -212,37 +223,5 @@ CODE_SAMPLE
             return \true;
         }
         return \false;
-    }
-    /**
-     * @param Stmt[] $stmts
-     */
-    private function useForeachVariableInStmts(\PhpParser\Node\Expr $foreachedValue, \PhpParser\Node\Expr $singleValue, array $stmts) : void
-    {
-        if ($this->keyValueName === null) {
-            throw new \Rector\Core\Exception\ShouldNotHappenException();
-        }
-        $this->traverseNodesWithCallable($stmts, function (\PhpParser\Node $node) use($foreachedValue, $singleValue) : ?Expr {
-            if (!$node instanceof \PhpParser\Node\Expr\ArrayDimFetch) {
-                return null;
-            }
-            // must be the same as foreach value
-            if (!$this->nodeComparator->areNodesEqual($node->var, $foreachedValue)) {
-                return null;
-            }
-            if ($this->forNodeAnalyzer->isArrayDimFetchPartOfAssignOrArgParentCount($node)) {
-                return null;
-            }
-            // is dim same as key value name, ...[$i]
-            if ($this->keyValueName === null) {
-                throw new \Rector\Core\Exception\ShouldNotHappenException();
-            }
-            if ($node->dim === null) {
-                return null;
-            }
-            if (!$this->nodeNameResolver->isVariableName($node->dim, $this->keyValueName)) {
-                return null;
-            }
-            return $singleValue;
-        });
     }
 }
