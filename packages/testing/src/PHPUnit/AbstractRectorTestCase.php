@@ -24,7 +24,6 @@ use Rector\Testing\Configuration\AllRectorConfigFactory;
 use Rector\Testing\Contract\RunnableInterface;
 use Rector\Testing\Guard\FixtureGuard;
 use Rector\Testing\PHPUnit\Behavior\MovingFilesTrait;
-use Rector\Testing\ValueObject\InputFilePathWithExpectedFile;
 use RectorPrefix20210223\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use RectorPrefix20210223\Symplify\EasyTesting\DataProvider\StaticFixtureUpdater;
 use RectorPrefix20210223\Symplify\EasyTesting\StaticFixtureSplitter;
@@ -136,9 +135,9 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210223\Symplify\Pac
         $this->autoloadTestFixture = \true;
     }
     /**
-     * @param InputFilePathWithExpectedFile[] $extraFiles
+     * @param SmartFileInfo[] $extraFileInfos
      */
-    protected function doTestFileInfo(\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
+    protected function doTestFileInfo(\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFileInfos = []) : void
     {
         self::$fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($fixtureFileInfo);
         $inputFileInfoAndExpectedFileInfo = \RectorPrefix20210223\Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo, $this->autoloadTestFixture);
@@ -148,7 +147,7 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210223\Symplify\Pac
         $nodeScopeResolver = $this->getService(\PHPStan\Analyser\NodeScopeResolver::class);
         $nodeScopeResolver->setAnalysedFiles([$inputFileInfo->getRealPath()]);
         $expectedFileInfo = $inputFileInfoAndExpectedFileInfo->getExpectedFileInfo();
-        $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo, $extraFiles);
+        $this->doTestFileMatchesExpectedContent($inputFileInfo, $expectedFileInfo, $fixtureFileInfo, $extraFileInfos);
         $this->originalTempFileInfo = $inputFileInfo;
         // runnable?
         if (!\file_exists($inputFileInfo->getPathname())) {
@@ -213,21 +212,18 @@ abstract class AbstractRectorTestCase extends \RectorPrefix20210223\Symplify\Pac
         self::$container = self::$allRectorContainer;
     }
     /**
-     * @param InputFilePathWithExpectedFile[] $extraFiles
+     * @param SmartFileInfo[] $extraFileInfos
      */
-    private function doTestFileMatchesExpectedContent(\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFiles = []) : void
+    private function doTestFileMatchesExpectedContent(\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, \RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo, \RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo, array $extraFileInfos = []) : void
     {
         $this->parameterProvider->changeParameter(\Rector\Core\Configuration\Option::SOURCE, [$originalFileInfo->getRealPath()]);
         if (!\RectorPrefix20210223\Nette\Utils\Strings::endsWith($originalFileInfo->getFilename(), '.blade.php') && \in_array($originalFileInfo->getSuffix(), ['php', 'phpt'], \true)) {
-            if ($extraFiles === []) {
+            if ($extraFileInfos === []) {
                 $this->fileProcessor->parseFileInfoToLocalCache($originalFileInfo);
                 $this->fileProcessor->refactor($originalFileInfo);
                 $this->fileProcessor->postFileRefactor($originalFileInfo);
             } else {
-                $fileInfosToProcess = [$originalFileInfo];
-                foreach ($extraFiles as $extraFile) {
-                    $fileInfosToProcess[] = $extraFile->getInputFileInfo();
-                }
+                $fileInfosToProcess = \array_merge([$originalFileInfo], $extraFileInfos);
                 // life-cycle trio :)
                 foreach ($fileInfosToProcess as $fileInfoToProcess) {
                     $this->fileProcessor->parseFileInfoToLocalCache($fileInfoToProcess);

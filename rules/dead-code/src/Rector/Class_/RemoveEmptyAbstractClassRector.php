@@ -4,7 +4,9 @@ declare (strict_types=1);
 namespace Rector\DeadCode\Rector\Class_;
 
 use PhpParser\Node;
+use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\UseUse;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -73,8 +75,7 @@ CODE_SAMPLE
         if ($class->implements !== []) {
             return \true;
         }
-        $stmts = $class->stmts;
-        return $stmts !== [];
+        return $class->stmts !== [];
     }
     private function processRemove(\PhpParser\Node\Stmt\Class_ $class) : ?\PhpParser\Node\Stmt\Class_
     {
@@ -82,14 +83,22 @@ CODE_SAMPLE
         $names = $this->nodeRepository->findNames($className);
         foreach ($names as $name) {
             $parent = $name->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_NODE);
-            if (!$parent instanceof \PhpParser\Node\Stmt\Class_) {
-                return null;
+            if ($parent instanceof \PhpParser\Node\Stmt\Class_) {
+                continue;
             }
+            if ($parent instanceof \PhpParser\Node\Stmt\UseUse) {
+                continue;
+            }
+            return null;
         }
-        $children = $this->nodeRepository->findChildrenOfClass($this->getName($class->namespacedName));
-        $extends = $class->extends;
+        $children = $this->nodeRepository->findChildrenOfClass($className);
         foreach ($children as $child) {
-            $child->extends = $extends;
+            if ($class->extends !== null) {
+                $parentClass = $this->getName($class->extends);
+                $child->extends = new \PhpParser\Node\Name\FullyQualified($parentClass);
+            } else {
+                $child->extends = null;
+            }
         }
         $this->removeNode($class);
         return $class;
