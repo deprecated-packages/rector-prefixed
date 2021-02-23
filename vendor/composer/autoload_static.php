@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitefb1ef5750ef7b449383953e522a8e70
+class ComposerStaticInit412f976984858ba66f9c69ed0b74d1a4
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2847,6 +2847,7 @@ class ComposerStaticInitefb1ef5750ef7b449383953e522a8e70
         'Rector\\Core\\Rector\\AbstractTemporaryRector' => __DIR__ . '/../..' . '/src/Rector/AbstractTemporaryRector.php',
         'Rector\\Core\\Reflection\\ClassMethodReflectionFactory' => __DIR__ . '/../..' . '/src/Reflection/ClassMethodReflectionFactory.php',
         'Rector\\Core\\Reflection\\ClassReflectionToAstResolver' => __DIR__ . '/../..' . '/src/Reflection/ClassReflectionToAstResolver.php',
+        'Rector\\Core\\Stubs\\PHPStanStubLoader' => __DIR__ . '/../..' . '/src/Stubs/PHPStanStubLoader.php',
         'Rector\\Core\\Stubs\\StubLoader' => __DIR__ . '/../..' . '/src/Stubs/StubLoader.php',
         'Rector\\Core\\Util\\PhpVersionFactory' => __DIR__ . '/../..' . '/src/Util/PhpVersionFactory.php',
         'Rector\\Core\\Util\\StaticInstanceOf' => __DIR__ . '/../..' . '/src/Util/StaticInstanceOf.php',
@@ -4201,9 +4202,9 @@ class ComposerStaticInitefb1ef5750ef7b449383953e522a8e70
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitefb1ef5750ef7b449383953e522a8e70::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitefb1ef5750ef7b449383953e522a8e70::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitefb1ef5750ef7b449383953e522a8e70::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit412f976984858ba66f9c69ed0b74d1a4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit412f976984858ba66f9c69ed0b74d1a4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit412f976984858ba66f9c69ed0b74d1a4::$classMap;
 
         }, null, ClassLoader::class);
     }

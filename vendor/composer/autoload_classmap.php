@@ -2068,6 +2068,7 @@ return array(
     'Rector\\Core\\Rector\\AbstractTemporaryRector' => $baseDir . '/src/Rector/AbstractTemporaryRector.php',
     'Rector\\Core\\Reflection\\ClassMethodReflectionFactory' => $baseDir . '/src/Reflection/ClassMethodReflectionFactory.php',
     'Rector\\Core\\Reflection\\ClassReflectionToAstResolver' => $baseDir . '/src/Reflection/ClassReflectionToAstResolver.php',
+    'Rector\\Core\\Stubs\\PHPStanStubLoader' => $baseDir . '/src/Stubs/PHPStanStubLoader.php',
     'Rector\\Core\\Stubs\\StubLoader' => $baseDir . '/src/Stubs/StubLoader.php',
     'Rector\\Core\\Util\\PhpVersionFactory' => $baseDir . '/src/Util/PhpVersionFactory.php',
     'Rector\\Core\\Util\\StaticInstanceOf' => $baseDir . '/src/Util/StaticInstanceOf.php',
