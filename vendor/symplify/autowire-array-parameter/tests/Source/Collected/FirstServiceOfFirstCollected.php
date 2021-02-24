@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210223\Symplify\AutowireArrayParameter\Tests\Source\Collected;
+namespace RectorPrefix20210224\Symplify\AutowireArrayParameter\Tests\Source\Collected;
 
-use RectorPrefix20210223\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
-final class FirstServiceOfFirstCollected implements \RectorPrefix20210223\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface
+use RectorPrefix20210224\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
+final class FirstServiceOfFirstCollected implements \RectorPrefix20210224\Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface
 {
 }

@@ -8,8 +8,8 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Symfony3\FormHelper\FormTypeStringToTypeProvider;
-use RectorPrefix20210223\Symfony\Component\Form\FormBuilderInterface;
-use RectorPrefix20210223\Symfony\Component\Form\FormInterface;
+use RectorPrefix20210224\Symfony\Component\Form\FormBuilderInterface;
+use RectorPrefix20210224\Symfony\Component\Form\FormInterface;
 abstract class AbstractFormAddRector extends \Rector\Core\Rector\AbstractRector
 {
     /**

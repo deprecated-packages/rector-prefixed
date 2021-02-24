@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210223;
+namespace RectorPrefix20210224;
 
 use Rector\Core\ValueObject\FrameworkName;
 use Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector;
-use RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\RectorPrefix20210223\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+use RectorPrefix20210224\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\RectorPrefix20210224\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
     $services->set(\Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector::class)->call('configure', [[\Rector\DependencyInjection\Rector\Class_\MultiParentingToAbstractDependencyRector::FRAMEWORK => \Rector\Core\ValueObject\FrameworkName::NETTE]]);
 };

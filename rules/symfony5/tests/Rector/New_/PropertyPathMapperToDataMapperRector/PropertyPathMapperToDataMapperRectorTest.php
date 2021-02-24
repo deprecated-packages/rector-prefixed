@@ -6,13 +6,13 @@ namespace Rector\Symfony5\Tests\Rector\New_\PropertyPathMapperToDataMapperRector
 use Iterator;
 use Rector\Symfony5\Rector\New_\PropertyPathMapperToDataMapperRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo;
 final class PropertyPathMapperToDataMapperRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

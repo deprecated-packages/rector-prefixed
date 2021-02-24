@@ -9,8 +9,8 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use RectorPrefix20210223\Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use RectorPrefix20210223\Symfony\Component\HttpFoundation\Request;
+use RectorPrefix20210224\Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use RectorPrefix20210224\Symfony\Component\HttpFoundation\Request;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -61,10 +61,10 @@ CODE_SAMPLE
     public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
     {
         $parentClassName = $node->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::PARENT_CLASS_NAME);
-        if ($parentClassName !== \RectorPrefix20210223\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
+        if ($parentClassName !== \RectorPrefix20210224\Symfony\Bundle\FrameworkBundle\Controller\Controller::class) {
             return null;
         }
-        if (!$this->fluentChainMethodCallNodeAnalyzer->isTypeAndChainCalls($node, new \PHPStan\Type\ObjectType(\RectorPrefix20210223\Symfony\Component\HttpFoundation\Request::class), ['getSession', 'getFlashBag', 'add'])) {
+        if (!$this->fluentChainMethodCallNodeAnalyzer->isTypeAndChainCalls($node, new \PHPStan\Type\ObjectType(\RectorPrefix20210224\Symfony\Component\HttpFoundation\Request::class), ['getSession', 'getFlashBag', 'add'])) {
             return null;
         }
         return $this->nodeFactory->createMethodCall('this', 'addFlash', $node->args);

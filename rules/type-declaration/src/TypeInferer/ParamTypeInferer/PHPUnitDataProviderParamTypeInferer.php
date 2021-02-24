@@ -151,8 +151,7 @@ final class PHPUnitDataProviderParamTypeInferer implements \Rector\TypeDeclarati
         if ($paramOnPositionTypes === []) {
             return new \PHPStan\Type\MixedType();
         }
-        $p = $this->typeFactory->createMixedPassedOrUnionType($paramOnPositionTypes);
-        return $p;
+        return $this->typeFactory->createMixedPassedOrUnionType($paramOnPositionTypes);
     }
     private function getTypeFromClassMethodYield(\PhpParser\Node\Expr\Array_ $classMethodYieldArrayNode) : \PHPStan\Type\Type
     {

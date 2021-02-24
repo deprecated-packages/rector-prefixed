@@ -6,7 +6,7 @@ namespace Rector\Php72\Tests\Rector\Assign\ListEachRector;
 use Iterator;
 use Rector\Php72\Rector\Assign\ListEachRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Test battery inspired by:
  * - https://stackoverflow.com/q/46492621/1348344 + Drupal refactorings
@@ -18,7 +18,7 @@ final class ListEachRectorTest extends \Rector\Testing\PHPUnit\AbstractRectorTes
      * @dataProvider provideData()
      * @requires PHP < 8.0
      */
-    public function test(\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -7,7 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use Rector\TypeDeclaration\Matcher\PropertyAssignMatcher;
-use RectorPrefix20210223\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210224\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 abstract class AbstractAssignDetector
 {
     /**
@@ -21,7 +21,7 @@ abstract class AbstractAssignDetector
     /**
      * @required
      */
-    public function autowireAbstractAssignDetector(\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \RectorPrefix20210223\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser) : void
+    public function autowireAbstractAssignDetector(\Rector\TypeDeclaration\Matcher\PropertyAssignMatcher $propertyAssignMatcher, \RectorPrefix20210224\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser) : void
     {
         $this->propertyAssignMatcher = $propertyAssignMatcher;
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;

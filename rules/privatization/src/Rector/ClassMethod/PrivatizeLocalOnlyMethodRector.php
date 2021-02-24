@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Privatization\Rector\ClassMethod;
 
-use RectorPrefix20210223\Nette\Utils\Strings;
+use RectorPrefix20210224\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -11,6 +11,7 @@ use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\SymfonyRequiredTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\ApiPhpDocTagNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Nette\NetteInjectTagNode;
+use Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode;
 use Rector\Caching\Contract\Rector\ZeroCacheRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Doctrine\PhpDocParser\DoctrineDocBlockResolver;
@@ -158,11 +159,11 @@ CODE_SAMPLE
         if ($className === null) {
             return \false;
         }
-        if (!\RectorPrefix20210223\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
+        if (!\RectorPrefix20210224\Nette\Utils\Strings::match($className, self::CONTROLLER_PRESENTER_SUFFIX_REGEX)) {
             return \false;
         }
         $classMethodName = $this->getName($classMethod);
-        if ((bool) \RectorPrefix20210223\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
+        if ((bool) \RectorPrefix20210224\Nette\Utils\Strings::match($classMethodName, self::COMMON_PUBLIC_METHOD_CONTROLLER_REGEX)) {
             return \true;
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
@@ -187,6 +188,9 @@ CODE_SAMPLE
             return \true;
         }
         // possibly container service factories
-        return $this->isNames($classMethod, ['create', 'create*']);
+        if ($this->isNames($classMethod, ['create', 'create*'])) {
+            return \true;
+        }
+        return $phpDocInfo->hasByType(\Rector\BetterPhpDocParser\ValueObject\PhpDocNode\Symfony\SymfonyRouteTagValueNode::class);
     }
 }

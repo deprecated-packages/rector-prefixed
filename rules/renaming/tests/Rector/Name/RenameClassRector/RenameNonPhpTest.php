@@ -6,13 +6,13 @@ namespace Rector\Renaming\Tests\Rector\Name\RenameClassRector;
 use Iterator;
 use Rector\Core\ValueObject\StaticNonPhpFileSuffixes;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo;
 final class RenameNonPhpTest extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfoWithoutAutoload($fileInfo);
     }

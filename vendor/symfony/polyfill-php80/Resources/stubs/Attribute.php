@@ -1,6 +1,6 @@
 <?php
 
-namespace RectorPrefix20210223;
+namespace RectorPrefix20210224;
 
 #[Attribute(\Attribute::TARGET_CLASS)]
 final class Attribute
@@ -20,4 +20,4 @@ final class Attribute
         $this->flags = $flags;
     }
 }
-\class_alias('RectorPrefix20210223\\Attribute', 'Attribute', \false);
+\class_alias('RectorPrefix20210224\\Attribute', 'Attribute', \false);

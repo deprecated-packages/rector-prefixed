@@ -4,19 +4,19 @@ declare (strict_types=1);
 namespace Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver;
 
 use Iterator;
-use RectorPrefix20210223\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210224\Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo;
 final class PropertyFetchTypeResolverTest extends \Rector\NodeTypeResolver\Tests\PerNodeTypeResolver\PropertyFetchTypeResolver\AbstractPropertyFetchTypeResolverTest
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210223\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
+    public function test(\RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : void
     {
         $this->doTestFileInfo($smartFileInfo);
     }
     public function provideData() : \Iterator
     {
-        return \RectorPrefix20210223\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively(__DIR__ . '/Fixture');
+        return \RectorPrefix20210224\Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectoryExclusively(__DIR__ . '/Fixture');
     }
 }

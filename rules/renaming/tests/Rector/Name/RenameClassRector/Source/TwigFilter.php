@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210223\Manual\Twig;
+namespace RectorPrefix20210224\Manual\Twig;
 
 final class TwigFilter
 {

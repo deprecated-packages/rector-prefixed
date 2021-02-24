@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210223\Symplify\PhpConfigPrinter\NodeVisitor;
+namespace RectorPrefix20210224\Symplify\PhpConfigPrinter\NodeVisitor;
 
-use RectorPrefix20210223\Nette\Utils\Strings;
+use RectorPrefix20210224\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\NodeVisitorAbstract;
-use RectorPrefix20210223\Symplify\PhpConfigPrinter\Naming\ClassNaming;
+use RectorPrefix20210224\Symplify\PhpConfigPrinter\Naming\ClassNaming;
 final class ImportFullyQualifiedNamesNodeVisitor extends \PhpParser\NodeVisitorAbstract
 {
     /**
@@ -19,7 +19,7 @@ final class ImportFullyQualifiedNamesNodeVisitor extends \PhpParser\NodeVisitorA
      * @var string[]
      */
     private $nameImports = [];
-    public function __construct(\RectorPrefix20210223\Symplify\PhpConfigPrinter\Naming\ClassNaming $classNaming)
+    public function __construct(\RectorPrefix20210224\Symplify\PhpConfigPrinter\Naming\ClassNaming $classNaming)
     {
         $this->classNaming = $classNaming;
     }
@@ -39,10 +39,10 @@ final class ImportFullyQualifiedNamesNodeVisitor extends \PhpParser\NodeVisitorA
         }
         $fullyQualifiedName = $node->toString();
         // namespace-less class name
-        if (\RectorPrefix20210223\Nette\Utils\Strings::startsWith($fullyQualifiedName, '\\')) {
+        if (\RectorPrefix20210224\Nette\Utils\Strings::startsWith($fullyQualifiedName, '\\')) {
             $fullyQualifiedName = \ltrim($fullyQualifiedName, '\\');
         }
-        if (!\RectorPrefix20210223\Nette\Utils\Strings::contains($fullyQualifiedName, '\\')) {
+        if (!\RectorPrefix20210224\Nette\Utils\Strings::contains($fullyQualifiedName, '\\')) {
             return new \PhpParser\Node\Name($fullyQualifiedName);
         }
         $shortClassName = $this->classNaming->getShortName($fullyQualifiedName);
