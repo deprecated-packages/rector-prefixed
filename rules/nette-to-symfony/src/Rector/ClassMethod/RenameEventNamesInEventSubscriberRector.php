@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\NetteToSymfony\Rector\ClassMethod;
 
-use RectorPrefix20210224\Composer\Script\Event;
+use RectorPrefix20210225\Composer\Script\Event;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;

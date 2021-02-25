@@ -20,8 +20,8 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use ReflectionClass;
-use RectorPrefix20210224\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
-use RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210225\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
+use RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Rector\Core\Tests\PhpParser\Node\Value\ValueResolverTest
  */
@@ -47,7 +47,7 @@ final class ValueResolver
      * @var ClassLikeExistenceChecker
      */
     private $classLikeExistenceChecker;
-    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer, \RectorPrefix20210224\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
+    public function __construct(\Rector\NodeNameResolver\NodeNameResolver $nodeNameResolver, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\NodeAnalyzer\ConstFetchAnalyzer $constFetchAnalyzer, \RectorPrefix20210225\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker)
     {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->nodeTypeResolver = $nodeTypeResolver;
@@ -197,7 +197,7 @@ final class ValueResolver
     private function resolveDirConstant(\PhpParser\Node\Scalar\MagicConst\Dir $dir) : string
     {
         $fileInfo = $dir->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $fileInfo->getPath();
@@ -205,7 +205,7 @@ final class ValueResolver
     private function resolveFileConstant(\PhpParser\Node\Scalar\MagicConst\File $file) : string
     {
         $fileInfo = $file->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::FILE_INFO);
-        if (!$fileInfo instanceof \RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$fileInfo instanceof \RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo) {
             throw new \Rector\Core\Exception\ShouldNotHappenException();
         }
         return $fileInfo->getPathname();

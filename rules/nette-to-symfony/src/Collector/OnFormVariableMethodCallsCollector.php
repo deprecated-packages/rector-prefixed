@@ -11,7 +11,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use Rector\Core\PhpParser\Comparing\NodeComparator;
 use Rector\NodeTypeResolver\NodeTypeResolver;
-use RectorPrefix20210224\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use RectorPrefix20210225\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 final class OnFormVariableMethodCallsCollector
 {
     /**
@@ -26,7 +26,7 @@ final class OnFormVariableMethodCallsCollector
      * @var NodeComparator
      */
     private $nodeComparator;
-    public function __construct(\RectorPrefix20210224\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
+    public function __construct(\RectorPrefix20210225\Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser $simpleCallableNodeTraverser, \Rector\NodeTypeResolver\NodeTypeResolver $nodeTypeResolver, \Rector\Core\PhpParser\Comparing\NodeComparator $nodeComparator)
     {
         $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
         $this->nodeTypeResolver = $nodeTypeResolver;

@@ -6,6 +6,7 @@ namespace Rector\DeadDocBlock;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Param;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
+use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\TypeComparator\TypeComparator;
 final class DeadParamTagValueNodeAnalyzer
@@ -33,6 +34,9 @@ final class DeadParamTagValueNodeAnalyzer
             return \false;
         }
         if (!$this->typeComparator->arePhpParserAndPhpStanPhpDocTypesEqual($param->type, $paramTagValueNode->type, $functionLike)) {
+            return \false;
+        }
+        if ($paramTagValueNode->type instanceof \Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareGenericTypeNode) {
             return \false;
         }
         return $paramTagValueNode->description === '';

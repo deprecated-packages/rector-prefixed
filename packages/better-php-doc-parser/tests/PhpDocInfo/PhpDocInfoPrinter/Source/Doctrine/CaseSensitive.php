@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocInfo\PhpDocInfoPrinter\Source\Doctrine;
 
-use RectorPrefix20210224\Doctrine\ORM\Mapping as ORM;
+use RectorPrefix20210225\Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table(
  *   name="Content_Status", indexes={

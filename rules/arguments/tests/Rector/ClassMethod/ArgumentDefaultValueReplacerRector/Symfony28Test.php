@@ -5,7 +5,7 @@ namespace Rector\Arguments\Tests\Rector\ClassMethod\ArgumentDefaultValueReplacer
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see https://github.com/symfony/symfony/commit/912fc4de8fd6de1e5397be4a94d39091423e5188
  */
@@ -14,7 +14,7 @@ final class Symfony28Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
     /**
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -6,8 +6,8 @@ namespace Rector\Caching\Application;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Caching\UnchangedFilesFilter;
 use Rector\Core\Configuration\Configuration;
-use RectorPrefix20210224\Symfony\Component\Console\Style\SymfonyStyle;
-use RectorPrefix20210224\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210225\Symfony\Component\Console\Style\SymfonyStyle;
+use RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo;
 final class CachedFileInfoFilterAndReporter
 {
     /**
@@ -26,7 +26,7 @@ final class CachedFileInfoFilterAndReporter
      * @var UnchangedFilesFilter
      */
     private $unchangedFilesFilter;
-    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \RectorPrefix20210224\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Caching\UnchangedFilesFilter $unchangedFilesFilter)
+    public function __construct(\Rector\Core\Configuration\Configuration $configuration, \Rector\Caching\Detector\ChangedFilesDetector $changedFilesDetector, \RectorPrefix20210225\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Rector\Caching\UnchangedFilesFilter $unchangedFilesFilter)
     {
         $this->configuration = $configuration;
         $this->changedFilesDetector = $changedFilesDetector;

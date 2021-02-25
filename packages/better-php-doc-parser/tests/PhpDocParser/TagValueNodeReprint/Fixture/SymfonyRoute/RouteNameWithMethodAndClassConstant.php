@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Fixture\SymfonyRoute;
 
-use RectorPrefix20210224\Symfony\Component\Routing\Annotation\Route;
+use RectorPrefix20210225\Symfony\Component\Routing\Annotation\Route;
 use Rector\BetterPhpDocParser\Tests\PhpDocParser\TagValueNodeReprint\Source\MyController;
 final class RouteNameWithMethodAndClassConstant
 {
