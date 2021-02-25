@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Rector\Core\PhpParser\Node;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\AssignOp;
 use PhpParser\Node\Expr\AssignOp\BitwiseAnd as AssignBitwiseAnd;
 use PhpParser\Node\Expr\AssignOp\BitwiseOr as AssignBitwiseOr;
@@ -38,6 +39,11 @@ use PhpParser\Node\Expr\BinaryOp\ShiftLeft;
 use PhpParser\Node\Expr\BinaryOp\ShiftRight;
 use PhpParser\Node\Expr\BinaryOp\Smaller;
 use PhpParser\Node\Expr\BinaryOp\SmallerOrEqual;
+use PhpParser\Node\Expr\BooleanNot;
+use PhpParser\Node\Expr\Cast\Bool_;
+use PHPStan\Analyser\Scope;
+use PHPStan\Type\BooleanType;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 final class AssignAndBinaryMap
 {
     /**
@@ -71,5 +77,23 @@ final class AssignAndBinaryMap
     {
         $nodeClass = \get_class($binaryOp);
         return self::BINARY_OP_TO_INVERSE_CLASSES[$nodeClass] ?? null;
+    }
+    public function getTruthyExpr(\PhpParser\Node\Expr $expr) : \PhpParser\Node\Expr
+    {
+        if ($expr instanceof \PhpParser\Node\Expr\Cast\Bool_) {
+            return $expr;
+        }
+        if ($expr instanceof \PhpParser\Node\Expr\BooleanNot) {
+            return $expr;
+        }
+        $scope = $expr->getAttribute(\Rector\NodeTypeResolver\Node\AttributeKey::SCOPE);
+        if (!$scope instanceof \PHPStan\Analyser\Scope) {
+            return new \PhpParser\Node\Expr\Cast\Bool_($expr);
+        }
+        $type = $scope->getType($expr);
+        if ($type instanceof \PHPStan\Type\BooleanType) {
+            return $expr;
+        }
+        return new \PhpParser\Node\Expr\Cast\Bool_($expr);
     }
 }

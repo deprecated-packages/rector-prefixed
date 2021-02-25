@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc8df8ec5893168197a53b377a91f4cd8
+class ComposerStaticInit83740e1384c8759a96c5779addad74a3
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -2783,6 +2783,7 @@ class ComposerStaticInitc8df8ec5893168197a53b377a91f4cd8
         'Rector\\Core\\Guard\\RectorGuard' => __DIR__ . '/../..' . '/src/Guard/RectorGuard.php',
         'Rector\\Core\\HttpKernel\\RectorKernel' => __DIR__ . '/../..' . '/src/HttpKernel/RectorKernel.php',
         'Rector\\Core\\Logging\\CurrentRectorProvider' => __DIR__ . '/../..' . '/src/Logging/CurrentRectorProvider.php',
+        'Rector\\Core\\NodeAnalyzer\\CallAnalyzer' => __DIR__ . '/../..' . '/src/NodeAnalyzer/CallAnalyzer.php',
         'Rector\\Core\\NodeAnalyzer\\ClassAnalyzer' => __DIR__ . '/../..' . '/src/NodeAnalyzer/ClassAnalyzer.php',
         'Rector\\Core\\NodeAnalyzer\\ConstFetchAnalyzer' => __DIR__ . '/../..' . '/src/NodeAnalyzer/ConstFetchAnalyzer.php',
         'Rector\\Core\\NodeAnalyzer\\PromotedPropertyParamCleaner' => __DIR__ . '/../..' . '/src/NodeAnalyzer/PromotedPropertyParamCleaner.php',
@@ -3129,6 +3130,7 @@ class ComposerStaticInitc8df8ec5893168197a53b377a91f4cd8
         'Rector\\EarlyReturn\\Rector\\If_\\RemoveAlwaysElseRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/If_/RemoveAlwaysElseRector.php',
         'Rector\\EarlyReturn\\Rector\\Return_\\PreparedValueToEarlyReturnRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/Return_/PreparedValueToEarlyReturnRector.php',
         'Rector\\EarlyReturn\\Rector\\Return_\\ReturnBinaryAndToEarlyReturnRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/Return_/ReturnBinaryAndToEarlyReturnRector.php',
+        'Rector\\EarlyReturn\\Rector\\Return_\\ReturnBinaryOrToEarlyReturnRector' => __DIR__ . '/../..' . '/rules/early-return/src/Rector/Return_/ReturnBinaryOrToEarlyReturnRector.php',
         'Rector\\FamilyTree\\NodeAnalyzer\\ClassChildAnalyzer' => __DIR__ . '/../..' . '/packages/family-tree/src/NodeAnalyzer/ClassChildAnalyzer.php',
         'Rector\\FamilyTree\\NodeAnalyzer\\PropertyUsageAnalyzer' => __DIR__ . '/../..' . '/packages/family-tree/src/NodeAnalyzer/PropertyUsageAnalyzer.php',
         'Rector\\FamilyTree\\Reflection\\FamilyRelationsAnalyzer' => __DIR__ . '/../..' . '/packages/family-tree/src/Reflection/FamilyRelationsAnalyzer.php',
@@ -3232,6 +3234,7 @@ class ComposerStaticInitc8df8ec5893168197a53b377a91f4cd8
         'Rector\\Naming\\Rector\\ClassMethod\\RenameParamToMatchTypeRector' => __DIR__ . '/../..' . '/rules/naming/src/Rector/ClassMethod/RenameParamToMatchTypeRector.php',
         'Rector\\Naming\\Rector\\ClassMethod\\RenameVariableToMatchNewTypeRector' => __DIR__ . '/../..' . '/rules/naming/src/Rector/ClassMethod/RenameVariableToMatchNewTypeRector.php',
         'Rector\\Naming\\Rector\\Class_\\RenamePropertyToMatchTypeRector' => __DIR__ . '/../..' . '/rules/naming/src/Rector/Class_/RenamePropertyToMatchTypeRector.php',
+        'Rector\\Naming\\Rector\\Foreach_\\RenameForeachValueVariableToMatchExprVariableRector' => __DIR__ . '/../..' . '/rules/naming/src/Rector/Foreach_/RenameForeachValueVariableToMatchExprVariableRector.php',
         'Rector\\Naming\\Rector\\Foreach_\\RenameForeachValueVariableToMatchMethodCallReturnTypeRector' => __DIR__ . '/../..' . '/rules/naming/src/Rector/Foreach_/RenameForeachValueVariableToMatchMethodCallReturnTypeRector.php',
         'Rector\\Naming\\Rector\\Property\\MakeBoolPropertyRespectIsHasWasMethodNamingRector' => __DIR__ . '/../..' . '/rules/naming/src/Rector/Property/MakeBoolPropertyRespectIsHasWasMethodNamingRector.php',
         'Rector\\Naming\\Rector\\Property\\UnderscoreToCamelCasePropertyNameRector' => __DIR__ . '/../..' . '/rules/naming/src/Rector/Property/UnderscoreToCamelCasePropertyNameRector.php',
@@ -4202,9 +4205,9 @@ class ComposerStaticInitc8df8ec5893168197a53b377a91f4cd8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc8df8ec5893168197a53b377a91f4cd8::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc8df8ec5893168197a53b377a91f4cd8::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc8df8ec5893168197a53b377a91f4cd8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit83740e1384c8759a96c5779addad74a3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit83740e1384c8759a96c5779addad74a3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit83740e1384c8759a96c5779addad74a3::$classMap;
 
         }, null, ClassLoader::class);
     }
