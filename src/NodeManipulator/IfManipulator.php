@@ -303,7 +303,10 @@ final class IfManipulator
         if ($this->nodeComparator->areNodesEqual($notIdentical->left, $notIdentical->right)) {
             return \false;
         }
-        return $this->valueResolver->isNull($notIdentical->right) || $this->valueResolver->isNull($notIdentical->left);
+        if ($this->valueResolver->isNull($notIdentical->right)) {
+            return \true;
+        }
+        return $this->valueResolver->isNull($notIdentical->left);
     }
     private function isIfWithOnlyStmtIf(\PhpParser\Node\Stmt\If_ $if) : bool
     {

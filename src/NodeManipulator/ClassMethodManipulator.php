@@ -74,7 +74,13 @@ final class ClassMethodManipulator
         if (!$classLike instanceof \PhpParser\Node\Stmt\Class_) {
             return \false;
         }
-        return $classMethod->isPrivate() || !$classLike->isFinal() && $classMethod->isProtected();
+        if ($classMethod->isPrivate()) {
+            return \true;
+        }
+        if ($classLike->isFinal()) {
+            return \false;
+        }
+        return $classMethod->isProtected();
     }
     public function hasParentMethodOrInterfaceMethod(\PhpParser\Node\Stmt\ClassMethod $classMethod, ?string $methodName = null) : bool
     {

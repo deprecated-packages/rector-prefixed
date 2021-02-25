@@ -196,7 +196,10 @@ final class NodeTypeResolver
     }
     public function isNumberType(\PhpParser\Node $node) : bool
     {
-        return $this->isStaticType($node, \PHPStan\Type\IntegerType::class) || $this->isStaticType($node, \PHPStan\Type\FloatType::class);
+        if ($this->isStaticType($node, \PHPStan\Type\IntegerType::class)) {
+            return \true;
+        }
+        return $this->isStaticType($node, \PHPStan\Type\FloatType::class);
     }
     public function isStaticType(\PhpParser\Node $node, string $staticTypeClass) : bool
     {
