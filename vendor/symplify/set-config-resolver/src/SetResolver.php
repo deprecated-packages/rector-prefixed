@@ -1,26 +1,26 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210225\Symplify\SetConfigResolver;
+namespace RectorPrefix20210226\Symplify\SetConfigResolver;
 
-use RectorPrefix20210225\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use RectorPrefix20210225\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use RectorPrefix20210225\Symplify\SetConfigResolver\ValueObject\Set;
-use RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210226\Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use RectorPrefix20210226\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20210226\Symplify\SetConfigResolver\ValueObject\Set;
+use RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetResolver
 {
     /**
      * @var SetProviderInterface
      */
     private $setProvider;
-    public function __construct(\RectorPrefix20210225\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
+    public function __construct(\RectorPrefix20210226\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
     {
         $this->setProvider = $setProvider;
     }
-    public function detectFromName(string $setName) : \RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo
+    public function detectFromName(string $setName) : \RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo
     {
         $set = $this->setProvider->provideByName($setName);
-        if (!$set instanceof \RectorPrefix20210225\Symplify\SetConfigResolver\ValueObject\Set) {
+        if (!$set instanceof \RectorPrefix20210226\Symplify\SetConfigResolver\ValueObject\Set) {
             $this->reportSetNotFound($setName);
         }
         return $set->getSetFileInfo();
@@ -28,6 +28,6 @@ final class SetResolver
     private function reportSetNotFound(string $setName) : void
     {
         $message = \sprintf('Set "%s" was not found', $setName);
-        throw new \RectorPrefix20210225\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
+        throw new \RectorPrefix20210226\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
     }
 }

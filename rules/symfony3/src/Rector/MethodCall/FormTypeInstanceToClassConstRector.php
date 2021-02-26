@@ -19,8 +19,8 @@ use Rector\Symfony3\NodeFactory\BuilderFormNodeFactory;
 use Rector\Symfony3\NodeFactory\ConfigureOptionsNodeFactory;
 use ReflectionClass;
 use ReflectionMethod;
-use RectorPrefix20210225\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use RectorPrefix20210225\Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use RectorPrefix20210226\Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use RectorPrefix20210226\Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**

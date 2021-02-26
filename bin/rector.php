@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210225;
+namespace RectorPrefix20210226;
 
 use Rector\Core\Bootstrap\RectorConfigsResolver;
 use Rector\Core\Console\ConsoleApplication;
 use Rector\Core\Console\Style\SymfonyStyleFactory;
 use Rector\Core\DependencyInjection\RectorContainerFactory;
 use Rector\Core\HttpKernel\RectorKernel;
-use RectorPrefix20210225\Symplify\PackageBuilder\Console\ShellCode;
-use RectorPrefix20210225\Symplify\PackageBuilder\Reflection\PrivatesCaller;
-use RectorPrefix20210225\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
-use RectorPrefix20210225\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use RectorPrefix20210226\Symplify\PackageBuilder\Console\ShellCode;
+use RectorPrefix20210226\Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use RectorPrefix20210226\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
+use RectorPrefix20210226\Symplify\SetConfigResolver\Exception\SetNotFoundException;
 // @ intentionally: continue anyway
 @\ini_set('memory_limit', '-1');
 // Performance boost
@@ -20,26 +20,26 @@ use RectorPrefix20210225\Symplify\SetConfigResolver\Exception\SetNotFoundExcepti
 \gc_disable();
 \define('__RECTOR_RUNNING__', \true);
 // Require Composer autoload.php
-$autoloadIncluder = new \RectorPrefix20210225\AutoloadIncluder();
+$autoloadIncluder = new \RectorPrefix20210226\AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
 $autoloadIncluder->loadIfExistsAndNotLoadedYet(\getcwd() . '/vendor/autoload.php');
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
-$symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210225\Symplify\PackageBuilder\Reflection\PrivatesCaller());
+$symfonyStyleFactory = new \Rector\Core\Console\Style\SymfonyStyleFactory(new \RectorPrefix20210226\Symplify\PackageBuilder\Reflection\PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 $rectorConfigsResolver = new \Rector\Core\Bootstrap\RectorConfigsResolver();
 try {
     $bootstrapConfigs = $rectorConfigsResolver->provide();
     $rectorContainerFactory = new \Rector\Core\DependencyInjection\RectorContainerFactory();
     $container = $rectorContainerFactory->createFromBootstrapConfigs($bootstrapConfigs);
-} catch (\RectorPrefix20210225\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) {
-    $invalidSetReporter = new \RectorPrefix20210225\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
+} catch (\RectorPrefix20210226\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException) {
+    $invalidSetReporter = new \RectorPrefix20210226\Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter();
     $invalidSetReporter->report($setNotFoundException);
-    exit(\RectorPrefix20210225\Symplify\PackageBuilder\Console\ShellCode::ERROR);
+    exit(\RectorPrefix20210226\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 } catch (\Throwable $throwable) {
     $symfonyStyle->error($throwable->getMessage());
-    exit(\RectorPrefix20210225\Symplify\PackageBuilder\Console\ShellCode::ERROR);
+    exit(\RectorPrefix20210226\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 }
 /** @var ConsoleApplication $application */
 $application = $container->get(\Rector\Core\Console\ConsoleApplication::class);
@@ -93,4 +93,4 @@ final class AutoloadIncluder
         require_once $filePath;
     }
 }
-\class_alias('RectorPrefix20210225\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('RectorPrefix20210226\\AutoloadIncluder', 'AutoloadIncluder', \false);

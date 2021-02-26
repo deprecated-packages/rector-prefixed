@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Rector\Foreach_;
 
-use RectorPrefix20210225\Doctrine\Inflector\Inflector;
+use RectorPrefix20210226\Doctrine\Inflector\Inflector;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Foreach_;
@@ -19,7 +19,7 @@ final class RenameForeachValueVariableToMatchExprVariableRector extends \Rector\
      * @var Inflector
      */
     private $inflector;
-    public function __construct(\RectorPrefix20210225\Doctrine\Inflector\Inflector $inflector)
+    public function __construct(\RectorPrefix20210226\Doctrine\Inflector\Inflector $inflector)
     {
         $this->inflector = $inflector;
     }

@@ -5,7 +5,7 @@ namespace Rector\CodingStyle\Tests\Rector\ClassMethod\MakeInheritedMethodVisibil
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo;
+use RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo;
 final class SkipParentConstructOverrideInPHP72Test extends \Rector\Testing\PHPUnit\AbstractRectorTestCase
 {
     /**
@@ -14,7 +14,7 @@ final class SkipParentConstructOverrideInPHP72Test extends \Rector\Testing\PHPUn
      *
      * @dataProvider provideData()
      */
-    public function test(\RectorPrefix20210225\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
+    public function test(\RectorPrefix20210226\Symplify\SmartFileSystem\SmartFileInfo $fileInfo) : void
     {
         $this->doTestFileInfo($fileInfo);
     }

@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210225\Symplify\SimplePhpDocParser\Tests\HttpKernel;
+namespace RectorPrefix20210226\Symplify\SimplePhpDocParser\Tests\HttpKernel;
 
-use RectorPrefix20210225\Symfony\Component\Config\Loader\LoaderInterface;
-use RectorPrefix20210225\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class SimplePhpDocParserKernel extends \RectorPrefix20210225\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use RectorPrefix20210226\Symfony\Component\Config\Loader\LoaderInterface;
+use RectorPrefix20210226\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class SimplePhpDocParserKernel extends \RectorPrefix20210226\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
-    public function registerContainerConfiguration(\RectorPrefix20210225\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\RectorPrefix20210226\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../../config/config.php');
     }

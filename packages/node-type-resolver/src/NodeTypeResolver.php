@@ -3,13 +3,16 @@
 declare (strict_types=1);
 namespace Rector\NodeTypeResolver;
 
-use RectorPrefix20210225\Nette\Utils\Strings;
+use RectorPrefix20210226\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
+use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt\Class_;
@@ -118,7 +121,7 @@ final class NodeTypeResolver
     public function isObjectType(\PhpParser\Node $node, $requiredType) : bool
     {
         $this->ensureRequiredTypeIsStringOrObjectType($requiredType, __METHOD__);
-        if (\is_string($requiredType) && \RectorPrefix20210225\Nette\Utils\Strings::contains($requiredType, '*')) {
+        if (\is_string($requiredType) && \RectorPrefix20210226\Nette\Utils\Strings::contains($requiredType, '*')) {
             return $this->isFnMatch($node, $requiredType);
         }
         $resolvedType = $this->resolve($node);
@@ -213,6 +216,13 @@ final class NodeTypeResolver
      */
     public function isObjectTypeOrNullableObjectType(\PhpParser\Node $node, $desiredType) : bool
     {
+        if ($node instanceof \PhpParser\Node\Param && $node->type instanceof \PhpParser\Node\NullableType) {
+            /** @var Name|Identifier $node */
+            $node = $node->type->type;
+        }
+        if ($node instanceof \PhpParser\Node\Param && !$node->type instanceof \PhpParser\Node\Name) {
+            return \false;
+        }
         if ($this->isObjectType($node, $desiredType)) {
             return \true;
         }

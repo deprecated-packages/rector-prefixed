@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace RectorPrefix20210225;
+namespace RectorPrefix20210226;
 
 \spl_autoload_register(function (string $class) : void {
     static $composerAutoloader;
@@ -34,8 +34,13 @@ namespace RectorPrefix20210225;
         throw new \Exception('Phar wrapper is not registered. Please review your php.ini settings.');
     }
     $filename = \str_replace('\\', \DIRECTORY_SEPARATOR, $class);
-    $filename = \substr($filename, \strlen('PHPStan\\'));
-    $filepath = 'phar://' . __DIR__ . '/phpstan.phar/src/' . $filename . '.php';
+    if (\strpos($class, 'PHPStan\\BetterReflection\\') === 0) {
+        $filename = \substr($filename, \strlen('PHPStan\\BetterReflection\\'));
+        $filepath = 'phar://' . __DIR__ . '/phpstan.phar/vendor/ondrejmirtes/better-reflection/src/' . $filename . '.php';
+    } else {
+        $filename = \substr($filename, \strlen('PHPStan\\'));
+        $filepath = 'phar://' . __DIR__ . '/phpstan.phar/src/' . $filename . '.php';
+    }
     if (!\file_exists($filepath)) {
         return;
     }
