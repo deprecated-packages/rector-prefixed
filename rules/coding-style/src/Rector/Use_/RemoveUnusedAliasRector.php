@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\CodingStyle\Rector\Use_;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name;
-use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use Rector\CodingStyle\Naming\NameRenamer;
@@ -109,7 +109,7 @@ CODE_SAMPLE
             $lowercasedLastName = \strtolower($lastName);
             /** @var string $aliasName */
             $aliasName = $this->getName($use->alias);
-            if ($this->shouldSkip($lastName, $aliasName)) {
+            if ($this->shouldSkip($node, $use->name, $lastName, $aliasName)) {
                 continue;
             }
             // only last name is used → no need for alias
@@ -148,7 +148,7 @@ CODE_SAMPLE
             return \strtolower($value);
         }, $values);
     }
-    private function shouldSkip(string $lastName, string $aliasName) : bool
+    private function shouldSkip(\PhpParser\Node\Stmt\Use_ $use, \PhpParser\Node\Name $name, string $lastName, string $aliasName) : bool
     {
         // PHP is case insensitive
         $loweredLastName = \strtolower($lastName);
@@ -158,7 +158,18 @@ CODE_SAMPLE
             return \true;
         }
         // part of some @Doc annotation
-        return \in_array($loweredAliasName, $this->resolvedDocPossibleAliases, \true);
+        if (\in_array($loweredAliasName, $this->resolvedDocPossibleAliases, \true)) {
+            return \true;
+        }
+        return (bool) $this->betterNodeFinder->findFirstNext($use, function (\PhpParser\Node $node) use($name) : bool {
+            if (!$node instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+                return \false;
+            }
+            if (!$node->class instanceof \PhpParser\Node\Name) {
+                return \false;
+            }
+            return $node->class->toString() === $name->toString();
+        });
     }
     private function refactorAliasName(string $aliasName, string $lastName, \PhpParser\Node\Stmt\UseUse $useUse) : void
     {
